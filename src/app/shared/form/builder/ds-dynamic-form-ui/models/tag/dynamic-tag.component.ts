@@ -1,15 +1,15 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { isEqual } from 'lodash';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicTagModel } from './dynamic-tag.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { isEqual } from 'lodash';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 
@@ -27,6 +27,8 @@ export class DsDynamicTagComponent implements OnInit {
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+
+  @ViewChild('instance') instance: NgbTypeahead;
 
   chips: Chips;
   hasAuthority: boolean;
@@ -82,7 +84,11 @@ export class DsDynamicTagComponent implements OnInit {
         this.model.authorityOptions.metadata);
     }
 
-    this.chips = new Chips(this.model.value, 'display');
+    this.chips = new Chips(
+      this.model.value,
+      'display',
+      null,
+      this.EnvConfig.submission.icons.metadata);
 
     this.chips.chipsItems
       .subscribe((subItems: any[]) => {
@@ -108,7 +114,7 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onBlur(event: Event) {
-    if (isNotEmpty(this.currentValue)) {
+    if (isNotEmpty(this.currentValue) && !this.instance.isPopupOpen()) {
       this.addTagsToChips();
     }
     this.blur.emit(event);

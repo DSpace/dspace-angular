@@ -6,8 +6,13 @@
 }
 
 /* align fa-spin */
-.left-addon .fa-spin  { left:  0;}
-.right-addon .fa-spin { right: 0;}
+.left-addon .fa {
+  left: 0;
+}
+
+.right-addon .fa {
+  right: 0;
+}
 
 :host /deep/ .dropdown-menu {
   width: 100% !important;

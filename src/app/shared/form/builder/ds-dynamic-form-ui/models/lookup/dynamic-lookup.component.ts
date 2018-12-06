@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ds-dynamic-lookup',
@@ -27,6 +29,7 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
+  public editMode = false;
   public firstInputValue = '';
   public secondInputValue = '';
   public loading = false;
@@ -39,6 +42,10 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
   constructor(private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef) {
   }
+
+  inputFormatter = (x: { display: string }, y: number) => {
+    return y === 1 ? this.firstInputValue : this.secondInputValue;
+  };
 
   ngOnInit() {
     this.searchOptions = new IntegrationSearchOptions(
@@ -55,38 +62,33 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
       .subscribe((value) => {
         if (isEmpty(value)) {
           this.resetFields();
-        } else {
+        } else if (!this.editMode) {
           this.setInputsValue(this.model.value);
         }
       });
   }
 
-  public formatItemForInput(item: any, field: number): string {
-    if (isUndefined(item) || isNull(item)) {
-      return '';
-    }
-    return (typeof item === 'string') ? item : this.inputFormatter(item, field);
-  }
-
-  inputFormatter = (x: { display: string }, y: number) => {
-    return y === 1 ? this.firstInputValue : this.secondInputValue;
-  };
-
-  onInput(event) {
-    if (!this.model.authorityOptions.closed) {
-      if (isNotEmpty(this.getCurrentValue())) {
-        const currentValue = new FormFieldMetadataValueObject(this.getCurrentValue());
-        this.onSelect(currentValue);
-      } else {
-        this.remove();
+  protected getCurrentValue(): string {
+    let result = '';
+    if (!this.isLookupName()) {
+      result = this.firstInputValue;
+    } else {
+      if (isNotEmpty(this.firstInputValue)) {
+        result = this.firstInputValue;
+      }
+      if (isNotEmpty(this.secondInputValue)) {
+        result = isEmpty(result)
+          ? this.secondInputValue
+          : this.firstInputValue + (this.model as DynamicLookupNameModel).separator + ' ' + this.secondInputValue;
       }
     }
+    return result;
   }
 
-  onScroll() {
-    if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
-      this.searchOptions.currentPage++;
-      this.search();
+  protected resetFields() {
+    this.firstInputValue = '';
+    if (this.isLookupName()) {
+      this.secondInputValue = '';
     }
   }
 
@@ -110,24 +112,110 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
     }
   }
 
-  protected getCurrentValue(): string {
-    let result = '';
-    if (!this.isLookupName()) {
-      result = this.firstInputValue;
-    } else {
-      if (isNotEmpty(this.firstInputValue)) {
-        result = this.firstInputValue;
-      }
-      if (isNotEmpty(this.secondInputValue)) {
-        result = isEmpty(result)
-          ? this.secondInputValue
-          : this.firstInputValue + (this.model as DynamicLookupNameModel).separator + ' ' + this.secondInputValue;
-      }
+  public formatItemForInput(item: any, field: number): string {
+    if (isUndefined(item) || isNull(item)) {
+      return '';
     }
-    return result;
+    return (typeof item === 'string') ? item : this.inputFormatter(item, field);
   }
 
-  search() {
+  public hasAuthorityValue() {
+    return hasValue(this.model.value)
+      && this.model.value.hasAuthority();
+  }
+
+  public hasEmptyValue() {
+    return isNotEmpty(this.getCurrentValue());
+  }
+
+  public clearFields() {
+    // Clear inputs whether there is no results and authority is closed
+    if (this.model.authorityOptions.closed) {
+      this.resetFields();
+    }
+  }
+
+  public isEditDisabled() {
+    return !this.hasAuthorityValue();
+  }
+
+  public isInputDisabled() {
+    return (this.model.authorityOptions.closed && this.hasAuthorityValue() && !this.editMode);
+  }
+
+  public isLookupName() {
+    return (this.model instanceof DynamicLookupNameModel);
+  }
+
+  public isSearchDisabled() {
+    return isEmpty(this.firstInputValue);
+  }
+
+  public onBlurEvent(event: Event) {
+    this.blur.emit(event);
+  }
+
+  public onFocusEvent(event) {
+    this.focus.emit(event);
+  }
+
+  public onInput(event) {
+    if (!this.model.authorityOptions.closed) {
+      if (isNotEmpty(this.getCurrentValue())) {
+        const currentValue = new FormFieldMetadataValueObject(this.getCurrentValue());
+        if (!this.editMode) {
+          this.onSelect(currentValue);
+        }
+      } else {
+        this.remove();
+      }
+    }
+  }
+
+  public onScroll() {
+    if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
+      this.searchOptions.currentPage++;
+      this.search();
+    }
+  }
+
+  public onSelect(event) {
+    this.group.markAsDirty();
+    this.model.valueUpdates.next(event);
+    this.setInputsValue(event);
+    this.change.emit(event);
+    this.optionsList = null;
+    this.pageInfo = null;
+  }
+
+  public openChange(isOpened: boolean) {
+    if (!isOpened) {
+      if (this.model.authorityOptions.closed && !this.hasAuthorityValue()) {
+        this.setInputsValue('');
+      }
+    }
+  }
+
+  public remove() {
+    this.group.markAsPristine();
+    this.model.valueUpdates.next(null);
+    this.change.emit(null);
+  }
+
+  public saveChanges() {
+    if (isNotEmpty(this.getCurrentValue())) {
+      const newValue = Object.assign(new AuthorityValue(), this.model.value, {
+        display: this.getCurrentValue(),
+        value: this.getCurrentValue()
+      });
+      this.onSelect(newValue);
+    } else {
+      this.remove();
+    }
+    this.switchEditMode();
+  }
+
+  public search() {
     this.optionsList = null;
     this.pageInfo = null;
 
@@ -145,66 +233,15 @@ export class DsDynamicLookupComponent implements OnDestroy, OnInit {
       });
   }
 
-  clearFields() {
-    // Clear inputs whether there is no results and authority is closed
-    if (this.model.authorityOptions.closed) {
-      this.resetFields();
+  public switchEditMode() {
+    this.editMode = !this.editMode;
+  }
+
+  public whenClickOnConfidenceNotAccepted(sdRef: NgbDropdown, confidence: ConfidenceType) {
+    if (!this.model.readOnly) {
+      sdRef.open();
+      this.search();
     }
-  }
-
-  protected resetFields() {
-    this.firstInputValue = '';
-    if (this.isLookupName()) {
-      this.secondInputValue = '';
-    }
-  }
-
-  onSelect(event) {
-    this.group.markAsDirty();
-    this.model.valueUpdates.next(event);
-    this.setInputsValue(event);
-    this.change.emit(event);
-    this.optionsList = null;
-    this.pageInfo = null;
-  }
-
-  isInputDisabled() {
-    return this.model.authorityOptions.closed && hasValue(this.model.value);
-  }
-
-  isLookupName() {
-    return (this.model instanceof DynamicLookupNameModel);
-  }
-
-  isSearchDisabled() {
-    // if (this.firstInputValue === ''
-    //   && (this.isLookupName ? this.secondInputValue === '' : true)) {
-    //   return true;
-    // }
-    // return false;
-    return isEmpty(this.firstInputValue);
-  }
-
-  remove() {
-    this.group.markAsPristine();
-    this.model.valueUpdates.next(null);
-    this.change.emit(null);
-  }
-
-  openChange(isOpened: boolean) {
-    if (!isOpened) {
-      if (this.model.authorityOptions.closed) {
-        this.setInputsValue('');
-      }
-    }
-  }
-
-  onBlurEvent(event: Event) {
-    this.blur.emit(event);
-  }
-
-  onFocusEvent(event) {
-    this.focus.emit(event);
   }
 
   ngOnDestroy() {

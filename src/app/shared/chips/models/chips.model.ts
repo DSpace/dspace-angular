@@ -3,34 +3,20 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ChipsItem, ChipsItemIcon } from './chips-item.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
-
-export interface IconsConfig {
-  withAuthority?: {
-    style: string;
-  };
-
-  withoutAuthority?: {
-    style: string;
-  };
-}
-
-export interface MetadataIconsConfig {
-  name: string;
-  config: IconsConfig;
-}
+import { MetadataIconConfig } from '../../../../config/submission-config.interface';
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
   displayField: string;
   displayObj: string;
-  iconsConfig: MetadataIconsConfig[];
+  iconsConfig: MetadataIconConfig[];
 
   private _items: ChipsItem[];
 
   constructor(items: any[] = [],
               displayField: string = 'display',
               displayObj?: string,
-              iconsConfig?: MetadataIconsConfig[]) {
+              iconsConfig?: MetadataIconConfig[]) {
 
     this.displayField = displayField;
     this.displayObj = displayObj;
@@ -115,8 +101,8 @@ export class Chips {
   private getChipsIcons(item) {
     const icons = [];
     const defaultConfigIndex: number = findIndex(this.iconsConfig, {name: 'default'});
-    const defaultConfig: IconsConfig = (defaultConfigIndex !== -1) ? this.iconsConfig[defaultConfigIndex].config : undefined;
-    let config: IconsConfig;
+    const defaultConfig: MetadataIconConfig = (defaultConfigIndex !== -1) ? this.iconsConfig[defaultConfigIndex] : undefined;
+    let config: MetadataIconConfig;
     let configIndex: number;
     let value: any;
 
@@ -126,26 +112,31 @@ export class Chips {
         value = item[metadata];
         configIndex = findIndex(this.iconsConfig, {name: metadata});
 
-        config = (configIndex !== -1) ? this.iconsConfig[configIndex].config : defaultConfig;
+        config = (configIndex !== -1) ? this.iconsConfig[configIndex] : defaultConfig;
 
         if (hasValue(value) && isNotEmpty(config) && !this.hasPlaceholder(value)) {
 
           let icon: ChipsItemIcon;
-          const hasAuthority: boolean = !!(isObject(value) && ((value.hasOwnProperty('authority') && value.authority) || (value.hasOwnProperty('id') && value.id)));
 
-          // Set icons
-          if ((this.displayObj && this.displayObj === metadata && hasAuthority)
+          // Set icon
+          icon = {
+            metadata,
+            style: config.style
+          };
+
+          icons.push(icon);
+/*          if ((this.displayObj && this.displayObj === metadata && hasAuthority)
             || (this.displayObj && this.displayObj !== metadata)) {
 
             icon = {
               metadata,
               hasAuthority: hasAuthority,
-              style: (hasAuthority) ? config.withAuthority.style : config.withoutAuthority.style
+              style: config.style
             };
           }
           if (icon) {
             icons.push(icon);
-          }
+          }*/
         }
       });
 

@@ -1,16 +1,28 @@
 import { Config } from './config.interface';
-import { MetadataIconsConfig } from '../app/shared/chips/models/chips.model';
 
 interface AutosaveConfig extends Config {
   metadata: string[],
   timer: number
 }
 
-interface MetadataConfig extends Config {
-  icons: MetadataIconsConfig[]
+interface IconsConfig extends Config {
+  metadata: MetadataIconConfig[],
+  authority: {
+    confidence: ConfidenceIconConfig[];
+  }
+}
+
+export interface MetadataIconConfig extends Config {
+  name: string,
+  style: string;
+}
+
+export interface ConfidenceIconConfig extends Config {
+  value: any,
+  style: string;
 }
 
 export interface SubmissionConfig extends Config {
   autosave: AutosaveConfig,
-  metadata: MetadataConfig
+  icons: IconsConfig
 }

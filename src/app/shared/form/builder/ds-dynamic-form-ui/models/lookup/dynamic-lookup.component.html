@@ -4,7 +4,12 @@
 
   <div class="form-row align-items-center">
     <!--Simple lookup, first field -->
-    <div class="col">
+    <div class="col right-addon">
+      <i dsAuthorityConfidenceState
+         class="fa fa-circle-o fa-2x fa-fw position-absolute mt-1 p-0"
+         aria-hidden="true"
+         [authorityValue]="model.value"
+         (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted(sdRef, $event)"></i>
       <input class="form-control"
              [attr.autoComplete]="model.autoComplete"
              [class.is-invalid]="showErrorMessages"
@@ -41,19 +46,29 @@
               (click)="$event.stopPropagation(); sdRef.close();"
               (input)="onInput($event)">
     </div>
-    <div *ngIf="!isInputDisabled()" class="col-auto text-center">
+    <div class="col-auto text-center">
       <button ngbDropdownAnchor
-               class="btn btn-secondary"
+              class="btn btn-secondary"
               type="button"
               [disabled]="model.readOnly || isSearchDisabled()"
+              [hidden]="isInputDisabled()"
               (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
       </button>
     </div>
     <div *ngIf="isInputDisabled()" class="col-auto text-center">
       <button  class="btn btn-secondary"
               type="button"
-              [disabled]="model.readOnly"
-              (click)="remove($event)">{{'form.remove' | translate}}
+              ngbTooltip="{{'form.edit-help' | translate}}"
+              placement="top"
+              [disabled]="isEditDisabled()"
+              (click)="switchEditMode()">{{'form.edit' | translate}}
+      </button>
+      <button *ngIf="editMode" class="btn btn-secondary"
+              type="button"
+              ngbTooltip="{{'form.save-help' | translate}}"
+              placement="top"
+              [disabled]="!hasEmptyValue()"
+              (click)="saveChanges()">{{'form.save' | translate}}
       </button>
     </div>
   </div>

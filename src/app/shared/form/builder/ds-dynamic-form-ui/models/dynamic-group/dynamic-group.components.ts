@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { filter, flatMap, map, mergeMap, scan } from 'rxjs/operators';
 import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { isEqual } from 'lodash';
+import { isEqual, isObject } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
@@ -32,6 +32,8 @@ import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -219,7 +221,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
             let returnObj = Object.create({});
             returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
-              if (valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
+              if (isObject(valueObj[fieldName]) && valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
                 const fieldId = fieldName.replace(/\./g, '_');
                 const model = this.formBuilderService.findById(fieldId, this.formModel);
                 const searchOptions: IntegrationSearchOptions = new IntegrationSearchOptions(
@@ -231,7 +233,13 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
                   1);
 
                 return$ = this.authorityService.getEntryByValue(searchOptions)
-                  .map((result: IntegrationData) => result.payload[0]);
+                  .map((result: IntegrationData) => Object.assign(
+                    new FormFieldMetadataValueObject(),
+                    valueObj[fieldName],
+                    {
+                      otherInformation: (result.payload[0] as AuthorityValue).otherInformation
+                    })
+                  );
               } else {
                 return$ = Observable.of(valueObj[fieldName]);
               }
@@ -262,6 +270,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
         }, []),
         filter((modelValues: any[]) => this.model.value.length === modelValues.length)
       ).subscribe((modelValue) => {
+        this.model.valueUpdates.next(modelValue);
         this.initChips(modelValue);
       }));
     }
@@ -272,7 +281,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       initChipsValue,
       'value',
       this.model.mandatoryField,
-      this.EnvConfig.submission.metadata.icons);
+      this.EnvConfig.submission.icons.metadata);
     this.subs.push(
       this.chips.chipsItems
         .subscribe((subItems: any[]) => {

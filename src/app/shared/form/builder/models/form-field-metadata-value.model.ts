@@ -1,4 +1,5 @@
-import { isNotEmpty, isNotNull } from '../../../empty.util';
+import { isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
+import { ConfidenceType } from '../../../../core/integration/models/confidence-type';
 
 export class FormFieldMetadataValueObject {
   metadata?: string;
@@ -6,7 +7,7 @@ export class FormFieldMetadataValueObject {
   display: string;
   language: any;
   authority: string;
-  confidence: number;
+  confidence: ConfidenceType;
   place: number;
   closed: boolean;
   label: string;
@@ -17,7 +18,7 @@ export class FormFieldMetadataValueObject {
               authority: string = null,
               display: string = null,
               place: number = 0,
-              confidence: number = -1,
+              confidence: number = null,
               otherInformation: any = null,
               metadata: string = null) {
     this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
@@ -26,10 +27,12 @@ export class FormFieldMetadataValueObject {
     this.display = display || value;
 
     this.confidence = confidence;
-    if (authority != null) {
-      this.confidence = 600;
+    if (authority != null && isEmpty(confidence)) {
+      this.confidence = ConfidenceType.CF_ACCEPTED;
     } else if (isNotEmpty(confidence)) {
       this.confidence = confidence;
+    } else {
+      this.confidence = ConfidenceType.CF_UNSET;
     }
 
     this.place = place;

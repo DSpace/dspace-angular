@@ -20,7 +20,8 @@
            [ngClass]="{'chip-selected disabled': (editable && c.editMode) || dragged == i}"
            (click)="chipsSelected($event, i);">
           <span>
-            <ng-container *ngIf="c.hasIcons()">
+            <i *ngIf="showIcons && !c.isNestedItem()" dsAuthorityConfidenceState [authorityValue]="c.item" class="fa fa-circle-o" aria-hidden="true"></i>
+            <ng-container *ngIf="showIcons && c.hasIcons()">
               <i *ngFor="let icon of c.icons; let l = last"
                  [ngbTooltip]="tipContent"
                  triggers="manual"
@@ -28,6 +29,8 @@
                  class="fa {{icon.style}}"
                  [class.mr-1]="!l"
                  [class.mr-2]="l"
+                 dsAuthorityConfidenceState
+                 [authorityValue]="c.item[icon.metadata] || c.item"
                  aria-hidden="true"
                  (dragstart)="tooltip.close();"
                  (mouseover)="showTooltip(t, i, icon.metadata)"
