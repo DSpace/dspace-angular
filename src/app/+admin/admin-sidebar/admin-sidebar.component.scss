@@ -20,7 +20,7 @@ $icon-z-index: 10;
         }
 
         &.inactive ::ng-deep .sidebar-collapsible {
-            margin-left: -#{$admin-sidebar-width};
+            margin-left: -#{$sidebar-items-width};
         }
 
         .navbar-nav {
@@ -58,7 +58,7 @@ $icon-z-index: 10;
                         z-index: $icon-z-index;
                     }
                     .sidebar-collapsible {
-                        width: $admin-sidebar-width;
+                        width: $sidebar-items-width;
                         position: relative;
                         a {
                             padding-right: $spacer;
@@ -68,10 +68,6 @@ $icon-z-index: 10;
                     &.active > .sidebar-collapsible > .nav-link {
                         color: $navbar-dark-active-color;
                     }
-                }
-
-                #sidebar-collapse-toggle {
-                    border-top: 2px solid rgba(255, 255, 255, 0.1);
                 }
             }
         }

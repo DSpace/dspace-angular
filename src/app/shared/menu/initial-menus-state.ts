@@ -14,6 +14,7 @@ export const initialMenusState: MenusState = {
     {
       id: MenuID.ADMIN,
       collapsed: true,
+      previewCollapsed: true,
       visible: false,
       sections: {},
       sectionToSubsectionIndex: {}
@@ -22,6 +23,7 @@ export const initialMenusState: MenusState = {
     {
       id: MenuID.PUBLIC,
       collapsed: true,
+      previewCollapsed: true,
       visible: true,
       sections: {},
       sectionToSubsectionIndex: {}

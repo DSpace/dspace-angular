@@ -1,8 +1,8 @@
 <div class="outer-wrapper">
     <ds-admin-sidebar></ds-admin-sidebar>
-    <div class="inner-wrapper"  [@slideSidebarMargin]="{
-     value: ((hasAdminSidebar | async) ? 'expanded' : 'collapsed'),
-     params: {collapsedSidebarWidth: (collapsedSidebarWidth | async)}
+    <div class="inner-wrapper"  [@slideSidebarPadding]="{
+     value: (!(sidebarVisible | async) ? 'hidden' : (sidebarCollapsed | async) ? 'shown' : 'expanded'),
+     params: {collapsedSidebarWidth: (collapsedSidebarWidth | async), totalSidebarWidth: (totalSidebarWidth | async)}
     }">
         <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
 

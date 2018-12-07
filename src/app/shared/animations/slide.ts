@@ -59,8 +59,11 @@ export const slideSidebar = trigger('slideSidebar', [
     ))
 ]);
 
-export const slideSidebarMargin = trigger('slideSidebarMargin', [
-  state('collapsed', style({ marginLeft: 0 })),
-  state('expanded', style({ marginLeft: '{{ collapsedSidebarWidth }}' }), { params: { collapsedSidebarWidth: '*' } }),
-  transition('collapsed <=> expanded', [animate('200ms')]),
+export const slideSidebarPadding = trigger('slideSidebarPadding', [
+  state('hidden', style({ paddingLeft: 0 })),
+  state('shown', style({ paddingLeft: '{{ collapsedSidebarWidth }}' }), { params: { collapsedSidebarWidth: '*' } }),
+  state('expanded', style({ paddingLeft: '{{ totalSidebarWidth }}' }), { params: { totalSidebarWidth: '*' } }),
+  transition('hidden <=> shown', [animate('200ms')]),
+  transition('hidden <=> expanded', [animate('200ms')]),
+  transition('shown <=> expanded', [animate('200ms')]),
 ]);

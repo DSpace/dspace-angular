@@ -9,6 +9,8 @@ export const MenuActionTypes = {
   EXPAND_MENU: type('dspace/menu/EXPAND_MENU'),
   SHOW_MENU: type('dspace/menu/SHOW_MENU'),
   HIDE_MENU: type('dspace/menu/HIDE_MENU'),
+  COLLAPSE_MENU_PREVIEW: type('dspace/menu/COLLAPSE_MENU_PREVIEW'),
+  EXPAND_MENU_PREVIEW: type('dspace/menu/EXPAND_MENU_PREVIEW'),
   ADD_SECTION: type('dspace/menu-section/ADD_SECTION'),
   REMOVE_SECTION: type('dspace/menu-section/REMOVE_SECTION'),
   SHOW_SECTION: type('dspace/menu-section/SHOW_SECTION'),
@@ -65,6 +67,25 @@ export class HideMenuAction implements Action {
     this.menuID = menuID;
   }
 }
+
+export class CollapseMenuPreviewAction implements Action {
+  type = MenuActionTypes.COLLAPSE_MENU_PREVIEW;
+  menuID: MenuID;
+
+  constructor(menuID: MenuID) {
+    this.menuID = menuID;
+  }
+}
+
+export class ExpandMenuPreviewAction implements Action {
+  type = MenuActionTypes.EXPAND_MENU_PREVIEW;
+  menuID: MenuID;
+
+  constructor(menuID: MenuID) {
+    this.menuID = menuID;
+  }
+}
+
 
 // MENU STRUCTURING ACTIONS
 export abstract class MenuSectionAction implements Action {

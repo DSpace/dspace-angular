@@ -9,6 +9,8 @@ import { rendersSectionForMenu } from '../../../shared/menu/menu.decorator';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuSection } from '../../../shared/menu/menu.reducer';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { combineLatest as combineLatestObservable } from 'rxjs';
 
 @Component({
   selector: 'ds-expandable-admin-sidebar-section',
@@ -23,6 +25,8 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
   menuID = MenuID.ADMIN;
   sidebarActiveBg;
   sidebarCollapsed: Observable<boolean>;
+  sidebarPreviewCollapsed: Observable<boolean>;
+  expanded: Observable<boolean>;
 
   constructor(@Inject('sectionDataProvider') menuSection, protected menuService: MenuService,
               private variableService: CSSVariableService, protected injector: Injector) {
@@ -35,5 +39,10 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     this.subSections = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
     this.sidebarActiveBg = this.variableService.getVariable('adminSidebarActiveBg');
     this.sidebarCollapsed = this.menuService.isMenuCollapsed(this.menuID);
+    this.sidebarPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
+    this.expanded = combineLatestObservable(this.active, this.sidebarCollapsed, this.sidebarPreviewCollapsed)
+      .pipe(
+        map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed)))
+      );
   }
 }

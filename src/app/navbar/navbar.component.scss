@@ -9,7 +9,6 @@ nav.navbar {
 @media screen and (max-width: map-get($grid-breakpoints, md)) {
     .navbar {
         width: 100%;
-        left: 0;
         background-color: $white;
         position: absolute;
         overflow: hidden;
@@ -37,7 +36,6 @@ nav.navbar {
         padding-left: 0;
         padding-right: 0;
     }
-
 }
 
 

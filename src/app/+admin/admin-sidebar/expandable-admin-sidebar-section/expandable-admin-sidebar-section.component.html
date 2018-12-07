@@ -1,6 +1,6 @@
-<li class="sidebar-section" [ngClass]="{'active': (active | async)}"
+<li class="sidebar-section" [ngClass]="{'expanded': (expanded | async)}"
     [@bgColor]="{
-     value: ((active | async) ? 'endBackground' : 'startBackground'),
+     value: ((expanded | async) ? 'endBackground' : 'startBackground'),
      params: {endColor: (sidebarActiveBg | async)}}">
     <div class="icon-wrapper">
         <a class="nav-item nav-link shortcut-icon" (click)="toggleSection($event)" href="#">
@@ -15,9 +15,9 @@
                         *ngComponentOutlet="itemComponents.get(section.id); injector: itemInjectors.get(section.id);"></ng-container>
             </span>
             <i class="fas fa-chevron-right fa-pull-right"
-               [@rotate]="(active | async) ? 'expanded' : 'collapsed'"></i>
+               [@rotate]="(expanded | async) ? 'expanded' : 'collapsed'"></i>
         </a>
-        <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="(active | async)">
+        <ul class="sidebar-sub-level-items list-unstyled" @slide *ngIf="(expanded | async)">
             <li *ngFor="let subSection of (subSections | async)">
                 <ng-container
                         *ngComponentOutlet="itemComponents.get(subSection.id); injector: itemInjectors.get(subSection.id);"></ng-container>

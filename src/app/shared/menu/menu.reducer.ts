@@ -18,7 +18,8 @@ export type MenusState = {
 
 export interface MenuState {
   id: MenuID;
-  collapsed: boolean;
+  collapsed: boolean
+  previewCollapsed: boolean;
   visible: boolean;
   sections: MenuSections
   sectionToSubsectionIndex: MenuSectionIndex;
@@ -51,6 +52,14 @@ export function menusReducer(state: MenusState = initialMenusState, action: Menu
     }
     case MenuActionTypes.EXPAND_MENU: {
       const newMenuState = Object.assign({}, menuState, { collapsed: false });
+      return Object.assign({}, state, { [action.menuID]: newMenuState });
+    }
+    case MenuActionTypes.COLLAPSE_MENU_PREVIEW: {
+      const newMenuState = Object.assign({}, menuState, { previewCollapsed: true });
+      return Object.assign({}, state, { [action.menuID]: newMenuState });
+    }
+    case MenuActionTypes.EXPAND_MENU_PREVIEW: {
+      const newMenuState = Object.assign({}, menuState, { previewCollapsed: false });
       return Object.assign({}, state, { [action.menuID]: newMenuState });
     }
     case MenuActionTypes.TOGGLE_MENU: {

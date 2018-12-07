@@ -8,7 +8,8 @@ import { MenuComponent } from '../../shared/menu/menu.component';
 import { TextSectionTypeModel } from '../../shared/menu/models/section-types/text.model';
 import { LinkSectionTypeModel } from '../../shared/menu/models/section-types/link.model';
 import { AuthService } from '../../core/auth/auth.service';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
+import { combineLatest as combineLatestObservable } from 'rxjs';
 
 @Component({
   selector: 'ds-admin-sidebar',
@@ -19,8 +20,9 @@ import { first } from 'rxjs/operators';
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   menuID = MenuID.ADMIN;
   sidebarWidth: Observable<string>;
-  sidebarOpen = true;
-  sidebarClosed = !this.sidebarOpen;
+  sidebarOpen = true; // Open in UI, animation finished
+  sidebarClosed = !this.sidebarOpen; // Closed in UI, animation finished
+  sidebarExpanded: Observable<boolean>;
 
   constructor(protected menuService: MenuService,
               protected injector: Injector,
@@ -33,7 +35,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   ngOnInit(): void {
     this.createMenu();
     super.ngOnInit();
-    this.sidebarWidth = this.variableService.getVariable('adminSidebarWidth');
+    this.sidebarWidth = this.variableService.getVariable('sidebarItemsWidth');
     this.authService.isAuthenticated()
       .subscribe((loggedIn: boolean) => {
         if (loggedIn) {
@@ -44,7 +46,11 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       .subscribe((collapsed: boolean) => {
         this.sidebarOpen = !collapsed;
         this.sidebarClosed = collapsed;
-      })
+      });
+    this.sidebarExpanded = combineLatestObservable(this.menuCollapsed, this.menuPreviewCollapsed)
+      .pipe(
+        map(([collapsed, previewCollapsed]) => (!collapsed || !previewCollapsed))
+      );
   }
 
   createMenu() {
@@ -431,5 +437,4 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
       this.sidebarOpen = true;
     }
   }
-
 }

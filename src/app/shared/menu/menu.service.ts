@@ -7,8 +7,13 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap } from 'rxjs/operators';
 import {
   ActivateMenuSectionAction,
-  AddMenuSectionAction, DeactivateMenuSectionAction, HideMenuAction,
-  RemoveMenuSectionAction, ShowMenuAction,
+  AddMenuSectionAction,
+  CollapseMenuAction, CollapseMenuPreviewAction,
+  DeactivateMenuSectionAction,
+  ExpandMenuAction, ExpandMenuPreviewAction,
+  HideMenuAction,
+  RemoveMenuSectionAction,
+  ShowMenuAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
@@ -97,10 +102,32 @@ export class MenuService {
     );
   }
 
+  isMenuPreviewCollapsed(menuID: MenuID): Observable<boolean> {
+    return this.getMenu(menuID).pipe(
+      map((state: MenuState) => state.previewCollapsed)
+    );
+  }
+
   isMenuVisible(menuID: MenuID): Observable<boolean> {
     return this.getMenu(menuID).pipe(
       map((state: MenuState) => state.visible)
     );
+  }
+
+  expandMenu(menuID: MenuID): void {
+    this.store.dispatch(new ExpandMenuAction(menuID));
+  }
+
+  collapseMenu(menuID: MenuID): void {
+    this.store.dispatch(new CollapseMenuAction(menuID));
+  }
+
+  expandMenuPreview(menuID: MenuID): void {
+    this.store.dispatch(new ExpandMenuPreviewAction(menuID));
+  }
+
+  collapseMenuPreview(menuID: MenuID): void {
+    this.store.dispatch(new CollapseMenuPreviewAction(menuID));
   }
 
   toggleMenu(menuID: MenuID): void {

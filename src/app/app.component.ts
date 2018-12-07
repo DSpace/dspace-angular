@@ -28,7 +28,7 @@ import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/initial-menus-state';
 import { Observable } from 'rxjs/internal/Observable';
-import { slideSidebarMargin } from './shared/animations/slide';
+import { slideSidebarPadding } from './shared/animations/slide';
 
 @Component({
   selector: 'ds-app',
@@ -36,12 +36,14 @@ import { slideSidebarMargin } from './shared/animations/slide';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  animations: [slideSidebarMargin]
+  animations: [slideSidebarPadding]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   isLoading = true;
-  hasAdminSidebar: Observable<boolean>;
+  sidebarVisible: Observable<boolean>;
+  sidebarCollapsed: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
+  totalSidebarWidth: Observable<string>;
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -80,9 +82,11 @@ export class AppComponent implements OnInit, AfterViewInit {
       first(),
       filter((authenticated) => !authenticated)
     ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
-    this.hasAdminSidebar = this.menuService.isMenuVisible(MenuID.ADMIN);
+    this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
+    this.sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
 
     this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
+    this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
   }
 
   private storeCSSVariables() {

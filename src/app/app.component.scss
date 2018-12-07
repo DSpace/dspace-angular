@@ -25,6 +25,7 @@ body {
   min-height: 100vh;
   flex-direction: column;
   width: 100%;
+  position: relative;
 }
 
 .main-content {
@@ -39,7 +40,7 @@ ds-header-navbar-wrapper {
 }
 
 ds-admin-sidebar {
-  position: absolute;
+  position: fixed;
   z-index: $sidebar-z-index;
 }
 

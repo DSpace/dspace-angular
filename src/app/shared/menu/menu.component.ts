@@ -15,6 +15,7 @@ import { MenuSectionComponent } from './menu-section/menu-section.component';
 export class MenuComponent implements OnInit {
   menuID: MenuID;
   menuCollapsed: Observable<boolean>;
+  menuPreviewCollapsed: Observable<boolean>;
   menuVisible: Observable<boolean>;
   sections: Observable<MenuSection[]>;
   sectionInjectors: Map<string, Injector> = new Map<string, Injector>();
@@ -26,6 +27,7 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
+    this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
     this.menuVisible = this.menuService.isMenuVisible(this.menuID);
     this.sections = this.menuService.getMenuTopSections(this.menuID).pipe(first());
     this.sections.subscribe((sections: MenuSection[]) => {
@@ -39,6 +41,27 @@ export class MenuComponent implements OnInit {
   toggle(event: Event) {
     event.preventDefault();
     this.menuService.toggleMenu(this.menuID);
+  }
+
+  expand(event: Event) {
+    event.preventDefault();
+    this.menuService.expandMenu(this.menuID);
+  }
+
+  collapse(event: Event) {
+    event.preventDefault();
+    this.menuService.collapseMenu(this.menuID);
+  }
+
+  expandPreview(event: Event) {
+    console.log("HOI IK HOVER");
+    event.preventDefault();
+    this.menuService.expandMenuPreview(this.menuID);
+  }
+
+  collapsePreview(event: Event) {
+    event.preventDefault();
+    this.menuService.collapseMenuPreview(this.menuID);
   }
 
   getSectionComponent(section: MenuSection): Observable<GenericConstructor<MenuSectionComponent>> {
