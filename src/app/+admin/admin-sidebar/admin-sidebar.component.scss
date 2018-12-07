@@ -3,7 +3,6 @@
 $icon-z-index: 10;
 
 :host {
-    position: sticky;
     left: 0;
     top: 0;
     height: 100vh;
@@ -51,8 +50,8 @@ $icon-z-index: 10;
                         padding-bottom: $spacer;
                     }
                     .shortcut-icon {
-                        padding-left: $spacer;
-                        padding-right: $spacer;
+                        padding-left: $icon-padding;
+                        padding-right: $icon-padding;
                     }
                     .shortcut-icon, .icon-wrapper {
                         background-color: inherit;

@@ -1,22 +1,22 @@
 <div class="outer-wrapper">
-  <ds-admin-sidebar></ds-admin-sidebar>
+    <ds-admin-sidebar></ds-admin-sidebar>
+    <div class="inner-wrapper"  [@slideSidebarMargin]="{
+     value: ((hasAdminSidebar | async) ? 'expanded' : 'collapsed'),
+     params: {collapsedSidebarWidth: (collapsedSidebarWidth | async)}
+    }">
+        <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
 
-  <div class="inner-wrapper">
-    <ds-header-navbar-wrapper></ds-header-navbar-wrapper>
+        <ds-notifications-board
+                [options]="config.notifications">
+        </ds-notifications-board>
 
-    <ds-notifications-board
-      [options]="config.notifications">
-    </ds-notifications-board>
+        <main class="main-content">
+            <div class="container" *ngIf="isLoading">
+                <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
+            </div>
+            <router-outlet></router-outlet>
+        </main>
 
-    <main class="main-content">
-      <div class="container" *ngIf="isLoading">
-        <ds-loading message="{{'loading.default' | translate}}"></ds-loading>
-      </div>
-      <router-outlet></router-outlet>
-    </main>
-
-    <ds-footer></ds-footer>
-  </div>
+        <ds-footer></ds-footer>
+    </div>
 </div>
-
-

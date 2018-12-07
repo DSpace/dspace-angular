@@ -8,6 +8,7 @@ import { MenuComponent } from '../../shared/menu/menu.component';
 import { TextSectionTypeModel } from '../../shared/menu/models/section-types/text.model';
 import { LinkSectionTypeModel } from '../../shared/menu/models/section-types/link.model';
 import { AuthService } from '../../core/auth/auth.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-admin-sidebar',
@@ -39,6 +40,11 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           this.menuService.showMenu(this.menuID);
         }
       });
+    this.menuCollapsed.pipe(first())
+      .subscribe((collapsed: boolean) => {
+        this.sidebarOpen = !collapsed;
+        this.sidebarClosed = collapsed;
+      })
   }
 
   createMenu() {

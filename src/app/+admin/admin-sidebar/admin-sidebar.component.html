@@ -1,4 +1,4 @@
-<nav  @slideHorizontal class="navbar navbar-dark bg-dark p-0"
+<nav @slideHorizontal class="navbar navbar-dark bg-dark p-0"
      [ngClass]="{'active': sidebarOpen, 'inactive': sidebarClosed}"
      [@slideSidebar]="{
      value: ((menuCollapsed | async) ? 'collapsed' : 'expanded'),

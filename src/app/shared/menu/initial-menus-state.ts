@@ -13,7 +13,7 @@ export const initialMenusState: MenusState = {
   [MenuID.ADMIN]:
     {
       id: MenuID.ADMIN,
-      collapsed: false,
+      collapsed: true,
       visible: false,
       sections: {},
       sectionToSubsectionIndex: {}

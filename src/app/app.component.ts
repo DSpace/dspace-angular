@@ -25,16 +25,23 @@ import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
+import { MenuService } from './shared/menu/menu.service';
+import { MenuID } from './shared/menu/initial-menus-state';
+import { Observable } from 'rxjs/internal/Observable';
+import { slideSidebarMargin } from './shared/animations/slide';
 
 @Component({
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [slideSidebarMargin]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   isLoading = true;
+  hasAdminSidebar: Observable<boolean>;
+  collapsedSidebarWidth: Observable<string>;
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -45,7 +52,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
     private authService: AuthService,
     private router: Router,
-    private cssService: CSSVariableService
+    private cssService: CSSVariableService,
+    private menuService: MenuService
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
@@ -72,6 +80,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       first(),
       filter((authenticated) => !authenticated)
     ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
+    this.hasAdminSidebar = this.menuService.isMenuVisible(MenuID.ADMIN);
+
+    this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
   }
 
   private storeCSSVariables() {

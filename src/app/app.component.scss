@@ -11,8 +11,8 @@ html {
 body {
   overflow-x: hidden;
 }
-// Sticky Footer
 
+// Sticky Footer
 .outer-wrapper {
   display: flex;
   margin: 0;
@@ -39,5 +39,7 @@ ds-header-navbar-wrapper {
 }
 
 ds-admin-sidebar {
+  position: absolute;
   z-index: $sidebar-z-index;
 }
+
