@@ -25,7 +25,6 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
   communityRD$: Observable<RemoteData<Community>>;
   logoRD$: Observable<RemoteData<Bitstream>>;
 
-
   private subs: Subscription[] = [];
 
   constructor(
@@ -42,14 +41,10 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
       map((rd: RemoteData<Community>) => rd.payload),
       filter((community: Community) => hasValue(community)),
       mergeMap((community: Community) => community.logo));
-
-
   }
 
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
-
-
 
 }
