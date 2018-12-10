@@ -4,7 +4,7 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP, DYNAMIC_FORM_CONTROL_TYPE_INPUT,
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
   DynamicFormArrayModel,
   DynamicFormControlModel,
@@ -269,6 +269,10 @@ export class FormBuilderService extends DynamicFormService {
 
   isArrayGroup(model: DynamicFormControlModel): boolean {
     return model.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY;
+  }
+
+  isInputModel(model: DynamicFormControlModel): boolean {
+    return model.type === DYNAMIC_FORM_CONTROL_TYPE_INPUT;
   }
 
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0): AbstractControl {

@@ -120,7 +120,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
           || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
           ? null
           : this.selectedChipItem.item[model.name];
-        model.valueUpdates.next(value);
+        model.valueUpdates.next(this.formBuilderService.isInputModel(model) ? value.value : value);
       });
     });
 
