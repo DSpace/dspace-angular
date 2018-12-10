@@ -147,37 +147,19 @@ describe('ChipsComponent test suite', () => {
       const iconsConfig = [
         {
           name: 'mainField',
-          config: {
-            withAuthority:{
-              style: 'fa-user'
-            }
-          }
+          style: 'fa-user'
         },
         {
           name: 'relatedField',
-          config: {
-            withAuthority:{
-              style: 'fa-user-alt'
-            },
-            withoutAuthority:{
-              style: 'fa-user-alt text-muted'
-            }
-          }
+          style: 'fa-user-alt'
         },
         {
           name: 'otherRelatedField',
-          config: {
-            withAuthority:{
-              style: 'fa-user-alt'
-            },
-            withoutAuthority:{
-              style: 'fa-user-alt text-muted'
-            }
-          }
+          style: 'fa-user-alt'
         },
         {
           name: 'default',
-          config: {}
+          style: ''
         }
       ];
 

@@ -107,14 +107,7 @@ describe('Chips model test suite', () => {
     ];
     const iconsConfig = [{
       name: 'toDisplay',
-      config: {
-        withAuthority:{
-          style: 'fa-user'
-        },
-        withoutAuthority:{
-          style: 'fa-user text-muted'
-        }
-      }
+      style: 'fa-user'
     }];
     chips = new Chips(items, 'value', 'toDisplay', iconsConfig);
 
