@@ -272,6 +272,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       ).subscribe((modelValue) => {
         this.model.valueUpdates.next(modelValue);
         this.initChips(modelValue);
+        this.cdr.markForCheck();
       }));
     }
   }
