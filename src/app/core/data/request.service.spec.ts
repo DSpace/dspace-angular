@@ -22,7 +22,7 @@ import {
 import { RequestService } from './request.service';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { TestScheduler } from 'rxjs/testing';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

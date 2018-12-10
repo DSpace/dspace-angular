@@ -15,9 +15,10 @@ import { RelationshipType } from '../../../../core/shared/entities/relationship-
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/entities/relationship.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { compareArraysUsing, compareArraysUsingIds } from './entity.component';
+import { of as observableOf } from 'rxjs';
 
 /**
  * Create a generic test for an entity-page-fields component using a mockItem and the type of component
@@ -94,9 +95,9 @@ export function containsFieldInput(fields: DebugElement[], metadataKey: string):
 }
 
 export function createRelationshipsObservable() {
-  return Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [
+  return observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [
     Object.assign(new Relationship(), {
-      relationshipType: Observable.of(new RemoteData(false, false, true, null, new RelationshipType()))
+      relationshipType: observableOf(new RemoteData(false, false, true, null, new RelationshipType()))
     })
   ])));
 }

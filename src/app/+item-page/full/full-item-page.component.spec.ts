@@ -14,12 +14,12 @@ import { Item } from '../../core/shared/item.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: [
     {
       key: 'dc.title',
@@ -28,7 +28,7 @@ const mockItem: Item = Object.assign(new Item(), {
     }]
 });
 const routeStub = Object.assign(new ActivatedRouteStub(), {
-  data: Observable.of({ item: new RemoteData(false, false, true, null, mockItem) })
+  data: observableOf({ item: new RemoteData(false, false, true, null, mockItem) })
 });
 const metadataServiceStub = {
   /* tslint:disable:no-empty */

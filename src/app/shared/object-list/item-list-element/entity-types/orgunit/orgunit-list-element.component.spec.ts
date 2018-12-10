@@ -1,18 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { ITEM } from '../../../../entities/switcher/entity-type-switcher.component';
 import { OrgUnitListElementComponent } from './orgunit-list-element.component';
+import { of as observableOf } from 'rxjs';
 
 let orgUnitListElementComponent: OrgUnitListElementComponent;
 let fixture: ComponentFixture<OrgUnitListElementComponent>;
 
 const mockItemWithMetadata: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of({}),
+  bitstreams: observableOf({}),
   metadata: [
     {
       key: 'dc.title',
@@ -26,7 +27,7 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
     }]
 });
 const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of({}),
+  bitstreams: observableOf({}),
   metadata: [
     {
       key: 'dc.title',

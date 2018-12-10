@@ -2,7 +2,7 @@ import {filter, map} from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable ,  BehaviorSubject } from 'rxjs';
 
 import { ItemPageComponent } from '../simple/item-page.component';
 import { Metadatum } from '../../core/shared/metadatum.model';
@@ -15,7 +15,6 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /**
  * This component renders a simple item page.

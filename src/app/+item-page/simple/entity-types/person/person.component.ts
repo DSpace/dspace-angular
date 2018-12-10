@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  of as observableOf } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { rendersEntityType } from '../../../../shared/entities/entity-type-decorator';
@@ -71,7 +71,7 @@ export class PersonComponent extends EntityComponent {
       );
 
       this.fixedFilterQuery = this.fixedFilterService.getQueryByRelations('isAuthorOfPublication', this.item.id);
-      this.fixedFilter$ = Observable.of('publication');
+      this.fixedFilter$ = observableOf('publication');
     }
   }
 }

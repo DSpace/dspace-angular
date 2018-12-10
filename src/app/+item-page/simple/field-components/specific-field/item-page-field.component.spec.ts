@@ -4,11 +4,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Item } from '../../../../core/shared/item.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ItemPageFieldComponent } from './item-page-field.component';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { of as observableOf } from 'rxjs';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -50,7 +51,7 @@ describe('ItemPageFieldComponent', () => {
 
 export function mockItemWithMetadataFieldAndValue(field: string, value: string): Item {
   return Object.assign(new Item(), {
-    bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+    bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
     metadata: [
       {
         key: field,

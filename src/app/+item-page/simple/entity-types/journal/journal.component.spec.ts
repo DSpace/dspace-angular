@@ -4,7 +4,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { ITEM } from '../../../../shared/entities/switcher/entity-type-switcher.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -15,12 +15,13 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { JournalComponent } from './journal.component';
+import { of as observableOf } from 'rxjs';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: [
     {
       key: 'journal.identifier.issn',

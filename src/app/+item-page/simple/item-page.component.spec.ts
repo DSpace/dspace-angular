@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -16,9 +16,10 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from './entity-types/shared/entity.component.spec';
+import { of as observableOf } from 'rxjs';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
@@ -33,7 +34,7 @@ describe('ItemPageComponent', () => {
     /* tslint:enable:no-empty */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: Observable.of({ item: new RemoteData(false, false, true, null, mockItem) })
+    data: observableOf({ item: new RemoteData(false, false, true, null, mockItem) })
   });
 
   beforeEach(async(() => {
@@ -65,7 +66,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item is loading', () => {
     beforeEach(() => {
-      comp.itemRD$ = Observable.of(new RemoteData(true, true, true, null, undefined));
+      comp.itemRD$ = observableOf(new RemoteData(true, true, true, null, undefined));
       fixture.detectChanges();
     });
 
@@ -77,7 +78,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item failed loading', () => {
     beforeEach(() => {
-      comp.itemRD$ = Observable.of(new RemoteData(false, false, false, null, undefined));
+      comp.itemRD$ = observableOf(new RemoteData(false, false, false, null, undefined));
       fixture.detectChanges();
     });
 

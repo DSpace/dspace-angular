@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { filter, map, startWith, tap } from 'rxjs/operators';
 
 import { DSpaceObject } from './dspace-object.model';

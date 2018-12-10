@@ -6,7 +6,7 @@ import { ResponseCacheService } from '../../../core/cache/response-cache.service
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response-cache.models';
 import { PageInfo } from '../../../core/shared/page-info.model';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 
 describe('SearchFixedFilterService', () => {
   let service: SearchFixedFilterService;
@@ -21,12 +21,12 @@ describe('SearchFixedFilterService', () => {
     generateRequestId: () => 'fake-id'
   }) as RequestService;
   const responseCacheStub = Object.assign(new ResponseCacheService(undefined), {
-    get: () => Observable.of(Object.assign(new ResponseCacheEntry(), {
+    get: () => observableOf(Object.assign(new ResponseCacheEntry(), {
       response: new FilteredDiscoveryQueryResponse(filterQuery, '200', new PageInfo())
     }))
   });
   const halServiceStub = Object.assign(new HALEndpointService(responseCacheStub, requestServiceStub, undefined), {
-    getEndpoint: () => Observable.of('fake-url')
+    getEndpoint: () => observableOf('fake-url')
   });
 
   beforeEach(() => {

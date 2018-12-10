@@ -1,7 +1,7 @@
 import { EntityTypeSwitcherComponent } from './entity-type-switcher.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -9,10 +9,11 @@ import { RemoteData } from '../../../core/data/remote-data';
 import * as decorator from '../entity-type-decorator';
 import { ElementViewMode } from '../../view-mode';
 import { getComponentByEntityType } from '../entity-type-decorator';
+import { of as observableOf } from 'rxjs';
 
 const relationType = 'type';
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: [
     {
       key: 'dc.title',

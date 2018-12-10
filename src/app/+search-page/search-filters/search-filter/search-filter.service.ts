@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { mergeMap, map, distinctUntilChanged } from 'rxjs/operators';
 import { Injectable, InjectionToken } from '@angular/core';
-import { map, distinctUntilChanged } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
@@ -82,12 +82,12 @@ export class SearchFilterService {
   getCurrentPagination(pagination: any = {}): Observable<PaginationComponentOptions> {
     const page$ = this.routeService.getQueryParameterValue('page');
     const size$ = this.routeService.getQueryParameterValue('pageSize');
-    return Observable.combineLatest(page$, size$, (page, size) => {
+    return observableCombineLatest(page$, size$).pipe(map(([page, size]) => {
       return Object.assign(new PaginationComponentOptions(), pagination, {
         currentPage: page || 1,
         pageSize: size || pagination.pageSize
       });
-    });
+    }))
   }
 
   /**
@@ -99,12 +99,12 @@ export class SearchFilterService {
   getCurrentSort(defaultSort: SortOptions): Observable<SortOptions> {
     const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
     const sortField$ = this.routeService.getQueryParameterValue('sortField');
-    return Observable.combineLatest(sortDirection$, sortField$, (sortDirection, sortField) => {
+    return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
         const field = sortField || defaultSort.field;
         const direction = SortDirection[sortDirection] || defaultSort.direction;
         return new SortOptions(field, direction)
       }
-    );
+    ))
   }
 
   /**
@@ -121,7 +121,7 @@ export class SearchFilterService {
    */
   getCurrentFixedFilter(): Observable<string> {
     const filter: Observable<string> = this.routeService.getRouteParameterValue('filter');
-    return filter.flatMap((f) => this.fixedFilterService.getQueryByFilterName(f));
+    return filter.pipe(mergeMap((f) => this.fixedFilterService.getQueryByFilterName(f)));
   }
 
   /**
@@ -139,7 +139,7 @@ export class SearchFilterService {
    * @returns {Observable<PaginatedSearchOptions>}
    */
   getPaginatedSearchOptions(defaults: any = {}): Observable<PaginatedSearchOptions> {
-    return Observable.combineLatest(
+    return observableCombineLatest(
       this.getCurrentPagination(defaults.pagination),
       this.getCurrentSort(defaults.sort),
       this.getCurrentView(),
@@ -170,7 +170,7 @@ export class SearchFilterService {
    * @returns {Observable<SearchOptions>}
    */
   getSearchOptions(defaults: any = {}): Observable<SearchOptions> {
-    return Observable.combineLatest(
+    return observableCombineLatest(
       this.getCurrentView(),
       this.getCurrentScope(),
       this.getCurrentQuery(),

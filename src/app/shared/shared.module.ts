@@ -93,6 +93,7 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
+import { NouisliderModule } from 'ng2-nouislider';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -108,6 +109,7 @@ const MODULES = [
   NgbTimepickerModule,
   NgbTypeaheadModule,
   NgxPaginationModule,
+  NouisliderModule,
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,

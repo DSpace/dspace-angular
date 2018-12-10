@@ -1,5 +1,5 @@
 import { Item } from '../../../../core/shared/item.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -12,9 +12,10 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { createRelationshipsObservable } from '../../../../+item-page/simple/entity-types/shared/entity.component.spec';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { of as observableOf } from 'rxjs';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: [],
   relationships: createRelationshipsObservable()
 });

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
 import { distinctUntilChanged, filter, flatMap, map } from 'rxjs/operators';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -65,7 +65,7 @@ export const relationsToItems = (thisId: string, ids: ItemDataService) =>
   (source: Observable<Relationship[]>): Observable<Item[]> =>
     source.pipe(
       flatMap((rels: Relationship[]) =>
-        Observable.zip(
+        observableZip(
           ...rels.map((rel: Relationship) => {
             let queryId = rel.leftId;
             if (rel.leftId === thisId) {
@@ -111,16 +111,14 @@ export class EntityComponent implements OnInit {
 
       const relTypesCurrentPage$ = relsCurrentPage$.pipe(
         flatMap((rels: Relationship[]) =>
-          Observable.zip(
-            ...rels.map((rel: Relationship) => rel.relationshipType),
-            (...arr: Array<RemoteData<RelationshipType>>) =>
-              arr.map((d: RemoteData<RelationshipType>) => d.payload)
+          observableZip(...rels.map((rel: Relationship) => rel.relationshipType)).pipe(
+            map(([...arr]: Array<RemoteData<RelationshipType>>) => arr.map((d: RemoteData<RelationshipType>) => d.payload))
           )
         ),
         distinctUntilChanged(compareArraysUsingIds())
       );
 
-      this.resolvedRelsAndTypes$ = Observable.combineLatest(
+      this.resolvedRelsAndTypes$ = observableCombineLatest(
         relsCurrentPage$,
         relTypesCurrentPage$
       );

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { flatMap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  of as observableOf } from 'rxjs';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { GetRequest, RestRequest } from '../../../core/data/request.models';
 import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response-cache.models';
@@ -61,7 +61,7 @@ export class SearchFixedFilterService {
 
       return filterQuery;
     }
-    return Observable.of(undefined);
+    return observableOf(undefined);
   }
 
   /**

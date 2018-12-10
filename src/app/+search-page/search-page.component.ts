@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription ,  BehaviorSubject } from 'rxjs';
 import { switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
@@ -11,9 +11,7 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { Subscription } from 'rxjs/Subscription';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { RouteService } from '../shared/services/route.service';

@@ -1,6 +1,6 @@
 import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Params, Router, } from '@angular/router';
 
 @Injectable()
@@ -41,11 +41,11 @@ export class RouteService {
   }
 
   getRouteParameterValue(paramName: string): Observable<string> {
-    return this.params.map((params) => params[paramName]).distinctUntilChanged();
+    return this.params.pipe(map((params) => params[paramName]),distinctUntilChanged(),);
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
-    return this.route.data.map((data) => data[datafield]).distinctUntilChanged();
+    return this.route.data.pipe(map((data) => data[datafield]),distinctUntilChanged(),);
   }
 
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
