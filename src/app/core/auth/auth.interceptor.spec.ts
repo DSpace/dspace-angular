@@ -4,7 +4,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
@@ -23,7 +23,7 @@ describe(`AuthInterceptor`, () => {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */
-    select: Observable.of(true)
+    select: observableOf(true)
   });
 
   beforeEach(() => {

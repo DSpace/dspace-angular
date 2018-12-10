@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDatepickerModule,
+  NgbModule,
+  NgbTimepickerModule,
+  NgbTypeaheadModule
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -64,8 +69,6 @@ import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dyn
 import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
-import { NotificationComponent } from './notifications/notification/notification.component';
-import { NotificationsBoardComponent } from './notifications/notifications-board/notifications-board.component';
 import { DragClickDirective } from './utils/drag-click.directive';
 import { TruncatePipe } from './utils/truncate.pipe';
 import { TruncatableComponent } from './truncatable/truncatable.component';
@@ -81,7 +84,6 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
-import { BrowseByModule } from '../+browse-by/browse-by.module';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { DebounceDirective } from './utils/debounce.directive';
@@ -89,9 +91,8 @@ import { ClickOutsideDirective } from './utils/click-outside.directive';
 import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { CapitalizePipe } from './utils/capitalize.pipe';
-import { MomentModule } from 'angular2-moment';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
-import { NouisliderModule } from 'ng2-nouislider';
+import { MomentModule } from 'ngx-moment';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -110,7 +111,6 @@ const MODULES = [
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
-  NouisliderModule,
   MomentModule,
   TextMaskModule
 ];

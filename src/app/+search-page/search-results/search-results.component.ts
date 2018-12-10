@@ -4,10 +4,10 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { SetViewMode } from '../../shared/view-mode';
 import { SearchOptions } from '../search-options.model';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-search-results',
@@ -47,5 +47,18 @@ export class SearchResultsComponent {
     } else {
       return 'search.results.head';
     }
+  }
+
+  /**
+   * Method to change the given string by surrounding it by quotes if not already present.
+   */
+  surroundStringWithQuotes(input: string): string {
+    let result = input;
+
+    if (isNotEmpty(result) && !(result.startsWith('\"') && result.endsWith('\"'))) {
+      result = `"${result}"`;
+    }
+
+    return result;
   }
 }

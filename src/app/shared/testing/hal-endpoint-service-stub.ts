@@ -1,11 +1,9 @@
-import { Observable } from 'rxjs/Observable';
-import { SetViewMode } from '../view-mode';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { of as observableOf } from 'rxjs';
 
 export class HALEndpointServiceStub {
 
   constructor(private url: string) {};
   getEndpoint(path: string) {
-    return Observable.of(this.url + '/' + path);
+    return observableOf(this.url + '/' + path);
   }
 }

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { filter, map, mergeMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
@@ -13,8 +14,6 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
 import * as viewMode from '../../shared/view-mode';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 
 /**
  * This component renders a simple item page.
@@ -58,11 +57,11 @@ export class ItemPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.map((data) => data.item);
+    this.itemRD$ = this.route.data.pipe(map((data) => data.item));
     this.metadataService.processRemoteData(this.itemRD$);
-    this.thumbnail$ = this.itemRD$
-      .map((rd: RemoteData<Item>) => rd.payload)
-      .filter((item: Item) => hasValue(item))
-      .flatMap((item: Item) => item.getThumbnail());
+    this.thumbnail$ = this.itemRD$.pipe(
+      map((rd: RemoteData<Item>) => rd.payload),
+      filter((item: Item) => hasValue(item)),
+      mergeMap((item: Item) => item.getThumbnail()),);
   }
 }

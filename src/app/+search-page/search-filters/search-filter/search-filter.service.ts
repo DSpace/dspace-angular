@@ -1,8 +1,8 @@
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, InjectionToken } from '@angular/core';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { map, distinctUntilChanged } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
-import { createSelector, MemoizedSelector, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -13,15 +13,15 @@ import {
   SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
-import { hasValue, isEmpty, isNotEmpty, } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { RouteService } from '../../../shared/services/route.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
-import { ActivatedRoute, Params } from '@angular/router';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
+import { Params } from '@angular/router';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -196,13 +196,19 @@ export class SearchFilterService {
    */
   getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
     const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
-    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').map((params: Params) => [].concat(...Object.values(params)));
-    return Observable.combineLatest(values$, prefixValues$, (values, prefixValues) => {
-      if (isNotEmpty(values)) {
-        return values;
-      }
-      return prefixValues;
-    })
+    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
+      map((params: Params) => [].concat(...Object.values(params)))
+    );
+
+    return observableCombineLatest(values$, prefixValues$).pipe(
+      map(([values, prefixValues]) => {
+          if (isNotEmpty(values)) {
+            return values;
+          }
+          return prefixValues;
+        }
+      )
+    )
   }
 
   /**
@@ -211,14 +217,16 @@ export class SearchFilterService {
    * @returns {Observable<boolean>} Emits the current collapsed state of the given filter, if it's unavailable, return false
    */
   isCollapsed(filterName: string): Observable<boolean> {
-    return this.store.select(filterByNameSelector(filterName))
-      .map((object: SearchFilterState) => {
+    return this.store.pipe(
+      select(filterByNameSelector(filterName)),
+      map((object: SearchFilterState) => {
         if (object) {
           return object.filterCollapsed;
         } else {
           return false;
         }
-      });
+      })
+    );
   }
 
   /**
@@ -227,14 +235,15 @@ export class SearchFilterService {
    * @returns {Observable<boolean>} Emits the current page state of the given filter, if it's unavailable, return 1
    */
   getPage(filterName: string): Observable<number> {
-    return this.store.select(filterByNameSelector(filterName))
-      .map((object: SearchFilterState) => {
+    return this.store.pipe(
+      select(filterByNameSelector(filterName)),
+      map((object: SearchFilterState) => {
         if (object) {
           return object.page;
         } else {
           return 1;
         }
-      });
+      }));
   }
 
   /**
@@ -292,6 +301,7 @@ export class SearchFilterService {
   public incrementPage(filterName: string): void {
     this.store.dispatch(new SearchFilterIncrementPageAction(filterName));
   }
+
   /**
    * Dispatches a reset page action to the store for a given filter
    * @param {string} filterName The filter for which the action is dispatched

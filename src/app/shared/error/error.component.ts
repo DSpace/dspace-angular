@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ds-error',

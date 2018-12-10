@@ -5,8 +5,6 @@ import { ServerModule } from '@angular/platform-server';
 import { RouterModule } from '@angular/router';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/first';
 
 import { AppComponent } from '../../app/app.component';
 
@@ -49,7 +47,10 @@ export function createTranslateLoader() {
     AppModule
   ],
   providers: [
-    { provide: Angulartics2GoogleAnalytics, useClass: AngularticsMock },
+    {
+      provide: Angulartics2GoogleAnalytics,
+      useClass: AngularticsMock
+    },
     {
       provide: AuthService,
       useClass: ServerAuthService

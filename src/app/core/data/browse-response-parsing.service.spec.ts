@@ -10,134 +10,148 @@ describe('BrowseResponseParsingService', () => {
   beforeEach(() => {
     service = new BrowseResponseParsingService();
   });
+  let validRequest;
+  let validResponse;
+  let invalidResponse1;
+  let invalidResponse2;
+  let invalidResponse3;
+  let definitions;
 
   describe('parse', () => {
-    const validRequest = new BrowseEndpointRequest('client/b186e8ce-e99c-4183-bc9a-42b4821bdb78', 'https://rest.api/discover/browses');
+    beforeEach(() => {
+      validRequest = new BrowseEndpointRequest('client/b186e8ce-e99c-4183-bc9a-42b4821bdb78', 'https://rest.api/discover/browses');
 
-    const validResponse = {
-      payload: {
-        _embedded: {
-          browses: [{
-            metadataBrowse: false,
-            sortOptions: [{ name: 'title', metadata: 'dc.title' }, {
+      validResponse = {
+        payload: {
+          _embedded: {
+            browses: [{
+              metadataBrowse: false,
+              sortOptions: [{ name: 'title', metadata: 'dc.title' }, {
+                name: 'dateissued',
+                metadata: 'dc.date.issued'
+              }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
+              order: 'ASC',
+              type: 'browse',
+              metadata: ['dc.date.issued'],
+              _links: {
+                self: { href: 'https://rest.api/discover/browses/dateissued' },
+                items: { href: 'https://rest.api/discover/browses/dateissued/items' }
+              }
+            }, {
+              metadataBrowse: true,
+              sortOptions: [{ name: 'title', metadata: 'dc.title' }, {
+                name: 'dateissued',
+                metadata: 'dc.date.issued'
+              }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
+              order: 'ASC',
+              type: 'browse',
+              metadata: ['dc.contributor.*', 'dc.creator'],
+              _links: {
+                self: { href: 'https://rest.api/discover/browses/author' },
+                entries: { href: 'https://rest.api/discover/browses/author/entries' },
+                items: { href: 'https://rest.api/discover/browses/author/items' }
+              }
+            }]
+          },
+          _links: { self: { href: 'https://rest.api/discover/browses' } },
+          page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
+        }, statusCode: '200'
+      } as DSpaceRESTV2Response;
+
+      invalidResponse1 = {
+        payload: {
+          _embedded: {
+            browse: {
+              metadataBrowse: false,
+              sortOptions: [{ name: 'title', metadata: 'dc.title' }, {
+                name: 'dateissued',
+                metadata: 'dc.date.issued'
+              }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
+              order: 'ASC',
+              type: 'browse',
+              metadata: ['dc.date.issued'],
+              _links: {
+                self: { href: 'https://rest.api/discover/browses/dateissued' },
+                items: { href: 'https://rest.api/discover/browses/dateissued/items' }
+              }
+            }
+          },
+          _links: { self: { href: 'https://rest.api/discover/browses' } },
+          page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
+        }, statusCode: '200'
+      } as DSpaceRESTV2Response;
+
+      invalidResponse2 = {
+        payload: {
+          _links: { self: { href: 'https://rest.api/discover/browses' } },
+          page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
+        }, statusCode: '200'
+      } as DSpaceRESTV2Response;
+
+      invalidResponse3 = {
+        payload: {
+          _links: { self: { href: 'https://rest.api/discover/browses' } },
+          page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
+        }, statusCode: '500'
+      } as DSpaceRESTV2Response;
+
+      definitions = [
+        Object.assign(new BrowseDefinition(), {
+          metadataBrowse: false,
+          sortOptions: [
+            {
+              name: 'title',
+              metadata: 'dc.title'
+            },
+            {
               name: 'dateissued',
               metadata: 'dc.date.issued'
-            }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
-            order: 'ASC',
-            type: 'browse',
-            metadata: ['dc.date.issued'],
-            _links: {
-              self: { href: 'https://rest.api/discover/browses/dateissued' },
-              items: { href: 'https://rest.api/discover/browses/dateissued/items' }
+            },
+            {
+              name: 'dateaccessioned',
+              metadata: 'dc.date.accessioned'
             }
-          }, {
-            metadataBrowse: true,
-            sortOptions: [{ name: 'title', metadata: 'dc.title' }, {
+          ],
+          defaultSortOrder: 'ASC',
+          type: 'browse',
+          metadataKeys: [
+            'dc.date.issued'
+          ],
+          _links: {
+            self: 'https://rest.api/discover/browses/dateissued',
+            items: 'https://rest.api/discover/browses/dateissued/items'
+          }
+        }),
+        Object.assign(new BrowseDefinition(), {
+          metadataBrowse: true,
+          sortOptions: [
+            {
+              name: 'title',
+              metadata: 'dc.title'
+            },
+            {
               name: 'dateissued',
               metadata: 'dc.date.issued'
-            }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
-            order: 'ASC',
-            type: 'browse',
-            metadata: ['dc.contributor.*', 'dc.creator'],
-            _links: {
-              self: { href: 'https://rest.api/discover/browses/author' },
-              entries: { href: 'https://rest.api/discover/browses/author/entries' },
-              items: { href: 'https://rest.api/discover/browses/author/items' }
+            },
+            {
+              name: 'dateaccessioned',
+              metadata: 'dc.date.accessioned'
             }
-          }]
-        },
-        _links: { self: { href: 'https://rest.api/discover/browses' } },
-        page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '200'
-    } as DSpaceRESTV2Response;
-
-    const invalidResponse1 = {
-      payload: {
-        _embedded: {
-          browse: {
-            metadataBrowse: false,
-            sortOptions: [{ name: 'title', metadata: 'dc.title' }, {
-              name: 'dateissued',
-              metadata: 'dc.date.issued'
-            }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
-            order: 'ASC',
-            type: 'browse',
-            metadata: ['dc.date.issued'],
-            _links: {
-              self: { href: 'https://rest.api/discover/browses/dateissued' },
-              items: { href: 'https://rest.api/discover/browses/dateissued/items' }
-            }
+          ],
+          defaultSortOrder: 'ASC',
+          type: 'browse',
+          metadataKeys: [
+            'dc.contributor.*',
+            'dc.creator'
+          ],
+          _links: {
+            self: 'https://rest.api/discover/browses/author',
+            entries: 'https://rest.api/discover/browses/author/entries',
+            items: 'https://rest.api/discover/browses/author/items'
           }
-        },
-        _links: { self: { href: 'https://rest.api/discover/browses' } },
-        page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '200'
-    } as DSpaceRESTV2Response;
-
-    const invalidResponse2 = {
-      payload: {
-        _links: { self: { href: 'https://rest.api/discover/browses' } },
-        page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '200'
-    } as DSpaceRESTV2Response ;
-
-    const invalidResponse3 = {
-      payload: {
-        _links: { self: { href: 'https://rest.api/discover/browses' } },
-        page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
-      }, statusCode: '500'
-    } as DSpaceRESTV2Response;
-
-    const definitions = [
-      Object.assign(new BrowseDefinition(), {
-        metadataBrowse: false,
-        sortOptions: [
-          {
-            name: 'title',
-            metadata: 'dc.title'
-          },
-          {
-            name: 'dateissued',
-            metadata: 'dc.date.issued'
-          },
-          {
-            name: 'dateaccessioned',
-            metadata: 'dc.date.accessioned'
-          }
-        ],
-        defaultSortOrder: 'ASC',
-        type: 'browse',
-        metadataKeys: [
-          'dc.date.issued'
-        ],
-        _links: { }
-      }),
-      Object.assign(new BrowseDefinition(), {
-        metadataBrowse: true,
-        sortOptions: [
-          {
-            name: 'title',
-            metadata: 'dc.title'
-          },
-          {
-            name: 'dateissued',
-            metadata: 'dc.date.issued'
-          },
-          {
-            name: 'dateaccessioned',
-            metadata: 'dc.date.accessioned'
-          }
-        ],
-        defaultSortOrder: 'ASC',
-        type: 'browse',
-        metadataKeys: [
-          'dc.contributor.*',
-          'dc.creator'
-        ],
-        _links: { }
-      })
-    ];
-
+        })
+      ];
+    });
     it('should return a GenericSuccessResponse if data contains a valid browse endpoint response', () => {
       const response = service.parse(validRequest, validResponse);
       expect(response.constructor).toBe(GenericSuccessResponse);

@@ -1,6 +1,6 @@
-import { filter, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, take, find, map } from 'rxjs/operators';
+import { of as observableOf, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -27,7 +27,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     let result: Observable<string>;
     const args = [];
 
-    result = this.getBrowseEndpoint(options).distinctUntilChanged();
+    result = this.getBrowseEndpoint(options).pipe(distinctUntilChanged());
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
@@ -47,7 +47,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     }
 
     if (isNotEmpty(args)) {
-      return result.map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString());
+      return result.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
     } else {
       return result;
     }
@@ -72,11 +72,11 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   }
 
   findById(id: string): Observable<RemoteData<TDomain>> {
-    const hrefObs = this.halService.getEndpoint(this.linkPath)
-      .map((endpoint: string) => this.getFindByIDHref(endpoint, id));
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, id)));
 
-    hrefObs
-      .find((href: string) => hasValue(href))
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
         this.requestService.configure(request);

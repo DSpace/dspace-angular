@@ -1,3 +1,4 @@
+import { of as observableOf, Subscription } from 'rxjs';
 import {
   ChangeDetectorRef,
   Component,
@@ -9,9 +10,14 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlComponent,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { isEqual } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
@@ -26,10 +32,7 @@ import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
 
 @Component({
   selector: 'ds-dynamic-group',
@@ -37,19 +40,18 @@ import { AuthorityValueModel } from '../../../../../../core/integration/models/a
   templateUrl: './dynamic-group.component.html',
   animations: [shrinkInOut]
 })
-export class DsDynamicGroupComponent implements OnDestroy, OnInit {
+export class DsDynamicGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
   @Input() formId: string;
   @Input() group: FormGroup;
   @Input() model: DynamicGroupModel;
-  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public chips: Chips;
-  public formCollapsed = Observable.of(false);
+  public formCollapsed = observableOf(false);
   public formModel: DynamicFormControlModel[];
   public editMode = false;
 
@@ -61,13 +63,18 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private formBuilderService: FormBuilderService,
               private formService: FormService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
+
   }
 
   ngOnInit() {
-    const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     if (!this.model.isEmpty()) {
-      this.formCollapsed = Observable.of(true);
+      this.formCollapsed = observableOf(true);
     }
     this.model.valueUpdates.subscribe((value: any[]) => {
       if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
@@ -75,7 +82,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
       } else {
         this.expandForm();
       }
-      // this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0]))) ? Observable.of(true) : Observable.of(false);
+      // this.formCollapsed = (isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0]))) ? observableOf(true) : observableOf(false);
     });
 
     this.formId = this.formService.getUniqueId(this.model.id);
@@ -152,12 +159,12 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   }
 
   collapseForm() {
-    this.formCollapsed = Observable.of(true);
+    this.formCollapsed = observableOf(true);
     this.clear();
   }
 
   expandForm() {
-    this.formCollapsed = Observable.of(false);
+    this.formCollapsed = observableOf(false);
   }
 
   clear() {
@@ -168,7 +175,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     }
     this.resetForm();
     if (!this.model.isEmpty()) {
-      this.formCollapsed = Observable.of(true);
+      this.formCollapsed = observableOf(true);
     }
   }
 

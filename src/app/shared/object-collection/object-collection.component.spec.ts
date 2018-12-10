@@ -6,7 +6,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Config } from '../../../config/config.interface';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { RouterStub } from '../testing/router-stub';
 
 describe('ObjectCollectionComponent', () => {
@@ -16,7 +16,7 @@ describe('ObjectCollectionComponent', () => {
   const queryParam = 'test query';
   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
   const activatedRouteStub = {
-    queryParams: Observable.of({
+    queryParams: observableOf({
       query: queryParam,
       scope: scopeParam
     })

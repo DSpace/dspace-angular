@@ -1,10 +1,13 @@
-import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from './search-filter.service';
 import { Store } from '@ngrx/store';
 import {
-  SearchFilterCollapseAction, SearchFilterDecrementPageAction, SearchFilterExpandAction,
+  SearchFilterCollapseAction,
+  SearchFilterDecrementPageAction,
+  SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
-  SearchFilterInitialCollapseAction, SearchFilterInitialExpandAction, SearchFilterResetPageAction,
+  SearchFilterInitialCollapseAction,
+  SearchFilterInitialExpandAction,
+  SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { SearchFiltersState } from './search-filter.reducer';
@@ -12,6 +15,7 @@ import { SearchFilterConfig } from '../../search-service/search-filter-config.mo
 import { FilterType } from '../../search-service/filter-type.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
+import { of as observableOf } from 'rxjs';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 
 describe('SearchFilterService', () => {
@@ -27,7 +31,7 @@ describe('SearchFilterService', () => {
 
   const mockFixedFilterService: SearchFixedFilterService = {
     getQueryByFilterName: (filter: string) => {
-      return Observable.of(undefined)
+      return observableOf(undefined)
     }
   } as SearchFixedFilterService
   const value1 = 'random value';
@@ -36,7 +40,7 @@ describe('SearchFilterService', () => {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */
-    select: Observable.of(true)
+    select: observableOf(true)
   });
 
   const routeServiceStub: any = {
@@ -52,10 +56,10 @@ describe('SearchFilterService', () => {
     getQueryParameterValue: (param: string) => {
     },
     getQueryParameterValues: (param: string) => {
-      return Observable.of({});
+      return observableOf({});
     },
     getQueryParamsWithPrefix: (param: string) => {
-      return Observable.of({});
+      return observableOf({});
     },
     getRouteParameterValue: (param: string) => {
     }
@@ -214,7 +218,7 @@ describe('SearchFilterService', () => {
     const mockReturn = 5;
 
     beforeEach(() => {
-      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(Observable.of(mockReturn));
+      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(observableOf(mockReturn));
       result = service.getCurrentPagination();
     });
 
@@ -240,7 +244,7 @@ describe('SearchFilterService', () => {
     const direction = SortDirection.ASC;
 
     beforeEach(() => {
-      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(Observable.of(undefined));
+      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(observableOf(undefined));
       result = service.getCurrentSort(new SortOptions(field, direction));
     });
 
@@ -275,8 +279,8 @@ describe('SearchFilterService', () => {
     const filter = 'filter';
 
     beforeEach(() => {
-      spyOn(routeServiceStub, 'getRouteParameterValue').and.returnValue(Observable.of(filter));
-      spyOn(mockFixedFilterService, 'getQueryByFilterName').and.returnValue(Observable.of(filter));
+      spyOn(routeServiceStub, 'getRouteParameterValue').and.returnValue(observableOf(filter));
+      spyOn(mockFixedFilterService, 'getQueryByFilterName').and.returnValue(observableOf(filter));
       service.getCurrentFixedFilter().subscribe();
     });
 

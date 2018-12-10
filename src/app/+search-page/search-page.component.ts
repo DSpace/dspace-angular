@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { flatMap, switchMap, } from 'rxjs/operators';
+import { switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -93,8 +93,8 @@ export class SearchPageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.searchOptions$ = this.getSearchOptions();
-    this.sub = this.searchOptions$
-      .switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData()))
+    this.sub = this.searchOptions$.pipe(
+      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData())))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });

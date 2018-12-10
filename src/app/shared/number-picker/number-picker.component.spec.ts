@@ -156,7 +156,6 @@ class TestComponent {
   public max = 100;
   public min = 0;
   public initValue = 0;
-  public showErrorMessages = false;
   public size = 4;
   public value;
 

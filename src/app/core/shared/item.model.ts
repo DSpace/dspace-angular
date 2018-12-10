@@ -62,9 +62,9 @@ export class Item extends DSpaceObject {
     // TODO: currently this just picks the first thumbnail
     // should be adjusted when we have a way to determine
     // the primary thumbnail from rest
-    return this.getBitstreamsByBundleName('THUMBNAIL')
-      .filter((thumbnails) => isNotEmpty(thumbnails))
-      .map((thumbnails) => thumbnails[0])
+    return this.getBitstreamsByBundleName('THUMBNAIL').pipe(
+      filter((thumbnails) => isNotEmpty(thumbnails)),
+      map((thumbnails) => thumbnails[0]),)
   }
 
   /**
@@ -72,10 +72,10 @@ export class Item extends DSpaceObject {
    * @returns {Observable<Bitstream>} the primaryBitstream of the 'THUMBNAIL' bundle
    */
   getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> {
-    return this.getBitstreamsByBundleName('THUMBNAIL')
-      .map((files) => {
+    return this.getBitstreamsByBundleName('THUMBNAIL').pipe(
+      map((files) => {
         return files.find((thumbnail) => thumbnail.name.startsWith(original.name))
-      }).startWith(undefined);
+      }),startWith(undefined),);
   }
 
   /**
@@ -94,15 +94,15 @@ export class Item extends DSpaceObject {
    * see https://github.com/DSpace/dspace-angular/issues/332
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
-    return this.bitstreams
-      .map((rd: RemoteData<PaginatedList<Bitstream>>) => rd.payload.page)
-      .filter((bitstreams: Bitstream[]) => hasValue(bitstreams))
-      .startWith([])
-      .map((bitstreams) => {
+    return this.bitstreams.pipe(
+      map((rd: RemoteData<PaginatedList<Bitstream>>) => rd.payload.page),
+      filter((bitstreams: Bitstream[]) => hasValue(bitstreams)),
+      startWith([]),
+      map((bitstreams) => {
         return bitstreams
           .filter((bitstream) => hasValue(bitstream))
           .filter((bitstream) => bitstream.bundleName === bundleName)
-      });
+      }),);
   }
 
 }

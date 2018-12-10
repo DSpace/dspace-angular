@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { SharedModule } from '../shared.module';
 
 describe('BrowseByComponent', () => {
@@ -30,7 +30,7 @@ describe('BrowseByComponent', () => {
   });
 
   it('should display results when objects is not empty', () => {
-    (comp as any).objects = Observable.of({
+    (comp as any).objects = observableOf({
       payload: {
         page: {
           length: 1

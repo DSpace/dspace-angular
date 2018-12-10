@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';

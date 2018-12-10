@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs/Observable';
-import { distinctUntilChanged, map, flatMap, startWith, tap } from 'rxjs/operators';
+import {of as observableOf,  Observable } from 'rxjs';
+import {filter,  distinctUntilChanged, map, flatMap, startWith, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -30,11 +30,11 @@ export class HALEndpointService {
   private getEndpointMapAt(href): Observable<EndpointMap> {
     const request = new EndpointMapRequest(this.requestService.generateRequestId(), href);
     this.requestService.configure(request);
-    return this.responseCache.get(request.href)
-      .map((entry: ResponseCacheEntry) => entry.response)
-      .filter((response: EndpointMapSuccessResponse) => isNotEmpty(response))
-      .map((response: EndpointMapSuccessResponse) => response.endpointMap)
-      .distinctUntilChanged();
+    return this.responseCache.get(request.href).pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      filter((response: EndpointMapSuccessResponse) => isNotEmpty(response)),
+      map((response: EndpointMapSuccessResponse) => response.endpointMap),
+      distinctUntilChanged(),);
   }
 
   public getEndpoint(linkPath: string): Observable<string> {
@@ -61,7 +61,7 @@ export class HALEndpointService {
         }),
       ])
       .reduce((combined, thisElement) => [...combined, ...thisElement], []);
-    return Observable.of(this.getRootHref()).pipe(...pipeArguments, distinctUntilChanged());
+    return observableOf(this.getRootHref()).pipe(...pipeArguments, distinctUntilChanged());
   }
 
   public isEnabledOnRestApi(linkPath: string): Observable<boolean> {

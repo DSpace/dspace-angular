@@ -1,6 +1,6 @@
 import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from './ds-dynamic-input.model';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { DynamicFormGroupModelConfig } from '@ng-dynamic-forms/core/src/model/form-group/dynamic-form-group.model';
 import { LanguageCode } from '../../models/form-field-language-value.model';
 

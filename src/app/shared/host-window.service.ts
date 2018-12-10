@@ -1,8 +1,9 @@
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+
+import { filter, distinctUntilChanged, map } from 'rxjs/operators';
 import { HostWindowState } from './host-window.reducer';
 import { Injectable } from '@angular/core';
-import { createSelector, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { createSelector, select, Store } from '@ngrx/store';
 
 import { hasValue } from './empty.util';
 import { AppState } from '../app.reducer';
@@ -35,8 +36,10 @@ export class HostWindowService {
   }
 
   private getWidthObs(): Observable<number> {
-    return this.store.select(widthSelector)
-      .filter((width) => hasValue(width));
+    return this.store.pipe(
+      select(widthSelector),
+      filter((width) => hasValue(width))
+    );
   }
 
   get widthCategory(): Observable<WidthCategory> {
@@ -94,10 +97,12 @@ export class HostWindowService {
   }
 
   isXsOrSm(): Observable<boolean> {
-    return Observable.combineLatest(
-        this.isXs(),
-        this.isSm(),
-        ((isXs, isSm) => isXs || isSm)
-      ).distinctUntilChanged();
+    return observableCombineLatest(
+      this.isXs(),
+      this.isSm()
+    ).pipe(
+      map(([isXs, isSm]) => isXs || isSm),
+      distinctUntilChanged()
+    );
   }
 }
