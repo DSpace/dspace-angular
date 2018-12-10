@@ -1,18 +1,16 @@
 import { Item } from '../../../../core/shared/item.model';
-import { Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
-import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { createRelationshipsObservable } from '../../../../+item-page/simple/entity-types/shared/entity.component.spec';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { of as observableOf } from 'rxjs';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),

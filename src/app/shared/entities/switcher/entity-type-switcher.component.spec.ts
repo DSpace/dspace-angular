@@ -1,15 +1,15 @@
 import { EntityTypeSwitcherComponent } from './entity-type-switcher.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import * as decorator from '../entity-type-decorator';
-import { ElementViewMode } from '../../view-mode';
 import { getComponentByEntityType } from '../entity-type-decorator';
-import { of as observableOf } from 'rxjs';
+import { ElementViewMode } from '../../view-mode';
+import createSpy = jasmine.createSpy;
 
 const relationType = 'type';
 const mockItem: Item = Object.assign(new Item(), {
@@ -44,7 +44,7 @@ describe('EntityTypeSwitcherComponent', () => {
     comp = fixture.componentInstance;
     comp.object = mockItem;
     comp.viewMode = viewMode;
-    spyOn(decorator, 'getComponentByEntityType').and.returnValue('component');
+    spyOnProperty(decorator, 'getComponentByEntityType').and.returnValue(createSpy('getComponentByEntityType'))
   }));
 
   describe('when calling getComponent', () => {

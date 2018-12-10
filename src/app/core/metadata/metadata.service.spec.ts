@@ -204,7 +204,7 @@ describe('MetadataService', () => {
       undefined,
       MockItem
     ));
-  }
+  };
 
   const mockType = (mockItem: Item, type: string): Item => {
     const typedMockItem = Object.assign(new Item(), mockItem) as Item;
@@ -215,7 +215,7 @@ describe('MetadataService', () => {
       }
     }
     return typedMockItem;
-  }
+  };
 
   const mockPublisher = (mockItem: Item): Item => {
     const publishedMockItem = Object.assign(new Item(), mockItem) as Item;

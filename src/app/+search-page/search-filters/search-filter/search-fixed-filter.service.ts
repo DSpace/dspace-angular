@@ -58,7 +58,6 @@ export class SearchFixedFilterService {
         map((response: FilteredDiscoveryQueryResponse) =>
           response.filterQuery
         ));
-
       return filterQuery;
     }
     return observableOf(undefined);
