@@ -34,14 +34,14 @@ describe('ChipsItem model test suite', () => {
   });
 
   it('should update icons', () => {
-    const icons: ChipsItemIcon[] = [{metadata: 'test', style: 'fa fa-plus'}];
+    const icons: ChipsItemIcon[] = [{metadata: 'test', visibleWhenAuthorityEmpty: false, style: 'fa fa-plus'}];
     item.updateIcons(icons);
 
     expect(item.icons).toEqual(icons);
   });
 
   it('should return true if has icons', () => {
-    const icons: ChipsItemIcon[] = [{metadata: 'test', style: 'fa fa-plus'}];
+    const icons: ChipsItemIcon[] = [{metadata: 'test', visibleWhenAuthorityEmpty: false, style: 'fa fa-plus'}];
     item.updateIcons(icons);
     const hasIcons = item.hasIcons();
 

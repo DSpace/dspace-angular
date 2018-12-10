@@ -107,6 +107,7 @@ describe('Chips model test suite', () => {
     ];
     const iconsConfig = [{
       name: 'toDisplay',
+      visibleWhenAuthorityEmpty: false,
       style: 'fa-user'
     }];
     chips = new Chips(items, 'value', 'toDisplay', iconsConfig);

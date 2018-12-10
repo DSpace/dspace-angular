@@ -1,9 +1,12 @@
-import { uniqueId, isObject } from 'lodash';
+import { isObject, uniqueId } from 'lodash';
 import { isNotEmpty } from '../../empty.util';
+import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
+import { ConfidenceType } from '../../../core/integration/models/confidence-type';
 
 export interface ChipsItemIcon {
   metadata: string;
   style: string;
+  visibleWhenAuthorityEmpty: boolean;
   tooltip?: any;
 }
 
@@ -48,7 +51,28 @@ export class ChipsItem {
   }
 
   hasIcons(): boolean {
-    return isNotEmpty(this.icons);
+     return isNotEmpty(this.icons);
+  }
+
+  hasVisibleIcons(): boolean {
+    if (isNotEmpty(this.icons)) {
+      let hasVisible = false;
+      // check if it has at least one visible icon
+      for (const icon of this.icons) {
+        if (this._item.hasOwnProperty(icon.metadata)
+          && (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue()
+          && !(this._item[icon.metadata] as FormFieldMetadataValueObject).hasPlaceholder()) {
+          if (icon.visibleWhenAuthorityEmpty
+            || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET) {
+            hasVisible = true;
+            break;
+          }
+        }
+      }
+      return hasVisible;
+    } else {
+      return false;
+    }
   }
 
   setEditMode(): void {

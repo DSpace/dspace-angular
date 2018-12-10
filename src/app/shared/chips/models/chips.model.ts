@@ -4,6 +4,8 @@ import { ChipsItem, ChipsItemIcon } from './chips-item.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { MetadataIconConfig } from '../../../../config/submission-config.interface';
+import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
+import { AuthorityValueModel } from '../../../core/integration/models/authority-value.model';
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
@@ -100,6 +102,10 @@ export class Chips {
 
   private getChipsIcons(item) {
     const icons = [];
+    if (item instanceof FormFieldMetadataValueObject || item instanceof AuthorityValueModel) {
+      return icons;
+    }
+
     const defaultConfigIndex: number = findIndex(this.iconsConfig, {name: 'default'});
     const defaultConfig: MetadataIconConfig = (defaultConfigIndex !== -1) ? this.iconsConfig[defaultConfigIndex] : undefined;
     let config: MetadataIconConfig;
@@ -117,26 +123,16 @@ export class Chips {
         if (hasValue(value) && isNotEmpty(config) && !this.hasPlaceholder(value)) {
 
           let icon: ChipsItemIcon;
+          const visibleWhenAuthorityEmpty = this.displayObj !== metadata;
 
           // Set icon
           icon = {
             metadata,
+            visibleWhenAuthorityEmpty,
             style: config.style
           };
 
           icons.push(icon);
-/*          if ((this.displayObj && this.displayObj === metadata && hasAuthority)
-            || (this.displayObj && this.displayObj !== metadata)) {
-
-            icon = {
-              metadata,
-              hasAuthority: hasAuthority,
-              style: config.style
-            };
-          }
-          if (icon) {
-            icons.push(icon);
-          }*/
         }
       });
 

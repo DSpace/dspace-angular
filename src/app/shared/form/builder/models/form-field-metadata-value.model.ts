@@ -1,5 +1,6 @@
 import { isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/integration/models/confidence-type';
+import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 
 export class FormFieldMetadataValueObject {
   metadata?: string;
@@ -53,5 +54,9 @@ export class FormFieldMetadataValueObject {
 
   hasOtherInformation(): boolean {
     return isNotEmpty(this.otherInformation);
+  }
+
+  hasPlaceholder() {
+    return this.hasValue() && this.value === PLACEHOLDER_PARENT_METADATA;
   }
 }

@@ -112,7 +112,7 @@ export class FormBuilderService extends DynamicFormService {
         if (isDateObject(controlValue)) {
           return new FormFieldMetadataValueObject(controlValue, controlLanguage, authority, controlValue, place);
         } else {
-          return new FormFieldMetadataValueObject(controlValue.value, controlLanguage, authority, controlValue.display, place);
+          return new FormFieldMetadataValueObject(controlValue.value, controlLanguage, authority, controlValue.display, place, controlValue.confidence);
         }
       }
     };

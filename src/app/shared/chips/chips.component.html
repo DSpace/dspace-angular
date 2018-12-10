@@ -31,6 +31,7 @@
                  [class.mr-2]="l"
                  dsAuthorityConfidenceState
                  [authorityValue]="c.item[icon.metadata] || c.item"
+                 [visibleWhenAuthorityEmpty]="icon.visibleWhenAuthorityEmpty"
                  aria-hidden="true"
                  (dragstart)="tooltip.close();"
                  (mouseover)="showTooltip(t, i, icon.metadata)"

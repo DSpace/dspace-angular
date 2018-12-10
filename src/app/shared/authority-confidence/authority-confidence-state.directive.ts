@@ -25,6 +25,7 @@ import { ConfidenceIconConfig } from '../../../config/submission-config.interfac
 export class AuthorityConfidenceStateDirective implements OnChanges {
 
   @Input() authorityValue: AuthorityValue | FormFieldMetadataValueObject | string;
+  @Input() visibleWhenAuthorityEmpty = true;
 
   private previousClass: string = null;
   private newClass: string;
@@ -82,6 +83,10 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
   }
 
   private getClassByConfidence(confidence: any): string {
+    if (!this.visibleWhenAuthorityEmpty && confidence === ConfidenceType.CF_UNSET) {
+      return 'd-none';
+    }
+
     const confidenceIcons: ConfidenceIconConfig[] = this.EnvConfig.submission.icons.authority.confidence;
 
     const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
