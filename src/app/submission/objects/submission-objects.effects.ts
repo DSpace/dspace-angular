@@ -42,6 +42,8 @@ import { SubmissionObjectEntry } from './submission-objects.reducer';
 import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
+import { SectionsType } from '../sections/sections-type';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -242,15 +244,22 @@ export class SubmissionObjectEffects {
         const sections: WorkspaceitemSectionsObject = (item.sections && isNotEmpty(item.sections)) ? item.sections : {};
         const sectionsKeys: string[] = union(Object.keys(sections), Object.keys(errorsList));
 
-        sectionsKeys
-          .forEach((sectionId) => {
-            const sectionErrors = errorsList[sectionId] || [];
-            const sectionData = sections[sectionId] || {};
-            if (notify && !currentState.sections[sectionId].enabled) {
-              this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
-            }
-            mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
-          });
+        for (const sectionId of sectionsKeys) {
+          const sectionErrors = errorsList[sectionId] || [];
+          const sectionData = sections[sectionId] || {};
+
+          // When Upload section is disabled, add to submission only if there are files
+          if (currentState.sections[sectionId].sectionType === SectionsType.Upload
+            && isEmpty((sectionData as WorkspaceitemSectionUploadObject).files)
+            && !currentState.sections[sectionId].enabled) {
+            continue;
+          }
+
+          if (notify && !currentState.sections[sectionId].enabled) {
+            this.submissionService.notifyNewSection(submissionId, sectionId, currentState.sections[sectionId].sectionType);
+          }
+          mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
+        }
 
       });
 
