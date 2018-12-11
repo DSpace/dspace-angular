@@ -1,21 +1,29 @@
 import {
   ActivateMenuSectionAction,
-  AddMenuSectionAction, DeactivateMenuSectionAction,
+  AddMenuSectionAction,
+  DeactivateMenuSectionAction,
   HideMenuSectionAction,
   MenuAction,
   MenuActionTypes,
   MenuSectionAction,
   RemoveMenuSectionAction,
-  ShowMenuSectionAction, ToggleActiveMenuSectionAction
+  ShowMenuSectionAction,
+  ToggleActiveMenuSectionAction
 } from './menu.actions';
-import { initialMenusState, MenuID, SectionType } from './initial-menus-state';
+import { initialMenusState, MenuID } from './initial-menus-state';
 import { hasValue } from '../empty.util';
-import { SectionTypeModel } from './models/section-types/section-type.model';
+import { MenuItemModel } from './menu-item/models/menu-item.model';
 
+/**
+ * Represents the state of all menus in the store
+ */
 export type MenusState = {
   [id in MenuID]: MenuState;
 }
 
+/**
+ * Represents the state of a single menu in the store
+ */
 export interface MenuState {
   id: MenuID;
   collapsed: boolean
@@ -25,24 +33,39 @@ export interface MenuState {
   sectionToSubsectionIndex: MenuSectionIndex;
 }
 
+/**
+ * Represents the a mapping of all sections to their subsections for a menu in the store
+ */
 export interface MenuSectionIndex {
   [id: string]: string[]
 }
 
+/**
+ * Represents the state of all menu sections in the store
+ */
 export interface MenuSections {
   [id: string]: MenuSection;
 }
 
+/**
+ * Represents the state of a single menu section in the store
+ */
 export class MenuSection {
   id: string;
   parentID?: string;
   visible: boolean;
   active: boolean;
-  model: SectionTypeModel;
+  model: MenuItemModel;
   index?: number;
   icon?: string;
 }
 
+/**
+ * Reducer that handles MenuActions to update the MenusState
+ * @param {MenusState} state The initial MenusState
+ * @param {MenuAction} action The Action to be performed on the state
+ * @returns {MenusState} The new, reducer MenusState
+ */
 export function menusReducer(state: MenusState = initialMenusState, action: MenuAction): MenusState {
   const menuState: MenuState = state[action.menuID];
   switch (action.type) {
@@ -102,16 +125,29 @@ export function menusReducer(state: MenusState = initialMenusState, action: Menu
   }
 }
 
+/**
+ * Add a section the a certain menu
+ * @param {MenusState} state The initial state
+ * @param {AddMenuSectionAction} action Action containing the new section and the menu's ID
+ * @returns {MenusState} The new reduced state
+ */
 function addSection(state: MenusState, action: AddMenuSectionAction) {
   // let newState = addToIndex(state, action.section, action.menuID);
   const newState = putSectionState(state, action, action.section);
   return reorderSections(newState, action)
 }
 
+/**
+ * Reorder all sections based on their index field
+ * @param {MenusState} state The initial state
+ * @param {MenuSectionAction} action Action containing the menu ID of the menu that is to be reordered
+ * @returns {MenusState} The new reduced state
+ */
 function reorderSections(state: MenusState, action: MenuSectionAction) {
   const menuState: MenuState = state[action.menuID];
   const newSectionState: MenuSections = {};
   const newSectionIndexState: MenuSectionIndex = {};
+
   Object.values(menuState.sections).sort((sectionA: MenuSection, sectionB: MenuSection) => {
     const indexA = sectionA.index || 0;
     const indexB = sectionB.index || 0;
@@ -130,6 +166,12 @@ function reorderSections(state: MenusState, action: MenuSectionAction) {
   return Object.assign({}, state, { [action.menuID]: newMenuState });
 }
 
+/**
+ * Remove a section from a certain menu
+ * @param {MenusState} state The initial state
+ * @param {RemoveMenuSectionAction} action Action containing the section ID and menu ID of the section that should be removed
+ * @returns {MenusState} The new reduced state
+ */
 function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
   const menuState: MenuState = state[action.menuID];
   const id = action.id;
@@ -139,6 +181,13 @@ function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
   return Object.assign({}, newState, { [action.menuID]: newMenuState });
 }
 
+/**
+ * Remove a section from the index of a certain menu
+ * @param {MenusState} state The initial state
+ * @param {MenuSection} action The MenuSection of which the ID should be removed from the index
+ * @param {MenuID} action The Menu ID to which the section belonged
+ * @returns {MenusState} The new reduced state
+ */
 function removeFromIndex(state: MenusState, section: MenuSection, menuID: MenuID) {
   const sectionID = section.id;
   const parentID = section.parentID;
@@ -153,14 +202,32 @@ function removeFromIndex(state: MenusState, section: MenuSection, menuID: MenuID
   return state;
 }
 
+/**
+ * Hide a certain section
+ * @param {MenusState} state The initial state
+ * @param {HideMenuSectionAction} action Action containing data to identify the section to be updated
+ * @returns {MenusState} The new reduced state
+ */
 function hideSection(state: MenusState, action: HideMenuSectionAction) {
   return updateSectionState(state, action, { visible: false });
 }
 
+/**
+ * Show a certain section
+ * @param {MenusState} state The initial state
+ * @param {ShowMenuSectionAction} action Action containing data to identify the section to be updated
+ * @returns {MenusState} The new reduced state
+ */
 function showSection(state: MenusState, action: ShowMenuSectionAction) {
   return updateSectionState(state, action, { visible: true });
 }
 
+/**
+ * Deactivate a certain section
+ * @param {MenusState} state The initial state
+ * @param {DeactivateMenuSectionAction} action Action containing data to identify the section to be updated
+ * @returns {MenusState} The new reduced state
+ */
 function deactivateSection(state: MenusState, action: DeactivateMenuSectionAction) {
   const sectionState: MenuSection = state[action.menuID].sections[action.id];
   if (hasValue(sectionState)) {
@@ -168,6 +235,12 @@ function deactivateSection(state: MenusState, action: DeactivateMenuSectionActio
   }
 }
 
+/**
+ * Activate a certain section
+ * @param {MenusState} state The initial state
+ * @param {DeactivateMenuSectionAction} action Action containing data to identify the section to be updated
+ * @returns {MenusState} The new reduced state
+ */
 function activateSection(state: MenusState, action: ActivateMenuSectionAction) {
   const sectionState: MenuSection = state[action.menuID].sections[action.id];
   if (hasValue(sectionState)) {
@@ -175,6 +248,12 @@ function activateSection(state: MenusState, action: ActivateMenuSectionAction) {
   }
 }
 
+/**
+ * Deactivate a certain section when it's currently active, activate a certain section when it's currently inactive
+ * @param {MenusState} state The initial state
+ * @param {DeactivateMenuSectionAction} action Action containing data to identify the section to be updated
+ * @returns {MenusState} The new reduced state
+ */
 function toggleActiveSection(state: MenusState, action: ToggleActiveMenuSectionAction) {
   const sectionState: MenuSection = state[action.menuID].sections[action.id];
   if (hasValue(sectionState)) {
@@ -183,6 +262,13 @@ function toggleActiveSection(state: MenusState, action: ToggleActiveMenuSectionA
   return state;
 }
 
+/**
+ * Add or replace a section in the state
+ * @param {MenusState} state The initial state
+ * @param {MenuAction} action The action which contains the menu ID of the menu of which the state is to be updated
+ * @param {MenuSection} section The section that will be added or replaced in the state
+ * @returns {MenusState} The new reduced state
+ */
 function putSectionState(state: MenusState, action: MenuAction, section: MenuSection): MenusState {
   const menuState: MenuState = state[action.menuID];
   const newSections = Object.assign({}, menuState.sections, {
@@ -194,6 +280,13 @@ function putSectionState(state: MenusState, action: MenuAction, section: MenuSec
   return Object.assign({}, state, { [action.menuID]: newMenuState });
 }
 
+/**
+ * Update a section
+ * @param {MenusState} state The initial state
+ * @param {MenuSectionAction} action The action containing the menu ID and section ID
+ * @param {any} update A partial section that represents the part that should be updated in an existing section
+ * @returns {MenusState} The new reduced state
+ */
 function updateSectionState(state: MenusState, action: MenuSectionAction, update: any): MenusState {
   const menuState: MenuState = state[action.menuID];
   const sectionState = menuState.sections[action.id];

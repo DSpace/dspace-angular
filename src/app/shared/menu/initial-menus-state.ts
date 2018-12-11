@@ -1,14 +1,23 @@
 import { MenusState } from './menu.reducer';
 
+/**
+ * Availavle Menu IDs
+ */
 export enum MenuID {
   ADMIN = 'admin-sidebar',
   PUBLIC = 'public'
 }
 
-export enum SectionType {
+/**
+ * List of possible MenuItemTypes
+ */
+export enum MenuItemType {
   TEXT, LINK, ALTMETRIC, SEARCH
 }
 
+/**
+ * The initial state of the menus
+ */
 export const initialMenusState: MenusState = {
   [MenuID.ADMIN]:
     {

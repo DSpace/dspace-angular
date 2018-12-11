@@ -2,11 +2,14 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { slideMobileNav } from '../shared/animations/slide';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID, SectionType } from '../shared/menu/initial-menus-state';
-import { TextSectionTypeModel } from '../shared/menu/models/section-types/text.model';
-import { LinkSectionTypeModel } from '../shared/menu/models/section-types/link.model';
+import { MenuID, MenuItemType } from '../shared/menu/initial-menus-state';
+import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
+import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { HostWindowService } from '../shared/host-window.service';
 
+/**
+ * Component representing the public navbar
+ */
 @Component({
   selector: 'ds-navbar',
   styleUrls: ['navbar.component.scss'],
@@ -14,6 +17,10 @@ import { HostWindowService } from '../shared/host-window.service';
   animations: [slideMobileNav]
 })
 export class NavbarComponent extends MenuComponent implements OnInit {
+  /**
+   * The menu ID of the Navbar is PUBLIC
+   * @type {MenuID.PUBLIC}
+   */
   menuID = MenuID.PUBLIC;
 
   constructor(protected menuService: MenuService,
@@ -28,6 +35,9 @@ export class NavbarComponent extends MenuComponent implements OnInit {
     super.ngOnInit();
   }
 
+  /**
+   * Initialize all menu sections and items for this menu
+   */
   createMenu() {
     const menuList = [
       /* News */
@@ -36,9 +46,9 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: SectionType.TEXT,
+          type: MenuItemType.TEXT,
           text: 'admin.sidebar.section.browse_global'
-        } as TextSectionTypeModel,
+        } as TextMenuItemModel,
       },
       {
         id: 'browse_global_communities_and_collections',
@@ -46,10 +56,10 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: SectionType.LINK,
+          type: MenuItemType.LINK,
           text: 'admin.sidebar.section.browse_global_communities_and_collections',
           link: '#'
-        } as LinkSectionTypeModel,
+        } as LinkMenuItemModel,
       },
       {
         id: 'browse_global_global_by_issue_date',
@@ -57,10 +67,10 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: SectionType.LINK,
+          type: MenuItemType.LINK,
           text: 'admin.sidebar.section.browse_global_by_issue_date',
           link: '#'
-        } as LinkSectionTypeModel,
+        } as LinkMenuItemModel,
       },
       {
         id: 'browse_global_by_author',
@@ -68,10 +78,10 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: SectionType.LINK,
+          type: MenuItemType.LINK,
           text: 'admin.sidebar.section.browse_global_by_author',
           link: '#'
-        } as LinkSectionTypeModel,
+        } as LinkMenuItemModel,
       },
 
       /* Statistics */
@@ -80,10 +90,10 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: SectionType.LINK,
+          type: MenuItemType.LINK,
           text: 'admin.sidebar.section.statistics',
           link: '#'
-        } as LinkSectionTypeModel,
+        } as LinkMenuItemModel,
       },
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));

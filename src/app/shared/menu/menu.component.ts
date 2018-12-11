@@ -4,27 +4,64 @@ import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/initial-menus-state';
 import { MenuSection } from '../../shared/menu/menu.reducer';
 import { first, map } from 'rxjs/operators';
-import { getComponentForMenu } from './menu.decorator';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
+import { getComponentForMenu } from './menu-section.decorator';
 
+/**
+ * A basic implementation of a MenuComponent
+ */
 @Component({
   selector: 'ds-menu',
   template: ''
 })
 export class MenuComponent implements OnInit {
+  /**
+   * The ID of the Menu (See MenuID)
+   */
   menuID: MenuID;
+
+  /**
+   * Observable that emits whether or not this menu is currently collapsed
+   */
   menuCollapsed: Observable<boolean>;
+
+  /**
+   * Observable that emits whether or not this menu's preview is currently collapsed
+   */
   menuPreviewCollapsed: Observable<boolean>;
+
+  /**
+   * Observable that emits whether or not this menu is currently visible
+   */
   menuVisible: Observable<boolean>;
+
+  /**
+   * List of top level sections in this Menu
+   */
   sections: Observable<MenuSection[]>;
+
+  /**
+   * List of Injectors for each dynamically rendered menu section
+   */
   sectionInjectors: Map<string, Injector> = new Map<string, Injector>();
+
+  /**
+   * List of child Components for each dynamically rendered menu section
+   */
   sectionComponents: Map<string, GenericConstructor<MenuSectionComponent>> = new Map<string, GenericConstructor<MenuSectionComponent>>();
+
+  /**
+   * Prevent unnecessary rerendering
+   */
   changeDetection: ChangeDetectionStrategy.OnPush;
 
   constructor(protected menuService: MenuService, protected injector: Injector) {
   }
 
+  /**
+   * Sets all instance variables to their initial values
+   */
   ngOnInit(): void {
     this.menuCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.menuPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
@@ -38,32 +75,56 @@ export class MenuComponent implements OnInit {
     })
   }
 
+  /**
+   *  Collapse this menu when it's currently expanded, expand it when its currently collapsed
+   * @param {Event} event The user event that triggered this method
+   */
   toggle(event: Event) {
     event.preventDefault();
     this.menuService.toggleMenu(this.menuID);
   }
 
+  /**
+   * Expand this menu
+   * @param {Event} event The user event that triggered this method
+   */
   expand(event: Event) {
     event.preventDefault();
     this.menuService.expandMenu(this.menuID);
   }
 
+  /**
+   * Collapse this menu
+   * @param {Event} event The user event that triggered this method
+   */
   collapse(event: Event) {
     event.preventDefault();
     this.menuService.collapseMenu(this.menuID);
   }
 
+  /**
+   * Expand this menu's preview
+   * @param {Event} event The user event that triggered this method
+   */
   expandPreview(event: Event) {
-    console.log("HOI IK HOVER");
     event.preventDefault();
     this.menuService.expandMenuPreview(this.menuID);
   }
 
+  /**
+   * Collapse this menu's preview
+   * @param {Event} event The user event that triggered this method
+   */
   collapsePreview(event: Event) {
     event.preventDefault();
     this.menuService.collapseMenuPreview(this.menuID);
   }
 
+  /**
+   * Retrieve the component for a given MenuSection object
+   * @param {MenuSection} section The given MenuSection
+   * @returns {Observable<GenericConstructor<MenuSectionComponent>>} Emits the constructor of the Component that should be used to render this object
+   */
   getSectionComponent(section: MenuSection): Observable<GenericConstructor<MenuSectionComponent>> {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
       map((expandable: boolean) => {
@@ -73,6 +134,11 @@ export class MenuComponent implements OnInit {
     );
   }
 
+  /**
+   * Retrieve the Injector for a given MenuSection object
+   * @param {MenuSection} section The given MenuSection
+   * @returns {Injector} The Injector that injects the data for this menu section into the section's component
+   */
   getSectionDataInjector(section: MenuSection) {
     return Injector.create({
       providers: [{ provide: 'sectionDataProvider', useFactory: () => (section), deps: [] }],

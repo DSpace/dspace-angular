@@ -5,13 +5,14 @@ import { slide } from '../../../shared/animations/slide';
 import { CSSVariableService } from '../../../shared/sass-helper/sass-helper.service';
 import { bgColor } from '../../../shared/animations/bgColor';
 import { MenuID } from '../../../shared/menu/initial-menus-state';
-import { rendersSectionForMenu } from '../../../shared/menu/menu.decorator';
 import { MenuService } from '../../../shared/menu/menu.service';
-import { MenuSection } from '../../../shared/menu/menu.reducer';
-import { Observable } from 'rxjs';
+import { combineLatest as combineLatestObservable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { combineLatest as combineLatestObservable } from 'rxjs';
+import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
 
+/**
+ * Represents a expandable section in the sidebar
+ */
 @Component({
   selector: 'ds-expandable-admin-sidebar-section',
   templateUrl: './expandable-admin-sidebar-section.component.html',
@@ -21,19 +22,40 @@ import { combineLatest as combineLatestObservable } from 'rxjs';
 })
 @rendersSectionForMenu(MenuID.ADMIN, true)
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
-  subSections: Observable<MenuSection[]>;
+  /**
+   * This section resides in the Admin Sidebar
+   */
   menuID = MenuID.ADMIN;
+
+  /**
+   * The background color of the section when it's active
+   */
   sidebarActiveBg;
+
+  /**
+   * Emits true when the sidebar is currently collapsed, true when it's expanded
+   */
   sidebarCollapsed: Observable<boolean>;
+
+  /**
+   * Emits true when the sidebar's preview is currently collapsed, true when it's expanded
+   */
   sidebarPreviewCollapsed: Observable<boolean>;
+
+  /**
+   * Emits true when the menu section is expanded, else emits false
+   * This is true when the section is active AND either the sidebar or it's preview is open
+   */
   expanded: Observable<boolean>;
 
   constructor(@Inject('sectionDataProvider') menuSection, protected menuService: MenuService,
               private variableService: CSSVariableService, protected injector: Injector) {
     super(menuSection, menuService, injector);
-
   }
 
+  /**
+   * Set initial values for instance variables
+   */
   ngOnInit(): void {
     super.ngOnInit();
     this.subSections = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);

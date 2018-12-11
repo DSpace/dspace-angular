@@ -1,16 +1,31 @@
-import { SectionType } from './initial-menus-state';
+import { MenuID } from './initial-menus-state';
 
-const menuSectionTypeComponentMap = new Map();
+const menuComponentMap = new Map();
 
-export function rendersSectionForType(type: SectionType) {
-  return function decorator(sectionComponent: any) {
-    if (!sectionComponent) {
+/**
+ * Decorator function to render a MenuSection for a menu
+ * @param {MenuID} menuID The ID of the Menu in which the section is rendered
+ * @param {boolean} expandable True when the section should be expandable, false when if should not
+ * @returns {(menuSectionWrapperComponent: GenericConstructor) => void}
+ */
+export function rendersSectionForMenu(menuID: MenuID, expandable: boolean) {
+  return function decorator(menuSectionWrapperComponent: any) {
+    if (!menuSectionWrapperComponent) {
       return;
     }
-    menuSectionTypeComponentMap.set(type, sectionComponent);
+    if (!menuComponentMap.get(menuID)) {
+      menuComponentMap.set(menuID, new Map());
+    }
+    menuComponentMap.get(menuID).set(expandable, menuSectionWrapperComponent);
   };
 }
 
-export function getComponentForSectionType(type: SectionType) {
-  return menuSectionTypeComponentMap.get(type);
+/**
+ * Retrieves the component matching the given MenuID and whether or not it should be expandable
+ * @param {MenuID} menuID The ID of the Menu in which the section is rendered
+ * @param {boolean} expandable True when the section should be expandable, false when if should not
+ * @returns {GenericConstructor} The constructor of the matching Component
+ */
+export function getComponentForMenu(menuID: MenuID, expandable: boolean) {
+  return menuComponentMap.get(menuID).get(expandable);
 }

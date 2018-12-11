@@ -1,21 +1,21 @@
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { MenuComponent } from './menu.component';
-import { LinkTypeMenuItemComponent } from './type-components/link-type.component';
-import { TextTypeMenuItemComponent } from './type-components/text-type.component';
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
+import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
 
 const COMPONENTS = [
   MenuSectionComponent,
   MenuComponent,
-  LinkTypeMenuItemComponent,
-  TextTypeMenuItemComponent
+  LinkMenuItemComponent,
+  TextMenuItemComponent
 ];
 
 const ENTRY_COMPONENTS = [
-  LinkTypeMenuItemComponent,
-  TextTypeMenuItemComponent
+  LinkMenuItemComponent,
+  TextMenuItemComponent
 ];
 
 const MODULES = [
@@ -47,7 +47,7 @@ const PROVIDERS = [
 })
 
 /**
- * This module handles all components and pipes that need to be shared among multiple other modules
+ * This module handles all components, providers and modules that are needed for the menu
  */
 export class MenuModule {
 

@@ -1,4 +1,4 @@
-import { filter, first, take } from 'rxjs/operators';
+import { filter, first, map, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -29,6 +29,8 @@ import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/initial-menus-state';
 import { Observable } from 'rxjs/internal/Observable';
 import { slideSidebarPadding } from './shared/animations/slide';
+import { combineLatest as combineLatestObservable } from 'rxjs';
+import { HostWindowService } from './shared/host-window.service';
 
 @Component({
   selector: 'ds-app',
@@ -41,7 +43,7 @@ import { slideSidebarPadding } from './shared/animations/slide';
 export class AppComponent implements OnInit, AfterViewInit {
   isLoading = true;
   sidebarVisible: Observable<boolean>;
-  sidebarCollapsed: Observable<boolean>;
+  slideSidebarOver: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
 
@@ -55,7 +57,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private cssService: CSSVariableService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private windowService: HostWindowService
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
@@ -83,10 +86,16 @@ export class AppComponent implements OnInit, AfterViewInit {
       filter((authenticated) => !authenticated)
     ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
     this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
-    this.sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
 
     this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
     this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
+
+    const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
+    //TODO FIX THIS: 
+    this.slideSidebarOver = combineLatestObservable(sidebarCollapsed, this.windowService.isXsOrSm())
+      .pipe(
+        map(([collapsed, mobile]) => collapsed || mobile)
+      );
   }
 
   private storeCSSVariables() {

@@ -3,6 +3,14 @@ import { MenuID } from './initial-menus-state';
 import { type } from '../ngrx/type';
 import { MenuSection } from './menu.reducer';
 
+/**
+ * For each action type in an action group, make a simple
+ * enum object for all of this group's action types.
+ *
+ * The 'type' utility function coerces strings into string
+ * literal types and runs a simple check to guarantee all
+ * action types in the application are unique.
+ */
 export const MenuActionTypes = {
   COLLAPSE_MENU: type('dspace/menu/COLLAPSE_MENU'),
   TOGGLE_MENU: type('dspace/menu/TOGGLE_MENU'),
@@ -23,6 +31,9 @@ export const MenuActionTypes = {
 /* tslint:disable:max-classes-per-file */
 
 // MENU STATE ACTIONS
+/**
+ * Action used to collapse a single menu
+ */
 export class CollapseMenuAction implements Action {
   type = MenuActionTypes.COLLAPSE_MENU;
   menuID: MenuID;
@@ -32,6 +43,9 @@ export class CollapseMenuAction implements Action {
   }
 }
 
+/**
+ * Action used to expand a single menu
+ */
 export class ExpandMenuAction implements Action {
   type = MenuActionTypes.EXPAND_MENU;
   menuID: MenuID;
@@ -41,6 +55,9 @@ export class ExpandMenuAction implements Action {
   }
 }
 
+/**
+ * Action used to collapse a single menu when it's expanded and expanded it when it's collapse
+ */
 export class ToggleMenuAction implements Action {
   type = MenuActionTypes.TOGGLE_MENU;
   menuID: MenuID;
@@ -50,6 +67,9 @@ export class ToggleMenuAction implements Action {
   }
 }
 
+/**
+ * Action used to show a single menu
+ */
 export class ShowMenuAction implements Action {
   type = MenuActionTypes.SHOW_MENU;
   menuID: MenuID;
@@ -59,6 +79,9 @@ export class ShowMenuAction implements Action {
   }
 }
 
+/**
+ * Action used to hide a single menu
+ */
 export class HideMenuAction implements Action {
   type = MenuActionTypes.HIDE_MENU;
   menuID: MenuID;
@@ -68,6 +91,9 @@ export class HideMenuAction implements Action {
   }
 }
 
+/**
+ * Action used to collapse a single menu's preview
+ */
 export class CollapseMenuPreviewAction implements Action {
   type = MenuActionTypes.COLLAPSE_MENU_PREVIEW;
   menuID: MenuID;
@@ -77,6 +103,9 @@ export class CollapseMenuPreviewAction implements Action {
   }
 }
 
+/**
+ * Action used to expand a single menu's preview
+ */
 export class ExpandMenuPreviewAction implements Action {
   type = MenuActionTypes.EXPAND_MENU_PREVIEW;
   menuID: MenuID;
@@ -86,8 +115,10 @@ export class ExpandMenuPreviewAction implements Action {
   }
 }
 
-
-// MENU STRUCTURING ACTIONS
+// MENU SECTION ACTIONS
+/**
+ * Action used to perform state changes for a section of a certain menu
+ */
 export abstract class MenuSectionAction implements Action {
   type;
   menuID: MenuID;
@@ -99,6 +130,9 @@ export abstract class MenuSectionAction implements Action {
   }
 }
 
+/**
+ * Action used to add a section to a certain menu
+ */
 export class AddMenuSectionAction extends MenuSectionAction {
   type = MenuActionTypes.ADD_SECTION;
   section: MenuSection;
@@ -109,6 +143,9 @@ export class AddMenuSectionAction extends MenuSectionAction {
   }
 }
 
+/**
+ * Action used to remove a section from a certain menu
+ */
 export class RemoveMenuSectionAction extends MenuSectionAction {
   type = MenuActionTypes.REMOVE_SECTION;
 
@@ -118,6 +155,9 @@ export class RemoveMenuSectionAction extends MenuSectionAction {
   }
 }
 
+/**
+ * Action used to hide a section of a certain menu
+ */
 export class HideMenuSectionAction extends MenuSectionAction {
   type = MenuActionTypes.HIDE_SECTION;
 
@@ -127,7 +167,7 @@ export class HideMenuSectionAction extends MenuSectionAction {
 }
 
 /**
- * Used to expand a section
+ * Action used to show a section of a certain menu
  */
 export class ShowMenuSectionAction extends MenuSectionAction {
   type = MenuActionTypes.SHOW_SECTION;
@@ -137,6 +177,9 @@ export class ShowMenuSectionAction extends MenuSectionAction {
   }
 }
 
+/**
+ * Action used to make a section of a certain menu active
+ */
 export class ActivateMenuSectionAction extends MenuSectionAction {
   type = MenuActionTypes.ACTIVATE_SECTION;
 
@@ -146,7 +189,7 @@ export class ActivateMenuSectionAction extends MenuSectionAction {
 }
 
 /**
- * Used to expand a section
+ * Action used to make a section of a certain menu inactive
  */
 export class DeactivateMenuSectionAction extends MenuSectionAction {
   type = MenuActionTypes.DEACTIVATE_SECTION;
@@ -156,6 +199,9 @@ export class DeactivateMenuSectionAction extends MenuSectionAction {
   }
 }
 
+/**
+ * Action used to make an active section of a certain menu inactive or an inactive section of a certain menu active
+ */
 export class ToggleActiveMenuSectionAction extends MenuSectionAction {
   type = MenuActionTypes.TOGGLE_ACTIVE_SECTION;
 
