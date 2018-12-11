@@ -3,6 +3,8 @@ import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-sec
 import { MenuID } from '../../../shared/menu/initial-menus-state';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorator';
+import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
+import { MenuSection } from '../../../shared/menu/menu.reducer';
 
 /**
  * Represents a non-expandable section in the admin sidebar
@@ -15,13 +17,15 @@ import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorat
 })
 @rendersSectionForMenu(MenuID.ADMIN, false)
 export class AdminSidebarSectionComponent extends MenuSectionComponent implements OnInit {
+
   /**
    * This section resides in the Admin Sidebar
    */
   menuID: MenuID = MenuID.ADMIN;
-
-  constructor(@Inject('sectionDataProvider') menuSection, protected menuService: MenuService, protected injector: Injector,) {
+  itemModel;
+  constructor(@Inject('sectionDataProvider') menuSection: MenuSection, protected menuService: MenuService, protected injector: Injector,) {
     super(menuSection, menuService, injector);
+    this.itemModel = menuSection.model as LinkMenuItemModel;
   }
 
   ngOnInit(): void {

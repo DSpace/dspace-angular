@@ -14,7 +14,7 @@ import { AppState } from '../../app.reducer';
 import { formReducer } from './form.reducer';
 import { getMockFormBuilderService } from '../mocks/mock-form-builder-service';
 
-fdescribe('FormService test suite', () => {
+describe('FormService test suite', () => {
   const config = {
     form: {
       validatorMap: {
