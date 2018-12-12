@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { hasNoValue } from '../../../shared/empty.util';
 
 /**
  * This component renders any content inside this wrapper.
@@ -16,4 +17,10 @@ export class MetadataFieldWrapperComponent {
    */
   @Input() label: string;
 
+  /**
+   * Make hasNoValue() available in the template
+   */
+  hasNoValue(o: any): boolean {
+    return hasNoValue(o);
+  }
 }
