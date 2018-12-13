@@ -37,25 +37,8 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
         tap((href: string) => {
           const request = new FindByIDRequest(this.requestService.generateRequestId(), href, options.scopeID);
           this.requestService.configure(request);
-        }),);
+        }));
 
-      // return scopeCommunityHrefObs.pipe(
-      //   mergeMap((href: string) => this.responseCache.get(href)),
-      //   map((entry: ResponseCacheEntry) => entry.response),
-      //   mergeMap((response) => {
-      //     if (response.isSuccessful) {
-      //       const community$: Observable<NormalizedCommunity> = this.objectCache.getByUUID(scopeID);
-      //       return community$.pipe(
-      //         map((community) => community._links[this.linkPath]),
-      //         filter((href) => isNotEmpty(href)),
-      //         distinctUntilChanged()
-      //       );
-      //     } else if (!response.isSuccessful) {
-      //       return observableThrowError(new Error(`The Community with scope ${scopeID} couldn't be retrieved`))
-      //     }
-      //   }),
-      //   distinctUntilChanged()
-      // );
       const responses = scopeCommunityHrefObs.pipe(
         mergeMap((href: string) => this.responseCache.get(href)),
         map((entry: ResponseCacheEntry) => entry.response));
