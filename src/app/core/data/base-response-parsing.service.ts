@@ -127,7 +127,7 @@ export abstract class BaseResponseParsingService {
   }
 
   processPageInfo(payload: any): PageInfo {
-    if (isNotEmpty(payload.page)) {
+    if (hasValue(payload.page)) {
       const pageObj = Object.assign({}, payload.page, { _links: payload._links });
       const pageInfoObject = new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
       if (pageInfoObject.currentPage >= 0) {

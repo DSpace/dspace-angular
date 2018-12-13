@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
 
 import { LoginPageComponent } from './login-page.component';
 import { ActivatedRouteStub } from '../shared/testing/active-router-stub';
@@ -21,7 +20,7 @@ describe('LoginPageComponent', () => {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */
-    select: Observable.of(true)
+    select: observableOf(true)
   });
 
   beforeEach(async(() => {

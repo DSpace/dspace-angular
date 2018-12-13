@@ -11,10 +11,16 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf, Subscription } from 'rxjs';
 import { filter, flatMap, map, mergeMap, scan } from 'rxjs/operators';
-import { DynamicFormControlModel, DynamicFormGroupModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlComponent,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { isEqual, isObject } from 'lodash';
 
 import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
@@ -28,6 +34,7 @@ import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
+import { FormGroup } from '@angular/forms';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -53,7 +60,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public chips: Chips;
-  public formCollapsed = Observable.of(false);
+  public formCollapsed = observableOf(false);
   public formModel: DynamicFormControlModel[];
   public editMode = false;
 
@@ -66,13 +73,18 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
               private authorityService: AuthorityService,
               private formBuilderService: FormBuilderService,
               private formService: FormService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
+
   }
 
   ngOnInit() {
-    const config = {rows: this.model.formConfiguration} as SubmissionFormsModel;
+    const config = { rows: this.model.formConfiguration } as SubmissionFormsModel;
     if (!this.model.isEmpty()) {
-      this.formCollapsed = Observable.of(true);
+      this.formCollapsed = observableOf(true);
     }
     this.model.valueUpdates.subscribe((value: any[]) => {
       if ((isNotEmpty(value) && !(value.length === 1 && hasOnlyEmptyProperties(value[0])))) {
@@ -132,12 +144,12 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
   }
 
   collapseForm() {
-    this.formCollapsed = Observable.of(true);
+    this.formCollapsed = observableOf(true);
     this.clear();
   }
 
   expandForm() {
-    this.formCollapsed = Observable.of(false);
+    this.formCollapsed = observableOf(false);
   }
 
   clear() {
@@ -148,7 +160,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     }
     this.resetForm();
     if (!this.model.isEmpty()) {
-      this.formCollapsed = Observable.of(true);
+      this.formCollapsed = observableOf(true);
     }
   }
 
@@ -211,7 +223,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
     if (this.model.isEmpty()) {
       this.initChips([]);
     } else {
-      initChipsValue$ = Observable.of(this.model.value);
+      initChipsValue$ = observableOf(this.model.value);
 
       // If authority
       this.subs.push(initChipsValue$.pipe(
@@ -241,7 +253,7 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
                     })
                   );
               } else {
-                return$ = Observable.of(valueObj[fieldName]);
+                return$ = observableOf(valueObj[fieldName]);
               }
               return return$.map((entry) => ({[fieldName]: entry}));
             });

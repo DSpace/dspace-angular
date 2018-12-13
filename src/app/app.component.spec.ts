@@ -97,7 +97,7 @@ describe('App component', () => {
     let store: Store<HostWindowState>;
 
     beforeEach(() => {
-      store = fixture.debugElement.injector.get(Store);
+      store = fixture.debugElement.injector.get(Store) as Store<HostWindowState>;
       spyOn(store, 'dispatch');
 
       window.dispatchEvent(new Event('resize'));

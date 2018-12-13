@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs/Observable';
+import { map, startWith, filter, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { DSpaceObject } from './dspace-object.model';
 import { Collection } from './collection.model';
@@ -58,9 +59,9 @@ export class Item extends DSpaceObject {
     // TODO: currently this just picks the first thumbnail
     // should be adjusted when we have a way to determine
     // the primary thumbnail from rest
-    return this.getBitstreamsByBundleName('THUMBNAIL')
-      .filter((thumbnails) => isNotEmpty(thumbnails))
-      .map((thumbnails) => thumbnails[0])
+    return this.getBitstreamsByBundleName('THUMBNAIL').pipe(
+      filter((thumbnails) => isNotEmpty(thumbnails)),
+      map((thumbnails) => thumbnails[0]),)
   }
 
   /**
@@ -68,10 +69,10 @@ export class Item extends DSpaceObject {
    * @returns {Observable<Bitstream>} the primaryBitstream of the 'THUMBNAIL' bundle
    */
   getThumbnailForOriginal(original: Bitstream): Observable<Bitstream> {
-    return this.getBitstreamsByBundleName('THUMBNAIL')
-      .map((files) => {
+    return this.getBitstreamsByBundleName('THUMBNAIL').pipe(
+      map((files) => {
         return files.find((thumbnail) => thumbnail.name.startsWith(original.name))
-      }).startWith(undefined);
+      }),startWith(undefined),);
   }
 
   /**
@@ -88,17 +89,17 @@ export class Item extends DSpaceObject {
    * @returns {Observable<Bitstream[]>} the bitstreams with the given bundleName
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
-    return this.bitstreams
-      .filter((rd: RemoteData<PaginatedList<Bitstream>>) => !rd.isResponsePending)
-      .map((rd: RemoteData<PaginatedList<Bitstream>>) => rd.payload.page)
-      .filter((bitstreams: Bitstream[]) => hasValue(bitstreams))
-      .take(1)
-      .startWith([])
-      .map((bitstreams) => {
+    return this.bitstreams.pipe(
+      filter((rd: RemoteData<PaginatedList<Bitstream>>) => !rd.isResponsePending),
+      map((rd: RemoteData<PaginatedList<Bitstream>>) => rd.payload.page),
+      filter((bitstreams: Bitstream[]) => hasValue(bitstreams)),
+      take(1),
+      startWith([]),
+      map((bitstreams) => {
         return bitstreams
           .filter((bitstream) => hasValue(bitstream))
           .filter((bitstream) => bitstream.bundleName === bundleName)
-      });
+      }));
   }
 
 }

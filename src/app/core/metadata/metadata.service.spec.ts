@@ -9,9 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { Store, StoreModule } from '@ngrx/store';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable, of as observableOf } from 'rxjs';
 import { UUIDService } from '../shared/uuid.service';
 
 import { MetadataService } from './metadata.service';
@@ -27,13 +25,14 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
 
-import { RemoteData } from '../data/remote-data';
-import { Item } from '../shared/item.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
 
 import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { EmptyError } from 'rxjs/internal-compatibility';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -45,15 +44,13 @@ class TestComponent {
   }
 }
 
-@Component({ template: '' })
-class DummyItemComponent {
+@Component({ template: '' }) class DummyItemComponent {
   constructor(private route: ActivatedRoute, private items: ItemDataService, private metadata: MetadataService) {
     this.route.params.subscribe((params) => {
       this.metadata.processRemoteData(this.items.findById(params.id));
     });
   }
 }
-
 /* tslint:enable:max-classes-per-file */
 
 describe('MetadataService', () => {
@@ -103,12 +100,7 @@ describe('MetadataService', () => {
         }),
         RouterTestingModule.withRoutes([
           { path: 'items/:id', component: DummyItemComponent, pathMatch: 'full' },
-          {
-            path: 'other',
-            component: DummyItemComponent,
-            pathMatch: 'full',
-            data: { title: 'Dummy Title', description: 'This is a dummy item component for testing!' }
-          }
+          { path: 'other', component: DummyItemComponent, pathMatch: 'full', data: { title: 'Dummy Title', description: 'This is a dummy item component for testing!' } }
         ])
       ],
       declarations: [
@@ -188,8 +180,24 @@ describe('MetadataService', () => {
     expect(tagStore.get('description')[0].content).toEqual('This is a dummy item component for testing!');
   }));
 
+  describe('when the item has no bitstreams', () => {
+
+    beforeEach(() => {
+      spyOn(MockItem, 'getFiles').and.returnValue(observableOf([]));
+    });
+
+    it('processRemoteData should not produce an EmptyError', fakeAsync(() => {
+      spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(MockItem));
+      spyOn(metadataService, 'processRemoteData').and.callThrough();
+      router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+      tick();
+      expect(metadataService.processRemoteData).not.toThrow(new EmptyError());
+    }));
+
+  });
+
   const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
-    return Observable.of(new RemoteData<Item>(
+    return observableOf(new RemoteData<Item>(
       false,
       false,
       true,

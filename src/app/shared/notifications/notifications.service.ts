@@ -1,11 +1,15 @@
+import { of as observableOf, Observable } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
 import { INotification, Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import { NotificationOptions } from './models/notification-options.model';
 import { uniqueId } from 'lodash';
 import { Store } from '@ngrx/store';
-import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
-import { Observable } from 'rxjs/Observable';
+import {
+  NewNotificationAction,
+  RemoveAllNotificationsAction,
+  RemoveNotificationAction
+} from './notifications.actions';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -23,8 +27,8 @@ export class NotificationsService {
     this.store.dispatch(notificationAction);
   }
 
-  success(title: any = Observable.of(''),
-          content: any = Observable.of(''),
+  success(title: any = observableOf(''),
+          content: any = observableOf(''),
           options: NotificationOptions = this.getDefaultOptions(),
           html: boolean = false): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Success, title, content, options, html);
@@ -32,8 +36,8 @@ export class NotificationsService {
     return notification;
   }
 
-  error(title: any = Observable.of(''),
-        content: any = Observable.of(''),
+  error(title: any = observableOf(''),
+        content: any = observableOf(''),
         options: NotificationOptions = this.getDefaultOptions(),
         html: boolean = false): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Error, title, content, options, html);
@@ -41,8 +45,8 @@ export class NotificationsService {
     return notification;
   }
 
-  info(title: any = Observable.of(''),
-       content: any = Observable.of(''),
+  info(title: any = observableOf(''),
+       content: any = observableOf(''),
        options: NotificationOptions = this.getDefaultOptions(),
        html: boolean = false): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Info, title, content, options, html);
@@ -50,8 +54,8 @@ export class NotificationsService {
     return notification;
   }
 
-  warning(title: any = Observable.of(''),
-          content: any = Observable.of(''),
+  warning(title: any = observableOf(''),
+          content: any = observableOf(''),
           options: NotificationOptions = this.getDefaultOptions(),
           html: boolean = false): INotification {
     const notification = new Notification(uniqueId(), NotificationType.Warning, title, content, options, html);

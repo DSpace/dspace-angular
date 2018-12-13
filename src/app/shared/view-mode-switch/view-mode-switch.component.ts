@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from './../../+search-page/search-service/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';

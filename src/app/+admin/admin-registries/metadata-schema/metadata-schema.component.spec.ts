@@ -1,9 +1,6 @@
 import { MetadataSchemaComponent } from './metadata-schema.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
@@ -69,15 +66,15 @@ describe('MetadataSchemaComponent', () => {
       schema: mockSchemasList[1]
     }
   ];
-  const mockSchemas = Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
+  const mockSchemas = observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
-    getMetadataFieldsBySchema: (schema: MetadataSchema) => Observable.of(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFieldsList.filter((value) => value.schema === schema)))),
-    getMetadataSchemaByName: (schemaName: string) => Observable.of(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0]))
+    getMetadataFieldsBySchema: (schema: MetadataSchema) => observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFieldsList.filter((value) => value.schema === schema)))),
+    getMetadataSchemaByName: (schemaName: string) => observableOf(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0]))
   };
   const schemaNameParam = 'mock';
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: Observable.of({
+    params: observableOf({
       schemaName: schemaNameParam
     })
   });
@@ -87,10 +84,10 @@ describe('MetadataSchemaComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
       declarations: [MetadataSchemaComponent, PaginationComponent, EnumKeysPipe],
       providers: [
-        {provide: RegistryService, useValue: registryServiceStub},
-        {provide: ActivatedRoute, useValue: activatedRouteStub},
-        {provide: HostWindowService, useValue: new HostWindowServiceStub(0)},
-        {provide: Router, useValue: new RouterStub()}
+        { provide: RegistryService, useValue: registryServiceStub },
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: Router, useValue: new RouterStub() }
       ]
     }).compileComponents();
   }));

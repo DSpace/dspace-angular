@@ -2,12 +2,15 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
 
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { NgbModule, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of'
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -34,27 +37,32 @@ function createKeyUpEvent(key: number) {
   return event;
 }
 
-export const TAG_TEST_GROUP = new FormGroup({
-  tag: new FormControl(),
-});
+let TAG_TEST_GROUP;
+let TAG_TEST_MODEL_CONFIG;
 
-export const TAG_TEST_MODEL_CONFIG = {
-  authorityOptions: {
-    closed: false,
-    metadata: 'tag',
-    name: 'common_iso_languages',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
-  } as AuthorityOptions,
-  disabled: false,
-  id: 'tag',
-  label: 'Keywords',
-  minChars: 3,
-  name: 'tag',
-  placeholder: 'Keywords',
-  readOnly: false,
-  required: false,
-  repeatable: false
-};
+function init() {
+  TAG_TEST_GROUP = new FormGroup({
+    tag: new FormControl(),
+  });
+
+  TAG_TEST_MODEL_CONFIG = {
+    authorityOptions: {
+      closed: false,
+      metadata: 'tag',
+      name: 'common_iso_languages',
+      scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    } as AuthorityOptions,
+    disabled: false,
+    id: 'tag',
+    label: 'Keywords',
+    minChars: 3,
+    name: 'tag',
+    placeholder: 'Keywords',
+    readOnly: false,
+    required: false,
+    repeatable: false
+  };
+}
 
 describe('DsDynamicTagComponent test suite', () => {
 
@@ -69,7 +77,7 @@ describe('DsDynamicTagComponent test suite', () => {
   // async beforeEach
   beforeEach(async(() => {
     const authorityServiceStub = new AuthorityServiceStub();
-
+    init();
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
@@ -85,8 +93,10 @@ describe('DsDynamicTagComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDynamicTagComponent,
-        {provide: AuthorityService, useValue: authorityServiceStub},
-        {provide: GLOBAL_CONFIG, useValue: {} as GlobalConfig},
+        { provide: AuthorityService, useValue: authorityServiceStub },
+        { provide: GLOBAL_CONFIG, useValue: {} as GlobalConfig },
+        { provide: DynamicFormLayoutService, useValue: {} },
+        { provide: DynamicFormValidationService, useValue: {} }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -108,14 +118,16 @@ describe('DsDynamicTagComponent test suite', () => {
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
     });
-
+    afterEach(() => {
+      testFixture.destroy();
+    });
     it('should create DsDynamicTagComponent', inject([DsDynamicTagComponent], (app: DsDynamicTagComponent) => {
 
       expect(app).toBeDefined();
     }));
   });
 
-  describe('when authorityOptions are setted', () => {
+  describe('when authorityOptions are set', () => {
     describe('and init model value is empty', () => {
       beforeEach(() => {
 
@@ -134,22 +146,29 @@ describe('DsDynamicTagComponent test suite', () => {
       it('should init component properly', () => {
         chips = new Chips([], 'display');
         expect(tagComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
+
         expect(tagComp.searchOptions).toBeDefined();
       });
 
       it('should search when 3+ characters typed', fakeAsync(() => {
         spyOn((tagComp as any).authorityService, 'getEntriesByName').and.callThrough();
 
-        tagComp.search(Observable.of('test')).subscribe(() => {
+        tagComp.search(observableOf('test')).subscribe(() => {
           expect((tagComp as any).authorityService.getEntriesByName).toHaveBeenCalled();
         });
       }));
 
       it('should select a results entry properly', fakeAsync(() => {
         modelValue = [
+          Object.assign(new AuthorityValue(), { id: 1, display: 'Name, Lastname', value: 1 })
           Object.assign(new AuthorityValue(), {id: 1, display: 'Name, Lastname', value: 1})
         ];
         const event: NgbTypeaheadSelectItemEvent = {
+          item: Object.assign(new AuthorityValue(), {
+            id: 1,
+            display: 'Name, Lastname',
+            value: 1
+          }),
           item: Object.assign(new AuthorityValue(), {id: 1, display: 'Name, Lastname', value: 1}),
           preventDefault: () => {
             return;
@@ -225,7 +244,7 @@ describe('DsDynamicTagComponent test suite', () => {
 
   });
 
-  describe('when authorityOptions are not setted', () => {
+  describe('when authorityOptions are not set', () => {
     describe('and init model value is empty', () => {
       beforeEach(() => {
 

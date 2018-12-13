@@ -1,10 +1,12 @@
+
+import {map} from 'rxjs/operators';
 import { Component, EventEmitter,
   Input,
   OnInit,
   Output, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -88,11 +90,11 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   }
 
   getViewMode(): ViewMode {
-    this.route.queryParams.map((params) => {
+    this.route.queryParams.pipe(map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
         this.currentMode = params.view;
       }
-    });
+    }));
     return this.currentMode;
   }
 

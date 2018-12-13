@@ -13,13 +13,10 @@ import {
   DynamicColorPickerModel,
   DynamicDatePickerModel,
   DynamicEditorModel,
-  DynamicFileUploadModel, DynamicFormArrayGroupModel,
+  DynamicFileUploadModel,
   DynamicFormArrayModel,
   DynamicFormControlModel,
-  DynamicFormControlValue,
-  DynamicFormGroupModel,
-  DynamicFormService,
-  DynamicFormValidationService,
+  DynamicFormGroupModel, DynamicFormValidationService,
   DynamicFormValueControlModel,
   DynamicInputModel,
   DynamicRadioGroupModel,
@@ -41,7 +38,10 @@ import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dyn
 import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
 import { AuthorityOptions } from '../../../core/integration/models/authority-options.model';
 import { FormFieldModel } from './models/form-field.model';
-import { FormRowModel, SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
+import {
+  FormRowModel,
+  SubmissionFormsModel
+} from '../../../core/config/models/config-submission-forms.model';
 import { FormBuilderService } from './form-builder.service';
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -69,9 +69,8 @@ describe('FormBuilderService test suite', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
-        FormBuilderService,
-        DynamicFormService,
-        DynamicFormValidationService,
+        {provide: FormBuilderService, useClass: FormBuilderService},
+        {provide: DynamicFormValidationService, useValue: {}},
         {provide: NG_VALIDATORS, useValue: testValidator, multi: true},
         {provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true}
       ]
@@ -255,7 +254,7 @@ describe('FormBuilderService test suite', () => {
         {
           id: 'testFormRowArray',
           initialCount: 5,
-          notRepeteable: false,
+          notRepeatable: false,
           groupFactory: () => {
             return [
               new DynamicInputModel({id: 'testFormRowArrayGroupInput'})
@@ -761,8 +760,8 @@ describe('FormBuilderService test suite', () => {
     (formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 1');
     (formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 2');
 
-    (model.get(index).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).valueUpdates.next('next test value 1');
-    (model.get(index + step).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).valueUpdates.next('next test value 2');
+    (model.get(index).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 1');
+    (model.get(index + step).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 2');
 
     service.moveFormArrayGroup(index, step, formArray, model);
 
@@ -771,8 +770,8 @@ describe('FormBuilderService test suite', () => {
     expect((formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.value).toEqual('next test value 2');
     expect((formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.value).toEqual('next test value 1');
 
-    expect((model.get(index).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).value).toEqual('next test value 2');
-    expect((model.get(index + step).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).value).toEqual('next test value 1');
+    expect((model.get(index).get(0) as DynamicFormValueControlModel<any>).value).toEqual('next test value 2');
+    expect((model.get(index + step).get(0) as DynamicFormValueControlModel<any>).value).toEqual('next test value 1');
   });
 
   it('should move down a form array group', () => {
@@ -785,8 +784,8 @@ describe('FormBuilderService test suite', () => {
     (formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 1');
     (formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.setValue('next test value 2');
 
-    (model.get(index).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).valueUpdates.next('next test value 1');
-    (model.get(index + step).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).valueUpdates.next('next test value 2');
+    (model.get(index).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 1');
+    (model.get(index + step).get(0) as DynamicFormValueControlModel<any>).valueUpdates.next('next test value 2');
 
     service.moveFormArrayGroup(index, step, formArray, model);
 
@@ -795,8 +794,8 @@ describe('FormBuilderService test suite', () => {
     expect((formArray.at(index) as FormGroup).controls.testFormArrayGroupInput.value).toEqual('next test value 2');
     expect((formArray.at(index + step) as FormGroup).controls.testFormArrayGroupInput.value).toEqual('next test value 1');
 
-    expect((model.get(index).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).value).toEqual('next test value 2');
-    expect((model.get(index + step).get(0) as DynamicFormValueControlModel<DynamicFormControlValue>).value).toEqual('next test value 1');
+    expect((model.get(index).get(0) as DynamicFormValueControlModel<any>).value).toEqual('next test value 2');
+    expect((model.get(index + step).get(0) as DynamicFormValueControlModel<any>).value).toEqual('next test value 1');
   });
 
   it('should throw when form array group is to be moved out of bounds', () => {

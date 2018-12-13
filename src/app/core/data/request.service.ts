@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { MemoizedSelector, Store } from '@ngrx/store';
-
 import { remove } from 'lodash';
+import { Observable, merge as observableMerge } from 'rxjs';
+import { filter, first, map, mergeMap, partition, take } from 'rxjs/operators';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs/Observable';
 import { hasValue } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,8 +18,7 @@ import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { GetRequest, RestRequest, RestRequestMethod } from './request.models';
 
-import { RequestEntry, RequestState } from './request.reducer';
-import { ResponseCacheRemoveAction } from '../cache/response-cache.actions';
+import { RequestEntry } from './request.reducer';
 
 @Injectable()
 export class RequestService {
@@ -51,8 +50,8 @@ export class RequestService {
 
     // then check the store
     let isPending = false;
-    this.getByHref(request.href)
-      .take(1)
+    this.getByHref(request.href).pipe(
+      take(1))
       .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
       });
@@ -61,18 +60,20 @@ export class RequestService {
   }
 
   getByUUID(uuid: string): Observable<RequestEntry> {
-    return this.store.select(this.entryFromUUIDSelector(uuid));
+    return this.store.pipe(select(this.entryFromUUIDSelector(uuid)));
   }
 
   getByHref(href: string): Observable<RequestEntry> {
-    return this.store.select(this.uuidFromHrefSelector(href))
-      .flatMap((uuid: string) => this.getByUUID(uuid));
+    return this.store.pipe(
+      select(this.uuidFromHrefSelector(href)),
+      mergeMap((uuid: string) => this.getByUUID(uuid))
+    );
   }
 
   private clearRequestsOnTheirWayToTheStore(href) {
-    this.getByHref(href)
-      .take(1)
-      .subscribe((re: RequestEntry) => {
+    this.getByHref(href).pipe(
+      take(1)
+    ).subscribe((re: RequestEntry) => {
         if (!hasValue(re)) {
           this.responseCache.remove(href);
         } else if (!re.responsePending) {
@@ -99,29 +100,23 @@ export class RequestService {
   private isCachedOrPending(request: GetRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
     if (!isCached && this.responseCache.has(request.href)) {
-      const [successResponse, errorResponse] = this.responseCache.get(request.href)
-        .take(1)
-        .map((entry: ResponseCacheEntry) => entry.response)
-        .share()
-        .partition((response: RestResponse) => response.isSuccessful);
+      const responses = this.responseCache.get(request.href).pipe(
+        take(1),
+        map((entry: ResponseCacheEntry) => entry.response)
+      );
 
-      const [dsoSuccessResponse, otherSuccessResponse] = successResponse
-        .share()
-        .partition((response: DSOSuccessResponse) => hasValue(response.resourceSelfLinks));
+      const errorResponses = responses.pipe(filter((response) => !response.isSuccessful), map(() => true)); // TODO add a configurable number of retries in case of an error.
+      const dsoSuccessResponses = responses.pipe(
+        filter((response) => response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)),
+        map((response: DSOSuccessResponse) => response.resourceSelfLinks),
+        map((resourceSelfLinks: string[]) => resourceSelfLinks
+          .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
+        ));
+      const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
 
-      Observable.merge(
-        errorResponse.map(() => true), // TODO add a configurable number of retries in case of an error.
-        otherSuccessResponse.map(() => true),
-        dsoSuccessResponse // a DSOSuccessResponse should only be considered cached if all its resources are cached
-          .map((response: DSOSuccessResponse) => response.resourceSelfLinks)
-          .map((resourceSelfLinks: string[]) => resourceSelfLinks
-            .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
-          )
-      ).subscribe((c) => isCached = c);
+      observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
     }
-
     const isPending = this.isPending(request);
-
     return isCached || isPending;
   }
 
@@ -139,11 +134,11 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.getByHref(request.href)
-      .filter((re: RequestEntry) => hasValue(re))
-      .take(1)
-      .subscribe((re: RequestEntry) => {
-        this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
-      });
+    this.store.pipe(select(this.entryFromUUIDSelector(request.href)),
+      filter((re: RequestEntry) => hasValue(re)),
+      take(1)
+    ).subscribe((re: RequestEntry) => {
+      this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
+    });
   }
 }

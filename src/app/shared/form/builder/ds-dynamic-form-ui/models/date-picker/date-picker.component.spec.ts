@@ -4,7 +4,7 @@ import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
@@ -52,10 +52,8 @@ describe('DsDatePickerComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDatePickerComponent,
-        DynamicFormValidationService,
-        FormBuilderService,
-        FormComponent,
-        FormService
+        {provide: DynamicFormLayoutService, useValue: {}},
+        {provide: DynamicFormValidationService, useValue: {}}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -70,7 +68,6 @@ describe('DsDatePickerComponent test suite', () => {
             [bindId]='bindId'
             [group]='group'
             [model]='model'
-            [showErrorMessages]='showErrorMessages'
             (blur)='onBlur($event)'
             (change)='onValueChange($event)'
             (focus)='onFocus($event)'></ds-date-picker>`;

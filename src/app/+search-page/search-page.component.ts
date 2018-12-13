@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { flatMap, switchMap, } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -11,9 +11,7 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { Subscription } from 'rxjs/Subscription';
 import { hasValue } from '../shared/empty.util';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../core/shared/operators';
 
@@ -78,8 +76,8 @@ export class SearchPageComponent implements OnInit {
    */
   ngOnInit(): void {
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-    this.sub = this.searchOptions$
-      .switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData()))
+    this.sub = this.searchOptions$.pipe(
+      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData())))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });

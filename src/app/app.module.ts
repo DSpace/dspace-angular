@@ -46,55 +46,73 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
   return config.debug ? [...metaReducers, ...debugMetaReducers] : metaReducers;
 }
 
-const DEV_MODULES: any[] = [];
+const IMPORTS = [
+  CommonModule,
+  SharedModule,
+  HttpClientModule,
+  AppRoutingModule,
+  CoreModule.forRoot(),
+  ScrollToModule.forRoot(),
+  NgbModule.forRoot(),
+  TranslateModule.forRoot(),
+  EffectsModule.forRoot(appEffects),
+  StoreModule.forRoot(appReducers),
+  StoreRouterConnectingModule,
+];
 
-if (!ENV_CONFIG.production) {
-  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 500 }));
-}
+IMPORTS.push(
+  StoreDevtoolsModule.instrument({
+    maxAge: 100,
+    logOnly: ENV_CONFIG.production,
+  })
+);
+
+const PROVIDERS = [
+  {
+    provide: GLOBAL_CONFIG,
+    useFactory: (getConfig)
+  },
+  {
+    provide: APP_BASE_HREF,
+    useFactory: (getBase)
+  },
+  {
+    provide: META_REDUCERS,
+    useFactory: getMetaReducers,
+    deps: [GLOBAL_CONFIG]
+  },
+  {
+    provide: RouterStateSerializer,
+    useClass: DSpaceRouterStateSerializer
+  }
+];
+
+const DECLARATIONS = [
+  AppComponent,
+  HeaderComponent,
+  FooterComponent,
+  PageNotFoundComponent,
+  NotificationComponent,
+  NotificationsBoardComponent
+];
+
+const EXPORTS = [
+  AppComponent
+];
 
 @NgModule({
   imports: [
-    CommonModule,
-    SharedModule,
-    HttpClientModule,
-    AppRoutingModule,
-    CoreModule.forRoot(),
-    ScrollToModule.forRoot(),
-    NgbModule.forRoot(),
-    TranslateModule.forRoot(),
-    EffectsModule.forRoot(appEffects),
-    StoreModule.forRoot(appReducers),
-    StoreRouterConnectingModule,
-    ...DEV_MODULES
+    ...IMPORTS
   ],
   providers: [
-    {
-      provide: GLOBAL_CONFIG,
-      useFactory: (getConfig)
-    },
-    {
-      provide: APP_BASE_HREF,
-      useFactory: (getBase)
-    },
-    {
-      provide: META_REDUCERS,
-      useFactory: getMetaReducers,
-      deps: [GLOBAL_CONFIG]
-    },
-    {
-      provide: RouterStateSerializer,
-      useClass: DSpaceRouterStateSerializer
-    }
+    ...PROVIDERS
   ],
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    PageNotFoundComponent,
-    NotificationComponent,
-    NotificationsBoardComponent
+    ...DECLARATIONS
   ],
-  exports: [AppComponent]
+  exports: [
+    ...EXPORTS
+  ]
 })
 export class AppModule {
 

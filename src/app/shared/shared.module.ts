@@ -4,7 +4,12 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NouisliderModule } from 'ng2-nouislider';
 
-import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDatepickerModule,
+  NgbModule,
+  NgbTimepickerModule,
+  NgbTypeaheadModule
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -81,8 +86,8 @@ import { ClickOutsideDirective } from './utils/click-outside.directive';
 import { EmphasizePipe } from './utils/emphasize.pipe';
 import { InputSuggestionsComponent } from './input-suggestions/input-suggestions.component';
 import { CapitalizePipe } from './utils/capitalize.pipe';
-import { MomentModule } from 'angular2-moment';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
+import { MomentModule } from 'ngx-moment';
 import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
 
 const MODULES = [

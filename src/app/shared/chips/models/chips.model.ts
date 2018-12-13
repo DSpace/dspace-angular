@@ -1,5 +1,5 @@
 import { findIndex, isEqual, isObject } from 'lodash';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { ChipsItem, ChipsItemIcon } from './chips-item.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';

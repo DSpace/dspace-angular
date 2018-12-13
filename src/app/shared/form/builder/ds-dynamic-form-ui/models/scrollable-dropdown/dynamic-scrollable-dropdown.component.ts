@@ -2,7 +2,14 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { FormGroup } from '@angular/forms';
 
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { Observable } from 'rxjs/Observable';
+import {tap} from 'rxjs/operators';
 
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
@@ -12,12 +19,13 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 
+
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
   styleUrls: ['./dynamic-scrollable-dropdown.component.scss'],
   templateUrl: './dynamic-scrollable-dropdown.component.html'
 })
-export class DsDynamicScrollableDropdownComponent implements OnInit {
+export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicScrollableDropdownModel;
@@ -34,7 +42,13 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
 
   protected searchOptions: IntegrationSearchOptions;
 
-  constructor(private authorityService: AuthorityService, private cdr: ChangeDetectorRef) {}
+  constructor(private authorityService: AuthorityService,
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
+  }
 
   ngOnInit() {
     this.searchOptions = new IntegrationSearchOptions(
@@ -67,8 +81,8 @@ export class DsDynamicScrollableDropdownComponent implements OnInit {
     if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
       this.loading = true;
       this.searchOptions.currentPage++;
-      this.authorityService.getEntriesByName(this.searchOptions)
-        .do(() => this.loading = false)
+      this.authorityService.getEntriesByName(this.searchOptions).pipe(
+        tap(() => this.loading = false))
         .subscribe((object: IntegrationData) => {
           this.optionsList = this.optionsList.concat(object.payload);
           this.pageInfo = object.pageInfo;

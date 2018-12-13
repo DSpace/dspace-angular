@@ -2,7 +2,8 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+import { hasValue } from '../empty.util';
 
 @Component({
   selector: 'ds-loading',
@@ -29,7 +30,7 @@ export class LoadingComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    if (this.subscription !== undefined) {
+    if (hasValue(this.subscription)) {
       this.subscription.unsubscribe();
     }
   }
