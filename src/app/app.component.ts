@@ -91,7 +91,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
 
     const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
-    //TODO FIX THIS: 
     this.slideSidebarOver = combineLatestObservable(sidebarCollapsed, this.windowService.isXsOrSm())
       .pipe(
         map(([collapsed, mobile]) => collapsed || mobile)
@@ -99,7 +98,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   private storeCSSVariables() {
-    const vars = variables.locals;
+    const vars = variables.locals || {};
     Object.keys(vars).forEach((name: string) => {
       this.cssService.addCSSVariable(name, vars[name]);
     })

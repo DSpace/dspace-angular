@@ -1,21 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
-
-import { NavbarComponent } from './navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HostWindowService } from '../shared/host-window.service';
-import { HostWindowServiceStub } from '../shared/testing/host-window-service-stub';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/testing/menu-service-stub';
+import { HeaderComponent } from './header.component';
 
-let comp: NavbarComponent;
-let fixture: ComponentFixture<NavbarComponent>;
+let comp: HeaderComponent;
+let fixture: ComponentFixture<HeaderComponent>;
 
-describe('NavbarComponent', () => {
+describe('HeaderComponent', () => {
   const menuService = new MenuServiceStub();
 
   // async beforeEach
@@ -25,11 +23,9 @@ describe('NavbarComponent', () => {
         TranslateModule.forRoot(),
         NoopAnimationsModule,
         ReactiveFormsModule],
-      declarations: [NavbarComponent],
+      declarations: [HeaderComponent],
       providers: [
-        { provide: Injector, useValue: {} },
-        { provide: MenuService, useValue: menuService },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: MenuService, useValue: menuService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -40,13 +36,23 @@ describe('NavbarComponent', () => {
   beforeEach(() => {
     spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([]));
 
-    fixture = TestBed.createComponent(NavbarComponent);
+    fixture = TestBed.createComponent(HeaderComponent);
 
     comp = fixture.componentInstance;
 
   });
 
-  it('should create', () => {
-    expect(comp).toBeTruthy();
+  describe('when the toggle button is clicked', () => {
+
+    beforeEach(() => {
+      spyOn(menuService, 'toggleMenu');
+      const navbarToggler = fixture.debugElement.query(By.css('.navbar-toggler'));
+      navbarToggler.triggerEventHandler('click', null);
+    });
+
+    it('should call toggleMenu on the menuService', () => {
+      expect(menuService.toggleMenu).toHaveBeenCalled();
+    });
+
   });
 });

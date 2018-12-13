@@ -3,7 +3,7 @@ import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { MenuSection, MenuSectionIndex, MenuSections, MenusState, MenuState } from './menu.reducer';
 import { AppState, keySelector } from '../../app.reducer';
 import { MenuID } from './initial-menus-state';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import {
   ActivateMenuSectionAction,

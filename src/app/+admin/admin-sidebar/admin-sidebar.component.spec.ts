@@ -9,36 +9,38 @@ import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service
 import { CSSVariableServiceStub } from '../../shared/testing/css-variable-service-stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
 import { AuthService } from '../../core/auth/auth.service';
-import { NgComponentOutlet } from '@angular/common';
-import { MockDirective } from 'ng-mocks';
 
-fdescribe('AdminSidebarComponent', () => {
+import { of as observableOf } from 'rxjs';
+import { By } from '@angular/platform-browser';
+
+describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
   let fixture: ComponentFixture<AdminSidebarComponent>;
-  let menuService: AdminSidebarComponent;
+  const menuService = new MenuServiceStub();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [AdminSidebarComponent, MockDirective(NgComponentOutlet)],
+      declarations: [AdminSidebarComponent],
       providers: [
         { provide: Injector, useValue: {} },
-        { provide: MenuService, useClass: MenuServiceStub },
+        { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: AuthService, useClass: AuthServiceStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(AdminSidebarComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: {
+        changeDetection: ChangeDetectionStrategy.Default,
+      }
     }).compileComponents();
   }));
 
   beforeEach(() => {
+    spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([]));
     fixture = TestBed.createComponent(AdminSidebarComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
-    menuService = (comp as any).menuService;
-    // spyOn(comp as any, 'getSectionDataInjector').and.returnValue(new Map());
-    // spyOn(comp as any, 'getSectionComponent').and.returnValue(observableOf(MenuSection));
+    comp.sections = observableOf([]);
     fixture.detectChanges();
   });
 
@@ -60,19 +62,80 @@ fdescribe('AdminSidebarComponent', () => {
         comp.startSlide({ toState: 'collapsed' } as any);
       });
 
-      it('should set the sidebarClosed to false', () => {
-        expect(comp.sidebarClosed).toBeTruthy();
+      it('should set the sidebarOpen to false', () => {
+        expect(comp.sidebarOpen).toBeFalsy();
       })
     })
   });
 
-  // describe('expand', () => {
-  //   beforeEach(() => {
-  //     spyOn(menuService, 'expandMenu');
-  //     comp.expand(new Event('click'));
-  //   });
-  //   it('should trigger the expandMenu function on the menu service', () => {
-  //     expect(menuService.expandMenu).toHaveBeenCalledWith(comp.menuID);
-  //   })
-  // });
+  describe('finishSlide', () => {
+    describe('when expanding', () => {
+      beforeEach(() => {
+        comp.sidebarClosed = true;
+        comp.startSlide({ fromState: 'expanded' } as any);
+      });
+
+      it('should set the sidebarClosed to true', () => {
+        expect(comp.sidebarClosed).toBeTruthy();
+      })
+    });
+
+    describe('when collapsing', () => {
+      beforeEach(() => {
+        comp.sidebarClosed = false;
+        comp.startSlide({ fromState: 'collapsed' } as any);
+      });
+
+      it('should set the sidebarOpen to true', () => {
+        expect(comp.sidebarOpen).toBeTruthy();
+      })
+    })
+  });
+
+  describe('when the collapse icon is clicked', () => {
+    beforeEach(() => {
+      spyOn(menuService, 'toggleMenu');
+      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle')).query(By.css('a.shortcut-icon'));
+      sidebarToggler.triggerEventHandler('click', {preventDefault: () => {/**/}});
+    });
+
+    it('should call toggleMenu on the menuService', () => {
+      expect(menuService.toggleMenu).toHaveBeenCalled();
+    });
+  });
+
+  describe('when the collapse link is clicked', () => {
+    beforeEach(() => {
+      spyOn(menuService, 'toggleMenu');
+      const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle')).query(By.css('.sidebar-collapsible')).query(By.css('a'));
+      sidebarToggler.triggerEventHandler('click', {preventDefault: () => {/**/}});
+    });
+
+    it('should call toggleMenu on the menuService', () => {
+      expect(menuService.toggleMenu).toHaveBeenCalled();
+    });
+  });
+
+  describe('when the the mouse enters the nav tag', () => {
+    beforeEach(() => {
+      spyOn(menuService, 'expandMenuPreview');
+      const sidebarToggler = fixture.debugElement.query(By.css('nav.navbar'));
+      sidebarToggler.triggerEventHandler('mouseenter', {preventDefault: () => {/**/}});
+    });
+
+    it('should call expandPreview on the menuService', () => {
+      expect(menuService.expandMenuPreview).toHaveBeenCalled();
+    });
+  });
+  describe('when the the mouse leaves the nav tag', () => {
+    beforeEach(() => {
+      spyOn(menuService, 'collapseMenuPreview');
+      const sidebarToggler = fixture.debugElement.query(By.css('nav.navbar'));
+      sidebarToggler.triggerEventHandler('mouseleave', {preventDefault: () => {/**/}});
+    });
+
+    it('should call collapseMenuPreview on the menuService', () => {
+      expect(menuService.collapseMenuPreview).toHaveBeenCalled();
+    });
+  });
 });

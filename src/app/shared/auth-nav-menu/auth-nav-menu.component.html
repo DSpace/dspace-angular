@@ -22,8 +22,6 @@
   </li>
   <li *ngIf="(isAuthenticated | async) && (isXsOrSm$ | async)" class="nav-item">
     <a id="logoutLink" routerLink="/logout" routerLinkActive="active" class="px-1"><i class="fas fa-user-circle fa-lg fa-fw"></i><span class="sr-only">(current)</span></a>
-
-    <!--<a id="logoutLink" routerLink="/logout" routerLinkActive="active"><i class="fas fa-sign-out-alt fa-fw" aria-hidden="true"></i> {{ 'nav.logout' | translate }}<span class="sr-only">(current)</span></a>-->
   </li>
 </ul>
 

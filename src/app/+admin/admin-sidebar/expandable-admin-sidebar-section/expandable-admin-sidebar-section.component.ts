@@ -58,7 +58,6 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.subSections = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
     this.sidebarActiveBg = this.variableService.getVariable('adminSidebarActiveBg');
     this.sidebarCollapsed = this.menuService.isMenuCollapsed(this.menuID);
     this.sidebarPreviewCollapsed = this.menuService.isMenuPreviewCollapsed(this.menuID);
