@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable, of as observableOf, throwError as observableThrowError, merge as observableMerge } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, mergeMap, partition, take, tap } from 'rxjs/operators';
+
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import { ErrorResponse, PostPatchSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import {
+  ConfigSuccessResponse,
+  ErrorResponse,
+  PostPatchSuccessResponse,
+  RestResponse
+} from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
 import { PatchRequest, RestRequest, SubmissionPatchRequest } from '../data/request.models';
@@ -29,27 +37,27 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> {
   }
 
   protected submitData(request: RestRequest): Observable<ResponseDefinitionDomain> {
-    const [successResponse, errorResponse] = this.responseCache.get(request.href)
-      .map((entry: ResponseCacheEntry) => entry.response)
-      .partition((response: RestResponse) => response.isSuccessful);
-    return Observable.merge(
-      errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't send data to server`))),
-      successResponse
-        .filter((response: PostPatchSuccessResponse) => isNotEmpty(response))
-        .map((response: PostPatchSuccessResponse) => response.dataDefinition)
-        .distinctUntilChanged());
+    const responses = this.responseCache.get(request.href).pipe(map((entry: ResponseCacheEntry) => entry.response));
+    const errorResponses = responses.pipe(
+      filter((response) => !response.isSuccessful),
+      mergeMap(() => observableThrowError(new Error(`Couldn't send data to server`)))
+    );
+    const successResponses = responses.pipe(
+      filter((response: PostPatchSuccessResponse) => isNotEmpty(response)),
+      map((response: PostPatchSuccessResponse) => response.dataDefinition)
+    );
+    return observableMerge(errorResponses, successResponses);
   }
 
   protected submitJsonPatchOperations(hrefObs: Observable<string>, resourceType: string, resourceId?: string) {
     let startTransactionTime = null;
-    const [patchRequestObs, emptyRequestObs] = hrefObs
-      .flatMap((endpointURL: string) => {
-        return this.store.select(jsonPatchOperationsByResourceType(resourceType))
-          .take(1)
-          .filter((operationsList: JsonPatchOperationsResourceEntry) => isUndefined(operationsList) || !(operationsList.commitPending))
-          .do(() => startTransactionTime = new Date().getTime())
-          .map((operationsList: JsonPatchOperationsResourceEntry) => {
+    const [patchRequest$, emptyRequest$] = partition((request: PatchRequest) => isNotEmpty(request.body))(hrefObs.pipe(
+      flatMap((endpointURL: string) => {
+        return this.store.select(jsonPatchOperationsByResourceType(resourceType)).pipe(
+          take(1),
+          filter((operationsList: JsonPatchOperationsResourceEntry) => isUndefined(operationsList) || !(operationsList.commitPending)),
+          tap(() => startTransactionTime = new Date().getTime()),
+          map((operationsList: JsonPatchOperationsResourceEntry) => {
             const body: JsonPatchOperationModel[] = [];
             if (isNotEmpty(operationsList)) {
               if (isNotEmpty(resourceId)) {
@@ -71,35 +79,34 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> {
               }
             }
             return new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body);
-          });
-      })
-      .partition((request: PatchRequest) => isNotEmpty(request.body));
+          }));
+      })));
 
-    return Observable.merge(
-      emptyRequestObs
-        .filter((request: PatchRequest) => isEmpty(request.body))
-        .do(() => startTransactionTime = null)
-        .map(() => null),
-      patchRequestObs
-        .filter((request: PatchRequest) => isNotEmpty(request.body))
-        .do(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime)))
-        .do((request: PatchRequest) => this.requestService.configure(request, true))
-        .flatMap((request: PatchRequest) => {
-          const [successResponse, errorResponse] = this.responseCache.get(request.href)
-            .filter((entry: ResponseCacheEntry) => startTransactionTime < entry.timeAdded)
-            .take(1)
-            .map((entry: ResponseCacheEntry) => entry.response)
-            .partition((response: RestResponse) => response.isSuccessful);
-          return Observable.merge(
-            errorResponse
-              .do(() => this.store.dispatch(new RollbacktPatchOperationsAction(resourceType, resourceId)))
-              .flatMap((response: ErrorResponse) => Observable.of(new Error(`Couldn't patch operations`))),
-            successResponse
-              .filter((response: PostPatchSuccessResponse) => isNotEmpty(response))
-              .do(() => this.store.dispatch(new CommitPatchOperationsAction(resourceType, resourceId)))
-              .map((response: PostPatchSuccessResponse) => response.dataDefinition)
-              .distinctUntilChanged());
-        })
+    return observableMerge(
+      emptyRequest$.pipe(
+        filter((request: PatchRequest) => isEmpty(request.body)),
+        tap(() => startTransactionTime = null),
+        map(() => null)),
+      patchRequest$.pipe(
+        filter((request: PatchRequest) => isNotEmpty(request.body)),
+        tap(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime))),
+        tap((request: PatchRequest) => this.requestService.configure(request, true)),
+        flatMap((request: PatchRequest) => {
+          const [successResponse$, errorResponse$] = partition((response: RestResponse) => response.isSuccessful)(this.responseCache.get(request.href).pipe(
+            filter((entry: ResponseCacheEntry) => startTransactionTime < entry.timeAdded),
+            take(1),
+            map((entry: ResponseCacheEntry) => entry.response)
+          ));
+          return observableMerge(
+            errorResponse$.pipe(
+              tap(() => this.store.dispatch(new RollbacktPatchOperationsAction(resourceType, resourceId))),
+              flatMap((response: ErrorResponse) => observableOf(new Error(`Couldn't patch operations`)))),
+            successResponse$.pipe(
+              filter((response: PostPatchSuccessResponse) => isNotEmpty(response)),
+              tap(() => this.store.dispatch(new CommitPatchOperationsAction(resourceType, resourceId))),
+              map((response: PostPatchSuccessResponse) => response.dataDefinition),
+              distinctUntilChanged()));
+        }))
     );
   }
 
@@ -108,19 +115,19 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> {
   }
 
   public jsonPatchByResourceType(linkName: string, scopeId: string, resourceType: string,) {
-    const hrefObs = this.halService.getEndpoint(linkName)
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId));
+    const href$ = this.halService.getEndpoint(linkName).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)));
 
-    return this.submitJsonPatchOperations(hrefObs, resourceType);
+    return this.submitJsonPatchOperations(href$, resourceType);
   }
 
   public jsonPatchByResourceID(linkName: string, scopeId: string, resourceType: string, resourceId: string) {
-    const hrefObs = this.halService.getEndpoint(linkName)
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId));
+    const hrefObs = this.halService.getEndpoint(linkName).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)));
 
     return this.submitJsonPatchOperations(hrefObs, resourceType, resourceId);
   }

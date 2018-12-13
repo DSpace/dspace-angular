@@ -1,6 +1,7 @@
-import { distinctUntilChanged, filter, take, first, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, take, first, map, flatMap } from 'rxjs/operators';
 import { of as observableOf, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -60,7 +61,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     let result: Observable<string>;
     const args = [];
 
-    result = Observable.of(`${endpoint}/search/${searchByLink}`);
+    result = observableOf(`${endpoint}/search/${searchByLink}`);
 
     if (hasValue(options.searchParams)) {
       options.searchParams.forEach((param: SearchParam) => {
@@ -86,7 +87,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     }
 
     if (isNotEmpty(args)) {
-      return result.map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString());
+      return result.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
     } else {
       return result;
     }
@@ -131,11 +132,13 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
 
   protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
 
-    const hrefObs = this.halService.getEndpoint(this.linkPath).filter((href: string) => isNotEmpty(href))
-      .flatMap((endpoint: string) => this.getSearchByHref(endpoint, searchMethod, options));
-    hrefObs
-      .filter((href: string) => hasValue(href))
-      .take(1)
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      flatMap((endpoint: string) => this.getSearchByHref(endpoint, searchMethod, options)));
+
+    hrefObs.pipe(
+      filter((href: string) => hasValue(href)),
+      take(1))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request, true);
