@@ -5,7 +5,7 @@ import { hasValue, isNotEmpty } from '../../empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { MetadataIconConfig } from '../../../../config/submission-config.interface';
 import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
-import { AuthorityValueModel } from '../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../core/integration/models/authority.value';
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
@@ -102,7 +102,7 @@ export class Chips {
 
   private getChipsIcons(item) {
     const icons = [];
-    if (item instanceof FormFieldMetadataValueObject || item instanceof AuthorityValueModel) {
+    if (typeof item === 'string' || item instanceof FormFieldMetadataValueObject || item instanceof AuthorityValue) {
       return icons;
     }
 

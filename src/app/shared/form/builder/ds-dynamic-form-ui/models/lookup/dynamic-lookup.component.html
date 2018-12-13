@@ -50,13 +50,22 @@
       <button ngbDropdownAnchor
               class="btn btn-secondary"
               type="button"
+              ngbTooltip="{{'form.search-help' | translate}}"
+              placement="top"
               [disabled]="model.readOnly || isSearchDisabled()"
               [hidden]="isInputDisabled()"
               (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
       </button>
+      <button *ngIf="isInputDisabled()" class="btn btn-secondary"
+              type="button"
+              ngbTooltip="{{'form.clear-help' | translate}}"
+              placement="top"
+              [disabled]="model.readOnly"
+              (click)="remove($event)">{{'form.clear' | translate}}
+      </button>
     </div>
-    <div *ngIf="isInputDisabled()" class="col-auto text-center">
-      <button  class="btn btn-secondary"
+    <div class="col-auto text-center">
+      <button *ngIf="!editMode" class="btn btn-secondary"
               type="button"
               ngbTooltip="{{'form.edit-help' | translate}}"
               placement="top"
