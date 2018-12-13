@@ -4,6 +4,7 @@ import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { LinkMenuItemComponent } from './link-menu-item.component';
 import { RouterLinkDirectiveStub } from '../../testing/router-link-directive-stub';
+import { GLOBAL_CONFIG } from '../../../../config';
 
 describe('LinkMenuItemComponent', () => {
   let component: LinkMenuItemComponent;
@@ -11,12 +12,19 @@ describe('LinkMenuItemComponent', () => {
   let debugElement: DebugElement;
   const text = 'HELLO';
   const link = 'http://google.com';
+  const nameSpace = 'dspace.com/';
+  const globalConfig = {
+    ui: {
+      nameSpace: nameSpace
+    }
+  } as any;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub],
       providers: [
         { provide: 'itemModelProvider', useValue: { text: text, link: link } },
+        { provide: GLOBAL_CONFIG, useValue: globalConfig },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -41,10 +49,9 @@ describe('LinkMenuItemComponent', () => {
 
   it('should have the right routerLink attribute', () => {
     const linkDes = fixture.debugElement.queryAll(By.directive(RouterLinkDirectiveStub));
-
     const routerLinkQuery = linkDes.map((de) => de.injector.get(RouterLinkDirectiveStub));
 
     expect(routerLinkQuery.length).toBe(1);
-    expect(routerLinkQuery[0].routerLink).toBe(link);
+    expect(routerLinkQuery[0].routerLink).toBe(nameSpace + link);
   });
 });

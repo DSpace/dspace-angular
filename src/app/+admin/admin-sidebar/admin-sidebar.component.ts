@@ -392,7 +392,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'admin.sidebar.section.registries_metadata',
-          link: '/registries/metadata'
+          link: 'admin/registries/metadata'
         } as LinkMenuItemModel,
       },
       {
@@ -403,7 +403,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'admin.sidebar.section.registries_format',
-          link: '/registries/format'
+          link: 'admin/registries/bitstream-formats'
         } as LinkMenuItemModel,
       },
 

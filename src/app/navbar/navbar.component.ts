@@ -49,6 +49,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
           type: MenuItemType.TEXT,
           text: 'admin.sidebar.section.browse_global'
         } as TextMenuItemModel,
+        index: 0
       },
       {
         id: 'browse_global_communities_and_collections',
@@ -71,6 +72,16 @@ export class NavbarComponent extends MenuComponent implements OnInit {
           text: 'admin.sidebar.section.browse_global_by_issue_date',
           link: '#'
         } as LinkMenuItemModel,
+      },      {
+        id: 'browse_global_global_by_title',
+        parentID: 'browse_global',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'admin.sidebar.section.browse_global_by_title',
+          link: '/browse/title'
+        } as LinkMenuItemModel,
       },
       {
         id: 'browse_global_by_author',
@@ -80,7 +91,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'admin.sidebar.section.browse_global_by_author',
-          link: '#'
+          link: '/browse/author'
         } as LinkMenuItemModel,
       },
 
@@ -94,6 +105,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
           text: 'admin.sidebar.section.statistics',
           link: '#'
         } as LinkMenuItemModel,
+        index: 2
       },
     ];
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));

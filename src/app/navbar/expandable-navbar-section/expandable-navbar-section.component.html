@@ -7,7 +7,7 @@
         <ng-container
                 *ngComponentOutlet="itemComponents.get(section.id); injector: itemInjectors.get(section.id);"></ng-container>
     </a>
-    <ul @slide *ngIf="(active | async)"
+    <ul @slide *ngIf="(active | async)" (click)="deactivateSection($event)"
         class="m-0 shadow-none border-top-0 dropdown-menu show">
         <ng-container *ngFor="let subSection of (subSections | async)">
             <ng-container

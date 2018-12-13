@@ -213,6 +213,7 @@
     },
     "sidebar": {
       "section": {
+        "toggle": "Toggle sidebar",
         "new": "New",
         "new_community": "Community",
         "new_collection": "Collection",
@@ -244,13 +245,16 @@
         "curation_task": "Curation Task",
         "statistics_task": "Statistics Task",
         "control_panel": "Control Panel",
-
-
         "browse_global": "All of DSpace",
         "browse_global_communities_and_collections": "Communities & Collections",
         "browse_global_by_issue_date": "By Issue Date",
         "browse_global_by_author": "By Author",
-        "statistics": "Statistics"
+        "browse_global_by_title": "By Title",
+        "statistics": "Statistics",
+        "browse_community": "This Community",
+        "browse_community_by_issue_date": "By Issue Date",
+        "browse_community_by_author": "By Author",
+        "browse_community_by_title": "By Title"
       }
     }
   },

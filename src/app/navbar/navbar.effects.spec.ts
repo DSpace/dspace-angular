@@ -7,16 +7,20 @@ import { cold, hot } from 'jasmine-marbles';
 import * as fromRouter from '@ngrx/router-store';
 import { CollapseMenuAction } from '../shared/menu/menu.actions';
 import { MenuID } from '../shared/menu/initial-menus-state';
+import { MenuService } from '../shared/menu/menu.service';
+import { MenuServiceStub } from '../shared/testing/menu-service-stub';
 
 describe('NavbarEffects', () => {
   let navbarEffects: NavbarEffects;
   let actions: Observable<any>;
+  const menuService = new MenuServiceStub();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         NavbarEffects,
         provideMockActions(() => actions),
+        { provide: MenuService, useValue: menuService },
         // other providers
       ],
     });
