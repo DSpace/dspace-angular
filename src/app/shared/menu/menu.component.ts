@@ -125,7 +125,7 @@ export class MenuComponent implements OnInit {
    * @param {MenuSection} section The given MenuSection
    * @returns {Observable<GenericConstructor<MenuSectionComponent>>} Emits the constructor of the Component that should be used to render this object
    */
-  getSectionComponent(section: MenuSection): Observable<GenericConstructor<MenuSectionComponent>> {
+  private getSectionComponent(section: MenuSection): Observable<GenericConstructor<MenuSectionComponent>> {
     return this.menuService.hasSubSections(this.menuID, section.id).pipe(
       map((expandable: boolean) => {
           return getComponentForMenu(this.menuID, expandable);
@@ -139,7 +139,7 @@ export class MenuComponent implements OnInit {
    * @param {MenuSection} section The given MenuSection
    * @returns {Injector} The Injector that injects the data for this menu section into the section's component
    */
-  getSectionDataInjector(section: MenuSection) {
+  private getSectionDataInjector(section: MenuSection) {
     return Injector.create({
       providers: [{ provide: 'sectionDataProvider', useFactory: () => (section), deps: [] }],
       parent: this.injector

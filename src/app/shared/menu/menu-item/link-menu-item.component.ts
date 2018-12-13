@@ -12,8 +12,8 @@ import { rendersMenuItemForType } from '../menu-item.decorator';
 })
 @rendersMenuItemForType(MenuItemType.LINK)
 export class LinkMenuItemComponent {
-  @Input() item: LinkMenuItemModel;
-  constructor(@Inject('itemModelProvider') item) {
+  item: LinkMenuItemModel;
+  constructor(@Inject('itemModelProvider') item: LinkMenuItemModel) {
     this.item = item;
   }
 }

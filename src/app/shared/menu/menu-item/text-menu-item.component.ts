@@ -12,8 +12,8 @@ import { rendersMenuItemForType } from '../menu-item.decorator';
 })
 @rendersMenuItemForType(MenuItemType.TEXT)
 export class TextMenuItemComponent {
-  @Input() item: TextMenuItemModel;
-  constructor(@Inject('itemModelProvider') item) {
+  item: TextMenuItemModel;
+  constructor(@Inject('itemModelProvider') item: TextMenuItemModel) {
     this.item = item;
   }
 }

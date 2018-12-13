@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { QueryParamsDirectiveStub } from './query-params-directive-stub';
+import { RouterLinkDirectiveStub } from './router-link-directive-stub';
+import { NgComponentOutletDirectiveStub } from './ng-component-outlet-directive-stub';
 
 /**
  * This module isn't used. It serves to prevent the AoT compiler
@@ -9,7 +11,9 @@ import { QueryParamsDirectiveStub } from './query-params-directive-stub';
  */
 @NgModule({
   declarations: [
-    QueryParamsDirectiveStub
+    QueryParamsDirectiveStub,
+    RouterLinkDirectiveStub,
+    NgComponentOutletDirectiveStub
   ]
 })
 export class TestModule {}

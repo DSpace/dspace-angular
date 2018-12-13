@@ -84,7 +84,7 @@ export class MenuSectionComponent {
   /**
    * Method for initializing all injectors and component constructors for the menu items in this section
    */
-  initializeInjectorData() {
+  private initializeInjectorData() {
     this.itemInjectors.set(this.section.id, this.getItemModelInjector(this.section.model));
     this.itemComponents.set(this.section.id, this.getMenuItemComponent(this.section.model));
     this.subSections = this.menuService.getSubSectionsByParentID(this.menuID, this.section.id);
@@ -101,7 +101,7 @@ export class MenuSectionComponent {
    * @param {MenuItemModel} itemModel The given MenuItemModel
    * @returns {GenericConstructor} Emits the constructor of the Component that should be used to render this menu item model
    */
-  getMenuItemComponent(itemModel?: MenuItemModel) {
+  private getMenuItemComponent(itemModel?: MenuItemModel) {
     if (hasNoValue(itemModel)) {
       itemModel = this.section.model;
     }
@@ -114,7 +114,7 @@ export class MenuSectionComponent {
    * @param {MenuItemModel} itemModel The given MenuItemModel
    * @returns {Injector} The Injector that injects the data for this menu item into the item's component
    */
-  getItemModelInjector(itemModel?: MenuItemModel) {
+  private getItemModelInjector(itemModel?: MenuItemModel) {
     if (hasNoValue(itemModel)) {
       itemModel = this.section.model;
     }

@@ -175,9 +175,9 @@ function reorderSections(state: MenusState, action: MenuSectionAction) {
 function removeSection(state: MenusState, action: RemoveMenuSectionAction) {
   const menuState: MenuState = state[action.menuID];
   const id = action.id;
-  const newMenuState = Object.assign({}, menuState);
-  delete newMenuState[id];
   const newState = removeFromIndex(state, menuState.sections[action.id], action.menuID);
+  const newMenuState = Object.assign({}, newState[action.menuID]);
+  delete newMenuState.sections[id];
   return Object.assign({}, newState, { [action.menuID]: newMenuState });
 }
 
@@ -195,7 +195,7 @@ function removeFromIndex(state: MenusState, section: MenuSection, menuID: MenuID
     const menuState: MenuState = state[menuID];
     const index = menuState.sectionToSubsectionIndex;
     const parentIndex = hasValue(index[parentID]) ? index[parentID] : [];
-    const newIndex = Object.assign({}, index, { [parentID]: parentIndex.filter((id) => id === sectionID) });
+    const newIndex = Object.assign({}, index, { [parentID]: parentIndex.filter((id) => id !== sectionID) });
     const newMenuState = Object.assign({}, menuState, { sectionToSubsectionIndex: newIndex });
     return Object.assign({}, state, { [menuID]: newMenuState });
   }

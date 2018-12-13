@@ -84,7 +84,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**
    * Initialize all menu sections and items for this menu
    */
-  createMenu() {
+  private createMenu() {
     const menuList = [
       /* News */
       {

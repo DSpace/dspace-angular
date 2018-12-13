@@ -93,4 +93,8 @@ export class AuthServiceStub {
   public storeToken(token: AuthTokenInfo) {
     return;
   }
+
+  isAuthenticated() {
+    return observableOf(true);
+  }
 }
