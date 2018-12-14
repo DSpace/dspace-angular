@@ -9,6 +9,8 @@ import {ModifyItemOverviewComponent} from './modify-item-overview/modify-item-ov
 import {ItemWithdrawComponent} from './item-withdraw/item-withdraw.component';
 import {ItemReinstateComponent} from './item-reinstate/item-reinstate.component';
 import {AbstractSimpleItemActionComponent} from './simple-item-action/abstract-simple-item-action.component';
+import {ItemPrivateComponent} from './item-private/item-private.component';
+import {ItemPublicComponent} from './item-public/item-public.component';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import {AbstractSimpleItemActionComponent} from './simple-item-action/abstract-s
     ModifyItemOverviewComponent,
     ItemWithdrawComponent,
     ItemReinstateComponent,
+    ItemPrivateComponent,
+    ItemPublicComponent,
     ItemStatusComponent
   ]
 })

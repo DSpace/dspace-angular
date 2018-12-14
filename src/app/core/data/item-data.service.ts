@@ -60,6 +60,16 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
   }
 
   /**
+   * Get the endpoint to make item private and public
+   * @param itemId
+   */
+  public getItemDiscoverableEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+    );
+  }
+
+  /**
    * Set the isWithdrawn state of an item to a specified state
    * @param itemId
    * @param withdrawn
@@ -69,6 +79,27 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       op: 'replace', path: '/withdrawn', value: withdrawn
     }];
     return this.getItemWithdrawEndpoint(itemId).pipe(
+      distinctUntilChanged(),
+      map((endpointURL: string) =>
+        new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
+      ),
+      configureRequest(this.requestService),
+      map((request: RestRequest) => request.href),
+      getResponseFromSelflink(this.responseCache),
+      map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)
+    );
+  }
+
+  /**
+   * Set the isDiscoverable state of an item to a specified state
+   * @param itemId
+   * @param privateBoolean
+   */
+  public setDiscoverable(itemId: string, privateBoolean: boolean) {
+    const patchOperation = [{
+      op: 'replace', path: '/discoverable', value: privateBoolean
+    }];
+    return this.getItemDiscoverableEndpoint(itemId).pipe(
       distinctUntilChanged(),
       map((endpointURL: string) =>
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)

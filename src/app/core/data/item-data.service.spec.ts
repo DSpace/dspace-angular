@@ -128,4 +128,26 @@ describe('ItemDataService', () => {
     });
   });
 
+  describe('getItemDiscoverableEndpoint', () => {
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+      service = initTestService();
+
+    });
+
+    it('should return the endpoint to make an item private or public', () => {
+      const result = service.getItemDiscoverableEndpoint(scopeID);
+      const expected = cold('a', {a: ScopedItemEndpoint});
+
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should setDiscoverable', () => {
+      const expected = new RestResponse(true, '200');
+      const result = service.setDiscoverable(scopeID, false);
+      result.subscribe((v) => expect(v).toEqual(expected));
+
+    });
+  });
+
 });

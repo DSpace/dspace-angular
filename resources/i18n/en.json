@@ -85,6 +85,10 @@
               "label": "Make item private",
               "button": "Make it private..."
             },
+            "public": {
+              "label": "Make item public",
+              "button": "Make it public..."
+            },
             "delete": {
               "label": "Completely expunge item",
               "button": "Permanently delete"
@@ -128,6 +132,22 @@
         "cancel": "Cancel",
         "success": "The item was reinstated successfully",
         "error": "An error occured while reinstating the item"
+      },
+      "private": {
+        "header": "Make item private: {{ id }}",
+        "description": "Are you sure this item should be made private in the archive?",
+        "confirm": "Make it Private",
+        "cancel": "Cancel",
+        "success": "The item is now private",
+        "error": "An error occured while making the item private"
+      },
+      "public": {
+        "header": "Make item public: {{ id }}",
+        "description": "Are you sure this item should be made public in the archive?",
+        "confirm": "Make it Public",
+        "cancel": "Cancel",
+        "success": "The item is now public",
+        "error": "An error occured while making the item public"
       }
     }
   },

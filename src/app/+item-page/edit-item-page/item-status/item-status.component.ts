@@ -66,6 +66,11 @@ export class ItemStatusComponent implements OnInit {
     } else {
       this.operations.push(new ItemOperation('withdraw', this.getCurrentUrl() + '/withdraw'));
     }
+    if (this.item.isDiscoverable) {
+      this.operations.push(new ItemOperation('private', this.getCurrentUrl() + '/private'));
+    } else {
+      this.operations.push(new ItemOperation('public', this.getCurrentUrl() + '/public'));
+    }
   }
 
   /**
