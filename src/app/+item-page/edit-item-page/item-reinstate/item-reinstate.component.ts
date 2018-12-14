@@ -6,7 +6,7 @@ import {RemoteData} from '../../../core/data/remote-data';
 import {Item} from '../../../core/shared/item.model';
 
 @Component({
-  selector: 'ds-item-withdraw',
+  selector: 'ds-item-reinstate',
   templateUrl: '../simple-item-action/abstract-simple-item-action.component.html'
 })
 /**
