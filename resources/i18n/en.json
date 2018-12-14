@@ -73,6 +73,10 @@
               "label": "Withdraw item from the repository",
               "button": "Withdraw..."
             },
+            "reinstate": {
+              "label": "Reinstate item into the repository",
+              "button": "Reinstate..."
+            },
             "move": {
               "label": "Move item to another collection",
               "button": "Move..."
@@ -103,6 +107,27 @@
         "curate": {
           "head": "Curate"
         }
+      },
+      "modify.overview": {
+        "field": "Field",
+        "value": "Value",
+        "language": "Language"
+      },
+      "withdraw": {
+        "header": "Withdraw item: {{ id }}",
+        "description": "Are you sure this item should be withdrawn from the archive?",
+        "confirm": "Withdraw",
+        "cancel": "Cancel",
+        "success": "The item was withdrawn successfully",
+        "error": "An error occured while withdrawing the item"
+      },
+      "reinstate": {
+        "header": "Reinstate item: {{ id }}",
+        "description": "Are you sure this item should be reinstated to the archive?",
+        "confirm": "Reinstate",
+        "cancel": "Cancel",
+        "success": "The item was reinstated successfully",
+        "error": "An error occured while reinstating the item"
       }
     }
   },

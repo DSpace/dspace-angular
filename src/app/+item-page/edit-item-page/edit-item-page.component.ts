@@ -1,9 +1,10 @@
-import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
+import {fadeIn, fadeInOut} from '../../shared/animations/fade';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {RemoteData} from '../../core/data/remote-data';
+import {Item} from '../../core/shared/item.model';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -28,7 +29,7 @@ export class EditItemPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.map((data) => data.item);
+    this.itemRD$ = this.route.data.pipe(map((data) => data.item));
   }
 
 }

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
-import { Item } from '../../../core/shared/item.model';
-import { Router } from '@angular/router';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {fadeIn, fadeInOut} from '../../../shared/animations/fade';
+import {Item} from '../../../core/shared/item.model';
+import {Router} from '@angular/router';
 import {ItemOperation} from '../item-operation/itemOperation.model';
 
 @Component({
@@ -58,10 +58,14 @@ export class ItemStatusComponent implements OnInit {
         i18n example: 'item.edit.tabs.status.buttons.<key>.label'
       The value is supposed to be a href for the button
     */
-    this.operations = [
-      new ItemOperation('mappedCollections',this.getCurrentUrl() + '/'),
-      new ItemOperation('move', this.getCurrentUrl() + '/move'),
-    ]
+    this.operations = [];
+    this.operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl() + '/'));
+    this.operations.push(new ItemOperation('move', this.getCurrentUrl() + '/move'));
+    if (this.item.isWithdrawn) {
+      this.operations.push(new ItemOperation('reinstate', this.getCurrentUrl() + '/reinstate'));
+    } else {
+      this.operations.push(new ItemOperation('withdraw', this.getCurrentUrl() + '/withdraw'));
+    }
   }
 
   /**
