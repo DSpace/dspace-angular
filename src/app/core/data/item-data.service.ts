@@ -93,11 +93,11 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
   /**
    * Set the isDiscoverable state of an item to a specified state
    * @param itemId
-   * @param privateBoolean
+   * @param discoverable
    */
-  public setDiscoverable(itemId: string, privateBoolean: boolean) {
+  public setDiscoverable(itemId: string, discoverable: boolean) {
     const patchOperation = [{
-      op: 'replace', path: '/discoverable', value: privateBoolean
+      op: 'replace', path: '/discoverable', value: discoverable
     }];
     return this.getItemDiscoverableEndpoint(itemId).pipe(
       distinctUntilChanged(),

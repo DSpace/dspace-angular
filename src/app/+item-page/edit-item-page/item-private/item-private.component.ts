@@ -10,7 +10,7 @@ import {Item} from '../../../core/shared/item.model';
   templateUrl: '../simple-item-action/abstract-simple-item-action.component.html'
 })
 /**
- * Component responsible for rendering the Item Reinstate page
+ * Component responsible for rendering the make item private page
  */
 export class ItemPrivateComponent extends AbstractSimpleItemActionComponent {
 

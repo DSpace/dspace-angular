@@ -10,7 +10,7 @@ import {Item} from '../../../core/shared/item.model';
   templateUrl: '../simple-item-action/abstract-simple-item-action.component.html'
 })
 /**
- * Component responsible for rendering the Item Reinstate page
+ * Component responsible for rendering the make item public page
  */
 export class ItemPublicComponent extends AbstractSimpleItemActionComponent {
 
@@ -18,7 +18,7 @@ export class ItemPublicComponent extends AbstractSimpleItemActionComponent {
   protected predicate = (rd: RemoteData<Item>) => rd.payload.isDiscoverable;
 
   /**
-   * Perform the make private action to the item
+   * Perform the make public action to the item
    */
   performAction() {
     this.itemDataService.setDiscoverable(this.item.id, true).pipe(first()).subscribe(
