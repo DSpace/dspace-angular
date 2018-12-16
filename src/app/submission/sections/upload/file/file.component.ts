@@ -17,6 +17,7 @@ import { SubmitDataResponseDefinitionObject } from '../../../../core/shared/subm
 import { SubmissionService } from '../../../submission.service';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { filter, first } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-submission-upload-section-file',
@@ -62,8 +63,8 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
       // Retrieve file state
       this.subscriptions.push(
         this.uploadService
-          .getFileData(this.submissionId, this.sectionId, this.fileId)
-          .filter((bitstream) => isNotUndefined(bitstream))
+          .getFileData(this.submissionId, this.sectionId, this.fileId).pipe(
+          filter((bitstream) => isNotUndefined(bitstream)))
           .subscribe((bitstream) => {
               this.fileData = bitstream;
             }
@@ -99,8 +100,8 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   }
 
   public downloadBitstreamFile() {
-    this.halService.getEndpoint('bitstreams')
-      .first()
+    this.halService.getEndpoint('bitstreams').pipe(
+      first())
       .subscribe((url) => {
         const fileUrl = `${url}/${this.fileData.uuid}/content`;
         this.fileService.downloadFile(fileUrl);
@@ -110,8 +111,8 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   public saveBitstreamData(event) {
     event.preventDefault();
     this.subscriptions.push(
-      this.formService.getFormData(this.formId)
-        .take(1)
+      this.formService.getFormData(this.formId).pipe(
+        first())
         .subscribe((formData: any) => {
           Object.keys((formData.metadata))
             .filter((key) => isNotEmpty(formData.metadata[key]))

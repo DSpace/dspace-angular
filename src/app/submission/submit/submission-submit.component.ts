@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { hasValue, isEmpty, isNotNull } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';

@@ -1,9 +1,11 @@
 import { Inject, OnDestroy, OnInit } from '@angular/core';
+
+import { Observable, Subscription } from 'rxjs';
+import { filter, startWith } from 'rxjs/operators';
+
 import { SectionDataObject } from './section-data.model';
-import { Observable } from 'rxjs/Observable';
 import { SectionsService } from '../sections.service';
 import { hasValue, isNotUndefined } from '../../../shared/empty.util';
-import { Subscription } from 'rxjs/Subscription';
 
 export interface SectionDataModel {
   sectionData: SectionDataObject
@@ -38,9 +40,9 @@ export abstract class SectionModelComponent implements OnDestroy, OnInit, Sectio
   protected abstract onSectionDestroy(): void;
 
   protected updateSectionStatus(): void {
-    this.sectionStatusSub = this.getSectionStatus()
-      .filter((sectionStatus: boolean) => isNotUndefined(sectionStatus))
-      .startWith(true)
+    this.sectionStatusSub = this.getSectionStatus().pipe(
+      filter((sectionStatus: boolean) => isNotUndefined(sectionStatus)),
+      startWith(true))
       .subscribe((sectionStatus: boolean) => {
         this.sectionService.setSectionStatus(this.submissionId, this.sectionData.id, sectionStatus);
       });

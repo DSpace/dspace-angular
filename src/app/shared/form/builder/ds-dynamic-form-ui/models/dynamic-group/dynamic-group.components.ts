@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { of as observableOf, Subscription } from 'rxjs';
+import { combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { filter, flatMap, map, mergeMap, scan } from 'rxjs/operators';
 import {
   DynamicFormControlComponent,
@@ -34,7 +34,6 @@ import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
-import { FormGroup } from '@angular/forms';
 import { hasOnlyEmptyProperties } from '../../../../../object.util';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -48,7 +47,7 @@ import { AuthorityValue } from '../../../../../../core/integration/models/author
   templateUrl: './dynamic-group.component.html',
   animations: [shrinkInOut]
 })
-export class DsDynamicGroupComponent implements OnDestroy, OnInit {
+export class DsDynamicGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
   @Input() formId: string;
   @Input() group: FormGroup;
@@ -78,7 +77,6 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
               protected validationService: DynamicFormValidationService
   ) {
     super(layoutService, validationService);
-
   }
 
   ngOnInit() {
@@ -244,21 +242,21 @@ export class DsDynamicGroupComponent implements OnDestroy, OnInit {
                   (model as any).maxOptions,
                   1);
 
-                return$ = this.authorityService.getEntryByValue(searchOptions)
-                  .map((result: IntegrationData) => Object.assign(
+                return$ = this.authorityService.getEntryByValue(searchOptions).pipe(
+                  map((result: IntegrationData) => Object.assign(
                     new FormFieldMetadataValueObject(),
                     valueObj[fieldName],
                     {
                       otherInformation: (result.payload[0] as AuthorityValue).otherInformation
                     })
-                  );
+                  ));
               } else {
                 return$ = observableOf(valueObj[fieldName]);
               }
-              return return$.map((entry) => ({[fieldName]: entry}));
+              return return$.pipe(map((entry) => ({[fieldName]: entry})));
             });
 
-            returnList.push(Observable.combineLatest(returnObj));
+            returnList.push(combineLatest(returnObj));
           });
           return returnList;
         }),

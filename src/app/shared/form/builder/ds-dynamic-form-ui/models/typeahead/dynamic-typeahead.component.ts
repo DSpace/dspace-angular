@@ -1,4 +1,3 @@
-
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -7,9 +6,8 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { distinctUntilChanged, switchMap, tap, filter, catchError, debounceTime, merge, map } from 'rxjs/operators';
-import {of as observableOf,  Observable } from 'rxjs';
-import { Subject } from 'rxjs/Subject';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, switchMap, tap } from 'rxjs/operators';
+import { Observable, of as observableOf, Subject } from 'rxjs';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';

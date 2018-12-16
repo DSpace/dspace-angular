@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { combineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
@@ -92,58 +93,58 @@ export class SectionsService {
   }
 
   public getSectionData(submissionId: string, sectionId: string): Observable<WorkspaceitemSectionDataType> {
-    return this.store.select(submissionSectionDataFromIdSelector(submissionId, sectionId))
-      .distinctUntilChanged();
+    return this.store.select(submissionSectionDataFromIdSelector(submissionId, sectionId)).pipe(
+      distinctUntilChanged());
   }
 
   public getSectionErrors(submissionId: string, sectionId: string): Observable<SubmissionSectionError[]> {
-    return this.store.select(submissionSectionErrorsFromIdSelector(submissionId, sectionId))
-      .distinctUntilChanged();
+    return this.store.select(submissionSectionErrorsFromIdSelector(submissionId, sectionId)).pipe(
+      distinctUntilChanged());
   }
 
   public getSectionState(submissionId: string, sectionId: string): Observable<SubmissionSectionObject> {
-    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
-      .filter((sectionObj: SubmissionSectionObject) => hasValue(sectionObj))
-      .map((sectionObj: SubmissionSectionObject) => sectionObj)
-      .distinctUntilChanged();
+    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
+      filter((sectionObj: SubmissionSectionObject) => hasValue(sectionObj)),
+      map((sectionObj: SubmissionSectionObject) => sectionObj),
+      distinctUntilChanged());
   }
 
   public isSectionValid(submissionId: string, sectionId: string): Observable<boolean> {
-    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
-      .filter((sectionObj) => hasValue(sectionObj))
-      .map((sectionObj: SubmissionSectionObject) => sectionObj.isValid)
-      .distinctUntilChanged();
+    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
+      filter((sectionObj) => hasValue(sectionObj)),
+      map((sectionObj: SubmissionSectionObject) => sectionObj.isValid),
+      distinctUntilChanged());
   }
 
   public isSectionActive(submissionId: string, sectionId: string): Observable<boolean> {
-    return this.submissionService.getActiveSectionId(submissionId)
-      .map((activeSectionId: string) => sectionId === activeSectionId)
-      .distinctUntilChanged();
+    return this.submissionService.getActiveSectionId(submissionId).pipe(
+      map((activeSectionId: string) => sectionId === activeSectionId),
+      distinctUntilChanged());
   }
 
   public isSectionEnabled(submissionId: string, sectionId: string): Observable<boolean> {
-    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
-      .filter((sectionObj) => hasValue(sectionObj))
-      .map((sectionObj: SubmissionSectionObject) => sectionObj.enabled)
-      .distinctUntilChanged();
+    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
+      filter((sectionObj) => hasValue(sectionObj)),
+      map((sectionObj: SubmissionSectionObject) => sectionObj.enabled),
+      distinctUntilChanged());
   }
 
   public isSectionReadOnly(submissionId: string, sectionId: string, submissionScope: SubmissionScopeType): Observable<boolean> {
-    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId))
-      .filter((sectionObj) => hasValue(sectionObj))
-      .map((sectionObj: SubmissionSectionObject) => {
+    return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
+      filter((sectionObj) => hasValue(sectionObj)),
+      map((sectionObj: SubmissionSectionObject) => {
         return sectionObj.visibility.other === 'READONLY' && submissionScope !== SubmissionScopeType.WorkspaceItem
-      })
-      .distinctUntilChanged();
+      }),
+      distinctUntilChanged());
   }
 
   public isSectionAvailable(submissionId: string, sectionId: string): Observable<boolean> {
-    return this.store.select(submissionObjectFromIdSelector(submissionId))
-      .filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState))
-      .map((submissionState: SubmissionObjectEntry) => {
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      filter((submissionState: SubmissionObjectEntry) => isNotUndefined(submissionState)),
+      map((submissionState: SubmissionObjectEntry) => {
         return isNotUndefined(submissionState.sections) && isNotUndefined(submissionState.sections[sectionId]);
-      })
-      .distinctUntilChanged();
+      }),
+      distinctUntilChanged());
   }
 
   public addSection(submissionId: string,
@@ -166,13 +167,13 @@ export class SectionsService {
       const isAvailable$ = this.isSectionAvailable(submissionId, sectionId);
       const isEnabled$ = this.isSectionEnabled(submissionId, sectionId);
 
-      Observable.combineLatest(isAvailable$, isEnabled$)
-        .take(1)
-        .filter(([available, enabled]: [boolean, boolean]) => available)
+      combineLatest(isAvailable$, isEnabled$).pipe(
+        take(1),
+        filter(([available, enabled]: [boolean, boolean]) => available))
         .subscribe(([available, enabled]: [boolean, boolean]) => {
           if (!enabled) {
             this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
-              .take(1)
+              .pipe(take(1))
               .subscribe((m) => {
                 this.notificationsService.info(null, m, null, true);
               });

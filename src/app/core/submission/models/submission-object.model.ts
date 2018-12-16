@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';

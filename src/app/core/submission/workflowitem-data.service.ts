@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResponseCacheService } from '../cache/response-cache.service';

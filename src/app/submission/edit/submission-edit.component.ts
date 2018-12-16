@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { hasValue, isEmpty, isNotNull } from '../../shared/empty.util';

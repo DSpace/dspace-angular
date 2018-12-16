@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 
+import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, take } from 'rxjs/operators';
 import { DynamicCheckboxModel, DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 import { SectionModelComponent } from '../models/section.model';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -63,11 +63,11 @@ export class LicenseSectionComponent extends SectionModelComponent {
     const model = this.formBuilderService.findById('granted', this.formModel);
 
     this.subs.push(
-      this.collectionDataService.findById(this.collectionId)
-        .filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload)))
-        .flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license)
-        .filter((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload)))
-        .take(1)
+      this.collectionDataService.findById(this.collectionId).pipe(
+        filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
+        flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license),
+        filter((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),
+        take(1))
         .subscribe((licenseData: RemoteData<License>) => {
           this.licenseText = licenseData.payload.text;
 
@@ -79,18 +79,22 @@ export class LicenseSectionComponent extends SectionModelComponent {
           }
 
           // Disable checkbox whether it's in workflow or item scope
-          this.sectionService.isSectionReadOnly(this.submissionId, this.sectionData.id, this.submissionService.getSubmissionScope())
-            .take(1)
-            .filter((isReadOnly) => isReadOnly)
+          this.sectionService.isSectionReadOnly(
+            this.submissionId,
+            this.sectionData.id,
+            this.submissionService.getSubmissionScope()
+          ).pipe(
+            take(1),
+            filter((isReadOnly) => isReadOnly))
             .subscribe(() => {
               model.disabled = true;
             });
           this.changeDetectorRef.detectChanges();
         }),
 
-      this.sectionService.getSectionErrors(this.submissionId, this.sectionData.id)
-        .filter((errors) => isNotEmpty(errors))
-        .distinctUntilChanged()
+      this.sectionService.getSectionErrors(this.submissionId, this.sectionData.id).pipe(
+        filter((errors) => isNotEmpty(errors)),
+        distinctUntilChanged())
         .subscribe((errors) => {
           // parse errors
           const newErrors = errors.map((error) => {
@@ -122,8 +126,8 @@ export class LicenseSectionComponent extends SectionModelComponent {
 
   protected getSectionStatus(): Observable<boolean> {
     const model = this.formBuilderService.findById('granted', this.formModel);
-    return (model as DynamicCheckboxModel).valueUpdates
-      .map((value) => value === true);
+    return (model as DynamicCheckboxModel).valueUpdates.pipe(
+      map((value) => value === true));
   }
 
   onChange(event: DynamicFormControlEvent) {

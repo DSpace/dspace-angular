@@ -1,13 +1,14 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+
+import { of as observableOf, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map } from 'rxjs/operators';
+
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionService } from '../submission.service';
-import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../core/auth/auth.service';
-import { Observable } from 'rxjs/Observable';
 import { SectionDataObject } from '../sections/models/section-data.model';
 import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
@@ -28,7 +29,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
   public definitionId: string;
   public test = true;
-  public loading: Observable<boolean> = Observable.of(true);
+  public loading: Observable<boolean> = observableOf(true);
   public submissionSections: Observable<any>;
   public uploadFilesOptions: UploaderOptions = {
     url: '',
@@ -51,29 +52,29 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     if (this.collectionId && this.submissionId) {
       this.isActive = true;
-      this.submissionSections = this.submissionService.getSubmissionObject(this.submissionId)
-        .filter(() => this.isActive)
-        .map((submission: SubmissionObjectEntry) => submission.isLoading)
-        .map((isLoading: boolean) => isLoading)
-        .distinctUntilChanged()
-        .flatMap((isLoading: boolean) => {
+      this.submissionSections = this.submissionService.getSubmissionObject(this.submissionId).pipe(
+        filter(() => this.isActive),
+        map((submission: SubmissionObjectEntry) => submission.isLoading),
+        map((isLoading: boolean) => isLoading),
+        distinctUntilChanged(),
+        flatMap((isLoading: boolean) => {
           if (!isLoading) {
             return this.getSectionsList();
           } else {
-            return Observable.of([])
+            return observableOf([])
           }
-        });
+        }));
 
-      this.loading = this.submissionService.getSubmissionObject(this.submissionId)
-        .filter(() => this.isActive)
-        .map((submission: SubmissionObjectEntry) => submission.isLoading)
-        .map((isLoading: boolean) => isLoading)
-        .distinctUntilChanged();
+      this.loading = this.submissionService.getSubmissionObject(this.submissionId).pipe(
+        filter(() => this.isActive),
+        map((submission: SubmissionObjectEntry) => submission.isLoading),
+        map((isLoading: boolean) => isLoading),
+        distinctUntilChanged());
 
       this.subs.push(
-        this.halService.getEndpoint('workspaceitems')
-          .filter((href: string) => isNotEmpty(href))
-          .distinctUntilChanged()
+        this.halService.getEndpoint('workspaceitems').pipe(
+          filter((href: string) => isNotEmpty(href)),
+          distinctUntilChanged())
           .subscribe((endpointURL) => {
             this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
             this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}`);
@@ -123,8 +124,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
   }
 
   protected getSectionsList(): Observable<any> {
-    return this.submissionService.getSubmissionSections(this.submissionId)
-      .filter((sections: SectionDataObject[]) => isNotEmpty(sections))
-      .map((sections: SectionDataObject[]) => sections);
+    return this.submissionService.getSubmissionSections(this.submissionId).pipe(
+      filter((sections: SectionDataObject[]) => isNotEmpty(sections)),
+      map((sections: SectionDataObject[]) => sections));
   }
 }

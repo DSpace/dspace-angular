@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of as observableOf } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 import { SectionsService } from '../../sections/sections.service';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
@@ -30,7 +31,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   public dropMsg = 'submission.sections.upload.drop-message';
 
   private subs = [];
-  private uploadEnabled: Observable<boolean> = Observable.of(false);
+  private uploadEnabled: Observable<boolean> = observableOf(false);
 
   public onBeforeUpload = () => {
     this.operationsService.jsonPatchByResourceType(
@@ -55,7 +56,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
     // Checks if upload section is enabled so do upload
     this.subs.push(
       this.uploadEnabled
-        .first()
+        .pipe(first())
         .subscribe((isUploadEnabled) => {
           if (isUploadEnabled) {
 

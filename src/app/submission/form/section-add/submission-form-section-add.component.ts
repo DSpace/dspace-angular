@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { SectionsService } from '../../sections/sections.service';
 import { HostWindowService } from '../../../shared/host-window.service';

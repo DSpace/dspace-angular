@@ -1,24 +1,22 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { Observable, of as observableOf } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
-import { Observable } from 'rxjs/Observable';
-import {tap} from 'rxjs/operators';
 
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { isNull, isUndefined } from '../../../../../empty.util';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
-
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -120,6 +118,6 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
         }
       }
     }
-    this.currentValue = Observable.of(result);
+    this.currentValue = observableOf(result);
   }
 }

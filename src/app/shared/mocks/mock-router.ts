@@ -1,7 +1,7 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable, of as observableOf } from 'rxjs';
 
 export class MockRouter {
-  public events = Observable.of({});
+  public events = observableOf({});
   public routerState = {
     snapshot: {
       url: ''

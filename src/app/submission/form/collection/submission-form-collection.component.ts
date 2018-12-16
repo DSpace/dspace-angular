@@ -10,7 +10,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 
 import { isNullOrUndefined } from 'util';
 import { Collection } from '../../../core/shared/collection.model';
@@ -26,7 +26,6 @@ import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-
 import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { Observable } from 'rxjs/Observable';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -144,14 +143,14 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         startWith('')
       );
 
-      this.searchListCollection$ = Observable.combineLatest(searchTerm$, listCollection$)
-        .map(([searchTerm, listCollection]) => {
+      this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
+        map(([searchTerm, listCollection]) => {
           if (searchTerm === '' || isNullOrUndefined(searchTerm)) {
             return listCollection;
           } else {
             return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5)
           }
-        });
+        }));
     }
   }
 

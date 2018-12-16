@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+
+import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { ResponseCacheService } from '../core/cache/response-cache.service';
 import { RequestService } from '../core/data/request.service';
 import { ResponseCacheEntry } from '../core/cache/response-cache.reducer';
-import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../core/cache/response-cache.models';
+import { SubmissionSuccessResponse } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
 import {
   ConfigRequest,
@@ -36,30 +38,55 @@ export class SubmissionRestService {
   }
 
   protected submitData(request: RestRequest): Observable<SubmitDataResponseDefinitionObject> {
-    const [successResponse, errorResponse] = this.responseCache.get(request.href)
+    const responses = this.responseCache.get(request.href).pipe(map((entry: ResponseCacheEntry) => entry.response));
+    const errorResponses = responses.pipe(
+      filter((response: SubmissionSuccessResponse) => !response.isSuccessful),
+      mergeMap(() => observableThrowError(new Error(`Couldn't send data to server`)))
+    );
+    const successResponses = responses.pipe(
+      filter((response: SubmissionSuccessResponse) => response.isSuccessful),
+      map((response: SubmissionSuccessResponse) => response.dataDefinition as any),
+      distinctUntilChanged()
+    );
+    return observableMerge(errorResponses, successResponses);
+/*    const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't send data to server`))),
+        observableThrowError(new Error(`Couldn't send data to server`))),
       successResponse
         .filter((response: SubmissionSuccessResponse) => isNotEmpty(response))
         .map((response: SubmissionSuccessResponse) => response.dataDefinition)
-        .distinctUntilChanged());
+        .distinctUntilChanged());*/
   }
 
   protected fetchRequest(request: RestRequest): Observable<SubmitDataResponseDefinitionObject> {
-    const [successResponse, errorResponse] = this.responseCache.get(request.href)
+    const responses = this.responseCache.get(request.href).pipe(
+      map((entry: ResponseCacheEntry) => entry.response),
+      tap(() => this.responseCache.remove(request.href)));
+    const errorResponses = responses.pipe(
+      filter((response: SubmissionSuccessResponse) => !response.isSuccessful),
+      mergeMap(() => observableThrowError(new Error(`Couldn't retrieve the data`)))
+    );
+    const successResponses = responses.pipe(
+      filter((response: SubmissionSuccessResponse) => response.isSuccessful && isNotEmpty(response)),
+      map((response: SubmissionSuccessResponse) => response.dataDefinition as any),
+      distinctUntilChanged()
+    );
+    return observableMerge(errorResponses, successResponses);
+
+/*    const [successResponse, errorResponse] = this.responseCache.get(request.href)
       .map((entry: ResponseCacheEntry) => entry.response)
       .do(() => this.responseCache.remove(request.href))
       .partition((response: RestResponse) => response.isSuccessful);
     return Observable.merge(
       errorResponse.flatMap((response: ErrorResponse) =>
-        Observable.throw(new Error(`Couldn't retrieve the data`))),
+        observableThrowError(new Error(`Couldn't retrieve the data`))),
       successResponse
         .filter((response: SubmissionSuccessResponse) => isNotEmpty(response))
         .map((response: SubmissionSuccessResponse) => response.dataDefinition)
-        .distinctUntilChanged());
+        .distinctUntilChanged());*/
   }
 
   protected getEndpointByIDHref(endpoint, resourceID): string {
@@ -67,14 +94,14 @@ export class SubmissionRestService {
   }
 
   public deleteById(scopeId: string, linkName?: string): Observable<SubmitDataResponseDefinitionObject> {
-    return this.halService.getEndpoint(linkName || this.linkPath)
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
-      .map((endpointURL: string) => new SubmissionDeleteRequest(this.requestService.generateRequestId(), endpointURL))
-      .do((request: DeleteRequest) => this.requestService.configure(request))
-      .flatMap((request: DeleteRequest) => this.submitData(request))
-      .distinctUntilChanged();
+    return this.halService.getEndpoint(linkName || this.linkPath).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
+      map((endpointURL: string) => new SubmissionDeleteRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: DeleteRequest) => this.requestService.configure(request)),
+      flatMap((request: DeleteRequest) => this.submitData(request)),
+      distinctUntilChanged());
   }
 
   public getDataByHref(href: string, options?: HttpOptions): Observable<any> {
@@ -85,36 +112,36 @@ export class SubmissionRestService {
   }
 
   public getDataById(linkName: string, id: string): Observable<any> {
-    return this.halService.getEndpoint(linkName)
-      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id))
-      .filter((href: string) => isNotEmpty(href))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new SubmissionRequest(this.requestService.generateRequestId(), endpointURL))
-      .do((request: RestRequest) => this.requestService.configure(request, true))
-      .flatMap((request: RestRequest) => this.fetchRequest(request))
-      .distinctUntilChanged();
+    return this.halService.getEndpoint(linkName).pipe(
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id)),
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new SubmissionRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: RestRequest) => this.requestService.configure(request, true)),
+      flatMap((request: RestRequest) => this.fetchRequest(request)),
+      distinctUntilChanged());
   }
 
   public postToEndpoint(linkName: string, body: any, scopeId?: string, options?: HttpOptions): Observable<SubmitDataResponseDefinitionObject> {
-    return this.halService.getEndpoint(linkName)
-      .filter((href: string) => isNotEmpty(href))
-      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new SubmissionPostRequest(this.requestService.generateRequestId(), endpointURL, body, options))
-      .do((request: PostRequest) => this.requestService.configure(request, true))
-      .flatMap((request: PostRequest) => this.submitData(request))
-      .distinctUntilChanged();
+    return this.halService.getEndpoint(linkName).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new SubmissionPostRequest(this.requestService.generateRequestId(), endpointURL, body, options)),
+      tap((request: PostRequest) => this.requestService.configure(request, true)),
+      flatMap((request: PostRequest) => this.submitData(request)),
+      distinctUntilChanged());
   }
 
   public patchToEndpoint(linkName: string, body: any, scopeId?: string): Observable<SubmitDataResponseDefinitionObject> {
-    return this.halService.getEndpoint(linkName)
-      .filter((href: string) => isNotEmpty(href))
-      .map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId))
-      .distinctUntilChanged()
-      .map((endpointURL: string) => new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body))
-      .do((request: PostRequest) => this.requestService.configure(request, true))
-      .flatMap((request: PostRequest) => this.submitData(request))
-      .distinctUntilChanged();
+    return this.halService.getEndpoint(linkName).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body)),
+      tap((request: PostRequest) => this.requestService.configure(request, true)),
+      flatMap((request: PostRequest) => this.submitData(request)),
+      distinctUntilChanged());
   }
 
 }

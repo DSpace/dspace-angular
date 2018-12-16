@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { isEqual } from 'lodash';
 
@@ -70,12 +70,29 @@ export class FormSectionComponent extends SectionModelComponent {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formId = this.formService.getUniqueId(this.sectionData.id);
 
-    this.formConfigService.getConfigByHref(this.sectionData.config)
-      .map((config: ConfigData) => config.payload)
+    this.formConfigService.getConfigByHref(this.sectionData.config).pipe(
+      map((configData: ConfigData) => configData.payload),
+      tap((config: SubmissionFormsModel) => this.formConfig = config),
+      flatMap((config: ConfigData) => this.sectionService.getSectionData(this.submissionId, this.sectionData.id)),
+      take(1))
+      .subscribe((sectionData: WorkspaceitemSectionDataType) => {
+          if (isUndefined(this.formModel)) {
+            this.sectionData.errors = [];
+            // Is the first loading so init form
+            this.initForm(sectionData);
+            this.sectionData.data = sectionData;
+            this.subscriptions();
+            this.isLoading = false;
+            this.cdr.detectChanges();
+          }
+        })
+
+/*    this.formConfigService.getConfigByHref(this.sectionData.config).pipe(
+      map((config: ConfigData) => config.payload))
       .subscribe((config: SubmissionFormsModel) => {
         this.formConfig = config;
-        this.sectionService.getSectionData(this.submissionId, this.sectionData.id)
-          .take(1)
+        this.sectionService.getSectionData(this.submissionId, this.sectionData.id).pipe(
+          take(1))
           .subscribe((sectionData: WorkspaceitemSectionDataType) => {
             if (isUndefined(this.formModel)) {
               this.sectionData.errors = [];
@@ -87,7 +104,7 @@ export class FormSectionComponent extends SectionModelComponent {
               this.cdr.detectChanges();
             }
           })
-      });
+      });*/
   }
 
   onSectionDestroy() {
@@ -142,7 +159,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data) && this.hasMetadataEnrichment(sectionData)) {
       this.translate.get('submission.sections.general.metadata-extracted', {sectionId: this.sectionData.id})
-        .take(1)
+        .pipe(take(1))
         .subscribe((m) => {
           this.notificationsService.info(null, m, null, true);
         });
@@ -161,9 +178,9 @@ export class FormSectionComponent extends SectionModelComponent {
   }
 
   checksForErrors(errors: SubmissionSectionError[]) {
-    this.formService.isFormInitialized(this.formId)
-      .filter((status: boolean) => status === true && !this.isUpdating)
-      .take(1)
+    this.formService.isFormInitialized(this.formId).pipe(
+      filter((status: boolean) => status === true && !this.isUpdating),
+      take(1))
       .subscribe(() => {
         this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errors);
         this.sectionData.errors = errors;
@@ -177,19 +194,19 @@ export class FormSectionComponent extends SectionModelComponent {
       /**
        * Subscribe to form's data
        */
-      this.formService.getFormData(this.formId)
-        .distinctUntilChanged()
+      this.formService.getFormData(this.formId).pipe(
+        distinctUntilChanged())
         .subscribe((formData) => {
           this.formData = formData;
         }),
       /**
        * Subscribe to section state
        */
-      this.sectionService.getSectionState(this.submissionId, this.sectionData.id)
-        .filter((sectionState: SubmissionSectionObject) => {
+      this.sectionService.getSectionState(this.submissionId, this.sectionData.id).pipe(
+        filter((sectionState: SubmissionSectionObject) => {
           return isNotEmpty(sectionState) && (isNotEmpty(sectionState.data) || isNotEmpty(sectionState.errors))
-        })
-        .distinctUntilChanged()
+        }),
+        distinctUntilChanged())
         .subscribe((sectionState: SubmissionSectionObject) => {
           this.updateForm(sectionState.data, sectionState.errors);
         })

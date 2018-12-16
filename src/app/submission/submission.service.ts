@@ -1,16 +1,21 @@
 import { Inject, Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
+import { catchError, distinctUntilChanged, filter, first, map, startWith } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
-  DiscardSubmissionAction, InitSubmissionFormAction, ResetSubmissionFormAction,
+  DiscardSubmissionAction,
+  InitSubmissionFormAction,
+  ResetSubmissionFormAction,
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormAction,
   SaveSubmissionFormAction,
@@ -18,13 +23,13 @@ import {
 } from './objects/submission-objects.actions';
 import {
   SubmissionObjectEntry,
-  SubmissionSectionEntry, SubmissionSectionError,
+  SubmissionSectionEntry,
+  SubmissionSectionError,
   SubmissionSectionObject
 } from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { GlobalConfig } from '../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../config';
-import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionRestService } from './submission-rest.service';
 import { SectionDataObject } from './sections/models/section-data.model';
@@ -32,9 +37,7 @@ import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
 import { RouteService } from '../shared/services/route.service';
 import { SectionsType } from './sections/sections-type';
-import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../shared/notifications/notifications.service';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
 
@@ -59,9 +62,9 @@ export class SubmissionService {
   }
 
   createSubmission(): Observable<SubmissionObject> {
-    return this.restService.postToEndpoint('workspaceitems', {})
-      .map((workspaceitem: SubmissionObject) => workspaceitem[0])
-      .catch(() => Observable.of({}))
+    return this.restService.postToEndpoint('workspaceitems', {}).pipe(
+      map((workspaceitem: SubmissionObject) => workspaceitem[0]),
+      catchError(() => observableOf({})))
   }
 
   depositSubmission(selfUrl: string): Observable<any> {
@@ -107,21 +110,21 @@ export class SubmissionService {
   }
 
   getActiveSectionId(submissionId: string): Observable<string> {
-    return this.getSubmissionObject(submissionId)
-      .map((submission: SubmissionObjectEntry) => submission.activeSection);
+    return this.getSubmissionObject(submissionId).pipe(
+      map((submission: SubmissionObjectEntry) => submission.activeSection));
   }
 
   getSubmissionObject(submissionId: string): Observable<SubmissionObjectEntry> {
-    return this.store.select(submissionObjectFromIdSelector(submissionId))
-      .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
+    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+      filter((submission: SubmissionObjectEntry) => isNotUndefined(submission)));
   }
 
   getSubmissionSections(submissionId: string): Observable<SectionDataObject[]> {
-    return this.getSubmissionObject(submissionId)
-      .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission.sections) && !submission.isLoading)
-      .take(1)
-      .map((submission: SubmissionObjectEntry) => submission.sections)
-      .map((sections: SubmissionSectionEntry) => {
+    return this.getSubmissionObject(submissionId).pipe(
+      filter((submission: SubmissionObjectEntry) => isNotUndefined(submission.sections) && !submission.isLoading),
+      first(),
+      map((submission: SubmissionObjectEntry) => submission.sections),
+      map((sections: SubmissionSectionEntry) => {
         const availableSections: SectionDataObject[] = [];
         Object.keys(sections)
           .filter((sectionId) => !this.isSectionHidden(sections[sectionId] as SubmissionSectionObject))
@@ -137,16 +140,16 @@ export class SubmissionService {
             availableSections.push(sectionObject);
           });
         return availableSections;
-      })
-      .startWith([])
-      .distinctUntilChanged();
+      }),
+      startWith([]),
+      distinctUntilChanged());
   }
 
   getDisabledSectionsList(submissionId: string): Observable<SectionDataObject[]> {
-    return this.getSubmissionObject(submissionId)
-      .filter((submission: SubmissionObjectEntry) => isNotUndefined(submission.sections) && !submission.isLoading)
-      .map((submission: SubmissionObjectEntry) => submission.sections)
-      .map((sections: SubmissionSectionEntry) => {
+    return this.getSubmissionObject(submissionId).pipe(
+      filter((submission: SubmissionObjectEntry) => isNotUndefined(submission.sections) && !submission.isLoading),
+      map((submission: SubmissionObjectEntry) => submission.sections),
+      map((sections: SubmissionSectionEntry) => {
         const disabledSections: SectionDataObject[] = [];
         Object.keys(sections)
           .filter((sectionId) => !this.isSectionHidden(sections[sectionId] as SubmissionSectionObject))
@@ -158,9 +161,9 @@ export class SubmissionService {
             disabledSections.push(sectionObject);
           });
         return disabledSections;
-      })
-      .startWith([])
-      .distinctUntilChanged();
+      }),
+      startWith([]),
+      distinctUntilChanged());
   }
 
   getSubmissionObjectLinkName(): string {
@@ -191,11 +194,11 @@ export class SubmissionService {
   }
 
   getSubmissionStatus(submissionId: string): Observable<boolean> {
-    return this.store.select(submissionSelector)
-      .map((submissions: SubmissionState) => submissions.objects[submissionId])
-      .filter((item) => isNotUndefined(item) && isNotUndefined(item.sections))
-      .map((item) => item.sections)
-      .map((sections) => {
+    return this.store.select(submissionSelector).pipe(
+      map((submissions: SubmissionState) => submissions.objects[submissionId]),
+      filter((item) => isNotUndefined(item) && isNotUndefined(item.sections)),
+      map((item) => item.sections),
+      map((sections) => {
         const states = [];
 
         if (isNotUndefined(sections)) {
@@ -210,23 +213,23 @@ export class SubmissionService {
         }
 
         return !isEmpty(sections) && isEmpty(states);
-      })
-      .distinctUntilChanged()
-      .startWith(false);
+      }),
+      distinctUntilChanged(),
+      startWith(false));
   }
 
   getSubmissionSaveProcessingStatus(submissionId: string): Observable<boolean> {
-    return this.getSubmissionObject(submissionId)
-      .map((state: SubmissionObjectEntry) => state.savePending)
-      .distinctUntilChanged()
-      .startWith(false);
+    return this.getSubmissionObject(submissionId).pipe(
+      map((state: SubmissionObjectEntry) => state.savePending),
+      distinctUntilChanged(),
+      startWith(false));
   }
 
   getSubmissionDepositProcessingStatus(submissionId: string): Observable<boolean> {
-    return this.getSubmissionObject(submissionId)
-      .map((state: SubmissionObjectEntry) => state.depositPending)
-      .distinctUntilChanged()
-      .startWith(false);
+    return this.getSubmissionObject(submissionId).pipe(
+      map((state: SubmissionObjectEntry) => state.depositPending),
+      distinctUntilChanged(),
+      startWith(false));
   }
 
   isSectionHidden(sectionData: SubmissionSectionObject) {
@@ -237,14 +240,14 @@ export class SubmissionService {
   }
 
   isSubmissionLoading(submissionId: string): Observable<boolean> {
-    return this.getSubmissionObject(submissionId)
-      .map((submission: SubmissionObjectEntry) => submission.isLoading)
-      .distinctUntilChanged()
+    return this.getSubmissionObject(submissionId).pipe(
+      map((submission: SubmissionObjectEntry) => submission.isLoading),
+      distinctUntilChanged());
   }
 
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
-    this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
-      .take(1)
+    this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId}).pipe(
+      first())
       .subscribe((m) => {
         this.notificationsService.info(null, m, null, true);
       });
@@ -274,10 +277,10 @@ export class SubmissionService {
   }
 
   retrieveSubmission(submissionId): Observable<SubmissionObject> {
-    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId)
-      .filter((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects))
-      .take(1)
-      .map((submissionObjects: SubmissionObject[]) => submissionObjects[0]);
+    return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId).pipe(
+      filter((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
+      first(),
+      map((submissionObjects: SubmissionObject[]) => submissionObjects[0]));
   }
 
   setActiveSection(submissionId, sectionId) {
@@ -291,7 +294,7 @@ export class SubmissionService {
     // Retrieve interval from config and convert to milliseconds
     const duration = this.EnvConfig.submission.autosave.timer * (1000 * 60);
     // Dispatch save action after given duration
-    this.timerObs = Observable.timer(duration, duration);
+    this.timerObs = observableTimer(duration, duration);
     this.autoSaveSub = this.timerObs
       .subscribe(() => this.store.dispatch(new SaveSubmissionFormAction(submissionId)));
   }

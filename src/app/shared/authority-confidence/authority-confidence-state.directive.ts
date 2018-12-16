@@ -91,7 +91,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
 
     const confidenceIndex: number = findIndex(confidenceIcons, {value: confidence});
 
-    const defaultconfidenceIndex: number = findIndex(confidenceIcons, {value: 'default'});
+    const defaultconfidenceIndex: number = findIndex(confidenceIcons, {value: 'default' as  any});
     const defaultClass: string = (defaultconfidenceIndex !== -1) ? confidenceIcons[defaultconfidenceIndex].style : '';
 
     return (confidenceIndex !== -1) ? confidenceIcons[confidenceIndex].style : defaultClass;

@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import { combineLatest, forkJoin as observableForkJoin, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, take } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
@@ -79,30 +80,30 @@ export class UploadSectionComponent extends SectionModelComponent {
   }
 
   onSectionInit() {
-    const config$ = this.uploadsConfigService.getConfigByHref(this.sectionData.config)
-      .map((config) => config.payload);
+    const config$ = this.uploadsConfigService.getConfigByHref(this.sectionData.config).pipe(
+      map((config) => config.payload));
 
-    this.configMetadataForm$ = config$
-      .take(1)
-      .map((config: SubmissionUploadsModel) => config.metadata);
+    this.configMetadataForm$ = config$.pipe(
+      take(1),
+      map((config: SubmissionUploadsModel) => config.metadata));
 
     this.subs.push(
-      this.submissionService.getSubmissionObject(this.submissionId)
-        .filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading)
-        .filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection)
+      this.submissionService.getSubmissionObject(this.submissionId).pipe(
+        filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading),
+        filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection))
         .subscribe((submissionObject: SubmissionObjectEntry) => {
           this.collectionId = submissionObject.collection;
-          this.collectionDataService.findById(this.collectionId)
-            .filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload)))
-            .take(1)
+          this.collectionDataService.findById(this.collectionId).pipe(
+            filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
+            take(1))
             .subscribe((collectionRemoteData: RemoteData<Collection>) => {
               this.collectionName = collectionRemoteData.payload.name;
 
               // Default Access Conditions
-              this.subs.push(collectionRemoteData.payload.defaultAccessConditions
-                .filter((defaultAccessConditionsRemoteData: RemoteData<PaginatedList<ResourcePolicy>>) =>
-                  defaultAccessConditionsRemoteData.hasSucceeded)
-                .take(1)
+              this.subs.push(collectionRemoteData.payload.defaultAccessConditions.pipe(
+                filter((defaultAccessConditionsRemoteData: RemoteData<PaginatedList<ResourcePolicy>>) =>
+                  defaultAccessConditionsRemoteData.hasSucceeded),
+                take(1))
                 .subscribe((defaultAccessConditionsRemoteData: RemoteData<PaginatedList<ResourcePolicy>>) => {
 
                   if (isNotEmpty(defaultAccessConditionsRemoteData.payload)) {
@@ -111,8 +112,8 @@ export class UploadSectionComponent extends SectionModelComponent {
                   }
 
                   // Edit Form Configuration, access policy list
-                  this.subs.push(config$
-                    .take(1)
+                  this.subs.push(config$.pipe(
+                    take(1))
                     .subscribe((config: SubmissionUploadsModel) => {
 
                       this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
@@ -127,16 +128,16 @@ export class UploadSectionComponent extends SectionModelComponent {
                       this.availableAccessConditionOptions.forEach((accessCondition: AccessConditionOption) => {
                         if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
                           groupsObs.push(
-                            this.groupService.findById(accessCondition.groupUUID)
-                              .filter((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded)
-                              .take(1)
+                            this.groupService.findById(accessCondition.groupUUID).pipe(
+                              filter((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
+                              take(1))
                           );
                         }
                       });
                       let obsCounter = 1;
-                      Observable.forkJoin(groupsObs)
-                        .flatMap((group) => group)
-                        .take(groupsObs.length)
+                      observableForkJoin(groupsObs).pipe(
+                        flatMap((group) => group),
+                        take(groupsObs.length))
                         .subscribe((rd: RemoteData<Group>) => {
                           const group: Group = rd.payload;
                           if (isUndefined(this.availableGroups.get(group.uuid))) {
@@ -161,12 +162,12 @@ export class UploadSectionComponent extends SectionModelComponent {
             })
         })
       ,
-      Observable.combineLatest(this.configMetadataForm$,
-        this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id))
-        .filter(([configMetadataForm, fileList]:[SubmissionFormsModel, any[]]) => {
+      combineLatest(this.configMetadataForm$,
+        this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)).pipe(
+        filter(([configMetadataForm, fileList]:[SubmissionFormsModel, any[]]) => {
           return isNotEmpty(configMetadataForm) && isNotUndefined(fileList)
-        })
-        .distinctUntilChanged()
+        }),
+        distinctUntilChanged())
         .subscribe(([configMetadataForm, fileList]:[SubmissionFormsModel, any[]]) => {
             this.fileList = [];
             this.fileIndexes = [];
@@ -198,8 +199,8 @@ export class UploadSectionComponent extends SectionModelComponent {
   }
 
   protected getSectionStatus(): Observable<boolean> {
-    return this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)
-      .map((fileList: any[]) => (isNotUndefined(fileList) && fileList.length > 0));
+    return this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id).pipe(
+      map((fileList: any[]) => (isNotUndefined(fileList) && fileList.length > 0)));
   }
 
   /**

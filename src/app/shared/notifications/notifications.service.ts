@@ -1,17 +1,17 @@
-import { of as observableOf, Observable } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
+
+import { of as observableOf } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { uniqueId } from 'lodash';
+
 import { INotification, Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import { NotificationOptions } from './models/notification-options.model';
-import { uniqueId } from 'lodash';
-import { Store } from '@ngrx/store';
-import {
-  NewNotificationAction,
-  RemoveAllNotificationsAction,
-  RemoveNotificationAction
-} from './notifications.actions';
+
+import { NewNotificationAction, RemoveAllNotificationsAction, RemoveNotificationAction } from './notifications.actions';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class NotificationsService {
@@ -70,7 +70,7 @@ export class NotificationsService {
                          messageTranslateLabel: string,
                          interpolateParam: string) {
     this.translate.get(hrefTranslateLabel)
-      .take(1)
+      .pipe(first())
       .subscribe((hrefMsg) => {
         const anchor = `<a class="btn btn-link p-0 m-0" href="${href}" >
                         <strong>${hrefMsg}</strong>
@@ -78,7 +78,7 @@ export class NotificationsService {
         const interpolateParams = Object.create({});
         interpolateParams[interpolateParam] = anchor;
         this.translate.get(messageTranslateLabel, interpolateParams)
-          .take(1)
+          .pipe(first())
           .subscribe((m) => {
             switch (notificationType) {
               case NotificationType.Success:

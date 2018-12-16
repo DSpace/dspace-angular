@@ -1,4 +1,4 @@
-import { Observable, of as observableOf, throwError as observableThrowError, merge as observableMerge } from 'rxjs';
+import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';

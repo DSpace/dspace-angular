@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { uniq } from 'lodash';
 
 import { SectionsService } from './sections.service';
@@ -33,17 +33,17 @@ export class SectionsDirective implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.valid = this.sectionService.isSectionValid(this.submissionId, this.sectionId)
-      .map((valid: boolean) => {
+    this.valid = this.sectionService.isSectionValid(this.submissionId, this.sectionId).pipe(
+      map((valid: boolean) => {
         if (valid) {
           this.resetErrors();
         }
         return valid;
-      });
+      }));
 
     this.subs.push(
-      this.sectionService.getSectionState(this.submissionId, this.sectionId)
-        .map((state: SubmissionSectionObject) => state.errors)
+      this.sectionService.getSectionState(this.submissionId, this.sectionId).pipe(
+        map((state: SubmissionSectionObject) => state.errors))
         .subscribe((errors: SubmissionSectionError[]) => {
           if (isNotEmpty(errors)) {
             errors.forEach((errorItem: SubmissionSectionError) => {
