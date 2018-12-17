@@ -13,7 +13,7 @@ import {findSuccessfulAccordingTo} from '../edit-item-operators';
 import {getItemEditPath} from '../../item-page-routing.module';
 
 /**
- * Component to render and handle simple item ecit actions such as withdrawal and reinstatement.
+ * Component to render and handle simple item edit actions such as withdrawal and reinstatement.
  * This component is not meant to be used itself but to be extended.
  */
 @Component({
@@ -58,14 +58,14 @@ export class AbstractSimpleItemActionComponent implements OnInit {
   }
 
   /**
-   * Perform the operation linked to this actions
+   * Perform the operation linked to this action
    */
   performAction() {
     // Overwrite in subclasses
   };
 
   /**
-   * Process the response obtained during the performAction method and navigate back to the edit oage
+   * Process the response obtained during the performAction method and navigate back to the edit page
    * @param response from the action in the performAction method
    */
   processRestResponse(response: RestResponse) {
