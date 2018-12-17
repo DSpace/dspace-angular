@@ -1,4 +1,4 @@
-import { delay, exhaustMap, first, map, switchMap } from 'rxjs/operators';
+import { delay, exhaustMap, first, map, switchMap, tap } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
@@ -38,7 +38,9 @@ export class ServerSyncBufferEffects {
       exhaustMap((action: AddToSSBAction) => {
         const autoSyncConfig = this.EnvConfig.cache.autoSync;
         const timeoutInSeconds = autoSyncConfig.timePerMethod[action.payload.method] || autoSyncConfig.defaultTime;
-        return observableOf(new CommitSSBAction(action.payload.method)).pipe(delay(timeoutInSeconds * 1000))
+        return observableOf(new CommitSSBAction(action.payload.method)).pipe(
+          delay(timeoutInSeconds * 1000),
+        )
       })
     );
 
@@ -54,6 +56,7 @@ export class ServerSyncBufferEffects {
       switchMap((action: CommitSSBAction) => {
         return this.store.pipe(
           select(serverSyncBufferSelector()),
+          first(), /* necessary, otherwise delay will not have any effect after the first run */
           switchMap((bufferState: ServerSyncBufferState) => {
             const actions: Array<Observable<Action>> = bufferState.buffer
               .filter((entry: ServerSyncBufferEntry) => {

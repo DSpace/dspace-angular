@@ -141,7 +141,7 @@ export class ErrorResponse extends RestResponse {
 
   constructor(error: RequestError) {
     super(false, error.statusText);
-    // console.error(error);
+    console.error(error);
     this.errorMessage = error.message;
   }
 }

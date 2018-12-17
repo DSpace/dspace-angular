@@ -15,7 +15,7 @@ export const ServerSyncBufferActionTypes = {
 /* tslint:disable:max-classes-per-file */
 
 /**
- * An ngrx action to add a new cached object to the server's sync buffer
+ * An ngrx action to add a new cached object to the server sync buffer
  */
 export class AddToSSBAction implements Action {
   type = ServerSyncBufferActionTypes.ADD;

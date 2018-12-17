@@ -1,4 +1,4 @@
-import { distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
+import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
@@ -52,8 +52,8 @@ export class MetadataService {
         route = this.getCurrentRoute(route);
         return { params: route.params, data: route.data };
       }),).subscribe((routeInfo: any) => {
-        this.processRouteChange(routeInfo);
-      });
+      this.processRouteChange(routeInfo);
+    });
   }
 
   public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
@@ -259,18 +259,30 @@ export class MetadataService {
   private setCitationPdfUrlTag(): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
-      item.getFiles().pipe(filter((files) => isNotEmpty(files)),first(),).subscribe((bitstreams: Bitstream[]) => {
-        for (const bitstream of bitstreams) {
-          bitstream.format.pipe(first(),
-            map((rd: RemoteData<BitstreamFormat>) => rd.payload),
-            filter((format: BitstreamFormat) => hasValue(format)),)
-            .subscribe((format: BitstreamFormat) => {
-              if (format.mimetype === 'application/pdf') {
-                this.addMetaTag('citation_pdf_url', bitstream.content);
-              }
-            });
-        }
-      });
+      item.getFiles()
+        .pipe(
+          first((files) => isNotEmpty(files)),
+          catchError((error) => {
+            console.debug(error.message);
+            return []
+          }))
+        .subscribe((bitstreams: Bitstream[]) => {
+          for (const bitstream of bitstreams) {
+            bitstream.format.pipe(
+              first(),
+              catchError((error: Error) => {
+                console.debug(error.message);
+                return []
+              }),
+              map((rd: RemoteData<BitstreamFormat>) => rd.payload),
+              filter((format: BitstreamFormat) => hasValue(format)))
+              .subscribe((format: BitstreamFormat) => {
+                if (format.mimetype === 'application/pdf') {
+                  this.addMetaTag('citation_pdf_url', bitstream.content);
+                }
+              });
+          }
+        });
     }
   }
 

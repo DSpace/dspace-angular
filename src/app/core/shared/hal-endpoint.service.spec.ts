@@ -15,6 +15,28 @@ describe('HALEndpointService', () => {
 
   const endpointMap = {
     test: 'https://rest.api/test',
+    foo: 'https://rest.api/foo',
+    bar: 'https://rest.api/bar',
+    endpoint: 'https://rest.api/endpoint',
+    link: 'https://rest.api/link',
+    another: 'https://rest.api/another',
+  };
+  const start = 'http://start.com';
+  const one = 'http://one.com';
+  const two = 'http://two.com';
+  const endpointMaps = {
+    [start]: {
+      one: one,
+      two: 'empty',
+      endpoint: 'https://rest.api/endpoint',
+      link: 'https://rest.api/link',
+      another: 'https://rest.api/another',
+    },
+    [one]: {
+      one: 'empty',
+      two: two,
+      bar: 'https://rest.api/bar',
+    }
   };
   const linkPath = 'test';
 
@@ -77,6 +99,50 @@ describe('HALEndpointService', () => {
       const result = service.getEndpoint('unknown');
       const expected = cold('b-', { b: undefined });
       expect(result).toBeObservable(expected);
+    });
+  });
+
+  describe('getEndpointAt', () => {
+    it('should throw an error when the list of hal endpoint names is empty', () => {
+      const endpointAtWithoutEndpointNames = () => {
+        (service as any).getEndpointAt('')
+      };
+      expect(endpointAtWithoutEndpointNames).toThrow();
+    });
+
+    it('should be at least called as many times as the length of halNames', () => {
+      spyOn(service as any, 'getEndpointMapAt').and.returnValue(observableOf(endpointMap));
+      spyOn((service as any), 'getEndpointAt').and.callThrough();
+
+      (service as any).getEndpointAt('', 'endpoint').subscribe();
+
+      expect((service as any).getEndpointAt.calls.count()).toEqual(1);
+
+      (service as any).getEndpointAt.calls.reset();
+
+      (service as any).getEndpointAt('', 'endpoint', 'another').subscribe();
+
+      expect((service as any).getEndpointAt.calls.count()).toBeGreaterThanOrEqual(2);
+
+      (service as any).getEndpointAt.calls.reset();
+
+      (service as any).getEndpointAt('', 'endpoint', 'another', 'foo', 'bar', 'test').subscribe();
+
+      expect((service as any).getEndpointAt.calls.count()).toBeGreaterThanOrEqual(5);
+    });
+
+    it('should return the correct endpoint', () => {
+      spyOn(service as any, 'getEndpointMapAt').and.callFake((param) => {
+        return observableOf(endpointMaps[param]);
+      });
+
+      (service as any).getEndpointAt(start, 'one').subscribe((endpoint) => {
+        expect(endpoint).toEqual(one);
+      });
+
+      (service as any).getEndpointAt(start, 'one', 'two').subscribe((endpoint) => {
+        expect(endpoint).toEqual(two);
+      });
     });
   });
 

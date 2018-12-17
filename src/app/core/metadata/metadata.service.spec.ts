@@ -32,9 +32,9 @@ import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { AuthService } from '../auth/auth.service';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
+import { EmptyError } from 'rxjs/internal-compatibility';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -183,6 +183,22 @@ describe('MetadataService', () => {
     expect(tagStore.get('title')[0].content).toEqual('Dummy Title');
     expect(tagStore.get('description')[0].content).toEqual('This is a dummy item component for testing!');
   }));
+
+  describe('when the item has no bitstreams', () => {
+
+    beforeEach(() => {
+      spyOn(MockItem, 'getFiles').and.returnValue(observableOf([]));
+    });
+
+    it('processRemoteData should not produce an EmptyError', fakeAsync(() => {
+      spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(MockItem));
+      spyOn(metadataService, 'processRemoteData').and.callThrough();
+      router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
+      tick();
+      expect(metadataService.processRemoteData).not.toThrow(new EmptyError());
+    }));
+
+  });
 
   const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
     return observableOf(new RemoteData<Item>(

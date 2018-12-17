@@ -15,10 +15,17 @@ import { SearchResult } from '../../+search-page/search-result.model';
  * This file contains custom RxJS operators that can be used in multiple places
  */
 
-export const getRequestFromSelflink = (requestService: RequestService) =>
+export const getRequestFromRequestHref = (requestService: RequestService) =>
   (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
       flatMap((href: string) => requestService.getByHref(href)),
+      hasValueOperator()
+    );
+
+export const getRequestFromRequestUUID = (requestService: RequestService) =>
+  (source: Observable<string>): Observable<RequestEntry> =>
+    source.pipe(
+      flatMap((uuid: string) => requestService.getByUUID(uuid)),
       hasValueOperator()
     );
 

@@ -76,7 +76,7 @@ export class RequestService {
   }
 
   getByUUID(uuid: string): Observable<RequestEntry> {
-     return observableRace(
+    return observableRace(
       this.store.pipe(select(this.entryFromUUIDSelector(uuid))),
       this.store.pipe(
         select(this.originalUUIDFromUUIDSelector(uuid)),
@@ -94,6 +94,12 @@ export class RequestService {
     );
   }
 
+  /**
+   * Configure a certain request
+   * Used to make sure a request is in the cache
+   * @param {RestRequest} request The request to send out
+   * @param {boolean} forceBypassCache When true, a new request is always dispatched
+   */
   // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
@@ -113,6 +119,11 @@ export class RequestService {
     }
   }
 
+  /**
+   * Check if a request is in the cache or if it's still pending
+   * @param {GetRequest} request The request to check
+   * @returns {boolean} True if the request is cached or still pending
+   */
   private isCachedOrPending(request: GetRequest) {
     let isCached = this.objectCache.hasBySelfLink(request.href);
     if (isCached) {
@@ -142,6 +153,10 @@ export class RequestService {
     return isCached || isPending;
   }
 
+  /**
+   * Configure and execute the request
+   * @param {RestRequest} request to dispatch
+   */
   private dispatchRequest(request: RestRequest) {
     this.store.dispatch(new RequestConfigureAction(request));
     this.store.dispatch(new RequestExecuteAction(request.uuid));
@@ -164,6 +179,10 @@ export class RequestService {
     });
   }
 
+  /**
+   * Dispatch commit action to send all changes (for a certain method) to the server (buffer)
+   * @param {RestRequestMethod} method RestRequestMethod for which the changes should be committed
+   */
   commit(method?: RestRequestMethod) {
     this.store.dispatch(new CommitSSBAction(method))
   }
@@ -171,11 +190,11 @@ export class RequestService {
   /**
    * Check whether a Response should still be cached
    *
-   * @param entry
-   *    the entry to check
+   * @param uuid
+   *    the uuid of the entry to check
    * @return boolean
-   *    false if the entry is null, undefined, or its time to
-   *    live has been exceeded, true otherwise
+   *    false if the uuid has no value, no entry could be found, the response was nog successful or its time to
+   *    live has exceeded, true otherwise
    */
   private isReusable(uuid: string): Observable<boolean> {
     if (hasNoValue(uuid)) {
@@ -194,7 +213,6 @@ export class RequestService {
           }
         })
       );
-      return observableOf(false);
     }
   }
 }

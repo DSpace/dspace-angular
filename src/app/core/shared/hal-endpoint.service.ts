@@ -47,6 +47,12 @@ export class HALEndpointService {
     return this.getEndpointAt(this.getRootHref(), ...linkPath.split('/'));
   }
 
+  /**
+   * Resolve the actual hal url based on a list of hal names
+   * @param {string} href The root url to start from
+   * @param {string} halNames List of hal names for which a url should be resolved
+   * @returns {Observable<string>} Observable that emits the found hal url
+   */
   private getEndpointAt(href: string, ...halNames: string[]): Observable<string> {
     if (isEmpty(halNames)) {
       throw new Error('cant\'t fetch the URL without the HAL link names')

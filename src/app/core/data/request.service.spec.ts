@@ -174,7 +174,7 @@ describe('RequestService', () => {
         //   b: undefined
         // });
 
-        scheduler.expectObservable(result).toBe('b', {b: undefined});
+        scheduler.expectObservable(result).toBe('b', { b: undefined });
       });
     });
 
@@ -458,4 +458,105 @@ describe('RequestService', () => {
       });
     });
   });
+
+  describe('isReusable', () => {
+    describe('when the given UUID is has no value', () => {
+      let reusable;
+      beforeEach(() => {
+        const uuid = undefined;
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, but no cached entry is found', () => {
+      let reusable;
+      beforeEach(() => {
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(undefined));
+        const uuid = 'a45bb291-1adb-40d9-b2fc-7ad9080607be';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, a cached entry is found, but it has no response', () => {
+      let reusable;
+      beforeEach(() => {
+        spyOn(service, 'getByUUID').and.returnValue(observableOf({ response: undefined }));
+        const uuid = '53c9b814-ad8b-4567-9bc1-d9bb6cfba6c8';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, a cached entry is found, but its response was not successful', () => {
+      let reusable;
+      beforeEach(() => {
+        spyOn(service, 'getByUUID').and.returnValue(observableOf({ response: { isSuccessful: false } }));
+        const uuid = '694c9b32-7b2e-4788-835b-ef3fc2252e6c';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, a cached entry is found, its response was successful, but the response is outdated', () => {
+      let reusable;
+      const now = 100000;
+      const timeAdded = 99899;
+      const msToLive = 100;
+
+      beforeEach(() => {
+        spyOn(Date.prototype, 'getTime').and.returnValue(now);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf({
+          response: {
+            isSuccessful: true,
+            timeAdded: timeAdded
+          },
+          request: {
+            responseMsToLive: msToLive
+          }
+        }));
+        const uuid = 'f9b85788-881c-4994-86b6-bae8dad024d2';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, a cached entry is found, its response was successful, and the response is not outdated', () => {
+      let reusable;
+      const now = 100000;
+      const timeAdded = 99999;
+      const msToLive = 100;
+
+      beforeEach(() => {
+        spyOn(Date.prototype, 'getTime').and.returnValue(now);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf({
+          response: {
+            isSuccessful: true,
+            timeAdded: timeAdded
+          },
+          request: {
+            responseMsToLive: msToLive
+          }
+        }));
+        const uuid = 'f9b85788-881c-4994-86b6-bae8dad024d2';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+
+      it('return an observable emitting true', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(true));
+      })
+    })
+  })
 });

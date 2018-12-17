@@ -7,22 +7,24 @@ import { RequestService } from '../data/request.service';
 import {
   configureRequest,
   filterSuccessfulResponses,
-  getRemoteDataPayload,
-  getRequestFromSelflink,
-  getResourceLinksFromResponse,
+  getRemoteDataPayload, getRequestFromRequestHref, getRequestFromRequestUUID,
+  getResourceLinksFromResponse, getResponseFromEntry,
 } from './operators';
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;
   let requestService: RequestService;
-  const testSelfLink = 'https://rest.api/';
+  const testRequestHref = 'https://rest.api/';
+  const testRequestUUID = 'https://rest.api/';
 
   const testRCEs = {
     a: { response: { isSuccessful: true, resourceSelfLinks: ['a', 'b', 'c', 'd'] } },
     b: { response: { isSuccessful: false, resourceSelfLinks: ['e', 'f'] } },
     c: { response: { isSuccessful: undefined, resourceSelfLinks: ['g', 'h', 'i'] } },
     d: { response: { isSuccessful: true, resourceSelfLinks: ['j', 'k', 'l', 'm', 'n'] } },
-    e: { response: { isSuccessful: 1, resourceSelfLinks: [] } }
+    e: { response: { isSuccessful: 1, resourceSelfLinks: [] } },
+    f: { response: undefined },
+    g: undefined
   };
 
   const testResponses = {
@@ -37,14 +39,14 @@ describe('Core Module - RxJS Operators', () => {
     scheduler = getTestScheduler();
   });
 
-  describe('getRequestFromSelflink', () => {
+  describe('getRequestFromRequestHref', () => {
 
     it('should return the RequestEntry corresponding to the self link in the source', () => {
       requestService = getMockRequestService();
 
-      const source = hot('a', { a: testSelfLink });
-      const result = source.pipe(getRequestFromSelflink(requestService));
-      const expected = cold('a', { a: new RequestEntry()});
+      const source = hot('a', { a: testRequestHref });
+      const result = source.pipe(getRequestFromRequestHref(requestService));
+      const expected = cold('a', { a: new RequestEntry() });
 
       expect(result).toBeObservable(expected)
     });
@@ -52,18 +54,51 @@ describe('Core Module - RxJS Operators', () => {
     it('should use the requestService to fetch the request by its self link', () => {
       requestService = getMockRequestService();
 
-      const source = hot('a', { a: testSelfLink });
-      scheduler.schedule(() => source.pipe(getRequestFromSelflink(requestService)).subscribe());
+      const source = hot('a', { a: testRequestHref });
+      scheduler.schedule(() => source.pipe(getRequestFromRequestHref(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.getByHref).toHaveBeenCalledWith(testSelfLink)
+      expect(requestService.getByHref).toHaveBeenCalledWith(testRequestHref)
     });
 
     it('shouldn\'t return anything if there is no request matching the self link', () => {
       requestService = getMockRequestService(cold('a', { a: undefined }));
 
-      const source = hot('a', { a: testSelfLink });
-      const result = source.pipe(getRequestFromSelflink(requestService));
+      const source = hot('a', { a: testRequestUUID });
+      const result = source.pipe(getRequestFromRequestHref(requestService));
+      const expected = cold('-');
+
+      expect(result).toBeObservable(expected)
+    });
+  });
+
+  describe('getRequestFromRequestUUID', () => {
+
+    it('should return the RequestEntry corresponding to the request uuid in the source', () => {
+      requestService = getMockRequestService();
+
+      const source = hot('a', { a: testRequestUUID });
+      const result = source.pipe(getRequestFromRequestUUID(requestService));
+      const expected = cold('a', { a: new RequestEntry() });
+
+      expect(result).toBeObservable(expected)
+    });
+
+    it('should use the requestService to fetch the request by its request uuid', () => {
+      requestService = getMockRequestService();
+
+      const source = hot('a', { a: testRequestUUID });
+      scheduler.schedule(() => source.pipe(getRequestFromRequestUUID(requestService)).subscribe());
+      scheduler.flush();
+
+      expect(requestService.getByUUID).toHaveBeenCalledWith(testRequestUUID)
+    });
+
+    it('shouldn\'t return anything if there is no request matching the request uuid', () => {
+      requestService = getMockRequestService(cold('a', { a: undefined }));
+
+      const source = hot('a', { a: testRequestUUID });
+      const result = source.pipe(getRequestFromRequestUUID(requestService));
       const expected = cold('-');
 
       expect(result).toBeObservable(expected)
@@ -96,7 +131,7 @@ describe('Core Module - RxJS Operators', () => {
   describe('configureRequest', () => {
     it('should call requestService.configure with the source request', () => {
       requestService = getMockRequestService();
-      const testRequest = new GetRequest('6b789e31-f026-4ff8-8993-4eb3b730c841', testSelfLink);
+      const testRequest = new GetRequest('6b789e31-f026-4ff8-8993-4eb3b730c841', testRequestHref);
       const source = hot('a', { a: testRequest });
       scheduler.schedule(() => source.pipe(configureRequest(requestService)).subscribe());
       scheduler.flush();
@@ -112,6 +147,22 @@ describe('Core Module - RxJS Operators', () => {
       const result = source.pipe(getRemoteDataPayload());
       const expected = cold('a', {
         a: testRD.a.payload,
+      });
+
+      expect(result).toBeObservable(expected)
+    });
+  });
+
+  describe('getResponseFromEntry', () => {
+    it('should return the response for all not empty request entries, when they have a value', () => {
+      const source = hot('abcdefg', testRCEs);
+      const result = source.pipe(getResponseFromEntry());
+      const expected = cold('abcde--', {
+        a: testRCEs.a.response,
+        b: testRCEs.b.response,
+        c: testRCEs.c.response,
+        d: testRCEs.d.response,
+        e: testRCEs.e.response
       });
 
       expect(result).toBeObservable(expected)

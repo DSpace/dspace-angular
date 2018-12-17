@@ -25,7 +25,7 @@ export class AddToObjectCacheAction implements Action {
     objectToCache: CacheableObject;
     timeAdded: number;
     msToLive: number;
-    requestHref: string;
+    requestUUID: string;
   };
 
   /**
@@ -42,8 +42,8 @@ export class AddToObjectCacheAction implements Action {
    *    This isn't necessarily the same as the object's self
    *    link, it could have been part of a list for example
    */
-  constructor(objectToCache: CacheableObject, timeAdded: number, msToLive: number, requestHref: string) {
-    this.payload = { objectToCache, timeAdded, msToLive, requestHref };
+  constructor(objectToCache: CacheableObject, timeAdded: number, msToLive: number, requestUUID: string) {
+    this.payload = { objectToCache, timeAdded, msToLive, requestUUID };
   }
 }
 

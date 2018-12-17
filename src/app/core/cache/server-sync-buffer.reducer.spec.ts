@@ -1,13 +1,5 @@
 import * as deepFreeze from 'deep-freeze';
-
-import { objectCacheReducer } from './object-cache.reducer';
-import {
-  AddPatchObjectCacheAction,
-  AddToObjectCacheAction, ApplyPatchObjectCacheAction,
-  RemoveFromObjectCacheAction,
-  ResetObjectCacheTimestampsAction
-} from './object-cache.actions';
-import { Operation } from '../../../../node_modules/fast-json-patch';
+import { RemoveFromObjectCacheAction } from './object-cache.actions';
 import { serverSyncBufferReducer } from './server-sync-buffer.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { AddToSSBAction, EmptySSBAction } from './server-sync-buffer.actions';

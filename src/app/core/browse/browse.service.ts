@@ -28,8 +28,7 @@ import {
   configureRequest,
   filterSuccessfulResponses,
   getBrowseDefinitionLinks,
-  getRemoteDataPayload,
-  getRequestFromSelflink
+  getRemoteDataPayload, getRequestFromRequestHref
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { Item } from '../shared/item.model';
@@ -68,7 +67,7 @@ export class BrowseService {
     );
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
     const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
       map((response: GenericSuccessResponse<BrowseDefinition[]>) => response.payload),
@@ -111,7 +110,7 @@ export class BrowseService {
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
 
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
 
     const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
@@ -166,7 +165,7 @@ export class BrowseService {
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
 
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
 
     const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),

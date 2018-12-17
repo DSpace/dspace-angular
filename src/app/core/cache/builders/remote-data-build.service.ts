@@ -5,15 +5,7 @@ import {
   race as observableRace
 } from 'rxjs';
 import { Injectable } from '@angular/core';
-import {
-  distinctUntilChanged,
-  first,
-  flatMap,
-  map,
-  startWith,
-  switchMap,
-  takeUntil, tap
-} from 'rxjs/operators';
+import { distinctUntilChanged, first, flatMap, map, startWith, switchMap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
@@ -29,7 +21,7 @@ import { getMapsTo, getRelationMetadata, getRelationships } from './build-decora
 import { PageInfo } from '../../shared/page-info.model';
 import {
   filterSuccessfulResponses,
-  getRequestFromSelflink,
+  getRequestFromRequestHref, getRequestFromRequestUUID,
   getResourceLinksFromResponse
 } from '../../shared/operators';
 
@@ -43,16 +35,16 @@ export class RemoteDataBuildService {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
-    const requestHref$ = href$.pipe(
+    const requestUUID$ = href$.pipe(
       switchMap((href: string) =>
-        this.objectCache.getRequestHrefBySelfLink(href)),
+        this.objectCache.getRequestUUIDBySelfLink(href)),
     );
 
     const requestEntry$ = observableRace(
-      href$.pipe(getRequestFromSelflink(this.requestService)),
-      requestHref$.pipe(getRequestFromSelflink(this.requestService)),
+      href$.pipe(getRequestFromRequestHref(this.requestService)),
+      requestUUID$.pipe(getRequestFromRequestUUID(this.requestService)),
     ).pipe(
-     first()
+      first()
     );
 
     // always use self link if that is cached, only if it isn't, get it via the response.
@@ -121,7 +113,7 @@ export class RemoteDataBuildService {
       href$ = observableOf(href$);
     }
 
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
     const tDomainList$ = requestEntry$.pipe(
       getResourceLinksFromResponse(),
       flatMap((resourceUUIDs: string[]) => {
@@ -196,7 +188,7 @@ export class RemoteDataBuildService {
         }
 
         if (hasValue(normalized[relationship].page)) {
-          links[relationship] = this.aggregatePaginatedList(result, normalized[relationship].pageInfo);
+          links[relationship] = this.toPaginatedList(result, normalized[relationship].pageInfo);
         } else {
           links[relationship] = result;
         }
@@ -258,8 +250,16 @@ export class RemoteDataBuildService {
       }))
   }
 
-  aggregatePaginatedList<T>(input: Observable<RemoteData<T[]>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
-    return input.pipe(map((rd) => Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })));
+  private toPaginatedList<T>(input: Observable<RemoteData<T[] | PaginatedList<T>>>, pageInfo: PageInfo): Observable<RemoteData<PaginatedList<T>>> {
+    return input.pipe(
+      map((rd: RemoteData<T[] | PaginatedList<T>>) => {
+        if (Array.isArray(rd.payload)) {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })
+        } else {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload.page) });
+        }
+      })
+    );
   }
 
 }
