@@ -14,7 +14,7 @@ import {URLCombiner} from '../url-combiner/url-combiner';
 import {DataService} from './data.service';
 import {RequestService} from './request.service';
 import {HALEndpointService} from '../shared/hal-endpoint.service';
-import {FindAllOptions, PatchRequest, RestRequest} from './request.models';
+import {DeleteRequest, FindAllOptions, PatchRequest, RestRequest} from './request.models';
 import {configureRequest, getResponseFromSelflink} from '../shared/operators';
 import {ResponseCacheEntry} from '../cache/response-cache.reducer';
 
@@ -70,6 +70,16 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
   }
 
   /**
+   * Get the endpoint to delete the item
+   * @param itemId
+   */
+  public getItemDeleteEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+    );
+  }
+
+  /**
    * Set the isWithdrawn state of an item to a specified state
    * @param itemId
    * @param withdrawn
@@ -103,6 +113,23 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       distinctUntilChanged(),
       map((endpointURL: string) =>
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
+      ),
+      configureRequest(this.requestService),
+      map((request: RestRequest) => request.href),
+      getResponseFromSelflink(this.responseCache),
+      map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)
+    );
+  }
+
+  /**
+   * Delete the item
+   * @param itemId
+   */
+  public delete(itemId: string) {
+    return this.getItemDeleteEndpoint(itemId).pipe(
+      distinctUntilChanged(),
+      map((endpointURL: string) =>
+        new DeleteRequest(this.requestService.generateRequestId(), endpointURL)
       ),
       configureRequest(this.requestService),
       map((request: RestRequest) => request.href),

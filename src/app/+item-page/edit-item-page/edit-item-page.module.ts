@@ -11,6 +11,7 @@ import {ItemReinstateComponent} from './item-reinstate/item-reinstate.component'
 import {AbstractSimpleItemActionComponent} from './simple-item-action/abstract-simple-item-action.component';
 import {ItemPrivateComponent} from './item-private/item-private.component';
 import {ItemPublicComponent} from './item-public/item-public.component';
+import {ItemDeleteComponent} from './item-delete/item-delete.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import {ItemPublicComponent} from './item-public/item-public.component';
     ItemReinstateComponent,
     ItemPrivateComponent,
     ItemPublicComponent,
+    ItemDeleteComponent,
     ItemStatusComponent
   ]
 })

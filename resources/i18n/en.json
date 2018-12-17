@@ -148,6 +148,14 @@
         "cancel": "Cancel",
         "success": "The item is now public",
         "error": "An error occured while making the item public"
+      },
+      "delete": {
+        "header": "Delete item: {{ id }}",
+        "description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "success": "The item has been deleted",
+        "error": "An error occured while deleting the item"
       }
     }
   },
