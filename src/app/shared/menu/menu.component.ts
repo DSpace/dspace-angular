@@ -5,8 +5,10 @@ import { MenuID } from '../../shared/menu/initial-menus-state';
 import { MenuSection } from '../../shared/menu/menu.reducer';
 import { first, map } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import { hasValue } from '../empty.util';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 import { getComponentForMenu } from './menu-section.decorator';
+import Timer = NodeJS.Timer;
 
 /**
  * A basic implementation of a MenuComponent
@@ -55,6 +57,11 @@ export class MenuComponent implements OnInit {
    * Prevent unnecessary rerendering
    */
   changeDetection: ChangeDetectionStrategy.OnPush;
+
+  /**
+   * Timer to briefly delay the sidebar preview from opening or closing
+   */
+  private previewTimer: Timer;
 
   constructor(protected menuService: MenuService, protected injector: Injector) {
   }
@@ -108,7 +115,7 @@ export class MenuComponent implements OnInit {
    */
   expandPreview(event: Event) {
     event.preventDefault();
-    this.menuService.expandMenuPreview(this.menuID);
+    this.previewToggleDebounce(() => this.menuService.expandMenuPreview(this.menuID), 100);
   }
 
   /**
@@ -117,7 +124,20 @@ export class MenuComponent implements OnInit {
    */
   collapsePreview(event: Event) {
     event.preventDefault();
-    this.menuService.collapseMenuPreview(this.menuID);
+    this.previewToggleDebounce(() => this.menuService.collapseMenuPreview(this.menuID), 400);
+  }
+
+  /**
+   * delay the handler function by the given amount of time
+   *
+   * @param {Function} handler The function to delay
+   * @param {number} ms The amount of ms to delay the handler function by
+   */
+  private previewToggleDebounce(handler: () => void, ms: number): void {
+    if (hasValue(this.previewTimer)) {
+      clearTimeout(this.previewTimer);
+    }
+    this.previewTimer = setTimeout(handler, ms);
   }
 
   /**

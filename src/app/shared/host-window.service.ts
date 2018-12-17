@@ -29,7 +29,8 @@ export class HostWindowService {
     private variableService: CSSVariableService
   ) {
     /* See _exposed_variables.scss */
-    variableService.getAllVariables().pipe(first()).subscribe((variables) => {
+    variableService.getAllVariables()
+      .subscribe((variables) => {
       this.breakPoints.XL_MIN = parseInt(variables.xlMin, 10);
       this.breakPoints.LG_MIN = parseInt(variables.lgMin, 10);
       this.breakPoints.MD_MIN = parseInt(variables.mdMin, 10);

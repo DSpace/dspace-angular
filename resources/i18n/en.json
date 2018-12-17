@@ -213,7 +213,8 @@
     },
     "sidebar": {
       "section": {
-        "toggle": "Toggle sidebar",
+        "pin": "Pin sidebar",
+        "unpin": "Unpin sidebar",
         "new": "New",
         "new_community": "Community",
         "new_collection": "Collection",

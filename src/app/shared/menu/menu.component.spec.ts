@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -67,22 +67,24 @@ describe('MenuComponent', () => {
   });
 
   describe('expandPreview', () => {
-    beforeEach(() => {
+    it('should trigger the expandPreview function on the menu service after 100ms', fakeAsync(() => {
       spyOn(menuService, 'expandMenuPreview');
       comp.expandPreview(new Event('click'));
-    });
-    it('should trigger the expandPreview function on the menu service', () => {
+      tick(99);
+      expect(menuService.expandMenuPreview).not.toHaveBeenCalled();
+      tick(1);
       expect(menuService.expandMenuPreview).toHaveBeenCalledWith(comp.menuID);
-    })
+    }))
   });
 
   describe('collapsePreview', () => {
-    beforeEach(() => {
+    it('should trigger the collapsePreview function on the menu service after 400ms', fakeAsync(() => {
       spyOn(menuService, 'collapseMenuPreview');
       comp.collapsePreview(new Event('click'));
-    });
-    it('should trigger the collapsePreview function on the menu service', () => {
+      tick(399);
+      expect(menuService.collapseMenuPreview).not.toHaveBeenCalled();
+      tick(1);
       expect(menuService.collapseMenuPreview).toHaveBeenCalledWith(comp.menuID);
-    })
+    }))
   });
 });

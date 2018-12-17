@@ -30,11 +30,9 @@ nav.navbar {
 .navbar-expand-md.navbar-container {
     @media screen and (max-width: map-get($grid-breakpoints, md)) {
         > .container {
-            padding-left: $spacer;
-            padding-right: $spacer;
+            padding: 0 $spacer;
         }
-        padding-left: 0;
-        padding-right: 0;
+        padding: 0;
     }
 }
 

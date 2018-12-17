@@ -75,6 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+
     const env: string = this.config.production ? 'Production' : 'Development';
     const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);

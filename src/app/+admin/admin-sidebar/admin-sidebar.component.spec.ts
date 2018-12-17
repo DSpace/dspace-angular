@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -117,25 +117,26 @@ describe('AdminSidebarComponent', () => {
   });
 
   describe('when the the mouse enters the nav tag', () => {
-    beforeEach(() => {
+    it('should call expandPreview on the menuService after 100ms', fakeAsync(() => {
       spyOn(menuService, 'expandMenuPreview');
       const sidebarToggler = fixture.debugElement.query(By.css('nav.navbar'));
       sidebarToggler.triggerEventHandler('mouseenter', {preventDefault: () => {/**/}});
-    });
-
-    it('should call expandPreview on the menuService', () => {
+      tick(99);
+      expect(menuService.expandMenuPreview).not.toHaveBeenCalled();
+      tick(1);
       expect(menuService.expandMenuPreview).toHaveBeenCalled();
-    });
+    }));
   });
+
   describe('when the the mouse leaves the nav tag', () => {
-    beforeEach(() => {
+    it('should call collapseMenuPreview on the menuService after 400ms', fakeAsync(() => {
       spyOn(menuService, 'collapseMenuPreview');
       const sidebarToggler = fixture.debugElement.query(By.css('nav.navbar'));
       sidebarToggler.triggerEventHandler('mouseleave', {preventDefault: () => {/**/}});
-    });
-
-    it('should call collapseMenuPreview on the menuService', () => {
+      tick(399);
+      expect(menuService.collapseMenuPreview).not.toHaveBeenCalled();
+      tick(1);
       expect(menuService.collapseMenuPreview).toHaveBeenCalled();
-    });
+    }));
   });
 });

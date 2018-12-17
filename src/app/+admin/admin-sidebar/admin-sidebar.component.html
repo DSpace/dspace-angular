@@ -39,7 +39,8 @@
                 <a class="nav-item nav-link sidebar-section"
                    href="#"
                    (click)="toggle($event)">
-                    <span class="section-header-text">{{'admin.sidebar.section.toggle' | translate }}</span>
+                    <span *ngIf="menuCollapsed | async" class="section-header-text">{{'admin.sidebar.section.pin' | translate }}</span>
+                    <span *ngIf="!(menuCollapsed | async)" class="section-header-text">{{'admin.sidebar.section.unpin' | translate }}</span>
                 </a>
             </div>
         </div>
