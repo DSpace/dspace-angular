@@ -9,10 +9,10 @@ import {
   take,
   withLatestFrom
 } from 'rxjs/operators';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
@@ -59,6 +59,7 @@ export class AuthService {
   constructor(@Inject(REQUEST) protected req: any,
               @Inject(NativeWindowService) protected _window: NativeWindowRef,
               protected authRequestService: AuthRequestService,
+              @Optional() @Inject(RESPONSE) private response: any,
               protected router: Router,
               protected storage: CookieService,
               protected store: Store<AppState>,
@@ -345,6 +346,10 @@ export class AuthService {
     if (this._window.nativeWindow.location) {
       // Hard redirect to login page, so that all state is definitely lost
       this._window.nativeWindow.location.href = redirectUrl;
+    } else if (this.response) {
+      if (!this.response._headerSent) {
+        this.response.redirect(302, redirectUrl);
+      }
     } else {
       this.router.navigateByUrl(redirectUrl);
     }
@@ -357,14 +362,10 @@ export class AuthService {
     this.getRedirectUrl().pipe(
       first())
       .subscribe((redirectUrl) => {
+
         if (isNotEmpty(redirectUrl)) {
           this.clearRedirectUrl();
-
-          // override the route reuse strategy
-          this.router.routeReuseStrategy.shouldReuseRoute = () => {
-            return false;
-          };
-          this.router.navigated = false;
+          this.router.onSameUrlNavigation = 'reload';
           const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
           /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
