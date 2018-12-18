@@ -18,11 +18,13 @@ import { FileSectionComponent } from './simple/field-components/file-section/fil
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
+import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    EditItemPageModule,
     ItemPageRoutingModule
   ],
   declarations: [
