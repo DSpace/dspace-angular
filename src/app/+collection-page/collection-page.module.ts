@@ -5,17 +5,19 @@ import { SharedModule } from '../shared/shared.module';
 
 import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageRoutingModule } from './collection-page-routing.module';
-import { SearchPageModule } from '../+search-page/search-page.module';
+import { SearchService } from '../+search-page/search-service/search.service';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    SearchPageModule,
     CollectionPageRoutingModule
   ],
   declarations: [
     CollectionPageComponent,
+  ],
+  providers: [
+    SearchService
   ]
 })
 export class CollectionPageModule {

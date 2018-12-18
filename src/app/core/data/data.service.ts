@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, take, first, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, take, find, map } from 'rxjs/operators';
 import { of as observableOf, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -76,7 +76,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       map((endpoint: string) => this.getFindByIDHref(endpoint, id)));
 
     hrefObs.pipe(
-      first((href: string) => hasValue(href)))
+      find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
         this.requestService.configure(request);

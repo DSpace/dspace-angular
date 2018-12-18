@@ -51,7 +51,7 @@ export class MetadataService {
       map((route: ActivatedRoute) => {
         route = this.getCurrentRoute(route);
         return { params: route.params, data: route.data };
-      }),).subscribe((routeInfo: any) => {
+      })).subscribe((routeInfo: any) => {
       this.processRouteChange(routeInfo);
     });
   }

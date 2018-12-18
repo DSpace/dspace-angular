@@ -64,6 +64,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
+import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -135,6 +136,7 @@ const PROVIDERS = [
     multi: true
   },
   NotificationsService,
+  FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

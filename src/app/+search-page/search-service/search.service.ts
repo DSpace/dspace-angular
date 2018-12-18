@@ -8,6 +8,7 @@ import {
   UrlSegmentGroup
 } from '@angular/router';
 import { flatMap, map, switchMap } from 'rxjs/operators';
+import { SetViewMode } from '../../shared/view-mode';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -297,12 +298,12 @@ export class SearchService implements OnDestroy {
    * Requests the current view mode based on the current URL
    * @returns {Observable<ViewMode>} The current view mode
    */
-  getViewMode(): Observable<ViewMode> {
+  getViewMode(): Observable<SetViewMode> {
     return this.route.queryParams.pipe(map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
         return params.view;
       } else {
-        return ViewMode.List;
+        return SetViewMode.List;
       }
     }));
   }
@@ -311,7 +312,7 @@ export class SearchService implements OnDestroy {
    * Changes the current view mode in the current URL
    * @param {ViewMode} viewMode Mode to switch to
    */
-  setViewMode(viewMode: ViewMode) {
+  setViewMode(viewMode: SetViewMode) {
     const navigationExtras: NavigationExtras = {
       queryParams: { view: viewMode },
       queryParamsHandling: 'merge'

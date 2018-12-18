@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { SearchService } from './search.service';
+import { ItemDataService } from './../../core/data/item-data.service';
+import { SetViewMode } from '../../shared/view-mode';
+import { GLOBAL_CONFIG } from '../../../config';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
@@ -68,7 +71,7 @@ describe('SearchService', () => {
 
     it('should return list view mode', () => {
       searchService.getViewMode().subscribe((viewMode) => {
-        expect(viewMode).toBe(ViewMode.List);
+        expect(viewMode).toBe(SetViewMode.List);
       });
     });
   });
@@ -128,33 +131,33 @@ describe('SearchService', () => {
     });
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
-      searchService.setViewMode(ViewMode.List);
+      searchService.setViewMode(SetViewMode.List);
       expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { view: ViewMode.List },
+        queryParams: { view: SetViewMode.List },
         queryParamsHandling: 'merge'
       });
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
-      searchService.setViewMode(ViewMode.Grid);
+      searchService.setViewMode(SetViewMode.Grid);
       expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { view: ViewMode.Grid },
+        queryParams: { view: SetViewMode.Grid },
         queryParamsHandling: 'merge'
       });
     });
 
     it('should return ViewMode.List when the viewMode is set to ViewMode.List in the ActivatedRoute', () => {
-      let viewMode = ViewMode.Grid;
-      route.testParams = { view: ViewMode.List };
+      let viewMode = SetViewMode.Grid;
+      route.testParams = { view: SetViewMode.List };
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
-      expect(viewMode).toEqual(ViewMode.List);
+      expect(viewMode).toEqual(SetViewMode.List);
     });
 
     it('should return ViewMode.Grid when the viewMode is set to ViewMode.Grid in the ActivatedRoute', () => {
-      let viewMode = ViewMode.List;
-      route.testParams = { view: ViewMode.Grid };
+      let viewMode = SetViewMode.List;
+      route.testParams = { view: SetViewMode.Grid };
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
-      expect(viewMode).toEqual(ViewMode.Grid);
+      expect(viewMode).toEqual(SetViewMode.Grid);
     });
 
     describe('when search is called', () => {

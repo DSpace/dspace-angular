@@ -8,5 +8,8 @@ export enum ResourceType {
   Community = 'community',
   EPerson = 'eperson',
   Group = 'group',
-  ResourcePolicy = 'resourcePolicy'
+  ResourcePolicy = 'resourcePolicy',
+  Relationship = 'relationship',
+  RelationshipType = 'relationshiptype',
+  EntityType = 'entitytype',
 }

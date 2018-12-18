@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { mergeMap, map, distinctUntilChanged } from 'rxjs/operators';
 import { Injectable, InjectionToken } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
@@ -16,6 +16,11 @@ import {
 import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { RouteService } from '../../../shared/services/route.service';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SearchOptions } from '../../search-options.model';
+import { PaginatedSearchOptions } from '../../paginated-search-options.model';
+import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { Params } from '@angular/router';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
@@ -29,8 +34,8 @@ export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionTo
 export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,
-              private routeService: RouteService
-  ) {
+              private routeService: RouteService,
+              private fixedFilterService: SearchFixedFilterService) {
   }
 
   /**
@@ -50,6 +55,138 @@ export class SearchFilterService {
    */
   isFilterActive(paramName: string): Observable<boolean> {
     return this.routeService.hasQueryParam(paramName);
+  }
+
+  /**
+   * Fetch the current active scope from the query parameters
+   * @returns {Observable<string>}
+   */
+  getCurrentScope() {
+    return this.routeService.getQueryParameterValue('scope');
+  }
+
+  /**
+   * Fetch the current query from the query parameters
+   * @returns {Observable<string>}
+   */
+  getCurrentQuery() {
+    return this.routeService.getQueryParameterValue('query');
+  }
+
+  /**
+   * Fetch the current pagination from query parameters 'page' and 'pageSize'
+   * and combine them with a given pagination
+   * @param pagination      Pagination options to combine the query parameters with
+   * @returns {Observable<PaginationComponentOptions>}
+   */
+  getCurrentPagination(pagination: any = {}): Observable<PaginationComponentOptions> {
+    const page$ = this.routeService.getQueryParameterValue('page');
+    const size$ = this.routeService.getQueryParameterValue('pageSize');
+    return observableCombineLatest(page$, size$).pipe(map(([page, size]) => {
+      return Object.assign(new PaginationComponentOptions(), pagination, {
+        currentPage: page || 1,
+        pageSize: size || pagination.pageSize
+      });
+    }))
+  }
+
+  /**
+   * Fetch the current sorting options from query parameters 'sortDirection' and 'sortField'
+   * and combine them with given sorting options
+   * @param {SortOptions} defaultSort       Sorting options to combine the query parameters with
+   * @returns {Observable<SortOptions>}
+   */
+  getCurrentSort(defaultSort: SortOptions): Observable<SortOptions> {
+    const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
+    const sortField$ = this.routeService.getQueryParameterValue('sortField');
+    return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
+        const field = sortField || defaultSort.field;
+        const direction = SortDirection[sortDirection] || defaultSort.direction;
+        return new SortOptions(field, direction)
+      }
+    ))
+  }
+
+  /**
+   * Fetch the current active filters from the query parameters
+   * @returns {Observable<Params>}
+   */
+  getCurrentFilters() {
+    return this.routeService.getQueryParamsWithPrefix('f.');
+  }
+
+  /**
+   * Fetch the current active fixed filter from the route parameters and return the query by filter name
+   * @returns {Observable<string>}
+   */
+  getCurrentFixedFilter(): Observable<string> {
+    const filter: Observable<string> = this.routeService.getRouteParameterValue('filter');
+    return filter.pipe(mergeMap((f) => this.fixedFilterService.getQueryByFilterName(f)));
+  }
+
+  /**
+   * Fetch the current view from the query parameters
+   * @returns {Observable<string>}
+   */
+  getCurrentView() {
+    return this.routeService.getQueryParameterValue('view');
+  }
+
+  /**
+   * Fetch the current paginated search options using the getters from above
+   * and combining them with given defaults
+   * @param defaults    Default paginated search options
+   * @returns {Observable<PaginatedSearchOptions>}
+   */
+  getPaginatedSearchOptions(defaults: any = {}): Observable<PaginatedSearchOptions> {
+    return observableCombineLatest(
+      this.getCurrentPagination(defaults.pagination),
+      this.getCurrentSort(defaults.sort),
+      this.getCurrentView(),
+      this.getCurrentScope(),
+      this.getCurrentQuery(),
+      this.getCurrentFilters(),
+      this.getCurrentFixedFilter()).pipe(
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      map(([pagination, sort, view, scope, query, filters, fixedFilter]) => {
+        return Object.assign(new PaginatedSearchOptions(defaults),
+          {
+            pagination: pagination,
+            sort: sort,
+            view: view,
+            scope: scope || defaults.scope,
+            query: query,
+            filters: filters,
+            fixedFilter: fixedFilter
+          })
+      })
+    )
+  }
+
+  /**
+   * Fetch the current search options (not paginated) using the getters from above
+   * and combining them with given defaults
+   * @param defaults    Default search options
+   * @returns {Observable<SearchOptions>}
+   */
+  getSearchOptions(defaults: any = {}): Observable<SearchOptions> {
+    return observableCombineLatest(
+      this.getCurrentView(),
+      this.getCurrentScope(),
+      this.getCurrentQuery(),
+      this.getCurrentFilters(),
+      this.getCurrentFixedFilter(),
+      (view, scope, query, filters, fixedFilter) => {
+        return Object.assign(new SearchOptions(defaults),
+          {
+            view: view,
+            scope: scope || defaults.scope,
+            query: query,
+            filters: filters,
+            fixedFilter: fixedFilter
+          })
+      }
+    )
   }
 
   /**

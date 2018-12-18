@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NouisliderModule } from 'ng2-nouislider';
 
 import {
   NgbDatepickerModule,
@@ -14,6 +13,15 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { EntityTypeSwitcherComponent } from './entities/switcher/entity-type-switcher.component';
+import { EntitySearchResultComponent } from './object-list/item-list-element/entity-types/entity-search-result-component';
+import { PublicationListElementComponent } from './object-list/item-list-element/entity-types/publication/publication-list-element.component';
+import { OrgUnitListElementComponent } from './object-list/item-list-element/entity-types/orgunit/orgunit-list-element.component';
+import { PersonListElementComponent } from './object-list/item-list-element/entity-types/person/person-list-element.component';
+import { ProjectListElementComponent } from './object-list/item-list-element/entity-types/project/project-list-element.component';
+import { JournalListElementComponent } from './object-list/item-list-element/entity-types/journal/journal-list-element.component';
+import { JournalVolumeListElementComponent } from './object-list/item-list-element/entity-types/journal-volume/journal-volume-list-element.component';
+import { JournalIssueListElementComponent } from './object-list/item-list-element/entity-types/journal-issue/journal-issue-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -26,7 +34,7 @@ import { ConsolePipe } from './utils/console.pipe';
 
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
-import { ItemListElementComponent } from './object-list/item-list-element/item-list-element.component';
+import { EntityListElementComponent } from './object-list/item-list-element/entity-list-element.component';
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
 import { WrapperListElementComponent } from './object-list/wrapper-list-element/wrapper-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
@@ -76,7 +84,6 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
-import { BrowseByModule } from '../+browse-by/browse-by.module';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { DebounceDirective } from './utils/debounce.directive';
@@ -86,6 +93,7 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
+import { NouisliderModule } from 'ng2-nouislider';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -101,10 +109,10 @@ const MODULES = [
   NgbTimepickerModule,
   NgbTypeaheadModule,
   NgxPaginationModule,
+  NouisliderModule,
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
-  NouisliderModule,
   MomentModule,
   TextMaskModule
 ];
@@ -158,13 +166,15 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
-  BrowseByComponent,
-  InputSuggestionsComponent
+  InputSuggestionsComponent,
+  EntitySearchResultComponent,
+  EntityTypeSwitcherComponent,
+  BrowseByComponent
 ];
 
 const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
-  ItemListElementComponent,
+  EntityListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
@@ -172,6 +182,13 @@ const ENTRY_COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
+  PublicationListElementComponent,
+  PersonListElementComponent,
+  OrgUnitListElementComponent,
+  ProjectListElementComponent,
+  JournalListElementComponent,
+  JournalVolumeListElementComponent,
+  JournalIssueListElementComponent,
   BrowseEntryListElementComponent
 ];
 

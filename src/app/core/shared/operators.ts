@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { filter, first, flatMap, map, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, tap } from 'rxjs/operators';
 import { hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
@@ -52,7 +52,7 @@ export const getRemoteDataPayload = () =>
 
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(first((rd: RemoteData<T>) => rd.hasSucceeded));
+    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
 
 export const toDSpaceObjectListRD = () =>
   <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<SearchResult<T>>>>): Observable<RemoteData<PaginatedList<T>>> =>

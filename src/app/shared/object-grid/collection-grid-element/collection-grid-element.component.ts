@@ -2,8 +2,8 @@ import { Component, Inject } from '@angular/core';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { renderElementsFor} from '../../object-collection/shared/dso-element-decorator';
+import { SetViewMode } from '../../view-mode';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-collection-grid-element',
@@ -11,5 +11,5 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
   templateUrl: './collection-grid-element.component.html'
 })
 
-@renderElementsFor(Collection, ViewMode.Grid)
+@renderElementsFor(Collection, SetViewMode.Grid)
 export class CollectionGridElementComponent extends AbstractListableElementComponent<Collection> {}
