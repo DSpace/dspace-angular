@@ -59,8 +59,7 @@ export class ItemStatusComponent implements OnInit {
       The value is supposed to be a href for the button
     */
     this.operations = [
-      new ItemOperation('mappedCollections',this.getCurrentUrl() + '/'),
-      new ItemOperation('move', this.getCurrentUrl() + '/move'),
+      new ItemOperation('move', this.getCurrentUrl() + '/move')
     ]
   }
 
