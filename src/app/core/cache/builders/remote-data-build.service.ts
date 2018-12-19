@@ -5,8 +5,16 @@ import {
   race as observableRace
 } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, first, flatMap, map, startWith, switchMap } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import {
+  distinctUntilChanged,
+  first,
+  flatMap,
+  map,
+  startWith,
+  switchMap,
+  take
+} from 'rxjs/operators';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
@@ -44,7 +52,7 @@ export class RemoteDataBuildService {
       href$.pipe(getRequestFromRequestHref(this.requestService)),
       requestUUID$.pipe(getRequestFromRequestUUID(this.requestService)),
     ).pipe(
-      first()
+      take(1)
     );
 
     // always use self link if that is cached, only if it isn't, get it via the response.

@@ -1,4 +1,12 @@
-import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
+import {
+  catchError,
+  distinctUntilKeyChanged,
+  filter,
+  find,
+  first,
+  map,
+  take
+} from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
@@ -261,7 +269,7 @@ export class MetadataService {
       const item = this.currentObject.value as Item;
       item.getFiles()
         .pipe(
-          first((files) => isNotEmpty(files)),
+          find((files) => isNotEmpty(files)),
           catchError((error) => {
             console.debug(error.message);
             return []
@@ -269,7 +277,7 @@ export class MetadataService {
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {
             bitstream.format.pipe(
-              first(),
+              take(1),
               catchError((error: Error) => {
                 console.debug(error.message);
                 return []

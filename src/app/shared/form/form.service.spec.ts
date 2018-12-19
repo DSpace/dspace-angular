@@ -2,7 +2,11 @@ import { Store, StoreModule } from '@ngrx/store';
 import { async, inject, TestBed } from '@angular/core/testing';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { DynamicFormControlModel, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 
 import { FormService } from './form.service';
 import { FormBuilderService } from './builder/form-builder.service';
@@ -37,30 +41,30 @@ describe('FormService test suite', () => {
     }),
     new DynamicInputModel({ id: 'date' }),
     new DynamicInputModel({ id: 'description' }),
-    // new DynamicFormGroupModel({
-    //
-    //   id: 'addressLocation',
-    //   group: [
-    //     new DynamicInputModel({
-    //
-    //       id: 'zipCode',
-    //       label: 'Zip Code',
-    //       placeholder: 'ZIP'
-    //     }),
-    //     new DynamicInputModel({
-    //
-    //       id: 'state',
-    //       label: 'State',
-    //       placeholder: 'State'
-    //     }),
-    //     new DynamicInputModel({
-    //
-    //       id: 'city',
-    //       label: 'City',
-    //       placeholder: 'City'
-    //     })
-    //   ]
-    // }),
+    new DynamicFormGroupModel({
+
+      id: 'addressLocation',
+      group: [
+        new DynamicInputModel({
+
+          id: 'zipCode',
+          label: 'Zip Code',
+          placeholder: 'ZIP'
+        }),
+        new DynamicInputModel({
+
+          id: 'state',
+          label: 'State',
+          placeholder: 'State'
+        }),
+        new DynamicInputModel({
+
+          id: 'city',
+          label: 'City',
+          placeholder: 'City'
+        })
+      ]
+    }),
   ];
 
   let controls;

@@ -47,7 +47,7 @@ export class AuthEffects {
       ofType(AuthActionTypes.AUTHENTICATE),
       switchMap((action: AuthenticateAction) => {
         return this.authService.authenticate(action.payload.email, action.payload.password).pipe(
-          first(),
+          take(1),
           map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
           catchError((error) => observableOf(new AuthenticationErrorAction(error)))
         );
@@ -127,7 +127,7 @@ export class AuthEffects {
     switchMap(() => {
       return this.store.pipe(
         select(isAuthenticated),
-        first(),
+        take(1),
         filter((authenticated) => !authenticated),
         tap(() => this.authService.removeToken()),
         tap(() => this.authService.resetAuthenticationError())

@@ -1,4 +1,4 @@
-import { delay, exhaustMap, first, map, switchMap, tap } from 'rxjs/operators';
+import { delay, exhaustMap, first, map, switchMap, take, tap } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
@@ -56,7 +56,7 @@ export class ServerSyncBufferEffects {
       switchMap((action: CommitSSBAction) => {
         return this.store.pipe(
           select(serverSyncBufferSelector()),
-          first(), /* necessary, otherwise delay will not have any effect after the first run */
+          take(1), /* necessary, otherwise delay will not have any effect after the first run */
           switchMap((bufferState: ServerSyncBufferState) => {
             const actions: Array<Observable<Action>> = bufferState.buffer
               .filter((entry: ServerSyncBufferEntry) => {
@@ -95,7 +95,7 @@ export class ServerSyncBufferEffects {
    * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
    */
   private applyPatch(href: string): Observable<Action> {
-    const patchObject = this.objectCache.getBySelfLink(href).pipe(first());
+    const patchObject = this.objectCache.getBySelfLink(href).pipe(take(1));
 
     return patchObject.pipe(
       map((object) => {
