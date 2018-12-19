@@ -3,6 +3,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/initial-menus-state';
 
+/**
+ * Represents the header with the logo and simple navigation
+ */
 @Component({
   selector: 'ds-header',
   styleUrls: ['header.component.scss'],
