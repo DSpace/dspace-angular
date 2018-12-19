@@ -59,8 +59,6 @@ export class ItemStatusComponent implements OnInit {
       The value is supposed to be a href for the button
     */
     this.operations = [];
-    this.operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl() + '/'));
-    this.operations.push(new ItemOperation('move', this.getCurrentUrl() + '/move'));
     if (this.item.isWithdrawn) {
       this.operations.push(new ItemOperation('reinstate', this.getCurrentUrl() + '/reinstate'));
     } else {
