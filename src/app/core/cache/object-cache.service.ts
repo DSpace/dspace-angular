@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { distinctUntilChanged, filter, first, map, mergeMap, } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, mergeMap, take, } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { IndexName } from '../index/index.reducer';
@@ -165,7 +165,7 @@ export class ObjectCacheService {
 
     this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      first()
+      take(1)
     ).subscribe((selfLink: string) => result = this.hasBySelfLink(selfLink));
 
     return result;
@@ -184,7 +184,7 @@ export class ObjectCacheService {
     let result = false;
 
     this.store.pipe(select(entryFromSelfLinkSelector(selfLink)),
-      first()
+      take(1)
     ).subscribe((entry: ObjectCacheEntry) => result = this.isValid(entry));
 
     return result;

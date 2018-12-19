@@ -64,7 +64,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     // Whether is not authenticathed try to retrieve a possible stored auth token
     this.store.pipe(select(isAuthenticated),
-      first(),
+      take(1),
       filter((authenticated) => !authenticated)
     ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
 

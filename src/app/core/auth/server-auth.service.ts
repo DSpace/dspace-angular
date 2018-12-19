@@ -1,4 +1,4 @@
-import { first, map, switchMap } from 'rxjs/operators';
+import { first, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -62,7 +62,7 @@ export class ServerAuthService extends AuthService {
    */
   public redirectToPreviousUrl() {
     this.getRedirectUrl().pipe(
-      first())
+      take(1))
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
           // override the route reuse strategy
