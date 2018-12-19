@@ -1,4 +1,3 @@
-import 'rxjs/add/observable/of';
 import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchOptions } from './search-options.model';
 import { SearchFilter } from './search-filter.model';

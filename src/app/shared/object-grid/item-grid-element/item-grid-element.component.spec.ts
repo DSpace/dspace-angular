@@ -4,13 +4,13 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { Item } from '../../../core/shared/item.model';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 
 let itemGridElementComponent: ItemGridElementComponent;
 let fixture: ComponentFixture<ItemGridElementComponent>;
 
 const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of({}),
+  bitstreams: observableOf({}),
   metadata: [
     {
       key: 'dc.contributor.author',
@@ -24,7 +24,7 @@ const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
     }]
 });
 const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of({}),
+  bitstreams: observableOf({}),
   metadata: [
     {
       key: 'dc.title',

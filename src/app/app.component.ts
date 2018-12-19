@@ -1,3 +1,4 @@
+import { filter, first, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,7 +10,7 @@ import {
 } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -62,10 +63,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.dispatchWindowSize(this._window.nativeWindow.innerWidth, this._window.nativeWindow.innerHeight);
 
     // Whether is not authenticathed try to retrieve a possible stored auth token
-    this.store.select(isAuthenticated)
-      .take(1)
-      .filter((authenticated) => !authenticated)
-      .subscribe((authenticated) => this.authService.checkAuthenticationToken());
+    this.store.pipe(select(isAuthenticated),
+      first(),
+      filter((authenticated) => !authenticated)
+    ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
 
   }
 

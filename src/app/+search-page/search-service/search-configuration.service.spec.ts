@@ -3,8 +3,8 @@ import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { Observable } from 'rxjs/Observable';
 import { SearchFilter } from '../search-filter.model';
+import { of as observableOf } from 'rxjs';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;
@@ -24,8 +24,8 @@ describe('SearchConfigurationService', () => {
   const backendFilters = [new SearchFilter('f.author', ['another value']), new SearchFilter('f.date', ['[2013 TO 2018]'])];
 
   const spy = jasmine.createSpyObj('RouteService', {
-    getQueryParameterValue: Observable.of(value1),
-    getQueryParamsWithPrefix: Observable.of(prefixFilter)
+    getQueryParameterValue: observableOf(value1),
+    getQueryParamsWithPrefix: observableOf(prefixFilter)
   });
 
   const activatedRoute: any = new ActivatedRouteStub();

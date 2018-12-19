@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';

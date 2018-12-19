@@ -1,16 +1,20 @@
-import { Observable } from 'rxjs/Observable';
 import { SearchFilterService } from './search-filter.service';
 import { Store } from '@ngrx/store';
 import {
-  SearchFilterCollapseAction, SearchFilterDecrementPageAction, SearchFilterExpandAction,
+  SearchFilterCollapseAction,
+  SearchFilterDecrementPageAction,
+  SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
-  SearchFilterInitialCollapseAction, SearchFilterInitialExpandAction, SearchFilterResetPageAction,
+  SearchFilterInitialCollapseAction,
+  SearchFilterInitialExpandAction,
+  SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { SearchFiltersState } from './search-filter.reducer';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
+import { of as observableOf } from 'rxjs';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;
@@ -28,7 +32,7 @@ describe('SearchFilterService', () => {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */
-    select: Observable.of(true)
+    select: observableOf(true)
   });
 
   const routeServiceStub: any = {
@@ -42,10 +46,10 @@ describe('SearchFilterService', () => {
     addQueryParameterValue: (param: string, value: string) => {
     },
     getQueryParameterValues: (param: string) => {
-      return Observable.of({});
+      return observableOf({});
     },
     getQueryParamsWithPrefix: (param: string) => {
-      return Observable.of({});
+      return observableOf({});
     }
     /* tslint:enable:no-empty */
   };

@@ -1,5 +1,5 @@
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
@@ -17,12 +17,11 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import {
-  MetadataschemaSuccessResponse, RegistryBitstreamformatsSuccessResponse, RegistryMetadatafieldsSuccessResponse,
+  RegistryBitstreamformatsSuccessResponse,
+  RegistryMetadatafieldsSuccessResponse,
   RegistryMetadataschemasSuccessResponse
 } from '../cache/response-cache.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { MetadataschemaParsingService } from '../data/metadataschema-parsing.service';
-import { Res } from 'awesome-typescript-loader/dist/checker/protocol';
 import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
 import { isNotEmpty } from '../../shared/empty.util';
@@ -70,9 +69,11 @@ export class RegistryService {
       map((response: RegistryMetadataschemasSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(metadataschemasObs, pageInfoObs, (metadataschemas, pageInfo) => {
-      return new PaginatedList(pageInfo, metadataschemas);
-    });
+    const payloadObs = observableCombineLatest(metadataschemasObs, pageInfoObs).pipe(
+      map(([metadataschemas, pageInfo]) => {
+        return new PaginatedList(pageInfo, metadataschemas);
+      })
+    );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
@@ -132,9 +133,11 @@ export class RegistryService {
       map((response: RegistryMetadatafieldsSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(metadatafieldsObs, pageInfoObs, (metadatafields, pageInfo) => {
-      return new PaginatedList(pageInfo, metadatafields);
-    });
+    const payloadObs = observableCombineLatest(metadatafieldsObs, pageInfoObs).pipe(
+      map(([metadatafields, pageInfo]) => {
+        return new PaginatedList(pageInfo, metadatafields);
+      })
+    );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }
@@ -164,9 +167,11 @@ export class RegistryService {
       map((response: RegistryBitstreamformatsSuccessResponse) => response.pageInfo)
     );
 
-    const payloadObs = Observable.combineLatest(bitstreamformatsObs, pageInfoObs, (bitstreamformats, pageInfo) => {
-      return new PaginatedList(pageInfo, bitstreamformats);
-    });
+    const payloadObs = observableCombineLatest(bitstreamformatsObs, pageInfoObs).pipe(
+      map(([bitstreamformats, pageInfo]) => {
+        return new PaginatedList(pageInfo, bitstreamformats);
+      })
+    );
 
     return this.rdb.toRemoteDataObservable(requestEntryObs, responseCacheObs, payloadObs);
   }

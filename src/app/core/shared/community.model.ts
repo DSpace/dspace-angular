@@ -2,7 +2,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { Bitstream } from './bitstream.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedList } from '../data/paginated-list';
 
 export class Community extends DSpaceObject {

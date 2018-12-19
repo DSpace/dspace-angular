@@ -9,7 +9,12 @@ import { DsDynamicListComponent } from './dynamic-list.component';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 import { FormBuilderService } from '../../../form-builder.service';
-import { DynamicFormControlLayout, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout,
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
@@ -90,12 +95,13 @@ describe('DsDynamicListComponent test suite', () => {
         TestComponent,
       ], // declare the test component
       providers: [
-        AuthorityService,
         ChangeDetectorRef,
         DsDynamicListComponent,
         DynamicFormValidationService,
         FormBuilderService,
         {provide: AuthorityService, useValue: authorityServiceStub},
+        {provide: DynamicFormLayoutService, useValue: {}},
+        {provide: DynamicFormValidationService, useValue: {}}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -110,7 +116,6 @@ describe('DsDynamicListComponent test suite', () => {
         [bindId]="bindId"
         [group]="group"
         [model]="model"
-        [showErrorMessages]="showErrorMessages"
         (blur)="onBlur($event)"
         (change)="onValueChange($event)"
         (focus)="onFocus($event)"></ds-dynamic-list>`;
