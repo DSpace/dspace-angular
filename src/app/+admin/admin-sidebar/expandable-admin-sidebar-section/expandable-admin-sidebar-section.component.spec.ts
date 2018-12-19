@@ -9,6 +9,7 @@ import { of as observableOf } from 'rxjs';
 import { Component } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ExpandableAdminSidebarSectionComponent', () => {
   let component: ExpandableAdminSidebarSectionComponent;
@@ -17,7 +18,7 @@ describe('ExpandableAdminSidebarSectionComponent', () => {
   const iconString = 'test';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
+      imports: [NoopAnimationsModule, TranslateModule.forRoot()],
       declarations: [ExpandableAdminSidebarSectionComponent, TestComponent],
       providers: [
         { provide: 'sectionDataProvider', useValue: {icon: iconString} },

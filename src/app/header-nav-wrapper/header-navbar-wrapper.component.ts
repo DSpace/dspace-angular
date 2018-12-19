@@ -7,6 +7,9 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuID } from '../shared/menu/initial-menus-state';
 
+/**
+ * This component represents a wrapper for the horizontal navbar and the header
+ */
 @Component({
   selector: 'ds-header-navbar-wrapper',
   styleUrls: ['header-navbar-wrapper.component.scss'],

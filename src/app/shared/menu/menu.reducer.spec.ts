@@ -54,7 +54,7 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 0,
-              text: 'admin.sidebar.section.new'
+              text: 'menu.section.new'
             },
             icon: 'plus-circle',
             index: 0
@@ -66,7 +66,7 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 1,
-              text: 'admin.sidebar.section.new_item',
+              text: 'menu.section.new_item',
               link: '/items/submission'
             }
           },
@@ -77,7 +77,7 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 1,
-              text: 'admin.sidebar.section.new_community',
+              text: 'menu.section.new_community',
               link: '/communities/submission'
             }
           },
@@ -87,7 +87,7 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 0,
-              text: 'admin.sidebar.section.access_control'
+              text: 'menu.section.access_control'
             },
             icon: 'key',
             index: 4
@@ -99,7 +99,7 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 1,
-              text: 'admin.sidebar.section.access_control_people',
+              text: 'menu.section.access_control_people',
               link: '#'
             }
           },
@@ -110,7 +110,7 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 1,
-              text: 'admin.sidebar.section.access_control_groups',
+              text: 'menu.section.access_control_groups',
               link: '#'
             }
           },
@@ -121,7 +121,7 @@ describe('menusReducer', () => {
             visible: true,
             model: {
               type: 1,
-              text: 'admin.sidebar.section.new_collection',
+              text: 'menu.section.new_collection',
               link: '/collections/submission'
             }
           }

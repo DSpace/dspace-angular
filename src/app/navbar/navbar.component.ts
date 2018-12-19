@@ -47,7 +47,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'admin.sidebar.section.browse_global'
+          text: 'menu.section.browse_global'
         } as TextMenuItemModel,
         index: 0
       },
@@ -58,7 +58,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.browse_global_communities_and_collections',
+          text: 'menu.section.browse_global_communities_and_collections',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -69,7 +69,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.browse_global_by_issue_date',
+          text: 'menu.section.browse_global_by_issue_date',
           link: '#'
         } as LinkMenuItemModel,
       },      {
@@ -79,7 +79,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.browse_global_by_title',
+          text: 'menu.section.browse_global_by_title',
           link: '/browse/title'
         } as LinkMenuItemModel,
       },
@@ -90,7 +90,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.browse_global_by_author',
+          text: 'menu.section.browse_global_by_author',
           link: '/browse/author'
         } as LinkMenuItemModel,
       },
@@ -102,7 +102,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.statistics',
+          text: 'menu.section.statistics',
           link: '#'
         } as LinkMenuItemModel,
         index: 2

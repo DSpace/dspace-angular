@@ -10,6 +10,7 @@ import { SortablejsModule } from 'angular-sortablejs';
 import { By } from '@angular/platform-browser';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { createTestComponent, hasClass } from '../testing/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ChipsComponent test suite', () => {
 
@@ -27,6 +28,7 @@ describe('ChipsComponent test suite', () => {
       imports: [
         NgbModule.forRoot(),
         SortablejsModule.forRoot({animation: 150}),
+        TranslateModule.forRoot()
       ],
       declarations: [
         ChipsComponent,

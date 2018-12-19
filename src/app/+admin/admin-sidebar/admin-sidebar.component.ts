@@ -93,7 +93,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'admin.sidebar.section.new'
+          text: 'menu.section.new'
         } as TextMenuItemModel,
         icon: 'plus-circle',
         index: 0
@@ -105,7 +105,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.new_community',
+          text: 'menu.section.new_community',
           link: '/communities/submission'
         } as LinkMenuItemModel,
       },
@@ -116,7 +116,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.new_collection',
+          text: 'menu.section.new_collection',
           link: '/collections/submission'
         } as LinkMenuItemModel,
       },
@@ -127,7 +127,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.new_item',
+          text: 'menu.section.new_item',
           link: '/items/submission'
         } as LinkMenuItemModel,
       },
@@ -138,7 +138,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.new_item_version',
+          text: 'menu.section.new_item_version',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -150,7 +150,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'admin.sidebar.section.edit'
+          text: 'menu.section.edit'
         } as TextMenuItemModel,
         icon: 'pencil-alt',
         index: 1
@@ -162,7 +162,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.edit_community',
+          text: 'menu.section.edit_community',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -173,7 +173,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.edit_collection',
+          text: 'menu.section.edit_collection',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -184,7 +184,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.edit_item',
+          text: 'menu.section.edit_item',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -196,7 +196,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'admin.sidebar.section.import'
+          text: 'menu.section.import'
         } as TextMenuItemModel,
         icon: 'sign-in-alt',
         index: 2
@@ -208,7 +208,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.import_metadata',
+          text: 'menu.section.import_metadata',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -219,7 +219,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.import_batch',
+          text: 'menu.section.import_batch',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -231,7 +231,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'admin.sidebar.section.export'
+          text: 'menu.section.export'
         } as TextMenuItemModel,
         icon: 'sign-out-alt',
         index: 3
@@ -243,7 +243,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.export_community',
+          text: 'menu.section.export_community',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -254,7 +254,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.export_collection',
+          text: 'menu.section.export_collection',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -265,7 +265,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.export_item',
+          text: 'menu.section.export_item',
           link: '#'
         } as LinkMenuItemModel,
       }, {
@@ -275,7 +275,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.export_metadata',
+          text: 'menu.section.export_metadata',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -287,7 +287,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'admin.sidebar.section.access_control'
+          text: 'menu.section.access_control'
         } as TextMenuItemModel,
         icon: 'key',
         index: 4
@@ -299,7 +299,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.access_control_people',
+          text: 'menu.section.access_control_people',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -310,7 +310,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.access_control_groups',
+          text: 'menu.section.access_control_groups',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -321,7 +321,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.access_control_authorizations',
+          text: 'menu.section.access_control_authorizations',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -333,7 +333,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'admin.sidebar.section.find'
+          text: 'menu.section.find'
         } as TextMenuItemModel,
         icon: 'search',
         index: 5
@@ -345,7 +345,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.find_items',
+          text: 'menu.section.find_items',
           link: '/search'
         } as LinkMenuItemModel,
       },
@@ -356,7 +356,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.find_withdrawn_items',
+          text: 'menu.section.find_withdrawn_items',
           link: '#'
         } as LinkMenuItemModel,
       },
@@ -367,7 +367,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.find_private_items',
+          text: 'menu.section.find_private_items',
           link: '/admin/items'
         } as LinkMenuItemModel,
       },
@@ -379,7 +379,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.TEXT,
-          text: 'admin.sidebar.section.registries'
+          text: 'menu.section.registries'
         } as TextMenuItemModel,
         icon: 'list',
         index: 6
@@ -391,7 +391,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.registries_metadata',
+          text: 'menu.section.registries_metadata',
           link: 'admin/registries/metadata'
         } as LinkMenuItemModel,
       },
@@ -402,7 +402,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.registries_format',
+          text: 'menu.section.registries_format',
           link: 'admin/registries/bitstream-formats'
         } as LinkMenuItemModel,
       },
@@ -414,7 +414,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.curation_task',
+          text: 'menu.section.curation_task',
           link: '/curation'
         } as LinkMenuItemModel,
         icon: 'filter',
@@ -428,7 +428,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.statistics_task',
+          text: 'menu.section.statistics_task',
           link: '#'
         } as LinkMenuItemModel,
         icon: 'chart-bar',
@@ -442,7 +442,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: 'admin.sidebar.section.control_panel',
+          text: 'menu.section.control_panel',
           link: '#'
         } as LinkMenuItemModel,
         icon: 'cogs',

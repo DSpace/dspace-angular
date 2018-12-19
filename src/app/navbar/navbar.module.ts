@@ -39,7 +39,7 @@ const effects = [
 })
 
 /**
- * This module handles all components and pipes that are necessary for the search page
+ * This module handles all components and pipes that are necessary for the horizontal navigation bar
  */
 export class NavbarModule {
 }
