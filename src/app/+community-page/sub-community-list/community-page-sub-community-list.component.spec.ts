@@ -3,15 +3,14 @@ import {TranslateModule} from '@ngx-translate/core';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
 import {CommunityPageSubCommunityListComponent} from './community-page-sub-community-list.component';
 import {Community} from '../../core/shared/community.model';
-import {Observable} from 'rxjs/Observable';
 import {RemoteData} from '../../core/data/remote-data';
 import {PaginatedList} from '../../core/data/paginated-list';
-import 'rxjs/add/observable/of';
 import {PageInfo} from '../../core/shared/page-info.model';
 import {SharedModule} from '../../shared/shared.module';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {By} from '@angular/platform-browser';
+import {of as observableOf,  Observable } from 'rxjs';
 
 describe('SubCommunityList Component', () => {
   let comp: CommunityPageSubCommunityListComponent;
@@ -46,7 +45,7 @@ describe('SubCommunityList Component', () => {
         language: 'en_US',
         value: 'Test title'
       }],
-    subcommunities: Observable.of(new RemoteData(true, true, true,
+    subcommunities: observableOf(new RemoteData(true, true, true,
       undefined, new PaginatedList(new PageInfo(), [])))
   });
 
@@ -57,7 +56,7 @@ describe('SubCommunityList Component', () => {
           language: 'en_US',
           value: 'Test title'
         }],
-      subcommunities: Observable.of(new RemoteData(true, true, true,
+      subcommunities: observableOf(new RemoteData(true, true, true,
         undefined, new PaginatedList(new PageInfo(), subcommunities)))
     })
   ;
