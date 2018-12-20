@@ -116,11 +116,13 @@ export class ItemCollectionMapperComponent implements OnInit {
     const itemIdAndExcludingIds$ = observableCombineLatest(
       this.itemRD$.pipe(
         getSucceededRemoteData(),
+        take(1),
         map((rd: RemoteData<Item>) => rd.payload),
         map((item: Item) => item.id)
       ),
       this.itemCollectionsRD$.pipe(
         getSucceededRemoteData(),
+        take(1),
         map((rd: RemoteData<PaginatedList<Collection>>) => rd.payload.page),
         map((collections: Collection[]) => collections.map((collection: Collection) => collection.id))
       )
@@ -168,6 +170,7 @@ export class ItemCollectionMapperComponent implements OnInit {
    */
   private showNotifications(responses$: Observable<RestResponse[]>, messagePrefix: string) {
     responses$.subscribe((responses: RestResponse[]) => {
+      console.log('message ' + messagePrefix + ' for ' + responses.length + ' responses...');
       const successful = responses.filter((response: RestResponse) => response.isSuccessful);
       const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
       if (successful.length > 0) {
