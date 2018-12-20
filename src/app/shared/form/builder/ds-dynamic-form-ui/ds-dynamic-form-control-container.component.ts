@@ -169,8 +169,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService,
-    protected renderer: Renderer2
+    protected validationService: DynamicFormValidationService
   ) {
 
     super(componentFactoryResolver, layoutService, validationService);
