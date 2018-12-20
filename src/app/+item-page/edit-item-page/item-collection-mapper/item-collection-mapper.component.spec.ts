@@ -37,7 +37,7 @@ import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
 
-fdescribe('ItemCollectionMapperComponent', () => {
+describe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;
   let fixture: ComponentFixture<ItemCollectionMapperComponent>;
 
