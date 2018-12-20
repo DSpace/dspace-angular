@@ -9,3 +9,16 @@ $drop-zone-area-inner-z-index: 1021;
 $login-logo-height:72px;
 $login-logo-width:72px;
 
+$main-z-index: 0;
+$nav-z-index: 10;
+$sidebar-z-index: 20;
+
+$header-logo-height: 80px;
+$header-logo-height-xs: 50px;
+
+$admin-sidebar-bg: $dark;
+$admin-sidebar-active-bg: darken($dark, 3%);
+$admin-sidebar-header-bg: darken($dark, 7%);
+
+$dark-scrollbar-background: $admin-sidebar-active-bg;
+$dark-scrollbar-foreground: #47495d;
