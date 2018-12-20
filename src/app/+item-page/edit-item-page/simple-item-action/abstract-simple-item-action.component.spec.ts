@@ -18,6 +18,10 @@ import {RestResponse} from '../../../core/cache/response-cache.models';
 import {of as observableOf} from 'rxjs';
 import {getItemEditPath} from '../../item-page-routing.module';
 
+/**
+ * Test component that implements the AbstractSimpleItemActionComponent used to test the
+ * AbstractSimpleItemActionComponent component
+ */
 @Component({
   selector: 'ds-simple-action',
   templateUrl: './abstract-simple-item-action.component.html'

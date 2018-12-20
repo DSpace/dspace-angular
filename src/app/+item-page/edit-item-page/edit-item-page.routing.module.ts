@@ -14,6 +14,9 @@ const ITEM_EDIT_PRIVATE_PATH = 'private';
 const ITEM_EDIT_PUBLIC_PATH = 'public';
 const ITEM_EDIT_DELETE_PATH = 'delete';
 
+/**
+ * Routing module that handles the routing for the Edit Item page administrator functionality
+ */
 @NgModule({
   imports: [
     RouterModule.forChild([

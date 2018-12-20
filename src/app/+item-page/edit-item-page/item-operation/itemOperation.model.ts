@@ -1,3 +1,7 @@
+/**
+ *  Represents an item operation used on the edit item page with a key, an operation URL to which will be navigated
+ *  when performing the action and an option to disable the operation.
+ */
 export class ItemOperation {
 
   operationKey: string;

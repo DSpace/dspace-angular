@@ -13,6 +13,9 @@ import {ItemPrivateComponent} from './item-private/item-private.component';
 import {ItemPublicComponent} from './item-public/item-public.component';
 import {ItemDeleteComponent} from './item-delete/item-delete.component';
 
+/**
+ * Module that contains all components related to the Edit Item page administrator functionality
+ */
 @NgModule({
   imports: [
     CommonModule,
