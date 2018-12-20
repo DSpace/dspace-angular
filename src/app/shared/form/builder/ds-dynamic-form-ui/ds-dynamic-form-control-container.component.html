@@ -32,7 +32,6 @@
         (change)="onChangeLanguage($event)"
         [ngModelOptions]="{standalone: true}"
         required>
-        <!--<option [value]="null" disabled>Language</option>-->
         <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
       </select>
     </div>

@@ -12,8 +12,7 @@ import {
   SimpleChanges,
   Type,
   ViewChild,
-  ViewContainerRef,
-  ViewEncapsulation
+  ViewContainerRef
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 

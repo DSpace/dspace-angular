@@ -37,25 +37,4 @@ export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {
     super(layoutService, validationService);
   }
 
-/*  ngAfterViewInit() {
-    if (this.control) {
-      this.control.statusChanges.pipe(
-        tap((state) => console.log(this.model.id, state)),
-        filter((state) => state === 'INVALID'),
-        // filter(() => this.control.touched),
-      )
-        .subscribe((state) => {
-          // const instance: DynamicFormControlComponent = this.componentRef.instance as any;
-          console.log('group', this.model.id, state);
-          // console.log(this.model.hasErrorMessages, this.control.touched, this.hasFocus, this.isInvalid);
-          // instance.control.markAsTouched();
-          console.log('showErrorMessages ', this.showErrorMessages);
-          console.log('hasErrorMessages ', this.model.hasErrorMessages);
-          console.log('touched ', this.control.touched);
-          console.log('hasFocus ', this.hasFocus);
-          console.log('isInvalid ', this.isInvalid);
-        });
-    }
-  }*/
-
 }

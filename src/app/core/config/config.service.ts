@@ -94,7 +94,6 @@ export abstract class ConfigService {
   }
 
   public getConfigBySearch(options: FindAllOptions = {}): Observable<ConfigData> {
-    console.log(this.halService.getEndpoint(this.linkPath));
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getConfigSearchHref(endpoint, options)),
       filter((href: string) => isNotEmpty(href)),
