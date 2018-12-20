@@ -2,7 +2,12 @@ import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, flatMap, map, take } from 'rxjs/operators';
-import { DynamicCheckboxModel, DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicCheckboxModel,
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicFormLayout
+} from '@ng-dynamic-forms/core';
 
 import { SectionModelComponent } from '../models/section.model';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -11,7 +16,7 @@ import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../shared
 import { License } from '../../../core/shared/license.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
-import { SECTION_LICENSE_FORM_MODEL } from './section-license.model';
+import { SECTION_LICENSE_FORM_LAYOUT, SECTION_LICENSE_FORM_MODEL } from './section-license.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -34,6 +39,7 @@ export class LicenseSectionComponent extends SectionModelComponent {
 
   public formId;
   public formModel: DynamicFormControlModel[];
+  public formLayout: DynamicFormLayout = SECTION_LICENSE_FORM_LAYOUT;
   public displaySubmit = false;
   public licenseText: string;
 
