@@ -1,0 +1,12 @@
+@import '_variables.scss';
+
+:export {
+    xlMin: map-get($grid-breakpoints, xl);
+    mdMin: map-get($grid-breakpoints, md);
+    lgMin: map-get($grid-breakpoints, lg);
+    smMin: map-get($grid-breakpoints, sm);
+    adminSidebarActiveBg: $admin-sidebar-active-bg;
+    sidebarItemsWidth: $sidebar-items-width;
+    collapsedSidebarWidth: $collapsed-sidebar-width;
+    totalSidebarWidth: $total-sidebar-width;
+}

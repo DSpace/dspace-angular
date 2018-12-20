@@ -1,4 +1,4 @@
-import { filter, first, take } from 'rxjs/operators';
+import { filter, first, map, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -23,16 +23,29 @@ import { NativeWindowRef, NativeWindowService } from './shared/services/window.s
 import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import variables from '../styles/_exposed_variables.scss';
+import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
+import { MenuService } from './shared/menu/menu.service';
+import { MenuID } from './shared/menu/initial-menus-state';
+import { Observable } from 'rxjs/internal/Observable';
+import { slideSidebarPadding } from './shared/animations/slide';
+import { combineLatest as combineLatestObservable } from 'rxjs';
+import { HostWindowService } from './shared/host-window.service';
 
 @Component({
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [slideSidebarPadding]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   isLoading = true;
+  sidebarVisible: Observable<boolean>;
+  slideSidebarOver: Observable<boolean>;
+  collapsedSidebarWidth: Observable<string>;
+  totalSidebarWidth: Observable<string>;
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -42,7 +55,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     private metadata: MetadataService,
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cssService: CSSVariableService,
+    private menuService: MenuService,
+    private windowService: HostWindowService
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
@@ -54,9 +70,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (config.debug) {
       console.info(config);
     }
+    this.storeCSSVariables();
+
   }
 
   ngOnInit() {
+
     const env: string = this.config.production ? 'Production' : 'Development';
     const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
@@ -67,7 +86,23 @@ export class AppComponent implements OnInit, AfterViewInit {
       take(1),
       filter((authenticated) => !authenticated)
     ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
+    this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
 
+    this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
+    this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
+
+    const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
+    this.slideSidebarOver = combineLatestObservable(sidebarCollapsed, this.windowService.isXsOrSm())
+      .pipe(
+        map(([collapsed, mobile]) => collapsed || mobile)
+      );
+  }
+
+  private storeCSSVariables() {
+    const vars = variables.locals || {};
+    Object.keys(vars).forEach((name: string) => {
+      this.cssService.addCSSVariable(name, vars[name]);
+    })
   }
 
   ngAfterViewInit() {

@@ -1,9 +1,10 @@
 import { filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import {
-  ObjectCacheActionTypes, AddToObjectCacheAction,
+  AddToObjectCacheAction,
+  ObjectCacheActionTypes,
   RemoveFromObjectCacheAction
 } from '../cache/object-cache.actions';
 import { RequestActionTypes, RequestConfigureAction } from '../data/request.actions';
@@ -51,17 +52,6 @@ export class UUIDIndexEffects {
         );
       })
     );
-
-  // @Effect() removeRequest$ = this.actions$
-  //   .pipe(
-  //    ofType(ObjectCacheActionTypes.REMOVE),
-  //    map((action: RemoveFromObjectCacheAction) => {
-  //     return new RemoveFromIndexByValueAction(
-  //       IndexName.OBJECT,
-  //       action.payload
-  //     );
-  //   })
-  // )
 
   constructor(private actions$: Actions) {
 
