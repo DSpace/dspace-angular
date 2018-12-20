@@ -58,7 +58,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private routeService: RouteService,
-    private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService

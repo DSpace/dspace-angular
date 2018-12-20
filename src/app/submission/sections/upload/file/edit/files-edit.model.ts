@@ -49,7 +49,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
   label: 'submission.sections.upload.form.from-label',
   placeholder: 'submission.sections.upload.form.from-placeholder',
   inline: false,
-  toggleIcon: 'fa fa-calendar',
+  toggleIcon: 'fas fa-calendar',
   relation: [
     {
       action: 'ENABLE',
@@ -73,7 +73,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
   label: 'submission.sections.upload.form.until-label',
   placeholder: 'submission.sections.upload.form.until-placeholder',
   inline: false,
-  toggleIcon: 'fa fa-calendar',
+  toggleIcon: 'fas fa-calendar',
   relation: [
     {
       action: 'ENABLE',

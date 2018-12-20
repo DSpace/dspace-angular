@@ -34,6 +34,7 @@ describe('ChipsComponent test suite', () => {
       imports: [
         NgbModule.forRoot(),
         SortablejsModule.forRoot({animation: 150}),
+        TranslateModule.forRoot()
       ],
       declarations: [
         ChipsComponent,
