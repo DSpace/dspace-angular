@@ -1,5 +1,5 @@
 import { isObject, uniqueId } from 'lodash';
-import { isNotEmpty } from '../../empty.util';
+import { hasValue, isNotEmpty } from '../../empty.util';
 import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../core/integration/models/confidence-type';
 
@@ -60,7 +60,8 @@ export class ChipsItem {
       // check if it has at least one visible icon
       for (const icon of this.icons) {
         if (this._item.hasOwnProperty(icon.metadata)
-          && (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue()
+          && (((typeof this._item[icon.metadata] === 'string') && hasValue(this._item[icon.metadata]))
+            || (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue())
           && !(this._item[icon.metadata] as FormFieldMetadataValueObject).hasPlaceholder()) {
           if (icon.visibleWhenAuthorityEmpty
             || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET) {
