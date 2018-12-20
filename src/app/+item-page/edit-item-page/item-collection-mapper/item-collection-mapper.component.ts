@@ -170,7 +170,6 @@ export class ItemCollectionMapperComponent implements OnInit {
    */
   private showNotifications(responses$: Observable<RestResponse[]>, messagePrefix: string) {
     responses$.subscribe((responses: RestResponse[]) => {
-      console.log('message ' + messagePrefix + ' for ' + responses.length + ' responses...');
       const successful = responses.filter((response: RestResponse) => response.isSuccessful);
       const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
       if (successful.length > 0) {
