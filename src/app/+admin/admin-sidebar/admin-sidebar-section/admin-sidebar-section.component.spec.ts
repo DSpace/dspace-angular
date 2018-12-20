@@ -9,6 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminSidebarSectionComponent } from './admin-sidebar-section.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('AdminSidebarSectionComponent', () => {
   let component: AdminSidebarSectionComponent;
@@ -18,7 +19,7 @@ describe('AdminSidebarSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, RouterTestingModule],
+      imports: [NoopAnimationsModule, RouterTestingModule, TranslateModule.forRoot()],
       declarations: [AdminSidebarSectionComponent, TestComponent],
       providers: [
         { provide: 'sectionDataProvider', useValue: { model: { link: 'google.com' }, icon: iconString } },
