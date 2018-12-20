@@ -74,6 +74,8 @@ import { FileService } from './shared/file.service';
 import { SubmissionRestService } from '../submission/submission-rest.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
+import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
+import { MenuService } from '../shared/menu/menu.service';
 
 const IMPORTS = [
   CommonModule,
@@ -150,6 +152,8 @@ const PROVIDERS = [
   UploaderService,
   FileService,
   DSpaceObjectDataService,
+  CSSVariableService,
+  MenuService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

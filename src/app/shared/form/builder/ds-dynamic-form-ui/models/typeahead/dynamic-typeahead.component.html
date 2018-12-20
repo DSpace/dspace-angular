@@ -21,10 +21,10 @@
 </ng-template>
 
 <div class="position-relative right-addon">
-  <i *ngIf="searching" class="fa fa-circle-o-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
+  <i *ngIf="searching" class="fas fa-circle-o-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
   <i *ngIf="!searching"
      dsAuthorityConfidenceState
-     class="fa fa-circle-o fa-2x fa-fw position-absolute mt-1 p-0"
+     class="fas fa-circle-o fa-2x fa-fw position-absolute mt-1 p-0"
      aria-hidden="true"
      [authorityValue]="currentValue"
      (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>

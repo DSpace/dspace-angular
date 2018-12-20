@@ -34,7 +34,6 @@ describe('ChipsComponent test suite', () => {
       imports: [
         NgbModule.forRoot(),
         SortablejsModule.forRoot({animation: 150}),
-        TranslateModule.forRoot()
       ],
       declarations: [
         ChipsComponent,
@@ -165,7 +164,7 @@ describe('ChipsComponent test suite', () => {
 
     it('should show icon for every field that has a configured icon', () => {
       const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fa'));
+      const icons = de.queryAll(By.css('i.fas'));
 
       expect(icons.length).toBe(4);
 
@@ -173,7 +172,7 @@ describe('ChipsComponent test suite', () => {
 
     it('should show tooltip on mouse over an icon', () => {
       const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fa'));
+      const icons = de.queryAll(By.css('i.fas'));
 
       icons[0].triggerEventHandler('mouseover', null);
 

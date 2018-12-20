@@ -88,6 +88,7 @@ import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
+import { MenuModule } from './menu/menu.module';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -108,7 +109,8 @@ const MODULES = [
   TranslateModule,
   NouisliderModule,
   MomentModule,
-  TextMaskModule
+  TextMaskModule,
+  MenuModule
 ];
 
 const PIPES = [
@@ -165,7 +167,7 @@ const COMPONENTS = [
   TruncatableComponent,
   TruncatablePartComponent,
   BrowseByComponent,
-  InputSuggestionsComponent
+  InputSuggestionsComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -216,7 +218,6 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...DIRECTIVES
   ],
   providers: [
     ...PROVIDERS
