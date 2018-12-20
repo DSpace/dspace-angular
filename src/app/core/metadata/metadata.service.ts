@@ -269,7 +269,7 @@ export class MetadataService {
       const item = this.currentObject.value as Item;
       item.getFiles()
         .pipe(
-          find((files) => isNotEmpty(files)),
+          first((files) => isNotEmpty(files)),
           catchError((error) => {
             console.debug(error.message);
             return []
