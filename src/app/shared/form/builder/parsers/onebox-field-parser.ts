@@ -29,7 +29,7 @@ export class OneboxFieldParser extends FieldParser {
 
       const clsSelect = {
         element: {
-          control: 'input-group-addon ds-form-input-addon',
+          control: 'ds-form-input-addon custom-select',
         },
         grid: {
           host: 'col-sm-4 pr-0'
@@ -74,11 +74,27 @@ export class OneboxFieldParser extends FieldParser {
       this.setAuthorityOptions(typeaheadModelConfig, this.parserOptions.authorityUuid);
       this.setValues(typeaheadModelConfig, fieldValue, true);
       const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
+/*      typeaheadModel.languageCodes = [{
+        display: 'English',
+        code: 'en_US'
+      },
+        {
+          display: 'Italian',
+          code: 'it_IT'
+        }];*/
       return typeaheadModel;
     } else {
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel(null, label);
       this.setValues(inputModelConfig, fieldValue);
       const inputModel = new DsDynamicInputModel(inputModelConfig);
+/*      inputModel.languageCodes = [{
+        display: 'English',
+        code: 'en_US'
+      },
+        {
+          display: 'Italian',
+          code: 'it_IT'
+        }];*/
       return inputModel;
     }
   }

@@ -23,7 +23,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { isEqual, isObject } from 'lodash';
 
-import { DynamicGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-group.model';
+import { DynamicRelationGroupModel, PLACEHOLDER_PARENT_METADATA } from './dynamic-relation-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormService } from '../../../../form.service';
@@ -42,17 +42,16 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 
 @Component({
-  selector: 'ds-dynamic-group',
-  styleUrls: ['./dynamic-group.component.scss'],
-  templateUrl: './dynamic-group.component.html',
+  selector: 'ds-dynamic-relation-group',
+  styleUrls: ['./dynamic-relation-group.component.scss'],
+  templateUrl: './dynamic-relation-group.component.html',
   animations: [shrinkInOut]
 })
-export class DsDynamicGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
+export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent implements OnDestroy, OnInit {
 
   @Input() formId: string;
   @Input() group: FormGroup;
-  @Input() model: DynamicGroupModel;
-  @Input() showErrorMessages = false;
+  @Input() model: DynamicRelationGroupModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

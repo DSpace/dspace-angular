@@ -10,7 +10,6 @@ import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../models/notification-type';
 import { notificationsReducer } from '../notifications.reducers';
 import { NotificationOptions } from '../models/notification-options.model';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
 import { GlobalConfig } from '../../../../config/global-config.interface';
 import { Notification } from '../models/notification.model';

@@ -6,16 +6,13 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { DsDynamicGroupComponent } from './dynamic-group.components';
-import { DynamicGroupModel, DynamicGroupModelConfig } from './dynamic-group.model';
-import {
-  FormRowModel,
-  SubmissionFormsModel
-} from '../../../../../../core/config/models/config-submission-forms.model';
+import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
+import { DynamicRelationGroupModel, DynamicRelationGroupModelConfig } from './dynamic-relation-group.model';
+import { FormRowModel, SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormFieldModel } from '../../../models/form-field.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormService } from '../../../../form.service';
-import { GLOBAL_CONFIG } from '../../../../../../../config';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../../../config';
 import { FormComponent } from '../../../../form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Chips } from '../../../../../chips/models/chips.model';
@@ -26,12 +23,17 @@ import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dyna
 import { MockStore } from '../../../../../testing/mock-store';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../../app.reducer';
+import { AuthService } from '../../../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../../../testing/auth-service-stub';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
+import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
 export let FORM_GROUP_TEST_GROUP;
 
-let config;
+const config: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
 function init() {
   FORM_GROUP_TEST_MODEL_CONFIG = {
@@ -78,38 +80,19 @@ function init() {
     scopeUUID: '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f',
     submissionScope: undefined,
     validators: { required: null }
-  } as DynamicGroupModelConfig;
+  } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new FormGroup({
     dc_contributor_author: new FormControl(),
   });
 
-  config = {
-    form: {
-      validatorMap: {
-        required: 'required',
-        regex: 'pattern'
-      }
-    },
-    submission: {
-      metadata: {
-        icons: [
-          {
-            name: 'default',
-            config: {}
-          }
-        ]
-      }
-    }
-  } as any;
-
 }
 
-describe('DsDynamicGroupComponent test suite', () => {
+describe('DsDynamicRelationGroupComponent test suite', () => {
   let testComp: TestComponent;
-  let groupComp: DsDynamicGroupComponent;
+  let groupComp: DsDynamicRelationGroupComponent;
   let testFixture: ComponentFixture<TestComponent>;
-  let groupFixture: ComponentFixture<DsDynamicGroupComponent>;
+  let groupFixture: ComponentFixture<DsDynamicRelationGroupComponent>;
   let modelValue: any;
   let html;
   let control1: FormControl;
@@ -132,19 +115,20 @@ describe('DsDynamicGroupComponent test suite', () => {
       ],
       declarations: [
         FormComponent,
-        DsDynamicGroupComponent,
+        DsDynamicRelationGroupComponent,
         TestComponent,
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
-        DsDynamicGroupComponent,
+        DsDynamicRelationGroupComponent,
         DynamicFormValidationService,
         DynamicFormLayoutService,
         FormBuilderService,
         FormComponent,
         FormService,
+        { provide: AuthorityService, useValue: new AuthorityServiceStub() },
         { provide: GLOBAL_CONFIG, useValue: config },
-        {provide: Store, useValue: store},
+        { provide: Store, useValue: store },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -154,13 +138,12 @@ describe('DsDynamicGroupComponent test suite', () => {
   describe('', () => {
     // synchronous beforeEach
     beforeEach(() => {
-      html = `
-          <ds-dynamic-group [model]="model"
+      html = `<ds-dynamic-relation-group [model]="model"
                             [formId]="formId"
-                            [group]="group"                            
+                            [group]="group"
                             (blur)="onBlur($event)"
                             (change)="onValueChange($event)"
-                            (focus)="onFocus($event)"></ds-dynamic-group>`;
+                            (focus)="onFocus($event)"></ds-dynamic-relation-group>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -171,7 +154,7 @@ describe('DsDynamicGroupComponent test suite', () => {
       testComp = null;
     });
 
-    it('should create DsDynamicGroupComponent', inject([DsDynamicGroupComponent], (app: DsDynamicGroupComponent) => {
+    it('should create DsDynamicRelationGroupComponent', inject([DsDynamicRelationGroupComponent], (app: DsDynamicRelationGroupComponent) => {
 
       expect(app).toBeDefined();
     }));
@@ -180,11 +163,11 @@ describe('DsDynamicGroupComponent test suite', () => {
   describe('when init model value is empty', () => {
     beforeEach(inject([FormBuilderService], (service: FormBuilderService) => {
 
-      groupFixture = TestBed.createComponent(DsDynamicGroupComponent);
+      groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
       groupComp = groupFixture.componentInstance; // FormComponent test instance
       groupComp.formId = 'testForm';
       groupComp.group = FORM_GROUP_TEST_GROUP;
-      groupComp.model = new DynamicGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
+      groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
       groupFixture.detectChanges();
       control1 = service.getFormControlById('dc_contributor_author', (groupComp as any).formRef.formGroup, groupComp.formModel) as FormControl;
       model1 = service.findById('dc_contributor_author', groupComp.formModel) as DsDynamicInputModel;
@@ -254,11 +237,11 @@ describe('DsDynamicGroupComponent test suite', () => {
   describe('when init model value is not empty', () => {
     beforeEach(() => {
 
-      groupFixture = TestBed.createComponent(DsDynamicGroupComponent);
+      groupFixture = TestBed.createComponent(DsDynamicRelationGroupComponent);
       groupComp = groupFixture.componentInstance; // FormComponent test instance
       groupComp.formId = 'testForm';
       groupComp.group = FORM_GROUP_TEST_GROUP;
-      groupComp.model = new DynamicGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
+      groupComp.model = new DynamicRelationGroupModel(FORM_GROUP_TEST_MODEL_CONFIG);
       modelValue = [{
         'dc.contributor.author': new FormFieldMetadataValueObject('test author'),
         'local.contributor.affiliation': new FormFieldMetadataValueObject('test affiliation')
@@ -339,7 +322,7 @@ class TestComponent {
 
   groupModelConfig = FORM_GROUP_TEST_MODEL_CONFIG;
 
-  model = new DynamicGroupModel(this.groupModelConfig);
+  model = new DynamicRelationGroupModel(this.groupModelConfig);
 
   showErrorMessages = false;
 

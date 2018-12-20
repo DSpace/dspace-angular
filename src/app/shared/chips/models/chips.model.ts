@@ -2,7 +2,7 @@ import { findIndex, isEqual, isObject } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 import { ChipsItem, ChipsItemIcon } from './chips-item.model';
 import { hasValue, isNotEmpty } from '../../empty.util';
-import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { MetadataIconConfig } from '../../../../config/submission-config.interface';
 import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
 import { AuthorityValue } from '../../../core/integration/models/authority.value';

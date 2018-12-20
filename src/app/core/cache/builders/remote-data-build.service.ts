@@ -6,7 +6,7 @@ import {
 } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { distinctUntilChanged, flatMap, map, startWith } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
@@ -266,8 +266,10 @@ export class RemoteDataBuildService {
       map((rd: RemoteData<T[] | PaginatedList<T>>) => {
         if (Array.isArray(rd.payload)) {
           return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })
-        } else {
+        } else if (isNotUndefined(rd.payload)) {
           return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload.page) });
+        } else {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, []) });
         }
       })
     );

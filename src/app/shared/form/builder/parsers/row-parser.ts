@@ -2,7 +2,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@n
 import { uniqueId } from 'lodash';
 
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { isEmpty } from '../../../empty.util';
 import { setLayout } from './parser.utils';
@@ -10,7 +10,6 @@ import { FormFieldModel } from '../models/form-field.model';
 import { ParserType } from './parser-type';
 import { ParserOptions } from './parser-options';
 import { ParserFactory } from './parser-factory';
-import { TranslateService } from '@ngx-translate/core';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 

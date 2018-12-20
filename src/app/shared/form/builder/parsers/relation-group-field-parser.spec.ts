@@ -1,10 +1,10 @@
 import { FormFieldModel } from '../models/form-field.model';
-import { GroupFieldParser } from './group-field-parser';
-import { DynamicGroupModel } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { RelationGroupFieldParser } from './relation-group-field-parser';
+import { DynamicRelationGroupModel } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
 
-describe('GroupFieldParser test suite', () => {
+describe('RelationGroupFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues = {};
 
@@ -71,22 +71,22 @@ describe('GroupFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new GroupFieldParser(field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(field, initFormValues, parserOptions);
 
-    expect(parser instanceof GroupFieldParser).toBe(true);
+    expect(parser instanceof RelationGroupFieldParser).toBe(true);
   });
 
-  it('should return a DynamicGroupModel object', () => {
-    const parser = new GroupFieldParser(field, initFormValues, parserOptions);
+  it('should return a DynamicRelationGroupModel object', () => {
+    const parser = new RelationGroupFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
-    expect(fieldModel instanceof DynamicGroupModel).toBe(true);
+    expect(fieldModel instanceof DynamicRelationGroupModel).toBe(true);
   });
 
   it('should throw when rows configuration is empty', () => {
     field.rows = null;
-    const parser = new GroupFieldParser(field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(field, initFormValues, parserOptions);
 
     expect(() => parser.parse())
       .toThrow();
@@ -97,7 +97,7 @@ describe('GroupFieldParser test suite', () => {
       author: [new FormFieldMetadataValueObject('test author')],
       affiliation: [new FormFieldMetadataValueObject('test affiliation')]
     };
-    const parser = new GroupFieldParser(field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
     const expectedValue = [{

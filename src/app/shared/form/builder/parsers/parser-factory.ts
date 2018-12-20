@@ -3,7 +3,7 @@ import { GenericConstructor } from '../../../../core/shared/generic-constructor'
 import { FieldParser } from './field-parser';
 import { DateFieldParser } from './date-field-parser';
 import { DropdownFieldParser } from './dropdown-field-parser';
-import { GroupFieldParser } from './group-field-parser';
+import { RelationGroupFieldParser } from './relation-group-field-parser';
 import { ListFieldParser } from './list-field-parser';
 import { LookupFieldParser } from './lookup-field-parser';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
@@ -22,8 +22,8 @@ export class ParserFactory {
       case ParserType.Dropdown: {
         return DropdownFieldParser
       }
-      case ParserType.Group: {
-        return GroupFieldParser
+      case ParserType.RelationGroup: {
+        return RelationGroupFieldParser
       }
       case ParserType.List: {
         return ListFieldParser

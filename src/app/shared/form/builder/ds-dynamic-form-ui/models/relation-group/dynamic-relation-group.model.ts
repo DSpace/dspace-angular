@@ -1,7 +1,6 @@
 import { DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { isEmpty, isNull } from '../../../../../empty.util';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP = 'RELATION';
@@ -10,7 +9,7 @@ export const PLACEHOLDER_PARENT_METADATA = '#PLACEHOLDER_PARENT_METADATA_VALUE#'
 /**
  * Dynamic Group Model configuration interface
  */
-export interface DynamicGroupModelConfig extends DsDynamicInputModelConfig {
+export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConfig {
   formConfiguration: FormRowModel[],
   mandatoryField: string,
   relationFields: string[],
@@ -21,7 +20,7 @@ export interface DynamicGroupModelConfig extends DsDynamicInputModelConfig {
 /**
  * Dynamic Group Model class
  */
-export class DynamicGroupModel extends DsDynamicInputModel {
+export class DynamicRelationGroupModel extends DsDynamicInputModel {
   @serializable() formConfiguration: FormRowModel[];
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
@@ -30,7 +29,7 @@ export class DynamicGroupModel extends DsDynamicInputModel {
   @serializable() _value: any[];
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP;
 
-  constructor(config: DynamicGroupModelConfig, layout?: DynamicFormControlLayout) {
+  constructor(config: DynamicRelationGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
 
     this.formConfiguration = config.formConfiguration;

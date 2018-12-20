@@ -1,9 +1,9 @@
 @import "../../../styles/_variables.scss";
 
 .ds-form-input-addon {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-right: 0;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: 0 !important;
 }
 
 .ds-form-input-btn {
@@ -18,6 +18,6 @@
 }
 
 .ds-form-input-value {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
 }

@@ -4,7 +4,8 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
-  DYNAMIC_FORM_CONTROL_TYPE_GROUP, DYNAMIC_FORM_CONTROL_TYPE_INPUT,
+  DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_INPUT,
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
   DynamicFormArrayModel,
   DynamicFormControlModel,
@@ -18,13 +19,12 @@ import { isObject, isString, mergeWith } from 'lodash';
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
-  DynamicGroupModel
-} from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
-
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  DynamicRelationGroupModel
+} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
@@ -158,7 +158,7 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (this.isRelationGroup(controlModel)) {
-          const values = (controlModel as DynamicGroupModel).getGroupValue();
+          const values = (controlModel as DynamicRelationGroupModel).getGroupValue();
           values.forEach((groupValue, groupIndex) => {
             const newGroupValue = Object.create({});
             Object.keys(groupValue)

@@ -30,7 +30,6 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicLookupModel | DynamicLookupNameModel;
-  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

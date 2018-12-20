@@ -6,7 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output, ViewEncapsulation
 } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
@@ -32,6 +32,7 @@ import { FormEntry, FormError } from './form.reducer';
   selector: 'ds-form',
   styleUrls: ['form.component.scss'],
   templateUrl: 'form.component.html',
+  encapsulation: ViewEncapsulation.Native
 })
 export class FormComponent implements OnDestroy, OnInit {
 

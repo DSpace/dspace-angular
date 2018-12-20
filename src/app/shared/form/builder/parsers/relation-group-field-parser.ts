@@ -1,18 +1,19 @@
 import { FieldParser } from './field-parser';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FormFieldModel } from '../models/form-field.model';
-import {
-  DynamicGroupModel,
-  DynamicGroupModelConfig,
-  PLACEHOLDER_PARENT_METADATA
-} from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+
 import { isNotEmpty } from '../../../empty.util';
 import { FormRowModel } from '../../../../core/config/models/config-submission-forms.model';
+import {
+  DynamicRelationGroupModel,
+  DynamicRelationGroupModelConfig,
+  PLACEHOLDER_PARENT_METADATA
+} from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 
-export class GroupFieldParser extends FieldParser {
+export class RelationGroupFieldParser extends FieldParser {
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean) {
-    const modelConfiguration: DynamicGroupModelConfig = this.initModel(null, label);
+    const modelConfiguration: DynamicRelationGroupModelConfig = this.initModel(null, label);
 
     modelConfiguration.scopeUUID = this.parserOptions.authorityUuid;
     modelConfiguration.submissionScope = this.parserOptions.submissionScope;
@@ -54,7 +55,7 @@ export class GroupFieldParser extends FieldParser {
       }
     };
 
-    const model = new DynamicGroupModel(modelConfiguration, cls);
+    const model = new DynamicRelationGroupModel(modelConfiguration, cls);
     model.name = this.getFieldId();
     return model;
   }

@@ -25,11 +25,14 @@ import {
   DynamicTextAreaModel,
   DynamicTimePickerModel
 } from '@ng-dynamic-forms/core';
-import { DsDynamicFormControlComponent } from './ds-dynamic-form-control.component';
+import {
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn
+} from './ds-dynamic-form-control-container.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
-import { DynamicGroupModel } from './models/dynamic-group/dynamic-group.model';
+import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
@@ -57,11 +60,11 @@ import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahea
 import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './models/list/dynamic-list.component';
-import { DsDynamicGroupComponent } from './models/dynamic-group/dynamic-group.components';
+
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
 
-describe('DsDynamicFormControlComponent test suite', () => {
+describe('DsDynamicFormControlContainerComponent test suite', () => {
 
   const authorityOptions: AuthorityOptions = {
     closed: false,
@@ -106,7 +109,7 @@ describe('DsDynamicFormControlComponent test suite', () => {
       authorityOptions: authorityOptions,
       repeatable: false
     }),
-    new DynamicGroupModel({
+    new DynamicRelationGroupModel({
       id: 'relationGroup',
       formConfiguration: [],
       mandatoryField: '',
@@ -122,8 +125,8 @@ describe('DsDynamicFormControlComponent test suite', () => {
   ];
   const testModel = formModel[8];
   let formGroup: FormGroup;
-  let fixture: ComponentFixture<DsDynamicFormControlComponent>;
-  let component: DsDynamicFormControlComponent;
+  let fixture: ComponentFixture<DsDynamicFormControlContainerComponent>;
+  let component: DsDynamicFormControlContainerComponent;
   let debugElement: DebugElement;
   let testElement: DebugElement;
 
@@ -147,11 +150,11 @@ describe('DsDynamicFormControlComponent test suite', () => {
         TranslateModule.forRoot(),
         TextMaskModule
       ],
-      providers: [DsDynamicFormControlComponent, DynamicFormService],
+      providers: [DsDynamicFormControlContainerComponent, DynamicFormService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {
 
-      fixture = TestBed.createComponent(DsDynamicFormControlComponent);
+      fixture = TestBed.createComponent(DsDynamicFormControlContainerComponent);
 
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
@@ -254,7 +257,7 @@ describe('DsDynamicFormControlComponent test suite', () => {
   });
 
   it('should map a form control model to a form control component', () => {
-    const testFn = DsDynamicFormControlComponent.getFormControlType;
+    const testFn = dsDynamicFormControlMapFn;
     expect(testFn(formModel[0])).toBe(DynamicNGBootstrapCheckboxComponent);
     expect(testFn(formModel[1])).toBe(DynamicNGBootstrapCheckboxGroupComponent);
     expect(testFn(formModel[2])).toBeNull();
@@ -278,7 +281,7 @@ describe('DsDynamicFormControlComponent test suite', () => {
     expect(testFn(formModel[18])).toBe(DsDynamicTagComponent);
     expect(testFn(formModel[19])).toBe(DsDynamicListComponent);
     expect(testFn(formModel[20])).toBe(DsDynamicListComponent);
-    expect(testFn(formModel[21])).toBe(DsDynamicGroupComponent);
+    expect(testFn(formModel[21])).toBe(DynamicRelationGroupModel);
     expect(testFn(formModel[22])).toBe(DsDatePickerComponent);
     expect(testFn(formModel[23])).toBe(DsDynamicLookupComponent);
     expect(testFn(formModel[24])).toBe(DsDynamicLookupComponent);

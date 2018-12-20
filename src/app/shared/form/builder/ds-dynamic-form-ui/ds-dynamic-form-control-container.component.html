@@ -1,18 +1,24 @@
 <div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
-  [formGroup]="group"
+     [formGroup]="group"
      [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
 
-  <label *ngIf="model.type !== 'CHECKBOX' && model.label"
+    <label *ngIf="!isCheckbox && hasLabel"
            [for]="model.id"
            [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
 
-    <ng-container *ngTemplateOutlet="templates[0]?.templateRef; context: model"></ng-container>
+    <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
 
   <div [ngClass]="{'form-row': model.hasLanguages }">
     <div [ngClass]="getClass('grid', 'control')">
 
       <ng-container #componentViewContainer></ng-container>
+
+      <small *ngIf="hasHint" class="text-muted" [innerHTML]="model.hint" [ngClass]="getClass('element', 'hint')"></small>
+
+      <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
+        <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate:model.validators }}</small>
+      </div>
 
     </div>
 
@@ -32,8 +38,8 @@
     </div>
   </div>
 
-    <ng-container *ngTemplateOutlet="templates[1]?.templateRef; context: model"></ng-container>
+    <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
 
-  <ng-content></ng-content>
+    <ng-content></ng-content>
 
 </div>

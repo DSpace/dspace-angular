@@ -23,6 +23,7 @@ import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { createTestComponent } from '../../../../../testing/utils';
+import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
 
 function createKeyUpEvent(key: number) {
   /* tslint:disable:no-empty */
@@ -39,6 +40,7 @@ function createKeyUpEvent(key: number) {
 
 let TAG_TEST_GROUP;
 let TAG_TEST_MODEL_CONFIG;
+const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
 function init() {
   TAG_TEST_GROUP = new FormGroup({
@@ -94,7 +96,7 @@ describe('DsDynamicTagComponent test suite', () => {
         ChangeDetectorRef,
         DsDynamicTagComponent,
         { provide: AuthorityService, useValue: authorityServiceStub },
-        { provide: GLOBAL_CONFIG, useValue: {} as GlobalConfig },
+        { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} }
       ],
@@ -110,7 +112,6 @@ describe('DsDynamicTagComponent test suite', () => {
       <ds-dynamic-tag [bindId]="bindId"
                       [group]="group"
                       [model]="model"
-                      [showErrorMessages]="showErrorMessages"
                       (blur)="onBlur($event)"
                       (change)="onValueChange($event)"
                       (focus)="onFocus($event)"></ds-dynamic-tag>`;
@@ -161,7 +162,6 @@ describe('DsDynamicTagComponent test suite', () => {
       it('should select a results entry properly', fakeAsync(() => {
         modelValue = [
           Object.assign(new AuthorityValue(), { id: 1, display: 'Name, Lastname', value: 1 })
-          Object.assign(new AuthorityValue(), {id: 1, display: 'Name, Lastname', value: 1})
         ];
         const event: NgbTypeaheadSelectItemEvent = {
           item: Object.assign(new AuthorityValue(), {
@@ -169,7 +169,6 @@ describe('DsDynamicTagComponent test suite', () => {
             display: 'Name, Lastname',
             value: 1
           }),
-          item: Object.assign(new AuthorityValue(), {id: 1, display: 'Name, Lastname', value: 1}),
           preventDefault: () => {
             return;
           }

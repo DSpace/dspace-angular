@@ -1,7 +1,7 @@
 import { IntegrationModel } from './integration.model';
 import { autoserialize } from 'cerialize';
 import { isNotEmpty } from '../../../shared/empty.util';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 
 export class AuthorityValue extends IntegrationModel {
 

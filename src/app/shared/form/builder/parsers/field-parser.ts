@@ -202,6 +202,14 @@ export abstract class FieldParser {
     if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
       (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
+/*    (controlModel as DsDynamicInputModel).languageCodes = [{
+        display: 'English',
+        code: 'en_US'
+      },
+      {
+        display: 'Italian',
+        code: 'it_IT'
+      }];*/
 
     return controlModel;
   }
@@ -278,16 +286,6 @@ export abstract class FieldParser {
         } else {
           modelConfig.value = fieldValue.value;
         }
-        // if (hasValue(fieldValue.language)) {
-        //   // Instance of FormFieldLanguageValueObject
-        //   modelConfig.value = fieldValue.value;
-        // } else if (hasValue(fieldValue.metadata)) {
-        //   // Is a combobox field's value
-        //   modelConfig.value = fieldValue.value;
-        // } else {
-        //   // Instance of FormFieldMetadataValueObject
-        //   modelConfig.value = fieldValue;
-        // }
       } else {
         if (forceValueAsObj) {
           // If value isn't an instance of FormFieldMetadataValueObject instantiate it

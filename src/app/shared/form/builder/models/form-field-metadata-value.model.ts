@@ -1,6 +1,6 @@
 import { isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/integration/models/confidence-type';
-import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 
 export class FormFieldMetadataValueObject {
   metadata?: string;

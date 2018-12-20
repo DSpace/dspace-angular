@@ -4,12 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NouisliderModule } from 'ng2-nouislider';
 
-import {
-  NgbDatepickerModule,
-  NgbModule,
-  NgbTimepickerModule,
-  NgbTypeaheadModule
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -56,9 +51,12 @@ import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DsDynamicFormControlComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control.component';
+import {
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn
+} from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 import { DragClickDirective } from './utils/drag-click.directive';
@@ -70,7 +68,9 @@ import { UploaderComponent } from './uploader/uploader.component';
 import { ChipsComponent } from './chips/chips.component';
 import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
-import { DsDynamicGroupComponent } from './form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.components';
+import { DsDynamicFormGroupComponent } from './form/builder/ds-dynamic-form-ui/models/form-group/dynamic-form-group.component';
+import { DsDynamicFormArrayComponent } from './form/builder/ds-dynamic-form-ui/models/array-group/dynamic-form-array.component';
+import { DsDynamicRelationGroupComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.components';
 import { SortablejsModule } from 'angular-sortablejs';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
@@ -78,7 +78,6 @@ import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/mode
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { AlertsComponent } from './alerts/alerts.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
-import { BrowseByModule } from '../+browse-by/browse-by.module';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { DebounceDirective } from './utils/debounce.directive';
@@ -134,14 +133,16 @@ const COMPONENTS = [
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
   DsDynamicFormComponent,
-  DsDynamicFormControlComponent,
+  DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,
-  DsDynamicGroupComponent,
+  DsDynamicRelationGroupComponent,
   DsDatePickerComponent,
+  DsDynamicFormGroupComponent,
+  DsDynamicFormArrayComponent,
   ErrorComponent,
   FormComponent,
   LoadingComponent,
@@ -177,12 +178,25 @@ const ENTRY_COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
-  BrowseEntryListElementComponent
+  BrowseEntryListElementComponent,
+  DsDynamicListComponent,
+  DsDynamicLookupComponent,
+  DsDynamicScrollableDropdownComponent,
+  DsDynamicTagComponent,
+  DsDynamicTypeaheadComponent,
+  DsDynamicRelationGroupComponent,
+  DsDatePickerComponent,
+  DsDynamicFormGroupComponent,
+  DsDynamicFormArrayComponent
 ];
 
 const PROVIDERS = [
   TruncatableService,
-  MockAdminGuard
+  MockAdminGuard,
+  {
+    provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+    useValue: dsDynamicFormControlMapFn
+  }
 ];
 
 const DIRECTIVES = [

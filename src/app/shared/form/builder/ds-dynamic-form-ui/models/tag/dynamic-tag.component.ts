@@ -29,7 +29,6 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTagModel;
-  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();

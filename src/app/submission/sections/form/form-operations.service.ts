@@ -19,7 +19,7 @@ import { AuthorityValue } from '../../../core/integration/models/authority.value
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { DynamicGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 
 @Injectable()
 export class FormOperationsService {
@@ -135,7 +135,7 @@ export class FormOperationsService {
     if (this.formBuilder.isModelInCustomGroup(event.model)) {
       fieldValue = (event.model.parent as any).value;
     } else if (this.formBuilder.isRelationGroup(event.model)) {
-      fieldValue = (event.model as DynamicGroupModel).getGroupValue();
+      fieldValue = (event.model as DynamicRelationGroupModel).getGroupValue();
     } else if ((event.model as any).hasLanguages) {
       const language = (event.model as any).language;
       if ((event.model as DsDynamicInputModel).hasAuthority) {

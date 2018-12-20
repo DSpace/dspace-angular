@@ -23,6 +23,10 @@ import { By } from '@angular/platform-browser';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { createTestComponent } from '../../../../../testing/utils';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../../../config';
+import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
 
 let LOOKUP_TEST_MODEL_CONFIG = {
   authorityOptions: {
@@ -72,6 +76,8 @@ let LOOKUP_TEST_GROUP = new FormGroup({
   lookup: new FormControl(),
   lookupName: new FormControl()
 });
+
+const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
 describe('Dynamic Lookup component', () => {
   function init() {
@@ -150,10 +156,13 @@ describe('Dynamic Lookup component', () => {
       declarations: [
         DsDynamicLookupComponent,
         TestComponent,
+        AuthorityConfidenceStateDirective,
+        ObjNgFor
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
         DsDynamicLookupComponent,
+        { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: AuthorityService, useValue: authorityService },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} }
