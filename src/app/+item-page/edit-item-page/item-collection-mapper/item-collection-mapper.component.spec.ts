@@ -31,8 +31,13 @@ import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-s
 import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../../../core/cache/response.models';
+import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
 
-describe('ItemCollectionMapperComponent', () => {
+fdescribe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;
   let fixture: ComponentFixture<ItemCollectionMapperComponent>;
 
@@ -87,8 +92,8 @@ describe('ItemCollectionMapperComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, SharedModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [ItemCollectionMapperComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+      declarations: [ItemCollectionMapperComponent, CollectionSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
