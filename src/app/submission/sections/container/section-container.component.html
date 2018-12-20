@@ -11,7 +11,7 @@
                  [destroyOnHide]="false">
     <ngb-panel id="{{ sectionData.id }}">
       <ng-template ngbPanelTitle>
-        <span>{{ 'submission.sections.'+sectionData.header | translate }}</span>
+        <span class="float-left">{{ 'submission.sections.'+sectionData.header | translate }}</span>
         <div class="d-inline-block float-right">
           <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fa fa-exclamation-circle text-warning mr-3"
              aria-hidden="true"></i>

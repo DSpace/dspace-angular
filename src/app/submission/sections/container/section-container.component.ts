@@ -9,7 +9,7 @@ import { AlertType } from '../../../shared/alerts/aletrs-type';
 @Component({
   selector: 'ds-submission-form-section-container',
   templateUrl: './section-container.component.html',
-  styleUrls: ['./section-container.component.scss'],
+  styleUrls: ['./section-container.component.scss']
 })
 export class SectionContainerComponent implements OnInit {
   @Input() collectionId: string;

@@ -15,3 +15,8 @@
   border-bottom-left-radius: $card-border-radius !important;
   border-bottom-right-radius: $card-border-radius !important;
 }
+
+:host /deep/ .card-header button {
+  box-shadow: none !important;
+  width: 100%;
+}
