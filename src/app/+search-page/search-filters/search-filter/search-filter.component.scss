@@ -3,9 +3,8 @@
 
 :host {
     border: 1px solid map-get($theme-colors, light);
-    overflow: hidden;
-    .search-filter-wrapper:not(.closed) {
-        overflow: visible;
+    .search-filter-wrapper.closed {
+        overflow: hidden;
     }
     .filter-toggle {
         line-height: $line-height-base;

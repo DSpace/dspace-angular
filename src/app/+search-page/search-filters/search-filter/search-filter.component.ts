@@ -89,7 +89,7 @@ export class SearchFilterComponent implements OnInit {
    * @param event The animation event
    */
   finishSlide(event: any): void {
-    if (event.fromState === 'void') {
+    if (event.fromState === 'collapsed') {
       this.collapsed = false;
     }
   }
@@ -99,7 +99,7 @@ export class SearchFilterComponent implements OnInit {
    * @param event The animation event
    */
   startSlide(event: any): void {
-    if (event.toState === 'void') {
+    if (event.toState === 'collapsed') {
       this.collapsed = true;
     }
   }

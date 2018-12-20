@@ -10,10 +10,13 @@ import {
 } from '@angular/animations';
 
 export const slide = trigger('slide', [
+  state('expanded', style({ height: '*' })),
+  state('collapsed', style({ height: 0 })),
   state('void', style({ height: 0 })),
   state('*', style({ height: '*' })),
   transition(':enter', [animate('200ms')]),
-  transition(':leave', [animate('200ms')])
+  transition(':leave', [animate('200ms')]),
+  transition('expanded <=> collapsed', animate(250))
 ]);
 
 export const slideHorizontal = trigger('slideHorizontal', [
