@@ -160,15 +160,15 @@
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-2.2.2.tgz#07c64badd48b563140eb5a6327b5516bf2226834"
   integrity sha512-uqngK1urcevQeF+zgoGW1XDnasjoob4QrwhynNUFpDnnplP1wa+BEUjpSccxU+L2dHLfrOb2sPGEGp8cE2X3Iw==
 
-"@ng-dynamic-forms/core@6.0.9":
-  version "6.0.9"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-6.0.9.tgz#358fa6141ec3fa5a22eb2d74f61068dc367cf257"
-  integrity sha512-kXL+ligvcfogGdqmuH2qeCZYynpQRO9DcSTKMNhBmds937GXpOW2WK7praZcXeUBfq1mWg/SFqsOwI8bOrRlew==
+"@ng-dynamic-forms/core@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/core/-/core-6.2.0.tgz#85cd361d5e54d0fb394e9de9b887f8692d5b4c29"
+  integrity sha512-c5BzFK7pE6Wo4MdOSrkI6TOtoV3fYSAljKVtyKFR4JRiK6V3yxFiVuY1Ww96urYjhgBzChyqUaDDR6nVUPaYxw==
 
-"@ng-dynamic-forms/ui-ng-bootstrap@6.0.9":
-  version "6.0.9"
-  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-6.0.9.tgz#875abefaded1587e976fb4c4cccf743ac25981f0"
-  integrity sha512-fUqIwxKIEh9UCCQRPXqlTLei6yhc2bXrmKwGGEbIZyvCDY3VJFZyMTOkG0HbROgQhomSY+pBwU1pMT7anvpF2w==
+"@ng-dynamic-forms/ui-ng-bootstrap@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@ng-dynamic-forms/ui-ng-bootstrap/-/ui-ng-bootstrap-6.2.0.tgz#cd8e65472eaa4c0068d4ab453f84cab9d3b38a1c"
+  integrity sha512-zyieF2HvUuxqLUA4fYA9OJPMBokJIUjcVnZCPdy4sH/vP6jhMR0mCdvG/WWCn8CNRSgIQUmKTyqv4FKHunJYGw==
 
 "@ngrx/effects@^6.1.0":
   version "6.1.0"

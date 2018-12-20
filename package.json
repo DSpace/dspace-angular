@@ -74,7 +74,7 @@
     "@angular/platform-server": "^6.1.4",
     "@angular/router": "^6.1.4",
     "@angularclass/bootloader": "1.0.1",
-    "@ng-bootstrap/ng-bootstrap": "3.3.1",
+    "@ng-bootstrap/ng-bootstrap": "^2.0.0",
     "@ng-dynamic-forms/core": "6.2.0",
     "@ng-dynamic-forms/ui-ng-bootstrap": "6.2.0",
     "@ngrx/effects": "^6.1.0",
