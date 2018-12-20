@@ -1,4 +1,13 @@
-import { delay, distinctUntilChanged, filter, find, switchMap, map, take, tap } from 'rxjs/operators';
+import {
+  delay,
+  distinctUntilChanged,
+  filter,
+  find,
+  switchMap,
+  map,
+  take,
+  tap, first, mergeMap
+} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
@@ -32,10 +41,14 @@ import { DSOSuccessResponse, ErrorResponse, RestResponse } from '../cache/respon
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { DataBuildService } from '../cache/builders/data-build.service';
+import { UpdateComparator } from './update-comparator';
 
-export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
+export abstract class DataService<TNormalized extends NormalizedObject, TDomain extends CacheableObject> {
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
+  protected abstract dataBuildService: DataBuildService;
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
@@ -43,6 +56,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
   protected abstract authService: AuthService;
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
+  protected abstract comparator: UpdateComparator<TNormalized>;
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
@@ -122,15 +136,21 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} object The given object
    */
-  update(object: DSpaceObject) {
-    const oldVersion = this.objectCache.getBySelfLink(object.self);
-    const operations = compare(oldVersion, object);
-    if (isNotEmpty(operations)) {
-      this.objectCache.addPatch(object.self, operations);
-    }
+  update(object: TDomain): Observable<RemoteData<TDomain>> {
+    const oldVersion$ = this.objectCache.getBySelfLink(object.self);
+    return oldVersion$.pipe(first(), mergeMap((oldVersion: TNormalized) => {
+        const newVersion = this.dataBuildService.normalize<TDomain, TNormalized>(object);
+        const operations = this.comparator.compare(oldVersion, newVersion);
+        if (isNotEmpty(operations)) {
+          this.objectCache.addPatch(object.self, operations);
+        }
+        return this.findById(object.uuid);
+      }
+    ));
+
   }
 
-  create(dso: TNormalized, parentUUID: string): Observable<RemoteData<TDomain>> {
+  create(dso: TDomain, parentUUID: string): Observable<RemoteData<TDomain>> {
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
@@ -138,7 +158,8 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
     );
 
-    const serializedDso = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(dso.type)).serialize(dso);
+    const normalizedObject: TNormalized = this.dataBuildService.normalize<TDomain, TNormalized>(dso);
+    const serializedDso = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(dso.type)).serialize(normalizedObject);
 
     const request$ = endpoint$.pipe(
       take(1),
@@ -150,6 +171,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
       configureRequest(this.requestService)
     ).subscribe();
 
+    // Resolve self link for new object
     const selfLink$ = this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry(),
       map((response: RestResponse) => {

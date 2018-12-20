@@ -96,7 +96,6 @@ export class DsDynamicFormControlComponent extends DynamicFormControlContainerCo
   }
 
   static getFormControlType(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
-
     switch (model.type) {
 
       case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:

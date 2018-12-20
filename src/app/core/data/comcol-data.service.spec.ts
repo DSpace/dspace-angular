@@ -14,10 +14,12 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from './request.reducer';
 import { of as observableOf } from 'rxjs';
-import { Community } from '../shared/community.model';
 import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
+import { DataBuildService } from '../cache/builders/data-build.service';
+import { DSOUpdateComparator } from './dso-update-comparator';
+import { UpdateComparator } from './update-comparator';
 
 const LINK_NAME = 'test';
 
@@ -30,6 +32,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: DataBuildService,
     protected store: Store<CoreState>,
     protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
@@ -38,6 +41,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected authService: AuthService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
+    protected comparator: DSOUpdateComparator,
     protected linkPath: string
   ) {
     super();
@@ -60,6 +64,8 @@ describe('ComColDataService', () => {
   const EnvConfig = {} as GlobalConfig;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
+  const comparator = {} as any;
+  const dataBuildService = {} as DataBuildService;
 
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const options = Object.assign(new FindAllOptions(), {
@@ -78,7 +84,7 @@ describe('ComColDataService', () => {
   const authHeader = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJlaWQiOiJhNjA4NmIzNC0zOTE4LTQ1YjctOGRkZC05MzI5YTcwMmEyNmEiLCJzZyI6W10sImV4cCI6MTUzNDk0MDcyNX0.RV5GAtiX6cpwBN77P_v16iG9ipeyiO7faNYSNMzq_sQ';
 
   const mockHalService = {
-    getEndpoint: (linkPath) => Observable.of(communitiesEndpoint)
+    getEndpoint: (linkPath) => observableOf(communitiesEndpoint)
   };
 
   function initMockCommunityDataService(): CommunityDataService {
@@ -112,6 +118,7 @@ describe('ComColDataService', () => {
     return new TestService(
       requestService,
       rdbService,
+      dataBuildService,
       store,
       EnvConfig,
       cds,
@@ -120,6 +127,7 @@ describe('ComColDataService', () => {
       authService,
       notificationsService,
       http,
+      comparator,
       LINK_NAME
     );
   }

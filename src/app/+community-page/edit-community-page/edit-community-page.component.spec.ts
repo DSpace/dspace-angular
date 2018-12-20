@@ -8,10 +8,12 @@ import { Observable } from 'rxjs/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
 import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
+import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { CommunityFormComponent } from '../community-form/community-form.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RequestError } from '../../core/data/request.models';
 
 describe('CreateCommunityPageComponent', () => {
   let comp: CreateCommunityPageComponent;

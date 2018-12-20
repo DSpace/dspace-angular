@@ -42,6 +42,7 @@
       "head": "Collections of this Community"
     },
     "edit": {
+      "head": "Edit collction",
       "name": "Name",
       "description": "Short Description",
       "introductory": "Introductory text (HTML)",

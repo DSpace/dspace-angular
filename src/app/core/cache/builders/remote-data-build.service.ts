@@ -51,10 +51,7 @@ export class RemoteDataBuildService {
     const requestEntry$ = observableRace(
       href$.pipe(getRequestFromRequestHref(this.requestService)),
       requestUUID$.pipe(getRequestFromRequestUUID(this.requestService)),
-    ).pipe(
-      take(1)
     );
-
     // always use self link if that is cached, only if it isn't, get it via the response.
     const payload$ =
       observableCombineLatest(

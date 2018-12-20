@@ -38,7 +38,7 @@ export class CreateCollectionPageComponent {
 
   onSubmit(data: any) {
     this.parentUUID$.pipe(take(1)).subscribe((uuid: string) => {
-      const collection = Object.assign(new NormalizedCollection(), {
+      const collection = Object.assign(new Collection(), {
         name: data.name,
         metadata: [
           { key: 'dc.description', value: data.introductory },

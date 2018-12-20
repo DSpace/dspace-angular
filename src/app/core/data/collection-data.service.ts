@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedCollection } from '../cache/models/normalized-collection.model';
@@ -10,9 +10,10 @@ import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { AuthService } from '../auth/auth.service';
-import { Community } from '../shared/community.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
+import { DataBuildService } from '../cache/builders/data-build.service';
+import { DSOUpdateComparator } from './dso-update-comparator';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
@@ -21,13 +22,15 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: DataBuildService,
     protected store: Store<CoreState>,
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected authService: AuthService,
     protected notificationsService: NotificationsService,
-    protected http: HttpClient
+    protected http: HttpClient,
+    protected comparator: DSOUpdateComparator
   ) {
     super();
   }

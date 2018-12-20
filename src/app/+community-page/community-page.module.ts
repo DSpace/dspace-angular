@@ -8,6 +8,7 @@ import { CommunityPageSubCollectionListComponent } from './sub-collection-list/c
 import { CommunityPageRoutingModule } from './community-page-routing.module';
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
 import { CommunityFormComponent } from './community-form/community-form.component';
+import { EditCommunityPageComponent } from './edit-community-page/edit-community-page.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { CommunityFormComponent } from './community-form/community-form.componen
     CommunityPageComponent,
     CommunityPageSubCollectionListComponent,
     CreateCommunityPageComponent,
+    EditCommunityPageComponent,
     CommunityFormComponent
   ]
 })
