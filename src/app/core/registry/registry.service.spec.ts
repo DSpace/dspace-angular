@@ -167,7 +167,7 @@ describe('RegistryService', () => {
     const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(Observable.of(responseEntry));
+      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getMetadataSchemas(pagination).subscribe((value) => {
       });

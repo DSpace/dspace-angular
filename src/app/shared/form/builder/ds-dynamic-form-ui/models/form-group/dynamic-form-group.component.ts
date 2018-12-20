@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, QueryL
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormControlComponent,
-  DynamicFormControlCustomEvent, DynamicFormControlEvent,
+  DynamicFormControlCustomEvent,
+  DynamicFormControlEvent,
   DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
-import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-dynamic-form-group',

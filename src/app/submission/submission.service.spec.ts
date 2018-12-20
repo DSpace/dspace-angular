@@ -1,14 +1,11 @@
 import { StoreModule } from '@ngrx/store';
-import { async, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of'
-import 'rxjs/add/observable/timer'
+import { cold, hot, } from 'jasmine-marbles';
 
 import { MockRouter } from '../shared/mocks/mock-router';
 import { SubmissionService } from './submission.service';
@@ -23,43 +20,10 @@ import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { submissionRestREsponse } from '../shared/mocks/mock-submission';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
+import { MOCK_SUBMISSION_CONFIG } from '../shared/testing/mock-submission-config';
 
 describe('SubmissionService test suite', () => {
-  const config = {
-    submission: {
-      autosave: {
-        metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
-        timer: 5
-      },
-      metadata: {
-        icons: [
-          {
-            name: 'dc.contributor.author',
-            config: {
-              withAuthority: {
-                style: 'fa-user'
-              }
-            }
-          },
-          {
-            name: 'local.contributor.affiliation',
-            config: {
-              withAuthority: {
-                style: 'fa-university'
-              },
-              withoutAuthority: {
-                style: 'fa-university text-muted'
-              }
-            }
-          },
-          {
-            name: 'default',
-            config: {}
-          }
-        ]
-      }
-    },
-  } as any;
+  const config = MOCK_SUBMISSION_CONFIG;
 
   const subState = {
     objects: {
@@ -359,7 +323,7 @@ describe('SubmissionService test suite', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ submissionReducers }),
+        StoreModule.forRoot({ submissionReducers } as any),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -607,7 +571,7 @@ describe('SubmissionService test suite', () => {
 
   it('should return properly submission scope', () => {
     let expected = SubmissionScopeType.WorkspaceItem;
-    ;
+
     router.setRoute('/workspaceitems/826/edit');
     expect(service.getSubmissionScope()).toBe(expected);
 
@@ -690,16 +654,22 @@ describe('SubmissionService test suite', () => {
     expect(result).toBeObservable(expected);
   });
 
-  it('should start Auto Save', () => {
+  it('should start Auto Save', fakeAsync(() => {
+    const duration = config.submission.autosave.timer * (1000 * 60);
     spyOn((service as any).store, 'dispatch');
 
-    const duration = config.submission.autosave.timer * (1000 * 60);
-    const expected = Observable.timer(duration, duration);
-
     service.startAutoSave('826');
+    const sub = (service as any).timerObs.subscribe();
 
-    expect((service as any).timerObs).toEqual(expected);
-  });
+    tick(duration / 2);
+    expect((service as any).store.dispatch).not.toHaveBeenCalled();
+
+    tick(duration / 2);
+    expect((service as any).store.dispatch).toHaveBeenCalled();
+
+    sub.unsubscribe();
+    (service as any).autoSaveSub.unsubscribe();
+  }));
 
   it('should stop Auto Save', () => {
     service.startAutoSave('826');

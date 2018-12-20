@@ -1,31 +1,30 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { async, ComponentFixture, inject, TestBed, } from '@angular/core/testing';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
+import { ActionsSubject, Store } from '@ngrx/store';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { SectionContainerComponent } from './section-container.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { createTestComponent } from '../../../shared/testing/utils';
 import { SectionsType } from '../sections-type';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { SectionsDirective } from '../sections.directive';
-import { ActionsSubject, Store } from '@ngrx/store';
 import { SubmissionState } from '../../submission.reducers';
 import { SubmissionService } from '../../submission.service';
 import { GLOBAL_CONFIG } from '../../../../config';
 import { SubmissionRestService } from '../../submission-rest.service';
 import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service-stub';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MockRouter } from '../../../shared/mocks/mock-router';
 import { RouteService } from '../../../shared/services/route.service';
 import { MockActivatedRoute } from '../../../shared/mocks/mock-active-router';
 import { SectionsService } from '../sections.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 describe('SectionContainerComponent test suite', () => {
 
@@ -68,7 +67,7 @@ describe('SectionContainerComponent test suite', () => {
   } as any;
   const restService = new SubmissionRestServiceStub();
   const router = new MockRouter();
-  const store = new Store<SubmissionState>(Observable.of({}), new ActionsSubject(), undefined);
+  const store = new Store<SubmissionState>(observableOf({}), new ActionsSubject(), undefined);
 
   // async beforeEach
   beforeEach(async(() => {

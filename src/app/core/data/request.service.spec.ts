@@ -56,7 +56,7 @@ describe('RequestService', () => {
     uuidService = getMockUUIDService();
 
     store = new Store<CoreState>(new BehaviorSubject({}), new ActionsSubject(), null);
-    selectSpy = spyOnProperty(ngrx, 'select')
+    selectSpy = spyOnProperty(ngrx, 'select');
     selectSpy.and.callFake(() => {
       return () => {
         return () => cold('a', { a: undefined });
@@ -255,7 +255,6 @@ describe('RequestService', () => {
         service.configure(request);
         expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).toHaveBeenCalledWith(request);
       });
-
       describe('and it isn\'t cached or pending', () => {
         beforeEach(() => {
           spyOn(serviceAsAny, 'isCachedOrPending').and.returnValue(false);
@@ -455,15 +454,6 @@ describe('RequestService', () => {
     });
 
     describe('when the request is added to the store', () => {
-      beforeEach(() => {
-        spyOn(service, 'getByHref').and.returnValue(observableOf({
-          request,
-          requestPending: false,
-          responsePending: true,
-          completed: false
-        }));
-      });
-
       it('should stop tracking the request', () => {
         selectSpy.and.callFake(() => {
           return () => {
@@ -471,7 +461,6 @@ describe('RequestService', () => {
           };
         });
         serviceAsAny.trackRequestsOnTheirWayToTheStore(request);
-        expect(service.getByHref).toHaveBeenCalledWith(request.href);
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });
     });

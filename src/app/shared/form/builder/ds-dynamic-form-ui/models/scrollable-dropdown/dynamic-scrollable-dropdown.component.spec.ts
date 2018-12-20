@@ -2,28 +2,20 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
-
+import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import {
-  DynamicFormLayoutService,
-  DynamicFormsCoreModule,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { TranslateModule } from '@ngx-translate/core';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { DsDynamicTypeaheadComponent } from '../typeahead/dynamic-typeahead.component';
-import { DynamicTypeaheadModel } from '../typeahead/dynamic-typeahead.model';
-import { TYPEAHEAD_TEST_GROUP, TYPEAHEAD_TEST_MODEL_CONFIG } from '../typeahead/dynamic-typeahead.component.spec';
-import { By } from '@angular/platform-browser';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
-import { hasClass, createTestComponent } from '../../../../../testing/utils';
+import { createTestComponent, hasClass } from '../../../../../testing/utils';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),
@@ -164,9 +156,6 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
 
         let de: any = scrollableDropdownFixture.debugElement.query(By.css('button.ds-form-input-btn'));
         let btnEl = de.nativeElement;
-
-        de = scrollableDropdownFixture.debugElement.query(By.css('div.scrollable-dropdown-menu'));
-        const menuEl = de.nativeElement;
 
         btnEl.click();
         scrollableDropdownFixture.detectChanges();

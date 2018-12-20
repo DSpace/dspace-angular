@@ -137,7 +137,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         expect(typeaheadComp.currentValue).not.toBeDefined();
       });
 
-      it('should search when 3+ characters typed', fakeAsync((done) => {
+      it('should search when 3+ characters typed', fakeAsync(() => {
 
         spyOn((typeaheadComp as any).authorityService, 'getEntriesByName').and.callThrough();
 

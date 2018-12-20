@@ -1,7 +1,9 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 import {
@@ -26,10 +28,22 @@ import {
   DynamicTimePickerModel
 } from '@ng-dynamic-forms/core';
 import {
+  DynamicNGBootstrapCalendarComponent,
+  DynamicNGBootstrapCheckboxComponent,
+  DynamicNGBootstrapCheckboxGroupComponent,
+  DynamicNGBootstrapDatePickerComponent,
+  DynamicNGBootstrapInputComponent,
+  DynamicNGBootstrapRadioGroupComponent,
+  DynamicNGBootstrapSelectComponent,
+  DynamicNGBootstrapTextAreaComponent,
+  DynamicNGBootstrapTimePickerComponent
+} from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import {
   DsDynamicFormControlContainerComponent,
   dsDynamicFormControlMapFn
 } from './ds-dynamic-form-control-container.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
@@ -42,27 +56,15 @@ import { DynamicTagModel } from './models/tag/dynamic-tag.model';
 import { DynamicTypeaheadModel } from './models/typeahead/dynamic-typeahead.model';
 import { DynamicQualdropModel } from './models/ds-dynamic-qualdrop.model';
 import { DynamicLookupNameModel } from './models/lookup/dynamic-lookup-name.model';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import {
-  DynamicNGBootstrapCalendarComponent,
-  DynamicNGBootstrapCheckboxComponent,
-  DynamicNGBootstrapCheckboxGroupComponent,
-  DynamicNGBootstrapDatePickerComponent,
-  DynamicNGBootstrapFormArrayComponent,
-  DynamicNGBootstrapFormGroupComponent,
-  DynamicNGBootstrapInputComponent,
-  DynamicNGBootstrapRadioGroupComponent,
-  DynamicNGBootstrapSelectComponent,
-  DynamicNGBootstrapTextAreaComponent,
-  DynamicNGBootstrapTimePickerComponent
-} from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { DsDynamicTypeaheadComponent } from './models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './models/list/dynamic-list.component';
-
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
+import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
+import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
+import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -258,34 +260,34 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
 
   it('should map a form control model to a form control component', () => {
     const testFn = dsDynamicFormControlMapFn;
-    expect(testFn(formModel[0])).toBe(DynamicNGBootstrapCheckboxComponent);
-    expect(testFn(formModel[1])).toBe(DynamicNGBootstrapCheckboxGroupComponent);
+    expect(testFn(formModel[0])).toEqual(DynamicNGBootstrapCheckboxComponent);
+    expect(testFn(formModel[1])).toEqual(DynamicNGBootstrapCheckboxGroupComponent);
     expect(testFn(formModel[2])).toBeNull();
-    expect(testFn(formModel[3])).toBe(DynamicNGBootstrapDatePickerComponent);
+    expect(testFn(formModel[3])).toEqual(DynamicNGBootstrapDatePickerComponent);
     (formModel[3] as DynamicDatePickerModel).inline = true;
-    expect(testFn(formModel[3])).toBe(DynamicNGBootstrapCalendarComponent);
+    expect(testFn(formModel[3])).toEqual(DynamicNGBootstrapCalendarComponent);
     expect(testFn(formModel[4])).toBeNull();
     expect(testFn(formModel[5])).toBeNull();
-    expect(testFn(formModel[6])).toBe(DynamicNGBootstrapFormArrayComponent);
-    expect(testFn(formModel[7])).toBe(DynamicNGBootstrapFormGroupComponent);
-    expect(testFn(formModel[8])).toBe(DynamicNGBootstrapInputComponent);
-    expect(testFn(formModel[9])).toBe(DynamicNGBootstrapRadioGroupComponent);
+    expect(testFn(formModel[6])).toEqual(DsDynamicFormArrayComponent);
+    expect(testFn(formModel[7])).toEqual(DsDynamicFormGroupComponent);
+    expect(testFn(formModel[8])).toEqual(DynamicNGBootstrapInputComponent);
+    expect(testFn(formModel[9])).toEqual(DynamicNGBootstrapRadioGroupComponent);
     expect(testFn(formModel[10])).toBeNull();
-    expect(testFn(formModel[11])).toBe(DynamicNGBootstrapSelectComponent);
+    expect(testFn(formModel[11])).toEqual(DynamicNGBootstrapSelectComponent);
     expect(testFn(formModel[12])).toBeNull();
     expect(testFn(formModel[13])).toBeNull();
-    expect(testFn(formModel[14])).toBe(DynamicNGBootstrapTextAreaComponent);
-    expect(testFn(formModel[15])).toBe(DynamicNGBootstrapTimePickerComponent);
-    expect(testFn(formModel[16])).toBe(DsDynamicTypeaheadComponent);
-    expect(testFn(formModel[17])).toBe(DsDynamicScrollableDropdownComponent);
-    expect(testFn(formModel[18])).toBe(DsDynamicTagComponent);
-    expect(testFn(formModel[19])).toBe(DsDynamicListComponent);
-    expect(testFn(formModel[20])).toBe(DsDynamicListComponent);
-    expect(testFn(formModel[21])).toBe(DynamicRelationGroupModel);
-    expect(testFn(formModel[22])).toBe(DsDatePickerComponent);
-    expect(testFn(formModel[23])).toBe(DsDynamicLookupComponent);
-    expect(testFn(formModel[24])).toBe(DsDynamicLookupComponent);
-    expect(testFn(formModel[25])).toBe(DynamicNGBootstrapFormGroupComponent);
+    expect(testFn(formModel[14])).toEqual(DynamicNGBootstrapTextAreaComponent);
+    expect(testFn(formModel[15])).toEqual(DynamicNGBootstrapTimePickerComponent);
+    expect(testFn(formModel[16])).toEqual(DsDynamicTypeaheadComponent);
+    expect(testFn(formModel[17])).toEqual(DsDynamicScrollableDropdownComponent);
+    expect(testFn(formModel[18])).toEqual(DsDynamicTagComponent);
+    expect(testFn(formModel[19])).toEqual(DsDynamicListComponent);
+    expect(testFn(formModel[20])).toEqual(DsDynamicListComponent);
+    expect(testFn(formModel[21])).toEqual(DsDynamicRelationGroupComponent);
+    expect(testFn(formModel[22])).toEqual(DsDatePickerComponent);
+    expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
+    expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
+    expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
   });
 
 });

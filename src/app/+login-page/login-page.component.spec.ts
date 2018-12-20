@@ -13,7 +13,7 @@ describe('LoginPageComponent', () => {
   let comp: LoginPageComponent;
   let fixture: ComponentFixture<LoginPageComponent>;
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: Observable.of({})
+    params: observableOf({})
   });
 
   const store: Store<LoginPageComponent> = jasmine.createSpyObj('store', {
