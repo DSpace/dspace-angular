@@ -34,7 +34,6 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AngularticsMock } from './shared/mocks/mock-angulartics.service';
 import { AuthServiceMock } from './shared/mocks/mock-auth.service';
 import { AuthService } from './core/auth/auth.service';
-import { Router } from '@angular/router';
 import { MenuService } from './shared/menu/menu.service';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { CSSVariableServiceStub } from './shared/testing/css-variable-service-stub';

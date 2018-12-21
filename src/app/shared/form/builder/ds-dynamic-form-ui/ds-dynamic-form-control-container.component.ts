@@ -8,7 +8,6 @@ import {
   OnChanges,
   Output,
   QueryList,
-  Renderer2,
   SimpleChanges,
   Type,
   ViewChild,
@@ -149,7 +148,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() group: FormGroup;
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
-  @Input() model: DynamicFormControlModel;
+  @Input() model: any;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
