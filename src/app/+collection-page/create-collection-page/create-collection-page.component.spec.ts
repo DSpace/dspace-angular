@@ -1,15 +1,11 @@
 import { SharedModule } from '../../shared/shared.module';
 import { Community } from '../../core/shared/community.model';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
-import { CommonModule } from '@angular/common';
-import { CreateCommunityPageComponent } from '../../+community-page/create-community-page/create-community-page.component';
+import { CommonModule, Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommunityFormComponent } from '../../+community-page/community-form/community-form.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestError } from '../../core/data/request.models';
 import { RouteService } from '../../shared/services/route.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { CreateCollectionPageComponent } from './create-collection-page.component';
@@ -17,6 +13,8 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { Collection } from '../../core/shared/collection.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';
+import { of as observableOf } from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CreateCollectionPageComponent', () => {
   let comp: CreateCollectionPageComponent;
@@ -28,25 +26,33 @@ describe('CreateCollectionPageComponent', () => {
 
   const community = Object.assign(new Community(), {
     uuid: 'a20da287-e174-466a-9926-f66b9300d347',
-    name: 'test community'
+    metadata: [{
+      key: 'dc.title',
+      value: 'test collection'
+    }]
   });
 
   const collection = Object.assign(new Collection(), {
     uuid: 'ce41d451-97ed-4a9c-94a1-7de34f16a9f4',
-    name: 'new collection'
-  });
+    metadata: [{
+      key: 'dc.title',
+      value: 'new collection'
+    }]  });
 
   const collectionDataServiceStub = {
-    create: (col, uuid?) => Observable.of(new RemoteData(false, false, true, undefined, collection))
+    create: (col, uuid?) => observableOf(new RemoteData(false, false, true, undefined, collection))
   };
   const communityDataServiceStub = {
-    findById: (uuid) => Observable.of(new RemoteData(false, false, true, null, Object.assign(new Community(), {
+    findById: (uuid) => observableOf(new RemoteData(false, false, true, null, Object.assign(new Community(), {
       uuid: uuid,
-      name: community.name
+      metadata: [{
+        key: 'dc.title',
+        value: community.name
+      }]
     })))
   };
   const routeServiceStub = {
-    getQueryParameterValue: (param) => Observable.of(community.uuid)
+    getQueryParameterValue: (param) => observableOf(community.uuid)
   };
   const routerStub = {
     navigate: (commands) => commands
@@ -55,13 +61,14 @@ describe('CreateCollectionPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [CreateCollectionPageComponent, CollectionFormComponent],
+      declarations: [CreateCollectionPageComponent],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -77,7 +84,10 @@ describe('CreateCollectionPageComponent', () => {
 
   describe('onSubmit', () => {
     const data = {
-      name: 'test'
+      metadata: [{
+        key: 'dc.title',
+        value:'test'
+      }]
     };
 
     it('should navigate when successful', () => {
@@ -89,7 +99,7 @@ describe('CreateCollectionPageComponent', () => {
 
     it('should not navigate on failure', () => {
       spyOn(router, 'navigate');
-      spyOn(collectionDataService, 'create').and.returnValue(Observable.of(new RemoteData(true, true, false, undefined, collection)));
+      spyOn(collectionDataService, 'create').and.returnValue(observableOf(new RemoteData(true, true, false, undefined, collection)));
       comp.onSubmit(data);
       fixture.detectChanges();
       expect(router.navigate).not.toHaveBeenCalled();

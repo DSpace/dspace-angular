@@ -11,7 +11,6 @@ import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { FindAllOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DataBuildService } from '../cache/builders/data-build.service';
@@ -28,7 +27,6 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected authService: AuthService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOUpdateComparator) {
@@ -55,11 +53,10 @@ export class DSpaceObjectDataService {
     protected dataBuildService: DataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected authService: AuthService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOUpdateComparator) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, authService, notificationsService, http, comparator);
+    this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
   findById(uuid: string): Observable<RemoteData<DSpaceObject>> {

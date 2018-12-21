@@ -29,7 +29,6 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { compare, Operation } from 'fast-json-patch';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -53,7 +52,6 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
   protected abstract objectCache: ObjectCacheService;
-  protected abstract authService: AuthService;
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
   protected abstract comparator: UpdateComparator<TNormalized>;
@@ -155,7 +153,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
+      map((endpoint: string) => parentUUID ? `${endpoint}?parentCommunity=${parentUUID}` : endpoint)
     );
 
     const normalizedObject: TNormalized = this.dataBuildService.normalize<TDomain, TNormalized>(dso);

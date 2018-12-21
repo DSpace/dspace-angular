@@ -1,4 +1,3 @@
-<ds-form *ngIf="formModel" #formRef="formComponent"
+<ds-form *ngIf="formModel"
          [formId]="'community-form-id'"
-         [formModel]="formModel" (submit)="onSubmit($event)"></ds-form>
-
+         [formModel]="formModel" (submitForm)="onSubmit()"></ds-form>

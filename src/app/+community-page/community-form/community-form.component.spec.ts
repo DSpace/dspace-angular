@@ -1,31 +1,65 @@
 import { CommunityFormComponent } from './community-form.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SharedModule } from '../../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 import { Location } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DynamicFormService,
+  DynamicInputControlModel,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
+import { Community } from '../../core/shared/community.model';
+import { ResourceType } from '../../core/shared/resource-type';
 
-describe('CommunityFormComponent', () => {
+fdescribe('CommunityFormComponent', () => {
   let comp: CommunityFormComponent;
   let fixture: ComponentFixture<CommunityFormComponent>;
   let location: Location;
+  const formServiceStub: any = {
+    createFormGroup: (formModel: DynamicFormControlModel[]) => {
+      const controls = {};
+      formModel.forEach((controlModel) => {
+        controls[controlModel.id] = new FormControl((controlModel as any).value);
+      });
+      return new FormGroup(controls);
+    }
+  };
+  const titleMD = { key: 'dc.title', value: 'Community Title' };
+  const randomMD = { key: 'dc.random', value: 'Random metadata excluded from form' };
+  const abstractMD = { key: 'dc.description.abstract', value: 'Community description' };
+  const newTitleMD = { key: 'dc.title', value: 'New Community Title' };
+  const formModel = [
+    new DynamicInputModel({
+      id: 'title',
+      name: newTitleMD.key,
+      value: newTitleMD.value
+    }),
+    new DynamicInputModel({
+      id: 'abstract',
+      name: abstractMD.key,
+      value: abstractMD.value
+    })
+  ];
 
   /* tslint:disable:no-empty */
   const locationStub = {
-    back: () => {}
+    back: () => {
+    }
   };
   /* tslint:enable:no-empty */
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule],
       declarations: [CommunityFormComponent],
       providers: [
-        { provide: Location, useValue: locationStub }
-      ]
+        { provide: Location, useValue: locationStub },
+        { provide: DynamicFormService, useValue: formServiceStub }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -34,38 +68,41 @@ describe('CommunityFormComponent', () => {
     comp = fixture.componentInstance;
     fixture.detectChanges();
     location = (comp as any).location;
+    comp.formModel = formModel;
   });
 
-  describe('when submitting', () => {
-    let input: DebugElement;
-    let submit: DebugElement;
-    let cancel: DebugElement;
-    let error: DebugElement;
-
+  describe('onSubmit', () => {
     beforeEach(() => {
-      input = fixture.debugElement.query(By.css('input#community-name'));
-      submit = fixture.debugElement.query(By.css('button#community-submit'));
-      cancel = fixture.debugElement.query(By.css('button#community-cancel'));
-      error = fixture.debugElement.query(By.css('div.invalid-feedback'));
+      spyOn(comp.submitForm, 'emit');
     });
 
-    it('should display an error when leaving name empty', () => {
-      const el = input.nativeElement;
+    it('should update emit the new version of the community', () => {
+      comp.community = Object.assign(
+        new Community(),
+        {
+          metadata: [
+            titleMD,
+            randomMD
+          ]
+        }
+      );
 
-      el.value = '';
-      el.dispatchEvent(new Event('input'));
-      submit.nativeElement.click();
-      fixture.detectChanges();
+      comp.onSubmit();
 
-      expect(error.nativeElement.style.display).not.toEqual('none');
-    });
-
-    it('should navigate back when pressing cancel', () => {
-      spyOn(location, 'back');
-      cancel.nativeElement.click();
-      fixture.detectChanges();
-
-      expect(location.back).toHaveBeenCalled();
-    });
-  })
+      expect(comp.submitForm.emit).toHaveBeenCalledWith(
+        Object.assign(
+          {},
+          new Community(),
+          {
+            metadata: [
+              randomMD,
+              newTitleMD,
+              abstractMD
+            ],
+            type: ResourceType.Community
+          },
+        )
+      );
+    })
+  });
 });

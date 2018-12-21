@@ -12,6 +12,11 @@ import { of as observableOf } from 'rxjs';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Operation } from '../../../../node_modules/fast-json-patch';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { AuthService } from '../auth/auth.service';
+import { UpdateComparator } from './update-comparator';
+import { HttpClient } from '@angular/common/http';
+import { DataBuildService } from '../cache/builders/data-build.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 const endpoint = 'https://rest.api/core';
 
@@ -23,10 +28,14 @@ class TestService extends DataService<NormalizedTestObject, any> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: DataBuildService,
     protected store: Store<CoreState>,
     protected linkPath: string,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: UpdateComparator<NormalizedTestObject>
   ) {
     super();
   }
@@ -42,6 +51,10 @@ describe('DataService', () => {
   const requestService = {} as RequestService;
   const halService = {} as HALEndpointService;
   const rdbService = {} as RemoteDataBuildService;
+  const notificationsService = {} as NotificationsService;
+  const http = {} as HttpClient;
+  const comparator = {} as any;
+  const dataBuildService = {} as DataBuildService;
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -56,13 +69,16 @@ describe('DataService', () => {
     return new TestService(
       requestService,
       rdbService,
+      dataBuildService,
       store,
       endpoint,
       halService,
-      objectCache
+      objectCache,
+      notificationsService,
+      http,
+      comparator,
     );
   }
-
   service = initTestService();
 
   describe('getFindAllHref', () => {
@@ -134,7 +150,7 @@ describe('DataService', () => {
     let selfLink;
 
     beforeEach(() => {
-      operations = [{ op: 'replace', path: '/name', value: 'random string' } as Operation];
+      operations = [{ op: 'replace', path: '/metadata/dc.title', value: 'random string' } as Operation];
       selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
       spyOn(objectCache, 'addPatch');
     });
@@ -153,16 +169,16 @@ describe('DataService', () => {
     const name1 = 'random string';
     const name2 = 'another random string';
     beforeEach(() => {
-      operations = [{ op: 'replace', path: '/name', value: name2 } as Operation];
+      operations = [{ op: 'replace', path: '/metadata/dc.title', value: name2 } as Operation];
       selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
 
       dso = new DSpaceObject();
       dso.self = selfLink;
-      dso.name = name1;
+      dso.metadata = [{ key: 'dc.title', value: name1 }];
 
       dso2 = new DSpaceObject();
       dso2.self = selfLink;
-      dso2.name = name2;
+      dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
       spyOn(objectCache, 'getBySelfLink').and.returnValue(dso);
       spyOn(objectCache, 'addPatch');

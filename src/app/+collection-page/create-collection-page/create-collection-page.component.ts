@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { isNotEmpty } from '../../shared/empty.util';
-import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { ResourceType } from '../../core/shared/resource-type';
 
 @Component({

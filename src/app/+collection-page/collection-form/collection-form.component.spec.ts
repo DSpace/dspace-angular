@@ -4,9 +4,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionFormComponent } from './collection-form.component';
 import { Location } from '@angular/common';
+import { DynamicFormService } from '@ng-dynamic-forms/core';
 
 describe('CommunityFormComponent', () => {
   let comp: CollectionFormComponent;
@@ -24,8 +25,9 @@ describe('CommunityFormComponent', () => {
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [CollectionFormComponent],
       providers: [
-        { provide: Location, useValue: locationStub }
-      ]
+        { provide: Location, useValue: locationStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

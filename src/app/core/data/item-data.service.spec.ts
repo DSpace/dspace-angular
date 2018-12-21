@@ -9,6 +9,9 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { FindAllOptions } from './request.models';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { DataBuildService } from '../cache/builders/data-build.service';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -34,6 +37,10 @@ describe('ItemDataService', () => {
   const scopedEndpoint = `${itemBrowseEndpoint}?scope=${scopeID}`;
   const serviceEndpoint = `https://rest.api/core/items`;
   const browseError = new Error('getBrowseURL failed');
+  const notificationsService = {} as NotificationsService;
+  const http = {} as HttpClient;
+  const comparator = {} as any;
+  const dataBuildService = {} as DataBuildService;
 
   function initMockBrowseService(isSuccessful: boolean) {
     const obs = isSuccessful ?
@@ -48,10 +55,14 @@ describe('ItemDataService', () => {
     return new ItemDataService(
       requestService,
       rdbService,
+      dataBuildService,
       store,
       bs,
+      objectCache,
       halEndpointService,
-      objectCache
+      notificationsService,
+      http,
+      comparator
     );
   }
 

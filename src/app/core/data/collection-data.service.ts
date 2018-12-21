@@ -9,7 +9,6 @@ import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DataBuildService } from '../cache/builders/data-build.service';
@@ -27,7 +26,6 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected authService: AuthService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOUpdateComparator

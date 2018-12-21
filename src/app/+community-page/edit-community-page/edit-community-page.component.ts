@@ -5,11 +5,8 @@ import { Observable } from 'rxjs';
 import { RouteService } from '../../shared/services/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
-import { isNotEmpty } from '../../shared/empty.util';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { first, map, take, tap } from 'rxjs/operators';
-import { ResourceType } from '../../core/shared/resource-type';
-import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
+import { isNotUndefined } from '../../shared/empty.util';
+import { first, map } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../core/shared/operators';
 
 @Component({
@@ -39,8 +36,10 @@ export class EditCommunityPageComponent {
     this.communityDataService.update(community)
       .pipe(getSucceededRemoteData())
       .subscribe((communityRD: RemoteData<Community>) => {
-        const newUUID = communityRD.payload.uuid;
-        this.router.navigate(['/communities/' + newUUID]);
+        if (isNotUndefined(communityRD)) {
+          const newUUID = communityRD.payload.uuid;
+          this.router.navigate(['/communities/' + newUUID]);
+        }
       });
   }
 }

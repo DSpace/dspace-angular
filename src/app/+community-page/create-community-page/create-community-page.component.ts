@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { map, take } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../core/shared/operators';
@@ -42,8 +42,10 @@ export class CreateCommunityPageComponent implements OnInit {
       this.communityDataService.create(community, uuid)
         .pipe(getSucceededRemoteData())
         .subscribe((communityRD: RemoteData<Community>) => {
-          const newUUID = communityRD.payload.uuid;
-          this.router.navigate(['/communities/' + newUUID]);
+          if (isNotUndefined(communityRD)) {
+            const newUUID = communityRD.payload.uuid;
+            this.router.navigate(['/communities/' + newUUID]);
+          }
       });
     });
   }

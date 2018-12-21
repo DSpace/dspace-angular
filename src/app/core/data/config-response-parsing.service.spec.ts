@@ -177,7 +177,7 @@ describe('ConfigResponseParsingService', () => {
           'https://rest.api/config/submissionsections/traditionalpagetwo',
           'https://rest.api/config/submissionsections/upload',
           'https://rest.api/config/submissionsections/license'
-        ], 'https://rest.api/config/submissiondefinitions/traditional/sections')
+        ])
       });
 
     it('should return a ConfigSuccessResponse if data contains a valid config endpoint response', () => {

@@ -4,55 +4,76 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
-import { DSOSuccessResponse, ErrorResponse } from '../../core/cache/response-cache.models';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { CommunityFormComponent } from '../community-form/community-form.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('CreateCommunityPageComponent', () => {
+fdescribe('CreateCommunityPageComponent', () => {
   let comp: CreateCommunityPageComponent;
   let fixture: ComponentFixture<CreateCommunityPageComponent>;
   let communityDataService: CommunityDataService;
   let routeService: RouteService;
   let router: Router;
 
-  const community = Object.assign(new Community(), {
-    uuid: 'a20da287-e174-466a-9926-f66b9300d347',
-    name: 'test community'
-  });
+  let community;
+  let newCommunity;
+  let communityDataServiceStub;
+  let routeServiceStub;
+  let routerStub;
 
-  const newCommunity = Object.assign(new Community(), {
-    uuid: '1ff59938-a69a-4e62-b9a4-718569c55d48',
-    name: 'new community'
-  });
+  function initializeVars() {
+    community = Object.assign(new Community(), {
+      uuid: 'a20da287-e174-466a-9926-f66b9300d347',
+      metadata: [{
+        key: 'dc.title',
+        value: 'test community'
+      }]
+    });
 
-  const communityDataServiceStub = {
-    findById: (uuid) => Observable.of(new RemoteData(false, false, true, null, Object.assign(new Community(), {
-      uuid: uuid,
-      name: community.name
-    }))),
-    create: (com, uuid?) => Observable.of(new RemoteData(false, false, true, undefined, newCommunity))
-  };
-  const routeServiceStub = {
-    getQueryParameterValue: (param) => Observable.of(community.uuid)
-  };
-  const routerStub = {
-    navigate: (commands) => commands
-  };
+    newCommunity = Object.assign(new Community(), {
+      uuid: '1ff59938-a69a-4e62-b9a4-718569c55d48',
+      metadata: [{
+        key: 'dc.title',
+        value: 'new community'
+      }]
+    });
+
+    communityDataServiceStub = {
+      findById: (uuid) => observableOf(new RemoteData(false, false, true, null, Object.assign(new Community(), {
+        uuid: uuid,
+        metadata: [{
+          key: 'dc.title',
+          value: community.name
+        }]
+      }))),
+      create: (com, uuid?) => observableOf(new RemoteData(false, false, true, undefined, newCommunity))
+
+    };
+
+    routeServiceStub = {
+      getQueryParameterValue: (param) => observableOf(community.uuid)
+    };
+    routerStub = {
+      navigate: (commands) => commands
+    };
+
+  }
 
   beforeEach(async(() => {
+    initializeVars();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [CreateCommunityPageComponent, CommunityFormComponent],
+      declarations: [CreateCommunityPageComponent],
       providers: [
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
-        { provide: Router, useValue: routerStub }
-      ]
+        { provide: Router, useValue: routerStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -66,10 +87,15 @@ describe('CreateCommunityPageComponent', () => {
   });
 
   describe('onSubmit', () => {
-    const data = {
-      name: 'test'
-    };
-
+    let data;
+    beforeEach(() => {
+      data = Object.assign(new Community(), {
+        metadata: [{
+          key: 'dc.title',
+          value: 'test'
+        }]
+      });
+    });
     it('should navigate when successful', () => {
       spyOn(router, 'navigate');
       comp.onSubmit(data);
@@ -79,7 +105,7 @@ describe('CreateCommunityPageComponent', () => {
 
     it('should not navigate on failure', () => {
       spyOn(router, 'navigate');
-      spyOn(communityDataService, 'create').and.returnValue(Observable.of(new RemoteData(true, true, false, undefined, newCommunity)));
+      spyOn(communityDataService, 'create').and.returnValue(observableOf(new RemoteData(true, true, false, undefined, newCommunity)));
       comp.onSubmit(data);
       fixture.detectChanges();
       expect(router.navigate).not.toHaveBeenCalled();

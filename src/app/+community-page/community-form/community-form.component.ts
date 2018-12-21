@@ -9,7 +9,11 @@ import { FormGroup } from '@angular/forms';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { Community } from '../../core/shared/community.model';
 import { ResourceType } from '../../core/shared/resource-type';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty } from '../../shared/empty.util';
+import { TranslateService } from '@ngx-translate/core';
+
+const LABEL_KEY_PREFIX = 'community.form.';
+const ERROR_KEY_PREFIX = 'community.form.errors.';
 
 @Component({
   selector: 'ds-community-form',
@@ -17,40 +21,34 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
   templateUrl: './community-form.component.html'
 })
 export class CommunityFormComponent implements OnInit {
-
   @Input() community: Community = new Community();
   formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({
       id: 'title',
       name: 'dc.title',
-      label: 'Name',
       required: true,
       validators: {
         required: null
       },
       errorMessages: {
         required: 'Please enter a name for this title'
-      }
+      },
     }),
     new DynamicTextAreaModel({
       id: 'description',
       name: 'dc.description',
-      label: 'Introductory text (HTML)',
     }),
     new DynamicTextAreaModel({
       id: 'abstract',
       name: 'dc.description.abstract',
-      label: 'Short Description',
     }),
     new DynamicTextAreaModel({
       id: 'rights',
       name: 'dc.rights',
-      label: 'Copyright text (HTML)',
     }),
     new DynamicTextAreaModel({
       id: 'tableofcontents',
       name: 'dc.description.tableofcontents',
-      label: 'News (HTML)',
     }),
   ];
 
@@ -58,7 +56,9 @@ export class CommunityFormComponent implements OnInit {
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
-  public constructor(private location: Location, private formService: DynamicFormService) {
+  public constructor(private location: Location,
+                     private formService: DynamicFormService,
+                     private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -68,10 +68,14 @@ export class CommunityFormComponent implements OnInit {
       }
     );
     this.formGroup = this.formService.createFormGroup(this.formModel);
+    this.updateFieldTranslations();
+    this.translate.onLangChange
+      .subscribe(() => {
+        this.updateFieldTranslations();
+      });
   }
 
-  onSubmit(event: Event) {
-    event.stopPropagation();
+  onSubmit() {
     const metadata = this.formModel.map(
       (fieldModel: DynamicInputModel) => {
         return { key: fieldModel.name, value: fieldModel.value }
@@ -87,7 +91,17 @@ export class CommunityFormComponent implements OnInit {
     this.submitForm.emit(updatedCommunity);
   }
 
-  cancel() {
-    this.location.back();
+  private updateFieldTranslations() {
+    this.formModel.forEach(
+      (fieldModel: DynamicInputModel) => {
+        fieldModel.label = this.translate.instant(LABEL_KEY_PREFIX + fieldModel.id);
+        if (isNotEmpty(fieldModel.validators)) {
+          fieldModel.errorMessages = {};
+          Object.keys(fieldModel.validators).forEach((key) => {
+            fieldModel.errorMessages[key] = this.translate.instant(ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
+          });
+        }
+      }
+    );
   }
 }

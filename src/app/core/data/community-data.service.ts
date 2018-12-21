@@ -10,7 +10,6 @@ import { Community } from '../shared/community.model';
 import { ComColDataService } from './comcol-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { AuthService } from '../auth/auth.service';
 import { FindAllOptions, FindAllRequest } from './request.models';
 import { RemoteData } from './remote-data';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -34,7 +33,6 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected authService: AuthService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOUpdateComparator

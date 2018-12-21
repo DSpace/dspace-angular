@@ -14,12 +14,10 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from './request.reducer';
 import { of as observableOf } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DataBuildService } from '../cache/builders/data-build.service';
 import { DSOUpdateComparator } from './dso-update-comparator';
-import { UpdateComparator } from './update-comparator';
 
 const LINK_NAME = 'test';
 
@@ -38,7 +36,6 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected cds: CommunityDataService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected authService: AuthService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOUpdateComparator,
@@ -56,7 +53,6 @@ describe('ComColDataService', () => {
   let requestService: RequestService;
   let cds: CommunityDataService;
   let objectCache: ObjectCacheService;
-  let authService: AuthService;
   let halService: any = {};
 
   const rdbService = {} as RemoteDataBuildService;
@@ -106,14 +102,6 @@ describe('ComColDataService', () => {
     });
   }
 
-  function initMockAuthService(): AuthService {
-    return jasmine.createSpyObj('authService', {
-      buildAuthHeader: cold('c-', {
-        c: authHeader
-      })
-    });
-  }
-
   function initTestService(): TestService {
     return new TestService(
       requestService,
@@ -124,7 +112,6 @@ describe('ComColDataService', () => {
       cds,
       objectCache,
       halService,
-      authService,
       notificationsService,
       http,
       comparator,
@@ -137,7 +124,6 @@ describe('ComColDataService', () => {
     requestService = getMockRequestService();
     objectCache = initMockObjectCacheService();
     halService = mockHalService;
-    authService = initMockAuthService();
     service = initTestService();
   });
 
