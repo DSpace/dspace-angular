@@ -8,6 +8,9 @@
 
 .dspace-logo-container {
   margin: 10px 20px 0px 20px;
+  .display-3 {
+    word-break: break-word;
+  }
 }
 
 .dspace-logo-container img {

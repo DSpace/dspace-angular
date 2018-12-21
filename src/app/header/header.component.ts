@@ -1,43 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { createSelector, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { RouterReducerState } from '@ngrx/router-store';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { MenuService } from '../shared/menu/menu.service';
+import { MenuID } from '../shared/menu/initial-menus-state';
 
-import { HeaderState } from './header.reducer';
-import { HeaderToggleAction } from './header.actions';
-import { AppState } from '../app.reducer';
-import { HostWindowService } from '../shared/host-window.service';
-
-const headerStateSelector = (state: AppState) => state.header;
-const navCollapsedSelector = createSelector(headerStateSelector, (header: HeaderState) => header.navCollapsed);
-
+/**
+ * Represents the header with the logo and simple navigation
+ */
 @Component({
   selector: 'ds-header',
   styleUrls: ['header.component.scss'],
   templateUrl: 'header.component.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   /**
    * Whether user is authenticated.
    * @type {Observable<string>}
    */
   public isAuthenticated: Observable<boolean>;
-  public isNavBarCollapsed: Observable<boolean>;
   public showAuth = false;
+  menuID = MenuID.PUBLIC;
 
   constructor(
-    private store: Store<AppState>,
-    private windowService: HostWindowService
+    private menuService: MenuService
   ) {
   }
 
-  ngOnInit(): void {
-    // set loading
-    this.isNavBarCollapsed = this.store.pipe(select(navCollapsedSelector));
+  public toggleNavbar(): void {
+    this.menuService.toggleMenu(this.menuID);
   }
-
-  public toggle(): void {
-    this.store.dispatch(new HeaderToggleAction());
-  }
-
 }
