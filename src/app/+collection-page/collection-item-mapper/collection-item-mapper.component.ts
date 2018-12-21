@@ -21,9 +21,6 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { RestResponse } from '../../core/cache/response.models';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Actions, ofType } from '@ngrx/effects';
-import { IndexActionTypes } from '../../core/index/index.actions';
-import { RequestActionTypes } from '../../core/data/request.actions';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -93,7 +90,6 @@ export class CollectionItemMapperComponent implements OnInit {
   /**
    * Load collectionItemsRD$ with a fixed scope to only obtain the items this collection owns
    * Load mappingItemsRD$ to only obtain items this collection doesn't own
-   *  TODO: When the API support it, fetch items excluding the collection's scope (currently fetches all items)
    */
   loadItemLists() {
     this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
@@ -197,8 +193,6 @@ export class CollectionItemMapperComponent implements OnInit {
    * @param event
    */
   tabChange(event) {
-    // TODO: Fix tabs to maintain their own pagination options (once the current pagination system is improved)
-    // Temporary solution: Clear url params when changing tabs
     this.router.navigateByUrl(this.getCurrentUrl());
   }
 

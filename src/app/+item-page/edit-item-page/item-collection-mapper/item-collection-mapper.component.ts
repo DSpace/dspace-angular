@@ -80,7 +80,6 @@ export class ItemCollectionMapperComponent implements OnInit {
   /**
    * Load itemCollectionsRD$ with a fixed scope to only obtain the collections that own this item
    * Load mappingCollectionsRD$ to only obtain collections that don't own this item
-   *  TODO: When the API support it, fetch collections excluding the item's scope (currently fetches all collections)
    */
   loadCollectionLists() {
     this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
@@ -142,7 +141,6 @@ export class ItemCollectionMapperComponent implements OnInit {
    * @param {string[]} ids  The list of collection UUID's to remove the mapping of the item for
    */
   removeMappings(ids: string[]) {
-    // TODO: When the API supports fetching collections excluding the item's scope, make sure to exclude ids from mappingCollectionsRD$ here
     const responses$ = this.itemRD$.pipe(
       getSucceededRemoteData(),
       map((itemRD: RemoteData<Item>) => itemRD.payload.id),
@@ -212,8 +210,6 @@ export class ItemCollectionMapperComponent implements OnInit {
    * @param event
    */
   tabChange(event) {
-    // TODO: Fix tabs to maintain their own pagination options (once the current pagination system is improved)
-    // Temporary solution: Clear url params when changing tabs
     this.router.navigateByUrl(this.getCurrentUrl());
   }
 
