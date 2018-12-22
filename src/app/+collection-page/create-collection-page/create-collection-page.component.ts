@@ -1,58 +1,54 @@
-import { Component } from '@angular/core';
-import { Community } from '../../core/shared/community.model';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { Collection } from '../../core/shared/collection.model';
+import { Component, OnInit } from '@angular/core';
+import {Collection} from '../../core/shared/collection.model';
+import {CollectionDataService} from '../../core/data/collection-data.service';
+import { Observable } from 'rxjs';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { RemoteData } from '../../core/data/remote-data';
-import { isNotEmpty } from '../../shared/empty.util';
-import { ResourceType } from '../../core/shared/resource-type';
+import { isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { take } from 'rxjs/operators';
+import { getSucceededRemoteData } from '../../core/shared/operators';
+import {Community} from '../../core/shared/community.model';
+import {CommunityDataService} from '../../core/data/community-data.service';
 
 @Component({
   selector: 'ds-create-collection',
   styleUrls: ['./create-collection-page.component.scss'],
   templateUrl: './create-collection-page.component.html'
 })
-export class CreateCollectionPageComponent {
+export class CreateCommunityPageComponent implements OnInit {
 
   public parentUUID$: Observable<string>;
-  public communityRDObs: Observable<RemoteData<Community>>;
+  public parentRD$: Observable<RemoteData<Community>>;
 
   public constructor(
-    private collectionDataService: CollectionDataService,
     private communityDataService: CommunityDataService,
+    private collectionDataService: CollectionDataService,
     private routeService: RouteService,
     private router: Router
   ) {
+
+  }
+
+  ngOnInit(): void {
     this.parentUUID$ = this.routeService.getQueryParameterValue('parent');
-    this.parentUUID$.subscribe((uuid: string) => {
-      if (isNotEmpty(uuid)) {
-        this.communityRDObs = this.communityDataService.findById(uuid);
+    this.parentUUID$.subscribe((parentID: string) => {
+      if (isNotEmpty(parentID)) {
+        this.parentRD$ = this.communityDataService.findById(parentID);
       }
     });
   }
 
-  onSubmit(data: any) {
+  onSubmit(collection: Collection) {
     this.parentUUID$.pipe(take(1)).subscribe((uuid: string) => {
-      const collection = Object.assign(new Collection(), {
-        name: data.name,
-        metadata: [
-          { key: 'dc.description', value: data.introductory },
-          { key: 'dc.description.abstract', value: data.description },
-          { key: 'dc.rights', value: data.copyright },
-          { key: 'dc.rights.license', value: data.license }
-          // TODO: metadata for news and provenance
-        ],
-        type: ResourceType.Collection
-      });
-      this.collectionDataService.create(collection, uuid).subscribe((rd: RemoteData<Collection>) => {
-        if (rd.hasSucceeded) {
-          this.router.navigate(['collections', rd.payload.id]);
-        }
-      });
+      this.collectionDataService.create(collection, uuid)
+        .pipe(getSucceededRemoteData())
+        .subscribe((collectionRD: RemoteData<Community>) => {
+          if (isNotUndefined(collectionRD)) {
+            const newUUID = collectionRD.payload.uuid;
+            this.router.navigate(['/collections/' + newUUID]);
+          }
+        });
     });
   }
 

@@ -1,41 +1,56 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { isNotEmpty } from '../../shared/empty.util';
-import { Location } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import {
+  DynamicInputModel,
+  DynamicTextAreaModel
+} from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
+import { ResourceType } from '../../core/shared/resource-type';
+import { Collection } from '../../core/shared/collection.model';
+import { ComColFormComponent } from '../../comcol-forms/comcol-form/comcol-form.component';
 
 @Component({
   selector: 'ds-collection-form',
-  styleUrls: ['./collection-form.component.scss'],
-  templateUrl: './collection-form.component.html'
+  styleUrls: ['../../comcol-forms/comcol-form.component.scss'],
+  templateUrl: '../../comcol-forms/comcol-form/comcol-form.component.html'
 })
-export class CollectionFormComponent {
-
-  name: string;
-  description: string;
-  introductory: string;
-  copyright: string;
-  news: string;
-  license: string;
-  provenance: string;
-
-  nameRequiredError = false;
-
-  @Output() submitted: EventEmitter<any> = new EventEmitter();
-
-  public constructor(private location: Location) {
-
-  }
-
-  onSubmit(data: any) {
-    if (isNotEmpty(data.name)) {
-      this.submitted.emit(data);
-      this.nameRequiredError = false;
-    } else {
-      this.nameRequiredError = true;
-    }
-  }
-
-  cancel() {
-    this.location.back();
-  }
-
+export class CollectionFormComponent extends ComColFormComponent<Collection> {
+  @Input() dso: Collection = new Collection();
+  type = ResourceType.Collection;
+  formModel: DynamicFormControlModel[] = [
+    new DynamicInputModel({
+      id: 'title',
+      name: 'dc.title',
+      required: true,
+      validators: {
+        required: null
+      },
+      errorMessages: {
+        required: 'Please enter a name for this title'
+      },
+    }),
+    new DynamicTextAreaModel({
+      id: 'description',
+      name: 'dc.description',
+    }),
+    new DynamicTextAreaModel({
+      id: 'abstract',
+      name: 'dc.description.abstract',
+    }),
+    new DynamicTextAreaModel({
+      id: 'rights',
+      name: 'dc.rights',
+    }),
+    new DynamicTextAreaModel({
+      id: 'tableofcontents',
+      name: 'dc.description.tableofcontents',
+    }),
+    new DynamicTextAreaModel({
+      id: 'license',
+      name: 'dc.rights.license',
+    }),
+    new DynamicTextAreaModel({
+      id: 'provenance',
+      name: 'dc.description.provenance',
+    }),
+  ];
 }

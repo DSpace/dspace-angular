@@ -14,19 +14,22 @@
         }
       }
     },
-    "edit": {
-      "name": "Name",
-      "description": "Short Description",
-      "introductory": "Introductory text (HTML)",
-      "copyright": "Copyright text (HTML)",
-      "news": "News (HTML)",
+    "form": {
+      "title": "Name",
+      "description": "Introductory text (HTML)",
+      "abstract": "Short Description",
+      "rights": "Copyright text (HTML)",
+      "tableofcontents": "News (HTML)",
       "license": "License",
       "provenance": "Provenance",
-      "submit": "Submit",
-      "cancel": "Cancel",
-      "required": {
-        "name": "Please enter a collection name"
+      "errors": {
+        "title": {
+          "required": "Please enter a collection name"
+        }
       }
+    },
+    "edit": {
+      "head": "Edit Collection"
     },
     "create": {
       "head": "Create a Collection",
@@ -57,7 +60,7 @@
       }
     },
     "edit": {
-      "head": "Edit collection"
+      "head": "Edit Community"
     },
     "create": {
       "head": "Create a Community",
