@@ -9,11 +9,13 @@
       </div>
       <table class="table table-responsive table-striped">
         <tbody>
-        <tr *ngFor="let metadatum of (metadata$ | async)">
-          <td>{{metadatum.key}}</td>
-          <td>{{metadatum.value}}</td>
-          <td>{{metadatum.language}}</td>
-        </tr>
+          <ng-container *ngFor="let entry of (metadata$ | async) | keyvalue">
+            <tr *ngFor="let value of entry.value">
+              <td>{{entry.key}}</td>
+              <td>{{value.value}}</td>
+              <td>{{value.language}}</td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
       <ds-item-page-full-file-section [item]="item"></ds-item-page-full-file-section>

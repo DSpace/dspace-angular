@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
+import { MetadataValue } from '../../../core/shared/metadata.interfaces';
 
 /**
  * This component renders the configured 'values' into the ds-metadata-field-wrapper component as a link.
@@ -18,7 +19,7 @@ export class MetadataUriValuesComponent extends MetadataValuesComponent {
 
   @Input() linktext: any;
 
-  @Input() values: any;
+  @Input() values: MetadataValue[];
 
   @Input() separator: string;
 

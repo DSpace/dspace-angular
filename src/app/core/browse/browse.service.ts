@@ -38,8 +38,8 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 export class BrowseService {
   protected linkPath = 'browses';
 
-  private static toSearchKeyArray(metadatumKey: string): string[] {
-    const keyParts = metadatumKey.split('.');
+  private static toSearchKeyArray(metadataKey: string): string[] {
+    const keyParts = metadataKey.split('.');
     const searchFor = [];
     searchFor.push('*');
     for (let i = 0; i < keyParts.length - 1; i++) {
@@ -47,7 +47,7 @@ export class BrowseService {
       const nextPart = [...prevParts, '*'].join('.');
       searchFor.push(nextPart);
     }
-    searchFor.push(metadatumKey);
+    searchFor.push(metadataKey);
     return searchFor;
   }
 
@@ -179,8 +179,8 @@ export class BrowseService {
     return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  getBrowseURLFor(metadatumKey: string, linkPath: string): Observable<string> {
-    const searchKeyArray = BrowseService.toSearchKeyArray(metadatumKey);
+  getBrowseURLFor(metadataKey: string, linkPath: string): Observable<string> {
+    const searchKeyArray = BrowseService.toSearchKeyArray(metadataKey);
     return this.getBrowseDefinitions().pipe(
       getRemoteDataPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
@@ -191,7 +191,7 @@ export class BrowseService {
       ),
       map((def: BrowseDefinition) => {
         if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
-          throw new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`);
+          throw new Error(`A browse endpoint for ${linkPath} on ${metadataKey} isn't configured`);
         } else {
           return def._links[linkPath];
         }

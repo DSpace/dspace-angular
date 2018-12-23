@@ -1,5 +1,5 @@
-import { Metadatum } from './metadatum.model'
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.interfaces';
+import { Metadata } from './metadata.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
@@ -35,14 +35,14 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    * The name for this DSpaceObject
    */
   get name(): string {
-    return this.findMetadata('dc.title');
+    return this.firstMetadataValue('dc.title');
   }
 
   /**
-   * An array containing all metadata of this DSpaceObject
+   * All metadata of this DSpaceObject
    */
   @autoserialize
-  metadata: Metadatum[] = [];
+  metadata: MetadataMap;
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
@@ -54,42 +54,29 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    */
   owner: Observable<RemoteData<DSpaceObject>>;
 
-  /**
-   * Find a metadata field by key and language
-   *
-   * This method returns the value of the first element
-   * in the metadata array that matches the provided
-   * key and language
-   *
-   * @param key
-   * @param language
-   * @return string
-   */
-  findMetadata(key: string, language?: string): string {
-    const metadatum = this.metadata.find((m: Metadatum) => {
-      return m.key === key && (isEmpty(language) || m.language === language)
-    });
-    if (isNotEmpty(metadatum)) {
-      return metadatum.value;
-    } else {
-      return undefined;
-    }
+  /** Gets all matching metadata in this DSpaceObject. See `Metadata.all` for more information. */
+  allMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): MetadataValue[] {
+    return Metadata.all(this.metadata, keyOrKeys, valueFilter);
   }
 
-  /**
-   * Find metadata by an array of keys
-   *
-   * This method returns the values of the element
-   * in the metadata array that match the provided
-   * key(s)
-   *
-   * @param key(s)
-   * @return Array<Metadatum>
-   */
-  filterMetadata(keys: string[]): Metadatum[] {
-    return this.metadata.filter((metadatum: Metadatum) => {
-      return keys.some((key) => key === metadatum.key);
-    });
+  /** Like `allMetadata`, but only returns string values. */
+  allMetadataValues(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string[] {
+    return Metadata.allValues(this.metadata, keyOrKeys, valueFilter);
+  }
+
+  /** Gets the first matching metadata in this DSpaceObject, or `undefined`. */
+  firstMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): MetadataValue {
+    return Metadata.first(this.metadata, keyOrKeys, valueFilter);
+  }
+
+  /** Like `firstMetadata`, but only returns a string value, or `undefined`. */
+  firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
+    return Metadata.firstValue(this.metadata, keyOrKeys, valueFilter);
+  }
+
+  /** Checks for matching metadata in this DSpaceObject. */
+  hasMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): boolean {
+    return Metadata.has(this.metadata, keyOrKeys, valueFilter);
   }
 
 }
