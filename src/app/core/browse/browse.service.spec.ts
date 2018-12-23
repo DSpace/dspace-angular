@@ -219,44 +219,44 @@ describe('BrowseService', () => {
             }}));
       });
 
-      it('should return the URL for the given metadatumKey and linkPath', () => {
-        const metadatumKey = 'dc.date.issued';
+      it('should return the URL for the given metadataKey and linkPath', () => {
+        const metadataKey = 'dc.date.issued';
         const linkPath = 'items';
         const expectedURL = browseDefinitions[0]._links[linkPath];
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
         const expected = cold('c-d-', { c: undefined, d: expectedURL });
 
         expect(result).toBeObservable(expected);
       });
 
-      it('should work when the definition uses a wildcard in the metadatumKey', () => {
-        const metadatumKey = 'dc.contributor.author';  // should match dc.contributor.* in the definition
+      it('should work when the definition uses a wildcard in the metadataKey', () => {
+        const metadataKey = 'dc.contributor.author';  // should match dc.contributor.* in the definition
         const linkPath = 'items';
         const expectedURL = browseDefinitions[1]._links[linkPath];
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
         const expected = cold('c-d-', { c: undefined, d: expectedURL });
 
         expect(result).toBeObservable(expected);
       });
 
       it('should throw an error when the key doesn\'t match', () => {
-        const metadatumKey = 'dc.title'; // isn't in the definitions
+        const metadataKey = 'dc.title'; // isn't in the definitions
         const linkPath = 'items';
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
-        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`));
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
+        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadataKey} isn't configured`));
 
         expect(result).toBeObservable(expected);
       });
 
       it('should throw an error when the link doesn\'t match', () => {
-        const metadatumKey = 'dc.date.issued';
+        const metadataKey = 'dc.date.issued';
         const linkPath = 'collections'; // isn't in the definitions
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
-        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`));
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
+        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadataKey} isn't configured`));
 
         expect(result).toBeObservable(expected);
       });
@@ -271,10 +271,10 @@ describe('BrowseService', () => {
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('----'));
 
-        const metadatumKey = 'dc.date.issued';
+        const metadataKey = 'dc.date.issued';
         const linkPath = 'items';
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
         const expected = cold('b---', { b: undefined });
         expect(result).toBeObservable(expected);
       });

@@ -16,25 +16,29 @@ const truncatableServiceStub: any = {
 };
 
 const mockCollectionWithAbstract: CollectionSearchResult = new CollectionSearchResult();
-mockCollectionWithAbstract.hitHighlights = [];
+mockCollectionWithAbstract.hitHighlights = {};
 mockCollectionWithAbstract.dspaceObject = Object.assign(new Collection(), {
-  metadata: [
-    {
-      key: 'dc.description.abstract',
-      language: 'en_US',
-      value: 'Short description'
-    } ]
+  metadata: {
+    'dc.description.abstract': [
+      {
+        language: 'en_US',
+        value: 'Short description'
+      }
+    ]
+  }
 });
 
 const mockCollectionWithoutAbstract: CollectionSearchResult = new CollectionSearchResult();
-mockCollectionWithoutAbstract.hitHighlights = [];
+mockCollectionWithoutAbstract.hitHighlights = {};
 mockCollectionWithoutAbstract.dspaceObject = Object.assign(new Collection(), {
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'Test title'
-    } ]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title'
+      }
+    ]
+  }
 });
 
 describe('CollectionSearchResultListElementComponent', () => {
