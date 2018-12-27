@@ -56,15 +56,13 @@ module.exports = {
          * {
          *    // NOTE: metadata name
          *    name: 'dc.author',
-         *    // NOTE: fontawesome (v4.x) icon classes and bootstrap utility classes can be used
+         *    // NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
          *    style: 'fa-user'
          * }
          */
         {
-          // NOTE: metadata name
           name: 'dc.author',
-          // NOTE: fontawesome (v4.x) icon classes and bootstrap utility classes can be used
-          style: 'fa-user'
+          style: 'fas fa-user'
         },
         // default configuration
         {

@@ -63,8 +63,9 @@ export class ChipsItem {
           && (((typeof this._item[icon.metadata] === 'string') && hasValue(this._item[icon.metadata]))
             || (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue())
           && !(this._item[icon.metadata] as FormFieldMetadataValueObject).hasPlaceholder()) {
-          if (icon.visibleWhenAuthorityEmpty
-            || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET) {
+          if ((icon.visibleWhenAuthorityEmpty
+            || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET)
+            && isNotEmpty(icon.style)) {
             hasVisible = true;
             break;
           }
