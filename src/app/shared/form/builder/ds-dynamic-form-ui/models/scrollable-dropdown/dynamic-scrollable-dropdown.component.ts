@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { FormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { catchError, first, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
@@ -55,7 +55,15 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
       '',
       this.model.maxOptions,
       1);
-    this.authorityService.getEntriesByName(this.searchOptions)
+    this.authorityService.getEntriesByName(this.searchOptions).pipe(
+      catchError(() => {
+        const emptyResult = new IntegrationData(
+          new PageInfo(),
+          []
+        );
+        return observableOf(emptyResult);
+      }),
+      first())
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;
         if (this.model.value) {
@@ -79,6 +87,13 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
       this.loading = true;
       this.searchOptions.currentPage++;
       this.authorityService.getEntriesByName(this.searchOptions).pipe(
+        catchError(() => {
+          const emptyResult = new IntegrationData(
+            new PageInfo(),
+            []
+          );
+          return observableOf(emptyResult);
+        }),
         tap(() => this.loading = false))
         .subscribe((object: IntegrationData) => {
           this.optionsList = this.optionsList.concat(object.payload);

@@ -2,8 +2,14 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, O
 import { FormGroup } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
+import { catchError, distinctUntilChanged } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicLookupModel } from './dynamic-lookup.model';
@@ -15,11 +21,6 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
 
 @Component({
   selector: 'ds-dynamic-lookup',
@@ -234,6 +235,13 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
 
     this.loading = true;
     this.authorityService.getEntriesByName(this.searchOptions).pipe(
+      catchError(() => {
+        const emptyResult = new IntegrationData(
+          new PageInfo(),
+          []
+        );
+        return observableOf(emptyResult);
+      }),
       distinctUntilChanged())
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;

@@ -6,8 +6,8 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import {of as observableOf,  Observable } from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, tap, switchMap, map, merge} from 'rxjs/operators';
+import { of as observableOf,  Observable } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, tap, switchMap, map, merge } from 'rxjs/operators';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { isEqual } from 'lodash';
 
@@ -68,7 +68,7 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
             catchError(() => {
               this.searchFailed = true;
               return observableOf({list: []});
-            }),);
+            }));
         }
       }),
       map((results) => results.list),
