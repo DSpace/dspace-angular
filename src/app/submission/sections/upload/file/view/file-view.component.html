@@ -11,10 +11,10 @@
       </ng-container>
       <ng-container *ngIf="entry.value === ''">
         <h5 *ngIf="metadata.indexOf(entry) === 0">
-          <span class="text-muted">No {{entry.key}}</span>
+          <span class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{entry.key}}</span>
         </h5>
         <ng-container *ngIf="metadata.indexOf(entry) !== 0">
-          <span class="text-muted">No {{entry.key}}</span>
+          <span class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{entry.key}}</span>
         </ng-container>
       </ng-container>
     </ng-container>
