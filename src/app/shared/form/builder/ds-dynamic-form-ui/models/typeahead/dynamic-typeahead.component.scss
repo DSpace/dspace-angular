@@ -1,19 +1,5 @@
 @import "../../../../../../../styles/variables";
 
-/* style fa-spin */
-.fa-spin {
-  pointer-events: none;
-}
-
-/* align fa-spin */
-.left-addon .fa {
-  left: 0;
-}
-
-.right-addon .fa {
-  right: 0;
-}
-
 :host /deep/ .dropdown-menu {
   width: 100% !important;
   max-height: $dropdown-menu-max-height;

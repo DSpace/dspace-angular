@@ -21,3 +21,26 @@
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
 }
+
+/* style fa-spin */
+.fa-spin {
+  pointer-events: none;
+}
+
+/* align fa-spin */
+.left-addon .far, .left-addon .fas {
+  left: 0;
+}
+
+.right-addon .far, .right-addon .fas {
+  right: 0;
+}
+
+/* add padding  */
+.left-addon input {
+  padding-left: $spacer * 2.25;
+}
+
+.right-addon input {
+  padding-right: $spacer * 2.25;
+}

@@ -4,38 +4,6 @@
   display:none
 }
 
-/* enable absolute positioning */
-.spinner-addon {
-  position: relative;
-}
-
-/* style fa-spin */
-.spinner-addon .fa-spin {
-  color: map-get($theme-colors, primary);
-  position: absolute;
-  margin-top: 3px;
-  padding: 0;
-  pointer-events: none;
-}
-
-/* align fa-spin */
-.left-addon .fa {
-  left: 0;
-}
-
-.right-addon .fa {
-  right: 0;
-}
-
-/* add padding  */
-.left-addon input {
-  padding-left: $spacer * 2;
-}
-
-.right-addon input {
-  padding-right: $spacer * 2;
-}
-
 :host /deep/ .dropdown-menu {
   left: 0 !important;
   width: 100% !important;
