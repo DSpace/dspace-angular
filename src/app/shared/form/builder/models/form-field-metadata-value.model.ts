@@ -2,6 +2,10 @@ import { isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/integration/models/confidence-type';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 
+export interface OtherInformation {
+  [name: string]: string
+}
+
 export class FormFieldMetadataValueObject {
   metadata?: string;
   value: any;
@@ -12,7 +16,7 @@ export class FormFieldMetadataValueObject {
   place: number;
   closed: boolean;
   label: string;
-  otherInformation: any;
+  otherInformation: OtherInformation;
 
   constructor(value: any = null,
               language: any = null,
