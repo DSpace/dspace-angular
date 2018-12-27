@@ -11,6 +11,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { TranslateService } from '@ngx-translate/core';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Collection } from '../../core/shared/collection.model';
+import { flatMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-submission-edit',
@@ -40,28 +41,24 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.subs.push(this.route.paramMap
-      .subscribe((params: ParamMap) => {
-        this.submissionId = params.get('id');
-        this.subs.push(
-          this.submissionService.retrieveSubmission(this.submissionId)
-            .subscribe((submissionObject: SubmissionObject) => {
-              // NOTE new submission is retrieved on the browser side only
-              if (isNotNull(submissionObject)) {
-                if (isEmpty(submissionObject)) {
-                  this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
-                  this.router.navigate(['/mydspace']);
-                } else {
-                  this.collectionId = (submissionObject.collection as Collection).id;
-                  this.selfUrl = submissionObject.self;
-                  this.sections = submissionObject.sections;
-                  this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
-                  this.changeDetectorRef.detectChanges();
-                }
-              }
-            })
-        )
-      }));
+    this.subs.push(this.route.paramMap.pipe(
+      tap((params: ParamMap) => this.submissionId = params.get('id')),
+      flatMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id')))
+    ).subscribe((submissionObject: SubmissionObject) => {
+      // NOTE new submission is retrieved on the browser side only
+      if (isNotNull(submissionObject)) {
+        if (isEmpty(submissionObject)) {
+          this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
+          this.router.navigate(['/mydspace']);
+        } else {
+          this.collectionId = (submissionObject.collection as Collection).id;
+          this.selfUrl = submissionObject.self;
+          this.sections = submissionObject.sections;
+          this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
+          this.changeDetectorRef.detectChanges();
+        }
+      }
+    }));
   }
 
   /**

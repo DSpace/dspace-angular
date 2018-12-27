@@ -1,11 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SubmissionRestService } from '../../submission-rest.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-submission-form-footer',
@@ -19,7 +21,7 @@ export class SubmissionFormFooterComponent implements OnChanges {
   public processingDepositStatus: Observable<boolean>;
   public processingSaveStatus: Observable<boolean>;
   public showDepositAndDiscard: Observable<boolean>;
-  private submissionIsInvalid = true;
+  private submissionIsInvalid: Observable<boolean> = observableOf(true);
 
   constructor(private modalService: NgbModal,
               private restService: SubmissionRestService,
@@ -27,11 +29,10 @@ export class SubmissionFormFooterComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!!this.submissionId) {
-      this.submissionService.getSubmissionStatus(this.submissionId)
-        .subscribe((isValid) => {
-          this.submissionIsInvalid = isValid === false;
-        });
+    if (isNotEmpty(this.submissionId)) {
+      this.submissionIsInvalid = this.submissionService.getSubmissionStatus(this.submissionId).pipe(
+        map((isValid: boolean) => isValid === false)
+      );
 
       this.processingSaveStatus = this.submissionService.getSubmissionSaveProcessingStatus(this.submissionId);
       this.processingDepositStatus = this.submissionService.getSubmissionDepositProcessingStatus(this.submissionId);
