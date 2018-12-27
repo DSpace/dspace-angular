@@ -31,8 +31,7 @@ import { FormEntry, FormError } from './form.reducer';
   exportAs: 'formComponent',
   selector: 'ds-form',
   styleUrls: ['form.component.scss'],
-  templateUrl: 'form.component.html',
-  encapsulation: ViewEncapsulation.ShadowDom
+  templateUrl: 'form.component.html'
 })
 export class FormComponent implements OnDestroy, OnInit {
 

@@ -1,20 +1,12 @@
-import {
-  Component,
-  ContentChildren,
-  EventEmitter,
-  Input,
-  Output,
-  QueryList,
-  ViewChildren
-} from '@angular/core';
+import { Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  DynamicFormComponent, DynamicFormControlContainerComponent,
+  DynamicFormComponent,
+  DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
   DynamicFormLayout,
   DynamicFormLayoutService,
-  DynamicFormService,
   DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
@@ -22,7 +14,6 @@ import { FormBuilderService } from '../form-builder.service';
 
 @Component({
   selector: 'ds-dynamic-form',
-  styleUrls: ['../../form.component.scss'],
   templateUrl: './ds-dynamic-form.component.html'
 })
 export class DsDynamicFormComponent extends DynamicFormComponent {
