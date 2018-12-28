@@ -1,11 +1,5 @@
-import { autoserialize } from 'cerialize';
+import { ConfigObject } from '../config/models/config.model';
+import { SubmissionObject } from '../submission/models/submission-object.model';
 
-export class SubmitDataResponseDefinitionObject {
-
-  @autoserialize
-  public name: string;
-
-  @autoserialize
-  public type: string;
-
-}
+export type SubmitDataResponseDefinitionObject
+  = Array<SubmissionObject | ConfigObject | string>;

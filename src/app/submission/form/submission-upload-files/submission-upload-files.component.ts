@@ -8,12 +8,11 @@ import { SectionsService } from '../../sections/sections.service';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 import { normalizeSectionData } from '../../../core/submission/models/workspaceitem-sections.model';
-import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-operations.service';
-import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../../submission.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
 import parseSectionErrors from '../../utils/parseSectionErrors';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 
 @Component({
   selector: 'ds-submission-upload-files',
@@ -42,7 +41,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   };
 
   constructor(private notificationsService: NotificationsService,
-              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
+              private operationsService: SubmissionJsonPatchOperationsService,
               private sectionService: SectionsService,
               private submissionService: SubmissionService,
               private translate: TranslateService) {

@@ -1,23 +1,24 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
+
+import { filter, first } from 'rxjs/operators';
+import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { SectionUploadService } from '../section-upload.service';
 import { isNotEmpty, isNotNull, isNotUndefined } from '../../../../shared/empty.util';
-import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
-
 import { FormService } from '../../../../shared/form/form.service';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
 import { deleteProperty } from '../../../../shared/object.util';
 import { dateToGMTString } from '../../../../shared/date.util';
-import { JsonPatchOperationsService } from '../../../../core/json-patch/json-patch-operations.service';
-import { SubmitDataResponseDefinitionObject } from '../../../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../../../submission.service';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { filter, first } from 'rxjs/operators';
+import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from '../../../../core/submission/models/workspaceitem-section-upload.model';
 
 @Component({
   selector: 'ds-submission-upload-section-file',
@@ -52,7 +53,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
               private halService: HALEndpointService,
               private modalService: NgbModal,
               private operationsBuilder: JsonPatchOperationsBuilder,
-              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
+              private operationsService: SubmissionJsonPatchOperationsService,
               private submissionService: SubmissionService,
               private uploadService: SectionUploadService) {
     this.readMode = true;
@@ -166,14 +167,14 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
             this.submissionId,
             this.pathCombiner.rootElement,
             this.pathCombiner.subRootElement)
-            .subscribe((result) => {
-              Object.keys(result[0].sections.upload.files)
-                .filter((key) => result[0].sections.upload.files[key].uuid === this.fileId)
+            .subscribe((result: SubmissionObject[]) => {
+              Object.keys((result[0].sections.upload as WorkspaceitemSectionUploadObject).files )
+                .filter((key) => (result[0].sections.upload as WorkspaceitemSectionUploadObject).files[key].uuid === this.fileId)
                 .forEach((key) => this.uploadService.updateFileData(
                   this.submissionId,
                   this.sectionId,
                   this.fileId,
-                  result[0].sections.upload.files[key]));
+                  (result[0].sections.upload as WorkspaceitemSectionUploadObject).files[key]));
               this.switchMode();
             });
         })

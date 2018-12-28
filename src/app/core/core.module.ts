@@ -66,7 +66,6 @@ import { RegistryMetadataschemasResponseParsingService } from './data/registry-m
 import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
-import { JsonPatchOperationsService } from './json-patch/json-patch-operations.service';
 import { WorkflowitemDataService } from './submission/workflowitem-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
@@ -76,6 +75,7 @@ import { BrowseItemsResponseParsingService } from './data/browse-items-response-
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../shared/menu/menu.service';
+import { SubmissionJsonPatchOperationsService } from './submission/submission-json-patch-operations.service';
 
 const IMPORTS = [
   CommonModule,
@@ -140,8 +140,8 @@ const PROVIDERS = [
   SubmissionRestService,
   SubmissionSectionsConfigService,
   SubmissionResponseParsingService,
+  SubmissionJsonPatchOperationsService,
   JsonPatchOperationsBuilder,
-  JsonPatchOperationsService,
   AuthorityService,
   IntegrationResponseParsingService,
   UploaderService,

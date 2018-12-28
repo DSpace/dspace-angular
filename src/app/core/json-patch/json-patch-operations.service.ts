@@ -1,22 +1,15 @@
-import { Injectable } from '@angular/core';
-
-import { Observable, of as observableOf, throwError as observableThrowError, merge as observableMerge } from 'rxjs';
+import { merge as observableMerge, Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, flatMap, map, mergeMap, partition, take, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import {
-  ConfigSuccessResponse,
-  ErrorResponse,
-  PostPatchSuccessResponse,
-  RestResponse
-} from '../cache/response-cache.models';
+import { ErrorResponse, PostPatchSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
-import { PatchRequest, RestRequest, SubmissionPatchRequest } from '../data/request.models';
+import { PatchRequest, RestRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { CoreState } from '../core.reducers';
-import { Store } from '@ngrx/store';
 import { jsonPatchOperationsByResourceType } from './selectors';
 import { JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 import {
@@ -26,15 +19,13 @@ import {
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel } from './json-patch.model';
 
-@Injectable()
-export class JsonPatchOperationsService<ResponseDefinitionDomain> {
-  protected linkPath;
-
-  constructor(protected responseCache: ResponseCacheService,
-              protected requestService: RequestService,
-              protected store: Store<CoreState>,
-              protected halService: HALEndpointService) {
-  }
+export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, PatchRequestDefinition extends PatchRequest> {
+  protected abstract responseCache: ResponseCacheService;
+  protected abstract requestService: RequestService;
+  protected abstract store: Store<CoreState>;
+  protected abstract linkPath: string;
+  protected abstract halService: HALEndpointService;
+  protected abstract patchRequestConstructor: any;
 
   protected submitData(request: RestRequest): Observable<ResponseDefinitionDomain> {
     const responses = this.responseCache.get(request.href).pipe(map((entry: ResponseCacheEntry) => entry.response));
@@ -49,9 +40,9 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> {
     return observableMerge(errorResponses, successResponses);
   }
 
-  protected submitJsonPatchOperations(hrefObs: Observable<string>, resourceType: string, resourceId?: string) {
+  protected submitJsonPatchOperations(hrefObs: Observable<string>, resourceType: string, resourceId?: string): Observable<ResponseDefinitionDomain> {
     let startTransactionTime = null;
-    const [patchRequest$, emptyRequest$] = partition((request: PatchRequest) => isNotEmpty(request.body))(hrefObs.pipe(
+    const [patchRequest$, emptyRequest$] = partition((request: PatchRequestDefinition) => isNotEmpty(request.body))(hrefObs.pipe(
       flatMap((endpointURL: string) => {
         return this.store.select(jsonPatchOperationsByResourceType(resourceType)).pipe(
           take(1),
@@ -78,20 +69,20 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> {
                   })
               }
             }
-            return new SubmissionPatchRequest(this.requestService.generateRequestId(), endpointURL, body);
+            return this.getRequestInstance(this.requestService.generateRequestId(), endpointURL, body);
           }));
       })));
 
     return observableMerge(
       emptyRequest$.pipe(
-        filter((request: PatchRequest) => isEmpty(request.body)),
+        filter((request: PatchRequestDefinition) => isEmpty(request.body)),
         tap(() => startTransactionTime = null),
         map(() => null)),
       patchRequest$.pipe(
-        filter((request: PatchRequest) => isNotEmpty(request.body)),
+        filter((request: PatchRequestDefinition) => isNotEmpty(request.body)),
         tap(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime))),
-        tap((request: PatchRequest) => this.requestService.configure(request, true)),
-        flatMap((request: PatchRequest) => {
+        tap((request: PatchRequestDefinition) => this.requestService.configure(request, true)),
+        flatMap((request: PatchRequestDefinition) => {
           const [successResponse$, errorResponse$] = partition((response: RestResponse) => response.isSuccessful)(this.responseCache.get(request.href).pipe(
             filter((entry: ResponseCacheEntry) => startTransactionTime < entry.timeAdded),
             take(1),
@@ -110,11 +101,15 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> {
     );
   }
 
+  protected getRequestInstance(uuid: string, href: string, body?: any): PatchRequestDefinition {
+    return new this.patchRequestConstructor(uuid, href, body);
+  }
+
   protected getEndpointByIDHref(endpoint, resourceID): string {
     return isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
   }
 
-  public jsonPatchByResourceType(linkName: string, scopeId: string, resourceType: string,) {
+  public jsonPatchByResourceType(linkName: string, scopeId: string, resourceType: string): Observable<ResponseDefinitionDomain> {
     const href$ = this.halService.getEndpoint(linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
@@ -123,7 +118,7 @@ export class JsonPatchOperationsService<ResponseDefinitionDomain> {
     return this.submitJsonPatchOperations(href$, resourceType);
   }
 
-  public jsonPatchByResourceID(linkName: string, scopeId: string, resourceType: string, resourceId: string) {
+  public jsonPatchByResourceID(linkName: string, scopeId: string, resourceType: string, resourceId: string): Observable<ResponseDefinitionDomain> {
     const hrefObs = this.halService.getEndpoint(linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),

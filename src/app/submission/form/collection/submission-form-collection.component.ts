@@ -10,22 +10,8 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { combineLatest, Observable, Subscription } from 'rxjs';
 
-import { isNullOrUndefined } from 'util';
-import { Collection } from '../../../core/shared/collection.model';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { Community } from '../../../core/shared/community.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { RemoteData } from '../../../core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { JsonPatchOperationsService } from '../../../core/json-patch/json-patch-operations.service';
-import { SubmitDataResponseDefinitionObject } from '../../../core/shared/submit-data-response-definition.model';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -38,6 +24,20 @@ import {
   startWith,
   tap
 } from 'rxjs/operators';
+
+import { isNullOrUndefined } from 'util';
+import { Collection } from '../../../core/shared/collection.model';
+import { CommunityDataService } from '../../../core/data/community-data.service';
+import { Community } from '../../../core/shared/community.model';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { RemoteData } from '../../../core/data/remote-data';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { SubmissionService } from '../../submission.service';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 
 interface CollectionListEntryItem {
   id: string;
@@ -82,7 +82,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   constructor(protected cdr: ChangeDetectorRef,
               private communityDataService: CommunityDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
-              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
+              private operationsService: SubmissionJsonPatchOperationsService,
               private submissionService: SubmissionService) {
   }
 

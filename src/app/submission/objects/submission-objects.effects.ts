@@ -31,8 +31,6 @@ import {
 import { SectionsService } from '../sections/sections.service';
 import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
-import { JsonPatchOperationsService } from '../../core/json-patch/json-patch-operations.service';
-import { SubmitDataResponseDefinitionObject } from '../../core/shared/submit-data-response-definition.model';
 import { SubmissionService } from '../submission.service';
 import { Workflowitem } from '../../core/submission/models/workflowitem.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -45,6 +43,7 @@ import parseSectionErrors from '../utils/parseSectionErrors';
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SectionsType } from '../sections/sections-type';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 
 @Injectable()
 export class SubmissionObjectEffects {
@@ -199,7 +198,7 @@ export class SubmissionObjectEffects {
 
   constructor(private actions$: Actions,
               private notificationsService: NotificationsService,
-              private operationsService: JsonPatchOperationsService<SubmitDataResponseDefinitionObject>,
+              private operationsService: SubmissionJsonPatchOperationsService,
               private sectionService: SectionsService,
               private store$: Store<any>,
               private submissionService: SubmissionService,
