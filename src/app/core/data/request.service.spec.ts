@@ -299,6 +299,15 @@ describe('RequestService', () => {
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPatchRequest);
       });
     });
+
+    describe('when forceBypassCache is true', () => {
+      it('should call clearRequestsOnTheirWayToTheStore method', () => {
+        spyOn(serviceAsAny, 'clearRequestsOnTheirWayToTheStore');
+        service.configure(testPostRequest, true);
+        expect(serviceAsAny.clearRequestsOnTheirWayToTheStore).toHaveBeenCalledWith(testPostRequest.href);
+      });
+    });
+
   });
 
   describe('isCachedOrPending', () => {
@@ -464,5 +473,36 @@ describe('RequestService', () => {
         expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
       });
     });
+  });
+
+  describe('clearRequestsOnTheirWayToTheStore', () => {
+    let request: GetRequest;
+
+    beforeEach(() => {
+      request = testPatchRequest;
+    });
+
+    describe('when there is no request entry', () => {
+      it('should remove response from cache', () => {
+        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
+
+        serviceAsAny.clearRequestsOnTheirWayToTheStore(request.href);
+
+        expect(responseCache.remove).toHaveBeenCalledWith(request.href);
+      });
+    });
+
+    describe('when there is a request entry and is not pending', () => {
+      it('should remove response from cache and stop tracking the request', () => {
+        spyOn(service, 'getByHref').and.returnValue(observableOf({responsePending: false}));
+
+        serviceAsAny.clearRequestsOnTheirWayToTheStore(request.href);
+
+        expect(responseCache.remove).toHaveBeenCalledWith(request.href);
+        expect(serviceAsAny.requestsOnTheirWayToTheStore.includes(request.href)).toBeFalsy();
+
+      });
+    });
+
   });
 });
