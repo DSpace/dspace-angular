@@ -22,11 +22,7 @@ describe('JsonPatchOperationsEffects test suite', () => {
   const testJsonPatchResourceType = 'testResourceType';
   const testJsonPatchResourceId = 'testResourceId';
 
-  function init() {
-  }
-
   beforeEach(() => {
-    init();
     TestBed.configureTestingModule({
       providers: [
         JsonPatchOperationsEffects,
