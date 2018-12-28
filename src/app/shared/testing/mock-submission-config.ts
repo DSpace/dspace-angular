@@ -13,15 +13,15 @@ export const MOCK_SUBMISSION_CONFIG = {
       metadata: [
         {
           name: 'mainField',
-          style: 'fa-user'
+          style: 'fas fa-user'
         },
         {
           name: 'relatedField',
-          style: 'fa-university'
+          style: 'fas fa-university'
         },
         {
           name: 'otherRelatedField',
-          style: 'fa-circle'
+          style: 'fas fa-circle'
         },
         {
           name: 'default',
