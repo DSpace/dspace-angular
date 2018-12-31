@@ -5,7 +5,7 @@
       <p [innerHTML]="'item.edit.item-mapper.item' | translate:{ name: (itemRD$ | async)?.payload?.name }" id="item-name"></p>
       <p>{{'item.edit.item-mapper.description' | translate}}</p>
 
-      <ngb-tabset (tabChange)="tabChange($event)" [destroyOnHide]="false">
+      <ngb-tabset (tabChange)="tabChange($event)" [destroyOnHide]="true">
         <ngb-tab title="{{'item.edit.item-mapper.tabs.browse' | translate}}">
           <ng-template ngbTabContent>
             <div class="mt-2">
