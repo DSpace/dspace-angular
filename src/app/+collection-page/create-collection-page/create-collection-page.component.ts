@@ -2,18 +2,21 @@ import { Component } from '@angular/core';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
-import { CreateComColPageComponent } from '../../comcol-forms/create-comcol-page/create-comcol-page.component';
+import { CreateComColPageComponent } from '../../shared/comcol-forms/create-comcol-page/create-comcol-page.component';
 import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 
+/**
+ * Component that represents the page where a user can create a new Collection
+ */
 @Component({
-  selector: 'ds-create-community',
-  styleUrls: ['./create-community-page.component.scss'],
-  templateUrl: './create-community-page.component.html'
+  selector: 'ds-create-collection',
+  styleUrls: ['./create-collection-page.component.scss'],
+  templateUrl: './create-collection-page.component.html'
 })
-export class CreateCommunityPageComponent extends CreateComColPageComponent<Collection, NormalizedCollection> {
-  protected frontendURL = 'collections';
+export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection, NormalizedCollection> {
+  protected frontendURL = '/collections/';
 
   public constructor(
     protected communityDataService: CommunityDataService,

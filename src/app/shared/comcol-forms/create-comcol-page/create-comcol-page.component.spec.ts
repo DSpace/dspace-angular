@@ -1,22 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RouteService } from '../../shared/services/route.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { CommunityDataService } from '../../../core/data/community-data.service';
+import { RouteService } from '../../services/route.service';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
-import { SharedModule } from '../../shared/shared.module';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Community } from '../../../core/shared/community.model';
+import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { EditCommunityPageComponent } from './edit-community-page.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { NormalizedDSpaceObject } from '../../../core/cache/models/normalized-dspace-object.model';
+import { CreateComColPageComponent } from './create-comcol-page.component';
+import { DataService } from '../../../core/data/data.service';
 
-fdescribe('EditCommunityPageComponent', () => {
-  let comp: EditCommunityPageComponent;
-  let fixture: ComponentFixture<EditCommunityPageComponent>;
+describe('CreateComColPageComponent', () => {
+  let comp: CreateComColPageComponent<DSpaceObject, NormalizedDSpaceObject>;
+  let fixture: ComponentFixture<CreateComColPageComponent<DSpaceObject, NormalizedDSpaceObject>>;
   let communityDataService: CommunityDataService;
+  let dsoDataService: CommunityDataService;
   let routeService: RouteService;
   let router: Router;
 
@@ -25,7 +28,6 @@ fdescribe('EditCommunityPageComponent', () => {
   let communityDataServiceStub;
   let routeServiceStub;
   let routerStub;
-  let routeStub;
 
   function initializeVars() {
     community = Object.assign(new Community(), {
@@ -52,7 +54,7 @@ fdescribe('EditCommunityPageComponent', () => {
           value: community.name
         }]
       }))),
-      update: (com, uuid?) => observableOf(new RemoteData(false, false, true, undefined, newCommunity))
+      create: (com, uuid?) => observableOf(new RemoteData(false, false, true, undefined, newCommunity))
 
     };
 
@@ -63,31 +65,27 @@ fdescribe('EditCommunityPageComponent', () => {
       navigate: (commands) => commands
     };
 
-    routeStub = {
-      data: observableOf(community)
-    };
-
   }
 
   beforeEach(async(() => {
     initializeVars();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [EditCommunityPageComponent],
       providers: [
+        { provide: DataService, useValue: communityDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
-        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditCommunityPageComponent);
+    fixture = TestBed.createComponent(CreateComColPageComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
+    dsoDataService = (comp as any).dsoDataService;
     communityDataService = (comp as any).communityDataService;
     routeService = (comp as any).routeService;
     router = (comp as any).router;
@@ -112,7 +110,7 @@ fdescribe('EditCommunityPageComponent', () => {
 
     it('should not navigate on failure', () => {
       spyOn(router, 'navigate');
-      spyOn(communityDataService, 'update').and.returnValue(observableOf(new RemoteData(true, true, false, undefined, newCommunity)));
+      spyOn(dsoDataService, 'create').and.returnValue(observableOf(new RemoteData(true, true, false, undefined, newCommunity)));
       comp.onSubmit(data);
       fixture.detectChanges();
       expect(router.navigate).not.toHaveBeenCalled();

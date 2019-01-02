@@ -67,7 +67,7 @@ export class MetadataService {
   public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
     remoteData.pipe(map((rd: RemoteData<CacheableObject>) => rd.payload),
       filter((co: CacheableObject) => hasValue(co)),
-      take(1),)
+      take(1))
       .subscribe((dspaceObject: DSpaceObject) => {
         if (!this.initialized) {
           this.initialize(dspaceObject);
@@ -269,7 +269,7 @@ export class MetadataService {
       const item = this.currentObject.value as Item;
       item.getFiles()
         .pipe(
-          find((files) => isNotEmpty(files)),
+          first((files) => isNotEmpty(files)),
           catchError((error) => {
             console.debug(error.message);
             return []
@@ -277,7 +277,7 @@ export class MetadataService {
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {
             bitstream.format.pipe(
-              take(1),
+              first(),
               catchError((error: Error) => {
                 console.debug(error.message);
                 return []

@@ -6,16 +6,31 @@ import {
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { Collection } from '../../core/shared/collection.model';
-import { ComColFormComponent } from '../../comcol-forms/comcol-form/comcol-form.component';
+import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
 
+/**
+ * Form used for creating and editing collections
+ */
 @Component({
   selector: 'ds-collection-form',
-  styleUrls: ['../../comcol-forms/comcol-form.component.scss'],
-  templateUrl: '../../comcol-forms/comcol-form/comcol-form.component.html'
+  styleUrls: ['../../shared/comcol-forms/comcol-form/comcol-form.component.scss'],
+  templateUrl: '../../shared/comcol-forms/comcol-form/comcol-form.component.html'
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> {
+  /**
+   * @type {Collection} A new collection when a collection is being created, an existing Input collection when a collection is being edited
+   */
   @Input() dso: Collection = new Collection();
-  type = ResourceType.Collection;
+
+  /**
+   * @type {ResourceType.Collection} This is a collection-type form
+   */
+  protected type = ResourceType.Collection;
+
+  /**
+   * The dynamic form fields used for creating/editing a collection
+   * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
+   */
   formModel: DynamicFormControlModel[] = [
     new DynamicInputModel({
       id: 'title',

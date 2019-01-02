@@ -6,20 +6,23 @@ import { CommunityPageResolver } from './community-page.resolver';
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { EditCommunityPageComponent } from './edit-community-page/edit-community-page.component';
+import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'create',
+      {
+        path: 'create',
         component: CreateCommunityPageComponent,
-        canActivate: [AuthenticatedGuard]
+        canActivate: [AuthenticatedGuard, CreateCommunityPageGuard]
       },
-      { path: ':id/edit',
+      {
+        path: ':id/edit',
         pathMatch: 'full',
         component: EditCommunityPageComponent,
         canActivate: [AuthenticatedGuard],
         resolve: {
-          community: CommunityPageResolver
+          dso: CommunityPageResolver
         }
       },
       {
@@ -34,6 +37,7 @@ import { EditCommunityPageComponent } from './edit-community-page/edit-community
   ],
   providers: [
     CommunityPageResolver,
+    CreateCommunityPageGuard
   ]
 })
 export class CommunityPageRoutingModule {

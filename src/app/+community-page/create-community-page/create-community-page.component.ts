@@ -3,16 +3,20 @@ import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
-import { CreateComColPageComponent } from '../../comcol-forms/create-comcol-page/create-comcol-page.component';
+import { CreateComColPageComponent } from '../../shared/comcol-forms/create-comcol-page/create-comcol-page.component';
 import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 
+/**
+ * Component that represents the page where a user can create a new Community
+ */
 @Component({
   selector: 'ds-create-community',
   styleUrls: ['./create-community-page.component.scss'],
   templateUrl: './create-community-page.component.html'
 })
 export class CreateCommunityPageComponent extends CreateComColPageComponent<Community, NormalizedCommunity> {
-  protected frontendURL = 'communities';
+  protected frontendURL = '/communities/';
+
   public constructor(
     protected communityDataService: CommunityDataService,
     protected routeService: RouteService,

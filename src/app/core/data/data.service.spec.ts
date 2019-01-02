@@ -5,18 +5,17 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { FindAllOptions } from './request.models';
-import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
+import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Operation } from '../../../../node_modules/fast-json-patch';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { AuthService } from '../auth/auth.service';
 import { UpdateComparator } from './update-comparator';
 import { HttpClient } from '@angular/common/http';
 import { DataBuildService } from '../cache/builders/data-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { compare } from 'fast-json-patch';
 
 const endpoint = 'https://rest.api/core';
 
@@ -45,6 +44,12 @@ class TestService extends DataService<NormalizedTestObject, any> {
   }
 }
 
+class DummyComparator implements UpdateComparator<NormalizedTestObject> {
+  compare(object1: NormalizedTestObject, object2: NormalizedTestObject): Operation[] {
+    return compare((object1 as any).metadata, (object2 as any).metadata);
+  }
+
+}
 describe('DataService', () => {
   let service: TestService;
   let options: FindAllOptions;
@@ -53,8 +58,10 @@ describe('DataService', () => {
   const rdbService = {} as RemoteDataBuildService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
-  const comparator = {} as any;
-  const dataBuildService = {} as DataBuildService;
+  const comparator = new DummyComparator() as any;
+  const dataBuildService = {
+    normalize: (object) => object
+  } as DataBuildService;
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -136,7 +143,7 @@ describe('DataService', () => {
         elementsPerPage: 10,
         sort: sortOptions,
         startsWith: 'ab'
-      }
+      };
       const expected = `${endpoint}?page=${options.currentPage - 1}&size=${options.elementsPerPage}` +
         `&sort=${sortOptions.field},${sortOptions.direction}&startsWith=${options.startsWith}`;
 
@@ -169,7 +176,7 @@ describe('DataService', () => {
     const name1 = 'random string';
     const name2 = 'another random string';
     beforeEach(() => {
-      operations = [{ op: 'replace', path: '/metadata/dc.title', value: name2 } as Operation];
+      operations = [{ op: 'replace', path: '/0/value', value: name2 } as Operation];
       selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
 
       dso = new DSpaceObject();
@@ -180,17 +187,18 @@ describe('DataService', () => {
       dso2.self = selfLink;
       dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
-      spyOn(objectCache, 'getBySelfLink').and.returnValue(dso);
+      spyOn(service, 'findById').and.returnValues(observableOf(dso));
+      spyOn(objectCache, 'getBySelfLink').and.returnValues(observableOf(dso));
       spyOn(objectCache, 'addPatch');
     });
 
     it('should call addPatch on the object cache with the right parameters when there are differences', () => {
-      service.update(dso2);
+      service.update(dso2).subscribe();
       expect(objectCache.addPatch).toHaveBeenCalledWith(selfLink, operations);
     });
 
     it('should not call addPatch on the object cache with the right parameters when there are no differences', () => {
-      service.update(dso);
+      service.update(dso).subscribe();
       expect(objectCache.addPatch).not.toHaveBeenCalled();
     });
   });

@@ -5,13 +5,26 @@ import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageResolver } from './collection-page.resolver';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
+import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'create',
+      {
+        path: 'create',
         component: CreateCollectionPageComponent,
-        canActivate: [AuthenticatedGuard] },
+        canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
+      },
+      {
+        path: ':id/edit',
+        pathMatch: 'full',
+        component: EditCollectionPageComponent,
+        canActivate: [AuthenticatedGuard],
+        resolve: {
+          dso: CollectionPageResolver
+        }
+      },
       {
         path: ':id',
         component: CollectionPageComponent,
@@ -24,6 +37,7 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
   ],
   providers: [
     CollectionPageResolver,
+    CreateCollectionPageGuard
   ]
 })
 export class CollectionPageRoutingModule {
