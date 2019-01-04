@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
-import { RouteService } from '../../services/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -20,13 +19,11 @@ describe('EditComColPageComponent', () => {
   let fixture: ComponentFixture<EditComColPageComponent<DSpaceObject, NormalizedDSpaceObject>>;
   let communityDataService: CommunityDataService;
   let dsoDataService: CommunityDataService;
-  let routeService: RouteService;
   let router: Router;
 
   let community;
   let newCommunity;
   let communityDataServiceStub;
-  let routeServiceStub;
   let routerStub;
   let routeStub;
 
@@ -59,9 +56,6 @@ describe('EditComColPageComponent', () => {
 
     };
 
-    routeServiceStub = {
-      getQueryParameterValue: (param) => observableOf(community.uuid)
-    };
     routerStub = {
       navigate: (commands) => commands
     };
@@ -78,7 +72,6 @@ describe('EditComColPageComponent', () => {
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       providers: [
         { provide: DataService, useValue: communityDataServiceStub },
-        { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
@@ -92,7 +85,6 @@ describe('EditComColPageComponent', () => {
     fixture.detectChanges();
     dsoDataService = (comp as any).dsoDataService;
     communityDataService = (comp as any).communityDataService;
-    routeService = (comp as any).routeService;
     router = (comp as any).router;
   });
 

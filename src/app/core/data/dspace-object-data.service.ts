@@ -37,7 +37,7 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     return this.halService.getEndpoint(linkPath);
   }
 
-  getFindByIDHref(endpoint, resourceID): string {
+  getIDHref(endpoint, resourceID): string {
     return endpoint.replace(/\{\?uuid\}/,`?uuid=${resourceID}`);
   }
 }

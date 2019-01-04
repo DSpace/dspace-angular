@@ -18,7 +18,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import {
-  CreateRequest,
+  CreateRequest, DeleteByIDRequest,
   FindAllOptions,
   FindAllRequest,
   FindByIDRequest,
@@ -33,7 +33,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import {
   configureRequest,
-  filterSuccessfulResponses, getResourceLinksFromResponse,
+  filterSuccessfulResponses, getFinishedRemoteData, getResourceLinksFromResponse,
   getResponseFromEntry
 } from '../shared/operators';
 import { DSOSuccessResponse, ErrorResponse, RestResponse } from '../cache/response.models';
@@ -43,6 +43,7 @@ import { NormalizedObjectFactory } from '../cache/models/normalized-object-facto
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { DataBuildService } from '../cache/builders/data-build.service';
 import { UpdateComparator } from './update-comparator';
+import { RequestEntry } from './request.reducer';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -97,13 +98,13 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     return this.rdbService.buildList<TNormalized, TDomain>(hrefObs) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
-  getFindByIDHref(endpoint, resourceID): string {
+  getIDHref(endpoint, resourceID): string {
     return `${endpoint}/${resourceID}`;
   }
 
   findById(id: string): Observable<RemoteData<TDomain>> {
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, id)));
+      map((endpoint: string) => this.getIDHref(endpoint, id)));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
@@ -190,6 +191,26 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     return selfLink$.pipe(
       switchMap((selfLink: string) => this.findByHref(selfLink)),
     )
+  }
+
+  delete(dso: TDomain): Observable<boolean> {
+    const requestId = this.requestService.generateRequestId();
+
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new DeleteByIDRequest(requestId, href, dso.uuid);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response.isSuccessful)
+    );
   }
 
 }

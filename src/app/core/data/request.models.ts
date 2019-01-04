@@ -227,6 +227,17 @@ export class CreateRequest extends PostRequest {
   }
 }
 
+export class DeleteByIDRequest extends DeleteRequest {
+  constructor(
+    uuid: string,
+    href: string,
+    public resourceID: string
+  ) {
+    super(uuid, href);
+  }
+}
+
+
 export class RequestError extends Error {
   statusText: string;
 }

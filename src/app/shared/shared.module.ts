@@ -89,6 +89,7 @@ import { MenuModule } from './menu/menu.module';
 import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
 import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -135,6 +136,7 @@ const COMPONENTS = [
   ComColFormComponent,
   CreateComColPageComponent,
   EditComColPageComponent,
+  DeleteComColPageComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlComponent,
   DsDynamicListComponent,

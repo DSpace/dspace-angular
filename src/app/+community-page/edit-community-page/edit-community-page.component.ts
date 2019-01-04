@@ -19,10 +19,9 @@ export class EditCommunityPageComponent extends EditComColPageComponent<Communit
 
   public constructor(
     protected communityDataService: CommunityDataService,
-    protected routeService: RouteService,
     protected router: Router,
     protected route: ActivatedRoute
   ) {
-    super(communityDataService, routeService, router, route);
+    super(communityDataService, router, route);
   }
 }

@@ -9,6 +9,7 @@ import { CreateCollectionPageComponent } from './create-collection-page/create-c
 import { CollectionFormComponent } from './collection-form/collection-form.component';
 import { SearchPageModule } from '../+search-page/search-page.module';
 import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
+import { DeleteCollectionPageComponent } from './delete-collection-page/delete-community-page.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { EditCollectionPageComponent } from './edit-collection-page/edit-collect
     CollectionPageComponent,
     CreateCollectionPageComponent,
     EditCollectionPageComponent,
+    DeleteCollectionPageComponent,
     CollectionFormComponent
   ]
 })

@@ -7,6 +7,7 @@ import { CreateCollectionPageComponent } from './create-collection-page/create-c
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
+import { DeleteCollectionPageComponent } from './delete-collection-page/delete-community-page.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,15 @@ import { CreateCollectionPageGuard } from './create-collection-page/create-colle
         path: ':id/edit',
         pathMatch: 'full',
         component: EditCollectionPageComponent,
+        canActivate: [AuthenticatedGuard],
+        resolve: {
+          dso: CollectionPageResolver
+        }
+      },
+      {
+        path: ':id/delete',
+        pathMatch: 'full',
+        component: DeleteCollectionPageComponent,
         canActivate: [AuthenticatedGuard],
         resolve: {
           dso: CollectionPageResolver
