@@ -143,7 +143,7 @@ describe('IntegrationResponseParsingService', () => {
       },
       statusCode: '200'
     };
-    const pageinfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1 });
+    const pageinfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1, self: 'https://rest.api/integration/authorities/type/entries'});
     const definitions = new PaginatedList(pageinfo,[
       Object.assign({}, new AuthorityValueModel(), {
         type: 'authority',

@@ -41,7 +41,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject, TNormalized e
 
   /**
    * @param {TDomain} dso The updated version of the DSO
-   * Updates an existing DSO based on the submitted user data and navigates to the editted object's home page
+   * Updates an existing DSO based on the submitted user data and navigates to the edited object's home page
    */
   onSubmit(dso: TDomain) {
     this.dsoDataService.update(dso)
