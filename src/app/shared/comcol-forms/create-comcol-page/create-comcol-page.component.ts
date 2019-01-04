@@ -46,7 +46,7 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject, TNormalized
 
   ngOnInit(): void {
     this.parentUUID$ = this.routeService.getQueryParameterValue('parent');
-    this.parentUUID$.subscribe((parentID: string) => {
+    this.parentUUID$.pipe(take(1)).subscribe((parentID: string) => {
       if (isNotEmpty(parentID)) {
         this.parentRD$ = this.parentDataService.findById(parentID);
       }
