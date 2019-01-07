@@ -28,7 +28,7 @@ describe('DeleteComColPageComponent', () => {
   let notificationsService;
   const validUUID = 'valid-uuid';
   const invalidUUID = 'invalid-uuid';
-
+  const frontendURL = '/testType';
   function initializeVars() {
     community = Object.assign(new Community(), {
       uuid: 'a20da287-e174-466a-9926-f66b9300d347',
@@ -81,6 +81,7 @@ describe('DeleteComColPageComponent', () => {
     comp = fixture.componentInstance;
     fixture.detectChanges();
     notificationsService = (comp as any).notifications;
+    (comp as any).frontendURL = frontendURL;
     router = (comp as any).router;
   });
 
@@ -144,7 +145,7 @@ describe('DeleteComColPageComponent', () => {
     });
 
     it('should redirect to the edit page', () => {
-      const redirectURL = 'communities/edit/' + validUUID;
+      const redirectURL = frontendURL + '/' + validUUID + '/edit';
       spyOn(router, 'navigate');
       comp.onCancel(data1);
       fixture.detectChanges();
