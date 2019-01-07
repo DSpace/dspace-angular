@@ -11,7 +11,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { TranslateService } from '@ngx-translate/core';
 
 /**
- * Component that represents the page where a user can edit an existing Community
+ * Component that represents the page where a user can delete an existing Collection
  */
 @Component({
   selector: 'ds-delete-collection',

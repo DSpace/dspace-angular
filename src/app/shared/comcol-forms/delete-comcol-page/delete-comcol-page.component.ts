@@ -13,7 +13,7 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { TranslateService } from '@ngx-translate/core';
 
 /**
- * Component representing the edit page for communities and collections
+ * Component representing the delete page for communities and collections
  */
 @Component({
   selector: 'ds-delete-comcol',
@@ -21,7 +21,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class DeleteComColPageComponent<TDomain extends DSpaceObject, TNormalized extends NormalizedDSpaceObject> implements OnInit {
   /**
-   * Frontend endpoint where for this type of DSP
+   * Frontend endpoint for this type of DSO
    */
   protected frontendURL: string;
   /**
@@ -44,7 +44,7 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject, TNormalized
 
   /**
    * @param {TDomain} dso The DSO to delete
-   * Deletes an existing DSO and redirects to the home page afterwards
+   * Deletes an existing DSO and redirects to the home page afterwards, showing a notification that states whether or not the deletion was successful
    */
   onConfirm(dso: TDomain) {
     this.dsoDataService.delete(dso)

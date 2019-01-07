@@ -17,7 +17,6 @@ import { DataService } from '../../../core/data/data.service';
 describe('EditComColPageComponent', () => {
   let comp: EditComColPageComponent<DSpaceObject, NormalizedDSpaceObject>;
   let fixture: ComponentFixture<EditComColPageComponent<DSpaceObject, NormalizedDSpaceObject>>;
-  let communityDataService: CommunityDataService;
   let dsoDataService: CommunityDataService;
   let router: Router;
 
@@ -45,13 +44,6 @@ describe('EditComColPageComponent', () => {
     });
 
     communityDataServiceStub = {
-      findById: (uuid) => observableOf(new RemoteData(false, false, true, null, Object.assign(new Community(), {
-        uuid: uuid,
-        metadata: [{
-          key: 'dc.title',
-          value: community.name
-        }]
-      }))),
       update: (com, uuid?) => observableOf(new RemoteData(false, false, true, undefined, newCommunity))
 
     };
@@ -84,7 +76,6 @@ describe('EditComColPageComponent', () => {
     comp = fixture.componentInstance;
     fixture.detectChanges();
     dsoDataService = (comp as any).dsoDataService;
-    communityDataService = (comp as any).communityDataService;
     router = (comp as any).router;
   });
 

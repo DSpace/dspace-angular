@@ -7,7 +7,7 @@ import { CreateCollectionPageComponent } from './create-collection-page/create-c
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
-import { DeleteCollectionPageComponent } from './delete-collection-page/delete-community-page.component';
+import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 
 @NgModule({
   imports: [

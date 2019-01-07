@@ -18,7 +18,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject, TNormalized extends NormalizedDSpaceObject> implements OnInit {
   /**
-   * Frontend endpoint where for this type of DSP
+   * Frontend endpoint for this type of DSO
    */
   protected frontendURL: string;
   /**

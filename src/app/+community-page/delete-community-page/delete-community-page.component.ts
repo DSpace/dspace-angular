@@ -8,7 +8,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { TranslateService } from '@ngx-translate/core';
 
 /**
- * Component that represents the page where a user can edit an existing Community
+ * Component that represents the page where a user can delete an existing Community
  */
 @Component({
   selector: 'ds-delete-community',
