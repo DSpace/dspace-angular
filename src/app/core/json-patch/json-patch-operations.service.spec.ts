@@ -138,7 +138,7 @@ describe('JsonPatchOperationsService test suite', () => {
     });
 
     it('should dispatch a new StartTransactionPatchOperationsAction', () => {
-      const expectedAction = new StartTransactionPatchOperationsAction(testJsonPatchResourceType, undefined, timestamp)
+      const expectedAction = new StartTransactionPatchOperationsAction(testJsonPatchResourceType, undefined, timestamp);
       scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType).subscribe());
       scheduler.flush();
 
@@ -147,7 +147,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
     describe('when request is successful', () => {
       it('should dispatch a new CommitPatchOperationsAction', () => {
-        const expectedAction = new CommitPatchOperationsAction(testJsonPatchResourceType, undefined)
+        const expectedAction = new CommitPatchOperationsAction(testJsonPatchResourceType, undefined);
         scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType).subscribe());
         scheduler.flush();
 
@@ -171,7 +171,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
       it('should dispatch a new RollbacktPatchOperationsAction', () => {
 
-        const expectedAction = new RollbacktPatchOperationsAction(testJsonPatchResourceType, undefined)
+        const expectedAction = new RollbacktPatchOperationsAction(testJsonPatchResourceType, undefined);
         scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType).subscribe());
         scheduler.flush();
 
@@ -200,7 +200,7 @@ describe('JsonPatchOperationsService test suite', () => {
     });
 
     it('should dispatch a new StartTransactionPatchOperationsAction', () => {
-      const expectedAction = new StartTransactionPatchOperationsAction(testJsonPatchResourceType, testJsonPatchResourceId, timestamp)
+      const expectedAction = new StartTransactionPatchOperationsAction(testJsonPatchResourceType, testJsonPatchResourceId, timestamp);
       scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId).subscribe());
       scheduler.flush();
 
@@ -209,7 +209,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
     describe('when request is successful', () => {
       it('should dispatch a new CommitPatchOperationsAction', () => {
-        const expectedAction = new CommitPatchOperationsAction(testJsonPatchResourceType, testJsonPatchResourceId)
+        const expectedAction = new CommitPatchOperationsAction(testJsonPatchResourceType, testJsonPatchResourceId);
         scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId).subscribe());
         scheduler.flush();
 
@@ -233,7 +233,7 @@ describe('JsonPatchOperationsService test suite', () => {
 
       it('should dispatch a new RollbacktPatchOperationsAction', () => {
 
-        const expectedAction = new RollbacktPatchOperationsAction(testJsonPatchResourceType, testJsonPatchResourceId)
+        const expectedAction = new RollbacktPatchOperationsAction(testJsonPatchResourceType, testJsonPatchResourceId);
         scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId).subscribe());
         scheduler.flush();
 

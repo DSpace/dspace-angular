@@ -137,7 +137,7 @@ export class SubmissionObjectEffects {
         catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
     }));
 
-  @Effect() saveAndDepositSection$ = this.actions$.pipe(
+  @Effect() saveAndDeposit$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
     withLatestFrom(this.store$),
     switchMap(([action, currentState]: [SaveAndDepositSubmissionAction, any]) => {
@@ -153,7 +153,7 @@ export class SubmissionObjectEffects {
             return this.parseSaveResponse((currentState.submission as SubmissionState).objects[action.payload.submissionId], response, action.payload.submissionId);
           }
         }),
-        catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
+        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     }));
 
   @Effect() depositSubmission$ = this.actions$.pipe(
@@ -165,7 +165,7 @@ export class SubmissionObjectEffects {
         catchError(() => observableOf(new DepositSubmissionErrorAction(action.payload.submissionId))));
     }));
 
-  @Effect({dispatch: false}) SaveForLaterSubmissionSuccess$ = this.actions$.pipe(
+  @Effect({dispatch: false}) saveForLaterSubmissionSuccess$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'))),
     tap(() => this.submissionService.redirectToMyDSpace()));
@@ -228,13 +228,13 @@ export class SubmissionObjectEffects {
         this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'));
       }
 
-      // to avoid dispatching an action for every error, create an array of errors per section
       response.forEach((item: Workspaceitem | Workflowitem) => {
 
         let errorsList = Object.create({});
         const {errors} = item;
 
         if (errors && !isEmpty(errors)) {
+          // to avoid dispatching an action for every error, create an array of errors per section
           errorsList = parseSectionErrors(errors);
           if (notify) {
             this.notificationsService.warning(null, this.translate.get('submission.sections.general.sections_not_valid'));

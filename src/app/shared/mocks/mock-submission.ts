@@ -1,4 +1,61 @@
-export const submissionRestREsponse = [
+import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
+import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
+
+export const mockSectionsData = {
+  traditionalpageone:{
+    'dc.title': [
+      new FormFieldMetadataValueObject('test', null, null, 'test' )
+    ]},
+  license: {
+    url: null,
+    acceptanceDate: null,
+    granted: false
+  },
+  upload: {
+    files: []
+  }
+};
+
+export const mockSectionsDataTwo = {
+  traditionalpageone:{
+    'dc.title': [
+      new FormFieldMetadataValueObject('test', null, null, 'test' )
+    ]},
+  traditionalpagetwo:{
+    'dc.relation': [
+      new FormFieldMetadataValueObject('test', null, null, 'test' )
+    ]},
+  license: {
+    url: null,
+    acceptanceDate: null,
+    granted: false
+  },
+  upload: {
+    files: []
+  }
+};
+
+export const mockSectionsErrors = [
+  {
+    message: 'error.validation.required',
+    paths: [
+      '/sections/traditionalpageone/dc.contributor.author',
+      '/sections/traditionalpageone/dc.title',
+      '/sections/traditionalpageone/dc.date.issued'
+    ]
+  },
+  {
+    message: 'error.validation.license.notgranted',
+    paths: [
+      '/sections/license'
+    ]
+  }
+];
+
+export const submissionRestResponse = [
   {
     id: 826,
     lastModified: '2018-08-03T12:49:45.268+0000',
@@ -98,16 +155,7 @@ export const submissionRestREsponse = [
         }
       }
     ],
-    sections: {
-      license: {
-        url: null,
-        acceptanceDate: null,
-        granted: false
-      },
-      upload: {
-        files: []
-      }
-    },
+    sections: {},
     submissionDefinition: [
       {
         isDefault: true,
@@ -151,7 +199,7 @@ export const submissionRestREsponse = [
           },
           {
             header: 'submit.progressbar.describe.steptwo',
-            mandatory: true,
+            mandatory: false,
             sectionType: 'submission-form',
             type: 'submissionsection',
             _links: {
@@ -197,22 +245,7 @@ export const submissionRestREsponse = [
       }
     ],
     submitter: [],
-    errors: [
-      {
-        message: 'error.validation.required',
-        paths: [
-          '/sections/traditionalpageone/dc.contributor.author',
-          '/sections/traditionalpageone/dc.title',
-          '/sections/traditionalpageone/dc.date.issued'
-        ]
-      },
-      {
-        message: 'error.validation.license.notgranted',
-        paths: [
-          '/sections/license'
-        ]
-      }
-    ],
+    errors: [],
     self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826',
     type: 'workspaceitem',
     _links: {
@@ -224,3 +257,277 @@ export const submissionRestREsponse = [
     }
   }
 ];
+
+export const mockSubmissionCollectionId = '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb';
+export const mockSubmissionId = '826';
+export const mockSubmissionSelfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
+
+export const mockSubmissionDefinitionResponse = {
+  isDefault: true,
+  sections: [
+    {
+      mandatory: true,
+      sectionType: 'utils',
+      visibility: {
+        main: 'HIDDEN',
+        other: 'HIDDEN'
+      },
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
+    },
+    {
+      mandatory: true,
+      sectionType: 'collection',
+      visibility: {
+        main: 'HIDDEN',
+        other: 'HIDDEN'
+      },
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+    },
+    {
+      header: 'submit.progressbar.describe.stepone',
+      mandatory: true,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
+    },
+    {
+      header: 'submit.progressbar.describe.steptwo',
+      mandatory: false,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
+    },
+    {
+      header: 'submit.progressbar.upload',
+      mandatory: true,
+      sectionType: 'upload',
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
+    },
+    {
+      header: 'submit.progressbar.license',
+      mandatory: true,
+      sectionType: 'license',
+      visibility: {
+        main: null,
+        other: 'READONLY'
+      },
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+    }
+  ],
+  name: 'traditional',
+  type: 'submissiondefinition',
+  _links: {
+    collections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections',
+    sections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections',
+    self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+  },
+  self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+} as any;
+
+export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
+  isDefault: true,
+  sections: new PaginatedList(new PageInfo(),[
+    {
+      mandatory: true,
+      sectionType: 'utils',
+      visibility: {
+        main: 'HIDDEN',
+        other: 'HIDDEN'
+      },
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
+    },
+    {
+      mandatory: true,
+      sectionType: 'collection',
+      visibility: {
+        main: 'HIDDEN',
+        other: 'HIDDEN'
+      },
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+    },
+    {
+      header: 'submit.progressbar.describe.stepone',
+      mandatory: true,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
+    },
+    {
+      header: 'submit.progressbar.describe.steptwo',
+      mandatory: false,
+      sectionType: 'submission-form',
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
+    },
+    {
+      header: 'submit.progressbar.upload',
+      mandatory: true,
+      sectionType: 'upload',
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
+    },
+    {
+      header: 'submit.progressbar.license',
+      mandatory: true,
+      sectionType: 'license',
+      visibility: {
+        main: null,
+        other: 'READONLY'
+      },
+      type: 'submissionsection',
+      _links: {
+        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+      },
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+    }
+  ]),
+  name: 'traditional',
+  type: 'submissiondefinition',
+  _links: {
+    collections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections',
+    sections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections',
+    self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+  },
+  self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+} as any;
+
+export const mockSubmissionState: SubmissionObjectState = {
+  826: {
+    collection: mockSubmissionCollectionId,
+    definition: 'traditional',
+    selfUrl: mockSubmissionSelfUrl,
+    activeSection: null,
+    sections: {
+      extraction: {
+        config: '',
+        mandatory: true,
+        sectionType: 'utils',
+        visibility: {
+          main: 'HIDDEN',
+          other: 'HIDDEN'
+        },
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any,
+      collection: {
+        config: '',
+        mandatory: true,
+        sectionType: 'collection',
+        visibility: {
+          main: 'HIDDEN',
+          other: 'HIDDEN'
+        },
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any,
+      traditionalpageone: {
+        header: 'submit.progressbar.describe.stepone',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
+        mandatory: true,
+        sectionType: 'submission-form',
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any,
+      traditionalpagetwo: {
+        header: 'submit.progressbar.describe.steptwo',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
+        mandatory: false,
+        sectionType: 'submission-form',
+        collapsed: false,
+        enabled: false,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any,
+      upload: {
+        header: 'submit.progressbar.upload',
+        config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
+        mandatory: true,
+        sectionType: 'upload',
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any,
+      license: {
+        header: 'submit.progressbar.license',
+        config: '',
+        mandatory: true,
+        sectionType: 'license',
+        visibility: {
+          main: null,
+          other: 'READONLY'
+        },
+        collapsed: false,
+        enabled: true,
+        data: {},
+        errors: [],
+        isLoading: false,
+        isValid: false
+      } as any
+    },
+    isLoading: false,
+    savePending: false,
+    depositPending: false
+  }
+};

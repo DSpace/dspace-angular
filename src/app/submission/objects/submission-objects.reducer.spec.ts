@@ -30,194 +30,21 @@ import {
   UpdateSectionDataAction
 } from './submission-objects.actions';
 import { SectionsType } from '../sections/sections-type';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionDefinitionResponse, mockSubmissionId,
+  mockSubmissionSelfUrl,
+  mockSubmissionState
+} from '../../shared/mocks/mock-submission';
 
-describe('submissionReducer', () => {
+describe('submissionReducer test suite', () => {
 
-  const collectionId = '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb';
-  const submissionId = '826';
-  const submissionDefinition = {
-    isDefault: true,
-    sections: [
-      {
-        mandatory: true,
-        sectionType: 'utils',
-        visibility: {
-          main: 'HIDDEN',
-          other: 'HIDDEN'
-        },
-        type: 'submissionsection',
-        _links: {
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
-        },
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
-      },
-      {
-        mandatory: true,
-        sectionType: 'collection',
-        visibility: {
-          main: 'HIDDEN',
-          other: 'HIDDEN'
-        },
-        type: 'submissionsection',
-        _links: {
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
-        },
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
-      },
-      {
-        header: 'submit.progressbar.describe.stepone',
-        mandatory: true,
-        sectionType: 'submission-form',
-        type: 'submissionsection',
-        _links: {
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone',
-          config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone'
-        },
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
-      },
-      {
-        header: 'submit.progressbar.describe.steptwo',
-        mandatory: true,
-        sectionType: 'submission-form',
-        type: 'submissionsection',
-        _links: {
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo',
-          config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo'
-        },
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
-      },
-      {
-        header: 'submit.progressbar.upload',
-        mandatory: true,
-        sectionType: 'upload',
-        type: 'submissionsection',
-        _links: {
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload',
-          config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
-        },
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
-      },
-      {
-        header: 'submit.progressbar.license',
-        mandatory: true,
-        sectionType: 'license',
-        visibility: {
-          main: null,
-          other: 'READONLY'
-        },
-        type: 'submissionsection',
-        _links: {
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
-        },
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
-      }
-    ],
-    name: 'traditional',
-    type: 'submissiondefinition',
-    _links: {
-      collections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections',
-      sections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections',
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
-    },
-    self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
-  } as any;
-  const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
+  const collectionId = mockSubmissionCollectionId;
+  const submissionId = mockSubmissionId;
+  const submissionDefinition = mockSubmissionDefinitionResponse;
+  const selfUrl = mockSubmissionSelfUrl;
 
-  const initState: SubmissionObjectState = {
-    826: {
-      collection: collectionId,
-      definition: 'traditional',
-      selfUrl: selfUrl,
-      activeSection: null,
-      sections: {
-        extraction: {
-          config: '',
-          mandatory: true,
-          sectionType: 'utils',
-          visibility: {
-            main: 'HIDDEN',
-            other: 'HIDDEN'
-          },
-          collapsed: false,
-          enabled: true,
-          data: {},
-          errors: [],
-          isLoading: false,
-          isValid: false
-        } as any,
-        collection: {
-          config: '',
-          mandatory: true,
-          sectionType: 'collection',
-          visibility: {
-            main: 'HIDDEN',
-            other: 'HIDDEN'
-          },
-          collapsed: false,
-          enabled: true,
-          data: {},
-          errors: [],
-          isLoading: false,
-          isValid: false
-        } as any,
-        traditionalpageone: {
-          header: 'submit.progressbar.describe.stepone',
-          config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
-          mandatory: true,
-          sectionType: 'submission-form',
-          collapsed: false,
-          enabled: true,
-          data: {},
-          errors: [],
-          isLoading: false,
-          isValid: false
-        } as any,
-        traditionalpagetwo: {
-          header: 'submit.progressbar.describe.steptwo',
-          config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpagetwo',
-          mandatory: false,
-          sectionType: 'submission-form',
-          collapsed: false,
-          enabled: false,
-          data: {},
-          errors: [],
-          isLoading: false,
-          isValid: false
-        } as any,
-        upload: {
-          header: 'submit.progressbar.upload',
-          config: 'https://dspace7.4science.it/or2018/api/config/submissionuploads/upload',
-          mandatory: true,
-          sectionType: 'upload',
-          collapsed: false,
-          enabled: true,
-          data: {},
-          errors: [],
-          isLoading: false,
-          isValid: false
-        } as any,
-        license: {
-          header: 'submit.progressbar.license',
-          config: '',
-          mandatory: true,
-          sectionType: 'license',
-          visibility: {
-            main: null,
-            other: 'READONLY'
-          },
-          collapsed: false,
-          enabled: true,
-          data: {},
-          errors: [],
-          isLoading: false,
-          isValid: false
-        } as any
-      },
-      isLoading: false,
-      savePending: false,
-      depositPending: false
-    }
-  };
+  const initState: SubmissionObjectState = mockSubmissionState;
 
   it('should init submission state properly', () => {
     const expectedState = {
@@ -279,7 +106,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpageone: {
             header: 'submit.progressbar.describe.stepone',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
             mandatory: true,
             sectionType: 'submission-form',
             collapsed: false,
@@ -291,7 +118,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpagetwo: {
             header: 'submit.progressbar.describe.steptwo',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpagetwo',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
             mandatory: false,
             sectionType: 'submission-form',
             collapsed: false,
@@ -303,7 +130,7 @@ describe('submissionReducer', () => {
           } as any,
           upload: {
             header: 'submit.progressbar.upload',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionuploads/upload',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
             mandatory: true,
             sectionType: 'upload',
             collapsed: false,
@@ -371,8 +198,6 @@ describe('submissionReducer', () => {
   });
 
   it('should set to true savePendig flag on save', () => {
-    const expectedState = Object.create({});
-
     let action = new SaveSubmissionFormAction(submissionId);
     let newState = submissionObjectReducer(initState, action);
 
@@ -434,7 +259,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpageone: {
             header: 'submit.progressbar.describe.stepone',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
             mandatory: true,
             sectionType: 'submission-form',
             collapsed: false,
@@ -446,7 +271,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpagetwo: {
             header: 'submit.progressbar.describe.steptwo',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpagetwo',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
             mandatory: true,
             sectionType: 'submission-form',
             collapsed: false,
@@ -458,7 +283,7 @@ describe('submissionReducer', () => {
           } as any,
           upload: {
             header: 'submit.progressbar.upload',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionuploads/upload',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
             mandatory: true,
             sectionType: 'upload',
             collapsed: false,
@@ -531,7 +356,6 @@ describe('submissionReducer', () => {
   });
 
   it('should set to true depositPending flag on deposit', () => {
-    const newCollection = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
     const action = new DepositSubmissionAction('826');
     const newState = submissionObjectReducer(initState, action);
 
@@ -578,7 +402,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpageone: {
             header: 'submit.progressbar.describe.stepone',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
             mandatory: true,
             sectionType: 'submission-form',
             collapsed: false,
@@ -590,7 +414,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpagetwo: {
             header: 'submit.progressbar.describe.steptwo',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpagetwo',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
             mandatory: true,
             sectionType: 'submission-form',
             collapsed: false,
@@ -602,7 +426,7 @@ describe('submissionReducer', () => {
           } as any,
           upload: {
             header: 'submit.progressbar.upload',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionuploads/upload',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
             mandatory: true,
             sectionType: 'upload',
             collapsed: false,
@@ -642,7 +466,6 @@ describe('submissionReducer', () => {
   });
 
   it('should set to false depositPending flag once the deposit is completed unsuccessfully', () => {
-    const newCollection = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
     const action = new DepositSubmissionErrorAction('826');
     const newState = submissionObjectReducer(initState, action);
 
@@ -742,20 +565,20 @@ describe('submissionReducer', () => {
     const data = {
       'dc.contributor.author': [
         {
-          value: 'Bergamini, Giuseppe',
+          value: 'Author, Test',
           language: null,
           authority: null,
-          display: 'Bergamini, Giuseppe',
+          display: 'Author, Test',
           confidence: -1,
           place: 0
         }
       ],
       'dc.title': [
         {
-          value: 'Uno sconosciuto ritratto di Giovanni da Udine',
+          value: 'Title Test',
           language: null,
           authority: null,
-          display: 'Uno sconosciuto ritratto di Giovanni da Udine',
+          display: 'Title Test',
           confidence: -1,
           place: 0
         }
@@ -801,7 +624,7 @@ describe('submissionReducer', () => {
     ];
 
     let action: any = new UpdateSectionDataAction(submissionId, 'traditionalpageone', {}, errors);
-    let newState = submissionObjectReducer(initState, action);
+    let newState;
 
     action = new RemoveSectionErrorsAction(submissionId, 'traditionalpageone');
     newState = submissionObjectReducer(initState, action);
@@ -911,10 +734,10 @@ describe('submissionReducer', () => {
       metadata: {
         'dc.title': [
           {
-            value: '28297_389341539060_6452876_n.jpg',
+            value: 'image_test.jpg',
             language: null,
             authority: null,
-            display: '28297_389341539060_6452876_n.jpg',
+            display: 'image_test.jpg',
             confidence: -1,
             place: 0
           }
@@ -943,10 +766,10 @@ describe('submissionReducer', () => {
       metadata: {
         'dc.title': [
           {
-            value: '28297_389341539060_6452876_n.jpg',
+            value: 'image_test.jpg',
             language: null,
             authority: null,
-            display: '28297_389341539060_6452876_n.jpg',
+            display: 'image_test.jpg',
             confidence: -1,
             place: 0
           }
@@ -1009,7 +832,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpageone: {
             header: 'submit.progressbar.describe.stepone',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
             mandatory: true,
             sectionType: 'submission-form',
             collapsed: false,
@@ -1021,7 +844,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpagetwo: {
             header: 'submit.progressbar.describe.steptwo',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpagetwo',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
             mandatory: false,
             sectionType: 'submission-form',
             collapsed: false,
@@ -1033,7 +856,7 @@ describe('submissionReducer', () => {
           } as any,
           upload: {
             header: 'submit.progressbar.upload',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionuploads/upload',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
             mandatory: true,
             sectionType: 'upload',
             collapsed: false,
@@ -1084,10 +907,10 @@ describe('submissionReducer', () => {
       metadata: {
         'dc.title': [
           {
-            value: '28297_389341539060_6452876_n.jpg',
+            value: 'image_test.jpg',
             language: null,
             authority: null,
-            display: '28297_389341539060_6452876_n.jpg',
+            display: 'image_test.jpg',
             confidence: -1,
             place: 0
           }
@@ -1183,7 +1006,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpageone: {
             header: 'submit.progressbar.describe.stepone',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpageone',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
             mandatory: true,
             sectionType: 'submission-form',
             collapsed: false,
@@ -1195,7 +1018,7 @@ describe('submissionReducer', () => {
           } as any,
           traditionalpagetwo: {
             header: 'submit.progressbar.describe.steptwo',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionforms/traditionalpagetwo',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
             mandatory: false,
             sectionType: 'submission-form',
             collapsed: false,
@@ -1207,7 +1030,7 @@ describe('submissionReducer', () => {
           } as any,
           upload: {
             header: 'submit.progressbar.upload',
-            config: 'https://dspace7.4science.it/or2018/api/config/submissionuploads/upload',
+            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
             mandatory: true,
             sectionType: 'upload',
             collapsed: false,

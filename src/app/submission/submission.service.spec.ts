@@ -17,7 +17,7 @@ import { MockActivatedRoute } from '../shared/mocks/mock-active-router';
 import { GLOBAL_CONFIG } from '../../config';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { submissionRestREsponse } from '../shared/mocks/mock-submission';
+import { submissionRestResponse } from '../shared/mocks/mock-submission';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
 import { MOCK_SUBMISSION_CONFIG } from '../shared/testing/mock-submission-config';
@@ -643,12 +643,12 @@ describe('SubmissionService test suite', () => {
 
   it('should retrieve submission from REST endpoint', () => {
     (service as any).restService.getDataById.and.returnValue(hot('a|', {
-      a: submissionRestREsponse
+      a: submissionRestResponse
     }));
 
     const result = service.retrieveSubmission('826');
     const expected = cold('(b|)', {
-      b: submissionRestREsponse[0]
+      b: submissionRestResponse[0]
     });
 
     expect(result).toBeObservable(expected);
