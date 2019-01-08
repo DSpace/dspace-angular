@@ -42,10 +42,12 @@ describe('IntegrationService', () => {
   const name = 'type';
   const metadata = 'dc.type';
   const query = '';
+  const value = 'test';
   const uuid = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const integrationEndpoint = 'https://rest.api/integration';
   const serviceEndpoint = `${integrationEndpoint}/${LINK_NAME}`;
   const entriesEndpoint = `${serviceEndpoint}/${name}/entries?query=${query}&metadata=${metadata}&uuid=${uuid}`;
+  const entryValueEndpoint = `${serviceEndpoint}/${name}/entryValue/${value}?metadata=${metadata}`;
 
   findOptions = new IntegrationSearchOptions(uuid, name, metadata);
 
@@ -88,4 +90,20 @@ describe('IntegrationService', () => {
     });
   });
 
+  describe('getEntryByValue', () => {
+
+    it('should configure a new IntegrationRequest', () => {
+      findOptions = new IntegrationSearchOptions(
+        null,
+        name,
+        metadata,
+        value);
+
+      const expected = new IntegrationRequest(requestService.generateRequestId(), entryValueEndpoint);
+      scheduler.schedule(() => service.getEntryByValue(findOptions).subscribe());
+      scheduler.flush();
+
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
+    });
+  });
 });

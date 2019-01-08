@@ -20,14 +20,11 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { createTestComponent } from '../../../../../testing/utils';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
-import { MockStore } from '../../../../../testing/mock-store';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../../../app.reducer';
-import { AuthService } from '../../../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../../../testing/auth-service-stub';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
 import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
+import { Store, StoreModule } from '@ngrx/store';
+import { MockStore } from '../../../../../testing/mock-store';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
@@ -103,7 +100,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   // async beforeEach
   beforeEach(async(() => {
     init();
-    const store = new MockStore<AppState>(Object.create(null));
+
     /* TODO make sure these files use mocks instead of real services/components https://github.com/DSpace/dspace-angular/issues/281 */
     TestBed.configureTestingModule({
       imports: [
@@ -111,6 +108,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule.forRoot(),
+        StoreModule.forRoot({}),
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -128,7 +126,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
         FormService,
         { provide: AuthorityService, useValue: new AuthorityServiceStub() },
         { provide: GLOBAL_CONFIG, useValue: config },
-        { provide: Store, useValue: store },
+        { provide: Store, useClass: MockStore }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });

@@ -12,7 +12,7 @@
         <ng-container *ngIf="readMode">
           <button class="btn btn-link" (click)="downloadBitstreamFile(); $event.stopPropagation()"><i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i></button>
           <!--<a href="{{fileData.url}}"  title="Download file" target="_blank"><i class="fa fa-download text-normal mr-3" aria-hidden="true"></i></a>-->
-          <button class="btn btn-link" (click)="$event.preventDefault();switchMode();"><i class="fa fa-pencil-square-o fa-2x text-normal"></i></button>
+          <button class="btn btn-link" (click)="$event.preventDefault();switchMode();"><i class="fa fa-edit fa-2x text-normal"></i></button>
           <button class="btn btn-link" (click)="$event.preventDefault();confirmDelete(content);"><i class="fa fa-trash fa-2x text-danger"></i></button>
         </ng-container>
         <ng-container *ngIf="!readMode">

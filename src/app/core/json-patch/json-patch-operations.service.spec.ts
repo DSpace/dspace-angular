@@ -1,8 +1,9 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { async, TestBed } from '@angular/core/testing';
 
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { of as observableOf } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -16,12 +17,12 @@ import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-respon
 import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { JsonPatchOperationsEntry, JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
-import { MockStore } from '../../shared/testing/mock-store';
 import {
   CommitPatchOperationsAction,
   RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
+import { MockStore } from '../../shared/testing/mock-store';
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
@@ -102,8 +103,19 @@ describe('JsonPatchOperationsService test suite', () => {
 
   }
 
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({}),
+      ],
+      providers: [
+        { provide: Store, useClass: MockStore }
+      ]
+    }).compileComponents();
+  }));
+
   beforeEach(() => {
-    store = new MockStore<CoreState>({} as CoreState);
+    store = TestBed.get(Store);
     responseCache = initMockResponseCacheService(true);
     requestService = getMockRequestService();
     rdbService = getMockRemoteDataBuildService();
@@ -111,8 +123,8 @@ describe('JsonPatchOperationsService test suite', () => {
     halService = new HALEndpointServiceStub(resourceEndpointURL);
     service = initTestService();
 
-    spyOn((service as any).store, 'select').and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
-    spyOn((service as any).store, 'dispatch').and.callThrough();
+    spyOn(store, 'select').and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
+    spyOn(store, 'dispatch').and.callThrough();
     spyOn(Date.prototype, 'getTime').and.callFake(() => {
       return timestamp;
     });
@@ -142,7 +154,7 @@ describe('JsonPatchOperationsService test suite', () => {
       scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType).subscribe());
       scheduler.flush();
 
-      expect((service as any).store.dispatch).toHaveBeenCalledWith(expectedAction);
+      expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
     });
 
     describe('when request is successful', () => {
@@ -151,13 +163,13 @@ describe('JsonPatchOperationsService test suite', () => {
         scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType).subscribe());
         scheduler.flush();
 
-        expect((service as any).store.dispatch).toHaveBeenCalledWith(expectedAction);
+        expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
       });
     });
 
     describe('when request is not successful', () => {
       beforeEach(() => {
-        store = new MockStore<CoreState>({} as CoreState);
+        store = TestBed.get(Store);
         responseCache = initMockResponseCacheService(false);
         requestService = getMockRequestService();
         rdbService = getMockRemoteDataBuildService();
@@ -165,8 +177,8 @@ describe('JsonPatchOperationsService test suite', () => {
         halService = new HALEndpointServiceStub(resourceEndpointURL);
         service = initTestService();
 
-        spyOn((service as any).store, 'select').and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
-        spyOn((service as any).store, 'dispatch').and.callThrough();
+        store.select.and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
+        store.dispatch.and.callThrough();
       });
 
       it('should dispatch a new RollbacktPatchOperationsAction', () => {
@@ -175,7 +187,7 @@ describe('JsonPatchOperationsService test suite', () => {
         scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType).subscribe());
         scheduler.flush();
 
-        expect((service as any).store.dispatch).toHaveBeenCalledWith(expectedAction);
+        expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
       });
     });
   });
@@ -204,7 +216,7 @@ describe('JsonPatchOperationsService test suite', () => {
       scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId).subscribe());
       scheduler.flush();
 
-      expect((service as any).store.dispatch).toHaveBeenCalledWith(expectedAction);
+      expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
     });
 
     describe('when request is successful', () => {
@@ -213,13 +225,13 @@ describe('JsonPatchOperationsService test suite', () => {
         scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId).subscribe());
         scheduler.flush();
 
-        expect((service as any).store.dispatch).toHaveBeenCalledWith(expectedAction);
+        expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
       });
     });
 
     describe('when request is not successful', () => {
       beforeEach(() => {
-        store = new MockStore<CoreState>({} as CoreState);
+        store = TestBed.get(Store);
         responseCache = initMockResponseCacheService(false);
         requestService = getMockRequestService();
         rdbService = getMockRemoteDataBuildService();
@@ -227,8 +239,8 @@ describe('JsonPatchOperationsService test suite', () => {
         halService = new HALEndpointServiceStub(resourceEndpointURL);
         service = initTestService();
 
-        spyOn((service as any).store, 'select').and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
-        spyOn((service as any).store, 'dispatch').and.callThrough();
+        store.select.and.returnValue(observableOf(mockState['json/patch'][testJsonPatchResourceType]));
+        store.dispatch.and.callThrough();
       });
 
       it('should dispatch a new RollbacktPatchOperationsAction', () => {
@@ -237,7 +249,7 @@ describe('JsonPatchOperationsService test suite', () => {
         scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId).subscribe());
         scheduler.flush();
 
-        expect((service as any).store.dispatch).toHaveBeenCalledWith(expectedAction);
+        expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
       });
     });
   });

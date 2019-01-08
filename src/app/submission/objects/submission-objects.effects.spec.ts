@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { cold, hot } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Store } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
@@ -65,6 +65,7 @@ describe('SubmissionObjectEffects test suite', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
+        StoreModule.forRoot({}),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -75,16 +76,17 @@ describe('SubmissionObjectEffects test suite', () => {
       providers: [
         SubmissionObjectEffects,
         TranslateService,
-        {provide: Store, useValue: new MockStore({})},
+        { provide: Store, useClass: MockStore },
         provideMockActions(() => actions),
-        {provide: NotificationsService, useValue: notificationsServiceStub},
-        {provide: SectionsService, useClass: SectionsServiceStub},
-        {provide: SubmissionService, useValue: submissionServiceStub},
-        {provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub},
+        { provide: NotificationsService, useValue: notificationsServiceStub },
+        { provide: SectionsService, useClass: SectionsServiceStub },
+        { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
       ],
     });
 
     submissionObjectEffects = TestBed.get(SubmissionObjectEffects);
+    store = TestBed.get(Store);
   });
 
   describe('loadForm$', () => {
@@ -263,7 +265,6 @@ describe('SubmissionObjectEffects test suite', () => {
   describe('saveSubmissionSuccess$', () => {
 
     it('should return a UPLOAD_SECTION_DATA action for each updated section', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState
@@ -312,7 +313,6 @@ describe('SubmissionObjectEffects test suite', () => {
     });
 
     it('should display a success notification', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState
@@ -358,7 +358,6 @@ describe('SubmissionObjectEffects test suite', () => {
     });
 
     it('should display a warning notification when there are errors', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState
@@ -406,7 +405,6 @@ describe('SubmissionObjectEffects test suite', () => {
     });
 
     it('should detect and notify a new section', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState
@@ -534,7 +532,6 @@ describe('SubmissionObjectEffects test suite', () => {
     });
 
     it('should not allow to deposit when there are errors', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState
@@ -609,7 +606,6 @@ describe('SubmissionObjectEffects test suite', () => {
 
   describe('depositSubmission$', () => {
     it('should return a DEPOSIT_SUBMISSION_SUCCESS action on success', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState
@@ -636,7 +632,6 @@ describe('SubmissionObjectEffects test suite', () => {
     });
 
     it('should return a DEPOSIT_SUBMISSION_ERROR action on error', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState
@@ -721,7 +716,6 @@ describe('SubmissionObjectEffects test suite', () => {
 
   describe('discardSubmission$', () => {
     it('should return a DISCARD_SUBMISSION_SUCCESS action on success', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState
@@ -748,7 +742,6 @@ describe('SubmissionObjectEffects test suite', () => {
     });
 
     it('should return a DISCARD_SUBMISSION_ERROR action on error', () => {
-      store = TestBed.get(Store);
       store.nextState({
         submission: {
           objects: mockSubmissionState

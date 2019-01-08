@@ -6,7 +6,6 @@ import { Observable, of as observableOf, Subscription, timer as observableTimer 
 import { catchError, distinctUntilChanged, filter, first, map, startWith } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
@@ -18,7 +17,7 @@ import {
   ResetSubmissionFormAction,
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormAction,
-  SaveSubmissionFormAction,
+  SaveSubmissionFormAction, SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
 import {
@@ -52,7 +51,6 @@ export class SubmissionService {
               protected restService: SubmissionRestService,
               protected router: Router,
               protected routeService: RouteService,
-              protected scrollToService: ScrollToService,
               protected store: Store<SubmissionState>,
               protected translate: TranslateService) {
   }
@@ -106,7 +104,7 @@ export class SubmissionService {
   }
 
   dispatchSaveSection(submissionId, sectionId) {
-    this.store.dispatch(new SaveSubmissionFormAction(submissionId));
+    this.store.dispatch(new SaveSubmissionSectionFormAction(submissionId, sectionId));
   }
 
   getActiveSectionId(submissionId: string): Observable<string> {

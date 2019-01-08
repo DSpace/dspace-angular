@@ -133,7 +133,9 @@ export class SectionsService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
       filter((sectionObj) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => {
-        return sectionObj.visibility.other === 'READONLY' && submissionScope !== SubmissionScopeType.WorkspaceItem
+        return isNotEmpty(sectionObj.visibility)
+          && sectionObj.visibility.other === 'READONLY'
+          && submissionScope !== SubmissionScopeType.WorkspaceItem
       }),
       distinctUntilChanged());
   }

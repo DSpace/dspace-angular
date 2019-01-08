@@ -69,7 +69,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
             this.changeDetectorRef.detectChanges();
             // If section is no longer active dispatch save action
             if (!this.active && isNotNull(activeSectionId)) {
-              this.submissionService.dispatchSaveSection(this.submissionId, this.sectionId);
+              this.submissionService.dispatchSave(this.submissionId);
             }
           }
         })
@@ -89,7 +89,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
   }
 
   public isOpen() {
-    return (this.sectionState) ? true : false;
+    return this.sectionState;
   }
 
   public isMandatory() {

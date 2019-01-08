@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
 
 import { ResponseCacheService } from '../core/cache/response-cache.service';
 import { RequestService } from '../core/data/request.service';
@@ -10,7 +9,6 @@ import { ResponseCacheEntry } from '../core/cache/response-cache.reducer';
 import { SubmissionSuccessResponse } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
 import {
-  ConfigRequest,
   DeleteRequest,
   PostRequest,
   RestRequest,
@@ -20,7 +18,6 @@ import {
   SubmissionRequest
 } from '../core/data/request.models';
 import { SubmitDataResponseDefinitionObject } from '../core/shared/submit-data-response-definition.model';
-import { CoreState } from '../core/core.reducers';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
@@ -33,7 +30,6 @@ export class SubmissionRestService {
     protected rdbService: RemoteDataBuildService,
     protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
-    protected store: Store<CoreState>,
     protected halService: HALEndpointService) {
   }
 
@@ -102,13 +98,6 @@ export class SubmissionRestService {
       tap((request: DeleteRequest) => this.requestService.configure(request)),
       flatMap((request: DeleteRequest) => this.submitData(request)),
       distinctUntilChanged());
-  }
-
-  public getDataByHref(href: string, options?: HttpOptions): Observable<any> {
-    const request = new ConfigRequest(this.requestService.generateRequestId(), href, options);
-    this.requestService.configure(request, true);
-
-    return this.fetchRequest(request);
   }
 
   public getDataById(linkName: string, id: string): Observable<any> {

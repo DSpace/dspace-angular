@@ -315,8 +315,6 @@ describe('jsonPatchOperationsReducer test suite', () => {
       const action = new FlushPatchOperationsAction(testJsonPatchResourceType, undefined);
       const newState = jsonPatchOperationsReducer(initState, action);
 
-      console.log(initState);
-      console.log(newState);
       expect(newState[testJsonPatchResourceType].transactionStartTime).toBeNull();
       expect(newState[testJsonPatchResourceType].commitPending).toBeFalsy();
       expect(newState[testJsonPatchResourceType].children[testJsonPatchResourceId].body).toEqual([]);
