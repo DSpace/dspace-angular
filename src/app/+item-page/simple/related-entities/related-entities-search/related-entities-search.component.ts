@@ -9,6 +9,11 @@ import { of } from 'rxjs/internal/observable/of';
   selector: 'ds-related-entities-search',
   templateUrl: './related-entities-search.component.html'
 })
+/**
+ * A component to show related items as search results.
+ * Related items can be facetted, or queried using an
+ * optional search box.
+ */
 export class RelatedEntitiesSearchComponent implements OnInit {
 
   /**
