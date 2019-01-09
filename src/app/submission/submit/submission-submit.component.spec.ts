@@ -1,6 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
@@ -11,13 +11,11 @@ import { NotificationsServiceStub } from '../../shared/testing/notifications-ser
 import { SubmissionService } from '../submission.service';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service-stub';
 import { getMockTranslateService } from '../../shared/mocks/mock-translate.service';
-
 import { RouterStub } from '../../shared/testing/router-stub';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { mockSubmissionObject } from '../../shared/mocks/mock-submission';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 
-fdescribe('SubmissionSubmitComponent Component', () => {
+describe('SubmissionSubmitComponent Component', () => {
 
   let comp: SubmissionSubmitComponent;
   let fixture: ComponentFixture<SubmissionSubmitComponent>;
@@ -25,7 +23,6 @@ fdescribe('SubmissionSubmitComponent Component', () => {
   let router: RouterStub;
 
   const submissionId = '826';
-  const route: ActivatedRouteStub = new ActivatedRouteStub();
   const submissionObject: any = mockSubmissionObject;
 
   beforeEach(async(() => {
@@ -33,7 +30,7 @@ fdescribe('SubmissionSubmitComponent Component', () => {
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([
-          { path: ':id/edit', component: SubmissionSubmitComponent, pathMatch: 'full' },
+          { path: '', component: SubmissionSubmitComponent, pathMatch: 'full' },
         ])
       ],
       declarations: [SubmissionSubmitComponent],
