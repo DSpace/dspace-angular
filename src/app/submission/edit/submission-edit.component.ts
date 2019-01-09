@@ -2,16 +2,16 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
+import { flatMap, tap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
 import { hasValue, isEmpty, isNotNull } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { SubmissionService } from '../submission.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Collection } from '../../core/shared/collection.model';
-import { flatMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-submission-edit',
