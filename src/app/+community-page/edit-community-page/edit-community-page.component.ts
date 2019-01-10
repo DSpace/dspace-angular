@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { RouteService } from '../../shared/services/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 import { EditComColPageComponent } from '../../shared/comcol-forms/edit-comcol-page/edit-comcol-page.component';
