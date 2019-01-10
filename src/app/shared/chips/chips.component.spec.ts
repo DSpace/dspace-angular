@@ -10,6 +10,7 @@ import { SortablejsModule } from 'angular-sortablejs';
 import { By } from '@angular/platform-browser';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { createTestComponent, hasClass } from '../testing/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ChipsComponent test suite', () => {
 
@@ -27,6 +28,7 @@ describe('ChipsComponent test suite', () => {
       imports: [
         NgbModule.forRoot(),
         SortablejsModule.forRoot({animation: 150}),
+        TranslateModule.forRoot()
       ],
       declarations: [
         ChipsComponent,
@@ -148,7 +150,7 @@ describe('ChipsComponent test suite', () => {
           name: 'mainField',
           config: {
             withAuthority:{
-              style: 'fa-user'
+              style: 'fas-user'
             }
           }
         },
@@ -156,10 +158,10 @@ describe('ChipsComponent test suite', () => {
           name: 'relatedField',
           config: {
             withAuthority:{
-              style: 'fa-user-alt'
+              style: 'fas-user-alt'
             },
             withoutAuthority:{
-              style: 'fa-user-alt text-muted'
+              style: 'fas-user-alt text-muted'
             }
           }
         },
@@ -167,10 +169,10 @@ describe('ChipsComponent test suite', () => {
           name: 'otherRelatedField',
           config: {
             withAuthority:{
-              style: 'fa-user-alt'
+              style: 'fas-user-alt'
             },
             withoutAuthority:{
-              style: 'fa-user-alt text-muted'
+              style: 'fas-user-alt text-muted'
             }
           }
         },
@@ -190,7 +192,7 @@ describe('ChipsComponent test suite', () => {
 
     it('should show icon for every field that has a configured icon', () => {
       const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fa'));
+      const icons = de.queryAll(By.css('i.fas'));
 
       expect(icons.length).toBe(4);
 
@@ -198,14 +200,14 @@ describe('ChipsComponent test suite', () => {
 
     it('should has text-muted on icon style when field value had not authority', () => {
       const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fa'));
+      const icons = de.queryAll(By.css('i.fas'));
 
       expect(hasClass(icons[2].nativeElement, 'text-muted')).toBeTruthy();
     });
 
     it('should show tooltip on mouse over an icon', () => {
       const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fa'));
+      const icons = de.queryAll(By.css('i.fas'));
 
       icons[0].triggerEventHandler('mouseover', null);
 
