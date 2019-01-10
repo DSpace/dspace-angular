@@ -33,7 +33,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
   ]
 })
 /**
- * Collection used to map items to a collection
+ * Component used to map items to a collection
  */
 export class CollectionItemMapperComponent implements OnInit {
 
