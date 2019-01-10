@@ -237,7 +237,6 @@ export class DeleteByIDRequest extends DeleteRequest {
   }
 }
 
-
 export class RequestError extends Error {
   statusText: string;
 }
