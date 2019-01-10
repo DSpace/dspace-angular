@@ -7,7 +7,6 @@ import {
 import { Injectable } from '@angular/core';
 import {
   distinctUntilChanged,
-  first,
   flatMap,
   map,
   startWith,

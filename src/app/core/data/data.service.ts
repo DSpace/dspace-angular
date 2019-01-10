@@ -1,4 +1,4 @@
-import { delay, distinctUntilChanged, filter, find, first, map, take, tap } from 'rxjs/operators';
+import { filter, find, map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -14,7 +14,6 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { compare, Operation } from 'fast-json-patch';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { of } from 'rxjs/internal/observable/of';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain> {
   protected abstract requestService: RequestService;

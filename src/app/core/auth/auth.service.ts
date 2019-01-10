@@ -2,7 +2,6 @@ import { Observable, of as observableOf } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
-  first,
   map,
   startWith,
   switchMap,
