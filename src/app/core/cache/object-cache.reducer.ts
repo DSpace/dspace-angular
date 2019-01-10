@@ -22,7 +22,7 @@ export interface Patch {
   operations: Operation[];
 }
 
-/**conca
+/**
  * An interface to represent objects that can be cached
  *
  * A cacheable object should have a self link
