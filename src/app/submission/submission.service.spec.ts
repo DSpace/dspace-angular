@@ -17,7 +17,7 @@ import { MockActivatedRoute } from '../shared/mocks/mock-active-router';
 import { GLOBAL_CONFIG } from '../../config';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { mockSubmissionDefinition, submissionRestResponse } from '../shared/mocks/mock-submission';
+import { mockSubmissionDefinition, mockSubmissionRestResponse } from '../shared/mocks/mock-submission';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
 import { MOCK_SUBMISSION_CONFIG } from '../shared/testing/mock-submission-config';
@@ -764,7 +764,7 @@ describe('SubmissionService test suite', () => {
 
   describe('notifyNewSection', () => {
     it('should return true/false when section is loading/not loading', fakeAsync(() => {
-      const spy = spyOn((service as any).translate, 'get').and.returnValue(observableOf('test'));
+      spyOn((service as any).translate, 'get').and.returnValue(observableOf('test'));
 
       spyOn((service as any).notificationsService, 'info').and.callThrough();
 
@@ -824,12 +824,12 @@ describe('SubmissionService test suite', () => {
   describe('retrieveSubmission', () => {
     it('should retrieve submission from REST endpoint', () => {
       (service as any).restService.getDataById.and.returnValue(hot('a|', {
-        a: submissionRestResponse
+        a: mockSubmissionRestResponse
       }));
 
       const result = service.retrieveSubmission('826');
       const expected = cold('(b|)', {
-        b: submissionRestResponse[0]
+        b: mockSubmissionRestResponse[0]
       });
 
       expect(result).toBeObservable(expected);

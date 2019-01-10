@@ -10,10 +10,10 @@
             class="btn btn-outline-primary"
             (blur)="onClose()"
             (click)="onClose()"
-            [disabled]="disabled"
+            [disabled]="(disabled$ | async)"
             ngbDropdownToggle>
-      <span *ngIf="disabled"><i class='fas fa-circle-notch fa-spin'></i></span>
-      <span *ngIf="!disabled">{{ (selectedCollectionName) ? selectedCollectionName : '' }}</span>
+      <span *ngIf="(disabled$ | async)"><i class='fas fa-circle-notch fa-spin'></i></span>
+      <span *ngIf="!(disabled$ | async)">{{ (selectedCollectionName) ? selectedCollectionName : '' }}</span>
     </button>
 
     <div ngbDropdownMenu
@@ -30,7 +30,7 @@
       </div>
       <div class="dropdown-divider"></div>
       <div class="scrollable-menu" aria-labelledby="dropdownMenuButton" (scroll)="onScroll($event)">
-        <button class="dropdown-item disabled" *ngIf="(searchListCollection$ | async).length == 0">
+        <button class="dropdown-item disabled" *ngIf="(searchListCollection$ | async)?.length == 0">
           {{'submission.sections.general.no-collection' | translate}}
         </button>
         <button *ngFor="let listItem of (searchListCollection$ | async)"

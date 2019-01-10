@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -29,7 +29,7 @@ import { isNullOrUndefined } from 'util';
 import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { Community } from '../../../core/shared/community.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isEmpty } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -65,7 +65,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   @Output() collectionChange: EventEmitter<Workspaceitem> = new EventEmitter<Workspaceitem>();
 
-  public disabled = true;
+  public disabled$ = new BehaviorSubject<boolean>(true);
   public model: any;
   public searchField: FormControl = new FormControl();
   public searchListCollection$: Observable<CollectionListEntry[]>;
@@ -103,7 +103,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.currentCollectionId)
       && hasValue(changes.currentCollectionId.currentValue)) {
-
       this.selectedCollectionId = this.currentCollectionId;
       // @TODO replace with search/top browse endpoint
       // @TODO implement community/subcommunity hierarchy
@@ -129,11 +128,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
           );
         }),
         reduce((acc: any, value: any) => [...acc, ...value], []),
-        tap((list: CollectionListEntry[]) => {
-          if (isNotEmpty(list)) {
-            this.disabled = false;
-          }
-        }),
         startWith([])
       );
 
@@ -145,6 +139,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
       this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
         map(([searchTerm, listCollection]) => {
+          this.disabled$.next(isEmpty(listCollection));
           if (searchTerm === '' || isNullOrUndefined(searchTerm)) {
             return listCollection;
           } else {
@@ -164,7 +159,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
   onSelect(event) {
     this.searchField.reset();
-    this.disabled = true;
+    this.disabled$.next(true);
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
     this.subs.push(this.operationsService.jsonPatchByResourceID(
       this.submissionService.getSubmissionObjectLinkName(),
@@ -176,7 +171,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         this.selectedCollectionName = event.collection.name;
         this.collectionChange.emit(submissionObject[0]);
         this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
-        this.disabled = false;
+        this.disabled$.next(false);
         this.cdr.detectChanges();
       })
     );
