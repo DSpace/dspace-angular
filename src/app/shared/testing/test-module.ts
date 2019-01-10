@@ -19,7 +19,7 @@ import { NgComponentOutletDirectiveStub } from './ng-component-outlet-directive-
   ],
   declarations: [
     QueryParamsDirectiveStub,
-    MySimpleItemActionComponent
+    MySimpleItemActionComponent,
     RouterLinkDirectiveStub,
     NgComponentOutletDirectiveStub
   ], schemas: [
