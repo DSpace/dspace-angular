@@ -20,7 +20,6 @@ module.exports = {
     // NOTE: how long should objects be cached for by default
     msToLive: {
       default: 15 * 60 * 1000, // 15 minutes
-      exportToZip: 5 * 1000 // 5 seconds
     },
     // msToLive: 1000, // 15 minutes
     control: 'max-age=60', // revalidate browser
