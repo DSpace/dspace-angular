@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { of as observableOf } from 'rxjs';
@@ -15,6 +15,7 @@ import { SectionsServiceStub } from '../../../shared/testing/sections-service-st
 import { SectionsService } from '../../sections/sections.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
 import { HostWindowService } from '../../../shared/host-window.service';
+import { createTestComponent } from '../../../shared/testing/utils';
 
 const mockAvailableSections: any = [
   {
@@ -37,7 +38,7 @@ const mockAvailableSections: any = [
   }
 ];
 
-describe('SubmissionFormFooterComponent Component', () => {
+describe('SubmissionFormSectionAddComponent Component', () => {
 
   let comp: SubmissionFormSectionAddComponent;
   let compAsAny: any;
@@ -61,108 +62,153 @@ describe('SubmissionFormFooterComponent Component', () => {
         NgbModule.forRoot(),
         TranslateModule.forRoot()
       ],
-      declarations: [SubmissionFormSectionAddComponent],
+      declarations: [
+        SubmissionFormSectionAddComponent,
+        TestComponent
+      ],
       providers: [
         { provide: HostWindowService, useValue: window },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: Store, useValue: store },
-        ChangeDetectorRef
+        ChangeDetectorRef,
+        SubmissionFormSectionAddComponent
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SubmissionFormSectionAddComponent);
-    comp = fixture.componentInstance;
-    compAsAny = comp;
-    submissionServiceStub = TestBed.get(SubmissionService);
-    sectionsServiceStub = TestBed.get(SectionsService);
-    comp.submissionId = submissionId;
-    comp.collectionId = collectionId;
+  describe('', () => {
+    let testComp: TestComponent;
+    let testFixture: ComponentFixture<TestComponent>;
 
-  });
+    // synchronous beforeEach
+    beforeEach(() => {
+      const html = `
+        <ds-submission-form-section-add [collectionId]="collectionId"
+                                        [submissionId]="submissionId">
+        </ds-submission-form-section-add>`;
 
-  afterEach(() => {
-    comp = null;
-    compAsAny = null;
-    fixture = null;
-    submissionServiceStub = null;
-    sectionsServiceStub = null;
-  });
+      testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
+      testComp = testFixture.componentInstance;
+      testFixture.detectChanges();
+    });
 
-  it('should init sectionList properly', () => {
-    submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+    afterEach(() => {
+      testFixture.destroy();
+    });
 
-    fixture.detectChanges();
+    it('should create SubmissionFormSectionAddComponent', inject([SubmissionFormSectionAddComponent], (app: SubmissionFormSectionAddComponent) => {
 
-    comp.sectionList.subscribe((list) => {
-      expect(list).toEqual(mockAvailableSections);
-    })
+      expect(app).toBeDefined();
 
-  });
-
-  it('should call addSection', () => {
-    comp.addSection(mockAvailableSections[1].id);
-
-    fixture.detectChanges();
-
-    expect(sectionsServiceStub.addSection).toHaveBeenCalledWith(submissionId, mockAvailableSections[1].id);
-
+    }));
   });
 
   describe('', () => {
-    let dropdowBtn: DebugElement;
-    let dropdownMenu: DebugElement;
-
     beforeEach(() => {
+      fixture = TestBed.createComponent(SubmissionFormSectionAddComponent);
+      comp = fixture.componentInstance;
+      compAsAny = comp;
+      submissionServiceStub = TestBed.get(SubmissionService);
+      sectionsServiceStub = TestBed.get(SectionsService);
+      comp.submissionId = submissionId;
+      comp.collectionId = collectionId;
 
+    });
+
+    afterEach(() => {
+      comp = null;
+      compAsAny = null;
+      fixture = null;
+      submissionServiceStub = null;
+      sectionsServiceStub = null;
+    });
+
+    it('should init sectionList properly', () => {
       submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
-      comp.ngOnInit();
+
       fixture.detectChanges();
-      dropdowBtn = fixture.debugElement.query(By.css('#sectionControls'));
-      dropdownMenu = fixture.debugElement.query(By.css('.sections-dropdown-menu'));
-    });
 
-    it('should have dropdown menu closed', () => {
-
-      expect(dropdowBtn).not.toBeUndefined();
-      expect(dropdownMenu.nativeElement.classList).not.toContain('show');
+      comp.sectionList.subscribe((list) => {
+        expect(list).toEqual(mockAvailableSections);
+      })
 
     });
 
-    it('should display dropdown menu when click on dropdown button', fakeAsync(() => {
+    it('should call addSection', () => {
+      comp.addSection(mockAvailableSections[1].id);
 
-      dropdowBtn.triggerEventHandler('click', null);
-      tick();
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(dropdownMenu.nativeElement.classList).toContain('show');
+      expect(sectionsServiceStub.addSection).toHaveBeenCalledWith(submissionId, mockAvailableSections[1].id);
 
-        expect(dropdownMenu.queryAll(By.css('.dropdown-item')).length).toBe(2);
+    });
+
+    describe('', () => {
+      let dropdowBtn: DebugElement;
+      let dropdownMenu: DebugElement;
+
+      beforeEach(() => {
+
+        submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+        comp.ngOnInit();
+        fixture.detectChanges();
+        dropdowBtn = fixture.debugElement.query(By.css('#sectionControls'));
+        dropdownMenu = fixture.debugElement.query(By.css('.sections-dropdown-menu'));
       });
 
-    }));
+      it('should have dropdown menu closed', () => {
 
-    it('should trigger onSelect method when select a new collection from dropdown menu', fakeAsync(() => {
-      spyOn(comp, 'addSection');
-      dropdowBtn.triggerEventHandler('click', null);
-      tick();
-      fixture.detectChanges();
+        expect(dropdowBtn).not.toBeUndefined();
+        expect(dropdownMenu.nativeElement.classList).not.toContain('show');
 
-      const secondLink: DebugElement = dropdownMenu.query(By.css('.dropdown-item:nth-child(2)'));
-      secondLink.triggerEventHandler('click', null);
-      tick();
-      fixture.detectChanges();
-
-      fixture.whenStable().then(() => {
-
-        expect(comp.addSection).toHaveBeenCalled();
       });
 
-    }));
+      it('should display dropdown menu when click on dropdown button', fakeAsync(() => {
+
+        dropdowBtn.triggerEventHandler('click', null);
+        tick();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+          expect(dropdownMenu.nativeElement.classList).toContain('show');
+
+          expect(dropdownMenu.queryAll(By.css('.dropdown-item')).length).toBe(2);
+        });
+
+      }));
+
+      it('should trigger onSelect method when select a new collection from dropdown menu', fakeAsync(() => {
+        spyOn(comp, 'addSection');
+        dropdowBtn.triggerEventHandler('click', null);
+        tick();
+        fixture.detectChanges();
+
+        const secondLink: DebugElement = dropdownMenu.query(By.css('.dropdown-item:nth-child(2)'));
+        secondLink.triggerEventHandler('click', null);
+        tick();
+        fixture.detectChanges();
+
+        fixture.whenStable().then(() => {
+
+          expect(comp.addSection).toHaveBeenCalled();
+        });
+
+      }));
+    });
 
   });
 });
+
+// declare a test component
+@Component({
+  selector: 'ds-test-cmp',
+  template: ``
+})
+class TestComponent {
+
+  collectionId = mockSubmissionCollectionId;
+  submissionId = mockSubmissionId;
+
+}

@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -27,6 +27,7 @@ import { cold, hot } from 'jasmine-marbles';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service-stub';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { SharedModule } from '../../../shared/shared.module';
+import { createTestComponent } from '../../../shared/testing/utils';
 
 describe('SubmissionUploadFilesComponent Component', () => {
 
@@ -54,7 +55,10 @@ describe('SubmissionUploadFilesComponent Component', () => {
         SharedModule,
         TranslateModule.forRoot()
       ],
-      declarations: [SubmissionUploadFilesComponent],
+      declarations: [
+        SubmissionUploadFilesComponent,
+        TestComponent
+      ],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
@@ -62,103 +66,153 @@ describe('SubmissionUploadFilesComponent Component', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: Store, useValue: store },
-        ChangeDetectorRef
+        ChangeDetectorRef,
+        SubmissionUploadFilesComponent
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SubmissionUploadFilesComponent);
-    comp = fixture.componentInstance;
-    compAsAny = comp;
-    submissionServiceStub = TestBed.get(SubmissionService);
-    sectionsServiceStub = TestBed.get(SectionsService);
-    notificationsServiceStub = TestBed.get(NotificationsService);
-    translateService = TestBed.get(TranslateService);
-    comp.submissionId = submissionId;
-    comp.collectionId = collectionId;
-    comp.sectionId = 'upload';
-    comp.uploadFilesOptions = {
-      url: '',
-      authToken: null,
-      disableMultipart: false,
-      itemAlias: null
-    };
+  describe('', () => {
+    let testComp: TestComponent;
+    let testFixture: ComponentFixture<TestComponent>;
 
-  });
+    // synchronous beforeEach
+    beforeEach(() => {
+      const html = `
+        <ds-submission-upload-files [submissionId]="submissionId"
+                                    [collectionId]="collectionId"
+                                    [sectionId]="'upload'"
+                                    [uploadFilesOptions]="uploadFilesOptions"></ds-submission-upload-files>`;
 
-  afterEach(() => {
-    comp = null;
-    compAsAny = null;
-    fixture = null;
-    submissionServiceStub = null;
-    sectionsServiceStub = null;
-    notificationsServiceStub = null;
-    translateService = null;
-  });
+      testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
+      testComp = testFixture.componentInstance;
+    });
 
-  it('should init uploadEnabled properly', () => {
-    sectionsServiceStub.isSectionAvailable.and.returnValue(hot('-a-b', {
-      a: false,
-      b: true
+    afterEach(() => {
+      testFixture.destroy();
+    });
+
+    it('should create SubmissionUploadFilesComponent', inject([SubmissionUploadFilesComponent], (app: SubmissionUploadFilesComponent) => {
+
+      expect(app).toBeDefined();
+
     }));
-
-    const expected = cold('-c-d', {
-      c: false,
-      d: true
-    });
-
-    comp.ngOnChanges();
-    fixture.detectChanges();
-
-    expect(compAsAny.uploadEnabled).toBeObservable(expected);
   });
 
-  it('should show a success notification and call updateSectionData on upload complete', () => {
+  describe('', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SubmissionUploadFilesComponent);
+      comp = fixture.componentInstance;
+      compAsAny = comp;
+      submissionServiceStub = TestBed.get(SubmissionService);
+      sectionsServiceStub = TestBed.get(SectionsService);
+      notificationsServiceStub = TestBed.get(NotificationsService);
+      translateService = TestBed.get(TranslateService);
+      comp.submissionId = submissionId;
+      comp.collectionId = collectionId;
+      comp.sectionId = 'upload';
+      comp.uploadFilesOptions = {
+        url: '',
+        authToken: null,
+        disableMultipart: false,
+        itemAlias: null
+      };
 
-    const expectedErrors: any = mockUploadResponse1ParsedErrors;
-    compAsAny.uploadEnabled = observableOf(true);
-    fixture.detectChanges();
-
-    comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: mockSectionsData }));
-
-    Object.keys(mockSectionsData).forEach((sectionId) => {
-      expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
-        submissionId,
-        sectionId,
-        mockSectionsData[sectionId],
-        expectedErrors[sectionId]
-      );
     });
 
-    expect(notificationsServiceStub.success).toHaveBeenCalled();
-
-  });
-
-  it('should show an error notification and call updateSectionData on upload complete', () => {
-
-    const responseErrors = mockUploadResponse2Errors;
-
-    const expectedErrors: any = mockUploadResponse2ParsedErrors;
-    compAsAny.uploadEnabled = observableOf(true);
-    fixture.detectChanges();
-
-    comp.onCompleteItem(Object.assign({}, uploadRestResponse, {
-      sections: mockSectionsData,
-      errors: responseErrors.errors
-    }));
-
-    Object.keys(mockSectionsData).forEach((sectionId) => {
-      expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
-        submissionId,
-        sectionId,
-        mockSectionsData[sectionId],
-        expectedErrors[sectionId]
-      );
+    afterEach(() => {
+      comp = null;
+      compAsAny = null;
+      fixture = null;
+      submissionServiceStub = null;
+      sectionsServiceStub = null;
+      notificationsServiceStub = null;
+      translateService = null;
     });
 
-    expect(notificationsServiceStub.success).not.toHaveBeenCalled();
+    it('should init uploadEnabled properly', () => {
+      sectionsServiceStub.isSectionAvailable.and.returnValue(hot('-a-b', {
+        a: false,
+        b: true
+      }));
+
+      const expected = cold('-c-d', {
+        c: false,
+        d: true
+      });
+
+      comp.ngOnChanges();
+      fixture.detectChanges();
+
+      expect(compAsAny.uploadEnabled).toBeObservable(expected);
+    });
+
+    it('should show a success notification and call updateSectionData on upload complete', () => {
+
+      const expectedErrors: any = mockUploadResponse1ParsedErrors;
+      compAsAny.uploadEnabled = observableOf(true);
+      fixture.detectChanges();
+
+      comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: mockSectionsData }));
+
+      Object.keys(mockSectionsData).forEach((sectionId) => {
+        expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
+          submissionId,
+          sectionId,
+          mockSectionsData[sectionId],
+          expectedErrors[sectionId]
+        );
+      });
+
+      expect(notificationsServiceStub.success).toHaveBeenCalled();
+
+    });
+
+    it('should show an error notification and call updateSectionData on upload complete', () => {
+
+      const responseErrors = mockUploadResponse2Errors;
+
+      const expectedErrors: any = mockUploadResponse2ParsedErrors;
+      compAsAny.uploadEnabled = observableOf(true);
+      fixture.detectChanges();
+
+      comp.onCompleteItem(Object.assign({}, uploadRestResponse, {
+        sections: mockSectionsData,
+        errors: responseErrors.errors
+      }));
+
+      Object.keys(mockSectionsData).forEach((sectionId) => {
+        expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
+          submissionId,
+          sectionId,
+          mockSectionsData[sectionId],
+          expectedErrors[sectionId]
+        );
+      });
+
+      expect(notificationsServiceStub.success).not.toHaveBeenCalled();
+
+    });
 
   });
 });
+
+// declare a test component
+@Component({
+  selector: 'ds-test-cmp',
+  template: ``
+})
+class TestComponent {
+
+  submissionId = mockSubmissionId;
+  collectionId = mockSubmissionCollectionId;
+  sectionId = 'upload';
+  uploadFilesOptions = {
+    url: '',
+    authToken: null,
+    disableMultipart: false,
+    itemAlias: null
+  };
+
+}
