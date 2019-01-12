@@ -1,7 +1,7 @@
-import { FormOperationsService } from '../../submission/sections/form/form-operations.service';
+import { SectionFormOperationsService } from '../../submission/sections/form/section-form-operations.service';
 
-export function getMockFormOperationsService(): FormOperationsService {
-  return jasmine.createSpyObj('FormOperationsService', {
+export function getMockFormOperationsService(): SectionFormOperationsService {
+  return jasmine.createSpyObj('SectionFormOperationsService', {
     dispatchOperationsFromEvent: jasmine.createSpy('dispatchOperationsFromEvent'),
     getArrayIndexFromEvent: jasmine.createSpy('getArrayIndexFromEvent'),
     isPartOfArrayOfGroup: jasmine.createSpy('isPartOfArrayOfGroup'),

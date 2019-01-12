@@ -26,7 +26,7 @@ import { SectionDataObject } from '../models/section-data.model';
 import { WorkspaceitemSectionLicenseObject } from '../../../core/submission/models/workspaceitem-section-license.model';
 import { SubmissionService } from '../../submission.service';
 import { SectionsService } from '../sections.service';
-import { FormOperationsService } from '../form/form-operations.service';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { FormComponent } from '../../../shared/form/form.component';
 
 @Component({
@@ -51,7 +51,7 @@ export class LicenseSectionComponent extends SectionModelComponent {
   constructor(protected changeDetectorRef: ChangeDetectorRef,
               protected collectionDataService: CollectionDataService,
               protected formBuilderService: FormBuilderService,
-              protected formOperationsService: FormOperationsService,
+              protected formOperationsService: SectionFormOperationsService,
               protected formService: FormService,
               protected operationsBuilder: JsonPatchOperationsBuilder,
               protected sectionService: SectionsService,

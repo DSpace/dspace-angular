@@ -24,7 +24,7 @@ import { SectionDataObject } from '../models/section-data.model';
 import { renderSectionFor } from '../sections-decorator';
 import { SectionsType } from '../sections-type';
 import { SubmissionService } from '../../submission.service';
-import { FormOperationsService } from './form-operations.service';
+import { SectionFormOperationsService } from './section-form-operations.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SectionsService } from '../sections.service';
 import { difference } from '../../../shared/object.util';
@@ -52,7 +52,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   constructor(protected cdr: ChangeDetectorRef,
               protected formBuilderService: FormBuilderService,
-              protected formOperationsService: FormOperationsService,
+              protected formOperationsService: SectionFormOperationsService,
               protected formService: FormService,
               protected formConfigService: SubmissionFormsConfigService,
               protected notificationsService: NotificationsService,

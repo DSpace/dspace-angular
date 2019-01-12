@@ -16,7 +16,7 @@ import { FormSectionComponent } from './section-form.component';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/mock-form-builder-service';
 import { getMockFormOperationsService } from '../../../shared/mocks/mock-form-operations-service';
-import { FormOperationsService } from './form-operations.service';
+import { SectionFormOperationsService } from './section-form-operations.service';
 import { getMockFormService } from '../../../shared/mocks/mock-form-service';
 import { FormService } from '../../../shared/form/form.service';
 import { SubmissionFormsConfigService } from '../../../core/config/submission-forms-config.service';
@@ -168,7 +168,7 @@ describe('FormSectionComponent test suite', () => {
       ],
       providers: [
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
-        { provide: FormOperationsService, useValue: getMockFormOperationsService() },
+        { provide: SectionFormOperationsService, useValue: getMockFormOperationsService() },
         { provide: FormService, useValue: getMockFormService() },
         { provide: SubmissionFormsConfigService, useValue: getMockSubmissionFormsConfigService() },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
@@ -220,7 +220,7 @@ describe('FormSectionComponent test suite', () => {
       formService = TestBed.get(FormService);
       formConfigService = TestBed.get(SubmissionFormsConfigService);
       formBuilderService = TestBed.get(FormBuilderService);
-      formOperationsService = TestBed.get(FormOperationsService);
+      formOperationsService = TestBed.get(SectionFormOperationsService);
       translateService = TestBed.get(TranslateService);
       notificationsServiceStub = TestBed.get(NotificationsService);
 

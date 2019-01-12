@@ -22,7 +22,7 @@ import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-fo
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 
 @Injectable()
-export class FormOperationsService {
+export class SectionFormOperationsService {
 
   constructor(private formBuilder: FormBuilderService, private operationsBuilder: JsonPatchOperationsBuilder) {
   }

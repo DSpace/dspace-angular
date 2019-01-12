@@ -24,7 +24,7 @@ import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
-import { FormOperationsService } from '../submission/sections/form/form-operations.service';
+import { SectionFormOperationsService } from '../submission/sections/form/section-form-operations.service';
 import { FormService } from '../shared/form/form.service';
 import { GroupEpersonService } from './eperson/group-eperson.service';
 import { HostWindowService } from '../shared/host-window.service';
@@ -104,7 +104,7 @@ const PROVIDERS = [
   DynamicFormService,
   DynamicFormValidationService,
   FormBuilderService,
-  FormOperationsService,
+  SectionFormOperationsService,
   FormService,
   EpersonResponseParsingService,
   GroupEpersonService,
