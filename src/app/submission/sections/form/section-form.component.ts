@@ -73,7 +73,7 @@ export class FormSectionComponent extends SectionModelComponent {
     this.formConfigService.getConfigByHref(this.sectionData.config).pipe(
       map((configData: ConfigData) => configData.payload),
       tap((config: SubmissionFormsModel) => this.formConfig = config),
-      flatMap((config: ConfigData) => this.sectionService.getSectionData(this.submissionId, this.sectionData.id)),
+      flatMap(() => this.sectionService.getSectionData(this.submissionId, this.sectionData.id)),
       take(1))
       .subscribe((sectionData: WorkspaceitemSectionDataType) => {
           if (isUndefined(this.formModel)) {
@@ -86,25 +86,6 @@ export class FormSectionComponent extends SectionModelComponent {
             this.cdr.detectChanges();
           }
         })
-
-/*    this.formConfigService.getConfigByHref(this.sectionData.config).pipe(
-      map((config: ConfigData) => config.payload))
-      .subscribe((config: SubmissionFormsModel) => {
-        this.formConfig = config;
-        this.sectionService.getSectionData(this.submissionId, this.sectionData.id).pipe(
-          take(1))
-          .subscribe((sectionData: WorkspaceitemSectionDataType) => {
-            if (isUndefined(this.formModel)) {
-              this.sectionData.errors = [];
-              // Is the first loading so init form
-              this.initForm(sectionData);
-              this.sectionData.data = sectionData;
-              this.subscriptions();
-              this.isLoading = false;
-              this.cdr.detectChanges();
-            }
-          })
-      });*/
   }
 
   onSectionDestroy() {
@@ -248,8 +229,8 @@ export class FormSectionComponent extends SectionModelComponent {
   }
 
   hasStoredValue(fieldId, index) {
-    if (isNotEmpty(this.sectionData.data) && isNotEmpty(this.sectionData.data[index])) {
-      return this.sectionData.data.hasOwnProperty(fieldId);
+    if (isNotEmpty(this.sectionData.data)) {
+      return this.sectionData.data.hasOwnProperty(fieldId) && isNotEmpty(this.sectionData.data[fieldId][index]);
     } else {
       return false;
     }

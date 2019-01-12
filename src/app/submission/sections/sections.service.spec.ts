@@ -27,6 +27,7 @@ import { FormAddError, FormClearErrorsAction, FormRemoveErrorAction } from '../.
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { SubmissionSectionError } from '../objects/submission-objects.reducer';
+import { getMockScrollToService } from '../../shared/mocks/mock-scroll-to-service';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;
@@ -47,16 +48,10 @@ describe('SectionsService test suite', () => {
     select: jasmine.createSpy('select')
   });
 
-  function getMockScrollToService(): ScrollToService {
-    return jasmine.createSpyObj('scrollToService', {
-      scrollTo: jasmine.createSpy('scrollTo')
-    });
-  }
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({submissionReducers} as any),
+        StoreModule.forRoot({ submissionReducers } as any),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -184,7 +179,7 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionValid', () => {
     it('should return an observable of boolean', () => {
-      store.select.and.returnValue(observableOf({isValid: false}));
+      store.select.and.returnValue(observableOf({ isValid: false }));
 
       let expected = cold('(b|)', {
         b: false
@@ -192,7 +187,7 @@ describe('SectionsService test suite', () => {
 
       expect(service.isSectionValid(submissionId, sectionId)).toBeObservable(expected);
 
-      store.select.and.returnValue(observableOf({isValid: true}));
+      store.select.and.returnValue(observableOf({ isValid: true }));
 
       expected = cold('(b|)', {
         b: true
@@ -224,7 +219,7 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionEnabled', () => {
     it('should return an observable of boolean', () => {
-      store.select.and.returnValue(observableOf({enabled: false}));
+      store.select.and.returnValue(observableOf({ enabled: false }));
 
       let expected = cold('(b|)', {
         b: false
@@ -232,7 +227,7 @@ describe('SectionsService test suite', () => {
 
       expect(service.isSectionEnabled(submissionId, sectionId)).toBeObservable(expected);
 
-      store.select.and.returnValue(observableOf({enabled: true}));
+      store.select.and.returnValue(observableOf({ enabled: true }));
 
       expected = cold('(b|)', {
         b: true
@@ -353,7 +348,7 @@ describe('SectionsService test suite', () => {
 
     it('should dispatch a new UpdateSectionDataAction', () => {
       const scheduler = getTestScheduler();
-      const data: any = {test: 'test'};
+      const data: any = { test: 'test' };
       spyOn(service, 'isSectionAvailable').and.returnValue(observableOf(true));
       spyOn(service, 'isSectionEnabled').and.returnValue(observableOf(true));
       scheduler.schedule(() => service.updateSectionData(submissionId, sectionId, data, []));
@@ -364,7 +359,7 @@ describe('SectionsService test suite', () => {
 
     it('should dispatch a new UpdateSectionDataAction and display a new notification when section is not enabled', () => {
       const scheduler = getTestScheduler();
-      const data: any = {test: 'test'};
+      const data: any = { test: 'test' };
       spyOn(service, 'isSectionAvailable').and.returnValue(observableOf(true));
       spyOn(service, 'isSectionEnabled').and.returnValue(observableOf(false));
       translateService.get.and.returnValue(observableOf('test'));

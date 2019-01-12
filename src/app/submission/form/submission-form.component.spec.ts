@@ -93,9 +93,9 @@ describe('SubmissionFormComponent Component', () => {
     });
 
     afterEach(() => {
+      fixture.destroy();
       comp = null;
       compAsAny = null;
-      fixture = null;
     });
 
     it('should not has effect when collectionId and submissionId are undefined', () => {

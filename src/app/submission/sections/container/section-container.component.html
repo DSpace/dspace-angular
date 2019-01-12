@@ -17,7 +17,7 @@
              aria-hidden="true"></i>
           <i *ngIf="(sectionRef.hasErrors())" class="fas fa-exclamation-circle text-danger mr-3"
              aria-hidden="true"></i>
-          <i *ngIf="(sectionRef.isValid() | async)" class="fas fa-check-circle text-success mr-3"
+          <i *ngIf="(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-check-circle text-success mr-3"
              aria-hidden="true"></i>
           <a class="close" aria-label="Close">
             <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"
@@ -32,7 +32,7 @@
         </div>
       </ng-template>
       <ng-template ngbPanelContent>
-        <div *ngIf="sectionRef.hasGenericErrors()">
+        <div id="sectionGenericError_{{sectionData.id}}" *ngIf="sectionRef.hasGenericErrors()">
           <ds-alert *ngFor="let error of sectionRef.getErrors(); let i = index"
                     [content]="error"
                     [dismissible]="true"
