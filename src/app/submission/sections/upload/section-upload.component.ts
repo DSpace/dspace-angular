@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import { combineLatest, forkJoin as observableForkJoin, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, take } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, reduce, take, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
@@ -21,7 +21,6 @@ import { Group } from '../../../core/eperson/models/group.model';
 import { SectionsService } from '../sections.service';
 import { SubmissionService } from '../../submission.service';
 import { Collection } from '../../../core/shared/collection.model';
-import { PaginatedList } from '../../../core/data/paginated-list';
 import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
 import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
 
@@ -90,85 +89,81 @@ export class UploadSectionComponent extends SectionModelComponent {
     this.subs.push(
       this.submissionService.getSubmissionObject(this.submissionId).pipe(
         filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading),
-        filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection))
-        .subscribe((submissionObject: SubmissionObjectEntry) => {
-          this.collectionId = submissionObject.collection;
-          this.collectionDataService.findById(this.collectionId).pipe(
-            filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
-            take(1))
-            .subscribe((collectionRemoteData: RemoteData<Collection>) => {
-              this.collectionName = collectionRemoteData.payload.name;
+        filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection),
+        tap((submissionObject: SubmissionObjectEntry) => this.collectionId = submissionObject.collection),
+        flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
+        filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
+        take(1),
+        tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
+        flatMap((collectionRemoteData: RemoteData<Collection>) => {
+          return this.collectionDataService.findByHref(
+            (collectionRemoteData.payload as any)._links.defaultAccessConditions
+          );
+        }),
+        filter((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) =>
+          defaultAccessConditionsRemoteData.hasSucceeded),
+        take(1),
+        tap((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) => {
+          console.log(JSON.stringify(defaultAccessConditionsRemoteData.payload));
+          if (isNotEmpty(defaultAccessConditionsRemoteData.payload)) {
+            this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditionsRemoteData.payload)
+              ? defaultAccessConditionsRemoteData.payload : [defaultAccessConditionsRemoteData.payload];
+          }
+        }),
+        flatMap(() => config$),
+        take(1),
+        flatMap((config: SubmissionUploadsModel) => {
+          this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
 
-              // Default Access Conditions
-              this.subs.push(collectionRemoteData.payload.defaultAccessConditions.pipe(
-                filter((defaultAccessConditionsRemoteData: RemoteData<PaginatedList<ResourcePolicy>>) =>
-                  defaultAccessConditionsRemoteData.hasSucceeded),
-                take(1))
-                .subscribe((defaultAccessConditionsRemoteData: RemoteData<PaginatedList<ResourcePolicy>>) => {
+          this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
+            ? POLICY_DEFAULT_WITH_LIST
+            : POLICY_DEFAULT_NO_LIST;
 
-                  if (isNotEmpty(defaultAccessConditionsRemoteData.payload)) {
-                    this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditionsRemoteData.payload.page)
-                      ? defaultAccessConditionsRemoteData.payload.page : [defaultAccessConditionsRemoteData.payload.page];
-                  }
-
-                  // Edit Form Configuration, access policy list
-                  this.subs.push(config$.pipe(
-                    take(1))
-                    .subscribe((config: SubmissionUploadsModel) => {
-
-                      this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
-
-                      this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
-                        ? POLICY_DEFAULT_WITH_LIST
-                        : POLICY_DEFAULT_NO_LIST;
-
-                      this.availableGroups = new Map();
-                      const groupsObs = [];
-                      // Retrieve Groups for accessConditionPolicies
-                      this.availableAccessConditionOptions.forEach((accessCondition: AccessConditionOption) => {
-                        if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
-                          groupsObs.push(
-                            this.groupService.findById(accessCondition.groupUUID).pipe(
-                              filter((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
-                              take(1))
-                          );
-                        }
-                      });
-                      let obsCounter = 1;
-                      observableForkJoin(groupsObs).pipe(
-                        flatMap((group) => group),
-                        take(groupsObs.length))
-                        .subscribe((rd: RemoteData<Group>) => {
-                          const group: Group = rd.payload;
-                          if (isUndefined(this.availableGroups.get(group.uuid))) {
-                            if (Array.isArray(group.groups)) {
-                              const groupArrayData = [];
-                              for (const groupData of group.groups) {
-                                groupArrayData.push({name: groupData.name, uuid: groupData.uuid});
-                              }
-                              this.availableGroups.set(group.uuid, groupArrayData);
-                            } else {
-                              this.availableGroups.set(group.uuid, {name: group.name, uuid: group.uuid});
-                            }
-                          }
-                          if (obsCounter++ === groupsObs.length) {
-                            this.changeDetectorRef.detectChanges();
-                          }
-                        })
-                    })
-                  );
-                })
+          this.availableGroups = new Map();
+          const groups$ = [];
+          // Retrieve Groups for accessConditionPolicies
+          this.availableAccessConditionOptions.forEach((accessCondition: AccessConditionOption) => {
+            if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
+              groups$.push(
+                this.groupService.findById(accessCondition.groupUUID).pipe(
+                  filter((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
+                  take(1))
               );
-            })
-        })
+            }
+          });
+          return groups$;
+        }),
+        flatMap((group) => group),
+        reduce((acc: Group[], group: RemoteData<Group>) => {
+          console.log(JSON.stringify(group.payload));
+          acc.push(group.payload);
+          return acc;
+        }, []),
+      ).subscribe((groups: Group[]) => {
+        groups.forEach((group: Group) => {
+          if (isUndefined(this.availableGroups.get(group.uuid))) {
+            if (Array.isArray(group.groups)) {
+              const groupArrayData = [];
+              for (const groupData of group.groups) {
+                groupArrayData.push({ name: groupData.name, uuid: groupData.uuid });
+              }
+              this.availableGroups.set(group.uuid, groupArrayData);
+            } else {
+              this.availableGroups.set(group.uuid, { name: group.name, uuid: group.uuid });
+            }
+          }
+        });
+
+        this.changeDetectorRef.detectChanges();
+      })
       ,
       combineLatest(this.configMetadataForm$,
         this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)).pipe(
-        filter(([configMetadataForm, fileList]:[SubmissionFormsModel, any[]]) => {
+        filter(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
           return isNotEmpty(configMetadataForm) && isNotUndefined(fileList)
         }),
         distinctUntilChanged())
-        .subscribe(([configMetadataForm, fileList]:[SubmissionFormsModel, any[]]) => {
+        .subscribe(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
             this.fileList = [];
             this.fileIndexes = [];
             this.fileNames = [];
