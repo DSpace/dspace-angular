@@ -27,10 +27,10 @@ export class SectionFormOperationsService {
   constructor(private formBuilder: FormBuilderService, private operationsBuilder: JsonPatchOperationsBuilder) {
   }
 
-  dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                              event: DynamicFormControlEvent,
-                              previousValue: FormFieldPreviousValueObject,
-                              hasStoredValue: boolean): void {
+  public dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
+                                     event: DynamicFormControlEvent,
+                                     previousValue: FormFieldPreviousValueObject,
+                                     hasStoredValue: boolean): void {
     switch (event.type) {
       case 'remove':
         this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
@@ -43,7 +43,7 @@ export class SectionFormOperationsService {
     }
   }
 
-  getArrayIndexFromEvent(event: DynamicFormControlEvent): number {
+  public getArrayIndexFromEvent(event: DynamicFormControlEvent): number {
     let fieldIndex: number;
     if (isNotEmpty(event)) {
       if (isNull(event.context)) {
@@ -60,7 +60,7 @@ export class SectionFormOperationsService {
     return isNotUndefined(fieldIndex) ? fieldIndex : 0;
   }
 
-  isPartOfArrayOfGroup(model: any): boolean {
+  public isPartOfArrayOfGroup(model: any): boolean {
     return (isNotNull(model.parent)
       && (model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP
       && (model.parent as any).parent
@@ -113,6 +113,7 @@ export class SectionFormOperationsService {
         path = groupModel.qualdropId + '/' + (metadataValueMap.get(groupModel.qualdropId).length - 1)
       }
     });
+
     return path;
   }
 

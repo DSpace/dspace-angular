@@ -13,7 +13,11 @@ export function getMockFormBuilderService(): FormBuilderService {
     getId: 'path',
     clearAllModelsValue : {},
     insertFormArrayGroup: {},
-    isQualdrop: false
+    isQualdrop: false,
+    isQualdropGroup: false,
+    isModelInCustomGroup: true,
+    isRelationGroup: true,
+    hasArrayGroupValue: true
 
   });
 
