@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
 
-import { filter, first } from 'rxjs/operators';
+import { filter, first, flatMap } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -40,7 +40,6 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
 
   public fileData: WorkspaceitemSectionUploadFileObject;
   public formId;
-  public formState;
   public readMode;
   public formModel: DynamicFormControlModel[];
 
@@ -111,74 +110,73 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
 
   public saveBitstreamData(event) {
     event.preventDefault();
-    this.subscriptions.push(
-      this.formService.getFormData(this.formId).pipe(
-        first())
-        .subscribe((formData: any) => {
-          Object.keys((formData.metadata))
-            .filter((key) => isNotEmpty(formData.metadata[key]))
-            .forEach((key) => {
-              const metadataKey = key.replace(/_/g, '.');
-              const path = `metadata/${metadataKey}`;
-              this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
-            });
-          const accessConditionsToSave = [];
-          formData.accessConditions
-            .filter((accessCondition) => isNotEmpty(accessCondition))
-            .forEach((accessCondition) => {
-              let accessConditionOpt;
 
-              this.availableAccessConditionOptions
-                .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0].value)
-                .forEach((element) => accessConditionOpt = element);
+    this.subscriptions.push(this.formService.getFormData(this.formId).pipe(
+      first(),
+      flatMap((formData: any) => {
+        Object.keys((formData.metadata))
+          .filter((key) => isNotEmpty(formData.metadata[key]))
+          .forEach((key) => {
+            const metadataKey = key.replace(/_/g, '.');
+            const path = `metadata/${metadataKey}`;
+            this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
+          });
+        const accessConditionsToSave = [];
+        formData.accessConditions
+          .filter((accessCondition) => isNotEmpty(accessCondition))
+          .forEach((accessCondition) => {
+            let accessConditionOpt;
 
-              if (accessConditionOpt) {
+            this.availableAccessConditionOptions
+              .filter((element) => isNotNull(accessCondition.name) && element.name === accessCondition.name[0].value)
+              .forEach((element) => accessConditionOpt = element);
 
-                if (accessConditionOpt.hasStartDate !== true && accessConditionOpt.hasEndDate !== true) {
-                  accessConditionOpt = deleteProperty(accessConditionOpt, 'hasStartDate');
+            if (accessConditionOpt) {
 
-                  accessConditionOpt = deleteProperty(accessConditionOpt, 'hasEndDate');
-                  accessConditionsToSave.push(accessConditionOpt);
-                } else {
-                  accessConditionOpt = Object.assign({}, accessCondition);
-                  accessConditionOpt.name = this.retrieveValueFromField(accessCondition.name);
-                  accessConditionOpt.groupUUID = this.retrieveValueFromField(accessCondition.groupUUID);
-                  if (accessCondition.startDate) {
-                    const startDate = this.retrieveValueFromField(accessCondition.startDate);
-                    accessConditionOpt.startDate = dateToGMTString(startDate);
-                    accessConditionOpt = deleteProperty(accessConditionOpt, 'endDate');
-                  }
-                  if (accessCondition.endDate) {
-                    const endDate = this.retrieveValueFromField(accessCondition.endDate);
-                    accessConditionOpt.endDate = dateToGMTString(endDate);
-                    accessConditionOpt = deleteProperty(accessConditionOpt, 'startDate');
-                  }
-                  accessConditionsToSave.push(accessConditionOpt);
+              if (accessConditionOpt.hasStartDate !== true && accessConditionOpt.hasEndDate !== true) {
+                accessConditionOpt = deleteProperty(accessConditionOpt, 'hasStartDate');
+
+                accessConditionOpt = deleteProperty(accessConditionOpt, 'hasEndDate');
+                accessConditionsToSave.push(accessConditionOpt);
+              } else {
+                accessConditionOpt = Object.assign({}, accessCondition);
+                accessConditionOpt.name = this.retrieveValueFromField(accessCondition.name);
+                accessConditionOpt.groupUUID = this.retrieveValueFromField(accessCondition.groupUUID);
+                if (accessCondition.startDate) {
+                  const startDate = this.retrieveValueFromField(accessCondition.startDate);
+                  accessConditionOpt.startDate = dateToGMTString(startDate);
+                  accessConditionOpt = deleteProperty(accessConditionOpt, 'endDate');
                 }
+                if (accessCondition.endDate) {
+                  const endDate = this.retrieveValueFromField(accessCondition.endDate);
+                  accessConditionOpt.endDate = dateToGMTString(endDate);
+                  accessConditionOpt = deleteProperty(accessConditionOpt, 'startDate');
+                }
+                accessConditionsToSave.push(accessConditionOpt);
               }
-            });
+            }
+          });
 
-          if (isNotEmpty(accessConditionsToSave)) {
-            this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
-          }
+        if (isNotEmpty(accessConditionsToSave)) {
+          this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
+        }
 
-          this.operationsService.jsonPatchByResourceID(
-            this.submissionService.getSubmissionObjectLinkName(),
-            this.submissionId,
-            this.pathCombiner.rootElement,
-            this.pathCombiner.subRootElement)
-            .subscribe((result: SubmissionObject[]) => {
-              Object.keys((result[0].sections.upload as WorkspaceitemSectionUploadObject).files )
-                .filter((key) => (result[0].sections.upload as WorkspaceitemSectionUploadObject).files[key].uuid === this.fileId)
-                .forEach((key) => this.uploadService.updateFileData(
-                  this.submissionId,
-                  this.sectionId,
-                  this.fileId,
-                  (result[0].sections.upload as WorkspaceitemSectionUploadObject).files[key]));
-              this.switchMode();
-            });
-        })
-    );
+        return this.operationsService.jsonPatchByResourceID(
+          this.submissionService.getSubmissionObjectLinkName(),
+          this.submissionId,
+          this.pathCombiner.rootElement,
+          this.pathCombiner.subRootElement)
+      })
+    ).subscribe((result: SubmissionObject[]) => {
+      Object.keys((result[0].sections.upload as WorkspaceitemSectionUploadObject).files )
+        .filter((key) => (result[0].sections.upload as WorkspaceitemSectionUploadObject).files[key].uuid === this.fileId)
+        .forEach((key) => this.uploadService.updateFileData(
+          this.submissionId,
+          this.sectionId,
+          this.fileId,
+          (result[0].sections.upload as WorkspaceitemSectionUploadObject).files[key]));
+      this.switchMode();
+    }));
   }
 
   private retrieveValueFromField(field) {
