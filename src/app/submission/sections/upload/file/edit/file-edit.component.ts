@@ -14,18 +14,18 @@ import {
 } from '@ng-dynamic-forms/core';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import {
-  BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
-  BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT,
+  BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG,
-  BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT,
+  BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG,
-  BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
+  BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG,
-  BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
+  BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
-  BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
-  BITSTREAM_METADATA_FORM_GROUP_CONFIG
+  BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
+  BITSTREAM_METADATA_FORM_GROUP_CONFIG,
+  BITSTREAM_METADATA_FORM_GROUP_LAYOUT
 } from './files-edit.model';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { isNotEmpty, isNotUndefined } from '../../../../../shared/empty.util';
@@ -68,11 +68,11 @@ export class UploadSectionFileEditComponent implements OnChanges {
 
   protected buildFileEditForm() {
     // TODO check in the rest server configuration whether dc.description may be repeatable
-    const configDescr: FormFieldModel = Object.assign({}, this.configMetadataForm.rows[ 0 ].fields[ 0 ]);
+    const configDescr: FormFieldModel = Object.assign({}, this.configMetadataForm.rows[0].fields[0]);
     configDescr.repeatable = false;
     const configForm = Object.assign({}, this.configMetadataForm, {
-      fields: Object.assign([], this.configMetadataForm.rows[ 0 ].fields[ 0 ], [
-        this.configMetadataForm.rows[ 0 ].fields[ 0 ],
+      fields: Object.assign([], this.configMetadataForm.rows[0].fields[0], [
+        this.configMetadataForm.rows[0].fields[0],
         configDescr
       ])
     });
@@ -118,9 +118,9 @@ export class UploadSectionFileEditComponent implements OnChanges {
           hasGroups.push({ id: 'name', value: condition.name });
         }
       });
-      const confStart = { relation: [ { action: 'ENABLE', connective: 'OR', when: hasStart } ] };
-      const confEnd = { relation: [ { action: 'ENABLE', connective: 'OR', when: hasEnd } ] };
-      const confGroup = { relation: [ { action: 'ENABLE', connective: 'OR', when: hasGroups } ] };
+      const confStart = { relation: [{ action: 'ENABLE', connective: 'OR', when: hasStart }] };
+      const confEnd = { relation: [{ action: 'ENABLE', connective: 'OR', when: hasEnd }] };
+      const confGroup = { relation: [{ action: 'ENABLE', connective: 'OR', when: hasGroups }] };
 
       accessConditionsArrayConfig.groupFactory = () => {
         const type = new DynamicSelectModel(accessConditionTypeModelConfig, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT);
@@ -132,7 +132,7 @@ export class UploadSectionFileEditComponent implements OnChanges {
         const endDate = new DynamicDatePickerModel(endDateConfig, BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT);
         const groups = new DynamicSelectModel(groupsConfig, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT);
 
-        return [ type, startDate, endDate, groups ];
+        return [type, startDate, endDate, groups];
       };
 
       // Number of access conditions blocks in form

@@ -242,3 +242,17 @@ export const mockRowGroupModel = new DynamicRowGroupModel({
   id: 'mockRowGroupModel',
   group: [mockInputWithFormFieldValueModel],
 });
+
+export const fileFormEditInputConfig = {
+  name: 'dc.title',
+  id: 'dc_title',
+  readOnly: false,
+  disabled: false,
+};
+
+export const mockFileFormEditInputModel = new DsDynamicInputModel(fileFormEditInputConfig);
+
+export const mockFileFormEditRowGroupModel = new DynamicRowGroupModel({
+  id: 'mockRowGroupModel',
+  group: [mockFileFormEditInputModel]
+});

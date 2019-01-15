@@ -16,7 +16,7 @@
           <button class="btn btn-link" (click)="$event.preventDefault();confirmDelete(content);"><i class="fa fa-trash fa-2x text-danger"></i></button>
         </ng-container>
         <ng-container *ngIf="!readMode">
-          <button class="btn btn-link" (click)="saveBitstreamData($event);" title="Save metadata"><i class="fa fa-floppy-o fa-2x text-success"></i></button>
+          <button class="btn btn-link" (click)="saveBitstreamData($event);" title="Save metadata"><i class="fa fa-save fa-2x text-success"></i></button>
           <button class="btn btn-link" (click)="$event.preventDefault();switchMode();" title="Cancel"><i class="fa fa-ban fa-2x text-warning"></i></button>
           <button class="btn btn-link" (click)="$event.preventDefault();confirmDelete(content);" title="Delete bitstream"><i class="fa fa-trash fa-2x text-danger"></i></button>
         </ng-container>

@@ -135,7 +135,9 @@ describe('submissionReducer test suite', () => {
             sectionType: 'upload',
             collapsed: false,
             enabled: true,
-            data: {},
+            data: {
+              files:[]
+            },
             errors: [],
             isLoading: false,
             isValid: false
@@ -623,10 +625,9 @@ describe('submissionReducer test suite', () => {
       }
     ];
 
-    let action: any = new UpdateSectionDataAction(submissionId, 'traditionalpageone', {}, errors);
+    const action: any = new RemoveSectionErrorsAction(submissionId, 'traditionalpageone');
     let newState;
 
-    action = new RemoveSectionErrorsAction(submissionId, 'traditionalpageone');
     newState = submissionObjectReducer(initState, action);
 
     expect(newState[826].sections.traditionalpageone.errors).toEqual([]);

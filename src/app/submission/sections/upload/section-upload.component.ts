@@ -104,7 +104,6 @@ export class UploadSectionComponent extends SectionModelComponent {
           defaultAccessConditionsRemoteData.hasSucceeded),
         take(1),
         tap((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) => {
-          console.log(JSON.stringify(defaultAccessConditionsRemoteData.payload));
           if (isNotEmpty(defaultAccessConditionsRemoteData.payload)) {
             this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditionsRemoteData.payload)
               ? defaultAccessConditionsRemoteData.payload : [defaultAccessConditionsRemoteData.payload];
@@ -135,7 +134,6 @@ export class UploadSectionComponent extends SectionModelComponent {
         }),
         flatMap((group) => group),
         reduce((acc: Group[], group: RemoteData<Group>) => {
-          console.log(JSON.stringify(group.payload));
           acc.push(group.payload);
           return acc;
         }, []),
@@ -164,20 +162,21 @@ export class UploadSectionComponent extends SectionModelComponent {
         }),
         distinctUntilChanged())
         .subscribe(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
-            this.fileList = [];
-            this.fileIndexes = [];
-            this.fileNames = [];
-            this.changeDetectorRef.detectChanges();
-            if (isNotUndefined(fileList) && fileList.length > 0) {
-              fileList.forEach((file) => {
-                this.fileList.push(file);
-                this.fileIndexes.push(file.uuid);
-                this.fileNames.push(this.getFileName(configMetadataForm, file));
-              });
-            }
-            this.changeDetectorRef.detectChanges();
+          this.fileList = [];
+          this.fileIndexes = [];
+          this.fileNames = [];
+          this.changeDetectorRef.detectChanges();
+          if (isNotUndefined(fileList) && fileList.length > 0) {
+            fileList.forEach((file) => {
+              this.fileList.push(file);
+              this.fileIndexes.push(file.uuid);
+              this.fileNames.push(this.getFileName(configMetadataForm, file));
+            });
           }
-        )
+
+          this.changeDetectorRef.detectChanges();
+        }
+      )
     );
   }
 
