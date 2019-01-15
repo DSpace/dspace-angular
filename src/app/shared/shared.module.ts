@@ -89,6 +89,7 @@ import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
 import { MenuModule } from './menu/menu.module';
+import { DsDatePickerInlineComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker-inline/dynamic-date-picker-inline.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -189,7 +190,8 @@ const ENTRY_COMPONENTS = [
   DsDynamicRelationGroupComponent,
   DsDatePickerComponent,
   DsDynamicFormGroupComponent,
-  DsDynamicFormArrayComponent
+  DsDynamicFormArrayComponent,
+  DsDatePickerInlineComponent
 ];
 
 const PROVIDERS = [

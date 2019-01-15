@@ -40,13 +40,13 @@ import {
   DynamicNGBootstrapCalendarComponent,
   DynamicNGBootstrapCheckboxComponent,
   DynamicNGBootstrapCheckboxGroupComponent,
-  DynamicNGBootstrapDatePickerComponent,
   DynamicNGBootstrapInputComponent,
   DynamicNGBootstrapRadioGroupComponent,
   DynamicNGBootstrapSelectComponent,
   DynamicNGBootstrapTextAreaComponent,
   DynamicNGBootstrapTimePickerComponent
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
@@ -67,6 +67,7 @@ import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-gr
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
+import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -83,7 +84,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
     case DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER:
       const datepickerModel = model as DynamicDatePickerModel;
 
-      return datepickerModel.inline ? DynamicNGBootstrapCalendarComponent : DynamicNGBootstrapDatePickerComponent;
+      return datepickerModel.inline ? DynamicNGBootstrapCalendarComponent : DsDatePickerInlineComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_GROUP:
       return DsDynamicFormGroupComponent;
@@ -168,7 +169,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected layoutService: DynamicFormLayoutService,
-    protected validationService: DynamicFormValidationService
+    protected validationService: DynamicFormValidationService,
+    protected translateService: TranslateService
   ) {
 
     super(componentFactoryResolver, layoutService, validationService);
@@ -177,6 +179,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   ngOnChanges(changes: SimpleChanges) {
     if (changes) {
       super.ngOnChanges(changes);
+      if (this.model && this.model.placeholder) {
+        this.translateService.get(this.model.placeholder).subscribe((placeholder) => {
+          this.model.placeholder = placeholder;
+        })
+      }
     }
   }
 
@@ -188,7 +195,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngAfterViewInit() {
-    this.showErrorMessagesPreviousStage = this.showErrorMessages
+    this.showErrorMessagesPreviousStage = this.showErrorMessages;
   }
 
   /**

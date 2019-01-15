@@ -31,7 +31,6 @@ import {
   DynamicNGBootstrapCalendarComponent,
   DynamicNGBootstrapCheckboxComponent,
   DynamicNGBootstrapCheckboxGroupComponent,
-  DynamicNGBootstrapDatePickerComponent,
   DynamicNGBootstrapInputComponent,
   DynamicNGBootstrapRadioGroupComponent,
   DynamicNGBootstrapSelectComponent,
@@ -65,6 +64,7 @@ import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.compone
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
+import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -263,7 +263,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[0])).toEqual(DynamicNGBootstrapCheckboxComponent);
     expect(testFn(formModel[1])).toEqual(DynamicNGBootstrapCheckboxGroupComponent);
     expect(testFn(formModel[2])).toBeNull();
-    expect(testFn(formModel[3])).toEqual(DynamicNGBootstrapDatePickerComponent);
+    expect(testFn(formModel[3])).toEqual(DsDatePickerInlineComponent);
     (formModel[3] as DynamicDatePickerModel).inline = true;
     expect(testFn(formModel[3])).toEqual(DynamicNGBootstrapCalendarComponent);
     expect(testFn(formModel[4])).toBeNull();
