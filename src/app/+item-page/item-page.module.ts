@@ -19,16 +19,16 @@ import { FileSectionComponent } from './simple/field-components/file-section/fil
 import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
-import { RelatedEntitiesComponent } from './simple/related-entities/related-entities-component';
+import { RelatedItemsComponent } from './simple/related-items/related-items-component';
 import { SearchPageModule } from '../+search-page/search-page.module';
-import { PublicationComponent } from './simple/entity-types/publication/publication.component';
-import { PersonComponent } from './simple/entity-types/person/person.component';
-import { OrgunitComponent } from './simple/entity-types/orgunit/orgunit.component';
-import { ProjectComponent } from './simple/entity-types/project/project.component';
-import { JournalComponent } from './simple/entity-types/journal/journal.component';
-import { JournalVolumeComponent } from './simple/entity-types/journal-volume/journal-volume.component';
-import { JournalIssueComponent } from './simple/entity-types/journal-issue/journal-issue.component';
-import { EntityComponent } from './simple/entity-types/shared/entity.component';
+import { PublicationComponent } from './simple/item-types/publication/publication.component';
+import { PersonComponent } from './simple/item-types/person/person.component';
+import { OrgunitComponent } from './simple/item-types/orgunit/orgunit.component';
+import { ProjectComponent } from './simple/item-types/project/project.component';
+import { JournalComponent } from './simple/item-types/journal/journal.component';
+import { JournalVolumeComponent } from './simple/item-types/journal-volume/journal-volume.component';
+import { JournalIssueComponent } from './simple/item-types/journal-issue/journal-issue.component';
+import { ItemComponent } from './simple/item-types/shared/item.component';
 
 @NgModule({
   imports: [
@@ -56,8 +56,8 @@ import { EntityComponent } from './simple/entity-types/shared/entity.component';
     ProjectComponent,
     OrgunitComponent,
     PersonComponent,
-    RelatedEntitiesComponent,
-    EntityComponent,
+    RelatedItemsComponent,
+    ItemComponent,
     GenericItemPageFieldComponent,
     JournalComponent,
     JournalIssueComponent,

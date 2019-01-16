@@ -1,6 +1,6 @@
-import { NormalizedEntityType } from './entities/normalized-entity-type.model';
-import { NormalizedRelationshipType } from './entities/normalized-relationship-type.model';
-import { NormalizedRelationship } from './entities/normalized-relationship.model';
+import { NormalizedItemType } from './items/normalized-item-type.model';
+import { NormalizedRelationshipType } from './items/normalized-relationship-type.model';
+import { NormalizedRelationship } from './items/normalized-relationship.model';
 import { NormalizedBitstream } from './normalized-bitstream.model';
 import { NormalizedBundle } from './normalized-bundle.model';
 import { NormalizedItem } from './normalized-item.model';
@@ -44,8 +44,8 @@ export class NormalizedObjectFactory {
       case ResourceType.RelationshipType: {
         return NormalizedRelationshipType
       }
-      case ResourceType.EntityType: {
-        return NormalizedEntityType
+      case ResourceType.ItemType: {
+        return NormalizedItemType
       }
       case ResourceType.EPerson: {
         return NormalizedEPerson

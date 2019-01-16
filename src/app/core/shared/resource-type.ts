@@ -11,5 +11,5 @@ export enum ResourceType {
   ResourcePolicy = 'resourcePolicy',
   Relationship = 'relationship',
   RelationshipType = 'relationshiptype',
-  EntityType = 'entitytype',
+  ItemType = 'entitytype',
 }
