@@ -31,7 +31,7 @@ import { GLOBAL_CONFIG } from '../../../../../../config';
 import { MOCK_SUBMISSION_CONFIG } from '../../../../../shared/testing/mock-submission-config';
 import { getMockFormService } from '../../../../../shared/mocks/mock-form-service';
 
-describe('UploadSectionFileComponent test suite', () => {
+describe('UploadSectionFileEditComponent test suite', () => {
 
   let comp: UploadSectionFileEditComponent;
   let compAsAny: any;

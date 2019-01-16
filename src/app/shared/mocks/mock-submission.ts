@@ -74,6 +74,12 @@ export const mockUploadResponse1ParsedErrors: any =  {
   ]
 };
 
+export const mockLicenseParsedErrors: any =  {
+  license: [
+    { path: '/sections/license', message: 'error.validation.license.notgranted' }
+  ]
+};
+
 export const mockUploadResponse2Errors = {
   errors: [
     {
