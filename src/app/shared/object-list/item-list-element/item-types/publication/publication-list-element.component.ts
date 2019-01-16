@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DEFAULT_ITEM_TYPE, rendersItemType } from '../../../../items/item-type-decorator';
 import { ElementViewMode } from '../../../../view-mode';
-import { ItemSearchResultComponent } from '../item-search-result-component';
+import { TypedItemSearchResultListElementComponent } from '../typed-item-search-result-list-element.component';
 
 @rendersItemType('Publication', ElementViewMode.SetElement)
 @rendersItemType(DEFAULT_ITEM_TYPE, ElementViewMode.SetElement)
@@ -13,5 +13,5 @@ import { ItemSearchResultComponent } from '../item-search-result-component';
 /**
  * The component for displaying a list element for an item of the type Publication
  */
-export class PublicationListElementComponent extends ItemSearchResultComponent {
+export class PublicationListElementComponent extends TypedItemSearchResultListElementComponent {
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { rendersItemType } from '../../../../items/item-type-decorator';
 import { ElementViewMode } from '../../../../view-mode';
-import { ItemSearchResultComponent } from '../item-search-result-component';
+import { TypedItemSearchResultListElementComponent } from '../typed-item-search-result-list-element.component';
 
 @rendersItemType('JournalVolume', ElementViewMode.SetElement)
 @Component({
@@ -12,5 +12,5 @@ import { ItemSearchResultComponent } from '../item-search-result-component';
 /**
  * The component for displaying a list element for an item of the type Journal Volume
  */
-export class JournalVolumeListElementComponent extends ItemSearchResultComponent {
+export class JournalVolumeListElementComponent extends TypedItemSearchResultListElementComponent {
 }

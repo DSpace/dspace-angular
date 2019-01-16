@@ -13,7 +13,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   selector: 'ds-item-search-result',
   template: ''
 })
-export class ItemSearchResultComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+export class TypedItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
   item: Item;
 
   constructor(

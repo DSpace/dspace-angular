@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ItemTypeSwitcherComponent } from './items/switcher/item-type-switcher.component';
-import { ItemSearchResultComponent } from './object-list/item-list-element/item-types/item-search-result-component';
+import { TypedItemSearchResultListElementComponent } from './object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 import { OrgUnitListElementComponent } from './object-list/item-list-element/item-types/orgunit/orgunit-list-element.component';
 import { PersonListElementComponent } from './object-list/item-list-element/item-types/person/person-list-element.component';
@@ -167,7 +167,7 @@ const COMPONENTS = [
   TruncatableComponent,
   TruncatablePartComponent,
   InputSuggestionsComponent,
-  ItemSearchResultComponent,
+  TypedItemSearchResultListElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent
 ];

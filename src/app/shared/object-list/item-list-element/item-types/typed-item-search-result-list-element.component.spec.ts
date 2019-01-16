@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ItemSearchResultComponent } from './item-search-result-component';
+import { TypedItemSearchResultListElementComponent } from './typed-item-search-result-list-element.component';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -23,26 +23,26 @@ const mockSearchResult = {
 } as ItemSearchResult;
 
 describe('ItemSearchResultComponent', () => {
-  let comp: ItemSearchResultComponent;
-  let fixture: ComponentFixture<ItemSearchResultComponent>;
+  let comp: TypedItemSearchResultListElementComponent;
+  let fixture: ComponentFixture<TypedItemSearchResultListElementComponent>;
 
   describe('when injecting an Item', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        declarations: [ItemSearchResultComponent, TruncatePipe],
+        declarations: [TypedItemSearchResultListElementComponent, TruncatePipe],
         providers: [
           {provide: TruncatableService, useValue: {}},
           {provide: ITEM, useValue: mockItem}
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(ItemSearchResultComponent, {
+      }).overrideComponent(TypedItemSearchResultListElementComponent, {
         set: {changeDetection: ChangeDetectionStrategy.Default}
       }).compileComponents();
     }));
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(ItemSearchResultComponent);
+      fixture = TestBed.createComponent(TypedItemSearchResultListElementComponent);
       comp = fixture.componentInstance;
     }));
 
@@ -56,20 +56,20 @@ describe('ItemSearchResultComponent', () => {
   describe('when injecting an ItemSearchResult', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        declarations: [ItemSearchResultComponent, TruncatePipe],
+        declarations: [TypedItemSearchResultListElementComponent, TruncatePipe],
         providers: [
           {provide: TruncatableService, useValue: {}},
           {provide: ITEM, useValue: mockSearchResult}
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(ItemSearchResultComponent, {
+      }).overrideComponent(TypedItemSearchResultListElementComponent, {
         set: {changeDetection: ChangeDetectionStrategy.Default}
       }).compileComponents();
     }));
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(ItemSearchResultComponent);
+      fixture = TestBed.createComponent(TypedItemSearchResultListElementComponent);
       comp = fixture.componentInstance;
     }));
 
