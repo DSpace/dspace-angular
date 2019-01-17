@@ -93,7 +93,7 @@ export class LicenseSectionComponent extends SectionModelComponent {
             take(1),
             filter((isReadOnly) => isReadOnly))
             .subscribe(() => {
-              model.disabled = true;
+              model.disabledUpdates.next(true);
             });
           this.changeDetectorRef.detectChanges();
         }),

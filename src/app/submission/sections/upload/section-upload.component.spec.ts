@@ -85,7 +85,7 @@ describe('UploadSectionComponent test suite', () => {
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
-  const submissionState = mockSubmissionState[mockSubmissionId];
+  const submissionState = Object.assign({}, mockSubmissionState[mockSubmissionId]);
   const mockCollection = Object.assign(new Collection(), {
     name: 'Community 1-Collection 1',
     id: collectionId,
@@ -217,7 +217,6 @@ describe('UploadSectionComponent test suite', () => {
       expect(compAsAny.fileList).toEqual([]);
       expect(compAsAny.fileIndexes).toEqual([]);
       expect(compAsAny.fileNames).toEqual([]);
-        // this.fileIndexes, this.fileNames).toEqual(expectedGroupsMap);
 
     });
 

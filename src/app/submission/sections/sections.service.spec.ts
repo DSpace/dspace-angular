@@ -41,7 +41,8 @@ describe('SectionsService test suite', () => {
   const sectionId = 'traditionalpageone';
   const sectionErrors: any = parseSectionErrors(mockSectionsErrors);
   const sectionData: any = mockSectionsData;
-  const sectionState: any = mockSubmissionState['826'].sections[sectionId];
+  const submissionState: any = Object.assign({}, mockSubmissionState[submissionId]);
+  const sectionState: any = Object.assign({}, mockSubmissionState['826'].sections[sectionId]);
 
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
@@ -283,7 +284,7 @@ describe('SectionsService test suite', () => {
 
   describe('isSectionAvailable', () => {
     it('should return an observable of true when section is available', () => {
-      store.select.and.returnValue(observableOf(mockSubmissionState[submissionId]));
+      store.select.and.returnValue(observableOf(submissionState));
 
       const expected = cold('(b|)', {
         b: true
@@ -293,7 +294,7 @@ describe('SectionsService test suite', () => {
     });
 
     it('should return an observable of false when section is not available', () => {
-      store.select.and.returnValue(observableOf(mockSubmissionState[submissionId]));
+      store.select.and.returnValue(observableOf(submissionState));
 
       const expected = cold('(b|)', {
         b: false

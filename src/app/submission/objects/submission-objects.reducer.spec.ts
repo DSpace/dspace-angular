@@ -44,7 +44,11 @@ describe('submissionReducer test suite', () => {
   const submissionDefinition = mockSubmissionDefinitionResponse;
   const selfUrl = mockSubmissionSelfUrl;
 
-  const initState: SubmissionObjectState = mockSubmissionState;
+  let initState: any;
+
+  beforeEach(() => {
+    initState = Object.assign({}, mockSubmissionState);
+  });
 
   it('should init submission state properly', () => {
     const expectedState = {
@@ -164,6 +168,7 @@ describe('submissionReducer test suite', () => {
         depositPending: false
       }
     };
+
     const action = new CompleteInitSubmissionFormAction(submissionId);
     const newState = submissionObjectReducer(state, action);
 

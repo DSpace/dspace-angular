@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router-stub';
 import { Item } from '../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;

@@ -1018,7 +1018,7 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
   self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
 } as any;
 
-export const mockSubmissionState: SubmissionObjectState = {
+export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
   826: {
     collection: mockSubmissionCollectionId,
     definition: 'traditional',
@@ -1114,9 +1114,9 @@ export const mockSubmissionState: SubmissionObjectState = {
     savePending: false,
     depositPending: false
   }
-};
+});
 
-export const mockSectionsState = {
+export const mockSectionsState = Object.assign({}, {
   extraction: {
     config: '',
     mandatory: true,
@@ -1199,7 +1199,7 @@ export const mockSectionsState = {
     isLoading: false,
     isValid: false
   } as any
-};
+});
 
 export const mockSectionsList = [
   {

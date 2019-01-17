@@ -28,7 +28,7 @@ describe('ItemDataService', () => {
   const responseCache = {
     get(href: string) {
       const responseCacheEntry = new ResponseCacheEntry();
-      responseCacheEntry.response = new RestResponse(true, '200');
+      responseCacheEntry.response = new RestResponse(true, 200, 'OK');
       return observableOf(responseCacheEntry);
     }
   } as ResponseCacheService;
@@ -121,7 +121,7 @@ describe('ItemDataService', () => {
     });
 
     it('should setWithDrawn', () => {
-      const expected = new RestResponse(true, '200');
+      const expected = new RestResponse(true, 200, 'OK');
       const result = service.setWithDrawn(scopeID, true);
       result.subscribe((v) => expect(v).toEqual(expected));
 
@@ -143,7 +143,7 @@ describe('ItemDataService', () => {
     });
 
     it('should setDiscoverable', () => {
-      const expected = new RestResponse(true, '200');
+      const expected = new RestResponse(true, 200, 'OK');
       const result = service.setDiscoverable(scopeID, false);
       result.subscribe((v) => expect(v).toEqual(expected));
 
@@ -164,7 +164,7 @@ describe('ItemDataService', () => {
     });
 
     it('should delete the item', () => {
-      const expected = new RestResponse(true, '200');
+      const expected = new RestResponse(true, 200, 'OK');
       const result = service.delete(scopeID);
       result.subscribe((v) => expect(v).toEqual(expected));
 

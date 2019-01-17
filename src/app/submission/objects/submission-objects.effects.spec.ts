@@ -61,6 +61,7 @@ describe('SubmissionObjectEffects test suite', () => {
   const submissionDefinitionResponse: any = mockSubmissionDefinitionResponse;
   const submissionDefinition: any = mockSubmissionDefinition;
   const selfUrl: string = mockSubmissionSelfUrl;
+  const submissionState: any = Object.assign({}, mockSubmissionState);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -267,7 +268,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a UPLOAD_SECTION_DATA action for each updated section', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 
@@ -315,7 +316,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should display a success notification', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 
@@ -360,7 +361,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should display a warning notification when there are errors', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 
@@ -407,7 +408,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should detect and notify a new section', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 
@@ -534,7 +535,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should not allow to deposit when there are errors', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 
@@ -608,7 +609,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a DEPOSIT_SUBMISSION_SUCCESS action on success', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 
@@ -634,7 +635,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a DEPOSIT_SUBMISSION_ERROR action on error', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 
@@ -718,7 +719,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a DISCARD_SUBMISSION_SUCCESS action on success', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 
@@ -744,7 +745,7 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a DISCARD_SUBMISSION_ERROR action on error', () => {
       store.nextState({
         submission: {
-          objects: mockSubmissionState
+          objects: submissionState
         }
       } as any);
 

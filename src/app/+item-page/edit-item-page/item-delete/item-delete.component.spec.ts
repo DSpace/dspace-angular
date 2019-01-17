@@ -46,7 +46,7 @@ describe('ItemDeleteComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      delete: observableOf(new RestResponse(true, '200'))
+      delete: observableOf(new RestResponse(true, 200, 'OK'))
     });
 
     routeStub = {
@@ -74,8 +74,8 @@ describe('ItemDeleteComponent', () => {
   }));
 
   beforeEach(() => {
-    successfulRestResponse = new RestResponse(true, '200');
-    failRestResponse = new RestResponse(false, '500');
+    successfulRestResponse = new RestResponse(true, 200, 'OK');
+    failRestResponse = new RestResponse(false, 500, 'Internal Server Error');
 
     fixture = TestBed.createComponent(ItemDeleteComponent);
     comp = fixture.componentInstance;
