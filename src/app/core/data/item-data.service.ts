@@ -14,7 +14,14 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteRequest, FindAllOptions, MappingCollectionsRequest, PostRequest, RestRequest } from './request.models';
+import {
+  DeleteRequest,
+  FindAllOptions,
+  MappingCollectionsRequest,
+  PatchRequest,
+  PostRequest,
+  RestRequest
+} from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { configureRequest, filterSuccessfulResponses, getResponseFromEntry } from '../shared/operators';
@@ -130,6 +137,92 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     this.getMappingCollectionsEndpoint(itemId).pipe(take(1)).subscribe((href: string) => {
       this.requestService.removeByHrefSubstring(href);
     });
+  }
+
+  /**
+   * Get the endpoint for item withdrawal and reinstatement
+   * @param itemId
+   */
+  public getItemWithdrawEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+    );
+  }
+
+  /**
+   * Get the endpoint to make item private and public
+   * @param itemId
+   */
+  public getItemDiscoverableEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+    );
+  }
+
+  /**
+   * Get the endpoint to delete the item
+   * @param itemId
+   */
+  public getItemDeleteEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+    );
+  }
+
+  /**
+   * Set the isWithdrawn state of an item to a specified state
+   * @param itemId
+   * @param withdrawn
+   */
+  public setWithDrawn(itemId: string, withdrawn: boolean) {
+    const patchOperation = [{
+      op: 'replace', path: '/withdrawn', value: withdrawn
+    }];
+    return this.getItemWithdrawEndpoint(itemId).pipe(
+      distinctUntilChanged(),
+      map((endpointURL: string) =>
+        new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
+      ),
+      configureRequest(this.requestService),
+      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
+      getResponseFromEntry()
+    );
+  }
+
+  /**
+   * Set the isDiscoverable state of an item to a specified state
+   * @param itemId
+   * @param discoverable
+   */
+  public setDiscoverable(itemId: string, discoverable: boolean) {
+    const patchOperation = [{
+      op: 'replace', path: '/discoverable', value: discoverable
+    }];
+    return this.getItemDiscoverableEndpoint(itemId).pipe(
+      distinctUntilChanged(),
+      map((endpointURL: string) =>
+        new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
+      ),
+      configureRequest(this.requestService),
+      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
+      getResponseFromEntry()
+    );
+  }
+
+  /**
+   * Delete the item
+   * @param itemId
+   */
+  public delete(itemId: string) {
+    return this.getItemDeleteEndpoint(itemId).pipe(
+      distinctUntilChanged(),
+      map((endpointURL: string) =>
+        new DeleteRequest(this.requestService.generateRequestId(), endpointURL)
+      ),
+      configureRequest(this.requestService),
+      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
+      getResponseFromEntry()
+    );
   }
 
 }

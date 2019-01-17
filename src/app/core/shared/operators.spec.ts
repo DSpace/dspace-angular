@@ -6,10 +6,11 @@ import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import {
   configureRequest,
-  filterSuccessfulResponses,
+  filterSuccessfulResponses, getAllSucceededRemoteData,
   getRemoteDataPayload, getRequestFromRequestHref, getRequestFromRequestUUID,
-  getResourceLinksFromResponse, getResponseFromEntry,
+  getResourceLinksFromResponse, getResponseFromEntry, getSucceededRemoteData,
 } from './operators';
+import { RemoteData } from '../data/remote-data';
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;
@@ -48,7 +49,7 @@ describe('Core Module - RxJS Operators', () => {
       const result = source.pipe(getRequestFromRequestHref(requestService));
       const expected = cold('a', { a: new RequestEntry() });
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
 
     it('should use the requestService to fetch the request by its self link', () => {
@@ -58,7 +59,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(getRequestFromRequestHref(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.getByHref).toHaveBeenCalledWith(testRequestHref)
+      expect(requestService.getByHref).toHaveBeenCalledWith(testRequestHref);
     });
 
     it('shouldn\'t return anything if there is no request matching the self link', () => {
@@ -68,7 +69,7 @@ describe('Core Module - RxJS Operators', () => {
       const result = source.pipe(getRequestFromRequestHref(requestService));
       const expected = cold('-');
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
@@ -81,7 +82,7 @@ describe('Core Module - RxJS Operators', () => {
       const result = source.pipe(getRequestFromRequestUUID(requestService));
       const expected = cold('a', { a: new RequestEntry() });
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
 
     it('should use the requestService to fetch the request by its request uuid', () => {
@@ -91,7 +92,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(getRequestFromRequestUUID(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.getByUUID).toHaveBeenCalledWith(testRequestUUID)
+      expect(requestService.getByUUID).toHaveBeenCalledWith(testRequestUUID);
     });
 
     it('shouldn\'t return anything if there is no request matching the request uuid', () => {
@@ -101,7 +102,7 @@ describe('Core Module - RxJS Operators', () => {
       const result = source.pipe(getRequestFromRequestUUID(requestService));
       const expected = cold('-');
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
@@ -111,7 +112,7 @@ describe('Core Module - RxJS Operators', () => {
       const result = source.pipe(filterSuccessfulResponses());
       const expected = cold('a--d-', testResponses);
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
@@ -124,7 +125,7 @@ describe('Core Module - RxJS Operators', () => {
         d: testRCEs.d.response.resourceSelfLinks
       });
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
@@ -136,7 +137,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(configureRequest(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(testRequest)
+      expect(requestService.configure).toHaveBeenCalledWith(testRequest);
     });
   });
 
@@ -149,7 +150,7 @@ describe('Core Module - RxJS Operators', () => {
         a: testRD.a.payload,
       });
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
@@ -167,5 +168,42 @@ describe('Core Module - RxJS Operators', () => {
 
       expect(result).toBeObservable(expected)
     });
+  });
+
+  describe('getSucceededRemoteData', () => {
+    it('should return the first() hasSucceeded RemoteData Observable', () => {
+      const testRD = {
+        a: new RemoteData(false, false, true, null, undefined),
+        b: new RemoteData(false, false, false, null, 'b'),
+        c: new RemoteData(false, false, undefined, null, 'c'),
+        d: new RemoteData(false, false, true, null, 'd'),
+        e: new RemoteData(false, false, true, null, 'e'),
+      };
+      const source = hot('abcde', testRD);
+      const result = source.pipe(getSucceededRemoteData());
+
+      result.subscribe((value) => expect(value)
+        .toEqual(new RemoteData(false, false, true, null, 'd')));
+
+    });
+
+  });
+  describe('getAllSucceededRemoteData', () => {
+    it('should return all hasSucceeded RemoteData Observables', () => {
+      const testRD = {
+        a: new RemoteData(false, false, true, null, undefined),
+        b: new RemoteData(false, false, false, null, 'b'),
+        c: new RemoteData(false, false, undefined, null, 'c'),
+        d: new RemoteData(false, false, true, null, 'd'),
+        e: new RemoteData(false, false, true, null, 'e'),
+      };
+      const source = hot('abcde', testRD);
+      const result = source.pipe(getAllSucceededRemoteData());
+      const expected = cold('---de', testRD);
+
+      expect(result).toBeObservable(expected);
+
+    });
+
   });
 });

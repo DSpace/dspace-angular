@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
 import { Router } from '@angular/router';
+import { ItemOperation } from '../item-operation/itemOperation.model';
 
 @Component({
   selector: 'ds-item-status',
@@ -35,11 +36,7 @@ export class ItemStatusComponent implements OnInit {
    * The possible actions that can be performed on the item
    *  key: id   value: url to action's component
    */
-  actions: any;
-  /**
-   * The keys of the actions (to loop over)
-   */
-  actionsKeys;
+  operations: ItemOperation[];
 
   constructor(private router: Router) {
   }
@@ -57,10 +54,19 @@ export class ItemStatusComponent implements OnInit {
         i18n example: 'item.edit.tabs.status.buttons.<key>.label'
       The value is supposed to be a href for the button
     */
-    this.actions = Object.assign({
-      mappedCollections: this.getCurrentUrl() + '/mapper'
-    });
-    this.actionsKeys = Object.keys(this.actions);
+    this.operations = [];
+    this.operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl() + '/mapper'));
+    if (this.item.isWithdrawn) {
+      this.operations.push(new ItemOperation('reinstate', this.getCurrentUrl() + '/reinstate'));
+    } else {
+      this.operations.push(new ItemOperation('withdraw', this.getCurrentUrl() + '/withdraw'));
+    }
+    if (this.item.isDiscoverable) {
+      this.operations.push(new ItemOperation('private', this.getCurrentUrl() + '/private'));
+    } else {
+      this.operations.push(new ItemOperation('public', this.getCurrentUrl() + '/public'));
+    }
+    this.operations.push(new ItemOperation('delete', this.getCurrentUrl() + '/delete'));
   }
 
   /**
