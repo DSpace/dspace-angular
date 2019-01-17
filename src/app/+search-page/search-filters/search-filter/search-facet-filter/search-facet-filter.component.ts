@@ -6,7 +6,7 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { switchMap, distinctUntilChanged, first, map, take } from 'rxjs/operators';
+import { switchMap, distinctUntilChanged, map, take } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';

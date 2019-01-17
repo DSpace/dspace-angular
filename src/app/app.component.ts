@@ -1,4 +1,4 @@
-import { filter, first, map, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,

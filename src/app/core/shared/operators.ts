@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { filter, find, first, flatMap, map, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
