@@ -11,7 +11,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { FindAllOptions } from './request.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { DataBuildService } from '../cache/builders/data-build.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -40,7 +40,7 @@ describe('ItemDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {} as DataBuildService;
+  const dataBuildService = {} as NormalizedObjectBuildService;
 
   function initMockBrowseService(isSuccessful: boolean) {
     const obs = isSuccessful ?

@@ -17,8 +17,18 @@ export enum DirtyType {
   Deleted = 'Deleted'
 }
 
+/**
+ * An interface to represent a JsonPatch
+ */
 export interface Patch {
+  /**
+   * The identifier for this Patch
+   */
   uuid?: string;
+
+  /**
+   * the list of operations this Patch is composed of
+   */
   operations: Operation[];
 }
 

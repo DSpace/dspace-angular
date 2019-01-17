@@ -11,9 +11,9 @@ import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Operation } from '../../../../node_modules/fast-json-patch';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { UpdateComparator } from './update-comparator';
+import { ChangeAnalyzer } from './change-analyzer';
 import { HttpClient } from '@angular/common/http';
-import { DataBuildService } from '../cache/builders/data-build.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { compare } from 'fast-json-patch';
 
@@ -27,14 +27,14 @@ class TestService extends DataService<NormalizedTestObject, any> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: DataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected linkPath: string,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: UpdateComparator<NormalizedTestObject>
+    protected comparator: ChangeAnalyzer<NormalizedTestObject>
   ) {
     super();
   }
@@ -44,8 +44,8 @@ class TestService extends DataService<NormalizedTestObject, any> {
   }
 }
 
-class DummyComparator implements UpdateComparator<NormalizedTestObject> {
-  compare(object1: NormalizedTestObject, object2: NormalizedTestObject): Operation[] {
+class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
+  diff(object1: NormalizedTestObject, object2: NormalizedTestObject): Operation[] {
     return compare((object1 as any).metadata, (object2 as any).metadata);
   }
 
@@ -58,10 +58,10 @@ describe('DataService', () => {
   const rdbService = {} as RemoteDataBuildService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
-  const comparator = new DummyComparator() as any;
+  const comparator = new DummyChangeAnalyzer() as any;
   const dataBuildService = {
     normalize: (object) => object
-  } as DataBuildService;
+  } as NormalizedObjectBuildService;
   const objectCache = {
     addPatch: () => {
       /* empty */

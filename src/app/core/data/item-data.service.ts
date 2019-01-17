@@ -18,8 +18,8 @@ import { FindAllOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { DataBuildService } from '../cache/builders/data-build.service';
-import { DSOUpdateComparator } from './dso-update-comparator';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -28,14 +28,14 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: DataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     private bs: BrowseService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOUpdateComparator) {
+    protected comparator: DSOChangeAnalyzer) {
     super();
   }
 
