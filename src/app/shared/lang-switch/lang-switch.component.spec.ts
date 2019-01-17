@@ -93,13 +93,6 @@ describe('LangSwitchComponent', () => {
     it('should define the main A HREF in the UI', (() => {
       expect(langSwitchElement.querySelector('a')).toBeDefined();
     }));
-
-    it('should show English in the UI as the label for the language dropdown', async(() => {
-      spyOn(translate, 'getBrowserLang').and.returnValue('en');
-      fixture.detectChanges();
-      // the main link to open up the dropdown should now say English
-      expect(langSwitchElement.querySelector('a').textContent.trim()).toEqual('English');
-    }));
   });
 
   describe('with English as the only active and also default language', () => {
