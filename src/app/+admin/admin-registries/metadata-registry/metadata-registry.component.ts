@@ -13,13 +13,17 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 export class MetadataRegistryComponent {
 
   metadataSchemas: Observable<RemoteData<PaginatedList<MetadataSchema>>>;
+
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-metadataschemas-pagination',
-    pageSize: 10000
+    pageSize: 2
   });
 
   constructor(private registryService: RegistryService) {
     this.updateSchemas();
+    this.metadataSchemas.subscribe(
+      schemas => console.log(schemas)
+    );
   }
 
   onPageChange(event) {
@@ -31,4 +35,11 @@ export class MetadataRegistryComponent {
     this.metadataSchemas = this.registryService.getMetadataSchemas(this.config);
   }
 
+  editSchema(schema) {
+    console.log("iedemenne");
+  }
+
+  isActive(schema) {
+    return true;
+  }
 }

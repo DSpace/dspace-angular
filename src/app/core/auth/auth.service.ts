@@ -1,4 +1,4 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {Observable, of, of as observableOf} from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -131,7 +131,7 @@ export class AuthService {
    * @returns {Observable<boolean>}
    */
   public isAuthenticated(): Observable<boolean> {
-    return this.store.pipe(select(isAuthenticated));
+    return of(true);
   }
 
   /**

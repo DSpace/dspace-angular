@@ -14,12 +14,17 @@ import {
 } from './+search-page/search-filters/search-filter/search-filter.reducer';
 import { notificationsReducer, NotificationsState } from './shared/notifications/notifications.reducers';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
+import {
+  metadataRegistryReducer,
+  MetadataRegistryState
+} from "./+admin/admin-registries/metadata-schema/metadata-registry.reducers";
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
   hostWindow: HostWindowState;
   header: HeaderState;
   forms: FormState;
+  metadataRegistry: MetadataRegistryState;
   notifications: NotificationsState;
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
@@ -31,6 +36,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   hostWindow: hostWindowReducer,
   header: headerReducer,
   forms: formReducer,
+  metadataRegistry: metadataRegistryReducer,
   notifications: notificationsReducer,
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,

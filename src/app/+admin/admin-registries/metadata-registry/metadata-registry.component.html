@@ -6,6 +6,8 @@
 
       <p id="description" class="pb-2">{{'admin.registries.metadata.description' | translate}}</p>
 
+      <ds-metadata-schema-form></ds-metadata-schema-form>
+
       <ds-pagination
         *ngIf="(metadataSchemas | async)?.payload?.totalElements > 0"
         [paginationOptions]="config"
@@ -14,17 +16,32 @@
         [hideGear]="true"
         [hidePagerWhenSinglePage]="true"
         (pageChange)="onPageChange($event)">
+
         <div class="table-responsive">
           <table id="metadata-schemas" class="table table-striped table-hover">
             <thead>
               <tr>
+                <th scope="col"></th>
                 <th scope="col">{{'admin.registries.metadata.schemas.table.id' | translate}}</th>
                 <th scope="col">{{'admin.registries.metadata.schemas.table.namespace' | translate}}</th>
                 <th scope="col">{{'admin.registries.metadata.schemas.table.name' | translate}}</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let schema of (metadataSchemas | async)?.payload?.page">
+              <tr *ngFor="let schema of (metadataSchemas | async)?.payload?.page"
+                  (click)="editSchema(schema)"
+                  [class.active-row]="isActive(schema)">
+                <td>
+                  <!--<input type="checkbox" class="custom-control-input"-->
+                           <!--[checked]="item.value"-->
+                           <!--[formControlName]="item.id"-->
+                           <!--[name]="model.name"-->
+                           <!--[required]="model.required"-->
+                           <!--[value]="item.value"-->
+                           <!--(blur)="onBlur($event)"-->
+                           <!--(change)="onChange($event)"-->
+                           <!--(focus)="onFocus($event)"/>-->
+                </td>
                 <td><a [routerLink]="[schema.prefix]">{{schema.id}}</a></td>
                 <td><a [routerLink]="[schema.prefix]">{{schema.namespace}}</a></td>
                 <td><a [routerLink]="[schema.prefix]">{{schema.prefix}}</a></td>
@@ -32,6 +49,7 @@
             </tbody>
           </table>
         </div>
+
       </ds-pagination>
       <div *ngIf="(metadataSchemas | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
         {{'admin.registries.metadata.schemas.no-items' | translate}}
