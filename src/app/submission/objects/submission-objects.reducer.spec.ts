@@ -3,17 +3,20 @@ import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
   CompleteInitSubmissionFormAction,
-  DeleteSectionErrorsAction, DeleteUploadedFileAction,
+  DeleteSectionErrorsAction,
+  DeleteUploadedFileAction,
   DepositSubmissionAction,
   DepositSubmissionErrorAction,
   DepositSubmissionSuccessAction,
   DisableSectionAction,
   DiscardSubmissionAction,
-  DiscardSubmissionSuccessAction, EditFileDataAction,
+  DiscardSubmissionSuccessAction,
+  EditFileDataAction,
   EnableSectionAction,
   InertSectionErrorsAction,
   InitSectionAction,
-  InitSubmissionFormAction, NewUploadedFileAction,
+  InitSubmissionFormAction,
+  NewUploadedFileAction,
   RemoveSectionErrorsAction,
   ResetSubmissionFormAction,
   SaveAndDepositSubmissionAction,
@@ -32,7 +35,8 @@ import {
 import { SectionsType } from '../sections/sections-type';
 import {
   mockSubmissionCollectionId,
-  mockSubmissionDefinitionResponse, mockSubmissionId,
+  mockSubmissionDefinitionResponse,
+  mockSubmissionId,
   mockSubmissionSelfUrl,
   mockSubmissionState
 } from '../../shared/mocks/mock-submission';
@@ -47,7 +51,7 @@ describe('submissionReducer test suite', () => {
   let initState: any;
 
   beforeEach(() => {
-    initState = Object.assign({}, mockSubmissionState);
+    initState = Object.assign({}, {}, mockSubmissionState);
   });
 
   it('should init submission state properly', () => {
@@ -71,103 +75,11 @@ describe('submissionReducer test suite', () => {
   });
 
   it('should complete submission initialization', () => {
-    const state = {
-      826: {
-        collection: collectionId,
-        definition: 'traditional',
-        selfUrl: selfUrl,
-        activeSection: null,
-        sections: {
-          extraction: {
-            config: '',
-            mandatory: true,
-            sectionType: 'utils',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          collection: {
-            config: '',
-            mandatory: true,
-            sectionType: 'collection',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpageone: {
-            header: 'submit.progressbar.describe.stepone',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
-            mandatory: true,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpagetwo: {
-            header: 'submit.progressbar.describe.steptwo',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
-            mandatory: false,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: false,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          upload: {
-            header: 'submit.progressbar.upload',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
-            mandatory: true,
-            sectionType: 'upload',
-            collapsed: false,
-            enabled: true,
-            data: {
-              files:[]
-            },
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          license: {
-            header: 'submit.progressbar.license',
-            config: '',
-            mandatory: true,
-            sectionType: 'license',
-            visibility: {
-              main: null,
-              other: 'READONLY'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any
-        },
-        isLoading: true,
-        savePending: false,
-        depositPending: false
-      }
-    };
+    const state = Object.assign({}, initState, {
+      [submissionId]: Object.assign({}, initState[submissionId], {
+        isLoading: true
+      })
+    });
 
     const action = new CompleteInitSubmissionFormAction(submissionId);
     const newState = submissionObjectReducer(state, action);
@@ -227,101 +139,11 @@ describe('submissionReducer test suite', () => {
   });
 
   it('should set to false savePendig flag once the save is completed', () => {
-    const state = {
-      826: {
-        collection: collectionId,
-        definition: 'traditional',
-        selfUrl: selfUrl,
-        activeSection: null,
-        sections: {
-          extraction: {
-            config: '',
-            mandatory: true,
-            sectionType: 'utils',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          collection: {
-            config: '',
-            mandatory: true,
-            sectionType: 'collection',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpageone: {
-            header: 'submit.progressbar.describe.stepone',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
-            mandatory: true,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpagetwo: {
-            header: 'submit.progressbar.describe.steptwo',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
-            mandatory: true,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          upload: {
-            header: 'submit.progressbar.upload',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
-            mandatory: true,
-            sectionType: 'upload',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          license: {
-            header: 'submit.progressbar.license',
-            config: '',
-            mandatory: true,
-            sectionType: 'license',
-            visibility: {
-              main: null,
-              other: 'READONLY'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any
-        },
-        isLoading: false,
+    const state = Object.assign({}, initState, {
+      [submissionId]: Object.assign({}, initState[submissionId], {
         savePending: true,
-        depositPending: false
-      }
-    };
+      })
+    });
 
     let action: any = new SaveSubmissionFormSuccessAction(submissionId, []);
     let newState = submissionObjectReducer(state, action);
@@ -370,101 +192,11 @@ describe('submissionReducer test suite', () => {
   });
 
   it('should reset state once the deposit is completed successfully', () => {
-    const state = {
-      826: {
-        collection: collectionId,
-        definition: 'traditional',
-        selfUrl: selfUrl,
-        activeSection: null,
-        sections: {
-          extraction: {
-            config: '',
-            mandatory: true,
-            sectionType: 'utils',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          collection: {
-            config: '',
-            mandatory: true,
-            sectionType: 'collection',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpageone: {
-            header: 'submit.progressbar.describe.stepone',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
-            mandatory: true,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpagetwo: {
-            header: 'submit.progressbar.describe.steptwo',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
-            mandatory: true,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          upload: {
-            header: 'submit.progressbar.upload',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
-            mandatory: true,
-            sectionType: 'upload',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          license: {
-            header: 'submit.progressbar.license',
-            config: '',
-            mandatory: true,
-            sectionType: 'license',
-            visibility: {
-              main: null,
-              other: 'READONLY'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any
-        },
-        isLoading: false,
-        savePending: false,
-        depositPending: true
-      }
-    };
+    const state = Object.assign({}, initState, {
+      [submissionId]: Object.assign({}, initState[submissionId], {
+        depositPending: true,
+      })
+    });
 
     const action: any = new DepositSubmissionSuccessAction(submissionId);
     const newState = submissionObjectReducer(state, action);
@@ -623,13 +355,6 @@ describe('submissionReducer test suite', () => {
   });
 
   it('should remove all submission section errors properly', () => {
-    const errors = [
-      {
-        path: '/sections/license',
-        message: 'error.validation.license.notgranted'
-      }
-    ];
-
     const action: any = new RemoveSectionErrorsAction(submissionId, 'traditionalpageone');
     let newState;
 
@@ -799,103 +524,19 @@ describe('submissionReducer test suite', () => {
       },
       url: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/7e2f4ba9-9316-41fd-844a-1ef435f41a42/content'
     };
-    const state: SubmissionObjectState = {
-      826: {
-        collection: collectionId,
-        definition: 'traditional',
-        selfUrl: selfUrl,
-        activeSection: null,
-        sections: {
-          extraction: {
-            config: '',
-            mandatory: true,
-            sectionType: 'utils',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          collection: {
-            config: '',
-            mandatory: true,
-            sectionType: 'collection',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpageone: {
-            header: 'submit.progressbar.describe.stepone',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
-            mandatory: true,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpagetwo: {
-            header: 'submit.progressbar.describe.steptwo',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
-            mandatory: false,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: false,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          upload: {
-            header: 'submit.progressbar.upload',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
-            mandatory: true,
-            sectionType: 'upload',
-            collapsed: false,
-            enabled: true,
+
+    const state: SubmissionObjectState = Object.assign({}, initState, {
+      [submissionId]: Object.assign({}, initState[submissionId], {
+        sections: Object.assign({}, initState[submissionId].sections, {
+          upload: Object.assign({}, initState[submissionId].sections.upload, {
             data: {
               files: [fileData, fileData2]
-            },
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          license: {
-            header: 'submit.progressbar.license',
-            config: '',
-            mandatory: true,
-            sectionType: 'license',
-            visibility: {
-              main: null,
-              other: 'READONLY'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any
-        },
-        isLoading: false,
-        savePending: false,
-        depositPending: false
-      }
-    };
+            }
+          })
+        })
+      })
+    });
+
     const expectedState = {
       files: [fileData]
     };
@@ -973,103 +614,18 @@ describe('submissionReducer test suite', () => {
       url: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/7e2f4ba9-9316-41fd-844a-1ef435f41a42/content'
     };
 
-    const state: SubmissionObjectState = {
-      826: {
-        collection: collectionId,
-        definition: 'traditional',
-        selfUrl: selfUrl,
-        activeSection: null,
-        sections: {
-          extraction: {
-            config: '',
-            mandatory: true,
-            sectionType: 'utils',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          collection: {
-            config: '',
-            mandatory: true,
-            sectionType: 'collection',
-            visibility: {
-              main: 'HIDDEN',
-              other: 'HIDDEN'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpageone: {
-            header: 'submit.progressbar.describe.stepone',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone',
-            mandatory: true,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          traditionalpagetwo: {
-            header: 'submit.progressbar.describe.steptwo',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
-            mandatory: false,
-            sectionType: 'submission-form',
-            collapsed: false,
-            enabled: false,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          upload: {
-            header: 'submit.progressbar.upload',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
-            mandatory: true,
-            sectionType: 'upload',
-            collapsed: false,
-            enabled: true,
+    const state: SubmissionObjectState = Object.assign({}, initState, {
+      [submissionId]: Object.assign({}, initState[submissionId], {
+        sections: Object.assign({}, initState[submissionId].sections, {
+          upload: Object.assign({}, initState[submissionId].sections.upload, {
             data: {
               files: [fileData]
-            },
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any,
-          license: {
-            header: 'submit.progressbar.license',
-            config: '',
-            mandatory: true,
-            sectionType: 'license',
-            visibility: {
-              main: null,
-              other: 'READONLY'
-            },
-            collapsed: false,
-            enabled: true,
-            data: {},
-            errors: [],
-            isLoading: false,
-            isValid: false
-          } as any
-        },
-        isLoading: false,
-        savePending: false,
-        depositPending: false
-      }
-    };
+            }
+          })
+        })
+      })
+    });
+
     const expectedState = {
       files: [fileData2]
     };
