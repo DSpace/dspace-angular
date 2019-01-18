@@ -86,6 +86,7 @@ import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { MenuModule } from './menu/menu.module';
+import {LangSwitchComponent} from './lang-switch/lang-switch.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -140,6 +141,7 @@ const COMPONENTS = [
   DsDatePickerComponent,
   ErrorComponent,
   FormComponent,
+  LangSwitchComponent,
   LoadingComponent,
   LogInComponent,
   LogOutComponent,
