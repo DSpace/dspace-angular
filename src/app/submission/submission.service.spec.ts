@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 
 import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { cold, hot, } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
 
 import { MockRouter } from '../shared/mocks/mock-router';
 import { SubmissionService } from './submission.service';
@@ -333,6 +334,7 @@ describe('SubmissionService test suite', () => {
   const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
   const submissionDefinition: any = mockSubmissionDefinition;
 
+  let scheduler: TestScheduler;
   let service: SubmissionService;
 
   beforeEach(async(() => {
@@ -777,15 +779,24 @@ describe('SubmissionService test suite', () => {
 
   describe('redirectToMyDSpace', () => {
     it('should redirect to MyDspace page', () => {
+      scheduler = getTestScheduler();
       const spy = spyOn((service as any).routeService, 'getPreviousUrl');
 
-      spy.and.returnValue('/mydspace?configuration=workflow');
-      service.redirectToMyDSpace();
+      spy.and.returnValue(observableOf('/mydspace?configuration=workflow'));
+      scheduler.schedule(() => service.redirectToMyDSpace());
+      scheduler.flush();
 
       expect((service as any).router.navigateByUrl).toHaveBeenCalledWith('/mydspace?configuration=workflow');
 
-      spy.and.returnValue('');
-      service.redirectToMyDSpace();
+      spy.and.returnValue(observableOf(''));
+      scheduler.schedule(() => service.redirectToMyDSpace());
+      scheduler.flush();
+
+      expect((service as any).router.navigate).toHaveBeenCalledWith(['/mydspace']);
+
+      spy.and.returnValue(observableOf('/home'));
+      scheduler.schedule(() => service.redirectToMyDSpace());
+      scheduler.flush();
 
       expect((service as any).router.navigate).toHaveBeenCalledWith(['/mydspace']);
     });

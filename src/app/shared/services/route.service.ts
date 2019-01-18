@@ -3,13 +3,16 @@ import { ActivatedRoute, NavigationEnd, Params, Router, } from '@angular/router'
 
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+
+import { AppState } from '../../app.reducer';
+import { AddUrlToHistoryAction } from '../history/history.actions';
+import { historySelector } from '../history/selectors';
 
 @Injectable()
 export class RouteService {
 
-  private history = [];
-
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
@@ -58,16 +61,18 @@ export class RouteService {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(({urlAfterRedirects}: NavigationEnd) => {
-        this.history = [...this.history, urlAfterRedirects];
+        this.store.dispatch(new AddUrlToHistoryAction(urlAfterRedirects))
       });
   }
 
-  public getHistory(): string[] {
-    return this.history;
+  public getHistory(): Observable<string[]> {
+    return this.store.pipe(select(historySelector));
   }
 
-  public getPreviousUrl(): string {
-    return this.history[this.history.length - 2] || '';
+  public getPreviousUrl(): Observable<string> {
+    return this.getHistory().pipe(
+      map((history: string[]) => history[history.length - 2] || '')
+    );
   }
 
 }

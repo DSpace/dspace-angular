@@ -252,12 +252,14 @@ export class SubmissionService {
   }
 
   redirectToMyDSpace() {
-    const previousUrl = this.routeService.getPreviousUrl();
-    if (isEmpty(previousUrl)) {
-      this.router.navigate(['/mydspace']);
-    } else {
-      this.router.navigateByUrl(previousUrl);
-    }
+    this.routeService.getPreviousUrl().subscribe((previousUrl: string) => {
+      if (isEmpty(previousUrl) || !previousUrl.startsWith('/mydspace')) {
+        this.router.navigate(['/mydspace']);
+      } else {
+        this.router.navigateByUrl(previousUrl);
+      }
+    });
+
   }
 
   resetAllSubmissionObjects() {
