@@ -56,7 +56,6 @@ import { FacetValueMapResponseParsingService } from './data/facet-value-map-resp
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { RegistryService } from './registry/registry.service';
 import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
-import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -108,7 +107,6 @@ const PROVIDERS = [
   RegistryMetadataschemasResponseParsingService,
   RegistryMetadatafieldsResponseParsingService,
   RegistryBitstreamformatsResponseParsingService,
-  MetadataschemaParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
   ServerResponseService,

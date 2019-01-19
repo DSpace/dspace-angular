@@ -6,7 +6,6 @@ import {PageInfo} from '../shared/page-info.model';
 import {MetadataSchema} from '../metadata/metadataschema.model';
 import {MetadataField} from '../metadata/metadatafield.model';
 import {BitstreamFormat} from './mock-bitstream-format.model';
-import {flatMap, map, tap} from 'rxjs/operators';
 import {GetRequest, RestRequest} from '../data/request.models';
 import {GenericConstructor} from '../shared/generic-constructor';
 import {ResponseParsingService} from '../data/parsing.service';
@@ -30,11 +29,24 @@ import {RegistryBitstreamformatsResponse} from './registry-bitstreamformats-resp
 import {getResponseFromEntry} from '../shared/operators';
 import {createSelector, select, Store} from "@ngrx/store";
 import {AppState} from "../../app.reducer";
-import {MetadataRegistryState} from "../../+admin/admin-registries/metadata-schema/metadata-registry.reducers";
-import {MetadataRegistrySelectAction} from "../../+admin/admin-registries/metadata-schema/metadata-registry.actions";
+import {MetadataRegistryState} from "../../+admin/admin-registries/metadata-registry/metadata-registry.reducers";
+import {
+  MetadataRegistryCancelFieldAction,
+  MetadataRegistryCancelSchemaAction,
+  MetadataRegistryDeselectFieldAction,
+  MetadataRegistryDeselectSchemaAction,
+  MetadataRegistryEditFieldAction,
+  MetadataRegistryEditSchemaAction,
+  MetadataRegistrySelectFieldAction,
+  MetadataRegistrySelectSchemaAction
+} from "../../+admin/admin-registries/metadata-registry/metadata-registry.actions";
+import {flatMap, map, tap} from "rxjs/operators";
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
-const activeMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.schema);
+const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
+const selectedMetadataSchemasSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.selectedSchemas);
+const editMetadataFieldSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editField);
+const selectedMetadataFieldsSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.selectedFields);
 
 @Injectable()
 export class RegistryService {
@@ -166,7 +178,7 @@ export class RegistryService {
     return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
-  private getMetadataSchemasRequestObs(pagination: PaginationComponentOptions): Observable<RestRequest> {
+  public getMetadataSchemasRequestObs(pagination: PaginationComponentOptions): Observable<RestRequest> {
     return this.halService.getEndpoint(this.metadataSchemasPath).pipe(
       map((url: string) => {
         const args: string[] = [];
@@ -229,14 +241,92 @@ export class RegistryService {
   }
 
   public editMetadataSchema(schema: MetadataSchema) {
-    this.store.dispatch(new MetadataRegistrySelectAction(schema));
+    this.store.dispatch(new MetadataRegistryEditSchemaAction(schema));
   }
 
-  public getActiveMetadataSchema(schema: MetadataSchema): Observable<MetadataSchema> {
-    return this.store.pipe(select(activeMetadataSchemaSelector));
+  public cancelEditMetadataSchema() {
+    this.store.dispatch(new MetadataRegistryCancelSchemaAction());
   }
 
-  // public createMetadataSchema(schema: MetadataSchema): MetadataSchema {
+  public getActiveMetadataSchema(): Observable<MetadataSchema> {
+    return this.store.pipe(select(editMetadataSchemaSelector));
+  }
+
+  public selectMetadataSchema(schema: MetadataSchema) {
+    this.store.dispatch(new MetadataRegistrySelectSchemaAction(schema))
+  }
+
+  public deselectMetadataSchema(schema: MetadataSchema) {
+    this.store.dispatch(new MetadataRegistryDeselectSchemaAction(schema))
+  }
+
+  public getSelectedMetadataSchemas(): Observable<MetadataSchema[]> {
+    return this.store.pipe(select(selectedMetadataSchemasSelector));
+  }
+
+  public editMetadataField(field: MetadataField) {
+    this.store.dispatch(new MetadataRegistryEditFieldAction(field));
+  }
+
+  public cancelEditMetadataField() {
+    this.store.dispatch(new MetadataRegistryCancelFieldAction());
+  }
+
+  public getActiveMetadataField(): Observable<MetadataField> {
+    return this.store.pipe(select(editMetadataFieldSelector));
+  }
+
+  public selectMetadataField(field: MetadataField) {
+    this.store.dispatch(new MetadataRegistrySelectFieldAction(field))
+  }
+
+  public deselectMetadataField(field: MetadataField) {
+    this.store.dispatch(new MetadataRegistryDeselectFieldAction(field))
+  }
+
+  public getSelectedMetadataFields(): Observable<MetadataField[]> {
+    return this.store.pipe(select(selectedMetadataFieldsSelector));
+  }
+
+  // public createMetadataSchema(schema: MetadataSchema): Observable<RemoteData<MetadataSchema>> {
+  //   const requestId = this.requestService.generateRequestId();
+  //   const endpoint$ = this.halService.getEndpoint(this.metadataSchemasPath).pipe(
+  //     isNotEmptyOperator(),
+  //     distinctUntilChanged()
+  //   );
   //
+  //   const serializedDso = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(MetadataSchema.type)).serialize(normalizedObject);
+  //
+  //   const request$ = endpoint$.pipe(
+  //     take(1),
+  //     map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
+  //   );
+  //
+  //   // Execute the post request
+  //   request$.pipe(
+  //     configureRequest(this.requestService)
+  //   ).subscribe();
+  //
+  //   // Resolve self link for new object
+  //   const selfLink$ = this.requestService.getByUUID(requestId).pipe(
+  //     getResponseFromEntry(),
+  //     map((response: RestResponse) => {
+  //       if (!response.isSuccessful && response instanceof ErrorResponse) {
+  //         this.notificationsService.error('Server Error:', response.errorMessage, new NotificationOptions(-1));
+  //       } else {
+  //         return response;
+  //       }
+  //     }),
+  //     map((response: any) => {
+  //       if (isNotEmpty(response.resourceSelfLinks)) {
+  //         return response.resourceSelfLinks[0];
+  //       }
+  //     }),
+  //     distinctUntilChanged()
+  //   ) as Observable<string>;
+  //
+  //   return selfLink$.pipe(
+  //     switchMap((selfLink: string) => this.findByHref(selfLink)),
+  //   )
   // }
 }

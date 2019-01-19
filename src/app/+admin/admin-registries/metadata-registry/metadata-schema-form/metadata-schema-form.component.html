@@ -1,0 +1,18 @@
+<div *ngIf="registryService.getActiveMetadataSchema() | async; then editheader; else createHeader"></div>
+
+<ng-template #createHeader>
+    <h4>create metadataschema</h4>
+</ng-template>
+
+<ng-template #editheader>
+    <h4>edit metadataschema</h4>
+</ng-template>
+
+<ds-form [formId]="formId"
+         [formModel]="formModel"
+         [formGroup]="formGroup"
+         [formLayout]="formLayout"
+         (cancel)="onCancel()"
+         (submit)="onSubmit()">
+
+</ds-form>

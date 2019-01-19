@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { MetadataField } from '../../../core/metadata/metadatafield.model';
-import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import {Component, OnInit} from '@angular/core';
+import {RegistryService} from '../../../core/registry/registry.service';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {RemoteData} from '../../../core/data/remote-data';
+import {PaginatedList} from '../../../core/data/paginated-list';
+import {MetadataField} from '../../../core/metadata/metadatafield.model';
+import {MetadataSchema} from '../../../core/metadata/metadataschema.model';
+import {PaginationComponentOptions} from '../../../shared/pagination/pagination-component-options.model';
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -53,4 +53,40 @@ export class MetadataSchemaComponent implements OnInit {
     });
   }
 
+  editField(field: MetadataField) {
+    this.registryService.editMetadataField(field);
+  }
+
+  isActive(field: MetadataField): Observable<boolean> {
+    return this.getActiveField().pipe(
+      map(activeField => field === activeField)
+    );
+  }
+
+  getActiveField(): Observable<MetadataField> {
+    return this.registryService.getActiveMetadataField();
+  }
+
+  selectMetadataField(field: MetadataField, event) {
+    event.target.checked ?
+      this.registryService.selectMetadataField(field) :
+      this.registryService.deselectMetadataField(field);
+  }
+
+  isSelected(field: MetadataField): Observable<boolean> {
+    return this.registryService.getSelectedMetadataFields().pipe(
+      map(fields => fields.find(selectedField => selectedField == field) != null)
+    );
+  }
+
+  deleteFields() {
+    this.registryService.getSelectedMetadataFields().subscribe(
+      fields => {
+        console.log("metadata fields to delete: ");
+        for (let field of fields) {
+          console.log(field);
+        }
+      }
+    )
+  }
 }

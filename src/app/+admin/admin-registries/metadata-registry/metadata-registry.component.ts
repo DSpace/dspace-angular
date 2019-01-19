@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { Observable } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import {Component} from '@angular/core';
+import {RegistryService} from '../../../core/registry/registry.service';
+import {Observable} from 'rxjs';
+import {RemoteData} from '../../../core/data/remote-data';
+import {PaginatedList} from '../../../core/data/paginated-list';
+import {MetadataSchema} from '../../../core/metadata/metadataschema.model';
+import {PaginationComponentOptions} from '../../../shared/pagination/pagination-component-options.model';
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../app.reducer";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -21,9 +24,6 @@ export class MetadataRegistryComponent {
 
   constructor(private registryService: RegistryService) {
     this.updateSchemas();
-    this.metadataSchemas.subscribe(
-      schemas => console.log(schemas)
-    );
   }
 
   onPageChange(event) {
@@ -35,11 +35,40 @@ export class MetadataRegistryComponent {
     this.metadataSchemas = this.registryService.getMetadataSchemas(this.config);
   }
 
-  editSchema(schema) {
-    console.log("iedemenne");
+  editSchema(schema: MetadataSchema) {
+    this.registryService.editMetadataSchema(schema);
   }
 
-  isActive(schema) {
-    return true;
+  isActive(schema: MetadataSchema): Observable<boolean> {
+    return this.getActiveSchema().pipe(
+      map(activeSchema => schema === activeSchema)
+    );
+  }
+
+  getActiveSchema(): Observable<MetadataSchema> {
+    return this.registryService.getActiveMetadataSchema();
+  }
+
+  selectMetadataSchema(schema: MetadataSchema, event) {
+    event.target.checked ?
+      this.registryService.selectMetadataSchema(schema) :
+      this.registryService.deselectMetadataSchema(schema);
+  }
+
+  isSelected(schema: MetadataSchema): Observable<boolean> {
+    return this.registryService.getSelectedMetadataSchemas().pipe(
+      map(schemas => schemas.find(selectedSchema => selectedSchema == schema) != null)
+    );
+  }
+
+  deleteSchemas() {
+    this.registryService.getSelectedMetadataSchemas().subscribe(
+      schemas => {
+        console.log("metadata schemas to delete: ");
+        for (let schema of schemas) {
+          console.log(schema);
+        }
+      }
+    )
   }
 }

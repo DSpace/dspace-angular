@@ -10,6 +10,7 @@ import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 import { NormalizedEPerson } from '../../eperson/models/normalized-eperson.model';
 import { NormalizedGroup } from '../../eperson/models/normalized-group.model';
+import {NormalizedMetadataSchema} from "../../metadata/normalized-metadata-schema.model";
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -39,6 +40,12 @@ export class NormalizedObjectFactory {
         return NormalizedEPerson
       }
       case ResourceType.Group: {
+        return NormalizedGroup
+      }
+      case ResourceType.MetadataSchema: {
+        return NormalizedMetadataSchema
+      }
+      case ResourceType.MetadataField: {
         return NormalizedGroup
       }
       default: {

@@ -73,6 +73,12 @@ export class FormComponent implements OnDestroy, OnInit {
    * An event fired when form is valid and submitted .
    * Event's payload equals to the form content.
    */
+  @Output() cancel: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
+
+  /**
+   * An event fired when form is valid and submitted .
+   * Event's payload equals to the form content.
+   */
   @Output() submit: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
 
   /**
@@ -130,7 +136,9 @@ export class FormComponent implements OnDestroy, OnInit {
 
     } else {
       this.formModel.forEach((model) => {
-        this.formBuilderService.addFormGroupControl(this.formGroup, this.parentFormModel, model);
+        if (this.parentFormModel) {
+          this.formBuilderService.addFormGroupControl(this.formGroup, this.parentFormModel, model);
+        }
       });
     }
 
@@ -229,9 +237,10 @@ export class FormComponent implements OnDestroy, OnInit {
   private keepSync(): void {
     this.subs.push(this.formService.getFormData(this.formId)
       .subscribe((stateFormData) => {
-        if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
-          this.formGroup.setValue(stateFormData);
-        }
+        // if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
+        //   this.formGroup.setValue(stateFormData);
+        console.log(stateFormData);
+        // }
       }));
   }
 
@@ -275,6 +284,7 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   reset(): void {
     this.formGroup.reset();
+    this.cancel.emit();
   }
 
   isItemReadOnly(arrayContext: DynamicFormArrayModel, index: number): boolean {
