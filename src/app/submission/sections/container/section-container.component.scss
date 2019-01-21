@@ -1,7 +1,7 @@
 @import '../../../../styles/variables';
 
 :host /deep/ .card {
-  margin-bottom: $border-radius * 2;
+  margin-bottom: $submission-sections-margin-bottom;
 }
 
 .section-focus {
