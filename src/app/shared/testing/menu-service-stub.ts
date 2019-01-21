@@ -1,0 +1,93 @@
+import { MenuID } from '../menu/initial-menus-state';
+import { of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { MenuSection } from '../menu/menu.reducer';
+
+export class MenuServiceStub {
+  visibleSection1 = {
+    id: 'section',
+    visible: true,
+    active: false
+  } as any;
+  visibleSection2 = {
+    id: 'section_2',
+    visible: true
+  } as any;
+  hiddenSection3 = {
+    id: 'section_3',
+    visible: false
+  } as any;
+  subSection4 = {
+    id: 'section_4',
+    visible: true,
+    parentID: 'section1'
+  } as any;
+
+  toggleMenu(): void { /***/
+  };
+
+  expandMenu(): void { /***/
+  };
+
+  collapseMenu(): void { /***/
+  };
+
+  showMenu(): void { /***/
+  };
+
+  hideMenu(): void { /***/
+  };
+
+  expandMenuPreview(): void { /***/
+  };
+
+  collapseMenuPreview(): void { /***/
+  };
+
+  toggleActiveSection(): void { /***/
+  };
+
+  activateSection(): void { /***/
+  };
+
+  deactivateSection(): void { /***/
+  };
+
+  addSection(): void { /***/
+  };
+
+  removeSection(): void { /***/
+  };
+
+  isMenuVisible(id: MenuID): Observable<boolean> {
+    return observableOf(true)
+  };
+
+  isMenuCollapsed(id: MenuID): Observable<boolean> {
+    return observableOf(false)
+  };
+
+  isMenuPreviewCollapsed(id: MenuID): Observable<boolean> {
+    return observableOf(true)
+  };
+
+  hasSubSections(id: MenuID, sectionID: string): Observable<boolean> {
+    return observableOf(true)
+  };
+
+  getMenuTopSections(id: MenuID): Observable<MenuSection[]> {
+    return observableOf([this.visibleSection1, this.visibleSection2])
+  };
+
+  getSubSectionsByParentID(id: MenuID): Observable<MenuSection[]> {
+    return observableOf([this.subSection4])
+  };
+
+  isSectionActive(id: MenuID, sectionID: string): Observable<boolean> {
+    return observableOf(true)
+  };
+
+  isSectionVisible(id: MenuID, sectionID: string): Observable<boolean> {
+    return observableOf(true)
+  };
+}

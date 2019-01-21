@@ -1,14 +1,12 @@
 @import '../../styles/variables.scss';
 
-header nav.navbar {
-  border-radius: 0;
+.navbar-brand img {
+    height: $header-logo-height;
+    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
+        height: $header-logo-height-xs;
+    }
 }
-
-header nav.navbar .navbar-toggler:hover {
-  cursor: pointer;
-}
-
-header nav.navbar .navbar-toggler .navbar-toggler-icon {
-  background-image: none !important;
-  line-height: 1.5;
+.navbar-toggler .navbar-toggler-icon {
+    background-image: none !important;
+    line-height: 1.5;
 }

@@ -29,11 +29,13 @@ import { JournalComponent } from './simple/entity-types/journal/journal.componen
 import { JournalVolumeComponent } from './simple/entity-types/journal-volume/journal-volume.component';
 import { JournalIssueComponent } from './simple/entity-types/journal-issue/journal-issue.component';
 import { EntityComponent } from './simple/entity-types/shared/entity.component';
+import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    EditItemPageModule,
     ItemPageRoutingModule,
     SearchPageModule
   ],

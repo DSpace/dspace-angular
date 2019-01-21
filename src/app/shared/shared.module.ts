@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NouisliderModule } from 'ng2-nouislider';
 
 import {
   NgbDatepickerModule,
@@ -93,7 +94,8 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
-import { NouisliderModule } from 'ng2-nouislider';
+import { MenuModule } from './menu/menu.module';
+import {LangSwitchComponent} from './lang-switch/lang-switch.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -109,12 +111,13 @@ const MODULES = [
   NgbTimepickerModule,
   NgbTypeaheadModule,
   NgxPaginationModule,
-  NouisliderModule,
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
+  NouisliderModule,
   MomentModule,
-  TextMaskModule
+  TextMaskModule,
+  MenuModule
 ];
 
 const PIPES = [
@@ -147,6 +150,7 @@ const COMPONENTS = [
   DsDatePickerComponent,
   ErrorComponent,
   FormComponent,
+  LangSwitchComponent,
   LoadingComponent,
   LogInComponent,
   LogOutComponent,
@@ -166,10 +170,10 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
+  BrowseByComponent,
   InputSuggestionsComponent,
   EntitySearchResultComponent,
-  EntityTypeSwitcherComponent,
-  BrowseByComponent
+  EntityTypeSwitcherComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -213,7 +217,6 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...DIRECTIVES
   ],
   providers: [
     ...PROVIDERS
