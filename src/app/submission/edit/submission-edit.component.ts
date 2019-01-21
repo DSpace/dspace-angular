@@ -42,7 +42,6 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.subs.push(this.route.paramMap.pipe(
-      tap((params: ParamMap) => this.submissionId = params.get('id')),
       flatMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id')))
     ).subscribe((submissionObject: SubmissionObject) => {
       // NOTE new submission is retrieved on the browser side only
@@ -51,6 +50,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
           this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
           this.router.navigate(['/mydspace']);
         } else {
+          this.submissionId = submissionObject.id;
           this.collectionId = (submissionObject.collection as Collection).id;
           this.selfUrl = submissionObject.self;
           this.sections = submissionObject.sections;
