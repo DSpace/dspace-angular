@@ -1,12 +1,12 @@
 /**
  * Makes sure that if the user navigates to another route, the sidebar is collapsed
  */
-import {Injectable} from "@angular/core";
-import {Actions, Effect, ofType} from "@ngrx/effects";
-import {filter, map, tap} from "rxjs/operators";
-import {SearchSidebarCollapseAction} from "../../../+search-page/search-sidebar/search-sidebar.actions";
+import { Injectable } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { filter, map, tap } from 'rxjs/operators';
+import { SearchSidebarCollapseAction } from '../../../+search-page/search-sidebar/search-sidebar.actions';
 import * as fromRouter from '@ngrx/router-store';
-import {URLBaser} from "../../../core/url-baser/url-baser";
+import { URLBaser } from '../../../core/url-baser/url-baser';
 
 @Injectable()
 export class SearchSidebarEffects {

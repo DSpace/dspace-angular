@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {RegistryService} from '../../../core/registry/registry.service';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {RemoteData} from '../../../core/data/remote-data';
-import {PaginatedList} from '../../../core/data/paginated-list';
-import {MetadataField} from '../../../core/metadata/metadatafield.model';
-import {MetadataSchema} from '../../../core/metadata/metadataschema.model';
-import {PaginationComponentOptions} from '../../../shared/pagination/pagination-component-options.model';
-import {map} from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { MetadataField } from '../../../core/metadata/metadatafield.model';
+import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-metadata-schema',
@@ -23,7 +23,7 @@ export class MetadataSchemaComponent implements OnInit {
     id: 'registry-metadatafields-pagination',
     pageSize: 25,
     pageSizeOptions: [25, 50, 100, 200]
-});
+  });
 
   constructor(private registryService: RegistryService, private route: ActivatedRoute) {
 
@@ -49,7 +49,7 @@ export class MetadataSchemaComponent implements OnInit {
     this.metadataSchema.subscribe((schemaData) => {
       const schema = schemaData.payload;
       this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema, this.config);
-      this.namespace = { namespace: schemaData.payload.namespace };
+      this.namespace = {namespace: schemaData.payload.namespace};
     });
   }
 
@@ -59,7 +59,7 @@ export class MetadataSchemaComponent implements OnInit {
 
   isActive(field: MetadataField): Observable<boolean> {
     return this.getActiveField().pipe(
-      map(activeField => field === activeField)
+      map((activeField) => field === activeField)
     );
   }
 
@@ -75,15 +75,15 @@ export class MetadataSchemaComponent implements OnInit {
 
   isSelected(field: MetadataField): Observable<boolean> {
     return this.registryService.getSelectedMetadataFields().pipe(
-      map(fields => fields.find(selectedField => selectedField == field) != null)
+      map((fields) => fields.find((selectedField) => selectedField === field) != null)
     );
   }
 
   deleteFields() {
     this.registryService.getSelectedMetadataFields().subscribe(
-      fields => {
-        console.log("metadata fields to delete: ");
-        for (let field of fields) {
+      (fields) => {
+        console.log('metadata fields to delete: ');
+        for (const field of fields) {
           console.log(field);
         }
       }

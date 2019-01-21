@@ -17,7 +17,7 @@ import { truncatableReducer, TruncatablesState } from './shared/truncatable/trun
 import {
   metadataRegistryReducer,
   MetadataRegistryState
-} from "./+admin/admin-registries/metadata-registry/metadata-registry.reducers";
+} from './+admin/admin-registries/metadata-registry/metadata-registry.reducers';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;

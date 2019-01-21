@@ -40,7 +40,7 @@ describe('IntegrationService', () => {
 
   findOptions = new IntegrationSearchOptions(uuid, name, metadata);
 
-   function initTestService(): TestService {
+  function initTestService(): TestService {
     return new TestService(
       requestService,
       halService

@@ -1,7 +1,7 @@
-import {Action} from '@ngrx/store';
-import {type} from "../../../shared/ngrx/type";
-import {MetadataSchema} from "../../../core/metadata/metadataschema.model";
-import {MetadataField} from "../../../core/metadata/metadatafield.model";
+import { Action } from '@ngrx/store';
+import { type } from '../../../shared/ngrx/type';
+import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
+import { MetadataField } from '../../../core/metadata/metadatafield.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -12,16 +12,16 @@ import {MetadataField} from "../../../core/metadata/metadatafield.model";
  * action types in the application are unique.
  */
 export const MetadataRegistryActionTypes = {
-  
+
   EDIT_SCHEMA: type('dspace/metadata-registry/EDIT_SCHEMA'),
   CANCEL_EDIT_SCHEMA: type('dspace/metadata-registry/CANCEL_SCHEMA'),
   SELECT_SCHEMA: type('dspace/metadata-registry/SELECT_SCHEMA'),
   DESELECT_SCHEMA: type('dspace/metadata-registry/DESELECT_SCHEMA'),
 
-  EDIT_FIELD : type('dspace/metadata-registry/EDIT_FIELD'),
-  CANCEL_EDIT_FIELD : type('dspace/metadata-registry/CANCEL_FIELD'),
-  SELECT_FIELD : type('dspace/metadata-registry/SELECT_FIELD'),
-  DESELECT_FIELD : type('dspace/metadata-registry/DESELEC_FIELDT')
+  EDIT_FIELD: type('dspace/metadata-registry/EDIT_FIELD'),
+  CANCEL_EDIT_FIELD: type('dspace/metadata-registry/CANCEL_FIELD'),
+  SELECT_FIELD: type('dspace/metadata-registry/SELECT_FIELD'),
+  DESELECT_FIELD: type('dspace/metadata-registry/DESELEC_FIELDT')
 };
 
 /* tslint:disable:max-classes-per-file */

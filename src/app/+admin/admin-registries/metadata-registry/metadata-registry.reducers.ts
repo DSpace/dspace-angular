@@ -1,4 +1,4 @@
-import {MetadataSchema} from "../../../core/metadata/metadataschema.model";
+import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import {
   MetadataRegistryAction,
   MetadataRegistryActionTypes,
@@ -8,8 +8,8 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
-} from "./metadata-registry.actions";
-import {MetadataField} from "../../../core/metadata/metadatafield.model";
+} from './metadata-registry.actions';
+import { MetadataField } from '../../../core/metadata/metadatafield.model';
 
 /**
  * The auth state.
@@ -57,7 +57,7 @@ export function metadataRegistryReducer(state = initialState, action: MetadataRe
     case MetadataRegistryActionTypes.DESELECT_SCHEMA: {
       return Object.assign({}, state, {
         selectedSchemas: state.selectedSchemas.filter(
-          selectedSchema => selectedSchema != (action as MetadataRegistryDeselectSchemaAction).schema
+          (selectedSchema) => selectedSchema !== (action as MetadataRegistryDeselectSchemaAction).schema
         )
       });
     }
@@ -83,7 +83,7 @@ export function metadataRegistryReducer(state = initialState, action: MetadataRe
     case MetadataRegistryActionTypes.DESELECT_FIELD: {
       return Object.assign({}, state, {
         selectedFields: state.selectedFields.filter(
-          selectedField => selectedField != (action as MetadataRegistryDeselectFieldAction).field
+          (selectedField) => selectedField !== (action as MetadataRegistryDeselectFieldAction).field
         )
       });
     }

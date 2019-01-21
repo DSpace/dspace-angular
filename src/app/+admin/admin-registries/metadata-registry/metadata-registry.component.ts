@@ -1,13 +1,11 @@
-import {Component} from '@angular/core';
-import {RegistryService} from '../../../core/registry/registry.service';
-import {Observable} from 'rxjs';
-import {RemoteData} from '../../../core/data/remote-data';
-import {PaginatedList} from '../../../core/data/paginated-list';
-import {MetadataSchema} from '../../../core/metadata/metadataschema.model';
-import {PaginationComponentOptions} from '../../../shared/pagination/pagination-component-options.model';
-import {Store} from "@ngrx/store";
-import {AppState} from "../../../app.reducer";
-import {map} from "rxjs/operators";
+import { Component } from '@angular/core';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { Observable } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -41,7 +39,7 @@ export class MetadataRegistryComponent {
 
   isActive(schema: MetadataSchema): Observable<boolean> {
     return this.getActiveSchema().pipe(
-      map(activeSchema => schema === activeSchema)
+      map((activeSchema) => schema === activeSchema)
     );
   }
 
@@ -57,15 +55,15 @@ export class MetadataRegistryComponent {
 
   isSelected(schema: MetadataSchema): Observable<boolean> {
     return this.registryService.getSelectedMetadataSchemas().pipe(
-      map(schemas => schemas.find(selectedSchema => selectedSchema == schema) != null)
+      map((schemas) => schemas.find((selectedSchema) => selectedSchema === schema) != null)
     );
   }
 
   deleteSchemas() {
     this.registryService.getSelectedMetadataSchemas().subscribe(
-      schemas => {
-        console.log("metadata schemas to delete: ");
-        for (let schema of schemas) {
+      (schemas) => {
+        console.log('metadata schemas to delete: ');
+        for (const schema of schemas) {
           console.log(schema);
         }
       }

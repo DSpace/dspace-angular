@@ -36,7 +36,6 @@ describe('ConfigService', () => {
   const scopedEndpoint = `${serviceEndpoint}/${scopeName}`;
   const searchEndpoint = `${serviceEndpoint}/${BROWSE}?uuid=${scopeID}`;
 
-
   function initTestService(): TestService {
     return new TestService(
       requestService,

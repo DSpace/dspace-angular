@@ -1,23 +1,17 @@
-import {distinctUntilChanged, filter, map, tap} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
-import {isNotEmpty} from '../../shared/empty.util';
-import {BrowseService} from '../browse/browse.service';
-import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
-import {CoreState} from '../core.reducers';
-import {URLCombiner} from '../url-combiner/url-combiner';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { BrowseService } from '../browse/browse.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { CoreState } from '../core.reducers';
 
-import {DataService} from './data.service';
-import {RequestService} from './request.service';
-import {HALEndpointService} from '../shared/hal-endpoint.service';
-import {FindAllOptions, GetRequest, RestRequest} from './request.models';
-import {ObjectCacheService} from '../cache/object-cache.service';
-import {MetadataSchema} from "../metadata/metadataschema.model";
-import {NormalizedMetadataSchema} from "../metadata/normalized-metadata-schema.model";
-import {GenericConstructor} from "../shared/generic-constructor";
-import {ResponseParsingService} from "./parsing.service";
-import {RegistryMetadatafieldsResponseParsingService} from "./registry-metadatafields-response-parsing.service";
+import { DataService } from './data.service';
+import { RequestService } from './request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { FindAllOptions, GetRequest, RestRequest } from './request.models';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { MetadataSchema } from '../metadata/metadataschema.model';
+import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
 
 @Injectable()
 export class MetadataSchemaDataService extends DataService<NormalizedMetadataSchema, MetadataSchema> {

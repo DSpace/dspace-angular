@@ -1,35 +1,35 @@
-import {combineLatest as observableCombineLatest, Observable} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {RemoteData} from '../data/remote-data';
-import {PaginatedList} from '../data/paginated-list';
-import {PageInfo} from '../shared/page-info.model';
-import {MetadataSchema} from '../metadata/metadataschema.model';
-import {MetadataField} from '../metadata/metadatafield.model';
-import {BitstreamFormat} from './mock-bitstream-format.model';
-import {GetRequest, RestRequest} from '../data/request.models';
-import {GenericConstructor} from '../shared/generic-constructor';
-import {ResponseParsingService} from '../data/parsing.service';
-import {RegistryMetadataschemasResponseParsingService} from '../data/registry-metadataschemas-response-parsing.service';
-import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
-import {RequestService} from '../data/request.service';
-import {RegistryMetadataschemasResponse} from './registry-metadataschemas-response.model';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { RemoteData } from '../data/remote-data';
+import { PaginatedList } from '../data/paginated-list';
+import { PageInfo } from '../shared/page-info.model';
+import { MetadataSchema } from '../metadata/metadataschema.model';
+import { MetadataField } from '../metadata/metadatafield.model';
+import { BitstreamFormat } from './mock-bitstream-format.model';
+import { GetRequest, RestRequest } from '../data/request.models';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { ResponseParsingService } from '../data/parsing.service';
+import { RegistryMetadataschemasResponseParsingService } from '../data/registry-metadataschemas-response-parsing.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestService } from '../data/request.service';
+import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import {
   RegistryBitstreamformatsSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
   RegistryMetadataschemasSuccessResponse
 } from '../cache/response.models';
-import {HALEndpointService} from '../shared/hal-endpoint.service';
-import {RegistryMetadatafieldsResponseParsingService} from '../data/registry-metadatafields-response-parsing.service';
-import {RegistryMetadatafieldsResponse} from './registry-metadatafields-response.model';
-import {isNotEmpty} from '../../shared/empty.util';
-import {URLCombiner} from '../url-combiner/url-combiner';
-import {PaginationComponentOptions} from '../../shared/pagination/pagination-component-options.model';
-import {RegistryBitstreamformatsResponseParsingService} from '../data/registry-bitstreamformats-response-parsing.service';
-import {RegistryBitstreamformatsResponse} from './registry-bitstreamformats-response.model';
-import {getResponseFromEntry} from '../shared/operators';
-import {createSelector, select, Store} from "@ngrx/store";
-import {AppState} from "../../app.reducer";
-import {MetadataRegistryState} from "../../+admin/admin-registries/metadata-registry/metadata-registry.reducers";
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
+import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
+import { isNotEmpty } from '../../shared/empty.util';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { RegistryBitstreamformatsResponseParsingService } from '../data/registry-bitstreamformats-response-parsing.service';
+import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
+import { getResponseFromEntry } from '../shared/operators';
+import { createSelector, select, Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
+import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -39,8 +39,8 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
-} from "../../+admin/admin-registries/metadata-registry/metadata-registry.actions";
-import {flatMap, map, tap} from "rxjs/operators";
+} from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
+import { flatMap, map, tap } from 'rxjs/operators';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -199,8 +199,8 @@ export class RegistryService {
   }
 
   private getMetadataFieldsBySchemaRequestObs(pagination: PaginationComponentOptions, schema: MetadataSchema): Observable<RestRequest> {
-    return this.halService.getEndpoint(this.metadataFieldsPath + "/search/bySchema").pipe(
-    // return this.halService.getEndpoint(this.metadataFieldsPath).pipe(
+    return this.halService.getEndpoint(this.metadataFieldsPath + '/search/bySchema').pipe(
+      // return this.halService.getEndpoint(this.metadataFieldsPath).pipe(
       map((url: string) => {
         const args: string[] = [];
         args.push(`schema=${schema.prefix}`);
