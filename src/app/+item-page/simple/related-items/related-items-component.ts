@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import * as viewMode from '../../../shared/view-mode';
+
+export const VIEW_MODE_ELEMENT = 'element';
 
 @Component({
   selector: 'ds-related-items',
@@ -26,5 +27,5 @@ export class RelatedItemsComponent {
    * The view-mode we're currently on
    * @type {ElementViewMode}
    */
-  ElementViewMode = viewMode.ElementViewMode
+  viewMode = VIEW_MODE_ELEMENT;
 }

@@ -20,4 +20,17 @@ export class Metadatum {
   @autoserialize
   value: string;
 
+  /**
+   * The place of this Metadatum within his list of metadata
+   * This is used to render metadata in a specific custom order
+   */
+  @autoserialize
+  place: number;
+
+  /**
+   * The authority key used for authority-controlled metadata
+   */
+  @autoserialize
+  authority: string;
+
 }

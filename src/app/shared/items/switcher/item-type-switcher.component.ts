@@ -4,7 +4,7 @@ import { Item } from '../../../core/shared/item.model';
 import { hasValue } from '../../empty.util';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { getComponentByItemType } from '../item-type-decorator';
-import { ElementViewMode } from '../../view-mode';
+import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
 
 export const ITEM: InjectionToken<string> = new InjectionToken<string>('item');
 
@@ -18,14 +18,14 @@ export const ITEM: InjectionToken<string> = new InjectionToken<string>('item');
  */
 export class ItemTypeSwitcherComponent implements OnInit {
   /**
-   * The item to determine the component for
+   * The item or metadata to determine the component for
    */
-  @Input() object: Item | SearchResult<Item>;
+  @Input() object: Item | SearchResult<Item> | MetadataRepresentation;
 
   /**
    * The preferred view-mode to display
    */
-  @Input() viewMode: ElementViewMode;
+  @Input() viewMode: string;
 
   /**
    * The object injector used to inject the item into the child component
@@ -48,6 +48,11 @@ export class ItemTypeSwitcherComponent implements OnInit {
    * @returns {string}
    */
   getComponent(): string {
+    if (hasValue((this.object as any).representationType)) {
+      const metadataRepresentation = this.object as MetadataRepresentation;
+      return getComponentByItemType(metadataRepresentation.itemType, this.viewMode, metadataRepresentation.representationType);
+    }
+
     let item: Item;
     if (hasValue((this.object as any).dspaceObject)) {
       const searchResult = this.object as ItemSearchResult;

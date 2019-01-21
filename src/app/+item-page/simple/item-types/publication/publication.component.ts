@@ -7,11 +7,12 @@ import {
   rendersItemType
 } from '../../../../shared/items/item-type-decorator';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
-import { ElementViewMode } from '../../../../shared/view-mode';
 import { ItemComponent, filterRelationsByTypeLabel, relationsToItems } from '../shared/item.component';
+import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { VIEW_MODE_FULL } from '../../item-page.component';
 
-@rendersItemType('Publication', ElementViewMode.Full)
-@rendersItemType(DEFAULT_ITEM_TYPE, ElementViewMode.Full)
+@rendersItemType('Publication', VIEW_MODE_FULL)
+@rendersItemType(DEFAULT_ITEM_TYPE, VIEW_MODE_FULL)
 @Component({
   selector: 'ds-publication',
   styleUrls: ['./publication.component.scss'],
@@ -22,7 +23,7 @@ export class PublicationComponent extends ItemComponent implements OnInit {
   /**
    * The authors related to this publication
    */
-  authors$: Observable<Item[]>;
+  authors$: Observable<MetadataRepresentation[]>;
 
   /**
    * The projects related to this publication
@@ -51,10 +52,7 @@ export class PublicationComponent extends ItemComponent implements OnInit {
 
     if (this.resolvedRelsAndTypes$) {
 
-      this.authors$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isAuthorOfPublication'),
-        relationsToItems(this.item.id, this.ids)
-      );
+      this.authors$ = this.buildRepresentations('Person', 'dc.contributor.author', this.ids);
 
       this.projects$ = this.resolvedRelsAndTypes$.pipe(
         filterRelationsByTypeLabel('isProjectOfPublication'),

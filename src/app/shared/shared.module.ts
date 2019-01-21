@@ -94,6 +94,11 @@ import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { NouisliderModule } from 'ng2-nouislider';
+import { PlainTextMetadataListElementComponent } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
+import { ItemMetadataListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
+import { TooltipModule } from 'ngx-bootstrap';
+import { PersonMetadataListElementComponent } from './object-list/item-list-element/item-types/person/person-metadata-list-element.component';
+import { MetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -115,6 +120,10 @@ const MODULES = [
   TranslateModule,
   MomentModule,
   TextMaskModule
+];
+
+const ROOT_MODULES = [
+  TooltipModule.forRoot()
 ];
 
 const PIPES = [
@@ -184,12 +193,16 @@ const ENTRY_COMPONENTS = [
   SearchResultGridElementComponent,
   PublicationListElementComponent,
   PersonListElementComponent,
+  PersonMetadataListElementComponent,
   OrgUnitListElementComponent,
   ProjectListElementComponent,
   JournalListElementComponent,
   JournalVolumeListElementComponent,
   JournalIssueListElementComponent,
-  BrowseEntryListElementComponent
+  BrowseEntryListElementComponent,
+  PlainTextMetadataListElementComponent,
+  ItemMetadataListElementComponent,
+  MetadataRepresentationListElementComponent
 ];
 
 const PROVIDERS = [
@@ -206,7 +219,8 @@ const DIRECTIVES = [
 
 @NgModule({
   imports: [
-    ...MODULES
+    ...MODULES,
+    ...ROOT_MODULES
   ],
   declarations: [
     ...PIPES,

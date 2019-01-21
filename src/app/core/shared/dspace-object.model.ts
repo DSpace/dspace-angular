@@ -1,5 +1,5 @@
 import { Metadatum } from './metadatum.model'
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
@@ -88,6 +88,25 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
   filterMetadata(keys: string[]): Metadatum[] {
     return this.metadata.filter((metadatum: Metadatum) => {
       return keys.some((key) => key === metadatum.key);
+    });
+  }
+
+  /**
+   * Find metadata on a specific field and order all of them using their "place" property.
+   * @param key
+   */
+  findMetadataSortedByPlace(key: string): Metadatum[] {
+    return this.filterMetadata([key]).sort((a: Metadatum, b: Metadatum) => {
+      if (hasNoValue(a.place) && hasNoValue(b.place)) {
+        return 0;
+      }
+      if (hasNoValue(a.place)) {
+        return -1;
+      }
+      if (hasNoValue(b.place)) {
+        return 1;
+      }
+      return a.place - b.place;
     });
   }
 

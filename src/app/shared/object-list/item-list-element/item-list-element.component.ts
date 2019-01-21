@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 import { Item } from '../../../core/shared/item.model';
-import * as viewMode from '../../../shared/view-mode';
 import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { SetViewMode } from '../../view-mode';
+import { VIEW_MODE_ELEMENT } from '../../../+item-page/simple/related-items/related-items-component';
 
 @Component({
   selector: 'ds-item-list-element',
@@ -18,5 +18,5 @@ import { SetViewMode } from '../../view-mode';
  */
 @renderElementsFor(Item, SetViewMode.List)
 export class ItemListElementComponent extends AbstractListableElementComponent<Item> {
-  ElementViewMode = viewMode.ElementViewMode;
+  viewMode = VIEW_MODE_ELEMENT;
 }

@@ -1,36 +1,60 @@
 import { hasNoValue, hasValue } from '../empty.util';
-import { ElementViewMode } from '../view-mode';
+import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
+import { VIEW_MODE_ELEMENT } from '../../+item-page/simple/related-items/related-items-component';
 
 export const DEFAULT_ITEM_TYPE = 'Default';
+export const DEFAULT_VIEW_MODE = VIEW_MODE_ELEMENT;
+export const NO_REPRESENTATION_TYPE = MetadataRepresentationType.None;
+export const DEFAULT_REPRESENTATION_TYPE = MetadataRepresentationType.PlainText;
 
 const map = new Map();
 
 /**
- * Decorator used for rendering simple item pages by type and viewMode
+ * Decorator used for rendering simple item pages by type and viewMode (and optionally a representationType)
  * @param type
  * @param viewMode
+ * @param representationType
  */
-export function rendersItemType(type: string, viewMode: ElementViewMode) {
+export function rendersItemType(type: string, viewMode: string, representationType?: MetadataRepresentationType) {
   return function decorator(component: any) {
     if (hasNoValue(map.get(viewMode))) {
       map.set(viewMode, new Map());
     }
-    if (hasValue(map.get(viewMode).get(type))) {
-      throw new Error(`There can't be more than one component to render Items of type "${type}" in view mode "${viewMode}"`);
+    if (hasNoValue(map.get(viewMode).get(type))) {
+      map.get(viewMode).set(type, new Map());
     }
-    map.get(viewMode).set(type, component);
+    if (hasNoValue(representationType)) {
+      representationType = NO_REPRESENTATION_TYPE;
+    }
+    if (hasValue(map.get(viewMode).get(type).get(representationType))) {
+      throw new Error(`There can't be more than one component to render Metadata of type "${type}" in view mode "${viewMode}" with representation type "${representationType}"`);
+    }
+    map.get(viewMode).get(type).set(representationType, component);
   };
 }
 
 /**
- * Get the component used for rendering an item by type and viewMode
+ * Get the component used for rendering an item by type and viewMode (and optionally a representationType)
  * @param type
  * @param viewMode
+ * @param representationType
  */
-export function getComponentByItemType(type: string, viewMode: ElementViewMode) {
-  let component = map.get(viewMode).get(type);
-  if (hasNoValue(component)) {
-    component = map.get(viewMode).get(DEFAULT_ITEM_TYPE);
+export function getComponentByItemType(type: string, viewMode: string, representationType?: MetadataRepresentationType) {
+  if (hasNoValue(representationType)) {
+    representationType = NO_REPRESENTATION_TYPE;
   }
-  return component;
+  if (hasNoValue(map.get(viewMode))) {
+    viewMode = DEFAULT_VIEW_MODE;
+  }
+  if (hasNoValue(map.get(viewMode).get(type))) {
+    type = DEFAULT_ITEM_TYPE;
+  }
+  let representationComponent = map.get(viewMode).get(type).get(representationType);
+  if (hasNoValue(representationComponent)) {
+    representationComponent = map.get(viewMode).get(type).get(DEFAULT_REPRESENTATION_TYPE);
+  }
+  if (hasNoValue(representationComponent)) {
+    representationComponent = map.get(viewMode).get(type).get(NO_REPRESENTATION_TYPE);
+  }
+  return representationComponent;
 }

@@ -8,8 +8,10 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import * as decorator from '../item-type-decorator';
 import { getComponentByItemType } from '../item-type-decorator';
-import { ElementViewMode } from '../../view-mode';
+import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import createSpy = jasmine.createSpy;
+import { VIEW_MODE_FULL } from '../../../+item-page/simple/item-page.component';
+import { VIEW_MODE_METADATA } from '../../../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 
 const relationType = 'type';
 const mockItem: Item = Object.assign(new Item(), {
@@ -26,7 +28,8 @@ const mockItem: Item = Object.assign(new Item(), {
       value: relationType
     }]
 });
-const viewMode = ElementViewMode.Full;
+const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(relationType), mockItem);
+let viewMode = VIEW_MODE_FULL;
 
 describe('ItemTypeSwitcherComponent', () => {
   let comp: ItemTypeSwitcherComponent;
@@ -47,13 +50,39 @@ describe('ItemTypeSwitcherComponent', () => {
     spyOnProperty(decorator, 'getComponentByItemType').and.returnValue(createSpy('getComponentByItemType'))
   }));
 
-  describe('when calling getComponent', () => {
+  describe('when the injected object is of type Item', () => {
     beforeEach(() => {
-      comp.getComponent();
+      viewMode = VIEW_MODE_FULL;
+      comp.object = mockItem;
+      comp.viewMode = viewMode;
     });
 
-    it('should call getComponentByItemType with parameters type and viewMode', () => {
-      expect(decorator.getComponentByItemType).toHaveBeenCalledWith(relationType, viewMode);
+    describe('when calling getComponent', () => {
+      beforeEach(() => {
+        comp.getComponent();
+      });
+
+      it('should call getComponentByItemType with parameters type and viewMode', () => {
+        expect(decorator.getComponentByItemType).toHaveBeenCalledWith(relationType, viewMode);
+      });
+    });
+  });
+
+  describe('when the injected object is of type MetadataRepresentation', () => {
+    beforeEach(() => {
+      viewMode = VIEW_MODE_METADATA;
+      comp.object = mockItemMetadataRepresentation;
+      comp.viewMode = viewMode;
+    });
+
+    describe('when calling getComponent', () => {
+      beforeEach(() => {
+        comp.getComponent();
+      });
+
+      it('should call getComponentByItemType with parameters type, viewMode and representationType', () => {
+        expect(decorator.getComponentByItemType).toHaveBeenCalledWith(relationType, viewMode, mockItemMetadataRepresentation.representationType);
+      });
     });
   });
 

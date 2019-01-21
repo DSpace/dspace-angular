@@ -9,10 +9,10 @@
     <ds-item-page-author-field *ngIf="!(authors$ | async)" [item]="item"></ds-item-page-author-field>
   </div>
   <div class="col-xs-12 col-md-6">
-    <ds-related-items
-      [items]="authors$ | async"
-      [label]="'relationships.isAuthorOf' | translate">
-    </ds-related-items>
+    <ds-metadata-representation-list
+      [label]="'relationships.isAuthorOf' | translate"
+      [representations]="authors$ | async">
+    </ds-metadata-representation-list>
     <ds-related-items
       [items]="projects$ | async"
       [label]="'relationships.isProjectOf' | translate">

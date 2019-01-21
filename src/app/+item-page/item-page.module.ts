@@ -29,6 +29,7 @@ import { JournalComponent } from './simple/item-types/journal/journal.component'
 import { JournalVolumeComponent } from './simple/item-types/journal-volume/journal-volume.component';
 import { JournalIssueComponent } from './simple/item-types/journal-issue/journal-issue.component';
 import { ItemComponent } from './simple/item-types/shared/item.component';
+import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { ItemComponent } from './simple/item-types/shared/item.component';
     GenericItemPageFieldComponent,
     JournalComponent,
     JournalIssueComponent,
-    JournalVolumeComponent
+    JournalVolumeComponent,
+    MetadataRepresentationListComponent
   ],
   entryComponents: [
     PublicationComponent,

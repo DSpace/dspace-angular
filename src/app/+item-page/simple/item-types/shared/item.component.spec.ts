@@ -16,8 +16,18 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { compareArraysUsing, compareArraysUsingIds } from './item.component';
+import { compareArraysUsing, compareArraysUsingIds, ItemComponent } from './item.component';
 import { of as observableOf } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ItemPageComponent } from '../../item-page.component';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { ActivatedRoute } from '@angular/router';
+import { MetadataService } from '../../../../core/metadata/metadata.service';
+import { of } from 'rxjs/internal/observable/of';
+import { Observable } from 'rxjs/internal/Observable';
+import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -305,5 +315,117 @@ describe('ItemComponent', () => {
       expect(compare(arr1 as any, arrWithOneMore as any)).toBeFalsy();
     });
   });
+
+  describe('when calling buildRepresentations', () => {
+    let comp: ItemComponent;
+    let fixture: ComponentFixture<ItemComponent>;
+
+    const metadataField = 'dc.contributor.author';
+    const mockItem = Object.assign(new Item(), {
+      id: '1',
+      uuid: '1',
+      metadata: [
+        {
+          key: metadataField,
+          value: 'Second value',
+          place: 1
+        },
+        {
+          key: metadataField,
+          value: 'Third value',
+          place: 2,
+          authority: 'virtual::123'
+        },
+        {
+          key: metadataField,
+          value: 'First value',
+          place: 0
+        },
+        {
+          key: metadataField,
+          value: 'Fourth value',
+          place: 3,
+          authority: '123'
+        }
+      ],
+      relationships: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [
+        Object.assign(new Relationship(), {
+          uuid: '123',
+          id: '123',
+          leftId: '1',
+          rightId: '2',
+          relationshipType: observableOf(new RemoteData(false, false, true, null, new RelationshipType()))
+        })
+      ])))
+    });
+    const relatedItem = Object.assign(new Item(), {
+      id: '2',
+      metadata: [
+        {
+          key: 'dc.title',
+          value: 'related item'
+        }
+      ]
+    });
+    const mockItemDataService = {
+      findById: (id) => {
+        if (id === relatedItem.id) {
+          return observableOf(new RemoteData(false, false, true, null, relatedItem))
+        }
+      }
+    } as ItemDataService;
+
+    let representations: Observable<MetadataRepresentation[]>;
+
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        }), BrowserAnimationsModule],
+        declarations: [ItemComponent, VarDirective],
+        providers: [
+          {provide: ITEM, useValue: mockItem}
+        ],
+
+        schemas: [NO_ERRORS_SCHEMA]
+      }).overrideComponent(ItemComponent, {
+        set: {changeDetection: ChangeDetectionStrategy.Default}
+      }).compileComponents();
+    }));
+
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(ItemComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
+      representations = comp.buildRepresentations('bogus', metadataField, mockItemDataService);
+    }));
+
+    it('should contain exactly 4 metadata-representations', () => {
+      representations.subscribe((reps: MetadataRepresentation[]) => {
+        expect(reps.length).toEqual(4);
+      });
+    });
+
+    it('should have all the representations in the correct order', () => {
+      representations.subscribe((reps: MetadataRepresentation[]) => {
+        expect(reps[0].getPrimaryValue()).toEqual('First value');
+        expect(reps[1].getPrimaryValue()).toEqual('Second value');
+        expect(reps[2].getPrimaryValue()).toEqual('related item');
+        expect(reps[3].getPrimaryValue()).toEqual('Fourth value');
+      });
+    });
+
+    it('should have created the correct MetadatumRepresentation and ItemMetadataRepresentation objects for the correct Metadata', () => {
+      representations.subscribe((reps: MetadataRepresentation[]) => {
+        expect(reps[0] instanceof MetadatumRepresentation).toEqual(true);
+        expect(reps[1] instanceof MetadatumRepresentation).toEqual(true);
+        expect(reps[2] instanceof ItemMetadataRepresentation).toEqual(true);
+        expect(reps[3] instanceof MetadatumRepresentation).toEqual(true);
+      });
+    });
+  })
 
 });

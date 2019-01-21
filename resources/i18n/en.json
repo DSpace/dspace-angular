@@ -207,7 +207,7 @@
         "f.dateIssued.max": "End date",
         "f.subject": "Subject",
         "f.has_content_in_original_bundle": "Has files",
-        "f.entityType": "Item Type"
+        "f.entityType": "Entity Type"
       },
       "filter": {
         "show-more": "Show more",
@@ -237,8 +237,8 @@
           "head": "Has files"
         },
         "entityType": {
-          "placeholder": "Item Type",
-          "head": "Item Type"
+          "placeholder": "Entity Type",
+          "head": "Entity Type"
         }
       }
     }

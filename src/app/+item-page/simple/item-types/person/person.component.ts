@@ -4,12 +4,12 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
-import { ElementViewMode } from '../../../../shared/view-mode';
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent, filterRelationsByTypeLabel, relationsToItems } from '../shared/item.component';
+import { VIEW_MODE_FULL } from '../../item-page.component';
 
-@rendersItemType('Person', ElementViewMode.Full)
+@rendersItemType('Person', VIEW_MODE_FULL)
 @Component({
   selector: 'ds-person',
   styleUrls: ['./person.component.scss'],
