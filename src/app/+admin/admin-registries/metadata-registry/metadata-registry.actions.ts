@@ -17,11 +17,13 @@ export const MetadataRegistryActionTypes = {
   CANCEL_EDIT_SCHEMA: type('dspace/metadata-registry/CANCEL_SCHEMA'),
   SELECT_SCHEMA: type('dspace/metadata-registry/SELECT_SCHEMA'),
   DESELECT_SCHEMA: type('dspace/metadata-registry/DESELECT_SCHEMA'),
+  DESELECT_ALL_SCHEMA: type('dspace/metadata-registry/DESELECT_ALL_SCHEMA'),
 
   EDIT_FIELD: type('dspace/metadata-registry/EDIT_FIELD'),
   CANCEL_EDIT_FIELD: type('dspace/metadata-registry/CANCEL_FIELD'),
   SELECT_FIELD: type('dspace/metadata-registry/SELECT_FIELD'),
-  DESELECT_FIELD: type('dspace/metadata-registry/DESELEC_FIELDT')
+  DESELECT_FIELD: type('dspace/metadata-registry/DESELECT_FIELD'),
+  DESELECT_ALL_FIELD: type('dspace/metadata-registry/DESELECT_ALL_FIELD')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -65,6 +67,10 @@ export class MetadataRegistryDeselectSchemaAction implements Action {
   }
 }
 
+export class MetadataRegistryDeselectAllSchemaAction implements Action {
+  type = MetadataRegistryActionTypes.DESELECT_ALL_SCHEMA;
+}
+
 /**
  * Used to collapse the sidebar
  */
@@ -103,6 +109,10 @@ export class MetadataRegistryDeselectFieldAction implements Action {
   constructor(registry: MetadataField) {
     this.field = registry;
   }
+}
+
+export class MetadataRegistryDeselectAllFieldAction implements Action {
+  type = MetadataRegistryActionTypes.DESELECT_ALL_FIELD;
 }
 
 /* tslint:enable:max-classes-per-file */

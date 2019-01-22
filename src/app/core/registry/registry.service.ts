@@ -39,7 +39,7 @@ import { AppState } from '../../app.reducer';
 import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import {
   MetadataRegistryCancelFieldAction,
-  MetadataRegistryCancelSchemaAction,
+  MetadataRegistryCancelSchemaAction, MetadataRegistryDeselectAllFieldAction, MetadataRegistryDeselectAllSchemaAction,
   MetadataRegistryDeselectFieldAction,
   MetadataRegistryDeselectSchemaAction,
   MetadataRegistryEditFieldAction,
@@ -276,6 +276,10 @@ export class RegistryService {
     this.store.dispatch(new MetadataRegistryDeselectSchemaAction(schema))
   }
 
+  public deselectAllMetadataSchema() {
+    this.store.dispatch(new MetadataRegistryDeselectAllSchemaAction())
+  }
+
   public getSelectedMetadataSchemas(): Observable<MetadataSchema[]> {
     return this.store.pipe(select(selectedMetadataSchemasSelector));
   }
@@ -298,6 +302,10 @@ export class RegistryService {
 
   public deselectMetadataField(field: MetadataField) {
     this.store.dispatch(new MetadataRegistryDeselectFieldAction(field))
+  }
+
+  public deselectAllMetadataField(field: MetadataField) {
+    this.store.dispatch(new MetadataRegistryDeselectAllFieldAction())
   }
 
   public getSelectedMetadataFields(): Observable<MetadataField[]> {

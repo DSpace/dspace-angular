@@ -62,6 +62,12 @@ export function metadataRegistryReducer(state = initialState, action: MetadataRe
       });
     }
 
+    case MetadataRegistryActionTypes.DESELECT_ALL_SCHEMA: {
+      return Object.assign({}, state, {
+        selectedSchemas: []
+      });
+    }
+
     case MetadataRegistryActionTypes.EDIT_FIELD: {
       return Object.assign({}, state, {
         editField: (action as MetadataRegistryEditFieldAction).field
@@ -85,6 +91,12 @@ export function metadataRegistryReducer(state = initialState, action: MetadataRe
         selectedFields: state.selectedFields.filter(
           (selectedField) => selectedField !== (action as MetadataRegistryDeselectFieldAction).field
         )
+      });
+    }
+
+    case MetadataRegistryActionTypes.DESELECT_ALL_FIELD: {
+      return Object.assign({}, state, {
+        selectedFields: []
       });
     }
 

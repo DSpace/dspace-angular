@@ -10,6 +10,7 @@ import { hasValue } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
 import { zip } from 'rxjs/internal/observable/zip';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -26,7 +27,8 @@ export class MetadataRegistryComponent {
   });
 
   constructor(private registryService: RegistryService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private router: Router) {
     this.updateSchemas();
   }
 
@@ -94,6 +96,8 @@ export class MetadataRegistryComponent {
           if (failedResponses.length > 0) {
             this.notificationsService.error('Error', `Failed to delete ${failedResponses.length} metadata schemas`);
           }
+          this.registryService.deselectAllMetadataSchema();
+          this.router.navigate([], { queryParams: { page: 1 }, queryParamsHandling: 'merge'});
           this.forceUpdateSchemas();
         });
       }
