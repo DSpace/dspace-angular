@@ -6,7 +6,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
 import { BitstreamFormat } from './mock-bitstream-format.model';
-import { GetRequest, RestRequest } from '../data/request.models';
+import { CreateMetadataSchemaRequest, GetRequest, RestRequest } from '../data/request.models';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RegistryMetadataschemasResponseParsingService } from '../data/registry-metadataschemas-response-parsing.service';
@@ -14,19 +14,20 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestService } from '../data/request.service';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import {
+  ErrorResponse, MetadataschemaSuccessResponse,
   RegistryBitstreamformatsSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
-  RegistryMetadataschemasSuccessResponse
+  RegistryMetadataschemasSuccessResponse, RestResponse
 } from '../cache/response.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
-import { isNotEmpty } from '../../shared/empty.util';
+import { isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RegistryBitstreamformatsResponseParsingService } from '../data/registry-bitstreamformats-response-parsing.service';
 import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
-import { getResponseFromEntry } from '../shared/operators';
+import { configureRequest, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
@@ -40,7 +41,11 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
+import { ResourceType } from '../shared/resource-type';
+import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -288,45 +293,33 @@ export class RegistryService {
     return this.store.pipe(select(selectedMetadataFieldsSelector));
   }
 
-  // public createMetadataSchema(schema: MetadataSchema): Observable<RemoteData<MetadataSchema>> {
-  //   const requestId = this.requestService.generateRequestId();
-  //   const endpoint$ = this.halService.getEndpoint(this.metadataSchemasPath).pipe(
-  //     isNotEmptyOperator(),
-  //     distinctUntilChanged()
-  //   );
-  //
-  //   const serializedDso = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(MetadataSchema.type)).serialize(normalizedObject);
-  //
-  //   const request$ = endpoint$.pipe(
-  //     take(1),
-  //     map((endpoint: string) => new CreateRequest(requestId, endpoint, JSON.stringify(serializedDso)))
-  //   );
-  //
-  //   // Execute the post request
-  //   request$.pipe(
-  //     configureRequest(this.requestService)
-  //   ).subscribe();
-  //
-  //   // Resolve self link for new object
-  //   const selfLink$ = this.requestService.getByUUID(requestId).pipe(
-  //     getResponseFromEntry(),
-  //     map((response: RestResponse) => {
-  //       if (!response.isSuccessful && response instanceof ErrorResponse) {
-  //         this.notificationsService.error('Server Error:', response.errorMessage, new NotificationOptions(-1));
-  //       } else {
-  //         return response;
-  //       }
-  //     }),
-  //     map((response: any) => {
-  //       if (isNotEmpty(response.resourceSelfLinks)) {
-  //         return response.resourceSelfLinks[0];
-  //       }
-  //     }),
-  //     distinctUntilChanged()
-  //   ) as Observable<string>;
-  //
-  //   return selfLink$.pipe(
-  //     switchMap((selfLink: string) => this.findByHref(selfLink)),
-  //   )
-  // }
+  public createMetadataSchema(schema: MetadataSchema): Observable<MetadataSchema> {
+    const requestId = this.requestService.generateRequestId();
+    const endpoint$ = this.halService.getEndpoint(this.metadataSchemasPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged()
+    );
+
+    const serializedSchema = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(ResourceType.MetadataSchema)).serialize(schema as NormalizedMetadataSchema);
+
+    const request$ = endpoint$.pipe(
+      take(1),
+      map((endpoint: string) => new CreateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(serializedSchema)))
+    );
+
+    // Execute the post request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    // Return newly created schema
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: MetadataschemaSuccessResponse) => {
+        if (isNotEmpty(response.metadataschema)) {
+          return response.metadataschema;
+        }
+      })
+    );
+  }
 }

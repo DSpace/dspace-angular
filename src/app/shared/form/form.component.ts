@@ -79,7 +79,7 @@ export class FormComponent implements OnDestroy, OnInit {
    * An event fired when form is valid and submitted .
    * Event's payload equals to the form content.
    */
-  @Output() submit: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
+  @Output() submitForm: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
 
   /**
    * An object of FormGroup type
@@ -273,7 +273,7 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   onSubmit(): void {
     if (this.getFormGroupValidStatus()) {
-      this.submit.emit(this.formService.getFormData(this.formId));
+      this.submitForm.emit(this.formService.getFormData(this.formId));
     } else {
       this.formService.validateAllFormFields(this.formGroup);
     }

@@ -11,6 +11,8 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 import { FormService } from '../../../../shared/form/form.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.reducer';
+import { take } from 'rxjs/operators';
+import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 
 @Component({
   selector: 'ds-metadata-schema-form',
@@ -95,11 +97,13 @@ export class MetadataSchemaFormComponent implements OnInit {
   onSubmit() {
     this.registryService.getActiveMetadataSchema().subscribe(
       (schema) => {
-
         if (schema == null) {
-          console.log('metadata field to create:');
-          console.log('prefix: ' + this.name.value);
-          console.log('namespace: ' + this.namespace.value);
+          this.registryService.createMetadataSchema(Object.assign(new MetadataSchema(), {
+            prefix: this.name.value,
+            namespace: this.namespace.value
+          })).subscribe((newSchema) => {
+            console.log(newSchema);
+          });
         } else {
           console.log('metadata field to update:');
           console.log('prefix: ' + this.name.value);

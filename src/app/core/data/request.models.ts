@@ -11,6 +11,8 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
+import { RegistryMetadataschemasResponseParsingService } from './registry-metadataschemas-response-parsing.service';
+import { MetadataschemaParsingService } from './metadataschema-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -214,6 +216,16 @@ export class IntegrationRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return IntegrationResponseParsingService;
+  }
+}
+
+export class CreateMetadataSchemaRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadataschemaParsingService;
   }
 }
 

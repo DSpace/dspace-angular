@@ -62,6 +62,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
+import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -121,6 +122,7 @@ const PROVIDERS = [
   SubmissionSectionsConfigService,
   AuthorityService,
   IntegrationResponseParsingService,
+  MetadataschemaParsingService,
   UploaderService,
   UUIDService,
   DSpaceObjectDataService,
