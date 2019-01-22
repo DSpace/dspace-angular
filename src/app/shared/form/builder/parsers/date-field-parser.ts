@@ -11,7 +11,7 @@ export class DateFieldParser extends FieldParser {
     let malformedDate = false;
     const inputDateModelConfig: DynamicDatePickerModelConfig = this.initModel(null, label);
 
-    inputDateModelConfig.toggleIcon = 'fa fa-calendar';
+    inputDateModelConfig.toggleIcon = 'fas fa-calendar';
     this.setValues(inputDateModelConfig as any, fieldValue);
     // Init Data and validity check
     if (isNotEmpty(inputDateModelConfig.value)) {

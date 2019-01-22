@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NouisliderModule } from 'ng2-nouislider';
 
 import {
   NgbDatepickerModule,
@@ -93,7 +94,8 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
-import { NouisliderModule } from 'ng2-nouislider';
+import { MenuModule } from './menu/menu.module';
+import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import { PlainTextMetadataListElementComponent } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import { ItemMetadataListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
 import { TooltipModule } from 'ngx-bootstrap';
@@ -114,12 +116,13 @@ const MODULES = [
   NgbTimepickerModule,
   NgbTypeaheadModule,
   NgxPaginationModule,
-  NouisliderModule,
   ReactiveFormsModule,
   RouterModule,
   TranslateModule,
+  NouisliderModule,
   MomentModule,
-  TextMaskModule
+  TextMaskModule,
+  MenuModule
 ];
 
 const ROOT_MODULES = [
@@ -156,6 +159,7 @@ const COMPONENTS = [
   DsDatePickerComponent,
   ErrorComponent,
   FormComponent,
+  LangSwitchComponent,
   LoadingComponent,
   LogInComponent,
   LogOutComponent,
@@ -175,6 +179,7 @@ const COMPONENTS = [
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
+  BrowseByComponent,
   InputSuggestionsComponent,
   TypedItemSearchResultListElementComponent,
   ItemTypeSwitcherComponent,
@@ -227,7 +232,6 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...DIRECTIVES
   ],
   providers: [
     ...PROVIDERS
