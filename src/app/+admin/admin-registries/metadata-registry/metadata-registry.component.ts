@@ -5,7 +5,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
 import { zip } from 'rxjs/internal/observable/zip';
@@ -70,7 +70,7 @@ export class MetadataRegistryComponent {
   }
 
   deleteSchemas() {
-    this.registryService.getSelectedMetadataSchemas().subscribe(
+    this.registryService.getSelectedMetadataSchemas().pipe(take(1)).subscribe(
       (schemas) => {
         const tasks$ = [];
         for (const schema of schemas) {

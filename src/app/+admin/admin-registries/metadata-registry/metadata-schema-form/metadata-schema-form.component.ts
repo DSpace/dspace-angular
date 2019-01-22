@@ -8,9 +8,6 @@ import {
 import { FormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { FormService } from '../../../../shared/form/form.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../app.reducer';
 import { take } from 'rxjs/operators';
 import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 
@@ -73,11 +70,10 @@ export class MetadataSchemaFormComponent implements OnInit {
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
-  constructor(private registryService: RegistryService, private formBuilderService: FormBuilderService, private formService: FormService, private store: Store<AppState>) {
+  constructor(private registryService: RegistryService, private formBuilderService: FormBuilderService) {
   }
 
   ngOnInit() {
-
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
     this.registryService.getActiveMetadataSchema().subscribe((schema) => {
       this.formGroup.patchValue({
@@ -95,7 +91,7 @@ export class MetadataSchemaFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.registryService.getActiveMetadataSchema().subscribe(
+    this.registryService.getActiveMetadataSchema().pipe(take(1)).subscribe(
       (schema) => {
         const values = {
           prefix: this.name.value,
