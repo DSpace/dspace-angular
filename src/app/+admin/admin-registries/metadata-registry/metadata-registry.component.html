@@ -30,7 +30,7 @@
                         <tbody>
                         <tr *ngFor="let schema of (metadataSchemas | async)?.payload?.page"
                             (click)="editSchema(schema)"
-                            [class.active-row]="isActive(schema) | async">
+                            [ngClass]="{'table-primary' : isActive(schema) | async}">
                             <td>
                                 <label>
                                     <input type="checkbox"

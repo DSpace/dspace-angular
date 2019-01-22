@@ -44,7 +44,13 @@ export class MetadataRegistryComponent {
   }
 
   editSchema(schema: MetadataSchema) {
-    this.registryService.editMetadataSchema(schema);
+    this.getActiveSchema().pipe(take(1)).subscribe((activeSchema) => {
+      if (schema === activeSchema) {
+        this.registryService.cancelEditMetadataSchema();
+      } else {
+        this.registryService.editMetadataSchema(schema);
+      }
+    });
   }
 
   isActive(schema: MetadataSchema): Observable<boolean> {
