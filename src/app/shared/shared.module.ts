@@ -89,6 +89,7 @@ import { MenuModule } from './menu/menu.module';
 import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
 import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -146,6 +147,7 @@ const COMPONENTS = [
   DsDatePickerComponent,
   ErrorComponent,
   FormComponent,
+  LangSwitchComponent,
   LoadingComponent,
   LogInComponent,
   LogOutComponent,

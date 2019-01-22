@@ -7,21 +7,35 @@ import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { FindAllOptions, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { FindAllOptions } from './request.models';
+import { Observable } from 'rxjs';
+import { RestResponse } from '../cache/response.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { HttpClient } from '@angular/common/http';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
   let service: ItemDataService;
   let bs: BrowseService;
-  const requestService = {} as RequestService;
+  const requestService = {
+    generateRequestId(): string {
+      return scopeID;
+    },
+    configure(request: RestRequest) {
+      // Do nothing
+    }
+  } as RequestService;
   const rdbService = {} as RemoteDataBuildService;
-  const objectCache = {} as ObjectCacheService;
+
   const store = {} as Store<CoreState>;
-  const halEndpointService = {} as HALEndpointService;
+  const objectCache = {} as ObjectCacheService;
+  const halEndpointService = {
+    getEndpoint(linkPath: string): Observable<string> {
+      return cold('a', {a: itemEndpoint});
+    }
+  } as HALEndpointService;
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
   const options = Object.assign(new FindAllOptions(), {
@@ -41,6 +55,8 @@ describe('ItemDataService', () => {
   const http = {} as HttpClient;
   const comparator = {} as any;
   const dataBuildService = {} as NormalizedObjectBuildService;
+  const itemEndpoint = 'https://rest.api/core/items';
+  const ScopedItemEndpoint = `https://rest.api/core/items/${scopeID}`;
 
   function initMockBrowseService(isSuccessful: boolean) {
     const obs = isSuccessful ?
@@ -94,4 +110,70 @@ describe('ItemDataService', () => {
       });
     });
   });
+
+  describe('getItemWithdrawEndpoint', () => {
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+      service = initTestService();
+
+    });
+
+    it('should return the endpoint to withdraw and reinstate items', () => {
+      const result = service.getItemWithdrawEndpoint(scopeID);
+      const expected = cold('a', {a: ScopedItemEndpoint});
+
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should setWithDrawn', () => {
+      const expected = new RestResponse(true, '200');
+      const result = service.setWithDrawn(scopeID, true);
+      result.subscribe((v) => expect(v).toEqual(expected));
+
+    });
+  });
+
+  describe('getItemDiscoverableEndpoint', () => {
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+      service = initTestService();
+
+    });
+
+    it('should return the endpoint to make an item private or public', () => {
+      const result = service.getItemDiscoverableEndpoint(scopeID);
+      const expected = cold('a', {a: ScopedItemEndpoint});
+
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should setDiscoverable', () => {
+      const expected = new RestResponse(true, '200');
+      const result = service.setDiscoverable(scopeID, false);
+      result.subscribe((v) => expect(v).toEqual(expected));
+
+    });
+  });
+
+  describe('getItemDeleteEndpoint', () => {
+    beforeEach(() => {
+      scheduler = getTestScheduler();
+      service = initTestService();
+    });
+
+    it('should return the endpoint to make an item private or public', () => {
+      const result = service.getItemDeleteEndpoint(scopeID);
+      const expected = cold('a', {a: ScopedItemEndpoint});
+
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should delete the item', () => {
+      const expected = new RestResponse(true, '200');
+      const result = service.delete(scopeID);
+      result.subscribe((v) => expect(v).toEqual(expected));
+
+    });
+  });
+
 });

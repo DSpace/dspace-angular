@@ -66,6 +66,10 @@ export const getFinishedRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => !rd.isLoading));
 
+export const getAllSucceededRemoteData = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(filter((rd: RemoteData<T>) => rd.hasSucceeded));
+
 export const toDSpaceObjectListRD = () =>
   <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<SearchResult<T>>>>): Observable<RemoteData<PaginatedList<T>>> =>
     source.pipe(
