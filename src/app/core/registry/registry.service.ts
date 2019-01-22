@@ -6,7 +6,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
 import { BitstreamFormat } from './mock-bitstream-format.model';
-import { CreateMetadataSchemaRequest, GetRequest, RestRequest } from '../data/request.models';
+import { CreateMetadataSchemaRequest, DeleteRequest, GetRequest, RestRequest } from '../data/request.models';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RegistryMetadataschemasResponseParsingService } from '../data/registry-metadataschemas-response-parsing.service';
@@ -320,6 +320,29 @@ export class RegistryService {
           return response.metadataschema;
         }
       })
+    );
+  }
+
+  public deleteMetadataSchema(id: number): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+    const endpoint$ = this.halService.getEndpoint(this.metadataSchemasPath).pipe(
+      isNotEmptyOperator(),
+      map((endpoint: string) => `${endpoint}/${id}`),
+      distinctUntilChanged()
+    );
+
+    const request$ = endpoint$.pipe(
+      take(1),
+      map((endpoint: string) => new DeleteRequest(requestId, endpoint))
+    );
+
+    // Execute the delete request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry()
     );
   }
 }
