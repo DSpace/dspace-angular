@@ -1,20 +1,13 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { filter, distinctUntilChanged, map } from 'rxjs/operators';
+import { filter, distinctUntilChanged, map, first } from 'rxjs/operators';
 import { HostWindowState } from './host-window.reducer';
 import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 
 import { hasValue } from './empty.util';
 import { AppState } from '../app.reducer';
-
-// TODO: ideally we should get these from sass somehow
-export enum GridBreakpoint {
-  SM_MIN = 576,
-  MD_MIN = 768,
-  LG_MIN = 992,
-  XL_MIN = 1200
-}
+import { CSSVariableService } from './sass-helper/sass-helper.service';
 
 export enum WidthCategory {
   XS,
@@ -29,10 +22,20 @@ const widthSelector = createSelector(hostWindowStateSelector, (hostWindow: HostW
 
 @Injectable()
 export class HostWindowService {
+  private breakPoints: { XS_MIN, SM_MIN, MD_MIN, LG_MIN, XL_MIN } = {} as any;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private variableService: CSSVariableService
   ) {
+    /* See _exposed_variables.scss */
+    variableService.getAllVariables()
+      .subscribe((variables) => {
+      this.breakPoints.XL_MIN = parseInt(variables.xlMin, 10);
+      this.breakPoints.LG_MIN = parseInt(variables.lgMin, 10);
+      this.breakPoints.MD_MIN = parseInt(variables.mdMin, 10);
+      this.breakPoints.SM_MIN = parseInt(variables.smMin, 10);
+    });
   }
 
   private getWidthObs(): Observable<number> {
@@ -45,13 +48,13 @@ export class HostWindowService {
   get widthCategory(): Observable<WidthCategory> {
     return this.getWidthObs().pipe(
       map((width: number) => {
-        if (width < GridBreakpoint.SM_MIN) {
+        if (width < this.breakPoints.SM_MIN) {
           return WidthCategory.XS
-        } else if (width >= GridBreakpoint.SM_MIN && width < GridBreakpoint.MD_MIN) {
+        } else if (width >= this.breakPoints.SM_MIN && width < this.breakPoints.MD_MIN) {
           return WidthCategory.SM
-        } else if (width >= GridBreakpoint.MD_MIN && width < GridBreakpoint.LG_MIN) {
+        } else if (width >= this.breakPoints.MD_MIN && width < this.breakPoints.LG_MIN) {
           return WidthCategory.MD
-        } else if (width >= GridBreakpoint.LG_MIN && width < GridBreakpoint.XL_MIN) {
+        } else if (width >= this.breakPoints.LG_MIN && width < this.breakPoints.XL_MIN) {
           return WidthCategory.LG
         } else {
           return WidthCategory.XL

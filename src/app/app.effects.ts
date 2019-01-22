@@ -1,10 +1,9 @@
-
-import { HeaderEffects } from './header/header.effects';
 import { StoreEffects } from './store.effects';
 import { NotificationsEffects } from './shared/notifications/notifications.effects';
+import { NavbarEffects } from './navbar/navbar.effects';
 
 export const appEffects = [
   StoreEffects,
-  HeaderEffects,
-  NotificationsEffects
+  NavbarEffects,
+  NotificationsEffects,
 ];

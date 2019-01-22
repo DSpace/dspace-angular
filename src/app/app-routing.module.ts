@@ -3,6 +3,10 @@ import { RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
+const ITEM_MODULE_PATH = 'items';
+export function getItemModulePath() {
+  return `/${ITEM_MODULE_PATH}`;
+}
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -10,7 +14,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
       { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule' },
       { path: 'communities', loadChildren: './+community-page/community-page.module#CommunityPageModule' },
       { path: 'collections', loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
-      { path: 'items', loadChildren: './+item-page/item-page.module#ItemPageModule' },
+      { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },
       { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule' },
       { path: 'admin', loadChildren: './+admin/admin.module#AdminModule' },
