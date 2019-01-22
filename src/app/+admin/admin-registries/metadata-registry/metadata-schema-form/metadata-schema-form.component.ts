@@ -103,9 +103,7 @@ export class MetadataSchemaFormComponent implements OnInit {
         };
         if (schema == null) {
           this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), values)).subscribe((newSchema) => {
-            console.log(newSchema);
             this.submitForm.emit(newSchema);
-            // TODO: Reload the list of schemas
           });
         } else {
           this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), {
@@ -113,8 +111,7 @@ export class MetadataSchemaFormComponent implements OnInit {
             prefix: (values.prefix ? values.prefix : schema.prefix),
             namespace: (values.namespace ? values.namespace : schema.namespace)
           })).subscribe((updatedSchema) => {
-            console.log(updatedSchema);
-            // TODO: Reload the list of schemas
+            this.submitForm.emit(updatedSchema);
           });
         }
       }

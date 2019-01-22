@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
 import { zip } from 'rxjs/internal/observable/zip';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -23,7 +24,8 @@ export class MetadataRegistryComponent {
     pageSize: 2
   });
 
-  constructor(private registryService: RegistryService) {
+  constructor(private registryService: RegistryService,
+              private notificationsService: NotificationsService) {
     this.updateSchemas();
   }
 
@@ -34,6 +36,11 @@ export class MetadataRegistryComponent {
 
   private updateSchemas() {
     this.metadataSchemas = this.registryService.getMetadataSchemas(this.config);
+  }
+
+  private forceUpdateSchemas() {
+    this.registryService.clearMetadataSchemaRequests().subscribe();
+    this.updateSchemas();
   }
 
   editSchema(schema: MetadataSchema) {
@@ -62,11 +69,6 @@ export class MetadataRegistryComponent {
     );
   }
 
-  createdSchema(event) {
-    this.registryService.clearMetadataSchemaRequests().subscribe((value) => console.log('cleared for substring: ' + value));
-    this.updateSchemas();
-  }
-
   deleteSchemas() {
     this.registryService.getSelectedMetadataSchemas().subscribe(
       (schemas) => {
@@ -77,8 +79,15 @@ export class MetadataRegistryComponent {
           }
         }
         zip(...tasks$).subscribe((responses: RestResponse[]) => {
-          console.log('deleted ' + responses.length + ' schemas');
-          // TODO: Reload the list of schemas
+          const successResponses = responses.filter((response: RestResponse) => response.isSuccessful);
+          const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
+          if (successResponses.length > 0) {
+            this.notificationsService.success('Success', `Successfully deleted ${successResponses.length} metadata schemas`);
+          }
+          if (failedResponses.length > 0) {
+            this.notificationsService.error('Error', `Failed to delete ${failedResponses.length} metadata schemas`);
+          }
+          this.forceUpdateSchemas();
         });
       }
     )

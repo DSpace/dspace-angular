@@ -6,8 +6,7 @@
 
             <p id="description" class="pb-2">{{'admin.registries.metadata.description' | translate}}</p>
 
-            <ds-metadata-schema-form
-              (submitForm)="createdSchema($event)"></ds-metadata-schema-form>
+            <ds-metadata-schema-form (submitForm)="forceUpdateSchemas()"></ds-metadata-schema-form>
 
             <ds-pagination
                     *ngIf="(metadataSchemas | async)?.payload?.totalElements > 0"
