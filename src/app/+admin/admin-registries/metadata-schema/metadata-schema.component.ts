@@ -7,7 +7,6 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataField } from '../../../core/metadata/metadatafield.model';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
 
 @Component({
   selector: 'ds-metadata-schema',
