@@ -54,6 +54,8 @@ import { ResourceType } from '../shared/resource-type';
 import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpHeaders } from '@angular/common/http';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -315,9 +317,17 @@ export class RegistryService {
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => (isUpdate ?
-        new UpdateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(serializedSchema)) :
-        new CreateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(serializedSchema))))
+      map((endpoint: string) => {
+        if (isUpdate) {
+          const options: HttpOptions = Object.create({});
+          let headers = new HttpHeaders();
+          headers = headers.append('Content-Type', 'application/json');
+          options.headers = headers;
+          return new UpdateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(serializedSchema), options);
+        } else {
+          return new CreateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(serializedSchema));
+        }
+      })
     );
 
     // Execute the post/put request
@@ -335,7 +345,6 @@ export class RegistryService {
           }
         } else {
           this.notificationsService.success('Success', `Successfully ${isUpdate ? 'updated' : 'created'} metadata schema "${schema.prefix}"`);
-          console.log(response);
           return response;
         }
       }),
