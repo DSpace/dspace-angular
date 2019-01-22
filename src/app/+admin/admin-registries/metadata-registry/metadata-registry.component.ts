@@ -62,6 +62,11 @@ export class MetadataRegistryComponent {
     );
   }
 
+  createdSchema(event) {
+    this.registryService.clearMetadataSchemaRequests().subscribe((value) => console.log('cleared for substring: ' + value));
+    this.updateSchemas();
+  }
+
   deleteSchemas() {
     this.registryService.getSelectedMetadataSchemas().subscribe(
       (schemas) => {

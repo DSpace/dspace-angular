@@ -104,6 +104,7 @@ export class MetadataSchemaFormComponent implements OnInit {
         if (schema == null) {
           this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), values)).subscribe((newSchema) => {
             console.log(newSchema);
+            this.submitForm.emit(newSchema);
             // TODO: Reload the list of schemas
           });
         } else {

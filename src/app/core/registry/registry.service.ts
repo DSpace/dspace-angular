@@ -370,4 +370,10 @@ export class RegistryService {
       getResponseFromEntry()
     );
   }
+
+  public clearMetadataSchemaRequests(): Observable<string> {
+    return this.halService.getEndpoint(this.metadataSchemasPath).pipe(
+      tap((href: string) => this.requestService.removeByHrefSubstring(href))
+    )
+  }
 }
