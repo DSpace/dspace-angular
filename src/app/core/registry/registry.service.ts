@@ -52,6 +52,8 @@ import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.seriali
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { ResourceType } from '../shared/resource-type';
 import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -69,7 +71,8 @@ export class RegistryService {
   constructor(protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
               private halService: HALEndpointService,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private notificationsService: NotificationsService) {
 
   }
 
@@ -325,6 +328,18 @@ export class RegistryService {
     // Return created/updated schema
     return this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry(),
+      map((response: RestResponse) => {
+        if (!response.isSuccessful) {
+          if (hasValue((response as any).errorMessage)) {
+            this.notificationsService.error('Server Error:', (response as any).errorMessage, new NotificationOptions(-1));
+          }
+        } else {
+          this.notificationsService.success('Success', `Successfully ${isUpdate ? 'updated' : 'created'} metadata schema "${schema.prefix}"`);
+          console.log(response);
+          return response;
+        }
+      }),
+      isNotEmptyOperator(),
       map((response: MetadataschemaSuccessResponse) => {
         if (isNotEmpty(response.metadataschema)) {
           return response.metadataschema;
