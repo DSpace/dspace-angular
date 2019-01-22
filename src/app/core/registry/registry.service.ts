@@ -56,6 +56,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -74,7 +75,8 @@ export class RegistryService {
               private rdb: RemoteDataBuildService,
               private halService: HALEndpointService,
               private store: Store<AppState>,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private translateService: TranslateService) {
 
   }
 
@@ -352,7 +354,7 @@ export class RegistryService {
             this.notificationsService.error('Server Error:', (response as any).errorMessage, new NotificationOptions(-1));
           }
         } else {
-          this.notificationsService.success('Success', `Successfully ${isUpdate ? 'updated' : 'created'} metadata schema "${schema.prefix}"`);
+          this.showNotifications(true, isUpdate, false, { prefix: schema.prefix });
           return response;
         }
       }),
@@ -413,7 +415,8 @@ export class RegistryService {
             this.notificationsService.error('Server Error:', (response as any).errorMessage, new NotificationOptions(-1));
           }
         } else {
-          this.notificationsService.success('Success', `Successfully ${isUpdate ? 'updated' : 'created'} metadata field "${field.schema.prefix}.${field.element}.${field.qualifier}"`);
+          const fieldString = `${field.schema.prefix}.${field.element}${field.qualifier ? `.${field.qualifier}` : ''}`;
+          this.showNotifications(true, isUpdate, true, { field: fieldString });
           return response;
         }
       }),
@@ -457,5 +460,22 @@ export class RegistryService {
     return this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry()
     );
+  }
+
+  private showNotifications(success: boolean, edited: boolean, isField: boolean, options: any) {
+    const prefix = 'admin.registries.schema.notification';
+    const suffix = success ? 'success' : 'failure';
+    const editedString = edited ? 'edited' : 'created';
+    const messages = observableCombineLatest(
+      this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
+      this.translateService.get(`${prefix}${isField ? '.field' : ''}.${editedString}`, options)
+    );
+    messages.subscribe(([head, content]) => {
+      if (success) {
+        this.notificationsService.success(head, content)
+      } else {
+        this.notificationsService.error(head, content)
+      }
+    });
   }
 }

@@ -181,6 +181,24 @@
             "scopenote": "Scope Note"
           },
           "no-items": "No metadata fields to show."
+        },
+        "notification": {
+          "success": "Success",
+          "failure": "Error",
+          "created": "Successfully created metadata schema \"{{prefix}}\"",
+          "edited": "Successfully edited metadata schema \"{{prefix}}\"",
+          "deleted": {
+            "success": "Successfully deleted {{amount}} metadata schemas",
+            "failure": "Failed to delete {{amount}} metadata schemas"
+          },
+          "field": {
+            "created": "Successfully created metadata field \"{{field}}\"",
+            "edited": "Successfully edited metadata field \"{{field}}\"",
+            "deleted": {
+              "success": "Successfully deleted {{amount}} metadata fields",
+              "failure": "Failed to delete {{amount}} metadata fields"
+            }
+          }
         }
       },
       "bitstream-formats": {

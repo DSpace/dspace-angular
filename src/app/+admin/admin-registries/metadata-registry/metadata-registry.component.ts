@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
@@ -11,6 +11,7 @@ import { RestResponse } from '../../../core/cache/response.models';
 import { zip } from 'rxjs/internal/observable/zip';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Route, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -28,7 +29,8 @@ export class MetadataRegistryComponent {
 
   constructor(private registryService: RegistryService,
               private notificationsService: NotificationsService,
-              private router: Router) {
+              private router: Router,
+              private translateService: TranslateService) {
     this.updateSchemas();
   }
 
@@ -91,10 +93,10 @@ export class MetadataRegistryComponent {
           const successResponses = responses.filter((response: RestResponse) => response.isSuccessful);
           const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
           if (successResponses.length > 0) {
-            this.notificationsService.success('Success', `Successfully deleted ${successResponses.length} metadata schemas`);
+            this.showNotification(true, successResponses.length);
           }
           if (failedResponses.length > 0) {
-            this.notificationsService.error('Error', `Failed to delete ${failedResponses.length} metadata schemas`);
+            this.showNotification(false, failedResponses.length);
           }
           this.registryService.deselectAllMetadataSchema();
           this.router.navigate([], { queryParams: { page: 1 }, queryParamsHandling: 'merge'});
@@ -102,5 +104,21 @@ export class MetadataRegistryComponent {
         });
       }
     )
+  }
+
+  showNotification(success: boolean, amount: number) {
+    const prefix = 'admin.registries.schema.notification';
+    const suffix = success ? 'success' : 'failure';
+    const messages = observableCombineLatest(
+      this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
+      this.translateService.get(`${prefix}.deleted.${suffix}`, { amount: amount })
+    );
+    messages.subscribe(([head, content]) => {
+      if (success) {
+        this.notificationsService.success(head, content)
+      } else {
+        this.notificationsService.error(head, content)
+      }
+    });
   }
 }
