@@ -13,8 +13,7 @@ import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 
 @Component({
   selector: 'ds-metadata-schema-form',
-  templateUrl: './metadata-schema-form.component.html',
-  // styleUrls: ['./metadata-schema-form.component.css']
+  templateUrl: './metadata-schema-form.component.html'
 })
 export class MetadataSchemaFormComponent implements OnInit {
 

@@ -10,6 +10,7 @@ import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafie
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
 import { AuthStatus } from '../auth/models/auth-status.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
+import { MetadataField } from '../metadata/metadatafield.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -65,6 +66,15 @@ export class RegistryBitstreamformatsSuccessResponse extends RestResponse {
 export class MetadataschemaSuccessResponse extends RestResponse {
   constructor(
     public metadataschema: MetadataSchema,
+    public statusCode: string
+  ) {
+    super(true, statusCode);
+  }
+}
+
+export class MetadatafieldSuccessResponse extends RestResponse {
+  constructor(
+    public metadatafield: MetadataField,
     public statusCode: string
   ) {
     super(true, statusCode);

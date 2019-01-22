@@ -6,7 +6,9 @@
 
       <p id="description" class="pb-2">{{'admin.registries.schema.description' | translate:namespace }}</p>
 
-      <ds-metadata-field-form [metadataSchema]="metadataSchema | async"></ds-metadata-field-form>
+      <ds-metadata-field-form
+        [metadataSchema]="(metadataSchema | async)?.payload"
+        (submitForm)="forceUpdateFields()"></ds-metadata-field-form>
 
       <h3>{{'admin.registries.schema.fields.head' | translate}}</h3>
 
@@ -28,7 +30,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let field of (metadataFields | async)?.payload?.page" (click)="editField(field)">
+              <tr *ngFor="let field of (metadataFields | async)?.payload?.page"
+                  [ngClass]="{'table-primary' : isActive(field) | async}">
                 <td>
                   <label>
                     <input type="checkbox"
@@ -36,8 +39,8 @@
                            (change)="selectMetadataField(field, $event)">
                   </label>
                 </td>
-                <td>{{(metadataSchema | async)?.payload?.prefix}}.{{field.element}}<label *ngIf="field.qualifier">.</label>{{field.qualifier}}</td>
-                <td>{{field.scopeNote}}</td>
+                <td class="selectable-row" (click)="editField(field)">{{(metadataSchema | async)?.payload?.prefix}}.{{field.element}}<label *ngIf="field.qualifier">.</label>{{field.qualifier}}</td>
+                <td class="selectable-row" (click)="editField(field)">{{field.scopeNote}}</td>
               </tr>
             </tbody>
           </table>

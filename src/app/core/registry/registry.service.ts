@@ -20,7 +20,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestService } from '../data/request.service';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import {
-  ErrorResponse, MetadataschemaSuccessResponse,
+  ErrorResponse, MetadatafieldSuccessResponse, MetadataschemaSuccessResponse,
   RegistryBitstreamformatsSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
   RegistryMetadataschemasSuccessResponse, RestResponse
@@ -304,7 +304,7 @@ export class RegistryService {
     this.store.dispatch(new MetadataRegistryDeselectFieldAction(field))
   }
 
-  public deselectAllMetadataField(field: MetadataField) {
+  public deselectAllMetadataField() {
     this.store.dispatch(new MetadataRegistryDeselectAllFieldAction())
   }
 
@@ -366,8 +366,79 @@ export class RegistryService {
   }
 
   public deleteMetadataSchema(id: number): Observable<RestResponse> {
+    return this.delete(this.metadataSchemasPath, id);
+  }
+
+  public clearMetadataSchemaRequests(): Observable<string> {
+    return this.halService.getEndpoint(this.metadataSchemasPath).pipe(
+      tap((href: string) => this.requestService.removeByHrefSubstring(href))
+    )
+  }
+
+  public createOrUpdateMetadataField(field: MetadataField): Observable<MetadataField> {
+    const isUpdate = hasValue(field.id);
     const requestId = this.requestService.generateRequestId();
-    const endpoint$ = this.halService.getEndpoint(this.metadataSchemasPath).pipe(
+    const endpoint$ = this.halService.getEndpoint(this.metadataFieldsPath).pipe(
+      isNotEmptyOperator(),
+      map((endpoint: string) => (isUpdate ? `${endpoint}/${field.id}` : `${endpoint}?schemaId=${field.schema.id}`)),
+      distinctUntilChanged()
+    );
+
+    const request$ = endpoint$.pipe(
+      take(1),
+      map((endpoint: string) => {
+        if (isUpdate) {
+          const options: HttpOptions = Object.create({});
+          let headers = new HttpHeaders();
+          headers = headers.append('Content-Type', 'application/json');
+          options.headers = headers;
+          return new UpdateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(field), options);
+        } else {
+          return new CreateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(field));
+        }
+      })
+    );
+
+    // Execute the post/put request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    // Return created/updated field
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        if (!response.isSuccessful) {
+          if (hasValue((response as any).errorMessage)) {
+            this.notificationsService.error('Server Error:', (response as any).errorMessage, new NotificationOptions(-1));
+          }
+        } else {
+          this.notificationsService.success('Success', `Successfully ${isUpdate ? 'updated' : 'created'} metadata field "${field.schema.prefix}.${field.element}.${field.qualifier}"`);
+          return response;
+        }
+      }),
+      isNotEmptyOperator(),
+      map((response: MetadatafieldSuccessResponse) => {
+        if (isNotEmpty(response.metadatafield)) {
+          return response.metadatafield;
+        }
+      })
+    );
+  }
+
+  public deleteMetadataField(id: number): Observable<RestResponse> {
+    return this.delete(this.metadataFieldsPath, id);
+  }
+
+  public clearMetadataFieldRequests(): Observable<string> {
+    return this.halService.getEndpoint(this.metadataFieldsPath).pipe(
+      tap((href: string) => this.requestService.removeByHrefSubstring(href))
+    )
+  }
+
+  private delete(path: string, id: number): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+    const endpoint$ = this.halService.getEndpoint(path).pipe(
       isNotEmptyOperator(),
       map((endpoint: string) => `${endpoint}/${id}`),
       distinctUntilChanged()
@@ -386,11 +457,5 @@ export class RegistryService {
     return this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry()
     );
-  }
-
-  public clearMetadataSchemaRequests(): Observable<string> {
-    return this.halService.getEndpoint(this.metadataSchemasPath).pipe(
-      tap((href: string) => this.requestService.removeByHrefSubstring(href))
-    )
   }
 }

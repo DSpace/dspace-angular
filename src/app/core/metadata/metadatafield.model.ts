@@ -4,6 +4,9 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 
 export class MetadataField implements ListableObject {
   @autoserialize
+  id: number;
+
+  @autoserialize
   self: string;
 
   @autoserialize

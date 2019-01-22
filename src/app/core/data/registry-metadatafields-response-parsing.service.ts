@@ -9,6 +9,7 @@ import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.seriali
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { Injectable } from '@angular/core';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
+import { hasValue } from '../../shared/empty.util';
 
 @Injectable()
 export class RegistryMetadatafieldsResponseParsingService implements ResponseParsingService {
@@ -18,10 +19,14 @@ export class RegistryMetadatafieldsResponseParsingService implements ResponsePar
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload;
 
-    const metadatafields = payload._embedded.metadatafields;
-    metadatafields.forEach((field) => {
-      field.schema = field._embedded.schema;
-    });
+    let metadatafields = [];
+
+    if (hasValue(payload._embedded)) {
+      metadatafields = payload._embedded.metadatafields;
+      metadatafields.forEach((field) => {
+        field.schema = field._embedded.schema;
+      });
+    }
 
     payload.metadatafields = metadatafields;
 

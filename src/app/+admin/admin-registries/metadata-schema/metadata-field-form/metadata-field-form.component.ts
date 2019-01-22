@@ -6,11 +6,11 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { MetadataField } from '../../../../core/metadata/metadatafield.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-metadata-field-form',
-  templateUrl: './metadata-field-form.component.html',
-  // styleUrls: ['./metadata-field-form.component.css']
+  templateUrl: './metadata-field-form.component.html'
 })
 export class MetadataFieldFormComponent implements OnInit {
 
@@ -60,7 +60,6 @@ export class MetadataFieldFormComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
     this.registryService.getActiveMetadataField().subscribe((field) => {
       this.formGroup.patchValue({
@@ -74,36 +73,33 @@ export class MetadataFieldFormComponent implements OnInit {
     });
   }
 
-  getMetadataField(): Observable<MetadataField> {
-    return this.registryService.getActiveMetadataField();
-  }
-
   onCancel() {
     this.registryService.cancelEditMetadataField();
   }
 
   onSubmit() {
-    this.registryService.getActiveMetadataField().subscribe(
+    this.registryService.getActiveMetadataField().pipe(take(1)).subscribe(
       (field) => {
-
+        const values = {
+          schema: this.metadataSchema,
+          element: this.element.value,
+          qualifier: this.qualifier.value,
+          scopeNote: this.scopeNote.value
+        };
         if (field == null) {
-          console.log('metadata field to create:');
-          console.log('element: ' + this.element.value);
-          if (this.qualifier.value) {
-            console.log('qualifier: ' + this.qualifier.value);
-          }
-          if (this.scopeNote.value) {
-            console.log('scopeNote: ' + this.scopeNote.value);
-          }
+          this.registryService.createOrUpdateMetadataField(Object.assign(new MetadataField(), values)).subscribe((newField) => {
+            this.submitForm.emit(newField);
+          });
         } else {
-          console.log('metadata field to update:');
-          console.log('element: ' + this.element.value);
-          if (this.qualifier.value) {
-            console.log('qualifier: ' + this.qualifier.value);
-          }
-          if (this.scopeNote.value) {
-            console.log('scopeNote: ' + this.scopeNote.value);
-          }
+          this.registryService.createOrUpdateMetadataField(Object.assign(new MetadataField(), {
+            id: field.id,
+            schema: this.metadataSchema,
+            element: (values.element ? values.element : field.element),
+            qualifier: (values.qualifier ? values.qualifier : field.qualifier),
+            scopeNote: (values.scopeNote ? values.scopeNote : field.scopeNote)
+          })).subscribe((updatedField) => {
+            this.submitForm.emit(updatedField);
+          });
         }
       }
     );

@@ -13,6 +13,7 @@ import { RestRequestMethod } from './rest-request-method';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
 import { RegistryMetadataschemasResponseParsingService } from './registry-metadataschemas-response-parsing.service';
 import { MetadataschemaParsingService } from './metadataschema-parsing.service';
+import { MetadatafieldParsingService } from './metadatafield-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -236,6 +237,26 @@ export class UpdateMetadataSchemaRequest extends PutRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return MetadataschemaParsingService;
+  }
+}
+
+export class CreateMetadataFieldRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadatafieldParsingService;
+  }
+}
+
+export class UpdateMetadataFieldRequest extends PutRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadatafieldParsingService;
   }
 }
 
