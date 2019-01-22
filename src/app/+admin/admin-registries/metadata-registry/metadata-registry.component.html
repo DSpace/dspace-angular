@@ -29,7 +29,6 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let schema of (metadataSchemas | async)?.payload?.page"
-                            (click)="editSchema(schema)"
                             [ngClass]="{'table-primary' : isActive(schema) | async}">
                             <td>
                                 <label>
@@ -39,9 +38,9 @@
                                     >
                                 </label>
                             </td>
-                            <td><a [routerLink]="[schema.prefix]">{{schema.id}}</a></td>
-                            <td><a [routerLink]="[schema.prefix]">{{schema.namespace}}</a></td>
-                            <td><a [routerLink]="[schema.prefix]">{{schema.prefix}}</a></td>
+                            <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.id}}</a></td>
+                            <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.namespace}}</a></td>
+                            <td class="selectable-row" (click)="editSchema(schema)"><a [routerLink]="[schema.prefix]">{{schema.prefix}}</a></td>
                         </tr>
                         </tbody>
                     </table>

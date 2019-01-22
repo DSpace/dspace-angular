@@ -13,7 +13,8 @@ import { NotificationsService } from '../../../shared/notifications/notification
 
 @Component({
   selector: 'ds-metadata-registry',
-  templateUrl: './metadata-registry.component.html'
+  templateUrl: './metadata-registry.component.html',
+  styleUrls: ['./metadata-registry.component.scss']
 })
 export class MetadataRegistryComponent {
 
