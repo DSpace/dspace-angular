@@ -8,6 +8,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { map } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
+import { zip } from 'rxjs/internal/observable/zip';
 
 @Component({
   selector: 'ds-metadata-registry',
@@ -64,14 +65,16 @@ export class MetadataRegistryComponent {
   deleteSchemas() {
     this.registryService.getSelectedMetadataSchemas().subscribe(
       (schemas) => {
+        const tasks$ = [];
         for (const schema of schemas) {
           if (hasValue(schema.id)) {
-            this.registryService.deleteMetadataSchema(schema.id).subscribe((response: RestResponse) => {
-              console.log('response from delete request for schema ' + schema.id + ':');
-              console.log(response);
-            })
+            tasks$.push(this.registryService.deleteMetadataSchema(schema.id));
           }
         }
+        zip(...tasks$).subscribe((responses: RestResponse[]) => {
+          console.log('deleted ' + responses.length + ' schemas');
+          // TODO: Reload the list of schemas
+        });
       }
     )
   }

@@ -229,6 +229,16 @@ export class CreateMetadataSchemaRequest extends PostRequest {
   }
 }
 
+export class UpdateMetadataSchemaRequest extends PutRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadataschemaParsingService;
+  }
+}
+
 export class RequestError extends Error {
   statusText: string;
 }

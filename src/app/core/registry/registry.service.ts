@@ -6,7 +6,13 @@ import { PageInfo } from '../shared/page-info.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
 import { BitstreamFormat } from './mock-bitstream-format.model';
-import { CreateMetadataSchemaRequest, DeleteRequest, GetRequest, RestRequest } from '../data/request.models';
+import {
+  CreateMetadataSchemaRequest,
+  DeleteRequest,
+  GetRequest,
+  RestRequest,
+  UpdateMetadataSchemaRequest
+} from '../data/request.models';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RegistryMetadataschemasResponseParsingService } from '../data/registry-metadataschemas-response-parsing.service';
@@ -22,7 +28,7 @@ import {
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
-import { isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RegistryBitstreamformatsResponseParsingService } from '../data/registry-bitstreamformats-response-parsing.service';
@@ -293,10 +299,12 @@ export class RegistryService {
     return this.store.pipe(select(selectedMetadataFieldsSelector));
   }
 
-  public createMetadataSchema(schema: MetadataSchema): Observable<MetadataSchema> {
+  public createOrUpdateMetadataSchema(schema: MetadataSchema): Observable<MetadataSchema> {
+    const isUpdate = hasValue(schema.id);
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.metadataSchemasPath).pipe(
       isNotEmptyOperator(),
+      map((endpoint: string) => (isUpdate ? `${endpoint}/${schema.id}` : endpoint)),
       distinctUntilChanged()
     );
 
@@ -304,15 +312,17 @@ export class RegistryService {
 
     const request$ = endpoint$.pipe(
       take(1),
-      map((endpoint: string) => new CreateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(serializedSchema)))
+      map((endpoint: string) => (isUpdate ?
+        new UpdateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(serializedSchema)) :
+        new CreateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(serializedSchema))))
     );
 
-    // Execute the post request
+    // Execute the post/put request
     request$.pipe(
       configureRequest(this.requestService)
     ).subscribe();
 
-    // Return newly created schema
+    // Return created/updated schema
     return this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry(),
       map((response: MetadataschemaSuccessResponse) => {

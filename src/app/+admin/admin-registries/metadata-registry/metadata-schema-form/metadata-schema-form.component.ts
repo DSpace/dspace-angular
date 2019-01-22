@@ -97,17 +97,24 @@ export class MetadataSchemaFormComponent implements OnInit {
   onSubmit() {
     this.registryService.getActiveMetadataSchema().subscribe(
       (schema) => {
+        const values = {
+          prefix: this.name.value,
+          namespace: this.namespace.value
+        };
         if (schema == null) {
-          this.registryService.createMetadataSchema(Object.assign(new MetadataSchema(), {
-            prefix: this.name.value,
-            namespace: this.namespace.value
-          })).subscribe((newSchema) => {
+          this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), values)).subscribe((newSchema) => {
             console.log(newSchema);
+            // TODO: Reload the list of schemas
           });
         } else {
-          console.log('metadata field to update:');
-          console.log('prefix: ' + this.name.value);
-          console.log('namespace: ' + this.namespace.value);
+          this.registryService.createOrUpdateMetadataSchema(Object.assign(new MetadataSchema(), {
+            id: schema.id,
+            prefix: (values.prefix ? values.prefix : schema.prefix),
+            namespace: (values.namespace ? values.namespace : schema.namespace)
+          })).subscribe((updatedSchema) => {
+            console.log(updatedSchema);
+            // TODO: Reload the list of schemas
+          });
         }
       }
     );
