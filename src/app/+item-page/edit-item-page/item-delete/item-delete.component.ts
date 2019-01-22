@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {first} from 'rxjs/operators';
-import {RestResponse} from '../../../core/cache/response-cache.models';
-import {AbstractSimpleItemActionComponent} from '../simple-item-action/abstract-simple-item-action.component';
-import {getItemEditPath} from '../../item-page-routing.module';
+import { Component } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { getItemEditPath } from '../../item-page-routing.module';
+import { RestResponse } from '../../../core/cache/response.models';
 
 @Component({
   selector: 'ds-item-delete',

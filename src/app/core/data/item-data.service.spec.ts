@@ -14,6 +14,8 @@ import { RestResponse } from '../cache/response.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HttpClient } from '@angular/common/http';
+import { RequestEntry } from './request.reducer';
+import { of as observableOf } from 'rxjs';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -25,6 +27,11 @@ describe('ItemDataService', () => {
     },
     configure(request: RestRequest) {
       // Do nothing
+    },
+    getByHref(requestHref: string) {
+      const responseCacheEntry = new RequestEntry();
+      responseCacheEntry.response = new RestResponse(true, '200');
+      return observableOf(responseCacheEntry);
     }
   } as RequestService;
   const rdbService = {} as RemoteDataBuildService;
