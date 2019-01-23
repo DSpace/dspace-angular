@@ -7,7 +7,11 @@ describe('DSpaceRESTv2Service', () => {
   let dSpaceRESTv2Service: DSpaceRESTv2Service;
   let httpMock: HttpTestingController;
   const url = 'http://www.dspace.org/';
-  const mockError = new ErrorEvent('test error');
+  const mockError: any = {
+    statusCode: 0,
+    statusText: 'Unknown Error',
+    message: 'Http failure response for http://www.dspace.org/: 0 '
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,9 +52,8 @@ describe('DSpaceRESTv2Service', () => {
 
   it('should throw an error', () => {
     dSpaceRESTv2Service.get(url).subscribe(() => undefined, (err) => {
-      expect(err.error).toBe(mockError);
+      expect(err).toEqual(mockError);
     });
-
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
     req.error(mockError);

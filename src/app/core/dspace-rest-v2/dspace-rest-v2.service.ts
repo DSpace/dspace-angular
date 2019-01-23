@@ -40,7 +40,7 @@ export class DSpaceRESTv2Service {
       map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.status, statusText: res.statusText })),
       catchError((err) => {
         console.log('Error: ', err);
-        return observableThrowError(err);
+        return observableThrowError({statusCode: err.status, statusText: err.statusText, message: err.message});
       }));
   }
 
@@ -70,7 +70,7 @@ export class DSpaceRESTv2Service {
       map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.status, statusText: res.statusText })),
       catchError((err) => {
         console.log('Error: ', err);
-        return observableThrowError(err);
+        return observableThrowError({statusCode: err.status, statusText: err.statusText, message: err.message});
       }));
   }
 
