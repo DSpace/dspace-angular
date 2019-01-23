@@ -10,6 +10,8 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { take } from 'rxjs/operators';
 import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
+import { TranslateService } from '@ngx-translate/core';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 
 @Component({
   selector: 'ds-metadata-schema-form',
@@ -18,37 +20,11 @@ import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 export class MetadataSchemaFormComponent implements OnInit {
 
   formId = 'metadata-schema-form';
+  messagePrefix = 'admin.registries.metadata.form';
 
-  private name: DynamicInputModel = new DynamicInputModel({
-    id: 'name',
-    label: 'name',
-    name: 'name',
-    validators: {
-      required: null,
-      pattern: '^[^ ,_]{1,32}$'
-    },
-    required: true,
-  });
-  private namespace: DynamicInputModel = new DynamicInputModel({
-      id: 'namespace',
-      label: 'namespace',
-      name: 'namespace',
-      validators: {
-        required: null,
-      },
-      required: true,
-    });
-
-  formModel: DynamicFormControlModel[] = [
-    new DynamicFormGroupModel({
-      id: 'schema',
-      legend: 'schema',
-      group: [
-        this.namespace,
-        this.name
-      ]
-    })
-  ];
+  name: DynamicInputModel;
+  namespace: DynamicInputModel;
+  formModel: DynamicFormControlModel[];
 
   formLayout: DynamicFormLayout = {
     name: {
@@ -69,19 +45,53 @@ export class MetadataSchemaFormComponent implements OnInit {
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
-  constructor(private registryService: RegistryService, private formBuilderService: FormBuilderService) {
+  constructor(private registryService: RegistryService, private formBuilderService: FormBuilderService, private translateService: TranslateService) {
   }
 
   ngOnInit() {
-    this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
-    this.registryService.getActiveMetadataSchema().subscribe((schema) => {
-      this.formGroup.patchValue({
-          schema: {
-            name: schema != null ? schema.prefix : '',
-            namespace: schema != null ? schema.namespace : ''
+    combineLatest(
+      this.translateService.get(`${this.messagePrefix}.name`),
+      this.translateService.get(`${this.messagePrefix}.namespace`)
+    ).subscribe(([name, namespace]) => {
+      this.name = new DynamicInputModel({
+          id: 'name',
+          label: name,
+          name: 'name',
+          validators: {
+            required: null,
+            pattern: '^[^ ,_]{1,32}$'
+          },
+          required: true,
+        });
+      this.namespace = new DynamicInputModel({
+          id: 'namespace',
+          label: namespace,
+          name: 'namespace',
+          validators: {
+            required: null,
+          },
+          required: true,
+        });
+      this.formModel = [
+        new DynamicFormGroupModel({
+          id: 'schema',
+          legend: 'schema',
+          group: [
+            this.namespace,
+            this.name
+          ]
+        })
+      ];
+      this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
+      this.registryService.getActiveMetadataSchema().subscribe((schema) => {
+        this.formGroup.patchValue({
+            schema: {
+              name: schema != null ? schema.prefix : '',
+              namespace: schema != null ? schema.namespace : ''
+            }
           }
-        }
-      );
+        );
+      });
     });
   }
 

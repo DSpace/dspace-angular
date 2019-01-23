@@ -7,6 +7,8 @@ import { FormBuilderService } from '../../../../shared/form/builder/form-builder
 import { Observable } from 'rxjs/internal/Observable';
 import { MetadataField } from '../../../../core/metadata/metadatafield.model';
 import { take } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 
 @Component({
   selector: 'ds-metadata-field-form',
@@ -15,48 +17,61 @@ import { take } from 'rxjs/operators';
 export class MetadataFieldFormComponent implements OnInit {
 
   formId = 'metadata-field-form';
+  messagePrefix = 'admin.registries.schema.form';
 
   @Input() metadataSchema: MetadataSchema;
 
-  private element: DynamicInputModel = new DynamicInputModel({
-    id: 'element',
-    label: 'element',
-    name: 'element',
-    validators: {
-      required: null,
-    },
-    required: false,
-  });
-  private qualifier: DynamicInputModel = new DynamicInputModel({
-    id: 'qualifier',
-    label: 'qualifier',
-    name: 'qualifier',
-    required: false,
-  });
-  private scopeNote: DynamicInputModel = new DynamicInputModel({
-    id: 'scopeNote',
-    label: 'scopeNote',
-    name: 'scopeNote',
-    required: false,
-  });
+  private element: DynamicInputModel;
+  private qualifier: DynamicInputModel;
+  private scopeNote: DynamicInputModel;
 
-  formModel: DynamicFormControlModel[] = [
-    new DynamicFormGroupModel({
-      id: 'field',
-      legend: 'field',
-      group: [
-        this.element,
-        this.qualifier,
-        this.scopeNote
-      ]
-    })
-  ];
+  formModel: DynamicFormControlModel[];
 
   formGroup: FormGroup;
 
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
-  constructor(private registryService: RegistryService, private formBuilderService: FormBuilderService) {
+  constructor(private registryService: RegistryService,
+              private formBuilderService: FormBuilderService,
+              private translateService: TranslateService) {
+    combineLatest(
+      this.translateService.get(`${this.messagePrefix}.element`),
+      this.translateService.get(`${this.messagePrefix}.qualifier`),
+      this.translateService.get(`${this.messagePrefix}.scopenote`)
+    ).subscribe(([element, qualifier, scopenote]) => {
+      this.element = new DynamicInputModel({
+        id: 'element',
+        label: element,
+        name: 'element',
+        validators: {
+          required: null,
+        },
+        required: false,
+      });
+      this.qualifier = new DynamicInputModel({
+        id: 'qualifier',
+        label: qualifier,
+        name: 'qualifier',
+        required: false,
+      });
+      this.scopeNote = new DynamicInputModel({
+        id: 'scopeNote',
+        label: scopenote,
+        name: 'scopeNote',
+        required: false,
+      });
+      this.formModel = [
+        new DynamicFormGroupModel({
+          id: 'field',
+          legend: 'field',
+          group: [
+            this.element,
+            this.qualifier,
+            this.scopeNote
+          ]
+        })
+      ];
+    })
   }
 
   ngOnInit() {
