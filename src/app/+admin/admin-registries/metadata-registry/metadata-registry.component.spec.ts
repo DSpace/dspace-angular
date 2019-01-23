@@ -17,7 +17,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 
-fdescribe('MetadataRegistryComponent', () => {
+describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
   let registryService: RegistryService;
