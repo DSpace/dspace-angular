@@ -16,6 +16,7 @@ import { getMockTranslateService } from '../../shared/mocks/mock-translate.servi
 import { RouterStub } from '../../shared/testing/router-stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { mockSubmissionObject } from '../../shared/mocks/mock-submission';
+import { RemoteData } from '../../core/data/remote-data';
 
 describe('SubmissionEditComponent Component', () => {
 
@@ -65,7 +66,14 @@ describe('SubmissionEditComponent Component', () => {
   it('should init properly when a valid SubmissionObject has been retrieved', fakeAsync(() => {
 
     route.testParams = { id: submissionId };
-    submissionServiceStub.retrieveSubmission.and.returnValue(observableOf(submissionObject));
+    submissionServiceStub.retrieveSubmission.and.returnValue(observableOf(
+      new RemoteData(
+        false,
+        false,
+        true,
+        null,
+        submissionObject)
+    ));
 
     fixture.detectChanges();
 
@@ -80,7 +88,14 @@ describe('SubmissionEditComponent Component', () => {
   it('should redirect to mydspace when an empty SubmissionObject has been retrieved', fakeAsync(() => {
 
     route.testParams = { id: submissionId };
-    submissionServiceStub.retrieveSubmission.and.returnValue(observableOf({}));
+    submissionServiceStub.retrieveSubmission.and.returnValue(observableOf(
+      new RemoteData(
+        false,
+        false,
+        true,
+        null,
+        {})
+    ));
 
     fixture.detectChanges();
 

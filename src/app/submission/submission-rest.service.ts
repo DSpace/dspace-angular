@@ -6,7 +6,7 @@ import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/
 import { ResponseCacheService } from '../core/cache/response-cache.service';
 import { RequestService } from '../core/data/request.service';
 import { ResponseCacheEntry } from '../core/cache/response-cache.reducer';
-import { SubmissionSuccessResponse } from '../core/cache/response-cache.models';
+import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../core/cache/response-cache.models';
 import { isNotEmpty } from '../shared/empty.util';
 import {
   DeleteRequest,
@@ -36,25 +36,15 @@ export class SubmissionRestService {
   protected submitData(request: RestRequest): Observable<SubmitDataResponseDefinitionObject> {
     const responses = this.responseCache.get(request.href).pipe(map((entry: ResponseCacheEntry) => entry.response));
     const errorResponses = responses.pipe(
-      filter((response: SubmissionSuccessResponse) => !response.isSuccessful),
-      mergeMap(() => observableThrowError(new Error(`Couldn't send data to server`)))
+      filter((response: RestResponse) => !response.isSuccessful),
+      mergeMap((error: ErrorResponse) => observableThrowError(error))
     );
     const successResponses = responses.pipe(
-      filter((response: SubmissionSuccessResponse) => response.isSuccessful),
+      filter((response: RestResponse) => response.isSuccessful),
       map((response: SubmissionSuccessResponse) => response.dataDefinition as any),
       distinctUntilChanged()
     );
     return observableMerge(errorResponses, successResponses);
-/*    const [successResponse, errorResponse] = this.responseCache.get(request.href)
-      .map((entry: ResponseCacheEntry) => entry.response)
-      .partition((response: RestResponse) => response.isSuccessful);
-    return Observable.merge(
-      errorResponse.flatMap((response: ErrorResponse) =>
-        observableThrowError(new Error(`Couldn't send data to server`))),
-      successResponse
-        .filter((response: SubmissionSuccessResponse) => isNotEmpty(response))
-        .map((response: SubmissionSuccessResponse) => response.dataDefinition)
-        .distinctUntilChanged());*/
   }
 
   protected fetchRequest(request: RestRequest): Observable<SubmitDataResponseDefinitionObject> {
@@ -62,8 +52,8 @@ export class SubmissionRestService {
       map((entry: ResponseCacheEntry) => entry.response),
       tap(() => this.responseCache.remove(request.href)));
     const errorResponses = responses.pipe(
-      filter((response: SubmissionSuccessResponse) => !response.isSuccessful),
-      mergeMap(() => observableThrowError(new Error(`Couldn't retrieve the data`)))
+      filter((response: RestResponse) => !response.isSuccessful),
+      mergeMap((error: ErrorResponse) => observableThrowError(error))
     );
     const successResponses = responses.pipe(
       filter((response: SubmissionSuccessResponse) => response.isSuccessful && isNotEmpty(response)),
@@ -71,18 +61,6 @@ export class SubmissionRestService {
       distinctUntilChanged()
     );
     return observableMerge(errorResponses, successResponses);
-
-/*    const [successResponse, errorResponse] = this.responseCache.get(request.href)
-      .map((entry: ResponseCacheEntry) => entry.response)
-      .do(() => this.responseCache.remove(request.href))
-      .partition((response: RestResponse) => response.isSuccessful);
-    return Observable.merge(
-      errorResponse.flatMap((response: ErrorResponse) =>
-        observableThrowError(new Error(`Couldn't retrieve the data`))),
-      successResponse
-        .filter((response: SubmissionSuccessResponse) => isNotEmpty(response))
-        .map((response: SubmissionSuccessResponse) => response.dataDefinition)
-        .distinctUntilChanged());*/
   }
 
   protected getEndpointByIDHref(endpoint, resourceID): string {

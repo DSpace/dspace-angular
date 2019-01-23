@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-import { flatMap, tap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
@@ -12,6 +12,7 @@ import { SubmissionService } from '../submission.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Collection } from '../../core/shared/collection.model';
+import { RemoteData } from '../../core/data/remote-data';
 
 @Component({
   selector: 'ds-submission-edit',
@@ -42,21 +43,28 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.subs.push(this.route.paramMap.pipe(
-      flatMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id')))
-    ).subscribe((submissionObject: SubmissionObject) => {
-      // NOTE new submission is retrieved on the browser side only
-      if (isNotNull(submissionObject)) {
-        if (isEmpty(submissionObject)) {
+      switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),
+      // NOTE new submission is retrieved on the browser side only, so get null on server side rendering
+      filter((submissionObjectRD: RemoteData<SubmissionObject>) => isNotNull(submissionObjectRD))
+    ).subscribe((submissionObjectRD: RemoteData<SubmissionObject>) => {
+      if (submissionObjectRD.hasSucceeded) {
+        if (isEmpty(submissionObjectRD.payload)) {
           this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
           this.router.navigate(['/mydspace']);
         } else {
-          this.submissionId = submissionObject.id;
-          this.collectionId = (submissionObject.collection as Collection).id;
-          this.selfUrl = submissionObject.self;
-          this.sections = submissionObject.sections;
-          this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
+          this.submissionId = submissionObjectRD.payload.id.toString();
+          this.collectionId = (submissionObjectRD.payload.collection as Collection).id;
+          this.selfUrl = submissionObjectRD.payload.self;
+          this.sections = submissionObjectRD.payload.sections;
+          this.submissionDefinition = (submissionObjectRD.payload.submissionDefinition as SubmissionDefinitionsModel);
           this.changeDetectorRef.detectChanges();
         }
+      } else {
+        if (submissionObjectRD.error.statusCode === 404) {
+          // redirect to not found page
+          this.router.navigate(['/404'], { skipLocationChange: true });
+        }
+        // TODO handle generic error
       }
     }));
   }

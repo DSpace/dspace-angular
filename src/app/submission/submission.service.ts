@@ -17,7 +17,8 @@ import {
   ResetSubmissionFormAction,
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormAction,
-  SaveSubmissionFormAction, SaveSubmissionSectionFormAction,
+  SaveSubmissionFormAction,
+  SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
 import {
@@ -39,6 +40,9 @@ import { SectionsType } from './sections/sections-type';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
+import { RemoteData } from '../core/data/remote-data';
+import { ErrorResponse } from '../core/cache/response-cache.models';
+import { RemoteDataError } from '../core/data/remote-data-error';
 
 @Injectable()
 export class SubmissionService {
@@ -244,7 +248,7 @@ export class SubmissionService {
   }
 
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
-    this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId}).pipe(
+    this.translate.get('submission.sections.general.metadata-extracted-new-section', { sectionId }).pipe(
       first())
       .subscribe((m) => {
         this.notificationsService.info(null, m, null, true);
@@ -252,7 +256,9 @@ export class SubmissionService {
   }
 
   redirectToMyDSpace() {
-    this.routeService.getPreviousUrl().subscribe((previousUrl: string) => {
+    this.routeService.getPreviousUrl().pipe(
+      first()
+    ).subscribe((previousUrl: string) => {
       if (isEmpty(previousUrl) || !previousUrl.startsWith('/mydspace')) {
         this.router.navigate(['/mydspace']);
       } else {
@@ -276,11 +282,26 @@ export class SubmissionService {
     this.store.dispatch(new ResetSubmissionFormAction(collectionId, submissionId, selfUrl, sections, submissionDefinition));
   }
 
-  retrieveSubmission(submissionId): Observable<SubmissionObject> {
+  retrieveSubmission(submissionId): Observable<RemoteData<SubmissionObject>> {
     return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId).pipe(
       filter((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       first(),
-      map((submissionObjects: SubmissionObject[]) => submissionObjects[0]));
+      map((submissionObjects: SubmissionObject[]) => new RemoteData(
+        false,
+        false,
+        true,
+        null,
+        submissionObjects[0])),
+      catchError((errorResponse: ErrorResponse) => {
+        return observableOf(new RemoteData(
+          false,
+          false,
+          false,
+          new RemoteDataError(errorResponse.statusCode, errorResponse.statusText, errorResponse.errorMessage),
+          null
+        ))
+      })
+    );
   }
 
   setActiveSection(submissionId, sectionId) {

@@ -30,9 +30,13 @@ import {
   ResetSubmissionFormAction,
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormAction,
-  SaveSubmissionFormAction, SaveSubmissionSectionFormAction,
+  SaveSubmissionFormAction,
+  SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
+import { RemoteData } from '../core/data/remote-data';
+import { RemoteDataError } from '../core/data/remote-data-error';
+import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
 
 describe('SubmissionService test suite', () => {
   const config = MOCK_SUBMISSION_CONFIG;
@@ -363,7 +367,7 @@ describe('SubmissionService test suite', () => {
 
   beforeEach(() => {
     service = TestBed.get(SubmissionService);
-    spyOn((service as any).store, 'dispatch').and.callThrough()
+    spyOn((service as any).store, 'dispatch').and.callThrough();
   });
 
   describe('changeSubmissionCollection', () => {
@@ -840,10 +844,35 @@ describe('SubmissionService test suite', () => {
 
       const result = service.retrieveSubmission('826');
       const expected = cold('(b|)', {
-        b: mockSubmissionRestResponse[0]
+        b: new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          mockSubmissionRestResponse[0])
       });
 
       expect(result).toBeObservable(expected);
+    });
+
+    it('should catch error from REST endpoint', () => {
+      (service as any).restService.getDataById.and.callFake(
+        () => observableThrowError({
+          statusCode: 500,
+          statusText: 'Internal Server Error',
+          errorMessage: 'Error message'
+        })
+      );
+
+      const result = service.retrieveSubmission('826').subscribe((r) => {
+        expect(r).toEqual(new RemoteData(
+          false,
+          false,
+          false,
+          new RemoteDataError(500, 'Internal Server Error', 'Error message'),
+          null
+        ))
+      });
     });
   });
 

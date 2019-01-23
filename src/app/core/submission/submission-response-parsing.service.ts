@@ -5,7 +5,6 @@ import { RestRequest } from '../data/request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response-cache.models';
 import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
-
 import { ConfigObject } from '../config/models/config.model';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
 import { GLOBAL_CONFIG } from '../../../config';
@@ -18,9 +17,6 @@ import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model
 import { normalizeSectionData } from './models/workspaceitem-sections.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { NormalizedEditItem } from './models/normalized-edititem.model';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedSubmissionObject } from './models/normalized-submission-object.model';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 
 @Injectable()
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -57,7 +53,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     const normalizedDefinition = Array.of();
     const processedList = Array.isArray(dataDefinition) ? dataDefinition : Array.of(dataDefinition);
 
-    processedList.forEach((item, index) => {
+    processedList.forEach((item) => {
 
       let normalizedItem = Object.assign({}, item);
       // In case data is an Instance of NormalizedWorkspaceItem normalize field value of all the section of type form
@@ -92,10 +88,10 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
                 precessedSection[sectionId] = normalizedSectionData;
               }
             });
-          normalizedItem = Object.assign({}, item, {sections: precessedSection});
+          normalizedItem = Object.assign({}, item, { sections: precessedSection });
         }
       }
-      normalizedDefinition.push( normalizedItem);
+      normalizedDefinition.push(normalizedItem);
     });
 
     return normalizedDefinition;

@@ -1,38 +1,38 @@
 import { hasValue, isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
-import { findKey, uniqWith, isEqual, differenceWith } from 'lodash';
+import { differenceWith, findKey, isEqual, uniqWith } from 'lodash';
 
 import {
+  ChangeSubmissionCollectionAction,
   CompleteInitSubmissionFormAction,
+  DeleteSectionErrorsAction,
   DeleteUploadedFileAction,
+  DepositSubmissionAction,
+  DepositSubmissionErrorAction,
+  DepositSubmissionSuccessAction,
   DisableSectionAction,
   EditFileDataAction,
   EnableSectionAction,
-  NewUploadedFileAction,
+  InertSectionErrorsAction,
+  InitSectionAction,
   InitSubmissionFormAction,
+  NewUploadedFileAction,
+  RemoveSectionErrorsAction,
+  ResetSubmissionFormAction,
+  SaveAndDepositSubmissionAction,
+  SaveForLaterSubmissionFormAction,
+  SaveForLaterSubmissionFormErrorAction,
+  SaveForLaterSubmissionFormSuccessAction,
+  SaveSubmissionFormAction,
+  SaveSubmissionFormErrorAction,
+  SaveSubmissionFormSuccessAction,
+  SaveSubmissionSectionFormAction,
+  SaveSubmissionSectionFormErrorAction,
+  SaveSubmissionSectionFormSuccessAction,
   SectionStatusChangeAction,
+  SetActiveSectionAction,
   SubmissionObjectAction,
   SubmissionObjectActionTypes,
-  InertSectionErrorsAction,
-  DeleteSectionErrorsAction,
-  ResetSubmissionFormAction,
-  UpdateSectionDataAction,
-  SaveSubmissionFormAction,
-  SetActiveSectionAction,
-  SaveSubmissionSectionFormAction,
-  DepositSubmissionAction,
-  DepositSubmissionSuccessAction,
-  DepositSubmissionErrorAction,
-  ChangeSubmissionCollectionAction,
-  SaveSubmissionFormSuccessAction,
-  SaveSubmissionFormErrorAction,
-  SaveSubmissionSectionFormSuccessAction,
-  SaveSubmissionSectionFormErrorAction,
-  InitSectionAction,
-  RemoveSectionErrorsAction,
-  SaveForLaterSubmissionFormAction,
-  SaveAndDepositSubmissionAction,
-  SaveForLaterSubmissionFormSuccessAction,
-  SaveForLaterSubmissionFormErrorAction
+  UpdateSectionDataAction
 } from './submission-objects.actions';
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
@@ -117,7 +117,6 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS:
-    case SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS:
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS:
     case SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR:
     case SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_ERROR:
