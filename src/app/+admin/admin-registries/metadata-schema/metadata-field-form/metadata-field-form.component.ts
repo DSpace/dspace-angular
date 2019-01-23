@@ -130,13 +130,10 @@ export class MetadataFieldFormComponent implements OnInit {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataField().subscribe((field) => {
         this.formGroup.patchValue({
-            field: {
-              element: field != null ? field.element : '',
-              qualifier: field != null ? field.qualifier : '',
-              scopeNote: field != null ? field.scopeNote : ''
-            }
-          }
-        );
+          element: field != null ? field.element : '',
+          qualifier: field != null ? field.qualifier : '',
+          scopeNote: field != null ? field.scopeNote : ''
+        });
       });
     });
   }

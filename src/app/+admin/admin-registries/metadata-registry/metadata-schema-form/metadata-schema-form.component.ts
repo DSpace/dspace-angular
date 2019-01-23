@@ -107,12 +107,9 @@ export class MetadataSchemaFormComponent implements OnInit {
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataSchema().subscribe((schema) => {
         this.formGroup.patchValue({
-            schema: {
-              name: schema != null ? schema.prefix : '',
-              namespace: schema != null ? schema.namespace : ''
-            }
-          }
-        );
+          name: schema != null ? schema.prefix : '',
+          namespace: schema != null ? schema.namespace : ''
+        });
       });
     });
   }
