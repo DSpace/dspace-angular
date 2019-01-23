@@ -64,7 +64,7 @@ export class MetadataRegistryComponent {
    * Force-update the list of schemas by first clearing the cache related to metadata schemas, then performing
    * a new REST call
    */
-  private forceUpdateSchemas() {
+  public forceUpdateSchemas() {
     this.registryService.clearMetadataSchemaRequests().subscribe();
     this.updateSchemas();
   }

@@ -32,6 +32,8 @@ import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { EmptyError } from 'rxjs/internal-compatibility';
+import { MockStore } from '../../shared/testing/mock-store';
+import { IndexState } from '../index/index.reducer';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -82,7 +84,7 @@ describe('MetadataService', () => {
 
     objectCacheService = new ObjectCacheService(store);
     uuidService = new UUIDService();
-    requestService = new RequestService(objectCacheService, uuidService, store);
+    requestService = new RequestService(objectCacheService, uuidService, store, undefined);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
 
     TestBed.configureTestingModule({

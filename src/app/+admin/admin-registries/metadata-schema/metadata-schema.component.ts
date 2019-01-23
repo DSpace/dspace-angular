@@ -96,7 +96,7 @@ export class MetadataSchemaComponent implements OnInit {
    * Force-update the list of fields by first clearing the cache related to metadata fields, then performing
    * a new REST call
    */
-  private forceUpdateFields() {
+  public forceUpdateFields() {
     this.registryService.clearMetadataFieldRequests().subscribe();
     this.updateFields();
   }

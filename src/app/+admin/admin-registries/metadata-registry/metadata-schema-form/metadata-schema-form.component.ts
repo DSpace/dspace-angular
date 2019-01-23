@@ -73,7 +73,7 @@ export class MetadataSchemaFormComponent implements OnInit {
    */
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
-  constructor(private registryService: RegistryService, private formBuilderService: FormBuilderService, private translateService: TranslateService) {
+  constructor(public registryService: RegistryService, private formBuilderService: FormBuilderService, private translateService: TranslateService) {
   }
 
   ngOnInit() {

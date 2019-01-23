@@ -18,7 +18,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { RestResponse } from '../../../core/cache/response.models';
 
-fdescribe('MetadataRegistryComponent', () => {
+describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
   let registryService: RegistryService;

@@ -90,7 +90,7 @@ export class MetadataFieldFormComponent implements OnInit {
    */
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
-  constructor(private registryService: RegistryService,
+  constructor(public registryService: RegistryService,
               private formBuilderService: FormBuilderService,
               private translateService: TranslateService) {
   }
