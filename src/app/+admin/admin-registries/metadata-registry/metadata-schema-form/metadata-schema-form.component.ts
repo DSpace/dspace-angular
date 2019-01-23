@@ -29,14 +29,12 @@ export class MetadataSchemaFormComponent implements OnInit {
   formLayout: DynamicFormLayout = {
     name: {
       grid: {
-        control: 'col col-sm-5',
-        label: 'col col-sm-5'
+        host: 'col col-sm-6 d-inline-block'
       }
     },
     namespace: {
       grid: {
-        control: 'col col-sm-5',
-        label: 'col col-sm-5'
+        host: 'col col-sm-6 d-inline-block'
       }
     }
   };
@@ -73,14 +71,8 @@ export class MetadataSchemaFormComponent implements OnInit {
           required: true,
         });
       this.formModel = [
-        new DynamicFormGroupModel({
-          id: 'schema',
-          legend: 'schema',
-          group: [
-            this.namespace,
-            this.name
-          ]
-        })
+        this.namespace,
+        this.name
       ];
       this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
       this.registryService.getActiveMetadataSchema().subscribe((schema) => {
