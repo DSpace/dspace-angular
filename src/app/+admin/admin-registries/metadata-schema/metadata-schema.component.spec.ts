@@ -1,5 +1,5 @@
 import { MetadataSchemaComponent } from './metadata-schema.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -17,8 +17,11 @@ import { HostWindowService } from '../../../shared/host-window.service';
 import { RouterStub } from '../../../shared/testing/router-stub';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 
-describe('MetadataSchemaComponent', () => {
+fdescribe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
   let fixture: ComponentFixture<MetadataSchemaComponent>;
   let registryService: RegistryService;
@@ -67,11 +70,17 @@ describe('MetadataSchemaComponent', () => {
     }
   ];
   const mockSchemas = observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
+  /* tslint:disable:no-empty */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
     getMetadataFieldsBySchema: (schema: MetadataSchema) => observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFieldsList.filter((value) => value.schema === schema)))),
-    getMetadataSchemaByName: (schemaName: string) => observableOf(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0]))
+    getMetadataSchemaByName: (schemaName: string) => observableOf(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0])),
+    getActiveMetadataField: () => observableOf(undefined),
+    getSelectedMetadataFields: () => observableOf([]),
+    editMetadataField: (schema) => {},
+    cancelEditMetadataField: () => {}
   };
+  /* tslint:enable:no-empty */
   const schemaNameParam = 'mock';
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({
@@ -87,8 +96,10 @@ describe('MetadataSchemaComponent', () => {
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: Router, useValue: new RouterStub() }
-      ]
+        { provide: Router, useValue: new RouterStub() },
+        { provide: NotificationsService, useValue: NotificationsServiceStub }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
@@ -96,8 +107,11 @@ describe('MetadataSchemaComponent', () => {
     fixture = TestBed.createComponent(MetadataSchemaComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
-    registryService = (comp as any).service;
   });
+
+  beforeEach(inject([RegistryService], (s) => {
+    registryService = s;
+  }));
 
   it('should contain the schema prefix in the header', () => {
     const header: HTMLElement = fixture.debugElement.query(By.css('.metadata-schema #header')).nativeElement;
@@ -110,10 +124,37 @@ describe('MetadataSchemaComponent', () => {
   });
 
   it('should contain the correct fields', () => {
-    const editorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(1) td:nth-child(1)')).nativeElement;
+    const editorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(1) td:nth-child(2)')).nativeElement;
     expect(editorField.textContent).toBe('mock.contributor.editor');
 
-    const illustratorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(2) td:nth-child(1)')).nativeElement;
+    const illustratorField: HTMLElement = fixture.debugElement.query(By.css('#metadata-fields tr:nth-child(2) td:nth-child(2)')).nativeElement;
     expect(illustratorField.textContent).toBe('mock.contributor.illustrator');
+  });
+
+  describe('when clicking a metadata field row', () => {
+    let row: HTMLElement;
+
+    beforeEach(() => {
+      spyOn(registryService, 'editMetadataField');
+      row = fixture.debugElement.query(By.css('.selectable-row')).nativeElement;
+      row.click();
+      fixture.detectChanges();
+    });
+
+    it('should start editing the selected field', async(() => {
+      fixture.whenStable().then(() => {
+        expect(registryService.editMetadataField).toHaveBeenCalledWith(mockFieldsList[2]);
+      });
+    }));
+
+    it('should cancel editing the selected field when clicked again', async(() => {
+      spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(mockFieldsList[2]));
+      spyOn(registryService, 'cancelEditMetadataField');
+      row.click();
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(registryService.cancelEditMetadataField).toHaveBeenCalled();
+      });
+    }));
   });
 });

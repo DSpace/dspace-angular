@@ -109,5 +109,5 @@ describe('MetadataRegistryComponent', () => {
         expect(registryService.cancelEditMetadataSchema).toHaveBeenCalled();
       });
     }));
-  })
+  });
 });
