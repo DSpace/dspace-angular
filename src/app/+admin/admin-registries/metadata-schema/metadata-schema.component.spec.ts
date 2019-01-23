@@ -21,7 +21,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 
-fdescribe('MetadataSchemaComponent', () => {
+describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
   let fixture: ComponentFixture<MetadataSchemaComponent>;
   let registryService: RegistryService;
