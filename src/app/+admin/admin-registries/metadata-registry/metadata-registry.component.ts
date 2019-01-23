@@ -18,10 +18,20 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './metadata-registry.component.html',
   styleUrls: ['./metadata-registry.component.scss']
 })
+/**
+ * A component used for managing all existing metadata schemas within the repository.
+ * The admin can create, edit or delete metadata schemas here.
+ */
 export class MetadataRegistryComponent {
 
+  /**
+   * A list of all the current metadata schemas within the repository
+   */
   metadataSchemas: Observable<RemoteData<PaginatedList<MetadataSchema>>>;
 
+  /**
+   * Pagination config used to display the list of metadata schemas
+   */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-metadataschemas-pagination',
     pageSize: 2
@@ -34,20 +44,35 @@ export class MetadataRegistryComponent {
     this.updateSchemas();
   }
 
+  /**
+   * Event triggered when the user changes page
+   * @param event
+   */
   onPageChange(event) {
     this.config.currentPage = event;
     this.updateSchemas();
   }
 
+  /**
+   * Update the list of schemas by fetching it from the rest api or cache
+   */
   private updateSchemas() {
     this.metadataSchemas = this.registryService.getMetadataSchemas(this.config);
   }
 
+  /**
+   * Force-update the list of schemas by first clearing the cache related to metadata schemas, then performing
+   * a new REST call
+   */
   private forceUpdateSchemas() {
     this.registryService.clearMetadataSchemaRequests().subscribe();
     this.updateSchemas();
   }
 
+  /**
+   * Start editing the selected metadata schema
+   * @param schema
+   */
   editSchema(schema: MetadataSchema) {
     this.getActiveSchema().pipe(take(1)).subscribe((activeSchema) => {
       if (schema === activeSchema) {
@@ -58,28 +83,47 @@ export class MetadataRegistryComponent {
     });
   }
 
+  /**
+   * Checks whether the given metadata schema is active (being edited)
+   * @param schema
+   */
   isActive(schema: MetadataSchema): Observable<boolean> {
     return this.getActiveSchema().pipe(
       map((activeSchema) => schema === activeSchema)
     );
   }
 
+  /**
+   * Gets the active metadata schema (being edited)
+   */
   getActiveSchema(): Observable<MetadataSchema> {
     return this.registryService.getActiveMetadataSchema();
   }
 
+  /**
+   * Select a metadata schema within the list (checkbox)
+   * @param schema
+   * @param event
+   */
   selectMetadataSchema(schema: MetadataSchema, event) {
     event.target.checked ?
       this.registryService.selectMetadataSchema(schema) :
       this.registryService.deselectMetadataSchema(schema);
   }
 
+  /**
+   * Checks whether a given metadata schema is selected in the list (checkbox)
+   * @param schema
+   */
   isSelected(schema: MetadataSchema): Observable<boolean> {
     return this.registryService.getSelectedMetadataSchemas().pipe(
       map((schemas) => schemas.find((selectedSchema) => selectedSchema === schema) != null)
     );
   }
 
+  /**
+   * Delete all the selected metadata schemas
+   */
   deleteSchemas() {
     this.registryService.getSelectedMetadataSchemas().pipe(take(1)).subscribe(
       (schemas) => {
@@ -106,6 +150,11 @@ export class MetadataRegistryComponent {
     )
   }
 
+  /**
+   * Show notifications for an amount of deleted metadata schemas
+   * @param success   Whether or not the notification should be a success message (error message when false)
+   * @param amount    The amount of deleted metadata schemas
+   */
   showNotification(success: boolean, amount: number) {
     const prefix = 'admin.registries.schema.notification';
     const suffix = success ? 'success' : 'failure';

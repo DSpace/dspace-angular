@@ -19,12 +19,30 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './metadata-schema.component.html',
   styleUrls: ['./metadata-schema.component.scss']
 })
+/**
+ * A component used for managing all existing metadata fields within the current metadata schema.
+ * The admin can create, edit or delete metadata fields here.
+ */
 export class MetadataSchemaComponent implements OnInit {
 
+  /**
+   * The namespace of the metadata schema
+   */
   namespace;
 
+  /**
+   * The metadata schema
+   */
   metadataSchema: Observable<RemoteData<MetadataSchema>>;
+
+  /**
+   * A list of all the fields attached to this metadata schema
+   */
   metadataFields: Observable<RemoteData<PaginatedList<MetadataField>>>;
+
+  /**
+   * Pagination config used to display the list of metadata fields
+   */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-metadatafields-pagination',
     pageSize: 25,
@@ -45,16 +63,27 @@ export class MetadataSchemaComponent implements OnInit {
     });
   }
 
+  /**
+   * Initialize the component using the params within the url (schemaName)
+   * @param params
+   */
   initialize(params) {
     this.metadataSchema = this.registryService.getMetadataSchemaByName(params.schemaName);
     this.updateFields();
   }
 
+  /**
+   * Event triggered when the user changes page
+   * @param event
+   */
   onPageChange(event) {
     this.config.currentPage = event;
     this.updateFields();
   }
 
+  /**
+   * Update the list of fields by fetching it from the rest api or cache
+   */
   private updateFields() {
     this.metadataSchema.subscribe((schemaData) => {
       const schema = schemaData.payload;
@@ -63,11 +92,19 @@ export class MetadataSchemaComponent implements OnInit {
     });
   }
 
+  /**
+   * Force-update the list of fields by first clearing the cache related to metadata fields, then performing
+   * a new REST call
+   */
   private forceUpdateFields() {
     this.registryService.clearMetadataFieldRequests().subscribe();
     this.updateFields();
   }
 
+  /**
+   * Start editing the selected metadata field
+   * @param field
+   */
   editField(field: MetadataField) {
     this.getActiveField().pipe(take(1)).subscribe((activeField) => {
       if (field === activeField) {
@@ -78,28 +115,47 @@ export class MetadataSchemaComponent implements OnInit {
     });
   }
 
+  /**
+   * Checks whether the given metadata field is active (being edited)
+   * @param field
+   */
   isActive(field: MetadataField): Observable<boolean> {
     return this.getActiveField().pipe(
       map((activeField) => field === activeField)
     );
   }
 
+  /**
+   * Gets the active metadata field (being edited)
+   */
   getActiveField(): Observable<MetadataField> {
     return this.registryService.getActiveMetadataField();
   }
 
+  /**
+   * Select a metadata field within the list (checkbox)
+   * @param field
+   * @param event
+   */
   selectMetadataField(field: MetadataField, event) {
     event.target.checked ?
       this.registryService.selectMetadataField(field) :
       this.registryService.deselectMetadataField(field);
   }
 
+  /**
+   * Checks whether a given metadata field is selected in the list (checkbox)
+   * @param field
+   */
   isSelected(field: MetadataField): Observable<boolean> {
     return this.registryService.getSelectedMetadataFields().pipe(
       map((fields) => fields.find((selectedField) => selectedField === field) != null)
     );
   }
 
+  /**
+   * Delete all the selected metadata fields
+   */
   deleteFields() {
     this.registryService.getSelectedMetadataFields().pipe(take(1)).subscribe(
       (fields) => {
@@ -126,6 +182,11 @@ export class MetadataSchemaComponent implements OnInit {
     )
   }
 
+  /**
+   * Show notifications for an amount of deleted metadata fields
+   * @param success   Whether or not the notification should be a success message (error message when false)
+   * @param amount    The amount of deleted metadata fields
+   */
   showNotification(success: boolean, amount: number) {
     const prefix = 'admin.registries.schema.notification';
     const suffix = success ? 'success' : 'failure';

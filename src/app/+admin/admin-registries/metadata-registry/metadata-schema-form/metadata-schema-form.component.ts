@@ -17,15 +17,39 @@ import { combineLatest } from 'rxjs/internal/observable/combineLatest';
   selector: 'ds-metadata-schema-form',
   templateUrl: './metadata-schema-form.component.html'
 })
+/**
+ * A form used for creating and editing metadata schemas
+ */
 export class MetadataSchemaFormComponent implements OnInit {
 
+  /**
+   * A unique id used for ds-form
+   */
   formId = 'metadata-schema-form';
+
+  /**
+   * The prefix for all messages related to this form
+   */
   messagePrefix = 'admin.registries.metadata.form';
 
+  /**
+   * A dynamic input model for the name field
+   */
   name: DynamicInputModel;
+
+  /**
+   * A dynamic input model for the namespace field
+   */
   namespace: DynamicInputModel;
+
+  /**
+   * A list of all dynamic input models
+   */
   formModel: DynamicFormControlModel[];
 
+  /**
+   * Layout used for structuring the form inputs
+   */
   formLayout: DynamicFormLayout = {
     name: {
       grid: {
@@ -39,8 +63,14 @@ export class MetadataSchemaFormComponent implements OnInit {
     }
   };
 
+  /**
+   * A FormGroup that combines all inputs
+   */
   formGroup: FormGroup;
 
+  /**
+   * An EventEmitter that's fired whenever the form is being submitted
+   */
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
   constructor(private registryService: RegistryService, private formBuilderService: FormBuilderService, private translateService: TranslateService) {
@@ -87,10 +117,19 @@ export class MetadataSchemaFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Stop editing the currently selected metadata schema
+   */
   onCancel() {
     this.registryService.cancelEditMetadataSchema();
   }
 
+  /**
+   * Submit the form
+   * When the schema has an id attached -> Edit the schema
+   * When the schema has no id attached -> Create new schema
+   * Emit the updated/created schema using the EventEmitter submitForm
+   */
   onSubmit() {
     this.registryService.getActiveMetadataSchema().pipe(take(1)).subscribe(
       (schema) => {

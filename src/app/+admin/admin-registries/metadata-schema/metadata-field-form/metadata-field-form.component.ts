@@ -19,18 +19,49 @@ import { combineLatest } from 'rxjs/internal/observable/combineLatest';
   selector: 'ds-metadata-field-form',
   templateUrl: './metadata-field-form.component.html'
 })
+/**
+ * A form used for creating and editing metadata fields
+ */
 export class MetadataFieldFormComponent implements OnInit {
 
+  /**
+   * A unique id used for ds-form
+   */
   formId = 'metadata-field-form';
+
+  /**
+   * The prefix for all messages related to this form
+   */
   messagePrefix = 'admin.registries.schema.form';
 
+  /**
+   * The metadata schema this field is attached to
+   */
   @Input() metadataSchema: MetadataSchema;
 
+  /**
+   * A dynamic input model for the element field
+   */
   element: DynamicInputModel;
+
+  /**
+   * A dynamic input model for the qualifier field
+   */
   qualifier: DynamicInputModel;
+
+  /**
+   * A dynamic input model for the scopeNote field
+   */
   scopeNote: DynamicInputModel;
+
+  /**
+   * A list of all dynamic input models
+   */
   formModel: DynamicFormControlModel[];
 
+  /**
+   * Layout used for structuring the form inputs
+   */
   formLayout: DynamicFormLayout = {
     element: {
       grid: {
@@ -49,8 +80,14 @@ export class MetadataFieldFormComponent implements OnInit {
     }
   };
 
+  /**
+   * A FormGroup that combines all inputs
+   */
   formGroup: FormGroup;
 
+  /**
+   * An EventEmitter that's fired whenever the form is being submitted
+   */
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
   constructor(private registryService: RegistryService,
@@ -104,10 +141,19 @@ export class MetadataFieldFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Stop editing the currently selected metadata field
+   */
   onCancel() {
     this.registryService.cancelEditMetadataField();
   }
 
+  /**
+   * Submit the form
+   * When the field has an id attached -> Edit the field
+   * When the field has no id attached -> Create new field
+   * Emit the updated/created field using the EventEmitter submitForm
+   */
   onSubmit() {
     this.registryService.getActiveMetadataField().pipe(take(1)).subscribe(
       (field) => {
