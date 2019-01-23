@@ -162,7 +162,7 @@ export class MetadataSchemaComponent implements OnInit {
         const tasks$ = [];
         for (const field of fields) {
           if (hasValue(field.id)) {
-            tasks$.push(this.registryService.deleteMetadataSchema(field.id));
+            tasks$.push(this.registryService.deleteMetadataField(field.id));
           }
         }
         zip(...tasks$).subscribe((responses: RestResponse[]) => {

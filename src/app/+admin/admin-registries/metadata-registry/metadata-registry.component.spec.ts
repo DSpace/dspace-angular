@@ -16,8 +16,9 @@ import { HostWindowService } from '../../../shared/host-window.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { RestResponse } from '../../../core/cache/response.models';
 
-describe('MetadataRegistryComponent', () => {
+fdescribe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
   let registryService: RegistryService;
@@ -42,7 +43,10 @@ describe('MetadataRegistryComponent', () => {
     getActiveMetadataSchema: () => observableOf(undefined),
     getSelectedMetadataSchemas: () => observableOf([]),
     editMetadataSchema: (schema) => {},
-    cancelEditMetadataSchema: () => {}
+    cancelEditMetadataSchema: () => {},
+    deleteMetadataSchema: () => observableOf(new RestResponse(true, '200')),
+    deselectAllMetadataSchema: () => {},
+    clearMetadataSchemaRequests: () => observableOf(undefined)
   };
   /* tslint:enable:no-empty */
 
@@ -53,7 +57,7 @@ describe('MetadataRegistryComponent', () => {
       providers: [
         { provide: RegistryService, useValue: registryServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: NotificationsService, useValue: NotificationsServiceStub }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MetadataRegistryComponent, {
@@ -107,6 +111,23 @@ describe('MetadataRegistryComponent', () => {
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         expect(registryService.cancelEditMetadataSchema).toHaveBeenCalled();
+      });
+    }));
+  });
+
+  describe('when deleting metadata schemas', () => {
+    const selectedSchemas = Array(mockSchemasList[0]);
+
+    beforeEach(() => {
+      spyOn(registryService, 'deleteMetadataSchema').and.callThrough();
+      spyOn(registryService, 'getSelectedMetadataSchemas').and.returnValue(observableOf(selectedSchemas));
+      comp.deleteSchemas();
+      fixture.detectChanges();
+    });
+
+    it('should call deleteMetadataSchema with the selected id', async(() => {
+      fixture.whenStable().then(() => {
+        expect(registryService.deleteMetadataSchema).toHaveBeenCalledWith(selectedSchemas[0].id);
       });
     }));
   });

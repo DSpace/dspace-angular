@@ -20,6 +20,7 @@ import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { RestResponse } from '../../../core/cache/response.models';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
@@ -41,31 +42,35 @@ describe('MetadataSchemaComponent', () => {
   ];
   const mockFieldsList = [
     {
+      id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8',
       element: 'contributor',
       qualifier: 'advisor',
-      scopenote: null,
+      scopeNote: null,
       schema: mockSchemasList[0]
     },
     {
+      id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9',
       element: 'contributor',
       qualifier: 'author',
-      scopenote: null,
+      scopeNote: null,
       schema: mockSchemasList[0]
     },
     {
+      id: 3,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10',
       element: 'contributor',
       qualifier: 'editor',
-      scopenote: 'test scope note',
+      scopeNote: 'test scope note',
       schema: mockSchemasList[1]
     },
     {
+      id: 4,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11',
       element: 'contributor',
       qualifier: 'illustrator',
-      scopenote: null,
+      scopeNote: null,
       schema: mockSchemasList[1]
     }
   ];
@@ -78,7 +83,10 @@ describe('MetadataSchemaComponent', () => {
     getActiveMetadataField: () => observableOf(undefined),
     getSelectedMetadataFields: () => observableOf([]),
     editMetadataField: (schema) => {},
-    cancelEditMetadataField: () => {}
+    cancelEditMetadataField: () => {},
+    deleteMetadataField: () => observableOf(new RestResponse(true, '200')),
+    deselectAllMetadataField: () => {},
+    clearMetadataFieldRequests: () => observableOf(undefined)
   };
   /* tslint:enable:no-empty */
   const schemaNameParam = 'mock';
@@ -97,7 +105,7 @@ describe('MetadataSchemaComponent', () => {
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: Router, useValue: new RouterStub() },
-        { provide: NotificationsService, useValue: NotificationsServiceStub }
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -154,6 +162,23 @@ describe('MetadataSchemaComponent', () => {
       fixture.detectChanges();
       fixture.whenStable().then(() => {
         expect(registryService.cancelEditMetadataField).toHaveBeenCalled();
+      });
+    }));
+  });
+
+  describe('when deleting metadata fields', () => {
+    const selectedFields = Array(mockFieldsList[2]);
+
+    beforeEach(() => {
+      spyOn(registryService, 'deleteMetadataField').and.callThrough();
+      spyOn(registryService, 'getSelectedMetadataFields').and.returnValue(observableOf(selectedFields));
+      comp.deleteFields();
+      fixture.detectChanges();
+    });
+
+    it('should call deleteMetadataField with the selected id', async(() => {
+      fixture.whenStable().then(() => {
+        expect(registryService.deleteMetadataField).toHaveBeenCalledWith(selectedFields[0].id);
       });
     }));
   });
