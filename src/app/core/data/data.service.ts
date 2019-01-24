@@ -51,7 +51,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.buildHrefFromFindOptions(result, args, options);
   }
 
-  protected buildHrefFromFindOptions(href: Observable<string>, args: string[], options: FindAllOptions): Observable<string> {
+  protected buildHrefFromFindOptions(href$: Observable<string>, args: string[], options: FindAllOptions): Observable<string> {
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
@@ -71,9 +71,9 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     }
 
     if (isNotEmpty(args)) {
-      return href.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
+      return href$.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
     } else {
-      return href;
+      return href$;
     }
   }
 
