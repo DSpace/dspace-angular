@@ -54,7 +54,7 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
 
   private handleAuth(url: string): Observable<boolean> {
     // get observable
-    const observable = of(true);
+    const observable = this.store.pipe(select(isAuthenticated));
 
     // redirect to sign in page if user is not authenticated
     observable.pipe(
