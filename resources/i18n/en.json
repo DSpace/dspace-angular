@@ -171,7 +171,8 @@
           "table": {
             "id": "ID",
             "namespace": "Namespace",
-            "name": "Name"
+            "name": "Name",
+            "delete": "Delete selected"
           },
           "no-items": "No metadata schemas to show."
         }
@@ -191,7 +192,8 @@
           "head": "Schema metadata fields",
           "table": {
             "field": "Field",
-            "scopenote": "Scope Note"
+            "scopenote": "Scope Note",
+            "delete": "Delete selected"
           },
           "no-items": "No metadata fields to show."
         },

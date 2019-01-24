@@ -47,7 +47,7 @@
         </div>
       </ds-pagination>
 
-      <button type="submit" class="btn btn-primary" (click)="deleteFields()">{{'form.submit' | translate}}
+      <button type="submit" class="btn btn-primary" (click)="deleteFields()">{{'admin.registries.schema.fields.table.delete' | translate}}
       </button>
 
       <div *ngIf="(metadataFields | async)?.payload?.totalElements == 0" class="alert alert-info" role="alert">
