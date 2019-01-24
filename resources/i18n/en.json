@@ -181,6 +181,7 @@
         "title": "DSpace Angular :: Metadata Schema Registry",
         "head": "Metadata Schema",
         "description": "This is the metadata schema for \"{{namespace}}\".",
+        "return": "Return",
         "form": {
           "create": "Create metadata field",
           "edit": "Edit metadata field",

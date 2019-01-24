@@ -175,6 +175,7 @@ export class MetadataSchemaComponent implements OnInit {
             this.showNotification(false, failedResponses.length);
           }
           this.registryService.deselectAllMetadataField();
+          this.registryService.cancelEditMetadataField();
           this.forceUpdateFields();
         });
       }

@@ -34,7 +34,7 @@ export class MetadataRegistryComponent {
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-metadataschemas-pagination',
-    pageSize: 2
+    pageSize: 25
   });
 
   constructor(private registryService: RegistryService,
@@ -143,6 +143,7 @@ export class MetadataRegistryComponent {
             this.showNotification(false, failedResponses.length);
           }
           this.registryService.deselectAllMetadataSchema();
+          this.registryService.cancelEditMetadataSchema();
           this.forceUpdateSchemas();
         });
       }

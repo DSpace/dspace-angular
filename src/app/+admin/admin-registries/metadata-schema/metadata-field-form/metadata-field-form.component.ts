@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 import {
   DynamicFormControlModel,
@@ -22,7 +22,7 @@ import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 /**
  * A form used for creating and editing metadata fields
  */
-export class MetadataFieldFormComponent implements OnInit {
+export class MetadataFieldFormComponent implements OnInit, OnDestroy {
 
   /**
    * A unique id used for ds-form
@@ -175,7 +175,26 @@ export class MetadataFieldFormComponent implements OnInit {
             this.submitForm.emit(updatedField);
           });
         }
+        this.clearFields();
       }
     );
+  }
+
+  /**
+   * Reset all input-fields to be empty
+   */
+  clearFields() {
+    this.formGroup.patchValue({
+      element: '',
+      qualifier: '',
+      scopeNote: ''
+    });
+  }
+
+  /**
+   * Cancel the current edit when component is destroyed
+   */
+  ngOnDestroy(): void {
+    this.onCancel();
   }
 }

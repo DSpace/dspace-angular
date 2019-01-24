@@ -48,12 +48,12 @@
 
             </ds-pagination>
 
-            <button type="submit" class="btn btn-primary" (click)="deleteSchemas()">{{'admin.registries.metadata.schemas.table.delete' | translate}}
-            </button>
+            <div *ngIf="(metadataSchemas | async)?.payload?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+              {{'admin.registries.metadata.schemas.no-items' | translate}}
+            </div>
 
-            <div *ngIf="(metadataSchemas | async)?.payload?.totalElements == 0" class="alert alert-info"
-                 role="alert">
-                {{'admin.registries.metadata.schemas.no-items' | translate}}
+            <div>
+              <button *ngIf="(metadataSchemas | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteSchemas()">{{'admin.registries.metadata.schemas.table.delete' | translate}}</button>
             </div>
 
         </div>
