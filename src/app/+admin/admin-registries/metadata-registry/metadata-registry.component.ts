@@ -143,7 +143,6 @@ export class MetadataRegistryComponent {
             this.showNotification(false, failedResponses.length);
           }
           this.registryService.deselectAllMetadataSchema();
-          this.router.navigate([], { queryParams: { page: 1 }, queryParamsHandling: 'merge'});
           this.forceUpdateSchemas();
         });
       }

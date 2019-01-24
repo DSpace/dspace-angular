@@ -175,7 +175,6 @@ export class MetadataSchemaComponent implements OnInit {
             this.showNotification(false, failedResponses.length);
           }
           this.registryService.deselectAllMetadataField();
-          this.router.navigate([], { queryParams: { page: 1 }, queryParamsHandling: 'merge'});
           this.forceUpdateFields();
         });
       }
