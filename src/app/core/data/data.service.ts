@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, first, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
@@ -81,8 +81,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const hrefObs = this.getFindAllHref(options);
 
     hrefObs.pipe(
-      filter((href: string) => hasValue(href)),
-      take(1))
+      first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request, this.forceBypassCache);
@@ -125,8 +124,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     const hrefObs = this.getSearchByHref(searchMethod, options);
 
     hrefObs.pipe(
-      filter((href: string) => hasValue(href)),
-      take(1))
+      first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request, true);
