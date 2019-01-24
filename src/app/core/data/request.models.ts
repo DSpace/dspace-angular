@@ -227,6 +227,9 @@ export class CreateRequest extends PostRequest {
   }
 }
 
+/**
+ * Request to delete an object based on its identifier
+ */
 export class DeleteByIDRequest extends DeleteRequest {
   constructor(
     uuid: string,

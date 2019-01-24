@@ -19,20 +19,19 @@ export class ItemDeleteComponent extends AbstractSimpleItemActionComponent {
    * Perform the delete action to the item
    */
   performAction() {
-    this.itemDataService.delete(this.item.id).pipe(first()).subscribe(
-      (response: RestResponse) => {
-        this.processRestResponse(response);
+    this.itemDataService.delete(this.item).pipe(first()).subscribe(
+      (succeeded: boolean) => {
+        this.notify(succeeded);
       }
     );
   }
 
   /**
-   * Process the RestResponse retrieved from the server.
    * When the item is successfully delete, navigate to the homepage, otherwise navigate back to the item edit page
    * @param response
    */
-  processRestResponse(response: RestResponse) {
-    if (response.isSuccessful) {
+  notify(succeeded: boolean) {
+    if (succeeded) {
       this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
       this.router.navigate(['']);
     } else {

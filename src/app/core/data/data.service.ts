@@ -95,6 +95,11 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     return this.rdbService.buildList<TNormalized, TDomain>(hrefObs) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
+  /**
+   * Create the HREF for a specific object based on its identifier
+   * @param endpoint The base endpoint for the type of object
+   * @param resourceID The identifier for the object
+   */
   getIDHref(endpoint, resourceID): string {
     return `${endpoint}/${resourceID}`;
   }
@@ -199,6 +204,11 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     )
   }
 
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param dso The DSpace Object to be removed
+   * Return an observable that emits true when the deletion was successful, false when it failed
+   */
   delete(dso: TDomain): Observable<boolean> {
     const requestId = this.requestService.generateRequestId();
 
