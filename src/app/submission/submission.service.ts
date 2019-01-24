@@ -3,7 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
-import { catchError, distinctUntilChanged, filter, first, map, startWith } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, filter, find, first, map, startWith } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -123,8 +123,7 @@ export class SubmissionService {
 
   getSubmissionSections(submissionId: string): Observable<SectionDataObject[]> {
     return this.getSubmissionObject(submissionId).pipe(
-      filter((submission: SubmissionObjectEntry) => isNotUndefined(submission.sections) && !submission.isLoading),
-      first(),
+      find((submission: SubmissionObjectEntry) => isNotUndefined(submission.sections) && !submission.isLoading),
       map((submission: SubmissionObjectEntry) => submission.sections),
       map((sections: SubmissionSectionEntry) => {
         const availableSections: SectionDataObject[] = [];
@@ -284,8 +283,7 @@ export class SubmissionService {
 
   retrieveSubmission(submissionId): Observable<RemoteData<SubmissionObject>> {
     return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId).pipe(
-      filter((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
-      first(),
+      find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
       map((submissionObjects: SubmissionObject[]) => new RemoteData(
         false,
         false,

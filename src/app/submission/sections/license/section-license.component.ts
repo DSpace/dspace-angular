@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, flatMap, map, take } from 'rxjs/operators';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -72,8 +72,7 @@ export class LicenseSectionComponent extends SectionModelComponent {
       this.collectionDataService.findById(this.collectionId).pipe(
         filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
         flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license),
-        filter((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),
-        take(1))
+        find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))))
         .subscribe((licenseData: RemoteData<License>) => {
           this.licenseText = licenseData.payload.text;
 

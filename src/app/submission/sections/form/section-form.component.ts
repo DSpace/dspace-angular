@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, flatMap, map, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { isEqual } from 'lodash';
 
@@ -160,8 +160,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   checksForErrors(errors: SubmissionSectionError[]) {
     this.formService.isFormInitialized(this.formId).pipe(
-      filter((status: boolean) => status === true && !this.isUpdating),
-      take(1))
+      find((status: boolean) => status === true && !this.isUpdating))
       .subscribe(() => {
         this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errors);
         this.sectionData.errors = errors;

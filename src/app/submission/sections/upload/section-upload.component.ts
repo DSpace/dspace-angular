@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
 import { combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, reduce, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, flatMap, map, reduce, take, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
@@ -92,17 +92,15 @@ export class UploadSectionComponent extends SectionModelComponent {
         filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection),
         tap((submissionObject: SubmissionObjectEntry) => this.collectionId = submissionObject.collection),
         flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
-        filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
-        take(1),
+        find((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
         flatMap((collectionRemoteData: RemoteData<Collection>) => {
           return this.collectionDataService.findByHref(
             (collectionRemoteData.payload as any)._links.defaultAccessConditions
           );
         }),
-        filter((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) =>
+        find((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) =>
           defaultAccessConditionsRemoteData.hasSucceeded),
-        take(1),
         tap((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) => {
           if (isNotEmpty(defaultAccessConditionsRemoteData.payload)) {
             this.collectionDefaultAccessConditions = Array.isArray(defaultAccessConditionsRemoteData.payload)
@@ -125,8 +123,7 @@ export class UploadSectionComponent extends SectionModelComponent {
             if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
               groups$.push(
                 this.groupService.findById(accessCondition.groupUUID).pipe(
-                  filter((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
-                  take(1))
+                  find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded))
               );
             }
           });

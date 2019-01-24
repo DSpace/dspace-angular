@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { filter, first } from 'rxjs/operators';
+import { find } from 'rxjs/operators';
 
 import { GroupEpersonService } from '../../../../core/eperson/group-eperson.service';
 import { ResourcePolicy } from '../../../../core/shared/resource-policy.model';
@@ -24,8 +24,7 @@ export class AccessConditionsComponent implements OnInit {
     this.accessConditions.forEach((accessCondition: ResourcePolicy) => {
       if (isEmpty(accessCondition.name)) {
         this.groupService.findById(accessCondition.groupUUID).pipe(
-          filter((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
-          first())
+          find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded))
           .subscribe((rd: RemoteData<Group>) => {
             const group: Group = rd.payload;
             const accessConditionEntry = Object.assign({}, accessCondition);

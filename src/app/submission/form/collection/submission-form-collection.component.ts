@@ -16,7 +16,7 @@ import {
   debounceTime,
   distinctUntilChanged,
   filter,
-  first,
+  find,
   flatMap,
   map,
   mergeMap,
@@ -29,7 +29,7 @@ import { isNullOrUndefined } from 'util';
 import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { Community } from '../../../core/shared/community.model';
-import { hasValue, isNotEmpty, isEmpty } from '../../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -107,13 +107,11 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       // @TODO replace with search/top browse endpoint
       // @TODO implement community/subcommunity hierarchy
       const listCollection$ = this.communityDataService.findAll().pipe(
-        filter((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
-        first(),
+        find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
         mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page),
         flatMap((communityData: Community) => {
           return communityData.collections.pipe(
-            filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-            first(),
+            find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
             mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
             filter((collectionData: Collection) => isNotEmpty(collectionData)),
             tap((collectionData: Collection) => {
