@@ -17,6 +17,7 @@ export class NormalizedResourcePolicy extends NormalizedObject {
   /**
    * The action that is allowed by this Resource Policy
    */
+  @autoserialize
   action: ActionType;
 
   /**
