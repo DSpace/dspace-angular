@@ -76,7 +76,6 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
-import { BrowseByModule } from '../+browse-by/browse-by.module';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { DebounceDirective } from './utils/debounce.directive';
@@ -86,6 +85,8 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
+import { MenuModule } from './menu/menu.module';
+import {LangSwitchComponent} from './lang-switch/lang-switch.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -106,7 +107,8 @@ const MODULES = [
   TranslateModule,
   NouisliderModule,
   MomentModule,
-  TextMaskModule
+  TextMaskModule,
+  MenuModule
 ];
 
 const PIPES = [
@@ -139,6 +141,7 @@ const COMPONENTS = [
   DsDatePickerComponent,
   ErrorComponent,
   FormComponent,
+  LangSwitchComponent,
   LoadingComponent,
   LogInComponent,
   LogOutComponent,
@@ -159,7 +162,7 @@ const COMPONENTS = [
   TruncatableComponent,
   TruncatablePartComponent,
   BrowseByComponent,
-  InputSuggestionsComponent
+  InputSuggestionsComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -196,7 +199,6 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...DIRECTIVES
   ],
   providers: [
     ...PROVIDERS

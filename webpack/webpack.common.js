@@ -1,5 +1,5 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const path = require('path');
 const {
     root,
     join
@@ -37,7 +37,8 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: true
+                            sourceMap: true,
+                            modules: true
                         }
                     },
                     {
@@ -50,7 +51,9 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                exclude: /node_modules/,
+                exclude: [/node_modules/,
+                    path.resolve(__dirname,  '..', 'src/styles/_exposed_variables.scss')
+                ],
                 use: [{
                     loader: 'to-string-loader',
                     options: {
@@ -62,12 +65,6 @@ module.exports = {
                         sourceMap: true
                     }
                 },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
                     {
                         loader: 'resolve-url-loader',
                         options: {
@@ -83,6 +80,15 @@ module.exports = {
                 ]
             },
             {
+                test: /_exposed_variables.scss$/,
+                exclude: /node_modules/,
+                use: [{
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "sass-loader" // compiles Sass to CSS
+                }]
+            },
+            {
                 test: /\.html$/,
                 loader: 'raw-loader'
             }
@@ -90,7 +96,7 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin([{
-            from: join(__dirname, '..', 'node_modules', 'font-awesome', 'fonts'),
+            from: join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
             to: join('assets', 'fonts')
         }, {
             from: join(__dirname, '..', 'resources', 'images'),

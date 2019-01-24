@@ -1,7 +1,7 @@
 @import '../styles/variables.scss';
+@import '../styles/helpers/font_awesome_imports.scss';
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
-@import '../../node_modules/nouislider/distribute/nouislider.min.css';
-@import "../../node_modules/font-awesome/scss/font-awesome.scss";
+@import '../../node_modules/nouislider/distribute/nouislider.min';
 
 html {
   position: relative;
@@ -11,8 +11,8 @@ html {
 body {
   overflow-x: hidden;
 }
-// Sticky Footer
 
+// Sticky Footer
 .outer-wrapper {
   display: flex;
   margin: 0;
@@ -25,10 +25,22 @@ body {
   min-height: 100vh;
   flex-direction: column;
   width: 100%;
+  position: relative;
 }
 
 .main-content {
+  z-index: $main-z-index;
   flex: 1 0 auto;
   margin-top: $content-spacing;
   margin-bottom: $content-spacing;
 }
+
+ds-header-navbar-wrapper {
+  z-index: $nav-z-index;
+}
+
+ds-admin-sidebar {
+  position: fixed;
+  z-index: $sidebar-z-index;
+}
+

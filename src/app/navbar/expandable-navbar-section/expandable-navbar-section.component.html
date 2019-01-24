@@ -1,0 +1,17 @@
+<li class="nav-item dropdown"
+    (mouseenter)="activateSection($event)"
+    (mouseleave)="deactivateSection($event)">
+    <a href="#" class="nav-link dropdown-toggle" routerLinkActive="active"
+       id="browseDropdown" (click)="toggleSection($event)"
+       data-toggle="dropdown">
+        <ng-container
+                *ngComponentOutlet="itemComponents.get(section.id); injector: itemInjectors.get(section.id);"></ng-container>
+    </a>
+    <ul @slide *ngIf="(active | async)" (click)="deactivateSection($event)"
+        class="m-0 shadow-none border-top-0 dropdown-menu show">
+        <ng-container *ngFor="let subSection of (subSections | async)">
+            <ng-container
+                    *ngComponentOutlet="itemComponents.get(subSection.id); injector: itemInjectors.get(subSection.id);"></ng-container>
+        </ng-container>
+    </ul>
+</li>

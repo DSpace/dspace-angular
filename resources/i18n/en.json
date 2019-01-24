@@ -22,6 +22,9 @@
     },
     "sub-collection-list": {
       "head": "Collections of this Community"
+    },
+    "sub-community-list": {
+      "head": "Communities of this Community"
     }
   },
   "item": {
@@ -43,12 +46,136 @@
         "simple": "Simple item page",
         "full": "Full item page"
       }
+    },
+    "select": {
+      "table": {
+        "collection": "Collection",
+        "author": "Author",
+        "title": "Title"
+      },
+      "confirm": "Confirm selected"
+    },
+    "edit": {
+      "head": "Edit Item",
+      "tabs": {
+        "status": {
+          "head": "Item Status",
+          "description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+          "labels": {
+            "id": "Item Internal ID",
+            "handle": "Handle",
+            "lastModified": "Last Modified",
+            "itemPage": "Item Page"
+          },
+          "buttons": {
+            "authorizations": {
+              "label": "Edit item's authorization policies",
+              "button": "Authorizations..."
+            },
+            "withdraw": {
+              "label": "Withdraw item from the repository",
+              "button": "Withdraw..."
+            },
+            "reinstate": {
+              "label": "Reinstate item into the repository",
+              "button": "Reinstate..."
+            },
+            "move": {
+              "label": "Move item to another collection",
+              "button": "Move..."
+            },
+            "private": {
+              "label": "Make item private",
+              "button": "Make it private..."
+            },
+            "public": {
+              "label": "Make item public",
+              "button": "Make it public..."
+            },
+            "delete": {
+              "label": "Completely expunge item",
+              "button": "Permanently delete"
+            },
+            "mappedCollections": {
+              "label": "Manage mapped collections",
+              "button": "Mapped collections"
+            }
+          }
+        },
+        "bitstreams": {
+          "head": "Item Bitstreams"
+        },
+        "metadata": {
+          "head": "Item Metadata"
+        },
+        "view": {
+          "head": "View Item"
+        },
+        "curate": {
+          "head": "Curate"
+        }
+      },
+      "modify.overview": {
+        "field": "Field",
+        "value": "Value",
+        "language": "Language"
+      },
+      "withdraw": {
+        "header": "Withdraw item: {{ id }}",
+        "description": "Are you sure this item should be withdrawn from the archive?",
+        "confirm": "Withdraw",
+        "cancel": "Cancel",
+        "success": "The item was withdrawn successfully",
+        "error": "An error occured while withdrawing the item"
+      },
+      "reinstate": {
+        "header": "Reinstate item: {{ id }}",
+        "description": "Are you sure this item should be reinstated to the archive?",
+        "confirm": "Reinstate",
+        "cancel": "Cancel",
+        "success": "The item was reinstated successfully",
+        "error": "An error occured while reinstating the item"
+      },
+      "private": {
+        "header": "Make item private: {{ id }}",
+        "description": "Are you sure this item should be made private in the archive?",
+        "confirm": "Make it Private",
+        "cancel": "Cancel",
+        "success": "The item is now private",
+        "error": "An error occured while making the item private"
+      },
+      "public": {
+        "header": "Make item public: {{ id }}",
+        "description": "Are you sure this item should be made public in the archive?",
+        "confirm": "Make it Public",
+        "cancel": "Cancel",
+        "success": "The item is now public",
+        "error": "An error occured while making the item public"
+      },
+      "delete": {
+        "header": "Delete item: {{ id }}",
+        "description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "success": "The item has been deleted",
+        "error": "An error occured while deleting the item"
+      }
     }
   },
   "nav": {
-    "home": "Home",
+    "browse": {
+      "header": "All of DSpace"
+    },
+    "community-browse": {
+      "header": "By Community"
+    },
+    "statistics": {
+      "header": "Statistics"
+    },
     "login": "Log In",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "language": "Language switch",
+    "search": "Search"
   },
   "pagination": {
     "results-per-page": "Results Per Page",
@@ -238,12 +365,92 @@
       }
     }
   },
+  "menu": {
+    "header": {
+      "admin": "Admin",
+      "image": {
+        "logo": "Repository logo"
+      }
+    },
+    "section": {
+      "pin": "Pin sidebar",
+      "unpin": "Unpin sidebar",
+      "new": "New",
+      "new_community": "Community",
+      "new_collection": "Collection",
+      "new_item": "Item",
+      "new_item_version": "Item Version",
+      "edit": "Edit",
+      "edit_community": "Community",
+      "edit_collection": "Collection",
+      "edit_item": "Item",
+      "import": "Import",
+      "import_metadata": "Metadata",
+      "import_batch": "Batch Import (ZIP)",
+      "export": "Export",
+      "export_community": "Community",
+      "export_collection": "Collection",
+      "export_item": "Item",
+      "export_metadata": "Metadata",
+      "access_control": "Access Control",
+      "access_control_people": "People",
+      "access_control_groups": "Groups",
+      "access_control_authorizations": "Authorizations",
+      "find": "Find",
+      "find_items": "Items",
+      "find_withdrawn_items": "Withdrawn Items",
+      "find_private_items": "Private Items",
+      "registries": "Registries",
+      "registries_metadata": "Metadata",
+      "registries_format": "Format",
+      "curation_task": "Curation Task",
+      "statistics_task": "Statistics Task",
+      "control_panel": "Control Panel",
+      "browse_global": "All of DSpace",
+      "browse_global_communities_and_collections": "Communities & Collections",
+      "browse_global_by_issue_date": "By Issue Date",
+      "browse_global_by_author": "By Author",
+      "browse_global_by_title": "By Title",
+      "statistics": "Statistics",
+      "browse_community": "This Community",
+      "browse_community_by_issue_date": "By Issue Date",
+      "browse_community_by_author": "By Author",
+      "browse_community_by_title": "By Title",
+      "icon": {
+        "pin": "Pin sidebar",
+        "unpin": "Unpin sidebar",
+        "new": "New menu section",
+        "edit": "Edit menu section",
+        "import": "Import menu section",
+        "export": "Export menu section",
+        "access_control": "Access Control menu section",
+        "find": "Find menu section",
+        "registries": "Registries menu section",
+        "curation_task": "Curation Task menu section",
+        "statistics_task": "Statistics Task menu section",
+        "control_panel": "Control Panel menu section"
+      },
+      "toggle": {
+        "new": "Toggle New section",
+        "edit": "Toggle Edit section",
+        "import": "Toggle Import section",
+        "export": "Toggle Export section",
+        "access_control": "Toggle Access Control section",
+        "find": "Toggle Find section",
+        "registries": "Toggle Registries section",
+        "curation_task": "Toggle Curation Task section",
+        "statistics_task": "Toggle Statistics Task section",
+        "control_panel": "Toggle Control Panel section"
+      }
+    }
+  },
   "loading": {
     "default": "Loading...",
     "top-level-communities": "Loading top-level communities...",
     "community": "Loading community...",
     "collection": "Loading collection...",
     "sub-collections": "Loading sub-collections...",
+    "sub-communities": "Loading sub-communities...",
     "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
     "objects": "Loading...",
@@ -256,6 +463,7 @@
     "community": "Error fetching community",
     "collection": "Error fetching collection",
     "sub-collections": "Error fetching sub-collections",
+    "sub-communities": "Error fetching sub-communities",
     "recent-submissions": "Error fetching recent submissions",
     "item": "Error fetching item",
     "objects": "Error fetching objects",
@@ -308,5 +516,8 @@
     "errors": {
       "invalid-user": "Invalid email address or password."
     }
+  },
+  "chips": {
+    "remove": "Remove chip"
   }
 }
