@@ -35,8 +35,8 @@ import { AuthService } from '../auth/auth.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { EmptyError } from 'rxjs/internal-compatibility';
-import { DataBuildService } from '../cache/builders/data-build.service';
-import { DSOUpdateComparator } from '../data/dso-update-comparator';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -119,8 +119,8 @@ describe('MetadataService', () => {
         { provide: AuthService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: HttpClient, useValue: {} },
-        { provide: DataBuildService, useValue: {} },
-        { provide: DSOUpdateComparator, useValue: {} },
+        { provide: NormalizedObjectBuildService, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
         Meta,
         Title,
         ItemDataService,

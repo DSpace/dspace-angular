@@ -1,0 +1,16 @@
+<table id="metadata" class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <th scope="col">{{'item.edit.modify.overview.field'| translate}}</th>
+    <th scope="col">{{'item.edit.modify.overview.value'| translate}}</th>
+    <th scope="col">{{'item.edit.modify.overview.language'| translate}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let metadatum of metadata" class="metadata-row">
+    <td>{{metadatum.key}}</td>
+    <td>{{metadatum.value}}</td>
+    <td>{{metadatum.language}}</td>
+  </tr>
+  </tbody>
+</table>

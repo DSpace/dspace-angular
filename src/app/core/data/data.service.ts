@@ -1,12 +1,12 @@
 import {
-  delay,
   distinctUntilChanged,
   filter,
   find,
-  switchMap,
+  first,
   map,
-  take,
-  tap, first, mergeMap
+  mergeMap,
+  switchMap,
+  take
 } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -18,44 +18,41 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import {
-  CreateRequest, DeleteByIDRequest,
+  CreateRequest,
+  DeleteByIDRequest,
   FindAllOptions,
   FindAllRequest,
   FindByIDRequest,
-  GetRequest, RestRequest
+  GetRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { compare, Operation } from 'fast-json-patch';
+import { Operation } from 'fast-json-patch';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import {
-  configureRequest,
-  filterSuccessfulResponses, getFinishedRemoteData, getResourceLinksFromResponse,
-  getResponseFromEntry
-} from '../shared/operators';
-import { DSOSuccessResponse, ErrorResponse, RestResponse } from '../cache/response.models';
+import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { CacheableObject } from '../cache/object-cache.reducer';
-import { DataBuildService } from '../cache/builders/data-build.service';
-import { UpdateComparator } from './update-comparator';
 import { RequestEntry } from './request.reducer';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { ChangeAnalyzer } from './change-analyzer';
 
 export abstract class DataService<TNormalized extends NormalizedObject, TDomain extends CacheableObject> {
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
-  protected abstract dataBuildService: DataBuildService;
+  protected abstract dataBuildService: NormalizedObjectBuildService;
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
-  protected abstract comparator: UpdateComparator<TNormalized>;
+  protected abstract comparator: ChangeAnalyzer<TNormalized>;
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
@@ -139,7 +136,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     const oldVersion$ = this.objectCache.getBySelfLink(object.self);
     return oldVersion$.pipe(first(), mergeMap((oldVersion: TNormalized) => {
         const newVersion = this.dataBuildService.normalize<TDomain, TNormalized>(object);
-        const operations = this.comparator.compare(oldVersion, newVersion);
+        const operations = this.comparator.diff(oldVersion, newVersion);
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);
         }
@@ -149,6 +146,15 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
 
   }
 
+  /**
+   * Create a new DSpaceObject on the server, and store the response
+   * in the object cache
+   *
+   * @param {DSpaceObject} dso
+   *    The object to create
+   * @param {string} parentUUID
+   *    The UUID of the parent to create the new object under
+   */
   create(dso: TDomain, parentUUID: string): Observable<RemoteData<TDomain>> {
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(

@@ -1,6 +1,6 @@
 import { of as observableOf, Observable } from 'rxjs';
 
-import { filter, debounceTime, switchMap, take, tap, catchError, map, first } from 'rxjs/operators';
+import { filter, debounceTime, switchMap, take, tap, catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 // import @ngrx

@@ -16,8 +16,8 @@ import { RequestEntry } from './request.reducer';
 import { of as observableOf } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { DataBuildService } from '../cache/builders/data-build.service';
-import { DSOUpdateComparator } from './dso-update-comparator';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 const LINK_NAME = 'test';
 
@@ -30,7 +30,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: DataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
@@ -38,7 +38,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOUpdateComparator,
+    protected comparator: DSOChangeAnalyzer,
     protected linkPath: string
   ) {
     super();
@@ -61,7 +61,7 @@ describe('ComColDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {} as DataBuildService;
+  const dataBuildService = {} as NormalizedObjectBuildService;
 
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const options = Object.assign(new FindAllOptions(), {

@@ -65,8 +65,8 @@ import { BrowseItemsResponseParsingService } from './data/browse-items-response-
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../shared/menu/menu.service';
-import { DataBuildService } from './cache/builders/data-build.service';
-import { DSOUpdateComparator } from './data/dso-update-comparator';
+import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 
 const IMPORTS = [
   CommonModule,
@@ -103,7 +103,7 @@ const PROVIDERS = [
   ObjectCacheService,
   PaginationComponentOptions,
   RegistryService,
-  DataBuildService,
+  NormalizedObjectBuildService,
   RemoteDataBuildService,
   RequestService,
   EndpointMapResponseParsingService,
@@ -131,7 +131,7 @@ const PROVIDERS = [
   UploaderService,
   UUIDService,
   DSpaceObjectDataService,
-  DSOUpdateComparator,
+  DSOChangeAnalyzer,
   CSSVariableService,
   MenuService,
   // register AuthInterceptor as HttpInterceptor

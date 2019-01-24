@@ -79,6 +79,14 @@ export class DSpaceRESTv2Service {
       }));
   }
 
+  /**
+   * Create a FormData object from a DSpaceObject
+   *
+   * @param {DSpaceObject} dso
+   *    the DSpaceObject
+   * @return {FormData}
+   *    the result
+   */
   buildFormData(dso: DSpaceObject): FormData {
     const form: FormData = new FormData();
     form.append('name', dso.name);

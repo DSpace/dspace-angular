@@ -108,6 +108,120 @@
         "simple": "Simple item page",
         "full": "Full item page"
       }
+    },
+    "select": {
+      "table": {
+        "collection": "Collection",
+        "author": "Author",
+        "title": "Title"
+      },
+      "confirm": "Confirm selected"
+    },
+    "edit": {
+      "head": "Edit Item",
+      "tabs": {
+        "status": {
+          "head": "Item Status",
+          "description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+          "labels": {
+            "id": "Item Internal ID",
+            "handle": "Handle",
+            "lastModified": "Last Modified",
+            "itemPage": "Item Page"
+          },
+          "buttons": {
+            "authorizations": {
+              "label": "Edit item's authorization policies",
+              "button": "Authorizations..."
+            },
+            "withdraw": {
+              "label": "Withdraw item from the repository",
+              "button": "Withdraw..."
+            },
+            "reinstate": {
+              "label": "Reinstate item into the repository",
+              "button": "Reinstate..."
+            },
+            "move": {
+              "label": "Move item to another collection",
+              "button": "Move..."
+            },
+            "private": {
+              "label": "Make item private",
+              "button": "Make it private..."
+            },
+            "public": {
+              "label": "Make item public",
+              "button": "Make it public..."
+            },
+            "delete": {
+              "label": "Completely expunge item",
+              "button": "Permanently delete"
+            },
+            "mappedCollections": {
+              "label": "Manage mapped collections",
+              "button": "Mapped collections"
+            }
+          }
+        },
+        "bitstreams": {
+          "head": "Item Bitstreams"
+        },
+        "metadata": {
+          "head": "Item Metadata"
+        },
+        "view": {
+          "head": "View Item"
+        },
+        "curate": {
+          "head": "Curate"
+        }
+      },
+      "modify.overview": {
+        "field": "Field",
+        "value": "Value",
+        "language": "Language"
+      },
+      "withdraw": {
+        "header": "Withdraw item: {{ id }}",
+        "description": "Are you sure this item should be withdrawn from the archive?",
+        "confirm": "Withdraw",
+        "cancel": "Cancel",
+        "success": "The item was withdrawn successfully",
+        "error": "An error occured while withdrawing the item"
+      },
+      "reinstate": {
+        "header": "Reinstate item: {{ id }}",
+        "description": "Are you sure this item should be reinstated to the archive?",
+        "confirm": "Reinstate",
+        "cancel": "Cancel",
+        "success": "The item was reinstated successfully",
+        "error": "An error occured while reinstating the item"
+      },
+      "private": {
+        "header": "Make item private: {{ id }}",
+        "description": "Are you sure this item should be made private in the archive?",
+        "confirm": "Make it Private",
+        "cancel": "Cancel",
+        "success": "The item is now private",
+        "error": "An error occured while making the item private"
+      },
+      "public": {
+        "header": "Make item public: {{ id }}",
+        "description": "Are you sure this item should be made public in the archive?",
+        "confirm": "Make it Public",
+        "cancel": "Cancel",
+        "success": "The item is now public",
+        "error": "An error occured while making the item public"
+      },
+      "delete": {
+        "header": "Delete item: {{ id }}",
+        "description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "success": "The item has been deleted",
+        "error": "An error occured while deleting the item"
+      }
     }
   },
   "nav": {

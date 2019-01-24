@@ -11,6 +11,9 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { isNotEmpty } from '../../empty.util';
 import { ResourceType } from '../../../core/shared/resource-type';
 
+/**
+ * A form for creating and editing Communities or Collections
+ */
 @Component({
   selector: 'ds-comcol-form',
   styleUrls: ['./comcol-form.component.scss'],
