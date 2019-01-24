@@ -1,5 +1,5 @@
-import { distinctUntilChanged, filter, take, first, map, flatMap } from 'rxjs/operators';
-import { of as observableOf, Observable } from 'rxjs';
+import { distinctUntilChanged, filter, first, map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -33,6 +33,26 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
 
     result = this.getBrowseEndpoint(options).pipe(distinctUntilChanged());
 
+    return this.buildHrefFromFindOptions(result, args, options);
+  }
+
+  protected getSearchByHref(searchMethod: string, options: FindAllOptions = {}): Observable<string> {
+    let result: Observable<string>;
+    const args = [];
+
+    result = this.getSearchEndpoint(searchMethod);
+
+    if (hasValue(options.searchParams)) {
+      options.searchParams.forEach((param: SearchParam) => {
+        args.push(`${param.fieldName}=${param.fieldValue}`);
+      })
+    }
+
+    return this.buildHrefFromFindOptions(result, args, options);
+  }
+
+  protected buildHrefFromFindOptions(href: Observable<string>, args: string[], options: FindAllOptions): Observable<string> {
+
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
       args.push(`page=${options.currentPage - 1}`);
@@ -51,45 +71,9 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     }
 
     if (isNotEmpty(args)) {
-      return result.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
+      return href.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
     } else {
-      return result;
-    }
-  }
-
-  protected getSearchByHref(endpoint, searchByLink, options: FindAllOptions = {}): Observable<string> {
-    let result: Observable<string>;
-    const args = [];
-
-    result = observableOf(`${endpoint}/search/${searchByLink}`);
-
-    if (hasValue(options.searchParams)) {
-      options.searchParams.forEach((param: SearchParam) => {
-        args.push(`${param.fieldName}=${param.fieldValue}`);
-      })
-    }
-
-    if (hasValue(options.scopeID)) {
-      args.push(`uuid=${options.scopeID}`);
-    }
-
-    if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
-      /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
-      args.push(`page=${options.currentPage - 1}`);
-    }
-
-    if (hasValue(options.elementsPerPage)) {
-      args.push(`size=${options.elementsPerPage}`);
-    }
-
-    if (hasValue(options.sort)) {
-      args.push(`sort=${options.sort.field},${options.sort.direction}`);
-    }
-
-    if (isNotEmpty(args)) {
-      return result.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
-    } else {
-      return result;
+      return href;
     }
   }
 
@@ -130,11 +114,15 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain>
     return this.rdbService.buildSingle<TNormalized, TDomain>(href);
   }
 
+  protected getSearchEndpoint(searchMethod: string): Observable<string> {
+    return this.halService.getEndpoint(`${this.linkPath}/search`).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((href: string) => `${href}/${searchMethod}`));
+  }
+
   protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
 
-    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      filter((href: string) => isNotEmpty(href)),
-      flatMap((endpoint: string) => this.getSearchByHref(endpoint, searchMethod, options)));
+    const hrefObs = this.getSearchByHref(searchMethod, options);
 
     hrefObs.pipe(
       filter((href: string) => hasValue(href)),
