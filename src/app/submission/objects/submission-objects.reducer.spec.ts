@@ -150,11 +150,6 @@ describe('submissionReducer test suite', () => {
 
     expect(newState[826].savePending).toBeFalsy();
 
-    action = new SaveForLaterSubmissionFormSuccessAction(submissionId, []);
-    newState = submissionObjectReducer(state, action);
-
-    expect(newState[826].savePending).toBeFalsy();
-
     action = new SaveSubmissionSectionFormSuccessAction(submissionId, []);
     newState = submissionObjectReducer(state, action);
 
