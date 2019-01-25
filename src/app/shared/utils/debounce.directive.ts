@@ -28,6 +28,7 @@ export class DebounceDirective implements OnInit, OnDestroy {
   /**
    * True if no changes have been made to the input field's value
    */
+  @Input()
   private isFirstChange = true;
 
   /**

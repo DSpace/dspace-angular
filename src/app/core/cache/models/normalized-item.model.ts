@@ -1,4 +1,4 @@
-import { inheritSerialization, autoserialize, autoserializeAs } from 'cerialize';
+import { inheritSerialization, deserialize, autoserialize, autoserializeAs } from 'cerialize';
 
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Item } from '../../shared/item.model';
@@ -21,7 +21,7 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   /**
    * The Date of the last modification of this Item
    */
-  @autoserialize
+  @deserialize
   lastModified: Date;
 
   /**
@@ -45,21 +45,21 @@ export class NormalizedItem extends NormalizedDSpaceObject {
   /**
    * An array of Collections that are direct parents of this Item
    */
-  @autoserialize
+  @deserialize
   @relationship(ResourceType.Collection, true)
   parents: string[];
 
   /**
    * The Collection that owns this Item
    */
-  @autoserialize
+  @deserialize
   @relationship(ResourceType.Collection, false)
   owningCollection: string;
 
   /**
    * List of Bitstreams that are owned by this Item
    */
-  @autoserialize
+  @deserialize
   @relationship(ResourceType.Bitstream, true)
   bitstreams: string[];
 

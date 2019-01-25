@@ -18,7 +18,7 @@ export class NormalizedDSpaceObject extends NormalizedObject {
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @autoserialize
+  @deserialize
   self: string;
 
   /**

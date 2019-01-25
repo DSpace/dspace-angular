@@ -22,7 +22,7 @@ export class ItemMetadataComponent {
   }
 
   update() {
-    this.itemService.update(this.item);
+    this.itemService.update(this.item).subscribe();
   }
 
   removeMetadata(i: number) {

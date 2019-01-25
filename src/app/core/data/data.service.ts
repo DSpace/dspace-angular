@@ -139,7 +139,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
    */
   update(object: TDomain): Observable<RemoteData<TDomain>> {
     const oldVersion$ = this.objectCache.getBySelfLink(object.self);
-    return oldVersion$.pipe(first(), mergeMap((oldVersion: TNormalized) => {
+    return oldVersion$.pipe(take(1), mergeMap((oldVersion: TNormalized) => {
         const newVersion = this.dataBuildService.normalize<TDomain, TNormalized>(object);
         const operations = this.comparator.diff(oldVersion, newVersion);
         if (isNotEmpty(operations)) {
