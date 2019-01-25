@@ -98,7 +98,7 @@ export class FormService {
     const errorKey = this.getValidatorNameFromMap(message);
     let errorMsg = message;
 
-    // if form control model has not errorMessages object, create it
+    // if form control model has no errorMessages object, create it
     if (!model.errorMessages) {
       model.errorMessages = {};
     }

@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {first} from 'rxjs/operators';
-import {AbstractSimpleItemActionComponent} from '../simple-item-action/abstract-simple-item-action.component';
-import {RemoteData} from '../../../core/data/remote-data';
-import {Item} from '../../../core/shared/item.model';
+import { Component } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Item } from '../../../core/shared/item.model';
 import { RestResponse } from '../../../core/cache/response.models';
 
 @Component({

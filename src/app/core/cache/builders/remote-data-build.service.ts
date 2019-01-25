@@ -45,7 +45,6 @@ export class RemoteDataBuildService {
       href$.pipe(getRequestFromRequestHref(this.requestService)),
       requestUUID$.pipe(getRequestFromRequestUUID(this.requestService)),
     );
-
     // always use self link if that is cached, only if it isn't, get it via the response.
     const payload$ =
       observableCombineLatest(

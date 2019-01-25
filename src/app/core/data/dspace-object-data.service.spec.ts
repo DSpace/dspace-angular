@@ -7,6 +7,9 @@ import { FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 import { DSpaceObjectDataService } from './dspace-object-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 
 describe('DSpaceObjectDataService', () => {
   let scheduler: TestScheduler;
@@ -40,12 +43,20 @@ describe('DSpaceObjectDataService', () => {
       })
     });
     objectCache = {} as ObjectCacheService;
+    const notificationsService = {} as NotificationsService;
+    const http = {} as HttpClient;
+    const comparator = {} as any;
+    const dataBuildService = {} as NormalizedObjectBuildService;
 
     service = new DSpaceObjectDataService(
       requestService,
       rdbService,
+      dataBuildService,
+      objectCache,
       halService,
-      objectCache
+      notificationsService,
+      http,
+      comparator
     )
   });
 

@@ -14,6 +14,10 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from './request.reducer';
 import { of as observableOf } from 'rxjs';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 const LINK_NAME = 'test';
 
@@ -26,11 +30,15 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
-    protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DSOChangeAnalyzer,
     protected linkPath: string
   ) {
     super();
@@ -45,11 +53,15 @@ describe('ComColDataService', () => {
   let requestService: RequestService;
   let cds: CommunityDataService;
   let objectCache: ObjectCacheService;
-  const halService: any = {};
+  let halService: any = {};
 
   const rdbService = {} as RemoteDataBuildService;
   const store = {} as Store<CoreState>;
   const EnvConfig = {} as GlobalConfig;
+  const notificationsService = {} as NotificationsService;
+  const http = {} as HttpClient;
+  const comparator = {} as any;
+  const dataBuildService = {} as NormalizedObjectBuildService;
 
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const options = Object.assign(new FindAllOptions(), {
@@ -65,11 +77,16 @@ describe('ComColDataService', () => {
   const communityEndpoint = `${communitiesEndpoint}/${scopeID}`;
   const scopedEndpoint = `${communityEndpoint}/${LINK_NAME}`;
   const serviceEndpoint = `https://rest.api/core/${LINK_NAME}`;
+  const authHeader = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJlaWQiOiJhNjA4NmIzNC0zOTE4LTQ1YjctOGRkZC05MzI5YTcwMmEyNmEiLCJzZyI6W10sImV4cCI6MTUzNDk0MDcyNX0.RV5GAtiX6cpwBN77P_v16iG9ipeyiO7faNYSNMzq_sQ';
+
+  const mockHalService = {
+    getEndpoint: (linkPath) => observableOf(communitiesEndpoint)
+  };
 
   function initMockCommunityDataService(): CommunityDataService {
     return jasmine.createSpyObj('responseCache', {
       getEndpoint: hot('--a-', { a: communitiesEndpoint }),
-      getFindByIDHref: cold('b-', { b: communityEndpoint })
+      getIDHref: cold('b-', { b: communityEndpoint })
     });
   }
 
@@ -89,14 +106,26 @@ describe('ComColDataService', () => {
     return new TestService(
       requestService,
       rdbService,
+      dataBuildService,
       store,
       EnvConfig,
       cds,
-      halService,
       objectCache,
+      halService,
+      notificationsService,
+      http,
+      comparator,
       LINK_NAME
     );
   }
+
+  beforeEach(() => {
+    cds = initMockCommunityDataService();
+    requestService = getMockRequestService();
+    objectCache = initMockObjectCacheService();
+    halService = mockHalService;
+    service = initTestService();
+  });
 
   describe('getBrowseEndpoint', () => {
     beforeEach(() => {
@@ -156,4 +185,5 @@ describe('ComColDataService', () => {
     });
 
   });
+
 });

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { filter, find, first, flatMap, map, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
@@ -61,6 +61,10 @@ export const getRemoteDataPayload = () =>
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
+
+export const getFinishedRemoteData = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(find((rd: RemoteData<T>) => !rd.isLoading));
 
 export const getAllSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>

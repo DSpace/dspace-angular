@@ -100,7 +100,7 @@ export class RequestService {
       this.store.pipe(select(this.entryFromUUIDSelector(uuid))),
       this.store.pipe(
         select(this.originalUUIDFromUUIDSelector(uuid)),
-        switchMap((originalUUID) => {
+        mergeMap((originalUUID) => {
             return this.store.pipe(select(this.entryFromUUIDSelector(originalUUID)))
           },
         ))

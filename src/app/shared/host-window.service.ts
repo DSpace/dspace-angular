@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { filter, distinctUntilChanged, map, first } from 'rxjs/operators';
+import { filter, distinctUntilChanged, map } from 'rxjs/operators';
 import { HostWindowState } from './host-window.reducer';
 import { Injectable } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';

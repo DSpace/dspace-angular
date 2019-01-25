@@ -20,8 +20,9 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from './request.reducer';
 import { getResponseFromEntry } from '../shared/operators';
+import { CacheableObject } from '../cache/object-cache.reducer';
 
-export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain> extends DataService<TNormalized, TDomain> {
+export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain extends CacheableObject> extends DataService<TNormalized, TDomain> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract halService: HALEndpointService;
@@ -41,7 +42,7 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       return this.halService.getEndpoint(linkPath);
     } else {
       const scopeCommunityHrefObs = this.cds.getEndpoint().pipe(
-        mergeMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, options.scopeID)),
+        mergeMap((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
         filter((href: string) => isNotEmpty(href)),
         take(1),
         tap((href: string) => {

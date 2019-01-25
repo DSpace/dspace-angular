@@ -260,6 +260,29 @@ export class UpdateMetadataFieldRequest extends PutRequest {
   }
 }
 
+export class CreateRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return DSOResponseParsingService;
+  }
+}
+
+/**
+ * Request to delete an object based on its identifier
+ */
+export class DeleteByIDRequest extends DeleteRequest {
+  constructor(
+    uuid: string,
+    href: string,
+    public resourceID: string
+  ) {
+    super(uuid, href);
+  }
+}
+
 export class RequestError extends Error {
   statusText: string;
 }
