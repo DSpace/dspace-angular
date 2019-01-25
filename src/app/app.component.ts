@@ -62,10 +62,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     private menuService: MenuService,
     private windowService: HostWindowService
   ) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
+    // Load all the languages that are defined as active from the config file
+    translate.addLangs(config.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
+
+    // Load the default language from the config file
+    translate.setDefaultLang(config.defaultLanguage);
+
+    // Attempt to get the browser language from the user
+    if (translate.getLangs().includes(translate.getBrowserLang())) {
+      translate.use(translate.getBrowserLang());
+    } else {
+      translate.use(config.defaultLanguage);
+    }
 
     metadata.listenForRouteChange();
 

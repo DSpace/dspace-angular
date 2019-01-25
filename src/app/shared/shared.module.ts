@@ -25,7 +25,6 @@ import { ItemListElementComponent } from './object-list/item-list-element/item-l
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
 import { WrapperListElementComponent } from './object-list/wrapper-list-element/wrapper-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
-
 import { CollectionGridElementComponent } from './object-grid/collection-grid-element/collection-grid-element.component';
 import { CommunityGridElementComponent } from './object-grid/community-grid-element/community-grid-element.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-grid-element.component';
@@ -71,6 +70,7 @@ import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models
 import { DsDynamicFormGroupComponent } from './form/builder/ds-dynamic-form-ui/models/form-group/dynamic-form-group.component';
 import { DsDynamicFormArrayComponent } from './form/builder/ds-dynamic-form-ui/models/array-group/dynamic-form-array.component';
 import { DsDynamicRelationGroupComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.components';
+import { DsDatePickerInlineComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker-inline/dynamic-date-picker-inline.component';
 import { SortablejsModule } from 'angular-sortablejs';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
@@ -89,7 +89,7 @@ import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
 import { MenuModule } from './menu/menu.module';
-import { DsDatePickerInlineComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker-inline/dynamic-date-picker-inline.component';
+import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -146,8 +146,10 @@ const COMPONENTS = [
   DsDatePickerComponent,
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,
+  DsDatePickerInlineComponent,
   ErrorComponent,
   FormComponent,
+  LangSwitchComponent,
   LoadingComponent,
   LogInComponent,
   LogOutComponent,
