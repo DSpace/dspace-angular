@@ -28,7 +28,7 @@ import {
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, hasNoValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RegistryBitstreamformatsResponseParsingService } from '../data/registry-bitstreamformats-response-parsing.service';
@@ -166,6 +166,41 @@ export class RegistryService {
     return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
+  public getAllMetadataFields(pagination?: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    if (hasNoValue(pagination)) {
+      pagination = { currentPage: 1, pageSize: Number.MAX_VALUE } as any;
+    }
+    const requestObs = this.getMetadataFieldsRequestObs(pagination);
+
+    const requestEntryObs = requestObs.pipe(
+      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+
+    const rmrObs: Observable<RegistryMetadatafieldsResponse> = requestEntryObs.pipe(
+      getResponseFromEntry(),
+      map((response: RegistryMetadatafieldsSuccessResponse) => response.metadatafieldsResponse)
+    );
+
+    const metadatafieldsObs: Observable<MetadataField[]> = rmrObs.pipe(
+      map((rmr: RegistryMetadatafieldsResponse) => rmr.metadatafields),
+      map((metadataFields: MetadataField[]) => metadataFields)
+    );
+
+    const pageInfoObs: Observable<PageInfo> = requestEntryObs.pipe(
+      getResponseFromEntry(),
+
+      map((response: RegistryMetadatafieldsSuccessResponse) => response.pageInfo)
+    );
+
+    const payloadObs = observableCombineLatest(metadatafieldsObs, pageInfoObs).pipe(
+      map(([metadatafields, pageInfo]) => {
+        return new PaginatedList(pageInfo, metadatafields);
+      })
+    );
+
+    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
+  }
+
   public getBitstreamFormats(pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<BitstreamFormat>>> {
     const requestObs = this.getBitstreamFormatsRequestObs(pagination);
 
@@ -222,6 +257,26 @@ export class RegistryService {
       map((url: string) => {
         const args: string[] = [];
         args.push(`schema=${schema.prefix}`);
+        args.push(`size=${pagination.pageSize}`);
+        args.push(`page=${pagination.currentPage - 1}`);
+        if (isNotEmpty(args)) {
+          url = new URLCombiner(url, `?${args.join('&')}`).toString();
+        }
+        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        return Object.assign(request, {
+          getResponseParser(): GenericConstructor<ResponseParsingService> {
+            return RegistryMetadatafieldsResponseParsingService;
+          }
+        });
+      }),
+      tap((request: RestRequest) => this.requestService.configure(request)),
+    );
+  }
+
+  private getMetadataFieldsRequestObs(pagination: PaginationComponentOptions): Observable<RestRequest> {
+    return this.halService.getEndpoint(this.metadataFieldsPath).pipe(
+      map((url: string) => {
+        const args: string[] = [];
         args.push(`size=${pagination.pageSize}`);
         args.push(`page=${pagination.currentPage - 1}`);
         if (isNotEmpty(args)) {

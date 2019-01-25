@@ -60,7 +60,7 @@ export const getRemoteDataPayload = () =>
 
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded), hasValueOperator());
+    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
 
 export const getAllSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>

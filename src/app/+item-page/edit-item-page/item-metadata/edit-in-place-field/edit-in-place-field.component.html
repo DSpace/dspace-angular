@@ -1,0 +1,42 @@
+<td class="col-3">
+    <!--<div *ngIf="!editable">-->
+        <span>{{metadata.key}}</span>
+    <!--</div>-->
+    <!--<div *ngIf="editable" class="field-container">-->
+        <!--<ds-input-suggestions [suggestions]="(filterSearchResults | async)"-->
+                              <!--[action]="getCurrentUrl()"-->
+                              <!--[name]="filterConfig.paramName"-->
+                              <!--[(ngModel)]="metadata.key"-->
+                              <!--(submitSuggestion)="updateField($event)"-->
+                              <!--(clickSuggestion)="updateField($event)"-->
+                              <!--(findSuggestions)="findSuggestions($event)"-->
+                              <!--ngDefaultControl-->
+        <!--&gt;</ds-input-suggestions>-->
+    <!--</div>-->
+</td>
+<td class="col-7">
+    <div *ngIf="!editable">
+        <span>{{metadata.value}}</span>
+    </div>
+    <div *ngIf="editable" class="field-container">
+        <textarea type="textarea" [ngModel]="metadata.value" [dsDebounce] (onDebounce)="update()"></textarea>
+    </div>
+</td>
+<td class="col-1">
+    <div *ngIf="!editable">
+        <span>{{metadata.language}}</span>
+    </div>
+    <div *ngIf="editable" class="field-container">
+        <input type="text" [ngModel]="metadata.language" [dsDebounce] (onDebounce)="update()"/>
+    </div>
+</td>
+<td class="col-1">
+    <div *ngIf="!editable">
+        <i class="fas fa-edit fa-fw" (click)="editable = !editable"></i>
+        <i class="fas fa-trash fa-fw" (click)="remove()"></i>
+    </div>
+    <div *ngIf="editable">
+        <i class="fas fa-times fa-fw" (click)="editable = !editable"></i>
+        <i class="fas fa-trash fa-fw" (click)="remove()"></i>
+    </div>
+</td>

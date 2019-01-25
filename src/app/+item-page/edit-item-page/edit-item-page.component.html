@@ -16,7 +16,7 @@
           </ngb-tab>
           <ngb-tab title="{{'item.edit.tabs.metadata.head' | translate}}">
             <ng-template ngbTabContent>
-
+              <ds-item-metadata [item]="(itemRD$ | async)?.payload"></ds-item-metadata>
             </ng-template>
           </ngb-tab>
           <ngb-tab title="{{'item.edit.tabs.view.head' | translate}}">

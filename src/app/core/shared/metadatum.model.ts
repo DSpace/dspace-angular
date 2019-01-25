@@ -19,5 +19,4 @@ export class Metadatum {
    */
   @autoserialize
   value: string;
-
 }

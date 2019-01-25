@@ -159,6 +159,9 @@
         "cancel": "Cancel",
         "success": "The item has been deleted",
         "error": "An error occured while deleting the item"
+      },
+      "metadata": {
+        "add-button": "Add new metadata"
       }
     }
   },

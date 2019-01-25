@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="item-metadata">
+        <button class="btn btn-primary w-100 my-2" (click)="addMetadata()">{{"item.edit.metadata.add-button" | translate}}</button>
+        <table class="table table-responsive table-striped">
+            <tbody>
+            <tr *ngFor="let metadatum of item.metadata; let i=index">
+                <ds-edit-in-place-field [metadata]="metadatum" class="d-flex" (mdUpdate)="update()" (mdRemove)="removeMetadata(i)"></ds-edit-in-place-field>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

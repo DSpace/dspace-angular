@@ -5,15 +5,7 @@ import {
   race as observableRace
 } from 'rxjs';
 import { Injectable } from '@angular/core';
-import {
-  distinctUntilChanged,
-  first,
-  flatMap,
-  map,
-  startWith,
-  switchMap,
-  take
-} from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, startWith, switchMap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
@@ -29,7 +21,8 @@ import { getMapsTo, getRelationMetadata, getRelationships } from './build-decora
 import { PageInfo } from '../../shared/page-info.model';
 import {
   filterSuccessfulResponses,
-  getRequestFromRequestHref, getRequestFromRequestUUID,
+  getRequestFromRequestHref,
+  getRequestFromRequestUUID,
   getResourceLinksFromResponse
 } from '../../shared/operators';
 
@@ -51,8 +44,6 @@ export class RemoteDataBuildService {
     const requestEntry$ = observableRace(
       href$.pipe(getRequestFromRequestHref(this.requestService)),
       requestUUID$.pipe(getRequestFromRequestUUID(this.requestService)),
-    ).pipe(
-      take(1)
     );
 
     // always use self link if that is cached, only if it isn't, get it via the response.
@@ -94,8 +85,8 @@ export class RemoteDataBuildService {
   toRemoteDataObservable<T>(requestEntry$: Observable<RequestEntry>, payload$: Observable<T>) {
     return observableCombineLatest(requestEntry$, payload$).pipe(
       map(([reqEntry, payload]) => {
-        const requestPending = hasValue(reqEntry) && hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
-        const responsePending = hasValue(reqEntry) && hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
+        const requestPending = hasValue(reqEntry.requestPending) ? reqEntry.requestPending : true;
+        const responsePending = hasValue(reqEntry.responsePending) ? reqEntry.responsePending : false;
         let isSuccessful: boolean;
         let error: RemoteDataError;
         if (hasValue(reqEntry) && hasValue(reqEntry.response)) {
