@@ -1,0 +1,12 @@
+{
+  "urls": [
+    "http://localhost:3000/home",
+    "http://localhost:3000/items",
+    "http://localhost:3000/collections",
+    "http://localhost:3000/communities",
+    "http://localhost:3000/login",
+    "http://localhost:3000/logout",
+    "http://localhost:3000/search",
+    "http://localhost:3000/**"
+  ]
+}

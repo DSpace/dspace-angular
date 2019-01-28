@@ -24,9 +24,18 @@ before_install:
 install:
   - travis_retry yarn install
 
-script:
-  # Use Chromium instead of Chrome.
-  - export CHROME_BIN=chromium-browser
-  - yarn run build
-  - yarn run ci
-  - cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+matrix:
+  include:
+    - env: MODE=pa11y
+      script:
+        - yarn start &
+        - yarn wait
+        - yarn pa11y
+
+    - env: MODE=test
+      script:
+        # Use Chromium instead of Chrome.
+        - export CHROME_BIN=chromium-browser
+        - yarn run build
+        - yarn run ci
+        - cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
