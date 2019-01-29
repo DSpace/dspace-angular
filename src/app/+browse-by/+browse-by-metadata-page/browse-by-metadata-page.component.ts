@@ -71,8 +71,8 @@ export class BrowseByMetadataPageComponent implements OnInit {
 
   /**
    * The value we're browing items for
-   * - When the value is not empty, we're browing items
-   * - When the value is empty, we're browing browse-entries (values for the given metadata definition)
+   * - When the value is not empty, we're browsing items
+   * - When the value is empty, we're browsing browse-entries (values for the given metadata definition)
    */
   value = '';
 

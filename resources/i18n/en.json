@@ -293,7 +293,8 @@
         "author": "By Author",
         "subject": "By Subject"
       }
-    }
+    },
+    "empty": "No items to show."
   },
   "admin": {
     "registries": {
