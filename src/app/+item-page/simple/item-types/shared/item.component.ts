@@ -99,10 +99,11 @@ export const relationsToRepresentations = (thisId: string, itemType: string, met
     source.pipe(
       flatMap((rels: Relationship[]) =>
         observableZip(
-          ...metadata.map((metadatum: Metadatum) => {
-            const prefix = 'virtual::';
-            if (hasValue(metadatum.authority) && metadatum.authority.startsWith(prefix)) {
-              const matchingRels = rels.filter((rel: Relationship) => ('' + rel.id) === metadatum.authority.substring(metadatum.authority.indexOf(prefix) + prefix.length));
+          ...metadata
+            .map((metadatum: any) => Object.assign(new Metadatum(), metadatum))
+            .map((metadatum: Metadatum) => {
+            if (metadatum.isVirtual) {
+              const matchingRels = rels.filter((rel: Relationship) => ('' + rel.id) === metadatum.virtualValue);
               if (matchingRels.length > 0) {
                 const matchingRel = matchingRels[0];
                 let queryId = matchingRel.leftId;

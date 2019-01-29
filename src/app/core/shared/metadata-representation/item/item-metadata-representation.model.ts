@@ -3,15 +3,15 @@ import { MetadataRepresentation, MetadataRepresentationType } from '../metadata-
 import { hasValue } from '../../../../shared/empty.util';
 
 /**
- * An object to convert item types into the metadata field it should render for the item's primary value
+ * An object to convert item types into the metadata field it should render for the item's value
  */
-export const ItemTypeToPrimaryValue = {
+export const ItemTypeToValue = {
   Default: 'dc.title',
   Person: 'dc.contributor.author'
 };
 
 /**
- * This class defines the way the item it extends should be represented as metadata
+ * This class determines which fields to use when rendering an Item as a metadata value.
  */
 export class ItemMetadataRepresentation extends Item implements MetadataRepresentation {
 
@@ -35,12 +35,12 @@ export class ItemMetadataRepresentation extends Item implements MetadataRepresen
   /**
    * Get the value to display, depending on the itemType
    */
-  getPrimaryValue(): string {
+  getValue(): string {
     let metadata;
-    if (hasValue(ItemTypeToPrimaryValue[this.itemType])) {
-      metadata = ItemTypeToPrimaryValue[this.itemType];
+    if (hasValue(ItemTypeToValue[this.itemType])) {
+      metadata = ItemTypeToValue[this.itemType];
     } else {
-      metadata = ItemTypeToPrimaryValue.Default;
+      metadata = ItemTypeToValue.Default;
     }
     return this.findMetadata(metadata);
   }

@@ -13,7 +13,7 @@ import { VIEW_MODE_METADATA } from '../../../../+item-page/simple/metadata-repre
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of plain text
- * It will simply use the value retrieved from MetadataRepresentation.getPrimaryValue() to display as plain text
+ * It will simply use the value retrieved from MetadataRepresentation.getValue() to display as plain text
  */
 export class PlainTextMetadataListElementComponent extends MetadataRepresentationListElementComponent {
 }

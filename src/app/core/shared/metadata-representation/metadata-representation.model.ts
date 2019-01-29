@@ -25,7 +25,7 @@ export interface MetadataRepresentation {
   representationType: MetadataRepresentationType,
 
   /**
-   * Fetches the primary value to be displayed
+   * Fetches the value to be displayed
    */
-  getPrimaryValue(): string
+  getValue(): string
 }

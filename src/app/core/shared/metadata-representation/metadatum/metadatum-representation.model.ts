@@ -31,7 +31,7 @@ export class MetadatumRepresentation extends Metadatum implements MetadataRepres
   /**
    * Get the value to display
    */
-  getPrimaryValue(): string {
+  getValue(): string {
     return this.value;
   }
 

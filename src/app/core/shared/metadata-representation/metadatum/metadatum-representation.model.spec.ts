@@ -26,7 +26,7 @@ describe('MetadatumRepresentation', () => {
     });
 
     it('should return the correct value when calling getPrimaryValue', () => {
-      expect(metadatumRepresentation.getPrimaryValue()).toEqual(normalMetadatum.value);
+      expect(metadatumRepresentation.getValue()).toEqual(normalMetadatum.value);
     });
 
     it('should return the correct item type', () => {
@@ -43,8 +43,8 @@ describe('MetadatumRepresentation', () => {
       expect(metadatumRepresentation.representationType).toEqual(MetadataRepresentationType.AuthorityControlled);
     });
 
-    it('should return the correct value when calling getPrimaryValue', () => {
-      expect(metadatumRepresentation.getPrimaryValue()).toEqual(authorityMetadatum.value);
+    it('should return the correct value when calling getValue', () => {
+      expect(metadatumRepresentation.getValue()).toEqual(authorityMetadatum.value);
     });
 
     it('should return the correct item type', () => {

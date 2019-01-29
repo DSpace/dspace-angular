@@ -411,10 +411,10 @@ describe('ItemComponent', () => {
 
     it('should have all the representations in the correct order', () => {
       representations.subscribe((reps: MetadataRepresentation[]) => {
-        expect(reps[0].getPrimaryValue()).toEqual('First value');
-        expect(reps[1].getPrimaryValue()).toEqual('Second value');
-        expect(reps[2].getPrimaryValue()).toEqual('related item');
-        expect(reps[3].getPrimaryValue()).toEqual('Fourth value');
+        expect(reps[0].getValue()).toEqual('First value');
+        expect(reps[1].getValue()).toEqual('Second value');
+        expect(reps[2].getValue()).toEqual('related item');
+        expect(reps[3].getValue()).toEqual('Fourth value');
       });
     });
 
