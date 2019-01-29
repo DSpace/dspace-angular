@@ -280,7 +280,12 @@
     }
   },
   "browse": {
-    "title": "Browsing {{ collection }} by {{ field }} {{ value }}"
+    "title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+    "metadata": {
+      "title": "Title",
+      "author": "Author",
+      "subject": "Subject"
+    }
   },
   "admin": {
     "registries": {
