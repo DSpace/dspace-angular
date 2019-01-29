@@ -84,6 +84,17 @@ export class NavbarComponent extends MenuComponent implements OnInit {
           link: '/browse/author'
         } as LinkMenuItemModel,
       },
+      {
+        id: 'browse_global_by_subject',
+        parentID: 'browse_global',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: 'menu.section.browse_global_by_subject',
+          link: '/browse/subject'
+        } as LinkMenuItemModel,
+      },
 
       /* Statistics */
       {

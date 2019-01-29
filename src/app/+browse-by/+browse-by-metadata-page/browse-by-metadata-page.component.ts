@@ -129,8 +129,10 @@ export class BrowseByMetadataPageComponent implements OnInit {
   /**
    * Updates the current page with searchOptions
    * @param searchOptions   Options to narrow down your search:
-   *                        { pagination: PaginationComponentOptions,
-   *                          sort: SortOptions }
+   *                        { metadata: string
+   *                          pagination: PaginationComponentOptions,
+   *                          sort: SortOptions,
+   *                          scope: string }
    */
   updatePage(searchOptions) {
     this.browseEntries$ = this.browseService.getBrowseEntriesFor(searchOptions.metadata, searchOptions);
@@ -138,14 +140,16 @@ export class BrowseByMetadataPageComponent implements OnInit {
   }
 
   /**
-   * Updates the current page with searchOptions and display items linked to author
+   * Updates the current page with searchOptions and display items linked to the given value
    * @param searchOptions   Options to narrow down your search:
-   *                        { pagination: PaginationComponentOptions,
-   *                          sort: SortOptions }
-   * @param author          The author's name for displaying items
+   *                        { metadata: string
+   *                          pagination: PaginationComponentOptions,
+   *                          sort: SortOptions,
+   *                          scope: string }
+   * @param value          The value of the browse-entry to display items for
    */
-  updatePageWithItems(searchOptions, author: string) {
-    this.items$ = this.browseService.getBrowseItemsFor(searchOptions.metadata, author, searchOptions);
+  updatePageWithItems(searchOptions, value: string) {
+    this.items$ = this.browseService.getBrowseItemsFor(searchOptions.metadata, value, searchOptions);
   }
 
   ngOnDestroy(): void {
