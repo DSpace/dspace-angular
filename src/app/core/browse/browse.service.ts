@@ -149,6 +149,7 @@ export class BrowseService {
   getBrowseItemsFor(definitionID: string, filterValue: string, options: {
     pagination?: PaginationComponentOptions;
     sort?: SortOptions;
+    scope?: string;
   } = {}): Observable<RemoteData<PaginatedList<Item>>> {
     const request$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(definitionID),
@@ -157,6 +158,9 @@ export class BrowseService {
       hasValueOperator(),
       map((href: string) => {
         const args = [];
+        if (isNotEmpty(options.sort)) {
+          args.push(`scope=${options.scope}`);
+        }
         if (isNotEmpty(options.sort)) {
           args.push(`sort=${options.sort.field},${options.sort.direction}`);
         }
