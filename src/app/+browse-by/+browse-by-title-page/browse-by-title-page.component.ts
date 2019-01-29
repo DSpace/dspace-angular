@@ -56,6 +56,7 @@ export class BrowseByTitlePageComponent implements OnInit {
           const pageSize = +params.pageSize || this.paginationConfig.pageSize;
           const sortDirection = params.sortDirection || this.sortConfig.direction;
           const sortField = params.sortField || this.sortConfig.field;
+          const scopeID = params.scope;
           const pagination = Object.assign({},
             this.paginationConfig,
             { currentPage: page, pageSize: pageSize }
@@ -66,7 +67,8 @@ export class BrowseByTitlePageComponent implements OnInit {
           );
           this.updatePage({
             pagination: pagination,
-            sort: sort
+            sort: sort,
+            scopeID: scopeID
           });
         }));
   }
@@ -81,7 +83,8 @@ export class BrowseByTitlePageComponent implements OnInit {
     this.items$ = this.itemDataService.findAll({
       currentPage: searchOptions.pagination.currentPage,
       elementsPerPage: searchOptions.pagination.pageSize,
-      sort: searchOptions.sort
+      sort: searchOptions.sort,
+      scopeID: searchOptions.scopeID
     });
   }
 

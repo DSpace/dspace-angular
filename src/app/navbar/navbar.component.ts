@@ -63,16 +63,6 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         } as LinkMenuItemModel,
       },
       {
-        id: 'browse_global_global_by_issue_date',
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_issue_date',
-          link: '#'
-        } as LinkMenuItemModel,
-      },      {
         id: 'browse_global_global_by_title',
         parentID: 'browse_global',
         active: false,

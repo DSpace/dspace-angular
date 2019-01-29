@@ -90,6 +90,7 @@ export class BrowseService {
   getBrowseEntriesFor(definitionID: string, options: {
     pagination?: PaginationComponentOptions;
     sort?: SortOptions;
+    scope?: string;
   } = {}): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
     const request$ = this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(definitionID),
@@ -99,6 +100,9 @@ export class BrowseService {
       map((href: string) => {
         // TODO nearly identical to PaginatedSearchOptions => refactor
         const args = [];
+        if (isNotEmpty(options.sort)) {
+          args.push(`scope=${options.scope}`);
+        }
         if (isNotEmpty(options.sort)) {
           args.push(`sort=${options.sort.field},${options.sort.direction}`);
         }

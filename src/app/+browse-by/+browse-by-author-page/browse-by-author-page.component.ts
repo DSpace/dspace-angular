@@ -57,6 +57,7 @@ export class BrowseByAuthorPageComponent implements OnInit {
           const pageSize = +params.pageSize || this.paginationConfig.pageSize;
           const sortDirection = params.sortDirection || this.sortConfig.direction;
           const sortField = params.sortField || this.sortConfig.field;
+          const scope = params.scope;
           this.value = +params.value || params.value || '';
           const pagination = Object.assign({},
             this.paginationConfig,
@@ -68,7 +69,8 @@ export class BrowseByAuthorPageComponent implements OnInit {
           );
           const searchOptions = {
             pagination: pagination,
-            sort: sort
+            sort: sort,
+            scope: scope
           };
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value);
