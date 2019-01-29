@@ -87,6 +87,7 @@ import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { MenuModule } from './menu/menu.module';
 import {LangSwitchComponent} from './lang-switch/lang-switch.component';
+import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -130,6 +131,7 @@ const COMPONENTS = [
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
+  ComcolPageBrowseByComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlComponent,
   DsDynamicListComponent,

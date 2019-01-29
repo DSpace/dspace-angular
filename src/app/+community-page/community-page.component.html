@@ -24,6 +24,8 @@
         [content]="communityPayload.copyrightText"
         [hasInnerHtml]="true">
       </ds-comcol-page-content>
+      <!-- Browse-By Links -->
+      <ds-comcol-page-browse-by [id]="communityPayload.id"></ds-comcol-page-browse-by>
       <ds-community-page-sub-community-list [community]="communityPayload"></ds-community-page-sub-community-list>
       <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
     </div>

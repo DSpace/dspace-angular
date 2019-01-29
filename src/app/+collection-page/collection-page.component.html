@@ -33,6 +33,8 @@
           [content]="collection.license"
           [title]="'collection.page.license'">
         </ds-comcol-page-content>
+        <!-- Browse-By Links -->
+        <ds-comcol-page-browse-by [id]="collection.id"></ds-comcol-page-browse-by>
       </div>
     </div>
     <ds-error *ngIf="collectionRD?.hasFailed" message="{{'error.collection' | translate}}"></ds-error>
