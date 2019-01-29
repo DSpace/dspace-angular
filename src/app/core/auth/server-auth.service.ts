@@ -10,7 +10,6 @@ import { AuthService } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { CheckAuthenticationTokenAction } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
-import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
 
 /**
  * The auth service.
@@ -40,7 +39,7 @@ export class ServerAuthService extends AuthService {
         if (status.authenticated) {
 
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
-          const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
+          const person$ = this.rdbService.buildSingle<EPerson>(status.eperson.toString());
           return person$.pipe(
             map((eperson) => eperson.payload)
           );

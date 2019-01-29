@@ -6,7 +6,7 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 import { MetadataSchema } from './metadataschema.model';
 
 @mapsTo(MetadataSchema)
-export class NormalizedMetadataSchema extends NormalizedObject implements CacheableObject, ListableObject {
+export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> implements ListableObject {
   @autoserialize
   id: number;
 

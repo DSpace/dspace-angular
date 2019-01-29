@@ -131,7 +131,7 @@ export class AuthService {
    * @returns {Observable<boolean>}
    */
   public isAuthenticated(): Observable<boolean> {
-    return of(true);
+    return this.store.pipe(select(isAuthenticated));
   }
 
   /**
@@ -152,7 +152,7 @@ export class AuthService {
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
           // Review when https://jira.duraspace.org/browse/DS-4006 is fixed
           // See https://github.com/DSpace/dspace-angular/issues/292
-          const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
+          const person$ = this.rdbService.buildSingle<EPerson>(status.eperson.toString());
           return person$.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));

@@ -7,7 +7,7 @@ import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 
 @mapsTo(AuthStatus)
 @inheritSerialization(NormalizedObject)
-export class NormalizedAuthStatus extends NormalizedObject {
+export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   @autoserialize
   id: string;
 

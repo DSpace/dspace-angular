@@ -10,7 +10,7 @@ import { ResourceType } from '../../shared/resource-type';
  */
 @mapsTo(Community)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedCommunity extends NormalizedDSpaceObject {
+export class NormalizedCommunity extends NormalizedDSpaceObject<Community> {
 
   /**
    * A string representing the unique handle of this Community

@@ -1,12 +1,10 @@
-
-import {distinctUntilChanged, map, filter} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedItem } from '../cache/models/normalized-item.model';
 import { CoreState } from '../core.reducers';
 import { Item } from '../shared/item.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -24,7 +22,7 @@ import { configureRequest, getRequestFromRequestHref } from '../shared/operators
 import { RequestEntry } from './request.reducer';
 
 @Injectable()
-export class ItemDataService extends DataService<NormalizedItem, Item> {
+export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
 
   constructor(
@@ -37,7 +35,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer) {
+    protected comparator: DSOChangeAnalyzer<Item>) {
     super();
   }
 

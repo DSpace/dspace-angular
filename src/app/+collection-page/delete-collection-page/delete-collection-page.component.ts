@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { Community } from '../../core/shared/community.model';
-import { CommunityDataService } from '../../core/data/community-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 import { DeleteComColPageComponent } from '../../shared/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CollectionDataService } from '../../core/data/collection-data.service';
-import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { Collection } from '../../core/shared/collection.model';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -18,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./delete-collection-page.component.scss'],
   templateUrl: './delete-collection-page.component.html'
 })
-export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Collection, NormalizedCollection> {
+export class DeleteCollectionPageComponent extends DeleteComColPageComponent<Collection> {
   protected frontendURL = '/collections/';
 
   public constructor(

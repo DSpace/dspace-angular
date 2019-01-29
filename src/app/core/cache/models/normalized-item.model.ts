@@ -10,7 +10,7 @@ import { ResourceType } from '../../shared/resource-type';
  */
 @mapsTo(Item)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedItem extends NormalizedDSpaceObject {
+export class NormalizedItem extends NormalizedDSpaceObject<Item> {
 
   /**
    * A string representing the unique handle of this Item

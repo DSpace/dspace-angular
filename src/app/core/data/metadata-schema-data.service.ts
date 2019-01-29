@@ -8,17 +8,16 @@ import { CoreState } from '../core.reducers';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, GetRequest, RestRequest } from './request.models';
+import { FindAllOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadataschema.model';
-import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
 import { ChangeAnalyzer } from './change-analyzer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Injectable()
-export class MetadataSchemaDataService extends DataService<NormalizedMetadataSchema, MetadataSchema> {
+export class MetadataSchemaDataService extends DataService<MetadataSchema> {
   protected linkPath = 'metadataschemas';
 
   constructor(
@@ -28,7 +27,7 @@ export class MetadataSchemaDataService extends DataService<NormalizedMetadataSch
     private bs: BrowseService,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
-    protected comparator: ChangeAnalyzer<NormalizedMetadataSchema>,
+    protected comparator: ChangeAnalyzer<MetadataSchema>,
     protected dataBuildService: NormalizedObjectBuildService,
     protected http: HttpClient,
     protected notificationsService: NotificationsService) {
@@ -44,6 +43,5 @@ export class MetadataSchemaDataService extends DataService<NormalizedMetadataSch
 
     return null;
   }
-
 
 }

@@ -8,68 +8,92 @@ export const ObjectUpdatesActionTypes = {
   DISCARD: type('dspace/core/object-updates/DISCARD'),
   REINSTATE: type('dspace/core/object-updates/REINSTATE'),
   REMOVE: type('dspace/core/object-updates/REMOVE'),
-  REMOVE_SINGLE: type('dspace/core/object-updates/REMOVE_SINGLE')
+  REMOVE_SINGLE: type('dspace/core/object-updates/REMOVE_SINGLE'),
+  REPLACE: type('dspace/core/object-updates/REPLACE')
 };
 
 /* tslint:disable:max-classes-per-file */
-export class AddToObjectUpdatesAction implements Action {
-  type = ObjectUpdatesActionTypes.ADD;
+
+export class ReplaceObjectUpdatesAction implements Action {
+  type = ObjectUpdatesActionTypes.REPLACE;
   payload: {
     url: string,
-    operation: Operation,
-    fieldID: string
+    operations: Operation[],
+    lastModified: number
   };
 
   constructor(
     url: string,
-    operation: Operation,
-    fieldID: string
+    operations: Operation[],
+    lastModified: number
   ) {
-    this.payload = { url, operation, fieldID };
+    this.payload = { url, operations, lastModified };
+  }
+}
+
+export class AddToObjectUpdatesAction implements Action {
+  type = ObjectUpdatesActionTypes.ADD;
+  payload: {
+    url: string,
+    operation: Operation
+  };
+
+  constructor(
+    url: string,
+    operation: Operation) {
+    this.payload = { url, operation };
   }
 }
 
 export class ApplyObjectUpdatesAction implements Action {
   type = ObjectUpdatesActionTypes.APPLY;
-  payload: string;
+  payload: {
+    url: string
+  };
 
   constructor(
     url: string
   ) {
-    this.payload = url;
+    this.payload.url = url;
   }
 }
 
 export class DiscardObjectUpdatesAction implements Action {
   type = ObjectUpdatesActionTypes.DISCARD;
-  payload: string;
+  payload: {
+    url: string
+  };
 
   constructor(
     url: string
   ) {
-    this.payload = url;
+    this.payload.url = url;
   }
 }
 
 export class ReinstateObjectUpdatesAction implements Action {
   type = ObjectUpdatesActionTypes.REINSTATE;
-  payload: string;
+  payload: {
+    url: string
+  };
 
   constructor(
     url: string
   ) {
-    this.payload = url;
+    this.payload.url = url;
   }
 }
 
 export class RemoveObjectUpdatesAction implements Action {
   type = ObjectUpdatesActionTypes.REMOVE;
-  payload: string;
+  payload: {
+    url: string
+  };
 
   constructor(
     url: string
   ) {
-    this.payload = url;
+    this.payload.url = url;
   }
 }
 
@@ -87,6 +111,7 @@ export class RemoveSingleObjectUpdateAction implements Action {
     this.payload = { url, fieldID };
   }
 }
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -98,4 +123,5 @@ export type ObjectUpdatesAction
   | DiscardObjectUpdatesAction
   | ReinstateObjectUpdatesAction
   | RemoveObjectUpdatesAction
-  | RemoveSingleObjectUpdateAction;
+  | RemoveSingleObjectUpdateAction
+  | ReplaceObjectUpdatesAction;

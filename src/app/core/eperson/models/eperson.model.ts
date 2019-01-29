@@ -19,4 +19,7 @@ export class EPerson extends DSpaceObject {
 
   public selfRegistered: boolean;
 
+  get name(): string {
+    return this.findMetadata('eperson.firstname') + ' ' + this.findMetadata('eperson.lastname');
+  }
 }

@@ -25,6 +25,7 @@ import {
   getRequestFromRequestUUID,
   getResourceLinksFromResponse
 } from '../../shared/operators';
+import { CacheableObject } from '../object-cache.reducer';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -32,7 +33,7 @@ export class RemoteDataBuildService {
               protected requestService: RequestService) {
   }
 
-  buildSingle<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<TDomain>> {
+  buildSingle<T extends CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -49,7 +50,7 @@ export class RemoteDataBuildService {
     const payload$ =
       observableCombineLatest(
         href$.pipe(
-          switchMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href)),
+          switchMap((href: string) => this.objectCache.getBySelfLink<NormalizedObject<T>>(href)),
           startWith(undefined)),
         requestEntry$.pipe(
           getResourceLinksFromResponse(),
@@ -72,8 +73,8 @@ export class RemoteDataBuildService {
           }
         }),
         hasValueOperator(),
-        map((normalized: TNormalized) => {
-          return this.build<TNormalized, TDomain>(normalized);
+        map((normalized: NormalizedObject<T>) => {
+          return this.build<T>(normalized);
         }),
         startWith(undefined),
         distinctUntilChanged()
@@ -106,7 +107,7 @@ export class RemoteDataBuildService {
     );
   }
 
-  buildList<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<TDomain>>> {
+  buildList<T extends CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -116,9 +117,9 @@ export class RemoteDataBuildService {
       getResourceLinksFromResponse(),
       flatMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs).pipe(
-          map((normList: TNormalized[]) => {
-            return normList.map((normalized: TNormalized) => {
-              return this.build<TNormalized, TDomain>(normalized);
+          map((normList: Array<NormalizedObject<T>>) => {
+            return normList.map((normalized: NormalizedObject<T>) => {
+              return this.build<T>(normalized);
             });
           }));
       }),
@@ -148,7 +149,7 @@ export class RemoteDataBuildService {
     return this.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  build<TNormalized, TDomain>(normalized: TNormalized): TDomain {
+  build<T extends CacheableObject>(normalized: NormalizedObject<T>): T {
     const links: any = {};
     const relationships = getRelationships(normalized.constructor) || [];
 

@@ -10,7 +10,7 @@ import { NormalizedObject } from './normalized-object.model';
  * An model class for a DSpaceObject.
  */
 @mapsTo(DSpaceObject)
-export class NormalizedDSpaceObject extends NormalizedObject {
+export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedObject<T> {
 
   /**
    * The link to the rest endpoint where this object can be found
