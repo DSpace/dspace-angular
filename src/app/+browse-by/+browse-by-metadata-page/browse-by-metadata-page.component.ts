@@ -54,12 +54,6 @@ export class BrowseByMetadataPageComponent implements OnInit {
   subs: Subscription[] = [];
 
   /**
-   * The current URL
-   * used for navigation when clicking values
-   */
-  currentUrl: string;
-
-  /**
    * The default metadata definition to resort to when none is provided
    */
   defaultMetadata = 'author';
@@ -82,9 +76,6 @@ export class BrowseByMetadataPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUrl = this.route.snapshot.pathFromRoot
-      .map((snapshot) => (snapshot.routeConfig) ? snapshot.routeConfig.path : '')
-      .join('/');
     this.updatePage({
       pagination: this.paginationConfig,
       sort: this.sortConfig
@@ -98,26 +89,8 @@ export class BrowseByMetadataPageComponent implements OnInit {
         })
         .subscribe((params) => {
           this.metadata = params.metadata || this.defaultMetadata;
-          const page = +params.page || this.paginationConfig.currentPage;
-          const pageSize = +params.pageSize || this.paginationConfig.pageSize;
-          const sortDirection = params.sortDirection || this.sortConfig.direction;
-          const sortField = params.sortField || this.sortConfig.field;
-          const scope = params.scope;
           this.value = +params.value || params.value || '';
-          const pagination = Object.assign({},
-            this.paginationConfig,
-            { currentPage: page, pageSize: pageSize }
-          );
-          const sort = Object.assign({},
-            this.sortConfig,
-            { direction: sortDirection, field: sortField }
-          );
-          const searchOptions = {
-            metadata: this.metadata,
-            pagination: pagination,
-            sort: sort,
-            scope: scope
-          };
+          const searchOptions = browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.metadata);
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value);
           } else {
@@ -156,4 +129,28 @@ export class BrowseByMetadataPageComponent implements OnInit {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
+}
+
+export function browseParamsToOptions(params: any,
+                                      paginationConfig: PaginationComponentOptions,
+                                      sortConfig: SortOptions,
+                                      metadata?: string): any {
+  return {
+    metadata: metadata,
+    pagination: Object.assign({},
+      paginationConfig,
+      {
+        currentPage: +params.page || paginationConfig.currentPage,
+        pageSize: +params.pageSize || paginationConfig.pageSize
+      }
+    ),
+    sort: Object.assign({},
+      sortConfig,
+      {
+        direction: params.sortDirection || sortConfig.direction,
+        field: params.sortField || sortConfig.field
+      }
+    ),
+    scope: params.scope
+  };
 }

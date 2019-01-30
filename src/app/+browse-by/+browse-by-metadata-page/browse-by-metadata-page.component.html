@@ -3,7 +3,6 @@
     <ds-browse-by class="col-xs-12 w-100"
       title="{{'browse.title' | translate:{collection: '', field: 'browse.metadata.' + metadata | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
       [objects$]="(items$ !== undefined)? items$ : browseEntries$"
-      [currentUrl]="currentUrl"
       [paginationConfig]="paginationConfig"
       [sortConfig]="sortConfig">
     </ds-browse-by>

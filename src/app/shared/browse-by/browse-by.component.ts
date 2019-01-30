@@ -5,7 +5,6 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { fadeIn, fadeInOut } from '../animations/fade';
 import { Observable } from 'rxjs';
-import { Item } from '../../core/shared/item.model';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 @Component({
@@ -21,10 +20,23 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
  * Component to display a browse-by page for any ListableObject
  */
 export class BrowseByComponent {
+  /**
+   * The i18n message to display as title
+   */
   @Input() title: string;
+
+  /**
+   * The list of objects to display
+   */
   @Input() objects$: Observable<RemoteData<PaginatedList<ListableObject>>>;
+
+  /**
+   * The pagination configuration used for the list
+   */
   @Input() paginationConfig: PaginationComponentOptions;
+
+  /**
+   * The sorting configuration used for the list
+   */
   @Input() sortConfig: SortOptions;
-  @Input() currentUrl: string;
-  query: string;
 }
