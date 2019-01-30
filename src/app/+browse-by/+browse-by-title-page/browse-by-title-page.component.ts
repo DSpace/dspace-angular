@@ -12,6 +12,7 @@ import { ActivatedRoute, PRIMARY_OUTLET, UrlSegmentGroup } from '@angular/router
 import { hasValue } from '../../shared/empty.util';
 import { Collection } from '../../core/shared/collection.model';
 import { browseParamsToOptions } from '../+browse-by-metadata-page/browse-by-metadata-page.component';
+import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 
 @Component({
   selector: 'ds-browse-by-title-page',
@@ -53,10 +54,7 @@ export class BrowseByTitlePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updatePage({
-      pagination: this.paginationConfig,
-      sort: this.sortConfig
-    });
+    this.updatePage(new BrowseEntrySearchOptions(null, this.paginationConfig, this.sortConfig));
     this.subs.push(
       observableCombineLatest(
         this.route.params,
@@ -75,7 +73,7 @@ export class BrowseByTitlePageComponent implements OnInit {
    *                        { pagination: PaginationComponentOptions,
    *                          sort: SortOptions }
    */
-  updatePage(searchOptions) {
+  updatePage(searchOptions: BrowseEntrySearchOptions) {
     this.items$ = this.itemDataService.findAll({
       currentPage: searchOptions.pagination.currentPage,
       elementsPerPage: searchOptions.pagination.pageSize,

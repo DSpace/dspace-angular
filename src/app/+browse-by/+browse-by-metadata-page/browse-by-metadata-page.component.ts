@@ -11,6 +11,7 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Item } from '../../core/shared/item.model';
+import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -76,10 +77,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.updatePage({
-      pagination: this.paginationConfig,
-      sort: this.sortConfig
-    });
+    this.updatePage(new BrowseEntrySearchOptions(null, this.paginationConfig, this.sortConfig));
     this.subs.push(
       observableCombineLatest(
         this.route.params,
@@ -107,8 +105,8 @@ export class BrowseByMetadataPageComponent implements OnInit {
    *                          sort: SortOptions,
    *                          scope: string }
    */
-  updatePage(searchOptions) {
-    this.browseEntries$ = this.browseService.getBrowseEntriesFor(searchOptions.metadata, searchOptions);
+  updatePage(searchOptions: BrowseEntrySearchOptions) {
+    this.browseEntries$ = this.browseService.getBrowseEntriesFor(searchOptions);
     this.items$ = undefined;
   }
 
@@ -121,8 +119,8 @@ export class BrowseByMetadataPageComponent implements OnInit {
    *                          scope: string }
    * @param value          The value of the browse-entry to display items for
    */
-  updatePageWithItems(searchOptions, value: string) {
-    this.items$ = this.browseService.getBrowseItemsFor(searchOptions.metadata, value, searchOptions);
+  updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
+    this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions);
   }
 
   ngOnDestroy(): void {
@@ -131,26 +129,33 @@ export class BrowseByMetadataPageComponent implements OnInit {
 
 }
 
+/**
+ * Function to transform query and url parameters into searchOptions used to fetch browse entries or items
+ * @param params            URL and query parameters
+ * @param paginationConfig  Pagination configuration
+ * @param sortConfig        Sorting configuration
+ * @param metadata          Optional metadata definition to fetch browse entries/items for
+ */
 export function browseParamsToOptions(params: any,
                                       paginationConfig: PaginationComponentOptions,
                                       sortConfig: SortOptions,
-                                      metadata?: string): any {
-  return {
-    metadata: metadata,
-    pagination: Object.assign({},
+                                      metadata?: string): BrowseEntrySearchOptions {
+  return new BrowseEntrySearchOptions(
+    metadata,
+    Object.assign({},
       paginationConfig,
       {
         currentPage: +params.page || paginationConfig.currentPage,
         pageSize: +params.pageSize || paginationConfig.pageSize
       }
     ),
-    sort: Object.assign({},
+    Object.assign({},
       sortConfig,
       {
         direction: params.sortDirection || sortConfig.direction,
         field: params.sortField || sortConfig.field
       }
     ),
-    scope: params.scope
-  };
+    params.scope
+  );
 }

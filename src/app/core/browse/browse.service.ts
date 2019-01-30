@@ -37,6 +37,7 @@ import {
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { Item } from '../shared/item.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 @Injectable()
 export class BrowseService {
@@ -87,13 +88,9 @@ export class BrowseService {
     return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
-  getBrowseEntriesFor(definitionID: string, options: {
-    pagination?: PaginationComponentOptions;
-    sort?: SortOptions;
-    scope?: string;
-  } = {}): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
+  getBrowseEntriesFor(options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
     const request$ = this.getBrowseDefinitions().pipe(
-      getBrowseDefinitionLinks(definitionID),
+      getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
       map((_links: any) => _links.entries),
       hasValueOperator(),
@@ -146,13 +143,9 @@ export class BrowseService {
    *                                    sort: SortOptions }
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
-  getBrowseItemsFor(definitionID: string, filterValue: string, options: {
-    pagination?: PaginationComponentOptions;
-    sort?: SortOptions;
-    scope?: string;
-  } = {}): Observable<RemoteData<PaginatedList<Item>>> {
+  getBrowseItemsFor(filterValue: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
     const request$ = this.getBrowseDefinitions().pipe(
-      getBrowseDefinitionLinks(definitionID),
+      getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
       map((_links: any) => _links.items),
       hasValueOperator(),
