@@ -3,7 +3,6 @@ import {combineLatest as observableCombineLatest,  Observable, Subscription } fr
 import { Component, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute } from '@angular/router';
@@ -71,8 +70,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   value = '';
 
-  public constructor(private itemDataService: ItemDataService,
-                     private route: ActivatedRoute,
+  public constructor(private route: ActivatedRoute,
                      private browseService: BrowseService) {
   }
 
