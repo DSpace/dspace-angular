@@ -14,6 +14,14 @@
       [fields]="['journalissue.issuedate']"
       [label]="'journalissue.page.issuedate'">
     </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['journal.title']"
+      [label]="'journalissue.page.journal-title'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['journal.identifier.issn']"
+      [label]="'journalissue.page.journal-issn'">
+    </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-entities
@@ -21,6 +29,7 @@
       [label]="'relationships.isSingleVolumeOf' | translate">
     </ds-related-entities>
     <ds-related-entities
+      class="mb-1 mt-1"
       [entities]="publications$ | async"
       [label]="'relationships.isPublicationOfJournalIssue' | translate">
     </ds-related-entities>
