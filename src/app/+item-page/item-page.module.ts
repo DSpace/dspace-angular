@@ -31,6 +31,7 @@ import { JournalIssueComponent } from './simple/item-types/journal-issue/journal
 import { ItemComponent } from './simple/item-types/shared/item.component';
 import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
 import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
+import { RelatedEntitiesSearchComponent } from './simple/related-entities/related-entities-search/related-entities-search.component';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { MetadataRepresentationListComponent } from './simple/metadata-represent
     JournalComponent,
     JournalIssueComponent,
     JournalVolumeComponent,
-    MetadataRepresentationListComponent
+    MetadataRepresentationListComponent,
+    RelatedEntitiesSearchComponent
   ],
   entryComponents: [
     PublicationComponent,

@@ -73,4 +73,13 @@ export class SearchFixedFilterService {
     return `query=relation.${relationType}:${itemUUID}`;
   }
 
+  /**
+   * Get the filter for a relation with the item's UUID
+   * @param relationType    The type of relation e.g. 'isAuthorOfPublication'
+   * @param itemUUID        The item's UUID
+   */
+  getFilterByRelation(relationType: string, itemUUID: string): string {
+    return `f.${relationType}=${itemUUID}`;
+  }
+
 }

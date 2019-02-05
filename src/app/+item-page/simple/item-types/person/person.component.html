@@ -50,12 +50,9 @@
       </a>
     </div>
   </div>
-  <div class="pt-2 w-100">
-    <ds-filtered-search-page
-      [fixedFilterQuery]="fixedFilterQuery"
-      [fixedFilter$]="fixedFilter$"
-      [searchEnabled]="false"
-      [sideBarWidth]="4">
-    </ds-filtered-search-page>
+  <div class="mt-5 w-100">
+    <ds-related-entities-search [item]="item"
+      [relationType]="'isAuthorOfPublication'">
+    </ds-related-entities-search>
   </div>
 </div>

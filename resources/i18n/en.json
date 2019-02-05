@@ -35,6 +35,8 @@
       "uri": "URI",
       "files": "Files",
       "collections": "Collections",
+      "subject": "Keywords", 
+      "citation": "Citation",
       "filesection": {
         "download": "Download",
         "name": "Name:",
@@ -212,7 +214,8 @@
     "page": {
       "issn": "ISSN",
       "publisher": "Publisher",
-      "description": "Description"
+      "description": "Description",
+      "editor": "Editor-in-Chief"
     }
   },
   "journalvolume": {
@@ -227,7 +230,16 @@
       "number": "Number",
       "issuedate": "Issue Date",
       "description": "Description",
-      "keyword": "Keywords"
+      "keyword": "Keywords",
+      "journal-title": "Journal Title",
+      "journal-issn": "Journal ISSN"
+    }
+  },
+  "publication": {
+    "page": {
+      "journal-title": "Journal Title",
+      "journal-issn": "Journal ISSN",
+      "volume-title": "Volume Title"
     }
   },
   "nav": {

@@ -14,6 +14,10 @@
       [fields]="['journal.publisher']"
       [label]="'journal.page.publisher'">
     </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['journal.contributor.editor']"
+      [label]="'journal.page.editor'">
+    </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
@@ -29,5 +33,10 @@
         {{"item.page.link.full" | translate}}
       </a>
     </div>
+  </div>
+  <div class="mt-5 w-100">
+    <ds-related-entities-search [item]="item"
+      [relationType]="'isJournalOfPublication'">
+    </ds-related-entities-search>
   </div>
 </div>
