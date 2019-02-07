@@ -117,7 +117,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
                   .forEach((metdadataId) => {
                     const entry = item.sections[sectionId][metdadataId];
                     // If entry is not an array, for sure is not a section of type form
-                    if (isNotNull(entry) && Array.isArray(entry)) {
+                    if (Array.isArray(entry)) {
                       normalizedSectionData[metdadataId] = [];
                       entry.forEach((valueItem) => {
                         // Parse value and normalize it

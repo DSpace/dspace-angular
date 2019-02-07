@@ -108,7 +108,7 @@ export class ChipsComponent implements OnChanges {
       }
 
       this.cdr.detectChanges();
-      if (!chipsItem.hasIcons() || (chipsItem.hasIcons() && !chipsItem.hasVisibleIcons()) || field) {
+      if (!chipsItem.hasIcons() || !chipsItem.hasVisibleIcons() || field) {
         this.tipText = textToDisplay;
         tooltip.open();
       }
