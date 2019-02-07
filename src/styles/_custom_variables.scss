@@ -26,4 +26,4 @@ $admin-sidebar-header-bg: darken($dark, 7%);
 $dark-scrollbar-background: $admin-sidebar-active-bg;
 $dark-scrollbar-foreground: #47495d;
 
-$submission-sections-margin-bottom: $border-radius * 2;
+$submission-sections-margin-bottom: .5rem !default;
