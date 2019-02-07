@@ -1,5 +1,4 @@
-
-import {combineLatest as observableCombineLatest,  Observable, Subscription } from 'rxjs';
+import {combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -11,6 +10,11 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Item } from '../../core/shared/item.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
+import { Community } from '../../core/shared/community.model';
+import { Collection } from '../../core/shared/collection.model';
+import { getSucceededRemoteData } from '../../core/shared/operators';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -33,6 +37,11 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * The list of items to display when a value is present
    */
   items$: Observable<RemoteData<PaginatedList<Item>>>;
+
+  /**
+   * The current Community or Collection we're browsing metadata/items in
+   */
+  parent$: Observable<RemoteData<DSpaceObject>>;
 
   /**
    * The pagination config used to display the values
@@ -71,7 +80,8 @@ export class BrowseByMetadataPageComponent implements OnInit {
   value = '';
 
   public constructor(private route: ActivatedRoute,
-                     private browseService: BrowseService) {
+                     private browseService: BrowseService,
+                     private dsoService: DSpaceObjectDataService) {
   }
 
   ngOnInit(): void {
@@ -92,6 +102,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
           } else {
             this.updatePage(searchOptions);
           }
+          this.updateParent(params.scope);
         }));
   }
 
@@ -119,6 +130,18 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   updatePageWithItems(searchOptions: BrowseEntrySearchOptions, value: string) {
     this.items$ = this.browseService.getBrowseItemsFor(value, searchOptions);
+  }
+
+  /**
+   * Update the parent Community or Collection using their scope
+   * @param scope   The UUID of the Community or Collection to fetch
+   */
+  updateParent(scope: string) {
+    if (hasValue(scope)) {
+      this.parent$ = this.dsoService.findById(scope).pipe(
+        getSucceededRemoteData()
+      );
+    }
   }
 
   ngOnDestroy(): void {
