@@ -232,28 +232,6 @@ export class IntegrationRequest extends GetRequest {
   }
 }
 
-export class SubmissionFindAllRequest extends GetRequest {
-  constructor(uuid: string, href: string, public body?: FindAllOptions) {
-    super(uuid, href);
-  }
-
-  getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmissionResponseParsingService;
-  }
-}
-
-export class SubmissionFindByIDRequest extends GetRequest {
-  constructor(uuid: string,
-              href: string,
-              public resourceID: string) {
-    super(uuid, href);
-  }
-
-  getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return SubmissionResponseParsingService;
-  }
-}
-
 export class SubmissionRequest extends GetRequest {
   constructor(uuid: string, href: string) {
     super(uuid, href);
