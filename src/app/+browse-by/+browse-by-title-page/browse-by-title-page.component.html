@@ -1,7 +1,7 @@
 <div class="container">
   <div class="browse-by-title w-100 row">
     <ds-browse-by class="col-xs-12 w-100"
-      title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name, field: 'browse.metadata.title' | translate, value: ''} }}"
+      title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.title' | translate, value: ''} }}"
       [objects$]="items$"
       [paginationConfig]="paginationConfig"
       [sortConfig]="sortConfig">
