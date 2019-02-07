@@ -12,12 +12,20 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { toRemoteData } from '../+browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { BrowseByTitlePageComponent } from './browse-by-title-page.component';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { Community } from '../../core/shared/community.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
   let fixture: ComponentFixture<BrowseByTitlePageComponent>;
   let itemDataService: ItemDataService;
   let route: ActivatedRoute;
+
+  const mockCommunity = Object.assign(new Community(), {
+    id: 'test-uuid',
+    name: 'test community'
+  });
 
   const mockItems = [
     Object.assign(new Item(), {
@@ -35,6 +43,10 @@ describe('BrowseByTitlePageComponent', () => {
     findAll: () => toRemoteData(mockItems)
   };
 
+  const mockDsoService = {
+    findById: () => observableOf(new RemoteData(false, false, true, null, mockCommunity))
+  };
+
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({})
   });
@@ -45,7 +57,8 @@ describe('BrowseByTitlePageComponent', () => {
       declarations: [BrowseByTitlePageComponent, EnumKeysPipe],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: ItemDataService, useValue: mockItemDataService }
+        { provide: ItemDataService, useValue: mockItemDataService },
+        { provide: DSpaceObjectDataService, useValue: mockDsoService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

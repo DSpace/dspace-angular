@@ -17,12 +17,19 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { Item } from '../../core/shared/item.model';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { Community } from '../../core/shared/community.model';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
   let fixture: ComponentFixture<BrowseByMetadataPageComponent>;
   let browseService: BrowseService;
   let route: ActivatedRoute;
+
+  const mockCommunity = Object.assign(new Community(), {
+    id: 'test-uuid',
+    name: 'test community'
+  });
 
   const mockEntries = [
     {
@@ -59,6 +66,10 @@ describe('BrowseByMetadataPageComponent', () => {
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData(mockItems)
   };
 
+  const mockDsoService = {
+    findById: () => observableOf(new RemoteData(false, false, true, null, mockCommunity))
+  };
+
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({})
   });
@@ -69,7 +80,8 @@ describe('BrowseByMetadataPageComponent', () => {
       declarations: [BrowseByMetadataPageComponent, EnumKeysPipe],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: BrowseService, useValue: mockBrowseService }
+        { provide: BrowseService, useValue: mockBrowseService },
+        { provide: DSpaceObjectDataService, useValue: mockDsoService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
