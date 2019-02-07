@@ -162,7 +162,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpoint: string) => parentUUID ? `${endpoint}?parentCommunity=${parentUUID}` : endpoint)
+      map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
     );
 
     const normalizedObject: TNormalized = this.dataBuildService.normalize<TDomain, TNormalized>(dso);
