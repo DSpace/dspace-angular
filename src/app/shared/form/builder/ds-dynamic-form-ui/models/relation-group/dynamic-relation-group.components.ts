@@ -29,7 +29,7 @@ import { SubmissionFormsModel } from '../../../../../../core/config/models/confi
 import { FormService } from '../../../../form.service';
 import { FormComponent } from '../../../../form.component';
 import { Chips } from '../../../../../chips/models/chips.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { ChipsItem } from '../../../../../chips/models/chips-item.model';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
@@ -129,7 +129,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
           ? null
           : this.selectedChipItem.item[model.name];
-        model.valueUpdates.next(this.formBuilderService.isInputModel(model) ? value.value : value);
+        if (isNotNull(value)) {
+          model.valueUpdates.next(this.formBuilderService.isInputModel(model) ? value.value : value);
+        }
       });
     });
 
@@ -227,8 +229,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
         flatMap((valueModel) => {
           const returnList: Array<Observable<any>> = [];
           valueModel.forEach((valueObj) => {
-            let returnObj = Object.create({});
-            returnObj = Object.keys(valueObj).map((fieldName) => {
+            const returnObj =  Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
               if (isObject(valueObj[fieldName]) && valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
                 const fieldId = fieldName.replace(/\./g, '_');
@@ -294,7 +295,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
       this.EnvConfig.submission.icons.metadata);
     this.subs.push(
       this.chips.chipsItems
-        .subscribe((subItems: any[]) => {
+        .subscribe(() => {
           const items = this.chips.getChipsItems();
           // Does not emit change if model value is equal to the current value
           if (!isEqual(items, this.model.value)) {
