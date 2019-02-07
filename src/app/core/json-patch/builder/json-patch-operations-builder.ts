@@ -13,12 +13,27 @@ import { AuthorityValue } from '../../integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
 
+/**
+ * Provides methods to dispatch JsonPatch Operations Actions
+ */
 @Injectable()
 export class JsonPatchOperationsBuilder {
 
   constructor(private store: Store<CoreState>) {
   }
 
+  /**
+   * Dispatches a new NewPatchAddOperationAction
+   *
+   * @param path
+   *    a JsonPatchOperationPathObject representing path
+   * @param value
+   *    The value to update the referenced path
+   * @param first
+   *    A boolean representing if the value to be added is the first of an array
+   * @param plain
+   *    A boolean representing if the value to be added is a plain text value
+   */
   add(path: JsonPatchOperationPathObject, value, first = false, plain = false) {
     this.store.dispatch(
       new NewPatchAddOperationAction(
@@ -27,6 +42,16 @@ export class JsonPatchOperationsBuilder {
         path.path, this.prepareValue(value, plain, first)));
   }
 
+  /**
+   * Dispatches a new NewPatchReplaceOperationAction
+   *
+   * @param path
+   *    a JsonPatchOperationPathObject representing path
+   * @param value
+   *    the value to update the referenced path
+   * @param plain
+   *    a boolean representing if the value to be added is a plain text value
+   */
   replace(path: JsonPatchOperationPathObject, value, plain = false) {
     this.store.dispatch(
       new NewPatchReplaceOperationAction(
@@ -36,6 +61,12 @@ export class JsonPatchOperationsBuilder {
         this.prepareValue(value, plain, false)));
   }
 
+  /**
+   * Dispatches a new NewPatchRemoveOperationAction
+   *
+   * @param path
+   *    a JsonPatchOperationPathObject representing path
+   */
   remove(path: JsonPatchOperationPathObject) {
     this.store.dispatch(
       new NewPatchRemoveOperationAction(
@@ -57,8 +88,6 @@ export class JsonPatchOperationsBuilder {
               operationValue.push(this.prepareObjectValue(entry));
             } else {
               operationValue.push(new FormFieldMetadataValueObject(entry));
-              // operationValue.push({value: entry});
-              // operationValue.push(entry);
             }
           });
         } else if (typeof value === 'object') {
@@ -83,7 +112,6 @@ export class JsonPatchOperationsBuilder {
       operationValue = new FormFieldMetadataValueObject(value.value, value.language);
     } else if (value.hasOwnProperty('value')) {
       operationValue = new FormFieldMetadataValueObject(value.value);
-      // operationValue = value;
     } else {
       Object.keys(value)
         .forEach((key) => {
@@ -93,7 +121,6 @@ export class JsonPatchOperationsBuilder {
             operationValue[key] = value[key];
           }
         });
-      // operationValue = {value: value};
     }
     return operationValue;
   }

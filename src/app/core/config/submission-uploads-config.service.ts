@@ -4,6 +4,9 @@ import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 
+/**
+ * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.
+ */
 @Injectable()
 export class SubmissionUploadsConfigService extends ConfigService {
   protected linkPath = 'submissionuploads';

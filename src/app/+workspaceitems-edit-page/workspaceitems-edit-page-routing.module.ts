@@ -17,4 +17,7 @@ import { SubmissionEditComponent } from '../submission/edit/submission-edit.comp
     ])
   ]
 })
+/**
+ * This module defines the default component to load when navigating to the workspaceitems edit page path
+ */
 export class WorkspaceitemsEditPageRoutingModule { }

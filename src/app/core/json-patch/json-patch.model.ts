@@ -1,3 +1,6 @@
+/**
+ * Represents all JSON Patch operations type.
+ */
 export enum JsonPatchOperationType {
   test = 'test',
   remove = 'remove',
@@ -7,6 +10,9 @@ export enum JsonPatchOperationType {
   copy = 'copy',
 }
 
+/**
+ * Represents a JSON Patch operations.
+ */
 export class JsonPatchOperationModel {
   op: JsonPatchOperationType;
   path: string;

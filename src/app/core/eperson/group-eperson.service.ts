@@ -18,6 +18,9 @@ import { SearchParam } from '../cache/models/search-param.model';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 
+/**
+ * Provides methods to retrieve eperson group resources.
+ */
 @Injectable()
 export class GroupEpersonService extends EpersonService<NormalizedGroup, Group> {
   protected linkPath = 'groups';
@@ -35,6 +38,14 @@ export class GroupEpersonService extends EpersonService<NormalizedGroup, Group> 
     super();
   }
 
+  /**
+   * Check if the current user is member of to the indicated group
+   *
+   * @param groupName
+   *    the group name
+   * @return boolean
+   *    true if user is member of the indicated group, false otherwise
+   */
   isMemberOf(groupName: string): Observable<boolean> {
     const searchHref = 'isMemberOf';
     const options = new FindAllOptions();

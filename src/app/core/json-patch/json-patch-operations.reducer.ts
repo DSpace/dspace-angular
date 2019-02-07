@@ -15,15 +15,25 @@ import {
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel, JsonPatchOperationType } from './json-patch.model';
 
+/**
+ * An interface to represent JSON-PATCH Operation objects to execute
+ */
 export interface JsonPatchOperationObject {
   operation: JsonPatchOperationModel;
   timeAdded: number;
 }
 
+/**
+ * An interface to represent the body containing a list of JsonPatchOperationObject
+ */
 export interface JsonPatchOperationsEntry {
   body: JsonPatchOperationObject[];
 }
 
+/**
+ * Interface used to represent a JSON-PATCH path member
+ * in JsonPatchOperationsState
+ */
 export interface JsonPatchOperationsResourceEntry {
   children: { [resourceId: string]: JsonPatchOperationsEntry };
   transactionStartTime: number;
@@ -42,6 +52,16 @@ export interface JsonPatchOperationsState {
 
 const initialState: JsonPatchOperationsState = Object.create(null);
 
+/**
+ * The JSON-PATCH operations Reducer
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    the action to perform on the state
+ * @return JsonPatchOperationsState
+ *    the new state
+ */
 export function jsonPatchOperationsReducer(state = initialState, action: PatchOperationsActions): JsonPatchOperationsState {
   switch (action.type) {
 

@@ -6,6 +6,9 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { DataService } from '../data/data.service';
 
+/**
+ * An abstract class that provides methods to make HTTP request to eperson endpoint.
+ */
 export abstract class EpersonService<TNormalized extends NormalizedObject, TDomain> extends DataService<TNormalized, TDomain> {
   protected request: EpersonRequest;
   protected abstract responseCache: ResponseCacheService;

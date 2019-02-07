@@ -13,6 +13,9 @@ import { SubmissionModule } from '../submission/submission.module';
   ],
   declarations: []
 })
+/**
+ * This module handles all modules that need to access the workflowitems edit page.
+ */
 export class WorkflowitemsEditPageModule {
 
 }

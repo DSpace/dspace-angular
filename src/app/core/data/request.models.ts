@@ -232,6 +232,9 @@ export class IntegrationRequest extends GetRequest {
   }
 }
 
+/**
+ * Class representing a submission HTTP GET request object
+ */
 export class SubmissionRequest extends GetRequest {
   constructor(uuid: string, href: string) {
     super(uuid, href);
@@ -242,6 +245,9 @@ export class SubmissionRequest extends GetRequest {
   }
 }
 
+/**
+ * Class representing a submission HTTP DELETE request object
+ */
 export class SubmissionDeleteRequest extends DeleteRequest {
   constructor(public uuid: string,
               public href: string) {
@@ -253,6 +259,9 @@ export class SubmissionDeleteRequest extends DeleteRequest {
   }
 }
 
+/**
+ * Class representing a submission HTTP PATCH request object
+ */
 export class SubmissionPatchRequest extends PatchRequest {
   constructor(public uuid: string,
               public href: string,
@@ -265,6 +274,9 @@ export class SubmissionPatchRequest extends PatchRequest {
   }
 }
 
+/**
+ * Class representing a submission HTTP POST request object
+ */
 export class SubmissionPostRequest extends PostRequest {
   constructor(public uuid: string,
               public href: string,
@@ -278,6 +290,9 @@ export class SubmissionPostRequest extends PostRequest {
   }
 }
 
+/**
+ * Class representing an eperson HTTP GET request object
+ */
 export class EpersonRequest extends GetRequest {
   constructor(uuid: string, href: string) {
     super(uuid, href);

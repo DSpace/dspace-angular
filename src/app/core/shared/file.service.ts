@@ -6,12 +6,21 @@ import { RestRequestMethod } from '../data/request.models';
 import { saveAs } from 'file-saver';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
+/**
+ * Provides utility methods to save files on the client-side.
+ */
 @Injectable()
 export class FileService {
   constructor(
     private restService: DSpaceRESTv2Service
   ) { }
 
+  /**
+   * Makes a HTTP Get request to download a file
+   *
+   * @param url
+   *    file url
+   */
   downloadFile(url: string) {
     const headers = new HttpHeaders();
     const options: HttpOptions = Object.create({headers, responseType: 'blob'});
@@ -24,12 +33,12 @@ export class FileService {
   /**
    * Derives file name from the http response
    * by looking inside content-disposition
-   * @param res http DSpaceRESTV2Response
+   * @param res
+   *    http DSpaceRESTV2Response
    */
   getFileNameFromResponseContentDisposition(res: DSpaceRESTV2Response) {
     const contentDisposition = res.headers.get('content-disposition') || '';
     const matches = /filename="([^;]+)"/ig.exec(contentDisposition) || [];
-    const fileName = (matches[1] || 'untitled').trim().replace(/\.[^/.]+$/, '');
-    return fileName;
+    return (matches[1] || 'untitled').trim().replace(/\.[^/.]+$/, '');
   };
 }

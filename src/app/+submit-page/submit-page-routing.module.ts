@@ -17,4 +17,7 @@ import { SubmissionSubmitComponent } from '../submission/submit/submission-submi
     ])
   ]
 })
+/**
+ * This module defines the default component to load when navigating to the submit page path.
+ */
 export class SubmitPageRoutingModule { }

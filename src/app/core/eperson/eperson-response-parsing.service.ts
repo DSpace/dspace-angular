@@ -13,6 +13,9 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { ResourceType } from '../shared/resource-type';
 
+/**
+ * Provides method to parse response from eperson endpoint.
+ */
 @Injectable()
 export class EpersonResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 

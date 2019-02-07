@@ -19,6 +19,9 @@ import {
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel } from './json-patch.model';
 
+/**
+ * An abstract class that provides methods to make JSON Patch requests.
+ */
 export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, PatchRequestDefinition extends PatchRequest> {
   protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
@@ -40,6 +43,18 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
     return observableMerge(errorResponses, successResponses);
   }
 
+  /**
+   * Submit a new JSON Patch request with all operations stored in the state that are ready to be dispatched
+   *
+   * @param hrefObs
+   *    Observable of request href
+   * @param resourceType
+   *    The resource type value
+   * @param resourceId
+   *    The resource id value
+   * @return Observable<ResponseDefinitionDomain>
+   *    observable of response
+   */
   protected submitJsonPatchOperations(hrefObs: Observable<string>, resourceType: string, resourceId?: string): Observable<ResponseDefinitionDomain> {
     let startTransactionTime = null;
     const [patchRequest$, emptyRequest$] = partition((request: PatchRequestDefinition) => isNotEmpty(request.body))(hrefObs.pipe(
@@ -101,6 +116,18 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
     );
   }
 
+  /**
+   * Return an instance for RestRequest class
+   *
+   * @param uuid
+   *    The request uuid
+   * @param href
+   *    The request href
+   * @param body
+   *    The request body
+   * @return Object<PatchRequestDefinition>
+   *    instance of PatchRequestDefinition
+   */
   protected getRequestInstance(uuid: string, href: string, body?: any): PatchRequestDefinition {
     return new this.patchRequestConstructor(uuid, href, body);
   }
@@ -109,8 +136,20 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
     return isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
   }
 
-  public jsonPatchByResourceType(linkName: string, scopeId: string, resourceType: string): Observable<ResponseDefinitionDomain> {
-    const href$ = this.halService.getEndpoint(linkName).pipe(
+  /**
+   * Make a new JSON Patch request with all operations related to the specified resource type
+   *
+   * @param linkPath
+   *    The link path of the request
+   * @param scopeId
+   *    The scope id
+   * @param resourceType
+   *    The resource type value
+   * @return Observable<ResponseDefinitionDomain>
+   *    observable of response
+   */
+  public jsonPatchByResourceType(linkPath: string, scopeId: string, resourceType: string): Observable<ResponseDefinitionDomain> {
+    const href$ = this.halService.getEndpoint(linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)));
@@ -118,8 +157,22 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
     return this.submitJsonPatchOperations(href$, resourceType);
   }
 
-  public jsonPatchByResourceID(linkName: string, scopeId: string, resourceType: string, resourceId: string): Observable<ResponseDefinitionDomain> {
-    const hrefObs = this.halService.getEndpoint(linkName).pipe(
+  /**
+   * Make a new JSON Patch request with all operations related to the specified resource id
+   *
+   * @param linkPath
+   *    The link path of the request
+   * @param scopeId
+   *    The scope id
+   * @param resourceType
+   *    The resource type value
+   * @param resourceId
+   *    The resource id value
+   * @return Observable<ResponseDefinitionDomain>
+   *    observable of response
+   */
+  public jsonPatchByResourceID(linkPath: string, scopeId: string, resourceType: string, resourceId: string): Observable<ResponseDefinitionDomain> {
+    const hrefObs = this.halService.getEndpoint(linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)));

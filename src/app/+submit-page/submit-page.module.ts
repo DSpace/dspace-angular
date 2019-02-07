@@ -12,6 +12,9 @@ import { SubmissionModule } from '../submission/submission.module';
     SubmissionModule,
   ],
 })
+/**
+ * This module handles all modules that need to access the submit page.
+ */
 export class SubmitPageModule {
 
 }
