@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 import { SectionsService } from '../../sections/sections.service';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
-import { normalizeSectionData } from '../../../core/submission/models/workspaceitem-sections.model';
+import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
 import { SubmissionService } from '../../submission.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
