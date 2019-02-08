@@ -277,7 +277,7 @@ export class AuthService {
   public isTokenExpiring(): Observable<boolean> {
     return this.store.pipe(
       select(isTokenRefreshing),
-      first(),
+      take(1),
       map((isRefreshing: boolean) => {
         if (this.isTokenExpired() || isRefreshing) {
           return false;
@@ -360,7 +360,7 @@ export class AuthService {
    */
   public redirectToPreviousUrl() {
     this.getRedirectUrl().pipe(
-      first())
+      take(1))
       .subscribe((redirectUrl) => {
 
         if (isNotEmpty(redirectUrl)) {

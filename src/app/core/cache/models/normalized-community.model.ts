@@ -1,4 +1,4 @@
-import { autoserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization, serialize } from 'cerialize';
 
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Community } from '../../shared/community.model';
@@ -21,32 +21,32 @@ export class NormalizedCommunity extends NormalizedDSpaceObject {
   /**
    * The Bitstream that represents the logo of this Community
    */
-  @autoserialize
+  @deserialize
   @relationship(ResourceType.Bitstream, false)
   logo: string;
 
   /**
    * An array of Communities that are direct parents of this Community
    */
-  @autoserialize
+  @deserialize
   @relationship(ResourceType.Community, true)
   parents: string[];
 
   /**
    * The Community that owns this Community
    */
-  @autoserialize
+  @deserialize
   @relationship(ResourceType.Community, false)
   owner: string;
 
   /**
    * List of Collections that are owned by this Community
    */
-  @autoserialize
+  @deserialize
   @relationship(ResourceType.Collection, true)
   collections: string[];
 
-  @autoserialize
+  @deserialize
   @relationship(ResourceType.Community, true)
   subcommunities: string[];
 

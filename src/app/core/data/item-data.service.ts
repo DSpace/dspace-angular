@@ -1,34 +1,43 @@
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
-import {isNotEmpty} from '../../shared/empty.util';
-import {BrowseService} from '../browse/browse.service';
-import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
-import {NormalizedItem} from '../cache/models/normalized-item.model';
-import {ResponseCacheService} from '../cache/response-cache.service';
-import {CoreState} from '../core.reducers';
-import {Item} from '../shared/item.model';
-import {URLCombiner} from '../url-combiner/url-combiner';
 
-import {DataService} from './data.service';
-import {RequestService} from './request.service';
-import {HALEndpointService} from '../shared/hal-endpoint.service';
-import {DeleteRequest, FindAllOptions, PatchRequest, RestRequest} from './request.models';
-import {configureRequest, getResponseFromSelflink} from '../shared/operators';
-import {ResponseCacheEntry} from '../cache/response-cache.reducer';
+import {distinctUntilChanged, map, filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { isNotEmpty } from '../../shared/empty.util';
+import { BrowseService } from '../browse/browse.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { NormalizedItem } from '../cache/models/normalized-item.model';
+import { CoreState } from '../core.reducers';
+import { Item } from '../shared/item.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+
+import { DataService } from './data.service';
+import { RequestService } from './request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { DeleteRequest, FindAllOptions, PatchRequest, RestRequest } from './request.models';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { configureRequest, getRequestFromRequestHref } from '../shared/operators';
+import { RequestEntry } from './request.reducer';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
   protected linkPath = 'items';
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     private bs: BrowseService,
-    protected halService: HALEndpointService) {
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DSOChangeAnalyzer) {
     super();
   }
 
@@ -38,12 +47,12 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    * @param {FindAllOptions} options
    * @returns {Observable<string>}
    */
-  public getBrowseEndpoint(options: FindAllOptions = {}): Observable<string> {
+  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     let field = 'dc.date.issued';
     if (options.sort && options.sort.field) {
       field = options.sort.field;
     }
-    return this.bs.getBrowseURLFor(field, this.linkPath).pipe(
+    return this.bs.getBrowseURLFor(field, linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
       distinctUntilChanged(),);
@@ -95,8 +104,8 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       ),
       configureRequest(this.requestService),
       map((request: RestRequest) => request.href),
-      getResponseFromSelflink(this.responseCache),
-      map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)
+      getRequestFromRequestHref(this.requestService),
+      map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
 
@@ -116,8 +125,8 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       ),
       configureRequest(this.requestService),
       map((request: RestRequest) => request.href),
-      getResponseFromSelflink(this.responseCache),
-      map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)
+      getRequestFromRequestHref(this.requestService),
+      map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
 
@@ -133,8 +142,8 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       ),
       configureRequest(this.requestService),
       map((request: RestRequest) => request.href),
-      getResponseFromSelflink(this.responseCache),
-      map((responseCacheEntry: ResponseCacheEntry) => responseCacheEntry.response)
+      getRequestFromRequestHref(this.requestService),
+      map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
 

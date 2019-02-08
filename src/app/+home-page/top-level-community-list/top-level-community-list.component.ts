@@ -17,6 +17,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
+
 export class TopLevelCommunityListComponent {
   communitiesRDObs: Observable<RemoteData<PaginatedList<Community>>>;
   config: PaginationComponentOptions;

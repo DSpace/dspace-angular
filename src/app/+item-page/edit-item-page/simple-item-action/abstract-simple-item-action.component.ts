@@ -8,9 +8,9 @@ import {RemoteData} from '../../../core/data/remote-data';
 import {Observable} from 'rxjs';
 import {getSucceededRemoteData} from '../../../core/shared/operators';
 import {first, map} from 'rxjs/operators';
-import {RestResponse} from '../../../core/cache/response-cache.models';
 import {findSuccessfulAccordingTo} from '../edit-item-operators';
 import {getItemEditPath} from '../../item-page-routing.module';
+import { RestResponse } from '../../../core/cache/response.models';
 
 /**
  * Component to render and handle simple item edit actions such as withdrawal and reinstatement.

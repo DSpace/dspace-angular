@@ -13,6 +13,27 @@
           "head": "Recent Submissions"
         }
       }
+    },
+    "form": {
+      "title": "Name",
+      "description": "Introductory text (HTML)",
+      "abstract": "Short Description",
+      "rights": "Copyright text (HTML)",
+      "tableofcontents": "News (HTML)",
+      "license": "License",
+      "provenance": "Provenance",
+      "errors": {
+        "title": {
+          "required": "Please enter a collection name"
+        }
+      }
+    },
+    "edit": {
+      "head": "Edit Collection"
+    },
+    "create": {
+      "head": "Create a Collection",
+      "sub-head": "Create a Collection for Community {{ parent }}"
     }
   },
   "community": {
@@ -25,6 +46,25 @@
     },
     "sub-community-list": {
       "head": "Communities of this Community"
+    },
+    "form": {
+      "title": "Name",
+      "description": "Introductory text (HTML)",
+      "abstract": "Short Description",
+      "rights": "Copyright text (HTML)",
+      "tableofcontents": "News (HTML)",
+      "errors": {
+        "title": {
+          "required": "Please enter a community name"
+        }
+      }
+    },
+    "edit": {
+      "head": "Edit Community"
+    },
+    "create": {
+      "head": "Create a Community",
+      "sub-head": "Create a Sub-Community for Community {{ parent }}"
     }
   },
   "item": {

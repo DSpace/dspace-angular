@@ -1,24 +1,25 @@
-import { Observable, of as observableOf, throwError as observableThrowError, merge as observableMerge } from 'rxjs';
+import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { ConfigSuccessResponse } from '../cache/response-cache.models';
+import { ConfigSuccessResponse } from '../cache/response.models';
 import { ConfigRequest, FindAllOptions, RestRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigData } from './config-data';
+import { RequestEntry } from '../data/request.reducer';
+import { getResponseFromEntry } from '../shared/operators';
 
 export abstract class ConfigService {
   protected request: ConfigRequest;
-  protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract linkPath: string;
   protected abstract browseEndpoint: string;
   protected abstract halService: HALEndpointService;
 
   protected getConfig(request: RestRequest): Observable<ConfigData> {
-    const responses = this.responseCache.get(request.href).pipe(map((entry: ResponseCacheEntry) => entry.response));
+    const responses = this.requestService.getByHref(request.href).pipe(
+      getResponseFromEntry()
+    );
     const errorResponses = responses.pipe(
       filter((response) => !response.isSuccessful),
       mergeMap(() => observableThrowError(new Error(`Couldn't retrieve the config`)))
@@ -94,7 +95,6 @@ export abstract class ConfigService {
   }
 
   public getConfigBySearch(options: FindAllOptions = {}): Observable<ConfigData> {
-    console.log(this.halService.getEndpoint(this.linkPath));
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getConfigSearchHref(endpoint, options)),
       filter((href: string) => isNotEmpty(href)),

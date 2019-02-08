@@ -1,4 +1,4 @@
-import {mergeMap, filter, map} from 'rxjs/operators';
+import { mergeMap, filter, map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -45,5 +45,4 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
-
 }

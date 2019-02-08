@@ -1,24 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { RegistryService } from './registry.service';
 import { CommonModule } from '@angular/common';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { RequestEntry } from '../data/request.reducer';
 import { RemoteData } from '../data/remote-data';
 import { PageInfo } from '../shared/page-info.model';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 
 import {
   RegistryBitstreamformatsSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
   RegistryMetadataschemasSuccessResponse
-} from '../cache/response-cache.models';
+} from '../cache/response.models';
 import { Component } from '@angular/core';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
@@ -127,10 +124,10 @@ describe('RegistryService', () => {
   };
 
   const rdbStub = {
-    toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<any>) => {
+    toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
       return observableCombineLatest(requestEntryObs,
-        responseCacheObs, payloadObs).pipe(map(([req, res, pay]) => {
-          return { req, res, pay };
+        payloadObs).pipe(map(([req, pay]) => {
+          return { req, pay };
         })
       );
     },
@@ -146,7 +143,6 @@ describe('RegistryService', () => {
         DummyComponent
       ],
       providers: [
-        { provide: ResponseCacheService, useValue: getMockResponseCacheService() },
         { provide: RequestService, useValue: getMockRequestService() },
         { provide: RemoteDataBuildService, useValue: rdbStub },
         { provide: HALEndpointService, useValue: halServiceStub },
@@ -164,10 +160,10 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadataschemasSuccessResponse(queryResponse, '200', pageInfo);
-    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
+      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getMetadataSchemas(pagination).subscribe((value) => {
       });
@@ -185,10 +181,6 @@ describe('RegistryService', () => {
     it('should call getByHref on the request service with the correct request url', () => {
       expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
     });
-
-    it('should call get on the request service with the correct request url', () => {
-      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
-    });
   });
 
   describe('when requesting metadataschema by name', () => {
@@ -197,10 +189,10 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadataschemasSuccessResponse(queryResponse, '200', pageInfo);
-    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
+      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getMetadataSchemaByName(mockSchemasList[0].prefix).subscribe((value) => {
       });
@@ -218,10 +210,6 @@ describe('RegistryService', () => {
     it('should call getByHref on the request service with the correct request url', () => {
       expect((registryService as any).requestService.getByHref.calls.argsFor(0)[0]).toContain(endpoint);
     });
-
-    it('should call get on the request service with the correct request url', () => {
-      expect((registryService as any).responseCache.get.calls.argsFor(0)[0]).toContain(endpoint);
-    });
   });
 
   describe('when requesting metadatafields', () => {
@@ -230,10 +218,10 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadatafieldsSuccessResponse(queryResponse, '200', pageInfo);
-    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
+      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getMetadataFieldsBySchema(mockSchemasList[0], pagination).subscribe((value) => {
       });
@@ -251,10 +239,6 @@ describe('RegistryService', () => {
     it('should call getByHref on the request service with the correct request url', () => {
       expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
     });
-
-    it('should call get on the request service with the correct request url', () => {
-      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
-    });
   });
 
   describe('when requesting bitstreamformats', () => {
@@ -263,10 +247,10 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryBitstreamformatsSuccessResponse(queryResponse, '200', pageInfo);
-    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
+      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getBitstreamFormats(pagination).subscribe((value) => {
       });
@@ -283,10 +267,6 @@ describe('RegistryService', () => {
 
     it('should call getByHref on the request service with the correct request url', () => {
       expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
-    });
-
-    it('should call get on the request service with the correct request url', () => {
-      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
     });
   });
 });

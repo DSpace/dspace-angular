@@ -1,6 +1,6 @@
-import { of as observableOf, Observable ,  Subscription } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 
-import { map, filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';

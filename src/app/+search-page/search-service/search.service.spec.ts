@@ -8,21 +8,18 @@ import { SearchService } from './search.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
-import { ResponseCacheService } from '../../core/cache/response-cache.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { RouterStub } from '../../shared/testing/router-stub';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { ResponseCacheEntry } from '../../core/cache/response-cache.reducer';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import {
   FacetConfigSuccessResponse,
   SearchSuccessResponse
-} from '../../core/cache/response-cache.models';
+} from '../../core/cache/response.models';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -54,7 +51,6 @@ describe('SearchService', () => {
         providers: [
           { provide: Router, useValue: router },
           { provide: ActivatedRoute, useValue: route },
-          { provide: ResponseCacheService, useValue: getMockResponseCacheService() },
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: HALEndpointService, useValue: {} },
@@ -86,11 +82,10 @@ describe('SearchService', () => {
     };
 
     const remoteDataBuildService = {
-      toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<any>) => {
-        return observableCombineLatest(requestEntryObs,
-          responseCacheObs, payloadObs).pipe(
-          map(([req, res, pay]) => {
-            return { req, res, pay };
+      toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
+        return observableCombineLatest(requestEntryObs, payloadObs).pipe(
+          map(([req, pay]) => {
+            return { req, pay };
           })
         );
       },
@@ -113,7 +108,6 @@ describe('SearchService', () => {
         providers: [
           { provide: Router, useValue: router },
           { provide: ActivatedRoute, useValue: route },
-          { provide: ResponseCacheService, useValue: getMockResponseCacheService() },
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
@@ -162,10 +156,8 @@ describe('SearchService', () => {
       const searchOptions = new PaginatedSearchOptions({});
       const queryResponse = Object.assign(new SearchQueryResponse(), { objects: [] });
       const response = new SearchSuccessResponse(queryResponse, '200');
-      const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        (searchService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
         /* tslint:disable:no-empty */
         searchService.search(searchOptions).subscribe((t) => {
         }); // subscribe to make sure all methods are called
@@ -183,19 +175,14 @@ describe('SearchService', () => {
       it('should call getByHref on the request service with the correct request url', () => {
         expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(endPoint);
       });
-      it('should call get on the request service with the correct request url', () => {
-        expect((searchService as any).responseCache.get).toHaveBeenCalledWith(endPoint);
-      });
     });
 
     describe('when getConfig is called without a scope', () => {
       const endPoint = 'http://endpoint.com/test/config';
       const filterConfig = [new SearchFilterConfig()];
       const response = new FacetConfigSuccessResponse(filterConfig, '200');
-      const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        (searchService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
         /* tslint:disable:no-empty */
         searchService.getConfig(null).subscribe((t) => {
         }); // subscribe to make sure all methods are called
@@ -213,9 +200,6 @@ describe('SearchService', () => {
       it('should call getByHref on the request service with the correct request url', () => {
         expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(endPoint);
       });
-      it('should call get on the request service with the correct request url', () => {
-        expect((searchService as any).responseCache.get).toHaveBeenCalledWith(endPoint);
-      });
     });
 
     describe('when getConfig is called with a scope', () => {
@@ -224,10 +208,8 @@ describe('SearchService', () => {
       const requestUrl = endPoint + '?scope=' + scope;
       const filterConfig = [new SearchFilterConfig()];
       const response = new FacetConfigSuccessResponse(filterConfig, '200');
-      const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
-        (searchService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
         /* tslint:disable:no-empty */
         searchService.getConfig(scope).subscribe((t) => {
         }); // subscribe to make sure all methods are called
@@ -244,9 +226,6 @@ describe('SearchService', () => {
 
       it('should call getByHref on the request service with the correct request url', () => {
         expect((searchService as any).requestService.getByHref).toHaveBeenCalledWith(requestUrl);
-      });
-      it('should call get on the request service with the correct request url', () => {
-        expect((searchService as any).responseCache.get).toHaveBeenCalledWith(requestUrl);
       });
     });
   });

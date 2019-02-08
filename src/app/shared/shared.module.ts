@@ -86,7 +86,10 @@ import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { MenuModule } from './menu/menu.module';
-import {LangSwitchComponent} from './lang-switch/lang-switch.component';
+import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
+import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
+import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -130,6 +133,9 @@ const COMPONENTS = [
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
+  ComColFormComponent,
+  CreateComColPageComponent,
+  EditComColPageComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlComponent,
   DsDynamicListComponent,

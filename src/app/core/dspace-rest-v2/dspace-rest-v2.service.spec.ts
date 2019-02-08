@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { DSpaceRESTv2Service } from './dspace-rest-v2.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 describe('DSpaceRESTv2Service', () => {
   let dSpaceRESTv2Service: DSpaceRESTv2Service;
@@ -64,5 +65,16 @@ describe('DSpaceRESTv2Service', () => {
     const req = httpMock.expectOne(url);
     expect(req.request.method).toBe('GET');
     req.error(mockError);
+  });
+
+  describe('buildFormData', () => {
+    it('should return the correct data', () => {
+      const name = 'testname';
+      const dso: DSpaceObject = {
+        name: name
+      } as DSpaceObject;
+      const formdata = dSpaceRESTv2Service.buildFormData(dso);
+      expect(formdata.get('name')).toBe(name);
+    });
   });
 });

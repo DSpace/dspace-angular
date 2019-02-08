@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize, serialize } from 'cerialize';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 
 import { Metadatum } from '../../shared/metadatum.model';
@@ -18,7 +18,7 @@ export class NormalizedDSpaceObject extends NormalizedObject {
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @autoserialize
+  @deserialize
   self: string;
 
   /**
@@ -46,12 +46,6 @@ export class NormalizedDSpaceObject extends NormalizedObject {
   type: ResourceType;
 
   /**
-   * The name for this DSpaceObject
-   */
-  @autoserialize
-  name: string;
-
-  /**
    * An array containing all metadata of this DSpaceObject
    */
   @autoserializeAs(Metadatum)
@@ -60,13 +54,13 @@ export class NormalizedDSpaceObject extends NormalizedObject {
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
    */
-  @autoserialize
+  @deserialize
   parents: string[];
 
   /**
    * The DSpaceObject that owns this DSpaceObject
    */
-  @autoserialize
+  @deserialize
   owner: string;
 
   /**
@@ -75,7 +69,7 @@ export class NormalizedDSpaceObject extends NormalizedObject {
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @autoserialize
+  @deserialize
   _links: {
     [name: string]: string
   }

@@ -51,7 +51,6 @@ export const MockItem: Item = Object.assign(new Item(), {
           id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
           uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
           type: 'bitstream',
-          name: 'test_word.docx',
           metadata: [
             {
               key: 'dc.title',
@@ -86,7 +85,6 @@ export const MockItem: Item = Object.assign(new Item(), {
           id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
           uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
           type: 'bitstream',
-          name: 'test_pdf.pdf',
           metadata: [
             {
               key: 'dc.title',
@@ -102,7 +100,6 @@ export const MockItem: Item = Object.assign(new Item(), {
   id: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   uuid: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   type: 'item',
-  name: 'Test PowerPoint Document',
   metadata: [
     {
       key: 'dc.creator',

@@ -1,9 +1,7 @@
 import { Observable } from 'rxjs';
-import { filter, first, flatMap, map, tap } from 'rxjs/operators';
-import { hasValueOperator, isNotEmpty } from '../../shared/empty.util';
-import { DSOSuccessResponse } from '../cache/response-cache.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
+import { filter, find, flatMap, map, tap } from 'rxjs/operators';
+import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
 import { RestRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
@@ -17,29 +15,39 @@ import { SearchResult } from '../../+search-page/search-result.model';
  * This file contains custom RxJS operators that can be used in multiple places
  */
 
-export const getRequestFromSelflink = (requestService: RequestService) =>
+export const getRequestFromRequestHref = (requestService: RequestService) =>
   (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
       flatMap((href: string) => requestService.getByHref(href)),
       hasValueOperator()
     );
 
-export const getResponseFromSelflink = (responseCache: ResponseCacheService) =>
-  (source: Observable<string>): Observable<ResponseCacheEntry> =>
+export const getRequestFromRequestUUID = (requestService: RequestService) =>
+  (source: Observable<string>): Observable<RequestEntry> =>
     source.pipe(
-      flatMap((href: string) => responseCache.get(href)),
+      flatMap((uuid: string) => requestService.getByUUID(uuid)),
       hasValueOperator()
     );
 
 export const filterSuccessfulResponses = () =>
-  (source: Observable<ResponseCacheEntry>): Observable<ResponseCacheEntry> =>
-    source.pipe(filter((entry: ResponseCacheEntry) => entry.response.isSuccessful === true));
+  (source: Observable<RequestEntry>): Observable<RestResponse> =>
+    source.pipe(
+      getResponseFromEntry(),
+      filter((response: RestResponse) => response.isSuccessful === true),
+    );
+
+export const getResponseFromEntry = () =>
+  (source: Observable<RequestEntry>): Observable<RestResponse> =>
+    source.pipe(
+      filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
+      map((entry: RequestEntry) => entry.response)
+    );
 
 export const getResourceLinksFromResponse = () =>
-  (source: Observable<ResponseCacheEntry>): Observable<string[]> =>
+  (source: Observable<RequestEntry>): Observable<string[]> =>
     source.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => (entry.response as DSOSuccessResponse).resourceSelfLinks),
+      map((response: DSOSuccessResponse) => response.resourceSelfLinks),
     );
 
 export const configureRequest = (requestService: RequestService) =>
@@ -52,7 +60,11 @@ export const getRemoteDataPayload = () =>
 
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(first((rd: RemoteData<T>) => rd.hasSucceeded));
+    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
+
+export const getFinishedRemoteData = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(find((rd: RemoteData<T>) => !rd.isLoading));
 
 export const getAllSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
@@ -61,10 +73,11 @@ export const getAllSucceededRemoteData = () =>
 export const toDSpaceObjectListRD = () =>
   <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<SearchResult<T>>>>): Observable<RemoteData<PaginatedList<T>>> =>
     source.pipe(
+      filter((rd: RemoteData<PaginatedList<SearchResult<T>>>) => rd.hasSucceeded),
       map((rd: RemoteData<PaginatedList<SearchResult<T>>>) => {
         const dsoPage: T[] = rd.payload.page.map((searchResult: SearchResult<T>) => searchResult.dspaceObject);
-        const payload = Object.assign(rd.payload, {page: dsoPage}) as any;
-        return Object.assign(rd, {payload: payload});
+        const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
+        return Object.assign(rd, { payload: payload });
       })
     );
 

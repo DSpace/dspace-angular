@@ -1,17 +1,21 @@
-import {Store} from '@ngrx/store';
-import {cold, getTestScheduler} from 'jasmine-marbles';
-import {TestScheduler} from 'rxjs/testing';
-import {BrowseService} from '../browse/browse.service';
-import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
-import {ResponseCacheService} from '../cache/response-cache.service';
-import {CoreState} from '../core.reducers';
-import {ItemDataService} from './item-data.service';
-import {RequestService} from './request.service';
-import {HALEndpointService} from '../shared/hal-endpoint.service';
-import {FindAllOptions, RestRequest} from './request.models';
-import {Observable, of as observableOf} from 'rxjs';
-import {ResponseCacheEntry} from '../cache/response-cache.reducer';
-import {RestResponse} from '../cache/response-cache.models';
+import { Store } from '@ngrx/store';
+import { cold, getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+import { BrowseService } from '../browse/browse.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { CoreState } from '../core.reducers';
+import { ItemDataService } from './item-data.service';
+import { RequestService } from './request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { FindAllOptions, RestRequest } from './request.models';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { Observable } from 'rxjs';
+import { RestResponse } from '../cache/response.models';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { HttpClient } from '@angular/common/http';
+import { RequestEntry } from './request.reducer';
+import { of as observableOf } from 'rxjs';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -23,17 +27,17 @@ describe('ItemDataService', () => {
     },
     configure(request: RestRequest) {
       // Do nothing
-    }
-  } as RequestService;
-  const responseCache = {
-    get(href: string) {
-      const responseCacheEntry = new ResponseCacheEntry();
+    },
+    getByHref(requestHref: string) {
+      const responseCacheEntry = new RequestEntry();
       responseCacheEntry.response = new RestResponse(true, '200');
       return observableOf(responseCacheEntry);
     }
-  } as ResponseCacheService;
+  } as RequestService;
   const rdbService = {} as RemoteDataBuildService;
+
   const store = {} as Store<CoreState>;
+  const objectCache = {} as ObjectCacheService;
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
       return cold('a', {a: itemEndpoint});
@@ -54,12 +58,16 @@ describe('ItemDataService', () => {
   const scopedEndpoint = `${itemBrowseEndpoint}?scope=${scopeID}`;
   const serviceEndpoint = `https://rest.api/core/items`;
   const browseError = new Error('getBrowseURL failed');
+  const notificationsService = {} as NotificationsService;
+  const http = {} as HttpClient;
+  const comparator = {} as any;
+  const dataBuildService = {} as NormalizedObjectBuildService;
   const itemEndpoint = 'https://rest.api/core/items';
   const ScopedItemEndpoint = `https://rest.api/core/items/${scopeID}`;
 
   function initMockBrowseService(isSuccessful: boolean) {
     const obs = isSuccessful ?
-      cold('--a-', {a: itemBrowseEndpoint}) :
+      cold('--a-', { a: itemBrowseEndpoint }) :
       cold('--#-', undefined, browseError);
     return jasmine.createSpyObj('bs', {
       getBrowseURLFor: obs
@@ -68,12 +76,16 @@ describe('ItemDataService', () => {
 
   function initTestService() {
     return new ItemDataService(
-      responseCache,
       requestService,
       rdbService,
+      dataBuildService,
       store,
       bs,
-      halEndpointService
+      objectCache,
+      halEndpointService,
+      notificationsService,
+      http,
+      comparator
     );
   }
 
@@ -87,7 +99,7 @@ describe('ItemDataService', () => {
       service = initTestService();
 
       const result = service.getBrowseEndpoint(options);
-      const expected = cold('--b-', {b: scopedEndpoint});
+      const expected = cold('--b-', { b: scopedEndpoint });
 
       expect(result).toBeObservable(expected);
     });

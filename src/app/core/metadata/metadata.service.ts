@@ -1,4 +1,12 @@
-import { catchError, distinctUntilKeyChanged, filter, first, map, take } from 'rxjs/operators';
+import {
+  catchError,
+  distinctUntilKeyChanged,
+  filter,
+  find,
+  first,
+  map,
+  take
+} from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
@@ -59,7 +67,7 @@ export class MetadataService {
   public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
     remoteData.pipe(map((rd: RemoteData<CacheableObject>) => rd.payload),
       filter((co: CacheableObject) => hasValue(co)),
-      take(1),)
+      take(1))
       .subscribe((dspaceObject: DSpaceObject) => {
         if (!this.initialized) {
           this.initialize(dspaceObject);
@@ -263,13 +271,17 @@ export class MetadataService {
         .pipe(
           first((files) => isNotEmpty(files)),
           catchError((error) => {
-            console.debug(error);
+            console.debug(error.message);
             return []
           }))
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {
             bitstream.format.pipe(
               first(),
+              catchError((error: Error) => {
+                console.debug(error.message);
+                return []
+              }),
               map((rd: RemoteData<BitstreamFormat>) => rd.payload),
               filter((format: BitstreamFormat) => hasValue(format)))
               .subscribe((format: BitstreamFormat) => {
