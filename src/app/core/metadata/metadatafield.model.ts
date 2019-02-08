@@ -1,6 +1,7 @@
 import { MetadataSchema } from './metadataschema.model';
 import { autoserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { isNotEmpty } from '../../shared/empty.util';
 
 export class MetadataField implements ListableObject {
   @autoserialize
@@ -20,4 +21,12 @@ export class MetadataField implements ListableObject {
 
   @autoserialize
   schema: MetadataSchema;
+
+  toString(): string {
+    let key = this.schema.prefix + '.' + this.element;
+    if (isNotEmpty(this.qualifier)) {
+      key += '.' + this.qualifier;
+    }
+    return key;
+  }
 }

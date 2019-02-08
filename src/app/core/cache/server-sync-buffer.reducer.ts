@@ -26,7 +26,6 @@ export interface ServerSyncBufferState {
   buffer: ServerSyncBufferEntry[];
 }
 
-// Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState: ServerSyncBufferState = { buffer: [] };
 
 /**

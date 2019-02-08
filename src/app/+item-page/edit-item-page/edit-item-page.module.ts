@@ -13,7 +13,7 @@ import {ItemPrivateComponent} from './item-private/item-private.component';
 import {ItemPublicComponent} from './item-public/item-public.component';
 import {ItemDeleteComponent} from './item-delete/item-delete.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
-import { EditInPlaceComponent } from './item-metadata/edit-in-place-field/edit-in-place-field.component';
+import { EditInPlaceFieldComponent } from './item-metadata/edit-in-place-field/edit-in-place-field.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -36,7 +36,7 @@ import { EditInPlaceComponent } from './item-metadata/edit-in-place-field/edit-i
     ItemDeleteComponent,
     ItemStatusComponent,
     ItemMetadataComponent,
-    EditInPlaceComponent
+    EditInPlaceFieldComponent
   ]
 })
 export class EditItemPageModule {

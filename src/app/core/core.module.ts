@@ -67,6 +67,7 @@ import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
+import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 
 const IMPORTS = [
   CommonModule,
@@ -134,6 +135,7 @@ const PROVIDERS = [
   DSOChangeAnalyzer,
   CSSVariableService,
   MenuService,
+  ObjectUpdatesService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

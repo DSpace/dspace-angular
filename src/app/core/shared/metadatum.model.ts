@@ -1,7 +1,9 @@
 import { autoserialize } from 'cerialize';
+import * as uuidv4 from 'uuid/v4';
 
 export class Metadatum {
 
+  uuid: string = uuidv4();
   /**
    * The metadata field of this Metadatum
    */

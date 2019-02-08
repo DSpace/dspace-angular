@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import { ItemPageComponent } from './simple/item-page.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { ItemPageResolver } from './item-page.resolver';
+import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { getItemModulePath } from '../app-routing.module';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import {URLCombiner} from '../core/url-combiner/url-combiner';
-import {getItemModulePath} from '../app-routing.module';
 
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModulePath(), itemId).toString();

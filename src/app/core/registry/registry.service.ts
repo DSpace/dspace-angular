@@ -33,13 +33,19 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RegistryBitstreamformatsResponseParsingService } from '../data/registry-bitstreamformats-response-parsing.service';
 import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
-import { configureRequest, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
+import {
+  configureRequest,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import {
   MetadataRegistryCancelFieldAction,
-  MetadataRegistryCancelSchemaAction, MetadataRegistryDeselectAllFieldAction, MetadataRegistryDeselectAllSchemaAction,
+  MetadataRegistryCancelSchemaAction,
+  MetadataRegistryDeselectAllFieldAction,
+  MetadataRegistryDeselectAllSchemaAction,
   MetadataRegistryDeselectFieldAction,
   MetadataRegistryDeselectSchemaAction,
   MetadataRegistryEditFieldAction,
@@ -168,7 +174,7 @@ export class RegistryService {
 
   public getAllMetadataFields(pagination?: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataField>>> {
     if (hasNoValue(pagination)) {
-      pagination = { currentPage: 1, pageSize: Number.MAX_VALUE } as any;
+      pagination = { currentPage: 1, pageSize: 10000 } as any;
     }
     const requestObs = this.getMetadataFieldsRequestObs(pagination);
 
@@ -532,5 +538,20 @@ export class RegistryService {
         this.notificationsService.error(head, content)
       }
     });
+  }
+
+  queryMetadataFields(query: string): Observable<RemoteData<PaginatedList<MetadataField>>> {
+    /**
+     * This should come directly from the server in the future
+     */
+    return this.getAllMetadataFields().pipe(
+      map((rd: RemoteData<PaginatedList<MetadataField>>) => {
+        const filteredFields: MetadataField[] = rd.payload.page.filter(
+          (field: MetadataField) => field.toString().indexOf(query) >= 0
+        );
+        const page: PaginatedList<MetadataField> = new PaginatedList<MetadataField>(new PageInfo(), filteredFields)
+        return Object.assign({}, rd, { payload: page });
+      })
+    );
   }
 }

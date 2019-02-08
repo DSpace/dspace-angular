@@ -1,6 +1,6 @@
 import {
   Component,
-  ElementRef, EventEmitter,
+  ElementRef, EventEmitter, forwardRef,
   Input,
   Output,
   QueryList, SimpleChanges,
@@ -9,21 +9,30 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { hasValue, isNotEmpty } from '../empty.util';
+import { InputSuggestion } from './input-suggestions.model';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'ds-input-suggestions',
   styleUrls: ['./input-suggestions.component.scss'],
-  templateUrl: './input-suggestions.component.html'
+  templateUrl: './input-suggestions.component.html',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputSuggestionsComponent),
+      multi: true
+    }
+  ]
 })
 
 /**
  * Component representing a form with a autocomplete functionality
  */
-export class InputSuggestionsComponent {
+export class InputSuggestionsComponent implements ControlValueAccessor {
   /**
    * The suggestions that should be shown
    */
-  @Input() suggestions: any[] = [];
+  @Input() suggestions: InputSuggestion[] = [];
 
   /**
    * The time waited to detect if any other input will follow before requesting the suggestions
@@ -44,16 +53,6 @@ export class InputSuggestionsComponent {
    * Name attribute for the input field
    */
   @Input() name;
-
-  /**
-   * Value of the input field
-   */
-  @Input() ngModel;
-
-  /**
-   * Output for when the input field's value changes
-   */
-  @Output() ngModelChange = new EventEmitter();
 
   /**
    * Output for when the form is submitted
@@ -93,6 +92,15 @@ export class InputSuggestionsComponent {
    * Reference to the suggestion components
    */
   @ViewChildren('suggestion') resultViews: QueryList<ElementRef>;
+
+  /**
+   * Value of the input field
+   */
+  _value: string;
+
+  propagateChange = (_: any) => {
+    /* Empty implementation */
+  };
 
   /**
    * When any of the inputs change, check if we should still show the suggestions
@@ -170,6 +178,7 @@ export class InputSuggestionsComponent {
    * Make sure that if a suggestion is clicked, the suggestions dropdown closes, does not reopen and the focus moves to the input field
    */
   onClickSuggestion(data) {
+    this.value = data;
     this.clickSuggestion.emit(data);
     this.close();
     this.blockReopen = true;
@@ -188,4 +197,31 @@ export class InputSuggestionsComponent {
     this.blockReopen = false;
   }
 
+  onSubmit(data) {
+    this.value = data;
+    this.submitSuggestion.emit(data);
+  }
+
+  registerOnChange(fn: any): void {
+    this.propagateChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+  }
+
+  writeValue(value: any): void {
+    this.value = value;
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  set value(val) {
+    this._value = val;
+    this.propagateChange(this._value);
+  }
 }

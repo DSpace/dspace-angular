@@ -91,6 +91,7 @@ import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/cre
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
+import { ObjectValuesPipe } from './utils/object-values-pipe';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -124,6 +125,7 @@ const PIPES = [
   EmphasizePipe,
   CapitalizePipe,
   ObjectKeysPipe,
+  ObjectValuesPipe,
   ConsolePipe
 ];
 
