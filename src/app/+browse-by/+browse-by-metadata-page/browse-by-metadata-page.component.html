@@ -5,6 +5,8 @@
       [objects$]="(items$ !== undefined)? items$ : browseEntries$"
       [paginationConfig]="paginationConfig"
       [sortConfig]="sortConfig"
+      [type]="startsWithType"
+      [startsWithOptions]="startsWithOptions"
       [enableArrows]="startsWith"
       (prev)="goPrev()"
       (next)="goNext()"

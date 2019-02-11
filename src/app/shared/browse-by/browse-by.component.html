@@ -1,5 +1,6 @@
 <ng-container *ngVar="(objects$ | async) as objects">
   <h2 class="w-100">{{title | translate}}</h2>
+  <ng-container *ngComponentOutlet="getStartsWithComponent(); injector: objectInjector;"></ng-container>
   <div *ngIf="objects?.hasSucceeded && !objects?.isLoading && objects?.payload?.page.length > 0" @fadeIn>
     <div *ngIf="!enableArrows">
       <ds-viewable-collection

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
@@ -6,6 +6,12 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { fadeIn, fadeInOut } from '../animations/fade';
 import { Observable } from 'rxjs';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { getStartsWithComponent } from './browse-by-starts-with/browse-by-starts-with-decorator';
+
+export enum BrowseByStartsWithType {
+  text = 'Text',
+  date = 'Date'
+}
 
 @Component({
   selector: 'ds-browse-by',
@@ -19,7 +25,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 /**
  * Component to display a browse-by page for any ListableObject
  */
-export class BrowseByComponent {
+export class BrowseByComponent implements OnInit {
   /**
    * The i18n message to display as title
    */
@@ -40,6 +46,10 @@ export class BrowseByComponent {
    */
   @Input() sortConfig: SortOptions;
 
+  @Input() type = BrowseByStartsWithType.text;
+
+  @Input() startsWithOptions = [];
+
   @Input() enableArrows = false;
 
   @Input() hideGear = false;
@@ -52,10 +62,16 @@ export class BrowseByComponent {
 
   @Output() sortDirectionChange = new EventEmitter<SortDirection>();
 
+  objectInjector: Injector;
+
   /**
    * Declare SortDirection enumeration to use it in the template
    */
   public sortDirections = SortDirection;
+
+  public constructor(private injector: Injector) {
+
+  }
 
   goPrev() {
     this.prev.emit(true);
@@ -73,6 +89,17 @@ export class BrowseByComponent {
   doSortDirectionChange(direction) {
     this.sortConfig.direction = direction;
     this.sortDirectionChange.emit(direction);
+  }
+
+  getStartsWithComponent() {
+    return getStartsWithComponent(this.type);
+  }
+
+  ngOnInit(): void {
+    this.objectInjector = Injector.create({
+      providers: [{ provide: 'startsWithOptions', useFactory: () => (this.startsWithOptions), deps:[] }],
+      parent: this.injector
+    });
   }
 
 }

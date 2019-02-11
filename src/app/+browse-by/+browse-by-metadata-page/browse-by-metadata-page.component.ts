@@ -14,6 +14,7 @@ import { getSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { take } from 'rxjs/operators';
+import { BrowseByStartsWithType } from '../../shared/browse-by/browse-by.component';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -70,6 +71,10 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * The current metadata definition
    */
   metadata = this.defaultMetadata;
+
+  startsWithType = BrowseByStartsWithType.text;
+
+  startsWithOptions = [];
 
   /**
    * The value we're browing items for

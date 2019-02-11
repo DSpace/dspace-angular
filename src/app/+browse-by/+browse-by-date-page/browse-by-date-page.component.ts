@@ -5,6 +5,7 @@ import {
 } from '../+browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
+import { BrowseByStartsWithType } from '../../shared/browse-by/browse-by.component';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -19,6 +20,7 @@ import { combineLatest as observableCombineLatest } from 'rxjs/internal/observab
 export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
   ngOnInit(): void {
+    this.startsWithType = BrowseByStartsWithType.date;
     this.updatePage(new BrowseEntrySearchOptions(null, this.paginationConfig, this.sortConfig));
     this.subs.push(
       observableCombineLatest(

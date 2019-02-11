@@ -88,6 +88,8 @@ import { MomentModule } from 'ngx-moment';
 import { MenuModule } from './menu/menu.module';
 import {LangSwitchComponent} from './lang-switch/lang-switch.component';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
+import { BrowseByStartsWithDateComponent } from './browse-by/browse-by-starts-with/date/browse-by-starts-with-date.component';
+import { BrowseByStartsWithTextComponent } from './browse-by/browse-by-starts-with/text/browse-by-starts-with-text.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -177,7 +179,9 @@ const ENTRY_COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
-  BrowseEntryListElementComponent
+  BrowseEntryListElementComponent,
+  BrowseByStartsWithDateComponent,
+  BrowseByStartsWithTextComponent
 ];
 
 const PROVIDERS = [
