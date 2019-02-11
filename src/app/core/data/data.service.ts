@@ -165,7 +165,7 @@ export abstract class DataService<T extends CacheableObject> {
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpoint: string) => parentUUID ? `${endpoint}?parentCommunity=${parentUUID}` : endpoint)
+      map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
     );
 
     const normalizedObject: NormalizedObject<T> = this.dataBuildService.normalize<T>(dso);
