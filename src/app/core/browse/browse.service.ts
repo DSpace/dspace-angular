@@ -161,6 +161,9 @@ export class BrowseService {
           args.push(`page=${options.pagination.currentPage - 1}`);
           args.push(`size=${options.pagination.pageSize}`);
         }
+        if (isNotEmpty(options.startsWith)) {
+          args.push(`startsWith=${options.startsWith}`);
+        }
         if (isNotEmpty(filterValue)) {
           args.push(`filterValue=${filterValue}`);
         }

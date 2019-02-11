@@ -78,7 +78,7 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
     source.pipe(
       getRemoteDataPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => def.id === definitionID && def.metadataBrowse === true)
+        .find((def: BrowseDefinition) => def.id === definitionID)
       ),
       map((def: BrowseDefinition) => {
         if (isNotEmpty(def)) {

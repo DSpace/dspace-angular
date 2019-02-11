@@ -284,7 +284,8 @@
     "metadata": {
       "title": "Title",
       "author": "Author",
-      "subject": "Subject"
+      "subject": "Subject",
+      "dateissued": "Issue Date"
     },
     "comcol": {
       "head": "Browse",

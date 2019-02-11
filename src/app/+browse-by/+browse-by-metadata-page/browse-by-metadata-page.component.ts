@@ -10,8 +10,6 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Item } from '../../core/shared/item.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { Community } from '../../core/shared/community.model';
-import { Collection } from '../../core/shared/collection.model';
 import { getSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -79,9 +77,9 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   value = '';
 
-  public constructor(private route: ActivatedRoute,
-                     private browseService: BrowseService,
-                     private dsoService: DSpaceObjectDataService) {
+  public constructor(protected route: ActivatedRoute,
+                     protected browseService: BrowseService,
+                     protected dsoService: DSpaceObjectDataService) {
   }
 
   ngOnInit(): void {
@@ -177,6 +175,7 @@ export function browseParamsToOptions(params: any,
         field: params.sortField || sortConfig.field
       }
     ),
+    +params.startsWith || params.startsWith,
     params.scope
   );
 }
