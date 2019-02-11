@@ -3,14 +3,14 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { Metadatum } from '../../../../core/shared/metadatum.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
-import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { MetadataField } from '../../../../core/metadata/metadatafield.model';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { of as observableOf } from 'rxjs';
+import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 
 @Component({
   selector: 'ds-edit-in-place-field',

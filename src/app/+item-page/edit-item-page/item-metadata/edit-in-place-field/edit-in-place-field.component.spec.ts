@@ -105,6 +105,36 @@ describe('EditInPlaceFieldComponent', () => {
     });
   });
 
+  describe('changeType is UPDATE', () => {
+    beforeEach(() => {
+      comp.fieldUpdate.changeType = FieldChangeType.UPDATE;
+      fixture.detectChanges();
+    });
+    it('the div should have class table-warning', () => {
+      expect(el.classList).toContain('table-warning');
+    });
+  });
+
+  describe('changeType is ADD', () => {
+    beforeEach(() => {
+      comp.fieldUpdate.changeType = FieldChangeType.ADD;
+      fixture.detectChanges();
+    });
+    it('the div should have class table-success', () => {
+      expect(el.classList).toContain('table-success');
+    });
+  });
+
+  describe('changeType is REMOVE', () => {
+    beforeEach(() => {
+      comp.fieldUpdate.changeType = FieldChangeType.REMOVE;
+      fixture.detectChanges();
+    });
+    it('the div should have class table-danger', () => {
+      expect(el.classList).toContain('table-danger');
+    });
+  });
+
   describe('setEditable', () => {
     const editable = false;
     beforeEach(() => {
@@ -113,6 +143,30 @@ describe('EditInPlaceFieldComponent', () => {
 
     it('it should call setEditableFieldUpdate on the objectUpdatesService with the correct route and uuid and false', () => {
       expect(objectUpdatesService.setEditableFieldUpdate).toHaveBeenCalledWith(route, metadatum.uuid, editable);
+    });
+  });
+
+  describe('editable is true', () => {
+    beforeEach(() => {
+      comp.editable = observableOf(true);
+      fixture.detectChanges();
+    });
+    it('the div should contain input fields or textareas', () => {
+      const inputField = de.queryAll(By.css('input'));
+      const textAreas = de.queryAll(By.css('textarea'));
+      expect(inputField.length + textAreas.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('editable is false', () => {
+    beforeEach(() => {
+      comp.editable = observableOf(false);
+      fixture.detectChanges();
+    });
+    it('the div should contain no input fields or textareas', () => {
+      const inputField = de.queryAll(By.css('input'));
+      const textAreas = de.queryAll(By.css('textarea'));
+      expect(inputField.length + textAreas.length).toBe(0);
     });
   });
 
@@ -225,10 +279,98 @@ describe('EditInPlaceFieldComponent', () => {
     });
   });
 
+  describe('when canSetEditable emits true', () => {
+    beforeEach(() => {
+      spyOn(comp, 'canSetEditable').and.returnValue(observableOf(true));
+    });
+    it('the div should contain a edit icon', () => {
+      const editIcon = de.query(By.css('i.fa-edit'));
+      expect(editIcon).not.toBeNull();
+    });
+  });
+
+  describe('when canSetEditable emits false', () => {
+    beforeEach(() => {
+      spyOn(comp, 'canSetEditable').and.returnValue(observableOf(false));
+      fixture.detectChanges();
+    });
+    it('the div should not contain a edit icon', () => {
+      const editIcon = de.query(By.css('i.fa-edit'));
+      expect(editIcon).toBeNull();
+    });
+  });
+
+  describe('when canSetUneditable emits true', () => {
+    beforeEach(() => {
+      spyOn(comp, 'canSetUneditable').and.returnValue(observableOf(true));
+      fixture.detectChanges();
+    });
+    it('the div should contain a check icon', () => {
+      const checkIcon = de.query(By.css('i.fa-check'));
+      expect(checkIcon).not.toBeNull();
+    });
+  });
+
+  describe('when canSetUneditable emits false', () => {
+    beforeEach(() => {
+      spyOn(comp, 'canSetUneditable').and.returnValue(observableOf(false));
+      fixture.detectChanges();
+    });
+    it('the div should not contain a check icon', () => {
+      const checkIcon = de.query(By.css('i.fa-check'));
+      expect(checkIcon).toBeNull();
+    });
+  });
+
+  describe('when canRemove emits true', () => {
+    beforeEach(() => {
+      spyOn(comp, 'canRemove').and.returnValue(observableOf(true));
+      fixture.detectChanges();
+    });
+    it('the div should contain a trash icon', () => {
+      const trashIcon = de.query(By.css('i.fa-trash-alt'));
+      expect(trashIcon).not.toBeNull();
+    });
+  });
+
+  describe('when canRemove emits false', () => {
+    beforeEach(() => {
+      spyOn(comp, 'canRemove').and.returnValue(observableOf(false));
+      fixture.detectChanges();
+    });
+    it('the div should not contain a trash icon', () => {
+      const trashIcon = de.query(By.css('i.fa-trash-alt'));
+      expect(trashIcon).toBeNull();
+    });
+  });
+
+  describe('when canUndo emits true', () => {
+    beforeEach(() => {
+      spyOn(comp, 'canUndo').and.returnValue(observableOf(true));
+      fixture.detectChanges();
+    });
+    it('the div should contain a undo icon', () => {
+      const undoIcon = de.query(By.css('i.fa-undo-alt'));
+      expect(undoIcon).not.toBeNull();
+    });
+  });
+
+  describe('when canUndo emits false', () => {
+    beforeEach(() => {
+      spyOn(comp, 'canUndo').and.returnValue(observableOf(false));
+      fixture.detectChanges();
+    });
+    it('the div should not contain a undo icon', () => {
+      const undoIcon = de.query(By.css('i.fa-undo-alt'));
+      expect(undoIcon).toBeNull();
+    });
+  });
+
   describe('canRemove', () => {
     describe('when editable is currently true', () => {
       beforeEach(() => {
         comp.editable = observableOf(true);
+        fixture.detectChanges();
       });
       it('canRemove should return an observable emitting false', () => {
         const expected = '(a|)';

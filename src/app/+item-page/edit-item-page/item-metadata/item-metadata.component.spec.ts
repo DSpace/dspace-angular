@@ -9,7 +9,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { By } from '@angular/platform-browser';
 import {
@@ -81,7 +81,8 @@ describe('ItemMetadataComponent', () => {
   beforeEach(async(() => {
       item = Object.assign(new Item(), { metadata: [metadatum1, metadatum2, metadatum3] }, { lastModified: date });
       itemService = jasmine.createSpyObj('itemService', {
-        update: observableOf(new RemoteData(false, false, true, undefined, item))
+        update: observableOf(new RemoteData(false, false, true, undefined, item)),
+        commitUpdates: {}
       });
       scheduler = getTestScheduler();
       objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',

@@ -41,6 +41,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { RequestEntry } from './request.reducer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { ChangeAnalyzer } from './change-analyzer';
+import { RestRequestMethod } from './rest-request-method';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -226,6 +227,14 @@ export abstract class DataService<T extends CacheableObject> {
       find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response.isSuccessful)
     );
+  }
+
+  /**
+   * Commit current object changes to the server
+   * @param method The RestRequestMethod for which de server sync buffer should be committed
+   */
+  commitUpdates(method?: RestRequestMethod) {
+    this.requestService.commit(method);
   }
 
 }

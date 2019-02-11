@@ -1,55 +1,122 @@
-import { TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { async, TestBed } from '@angular/core/testing';
+import { Observable, Subject } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ObjectUpdatesEffects } from './object-updates.effects';
-import { RemoveObjectUpdatesAction } from './object-updates.actions';
+import {
+  DiscardObjectUpdatesAction,
+  ObjectUpdatesAction,
+  ReinstateObjectUpdatesAction,
+  RemoveFieldUpdateAction,
+  RemoveObjectUpdatesAction
+} from './object-updates.actions';
+import {
+  INotification,
+  Notification
+} from '../../../shared/notifications/models/notification.model';
+import { NotificationType } from '../../../shared/notifications/models/notification-type';
+import { filter } from 'rxjs/operators';
+import { hasValue } from '../../../shared/empty.util';
 
-fdescribe('ObjectUpdatesEffects', () => {
+describe('ObjectUpdatesEffects', () => {
   let updatesEffects: ObjectUpdatesEffects;
   let actions: Observable<any>;
-  const testURL = 'www.dspace.org/dspace7';
-  beforeEach(() => {
+  let testURL = 'www.dspace.org/dspace7';
+  let testUUID = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
         ObjectUpdatesEffects,
         provideMockActions(() => actions),
         {
-          provide: NotificationsService, useClass: {
+          provide: NotificationsService,
+          useValue: {
             remove: (notification) => { /* empty */
             }
           }
         },
-        // other providers
       ],
     });
+  }));
 
+  beforeEach(() => {
+    testURL = 'www.dspace.org/dspace7';
+    testUUID = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
     updatesEffects = TestBed.get(ObjectUpdatesEffects);
+    (updatesEffects as any).actionMap[testURL] = new Subject<ObjectUpdatesAction>();
   });
 
   describe('mapLastActions$', () => {
     describe('When any ObjectUpdatesAction is triggered', () => {
-      const action = new RemoveObjectUpdatesAction(testURL);
+      let action;
+      let emittedAction;
+      beforeEach(() => {
+        action = new RemoveObjectUpdatesAction(testURL);
+      });
       it('should emit the action from the actionMap\'s value which key matches the action\'s URL', () => {
+        action = new RemoveObjectUpdatesAction(testURL);
         actions = hot('--a-', { a: action });
+        (updatesEffects as any).actionMap[testURL].subscribe((act) => emittedAction = act);
+        const expected = cold('--b-', { b: undefined });
 
-        const expected = cold('--b-', { b: action });
-
-        expect((updatesEffects as any).actionMap[testURL]).toBeObservable(expected);
+        expect(updatesEffects.mapLastActions$).toBeObservable(expected);
+        expect(emittedAction).toBe(action);
       });
     });
   });
 
-  // describe('removeAfterDiscardOrReinstateOnUndo$', () => {
-  //
-  //   it('should return a COLLAPSE action in response to an UPDATE_LOCATION action', () => {
-  //     actions = hot('--a-', { a: { type: fromRouter.ROUTER_NAVIGATION } });
-  //
-  //     const expected = cold('--b-', { b: new CollapseMenuAction(MenuID.PUBLIC) });
-  //
-  //     expect(updatesEffects.routeChange$).toBeObservable(expected);
-  //   });
-  //
-  // });
+  describe('removeAfterDiscardOrReinstateOnUndo$', () => {
+    describe('When an ObjectUpdatesActionTypes.DISCARD action is triggered', () => {
+      let infoNotification: INotification;
+      let removeAction;
+      describe('When there is no user interactions before the timeout is finished', () => {
+        beforeEach(() => {
+          infoNotification = new Notification('id', NotificationType.Info, 'info');
+          infoNotification.options.timeOut = 0;
+          removeAction = new RemoveObjectUpdatesAction(testURL)
+        });
+        it('should return a RemoveObjectUpdatesAction', () => {
+          actions = hot('a|', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
+          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.pipe(
+            filter(((action) => hasValue(action))))
+            .subscribe((t) => {
+              expect(t).toEqual(removeAction);
+            }
+          )
+          ;
+        });
+      });
+
+      describe('When there a REINSTATE action is fired before the timeout is finished', () => {
+        beforeEach(() => {
+          infoNotification = new Notification('id', NotificationType.Info, 'info');
+          infoNotification.options.timeOut = 10;
+        });
+        it('should return an action with type NO_ACTION', () => {
+          actions = hot('a', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
+          actions = hot('b', { b: new ReinstateObjectUpdatesAction(testURL) });
+          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((t) => {
+              expect(t).toEqual({ type: 'NO_ACTION' });
+            }
+          );
+        });
+      });
+
+      describe('When there any ObjectUpdates action - other than REINSTATE - is fired before the timeout is finished', () => {
+        beforeEach(() => {
+          infoNotification = new Notification('id', NotificationType.Info, 'info');
+          infoNotification.options.timeOut = 10;
+        });
+        it('should return a RemoveObjectUpdatesAction', () => {
+          actions = hot('a', { a: new DiscardObjectUpdatesAction(testURL, infoNotification) });
+          actions = hot('b', { b: new RemoveFieldUpdateAction(testURL, testUUID) });
+
+          updatesEffects.removeAfterDiscardOrReinstateOnUndo$.subscribe((t) =>
+            expect(t).toEqual(new RemoveObjectUpdatesAction(testURL))
+          );
+        });
+      });
+    });
+  });
 });

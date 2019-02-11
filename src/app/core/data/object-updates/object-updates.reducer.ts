@@ -52,45 +52,45 @@ const initialNewFieldState = { editable: true, isNew: true };
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState = Object.create(null);
 
+/**
+ * Reducer method to calculate the next ObjectUpdates state, based on the current state and the ObjectUpdatesAction
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 export function objectUpdatesReducer(state = initialState, action: ObjectUpdatesAction): ObjectUpdatesState {
-  let newState = state;
   switch (action.type) {
     case ObjectUpdatesActionTypes.INITIALIZE_FIELDS: {
-      newState = initializeFieldsUpdate(state, action as InitializeFieldsAction);
-      break;
+      return initializeFieldsUpdate(state, action as InitializeFieldsAction);
     }
     case ObjectUpdatesActionTypes.ADD_FIELD: {
-      newState = addFieldUpdate(state, action as AddFieldUpdateAction);
-      break;
+      return addFieldUpdate(state, action as AddFieldUpdateAction);
     }
     case ObjectUpdatesActionTypes.DISCARD: {
-      newState = discardObjectUpdates(state, action as DiscardObjectUpdatesAction);
-      break;
+      return discardObjectUpdates(state, action as DiscardObjectUpdatesAction);
     }
     case ObjectUpdatesActionTypes.REINSTATE: {
-      newState = reinstateObjectUpdates(state, action as ReinstateObjectUpdatesAction);
-      break;
+      return reinstateObjectUpdates(state, action as ReinstateObjectUpdatesAction);
     }
     case ObjectUpdatesActionTypes.REMOVE: {
-      newState = removeObjectUpdates(state, action as RemoveObjectUpdatesAction);
-      break;
+      return removeObjectUpdates(state, action as RemoveObjectUpdatesAction);
     }
     case ObjectUpdatesActionTypes.REMOVE_FIELD: {
-      newState = removeFieldUpdate(state, action as RemoveFieldUpdateAction);
-      break;
+      return removeFieldUpdate(state, action as RemoveFieldUpdateAction);
     }
     case ObjectUpdatesActionTypes.SET_EDITABLE_FIELD: {
-      // return directly, no need to change the lastModified date
       return setEditableFieldUpdate(state, action as SetEditableFieldUpdateAction);
     }
     default: {
       return state;
     }
   }
-  // return setUpdated(newState, action.payload.url);
-  return newState;
 }
 
+/**
+ * Initialize the state for a specific url and store all its fields in the store
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
@@ -101,11 +101,16 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     state[url],
     { fieldStates: fieldStates },
     { fieldUpdates: {} },
-    { lastServerUpdate: lastModifiedServer }
+    { lastModified: lastModifiedServer }
   );
   return Object.assign({}, state, { [url]: newPageState });
 }
 
+/**
+ * Add a new update for a specific field to the store
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   const url: string = action.payload.url;
   const field: Identifiable = action.payload.field;
@@ -130,6 +135,11 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
   return Object.assign({}, state, { [url]: newPageState });
 }
 
+/**
+ * Discard all updates for a specific action's url in the store
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 function discardObjectUpdates(state: any, action: DiscardObjectUpdatesAction) {
   const url: string = action.payload.url;
   const pageState: ObjectUpdatesEntry = state[url];
@@ -149,6 +159,11 @@ function discardObjectUpdates(state: any, action: DiscardObjectUpdatesAction) {
   return Object.assign({}, state, { [url]: discardedPageState }, { [url + OBJECT_UPDATES_TRASH_PATH]: pageState });
 }
 
+/**
+ * Reinstate all updates for a specific action's url in the store
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 function reinstateObjectUpdates(state: any, action: ReinstateObjectUpdatesAction) {
   const url: string = action.payload.url;
   const trashState = state[url + OBJECT_UPDATES_TRASH_PATH];
@@ -158,17 +173,32 @@ function reinstateObjectUpdates(state: any, action: ReinstateObjectUpdatesAction
   return newState;
 }
 
+/**
+ * Remove all updates for a specific action's url in the store
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 function removeObjectUpdates(state: any, action: RemoveObjectUpdatesAction) {
   const url: string = action.payload.url;
   return removeObjectUpdatesByURL(state, url);
 }
 
+/**
+ * Remove all updates for a specific url in the store
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 function removeObjectUpdatesByURL(state: any, url: string) {
   const newState = Object.assign({}, state);
   delete newState[url + OBJECT_UPDATES_TRASH_PATH];
   return newState;
 }
 
+/**
+ * Discard the update for a specific action's url and field UUID in the store
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 function removeFieldUpdate(state: any, action: RemoveFieldUpdateAction) {
   const url: string = action.payload.url;
   const uuid: string = action.payload.uuid;
@@ -196,11 +226,12 @@ function removeFieldUpdate(state: any, action: RemoveFieldUpdateAction) {
   return Object.assign({}, state, { [url]: newPageState });
 }
 
-function setUpdated(state: any, url: string) {
-  const newPageState = Object.assign({}, state[url] || {}, { lastUpdated: Date.now() });
-  return Object.assign({}, state, { [url]: newPageState });
-}
-
+/**
+ * Determine the most prominent FieldChangeType, ordered as follows:
+ * undefined < UPDATE < ADD < REMOVE
+ * @param oldType The current type
+ * @param newType The new type that should possibly override the new type
+ */
 function determineChangeType(oldType: FieldChangeType, newType: FieldChangeType): FieldChangeType {
   if (hasNoValue(newType)) {
     return oldType;
@@ -211,6 +242,11 @@ function determineChangeType(oldType: FieldChangeType, newType: FieldChangeType)
   return oldType.valueOf() > newType.valueOf() ? oldType : newType;
 }
 
+/**
+ * Set the state of a specific action's url and uuid to false or true
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
 function setEditableFieldUpdate(state: any, action: SetEditableFieldUpdateAction) {
   const url: string = action.payload.url;
   const uuid: string = action.payload.uuid;
@@ -228,6 +264,10 @@ function setEditableFieldUpdate(state: any, action: SetEditableFieldUpdateAction
   return Object.assign({}, state, { [url]: newPageState });
 }
 
+/**
+ * Method to create an initial FieldStates object based on a list of Identifiable objects
+ * @param fields Identifiable objects
+ */
 function createInitialFieldStates(fields: Identifiable[]) {
   const uuids = fields.map((field: Identifiable) => field.uuid);
   const fieldStates = {};

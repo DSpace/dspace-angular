@@ -207,9 +207,11 @@ export class InputSuggestionsComponent implements ControlValueAccessor {
   }
 
   registerOnTouched(fn: any): void {
+    /* no implementation */
   }
 
   setDisabledState(isDisabled: boolean): void {
+    /* no implementation */
   }
 
   writeValue(value: any): void {

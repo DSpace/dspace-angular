@@ -11,7 +11,7 @@ import {
   Identifiable
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { first, switchMap } from 'rxjs/operators';
+import { first, switchMap, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -121,6 +121,7 @@ export class ItemMetadataComponent implements OnInit {
         const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata });
         return this.itemService.update(updatedItem);
       }),
+      tap(() => this.itemService.commitUpdates()),
       getSucceededRemoteData()
     ).subscribe(
       (rd: RemoteData<Item>) => {
