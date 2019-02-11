@@ -19,6 +19,9 @@ import { BrowseByStartsWithType } from '../../shared/browse-by/browse-by.compone
  */
 export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
+  oneYearLimit = 10;
+  fiveYearLimit = 30;
+
   ngOnInit(): void {
     this.startsWithType = BrowseByStartsWithType.date;
     this.updatePage(new BrowseEntrySearchOptions(null, this.paginationConfig, this.sortConfig));
@@ -37,6 +40,23 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
           this.updatePageWithItems(searchOptions, this.value);
           this.updateParent(params.scope);
         }));
+    const options = [];
+    const currentYear = new Date().getFullYear();
+    const oneYearBreak = Math.floor((currentYear - this.oneYearLimit) / 5) * 5;
+    const fiveYearBreak = Math.floor((currentYear - this.fiveYearLimit) / 10) * 10;
+    const lowerLimit = 1900; // Hardcoded atm, this should be the lowest date issued
+    let i = currentYear;
+    while (i > lowerLimit) {
+      options.push(i);
+      if (i <= fiveYearBreak) {
+        i -= 10;
+      } else if (i <= oneYearBreak) {
+        i -= 5;
+      } else {
+        i--;
+      }
+    }
+    console.log(options);
   }
 
 }
