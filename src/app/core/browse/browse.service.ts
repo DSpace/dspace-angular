@@ -108,6 +108,9 @@ export class BrowseService {
           args.push(`page=${options.pagination.currentPage - 1}`);
           args.push(`size=${options.pagination.pageSize}`);
         }
+        if (isNotEmpty(options.startsWith)) {
+          args.push(`startsWith=${options.startsWith}`);
+        }
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }

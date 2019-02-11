@@ -4,7 +4,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
@@ -13,6 +13,7 @@ import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-
 import { getSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -77,9 +78,12 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   value = '';
 
+  startsWith: string;
+
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
-                     protected dsoService: DSpaceObjectDataService) {
+                     protected dsoService: DSpaceObjectDataService,
+                     protected router: Router) {
   }
 
   ngOnInit(): void {
@@ -94,6 +98,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
         .subscribe((params) => {
           this.metadata = params.metadata || this.defaultMetadata;
           this.value = +params.value || params.value || '';
+          this.startsWith = +params.startsWith || params.startsWith;
           const searchOptions = browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.metadata);
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value);
@@ -140,6 +145,32 @@ export class BrowseByMetadataPageComponent implements OnInit {
         getSucceededRemoteData()
       );
     }
+  }
+
+  goPrev() {
+    this.items$.pipe(take(1)).subscribe((items) => {
+      this.items$ = this.browseService.getPrevBrowseItems(items);
+    });
+  }
+
+  goNext() {
+    this.items$.pipe(take(1)).subscribe((items) => {
+      this.items$ = this.browseService.getNextBrowseItems(items);
+    });
+  }
+
+  pageSizeChange(size) {
+    this.router.navigate([], {
+      queryParams: Object.assign({ pageSize: size }),
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  sortDirectionChange(direction) {
+    this.router.navigate([], {
+      queryParams: Object.assign({ sortDirection: direction }),
+      queryParamsHandling: 'merge'
+    });
   }
 
   ngOnDestroy(): void {
