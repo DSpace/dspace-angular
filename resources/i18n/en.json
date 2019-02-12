@@ -444,7 +444,8 @@
     "item": "Loading item...",
     "objects": "Loading...",
     "search-results": "Loading search results...",
-    "browse-by": "Loading items..."
+    "browse-by": "Loading items...",
+    "browse-by-page": "Loading page..."
   },
   "error": {
     "default": "Error",

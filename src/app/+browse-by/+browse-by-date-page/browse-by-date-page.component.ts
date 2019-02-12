@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions
@@ -33,7 +33,8 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      protected route: ActivatedRoute,
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
-                     protected router: Router) {
+                     protected router: Router,
+                     protected cdRef: ChangeDetectorRef) {
     super(route, browseService, dsoService, router);
   }
 
@@ -93,6 +94,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         }
         if (isNotEmpty(options)) {
           this.startsWithOptions = options;
+          this.cdRef.detectChanges();
         }
       })
     );

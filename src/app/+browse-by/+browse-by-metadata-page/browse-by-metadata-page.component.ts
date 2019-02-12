@@ -74,7 +74,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
 
   startsWithType = BrowseByStartsWithType.text;
 
-  startsWithOptions = [];
+  startsWithOptions;
 
   /**
    * The value we're browing items for
@@ -112,6 +112,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
           }
           this.updateParent(params.scope);
         }));
+    this.startsWithOptions = [];
   }
 
   /**
