@@ -233,6 +233,9 @@
           "language": "Lang",
           "edit": "Edit"
         },
+        "metadatafield": {
+          "invalid": "Please choose a valid metadata field"
+        },
         "notifications": {
           "outdated": {
             "title": "Changed outdated",
@@ -241,6 +244,10 @@
           "discarded": {
             "title": "Changed discarded",
             "content": "Your changes were discarded. To reinstate your changes click the 'Undo' button"
+          },
+          "invalid": {
+            "title": "Metadata invalid",
+            "content": "Please make sure all fields are valid"
           }
         }
       }

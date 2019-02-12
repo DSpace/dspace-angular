@@ -11,7 +11,7 @@ import {
   Identifiable
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { first, switchMap, tap } from 'rxjs/operators';
+import { first, map, switchMap, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -20,6 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-item-metadata',
+  styleUrls: ['./item-metadata.component.scss'],
   templateUrl: './item-metadata.component.html',
 })
 /**
@@ -114,22 +115,30 @@ export class ItemMetadataComponent implements OnInit {
    * Makes sure the new version of the item is rendered on the page
    */
   submit() {
-    const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.route, this.item.metadata) as Observable<Metadatum[]>;
-    metadata$.pipe(
-      first(),
-      switchMap((metadata: Metadatum[]) => {
-        const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata });
-        return this.itemService.update(updatedItem);
-      }),
-      tap(() => this.itemService.commitUpdates()),
-      getSucceededRemoteData()
-    ).subscribe(
-      (rd: RemoteData<Item>) => {
-        this.item = rd.payload;
-        this.initializeOriginalFields();
-        this.updates$ = this.objectUpdatesService.getFieldUpdates(this.route, this.item.metadata);
-      }
-    )
+    this.isValid().pipe(first()).subscribe((isValid) => {
+      if (isValid) {
+      const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.route, this.item.metadata) as Observable<Metadatum[]>;
+      metadata$.pipe(
+        first(),
+        switchMap((metadata: Metadatum[]) => {
+          const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata });
+          return this.itemService.update(updatedItem);
+        }),
+        tap(() => this.itemService.commitUpdates()),
+        getSucceededRemoteData()
+      ).subscribe(
+        (rd: RemoteData<Item>) => {
+          this.item = rd.payload;
+          this.initializeOriginalFields();
+          this.updates$ = this.objectUpdatesService.getFieldUpdates(this.route, this.item.metadata);
+        }
+      )
+    } else {
+      const title = this.translateService.instant('item.edit.metadata.notifications.invalid.title');
+      const content = this.translateService.instant('item.edit.metadata.notifications.invalid.content');
+      this.notificationsService.error(title, content);
+    }
+  });
   }
 
   /**
@@ -162,5 +171,9 @@ export class ItemMetadataComponent implements OnInit {
         }
       }
     );
+  }
+
+  private isValid() {
+    return this.objectUpdatesService.isValidPage(this.route);
   }
 }

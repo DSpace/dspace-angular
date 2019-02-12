@@ -1,9 +1,13 @@
 import {
   Component,
-  ElementRef, EventEmitter, forwardRef,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
   Input,
+  OnChanges,
   Output,
-  QueryList, SimpleChanges,
+  QueryList,
+  SimpleChanges,
   ViewChild,
   ViewChildren
 } from '@angular/core';
@@ -19,6 +23,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
+      // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
+      // tslint:disable-next-line:no-forward-ref
       useExisting: forwardRef(() => InputSuggestionsComponent),
       multi: true
     }
@@ -28,7 +34,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 /**
  * Component representing a form with a autocomplete functionality
  */
-export class InputSuggestionsComponent implements ControlValueAccessor {
+export class InputSuggestionsComponent implements ControlValueAccessor, OnChanges {
   /**
    * The suggestions that should be shown
    */
@@ -63,6 +69,11 @@ export class InputSuggestionsComponent implements ControlValueAccessor {
    * Output for when a suggestion is clicked
    */
   @Output() clickSuggestion = new EventEmitter();
+
+  /**
+   * Output for when something is typed in the input field
+   */
+  @Output() typeSuggestion = new EventEmitter();
 
   /**
    * Output for when new suggestions should be requested
@@ -195,6 +206,7 @@ export class InputSuggestionsComponent implements ControlValueAccessor {
       this.findSuggestions.emit(data);
     }
     this.blockReopen = false;
+    this.typeSuggestion.emit(data);
   }
 
   onSubmit(data) {

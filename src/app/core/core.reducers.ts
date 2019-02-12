@@ -1,8 +1,6 @@
 import {
   ActionReducerMap,
   createFeatureSelector,
-  createSelector,
-  MemoizedSelector
 } from '@ngrx/store';
 
 import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
@@ -14,8 +12,6 @@ import {
   objectUpdatesReducer,
   ObjectUpdatesState
 } from './data/object-updates/object-updates.reducer';
-import { hasValue } from '../shared/empty.util';
-import { AppState } from '../app.reducer';
 
 export interface CoreState {
   'cache/object': ObjectCacheState,

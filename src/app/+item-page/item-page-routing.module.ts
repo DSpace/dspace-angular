@@ -38,7 +38,7 @@ const ITEM_EDIT_PATH = ':id/edit';
       {
         path: ITEM_EDIT_PATH,
         loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
-        canActivate: [AuthenticatedGuard]
+        // canActivate: [AuthenticatedGuard]
       }
     ])
   ],

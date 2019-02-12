@@ -7,7 +7,7 @@ import {
   ObjectUpdatesActionTypes,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
-  RemoveObjectUpdatesAction, SetEditableFieldUpdateAction
+  RemoveObjectUpdatesAction, SetEditableFieldUpdateAction, SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 
@@ -15,7 +15,8 @@ export const OBJECT_UPDATES_TRASH_PATH = '/trash';
 
 export interface FieldState {
   editable: boolean,
-  isNew: boolean
+  isNew: boolean,
+  isValid: boolean
 }
 
 export interface FieldStates {
@@ -46,8 +47,8 @@ export interface ObjectUpdatesState {
   [url: string]: ObjectUpdatesEntry;
 }
 
-const initialFieldState = { editable: false, isNew: false };
-const initialNewFieldState = { editable: true, isNew: true };
+const initialFieldState = { editable: false, isNew: false, isValid: true };
+const initialNewFieldState = { editable: true, isNew: true, isValid: true };
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState = Object.create(null);
@@ -79,6 +80,9 @@ export function objectUpdatesReducer(state = initialState, action: ObjectUpdates
     }
     case ObjectUpdatesActionTypes.SET_EDITABLE_FIELD: {
       return setEditableFieldUpdate(state, action as SetEditableFieldUpdateAction);
+    }
+    case ObjectUpdatesActionTypes.SET_VALID_FIELD: {
+      return setValidFieldUpdate(state, action as SetValidFieldUpdateAction);
     }
     default: {
       return state;
@@ -147,8 +151,8 @@ function discardObjectUpdates(state: any, action: DiscardObjectUpdatesAction) {
   Object.keys(pageState.fieldStates).forEach((uuid: string) => {
     const fieldState: FieldState = pageState.fieldStates[uuid];
     if (!fieldState.isNew) {
-      /* After discarding we don't want the reset fields to stay editable */
-      newFieldStates[uuid] = Object.assign({}, fieldState, { editable: false });
+      /* After discarding we don't want the reset fields to stay editable or invalid */
+      newFieldStates[uuid] = Object.assign({}, fieldState, { editable: false, isValid: true });
     }
   });
 
@@ -215,7 +219,7 @@ function removeFieldUpdate(state: any, action: RemoveFieldUpdateAction) {
         /* If this field was added, just throw it away */
         delete newFieldStates[uuid];
       } else {
-        newFieldStates[uuid] = Object.assign({}, newFieldStates[uuid], { editable: false });
+        newFieldStates[uuid] = Object.assign({}, newFieldStates[uuid], { editable: false, isValid: true });
       }
     }
     newPageState = Object.assign({}, state[url], {
@@ -243,7 +247,7 @@ function determineChangeType(oldType: FieldChangeType, newType: FieldChangeType)
 }
 
 /**
- * Set the state of a specific action's url and uuid to false or true
+ * Set the editable state of a specific action's url and uuid to false or true
  * @param state The current state
  * @param action The action to perform on the current state
  */
@@ -256,6 +260,28 @@ function setEditableFieldUpdate(state: any, action: SetEditableFieldUpdateAction
 
   const fieldState = pageState.fieldStates[uuid];
   const newFieldState = Object.assign({}, fieldState, { editable });
+
+  const newFieldStates = Object.assign({}, pageState.fieldStates, { [uuid]: newFieldState });
+
+  const newPageState = Object.assign({}, pageState, { fieldStates: newFieldStates });
+
+  return Object.assign({}, state, { [url]: newPageState });
+}
+
+/**
+ * Set the isValid state of a specific action's url and uuid to false or true
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
+function setValidFieldUpdate(state: any, action: SetValidFieldUpdateAction) {
+  const url: string = action.payload.url;
+  const uuid: string = action.payload.uuid;
+  const isValid: boolean = action.payload.isValid;
+
+  const pageState: ObjectUpdatesEntry = state[url];
+
+  const fieldState = pageState.fieldStates[uuid];
+  const newFieldState = Object.assign({}, fieldState, { isValid });
 
   const newFieldStates = Object.assign({}, pageState.fieldStates, { [uuid]: newFieldState });
 

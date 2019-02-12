@@ -13,10 +13,14 @@
                                   [(ngModel)]="metadata.key"
                                   (submitSuggestion)="update()"
                                   (clickSuggestion)="update()"
+                                  (typeSuggestion)="update()"
                                   (findSuggestions)="findMetadataFieldSuggestions($event)"
+                                  [formControl]="formControl"
                                   ngDefaultControl
             ></ds-input-suggestions>
         </div>
+        <small class="text-danger"
+               *ngIf="!(valid | async)">{{"item.edit.metadata.metadatafield.invalid" | translate}}</small>
     </td>
     <td class="col-7">
         <div *ngIf="!(editable | async)">
@@ -38,10 +42,14 @@
     </td>
     <td class="col-1 text-center">
         <div>
-            <i *ngIf="canSetEditable() | async" class="fas fa-edit fa-fw text-primary" (click)="setEditable(true)"></i>
-            <i *ngIf="canSetUneditable() | async" class="fas fa-check fa-fw text-success" (click)="setEditable(false)"></i>
-            <i *ngIf="canRemove() | async" class="fas fa-trash-alt fa-fw text-danger" (click)="remove()"></i>
-            <i *ngIf="canUndo() | async"  class="fas fa-undo-alt fa-fw text-warning" (click)="removeChangesFromField()"></i>
+            <i *ngIf="canSetEditable() | async" class="fas fa-edit fa-fw text-primary"
+               (click)="setEditable(true)"></i>
+            <i *ngIf="canSetUneditable() | async" class="fas fa-check fa-fw text-success"
+               (click)="setEditable(false)"></i>
+            <i *ngIf="canRemove() | async" class="fas fa-trash-alt fa-fw text-danger"
+               (click)="remove()"></i>
+            <i *ngIf="canUndo() | async" class="fas fa-undo-alt fa-fw text-warning"
+               (click)="removeChangesFromField()"></i>
         </div>
     </td>
 </div>

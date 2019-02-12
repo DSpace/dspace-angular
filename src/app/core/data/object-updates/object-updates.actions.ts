@@ -9,6 +9,7 @@ import { INotification } from '../../../shared/notifications/models/notification
 export const ObjectUpdatesActionTypes = {
   INITIALIZE_FIELDS: type('dspace/core/cache/object-updates/INITIALIZE_FIELDS'),
   SET_EDITABLE_FIELD: type('dspace/core/cache/object-updates/SET_EDITABLE_FIELD'),
+  SET_VALID_FIELD: type('dspace/core/cache/object-updates/SET_VALID_FIELD'),
   ADD_FIELD: type('dspace/core/cache/object-updates/ADD_FIELD'),
   DISCARD: type('dspace/core/cache/object-updates/DISCARD'),
   REINSTATE: type('dspace/core/cache/object-updates/REINSTATE'),
@@ -106,6 +107,33 @@ export class SetEditableFieldUpdateAction implements Action {
     fieldUUID: string,
     editable: boolean) {
     this.payload = { url, uuid: fieldUUID, editable };
+  }
+}
+
+/**
+ * An ngrx action to set the isValid state of an existing field in the ObjectUpdates state for a certain page url
+ */
+export class SetValidFieldUpdateAction implements Action {
+  type = ObjectUpdatesActionTypes.SET_VALID_FIELD;
+  payload: {
+    url: string,
+    uuid: string,
+    isValid: boolean,
+  };
+
+  /**
+   * Create a new SetEditableFieldUpdateAction
+   *
+   * @param url
+   *    the unique url of the page
+   * @param fieldUUID The UUID of the field of which
+   * @param isValid The new isValid value for the field
+   */
+  constructor(
+    url: string,
+    fieldUUID: string,
+    isValid: boolean) {
+    this.payload = { url, uuid: fieldUUID, isValid };
   }
 }
 

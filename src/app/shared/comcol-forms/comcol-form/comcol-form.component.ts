@@ -112,4 +112,8 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
       }
     );
   }
+
+  onCancel() {
+    this.location.back();
+  }
 }

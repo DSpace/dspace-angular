@@ -11,6 +11,9 @@ import { FieldChangeType } from '../../../../core/data/object-updates/object-upd
 import { of as observableOf } from 'rxjs';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { inListValidator } from '../../../../shared/utils/validator.functions';
+import { getSucceededRemoteData } from '../../../../core/shared/operators';
+import { FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'ds-edit-in-place-field',
@@ -21,7 +24,6 @@ import { ObjectUpdatesService } from '../../../../core/data/object-updates/objec
  * Component that displays a single metadatum of an item on the edit page
  */
 export class EditInPlaceFieldComponent implements OnInit, OnChanges {
-
   /**
    * The current field, value and state of the metadatum
    */
@@ -40,9 +42,16 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   editable: Observable<boolean>;
 
   /**
+   * Emits whether or not this field is currently valid
+   */
+  valid: Observable<boolean>;
+
+  /**
    * The current suggestions for the metadatafield when editing
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
+
+  formControl: FormControl;
 
   constructor(
     private metadataFieldService: RegistryService,
@@ -51,10 +60,24 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   }
 
   /**
+   * Sets up an observable that keeps track of the current editable and valid state of this field
+   * Also creates a form control object for the input suggestions
+   */
+  ngOnInit(): void {
+    this.editable = this.objectUpdatesService.isEditable(this.route, this.metadata.uuid);
+    this.valid = this.objectUpdatesService.isValid(this.route, this.metadata.uuid);
+    this.findMetadataFields().pipe(take(1)).subscribe((metadataFields: string[]) => {
+      const validator = inListValidator(metadataFields);
+      this.formControl = new FormControl('', validator);
+    });
+  }
+
+  /**
    * Sends a new change update for this field to the object updates service
    */
   update() {
     this.objectUpdatesService.saveChangeFieldUpdate(this.route, this.metadata);
+    this.objectUpdatesService.setValidFieldUpdate(this.route, this.metadata.uuid, this.formControl.valid);
   }
 
   /**
@@ -77,13 +100,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   removeChangesFromField() {
     this.objectUpdatesService.removeSingleFieldUpdate(this.route, this.metadata.uuid);
-  }
-
-  /**
-   * Sets up an observable that keeps track of the current editable state of this field
-   */
-  ngOnInit(): void {
-    this.editable = this.objectUpdatesService.isEditable(this.route, this.metadata.uuid);
   }
 
   /**
@@ -113,6 +129,13 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
         })
       )
     );
+  }
+
+  findMetadataFields(): Observable<string[]> {
+    return this.metadataFieldService.getAllMetadataFields().pipe(
+      getSucceededRemoteData(),
+      take(1),
+      map((remoteData$) => remoteData$.payload.page.map((field: MetadataField) => field.toString())));
   }
 
   /**

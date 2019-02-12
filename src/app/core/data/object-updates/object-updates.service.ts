@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { coreSelector, CoreState } from '../../core.reducers';
 import {
+  FieldState,
   FieldUpdates,
   Identifiable, OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
@@ -15,7 +16,7 @@ import {
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
-  SetEditableFieldUpdateAction
+  SetEditableFieldUpdateAction, SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { filter, map } from 'rxjs/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
@@ -103,6 +104,33 @@ export class ObjectUpdatesService {
   }
 
   /**
+   * Method to check if a specific field is currently valid in the store
+   * @param url The URL of the page on which the field resides
+   * @param uuid The UUID of the field
+   */
+  isValid(url: string, uuid: string): Observable<boolean> {
+    const objectUpdates = this.getObjectEntry(url);
+    return objectUpdates.pipe(
+      filter((objectEntry) => hasValue(objectEntry.fieldStates[uuid])),
+      map((objectEntry) => objectEntry.fieldStates[uuid].isValid
+      )
+    )
+  }
+
+  /**
+   * Method to check if a specific page is currently valid in the store
+   * @param url The URL of the page
+   */
+  isValidPage(url: string): Observable<boolean> {
+    const objectUpdates = this.getObjectEntry(url);
+    return objectUpdates.pipe(
+      map((entry: ObjectUpdatesEntry) => {
+        return Object.values(entry.fieldStates).findIndex((state: FieldState) => !state.isValid) < 0
+      })
+    )
+  }
+
+  /**
    * Calls the saveFieldUpdate method with FieldChangeType.ADD
    * @param url The page's URL for which the changes are saved
    * @param field An updated field for the page's object
@@ -137,6 +165,16 @@ export class ObjectUpdatesService {
    */
   setEditableFieldUpdate(url: string, uuid: string, editable: boolean) {
     this.store.dispatch(new SetEditableFieldUpdateAction(url, uuid, editable));
+  }
+
+  /**
+   * Dispatches a SetValidFieldUpdateAction to the store to set a field's isValid state
+   * @param url The URL of the page on which the field resides
+   * @param uuid The UUID of the field that should be set
+   * @param valid The new value of isValid in the store for this field
+   */
+  setValidFieldUpdate(url: string, uuid: string, valid: boolean) {
+    this.store.dispatch(new SetValidFieldUpdateAction(url, uuid, valid));
   }
 
   /**
