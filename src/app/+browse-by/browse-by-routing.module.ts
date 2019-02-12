@@ -7,7 +7,7 @@ import { BrowseByDatePageComponent } from './+browse-by-date-page/browse-by-date
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'title', component: BrowseByTitlePageComponent },
+      { path: 'title', component: BrowseByTitlePageComponent, data: { metadata: 'title' } },
       { path: 'dateissued', component: BrowseByDatePageComponent, data: { metadata: 'dateissued', metadataField: 'dc.date.issued' } },
       { path: ':metadata', component: BrowseByMetadataPageComponent }
     ])
