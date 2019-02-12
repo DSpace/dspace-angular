@@ -5,6 +5,10 @@ import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { SharedModule } from '../shared.module';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRouteStub } from '../testing/active-router-stub';
+import { MockRouter } from '../mocks/mock-router';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -12,8 +16,12 @@ describe('BrowseByComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule],
+      imports: [CommonModule, TranslateModule.forRoot(), SharedModule],
       declarations: [],
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: Router, useValue: new MockRouter() }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));

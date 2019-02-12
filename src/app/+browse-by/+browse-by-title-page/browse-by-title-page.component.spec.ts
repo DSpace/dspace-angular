@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../core/shared/item.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { of as observableOf } from 'rxjs/internal/observable/of';
@@ -15,6 +15,8 @@ import { ItemDataService } from '../../core/data/item-data.service';
 import { Community } from '../../core/shared/community.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { BrowseService } from '../../core/browse/browse.service';
+import { MockRouter } from '../../shared/mocks/mock-router';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
@@ -57,8 +59,10 @@ describe('BrowseByTitlePageComponent', () => {
       declarations: [BrowseByTitlePageComponent, EnumKeysPipe],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: ItemDataService, useValue: mockItemDataService },
-        { provide: DSpaceObjectDataService, useValue: mockDsoService }
+        { provide: BrowseService, useValue: {} },
+        { provide: DSpaceObjectDataService, useValue: mockDsoService },
+        { provide: Router, useValue: new MockRouter() },
+        { provide: ItemDataService, useValue: mockItemDataService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

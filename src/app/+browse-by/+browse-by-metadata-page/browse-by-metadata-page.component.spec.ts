@@ -19,6 +19,7 @@ import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { Item } from '../../core/shared/item.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
+import { MockRouter } from '../../shared/mocks/mock-router';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -81,7 +82,8 @@ describe('BrowseByMetadataPageComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
-        { provide: DSpaceObjectDataService, useValue: mockDsoService }
+        { provide: DSpaceObjectDataService, useValue: mockDsoService },
+        { provide: Router, useValue: new MockRouter() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
