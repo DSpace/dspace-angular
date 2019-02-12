@@ -5,6 +5,7 @@ import { UniversalConfig } from './universal-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { FormConfig } from './form-config.interfaces';
 import {LangConfig} from './lang-config.interface';
+import { BrowseByConfig } from './browse-by-config.interface';
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
@@ -19,4 +20,5 @@ export interface GlobalConfig extends Config {
   debug: boolean;
   defaultLanguage: string;
   languages: LangConfig[];
+  browseBy: BrowseByConfig;
 }

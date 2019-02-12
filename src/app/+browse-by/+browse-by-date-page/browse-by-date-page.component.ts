@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions
@@ -6,6 +6,14 @@ import {
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
 import { BrowseByStartsWithType } from '../../shared/browse-by/browse-by.component';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { Item } from '../../core/shared/item.model';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BrowseService } from '../../core/browse/browse.service';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -19,8 +27,15 @@ import { BrowseByStartsWithType } from '../../shared/browse-by/browse-by.compone
  */
 export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
-  oneYearLimit = 10;
-  fiveYearLimit = 30;
+  defaultMetadataField = 'dc.date.issued';
+
+  public constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+                     protected route: ActivatedRoute,
+                     protected browseService: BrowseService,
+                     protected dsoService: DSpaceObjectDataService,
+                     protected router: Router) {
+    super(route, browseService, dsoService, router);
+  }
 
   ngOnInit(): void {
     this.startsWithType = BrowseByStartsWithType.date;
@@ -34,29 +49,53 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
           return Object.assign({}, params, queryParams, data);
         })
         .subscribe((params) => {
+          const metadataField = params.metadataField || this.defaultMetadataField;
           this.metadata = params.metadata || this.defaultMetadata;
           this.startsWith = +params.startsWith || params.startsWith;
           const searchOptions = browseParamsToOptions(params, Object.assign({}), this.sortConfig, this.metadata);
           this.updatePageWithItems(searchOptions, this.value);
           this.updateParent(params.scope);
+          this.updateStartsWithOptions(this.metadata, metadataField, params.scope);
         }));
-    const options = [];
-    const currentYear = new Date().getFullYear();
-    const oneYearBreak = Math.floor((currentYear - this.oneYearLimit) / 5) * 5;
-    const fiveYearBreak = Math.floor((currentYear - this.fiveYearLimit) / 10) * 10;
-    const lowerLimit = 1900; // Hardcoded atm, this should be the lowest date issued
-    let i = currentYear;
-    while (i > lowerLimit) {
-      options.push(i);
-      if (i <= fiveYearBreak) {
-        i -= 10;
-      } else if (i <= oneYearBreak) {
-        i -= 5;
-      } else {
-        i--;
-      }
-    }
-    console.log(options);
+  }
+
+  updateStartsWithOptions(definition: string, metadataField: string, scope?: string) {
+    this.subs.push(
+      this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<PaginatedList<Item>>) => {
+        let lowerLimit = this.config.browseBy.defaultLowerLimit;
+        if (firstItemRD.payload.page.length > 0) {
+          const date = firstItemRD.payload.page[0].findMetadata(metadataField);
+          if (hasValue(date) && hasValue(+date.split('-')[0])) {
+            lowerLimit = +date.split('-')[0];
+          }
+        }
+        const options = [];
+        const currentYear = new Date().getFullYear();
+        const oneYearBreak = Math.floor((currentYear - this.config.browseBy.oneYearLimit) / 5) * 5;
+        const fiveYearBreak = Math.floor((currentYear - this.config.browseBy.fiveYearLimit) / 10) * 10;
+        if (lowerLimit <= fiveYearBreak) {
+          lowerLimit -= 10;
+        } else if (lowerLimit <= oneYearBreak) {
+          lowerLimit -= 5;
+        } else {
+          lowerLimit -= 1;
+        }
+        let i = currentYear;
+        while (i > lowerLimit) {
+          options.push(i);
+          if (i <= fiveYearBreak) {
+            i -= 10;
+          } else if (i <= oneYearBreak) {
+            i -= 5;
+          } else {
+            i--;
+          }
+        }
+        if (isNotEmpty(options)) {
+          this.startsWithOptions = options;
+        }
+      })
+    );
   }
 
 }

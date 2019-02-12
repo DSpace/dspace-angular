@@ -281,6 +281,11 @@
   },
   "browse": {
     "title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+    "startsWith": {
+      "choose_year": "(Choose year)",
+      "type_year": "Or type in a year:",
+      "submit": "Go"
+    },
     "metadata": {
       "title": "Title",
       "author": "Author",

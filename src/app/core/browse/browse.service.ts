@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
 import {
-  ensureArrayHasValue,
+  ensureArrayHasValue, hasValue,
   hasValueOperator,
   isEmpty,
   isNotEmpty,
@@ -153,6 +153,28 @@ export class BrowseService {
         if (isNotEmpty(filterValue)) {
           args.push(`filterValue=${filterValue}`);
         }
+        if (isNotEmpty(args)) {
+          href = new URLCombiner(href, `?${args.join('&')}`).toString();
+        }
+        return href;
+      }),
+      getBrowseItemsFor(this.requestService, this.responseCache, this.rdb)
+    );
+  }
+
+  getFirstItemFor(definition: string, scope?: string): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.getBrowseDefinitions().pipe(
+      getBrowseDefinitionLinks(definition),
+      hasValueOperator(),
+      map((_links: any) => _links.items),
+      hasValueOperator(),
+      map((href: string) => {
+        const args = [];
+        if (hasValue(scope)) {
+          args.push(`scope=${scope}`);
+        }
+        args.push('page=0');
+        args.push('size=1');
         if (isNotEmpty(args)) {
           href = new URLCombiner(href, `?${args.join('&')}`).toString();
         }

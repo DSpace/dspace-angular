@@ -1,4 +1,22 @@
-<h3>Test Starts-With Date</h3>
-<p>
-  <span *ngFor="let element of startsWithOptions">{{element}}, </span>
-</p>
+<form class="w-100" [formGroup]="formData" (ngSubmit)="submitForm(formData.value)">
+  <div class="container">
+    <div class="row mb-2">
+      <select class="form-control col-xs-5 col-sm-3" (change)="setStartsWith($event)">
+        <option [value]="-1" [selected]="!startsWith">
+          {{'browse.startsWith.choose_year' | translate}}
+        </option>
+        <option *ngFor="let option of startsWithOptions"
+                [value]="option"
+                [selected]="option === startsWith || option === +startsWith ? 'selected': null">
+          {{option}}
+        </option>
+      </select>
+      <div class="form-group input-group col-xs-7 col-sm-6">
+        <input class="form-control" placeholder="{{'browse.startsWith.type_year' | translate}}" type="number" name="startsWith" formControlName="startsWith" [value]="+startsWith" />
+        <span class="input-group-append">
+          <button class="btn btn-secondary" type="submit">{{'browse.startsWith.submit' | translate}}</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</form>
