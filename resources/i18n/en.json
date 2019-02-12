@@ -282,6 +282,7 @@
   "browse": {
     "title": "Browsing {{ collection }} by {{ field }} {{ value }}",
     "startsWith": {
+      "jump": "Jump to a point in the index:",
       "choose_year": "(Choose year)",
       "type_year": "Or type in a year:",
       "submit": "Go"
@@ -296,6 +297,7 @@
       "head": "Browse",
       "by": {
         "title": "By Title",
+        "dateissued": "By Issue Date",
         "author": "By Author",
         "subject": "By Subject"
       }

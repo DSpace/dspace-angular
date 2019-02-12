@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import {
   ErrorResponse,
@@ -45,6 +45,8 @@ export class BrowseItemsResponseParsingService extends BaseResponseParsingServic
       const serializer = new DSpaceRESTv2Serializer(DSpaceObject);
       const items = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
       return new GenericSuccessResponse(items, data.statusCode, this.processPageInfo(data.payload));
+    } else if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
+      return new GenericSuccessResponse([], data.statusCode, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
         Object.assign(
