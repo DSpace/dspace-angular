@@ -1,3 +1,4 @@
+<script src="edit-in-place-field.component.ts"></script>
 <div [ngClass]="{
     'table-warning': fieldUpdate.changeType === 0,
     'table-danger': fieldUpdate.changeType === 2,
@@ -11,18 +12,18 @@
         <div *ngIf="(editable | async)" class="field-container">
             <ds-input-suggestions [suggestions]="(metadataFieldSuggestions | async)"
                                   [(ngModel)]="metadata.key"
-                                  (submitSuggestion)="update()"
-                                  (clickSuggestion)="update()"
-                                  (typeSuggestion)="update()"
+                                  (submitSuggestion)="update(suggestionControl.control)"
+                                  (clickSuggestion)="update(suggestionControl.control)"
+                                  (typeSuggestion)="update(suggestionControl.control)"
                                   (findSuggestions)="findMetadataFieldSuggestions($event)"
-                                  [formControl]="formControl"
-                                  ngDefaultControl
+                                  #suggestionControl="ngModel"
+                                  [dsInListValidator]="metadataFields | async"
             ></ds-input-suggestions>
         </div>
         <small class="text-danger"
                *ngIf="!(valid | async)">{{"item.edit.metadata.metadatafield.invalid" | translate}}</small>
     </td>
-    <td class="col-7">
+    <td class="col-6">
         <div *ngIf="!(editable | async)">
             <span>{{metadata?.value}}</span>
         </div>
@@ -40,16 +41,20 @@
                    (onDebounce)="update()"/>
         </div>
     </td>
-    <td class="col-1 text-center">
-        <div>
-            <i *ngIf="canSetEditable() | async" class="fas fa-edit fa-fw text-primary"
-               (click)="setEditable(true)"></i>
-            <i *ngIf="canSetUneditable() | async" class="fas fa-check fa-fw text-success"
-               (click)="setEditable(false)"></i>
-            <i *ngIf="canRemove() | async" class="fas fa-trash-alt fa-fw text-danger"
-               (click)="remove()"></i>
-            <i *ngIf="canUndo() | async" class="fas fa-undo-alt fa-fw text-warning"
-               (click)="removeChangesFromField()"></i>
+    <td class="col-2 text-center">
+        <div class="btn-group">
+            <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)" (click)="setEditable(true)" class="btn btn-light btn-sm">
+                <i class="fas fa-edit fa-fw text-primary"></i>
+            </button>
+            <button [disabled]="!(canSetUneditable() | async)"  *ngIf="(editable | async)" (click)="setEditable(false)" class="btn btn-light btn-sm">
+                <i class="fas fa-check fa-fw text-success"></i>
+            </button>
+            <button [disabled]="!(canRemove() | async)" (click)="remove()" class="btn btn-light btn-sm">
+                <i class="fas fa-trash-alt fa-fw text-danger"></i>
+            </button>
+            <button [disabled]="!(canUndo() | async)" (click)="removeChangesFromField()" class="btn btn-light btn-sm">
+                <i class="fas fa-undo-alt fa-fw text-warning"></i>
+            </button>
         </div>
     </td>
 </div>

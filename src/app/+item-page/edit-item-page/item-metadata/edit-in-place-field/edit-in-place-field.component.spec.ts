@@ -16,6 +16,7 @@ import { InputSuggestion } from '../../../../shared/input-suggestions/input-sugg
 import { TestScheduler } from 'rxjs/testing';
 import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
+import { TranslateModule } from '@ngx-translate/core';
 
 let comp: EditInPlaceFieldComponent;
 let fixture: ComponentFixture<EditInPlaceFieldComponent>;
@@ -58,20 +59,23 @@ describe('EditInPlaceFieldComponent', () => {
     paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
 
     metadataFieldService = jasmine.createSpyObj({
-      queryMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields))
+      queryMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields)),
+      getAllMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields))
     });
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         saveChangeFieldUpdate: {},
         saveRemoveFieldUpdate: {},
         setEditableFieldUpdate: {},
+        setValidFieldUpdate: {},
         removeSingleFieldUpdate: {},
-        isEditable: observableOf(false) // should always return something --> its in ngOnInit
+        isEditable: observableOf(false), // should always return something --> its in ngOnInit
+        isValid: observableOf(true) // should always return something --> its in ngOnInit
       }
     );
 
     TestBed.configureTestingModule({
-      imports: [FormsModule, SharedModule],
+      imports: [FormsModule, SharedModule, TranslateModule.forRoot()],
       declarations: [EditInPlaceFieldComponent],
       providers: [
         { provide: RegistryService, useValue: metadataFieldService },
@@ -170,13 +174,27 @@ describe('EditInPlaceFieldComponent', () => {
     });
   });
 
-  describe('remove', () => {
+  describe('isValid is true', () => {
     beforeEach(() => {
-      comp.remove();
+      comp.valid = observableOf(true);
+      fixture.detectChanges();
     });
+    it('the div should not contain an error message', () => {
+      const errorMessages = de.queryAll(By.css('small.text-danger'));
+      expect(errorMessages.length).toBe(0);
 
-    it('it should call saveRemoveFieldUpdate on the objectUpdatesService with the correct route and metadata', () => {
-      expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(route, metadatum);
+    });
+  });
+
+  describe('isValid is false', () => {
+    beforeEach(() => {
+      comp.valid = observableOf(false);
+      fixture.detectChanges();
+    });
+    it('the div should contain no input fields or textareas', () => {
+      const errorMessages = de.queryAll(By.css('small.text-danger'));
+      expect(errorMessages.length).toBeGreaterThan(0);
+
     });
   });
 
@@ -187,6 +205,16 @@ describe('EditInPlaceFieldComponent', () => {
 
     it('it should call saveRemoveFieldUpdate on the objectUpdatesService with the correct route and metadata', () => {
       expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(route, metadatum);
+    });
+  });
+
+  describe('removeChangesFromField', () => {
+    beforeEach(() => {
+      comp.removeChangesFromField();
+    });
+
+    it('it should call removeChangesFromField on the objectUpdatesService with the correct route and uuid', () => {
+      expect(objectUpdatesService.removeSingleFieldUpdate).toHaveBeenCalledWith(route, metadatum.uuid);
     });
   });
 
@@ -281,44 +309,49 @@ describe('EditInPlaceFieldComponent', () => {
 
   describe('when canSetEditable emits true', () => {
     beforeEach(() => {
+      comp.editable = observableOf(false);
       spyOn(comp, 'canSetEditable').and.returnValue(observableOf(true));
+      fixture.detectChanges();
     });
-    it('the div should contain a edit icon', () => {
-      const editIcon = de.query(By.css('i.fa-edit'));
-      expect(editIcon).not.toBeNull();
+    it('the div should have an enabled button with an edit icon', () => {
+      const editIcon = de.query(By.css('i.fa-edit')).parent.nativeElement.disabled;
+      expect(editIcon).toBe(false);
     });
   });
 
   describe('when canSetEditable emits false', () => {
     beforeEach(() => {
+      comp.editable = observableOf(false);
       spyOn(comp, 'canSetEditable').and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
-    it('the div should not contain a edit icon', () => {
-      const editIcon = de.query(By.css('i.fa-edit'));
-      expect(editIcon).toBeNull();
+    it('the div should have a disabled button with an edit icon', () => {
+      const editIcon = de.query(By.css('i.fa-edit')).parent.nativeElement.disabled;
+      expect(editIcon).toBe(true);
     });
   });
 
   describe('when canSetUneditable emits true', () => {
     beforeEach(() => {
+      comp.editable = observableOf(true);
       spyOn(comp, 'canSetUneditable').and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
-    it('the div should contain a check icon', () => {
-      const checkIcon = de.query(By.css('i.fa-check'));
-      expect(checkIcon).not.toBeNull();
+    it('the div should have an enabled button with a check icon', () => {
+      const checkButtonAttrs = de.query(By.css('i.fa-check')).parent.nativeElement.disabled;
+      expect(checkButtonAttrs).toBe(false);
     });
   });
 
   describe('when canSetUneditable emits false', () => {
     beforeEach(() => {
+      comp.editable = observableOf(true);
       spyOn(comp, 'canSetUneditable').and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
-    it('the div should not contain a check icon', () => {
-      const checkIcon = de.query(By.css('i.fa-check'));
-      expect(checkIcon).toBeNull();
+    it('the div should have a disabled button with a check icon', () => {
+      const checkButtonAttrs = de.query(By.css('i.fa-check')).parent.nativeElement.disabled;
+      expect(checkButtonAttrs).toBe(true);
     });
   });
 
@@ -327,9 +360,9 @@ describe('EditInPlaceFieldComponent', () => {
       spyOn(comp, 'canRemove').and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
-    it('the div should contain a trash icon', () => {
-      const trashIcon = de.query(By.css('i.fa-trash-alt'));
-      expect(trashIcon).not.toBeNull();
+    it('the div should have an enabled button with a trash icon', () => {
+      const trashButtonAttrs = de.query(By.css('i.fa-trash-alt')).parent.nativeElement.disabled;
+      expect(trashButtonAttrs).toBe(false);
     });
   });
 
@@ -338,9 +371,9 @@ describe('EditInPlaceFieldComponent', () => {
       spyOn(comp, 'canRemove').and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
-    it('the div should not contain a trash icon', () => {
-      const trashIcon = de.query(By.css('i.fa-trash-alt'));
-      expect(trashIcon).toBeNull();
+    it('the div should have a disabled button with a trash icon', () => {
+      const trashButtonAttrs = de.query(By.css('i.fa-trash-alt')).parent.nativeElement.disabled;
+      expect(trashButtonAttrs).toBe(true);
     });
   });
 
@@ -349,9 +382,9 @@ describe('EditInPlaceFieldComponent', () => {
       spyOn(comp, 'canUndo').and.returnValue(observableOf(true));
       fixture.detectChanges();
     });
-    it('the div should contain a undo icon', () => {
-      const undoIcon = de.query(By.css('i.fa-undo-alt'));
-      expect(undoIcon).not.toBeNull();
+    it('the div should have an enabled button with an undo icon', () => {
+      const undoIcon = de.query(By.css('i.fa-undo-alt')).parent.nativeElement.disabled;
+      expect(undoIcon).toBe(false);
     });
   });
 
@@ -360,9 +393,9 @@ describe('EditInPlaceFieldComponent', () => {
       spyOn(comp, 'canUndo').and.returnValue(observableOf(false));
       fixture.detectChanges();
     });
-    it('the div should not contain a undo icon', () => {
-      const undoIcon = de.query(By.css('i.fa-undo-alt'));
-      expect(undoIcon).toBeNull();
+    it('the div should have a disabled button with an undo icon', () => {
+      const undoIcon = de.query(By.css('i.fa-undo-alt')).parent.nativeElement.disabled;
+      expect(undoIcon).toBe(true);
     });
   });
 

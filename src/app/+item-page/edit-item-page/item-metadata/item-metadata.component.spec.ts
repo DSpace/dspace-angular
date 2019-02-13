@@ -99,7 +99,8 @@ describe('ItemMetadataComponent', () => {
           getUpdatedFields: observableOf([metadatum1, metadatum2, metadatum3]),
           getLastModified: observableOf(date),
           hasUpdates: observableOf(true),
-          isReinstatable: observableOf(false) // should always return something --> its in ngOnInit
+          isReinstatable: observableOf(false), // should always return something --> its in ngOnInit
+          isValidPage: observableOf(true)
         }
       );
 

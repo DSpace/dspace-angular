@@ -92,6 +92,7 @@ import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-co
 import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import { ObjectValuesPipe } from './utils/object-values-pipe';
+import { InListValidator } from './utils/in-list-validator.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -197,7 +198,8 @@ const DIRECTIVES = [
   VarDirective,
   DragClickDirective,
   DebounceDirective,
-  ClickOutsideDirective
+  ClickOutsideDirective,
+  InListValidator
 ];
 
 @NgModule({

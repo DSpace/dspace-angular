@@ -6,7 +6,7 @@ import {
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction, RemoveObjectUpdatesAction,
-  SetEditableFieldUpdateAction
+  SetEditableFieldUpdateAction, SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { OBJECT_UPDATES_TRASH_PATH, objectUpdatesReducer } from './object-updates.reducer';
 
@@ -54,22 +54,25 @@ describe('objectUpdatesReducer', () => {
       fieldStates: {
         [identifiable1.uuid]: {
           editable: true,
-          isNew: false
+          isNew: false,
+          isValid: true
         },
         [identifiable2.uuid]: {
           editable: false,
-          isNew: true
+          isNew: true,
+          isValid: true
         },
         [identifiable3.uuid]: {
           editable: false,
-          isNew: false
+          isNew: false,
+          isValid: false
         },
       },
       fieldUpdates: {
         [identifiable2.uuid]: {
           field: {
             uuid: identifiable2.uuid,
-            key: 'dc.title',
+            key: 'dc.titl',
             language: null,
             value: 'New title'
           },
@@ -85,15 +88,18 @@ describe('objectUpdatesReducer', () => {
       fieldStates: {
         [identifiable1.uuid]: {
           editable: true,
-          isNew: false
+          isNew: false,
+          isValid: true
         },
         [identifiable2.uuid]: {
           editable: false,
-          isNew: true
+          isNew: true,
+          isValid: true
         },
         [identifiable3.uuid]: {
           editable: false,
-          isNew: false
+          isNew: false,
+          isValid: true
         },
       },
       lastModified: modDate
@@ -102,22 +108,25 @@ describe('objectUpdatesReducer', () => {
       fieldStates: {
         [identifiable1.uuid]: {
           editable: true,
-          isNew: false
+          isNew: false,
+          isValid: true
         },
         [identifiable2.uuid]: {
           editable: false,
-          isNew: true
+          isNew: true,
+          isValid: true
         },
         [identifiable3.uuid]: {
           editable: false,
-          isNew: false
+          isNew: false,
+          isValid: false
         },
       },
       fieldUpdates: {
         [identifiable2.uuid]: {
           field: {
             uuid: identifiable2.uuid,
-            key: 'dc.title',
+            key: 'dc.titl',
             language: null,
             value: 'New title'
           },
@@ -194,11 +203,13 @@ describe('objectUpdatesReducer', () => {
         fieldStates: {
           [identifiable1.uuid]: {
             editable: false,
-            isNew: false
+            isNew: false,
+            isValid: true
           },
           [identifiable3.uuid]: {
             editable: false,
-            isNew: false
+            isNew: false,
+            isValid: true
           },
         },
         fieldUpdates: {},
@@ -214,6 +225,13 @@ describe('objectUpdatesReducer', () => {
 
     const newState = objectUpdatesReducer(testState, action);
     expect(newState[url].fieldStates[identifiable3.uuid].editable).toBeTruthy();
+  });
+
+  it('should set the given field\'s fieldStates when the SET_VALID_FIELD action is dispatched, based on the payload', () => {
+    const action = new SetValidFieldUpdateAction(url, identifiable3.uuid, false);
+
+    const newState = objectUpdatesReducer(testState, action);
+    expect(newState[url].fieldStates[identifiable3.uuid].isValid).toBeFalsy();
   });
 
   it('should add a given field\'s update to the state when the ADD_FIELD action is dispatched, based on the payload', () => {

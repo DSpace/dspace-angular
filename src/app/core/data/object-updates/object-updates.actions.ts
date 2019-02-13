@@ -2,10 +2,10 @@ import { type } from '../../../shared/ngrx/type';
 import { Action } from '@ngrx/store';
 import { Identifiable } from './object-updates.reducer';
 import { INotification } from '../../../shared/notifications/models/notification.model';
+
 /**
  * The list of ObjectUpdatesAction type definitions
  */
-
 export const ObjectUpdatesActionTypes = {
   INITIALIZE_FIELDS: type('dspace/core/cache/object-updates/INITIALIZE_FIELDS'),
   SET_EDITABLE_FIELD: type('dspace/core/cache/object-updates/SET_EDITABLE_FIELD'),

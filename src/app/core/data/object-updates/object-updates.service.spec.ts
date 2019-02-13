@@ -32,9 +32,9 @@ describe('ObjectUpdatesService', () => {
 
   beforeEach(() => {
     const fieldStates = {
-      [identifiable1.uuid]: { editable: false, isNew: false },
-      [identifiable2.uuid]: { editable: true, isNew: false },
-      [identifiable3.uuid]: { editable: true, isNew: true },
+      [identifiable1.uuid]: { editable: false, isNew: false, isValid: true },
+      [identifiable2.uuid]: { editable: true, isNew: false, isValid: false },
+      [identifiable3.uuid]: { editable: true, isNew: true, isValid: true },
     };
 
     const objectEntry = {
@@ -45,6 +45,9 @@ describe('ObjectUpdatesService', () => {
     service = new ObjectUpdatesService(store);
 
     spyOn(service as any, 'getObjectEntry').and.returnValue(observableOf(objectEntry));
+    spyOn(service as any, 'getFieldState').and.callFake((uuid) => {
+      return observableOf(fieldStates[uuid]);
+    });
     spyOn(service as any, 'saveFieldUpdate');
   });
 
@@ -75,7 +78,7 @@ describe('ObjectUpdatesService', () => {
   describe('isEditable', () => {
     it('should return false if this identifiable is currently not editable in the store', () => {
       const result$ = service.isEditable(url, identifiable1.uuid);
-      expect((service as any).getObjectEntry).toHaveBeenCalledWith(url);
+      expect((service as any).getFieldState).toHaveBeenCalledWith(url, identifiable1.uuid);
       result$.subscribe((result) => {
         expect(result).toEqual(false);
       });
@@ -83,7 +86,25 @@ describe('ObjectUpdatesService', () => {
 
     it('should return true if this identifiable is currently editable in the store', () => {
       const result$ = service.isEditable(url, identifiable2.uuid);
-      expect((service as any).getObjectEntry).toHaveBeenCalledWith(url);
+      expect((service as any).getFieldState).toHaveBeenCalledWith(url, identifiable2.uuid);
+      result$.subscribe((result) => {
+        expect(result).toEqual(true);
+      });
+    });
+  });
+
+  describe('isValid', () => {
+    it('should return false if this identifiable is currently not valid in the store', () => {
+      const result$ = service.isValid(url, identifiable2.uuid);
+      expect((service as any).getFieldState).toHaveBeenCalledWith(url, identifiable2.uuid);
+      result$.subscribe((result) => {
+        expect(result).toEqual(false);
+      });
+    });
+
+    it('should return true if this identifiable is currently valid in the store', () => {
+      const result$ = service.isValid(url, identifiable1.uuid);
+      expect((service as any).getFieldState).toHaveBeenCalledWith(url, identifiable1.uuid);
       result$.subscribe((result) => {
         expect(result).toEqual(true);
       });

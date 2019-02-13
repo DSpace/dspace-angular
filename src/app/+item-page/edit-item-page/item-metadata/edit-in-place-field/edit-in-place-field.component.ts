@@ -1,19 +1,18 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { isNotEmpty } from '../../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
 import { Metadatum } from '../../../../core/shared/metadatum.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { MetadataField } from '../../../../core/metadata/metadatafield.model';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
-import { of as observableOf } from 'rxjs';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { inListValidator } from '../../../../shared/utils/validator.functions';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
-import { FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ds-edit-in-place-field',
@@ -51,7 +50,10 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
-  formControl: FormControl;
+  /**
+   * List of strings with all metadata field keys available
+   */
+  metadataFields: Observable<string[]>;
 
   constructor(
     private metadataFieldService: RegistryService,
@@ -61,23 +63,21 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
 
   /**
    * Sets up an observable that keeps track of the current editable and valid state of this field
-   * Also creates a form control object for the input suggestions
    */
   ngOnInit(): void {
     this.editable = this.objectUpdatesService.isEditable(this.route, this.metadata.uuid);
     this.valid = this.objectUpdatesService.isValid(this.route, this.metadata.uuid);
-    this.findMetadataFields().pipe(take(1)).subscribe((metadataFields: string[]) => {
-      const validator = inListValidator(metadataFields);
-      this.formControl = new FormControl('', validator);
-    });
+    this.metadataFields = this.findMetadataFields()
   }
 
   /**
    * Sends a new change update for this field to the object updates service
    */
-  update() {
+  update(control?: FormControl) {
     this.objectUpdatesService.saveChangeFieldUpdate(this.route, this.metadata);
-    this.objectUpdatesService.setValidFieldUpdate(this.route, this.metadata.uuid, this.formControl.valid);
+    if (hasValue(control)) {
+      this.objectUpdatesService.setValidFieldUpdate(this.route, this.metadata.uuid, control.valid);
+    }
   }
 
   /**
@@ -131,6 +131,9 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
     );
   }
 
+  /**
+   * Method to request all metadata fields and convert them to a list of strings
+   */
   findMetadataFields(): Observable<string[]> {
     return this.metadataFieldService.getAllMetadataFields().pipe(
       getSucceededRemoteData(),

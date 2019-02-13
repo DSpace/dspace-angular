@@ -18,7 +18,7 @@ import {
   RemoveFieldUpdateAction,
   SetEditableFieldUpdateAction, SetValidFieldUpdateAction
 } from './object-updates.actions';
-import { filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 
@@ -28,6 +28,10 @@ function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdates
 
 function filterByUrlObjectUpdatesStateSelector(url: string): MemoizedSelector<CoreState, ObjectUpdatesEntry> {
   return createSelector(objectUpdatesStateSelector(), (state: ObjectUpdatesState) => state[url]);
+}
+
+function filterByUrlAndUUIDFieldStateSelector(url: string, uuid: string): MemoizedSelector<CoreState, FieldState> {
+  return createSelector(filterByUrlObjectUpdatesStateSelector(url), (state: ObjectUpdatesEntry) => state.fieldStates[uuid]);
 }
 
 /**
@@ -68,6 +72,15 @@ export class ObjectUpdatesService {
   }
 
   /**
+   * Request the getFieldState state for a specific URL and UUID
+   * @param url The URL to filter by
+   * @param uuid The field's UUID to filter by
+   */
+  private getFieldState(url: string, uuid: string): Observable<FieldState> {
+    return this.store.pipe(select(filterByUrlAndUUIDFieldStateSelector(url, uuid)));
+  }
+
+  /**
    * Method that combines the state's updates with the initial values (when there's no update) to create
    * a FieldUpdates object
    * @param url The URL of the page for which the FieldUpdates should be requested
@@ -95,11 +108,11 @@ export class ObjectUpdatesService {
    * @param uuid The UUID of the field
    */
   isEditable(url: string, uuid: string): Observable<boolean> {
-    const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(
-      filter((objectEntry) => hasValue(objectEntry.fieldStates[uuid])),
-      map((objectEntry) => objectEntry.fieldStates[uuid].editable
-      )
+    const fieldState$ = this.getFieldState(url, uuid);
+    return fieldState$.pipe(
+      filter((fieldState) => hasValue(fieldState)),
+      map((fieldState) => fieldState.editable),
+      distinctUntilChanged()
     )
   }
 
@@ -109,11 +122,11 @@ export class ObjectUpdatesService {
    * @param uuid The UUID of the field
    */
   isValid(url: string, uuid: string): Observable<boolean> {
-    const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(
-      filter((objectEntry) => hasValue(objectEntry.fieldStates[uuid])),
-      map((objectEntry) => objectEntry.fieldStates[uuid].isValid
-      )
+    const fieldState$ = this.getFieldState(url, uuid);
+    return fieldState$.pipe(
+      filter((fieldState) => hasValue(fieldState)),
+      map((fieldState) => fieldState.isValid),
+      distinctUntilChanged()
     )
   }
 
@@ -126,7 +139,8 @@ export class ObjectUpdatesService {
     return objectUpdates.pipe(
       map((entry: ObjectUpdatesEntry) => {
         return Object.values(entry.fieldStates).findIndex((state: FieldState) => !state.isValid) < 0
-      })
+      }),
+      distinctUntilChanged()
     )
   }
 
