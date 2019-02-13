@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RouteService } from '../../services/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
 import { isNotUndefined } from '../../empty.util';
@@ -19,7 +18,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject, TNormalized extends NormalizedDSpaceObject> implements OnInit {
   /**
-   * Frontend endpoint where for this type of DSP
+   * Frontend endpoint for this type of DSO
    */
   protected frontendURL: string;
   /**
@@ -29,7 +28,6 @@ export class EditComColPageComponent<TDomain extends DSpaceObject, TNormalized e
 
   public constructor(
     protected dsoDataService: DataService<TNormalized, TDomain>,
-    protected routeService: RouteService,
     protected router: Router,
     protected route: ActivatedRoute
   ) {

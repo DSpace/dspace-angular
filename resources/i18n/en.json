@@ -29,11 +29,22 @@
       }
     },
     "edit": {
-      "head": "Edit Collection"
+      "head": "Edit Collection",
+      "delete": "Delete this collection"
     },
     "create": {
       "head": "Create a Collection",
       "sub-head": "Create a Collection for Community {{ parent }}"
+    },
+    "delete": {
+      "head": "Delete Collection",
+      "text": "Are you sure you want to delete collection \"{{ dso }}\"",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "notification": {
+        "success": "Successfully deleted collection",
+        "fail": "Collection could not be deleted"
+      }
     }
   },
   "community": {
@@ -60,11 +71,22 @@
       }
     },
     "edit": {
-      "head": "Edit Community"
+      "head": "Edit Community",
+      "delete": "Delete this community"
     },
     "create": {
       "head": "Create a Community",
       "sub-head": "Create a Sub-Community for Community {{ parent }}"
+    },
+    "delete": {
+      "head": "Delete Community",
+      "text": "Are you sure you want to delete community \"{{ dso }}\"",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "notification": {
+        "success": "Successfully deleted community",
+        "fail": "Community could not be deleted"
+      }
     }
   },
   "item": {

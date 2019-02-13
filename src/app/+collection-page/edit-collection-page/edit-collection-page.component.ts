@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouteService } from '../../shared/services/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditComColPageComponent } from '../../shared/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
@@ -19,10 +18,9 @@ export class EditCollectionPageComponent extends EditComColPageComponent<Collect
 
   public constructor(
     protected collectionDataService: CollectionDataService,
-    protected routeService: RouteService,
     protected router: Router,
     protected route: ActivatedRoute
   ) {
-    super(collectionDataService, routeService, router, route);
+    super(collectionDataService, router, route);
   }
 }

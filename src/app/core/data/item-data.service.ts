@@ -14,7 +14,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteRequest, FindAllOptions, PatchRequest, RestRequest } from './request.models';
+import { FindAllOptions, PatchRequest, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
@@ -64,7 +64,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    */
   public getItemWithdrawEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+      map((endpoint: string) => this.getIDHref(endpoint, itemId))
     );
   }
 
@@ -74,17 +74,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    */
   public getItemDiscoverableEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
-    );
-  }
-
-  /**
-   * Get the endpoint to delete the item
-   * @param itemId
-   */
-  public getItemDeleteEndpoint(itemId: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+      map((endpoint: string) => this.getIDHref(endpoint, itemId))
     );
   }
 
@@ -129,22 +119,4 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
-
-  /**
-   * Delete the item
-   * @param itemId
-   */
-  public delete(itemId: string) {
-    return this.getItemDeleteEndpoint(itemId).pipe(
-      distinctUntilChanged(),
-      map((endpointURL: string) =>
-        new DeleteRequest(this.requestService.generateRequestId(), endpointURL)
-      ),
-      configureRequest(this.requestService),
-      map((request: RestRequest) => request.href),
-      getRequestFromRequestHref(this.requestService),
-      map((requestEntry: RequestEntry) => requestEntry.response)
-    );
-  }
-
 }

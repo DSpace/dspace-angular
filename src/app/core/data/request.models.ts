@@ -227,6 +227,19 @@ export class CreateRequest extends PostRequest {
   }
 }
 
+/**
+ * Request to delete an object based on its identifier
+ */
+export class DeleteByIDRequest extends DeleteRequest {
+  constructor(
+    uuid: string,
+    href: string,
+    public resourceID: string
+  ) {
+    super(uuid, href);
+  }
+}
+
 export class RequestError extends Error {
   statusText: string;
 }

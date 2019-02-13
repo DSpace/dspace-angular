@@ -1,12 +1,12 @@
 import {
-  delay,
   distinctUntilChanged,
   filter,
   find,
-  switchMap,
+  first,
   map,
-  take,
-  tap, first, mergeMap
+  mergeMap,
+  switchMap,
+  take
 } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -19,28 +19,26 @@ import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 import {
   CreateRequest,
+  DeleteByIDRequest,
   FindAllOptions,
   FindAllRequest,
   FindByIDRequest,
-  GetRequest, RestRequest
+  GetRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { compare, Operation } from 'fast-json-patch';
+import { Operation } from 'fast-json-patch';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import {
-  configureRequest,
-  filterSuccessfulResponses, getResourceLinksFromResponse,
-  getResponseFromEntry
-} from '../shared/operators';
-import { DSOSuccessResponse, ErrorResponse, RestResponse } from '../cache/response.models';
+import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { CacheableObject } from '../cache/object-cache.reducer';
+import { RequestEntry } from './request.reducer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { ChangeAnalyzer } from './change-analyzer';
 
@@ -97,13 +95,18 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     return this.rdbService.buildList<TNormalized, TDomain>(hrefObs) as Observable<RemoteData<PaginatedList<TDomain>>>;
   }
 
-  getFindByIDHref(endpoint, resourceID): string {
+  /**
+   * Create the HREF for a specific object based on its identifier
+   * @param endpoint The base endpoint for the type of object
+   * @param resourceID The identifier for the object
+   */
+  getIDHref(endpoint, resourceID): string {
     return `${endpoint}/${resourceID}`;
   }
 
   findById(id: string): Observable<RemoteData<TDomain>> {
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, id)));
+      map((endpoint: string) => this.getIDHref(endpoint, id)));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
@@ -199,6 +202,31 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     return selfLink$.pipe(
       switchMap((selfLink: string) => this.findByHref(selfLink)),
     )
+  }
+
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param dso The DSpace Object to be removed
+   * Return an observable that emits true when the deletion was successful, false when it failed
+   */
+  delete(dso: TDomain): Observable<boolean> {
+    const requestId = this.requestService.generateRequestId();
+
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new DeleteByIDRequest(requestId, href, dso.uuid);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response.isSuccessful)
+    );
   }
 
 }

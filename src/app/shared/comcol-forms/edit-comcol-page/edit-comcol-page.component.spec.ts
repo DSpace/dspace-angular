@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
-import { RouteService } from '../../services/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -18,15 +17,12 @@ import { DataService } from '../../../core/data/data.service';
 describe('EditComColPageComponent', () => {
   let comp: EditComColPageComponent<DSpaceObject, NormalizedDSpaceObject>;
   let fixture: ComponentFixture<EditComColPageComponent<DSpaceObject, NormalizedDSpaceObject>>;
-  let communityDataService: CommunityDataService;
   let dsoDataService: CommunityDataService;
-  let routeService: RouteService;
   let router: Router;
 
   let community;
   let newCommunity;
   let communityDataServiceStub;
-  let routeServiceStub;
   let routerStub;
   let routeStub;
 
@@ -48,20 +44,10 @@ describe('EditComColPageComponent', () => {
     });
 
     communityDataServiceStub = {
-      findById: (uuid) => observableOf(new RemoteData(false, false, true, null, Object.assign(new Community(), {
-        uuid: uuid,
-        metadata: [{
-          key: 'dc.title',
-          value: community.name
-        }]
-      }))),
       update: (com, uuid?) => observableOf(new RemoteData(false, false, true, undefined, newCommunity))
 
     };
 
-    routeServiceStub = {
-      getQueryParameterValue: (param) => observableOf(community.uuid)
-    };
     routerStub = {
       navigate: (commands) => commands
     };
@@ -78,7 +64,6 @@ describe('EditComColPageComponent', () => {
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       providers: [
         { provide: DataService, useValue: communityDataServiceStub },
-        { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
@@ -91,8 +76,6 @@ describe('EditComColPageComponent', () => {
     comp = fixture.componentInstance;
     fixture.detectChanges();
     dsoDataService = (comp as any).dsoDataService;
-    communityDataService = (comp as any).communityDataService;
-    routeService = (comp as any).routeService;
     router = (comp as any).router;
   });
 

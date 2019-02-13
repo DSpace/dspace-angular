@@ -10,6 +10,7 @@ import {CommunityPageSubCommunityListComponent} from './sub-community-list/commu
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
 import { CommunityFormComponent } from './community-form/community-form.component';
 import { EditCommunityPageComponent } from './edit-community-page/edit-community-page.component';
+import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 
 @NgModule({
   imports: [
@@ -23,9 +24,11 @@ import { EditCommunityPageComponent } from './edit-community-page/edit-community
     CommunityPageSubCommunityListComponent,
     CreateCommunityPageComponent,
     EditCommunityPageComponent,
+    DeleteCommunityPageComponent,
     CommunityFormComponent
   ]
 })
+
 export class CommunityPageModule {
 
 }

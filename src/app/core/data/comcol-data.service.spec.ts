@@ -86,7 +86,7 @@ describe('ComColDataService', () => {
   function initMockCommunityDataService(): CommunityDataService {
     return jasmine.createSpyObj('responseCache', {
       getEndpoint: hot('--a-', { a: communitiesEndpoint }),
-      getFindByIDHref: cold('b-', { b: communityEndpoint })
+      getIDHref: cold('b-', { b: communityEndpoint })
     });
   }
 

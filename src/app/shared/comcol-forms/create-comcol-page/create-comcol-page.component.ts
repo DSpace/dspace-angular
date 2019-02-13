@@ -21,7 +21,7 @@ import { NormalizedDSpaceObject } from '../../../core/cache/models/normalized-ds
 })
 export class CreateComColPageComponent<TDomain extends DSpaceObject, TNormalized extends NormalizedDSpaceObject> implements OnInit {
   /**
-   * Frontend endpoint where for this type of DSP
+   * Frontend endpoint for this type of DSO
    */
   protected frontendURL: string;
 

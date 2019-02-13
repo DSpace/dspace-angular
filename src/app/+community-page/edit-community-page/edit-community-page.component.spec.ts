@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouteService } from '../../shared/services/route.service';
 import { SharedModule } from '../../shared/shared.module';
 import { of as observableOf } from 'rxjs';
 import { EditCommunityPageComponent } from './edit-community-page.component';
@@ -20,9 +19,7 @@ describe('EditCommunityPageComponent', () => {
       declarations: [EditCommunityPageComponent],
       providers: [
         { provide: CommunityDataService, useValue: {} },
-        { provide: RouteService, useValue: {} },
-        { provide: Router, useValue: {} },
-        { provide: ActivatedRoute, useValue: { data: observableOf({dso: undefined}) } },
+        { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
