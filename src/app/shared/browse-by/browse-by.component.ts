@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { getStartsWithComponent } from './browse-by-starts-with/browse-by-starts-with-decorator';
 
+/**
+ * An enum that defines the type of StartsWith options
+ */
 export enum BrowseByStartsWithType {
   text = 'Text',
   date = 'Date'
@@ -46,22 +49,50 @@ export class BrowseByComponent implements OnInit {
    */
   @Input() sortConfig: SortOptions;
 
+  /**
+   * The type of StartsWith options used to define what component to render for the options
+   * Defaults to text
+   */
   @Input() type = BrowseByStartsWithType.text;
 
+  /**
+   * The list of options to render for the StartsWith component
+   */
   @Input() startsWithOptions = [];
 
+  /**
+   * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
+   */
   @Input() enableArrows = false;
 
+  /**
+   * If enableArrows is set to true, should it hide the options gear?
+   */
   @Input() hideGear = false;
 
+  /**
+   * If enableArrows is set to true, emit when the previous button is clicked
+   */
   @Output() prev = new EventEmitter<boolean>();
 
+  /**
+   * If enableArrows is set to true, emit when the next button is clicked
+   */
   @Output() next = new EventEmitter<boolean>();
 
+  /**
+   * If enableArrows is set to true, emit when the page size is changed
+   */
   @Output() pageSizeChange = new EventEmitter<number>();
 
+  /**
+   * If enableArrows is set to true, emit when the sort direction is changed
+   */
   @Output() sortDirectionChange = new EventEmitter<SortDirection>();
 
+  /**
+   * An object injector used to inject the startsWithOptions to the switchable StartsWith component
+   */
   objectInjector: Injector;
 
   /**
@@ -73,24 +104,41 @@ export class BrowseByComponent implements OnInit {
 
   }
 
+  /**
+   * Go to the previous page
+   */
   goPrev() {
     this.prev.emit(true);
   }
 
+  /**
+   * Go to the next page
+   */
   goNext() {
     this.next.emit(true);
   }
 
+  /**
+   * Change the page size
+   * @param size
+   */
   doPageSizeChange(size) {
     this.paginationConfig.pageSize = size;
     this.pageSizeChange.emit(size);
   }
 
+  /**
+   * Change the sort direction
+   * @param direction
+   */
   doSortDirectionChange(direction) {
     this.sortConfig.direction = direction;
     this.sortDirectionChange.emit(direction);
   }
 
+  /**
+   * Get the switchable StartsWith component dependant on the type
+   */
   getStartsWithComponent() {
     return getStartsWithComponent(this.type);
   }

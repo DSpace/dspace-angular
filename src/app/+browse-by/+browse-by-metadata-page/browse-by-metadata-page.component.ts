@@ -72,8 +72,16 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   metadata = this.defaultMetadata;
 
+  /**
+   * The type of StartsWith options to render
+   * Defaults to text
+   */
   startsWithType = BrowseByStartsWithType.text;
 
+  /**
+   * The list of StartsWith options
+   * Should be defined after ngOnInit is called!
+   */
   startsWithOptions;
 
   /**
@@ -83,6 +91,9 @@ export class BrowseByMetadataPageComponent implements OnInit {
    */
   value = '';
 
+  /**
+   * The current startsWith option (fetched and updated from query-params)
+   */
   startsWith: string;
 
   public constructor(protected route: ActivatedRoute,
@@ -153,18 +164,28 @@ export class BrowseByMetadataPageComponent implements OnInit {
     }
   }
 
+  /**
+   * Navigate to the previous page
+   */
   goPrev() {
     this.items$.pipe(take(1)).subscribe((items) => {
       this.items$ = this.browseService.getPrevBrowseItems(items);
     });
   }
 
+  /**
+   * Navigate to the next page
+   */
   goNext() {
     this.items$.pipe(take(1)).subscribe((items) => {
       this.items$ = this.browseService.getNextBrowseItems(items);
     });
   }
 
+  /**
+   * Change the page size
+   * @param size
+   */
   pageSizeChange(size) {
     this.router.navigate([], {
       queryParams: Object.assign({ pageSize: size }),
@@ -172,6 +193,10 @@ export class BrowseByMetadataPageComponent implements OnInit {
     });
   }
 
+  /**
+   * Change the sorting direction
+   * @param direction
+   */
   sortDirectionChange(direction) {
     this.router.navigate([], {
       queryParams: Object.assign({ sortDirection: direction }),

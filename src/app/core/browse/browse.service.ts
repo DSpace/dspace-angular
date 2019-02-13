@@ -8,9 +8,7 @@ import {
   isNotEmpty,
   isNotEmptyOperator
 } from '../../shared/empty.util';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { SortOptions } from '../cache/models/sort-options.model';
 import { GenericSuccessResponse } from '../cache/response-cache.models';
 import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { ResponseCacheService } from '../cache/response-cache.service';
@@ -20,7 +18,6 @@ import {
   BrowseEndpointRequest,
   BrowseEntriesRequest,
   BrowseItemsRequest,
-  GetRequest,
   RestRequest
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
@@ -38,8 +35,10 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { Item } from '../shared/item.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { observable } from 'rxjs/internal-compatibility';
 
+/**
+ * The service handling all browse requests
+ */
 @Injectable()
 export class BrowseService {
   protected linkPath = 'browses';
@@ -65,6 +64,9 @@ export class BrowseService {
   ) {
   }
 
+  /**
+   * Get all BrowseDefinitions
+   */
   getBrowseDefinitions(): Observable<RemoteData<BrowseDefinition[]>> {
     const request$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
@@ -89,6 +91,10 @@ export class BrowseService {
     return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   }
 
+  /**
+   * Get all BrowseEntries filtered or modified by BrowseEntrySearchOptions
+   * @param options
+   */
   getBrowseEntriesFor(options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
     return this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(options.metadataDefinition),
@@ -122,11 +128,8 @@ export class BrowseService {
 
   /**
    * Get all items linked to a certain metadata value
-   * @param {string} definitionID     definition ID to define the metadata-field (e.g. author)
    * @param {string} filterValue      metadata value to filter by (e.g. author's name)
-   * @param options                   Options to narrow down your search:
-   *                                  { pagination: PaginationComponentOptions,
-   *                                    sort: SortOptions }
+   * @param options                   Options to narrow down your search
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
   getBrowseItemsFor(filterValue: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
@@ -162,6 +165,11 @@ export class BrowseService {
     );
   }
 
+  /**
+   * Get the first item for a metadata definition in an optional scope
+   * @param definition
+   * @param scope
+   */
   getFirstItemFor(definition: string, scope?: string): Observable<RemoteData<PaginatedList<Item>>> {
     return this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(definition),
@@ -184,18 +192,31 @@ export class BrowseService {
     );
   }
 
+  /**
+   * Get the previous page using the paginated list's prev link
+   * @param items
+   */
   getPrevBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
     return observableOf(items.payload.prev).pipe(
       getBrowseItemsFor(this.requestService, this.responseCache, this.rdb)
     );
   }
 
+  /**
+   * Get the next page using the paginated list's next link
+   * @param items
+   */
   getNextBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
     return observableOf(items.payload.next).pipe(
       getBrowseItemsFor(this.requestService, this.responseCache, this.rdb)
     );
   }
 
+  /**
+   * Get the browse URL by providing a metadatum key and linkPath
+   * @param metadatumKey
+   * @param linkPath
+   */
   getBrowseURLFor(metadatumKey: string, linkPath: string): Observable<string> {
     const searchKeyArray = BrowseService.toSearchKeyArray(metadatumKey);
     return this.getBrowseDefinitions().pipe(
@@ -220,6 +241,12 @@ export class BrowseService {
 
 }
 
+/**
+ * Operator for turning a href into a PaginatedList of BrowseEntries
+ * @param requestService
+ * @param responseCache
+ * @param rdb
+ */
 export const getBrowseEntriesFor = (requestService: RequestService, responseCache: ResponseCacheService, rdb: RemoteDataBuildService) =>
   (source: Observable<string>): Observable<RemoteData<PaginatedList<BrowseEntry>>> =>
     source.pipe(
@@ -228,6 +255,12 @@ export const getBrowseEntriesFor = (requestService: RequestService, responseCach
       toRDPaginatedBrowseEntries(requestService, responseCache, rdb)
     );
 
+/**
+ * Operator for turning a href into a PaginatedList of Items
+ * @param requestService
+ * @param responseCache
+ * @param rdb
+ */
 export const getBrowseItemsFor = (requestService: RequestService, responseCache: ResponseCacheService, rdb: RemoteDataBuildService) =>
   (source: Observable<string>): Observable<RemoteData<PaginatedList<Item>>> =>
     source.pipe(
@@ -236,6 +269,12 @@ export const getBrowseItemsFor = (requestService: RequestService, responseCache:
       toRDPaginatedBrowseItems(requestService, responseCache, rdb)
     );
 
+/**
+ * Operator for turning a RestRequest into a PaginatedList of Items
+ * @param requestService
+ * @param responseCache
+ * @param rdb
+ */
 export const toRDPaginatedBrowseItems = (requestService: RequestService, responseCache: ResponseCacheService, rdb: RemoteDataBuildService) =>
   (source: Observable<RestRequest>): Observable<RemoteData<PaginatedList<Item>>> => {
     const href$ = source.pipe(map((request: RestRequest) => request.href));
@@ -256,6 +295,12 @@ export const toRDPaginatedBrowseItems = (requestService: RequestService, respons
     return rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
   };
 
+/**
+ * Operator for turning a RestRequest into a PaginatedList of BrowseEntries
+ * @param requestService
+ * @param responseCache
+ * @param rdb
+ */
 export const toRDPaginatedBrowseEntries = (requestService: RequestService, responseCache: ResponseCacheService, rdb: RemoteDataBuildService) =>
   (source: Observable<RestRequest>): Observable<RemoteData<PaginatedList<BrowseEntry>>> => {
     const href$ = source.pipe(map((request: RestRequest) => request.href));

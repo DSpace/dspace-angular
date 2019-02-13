@@ -27,6 +27,9 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
  */
 export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
+  /**
+   * The default metadata-field to use for determining the lower limit of the StartsWith dropdown options
+   */
   defaultMetadataField = 'dc.date.issued';
 
   public constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -60,6 +63,16 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         }));
   }
 
+  /**
+   * Update the StartsWith options
+   * In this implementation, it creates a list of years starting from now, going all the way back to the earliest
+   * date found on an item within this scope. The further back in time, the bigger the change in years become to avoid
+   * extremely long lists with a one-year difference.
+   * To determine the change in years, the config found under GlobalConfig.BrowseBy is used for this.
+   * @param definition      The metadata definition to fetch the first item for
+   * @param metadataField   The metadata field to fetch the earliest date from (expects a date field)
+   * @param scope           The scope under which to fetch the earliest item for
+   */
   updateStartsWithOptions(definition: string, metadataField: string, scope?: string) {
     this.subs.push(
       this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<PaginatedList<Item>>) => {

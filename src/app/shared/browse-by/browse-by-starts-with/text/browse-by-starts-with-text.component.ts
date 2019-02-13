@@ -3,6 +3,9 @@ import { renderStartsWithFor } from '../browse-by-starts-with-decorator';
 import { BrowseByStartsWithType } from '../../browse-by.component';
 import { BrowseByStartsWithAbstractComponent } from '../browse-by-starts-with-abstract.component';
 
+/**
+ * A switchable component rendering StartsWith options for the type "Text".
+ */
 @Component({
   selector: 'ds-browse-by-starts-with-text',
   styleUrls: ['./browse-by-starts-with-text.component.scss'],

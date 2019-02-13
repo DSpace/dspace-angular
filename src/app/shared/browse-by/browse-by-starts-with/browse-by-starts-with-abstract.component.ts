@@ -4,9 +4,18 @@ import { hasValue } from '../../empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { FormControl, FormGroup } from '@angular/forms';
 
+/**
+ * An abstract component to render StartsWith options
+ */
 export class BrowseByStartsWithAbstractComponent implements OnInit, OnDestroy {
+  /**
+   * The currently selected startsWith in string format
+   */
   startsWith: string;
 
+  /**
+   * The formdata controlling the StartsWith input
+   */
   formData: FormGroup;
 
   /**
@@ -30,11 +39,18 @@ export class BrowseByStartsWithAbstractComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Set the startsWith by event
+   * @param event
+   */
   setStartsWith(event: Event) {
     this.startsWith = (event.target as HTMLInputElement).value;
     this.setStartsWithParam();
   }
 
+  /**
+   * Add/Change the url query parameter startsWith using the local variable
+   */
   setStartsWithParam() {
     if (this.startsWith === '-1') {
       this.startsWith = undefined;
@@ -45,6 +61,10 @@ export class BrowseByStartsWithAbstractComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Submit the form data. Called when clicking a submit button on the form.
+   * @param data
+   */
   submitForm(data) {
     this.startsWith = data.startsWith;
     this.setStartsWithParam();
