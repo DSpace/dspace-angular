@@ -28,7 +28,12 @@ describe('BrowseByMetadataPageComponent', () => {
 
   const mockCommunity = Object.assign(new Community(), {
     id: 'test-uuid',
-    name: 'test community'
+    metadata: [
+      {
+        key: 'dc.title',
+        value: 'test community'
+      }
+    ]
   });
 
   const mockEntries = [
