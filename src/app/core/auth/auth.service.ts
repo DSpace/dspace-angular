@@ -131,7 +131,7 @@ export class AuthService {
    * @returns {Observable<boolean>}
    */
   public isAuthenticated(): Observable<boolean> {
-    return of(true);
+    return this.store.pipe(select(isAuthenticated));
   }
 
   /**
