@@ -40,6 +40,13 @@ export class BrowseByStartsWithAbstractComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Get startsWith as a number;
+   */
+  getStartsWithAsNumber() {
+    return +this.startsWith;
+  }
+
+  /**
    * Set the startsWith by event
    * @param event
    */
