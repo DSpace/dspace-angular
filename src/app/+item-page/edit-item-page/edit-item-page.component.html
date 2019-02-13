@@ -3,13 +3,13 @@
     <div class="col-12">
       <h2 class="border-bottom">{{'item.edit.head' | translate}}</h2>
       <div class="pt-2">
-        <ngb-tabset>
-          <ngb-tab title="{{'item.edit.tabs.status.head' | translate}}">
+        <ngb-tabset [activeId]="(params$ | async)?.page || 'status'">
+          <ngb-tab [id]="'status'" title="{{'item.edit.tabs.status.head' | translate}}">
             <ng-template ngbTabContent>
               <ds-item-status [item]="(itemRD$ | async)?.payload"></ds-item-status>
             </ng-template>
           </ngb-tab>
-          <ngb-tab title="{{'item.edit.tabs.bitstreams.head' | translate}}">
+          <ngb-tab [id]="'bitstreams'" title="{{'item.edit.tabs.bitstreams.head' | translate}}">
             <ng-template ngbTabContent>
 
             </ng-template>
@@ -20,12 +20,12 @@
               </ds-item-metadata>
             </ng-template>
           </ngb-tab>
-          <ngb-tab title="{{'item.edit.tabs.view.head' | translate}}">
+          <ngb-tab [id]="'view'" title="{{'item.edit.tabs.view.head' | translate}}">
             <ng-template ngbTabContent>
 
             </ng-template>
           </ngb-tab>
-          <ngb-tab title="{{'item.edit.tabs.curate.head' | translate}}">
+          <ngb-tab [id]="'curate'" title="{{'item.edit.tabs.curate.head' | translate}}">
             <ng-template ngbTabContent>
 
             </ng-template>

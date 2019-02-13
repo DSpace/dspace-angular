@@ -15,7 +15,7 @@ export function getItemEditPath(id: string) {
   return new URLCombiner(getItemModulePath(),ITEM_EDIT_PATH.replace(/:id/, id)).toString()
 }
 
-const ITEM_EDIT_PATH = ':id/edit';
+const ITEM_EDIT_PATH = ':id/edit/:page';
 
 @NgModule({
   imports: [
@@ -38,7 +38,7 @@ const ITEM_EDIT_PATH = ':id/edit';
       {
         path: ITEM_EDIT_PATH,
         loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
-        // canActivate: [AuthenticatedGuard]
+        canActivate: [AuthenticatedGuard]
       }
     ])
   ],
