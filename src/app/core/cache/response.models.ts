@@ -10,10 +10,11 @@ import { MetadataSchema } from '../metadata/metadataschema.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
 import { AuthStatus } from '../auth/models/auth-status.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
-  public toCache = true;
+  public timeAdded: number;
 
   constructor(
     public isSuccessful: boolean,

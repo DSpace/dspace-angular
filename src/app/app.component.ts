@@ -1,4 +1,4 @@
-import { filter, first, map, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -91,7 +91,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     // Whether is not authenticathed try to retrieve a possible stored auth token
     this.store.pipe(select(isAuthenticated),
-      first(),
+      take(1),
       filter((authenticated) => !authenticated)
     ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
     this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);

@@ -30,6 +30,7 @@
       <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
     </div>
   </div>
+
   <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
   <ds-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
 </div>

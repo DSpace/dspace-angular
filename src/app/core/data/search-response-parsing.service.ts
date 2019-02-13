@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RestResponse, SearchSuccessResponse } from '../cache/response-cache.models';
+import { RestResponse, SearchSuccessResponse } from '../cache/response.models';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';

@@ -32,7 +32,7 @@ describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;
 
   beforeEach(() => {
-    service = new RemoteDataBuildService(undefined, undefined, undefined);
+    service = new RemoteDataBuildService(undefined, undefined);
   });
 
   describe('when toPaginatedList is called', () => {

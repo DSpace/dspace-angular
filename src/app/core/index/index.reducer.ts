@@ -8,6 +8,7 @@ import {
 export enum IndexName {
   OBJECT = 'object/uuid-to-self-link',
   REQUEST = 'get-request/href-to-uuid',
+  UUID_MAPPING = 'get-request/configured-to-cache-uuid'
 }
 
 export type IndexState = {
@@ -41,9 +42,10 @@ function addToIndex(state: IndexState, action: AddToIndexAction): IndexState {
   const newSubState = Object.assign({}, subState, {
     [action.payload.key]: action.payload.value
   });
-  return Object.assign({}, state, {
+  const obs = Object.assign({}, state, {
     [action.payload.name]: newSubState
-  })
+  });
+  return obs;
 }
 
 function removeFromIndexByValue(state: IndexState, action: RemoveFromIndexByValueAction): IndexState {
