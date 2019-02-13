@@ -1,4 +1,4 @@
-import { mergeMap, filter, map, first, tap } from 'rxjs/operators';
+import { mergeMap, filter, map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -24,7 +24,6 @@ import { hasValue } from '../shared/empty.util';
 export class CommunityPageComponent implements OnInit, OnDestroy {
   communityRD$: Observable<RemoteData<Community>>;
   logoRD$: Observable<RemoteData<Bitstream>>;
-
   private subs: Subscription[] = [];
 
   constructor(

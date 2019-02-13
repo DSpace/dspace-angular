@@ -15,6 +15,10 @@ import { RemoteData } from './remote-data';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Observable } from 'rxjs';
 import { PaginatedList } from './paginated-list';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 @Injectable()
 export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
@@ -25,9 +29,13 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DSOChangeAnalyzer
   ) {
     super();
   }

@@ -31,9 +31,12 @@ import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
 import { EmptyError } from 'rxjs/internal-compatibility';
-import { MockStore } from '../../shared/testing/mock-store';
-import { IndexState } from '../index/index.reducer';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -68,6 +71,7 @@ describe('MetadataService', () => {
   let uuidService: UUIDService;
   let remoteDataBuildService: RemoteDataBuildService;
   let itemDataService: ItemDataService;
+  let authService: AuthService;
 
   let location: Location;
   let router: Router;
@@ -112,6 +116,11 @@ describe('MetadataService', () => {
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: HALEndpointService, useValue: {}},
+        { provide: AuthService, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: NormalizedObjectBuildService, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
         Meta,
         Title,
         ItemDataService,
@@ -124,6 +133,7 @@ describe('MetadataService', () => {
     title = TestBed.get(Title);
     itemDataService = TestBed.get(ItemDataService);
     metadataService = TestBed.get(MetadataService);
+    authService = TestBed.get(AuthService);
 
     envConfig = TestBed.get(GLOBAL_CONFIG);
 

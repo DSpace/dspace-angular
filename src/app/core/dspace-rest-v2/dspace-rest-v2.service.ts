@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 import { HttpObserve } from '@angular/common/http/src/client';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { isNotEmpty } from '../../shared/empty.util';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 export interface HttpOptions {
   body?: any;
@@ -59,6 +61,9 @@ export class DSpaceRESTv2Service {
   request(method: RestRequestMethod, url: string, body?: any, options?: HttpOptions): Observable<DSpaceRESTV2Response> {
     const requestOptions: HttpOptions = {};
     requestOptions.body = body;
+    if (method === RestRequestMethod.POST && isNotEmpty(body) && isNotEmpty(body.name)) {
+      requestOptions.body = this.buildFormData(body);
+    }
     requestOptions.observe = 'response';
     if (options && options.headers) {
       requestOptions.headers = Object.assign(new HttpHeaders(),  options.headers);
@@ -72,6 +77,27 @@ export class DSpaceRESTv2Service {
         console.log('Error: ', err);
         return observableThrowError(err);
       }));
+  }
+
+  /**
+   * Create a FormData object from a DSpaceObject
+   *
+   * @param {DSpaceObject} dso
+   *    the DSpaceObject
+   * @return {FormData}
+   *    the result
+   */
+  buildFormData(dso: DSpaceObject): FormData {
+    const form: FormData = new FormData();
+    form.append('name', dso.name);
+    if (dso.metadata) {
+      for (const i of Object.keys(dso.metadata)) {
+        if (isNotEmpty(dso.metadata[i].value)) {
+          form.append(dso.metadata[i].key, dso.metadata[i].value);
+        }
+      }
+    }
+    return form;
   }
 
 }

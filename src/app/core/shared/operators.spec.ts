@@ -8,11 +8,14 @@ import {
   configureRequest,
   filterSuccessfulResponses,
   getAllSucceededRemoteData,
-  getRemoteDataPayload, getRequestFromRequestHref, getRequestFromRequestUUID,
-  getResourceLinksFromResponse, getResponseFromEntry,
+  getRemoteDataPayload,
+  getRequestFromRequestHref,
+  getRequestFromRequestUUID,
+  getResourceLinksFromResponse,
+  getResponseFromEntry,
   getSucceededRemoteData
 } from './operators';
-import {RemoteData} from '../data/remote-data';
+import { RemoteData } from '../data/remote-data';
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;
@@ -61,7 +64,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(getRequestFromRequestHref(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.getByHref).toHaveBeenCalledWith(testRequestHref);
+      expect(requestService.getByHref).toHaveBeenCalledWith(testRequestHref)
     });
 
     it('shouldn\'t return anything if there is no request matching the self link', () => {
@@ -94,7 +97,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(getRequestFromRequestUUID(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.getByUUID).toHaveBeenCalledWith(testRequestUUID);
+      expect(requestService.getByUUID).toHaveBeenCalledWith(testRequestUUID)
     });
 
     it('shouldn\'t return anything if there is no request matching the request uuid', () => {
@@ -156,22 +159,6 @@ describe('Core Module - RxJS Operators', () => {
     });
   });
 
-  describe('getResponseFromEntry', () => {
-    it('should return the response for all not empty request entries, when they have a value', () => {
-      const source = hot('abcdefg', testRCEs);
-      const result = source.pipe(getResponseFromEntry());
-      const expected = cold('abcde--', {
-        a: testRCEs.a.response,
-        b: testRCEs.b.response,
-        c: testRCEs.c.response,
-        d: testRCEs.d.response,
-        e: testRCEs.e.response
-      });
-
-      expect(result).toBeObservable(expected)
-    });
-  });
-
   describe('getSucceededRemoteData', () => {
     it('should return the first() hasSucceeded RemoteData Observable', () => {
       const testRD = {
@@ -188,8 +175,24 @@ describe('Core Module - RxJS Operators', () => {
         .toEqual(new RemoteData(false, false, true, null, 'd')));
 
     });
-
   });
+
+  describe('getResponseFromEntry', () => {
+    it('should return the response for all not empty request entries, when they have a value', () => {
+      const source = hot('abcdefg', testRCEs);
+      const result = source.pipe(getResponseFromEntry());
+      const expected = cold('abcde--', {
+        a: testRCEs.a.response,
+        b: testRCEs.b.response,
+        c: testRCEs.c.response,
+        d: testRCEs.d.response,
+        e: testRCEs.e.response
+      });
+
+      expect(result).toBeObservable(expected)
+    });
+  });
+
   describe('getAllSucceededRemoteData', () => {
     it('should return all hasSucceeded RemoteData Observables', () => {
       const testRD = {

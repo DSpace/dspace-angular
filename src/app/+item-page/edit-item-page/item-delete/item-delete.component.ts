@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {first} from 'rxjs/operators';
-import {AbstractSimpleItemActionComponent} from '../simple-item-action/abstract-simple-item-action.component';
-import {getItemEditPath} from '../../item-page-routing.module';
+import { Component } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
+import { getItemEditPath } from '../../item-page-routing.module';
 import { RestResponse } from '../../../core/cache/response.models';
 
 @Component({
@@ -19,20 +19,19 @@ export class ItemDeleteComponent extends AbstractSimpleItemActionComponent {
    * Perform the delete action to the item
    */
   performAction() {
-    this.itemDataService.delete(this.item.id).pipe(first()).subscribe(
-      (response: RestResponse) => {
-        this.processRestResponse(response);
+    this.itemDataService.delete(this.item).pipe(first()).subscribe(
+      (succeeded: boolean) => {
+        this.notify(succeeded);
       }
     );
   }
 
   /**
-   * Process the RestResponse retrieved from the server.
    * When the item is successfully delete, navigate to the homepage, otherwise navigate back to the item edit page
    * @param response
    */
-  processRestResponse(response: RestResponse) {
-    if (response.isSuccessful) {
+  notify(succeeded: boolean) {
+    if (succeeded) {
       this.notificationsService.success(this.translateService.get('item.edit.' + this.messageKey + '.success'));
       this.router.navigate(['']);
     } else {

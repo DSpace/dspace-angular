@@ -1,4 +1,3 @@
-
 import {distinctUntilChanged, map, filter} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -17,6 +16,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DeleteRequest, FindAllOptions, PatchRequest, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -25,10 +28,14 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     private bs: BrowseService,
+    protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService) {
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DSOChangeAnalyzer) {
     super();
   }
 
@@ -55,7 +62,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    */
   public getItemWithdrawEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+      map((endpoint: string) => this.getIDHref(endpoint, itemId))
     );
   }
 
@@ -65,17 +72,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    */
   public getItemDiscoverableEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
-    );
-  }
-
-  /**
-   * Get the endpoint to delete the item
-   * @param itemId
-   */
-  public getItemDeleteEndpoint(itemId: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+      map((endpoint: string) => this.getIDHref(endpoint, itemId))
     );
   }
 
@@ -116,20 +113,4 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
       getResponseFromEntry()
     );
   }
-
-  /**
-   * Delete the item
-   * @param itemId
-   */
-  public delete(itemId: string) {
-    return this.getItemDeleteEndpoint(itemId).pipe(
-      distinctUntilChanged(),
-      map((endpointURL: string) =>
-        new DeleteRequest(this.requestService.generateRequestId(), endpointURL)
-      ),
-      configureRequest(this.requestService),
-      getResponseFromEntry()
-    );
-  }
-
 }

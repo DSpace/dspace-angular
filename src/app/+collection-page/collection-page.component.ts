@@ -55,7 +55,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
-      map((data) => data.collection)
+      map((data) => data.collection),
+      tap((data) => this.collectionId = data.payload.id)
     );
     this.logoRD$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => rd.payload),

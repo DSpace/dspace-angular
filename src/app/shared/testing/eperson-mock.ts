@@ -13,8 +13,12 @@ export const EPersonMock: EPerson = Object.assign(new EPerson(),{
   id: 'testid',
   uuid: 'testid',
   type: 'eperson',
-  name: 'User Test',
   metadata: [
+    {
+      key: 'dc.title',
+      language: null,
+      value: 'User Test'
+    },
     {
       key: 'eperson.firstname',
       language: null,

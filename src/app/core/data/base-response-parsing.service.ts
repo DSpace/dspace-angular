@@ -8,15 +8,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
 import { ResourceType } from '../shared/resource-type';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
-
-function isObjectLevel(halObj: any) {
-  return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
-}
-
-function isPaginatedResponse(halObj: any) {
-  return hasValue(halObj.page) && hasValue(halObj._embedded);
-}
-
+import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
 /* tslint:disable:max-classes-per-file */
 
 export abstract class BaseResponseParsingService {
@@ -29,11 +21,11 @@ export abstract class BaseResponseParsingService {
     if (isNotEmpty(data)) {
       if (hasNoValue(data) || (typeof data !== 'object')) {
         return data;
-      } else if (isPaginatedResponse(data)) {
+      } else if (isRestPaginatedList(data)) {
         return this.processPaginatedList(data, requestUUID);
       } else if (Array.isArray(data)) {
         return this.processArray(data, requestUUID);
-      } else if (isObjectLevel(data)) {
+      } else if (isRestDataObject(data)) {
         data = this.fixBadEPersonRestResponse(data);
         const object = this.deserialize(data);
         if (isNotEmpty(data._embedded)) {
@@ -43,10 +35,10 @@ export abstract class BaseResponseParsingService {
             .forEach((property) => {
               const parsedObj = this.process<ObjectDomain, ObjectType>(data._embedded[property], requestUUID);
               if (isNotEmpty(parsedObj)) {
-                if (isPaginatedResponse(data._embedded[property])) {
+                if (isRestPaginatedList(data._embedded[property])) {
                   object[property] = parsedObj;
                   object[property].page = parsedObj.page.map((obj) => obj.self);
-                } else if (isObjectLevel(data._embedded[property])) {
+                } else if (isRestDataObject(data._embedded[property])) {
                   object[property] = parsedObj.self;
                 } else if (Array.isArray(parsedObj)) {
                   object[property] = parsedObj.map((obj) => obj.self)
@@ -80,7 +72,7 @@ export abstract class BaseResponseParsingService {
       list = this.flattenSingleKeyObject(list);
     }
     const page: ObjectDomain[] = this.processArray(list, requestUUID);
-    return new PaginatedList<ObjectDomain>(pageInfo, page);
+    return new PaginatedList<ObjectDomain>(pageInfo, page, );
   }
 
   protected processArray<ObjectDomain, ObjectType>(data: any, requestUUID: string): ObjectDomain[] {

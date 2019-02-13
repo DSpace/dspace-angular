@@ -1,4 +1,4 @@
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -12,11 +12,6 @@ import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions'
 import { hasValue } from '../../shared/empty.util';
 import { IndexName } from './index.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
-import {
-  AddMenuSectionAction,
-  MenuActionTypes,
-  RemoveMenuSectionAction
-} from '../../shared/menu/menu.actions';
 
 @Injectable()
 export class UUIDIndexEffects {
