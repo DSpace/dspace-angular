@@ -88,3 +88,12 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
         }
       })
     );
+
+/**
+ * Get the first occurrence of an object within a paginated list
+ */
+export const getFirstOccurrence = () =>
+  <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<RemoteData<T>> =>
+    source.pipe(
+      map((rd) => Object.assign(rd, { payload: rd.payload.page.length > 0 ? rd.payload.page[0] : undefined }))
+    );

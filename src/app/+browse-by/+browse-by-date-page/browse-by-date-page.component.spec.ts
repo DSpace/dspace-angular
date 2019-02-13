@@ -39,7 +39,7 @@ describe('BrowseByDatePageComponent', () => {
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
-    getFirstItemFor: () => toRemoteData([firstItem])
+    getFirstItemFor: () => observableOf(new RemoteData(false, false, true, undefined, firstItem))
   };
 
   const mockDsoService = {

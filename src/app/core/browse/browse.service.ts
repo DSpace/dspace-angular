@@ -26,7 +26,7 @@ import { BrowseEntry } from '../shared/browse-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   configureRequest,
-  filterSuccessfulResponses, getBrowseDefinitionLinks,
+  filterSuccessfulResponses, getBrowseDefinitionLinks, getFirstOccurrence,
   getRemoteDataPayload,
   getRequestFromSelflink,
   getResponseFromSelflink
@@ -170,7 +170,7 @@ export class BrowseService {
    * @param definition
    * @param scope
    */
-  getFirstItemFor(definition: string, scope?: string): Observable<RemoteData<PaginatedList<Item>>> {
+  getFirstItemFor(definition: string, scope?: string): Observable<RemoteData<Item>> {
     return this.getBrowseDefinitions().pipe(
       getBrowseDefinitionLinks(definition),
       hasValueOperator(),
@@ -188,7 +188,8 @@ export class BrowseService {
         }
         return href;
       }),
-      getBrowseItemsFor(this.requestService, this.responseCache, this.rdb)
+      getBrowseItemsFor(this.requestService, this.responseCache, this.rdb),
+      getFirstOccurrence()
     );
   }
 

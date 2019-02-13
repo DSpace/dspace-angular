@@ -75,10 +75,10 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
    */
   updateStartsWithOptions(definition: string, metadataField: string, scope?: string) {
     this.subs.push(
-      this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<PaginatedList<Item>>) => {
+      this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<Item>) => {
         let lowerLimit = this.config.browseBy.defaultLowerLimit;
-        if (firstItemRD.payload.page.length > 0) {
-          const date = firstItemRD.payload.page[0].findMetadata(metadataField);
+        if (hasValue(firstItemRD.payload)) {
+          const date = firstItemRD.payload.findMetadata(metadataField);
           if (hasValue(date) && hasValue(+date.split('-')[0])) {
             lowerLimit = +date.split('-')[0];
           }
