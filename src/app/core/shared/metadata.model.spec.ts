@@ -1,8 +1,9 @@
+import { isUndefined } from '../../shared/empty.util';
 import { MetadataValue, MetadataValueFilter } from './metadata.interfaces';
 import { Metadata } from './metadata.model';
 
 const mdValue = (value: string, language?: string): MetadataValue => {
-  return { value: value, language: language === undefined ? null : language };
+  return { value: value, language: isUndefined(language) ? null : language };
 }
 
 const dcDescription = mdValue('Some description');
@@ -24,12 +25,12 @@ const multiMap = {
 const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => {
   const keys = keyOrKeys instanceof Array ? keyOrKeys : [ keyOrKeys ];
   describe('and key' + (keys.length === 1 ? (' ' + keys[0]) : ('s ' + JSON.stringify(keys)))
-        + ' with ' + (filter === undefined ? 'no filter' : 'filter ' + JSON.stringify(filter)), () => {
+        + ' with ' + (isUndefined(filter) ? 'no filter' : 'filter ' + JSON.stringify(filter)), () => {
     const result = fn(mapOrMaps, keys, filter);
     let shouldReturn;
     if (resultKind === 'boolean') {
       shouldReturn = expected;
-    } else if (expected === undefined) {
+    } else if (isUndefined(expected)) {
       shouldReturn = 'undefined';
     } else if (expected instanceof Array) {
       shouldReturn = 'an array with ' + expected.length + ' ' + (expected.length > 1 ? 'ordered ' : '')
@@ -152,7 +153,7 @@ describe('Metadata', () => {
 
     const testValueMatches = (value: MetadataValue, expected: boolean, filter?: MetadataValueFilter) => {
       describe('with value ' + JSON.stringify(value) + ' and filter '
-          + (filter === undefined ? 'undefined' : JSON.stringify(filter)), () => {
+          + (isUndefined(filter) ? 'undefined' : JSON.stringify(filter)), () => {
         const result = Metadata.valueMatches(value, filter);
         it('should return ' + expected, () => {
           expect(result).toEqual(expected);

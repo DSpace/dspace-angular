@@ -1,4 +1,4 @@
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
 import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.interfaces';
 
 /**
@@ -93,7 +93,7 @@ export class Metadata {
   public static firstValue(mdMapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                            filter?: MetadataValueFilter): string {
     const value = Metadata.first(mdMapOrMaps, keyOrKeys, filter);
-    return value === undefined ? undefined : value.value;
+    return isUndefined(value) ? undefined : value.value;
   }
 
   /**
@@ -106,7 +106,7 @@ export class Metadata {
    */
   public static has(mdMapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                     filter?: MetadataValueFilter): boolean {
-    return Metadata.first(mdMapOrMaps, keyOrKeys, filter) !== undefined;
+    return isNotUndefined(Metadata.first(mdMapOrMaps, keyOrKeys, filter));
   }
 
   /**
