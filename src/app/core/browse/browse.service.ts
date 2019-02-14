@@ -34,6 +34,9 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { Item } from '../shared/item.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
+/**
+ * Service that performs all actions that have to do with browse.
+ */
 @Injectable()
 export class BrowseService {
   protected linkPath = 'browses';

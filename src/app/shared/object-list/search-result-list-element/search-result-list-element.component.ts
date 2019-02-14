@@ -21,12 +21,22 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
     this.dso = this.object.dspaceObject;
   }
 
-  /** Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights. */
+  /**
+   * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {string[]} the matching string values or an empty array.
+   */
   allMetadataValues(keyOrKeys: string | string[]): string[] {
     return Metadata.allValues([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
 
-  /** Gets the first matching metadata string value from hitHighlights or dso metadata, preferring hitHighlights. */
+  /**
+   * Gets the first matching metadata string value from hitHighlights or dso metadata, preferring hitHighlights.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {string} the first matching string value, or `undefined`.
+   */
   firstMetadataValue(keyOrKeys: string | string[]): string {
     return Metadata.firstValue([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }

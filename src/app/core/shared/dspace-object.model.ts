@@ -54,27 +54,57 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    */
   owner: Observable<RemoteData<DSpaceObject>>;
 
-  /** Gets all matching metadata in this DSpaceObject. See `Metadata.all` for more information. */
+  /**
+   * Gets all matching metadata in this DSpaceObject.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {MetadataValue[]} the matching values or an empty array.
+   */
   allMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): MetadataValue[] {
     return Metadata.all(this.metadata, keyOrKeys, valueFilter);
   }
 
-  /** Like `allMetadata`, but only returns string values. */
+  /**
+   * Like [[allMetadata]], but only returns string values.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {string[]} the matching string values or an empty array.
+   */
   allMetadataValues(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string[] {
     return Metadata.allValues(this.metadata, keyOrKeys, valueFilter);
   }
 
-  /** Gets the first matching metadata in this DSpaceObject, or `undefined`. */
+  /**
+   * Gets the first matching MetadataValue object in this DSpaceObject, or `undefined`.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {MetadataValue} the first matching value, or `undefined`.
+   */
   firstMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): MetadataValue {
     return Metadata.first(this.metadata, keyOrKeys, valueFilter);
   }
 
-  /** Like `firstMetadata`, but only returns a string value, or `undefined`. */
+  /**
+   * Like [[firstMetadata]], but only returns a string value, or `undefined`.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {string} the first matching string value, or `undefined`.
+   */
   firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
     return Metadata.firstValue(this.metadata, keyOrKeys, valueFilter);
   }
 
-  /** Checks for matching metadata in this DSpaceObject. */
+  /**
+   * Checks for a matching metadata value in this DSpaceObject.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {boolean} whether a match is found.
+   */
   hasMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): boolean {
     return Metadata.has(this.metadata, keyOrKeys, valueFilter);
   }

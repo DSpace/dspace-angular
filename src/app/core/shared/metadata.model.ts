@@ -2,23 +2,27 @@ import { isEmpty } from '../../shared/empty.util';
 import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.interfaces';
 
 /**
- * Static utility methods for working with DSpace metadata.
+ * Utility class for working with DSpace object metadata.
+ *
+ * When specifying metadata keys, wildcards are supported, so `'*'` will match all keys, `'dc.date.*'` will
+ * match all qualified dc dates, and so on. Exact keys will be evaluated (and matches returned) in the order
+ * they are given.
+ *
+ * When multiple keys in a map match a given wildcard, they are evaluated in the order they are stored in
+ * the map (alphanumeric if obtained from the REST api). If duplicate or overlapping keys are specified, the
+ * first one takes precedence. For example, specifying `['dc.date', 'dc.*', '*']` will cause any `dc.date`
+ * values to be evaluated (and returned, if matched) first, followed by any other `dc` metadata values,
+ * followed by any other (non-dc) metadata values.
  */
 export class Metadata {
 
   /**
-   * Gets all matching metadata.
+   * Gets all matching metadata in the map(s).
    *
-   * @param {MetadataMap|MetadataMap[]} mapOrMaps The source map(s). Values will only be returned from one map --
-   * the first with at least one match.
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported, so `'*'` will
-   * match all keys, `'dc.date.*'` will match all qualified dc dates, and so on. Exact keys will be evaluated
-   * (and matches returned) in the order they are given in the parameter. When multiple keys match a wildcard,
-   * they are evaluated in the order they are stored in the map (alphanumeric if obtained from the REST api).
-   * If duplicate or overlapping keys are specified, the first one takes precedence. For example, specifying
-   * `['dc.date', 'dc.*', '*']` will cause any `dc.date` values to be evaluated (and returned, if matched)
-   * first, followed by any other `dc` metadata values, followed by any other (non-dc) metadata values.
-   * @param {MetadataValueFilter} filter The value filter to use.
+   * @param {MetadataMap|MetadataMap[]} mapOrMaps The source map(s). When multiple maps are given, they will be
+   * checked in order, and only values from the first with at least one match will be returned.
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
   public static all(mapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
@@ -43,13 +47,28 @@ export class Metadata {
     return matches;
   }
 
-  /** Like `all`, but only returns string values. */
+  /**
+   * Like [[Metadata.all]], but only returns string values.
+   *
+   * @param {MetadataMap|MetadataMap[]} mapOrMaps The source map(s). When multiple maps are given, they will be
+   * checked in order, and only values from the first with at least one match will be returned.
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {string[]} the matching string values or an empty array.
+   */
   public static allValues(mapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                           filter?: MetadataValueFilter): string[] {
     return Metadata.all(mapOrMaps, keyOrKeys, filter).map((mdValue) => mdValue.value);
   }
 
-  /** Gets the first matching MetadataValue object in a map, or `undefined`. */
+  /**
+   * Gets the first matching MetadataValue object in the map(s), or `undefined`.
+   *
+   * @param {MetadataMap|MetadataMap[]} mapOrMaps The source map(s).
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {MetadataValue} the first matching value, or `undefined`.
+   */
   public static first(mdMapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                       filter?: MetadataValueFilter): MetadataValue {
     const mdMaps: MetadataMap[] = mdMapOrMaps instanceof Array ? mdMapOrMaps : [ mdMapOrMaps ];
@@ -63,20 +82,40 @@ export class Metadata {
     }
   }
 
-  /** Like `first`, but only returns a string value, or `undefined`. */
+  /**
+   * Like [[Metadata.first]], but only returns a string value, or `undefined`.
+   *
+   * @param {MetadataMap|MetadataMap[]} mapOrMaps The source map(s).
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {string} the first matching string value, or `undefined`.
+   */
   public static firstValue(mdMapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                            filter?: MetadataValueFilter): string {
     const value = Metadata.first(mdMapOrMaps, keyOrKeys, filter);
     return value === undefined ? undefined : value.value;
   }
 
-  /** Checks the given map for a matching value. */
+  /**
+   * Checks for a matching metadata value in the given map(s).
+   *
+   * @param {MetadataMap|MetadataMap[]} mapOrMaps The source map(s).
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
+   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {boolean} whether a match is found.
+   */
   public static has(mdMapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                     filter?: MetadataValueFilter): boolean {
     return Metadata.first(mdMapOrMaps, keyOrKeys, filter) !== undefined;
   }
 
-  /** Checks if a value matches a filter. */
+  /**
+   * Checks if a value matches a filter.
+   *
+   * @param {MetadataValue} mdValue the value to check.
+   * @param {MetadataValueFilter} filter the filter to use.
+   * @returns {boolean} whether the filter matches, or true if no filter is given.
+   */
   public static valueMatches(mdValue: MetadataValue, filter: MetadataValueFilter) {
     if (!filter) {
       return true;
@@ -98,7 +137,12 @@ export class Metadata {
     return true;
   }
 
-  /** Gets the list of keys in the map limited by, and in the order given by `keyOrKeys` */
+  /**
+   * Gets the list of keys in the map limited by, and in the order given by `keyOrKeys`.
+   *
+   * @param {MetadataMap} mdMap The source map.
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
+   */
   private static resolveKeys(mdMap: MetadataMap, keyOrKeys: string | string[]): string[] {
     const inputKeys: string[] = keyOrKeys instanceof Array ? keyOrKeys : [ keyOrKeys ];
     const outputKeys: string[] = [];
