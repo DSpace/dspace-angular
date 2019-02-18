@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { SectionsService } from '../../sections/sections.service';
@@ -33,11 +33,13 @@ export class SubmissionUploadFilesComponent implements OnChanges {
   private uploadEnabled: Observable<boolean> = observableOf(false);
 
   public onBeforeUpload = () => {
-    this.operationsService.jsonPatchByResourceType(
+    const sub: Subscription = this.operationsService.jsonPatchByResourceType(
       this.submissionService.getSubmissionObjectLinkName(),
       this.submissionId,
       'sections')
       .subscribe();
+    this.subs.push(sub);
+    return sub;
   };
 
   constructor(private notificationsService: NotificationsService,

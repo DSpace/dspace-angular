@@ -44,7 +44,7 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   public optionsList: any;
 
   protected searchOptions: IntegrationSearchOptions;
-  protected sub: Subscription;
+  protected subs: Subscription[] = [];
 
   constructor(private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef,
@@ -69,14 +69,14 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
 
     this.setInputsValue(this.model.value);
 
-    this.model.valueUpdates
+    this.subs.push(this.model.valueUpdates
       .subscribe((value) => {
         if (isEmpty(value)) {
           this.resetFields();
         } else if (!this.editMode) {
           this.setInputsValue(this.model.value);
         }
-      });
+      }));
   }
 
   protected getCurrentValue(): string {
@@ -234,7 +234,7 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
     this.searchOptions.query = this.getCurrentValue();
 
     this.loading = true;
-    this.authorityService.getEntriesByName(this.searchOptions).pipe(
+    this.subs.push(this.authorityService.getEntriesByName(this.searchOptions).pipe(
       catchError(() => {
         const emptyResult = new IntegrationData(
           new PageInfo(),
@@ -248,7 +248,7 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
         this.pageInfo = object.pageInfo;
         this.loading = false;
         this.cdr.detectChanges();
-      });
+      }));
   }
 
   public switchEditMode() {
@@ -263,8 +263,8 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   }
 
   ngOnDestroy() {
-    if (hasValue(this.sub)) {
-      this.sub.unsubscribe();
-    }
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 }
