@@ -568,6 +568,17 @@
           "until-label": "Access grant until",
           "until-placeholder": "Until",
           "group-label": "Group"
+        },
+        "save-metadata": "Save metadata",
+        "undo": "Cancel",
+        "delete": {
+          "submit": "Delete",
+          "confirm": {
+            "cancel": "Cancel",
+            "submit": "Yes, I'm sure",
+            "title": "Delete bitstream",
+            "info": "This operation can't be undone. Are you sure?"
+          }
         }
       }
     }

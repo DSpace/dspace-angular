@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
 
+import { BehaviorSubject } from 'rxjs';
 import { filter, first, flatMap } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -42,6 +43,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   public formId;
   public readMode;
   public formModel: DynamicFormControlModel[];
+  public processingDelete$ = new BehaviorSubject<boolean>(false);
 
   protected pathCombiner: JsonPatchOperationPathCombiner;
   protected subscriptions = [];
@@ -79,20 +81,23 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   }
 
   protected deleteFile() {
-    this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
     this.operationsBuilder.remove(this.pathCombiner.getPath());
-    this.operationsService.jsonPatchByResourceID(
+    this.subscriptions.push(this.operationsService.jsonPatchByResourceID(
       this.submissionService.getSubmissionObjectLinkName(),
       this.submissionId,
       this.pathCombiner.rootElement,
       this.pathCombiner.subRootElement)
-      .subscribe();
+      .subscribe(() => {
+        this.uploadService.removeUploadedFile(this.submissionId, this.sectionId, this.fileId);
+        this.processingDelete$.next(false);
+      }));
   }
 
   public confirmDelete(content) {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
+          this.processingDelete$.next(true);
           this.deleteFile();
         }
       }

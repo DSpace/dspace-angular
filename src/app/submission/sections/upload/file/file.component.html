@@ -13,12 +13,24 @@
           <button class="btn btn-link" (click)="downloadBitstreamFile(); $event.stopPropagation()"><i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i></button>
           <!--<a href="{{fileData.url}}"  title="Download file" target="_blank"><i class="fa fa-download text-normal mr-3" aria-hidden="true"></i></a>-->
           <button class="btn btn-link" (click)="$event.preventDefault();switchMode();"><i class="fa fa-edit fa-2x text-normal"></i></button>
-          <button class="btn btn-link" (click)="$event.preventDefault();confirmDelete(content);"><i class="fa fa-trash fa-2x text-danger"></i></button>
+          <button class="btn btn-link"
+                  title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
+                  [disabled]="(processingDelete$ | async)"
+                  (click)="$event.preventDefault();confirmDelete(content);">
+            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
+            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
+          </button>
         </ng-container>
         <ng-container *ngIf="!readMode">
-          <button class="btn btn-link" (click)="saveBitstreamData($event);" title="Save metadata"><i class="fa fa-save fa-2x text-success"></i></button>
-          <button class="btn btn-link" (click)="$event.preventDefault();switchMode();" title="Cancel"><i class="fa fa-ban fa-2x text-warning"></i></button>
-          <button class="btn btn-link" (click)="$event.preventDefault();confirmDelete(content);" title="Delete bitstream"><i class="fa fa-trash fa-2x text-danger"></i></button>
+          <button class="btn btn-link" (click)="saveBitstreamData($event);" title="{{ 'submission.sections.upload.save-metadata' | translate }}"><i class="fa fa-save fa-2x text-success"></i></button>
+          <button class="btn btn-link" (click)="$event.preventDefault();switchMode();" title="{{ 'submission.sections.upload.undo' | translate }}"><i class="fa fa-ban fa-2x text-warning"></i></button>
+          <button class="btn btn-link"
+                  title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
+                  [disabled]="(processingDelete$ | async)"
+                  (click)="$event.preventDefault();confirmDelete(content);">
+            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
+            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
+          </button>
         </ng-container>
       </div>
       <div class="clearfix"></div>
@@ -41,16 +53,16 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title text-danger">Delete file</h4>
+    <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p>This operation can't be undone. Are you sure?</p>
+    <p>{{ 'submission.sections.upload.delete.confirm.info' | translate }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('cancel')">Cancel</button>
-    <button type="button" class="btn btn-danger" (click)="c('ok')">Yes, I'm sure</button>
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
   </div>
 </ng-template>
