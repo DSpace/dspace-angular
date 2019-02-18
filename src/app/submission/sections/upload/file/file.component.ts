@@ -12,7 +12,7 @@ import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/buil
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
 import { deleteProperty } from '../../../../shared/object.util';
-import { dateToGMTString } from '../../../../shared/date.util';
+import { dateToISOFormat } from '../../../../shared/date.util';
 import { SubmissionService } from '../../../submission.service';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
@@ -144,12 +144,12 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
                 accessConditionOpt.groupUUID = this.retrieveValueFromField(accessCondition.groupUUID);
                 if (accessCondition.startDate) {
                   const startDate = this.retrieveValueFromField(accessCondition.startDate);
-                  accessConditionOpt.startDate = dateToGMTString(startDate);
+                  accessConditionOpt.startDate = dateToISOFormat(startDate);
                   accessConditionOpt = deleteProperty(accessConditionOpt, 'endDate');
                 }
                 if (accessCondition.endDate) {
                   const endDate = this.retrieveValueFromField(accessCondition.endDate);
-                  accessConditionOpt.endDate = dateToGMTString(endDate);
+                  accessConditionOpt.endDate = dateToISOFormat(endDate);
                   accessConditionOpt = deleteProperty(accessConditionOpt, 'startDate');
                 }
                 accessConditionsToSave.push(accessConditionOpt);
