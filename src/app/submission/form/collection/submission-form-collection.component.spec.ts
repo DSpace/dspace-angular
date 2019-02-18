@@ -24,6 +24,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { createTestComponent } from '../../../shared/testing/utils';
+import { cold } from 'jasmine-marbles';
 
 const subcommunities = [Object.assign(new Community(), {
   name: 'SubCommunity 1',
@@ -288,11 +289,15 @@ describe('SubmissionFormCollectionComponent Component', () => {
         currentCollectionId: new SimpleChange(null, collectionId, true)
       });
 
-      comp.searchListCollection$.pipe(
-        filter(() => !comp.disabled$.getValue())
-      ).subscribe((list) => {
-        expect(list).toEqual(mockCollectionList);
-      })
+      expect(comp.searchListCollection$).toBeObservable(cold('(ab)', {
+        a: [],
+        b: mockCollectionList
+      }));
+
+      expect(comp.selectedCollectionName$).toBeObservable(cold('(ab|)', {
+        a: '',
+        b: 'Community 1-Collection 1'
+      }));
     });
 
     it('should show only the searched collection', () => {
@@ -306,7 +311,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
         filter(() => !comp.disabled$.getValue())
       ).subscribe((list) => {
         expect(list).toEqual([mockCollectionList[3]]);
-      })
+      });
+
     });
 
     it('should emit collectionChange event when selecting a new collection', () => {
@@ -321,7 +327,9 @@ describe('SubmissionFormCollectionComponent Component', () => {
       expect(comp.collectionChange.emit).toHaveBeenCalledWith(submissionRestResponse[0]);
       expect(submissionServiceStub.changeSubmissionCollection).toHaveBeenCalled();
       expect(comp.selectedCollectionId).toBe(mockCollectionList[1].collection.id);
-      expect(comp.selectedCollectionName).toBe(mockCollectionList[1].collection.name);
+      expect(comp.selectedCollectionName$).toBeObservable(cold('(a|)', {
+        a: mockCollectionList[1].collection.name
+      }));
 
     });
 

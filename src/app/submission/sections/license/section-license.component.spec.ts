@@ -37,6 +37,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { License } from '../../../core/shared/license.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { cold } from 'jasmine-marbles';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -205,7 +206,10 @@ describe('LicenseSectionComponent test suite', () => {
       expect(compAsAny.subs.length).toBe(2);
       expect(comp.formModel).toBeDefined();
       expect(model.value).toBeFalsy();
-      expect(comp.licenseText).toBe(licenseText);
+      expect(comp.licenseText$).toBeObservable(cold('(ab|)', {
+        a: '',
+        b: licenseText
+      }));
     });
 
     it('should set checkbox value to true', () => {
@@ -228,7 +232,10 @@ describe('LicenseSectionComponent test suite', () => {
       expect(compAsAny.subs.length).toBe(2);
       expect(comp.formModel).toBeDefined();
       expect(model.value).toBeTruthy();
-      expect(comp.licenseText).toBe(licenseText);
+      expect(comp.licenseText$).toBeObservable(cold('(ab|)', {
+        a: '',
+        b: licenseText
+      }));
     });
 
     it('should set section errors properly', () => {

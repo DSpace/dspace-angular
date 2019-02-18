@@ -67,7 +67,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   public searchField: FormControl = new FormControl();
   public searchListCollection$: Observable<CollectionListEntry[]>;
   public selectedCollectionId: string;
-  public selectedCollectionName: string;
   public selectedCollectionName$: Observable<string>;
 
   protected pathCombiner: JsonPatchOperationPathCombiner;
@@ -114,8 +113,8 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
             mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
             filter((collectionData: Collection) => isNotEmpty(collectionData)),
             map((collectionData: Collection) => ({
-              communities: [{id: communityData.id, name: communityData.name}],
-              collection: {id: collectionData.id, name: collectionData.name}
+              communities: [{ id: communityData.id, name: communityData.name }],
+              collection: { id: collectionData.id, name: collectionData.name }
             }))
           );
         }),
@@ -173,7 +172,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       'collection')
       .subscribe((submissionObject: SubmissionObject[]) => {
         this.selectedCollectionId = event.collection.id;
-        this.selectedCollectionName = event.collection.name;
         this.selectedCollectionName$ = observableOf(event.collection.name);
         this.collectionChange.emit(submissionObject[0]);
         this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
