@@ -555,7 +555,7 @@
       "upload": {
         "no-entry": "No",
         "no-file-uploaded": "No file uploaded yet.",
-        "info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging&dropping them everywhere in the page</strong>",
+        "info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
         "drop-message": "Drop files to attach them to the item",
         "upload-successful": "Upload successful",
         "upload-failed": "Upload failed",
