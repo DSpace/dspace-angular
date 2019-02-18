@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, flatMap, map, startWith, take } from 'rxjs/operators';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -41,7 +41,7 @@ export class LicenseSectionComponent extends SectionModelComponent {
   public formModel: DynamicFormControlModel[];
   public formLayout: DynamicFormLayout = SECTION_LICENSE_FORM_LAYOUT;
   public displaySubmit = false;
-  public licenseText: string;
+  public licenseText$: Observable<string>;
 
   protected pathCombiner: JsonPatchOperationPathCombiner;
   protected subs: Subscription[] = [];
@@ -68,33 +68,31 @@ export class LicenseSectionComponent extends SectionModelComponent {
     this.formModel = this.formBuilderService.fromJSON(SECTION_LICENSE_FORM_MODEL);
     const model = this.formBuilderService.findById('granted', this.formModel);
 
+    // Retrieve license accepted status
+    if ((this.sectionData.data as WorkspaceitemSectionLicenseObject).granted) {
+      (model as DynamicCheckboxModel).valueUpdates.next(true);
+    } else {
+      (model as DynamicCheckboxModel).valueUpdates.next(false);
+    }
+
+    this.licenseText$ = this.collectionDataService.findById(this.collectionId).pipe(
+      filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
+      flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license),
+      find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),
+      map((licenseData: RemoteData<License>) => licenseData.payload.text),
+      startWith(''));
+
     this.subs.push(
-      this.collectionDataService.findById(this.collectionId).pipe(
-        filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
-        flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license),
-        find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))))
-        .subscribe((licenseData: RemoteData<License>) => {
-          this.licenseText = licenseData.payload.text;
-
-          // Retrieve license accepted status
-          if ((this.sectionData.data as WorkspaceitemSectionLicenseObject).granted) {
-            (model as DynamicCheckboxModel).valueUpdates.next(true);
-          } else {
-            (model as DynamicCheckboxModel).valueUpdates.next(false);
-          }
-
-          // Disable checkbox whether it's in workflow or item scope
-          this.sectionService.isSectionReadOnly(
-            this.submissionId,
-            this.sectionData.id,
-            this.submissionService.getSubmissionScope()
-          ).pipe(
-            take(1),
-            filter((isReadOnly) => isReadOnly))
-            .subscribe(() => {
-              model.disabledUpdates.next(true);
-            });
-          this.changeDetectorRef.detectChanges();
+      // Disable checkbox whether it's in workflow or item scope
+      this.sectionService.isSectionReadOnly(
+        this.submissionId,
+        this.sectionData.id,
+        this.submissionService.getSubmissionScope()
+      ).pipe(
+        take(1),
+        filter((isReadOnly) => isReadOnly))
+        .subscribe(() => {
+          model.disabledUpdates.next(true);
         }),
 
       this.sectionService.getSectionErrors(this.submissionId, this.sectionData.id).pipe(
@@ -108,7 +106,7 @@ export class LicenseSectionComponent extends SectionModelComponent {
             if (error.path === '/sections/license') {
               // check whether license is not accepted
               if (!(model as DynamicCheckboxModel).checked) {
-                return Object.assign({}, error, {path: '/sections/license/granted'});
+                return Object.assign({}, error, { path: '/sections/license/granted' });
               } else {
                 return null;
               }

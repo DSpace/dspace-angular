@@ -13,7 +13,7 @@
             [disabled]="(disabled$ | async)"
             ngbDropdownToggle>
       <span *ngIf="(disabled$ | async)"><i class='fas fa-circle-notch fa-spin'></i></span>
-      <span *ngIf="!(disabled$ | async)">{{ (selectedCollectionName) ? selectedCollectionName : '' }}</span>
+      <span *ngIf="!(disabled$ | async)">{{ selectedCollectionName$ | async }}</span>
     </button>
 
     <div ngbDropdownMenu
