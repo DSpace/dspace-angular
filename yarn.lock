@@ -3500,6 +3500,7 @@ fast-glob@^2.0.2:
 fast-json-patch@^2.0.7:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/fast-json-patch/-/fast-json-patch-2.0.7.tgz#55864b08b1e50381d2f37fd472bb2e18fe54a733"
+  integrity sha512-DQeoEyPYxdTtfmB3yDlxkLyKTdbJ6ABfFGcMynDqjvGhPYLto/pZyb/dG2Nyd/n9CArjEWN9ZST++AFmgzgbGw==
   dependencies:
     deep-equal "^1.0.1"
 

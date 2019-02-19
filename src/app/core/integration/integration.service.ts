@@ -2,16 +2,12 @@ import { Observable, of as observableOf, throwError as observableThrowError } fr
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { IntegrationSuccessResponse } from '../cache/response.models';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { IntegrationSuccessResponse, RestResponse } from '../cache/response-cache.models';
 import { GetRequest, IntegrationRequest } from '../data/request.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IntegrationData } from './integration-data';
 import { IntegrationSearchOptions } from './models/integration-options.model';
-import { RequestEntry } from '../data/request.reducer';
 import { getResponseFromEntry } from '../shared/operators';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 export abstract class IntegrationService {
   protected request: IntegrationRequest;

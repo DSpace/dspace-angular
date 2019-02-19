@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response-cache.models';
+import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache/response.models';
 import { isEmpty, isNotEmpty, isNotNull } from '../../shared/empty.util';
 import { ConfigObject } from '../config/models/config.model';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';

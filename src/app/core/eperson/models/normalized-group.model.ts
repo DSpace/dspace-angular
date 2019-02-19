@@ -13,5 +13,8 @@ export class NormalizedGroup extends NormalizedDSpaceObject implements Cacheable
   public handle: string;
 
   @autoserialize
+  public name: string;
+
+  @autoserialize
   public permanent: boolean;
 }

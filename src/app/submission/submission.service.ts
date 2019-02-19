@@ -41,7 +41,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
 import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
 import { RemoteData } from '../core/data/remote-data';
-import { ErrorResponse } from '../core/cache/response-cache.models';
+import { ErrorResponse } from '../core/cache/response.models';
 import { RemoteDataError } from '../core/data/remote-data-error';
 
 @Injectable()

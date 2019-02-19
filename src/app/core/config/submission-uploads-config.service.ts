@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 
 /**
  * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.
@@ -13,7 +13,7 @@ export class SubmissionUploadsConfigService extends ConfigService {
   protected browseEndpoint = '';
 
   constructor(
-    protected responseCache: ResponseCacheService,
+    protected objectCache: ObjectCacheService,
     protected requestService: RequestService,
     protected halService: HALEndpointService) {
     super();

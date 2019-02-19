@@ -104,9 +104,9 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
 
   onCollectionChange(submissionObject: SubmissionObject) {
     this.collectionId = (submissionObject.collection as Collection).id;
-    if (this.definitionId !== submissionObject.submissionDefinition.name) {
+    if (this.definitionId !== (submissionObject.submissionDefinition as SubmissionDefinitionsModel).name) {
       this.sections = submissionObject.sections;
-      this.submissionDefinition = submissionObject.submissionDefinition;
+      this.submissionDefinition = (submissionObject.submissionDefinition as SubmissionDefinitionsModel);
       this.definitionId = this.submissionDefinition.name;
       this.submissionService.resetSubmissionObject(
         this.collectionId,

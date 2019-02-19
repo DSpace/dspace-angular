@@ -48,7 +48,7 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
   /**
    * The submission config definition
    */
-  submissionDefinition: SubmissionDefinitionsModel;
+  submissionDefinition: Observable<RemoteData<SubmissionDefinitionsModel>> | SubmissionDefinitionsModel;
 
   /**
    * The workspaceitem submitter

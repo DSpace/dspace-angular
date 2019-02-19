@@ -77,7 +77,6 @@ describe('UploadSectionFileViewComponent test suite', () => {
 
       fixture.detectChanges();
 
-      console.log(comp.metadata);
       expect(comp.metadata.length).toBe(2);
 
     });

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 
 import { DSpaceRESTv2Service, HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { RestRequestMethod } from '../data/request.models';
+import { RestRequestMethod } from '../data/rest-request-method';
 import { saveAs } from 'file-saver';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
@@ -24,7 +24,7 @@ export class FileService {
   downloadFile(url: string) {
     const headers = new HttpHeaders();
     const options: HttpOptions = Object.create({headers, responseType: 'blob'});
-    return this.restService.request(RestRequestMethod.Get, url, null, options)
+    return this.restService.request(RestRequestMethod.GET, url, null, options)
       .subscribe((data) => {
         saveAs(data.payload as Blob, this.getFileNameFromResponseContentDisposition(data));
       });

@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
-import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
-
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { Workflowitem } from './models/workflowitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions } from '../data/request.models';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 @Injectable()
 export class WorkflowitemDataService extends DataService<NormalizedWorkflowItem, Workflowitem> {
@@ -19,12 +21,15 @@ export class WorkflowitemDataService extends DataService<NormalizedWorkflowItem,
   protected forceBypassCache = true;
 
   constructor(
-    protected responseCache: ResponseCacheService,
+    protected comparator: DSOChangeAnalyzer,
+    protected dataBuildService: NormalizedObjectBuildService,
+    protected halService: HALEndpointService,
+    protected http: HttpClient,
+    protected notificationsService: NotificationsService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected store: Store<CoreState>,
-    protected bs: BrowseService,
-    protected halService: HALEndpointService) {
+    protected objectCache: ObjectCacheService,
+    protected store: Store<CoreState>) {
     super();
   }
 

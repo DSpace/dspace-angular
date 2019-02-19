@@ -1,4 +1,3 @@
-import { distinctUntilChanged, filter, first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -10,10 +9,8 @@ import {
   switchMap,
   take
 } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';

@@ -1,8 +1,7 @@
-import { merge as observableMerge, Observable, of as observableOf, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
-import { remove } from 'lodash';
+import { merge as observableMerge, Observable, of as observableOf, race as observableRace } from 'rxjs';
+import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 
 import { hasNoValue, hasValue } from '../../shared/empty.util';
@@ -15,7 +14,6 @@ import { pathSelector } from '../shared/selectors';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
-
 import { RequestEntry } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
@@ -70,6 +68,7 @@ export class RequestService {
       this.store.pipe(
         select(this.originalUUIDFromUUIDSelector(uuid)),
         mergeMap((originalUUID) => {
+            console.log(originalUUID);
             return this.store.pipe(select(this.entryFromUUIDSelector(originalUUID)))
           },
         ))
@@ -83,19 +82,6 @@ export class RequestService {
     );
   }
 
-  private clearRequestsOnTheirWayToTheStore(href) {
-    this.getByHref(href).pipe(
-      take(1)
-    ).subscribe((re: RequestEntry) => {
-        if (!hasValue(re)) {
-          this.responseCache.remove(href);
-        } else if (!re.responsePending) {
-          this.responseCache.remove(href);
-          remove(this.requestsOnTheirWayToTheStore, (item) => item === href);
-        }
-      });
-  }
-
   /**
    * Configure a certain request
    * Used to make sure a request is in the cache
@@ -105,12 +91,9 @@ export class RequestService {
   // TODO to review "forceBypassCache" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    if (forceBypassCache) {
-      this.clearRequestsOnTheirWayToTheStore(request.href);
-    }
-    if (!isGetRequest || !this.isCachedOrPending(request) || (forceBypassCache && !this.isPending(request))) {
+    if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {
       this.dispatchRequest(request);
-      if (isGetRequest) {
+      if (isGetRequest && !forceBypassCache) {
         this.trackRequestsOnTheirWayToTheStore(request);
       }
     } else {

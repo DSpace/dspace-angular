@@ -35,35 +35,35 @@ describe('IntegrationResponseParsingService', () => {
   function initVars() {
     pageInfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1, self: 'https://rest.api/integration/authorities/type/entries'});
     definitions = new PaginatedList(pageInfo,[
-      Object.assign({}, new AuthorityValue(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'One',
         id: 'One',
         otherInformation: undefined,
         value: 'One'
       }),
-      Object.assign({}, new AuthorityValue(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'Two',
         id: 'Two',
         otherInformation: undefined,
         value: 'Two'
       }),
-      Object.assign({}, new AuthorityValue(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'Three',
         id: 'Three',
         otherInformation: undefined,
         value: 'Three'
       }),
-      Object.assign({}, new AuthorityValue(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'Four',
         id: 'Four',
         otherInformation: undefined,
         value: 'Four'
       }),
-      Object.assign({}, new AuthorityValue(), {
+      Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'Five',
         id: 'Five',

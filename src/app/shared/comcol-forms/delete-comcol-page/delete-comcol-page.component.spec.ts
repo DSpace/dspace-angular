@@ -108,7 +108,6 @@ describe('DeleteComColPageComponent', () => {
 
     it('should show an error notification on failure', () => {
       (dsoDataService.delete as any).and.returnValue(observableOf(false));
-      spyOn(notificationsService, 'error');
       spyOn(router, 'navigate');
       comp.onConfirm(data2);
       fixture.detectChanges();
@@ -117,7 +116,6 @@ describe('DeleteComColPageComponent', () => {
     });
 
     it('should show a success notification on success and navigate', () => {
-      spyOn(notificationsService, 'success');
       spyOn(router, 'navigate');
       comp.onConfirm(data1);
       fixture.detectChanges();

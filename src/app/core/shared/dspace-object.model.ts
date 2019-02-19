@@ -1,5 +1,5 @@
 import { Metadatum } from './metadatum.model'
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty, isUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
@@ -11,6 +11,8 @@ import { autoserialize } from 'cerialize';
  * An abstract model class for a DSpaceObject.
  */
 export class DSpaceObject implements CacheableObject, ListableObject {
+
+  private _name: string;
 
   self: string;
 
@@ -35,7 +37,14 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    * The name for this DSpaceObject
    */
   get name(): string {
-    return this.findMetadata('dc.title');
+    return (isUndefined(this._name)) ? this.findMetadata('dc.title') : this._name;
+  }
+
+  /**
+   * The name for this DSpaceObject
+   */
+  set name(name) {
+    this._name = name;
   }
 
   /**

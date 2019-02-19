@@ -1,14 +1,12 @@
 import { of as observableOf } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { ResponseCacheService } from '../../core/cache/response-cache.service';
 import { RequestService } from '../../core/data/request.service';
 import { CoreState } from '../../core/core.reducers';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 
 export class SubmissionRestServiceStub {
   protected linkPath = 'workspaceitems';
-  protected responseCache: ResponseCacheService;
   protected requestService: RequestService;
   protected store: Store<CoreState>;
   protected halService: HALEndpointService;

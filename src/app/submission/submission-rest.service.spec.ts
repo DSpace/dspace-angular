@@ -1,8 +1,7 @@
 import { TestScheduler } from 'rxjs/testing';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import { getTestScheduler } from 'jasmine-marbles';
 
 import { SubmissionRestService } from './submission-rest.service';
-import { ResponseCacheService } from '../core/cache/response-cache.service';
 import { RequestService } from '../core/data/request.service';
 import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 import { getMockRequestService } from '../shared/mocks/mock-request.service';
@@ -19,7 +18,6 @@ import { FormFieldMetadataValueObject } from '../shared/form/builder/models/form
 describe('SubmissionRestService test suite', () => {
   let scheduler: TestScheduler;
   let service: SubmissionRestService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
   let halService: any;
@@ -31,27 +29,15 @@ describe('SubmissionRestService test suite', () => {
   const resourceHref = resourceEndpointURL + '/' + resourceEndpoint + '/' + resourceScope;
   const timestampResponse = 1545994811992;
 
-  function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
-    return jasmine.createSpyObj('responseCache', {
-      get: cold('c-', {
-        c: {response: {isSuccessful},
-          timeAdded: timestampResponse}
-      }),
-      remove: jasmine.createSpy('remove')
-    });
-  }
-
   function initTestService() {
     return new SubmissionRestService(
       rdbService,
-      responseCache,
       requestService,
       halService
     );
   }
 
   beforeEach(() => {
-    responseCache = initMockResponseCacheService(true);
     requestService = getMockRequestService();
     rdbService = getMockRemoteDataBuildService();
     scheduler = getTestScheduler();
@@ -86,7 +72,7 @@ describe('SubmissionRestService test suite', () => {
       scheduler.schedule(() => service.postToEndpoint(resourceEndpoint, body, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected, true);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
   });
 
@@ -96,7 +82,7 @@ describe('SubmissionRestService test suite', () => {
       scheduler.schedule(() => service.patchToEndpoint(resourceEndpoint, body, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected, true);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
   });
 });

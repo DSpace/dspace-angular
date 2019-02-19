@@ -1,12 +1,10 @@
-import { merge as observableMerge, Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, mergeMap, partition, take, tap } from 'rxjs/operators';
+import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
+import { distinctUntilChanged, filter, find, flatMap, map, partition, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import { ErrorResponse, PostPatchSuccessResponse, RestResponse } from '../cache/response-cache.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { PatchRequest, RestRequest } from '../data/request.models';
+import { ErrorResponse, PostPatchSuccessResponse, RestResponse } from '../cache/response.models';
+import { PatchRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { CoreState } from '../core.reducers';
@@ -18,30 +16,19 @@ import {
   StartTransactionPatchOperationsAction
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel } from './json-patch.model';
+import { getResponseFromEntry } from '../shared/operators';
+import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 
 /**
  * An abstract class that provides methods to make JSON Patch requests.
  */
 export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, PatchRequestDefinition extends PatchRequest> {
-  protected abstract responseCache: ResponseCacheService;
+
   protected abstract requestService: RequestService;
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
   protected abstract patchRequestConstructor: any;
-
-  protected submitData(request: RestRequest): Observable<ResponseDefinitionDomain> {
-    const responses = this.responseCache.get(request.href).pipe(map((entry: ResponseCacheEntry) => entry.response));
-    const errorResponses = responses.pipe(
-      filter((response) => !response.isSuccessful),
-      mergeMap(() => observableThrowError(new Error(`Couldn't send data to server`)))
-    );
-    const successResponses = responses.pipe(
-      filter((response: PostPatchSuccessResponse) => isNotEmpty(response)),
-      map((response: PostPatchSuccessResponse) => response.dataDefinition)
-    );
-    return observableMerge(errorResponses, successResponses);
-  }
 
   /**
    * Submit a new JSON Patch request with all operations stored in the state that are ready to be dispatched
@@ -56,6 +43,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
    *    observable of response
    */
   protected submitJsonPatchOperations(hrefObs: Observable<string>, resourceType: string, resourceId?: string): Observable<ResponseDefinitionDomain> {
+    const requestId = this.requestService.generateRequestId();
     let startTransactionTime = null;
     const [patchRequest$, emptyRequest$] = partition((request: PatchRequestDefinition) => isNotEmpty(request.body))(hrefObs.pipe(
       flatMap((endpointURL: string) => {
@@ -84,7 +72,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
                   })
               }
             }
-            return this.getRequestInstance(this.requestService.generateRequestId(), endpointURL, body);
+            return this.getRequestInstance(requestId, endpointURL, body);
           }));
       })));
 
@@ -96,12 +84,12 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
       patchRequest$.pipe(
         filter((request: PatchRequestDefinition) => isNotEmpty(request.body)),
         tap(() => this.store.dispatch(new StartTransactionPatchOperationsAction(resourceType, resourceId, startTransactionTime))),
-        tap((request: PatchRequestDefinition) => this.requestService.configure(request, true)),
-        flatMap((request: PatchRequestDefinition) => {
-          const [successResponse$, errorResponse$] = partition((response: RestResponse) => response.isSuccessful)(this.responseCache.get(request.href).pipe(
-            filter((entry: ResponseCacheEntry) => startTransactionTime < entry.timeAdded),
-            take(1),
-            map((entry: ResponseCacheEntry) => entry.response)
+        tap((request: PatchRequestDefinition) => this.requestService.configure(request)),
+        flatMap(() => {
+          const [successResponse$, errorResponse$] = partition((response: RestResponse) => response.isSuccessful)(this.requestService.getByUUID(requestId).pipe(
+            getResponseFromEntry(),
+            find((entry: ObjectCacheEntry) => startTransactionTime < entry.timeAdded),
+            map((entry: ObjectCacheEntry) => entry),
           ));
           return observableMerge(
             errorResponse$.pipe(
