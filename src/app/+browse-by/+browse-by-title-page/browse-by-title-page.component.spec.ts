@@ -42,7 +42,8 @@ describe('BrowseByTitlePageComponent', () => {
   ];
 
   const mockBrowseService = {
-    getBrowseItemsFor: () => toRemoteData(mockItems)
+    getBrowseItemsFor: () => toRemoteData(mockItems),
+    getBrowseEntriesFor: () => toRemoteData([])
   };
 
   const mockDsoService = {
@@ -50,7 +51,8 @@ describe('BrowseByTitlePageComponent', () => {
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({})
+    params: observableOf({}),
+    data: observableOf({ metadata: 'title' })
   });
 
   beforeEach(async(() => {
