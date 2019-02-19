@@ -89,6 +89,10 @@ import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
 import { MenuModule } from './menu/menu.module';
+import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
+import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
+import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 
 const MODULES = [
@@ -135,6 +139,10 @@ const COMPONENTS = [
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
+  ComColFormComponent,
+  CreateComColPageComponent,
+  EditComColPageComponent,
+  DeleteComColPageComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,

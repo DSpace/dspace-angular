@@ -1,4 +1,4 @@
-import { RegistryBitstreamformatsSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { RegistryBitstreamformatsSuccessResponse, RestResponse } from '../cache/response.models';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';

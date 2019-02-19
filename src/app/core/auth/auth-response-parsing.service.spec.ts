@@ -1,35 +1,20 @@
-import { AuthStatusResponse } from '../cache/response-cache.models';
+import { AuthStatusResponse } from '../cache/response.models';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthResponseParsingService } from './auth-response-parsing.service';
 import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
 import { MockStore } from '../../shared/testing/mock-store';
-import { async, TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
+import { ObjectCacheState } from '../cache/object-cache.reducer';
 
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
 
-  const EnvConfig = { cache: { msToLive: 1000 } } as GlobalConfig;
-  let store: any;
-  let objectCacheService: ObjectCacheService;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({}),
-      ],
-      providers: [
-        { provide: Store, useClass: MockStore }
-      ]
-    }).compileComponents();
-  }));
+  const EnvConfig = { cache: { msToLive: 1000 } } as any;
+  const store = new MockStore<ObjectCacheState>({});
+  const objectCacheService = new ObjectCacheService(store as any);
 
   beforeEach(() => {
-    store = TestBed.get(Store);
-    objectCacheService = new ObjectCacheService(store as any);
     service = new AuthResponseParsingService(EnvConfig, objectCacheService);
   });
 

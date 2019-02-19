@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 
 import { AuthObjectFactory } from './auth-object-factory';
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { AuthStatusResponse, RestResponse } from '../cache/response-cache.models';
+import { AuthStatusResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -27,8 +27,8 @@ export class AuthResponseParsingService extends BaseResponseParsingService imple
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && (data.statusCode === 200)) {
-      const response = this.process<NormalizedAuthStatus, AuthType>(data.payload, request.href);
-      return new AuthStatusResponse(response, data.statusCode,  data.statusText);
+      const response = this.process<NormalizedAuthStatus, AuthType>(data.payload, request.uuid);
+      return new AuthStatusResponse(response, data.statusCode, data.statusText);
     } else {
       return new AuthStatusResponse(data.payload as AuthStatus, data.statusCode, data.statusText);
     }

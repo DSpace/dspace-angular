@@ -1,4 +1,4 @@
-import { ConfigSuccessResponse, ErrorResponse } from '../cache/response-cache.models';
+import { ConfigSuccessResponse, ErrorResponse } from '../cache/response.models';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -165,7 +165,13 @@ describe('ConfigResponseParsingService', () => {
         page: { size: 20, totalElements: 2, totalPages: 1, number: 0 }
       }, statusCode: 500, statusText: 'Internal Server Error'
     };
-    const pageinfo = Object.assign(new PageInfo(), { elementsPerPage: 4, totalElements: 4, totalPages: 1, currentPage: 1 });
+    const pageinfo = Object.assign(new PageInfo(), {
+      elementsPerPage: 4,
+      totalElements: 4,
+      totalPages: 1,
+      currentPage: 1,
+      self: 'https://rest.api/config/submissiondefinitions/traditional/sections'
+    });
     const definitions =
       Object.assign(new SubmissionDefinitionsModel(), {
         isDefault: true,

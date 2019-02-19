@@ -1,22 +1,22 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Item} from '../../../core/shared/item.model';
-import {RouterStub} from '../../../shared/testing/router-stub';
-import {of as observableOf} from 'rxjs';
-import {RestResponse} from '../../../core/cache/response-cache.models';
-import {RemoteData} from '../../../core/data/remote-data';
-import {NotificationsServiceStub} from '../../../shared/testing/notifications-service-stub';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateModule} from '@ngx-translate/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ItemDataService} from '../../../core/data/item-data.service';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {ItemDeleteComponent} from './item-delete.component';
-import {getItemEditPath} from '../../item-page-routing.module';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Item } from '../../../core/shared/item.model';
+import { RouterStub } from '../../../shared/testing/router-stub';
+import { of as observableOf } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { ItemDeleteComponent } from './item-delete.component';
+import { getItemEditPath } from '../../item-page-routing.module';
+import { RestResponse } from '../../../core/cache/response.models';
 
 let comp: ItemDeleteComponent;
 let fixture: ComponentFixture<ItemDeleteComponent>;
@@ -27,8 +27,6 @@ let routerStub;
 let mockItemDataService: ItemDataService;
 let routeStub;
 let notificationsServiceStub;
-let successfulRestResponse;
-let failRestResponse;
 
 describe('ItemDeleteComponent', () => {
   beforeEach(async(() => {
@@ -46,14 +44,12 @@ describe('ItemDeleteComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      delete: observableOf(new RestResponse(true, 200, 'OK'))
+      delete: observableOf(true)
     });
 
     routeStub = {
       data: observableOf({
-        item: new RemoteData(false, false, true, null, {
-          id: 'fake-id'
-        })
+        item: new RemoteData(false, false, true, null, mockItem)
       })
     };
 
@@ -63,10 +59,10 @@ describe('ItemDeleteComponent', () => {
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
       declarations: [ItemDeleteComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: Router, useValue: routerStub},
-        {provide: ItemDataService, useValue: mockItemDataService},
-        {provide: NotificationsService, useValue: notificationsServiceStub},
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Router, useValue: routerStub },
+        { provide: ItemDataService, useValue: mockItemDataService },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
@@ -74,9 +70,6 @@ describe('ItemDeleteComponent', () => {
   }));
 
   beforeEach(() => {
-    successfulRestResponse = new RestResponse(true, 200, 'OK');
-    failRestResponse = new RestResponse(false, 500, 'Internal Server Error');
-
     fixture = TestBed.createComponent(ItemDeleteComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
@@ -95,22 +88,21 @@ describe('ItemDeleteComponent', () => {
 
   describe('performAction', () => {
     it('should call delete function from the ItemDataService', () => {
-      spyOn(comp, 'processRestResponse');
+      spyOn(comp, 'notify');
       comp.performAction();
-
-      expect(mockItemDataService.delete).toHaveBeenCalledWith(mockItem.id);
-      expect(comp.processRestResponse).toHaveBeenCalled();
+      expect(mockItemDataService.delete).toHaveBeenCalledWith(mockItem);
+      expect(comp.notify).toHaveBeenCalled();
     });
   });
-  describe('processRestResponse', () => {
+  describe('notify', () => {
     it('should navigate to the homepage on successful deletion of the item', () => {
-      comp.processRestResponse(successfulRestResponse);
+      comp.notify(true);
       expect(routerStub.navigate).toHaveBeenCalledWith(['']);
     });
   });
-  describe('processRestResponse', () => {
+  describe('notify', () => {
     it('should navigate to the item edit page on failed deletion of the item', () => {
-      comp.processRestResponse(failRestResponse);
+      comp.notify(false);
       expect(routerStub.navigate).toHaveBeenCalledWith([getItemEditPath('fake-id')]);
     });
   });

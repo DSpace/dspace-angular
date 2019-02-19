@@ -1,15 +1,15 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
-import { responseCacheReducer, ResponseCacheState } from './cache/response-cache.reducer';
 import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
 import { indexReducer, IndexState } from './index/index.reducer';
 import { requestReducer, RequestState } from './data/request.reducer';
 import { authReducer, AuthState } from './auth/auth.reducer';
 import { jsonPatchOperationsReducer, JsonPatchOperationsState } from './json-patch/json-patch-operations.reducer';
+import { serverSyncBufferReducer, ServerSyncBufferState } from './cache/server-sync-buffer.reducer';
 
 export interface CoreState {
-  'data/object': ObjectCacheState,
-  'data/response': ResponseCacheState,
+  'cache/object': ObjectCacheState,
+  'cache/syncbuffer': ServerSyncBufferState,
   'data/request': RequestState,
   'index': IndexState,
   'auth': AuthState,
@@ -17,8 +17,8 @@ export interface CoreState {
 }
 
 export const coreReducers: ActionReducerMap<CoreState> = {
-  'data/object': objectCacheReducer,
-  'data/response': responseCacheReducer,
+  'cache/object': objectCacheReducer,
+  'cache/syncbuffer': serverSyncBufferReducer,
   'data/request': requestReducer,
   'index': indexReducer,
   'auth': authReducer,

@@ -1,16 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import {
-  FacetValueMap,
-  FacetValueMapSuccessResponse,
-  FacetValueSuccessResponse,
-  RestResponse
-} from '../cache/response-cache.models';
+import { FacetValueSuccessResponse, RestResponse } from '../cache/response.models';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { PageInfo } from '../shared/page-info.model';
-import { isNotEmpty } from '../../shared/empty.util';
 import { FacetValue } from '../../+search-page/search-service/facet-value.model';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';

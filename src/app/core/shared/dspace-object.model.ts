@@ -10,7 +10,7 @@ import { autoserialize } from 'cerialize';
 /**
  * An abstract model class for a DSpaceObject.
  */
-export class  DSpaceObject implements CacheableObject, ListableObject {
+export class DSpaceObject implements CacheableObject, ListableObject {
 
   self: string;
 
@@ -34,14 +34,15 @@ export class  DSpaceObject implements CacheableObject, ListableObject {
   /**
    * The name for this DSpaceObject
    */
-  @autoserialize
-  name: string;
+  get name(): string {
+    return this.findMetadata('dc.title');
+  }
 
   /**
    * An array containing all metadata of this DSpaceObject
    */
   @autoserialize
-  metadata: Metadatum[];
+  metadata: Metadatum[] = [];
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject

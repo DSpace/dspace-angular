@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { ConfigSuccessResponse, ErrorResponse, RestResponse } from '../cache/response-cache.models';
+import { ConfigSuccessResponse, ErrorResponse, RestResponse } from '../cache/response.models';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ConfigObjectFactory } from './models/config-object-factory';
 
@@ -28,7 +28,7 @@ export class ConfigResponseParsingService extends BaseResponseParsingService imp
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links) && (data.statusCode === 201 || data.statusCode === 200)) {
-      const configDefinition = this.process<ConfigObject,ConfigType>(data.payload, request.href);
+      const configDefinition = this.process<ConfigObject,ConfigType>(data.payload, request.uuid);
       return new ConfigSuccessResponse(configDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(

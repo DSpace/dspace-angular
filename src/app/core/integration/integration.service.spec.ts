@@ -1,7 +1,6 @@
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 
 import { RequestService } from '../data/request.service';
 import { IntegrationRequest } from '../data/request.models';
@@ -22,7 +21,6 @@ class TestService extends IntegrationService {
   protected entryValueEndpoint = ENTRY_VALUE;
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected halService: HALEndpointService) {
@@ -33,7 +31,6 @@ class TestService extends IntegrationService {
 describe('IntegrationService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
   let halService: any;
@@ -51,17 +48,8 @@ describe('IntegrationService', () => {
 
   findOptions = new IntegrationSearchOptions(uuid, name, metadata);
 
-  function initMockResponseCacheService(isSuccessful: boolean): ResponseCacheService {
-    return jasmine.createSpyObj('responseCache', {
-      get: cold('c-', {
-        c: {response: {isSuccessful}}
-      })
-    });
-  }
-
   function initTestService(): TestService {
     return new TestService(
-      responseCache,
       requestService,
       rdbService,
       halService
@@ -69,7 +57,6 @@ describe('IntegrationService', () => {
   }
 
   beforeEach(() => {
-    responseCache = initMockResponseCacheService(true);
     requestService = getMockRequestService();
     rdbService = getMockRemoteDataBuildService();
     scheduler = getTestScheduler();

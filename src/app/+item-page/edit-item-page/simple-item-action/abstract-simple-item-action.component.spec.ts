@@ -14,9 +14,9 @@ import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action.component';
 import { By } from '@angular/platform-browser';
-import { RestResponse } from '../../../core/cache/response-cache.models';
 import { of as observableOf } from 'rxjs';
 import { getItemEditPath } from '../../item-page-routing.module';
+import { RestResponse } from '../../../core/cache/response.models';
 
 /**
  * Test component that implements the AbstractSimpleItemActionComponent used to test the

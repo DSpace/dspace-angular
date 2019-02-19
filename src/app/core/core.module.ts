@@ -34,7 +34,6 @@ import { ObjectCacheService } from './cache/object-cache.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { RequestService } from './data/request.service';
-import { ResponseCacheService } from './cache/response-cache.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
 import { ServerResponseService } from '../shared/services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
@@ -76,6 +75,8 @@ import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { SubmissionJsonPatchOperationsService } from './submission/submission-json-patch-operations.service';
+import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 
 const IMPORTS = [
   CommonModule,
@@ -115,9 +116,9 @@ const PROVIDERS = [
   ObjectCacheService,
   PaginationComponentOptions,
   RegistryService,
+  NormalizedObjectBuildService,
   RemoteDataBuildService,
   RequestService,
-  ResponseCacheService,
   EndpointMapResponseParsingService,
   FacetValueResponseParsingService,
   FacetValueMapResponseParsingService,
@@ -152,6 +153,7 @@ const PROVIDERS = [
   UploaderService,
   FileService,
   DSpaceObjectDataService,
+  DSOChangeAnalyzer,
   CSSVariableService,
   MenuService,
   // register AuthInterceptor as HttpInterceptor

@@ -1,4 +1,4 @@
-import { RegistryMetadataschemasSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { RegistryMetadataschemasSuccessResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { RestRequest } from './request.models';
 import { ResponseParsingService } from './parsing.service';

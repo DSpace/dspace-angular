@@ -12,10 +12,12 @@ import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstream
 import { AuthStatus } from '../auth/models/auth-status.model';
 import { NormalizedObject } from './models/normalized-object.model';
 import { PaginatedList } from '../data/paginated-list';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
   public toCache = true;
+  public timeAdded: number;
 
   constructor(
     public isSuccessful: boolean,

@@ -17,7 +17,6 @@ describe('SubCommunityList Component', () => {
   let fixture: ComponentFixture<CommunityPageSubCommunityListComponent>;
 
   const subcommunities = [Object.assign(new Community(), {
-    name: 'SubCommunity 1',
     id: '123456789-1',
     metadata: [
       {
@@ -27,7 +26,6 @@ describe('SubCommunityList Component', () => {
       }]
   }),
     Object.assign(new Community(), {
-      name: 'SubCommunity 2',
       id: '123456789-2',
       metadata: [
         {

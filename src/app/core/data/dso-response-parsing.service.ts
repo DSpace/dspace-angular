@@ -7,7 +7,7 @@ import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { ResourceType } from '../shared/resource-type';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { RestResponse, DSOSuccessResponse } from '../cache/response-cache.models';
+import { RestResponse, DSOSuccessResponse } from '../cache/response.models';
 import { RestRequest } from './request.models';
 
 import { ResponseParsingService } from './parsing.service';
@@ -23,12 +23,14 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
   constructor(
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected objectCache: ObjectCacheService,
-  ) { super();
+  ) {
+    super();
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    const processRequestDTO = this.process<NormalizedObject,ResourceType>(data.payload, request.href);
+    const processRequestDTO = this.process<NormalizedObject, ResourceType>(data.payload, request.uuid);
     let objectList = processRequestDTO;
+
     if (hasNoValue(processRequestDTO)) {
       return new DSOSuccessResponse([], data.statusCode, data.statusText, undefined)
     }
