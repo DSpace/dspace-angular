@@ -1,37 +1,21 @@
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h2 class="border-bottom">{{'item.edit.head' | translate}}</h2>
-      <div class="pt-2">
-        <ngb-tabset [activeId]="(params$ | async)?.page || 'status'">
-          <ngb-tab [id]="'status'" title="{{'item.edit.tabs.status.head' | translate}}">
-            <ng-template ngbTabContent>
-              <ds-item-status [item]="(itemRD$ | async)?.payload"></ds-item-status>
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab [id]="'bitstreams'" title="{{'item.edit.tabs.bitstreams.head' | translate}}">
-            <ng-template ngbTabContent>
-
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab [id]="'metadata'" title="{{'item.edit.tabs.metadata.head' | translate}}">
-            <ng-template ngbTabContent>
-              <ds-item-metadata [item]="(itemRD$ | async)?.payload">
-              </ds-item-metadata>
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab [id]="'view'" title="{{'item.edit.tabs.view.head' | translate}}">
-            <ng-template ngbTabContent>
-
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab [id]="'curate'" title="{{'item.edit.tabs.curate.head' | translate}}">
-            <ng-template ngbTabContent>
-
-            </ng-template>
-          </ngb-tab>
-        </ngb-tabset>
-      </div>
+    <div class="row">
+        <div class="col-12">
+            <h2 class="border-bottom">{{'item.edit.head' | translate}}</h2>
+            <div class="pt-2">
+                <ul class="nav nav-tabs justify-content-start">
+                    <li *ngFor="let page of pages" class="nav-item">
+                        <a class="nav-link"
+                           [ngClass]="{'active' : page === currentPage}"
+                           [routerLink]="'/items/' + (itemRD$ | async)?.payload.uuid + '/edit/' + page">
+                            {{'item.edit.tabs.' + page + '.head' | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-pane active">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

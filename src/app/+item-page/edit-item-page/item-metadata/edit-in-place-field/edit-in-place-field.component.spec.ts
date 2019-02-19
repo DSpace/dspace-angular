@@ -44,7 +44,7 @@ const metadatum = Object.assign(new Metadatum(), {
   language: 'en'
 });
 
-const route = 'http://test-url.com/test-url';
+const url = 'http://test-url.com/test-url';
 const fieldUpdate = {
   field: metadatum,
   changeType: undefined
@@ -92,7 +92,7 @@ describe('EditInPlaceFieldComponent', () => {
     de = fixture.debugElement.query(By.css('div.d-flex'));
     el = de.nativeElement;
 
-    comp.route = route;
+    comp.url = url;
     comp.fieldUpdate = fieldUpdate;
     comp.metadata = metadatum;
 
@@ -104,8 +104,8 @@ describe('EditInPlaceFieldComponent', () => {
       comp.update();
     });
 
-    it('it should call saveChangeFieldUpdate on the objectUpdatesService with the correct route and metadata', () => {
-      expect(objectUpdatesService.saveChangeFieldUpdate).toHaveBeenCalledWith(route, metadatum);
+    it('it should call saveChangeFieldUpdate on the objectUpdatesService with the correct url and metadata', () => {
+      expect(objectUpdatesService.saveChangeFieldUpdate).toHaveBeenCalledWith(url, metadatum);
     });
   });
 
@@ -145,8 +145,8 @@ describe('EditInPlaceFieldComponent', () => {
       comp.setEditable(editable);
     });
 
-    it('it should call setEditableFieldUpdate on the objectUpdatesService with the correct route and uuid and false', () => {
-      expect(objectUpdatesService.setEditableFieldUpdate).toHaveBeenCalledWith(route, metadatum.uuid, editable);
+    it('it should call setEditableFieldUpdate on the objectUpdatesService with the correct url and uuid and false', () => {
+      expect(objectUpdatesService.setEditableFieldUpdate).toHaveBeenCalledWith(url, metadatum.uuid, editable);
     });
   });
 
@@ -203,8 +203,8 @@ describe('EditInPlaceFieldComponent', () => {
       comp.remove();
     });
 
-    it('it should call saveRemoveFieldUpdate on the objectUpdatesService with the correct route and metadata', () => {
-      expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(route, metadatum);
+    it('it should call saveRemoveFieldUpdate on the objectUpdatesService with the correct url and metadata', () => {
+      expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(url, metadatum);
     });
   });
 
@@ -213,8 +213,8 @@ describe('EditInPlaceFieldComponent', () => {
       comp.removeChangesFromField();
     });
 
-    it('it should call removeChangesFromField on the objectUpdatesService with the correct route and uuid', () => {
-      expect(objectUpdatesService.removeSingleFieldUpdate).toHaveBeenCalledWith(route, metadatum.uuid);
+    it('it should call removeChangesFromField on the objectUpdatesService with the correct url and uuid', () => {
+      expect(objectUpdatesService.removeSingleFieldUpdate).toHaveBeenCalledWith(url, metadatum.uuid);
     });
   });
 

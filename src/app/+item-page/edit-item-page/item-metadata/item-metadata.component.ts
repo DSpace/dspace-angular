@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { cloneDeep } from 'lodash';
 import { Observable } from 'rxjs';
 import {
@@ -31,15 +31,15 @@ export class ItemMetadataComponent implements OnInit {
   /**
    * The item to display the edit page for
    */
-  @Input() item: Item;
+  item: Item;
   /**
    * The current values and updates for all this item's metadata fields
    */
   updates$: Observable<FieldUpdates>;
   /**
-   * The current route of this page
+   * The current url of this page
    */
-  route: string;
+  url: string;
   /**
    * The time span for being able to undo discarding changes
    */
@@ -51,16 +51,25 @@ export class ItemMetadataComponent implements OnInit {
     private router: Router,
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
-    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig
+    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+    private route: ActivatedRoute
   ) {
 
   }
 
   ngOnInit(): void {
+    this.route.parent.data.pipe(map((data) => data.item))
+      .pipe(
+        first(),
+        map((data: RemoteData<Item>) => data.payload)
+      ).subscribe((item: Item) => {
+      this.item = item;
+    });
+
     this.discardTimeOut = this.EnvConfig.notifications.timeOut;
-    this.route = this.router.url;
-    if (this.route.indexOf('?') > 0) {
-      this.route = this.route.substr(0, this.route.indexOf('?'));
+    this.url = this.router.url;
+    if (this.url.indexOf('?') > 0) {
+      this.url = this.url.substr(0, this.url.indexOf('?'));
     }
     this.hasChanges().pipe(first()).subscribe((hasChanges) => {
       if (!hasChanges) {
@@ -69,7 +78,8 @@ export class ItemMetadataComponent implements OnInit {
         this.checkLastModified();
       }
     });
-    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.route, this.item.metadata);
+    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadata);
+
   }
 
   /**
@@ -77,7 +87,8 @@ export class ItemMetadataComponent implements OnInit {
    * @param metadata The metadata to add, if no parameter is supplied, create a new Metadatum
    */
   add(metadata: Metadatum = new Metadatum()) {
-    this.objectUpdatesService.saveAddFieldUpdate(this.route, metadata);
+    this.objectUpdatesService.saveAddFieldUpdate(this.url, metadata);
+
   }
 
   /**
@@ -88,21 +99,21 @@ export class ItemMetadataComponent implements OnInit {
     const title = this.translateService.instant('item.edit.metadata.notifications.discarded.title');
     const content = this.translateService.instant('item.edit.metadata.notifications.discarded.content');
     const undoNotification = this.notificationsService.info(title, content, { timeOut: this.discardTimeOut });
-    this.objectUpdatesService.discardFieldUpdates(this.route, undoNotification);
+    this.objectUpdatesService.discardFieldUpdates(this.url, undoNotification);
   }
 
   /**
    * Request the object updates service to undo discarding all changes to this item
    */
   reinstate() {
-    this.objectUpdatesService.reinstateFieldUpdates(this.route);
+    this.objectUpdatesService.reinstateFieldUpdates(this.url);
   }
 
   /**
    * Sends all initial values of this item to the object updates service
    */
   private initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.route, this.item.metadata, this.item.lastModified);
+    this.objectUpdatesService.initialize(this.url, this.item.metadata, this.item.lastModified);
   }
 
   /* Prevent unnecessary rerendering so fields don't lose focus **/
@@ -117,42 +128,42 @@ export class ItemMetadataComponent implements OnInit {
   submit() {
     this.isValid().pipe(first()).subscribe((isValid) => {
       if (isValid) {
-      const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.route, this.item.metadata) as Observable<Metadatum[]>;
-      metadata$.pipe(
-        first(),
-        switchMap((metadata: Metadatum[]) => {
-          const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata });
-          return this.itemService.update(updatedItem);
-        }),
-        tap(() => this.itemService.commitUpdates()),
-        getSucceededRemoteData()
-      ).subscribe(
-        (rd: RemoteData<Item>) => {
-          this.item = rd.payload;
-          this.initializeOriginalFields();
-          this.updates$ = this.objectUpdatesService.getFieldUpdates(this.route, this.item.metadata);
-        }
-      )
-    } else {
-      const title = this.translateService.instant('item.edit.metadata.notifications.invalid.title');
-      const content = this.translateService.instant('item.edit.metadata.notifications.invalid.content');
-      this.notificationsService.error(title, content);
-    }
-  });
+        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.item.metadata) as Observable<Metadatum[]>;
+        metadata$.pipe(
+          first(),
+          switchMap((metadata: Metadatum[]) => {
+            const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata });
+            return this.itemService.update(updatedItem);
+          }),
+          tap(() => this.itemService.commitUpdates()),
+          getSucceededRemoteData()
+        ).subscribe(
+          (rd: RemoteData<Item>) => {
+            this.item = rd.payload;
+            this.initializeOriginalFields();
+            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadata);
+          }
+        )
+      } else {
+        const title = this.translateService.instant('item.edit.metadata.notifications.invalid.title');
+        const content = this.translateService.instant('item.edit.metadata.notifications.invalid.content');
+        this.notificationsService.error(title, content);
+      }
+    });
   }
 
   /**
    * Checks whether or not there are currently updates for this item
    */
   hasChanges(): Observable<boolean> {
-    return this.objectUpdatesService.hasUpdates(this.route);
+    return this.objectUpdatesService.hasUpdates(this.url);
   }
 
   /**
    * Checks whether or not the item is currently reinstatable
    */
   isReinstatable(): Observable<boolean> {
-    return this.objectUpdatesService.isReinstatable(this.route);
+    return this.objectUpdatesService.isReinstatable(this.url);
   }
 
   /**
@@ -161,7 +172,7 @@ export class ItemMetadataComponent implements OnInit {
    */
   private checkLastModified() {
     const currentVersion = this.item.lastModified;
-    this.objectUpdatesService.getLastModified(this.route).pipe(first()).subscribe(
+    this.objectUpdatesService.getLastModified(this.url).pipe(first()).subscribe(
       (updateVersion: Date) => {
         if (updateVersion.getDate() !== currentVersion.getDate()) {
           const title = this.translateService.instant('item.edit.metadata.notifications.outdated.title');
@@ -173,7 +184,10 @@ export class ItemMetadataComponent implements OnInit {
     );
   }
 
+  /**
+   * Check if the current page is entirely valid
+   */
   private isValid() {
-    return this.objectUpdatesService.isValidPage(this.route);
+    return this.objectUpdatesService.isValidPage(this.url);
   }
 }

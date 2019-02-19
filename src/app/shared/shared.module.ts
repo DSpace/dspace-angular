@@ -93,6 +93,7 @@ import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/del
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import { ObjectValuesPipe } from './utils/object-values-pipe';
 import { InListValidator } from './utils/in-list-validator.directive';
+import { AutoFocusDirective } from './utils/auto-focus.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -199,7 +200,8 @@ const DIRECTIVES = [
   DragClickDirective,
   DebounceDirective,
   ClickOutsideDirective,
-  InListValidator
+  InListValidator,
+  AutoFocusDirective
 ];
 
 @NgModule({

@@ -7,7 +7,7 @@
     <!--{{metadata?.uuid}}-->
     <td class="col-3">
         <div *ngIf="!(editable | async)">
-            <span>{{metadata?.key}}</span>
+            <span>{{metadata?.key?.split('.').join('.&#8203;')}}</span>
         </div>
         <div *ngIf="(editable | async)" class="field-container">
             <ds-input-suggestions [suggestions]="(metadataFieldSuggestions | async)"
@@ -15,9 +15,12 @@
                                   (submitSuggestion)="update(suggestionControl.control)"
                                   (clickSuggestion)="update(suggestionControl.control)"
                                   (typeSuggestion)="update(suggestionControl.control)"
+                                  (blur)="checkValidity(suggestionControl.control)"
                                   (findSuggestions)="findMetadataFieldSuggestions($event)"
                                   #suggestionControl="ngModel"
                                   [dsInListValidator]="metadataFields | async"
+                                  [valid]="(valid | async)"
+                                  dsAutoFocus autoFocusSelector=".suggestion_input"
             ></ds-input-suggestions>
         </div>
         <small class="text-danger"
@@ -43,17 +46,17 @@
     </td>
     <td class="col-2 text-center">
         <div class="btn-group">
-            <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)" (click)="setEditable(true)" class="btn btn-light btn-sm">
-                <i class="fas fa-edit fa-fw text-primary"></i>
+            <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)" (click)="setEditable(true)" class="btn btn-primary btn-sm" title="{{'item.edit.metadata.edit.buttons.edit' | translate}}">
+                <i class="fas fa-edit fa-fw"></i>
             </button>
-            <button [disabled]="!(canSetUneditable() | async)"  *ngIf="(editable | async)" (click)="setEditable(false)" class="btn btn-light btn-sm">
-                <i class="fas fa-check fa-fw text-success"></i>
+            <button [disabled]="!(canSetUneditable() | async)"  *ngIf="(editable | async)" (click)="setEditable(false)" class="btn btn-success btn-sm" title="{{'item.edit.metadata.edit.buttons.unedit' | translate}}">
+                <i class="fas fa-check fa-fw"></i>
             </button>
-            <button [disabled]="!(canRemove() | async)" (click)="remove()" class="btn btn-light btn-sm">
-                <i class="fas fa-trash-alt fa-fw text-danger"></i>
+            <button [disabled]="!(canRemove() | async)" (click)="remove()" class="btn btn-danger btn-sm" title="{{'item.edit.metadata.edit.buttons.remove' | translate}}">
+                <i class="fas fa-trash-alt fa-fw"></i>
             </button>
-            <button [disabled]="!(canUndo() | async)" (click)="removeChangesFromField()" class="btn btn-light btn-sm">
-                <i class="fas fa-undo-alt fa-fw text-warning"></i>
+            <button [disabled]="!(canUndo() | async)" (click)="removeChangesFromField()" class="btn btn-warning btn-sm" title="{{'item.edit.metadata.edit.buttons.undo' | translate}}">
+                <i class="fas fa-undo-alt fa-fw"></i>
             </button>
         </div>
     </td>

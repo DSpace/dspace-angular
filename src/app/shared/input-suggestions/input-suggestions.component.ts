@@ -61,6 +61,11 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   @Input() name;
 
   /**
+   * Whether or not the current input is valid
+   */
+  @Input() valid;
+
+  /**
    * Output for when the form is submitted
    */
   @Output() submitSuggestion = new EventEmitter();
@@ -79,6 +84,11 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
    * Output for when new suggestions should be requested
    */
   @Output() findSuggestions = new EventEmitter();
+
+  /**
+   * Emits event when the input field loses focus
+   */
+  @Output() blur = new EventEmitter();
 
   /**
    * Emits true when the list of suggestions should be shown
@@ -237,5 +247,9 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   set value(val) {
     this._value = val;
     this.propagateChange(this._value);
+  }
+
+  focus() {
+    this.queryInput.nativeElement.focus();
   }
 }

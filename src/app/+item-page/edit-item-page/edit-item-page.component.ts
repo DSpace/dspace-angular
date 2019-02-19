@@ -1,10 +1,11 @@
-import {fadeIn, fadeInOut} from '../../shared/animations/fade';
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import {RemoteData} from '../../core/data/remote-data';
-import {Item} from '../../core/shared/item.model';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { fadeIn, fadeInOut } from '../../shared/animations/fade';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { isNotEmpty } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -24,13 +25,27 @@ export class EditItemPageComponent implements OnInit {
    * The item to edit
    */
   itemRD$: Observable<RemoteData<Item>>;
-  params$: Observable<Params>;
-  constructor(private route: ActivatedRoute) {
+
+  /**
+   * The current page outlet string
+   */
+  currentPage: string;
+
+  /**
+   * All possible page outlet strings
+   */
+  pages: string[];
+
+  constructor(private route: ActivatedRoute, private router: Router) {
+    this.router.events.subscribe(() => {
+      this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
+    });
   }
 
   ngOnInit(): void {
+    this.pages = this.route.routeConfig.children
+      .map((child: any) => child.path)
+      .filter((path: string) => isNotEmpty(path)); // ignore reroutes
     this.itemRD$ = this.route.data.pipe(map((data) => data.item));
-    this.params$ = this.route.params;
   }
-
 }

@@ -7,7 +7,7 @@ import { Metadatum } from '../../../core/shared/metadatum.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SharedModule } from '../../../shared/shared.module';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -32,6 +32,8 @@ const infoNotification: INotification = new Notification('id', NotificationType.
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
 const date = new Date();
 const router = new RouterStub();
+let routeStub;
+
 let itemService;
 const notificationsService = jasmine.createSpyObj('notificationsService',
   {
@@ -56,9 +58,9 @@ const metadatum3 = Object.assign(new Metadatum(), {
   value: 'Shakespeare, William',
 });
 
-const route = 'http://test-url.com/test-url';
+const url = 'http://test-url.com/test-url';
 
-router.url = route;
+router.url = url;
 
 const fieldUpdate1 = {
   field: metadatum1,
@@ -84,6 +86,11 @@ describe('ItemMetadataComponent', () => {
         update: observableOf(new RemoteData(false, false, true, undefined, item)),
         commitUpdates: {}
       });
+      routeStub = {
+        parent: {
+          data: observableOf({ item: new RemoteData(false, false, true, null, item) })
+        }
+      };
       scheduler = getTestScheduler();
       objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
         {
@@ -111,6 +118,9 @@ describe('ItemMetadataComponent', () => {
           { provide: ItemDataService, useValue: itemService },
           { provide: ObjectUpdatesService, useValue: objectUpdatesService },
           { provide: Router, useValue: router },
+          {
+            provide: ActivatedRoute, useValue: routeStub
+          },
           { provide: NotificationsService, useValue: notificationsService },
           { provide: GLOBAL_CONFIG, useValue: { notifications: { timeOut: 10 } } as any }
         ], schemas: [
@@ -118,16 +128,14 @@ describe('ItemMetadataComponent', () => {
         ]
       }).compileComponents();
     })
-  )
-  ;
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemMetadataComponent);
     comp = fixture.componentInstance; // EditInPlaceFieldComponent test instance
     de = fixture.debugElement.query(By.css('div.d-flex'));
     el = de.nativeElement;
-    comp.item = item;
-    comp.route = route;
+    comp.url = url;
     fixture.detectChanges();
   });
 
@@ -137,8 +145,8 @@ describe('ItemMetadataComponent', () => {
       comp.add(md);
     });
 
-    it('it should call saveAddFieldUpdate on the objectUpdatesService with the correct route and metadata', () => {
-      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(route, md);
+    it('it should call saveAddFieldUpdate on the objectUpdatesService with the correct url and metadata', () => {
+      expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(url, md);
     });
   });
 
@@ -147,8 +155,8 @@ describe('ItemMetadataComponent', () => {
       comp.discard();
     });
 
-    it('it should call discardFieldUpdates on the objectUpdatesService with the correct route and notification', () => {
-      expect(objectUpdatesService.discardFieldUpdates).toHaveBeenCalledWith(route, infoNotification);
+    it('it should call discardFieldUpdates on the objectUpdatesService with the correct url and notification', () => {
+      expect(objectUpdatesService.discardFieldUpdates).toHaveBeenCalledWith(url, infoNotification);
     });
   });
 
@@ -157,8 +165,8 @@ describe('ItemMetadataComponent', () => {
       comp.reinstate();
     });
 
-    it('it should call reinstateFieldUpdates on the objectUpdatesService with the correct route', () => {
-      expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(route);
+    it('it should call reinstateFieldUpdates on the objectUpdatesService with the correct url', () => {
+      expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(url);
     });
   });
 
@@ -167,10 +175,10 @@ describe('ItemMetadataComponent', () => {
       comp.submit();
     });
 
-    it('it should call reinstateFieldUpdates on the objectUpdatesService with the correct route and metadata', () => {
-      expect(objectUpdatesService.getUpdatedFields).toHaveBeenCalledWith(route, comp.item.metadata);
+    it('it should call reinstateFieldUpdates on the objectUpdatesService with the correct url and metadata', () => {
+      expect(objectUpdatesService.getUpdatedFields).toHaveBeenCalledWith(url, comp.item.metadata);
       expect(itemService.update).toHaveBeenCalledWith(comp.item);
-      expect(objectUpdatesService.getFieldUpdates).toHaveBeenCalledWith(route, comp.item.metadata);
+      expect(objectUpdatesService.getFieldUpdates).toHaveBeenCalledWith(url, comp.item.metadata);
     });
   });
 

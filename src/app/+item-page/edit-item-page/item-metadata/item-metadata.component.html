@@ -5,8 +5,7 @@
                     (click)="add()"><i
                     class="fas fa-plus"></i> {{"item.edit.metadata.add-button" | translate}}
             </button>
-
-            <div class="btn-group btn-group-toggle my-2" data-toggle="buttons">
+            <div class="my-2 spaced-btn-group">
                 <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
                         [disabled]="!(hasChanges() | async)"
                         (click)="discard()"><i
@@ -32,24 +31,26 @@
             </tr>
             <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate">
                 <ds-edit-in-place-field [fieldUpdate]="updateValue || {}"
-                                        [route]="route"></ds-edit-in-place-field>
+                                        [url]="url"></ds-edit-in-place-field>
             </tr>
             </tbody>
         </table>
-        <div class="btn-group btn-group-toggle my-2 float-right" data-toggle="buttons">
-            <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
-                    [disabled]="!(hasChanges() | async)"
-                    (click)="discard()"><i
-                    class="fas fa-times"></i> {{"item.edit.metadata.discard-button" | translate}}
-            </button>
-            <button class="btn btn-warning" *ngIf="isReinstatable() | async"
-                    (click)="reinstate()"><i
-                    class="fas fa-undo-alt"></i> {{"item.edit.metadata.reinstate-button" | translate}}
-            </button>
-            <button class="btn btn-primary" [disabled]="!(hasChanges() | async)"
-                    (click)="submit()"><i
-                    class="fas fa-save"></i> {{"item.edit.metadata.save-button" | translate}}
-            </button>
+        <div class="button-row">
+            <div class="my-2 float-right spaced-btn-group">
+                <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
+                        [disabled]="!(hasChanges() | async)"
+                        (click)="discard()"><i
+                        class="fas fa-times"></i> {{"item.edit.metadata.discard-button" | translate}}
+                </button>
+                <button class="btn btn-warning" *ngIf="isReinstatable() | async"
+                        (click)="reinstate()"><i
+                        class="fas fa-undo-alt"></i> {{"item.edit.metadata.reinstate-button" | translate}}
+                </button>
+                <button class="btn btn-primary" [disabled]="!(hasChanges() | async)"
+                        (click)="submit()"><i
+                        class="fas fa-save"></i> {{"item.edit.metadata.save-button" | translate}}
+                </button>
+            </div>
         </div>
     </div>
 </div>

@@ -1,5 +1,13 @@
 @import '../../../../styles/variables.scss';
 
-.button-row .btn {
-    min-width: $button-min-width;
+.button-row {
+    .spaced-btn-group > .btn {
+        margin-right: 0.5 * $spacer;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    .btn {
+        min-width: $button-min-width;
+    }
 }

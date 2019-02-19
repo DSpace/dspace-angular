@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router-stub';
 import { Item } from '../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { of as observableOf } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;
@@ -27,12 +29,19 @@ describe('ItemStatusComponent', () => {
     url: `${itemPageUrl}/edit`
   });
 
+  const routeStub = {
+      parent: {
+        data: observableOf({ item: new RemoteData(false, false, true, null, mockItem) })
+      }
+    };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
       declarations: [ItemStatusComponent],
       providers: [
         { provide: Router, useValue: routerStub },
+        { provide: ActivatedRoute, useValue: routeStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -41,7 +50,6 @@ describe('ItemStatusComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemStatusComponent);
     comp = fixture.componentInstance;
-    comp.item = mockItem;
     fixture.detectChanges();
   });
 
@@ -65,4 +73,5 @@ describe('ItemStatusComponent', () => {
     expect(statusItemPage.textContent).toContain(itemPageUrl);
   });
 
-});
+})
+;

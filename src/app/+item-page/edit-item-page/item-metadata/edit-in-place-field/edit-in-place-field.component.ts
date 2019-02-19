@@ -10,7 +10,6 @@ import { InputSuggestion } from '../../../../shared/input-suggestions/input-sugg
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { inListValidator } from '../../../../shared/utils/validator.functions';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { FormControl } from '@angular/forms';
 
@@ -28,9 +27,9 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   @Input() fieldUpdate: FieldUpdate;
   /**
-   * The current route of this page
+   * The current url of this page
    */
-  @Input() route: string;
+  @Input() url: string;
   /**
    * The metadatum of this field
    */
@@ -65,8 +64,8 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sets up an observable that keeps track of the current editable and valid state of this field
    */
   ngOnInit(): void {
-    this.editable = this.objectUpdatesService.isEditable(this.route, this.metadata.uuid);
-    this.valid = this.objectUpdatesService.isValid(this.route, this.metadata.uuid);
+    this.editable = this.objectUpdatesService.isEditable(this.url, this.metadata.uuid);
+    this.valid = this.objectUpdatesService.isValid(this.url, this.metadata.uuid);
     this.metadataFields = this.findMetadataFields()
   }
 
@@ -74,10 +73,19 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sends a new change update for this field to the object updates service
    */
   update(control?: FormControl) {
-    this.objectUpdatesService.saveChangeFieldUpdate(this.route, this.metadata);
+    this.objectUpdatesService.saveChangeFieldUpdate(this.url, this.metadata);
     if (hasValue(control)) {
-      this.objectUpdatesService.setValidFieldUpdate(this.route, this.metadata.uuid, control.valid);
+      this.checkValidity(control);
     }
+  }
+
+  /**
+   * Method to check the validity of a form control
+   * @param control The form control to check
+   */
+  private checkValidity(control: FormControl) {
+    control.updateValueAndValidity();
+    this.objectUpdatesService.setValidFieldUpdate(this.url, this.metadata.uuid, control.valid);
   }
 
   /**
@@ -85,21 +93,21 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * @param editable The new editable state for this field
    */
   setEditable(editable: boolean) {
-    this.objectUpdatesService.setEditableFieldUpdate(this.route, this.metadata.uuid, editable);
+    this.objectUpdatesService.setEditableFieldUpdate(this.url, this.metadata.uuid, editable);
   }
 
   /**
    * Sends a new remove update for this field to the object updates service
    */
   remove() {
-    this.objectUpdatesService.saveRemoveFieldUpdate(this.route, this.metadata);
+    this.objectUpdatesService.saveRemoveFieldUpdate(this.url, this.metadata);
   }
 
   /**
    * Notifies the object updates service that the updates for the current field can be removed
    */
   removeChangesFromField() {
-    this.objectUpdatesService.removeSingleFieldUpdate(this.route, this.metadata.uuid);
+    this.objectUpdatesService.removeSingleFieldUpdate(this.url, this.metadata.uuid);
   }
 
   /**
@@ -170,15 +178,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * @return an observable that emits true when the user should be able to remove this field and false when they should not
    */
   canRemove(): Observable<boolean> {
-    return this.editable.pipe(
-      map((editable: boolean) => {
-        if (editable) {
-          return false;
-        } else {
-          return this.fieldUpdate.changeType !== FieldChangeType.REMOVE && this.fieldUpdate.changeType !== FieldChangeType.ADD;
-        }
-      })
-    );
+    return observableOf(this.fieldUpdate.changeType !== FieldChangeType.REMOVE && this.fieldUpdate.changeType !== FieldChangeType.ADD);
   }
 
   /**
@@ -186,7 +186,9 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * @return an observable that emits true when the user should be able to undo changes to this field and false when they should not
    */
   canUndo(): Observable<boolean> {
-    return observableOf(this.fieldUpdate.changeType >= 0);
+    return this.editable.pipe(
+      map((editable: boolean) => this.fieldUpdate.changeType >= 0 || editable)
+    );
   }
 
   protected isNotEmpty(value): boolean {

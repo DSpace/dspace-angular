@@ -22,10 +22,10 @@ export class MetadataField implements ListableObject {
   @autoserialize
   schema: MetadataSchema;
 
-  toString(): string {
-    let key = this.schema.prefix + '.' + this.element;
+  toString(separator: string = '.'): string {
+    let key = this.schema.prefix + separator + this.element;
     if (isNotEmpty(this.qualifier)) {
-      key += '.' + this.qualifier;
+      key += separator + this.qualifier;
     }
     return key;
   }

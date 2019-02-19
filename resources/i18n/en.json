@@ -188,7 +188,7 @@
         "confirm": "Withdraw",
         "cancel": "Cancel",
         "success": "The item was withdrawn successfully",
-        "error": "An error occured while withdrawing the item"
+        "error": "An error occurred while withdrawing the item"
       },
       "reinstate": {
         "header": "Reinstate item: {{ id }}",
@@ -196,7 +196,7 @@
         "confirm": "Reinstate",
         "cancel": "Cancel",
         "success": "The item was reinstated successfully",
-        "error": "An error occured while reinstating the item"
+        "error": "An error occurred while reinstating the item"
       },
       "private": {
         "header": "Make item private: {{ id }}",
@@ -204,7 +204,7 @@
         "confirm": "Make it Private",
         "cancel": "Cancel",
         "success": "The item is now private",
-        "error": "An error occured while making the item private"
+        "error": "An error occurred while making the item private"
       },
       "public": {
         "header": "Make item public: {{ id }}",
@@ -212,7 +212,7 @@
         "confirm": "Make it Public",
         "cancel": "Cancel",
         "success": "The item is now public",
-        "error": "An error occured while making the item public"
+        "error": "An error occurred while making the item public"
       },
       "delete": {
         "header": "Delete item: {{ id }}",
@@ -220,7 +220,7 @@
         "confirm": "Delete",
         "cancel": "Cancel",
         "success": "The item has been deleted",
-        "error": "An error occured while deleting the item"
+        "error": "An error occurred while deleting the item"
       },
       "metadata": {
         "add-button": "Add",
@@ -232,6 +232,14 @@
           "value": "Value",
           "language": "Lang",
           "edit": "Edit"
+        },
+        "edit": {
+          "buttons": {
+            "edit": "Edit",
+            "unedit": "Stop editing",
+            "remove": "Remove",
+            "undo": "Undo changes"
+          }
         },
         "metadatafield": {
           "invalid": "Please choose a valid metadata field"
@@ -247,7 +255,7 @@
           },
           "invalid": {
             "title": "Metadata invalid",
-            "content": "Please make sure all fields are valid"
+            "content": "Your changes were not saved. Please make sure all fields are valid before you save."
           }
         }
       }
