@@ -6,8 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../../shared/testing/router-stub';
+import { ActivatedRoute } from '@angular/router';
 import { Item } from '../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -24,10 +23,7 @@ describe('ItemStatusComponent', () => {
     lastModified: '2018'
   });
 
-  const itemPageUrl = `fake-url/${mockItem.id}`;
-  const routerStub = Object.assign(new RouterStub(), {
-    url: `${itemPageUrl}/edit`
-  });
+  const itemPageUrl = `items/${mockItem.id}`;
 
   const routeStub = {
       parent: {
@@ -40,7 +36,6 @@ describe('ItemStatusComponent', () => {
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
       declarations: [ItemStatusComponent],
       providers: [
-        { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
       ], schemas: [CUSTOM_ELEMENTS_SCHEMA]

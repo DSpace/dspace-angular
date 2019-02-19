@@ -30,8 +30,8 @@
             <th class="text-center">{{'item.edit.metadata.headers.language' | translate}}</th>
             <th class="text-center">{{'item.edit.metadata.headers.edit' | translate}}</th>
         </tr>
-        <tr ds-edit-in-place-field
-            *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate"
+        <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate"
+            ds-edit-in-place-field
             [fieldUpdate]="updateValue || {}"
             [url]="url"
             [ngClass]="{

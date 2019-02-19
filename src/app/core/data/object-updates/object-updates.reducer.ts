@@ -11,43 +11,73 @@ import {
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
 
+/**
+ * Path where discarded objects are saved
+ */
 export const OBJECT_UPDATES_TRASH_PATH = '/trash';
 
+/**
+ * The state for a single field
+ */
 export interface FieldState {
   editable: boolean,
   isNew: boolean,
   isValid: boolean
 }
 
+/**
+ * A list of states for all the fields for a single page, mapped by uuid
+ */
 export interface FieldStates {
   [uuid: string]: FieldState;
 }
 
+/**
+ * Represents every object that has a UUID
+ */
 export interface Identifiable {
   uuid: string
 }
 
+/**
+ * The state of a single field update
+ */
 export interface FieldUpdate {
   field: Identifiable,
   changeType: FieldChangeType
 }
 
+/**
+ * The states of all field updates available for a single page, mapped by uuid
+ */
 export interface FieldUpdates {
   [uuid: string]: FieldUpdate;
 }
 
+/**
+ * The updated state of a single page
+ */
 export interface ObjectUpdatesEntry {
   fieldStates: FieldStates;
   fieldUpdates: FieldUpdates
   lastModified: Date;
-  // lastUpdate: Date;
 }
 
+/**
+ * The updated state of all pages, mapped by the page URL
+ */
 export interface ObjectUpdatesState {
   [url: string]: ObjectUpdatesEntry;
 }
 
+/**
+ * Initial state for an existing initialized field
+ */
 const initialFieldState = { editable: false, isNew: false, isValid: true };
+
+/**
+ * Initial state for a newly added field
+ */
 const initialNewFieldState = { editable: true, isNew: true, isValid: true };
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)

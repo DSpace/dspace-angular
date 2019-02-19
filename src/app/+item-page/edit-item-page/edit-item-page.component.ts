@@ -50,6 +50,10 @@ export class EditItemPageComponent implements OnInit {
     this.itemRD$ = this.route.data.pipe(map((data) => data.item));
   }
 
+  /**
+   * Get the item page url
+   * @param item The item for which the url is requested
+   */
   getItemPage(item: Item): string {
     return getItemPageRoute(item.id)
   }

@@ -89,7 +89,7 @@ describe('EditInPlaceFieldComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditInPlaceFieldComponent);
     comp = fixture.componentInstance; // EditInPlaceFieldComponent test instance
-    de = fixture.debugElement.query(By.css('div.d-flex'));
+    de = fixture.debugElement;
     el = de.nativeElement;
 
     comp.url = url;
@@ -106,36 +106,6 @@ describe('EditInPlaceFieldComponent', () => {
 
     it('it should call saveChangeFieldUpdate on the objectUpdatesService with the correct url and metadata', () => {
       expect(objectUpdatesService.saveChangeFieldUpdate).toHaveBeenCalledWith(url, metadatum);
-    });
-  });
-
-  describe('changeType is UPDATE', () => {
-    beforeEach(() => {
-      comp.fieldUpdate.changeType = FieldChangeType.UPDATE;
-      fixture.detectChanges();
-    });
-    it('the div should have class table-warning', () => {
-      expect(el.classList).toContain('table-warning');
-    });
-  });
-
-  describe('changeType is ADD', () => {
-    beforeEach(() => {
-      comp.fieldUpdate.changeType = FieldChangeType.ADD;
-      fixture.detectChanges();
-    });
-    it('the div should have class table-success', () => {
-      expect(el.classList).toContain('table-success');
-    });
-  });
-
-  describe('changeType is REMOVE', () => {
-    beforeEach(() => {
-      comp.fieldUpdate.changeType = FieldChangeType.REMOVE;
-      fixture.detectChanges();
-    });
-    it('the div should have class table-danger', () => {
-      expect(el.classList).toContain('table-danger');
     });
   });
 
@@ -223,9 +193,9 @@ describe('EditInPlaceFieldComponent', () => {
 
     const metadataFieldSuggestions: InputSuggestion[] =
       [
-        { displayValue: mdField1.toString(), value: mdField1.toString() },
-        { displayValue: mdField2.toString(), value: mdField2.toString() },
-        { displayValue: mdField3.toString(), value: mdField3.toString() }
+        { displayValue: mdField1.toString().split('.').join('.&#8203;'), value: mdField1.toString() },
+        { displayValue: mdField2.toString().split('.').join('.&#8203;'), value: mdField2.toString() },
+        { displayValue: mdField3.toString().split('.').join('.&#8203;'), value: mdField3.toString() }
       ];
 
     beforeEach(() => {

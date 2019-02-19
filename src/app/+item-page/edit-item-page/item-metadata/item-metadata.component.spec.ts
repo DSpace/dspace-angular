@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
 import { ItemMetadataComponent } from './item-metadata.component';
@@ -118,13 +118,11 @@ describe('ItemMetadataComponent', () => {
           { provide: ItemDataService, useValue: itemService },
           { provide: ObjectUpdatesService, useValue: objectUpdatesService },
           { provide: Router, useValue: router },
-          {
-            provide: ActivatedRoute, useValue: routeStub
-          },
+          { provide: ActivatedRoute, useValue: routeStub },
           { provide: NotificationsService, useValue: notificationsService },
           { provide: GLOBAL_CONFIG, useValue: { notifications: { timeOut: 10 } } as any }
         ], schemas: [
-          CUSTOM_ELEMENTS_SCHEMA
+          NO_ERRORS_SCHEMA
         ]
       }).compileComponents();
     })
@@ -133,7 +131,7 @@ describe('ItemMetadataComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemMetadataComponent);
     comp = fixture.componentInstance; // EditInPlaceFieldComponent test instance
-    de = fixture.debugElement.query(By.css('div.d-flex'));
+    de = fixture.debugElement;
     el = de.nativeElement;
     comp.url = url;
     fixture.detectChanges();
@@ -205,5 +203,37 @@ describe('ItemMetadataComponent', () => {
       });
     });
   });
-})
-;
+
+  describe('changeType is UPDATE', () => {
+    beforeEach(() => {
+      fieldUpdate1.changeType = FieldChangeType.UPDATE;
+      fixture.detectChanges();
+    });
+    it('the div should have class table-warning', () => {
+      const element = de.queryAll(By.css('tr'))[1].nativeElement;
+      expect(element.classList).toContain('table-warning');
+    });
+  });
+
+  describe('changeType is ADD', () => {
+    beforeEach(() => {
+      fieldUpdate1.changeType = FieldChangeType.ADD;
+      fixture.detectChanges();
+    });
+    it('the div should have class table-success', () => {
+      const element = de.queryAll(By.css('tr'))[1].nativeElement;
+      expect(element.classList).toContain('table-success');
+    });
+  });
+
+  describe('changeType is REMOVE', () => {
+    beforeEach(() => {
+      fieldUpdate1.changeType = FieldChangeType.REMOVE;
+      fixture.detectChanges();
+    });
+    it('the div should have class table-danger', () => {
+      const element = de.queryAll(By.css('tr'))[1].nativeElement;
+      expect(element.classList).toContain('table-danger');
+    });
+  });
+});

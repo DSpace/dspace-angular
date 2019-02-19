@@ -224,6 +224,7 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
     this.submitSuggestion.emit(data);
   }
 
+  /* START - Method's needed to add ngModel (ControlValueAccessor) to a component */
   registerOnChange(fn: any): void {
     this.propagateChange = fn;
   }
@@ -248,8 +249,5 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
     this._value = val;
     this.propagateChange(this._value);
   }
-
-  focus() {
-    this.queryInput.nativeElement.focus();
-  }
+  /* END - Method's needed to add ngModel to a component */
 }

@@ -122,7 +122,7 @@ export class SetValidFieldUpdateAction implements Action {
   };
 
   /**
-   * Create a new SetEditableFieldUpdateAction
+   * Create a new SetValidFieldUpdateAction
    *
    * @param url
    *    the unique url of the page
@@ -206,6 +206,9 @@ export class RemoveObjectUpdatesAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to remove a single field update in the ObjectUpdates state for a certain page url and field uuid
+ */
 export class RemoveFieldUpdateAction implements Action {
   type = ObjectUpdatesActionTypes.REMOVE_FIELD;
   payload: {

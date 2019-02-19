@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { Item } from '../../../core/shared/item.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ItemOperation } from '../item-operation/itemOperation.model';
 import { first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -47,7 +47,7 @@ export class ItemStatusComponent implements OnInit {
    */
   actionsKeys;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
