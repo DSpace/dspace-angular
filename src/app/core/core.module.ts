@@ -68,6 +68,7 @@ import { MenuService } from '../shared/menu/menu.service';
 import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
+import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
 
 const IMPORTS = [
   CommonModule,
@@ -133,6 +134,7 @@ const PROVIDERS = [
   UUIDService,
   DSpaceObjectDataService,
   DSOChangeAnalyzer,
+  DefaultChangeAnalyzer,
   CSSVariableService,
   MenuService,
   ObjectUpdatesService,

@@ -57,6 +57,9 @@ export class ItemMetadataComponent implements OnInit {
 
   }
 
+  /**
+   * Set up and initialize all fields
+   */
   ngOnInit(): void {
     this.route.parent.data.pipe(map((data) => data.item))
       .pipe(
@@ -116,8 +119,10 @@ export class ItemMetadataComponent implements OnInit {
     this.objectUpdatesService.initialize(this.url, this.item.metadata, this.item.lastModified);
   }
 
-  /* Prevent unnecessary rerendering so fields don't lose focus **/
-  protected trackUpdate(index, update: FieldUpdate) {
+  /**
+   * Prevent unnecessary rerendering so fields don't lose focus
+   */
+  trackUpdate(index, update: FieldUpdate) {
     return update && update.field ? update.field.uuid : undefined;
   }
 

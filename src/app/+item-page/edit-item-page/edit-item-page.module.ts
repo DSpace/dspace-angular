@@ -14,6 +14,7 @@ import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
 import { EditInPlaceFieldComponent } from './item-metadata/edit-in-place-field/edit-in-place-field.component';
+import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -36,6 +37,7 @@ import { EditInPlaceFieldComponent } from './item-metadata/edit-in-place-field/e
     ItemDeleteComponent,
     ItemStatusComponent,
     ItemMetadataComponent,
+    ItemBitstreamsComponent,
     EditInPlaceFieldComponent
   ]
 })

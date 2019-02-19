@@ -400,66 +400,64 @@ describe('EditInPlaceFieldComponent', () => {
   });
 
   describe('canRemove', () => {
-    describe('when editable is currently true', () => {
+    describe('when the fieldUpdate\'s changeType is currently not REMOVE or ADD', () => {
       beforeEach(() => {
-        comp.editable = observableOf(true);
-        fixture.detectChanges();
+        comp.fieldUpdate.changeType = FieldChangeType.UPDATE;
+      });
+      it('canRemove should return an observable emitting true', () => {
+        const expected = '(a|)';
+        scheduler.expectObservable(comp.canRemove()).toBe(expected, { a: true });
+      });
+    });
+
+    describe('when the fieldUpdate\'s changeType is currently ADD', () => {
+      beforeEach(() => {
+        comp.fieldUpdate.changeType = FieldChangeType.ADD;
       });
       it('canRemove should return an observable emitting false', () => {
         const expected = '(a|)';
         scheduler.expectObservable(comp.canRemove()).toBe(expected, { a: false });
       });
-    });
-
-    describe('when editable is currently false', () => {
-      beforeEach(() => {
-        comp.editable = observableOf(false);
-      });
-
-      describe('when the fieldUpdate\'s changeType is currently not REMOVE or ADD', () => {
-        beforeEach(() => {
-          comp.fieldUpdate.changeType = FieldChangeType.UPDATE;
-        });
-        it('canRemove should return an observable emitting true', () => {
-          const expected = '(a|)';
-          scheduler.expectObservable(comp.canRemove()).toBe(expected, { a: true });
-        });
-      });
-
-      describe('when the fieldUpdate\'s changeType is currently ADD', () => {
-        beforeEach(() => {
-          comp.fieldUpdate.changeType = FieldChangeType.ADD;
-        });
-        it('canRemove should return an observable emitting false', () => {
-          const expected = '(a|)';
-          scheduler.expectObservable(comp.canRemove()).toBe(expected, { a: false });
-        });
-      })
-    });
+    })
   });
 
   describe('canUndo', () => {
 
-    describe('when the fieldUpdate\'s changeType is currently ADD, UPDATE or REMOVE', () => {
+    describe('when editable is currently true', () => {
       beforeEach(() => {
-        comp.fieldUpdate.changeType = FieldChangeType.ADD;
+        comp.editable = observableOf(true);
+        comp.fieldUpdate.changeType = undefined;
+        fixture.detectChanges();
       });
-
       it('canUndo should return an observable emitting true', () => {
         const expected = '(a|)';
         scheduler.expectObservable(comp.canUndo()).toBe(expected, { a: true });
       });
     });
 
-    describe('when the fieldUpdate\'s changeType is currently undefined', () => {
-      beforeEach(() => {
-        comp.fieldUpdate.changeType = undefined;
+    describe('when editable is currently false', () => {
+      describe('when the fieldUpdate\'s changeType is currently ADD, UPDATE or REMOVE', () => {
+        beforeEach(() => {
+          comp.fieldUpdate.changeType = FieldChangeType.ADD;
+        });
+
+        it('canUndo should return an observable emitting true', () => {
+          const expected = '(a|)';
+          scheduler.expectObservable(comp.canUndo()).toBe(expected, { a: true });
+        });
       });
 
-      it('canUndo should return an observable emitting false', () => {
-        const expected = '(a|)';
-        scheduler.expectObservable(comp.canUndo()).toBe(expected, { a: false });
+      describe('when the fieldUpdate\'s changeType is currently undefined', () => {
+        beforeEach(() => {
+          comp.fieldUpdate.changeType = undefined;
+        });
+
+        it('canUndo should return an observable emitting false', () => {
+          const expected = '(a|)';
+          scheduler.expectObservable(comp.canUndo()).toBe(expected, { a: false });
+        });
       });
     });
+
   });
 });

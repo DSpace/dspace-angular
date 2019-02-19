@@ -6,6 +6,7 @@ import { ItemOperation } from '../item-operation/itemOperation.model';
 import { first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
+import { getItemEditPath, getItemPageRoute } from '../../item-page-routing.module';
 
 @Component({
   selector: 'ds-item-status',
@@ -68,16 +69,16 @@ export class ItemStatusComponent implements OnInit {
       */
       this.operations = [];
       if (item.isWithdrawn) {
-        this.operations.push(new ItemOperation('reinstate', this.getCurrentUrl() + '/reinstate'));
+        this.operations.push(new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate'));
       } else {
-        this.operations.push(new ItemOperation('withdraw', this.getCurrentUrl() + '/withdraw'));
+        this.operations.push(new ItemOperation('withdraw', this.getCurrentUrl(item) + '/withdraw'));
       }
       if (item.isDiscoverable) {
-        this.operations.push(new ItemOperation('private', this.getCurrentUrl() + '/private'));
+        this.operations.push(new ItemOperation('private', this.getCurrentUrl(item) + '/private'));
       } else {
-        this.operations.push(new ItemOperation('public', this.getCurrentUrl() + '/public'));
+        this.operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public'));
       }
-      this.operations.push(new ItemOperation('delete', this.getCurrentUrl() + '/delete'));
+      this.operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete'));
     });
 
   }
@@ -86,20 +87,16 @@ export class ItemStatusComponent implements OnInit {
    * Get the url to the simple item page
    * @returns {string}  url
    */
-  getItemPage(): string {
-    return this.router.url.substr(0, this.router.url.lastIndexOf('/'));
+  getItemPage(item: Item): string {
+    return getItemPageRoute(item.id)
   }
 
   /**
    * Get the current url without query params
    * @returns {string}  url
    */
-  getCurrentUrl(): string {
-    if (this.router.url.indexOf('?') > -1) {
-      return this.router.url.substr(0, this.router.url.indexOf('?'));
-    } else {
-      return this.router.url;
-    }
+  getCurrentUrl(item: Item): string {
+    return getItemEditPath(item.id);
   }
 
 }

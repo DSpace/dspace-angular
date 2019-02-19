@@ -1,11 +1,6 @@
-<script src="edit-in-place-field.component.ts"></script>
-<div [ngClass]="{
-    'table-warning': fieldUpdate.changeType === 0,
-    'table-danger': fieldUpdate.changeType === 2,
-    'table-success': fieldUpdate.changeType === 1
-}" class="d-flex">
-    <!--{{metadata?.uuid}}-->
-    <td class="col-3">
+<!--{{metadata?.uuid}}-->
+<td>
+    <div class="metadata-field">
         <div *ngIf="!(editable | async)">
             <span>{{metadata?.key?.split('.').join('.&#8203;')}}</span>
         </div>
@@ -25,39 +20,47 @@
         </div>
         <small class="text-danger"
                *ngIf="!(valid | async)">{{"item.edit.metadata.metadatafield.invalid" | translate}}</small>
-    </td>
-    <td class="col-6">
-        <div *ngIf="!(editable | async)">
-            <span>{{metadata?.value}}</span>
-        </div>
-        <div *ngIf="(editable | async)" class="field-container">
+    </div>
+</td>
+<td class="w-100">
+    <div *ngIf="!(editable | async)">
+        <span>{{metadata?.value}}</span>
+    </div>
+    <div *ngIf="(editable | async)" class="field-container">
             <textarea class="form-control" type="textarea" [(ngModel)]="metadata.value" [dsDebounce]
                       (onDebounce)="update()"></textarea>
-        </div>
-    </td>
-    <td class="col-1 text-center">
-        <div *ngIf="!(editable | async)">
-            <span>{{metadata?.language}}</span>
-        </div>
-        <div *ngIf="(editable | async)" class="field-container">
-            <input class="form-control" type="text" [(ngModel)]="metadata.language" [dsDebounce]
-                   (onDebounce)="update()"/>
-        </div>
-    </td>
-    <td class="col-2 text-center">
-        <div class="btn-group">
-            <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)" (click)="setEditable(true)" class="btn btn-primary btn-sm" title="{{'item.edit.metadata.edit.buttons.edit' | translate}}">
-                <i class="fas fa-edit fa-fw"></i>
-            </button>
-            <button [disabled]="!(canSetUneditable() | async)"  *ngIf="(editable | async)" (click)="setEditable(false)" class="btn btn-success btn-sm" title="{{'item.edit.metadata.edit.buttons.unedit' | translate}}">
-                <i class="fas fa-check fa-fw"></i>
-            </button>
-            <button [disabled]="!(canRemove() | async)" (click)="remove()" class="btn btn-danger btn-sm" title="{{'item.edit.metadata.edit.buttons.remove' | translate}}">
-                <i class="fas fa-trash-alt fa-fw"></i>
-            </button>
-            <button [disabled]="!(canUndo() | async)" (click)="removeChangesFromField()" class="btn btn-warning btn-sm" title="{{'item.edit.metadata.edit.buttons.undo' | translate}}">
-                <i class="fas fa-undo-alt fa-fw"></i>
-            </button>
-        </div>
-    </td>
-</div>
+    </div>
+</td>
+<td class="text-center">
+    <div *ngIf="!(editable | async)">
+        <span>{{metadata?.language}}</span>
+    </div>
+    <div *ngIf="(editable | async)" class="field-container">
+        <input class="form-control" type="text" [(ngModel)]="metadata.language" [dsDebounce]
+               (onDebounce)="update()"/>
+    </div>
+</td>
+<td class="text-center">
+    <div class="btn-group">
+        <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)"
+                (click)="setEditable(true)" class="btn btn-outline-primary btn-sm"
+                title="{{'item.edit.metadata.edit.buttons.edit' | translate}}">
+            <i class="fas fa-edit fa-fw"></i>
+        </button>
+        <button [disabled]="!(canSetUneditable() | async)" *ngIf="(editable | async)"
+                (click)="setEditable(false)" class="btn btn-outline-success btn-sm"
+                title="{{'item.edit.metadata.edit.buttons.unedit' | translate}}">
+            <i class="fas fa-check fa-fw"></i>
+        </button>
+        <button [disabled]="!(canRemove() | async)" (click)="remove()"
+                class="btn btn-outline-danger btn-sm"
+                title="{{'item.edit.metadata.edit.buttons.remove' | translate}}">
+            <i class="fas fa-trash-alt fa-fw"></i>
+        </button>
+        <button [disabled]="!(canUndo() | async)" (click)="removeChangesFromField()"
+                class="btn btn-outline-warning btn-sm"
+                title="{{'item.edit.metadata.edit.buttons.undo' | translate}}">
+            <i class="fas fa-undo-alt fa-fw"></i>
+        </button>
+    </div>
+</td>

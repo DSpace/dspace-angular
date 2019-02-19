@@ -6,6 +6,7 @@ import { Item } from '../../core/shared/item.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isNotEmpty } from '../../shared/empty.util';
+import { getItemPageRoute } from '../item-page-routing.module';
 
 @Component({
   selector: 'ds-edit-item-page',
@@ -47,5 +48,9 @@ export class EditItemPageComponent implements OnInit {
       .map((child: any) => child.path)
       .filter((path: string) => isNotEmpty(path)); // ignore reroutes
     this.itemRD$ = this.route.data.pipe(map((data) => data.item));
+  }
+
+  getItemPage(item: Item): string {
+    return getItemPageRoute(item.id)
   }
 }

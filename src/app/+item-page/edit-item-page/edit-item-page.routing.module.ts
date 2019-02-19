@@ -9,6 +9,7 @@ import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemStatusComponent } from './item-status/item-status.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
+import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 
 const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
@@ -39,8 +40,7 @@ const ITEM_EDIT_DELETE_PATH = 'delete';
           },
           {
             path: 'bitstreams',
-            /* TODO - change when bitstreams page exists */
-            component: ItemStatusComponent
+            component: ItemBitstreamsComponent
           },
           {
             path: 'metadata',
@@ -49,12 +49,12 @@ const ITEM_EDIT_DELETE_PATH = 'delete';
           {
             path: 'view',
             /* TODO - change when view page exists */
-            component: ItemStatusComponent
+            component: ItemBitstreamsComponent
           },
           {
             path: 'curate',
             /* TODO - change when curate page exists */
-            component: ItemStatusComponent
+            component: ItemBitstreamsComponent
           },
         ]
       },

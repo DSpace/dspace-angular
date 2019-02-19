@@ -228,6 +228,7 @@ describe('MetadataService', () => {
   const mockPublisher = (mockItem: Item): Item => {
     const publishedMockItem = Object.assign(new Item(), mockItem) as Item;
     publishedMockItem.metadata.push({
+      uuid: 'b3826cf5-5f07-44cf-88d8-2da968354d18',
       key: 'dc.publisher',
       language: 'en_US',
       value: 'Mock Publisher'

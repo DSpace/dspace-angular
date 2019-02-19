@@ -14,7 +14,8 @@ import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'ds-edit-in-place-field',
+  // tslint:disable-next-line:component-selector
+  selector: '[ds-edit-in-place-field]',
   styleUrls: ['./edit-in-place-field.component.scss'],
   templateUrl: './edit-in-place-field.component.html',
 })
@@ -131,7 +132,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
       (fields: MetadataField[]) => this.metadataFieldSuggestions.next(
         fields.map((field: MetadataField) => {
           return {
-            displayValue: field.toString(),
+            displayValue: field.toString().split('.').join('.&#8203;'),
             value: field.toString()
           }
         })

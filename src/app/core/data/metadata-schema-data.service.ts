@@ -11,10 +11,10 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadataschema.model';
-import { ChangeAnalyzer } from './change-analyzer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
 @Injectable()
 export class MetadataSchemaDataService extends DataService<MetadataSchema> {
@@ -27,7 +27,7 @@ export class MetadataSchemaDataService extends DataService<MetadataSchema> {
     private bs: BrowseService,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
-    protected comparator: ChangeAnalyzer<MetadataSchema>,
+    protected comparator: DefaultChangeAnalyzer<MetadataSchema>,
     protected dataBuildService: NormalizedObjectBuildService,
     protected http: HttpClient,
     protected notificationsService: NotificationsService) {
