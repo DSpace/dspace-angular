@@ -194,7 +194,7 @@ export class BrowseService {
   }
 
   /**
-   * Get the previous page using the paginated list's prev link
+   * Get the previous page of items using the paginated list's prev link
    * @param items
    */
   getPrevBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
@@ -204,12 +204,32 @@ export class BrowseService {
   }
 
   /**
-   * Get the next page using the paginated list's next link
+   * Get the next page of items using the paginated list's next link
    * @param items
    */
   getNextBrowseItems(items: RemoteData<PaginatedList<Item>>): Observable<RemoteData<PaginatedList<Item>>> {
     return observableOf(items.payload.next).pipe(
       getBrowseItemsFor(this.requestService, this.responseCache, this.rdb)
+    );
+  }
+
+  /**
+   * Get the previous page of browse-entries using the paginated list's prev link
+   * @param entries
+   */
+  getPrevBrowseEntries(entries: RemoteData<PaginatedList<BrowseEntry>>): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
+    return observableOf(entries.payload.prev).pipe(
+      getBrowseEntriesFor(this.requestService, this.responseCache, this.rdb)
+    );
+  }
+
+  /**
+   * Get the next page of browse-entries using the paginated list's next link
+   * @param entries
+   */
+  getNextBrowseEntries(entries: RemoteData<PaginatedList<BrowseEntry>>): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
+    return observableOf(entries.payload.next).pipe(
+      getBrowseEntriesFor(this.requestService, this.responseCache, this.rdb)
     );
   }
 

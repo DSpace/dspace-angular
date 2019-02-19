@@ -168,18 +168,30 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * Navigate to the previous page
    */
   goPrev() {
-    this.items$.pipe(take(1)).subscribe((items) => {
-      this.items$ = this.browseService.getPrevBrowseItems(items);
-    });
+    if (this.items$) {
+      this.items$.pipe(take(1)).subscribe((items) => {
+        this.items$ = this.browseService.getPrevBrowseItems(items);
+      });
+    } else if (this.browseEntries$) {
+      this.browseEntries$.pipe(take(1)).subscribe((entries) => {
+        this.browseEntries$ = this.browseService.getPrevBrowseEntries(entries);
+      });
+    }
   }
 
   /**
    * Navigate to the next page
    */
   goNext() {
-    this.items$.pipe(take(1)).subscribe((items) => {
-      this.items$ = this.browseService.getNextBrowseItems(items);
-    });
+    if (this.items$) {
+      this.items$.pipe(take(1)).subscribe((items) => {
+        this.items$ = this.browseService.getNextBrowseItems(items);
+      });
+    } else if (this.browseEntries$) {
+      this.browseEntries$.pipe(take(1)).subscribe((entries) => {
+        this.browseEntries$ = this.browseService.getNextBrowseEntries(entries);
+      });
+    }
   }
 
   /**

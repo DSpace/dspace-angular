@@ -25,8 +25,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
                      protected dsoService: DSpaceObjectDataService,
-                     protected router: Router,
-                     protected itemDataService: ItemDataService) {
+                     protected router: Router) {
     super(route, browseService, dsoService, router);
   }
 
@@ -43,25 +42,10 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
         })
         .subscribe((params) => {
           this.metadata = params.metadata || this.defaultMetadata;
-          this.updatePage(browseParamsToOptions(params, this.paginationConfig, this.sortConfig));
+          this.updatePageWithItems(browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.metadata), undefined);
           this.updateParent(params.scope)
         }));
     this.startsWithOptions = [];
-  }
-
-  /**
-   * Updates the current page with searchOptions
-   * @param searchOptions   Options to narrow down your search:
-   *                        { pagination: PaginationComponentOptions,
-   *                          sort: SortOptions }
-   */
-  updatePage(searchOptions: BrowseEntrySearchOptions) {
-    this.items$ = this.itemDataService.findAll({
-      currentPage: searchOptions.pagination.currentPage,
-      elementsPerPage: searchOptions.pagination.pageSize,
-      sort: searchOptions.sort,
-      scopeID: searchOptions.scope
-    });
   }
 
   ngOnDestroy(): void {

@@ -41,8 +41,8 @@ describe('BrowseByTitlePageComponent', () => {
     })
   ];
 
-  const mockItemDataService = {
-    findAll: () => toRemoteData(mockItems)
+  const mockBrowseService = {
+    getBrowseItemsFor: () => toRemoteData(mockItems)
   };
 
   const mockDsoService = {
@@ -59,10 +59,9 @@ describe('BrowseByTitlePageComponent', () => {
       declarations: [BrowseByTitlePageComponent, EnumKeysPipe],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: BrowseService, useValue: {} },
+        { provide: BrowseService, useValue: mockBrowseService },
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
-        { provide: Router, useValue: new MockRouter() },
-        { provide: ItemDataService, useValue: mockItemDataService }
+        { provide: Router, useValue: new MockRouter() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
