@@ -91,6 +91,8 @@ import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/cre
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
+import { CollectionSelectorComponent } from './dso-selector/collection-selector/collection-selector.component';
+import { CollectionSelectorModalWrapperComponent } from './dso-selector/collection-selector-modal-wrapper/collection-selector-modal-wrapper.component';
 import { ObjectValuesPipe } from './utils/object-values-pipe';
 import { InListValidator } from './utils/in-list-validator.directive';
 import { AutoFocusDirective } from './utils/auto-focus.directive';
@@ -177,6 +179,8 @@ const COMPONENTS = [
   TruncatablePartComponent,
   BrowseByComponent,
   InputSuggestionsComponent,
+  CollectionSelectorComponent,
+  CollectionSelectorModalWrapperComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -189,7 +193,9 @@ const ENTRY_COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
-  BrowseEntryListElementComponent
+  BrowseEntryListElementComponent,
+  CollectionSelectorComponent,
+  CollectionSelectorModalWrapperComponent
 ];
 
 const PROVIDERS = [

@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { slide, slideHorizontal, slideSidebar } from '../../shared/animations/slide';
+import { slideHorizontal, slideSidebar } from '../../shared/animations/slide';
 import { CSSVariableService } from '../../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID, MenuItemType } from '../../shared/menu/initial-menus-state';
@@ -10,6 +10,9 @@ import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model
 import { AuthService } from '../../core/auth/auth.service';
 import { first, map } from 'rxjs/operators';
 import { combineLatest as combineLatestObservable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';
+import { CollectionSelectorModalWrapperComponent } from '../../shared/dso-selector/collection-selector-modal-wrapper/collection-selector-modal-wrapper.component';
 
 /**
  * Component representing the admin sidebar
@@ -52,7 +55,8 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
   constructor(protected menuService: MenuService,
               protected injector: Injector,
               private variableService: CSSVariableService,
-              private authService: AuthService
+              private authService: AuthService,
+              private modalService: NgbModal
   ) {
     super(menuService, injector);
   }
@@ -104,10 +108,13 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: MenuItemType.LINK,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.new_community',
-          link: '/communities/submission'
-        } as LinkMenuItemModel,
+          function: () => {
+            const modal = this.modalService.open(CollectionSelectorModalWrapperComponent);
+            modal.componentInstance.currentCollectionID = 'c069b0c2-dc6a-40de-92c3-6803cd66023e';
+          }
+        } as OnClickMenuItemModel,
       },
       {
         id: 'new_collection',

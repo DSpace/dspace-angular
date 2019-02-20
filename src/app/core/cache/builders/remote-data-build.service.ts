@@ -5,8 +5,14 @@ import {
   race as observableRace
 } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, flatMap, map, startWith, switchMap } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { distinctUntilChanged, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined
+} from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
@@ -113,8 +119,19 @@ export class RemoteDataBuildService {
     }
 
     const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
+    requestEntry$.subscribe((t) => {
+      console.log('requestEntry$', t)
+    });
     const tDomainList$ = requestEntry$.pipe(
       getResourceLinksFromResponse(),
+      tap((resourceUUIDs: string[]) => {
+        const g = (href$ as Observable<string>)
+
+        g.subscribe((t) => {
+          console.log('href', t)
+        });
+        console.log(resourceUUIDs);
+      }),
       flatMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs).pipe(
           map((normList: Array<NormalizedObject<T>>) => {
