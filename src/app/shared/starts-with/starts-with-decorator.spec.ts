@@ -1,9 +1,8 @@
-import { renderStartsWithFor } from './browse-by-starts-with-decorator';
-import { BrowseByStartsWithType } from '../browse-by.component';
+import { renderStartsWithFor, StartsWithType } from './starts-with-decorator';
 
 describe('BrowseByStartsWithDecorator', () => {
-  const textDecorator = renderStartsWithFor(BrowseByStartsWithType.text);
-  const dateDecorator = renderStartsWithFor(BrowseByStartsWithType.date);
+  const textDecorator = renderStartsWithFor(StartsWithType.text);
+  const dateDecorator = renderStartsWithFor(StartsWithType.date);
   it('should have a decorator for both text and date', () => {
     expect(textDecorator.length).not.toBeNull();
     expect(dateDecorator.length).not.toBeNull();

@@ -1,13 +1,13 @@
 import { Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { hasValue } from '../../empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { FormControl, FormGroup } from '@angular/forms';
+import { hasValue } from '../empty.util';
 
 /**
  * An abstract component to render StartsWith options
  */
-export class BrowseByStartsWithAbstractComponent implements OnInit, OnDestroy {
+export class StartsWithAbstractComponent implements OnInit, OnDestroy {
   /**
    * The currently selected startsWith in string format
    */
@@ -39,19 +39,11 @@ export class BrowseByStartsWithAbstractComponent implements OnInit, OnDestroy {
     });
   }
 
-  getStartsWithAsText() {
-    if (hasValue(this.startsWith)) {
-      return this.startsWith;
-    } else {
-      return '';
-    }
-  }
-
   /**
-   * Get startsWith as a number;
+   * Get startsWith
    */
-  getStartsWithAsNumber() {
-    return +this.startsWith;
+  getStartsWith(): any {
+    return this.startsWith;
   }
 
   /**
@@ -67,9 +59,6 @@ export class BrowseByStartsWithAbstractComponent implements OnInit, OnDestroy {
    * Add/Change the url query parameter startsWith using the local variable
    */
   setStartsWithParam() {
-    if (this.startsWith === '-1') {
-      this.startsWith = undefined;
-    }
     this.router.navigate([], {
       queryParams: Object.assign({ startsWith: this.startsWith }),
       queryParamsHandling: 'merge'

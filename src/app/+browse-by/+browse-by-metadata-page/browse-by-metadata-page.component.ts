@@ -14,7 +14,7 @@ import { getSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { take } from 'rxjs/operators';
-import { BrowseByStartsWithType } from '../../shared/browse-by/browse-by.component';
+import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -76,7 +76,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
    * The type of StartsWith options to render
    * Defaults to text
    */
-  startsWithType = BrowseByStartsWithType.text;
+  startsWithType = StartsWithType.text;
 
   /**
    * The list of StartsWith options

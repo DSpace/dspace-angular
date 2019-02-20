@@ -6,15 +6,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { fadeIn, fadeInOut } from '../animations/fade';
 import { Observable } from 'rxjs';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { getStartsWithComponent } from './browse-by-starts-with/browse-by-starts-with-decorator';
-
-/**
- * An enum that defines the type of StartsWith options
- */
-export enum BrowseByStartsWithType {
-  text = 'Text',
-  date = 'Date'
-}
+import { getStartsWithComponent, StartsWithType } from '../starts-with/starts-with-decorator';
 
 @Component({
   selector: 'ds-browse-by',
@@ -53,7 +45,7 @@ export class BrowseByComponent implements OnInit {
    * The type of StartsWith options used to define what component to render for the options
    * Defaults to text
    */
-  @Input() type = BrowseByStartsWithType.text;
+  @Input() type = StartsWithType.text;
 
   /**
    * The list of options to render for the StartsWith component

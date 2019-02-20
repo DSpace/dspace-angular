@@ -1,20 +1,20 @@
-import { BrowseByStartsWithDateComponent } from './browse-by-starts-with-date.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { EnumKeysPipe } from '../../../utils/enum-keys-pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRouteStub } from '../../../testing/active-router-stub';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RouterStub } from '../../../testing/router-stub';
 import { By } from '@angular/platform-browser';
+import { StartsWithDateComponent } from './starts-with-date.component';
+import { ActivatedRouteStub } from '../../testing/active-router-stub';
+import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
+import { RouterStub } from '../../testing/router-stub';
 
 describe('BrowseByStartsWithDateComponent', () => {
-  let comp: BrowseByStartsWithDateComponent;
-  let fixture: ComponentFixture<BrowseByStartsWithDateComponent>;
+  let comp: StartsWithDateComponent;
+  let fixture: ComponentFixture<StartsWithDateComponent>;
   let route: ActivatedRoute;
   let router: Router;
 
@@ -28,7 +28,7 @@ describe('BrowseByStartsWithDateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [BrowseByStartsWithDateComponent, EnumKeysPipe],
+      declarations: [StartsWithDateComponent, EnumKeysPipe],
       providers: [
         { provide: 'startsWithOptions', useValue: options },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -39,7 +39,7 @@ describe('BrowseByStartsWithDateComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BrowseByStartsWithDateComponent);
+    fixture = TestBed.createComponent(StartsWithDateComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
     route = (comp as any).route;
