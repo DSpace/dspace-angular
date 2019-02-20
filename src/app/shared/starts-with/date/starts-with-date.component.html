@@ -4,7 +4,7 @@
       {{'browse.startsWith.jump' | translate}}
     </span>
     <div class="col-5 col-md-3">
-      <select class="form-control" (change)="setStartsWith($event)">
+      <select class="form-control" (change)="setStartsWithEvent($event)">
         <option [value]="-1" [selected]="!startsWith">
           {{'browse.startsWith.choose_year' | translate}}
         </option>

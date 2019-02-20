@@ -50,8 +50,17 @@ export class StartsWithAbstractComponent implements OnInit, OnDestroy {
    * Set the startsWith by event
    * @param event
    */
-  setStartsWith(event: Event) {
+  setStartsWithEvent(event: Event) {
     this.startsWith = (event.target as HTMLInputElement).value;
+    this.setStartsWithParam();
+  }
+
+  /**
+   * Set the startsWith by string
+   * @param startsWith
+   */
+  setStartsWith(startsWith: string) {
+    this.startsWith = startsWith;
     this.setStartsWithParam();
   }
 

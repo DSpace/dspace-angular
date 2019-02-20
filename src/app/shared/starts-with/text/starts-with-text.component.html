@@ -3,7 +3,7 @@
     <div class="col-12">
       <ul class="list-inline">
         <li class="list-inline-item" *ngFor="let option of startsWithOptions">
-          <a [routerLink]="[]" [queryParams]="{startsWith: option}" queryParamsHandling="merge">{{option}}</a>
+          <a [routerLink]="[]" (click)="setStartsWith(option)">{{option}}</a>
         </li>
       </ul>
     </div>

@@ -127,7 +127,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
   }
 
   updateStartsWithTextOptions() {
-    this.startsWithOptions = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    this.startsWithOptions = ['0-9', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
   }
 
   /**
