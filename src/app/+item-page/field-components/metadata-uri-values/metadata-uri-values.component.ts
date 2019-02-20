@@ -19,7 +19,7 @@ export class MetadataUriValuesComponent extends MetadataValuesComponent {
 
   @Input() linktext: any;
 
-  @Input() values: MetadataValue[];
+  @Input() mdValues: MetadataValue[];
 
   @Input() separator: string;
 

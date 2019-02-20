@@ -12,7 +12,7 @@ import { MetadataValue } from '../../../core/shared/metadata.interfaces';
 })
 export class MetadataValuesComponent {
 
-  @Input() values: MetadataValue[];
+  @Input() mdValues: MetadataValue[];
 
   @Input() separator: string;
 
