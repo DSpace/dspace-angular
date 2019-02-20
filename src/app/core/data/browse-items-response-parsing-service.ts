@@ -45,7 +45,7 @@ export class BrowseItemsResponseParsingService extends BaseResponseParsingServic
       const serializer = new DSpaceRESTv2Serializer(DSpaceObject);
       const items = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
       return new GenericSuccessResponse(items, data.statusCode, this.processPageInfo(data.payload));
-    } else if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
+    } else if (hasValue(data.payload) && hasValue(data.payload.page) && (data.payload.page.totalElements === 0 || data.payload.page.number >= data.payload.page.totalPages)) {
       return new GenericSuccessResponse([], data.statusCode, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
