@@ -284,6 +284,7 @@
     "startsWith": {
       "jump": "Jump to a point in the index:",
       "choose_year": "(Choose year)",
+      "choose_start": "(Choose start)",
       "type_year": "Or type in a year:",
       "type_text": "Or enter first few letters:",
       "submit": "Go"

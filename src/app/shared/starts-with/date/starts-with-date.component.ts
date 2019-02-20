@@ -21,14 +21,4 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
     return +this.startsWith;
   }
 
-  /**
-   * Add/Change the url query parameter startsWith using the local variable
-   */
-  setStartsWithParam() {
-    if (this.startsWith === '-1') {
-      this.startsWith = undefined;
-    }
-    super.setStartsWithParam();
-  }
-
 }

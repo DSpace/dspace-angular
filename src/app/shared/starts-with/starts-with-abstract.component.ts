@@ -68,6 +68,9 @@ export class StartsWithAbstractComponent implements OnInit, OnDestroy {
    * Add/Change the url query parameter startsWith using the local variable
    */
   setStartsWithParam() {
+    if (this.startsWith === '-1') {
+      this.startsWith = undefined;
+    }
     this.router.navigate([], {
       queryParams: Object.assign({ startsWith: this.startsWith }),
       queryParamsHandling: 'merge'

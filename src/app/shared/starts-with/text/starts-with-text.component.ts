@@ -35,4 +35,15 @@ export class StartsWithTextComponent extends StartsWithAbstractComponent {
     super.setStartsWithParam();
   }
 
+  /**
+   * Checks whether the provided option is equal to the current startsWith
+   * @param option
+   */
+  isSelectedOption(option: string): boolean {
+    if (this.startsWith === '0' && option === '0-9') {
+      return true;
+    }
+    return option === this.startsWith;
+  }
+
 }
