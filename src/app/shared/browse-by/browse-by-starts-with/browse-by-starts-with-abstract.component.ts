@@ -39,6 +39,14 @@ export class BrowseByStartsWithAbstractComponent implements OnInit, OnDestroy {
     });
   }
 
+  getStartsWithAsText() {
+    if (hasValue(this.startsWith)) {
+      return this.startsWith;
+    } else {
+      return '';
+    }
+  }
+
   /**
    * Get startsWith as a number;
    */

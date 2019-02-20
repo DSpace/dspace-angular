@@ -45,7 +45,7 @@ export class BrowseByTitlePageComponent extends BrowseByMetadataPageComponent {
           this.updatePageWithItems(browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.metadata), undefined);
           this.updateParent(params.scope)
         }));
-    this.startsWithOptions = [];
+    this.updateStartsWithTextOptions();
   }
 
   ngOnDestroy(): void {

@@ -285,6 +285,7 @@
       "jump": "Jump to a point in the index:",
       "choose_year": "(Choose year)",
       "type_year": "Or type in a year:",
+      "type_text": "Or enter first few letters:",
       "submit": "Go"
     },
     "metadata": {

@@ -123,7 +123,11 @@ export class BrowseByMetadataPageComponent implements OnInit {
           }
           this.updateParent(params.scope);
         }));
-    this.startsWithOptions = [];
+    this.updateStartsWithTextOptions();
+  }
+
+  updateStartsWithTextOptions() {
+    this.startsWithOptions = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   }
 
   /**
