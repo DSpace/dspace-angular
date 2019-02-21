@@ -32,29 +32,34 @@ const ITEM_EDIT_DELETE_PATH = 'delete';
         children: [
           {
             path: '',
-            redirectTo: 'status'
+            redirectTo: 'status',
           },
           {
             path: 'status',
-            component: ItemStatusComponent
+            component: ItemStatusComponent,
+            data: { title: 'item.edit.tabs.status.title' }
           },
           {
             path: 'bitstreams',
-            component: ItemBitstreamsComponent
+            component: ItemBitstreamsComponent,
+            data: { title: 'item.edit.tabs.bitstreams.title' }
           },
           {
             path: 'metadata',
-            component: ItemMetadataComponent
+            component: ItemMetadataComponent,
+            data: { title: 'item.edit.tabs.metadata.title' }
           },
           {
             path: 'view',
             /* TODO - change when view page exists */
-            component: ItemBitstreamsComponent
+            component: ItemBitstreamsComponent,
+            data: { title: 'item.edit.tabs.view.title' }
           },
           {
             path: 'curate',
             /* TODO - change when curate page exists */
-            component: ItemBitstreamsComponent
+            component: ItemBitstreamsComponent,
+            data: { title: 'item.edit.tabs.curate.title' }
           },
         ]
       },

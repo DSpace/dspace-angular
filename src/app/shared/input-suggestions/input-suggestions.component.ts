@@ -63,7 +63,7 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   /**
    * Whether or not the current input is valid
    */
-  @Input() valid;
+  @Input() valid = true;
 
   /**
    * Output for when the form is submitted

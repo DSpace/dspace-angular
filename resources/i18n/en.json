@@ -123,6 +123,7 @@
         "status": {
           "head": "Item Status",
           "description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+          "title": "Item Edit -  Status",
           "labels": {
             "id": "Item Internal ID",
             "handle": "Handle",
@@ -165,16 +166,20 @@
           }
         },
         "bitstreams": {
-          "head": "Item Bitstreams"
+          "head": "Item Bitstreams",
+          "title": "Item Edit - Bitstreams"
         },
         "metadata": {
-          "head": "Item Metadata"
+          "head": "Item Metadata",
+          "title": "Item Edit -  Metadata"
         },
         "view": {
-          "head": "View Item"
+          "head": "View Item",
+          "title": "Item Edit -  Item"
         },
         "curate": {
-          "head": "Curate"
+          "head": "Curate",
+          "title": "Item Edit - Curate"
         }
       },
       "modify.overview": {
@@ -256,6 +261,10 @@
           "invalid": {
             "title": "Metadata invalid",
             "content": "Your changes were not saved. Please make sure all fields are valid before you save."
+          },
+          "saved": {
+            "title": "Metadata saved",
+            "content": "Your changes to this item's metadata were saved."
           }
         }
       }

@@ -45,6 +45,8 @@ export class ItemMetadataComponent implements OnInit {
    */
   private discardTimeOut: number;
 
+  private notitifactionPrefix = 'item.edit.metadata.notifications.';
+
   constructor(
     private itemService: ItemDataService,
     private objectUpdatesService: ObjectUpdatesService,
@@ -82,7 +84,6 @@ export class ItemMetadataComponent implements OnInit {
       }
     });
     this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadata);
-
   }
 
   /**
@@ -99,9 +100,7 @@ export class ItemMetadataComponent implements OnInit {
    * Shows a notification to remind the user that they can undo this
    */
   discard() {
-    const title = this.translateService.instant('item.edit.metadata.notifications.discarded.title');
-    const content = this.translateService.instant('item.edit.metadata.notifications.discarded.content');
-    const undoNotification = this.notificationsService.info(title, content, { timeOut: this.discardTimeOut });
+    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), { timeOut: this.discardTimeOut });
     this.objectUpdatesService.discardFieldUpdates(this.url, undoNotification);
   }
 
@@ -147,12 +146,11 @@ export class ItemMetadataComponent implements OnInit {
             this.item = rd.payload;
             this.initializeOriginalFields();
             this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadata);
+            this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
           }
         )
       } else {
-        const title = this.translateService.instant('item.edit.metadata.notifications.invalid.title');
-        const content = this.translateService.instant('item.edit.metadata.notifications.invalid.content');
-        this.notificationsService.error(title, content);
+        this.notificationsService.error(this.getNotificationTitle('invalid'), this.getNotificationContent('invalid'));
       }
     });
   }
@@ -180,9 +178,7 @@ export class ItemMetadataComponent implements OnInit {
     this.objectUpdatesService.getLastModified(this.url).pipe(first()).subscribe(
       (updateVersion: Date) => {
         if (updateVersion.getDate() !== currentVersion.getDate()) {
-          const title = this.translateService.instant('item.edit.metadata.notifications.outdated.title');
-          const content = this.translateService.instant('item.edit.metadata.notifications.outdated.content');
-          this.notificationsService.warning(title, content);
+          this.notificationsService.warning(this.getNotificationTitle('outdated'), this.getNotificationContent('outdated'));
           this.initializeOriginalFields();
         }
       }
@@ -194,5 +190,22 @@ export class ItemMetadataComponent implements OnInit {
    */
   private isValid() {
     return this.objectUpdatesService.isValidPage(this.url);
+  }
+
+  /**
+   * Get translated notification title
+   * @param key
+   */
+  private getNotificationTitle(key: string) {
+    return this.translateService.instant(this.notitifactionPrefix + key + '.title');
+  }
+
+  /**
+   * Get translated notification content
+   * @param key
+   */
+  private getNotificationContent(key: string) {
+    return this.translateService.instant(this.notitifactionPrefix + key + '.content');
+
   }
 }

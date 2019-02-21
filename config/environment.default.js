@@ -79,8 +79,5 @@ module.exports = {
     code: 'nl',
     label: 'Nederlands',
     active: false,
-  }],
-  item: {
-
-  }
+  }]
 };

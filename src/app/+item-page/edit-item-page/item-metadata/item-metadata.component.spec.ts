@@ -30,6 +30,7 @@ let el: HTMLElement;
 let objectUpdatesService;
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
+const successNotification: INotification = new Notification('id', NotificationType.Success, 'success');
 const date = new Date();
 const router = new RouterStub();
 let routeStub;
@@ -38,7 +39,8 @@ let itemService;
 const notificationsService = jasmine.createSpyObj('notificationsService',
   {
     info: infoNotification,
-    warning: warningNotification
+    warning: warningNotification,
+    success: successNotification
   }
 );
 const metadatum1 = Object.assign(new Metadatum(), {
