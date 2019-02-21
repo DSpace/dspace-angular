@@ -23,7 +23,6 @@ import { ItemDataService } from '../data/item-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
@@ -32,7 +31,12 @@ import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
 import { EmptyError } from 'rxjs/internal-compatibility';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -63,11 +67,11 @@ describe('MetadataService', () => {
   let store: Store<CoreState>;
 
   let objectCacheService: ObjectCacheService;
-  let responseCacheService: ResponseCacheService;
   let requestService: RequestService;
   let uuidService: UUIDService;
   let remoteDataBuildService: RemoteDataBuildService;
   let itemDataService: ItemDataService;
+  let authService: AuthService;
 
   let location: Location;
   let router: Router;
@@ -83,10 +87,9 @@ describe('MetadataService', () => {
     spyOn(store, 'dispatch');
 
     objectCacheService = new ObjectCacheService(store);
-    responseCacheService = new ResponseCacheService(store);
     uuidService = new UUIDService();
-    requestService = new RequestService(objectCacheService, responseCacheService, uuidService, store);
-    remoteDataBuildService = new RemoteDataBuildService(objectCacheService, responseCacheService, requestService);
+    requestService = new RequestService(objectCacheService, uuidService, store);
+    remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
 
     TestBed.configureTestingModule({
       imports: [
@@ -109,11 +112,15 @@ describe('MetadataService', () => {
       ],
       providers: [
         { provide: ObjectCacheService, useValue: objectCacheService },
-        { provide: ResponseCacheService, useValue: responseCacheService },
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: HALEndpointService, useValue: {}},
+        { provide: AuthService, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: NormalizedObjectBuildService, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
         Meta,
         Title,
         ItemDataService,
@@ -126,6 +133,7 @@ describe('MetadataService', () => {
     title = TestBed.get(Title);
     itemDataService = TestBed.get(ItemDataService);
     metadataService = TestBed.get(MetadataService);
+    authService = TestBed.get(AuthService);
 
     envConfig = TestBed.get(GLOBAL_CONFIG);
 

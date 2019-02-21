@@ -3013,6 +3013,12 @@ fast-glob@^2.0.2:
     merge2 "^1.2.1"
     micromatch "^3.1.10"
 
+fast-json-patch@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/fast-json-patch/-/fast-json-patch-2.0.7.tgz#55864b08b1e50381d2f37fd472bb2e18fe54a733"
+  dependencies:
+    deep-equal "^1.0.1"
+
 fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"

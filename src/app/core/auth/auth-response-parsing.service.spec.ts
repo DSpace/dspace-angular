@@ -1,7 +1,6 @@
-import { AuthStatusResponse } from '../cache/response-cache.models';
+import { AuthStatusResponse } from '../cache/response.models';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthResponseParsingService } from './auth-response-parsing.service';
 import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
@@ -11,7 +10,7 @@ import { ObjectCacheState } from '../cache/object-cache.reducer';
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
 
-  const EnvConfig = { cache: { msToLive: 1000 } } as GlobalConfig;
+  const EnvConfig = { cache: { msToLive: 1000 } } as any;
   const store = new MockStore<ObjectCacheState>({});
   const objectCacheService = new ObjectCacheService(store as any);
 

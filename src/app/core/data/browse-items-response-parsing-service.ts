@@ -7,7 +7,7 @@ import {
   ErrorResponse,
   GenericSuccessResponse,
   RestResponse
-} from '../cache/response-cache.models';
+} from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { BaseResponseParsingService } from './base-response-parsing.service';

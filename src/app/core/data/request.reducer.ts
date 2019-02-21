@@ -1,14 +1,16 @@
 import {
   RequestActionTypes, RequestAction, RequestConfigureAction,
-  RequestExecuteAction, RequestCompleteAction
+  RequestExecuteAction, RequestCompleteAction, ResetResponseTimestampsAction
 } from './request.actions';
 import { RestRequest } from './request.models';
+import { RestResponse } from '../cache/response.models';
 
 export class RequestEntry {
   request: RestRequest;
   requestPending: boolean;
   responsePending: boolean;
   completed: boolean;
+  response: RestResponse
 }
 
 export interface RequestState {
@@ -32,6 +34,9 @@ export function requestReducer(state = initialState, action: RequestAction): Req
     case RequestActionTypes.COMPLETE: {
       return completeRequest(state, action as RequestCompleteAction);
     }
+    case RequestActionTypes.RESET_TIMESTAMPS: {
+      return resetResponseTimestamps(state, action as ResetResponseTimestampsAction);
+    }
 
     default: {
       return state;
@@ -45,18 +50,19 @@ function configureRequest(state: RequestState, action: RequestConfigureAction): 
       request: action.payload,
       requestPending: true,
       responsePending: false,
-      completed: false
+      completed: false,
     }
   });
 }
 
 function executeRequest(state: RequestState, action: RequestExecuteAction): RequestState {
-  return Object.assign({}, state, {
+  const obs = Object.assign({}, state, {
     [action.payload]: Object.assign({}, state[action.payload], {
       requestPending: false,
       responsePending: true
     })
   });
+  return obs;
 }
 
 /**
@@ -70,10 +76,32 @@ function executeRequest(state: RequestState, action: RequestExecuteAction): Requ
  *    the new state, with the response added to the request
  */
 function completeRequest(state: RequestState, action: RequestCompleteAction): RequestState {
+  const time = new Date().getTime();
   return Object.assign({}, state, {
-    [action.payload]: Object.assign({}, state[action.payload], {
+    [action.payload.uuid]: Object.assign({}, state[action.payload.uuid], {
       responsePending: false,
-      completed: true
+      completed: true,
+      response: Object.assign({}, action.payload.response, { timeAdded: time })
     })
   });
+}
+
+/**
+ * Reset the timeAdded property of all responses
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a RequestCompleteAction
+ * @return RequestState
+ *    the new state, with the timeAdded property reset
+ */
+function resetResponseTimestamps(state: RequestState, action: ResetResponseTimestampsAction): RequestState {
+  const newState = Object.create(null);
+  Object.keys(state).forEach((key) => {
+    newState[key] = Object.assign({}, state[key],
+      { response: Object.assign({}, state[key].response, { timeAdded: action.payload }) }
+    );
+  });
+  return newState;
 }

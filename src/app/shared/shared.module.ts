@@ -86,7 +86,11 @@ import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
 import { MenuModule } from './menu/menu.module';
-import {LangSwitchComponent} from './lang-switch/lang-switch.component';
+import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
+import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
+import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
+import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 import { StartsWithDateComponent } from './starts-with/date/starts-with-date.component';
 import { StartsWithTextComponent } from './starts-with/text/starts-with-text.component';
@@ -133,6 +137,10 @@ const COMPONENTS = [
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
+  ComColFormComponent,
+  CreateComColPageComponent,
+  EditComColPageComponent,
+  DeleteComColPageComponent,
   ComcolPageBrowseByComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlComponent,
