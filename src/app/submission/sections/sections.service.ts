@@ -174,11 +174,8 @@ export class SectionsService {
         filter(([available, enabled]: [boolean, boolean]) => available))
         .subscribe(([available, enabled]: [boolean, boolean]) => {
           if (!enabled) {
-            this.translate.get('submission.sections.general.metadata-extracted-new-section', {sectionId})
-              .pipe(take(1))
-              .subscribe((m) => {
-                this.notificationsService.info(null, m, null, true);
-              });
+            const msg = this.translate.instant('submission.sections.general.metadata-extracted-new-section', {sectionId});
+            this.notificationsService.info(null, msg, null, true);
           }
           this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data, errors));
         });
