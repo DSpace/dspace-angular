@@ -130,13 +130,18 @@ describe('SubmissionFormSectionAddComponent Component', () => {
 
       fixture.detectChanges();
 
-      comp.sectionList.subscribe((list) => {
+      comp.sectionList$.subscribe((list) => {
         expect(list).toEqual(mockAvailableSections);
-      })
+      });
 
+      comp.hasSections$.subscribe((hasSections) => {
+        expect(hasSections).toEqual(true);
+      })
     });
 
     it('should call addSection', () => {
+      submissionServiceStub.getDisabledSectionsList.and.returnValue(observableOf(mockAvailableSections));
+
       comp.addSection(mockAvailableSections[1].id);
 
       fixture.detectChanges();
