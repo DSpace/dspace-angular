@@ -56,13 +56,13 @@ import { FacetValueMapResponseParsingService } from './data/facet-value-map-resp
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { RegistryService } from './registry/registry.service';
 import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
-import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
+import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
@@ -113,7 +113,6 @@ const PROVIDERS = [
   RegistryMetadataschemasResponseParsingService,
   RegistryMetadatafieldsResponseParsingService,
   RegistryBitstreamformatsResponseParsingService,
-  MetadataschemaParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
   ServerResponseService,
@@ -128,6 +127,7 @@ const PROVIDERS = [
   SubmissionSectionsConfigService,
   AuthorityService,
   IntegrationResponseParsingService,
+  MetadataschemaParsingService,
   UploaderService,
   UUIDService,
   DSpaceObjectDataService,

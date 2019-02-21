@@ -2,7 +2,7 @@ import {
   IndexAction,
   IndexActionTypes,
   AddToIndexAction,
-  RemoveFromIndexByValueAction
+  RemoveFromIndexByValueAction, RemoveFromIndexBySubstringAction
 } from './index.actions';
 
 export enum IndexName {
@@ -31,6 +31,10 @@ export function indexReducer(state = initialState, action: IndexAction): IndexSt
       return removeFromIndexByValue(state, action as RemoveFromIndexByValueAction)
     }
 
+    case IndexActionTypes.REMOVE_BY_SUBSTRING: {
+      return removeFromIndexBySubstring(state, action as RemoveFromIndexBySubstringAction)
+    }
+
     default: {
       return state;
     }
@@ -53,6 +57,24 @@ function removeFromIndexByValue(state: IndexState, action: RemoveFromIndexByValu
   const newSubState = Object.create(null);
   for (const value in subState) {
     if (subState[value] !== action.payload.value) {
+      newSubState[value] = subState[value];
+    }
+  }
+  return Object.assign({}, state, {
+    [action.payload.name]: newSubState
+  });
+}
+
+/**
+ * Remove values from the IndexState's substate that contain a given substring
+ * @param state     The IndexState to remove values from
+ * @param action    The RemoveFromIndexByValueAction containing the necessary information to remove the values
+ */
+function removeFromIndexBySubstring(state: IndexState, action: RemoveFromIndexByValueAction): IndexState {
+  const subState = state[action.payload.name];
+  const newSubState = Object.create(null);
+  for (const value in subState) {
+    if (value.indexOf(action.payload.value) < 0) {
       newSubState[value] = subState[value];
     }
   }

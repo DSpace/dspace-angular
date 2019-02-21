@@ -1,7 +1,7 @@
 import * as deepFreeze from 'deep-freeze';
 
 import { IndexName, indexReducer, IndexState } from './index.reducer';
-import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
+import { AddToIndexAction, RemoveFromIndexBySubstringAction, RemoveFromIndexByValueAction } from './index.actions';
 
 class NullAction extends AddToIndexAction {
   type = null;
@@ -55,6 +55,15 @@ describe('requestReducer', () => {
     const state = testState;
 
     const action = new RemoveFromIndexByValueAction(IndexName.OBJECT, val1);
+    const newState = indexReducer(state, action);
+
+    expect(newState[IndexName.OBJECT][key1]).toBeUndefined();
+  });
+
+  it('should remove the given \'value\' from its corresponding \'key\' in the correct substate, in response to a REMOVE_BY_SUBSTRING action', () => {
+    const state = testState;
+
+    const action = new RemoveFromIndexBySubstringAction(IndexName.OBJECT, key1);
     const newState = indexReducer(state, action);
 
     expect(newState[IndexName.OBJECT][key1]).toBeUndefined();

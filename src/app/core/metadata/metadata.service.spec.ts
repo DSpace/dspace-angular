@@ -89,7 +89,7 @@ describe('MetadataService', () => {
 
     objectCacheService = new ObjectCacheService(store);
     uuidService = new UUIDService();
-    requestService = new RequestService(objectCacheService, uuidService, store);
+    requestService = new RequestService(objectCacheService, uuidService, store, undefined);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
 
     TestBed.configureTestingModule({

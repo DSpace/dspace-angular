@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BitstreamFormatsComponent } from './bitstream-formats/bitstream-formats.component';
 import { SharedModule } from '../../shared/shared.module';
+import { MetadataSchemaFormComponent } from './metadata-registry/metadata-schema-form/metadata-schema-form.component';
+import {MetadataFieldFormComponent} from './metadata-schema/metadata-field-form/metadata-field-form.component';
 
 @NgModule({
   imports: [
@@ -19,7 +21,12 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     MetadataRegistryComponent,
     MetadataSchemaComponent,
-    BitstreamFormatsComponent
+    BitstreamFormatsComponent,
+    MetadataSchemaFormComponent,
+    MetadataFieldFormComponent
+  ],
+  entryComponents: [
+
   ]
 })
 export class AdminRegistriesModule {
