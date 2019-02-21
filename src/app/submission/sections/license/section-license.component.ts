@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, startWith, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, flatMap, map, startWith, take, tap } from 'rxjs/operators';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -87,8 +87,7 @@ export class LicenseSectionComponent extends SectionModelComponent {
       this.sectionService.isSectionReadOnly(
         this.submissionId,
         this.sectionData.id,
-        this.submissionService.getSubmissionScope()
-      ).pipe(
+        this.submissionService.getSubmissionScope()).pipe(
         take(1),
         filter((isReadOnly) => isReadOnly))
         .subscribe(() => {
@@ -130,7 +129,8 @@ export class LicenseSectionComponent extends SectionModelComponent {
   protected getSectionStatus(): Observable<boolean> {
     const model = this.formBuilderService.findById('granted', this.formModel);
     return (model as DynamicCheckboxModel).valueUpdates.pipe(
-      map((value) => value === true));
+      map((value) => value === true),
+      startWith((model as DynamicCheckboxModel).value));
   }
 
   onChange(event: DynamicFormControlEvent) {

@@ -280,11 +280,11 @@ describe('LicenseSectionComponent test suite', () => {
       fixture.detectChanges();
       const model = formBuilderService.findById('granted', comp.formModel);
 
+      (model as DynamicCheckboxModel).valueUpdates.next(true);
+
       compAsAny.getSectionStatus().subscribe((status) => {
         expect(status).toBeTruthy();
       });
-
-      (model as DynamicCheckboxModel).valueUpdates.next(true);
     });
 
     it('should have status false when checkbox is not selected', () => {
