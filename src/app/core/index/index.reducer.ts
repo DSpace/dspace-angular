@@ -65,6 +65,11 @@ function removeFromIndexByValue(state: IndexState, action: RemoveFromIndexByValu
   });
 }
 
+/**
+ * Remove values from the IndexState's substate that contain a given substring
+ * @param state     The IndexState to remove values from
+ * @param action    The RemoveFromIndexByValueAction containing the necessary information to remove the values
+ */
 function removeFromIndexBySubstring(state: IndexState, action: RemoveFromIndexByValueAction): IndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.create(null);

@@ -110,6 +110,11 @@ function resetResponseTimestamps(state: RequestState, action: ResetResponseTimes
   return newState;
 }
 
+/**
+ * Remove a request from the RequestState
+ * @param state   The current RequestState
+ * @param action  The RequestRemoveAction to perform
+ */
 function removeRequest(state: RequestState, action: RequestRemoveAction): RequestState {
   const newState = Object.create(null);
   for (const value in state) {

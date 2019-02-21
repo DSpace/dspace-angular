@@ -220,6 +220,9 @@ export class IntegrationRequest extends GetRequest {
   }
 }
 
+/**
+ * Request to create a MetadataSchema
+ */
 export class CreateMetadataSchemaRequest extends PostRequest {
   constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
     super(uuid, href, body, options);
@@ -230,6 +233,9 @@ export class CreateMetadataSchemaRequest extends PostRequest {
   }
 }
 
+/**
+ * Request to update a MetadataSchema
+ */
 export class UpdateMetadataSchemaRequest extends PutRequest {
   constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
     super(uuid, href, body, options);
@@ -240,6 +246,9 @@ export class UpdateMetadataSchemaRequest extends PutRequest {
   }
 }
 
+/**
+ * Request to create a MetadataField
+ */
 export class CreateMetadataFieldRequest extends PostRequest {
   constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
     super(uuid, href, body, options);
@@ -250,6 +259,9 @@ export class CreateMetadataFieldRequest extends PostRequest {
   }
 }
 
+/**
+ * Request to update a MetadataField
+ */
 export class UpdateMetadataFieldRequest extends PutRequest {
   constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
     super(uuid, href, body, options);

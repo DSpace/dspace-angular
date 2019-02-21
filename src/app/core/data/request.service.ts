@@ -55,6 +55,13 @@ export class RequestService {
     return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.UUID_MAPPING, uuid);
   }
 
+  /**
+   * Create a selector that fetches a list of request UUIDs from a given index substate of which the request href
+   * contains a given substring
+   * @param selector    MemoizedSelector to start from
+   * @param name        The name of the index substate we're fetching request UUIDs from
+   * @param href        Substring that the request's href should contain
+   */
   private uuidsFromHrefSubstringSelector(selector: MemoizedSelector<any, IndexState>, name: string, href: string): MemoizedSelector<any, string[]> {
     return createSelector(selector, (state: IndexState) => this.getUuidsFromHrefSubstring(state, name, href));
   }

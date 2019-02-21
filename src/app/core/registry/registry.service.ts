@@ -7,10 +7,11 @@ import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
 import { BitstreamFormat } from './mock-bitstream-format.model';
 import {
+  CreateMetadataFieldRequest,
   CreateMetadataSchemaRequest,
   DeleteRequest,
   GetRequest,
-  RestRequest,
+  RestRequest, UpdateMetadataFieldRequest,
   UpdateMetadataSchemaRequest
 } from '../data/request.models';
 import { GenericConstructor } from '../shared/generic-constructor';
@@ -314,6 +315,14 @@ export class RegistryService {
     return this.store.pipe(select(selectedMetadataFieldsSelector));
   }
 
+  /**
+   * Create or Update a MetadataSchema
+   *  If the MetadataSchema contains an id, it is assumed the schema already exists and is updated instead
+   *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
+   *  - On creation, a CreateMetadataSchemaRequest is used
+   *  - On update, a UpdateMetadataSchemaRequest is used
+   * @param schema    The MetadataSchema to create or update
+   */
   public createOrUpdateMetadataSchema(schema: MetadataSchema): Observable<MetadataSchema> {
     const isUpdate = hasValue(schema.id);
     const requestId = this.requestService.generateRequestId();
@@ -377,6 +386,14 @@ export class RegistryService {
     )
   }
 
+  /**
+   * Create or Update a MetadataField
+   *  If the MetadataField contains an id, it is assumed the field already exists and is updated instead
+   *  Since creating or updating is nearly identical, the only real difference is the request (and slight difference in endpoint):
+   *  - On creation, a CreateMetadataFieldRequest is used
+   *  - On update, a UpdateMetadataFieldRequest is used
+   * @param field    The MetadataField to create or update
+   */
   public createOrUpdateMetadataField(field: MetadataField): Observable<MetadataField> {
     const isUpdate = hasValue(field.id);
     const requestId = this.requestService.generateRequestId();
@@ -394,9 +411,9 @@ export class RegistryService {
           let headers = new HttpHeaders();
           headers = headers.append('Content-Type', 'application/json');
           options.headers = headers;
-          return new UpdateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(field), options);
+          return new UpdateMetadataFieldRequest(requestId, endpoint, JSON.stringify(field), options);
         } else {
-          return new CreateMetadataSchemaRequest(requestId, endpoint, JSON.stringify(field));
+          return new CreateMetadataFieldRequest(requestId, endpoint, JSON.stringify(field));
         }
       })
     );

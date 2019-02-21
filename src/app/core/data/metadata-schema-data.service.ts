@@ -17,6 +17,9 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeAnalyzer } from './change-analyzer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 
+/**
+ * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
+ */
 @Injectable()
 export class MetadataSchemaDataService extends DataService<NormalizedMetadataSchema, MetadataSchema> {
   protected linkPath = 'metadataschemas';
