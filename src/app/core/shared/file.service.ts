@@ -37,6 +37,8 @@ export class FileService {
    *    http DSpaceRESTV2Response
    */
   getFileNameFromResponseContentDisposition(res: DSpaceRESTV2Response) {
+    // NOTE: to be able to retrieve 'Content-Disposition' header,
+    // you need to set 'Access-Control-Expose-Headers': 'Content-Disposition' ON SERVER SIDE
     const contentDisposition = res.headers.get('content-disposition') || '';
     const matches = /filename="([^;]+)"/ig.exec(contentDisposition) || [];
     return (matches[1] || 'untitled').trim().replace(/\.[^/.]+$/, '');
