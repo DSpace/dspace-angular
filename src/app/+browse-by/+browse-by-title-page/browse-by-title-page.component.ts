@@ -1,16 +1,20 @@
-
-import {combineLatest as observableCombineLatest,  Observable ,  Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { Item } from '../../core/shared/item.model';
-import { ActivatedRoute, PRIMARY_OUTLET, UrlSegmentGroup } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { hasValue } from '../../shared/empty.util';
 import { Collection } from '../../core/shared/collection.model';
+import { browseParamsToOptions } from '../+browse-by-metadata-page/browse-by-metadata-page.component';
+import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
+import { Community } from '../../core/shared/community.model';
+import { getSucceededRemoteData } from '../../core/shared/operators';
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 @Component({
   selector: 'ds-browse-by-title-page',
@@ -22,28 +26,44 @@ import { Collection } from '../../core/shared/collection.model';
  */
 export class BrowseByTitlePageComponent implements OnInit {
 
+  /**
+   * The list of items to display
+   */
   items$: Observable<RemoteData<PaginatedList<Item>>>;
+
+  /**
+   * The current Community or Collection we're browsing metadata/items in
+   */
+  parent$: Observable<RemoteData<DSpaceObject>>;
+
+  /**
+   * The pagination configuration to use for displaying the list of items
+   */
   paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'browse-by-title-pagination',
     currentPage: 1,
     pageSize: 20
   });
-  sortConfig: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
-  subs: Subscription[] = [];
-  currentUrl: string;
 
-  public constructor(private itemDataService: ItemDataService, private route: ActivatedRoute) {
+  /**
+   * The sorting configuration to use for displaying the list of items
+   * Sorted by title (Ascending by default)
+   */
+  sortConfig: SortOptions = new SortOptions('dc.title', SortDirection.ASC);
+
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
+
+  public constructor(private itemDataService: ItemDataService,
+                     private route: ActivatedRoute,
+                     private dsoService: DSpaceObjectDataService) {
 
   }
 
   ngOnInit(): void {
-    this.currentUrl = this.route.snapshot.pathFromRoot
-      .map((snapshot) => (snapshot.routeConfig) ? snapshot.routeConfig.path : '')
-      .join('/');
-    this.updatePage({
-      pagination: this.paginationConfig,
-      sort: this.sortConfig
-    });
+    this.updatePage(new BrowseEntrySearchOptions(null, this.paginationConfig, this.sortConfig));
     this.subs.push(
       observableCombineLatest(
         this.route.params,
@@ -52,22 +72,8 @@ export class BrowseByTitlePageComponent implements OnInit {
           return Object.assign({}, params, queryParams);
         })
         .subscribe((params) => {
-          const page = +params.page || this.paginationConfig.currentPage;
-          const pageSize = +params.pageSize || this.paginationConfig.pageSize;
-          const sortDirection = params.sortDirection || this.sortConfig.direction;
-          const sortField = params.sortField || this.sortConfig.field;
-          const pagination = Object.assign({},
-            this.paginationConfig,
-            { currentPage: page, pageSize: pageSize }
-          );
-          const sort = Object.assign({},
-            this.sortConfig,
-            { direction: sortDirection, field: sortField }
-          );
-          this.updatePage({
-            pagination: pagination,
-            sort: sort
-          });
+          this.updatePage(browseParamsToOptions(params, this.paginationConfig, this.sortConfig));
+          this.updateParent(params.scope)
         }));
   }
 
@@ -77,12 +83,25 @@ export class BrowseByTitlePageComponent implements OnInit {
    *                        { pagination: PaginationComponentOptions,
    *                          sort: SortOptions }
    */
-  updatePage(searchOptions) {
+  updatePage(searchOptions: BrowseEntrySearchOptions) {
     this.items$ = this.itemDataService.findAll({
       currentPage: searchOptions.pagination.currentPage,
       elementsPerPage: searchOptions.pagination.pageSize,
-      sort: searchOptions.sort
+      sort: searchOptions.sort,
+      scopeID: searchOptions.scope
     });
+  }
+
+  /**
+   * Update the parent Community or Collection using their scope
+   * @param scope   The UUID of the Community or Collection to fetch
+   */
+  updateParent(scope: string) {
+    if (hasValue(scope)) {
+      this.parent$ = this.dsoService.findById(scope).pipe(
+        getSucceededRemoteData()
+      );
+    }
   }
 
   ngOnDestroy(): void {

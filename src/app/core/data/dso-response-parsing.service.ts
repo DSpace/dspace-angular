@@ -28,7 +28,13 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    const processRequestDTO = this.process<NormalizedObject, ResourceType>(data.payload, request.uuid);
+    let processRequestDTO;
+    // Prevent empty pages returning an error, initialize empty array instead.
+    if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
+      processRequestDTO = { page: [] };
+    } else {
+      processRequestDTO = this.process<NormalizedObject, ResourceType>(data.payload, request.uuid);
+    }
     let objectList = processRequestDTO;
 
     if (hasNoValue(processRequestDTO)) {

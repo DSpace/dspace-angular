@@ -8,6 +8,7 @@ import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest } from 
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseService } from './browse.service';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { RequestEntry } from '../data/request.reducer';
 import { of as observableOf } from 'rxjs';
 
@@ -151,14 +152,14 @@ describe('BrowseService', () => {
       it('should configure a new BrowseEntriesRequest', () => {
         const expected = new BrowseEntriesRequest(requestService.generateRequestId(), browseDefinitions[1]._links.entries);
 
-        scheduler.schedule(() => service.getBrowseEntriesFor(browseDefinitions[1].id).subscribe());
+        scheduler.schedule(() => service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
         expect(requestService.configure).toHaveBeenCalledWith(expected);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getBrowseEntriesFor(browseDefinitions[1].id);
+        service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id));
 
         expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 
@@ -170,14 +171,14 @@ describe('BrowseService', () => {
       it('should configure a new BrowseItemsRequest', () => {
         const expected = new BrowseItemsRequest(requestService.generateRequestId(), browseDefinitions[1]._links.items + '?filterValue=' + mockAuthorName);
 
-        scheduler.schedule(() => service.getBrowseItemsFor(browseDefinitions[1].id, mockAuthorName).subscribe());
+        scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
         expect(requestService.configure).toHaveBeenCalledWith(expected);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getBrowseItemsFor(browseDefinitions[1].id, mockAuthorName);
+        service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id));
 
         expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 
@@ -191,7 +192,7 @@ describe('BrowseService', () => {
         const definitionID = 'invalidID';
         const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`))
 
-        expect(service.getBrowseEntriesFor(definitionID)).toBeObservable(expected);
+        expect(service.getBrowseEntriesFor(new BrowseEntrySearchOptions(definitionID))).toBeObservable(expected);
       });
     });
 
@@ -201,7 +202,7 @@ describe('BrowseService', () => {
         const definitionID = 'invalidID';
         const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`))
 
-        expect(service.getBrowseItemsFor(definitionID, mockAuthorName)).toBeObservable(expected);
+        expect(service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(definitionID))).toBeObservable(expected);
       });
     });
   });

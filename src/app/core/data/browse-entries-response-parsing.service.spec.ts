@@ -105,21 +105,6 @@ describe('BrowseEntriesResponseParsingService', () => {
     } as DSpaceRESTV2Response;
 
     const invalidResponseNotAList = {
-      payload: {
-        authority: null,
-        value: 'Arulmozhiyal, Ramaswamy',
-        valueLang: null,
-        count: 1,
-        type: 'browseEntry',
-        _links: {
-          self: {
-            href: 'https://rest.api/discover/browses/author/entries'
-          },
-          items: {
-            href: 'https://rest.api/discover/browses/author/items?filterValue=Arulmozhiyal, Ramaswamy'
-          }
-        },
-      },
       statusCode: '200'
     } as DSpaceRESTV2Response;
 
