@@ -8,20 +8,24 @@ import { of as observableOf } from 'rxjs';
 const pageInfo = new PageInfo();
 const array = [
   Object.assign(new Item(), {
-    metadata: [
-      {
-        key: 'dc.title',
-        language: 'en_US',
-        value: 'Item nr 1'
-      }]
+    metadata: {
+      'dc.title': [
+        {
+          language: 'en_US',
+          value: 'Item nr 1'
+        }
+      ]
+    }
   }),
   Object.assign(new Item(), {
-    metadata: [
-      {
-        key: 'dc.title',
-        language: 'en_US',
-        value: 'Item nr 2'
-      }]
+    metadata: {
+      'dc.title': [
+        {
+          language: 'en_US',
+          value: 'Item nr 2'
+        }
+      ]
+    }
   })
 ];
 const paginatedList = new PaginatedList(pageInfo, array);

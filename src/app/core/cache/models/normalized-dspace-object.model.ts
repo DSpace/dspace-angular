@@ -1,7 +1,6 @@
 import { autoserialize, autoserializeAs, deserialize, serialize } from 'cerialize';
 import { DSpaceObject } from '../../shared/dspace-object.model';
-
-import { Metadatum } from '../../shared/metadatum.model';
+import { MetadataMap } from '../../shared/metadata.interfaces';
 import { ResourceType } from '../../shared/resource-type';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
@@ -46,10 +45,10 @@ export class NormalizedDSpaceObject extends NormalizedObject {
   type: ResourceType;
 
   /**
-   * An array containing all metadata of this DSpaceObject
+   * All metadata of this DSpaceObject
    */
-  @autoserializeAs(Metadatum)
-  metadata: Metadatum[];
+  @autoserialize
+  metadata: MetadataMap;
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject

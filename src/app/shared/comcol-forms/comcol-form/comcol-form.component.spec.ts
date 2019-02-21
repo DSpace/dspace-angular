@@ -11,7 +11,6 @@ import { ResourceType } from '../../../core/shared/resource-type';
 import { ComColFormComponent } from './comcol-form.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { hasValue } from '../../empty.util';
-import { Metadatum } from '../../../core/shared/metadatum.model';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<DSpaceObject>;
@@ -29,23 +28,24 @@ describe('ComColFormComponent', () => {
       return undefined;
     }
   };
-  const titleMD = { key: 'dc.title', value: 'Community Title' } as Metadatum;
-  const randomMD = { key: 'dc.random', value: 'Random metadata excluded from form' } as Metadatum;
-  const abstractMD = {
-    key: 'dc.description.abstract',
-    value: 'Community description'
-  } as Metadatum;
-  const newTitleMD = { key: 'dc.title', value: 'New Community Title' } as Metadatum;
+  const dcTitle = 'dc.title';
+  const dcRandom = 'dc.random';
+  const dcAbstract = 'dc.description.abstract';
+
+  const titleMD = { [dcTitle]: [ { value: 'Community Title', language: null } ] };
+  const randomMD = { [dcRandom]: [ { value: 'Random metadata excluded from form', language: null } ] };
+  const abstractMD = { [dcAbstract]: [ { value: 'Community description', language: null } ] };
+  const newTitleMD = { [dcTitle]: [ { value: 'New Community Title', language: null } ] };
   const formModel = [
     new DynamicInputModel({
       id: 'title',
-      name: newTitleMD.key,
-      value: 'New Community Title'
+      name: dcTitle,
+      value: newTitleMD[dcTitle][0].value
     }),
     new DynamicInputModel({
       id: 'abstract',
-      name: abstractMD.key,
-      value: abstractMD.value
+      name: dcAbstract,
+      value: abstractMD[dcAbstract][0].value
     })
   ];
 
@@ -87,10 +87,10 @@ describe('ComColFormComponent', () => {
       comp.dso = Object.assign(
         new Community(),
         {
-          metadata: [
-            titleMD,
-            randomMD
-          ]
+          metadata: {
+            ...titleMD,
+            ...randomMD
+          }
         }
       );
 
@@ -101,11 +101,11 @@ describe('ComColFormComponent', () => {
           {},
           new Community(),
           {
-            metadata: [
-              randomMD,
-              newTitleMD,
-              abstractMD
-            ],
+            metadata: {
+              ...newTitleMD,
+              ...randomMD,
+              ...abstractMD
+            },
             type: ResourceType.Community
           },
         )

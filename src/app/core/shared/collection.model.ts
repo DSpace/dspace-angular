@@ -16,7 +16,7 @@ export class Collection extends DSpaceObject {
    * Corresponds to the metadata field dc.description
    */
   get introductoryText(): string {
-    return this.findMetadata('dc.description');
+    return this.firstMetadataValue('dc.description');
   }
 
   /**
@@ -24,7 +24,7 @@ export class Collection extends DSpaceObject {
    * Corresponds to the metadata field dc.description.abstract
    */
   get shortDescription(): string {
-    return this.findMetadata('dc.description.abstract');
+    return this.firstMetadataValue('dc.description.abstract');
   }
 
   /**
@@ -32,7 +32,7 @@ export class Collection extends DSpaceObject {
    * Corresponds to the metadata field dc.rights
    */
   get copyrightText(): string {
-    return this.findMetadata('dc.rights');
+    return this.firstMetadataValue('dc.rights');
   }
 
   /**
@@ -40,7 +40,7 @@ export class Collection extends DSpaceObject {
    * Corresponds to the metadata field dc.rights.license
    */
   get license(): string {
-    return this.findMetadata('dc.rights.license');
+    return this.firstMetadataValue('dc.rights.license');
   }
 
   /**
@@ -48,7 +48,7 @@ export class Collection extends DSpaceObject {
    * Corresponds to the metadata field dc.description.tableofcontents
    */
   get sidebarText(): string {
-    return this.findMetadata('dc.description.tableofcontents');
+    return this.firstMetadataValue('dc.description.tableofcontents');
   }
 
   /**

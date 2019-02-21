@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Item} from '../../../core/shared/item.model';
-import {Metadatum} from '../../../core/shared/metadatum.model';
+import {MetadataMap} from '../../../core/shared/metadata.interfaces';
 
 @Component({
   selector: 'ds-modify-item-overview',
@@ -12,7 +12,7 @@ import {Metadatum} from '../../../core/shared/metadatum.model';
 export class ModifyItemOverviewComponent implements OnInit {
 
   @Input() item: Item;
-  metadata: Metadatum[];
+  metadata: MetadataMap;
 
   ngOnInit(): void {
     this.metadata = this.item.metadata;

@@ -11,10 +11,14 @@ const mockItem = Object.assign(new Item(), {
   id: 'fake-id',
   handle: 'fake/handle',
   lastModified: '2018',
-  metadata: [
-    {key: 'dc.title', value: 'Mock item title', language: 'en'},
-    {key: 'dc.contributor.author', value: 'Mayer, Ed', language: ''}
-  ]
+  metadata: {
+    'dc.title': [
+      { value: 'Mock item title', language: 'en' }
+    ],
+    'dc.contributor.author': [
+      { value: 'Mayer, Ed', language: '' }
+    ]
+  }
 });
 
 describe('ModifyItemOverviewComponent', () => {
@@ -37,19 +41,19 @@ describe('ModifyItemOverviewComponent', () => {
     const metadataRows = fixture.debugElement.queryAll(By.css('tr.metadata-row'));
     expect(metadataRows.length).toEqual(2);
 
-    const titleRow = metadataRows[0].queryAll(By.css('td'));
-    expect(titleRow.length).toEqual(3);
-
-    expect(titleRow[0].nativeElement.innerHTML).toContain('dc.title');
-    expect(titleRow[1].nativeElement.innerHTML).toContain('Mock item title');
-    expect(titleRow[2].nativeElement.innerHTML).toContain('en');
-
-    const authorRow = metadataRows[1].queryAll(By.css('td'));
+    const authorRow = metadataRows[0].queryAll(By.css('td'));
     expect(authorRow.length).toEqual(3);
 
     expect(authorRow[0].nativeElement.innerHTML).toContain('dc.contributor.author');
     expect(authorRow[1].nativeElement.innerHTML).toContain('Mayer, Ed');
     expect(authorRow[2].nativeElement.innerHTML).toEqual('');
+
+    const titleRow = metadataRows[1].queryAll(By.css('td'));
+    expect(titleRow.length).toEqual(3);
+
+    expect(titleRow[0].nativeElement.innerHTML).toContain('dc.title');
+    expect(titleRow[1].nativeElement.innerHTML).toContain('Mock item title');
+    expect(titleRow[2].nativeElement.innerHTML).toContain('en');
 
   });
 });
