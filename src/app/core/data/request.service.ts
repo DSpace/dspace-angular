@@ -66,6 +66,12 @@ export class RequestService {
     return createSelector(selector, (state: IndexState) => this.getUuidsFromHrefSubstring(state, name, href));
   }
 
+  /**
+   * Fetch a list of request UUIDs from a given index substate of which the request href contains a given substring
+   * @param state   The IndexState
+   * @param name    The name of the index substate we're fetching request UUIDs from
+   * @param href    Substring that the request's href should contain
+   */
   private getUuidsFromHrefSubstring(state: IndexState, name: string, href: string): string[] {
     let result = [];
     if (isNotEmpty(state)) {
