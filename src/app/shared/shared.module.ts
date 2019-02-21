@@ -94,6 +94,7 @@ import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/cre
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
+import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -143,6 +144,7 @@ const COMPONENTS = [
   CreateComColPageComponent,
   EditComColPageComponent,
   DeleteComColPageComponent,
+  ComcolPageBrowseByComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,

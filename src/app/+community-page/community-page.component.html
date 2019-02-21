@@ -3,6 +3,8 @@
     <div *ngIf="communityRD?.payload; let communityPayload">
       <!-- Community name -->
       <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
+      <!-- Browse-By Links -->
+      <ds-comcol-page-browse-by [id]="communityPayload.id"></ds-comcol-page-browse-by>
       <!-- Community logo -->
       <ds-comcol-page-logo *ngIf="logoRD$"
                            [logo]="(logoRD$ | async)?.payload"

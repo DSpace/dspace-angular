@@ -30,11 +30,13 @@ export class BrowseEntriesResponseParsingService extends BaseResponseParsingServ
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._embedded)
-      && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {
-      const serializer = new DSpaceRESTv2Serializer(BrowseEntry);
-      const browseEntries = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
-      return new GenericSuccessResponse(browseEntries, data.statusCode, data.statusText, this.processPageInfo(data.payload));
+    if (isNotEmpty(data.payload)) {
+      let browseEntries = [];
+      if (isNotEmpty(data.payload._embedded) && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {
+        const serializer = new DSpaceRESTv2Serializer(BrowseEntry);
+        browseEntries = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
+      }
+      return new GenericSuccessResponse(browseEntries, data.statusCode, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
         Object.assign(
