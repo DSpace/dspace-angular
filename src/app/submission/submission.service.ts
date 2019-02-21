@@ -308,7 +308,6 @@ export class SubmissionService {
 
   startAutoSave(submissionId) {
     this.stopAutoSave();
-    console.log('AUTOSAVE ON!!!');
     // AUTOSAVE submission
     // Retrieve interval from config and convert to milliseconds
     const duration = this.EnvConfig.submission.autosave.timer * (1000 * 60);
@@ -320,7 +319,6 @@ export class SubmissionService {
 
   stopAutoSave() {
     if (hasValue(this.autoSaveSub)) {
-      console.log('AUTOSAVE OFFF!!!');
       this.autoSaveSub.unsubscribe();
       this.autoSaveSub = null;
     }
