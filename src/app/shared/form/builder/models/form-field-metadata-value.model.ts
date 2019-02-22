@@ -1,12 +1,13 @@
 import { isEmpty, isNotEmpty, isNotNull } from '../../../empty.util';
 import { ConfidenceType } from '../../../../core/integration/models/confidence-type';
 import { PLACEHOLDER_PARENT_METADATA } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { MetadataValue } from '../../../../core/shared/metadata.interfaces';
 
 export interface OtherInformation {
   [name: string]: string
 }
 
-export class FormFieldMetadataValueObject {
+export class FormFieldMetadataValueObject implements MetadataValue {
   metadata?: string;
   value: any;
   display: string;
