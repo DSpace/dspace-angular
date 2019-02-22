@@ -8,6 +8,7 @@ import { mockUploadFiles } from '../../../../../shared/mocks/mock-submission';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { UploadSectionFileViewComponent } from './file-view.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { Metadata } from '../../../../../core/shared/metadata.model';
 
 describe('UploadSectionFileViewComponent test suite', () => {
 
@@ -74,10 +75,14 @@ describe('UploadSectionFileViewComponent test suite', () => {
 
     it('should init metadata array properly', () => {
       comp.fileData = fileData;
+      const expectMetadataMap = {
+        [comp.fileTitleKey]: Metadata.all(fileData.metadata, 'dc.title'),
+        [comp.fileDescrKey]: [],
+      };
 
       fixture.detectChanges();
 
-      expect(comp.metadata.length).toBe(2);
+      expect(comp.metadata).toEqual(expectMetadataMap);
 
     });
 

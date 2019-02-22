@@ -1,22 +1,26 @@
 <div>
-  <ng-container *ngIf="metadata.length > 0">
-    <ng-container *ngFor="let entry of metadata">
+  <ng-container *ngIf="metadata">
+    <ng-container *ngFor="let entry of getAllMetadataValue(fileTitleKey)">
       <ng-container *ngIf="entry.value !== ''">
-        <h5 *ngIf="metadata.indexOf(entry) === 0">
+        <h5>
           {{entry.value}}
         </h5>
-        <ng-container *ngIf="metadata.indexOf(entry) !== 0">
-          {{entry.value | dsTruncate:[150]}}
-        </ng-container>
       </ng-container>
       <ng-container *ngIf="entry.value === ''">
-        <h5 *ngIf="metadata.indexOf(entry) === 0">
-          <span class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{entry.key}}</span>
+        <h5 *ngIf="metadata[fileTitleKey].indexOf(entry) === 0">
+          <span class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{fileTitleKey}}</span>
         </h5>
-        <ng-container *ngIf="metadata.indexOf(entry) !== 0">
-          <span class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{entry.key}}</span>
-        </ng-container>
       </ng-container>
+      <span class="clearfix"></span>
+    </ng-container>
+    <ng-container *ngFor="let entry of getAllMetadataValue(fileDescrKey)">
+      <ng-container *ngIf="entry.value !== ''">
+          {{entry.value | dsTruncate:[150]}}
+      </ng-container>
+      <ng-container *ngIf="entry.value === ''">
+        <span *ngIf="metadata[fileDescrKey].indexOf(entry) === 0" class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{fileDescrKey}}</span>
+      </ng-container>
+      <span class="clearfix"></span>
     </ng-container>
   </ng-container>
 
