@@ -78,7 +78,7 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
       this.browseService.getFirstItemFor(definition, scope).subscribe((firstItemRD: RemoteData<Item>) => {
         let lowerLimit = this.config.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
-          const date = firstItemRD.payload.findMetadata(metadataField);
+          const date = firstItemRD.payload.firstMetadataValue(metadataField);
           if (hasValue(date) && hasValue(+date.split('-')[0])) {
             lowerLimit = +date.split('-')[0];
           }

@@ -8,5 +8,7 @@ export enum ResourceType {
   Community = 'community',
   EPerson = 'eperson',
   Group = 'group',
-  ResourcePolicy = 'resourcePolicy'
+  ResourcePolicy = 'resourcePolicy',
+  MetadataSchema = 'metadataschema',
+  MetadataField = 'metadatafield'
 }

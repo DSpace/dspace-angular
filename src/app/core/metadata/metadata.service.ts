@@ -294,6 +294,10 @@ export class MetadataService {
     }
   }
 
+  private hasType(value: string): boolean {
+    return this.currentObject.value.hasMetadata('dc.type', { value: value, ignoreCase: true });
+  }
+
   /**
    * Returns true if this._item is a dissertation
    *
@@ -301,14 +305,7 @@ export class MetadataService {
    *      true if this._item has a dc.type equal to 'Thesis'
    */
   private isDissertation(): boolean {
-    let isDissertation = false;
-    for (const metadatum of this.currentObject.value.metadata) {
-      if (metadatum.key === 'dc.type') {
-        isDissertation = metadatum.value.toLowerCase() === 'thesis';
-        break;
-      }
-    }
-    return isDissertation;
+    return this.hasType('thesis');
   }
 
   /**
@@ -318,40 +315,15 @@ export class MetadataService {
    *      true if this._item has a dc.type equal to 'Technical Report'
    */
   private isTechReport(): boolean {
-    let isTechReport = false;
-    for (const metadatum of this.currentObject.value.metadata) {
-      if (metadatum.key === 'dc.type') {
-        isTechReport = metadatum.value.toLowerCase() === 'technical report';
-        break;
-      }
-    }
-    return isTechReport;
+    return this.hasType('technical report');
   }
 
   private getMetaTagValue(key: string): string {
-    let value: string;
-    for (const metadatum of this.currentObject.value.metadata) {
-      if (metadatum.key === key) {
-        value = metadatum.value;
-      }
-    }
-    return value;
+    return this.currentObject.value.firstMetadataValue(key);
   }
 
   private getFirstMetaTagValue(keys: string[]): string {
-    let value: string;
-    for (const metadatum of this.currentObject.value.metadata) {
-      for (const key of keys) {
-        if (key === metadatum.key) {
-          value = metadatum.value;
-          break;
-        }
-      }
-      if (value !== undefined) {
-        break;
-      }
-    }
-    return value;
+    return this.currentObject.value.firstMetadataValue(keys);
   }
 
   private getMetaTagValuesAndCombine(key: string): string {
@@ -359,15 +331,7 @@ export class MetadataService {
   }
 
   private getMetaTagValues(keys: string[]): string[] {
-    const values: string[] = [];
-    for (const metadatum of this.currentObject.value.metadata) {
-      for (const key of keys) {
-        if (key === metadatum.key) {
-          values.push(metadatum.value);
-        }
-      }
-    }
-    return values;
+    return this.currentObject.value.allMetadataValues(keys);
   }
 
   private addMetaTag(property: string, content: string): void {
