@@ -4,7 +4,7 @@ import { requestReducer, RequestState } from './request.reducer';
 import {
   RequestCompleteAction,
   RequestConfigureAction,
-  RequestExecuteAction, ResetResponseTimestampsAction
+  RequestExecuteAction, RequestRemoveAction, ResetResponseTimestampsAction
 } from './request.actions';
 import { GetRequest } from './request.models';
 import { RestResponse } from '../cache/response.models';
@@ -109,5 +109,14 @@ describe('requestReducer', () => {
     expect(newState[id1].response.isSuccessful).toEqual(response.isSuccessful);
     expect(newState[id1].response.statusCode).toEqual(response.statusCode);
     expect(newState[id1].response.timeAdded).toBe(timeStamp);
+  });
+
+  it('should remove the correct request, in response to a REMOVE action', () => {
+    const state = testState;
+
+    const action = new RequestRemoveAction(id1);
+    const newState = requestReducer(state, action);
+
+    expect(newState[id1]).toBeUndefined();
   });
 });

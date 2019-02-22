@@ -16,6 +16,7 @@ import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
 import { SubmissionFormsModel } from '../../config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from '../../config/models/config-submission-section.model';
+import { NormalizedMetadataSchema } from '../../metadata/normalized-metadata-schema.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
@@ -35,6 +36,9 @@ export class NormalizedObjectFactory {
       case ResourceType.Community: {
         return NormalizedCommunity
       }
+      case ResourceType.BitstreamFormat: {
+        return NormalizedBitstreamFormat
+      }
       case ResourceType.License: {
         return NormalizedLicense
       }
@@ -48,6 +52,12 @@ export class NormalizedObjectFactory {
         return NormalizedEPerson
       }
       case ResourceType.Group: {
+        return NormalizedGroup
+      }
+      case ResourceType.MetadataSchema: {
+        return NormalizedMetadataSchema
+      }
+      case ResourceType.MetadataField: {
         return NormalizedGroup
       }
       case ResourceType.Workflowitem: {

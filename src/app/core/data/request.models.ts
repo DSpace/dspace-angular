@@ -14,6 +14,9 @@ import { RestRequestMethod } from './rest-request-method';
 import { SearchParam } from '../cache/models/search-param.model';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
+import { RegistryMetadataschemasResponseParsingService } from './registry-metadataschemas-response-parsing.service';
+import { MetadataschemaParsingService } from './metadataschema-parsing.service';
+import { MetadatafieldParsingService } from './metadatafield-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -218,6 +221,58 @@ export class IntegrationRequest extends GetRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return IntegrationResponseParsingService;
+  }
+}
+
+/**
+ * Request to create a MetadataSchema
+ */
+export class CreateMetadataSchemaRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadataschemaParsingService;
+  }
+}
+
+/**
+ * Request to update a MetadataSchema
+ */
+export class UpdateMetadataSchemaRequest extends PutRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadataschemaParsingService;
+  }
+}
+
+/**
+ * Request to create a MetadataField
+ */
+export class CreateMetadataFieldRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadatafieldParsingService;
+  }
+}
+
+/**
+ * Request to update a MetadataField
+ */
+export class UpdateMetadataFieldRequest extends PutRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadatafieldParsingService;
   }
 }
 

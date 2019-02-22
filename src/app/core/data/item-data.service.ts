@@ -1,4 +1,3 @@
-
 import {distinctUntilChanged, map, filter} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -14,14 +13,13 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, PatchRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindAllOptions, PatchRequest, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
+import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { configureRequest, getRequestFromRequestHref } from '../shared/operators';
-import { RequestEntry } from './request.reducer';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ItemDataService extends DataService<NormalizedItem, Item> {
@@ -94,9 +92,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      map((request: RestRequest) => request.href),
-      getRequestFromRequestHref(this.requestService),
-      map((requestEntry: RequestEntry) => requestEntry.response)
+      getResponseFromEntry()
     );
   }
 
@@ -115,9 +111,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      map((request: RestRequest) => request.href),
-      getRequestFromRequestHref(this.requestService),
-      map((requestEntry: RequestEntry) => requestEntry.response)
+      getResponseFromEntry()
     );
   }
 }

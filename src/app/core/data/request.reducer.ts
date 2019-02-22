@@ -1,6 +1,6 @@
 import {
   RequestActionTypes, RequestAction, RequestConfigureAction,
-  RequestExecuteAction, RequestCompleteAction, ResetResponseTimestampsAction
+  RequestExecuteAction, RequestCompleteAction, ResetResponseTimestampsAction, RequestRemoveAction
 } from './request.actions';
 import { RestRequest } from './request.models';
 import { RestResponse } from '../cache/response.models';
@@ -36,6 +36,10 @@ export function requestReducer(state = initialState, action: RequestAction): Req
     }
     case RequestActionTypes.RESET_TIMESTAMPS: {
       return resetResponseTimestamps(state, action as ResetResponseTimestampsAction);
+    }
+
+    case RequestActionTypes.REMOVE: {
+      return removeRequest(state, action as RequestRemoveAction);
     }
 
     default: {
@@ -103,5 +107,20 @@ function resetResponseTimestamps(state: RequestState, action: ResetResponseTimes
       { response: Object.assign({}, state[key].response, { timeAdded: action.payload }) }
     );
   });
+  return newState;
+}
+
+/**
+ * Remove a request from the RequestState
+ * @param state   The current RequestState
+ * @param action  The RequestRemoveAction to perform
+ */
+function removeRequest(state: RequestState, action: RequestRemoveAction): RequestState {
+  const newState = Object.create(null);
+  for (const value in state) {
+    if (value !== action.uuid) {
+      newState[value] = state[value];
+    }
+  }
   return newState;
 }

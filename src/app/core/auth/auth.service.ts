@@ -1,4 +1,4 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {Observable, of, of as observableOf} from 'rxjs';
 import {
   distinctUntilChanged,
   filter,

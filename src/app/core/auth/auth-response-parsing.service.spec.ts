@@ -78,23 +78,26 @@ describe('AuthResponseParsingService', () => {
             handle: null,
             id: '4dc70ab5-cd73-492f-b007-3179d2d9296b',
             lastActive: '2018-05-14T17:03:31.277+0000',
-            metadata: [
-              {
-                key: 'eperson.firstname',
-                language: null,
-                value: 'User'
-              },
-              {
-                key: 'eperson.lastname',
-                language: null,
-                value: 'Test'
-              },
-              {
-                key: 'eperson.language',
-                language: null,
-                value: 'en'
-              }
-            ],
+            metadata: {
+              'eperson.firstname': [
+                {
+                  language: null,
+                  value: 'User'
+                }
+              ],
+              'eperson.lastname': [
+                {
+                  language: null,
+                  value: 'Test'
+                }
+              ],
+              'eperson.language': [
+                {
+                  language: null,
+                  value: 'en'
+                }
+              ]
+            },
             name: 'User Test',
             netid: 'myself@testshib.org',
             requireCertificate: false,

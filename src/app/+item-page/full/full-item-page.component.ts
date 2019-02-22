@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ItemPageComponent } from '../simple/item-page.component';
-import { Metadatum } from '../../core/shared/metadatum.model';
+import { MetadataMap } from '../../core/shared/metadata.interfaces';
 import { ItemDataService } from '../../core/data/item-data.service';
 
 import { RemoteData } from '../../core/data/remote-data';
@@ -34,7 +34,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
   itemRD$: Observable<RemoteData<Item>>;
 
-  metadata$: Observable<Metadatum[]>;
+  metadata$: Observable<MetadataMap>;
 
   constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService) {
     super(route, items, metadataService);

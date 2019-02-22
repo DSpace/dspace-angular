@@ -91,9 +91,9 @@ export class DSpaceRESTv2Service {
     const form: FormData = new FormData();
     form.append('name', dso.name);
     if (dso.metadata) {
-      for (const i of Object.keys(dso.metadata)) {
-        if (isNotEmpty(dso.metadata[i].value)) {
-          form.append(dso.metadata[i].key, dso.metadata[i].value);
+      for (const key of Object.keys(dso.metadata)) {
+        for (const value of dso.allMetadataValues(key)) {
+          form.append(key, value);
         }
       }
     }

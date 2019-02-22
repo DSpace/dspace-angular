@@ -7,7 +7,7 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { hasValue } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
-import { Metadatum } from '../shared/metadatum.model';
+import { MetadataMap, MetadataValue } from '../shared/metadata.interfaces';
 
 @Injectable()
 export class SearchResponseParsingService implements ResponseParsingService {
@@ -16,17 +16,17 @@ export class SearchResponseParsingService implements ResponseParsingService {
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload._embedded.searchResult;
-    const hitHighlights = payload._embedded.objects
+    const hitHighlights: MetadataMap[] = payload._embedded.objects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {
+        const mdMap: MetadataMap = {};
         if (hhObject) {
-          return Object.keys(hhObject).map((key) => Object.assign(new Metadatum(), {
-            key: key,
-            value: hhObject[key].join('...')
-          }))
-        } else {
-          return [];
+          for (const key of Object.keys(hhObject)) {
+            const value: MetadataValue = { value: hhObject[key].join('...'), language: null };
+            mdMap[key] = [ value ];
+          }
         }
+        return mdMap;
       });
 
     const dsoSelfLinks = payload._embedded.objects

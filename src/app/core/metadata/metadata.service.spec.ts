@@ -37,6 +37,7 @@ import { HttpClient } from '@angular/common/http';
 import { EmptyError } from 'rxjs/internal-compatibility';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { MetadataValue } from '../shared/metadata.interfaces';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -88,7 +89,7 @@ describe('MetadataService', () => {
 
     objectCacheService = new ObjectCacheService(store);
     uuidService = new UUIDService();
-    requestService = new RequestService(objectCacheService, uuidService, store);
+    requestService = new RequestService(objectCacheService, uuidService, store, undefined);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
 
     TestBed.configureTestingModule({
@@ -152,7 +153,7 @@ describe('MetadataService', () => {
     expect(title.getTitle()).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_title')[0].content).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_author')[0].content).toEqual('Doe, Jane');
-    expect(tagStore.get('citation_date')[0].content).toEqual('1650-06-26T19:58:25Z');
+    expect(tagStore.get('citation_date')[0].content).toEqual('1650-06-26');
     expect(tagStore.get('citation_issn')[0].content).toEqual('123456789');
     expect(tagStore.get('citation_language')[0].content).toEqual('en');
     expect(tagStore.get('citation_keywords')[0].content).toEqual('keyword1; keyword2; keyword3');
@@ -216,22 +217,18 @@ describe('MetadataService', () => {
 
   const mockType = (mockItem: Item, type: string): Item => {
     const typedMockItem = Object.assign(new Item(), mockItem) as Item;
-    for (const metadatum of typedMockItem.metadata) {
-      if (metadatum.key === 'dc.type') {
-        metadatum.value = type;
-        break;
-      }
-    }
+    typedMockItem.metadata['dc.type'] = [ { value: type } ] as MetadataValue[];
     return typedMockItem;
   };
 
   const mockPublisher = (mockItem: Item): Item => {
     const publishedMockItem = Object.assign(new Item(), mockItem) as Item;
-    publishedMockItem.metadata.push({
-      key: 'dc.publisher',
-      language: 'en_US',
-      value: 'Mock Publisher'
-    });
+    publishedMockItem.metadata['dc.publisher'] = [
+      {
+        language: 'en_US',
+        value: 'Mock Publisher'
+      }
+    ] as MetadataValue[];
     return publishedMockItem;
   }
 

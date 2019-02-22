@@ -11,31 +11,37 @@ let fixture: ComponentFixture<ItemGridElementComponent>;
 
 const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.contributor.author',
-      language: 'en_US',
-      value: 'Smith, Donald'
-    },
-    {
-      key: 'dc.date.issued',
-      language: null,
-      value: '2015-06-26'
-    }]
+  metadata: {
+    'dc.contributor.author': [
+      {
+        language: 'en_US',
+        value: 'Smith, Donald'
+      }
+    ],
+    'dc.date.issued': [
+      {
+        language: null,
+        value: '2015-06-26'
+      }
+    ]
+  }
 });
 const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    },
-    {
-      key: 'dc.type',
-      language: null,
-      value: 'Article'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ],
+    'dc.type': [
+      {
+        language: null,
+        value: 'Article'
+      }
+    ]
+  }
 });
 
 describe('ItemGridElementComponent', () => {

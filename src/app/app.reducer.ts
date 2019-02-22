@@ -15,6 +15,10 @@ import {
   NotificationsState
 } from './shared/notifications/notifications.reducers';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
+import {
+  metadataRegistryReducer,
+  MetadataRegistryState
+} from './+admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 import { menusReducer, MenusState } from './shared/menu/menu.reducer';
@@ -25,6 +29,7 @@ export interface AppState {
   history: HistoryState;
   hostWindow: HostWindowState;
   forms: FormState;
+  metadataRegistry: MetadataRegistryState;
   notifications: NotificationsState;
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
@@ -38,6 +43,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   history: historyReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
+  metadataRegistry: metadataRegistryReducer,
   notifications: notificationsReducer,
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,
