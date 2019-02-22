@@ -84,7 +84,7 @@ describe('MetadataSchemaComponent', () => {
     getSelectedMetadataFields: () => observableOf([]),
     editMetadataField: (schema) => {},
     cancelEditMetadataField: () => {},
-    deleteMetadataField: () => observableOf(new RestResponse(true, '200')),
+    deleteMetadataField: () => observableOf(new RestResponse(true, 200, 'OK')),
     deselectAllMetadataField: () => {},
     clearMetadataFieldRequests: () => observableOf(undefined)
   };
