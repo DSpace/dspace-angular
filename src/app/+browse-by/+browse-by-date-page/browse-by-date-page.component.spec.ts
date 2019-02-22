@@ -36,9 +36,13 @@ describe('BrowseByDatePageComponent', () => {
 
   const firstItem = Object.assign(new Item(), {
     id: 'first-item-id',
-    metadata: [
-      { key: 'dc.date.issued', value: '1950-01-01' }
-    ]
+    metadata: {
+      'dc.date.issued': [
+        {
+          value: '1950-01-01'
+        }
+      ]
+    }
   });
 
   const mockBrowseService = {
