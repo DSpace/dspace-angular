@@ -237,10 +237,9 @@ export class FormComponent implements OnDestroy, OnInit {
   private keepSync(): void {
     this.subs.push(this.formService.getFormData(this.formId)
       .subscribe((stateFormData) => {
-        // if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
-        //   this.formGroup.setValue(stateFormData);
-        console.log(stateFormData);
-        // }
+        if (!Object.is(stateFormData, this.formGroup.value) && this.formGroup) {
+          this.formGroup.setValue(stateFormData);
+        }
       }));
   }
 

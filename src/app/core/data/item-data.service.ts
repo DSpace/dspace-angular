@@ -15,9 +15,9 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions, PatchRequest, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { configureRequest, getRequestFromRequestHref } from '../shared/operators';
 import { RequestEntry } from './request.reducer';
 

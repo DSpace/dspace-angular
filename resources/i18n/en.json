@@ -388,7 +388,21 @@
     }
   },
   "browse": {
-    "title": "Browsing {{ collection }} by {{ field }} {{ value }}"
+    "title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+    "metadata": {
+      "title": "Title",
+      "author": "Author",
+      "subject": "Subject"
+    },
+    "comcol": {
+      "head": "Browse",
+      "by": {
+        "title": "By Title",
+        "author": "By Author",
+        "subject": "By Subject"
+      }
+    },
+    "empty": "No items to show."
   },
   "admin": {
     "registries": {
@@ -519,6 +533,7 @@
       "browse_global_by_issue_date": "By Issue Date",
       "browse_global_by_author": "By Author",
       "browse_global_by_title": "By Title",
+      "browse_global_by_subject": "By Subject",
       "statistics": "Statistics",
       "browse_community": "This Community",
       "browse_community_by_issue_date": "By Issue Date",

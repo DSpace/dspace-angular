@@ -2,12 +2,11 @@ import { Component, Inject } from '@angular/core';
 
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Metadatum } from '../../../core/shared/metadatum.model';
-import { isEmpty, hasNoValue, hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Observable } from 'rxjs';
+import { Metadata } from '../../../core/shared/metadata.model';
 
 @Component({
   selector: 'ds-search-result-grid-element',
@@ -22,39 +21,24 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
     this.dso = this.object.dspaceObject;
   }
 
-  getValues(keys: string[]): string[] {
-    const results: string[] = new Array<string>();
-    this.object.hitHighlights.forEach(
-      (md: Metadatum) => {
-        if (keys.indexOf(md.key) > -1) {
-          results.push(md.value);
-        }
-      }
-    );
-    if (isEmpty(results)) {
-      this.dso.filterMetadata(keys).forEach(
-        (md: Metadatum) => {
-          results.push(md.value);
-        }
-      );
-    }
-    return results;
+  /**
+   * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {string[]} the matching string values or an empty array.
+   */
+  allMetadataValues(keyOrKeys: string | string[]): string[] {
+    return Metadata.allValues([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
 
-  getFirstValue(key: string): string {
-    let result: string;
-    this.object.hitHighlights.some(
-      (md: Metadatum) => {
-        if (key === md.key) {
-          result = md.value;
-          return true;
-        }
-      }
-    );
-    if (hasNoValue(result)) {
-      result = this.dso.findMetadata(key);
-    }
-    return result;
+  /**
+   * Gets the first matching metadata string value from hitHighlights or dso metadata, preferring hitHighlights.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @returns {string} the first matching string value, or `undefined`.
+   */
+  firstMetadataValue(keyOrKeys: string | string[]): string {
+    return Metadata.firstValue([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
 
   isCollapsed(): Observable<boolean> {

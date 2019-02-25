@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { TranslateService } from '@ngx-translate/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.interfaces';
 import { isNotEmpty } from '../../empty.util';
 import { ResourceType } from '../../../core/shared/resource-type';
 
@@ -64,7 +65,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   ngOnInit(): void {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel) => {
-        fieldModel.value = this.dso.findMetadata(fieldModel.name);
+        fieldModel.value = this.dso.firstMetadataValue(fieldModel.name);
       }
     );
     this.formGroup = this.formService.createFormGroup(this.formModel);
@@ -77,20 +78,24 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   }
 
   /**
-   * Checks which new fields where added and sends the updated version of the DSO to the parent component
+   * Checks which new fields were added and sends the updated version of the DSO to the parent component
    */
   onSubmit() {
-    const metadata = this.formModel.map(
-      (fieldModel: DynamicInputModel) => {
-        return { key: fieldModel.name, value: fieldModel.value }
+    const formMetadata = new Object() as MetadataMap;
+    this.formModel.forEach((fieldModel: DynamicInputModel) => {
+      const value: MetadataValue = { value: fieldModel.value as string, language: null };
+      if (formMetadata.hasOwnProperty(fieldModel.name)) {
+        formMetadata[fieldModel.name].push(value);
+      } else {
+        formMetadata[fieldModel.name] = [ value ];
       }
-    );
-    const filteredOldMetadata = this.dso.metadata.filter((filter) => !metadata.map((md) => md.key).includes(filter.key));
-    const filteredNewMetadata = metadata.filter((md) => isNotEmpty(md.value));
+    });
 
-    const newMetadata = [...filteredOldMetadata, ...filteredNewMetadata];
     const updatedDSO = Object.assign({}, this.dso, {
-      metadata: newMetadata,
+      metadata: {
+        ...this.dso.metadata,
+        ...formMetadata
+      },
       type: ResourceType.Community
     });
     this.submitForm.emit(updatedDSO);

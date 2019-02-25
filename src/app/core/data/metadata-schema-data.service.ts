@@ -16,6 +16,9 @@ import { HttpClient } from '@angular/common/http';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
+/**
+ * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
+ */
 @Injectable()
 export class MetadataSchemaDataService extends DataService<MetadataSchema> {
   protected linkPath = 'metadataschemas';

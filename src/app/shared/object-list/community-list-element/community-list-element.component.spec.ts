@@ -8,21 +8,25 @@ let communityListElementComponent: CommunityListElementComponent;
 let fixture: ComponentFixture<CommunityListElementComponent>;
 
 const mockCommunityWithAbstract: Community = Object.assign(new Community(), {
-  metadata: [
-    {
-      key: 'dc.description.abstract',
-      language: 'en_US',
-      value: 'Short description'
-    }]
+  metadata: {
+    'dc.description.abstract': [
+      {
+        language: 'en_US',
+        value: 'Short description'
+      }
+    ]
+  }
 });
 
 const mockCommunityWithoutAbstract: Community = Object.assign(new Community(), {
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'Test title'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title'
+      }
+    ]
+  }
 });
 
 describe('CommunityListElementComponent', () => {

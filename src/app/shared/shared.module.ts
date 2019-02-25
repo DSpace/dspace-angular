@@ -94,6 +94,7 @@ import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import { ObjectValuesPipe } from './utils/object-values-pipe';
 import { InListValidator } from './utils/in-list-validator.directive';
 import { AutoFocusDirective } from './utils/auto-focus.directive';
+import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -142,6 +143,7 @@ const COMPONENTS = [
   CreateComColPageComponent,
   EditComColPageComponent,
   DeleteComColPageComponent,
+  ComcolPageBrowseByComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlComponent,
   DsDynamicListComponent,

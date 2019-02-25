@@ -24,7 +24,6 @@ import { hasValue } from '../shared/empty.util';
 export class CommunityPageComponent implements OnInit, OnDestroy {
   communityRD$: Observable<RemoteData<Community>>;
   logoRD$: Observable<RemoteData<Bitstream>>;
-
   private subs: Subscription[] = [];
 
   constructor(

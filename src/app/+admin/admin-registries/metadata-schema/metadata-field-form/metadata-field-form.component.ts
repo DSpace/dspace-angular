@@ -95,6 +95,9 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
               private translateService: TranslateService) {
   }
 
+  /**
+   * Initialize the component, setting up the necessary Models for the dynamic form
+   */
   ngOnInit() {
     combineLatest(
       this.translateService.get(`${this.messagePrefix}.element`),

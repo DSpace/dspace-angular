@@ -32,6 +32,11 @@ const initialState: MetadataRegistryState = {
   selectedFields: []
 };
 
+/**
+ * Reducer that handles MetadataRegistryActions to modify metadata schema and/or field states
+ * @param state   The current MetadataRegistryState
+ * @param action  The MetadataRegistryAction to perform on the state
+ */
 export function metadataRegistryReducer(state = initialState, action: MetadataRegistryAction): MetadataRegistryState {
 
   switch (action.type) {

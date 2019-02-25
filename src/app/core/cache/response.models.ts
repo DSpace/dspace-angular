@@ -33,6 +33,9 @@ export class DSOSuccessResponse extends RestResponse {
   }
 }
 
+/**
+ * A successful response containing a list of MetadataSchemas wrapped in a RegistryMetadataschemasResponse
+ */
 export class RegistryMetadataschemasSuccessResponse extends RestResponse {
   constructor(
     public metadataschemasResponse: RegistryMetadataschemasResponse,
@@ -43,6 +46,9 @@ export class RegistryMetadataschemasSuccessResponse extends RestResponse {
   }
 }
 
+/**
+ * A successful response containing a list of MetadataFields wrapped in a RegistryMetadatafieldsResponse
+ */
 export class RegistryMetadatafieldsSuccessResponse extends RestResponse {
   constructor(
     public metadatafieldsResponse: RegistryMetadatafieldsResponse,
@@ -53,6 +59,9 @@ export class RegistryMetadatafieldsSuccessResponse extends RestResponse {
   }
 }
 
+/**
+ * A successful response containing a list of BitstreamFormats wrapped in a RegistryBitstreamformatsResponse
+ */
 export class RegistryBitstreamformatsSuccessResponse extends RestResponse {
   constructor(
     public bitstreamformatsResponse: RegistryBitstreamformatsResponse,
@@ -63,6 +72,9 @@ export class RegistryBitstreamformatsSuccessResponse extends RestResponse {
   }
 }
 
+/**
+ * A successful response containing exactly one MetadataSchema
+ */
 export class MetadataschemaSuccessResponse extends RestResponse {
   constructor(
     public metadataschema: MetadataSchema,
@@ -72,6 +84,9 @@ export class MetadataschemaSuccessResponse extends RestResponse {
   }
 }
 
+/**
+ * A successful response containing exactly one MetadataField
+ */
 export class MetadatafieldSuccessResponse extends RestResponse {
   constructor(
     public metadatafield: MetadataField,
