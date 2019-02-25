@@ -11,12 +11,14 @@ import {
   Identifiable
 } from '../../../core/data/object-updates/object-updates.reducer';
 import { Metadatum } from '../../../core/shared/metadatum.model';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { TranslateService } from '@ngx-translate/core';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { MetadataField } from '../../../core/metadata/metadatafield.model';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -47,6 +49,11 @@ export class ItemMetadataComponent implements OnInit {
 
   private notitifactionPrefix = 'item.edit.metadata.notifications.';
 
+  /**
+   * Observable with a list of strings with all existing metadata field keys
+   */
+  metadataFields$: Observable<string[]>;
+
   constructor(
     private itemService: ItemDataService,
     private objectUpdatesService: ObjectUpdatesService,
@@ -54,7 +61,8 @@ export class ItemMetadataComponent implements OnInit {
     private notificationsService: NotificationsService,
     private translateService: TranslateService,
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private metadataFieldService: RegistryService,
   ) {
 
   }
@@ -63,6 +71,7 @@ export class ItemMetadataComponent implements OnInit {
    * Set up and initialize all fields
    */
   ngOnInit(): void {
+    this.metadataFields$ = this.findMetadataFields()
     this.route.parent.data.pipe(map((data) => data.item))
       .pipe(
         first(),
@@ -207,5 +216,15 @@ export class ItemMetadataComponent implements OnInit {
   private getNotificationContent(key: string) {
     return this.translateService.instant(this.notitifactionPrefix + key + '.content');
 
+  }
+
+  /**
+   * Method to request all metadata fields and convert them to a list of strings
+   */
+  findMetadataFields(): Observable<string[]> {
+    return this.metadataFieldService.getAllMetadataFields().pipe(
+      getSucceededRemoteData(),
+      take(1),
+      map((remoteData$) => remoteData$.payload.page.map((field: MetadataField) => field.toString())));
   }
 }

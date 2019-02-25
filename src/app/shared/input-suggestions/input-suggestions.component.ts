@@ -86,11 +86,6 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   @Output() findSuggestions = new EventEmitter();
 
   /**
-   * Emits event when the input field loses focus
-   */
-  @Output() blur = new EventEmitter();
-
-  /**
    * Emits true when the list of suggestions should be shown
    */
   show = new BehaviorSubject<boolean>(false);
@@ -119,7 +114,12 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
    */
   _value: string;
 
+  /** Fields needed to add ngModel */
+  @Input() disabled = false;
   propagateChange = (_: any) => {
+    /* Empty implementation */
+  };
+  propagateTouch = (_: any) => {
     /* Empty implementation */
   };
 
@@ -214,9 +214,9 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   find(data) {
     if (!this.blockReopen) {
       this.findSuggestions.emit(data);
+      this.typeSuggestion.emit(data);
     }
     this.blockReopen = false;
-    this.typeSuggestion.emit(data);
   }
 
   onSubmit(data) {
@@ -230,11 +230,11 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   }
 
   registerOnTouched(fn: any): void {
-    /* no implementation */
+    this.propagateTouch = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
-    /* no implementation */
+    this.disabled = isDisabled;
   }
 
   writeValue(value: any): void {

@@ -11,7 +11,7 @@ import { FieldChangeType } from '../../../../core/data/object-updates/object-upd
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
-import { FormControl } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -27,14 +27,22 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * The current field, value and state of the metadatum
    */
   @Input() fieldUpdate: FieldUpdate;
+
   /**
    * The current url of this page
    */
   @Input() url: string;
+
+  /**
+   * List of strings with all metadata field keys available
+   */
+  @Input() metadataFields: string[];
+
   /**
    * The metadatum of this field
    */
   metadata: Metadatum;
+
   /**
    * Emits whether or not this field is currently editable
    */
@@ -50,11 +58,6 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    */
   metadataFieldSuggestions: BehaviorSubject<InputSuggestion[]> = new BehaviorSubject([]);
 
-  /**
-   * List of strings with all metadata field keys available
-   */
-  metadataFields: Observable<string[]>;
-
   constructor(
     private metadataFieldService: RegistryService,
     private objectUpdatesService: ObjectUpdatesService,
@@ -67,26 +70,26 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.editable = this.objectUpdatesService.isEditable(this.url, this.metadata.uuid);
     this.valid = this.objectUpdatesService.isValid(this.url, this.metadata.uuid);
-    this.metadataFields = this.findMetadataFields()
   }
 
   /**
    * Sends a new change update for this field to the object updates service
    */
-  update(control?: FormControl) {
+  update(ngModel?: NgModel) {
     this.objectUpdatesService.saveChangeFieldUpdate(this.url, this.metadata);
-    if (hasValue(control)) {
-      this.checkValidity(control);
+    if (hasValue(ngModel)) {
+      this.checkValidity(ngModel);
     }
   }
 
   /**
    * Method to check the validity of a form control
-   * @param control The form control to check
+   * @param ngModel
    */
-  private checkValidity(control: FormControl) {
-    control.updateValueAndValidity();
-    this.objectUpdatesService.setValidFieldUpdate(this.url, this.metadata.uuid, control.valid);
+  private checkValidity(ngModel: NgModel) {
+    ngModel.control.setValue(ngModel.viewModel);
+    ngModel.control.updateValueAndValidity();
+    this.objectUpdatesService.setValidFieldUpdate(this.url, this.metadata.uuid, ngModel.control.valid);
   }
 
   /**
@@ -124,30 +127,24 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * @param query The query to look for
    */
   findMetadataFieldSuggestions(query: string): void {
-    this.metadataFieldService.queryMetadataFields(query).pipe(
-      // getSucceededRemoteData(),
-      take(1),
-      map((data) => data.payload.page)
-    ).subscribe(
-      (fields: MetadataField[]) => this.metadataFieldSuggestions.next(
-        fields.map((field: MetadataField) => {
-          return {
-            displayValue: field.toString().split('.').join('.&#8203;'),
-            value: field.toString()
-          }
-        })
-      )
-    );
-  }
-
-  /**
-   * Method to request all metadata fields and convert them to a list of strings
-   */
-  findMetadataFields(): Observable<string[]> {
-    return this.metadataFieldService.getAllMetadataFields().pipe(
-      getSucceededRemoteData(),
-      take(1),
-      map((remoteData$) => remoteData$.payload.page.map((field: MetadataField) => field.toString())));
+    if (isNotEmpty(query)) {
+      this.metadataFieldService.queryMetadataFields(query).pipe(
+        // getSucceededRemoteData(),
+        take(1),
+        map((data) => data.payload.page)
+      ).subscribe(
+        (fields: MetadataField[]) => this.metadataFieldSuggestions.next(
+          fields.map((field: MetadataField) => {
+            return {
+              displayValue: field.toString().split('.').join('.&#8203;'),
+              value: field.toString()
+            };
+          })
+        )
+      );
+    } else {
+      this.metadataFieldSuggestions.next([]);
+    }
   }
 
   /**

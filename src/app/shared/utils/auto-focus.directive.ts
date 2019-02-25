@@ -14,7 +14,6 @@ export class AutoFocusDirective implements AfterViewInit {
   ngAfterViewInit() {
     if (isNotEmpty(this.autoFocusSelector)) {
       return this.el.nativeElement.querySelector(this.autoFocusSelector).focus();
-
     } else {
       return this.el.nativeElement.focus();
     }

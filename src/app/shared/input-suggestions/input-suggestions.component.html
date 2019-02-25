@@ -2,13 +2,12 @@
       [action]="action" (keydown)="onKeydown($event)"
       (keydown.arrowdown)="shiftFocusDown($event)"
       (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
-      (dsClickOutside)="close()">
+      (dsClickOutside)="close();">
     <input #inputField type="text" [(ngModel)]="value" [name]="name"
            class="form-control suggestion_input"
            [ngClass]="{'is-invalid': !valid}"
            [dsDebounce]="debounceTime" (onDebounce)="find($event)"
            [placeholder]="placeholder"
-           (blur)="blur.emit($event);"
            [ngModelOptions]="{standalone: true}" autocomplete="off"/>
     <input type="submit" class="d-none"/>
     <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">

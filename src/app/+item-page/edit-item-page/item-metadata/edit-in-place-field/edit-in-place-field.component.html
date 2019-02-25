@@ -7,19 +7,20 @@
         <div *ngIf="(editable | async)" class="field-container">
             <ds-input-suggestions [suggestions]="(metadataFieldSuggestions | async)"
                                   [(ngModel)]="metadata.key"
-                                  (submitSuggestion)="update(suggestionControl.control)"
-                                  (clickSuggestion)="update(suggestionControl.control)"
-                                  (typeSuggestion)="update(suggestionControl.control)"
-                                  (blur)="checkValidity(suggestionControl.control)"
+                                  (submitSuggestion)="update(suggestionControl)"
+                                  (clickSuggestion)="update(suggestionControl)"
+                                  (typeSuggestion)="update(suggestionControl)"
+                                  (dsClickOutside)="checkValidity(suggestionControl)"
                                   (findSuggestions)="findMetadataFieldSuggestions($event)"
                                   #suggestionControl="ngModel"
-                                  [dsInListValidator]="metadataFields | async"
-                                  [valid]="(valid | async)"
+                                  [dsInListValidator]="metadataFields"
+                                  [valid]="(valid | async) !== false"
                                   dsAutoFocus autoFocusSelector=".suggestion_input"
+                                  [ngModelOptions]="{standalone: true}"
             ></ds-input-suggestions>
         </div>
         <small class="text-danger"
-               *ngIf="!(valid | async)">{{"item.edit.metadata.metadatafield.invalid" | translate}}</small>
+               *ngIf="(valid | async) === false">{{"item.edit.metadata.metadatafield.invalid" | translate}}</small>
     </div>
 </td>
 <td class="w-100">

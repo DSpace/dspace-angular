@@ -78,7 +78,7 @@ const initialFieldState = { editable: false, isNew: false, isValid: true };
 /**
  * Initial state for a newly added field
  */
-const initialNewFieldState = { editable: true, isNew: true, isValid: true };
+const initialNewFieldState = { editable: true, isNew: true, isValid: undefined };
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState = Object.create(null);

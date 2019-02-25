@@ -24,9 +24,6 @@ export class InListValidator implements Validator {
    * @param c The FormControl
    */
   validate(c: FormControl): ValidationErrors | null {
-    if (this.dsInListValidator !== null) {
-      return inListValidator(this.dsInListValidator)(c);
-    }
-    return null;
+    return inListValidator(this.dsInListValidator)(c);
   }
 }
