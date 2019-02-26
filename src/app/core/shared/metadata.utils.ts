@@ -169,7 +169,9 @@ export class Metadata {
 
   public static toViewModelList(mdMap: MetadataMap) {
     let metadatumList: MetadatumViewModel[] = [];
-    Object.keys(mdMap).forEach((key: string) => {
+    Object.keys(mdMap)
+      .sort()
+      .forEach((key: string) => {
       const fields = mdMap[key].map(
         (metadataValue: MetadataValue, index: number) =>
           Object.assign(
@@ -187,10 +189,12 @@ export class Metadata {
   public static toMetadataMap(viewModelList: MetadatumViewModel[]) {
     const metadataMap: MetadataMap = {};
     const groupedList = groupBy(viewModelList, (viewModel) => viewModel.key);
-    Object.keys(groupedList).forEach((key: string) => {
-      const orderedValues = sortBy(groupedList[key], ['order']);
-      metadataMap[key] = orderedValues.map((value: MetadataValue, index: number) => Object.assign({}, value, { order: index }))
-    });
+    Object.keys(groupedList)
+      .sort()
+      .forEach((key: string) => {
+        const orderedValues = sortBy(groupedList[key], ['order']);
+        metadataMap[key] = orderedValues.map((value: MetadataValue, index: number) => Object.assign({}, value, { order: index }))
+      });
     return metadataMap;
   }
 }
