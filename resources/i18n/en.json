@@ -347,8 +347,23 @@
       "jump": "Jump to a point in the index:",
       "choose_year": "(Choose year)",
       "choose_start": "(Choose start)",
-      "type_year": "Or type in a year:",
+      "type_date": "Or type in a date (year-month):",
       "type_text": "Or enter first few letters:",
+      "months": {
+        "none": "(Choose month)",
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      },
       "submit": "Go"
     },
     "metadata": {

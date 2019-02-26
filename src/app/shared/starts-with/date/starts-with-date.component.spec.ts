@@ -50,11 +50,11 @@ describe('StartsWithDateComponent', () => {
     expect(comp.formData.value.startsWith).toBeDefined();
   });
 
-  describe('when selecting the first option in the dropdown', () => {
+  describe('when selecting the first option in the year dropdown', () => {
     let select;
 
     beforeEach(() => {
-      select = fixture.debugElement.query(By.css('select')).nativeElement;
+      select = fixture.debugElement.query(By.css('select#year-select')).nativeElement;
       select.value = select.options[0].value;
       select.dispatchEvent(new Event('change'));
       fixture.detectChanges();
@@ -71,17 +71,20 @@ describe('StartsWithDateComponent', () => {
     });
   });
 
-  describe('when selecting the second option in the dropdown', () => {
+  describe('when selecting the second option in the year dropdown', () => {
     let select;
     let input;
-    const expectedValue = '' + options[0];
-    const extras = {
-      queryParams: Object.assign({ startsWith: expectedValue }),
-      queryParamsHandling: 'merge'
-    };
+    let expectedValue;
+    let extras;
 
     beforeEach(() => {
-      select = fixture.debugElement.query(By.css('select')).nativeElement;
+      expectedValue = '' + options[0];
+      extras = {
+        queryParams: Object.assign({ startsWith: expectedValue }),
+        queryParamsHandling: 'merge'
+      };
+
+      select = fixture.debugElement.query(By.css('select#year-select')).nativeElement;
       input = fixture.debugElement.query(By.css('input')).nativeElement;
       select.value = select.options[1].value;
       select.dispatchEvent(new Event('change'));
@@ -98,6 +101,58 @@ describe('StartsWithDateComponent', () => {
 
     it('should automatically fill in the input field', () => {
       expect(input.value).toEqual(expectedValue);
+    });
+
+    describe('and selecting the first option in the month dropdown', () => {
+      let monthSelect;
+
+      beforeEach(() => {
+        monthSelect = fixture.debugElement.query(By.css('select#month-select')).nativeElement;
+        monthSelect.value = monthSelect.options[0].value;
+        monthSelect.dispatchEvent(new Event('change'));
+        fixture.detectChanges();
+      });
+
+      it('should set startsWith to the correct value', () => {
+        expect(comp.startsWith).toEqual(expectedValue);
+      });
+
+      it('should add a startsWith query parameter', () => {
+        expect(router.navigate).toHaveBeenCalledWith([], extras);
+      });
+
+      it('should automatically fill in the input field', () => {
+        expect(input.value).toEqual(expectedValue);
+      });
+    });
+
+    describe('and selecting the second option in the month dropdown', () => {
+      let monthSelect;
+
+      beforeEach(() => {
+        expectedValue = `${options[0]}-01`;
+        extras = {
+          queryParams: Object.assign({ startsWith: expectedValue }),
+          queryParamsHandling: 'merge'
+        };
+
+        monthSelect = fixture.debugElement.query(By.css('select#month-select')).nativeElement;
+        monthSelect.value = monthSelect.options[1].value;
+        monthSelect.dispatchEvent(new Event('change'));
+        fixture.detectChanges();
+      });
+
+      it('should set startsWith to the correct value', () => {
+        expect(comp.startsWith).toEqual(expectedValue);
+      });
+
+      it('should add a startsWith query parameter', () => {
+        expect(router.navigate).toHaveBeenCalledWith([], extras);
+      });
+
+      it('should automatically fill in the input field', () => {
+        expect(input.value).toEqual(expectedValue);
+      });
     });
   });
 

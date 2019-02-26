@@ -99,7 +99,7 @@ export class BrowseService {
       map((href: string) => {
         // TODO nearly identical to PaginatedSearchOptions => refactor
         const args = [];
-        if (isNotEmpty(options.sort)) {
+        if (isNotEmpty(options.scope)) {
           args.push(`scope=${options.scope}`);
         }
         if (isNotEmpty(options.sort)) {
@@ -135,7 +135,7 @@ export class BrowseService {
       hasValueOperator(),
       map((href: string) => {
         const args = [];
-        if (isNotEmpty(options.sort)) {
+        if (isNotEmpty(options.scope)) {
           args.push(`scope=${options.scope}`);
         }
         if (isNotEmpty(options.sort)) {
