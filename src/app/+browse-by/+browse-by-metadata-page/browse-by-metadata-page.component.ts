@@ -126,6 +126,10 @@ export class BrowseByMetadataPageComponent implements OnInit {
     this.updateStartsWithTextOptions();
   }
 
+  /**
+   * Update the StartsWith options with text values
+   * It adds the value "0-9" as well as all letters from A to Z
+   */
   updateStartsWithTextOptions() {
     this.startsWithOptions = ['0-9', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
   }

@@ -15,10 +15,19 @@ import { hasValue } from '../../empty.util';
 @renderStartsWithFor(StartsWithType.date)
 export class StartsWithDateComponent extends StartsWithAbstractComponent {
 
+  /**
+   * A list of options for months to select from
+   */
   monthOptions: string[];
 
+  /**
+   * Currently selected month
+   */
   startsWithMonth = 'none';
 
+  /**
+   * Currently selected year
+   */
   startsWithYear: number;
 
   ngOnInit() {
@@ -63,6 +72,7 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
 
   /**
    * Get startsWith year combined with month;
+   * Returned value: "{{year}}-{{month}}"
    */
   getStartsWith() {
     const month = this.getStartsWithMonth();
@@ -90,6 +100,10 @@ export class StartsWithDateComponent extends StartsWithAbstractComponent {
 
   /**
    * Set the startsWith by string
+   * This method also sets startsWithYear and startsWithMonth correctly depending on the received value
+   * - When startsWith contains a "-", the first part is considered the year, the second part the month
+   * - When startsWith doesn't contain a "-", the whole string is expected to be the year
+   * startsWithMonth will be set depending on the index received after the "-"
    * @param startsWith
    */
   setStartsWith(startsWith: string) {
