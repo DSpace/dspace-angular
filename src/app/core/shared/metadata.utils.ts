@@ -1,5 +1,11 @@
 import { isEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.interfaces';
+import {
+  MetadataMap,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel
+} from './metadata.models';
+import { groupBy, sortBy } from 'lodash';
 
 /**
  * Utility class for working with DSpace object metadata.
@@ -27,7 +33,7 @@ export class Metadata {
    */
   public static all(mapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                     filter?: MetadataValueFilter): MetadataValue[] {
-    const mdMaps: MetadataMap[] = mapOrMaps instanceof Array ? mapOrMaps : [ mapOrMaps ];
+    const mdMaps: MetadataMap[] = mapOrMaps instanceof Array ? mapOrMaps : [mapOrMaps];
     const matches: MetadataValue[] = [];
     for (const mdMap of mdMaps) {
       for (const mdKey of Metadata.resolveKeys(mdMap, keyOrKeys)) {
@@ -71,7 +77,7 @@ export class Metadata {
    */
   public static first(mdMapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                       filter?: MetadataValueFilter): MetadataValue {
-    const mdMaps: MetadataMap[] = mdMapOrMaps instanceof Array ? mdMapOrMaps : [ mdMapOrMaps ];
+    const mdMaps: MetadataMap[] = mdMapOrMaps instanceof Array ? mdMapOrMaps : [mdMapOrMaps];
     for (const mdMap of mdMaps) {
       for (const key of Metadata.resolveKeys(mdMap, keyOrKeys)) {
         const values: MetadataValue[] = mdMap[key];
@@ -144,7 +150,7 @@ export class Metadata {
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    */
   private static resolveKeys(mdMap: MetadataMap, keyOrKeys: string | string[]): string[] {
-    const inputKeys: string[] = keyOrKeys instanceof Array ? keyOrKeys : [ keyOrKeys ];
+    const inputKeys: string[] = keyOrKeys instanceof Array ? keyOrKeys : [keyOrKeys];
     const outputKeys: string[] = [];
     for (const inputKey of inputKeys) {
       if (inputKey.includes('*')) {
@@ -159,5 +165,32 @@ export class Metadata {
       }
     }
     return outputKeys;
+  }
+
+  public static toViewModelList(mdMap: MetadataMap) {
+    let metadatumList: MetadatumViewModel[] = [];
+    Object.keys(mdMap).forEach((key: string) => {
+      const fields = mdMap[key].map(
+        (metadataValue: MetadataValue, index: number) =>
+          Object.assign(
+            {},
+            metadataValue,
+            {
+              order: index,
+              key
+            }));
+      metadatumList = [...metadatumList, ...fields];
+    });
+    return metadatumList;
+  }
+
+  public static toMetadataMap(viewModelList: MetadatumViewModel[]) {
+    const metadataMap: MetadataMap = {};
+    const groupedList = groupBy(viewModelList, (viewModel) => viewModel.key);
+    Object.keys(groupedList).forEach((key: string) => {
+      const orderedValues = sortBy(groupedList[key], ['order']);
+      metadataMap[key] = orderedValues.map((value: MetadataValue, index: number) => Object.assign({}, value, { order: index }))
+    });
+    return metadataMap;
   }
 }

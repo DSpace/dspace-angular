@@ -10,7 +10,6 @@ import {
   FieldUpdates,
   Identifiable
 } from '../../../core/data/object-updates/object-updates.reducer';
-import { Metadatum } from '../../../core/shared/metadatum.model';
 import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -19,6 +18,8 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { TranslateService } from '@ngx-translate/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadataField } from '../../../core/metadata/metadatafield.model';
+import { MetadatumViewModel } from '../../../core/shared/metadata.models';
+import { Metadata } from '../../../core/shared/metadata.utils';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -92,14 +93,14 @@ export class ItemMetadataComponent implements OnInit {
         this.checkLastModified();
       }
     });
-    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadata);
+    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
   }
 
   /**
    * Sends a new add update for a field to the object updates service
    * @param metadata The metadata to add, if no parameter is supplied, create a new Metadatum
    */
-  add(metadata: Metadatum = new Metadatum()) {
+  add(metadata: MetadatumViewModel = new MetadatumViewModel()) {
     this.objectUpdatesService.saveAddFieldUpdate(this.url, metadata);
 
   }
@@ -124,7 +125,7 @@ export class ItemMetadataComponent implements OnInit {
    * Sends all initial values of this item to the object updates service
    */
   private initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.url, this.item.metadata, this.item.lastModified);
+    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified);
   }
 
   /**
@@ -141,11 +142,11 @@ export class ItemMetadataComponent implements OnInit {
   submit() {
     this.isValid().pipe(first()).subscribe((isValid) => {
       if (isValid) {
-        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.item.metadata) as Observable<Metadatum[]>;
+        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.item.metadataAsList) as Observable<MetadatumViewModel[]>;
         metadata$.pipe(
           first(),
-          switchMap((metadata: Metadatum[]) => {
-            const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata });
+          switchMap((metadata: MetadatumViewModel[]) => {
+            const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata: Metadata.toMetadataMap(metadata) });
             return this.itemService.update(updatedItem);
           }),
           tap(() => this.itemService.commitUpdates()),
@@ -154,7 +155,7 @@ export class ItemMetadataComponent implements OnInit {
           (rd: RemoteData<Item>) => {
             this.item = rd.payload;
             this.initializeOriginalFields();
-            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadata);
+            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
             this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
           }
         )

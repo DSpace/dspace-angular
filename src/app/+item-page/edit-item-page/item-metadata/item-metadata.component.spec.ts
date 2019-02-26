@@ -3,7 +3,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from '@angular
 import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
 import { ItemMetadataComponent } from './item-metadata.component';
-import { Metadatum } from '../../../core/shared/metadatum.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SharedModule } from '../../../shared/shared.module';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -22,6 +21,7 @@ import { GLOBAL_CONFIG } from '../../../../config';
 import { Item } from '../../../core/shared/item.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { RemoteData } from '../../../core/data/remote-data';
+import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 
 let comp: ItemMetadataComponent;
 let fixture: ComponentFixture<ItemMetadataComponent>;
@@ -43,19 +43,19 @@ const notificationsService = jasmine.createSpyObj('notificationsService',
     success: successNotification
   }
 );
-const metadatum1 = Object.assign(new Metadatum(), {
+const metadatum1 = Object.assign(new MetadatumViewModel(), {
   key: 'dc.description.abstract',
   value: 'Example abstract',
   language: 'en'
 });
 
-const metadatum2 = Object.assign(new Metadatum(), {
+const metadatum2 = Object.assign(new MetadatumViewModel(), {
   key: 'dc.title',
   value: 'Title test',
   language: 'de'
 });
 
-const metadatum3 = Object.assign(new Metadatum(), {
+const metadatum3 = Object.assign(new MetadatumViewModel(), {
   key: 'dc.contributor.author',
   value: 'Shakespeare, William',
 });
@@ -140,7 +140,7 @@ describe('ItemMetadataComponent', () => {
   });
 
   describe('add', () => {
-    const md = new Metadatum();
+    const md = new MetadatumViewModel();
     beforeEach(() => {
       comp.add(md);
     });

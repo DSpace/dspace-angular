@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
-import { Metadatum } from '../../../../core/shared/metadatum.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
@@ -10,8 +9,8 @@ import { InputSuggestion } from '../../../../shared/input-suggestions/input-sugg
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { NgModel } from '@angular/forms';
+import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -41,7 +40,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   /**
    * The metadatum of this field
    */
-  metadata: Metadatum;
+  metadata: MetadatumViewModel;
 
   /**
    * Emits whether or not this field is currently editable
@@ -118,7 +117,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
    * Sets the current metadatafield based on the fieldUpdate input field
    */
   ngOnChanges(): void {
-    this.metadata = cloneDeep(this.fieldUpdate.field) as Metadatum;
+    this.metadata = cloneDeep(this.fieldUpdate.field) as MetadatumViewModel;
   }
 
   /**

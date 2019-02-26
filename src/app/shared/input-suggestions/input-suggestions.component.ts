@@ -12,7 +12,7 @@ import {
   ViewChildren
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { hasValue, isNotEmpty } from '../empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../empty.util';
 import { InputSuggestion } from './input-suggestions.model';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -128,7 +128,7 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
    */
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.suggestions)) {
-      this.show.next(isNotEmpty(changes.suggestions.currentValue));
+      this.show.next(isNotEmpty(changes.suggestions.currentValue) && !changes.suggestions.firstChange);
     }
   }
 

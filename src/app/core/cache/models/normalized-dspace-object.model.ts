@@ -1,6 +1,6 @@
-import { autoserialize, autoserializeAs, deserialize, serialize } from 'cerialize';
+import { autoserializeAs, deserializeAs } from 'cerialize';
 import { DSpaceObject } from '../../shared/dspace-object.model';
-import { MetadataMap } from '../../shared/metadata.interfaces';
+import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models';
 import { ResourceType } from '../../shared/resource-type';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
@@ -17,7 +17,7 @@ export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedOb
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @deserialize
+  @deserializeAs(String)
   self: string;
 
   /**
@@ -35,31 +35,31 @@ export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedOb
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @autoserialize
+  @autoserializeAs(String)
   uuid: string;
 
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  @autoserialize
+  @autoserializeAs(String)
   type: ResourceType;
 
   /**
    * All metadata of this DSpaceObject
    */
-  @autoserialize
+  @autoserializeAs(MetadataMapSerializer)
   metadata: MetadataMap;
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
    */
-  @deserialize
+  @deserializeAs(String)
   parents: string[];
 
   /**
    * The DSpaceObject that owns this DSpaceObject
    */
-  @deserialize
+  @deserializeAs(String)
   owner: string;
 
   /**
@@ -68,7 +68,7 @@ export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedOb
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @deserialize
+  @deserializeAs(Object)
   _links: {
     [name: string]: string
   }

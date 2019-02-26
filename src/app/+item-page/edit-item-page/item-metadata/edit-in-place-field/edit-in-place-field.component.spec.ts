@@ -8,7 +8,6 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { MetadataField } from '../../../../core/metadata/metadatafield.model';
 import { By } from '@angular/platform-browser';
-import { Metadatum } from '../../../../core/shared/metadatum.model';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { getTestScheduler } from 'jasmine-marbles';
@@ -17,6 +16,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { TranslateModule } from '@ngx-translate/core';
+import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 
 let comp: EditInPlaceFieldComponent;
 let fixture: ComponentFixture<EditInPlaceFieldComponent>;
@@ -38,7 +38,7 @@ const mdField3 = Object.assign(new MetadataField(), {
   qualifier: 'abstract'
 });
 
-const metadatum = Object.assign(new Metadatum(), {
+const metadatum = Object.assign(new MetadatumViewModel(), {
   key: 'dc.description.abstract',
   value: 'Example abstract',
   language: 'en'

@@ -1,11 +1,10 @@
-import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.interfaces';
-import { Metadata } from './metadata.model';
+import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.models';
+import { Metadata } from './metadata.utils';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { Observable } from 'rxjs';
-import { autoserialize } from 'cerialize';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -17,13 +16,11 @@ export class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * The human-readable identifier of this DSpaceObject
    */
-  @autoserialize
   id: string;
 
   /**
    * The universally unique identifier of this DSpaceObject
    */
-  @autoserialize
   uuid: string;
 
   /**
@@ -41,8 +38,11 @@ export class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * All metadata of this DSpaceObject
    */
-  @autoserialize
   metadata: MetadataMap;
+
+  get metadataAsList() {
+    return Metadata.toViewModelList(this.metadata);
+  }
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
