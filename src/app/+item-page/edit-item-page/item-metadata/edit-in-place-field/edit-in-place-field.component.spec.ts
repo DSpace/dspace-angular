@@ -60,7 +60,6 @@ describe('EditInPlaceFieldComponent', () => {
 
     metadataFieldService = jasmine.createSpyObj({
       queryMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields)),
-      getAllMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields))
     });
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { getTestScheduler } from 'jasmine-marbles';
 import { ItemMetadataComponent } from './item-metadata.component';
@@ -22,6 +22,11 @@ import { Item } from '../../../core/shared/item.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { RemoteData } from '../../../core/data/remote-data';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
+import { MetadataField } from '../../../core/metadata/metadatafield.model';
+import { Metadata } from '../../../core/shared/metadata.utils';
 
 let comp: ItemMetadataComponent;
 let fixture: ComponentFixture<ItemMetadataComponent>;
@@ -33,7 +38,22 @@ const warningNotification: INotification = new Notification('id', NotificationTy
 const successNotification: INotification = new Notification('id', NotificationType.Success, 'success');
 const date = new Date();
 const router = new RouterStub();
+let metadataFieldService;
+let paginatedMetadataFields;
 let routeStub;
+
+const mdSchema = Object.assign(new MetadataSchema(), { prefix: 'dc' });
+const mdField1 = Object.assign(new MetadataField(), {
+  schema: mdSchema,
+  element: 'contributor',
+  qualifier: 'author'
+});
+const mdField2 = Object.assign(new MetadataField(), { schema: mdSchema, element: 'title' });
+const mdField3 = Object.assign(new MetadataField(), {
+  schema: mdSchema,
+  element: 'description',
+  qualifier: 'abstract'
+});
 
 let itemService;
 const notificationsService = jasmine.createSpyObj('notificationsService',
@@ -83,7 +103,18 @@ let scheduler: TestScheduler;
 let item;
 describe('ItemMetadataComponent', () => {
   beforeEach(async(() => {
-      item = Object.assign(new Item(), { metadata: [metadatum1, metadatum2, metadatum3] }, { lastModified: date });
+      item = Object.assign(new Item(), {
+          metadata: {
+            [metadatum1.key]: [metadatum1],
+            [metadatum2.key]: [metadatum2],
+            [metadatum3.key]: [metadatum3]
+          }
+        },
+        {
+          lastModified: date
+        }
+      )
+      ;
       itemService = jasmine.createSpyObj('itemService', {
         update: observableOf(new RemoteData(false, false, true, undefined, item)),
         commitUpdates: {}
@@ -93,6 +124,11 @@ describe('ItemMetadataComponent', () => {
           data: observableOf({ item: new RemoteData(false, false, true, null, item) })
         }
       };
+      paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
+
+      metadataFieldService = jasmine.createSpyObj({
+        getAllMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields))
+      });
       scheduler = getTestScheduler();
       objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
         {
@@ -122,7 +158,8 @@ describe('ItemMetadataComponent', () => {
           { provide: Router, useValue: router },
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: NotificationsService, useValue: notificationsService },
-          { provide: GLOBAL_CONFIG, useValue: { notifications: { timeOut: 10 } } as any }
+          { provide: GLOBAL_CONFIG, useValue: { notifications: { timeOut: 10 } } as any },
+          { provide: RegistryService, useValue: metadataFieldService },
         ], schemas: [
           NO_ERRORS_SCHEMA
         ]
@@ -176,9 +213,9 @@ describe('ItemMetadataComponent', () => {
     });
 
     it('it should call reinstateFieldUpdates on the objectUpdatesService with the correct url and metadata', () => {
-      expect(objectUpdatesService.getUpdatedFields).toHaveBeenCalledWith(url, comp.item.metadata);
-      expect(itemService.update).toHaveBeenCalledWith(comp.item);
-      expect(objectUpdatesService.getFieldUpdates).toHaveBeenCalledWith(url, comp.item.metadata);
+      expect(objectUpdatesService.getUpdatedFields).toHaveBeenCalledWith(url, comp.item.metadataAsList);
+      expect(itemService.update).toHaveBeenCalledWith(Object.assign(comp.item, { metadata: Metadata.toMetadataMap(comp.item.metadataAsList) }));
+      expect(objectUpdatesService.getFieldUpdates).toHaveBeenCalledWith(url, comp.item.metadataAsList);
     });
   });
 

@@ -1,4 +1,9 @@
-import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel
+} from './metadata.models';
 import { Metadata } from './metadata.utils';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
@@ -40,7 +45,10 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    */
   metadata: MetadataMap;
 
-  get metadataAsList() {
+  /**
+   * Retrieve the current metadata as a list of MetadatumViewModels
+   */
+  get metadataAsList(): MetadatumViewModel[] {
     return Metadata.toViewModelList(this.metadata);
   }
 

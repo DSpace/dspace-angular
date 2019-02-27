@@ -1,5 +1,6 @@
 import * as uuidv4 from 'uuid/v4';
 import { autoserialize, Serialize, Deserialize } from 'cerialize';
+/* tslint:disable:max-classes-per-file */
 
 /** A map of metadata keys to an ordered list of MetadataValue objects. */
 export class MetadataMap {
@@ -9,7 +10,6 @@ export class MetadataMap {
 /** A single metadata value and its properties. */
 
 export class MetadataValue {
-
   /** The uuid. */
   uuid: string = uuidv4();
 
@@ -20,7 +20,6 @@ export class MetadataValue {
   /** The string value. */
   @autoserialize
   value: string;
-
 }
 
 /** Constraints for matching metadata values. */
@@ -55,7 +54,10 @@ export class MetadatumViewModel {
   order: number;
 }
 
-
+/** Serializer used for MetadataMaps.
+ * This is necessary because Cerialize has trouble instantiating the MetadataValues using their constructor
+ * when they are inside arrays which also represent the values in a map.
+ */
 export const MetadataMapSerializer = {
   Serialize(map: MetadataMap): any {
     const json = {};
@@ -73,3 +75,4 @@ export const MetadataMapSerializer = {
     return metadataMap;
   }
 };
+/* tslint:enable:max-classes-per-file */

@@ -72,7 +72,7 @@ export class ItemMetadataComponent implements OnInit {
    * Set up and initialize all fields
    */
   ngOnInit(): void {
-    this.metadataFields$ = this.findMetadataFields()
+    this.metadataFields$ = this.findMetadataFields();
     this.route.parent.data.pipe(map((data) => data.item))
       .pipe(
         first(),

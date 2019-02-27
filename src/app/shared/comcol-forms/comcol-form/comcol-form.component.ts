@@ -83,10 +83,10 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   onSubmit() {
     const formMetadata = new Object() as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
-      const value: MetadataValue = Object.assign(new MetadataValue(), {
-        value: fieldModel.value as string,
-        language: null
-      });
+      const value: MetadataValue = {
+          value: fieldModel.value as string,
+          language: null
+        } as any;
       if (formMetadata.hasOwnProperty(fieldModel.name)) {
         formMetadata[fieldModel.name].push(value);
       } else {

@@ -149,7 +149,7 @@ export class Metadata {
    * @param {MetadataMap} mdMap The source map.
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    */
-  private static resolveKeys(mdMap: MetadataMap, keyOrKeys: string | string[]): string[] {
+  private static resolveKeys(mdMap: MetadataMap = {}, keyOrKeys: string | string[]): string[] {
     const inputKeys: string[] = keyOrKeys instanceof Array ? keyOrKeys : [keyOrKeys];
     const outputKeys: string[] = [];
     for (const inputKey of inputKeys) {
@@ -167,33 +167,51 @@ export class Metadata {
     return outputKeys;
   }
 
-  public static toViewModelList(mdMap: MetadataMap) {
+  /**
+   * Creates an array of MetadatumViewModels from an existing MetadataMap.
+   *
+   * @param {MetadataMap} mdMap The source map.
+   * @returns {MetadatumViewModel[]} List of metadata view models based on the source map.
+   */
+  public static toViewModelList(mdMap: MetadataMap): MetadatumViewModel[] {
     let metadatumList: MetadatumViewModel[] = [];
     Object.keys(mdMap)
       .sort()
       .forEach((key: string) => {
-      const fields = mdMap[key].map(
-        (metadataValue: MetadataValue, index: number) =>
-          Object.assign(
-            {},
-            metadataValue,
-            {
-              order: index,
-              key
-            }));
-      metadatumList = [...metadatumList, ...fields];
-    });
+        const fields = mdMap[key].map(
+          (metadataValue: MetadataValue, index: number) =>
+            Object.assign(
+              {},
+              metadataValue,
+              {
+                order: index,
+                key
+              }));
+        metadatumList = [...metadatumList, ...fields];
+      });
     return metadatumList;
   }
 
-  public static toMetadataMap(viewModelList: MetadatumViewModel[]) {
+  /**
+   * Creates an MetadataMap from an existing array of MetadatumViewModels.
+   *
+   * @param {MetadatumViewModel[]} viewModelList The source list.
+   * @returns {MetadataMap} Map with metadata values based on the source list.
+   */
+  public static toMetadataMap(viewModelList: MetadatumViewModel[]): MetadataMap {
     const metadataMap: MetadataMap = {};
     const groupedList = groupBy(viewModelList, (viewModel) => viewModel.key);
     Object.keys(groupedList)
       .sort()
       .forEach((key: string) => {
         const orderedValues = sortBy(groupedList[key], ['order']);
-        metadataMap[key] = orderedValues.map((value: MetadataValue, index: number) => Object.assign({}, value, { order: index }))
+        metadataMap[key] = orderedValues.map((value: MetadataValue) => {
+            const val = Object.assign({}, value);
+            delete (val as any).order;
+            delete (val as any).key;
+            return val;
+          }
+        )
       });
     return metadataMap;
   }
