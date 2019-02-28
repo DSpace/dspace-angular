@@ -15,7 +15,8 @@
             class="ds-form-input-btn  btn btn-outline-primary"
             id="scrollableDropdownMenuButton_{{model.id}}"
             ngbDropdownToggle
-            [disabled]="model.readOnly"></button>
+            [disabled]="model.readOnly"
+            (click)="onToggle(sdRef); $event.stopPropagation();"></button>
 
   <div ngbDropdownMenu
        class="dropdown-menu scrollable-dropdown-menu w-100"
