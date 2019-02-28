@@ -715,6 +715,38 @@ describe('SubmissionObjectEffects test suite', () => {
     });
   });
 
+  describe('saveError$', () => {
+    it('should display a new error notification', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR,
+          payload: {
+            submissionId: submissionId
+          }
+        }
+      });
+
+      submissionObjectEffects.saveError$.subscribe(() => {
+        expect(notificationsServiceStub.error).toHaveBeenCalled();
+      });
+    });
+
+    it('should display a new error notification', () => {
+      actions = hot('--a-', {
+        a: {
+          type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR,
+          payload: {
+            submissionId: submissionId
+          }
+        }
+      });
+
+      submissionObjectEffects.saveError$.subscribe(() => {
+        expect(notificationsServiceStub.error).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('discardSubmission$', () => {
     it('should return a DISCARD_SUBMISSION_SUCCESS action on success', () => {
       store.nextState({

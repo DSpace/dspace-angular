@@ -645,7 +645,7 @@
         "collection": "Collection",
         "no-collection": "No collection found",
         "search-collection": "Search for a collection",
-
+        "save_error_notice": "There was an issue when saving the item, please try again later.",
         "deposit_success_notice": "Submission deposited successfully.",
         "deposit_error_notice": "There was an issue when submitting the item, please try again later.",
         "discard_success_notice": "Submission discarded successfully.",

@@ -23,6 +23,7 @@ import {
 } from './json-patch-operations.actions';
 import { MockStore } from '../../shared/testing/mock-store';
 import { RequestEntry } from '../data/request.reducer';
+import { catchError } from 'rxjs/operators';
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
@@ -176,7 +177,9 @@ describe('JsonPatchOperationsService test suite', () => {
       it('should dispatch a new RollbacktPatchOperationsAction', () => {
 
         const expectedAction = new RollbacktPatchOperationsAction(testJsonPatchResourceType, undefined);
-        scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType).subscribe());
+        scheduler.schedule(() => service.jsonPatchByResourceType(resourceEndpoint, resourceScope, testJsonPatchResourceType)
+          .pipe(catchError(() => observableOf({})))
+          .subscribe());
         scheduler.flush();
 
         expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
@@ -237,7 +240,9 @@ describe('JsonPatchOperationsService test suite', () => {
       it('should dispatch a new RollbacktPatchOperationsAction', () => {
 
         const expectedAction = new RollbacktPatchOperationsAction(testJsonPatchResourceType, testJsonPatchResourceId);
-        scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId).subscribe());
+        scheduler.schedule(() => service.jsonPatchByResourceID(resourceEndpoint, resourceScope, testJsonPatchResourceType, testJsonPatchResourceId)
+          .pipe(catchError(() => observableOf({})))
+          .subscribe());
         scheduler.flush();
 
         expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
