@@ -1,4 +1,5 @@
 import { isNotUndefined } from '../../../shared/empty.util';
+import { URLCombiner } from '../../url-combiner/url-combiner';
 
 /**
  * Interface used to represent a JSON-PATCH path member
@@ -14,11 +15,12 @@ export interface JsonPatchOperationPathObject {
  * Combines a variable number of strings representing parts
  * of a JSON-PATCH path
  */
-export class JsonPatchOperationPathCombiner  {
+export class JsonPatchOperationPathCombiner extends URLCombiner {
   private _rootElement: string;
   private _subRootElement: string;
 
   constructor(rootElement, ...subRootElements: string[]) {
+    super(rootElement, ...subRootElements);
     this._rootElement = rootElement;
     this._subRootElement = subRootElements.join('/');
   }
@@ -35,21 +37,19 @@ export class JsonPatchOperationPathCombiner  {
    * Combines the parts of this JsonPatchOperationPathCombiner in to a JSON-PATCH path member
    *
    * e.g.   new JsonPatchOperationPathCombiner('sections', 'basic').getPath(['dc.title', '0'])
-   * returns: sections/basic/dc.title/0
+   * returns: {rootElement: 'sections', subRootElement: 'basic', path: '/sections/basic/dc.title/0'}
    *
-   * @return {string}
-   *      The combined path
+   * @return {JsonPatchOperationPathObject}
+   *      The combined path object
    */
   public getPath(fragment?: string|string[]): JsonPatchOperationPathObject {
     if (isNotUndefined(fragment) && Array.isArray(fragment)) {
       fragment = fragment.join('/');
     }
 
-    let path;
+    let path = '/' + this.toString();
     if (isNotUndefined(fragment)) {
-      path = '/' + this._rootElement + '/' + this._subRootElement + '/' + fragment;
-    } else {
-      path = '/' + this._rootElement + '/' + this._subRootElement;
+      path += '/' + fragment;
     }
 
     return {rootElement: this._rootElement, subRootElement: this._subRootElement, path: path};
