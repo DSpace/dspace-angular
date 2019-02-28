@@ -14,6 +14,9 @@ export class NormalizedEPerson extends NormalizedDSpaceObject implements Cacheab
   @autoserialize
   public handle: string;
 
+  @autoserialize
+  public name: string;
+
   @autoserializeAs(NormalizedGroup)
   groups: Group[];
 
