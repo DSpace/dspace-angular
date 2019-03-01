@@ -158,7 +158,7 @@ describe('ItemMetadataComponent', () => {
           { provide: Router, useValue: router },
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: NotificationsService, useValue: notificationsService },
-          { provide: GLOBAL_CONFIG, useValue: { notifications: { timeOut: 10 } } as any },
+          { provide: GLOBAL_CONFIG, useValue: { item: { edit: { undoTimeout: 10 } } } as any },
           { provide: RegistryService, useValue: metadataFieldService },
         ], schemas: [
           NO_ERRORS_SCHEMA

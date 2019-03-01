@@ -79,5 +79,10 @@ module.exports = {
     code: 'nl',
     label: 'Nederlands',
     active: false,
-  }]
+  }],
+  item: {
+    edit: {
+      undoTimeout: 10000 // 10 seconds
+    }
+  }
 };

@@ -47,8 +47,10 @@ export class ItemMetadataComponent implements OnInit {
    * The time span for being able to undo discarding changes
    */
   private discardTimeOut: number;
-
-  private notitifactionPrefix = 'item.edit.metadata.notifications.';
+  /**
+   * Prefix for this component's notification translate keys
+   */
+  private notificationsPrefix = 'item.edit.metadata.notifications.';
 
   /**
    * Observable with a list of strings with all existing metadata field keys
@@ -81,7 +83,7 @@ export class ItemMetadataComponent implements OnInit {
       this.item = item;
     });
 
-    this.discardTimeOut = this.EnvConfig.notifications.timeOut;
+    this.discardTimeOut = this.EnvConfig.item.edit.undoTimeout;
     this.url = this.router.url;
     if (this.url.indexOf('?') > 0) {
       this.url = this.url.substr(0, this.url.indexOf('?'));
@@ -207,7 +209,7 @@ export class ItemMetadataComponent implements OnInit {
    * @param key
    */
   private getNotificationTitle(key: string) {
-    return this.translateService.instant(this.notitifactionPrefix + key + '.title');
+    return this.translateService.instant(this.notificationsPrefix + key + '.title');
   }
 
   /**
@@ -215,7 +217,7 @@ export class ItemMetadataComponent implements OnInit {
    * @param key
    */
   private getNotificationContent(key: string) {
-    return this.translateService.instant(this.notitifactionPrefix + key + '.content');
+    return this.translateService.instant(this.notificationsPrefix + key + '.content');
 
   }
 

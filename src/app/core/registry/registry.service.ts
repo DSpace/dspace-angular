@@ -173,6 +173,12 @@ export class RegistryService {
     return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
+  /**
+   * Retrieve all existing metadata fields as a paginated list
+   * @param pagination Pagination options to determine which page of metadata fields should be requested
+   * When no pagination is provided, all metadata fields are requested in one large page
+   * @returns an observable that emits a remote data object with a page of metadata fields
+   */
   public getAllMetadataFields(pagination?: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataField>>> {
     if (hasNoValue(pagination)) {
       pagination = { currentPage: 1, pageSize: 10000 } as any;
@@ -557,10 +563,13 @@ export class RegistryService {
     });
   }
 
+  /**
+   * Retrieve a filtered paginated list of metadata fields
+   * @param query {string} The query to filter the field names by
+   * @returns an observable that emits a remote data object with a page of metadata fields that match the query
+   */
   queryMetadataFields(query: string): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    /**
-     * This should come directly from the server in the future
-     */
+    /* TODO This should come directly from the server in the future */
     return this.getAllMetadataFields().pipe(
       map((rd: RemoteData<PaginatedList<MetadataField>>) => {
         const filteredFields: MetadataField[] = rd.payload.page.filter(
