@@ -569,7 +569,6 @@ export class RegistryService {
    * @returns an observable that emits a remote data object with a page of metadata fields that match the query
    */
   queryMetadataFields(query: string): Observable<RemoteData<PaginatedList<MetadataField>>> {
-    /* TODO This should come directly from the server in the future */
     return this.getAllMetadataFields().pipe(
       map((rd: RemoteData<PaginatedList<MetadataField>>) => {
         const filteredFields: MetadataField[] = rd.payload.page.filter(
