@@ -1,0 +1,27 @@
+<div class="form-group w-100 pr-2 pl-2">
+    <input type="search"
+           class="form-control"
+           (click)="$event.stopPropagation();"
+           placeholder="{{ 'submission.sections.general.search-collection' | translate }}"
+           [formControl]="input">
+</div>
+
+{{input.value}}
+<div class="dropdown-divider"></div>
+<div class="scrollable-menu">
+    <button class="dropdown-item disabled" *ngIf="(listEntries$ | async)?.length == 0">
+        {{'submission.sections.general.no-collection' | translate}}
+    </button>
+    <button *ngFor="let listEntry of (listEntries$ | async)"
+            class="dropdown-item collection-item"
+            title="{{ listEntry.dso.name }}"
+            (click)="onSelect(listEntry.dso)">
+        <ul class="list-unstyled mb-0">
+            <li class="list-item text-truncate text-secondary"
+                *ngFor="let parent of listEntry.parents">
+                {{ parent.name }} <i class="fa fa-level-down" aria-hidden="true"></i>
+            </li>
+            <li class="list-item text-truncate text-primary font-weight-bold">{{ listEntry.dso.name }}</li>
+        </ul>
+    </button>
+</div>

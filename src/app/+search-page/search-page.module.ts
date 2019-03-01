@@ -65,7 +65,6 @@ const effects = [
     SearchBooleanFilterComponent,
   ],
   providers: [
-    SearchService,
     SearchSidebarService,
     SearchFilterService,
     SearchConfigurationService

@@ -4,11 +4,11 @@ import { Community } from '../../../core/shared/community.model';
 import { RemoteData } from '../../../core/data/remote-data';
 
 @Component({
-  selector: 'ds-collection-selector-modal-wrapper',
-  // styleUrls: ['./collection-selector.component.scss'],
-  templateUrl: './collection-selector-modal-wrapper.component.html',
+  selector: 'ds-community-selector-modal-wrapper',
+  // styleUrls: ['./community-selector.component.scss'],
+  templateUrl: './community-selector-modal-wrapper.component.html',
 })
-export class CollectionSelectorModalWrapperComponent implements OnInit {
+export class CommunitySelectorModalWrapperComponent implements OnInit {
   @Input() communityRD: RemoteData<Community>;
 
   constructor(private route: ActivatedRoute) {

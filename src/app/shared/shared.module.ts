@@ -91,12 +91,14 @@ import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/cre
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
-import { CollectionSelectorComponent } from './dso-selector/collection-selector/collection-selector.component';
 import { CollectionSelectorModalWrapperComponent } from './dso-selector/collection-selector-modal-wrapper/collection-selector-modal-wrapper.component';
 import { ObjectValuesPipe } from './utils/object-values-pipe';
 import { InListValidator } from './utils/in-list-validator.directive';
 import { AutoFocusDirective } from './utils/auto-focus.directive';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
+import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.component';
+import { ItemSelectorModalWrapperComponent } from './dso-selector/item-selector-modal-wrapper/item-selector-modal-wrapper.component';
+import { CommunitySelectorModalWrapperComponent } from './dso-selector/community-selector-modal-wrapper/community-selector-modal-wrapper.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -179,8 +181,10 @@ const COMPONENTS = [
   TruncatablePartComponent,
   BrowseByComponent,
   InputSuggestionsComponent,
-  CollectionSelectorComponent,
-  CollectionSelectorModalWrapperComponent
+  DSOSelectorComponent,
+  CommunitySelectorModalWrapperComponent,
+  CollectionSelectorModalWrapperComponent,
+  ItemSelectorModalWrapperComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -194,8 +198,10 @@ const ENTRY_COMPONENTS = [
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
   BrowseEntryListElementComponent,
-  CollectionSelectorComponent,
-  CollectionSelectorModalWrapperComponent
+  DSOSelectorComponent,
+  CommunitySelectorModalWrapperComponent,
+  CollectionSelectorModalWrapperComponent,
+  ItemSelectorModalWrapperComponent
 ];
 
 const PROVIDERS = [

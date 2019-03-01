@@ -13,6 +13,8 @@ import { combineLatest as combineLatestObservable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';
 import { CollectionSelectorModalWrapperComponent } from '../../shared/dso-selector/collection-selector-modal-wrapper/collection-selector-modal-wrapper.component';
+import { ItemSelectorModalWrapperComponent } from '../../shared/dso-selector/item-selector-modal-wrapper/item-selector-modal-wrapper.component';
+import { CommunitySelectorModalWrapperComponent } from '../../shared/dso-selector/community-selector-modal-wrapper/community-selector-modal-wrapper.component';
 
 /**
  * Component representing the admin sidebar
@@ -111,8 +113,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           type: MenuItemType.ONCLICK,
           text: 'menu.section.new_community',
           function: () => {
-            const modal = this.modalService.open(CollectionSelectorModalWrapperComponent);
-            modal.componentInstance.currentCollectionID = 'c069b0c2-dc6a-40de-92c3-6803cd66023e';
+            this.modalService.open(CommunitySelectorModalWrapperComponent);
           }
         } as OnClickMenuItemModel,
       },
@@ -122,10 +123,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: MenuItemType.LINK,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.new_collection',
-          link: '/collections/submission'
-        } as LinkMenuItemModel,
+          function: () => {
+            this.modalService.open(CollectionSelectorModalWrapperComponent);
+          }
+        } as OnClickMenuItemModel,
       },
       {
         id: 'new_item',
@@ -133,10 +136,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: MenuItemType.LINK,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.new_item',
-          link: '/items/submission'
-        } as LinkMenuItemModel,
+          function: () => {
+            this.modalService.open(ItemSelectorModalWrapperComponent);
+          }
+        } as OnClickMenuItemModel,
       },
       {
         id: 'new_item_version',
