@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 import { DeleteComColPageComponent } from '../../shared/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./delete-community-page.component.scss'],
   templateUrl: './delete-community-page.component.html'
 })
-export class DeleteCommunityPageComponent extends DeleteComColPageComponent<Community, NormalizedCommunity> {
+export class DeleteCommunityPageComponent extends DeleteComColPageComponent<Community> {
   protected frontendURL = '/communities/';
 
   public constructor(

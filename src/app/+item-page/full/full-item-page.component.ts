@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { ItemPageComponent } from '../simple/item-page.component';
-import { MetadataMap } from '../../core/shared/metadata.interfaces';
+import { MetadataMap } from '../../core/shared/metadata.models';
 import { ItemDataService } from '../../core/data/item-data.service';
 
 import { RemoteData } from '../../core/data/remote-data';

@@ -18,14 +18,16 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { Item } from '../shared/item.model';
+import { Community } from '../shared/community.model';
 
 const LINK_NAME = 'test';
 
 /* tslint:disable:max-classes-per-file */
-class NormalizedTestObject extends NormalizedObject {
+class NormalizedTestObject extends NormalizedObject<Item> {
 }
 
-class TestService extends ComColDataService<NormalizedTestObject, any> {
+class TestService extends ComColDataService<any> {
 
   constructor(
     protected requestService: RequestService,
@@ -38,7 +40,7 @@ class TestService extends ComColDataService<NormalizedTestObject, any> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer,
+    protected comparator: DSOChangeAnalyzer<Community>,
     protected linkPath: string
   ) {
     super();

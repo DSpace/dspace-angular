@@ -21,6 +21,7 @@ import { SearchService } from '../../../search-service/search.service';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
+import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -59,7 +60,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the result values for this filter found by the current filter query
    */
-  filterSearchResults: Observable<any[]> = observableOf([]);
+  filterSearchResults: Observable<InputSuggestion[]> = observableOf([]);
 
   /**
    * Emits the active values for this filter
@@ -266,7 +267,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               map(
                 (rd: RemoteData<PaginatedList<FacetValue>>) => {
                   return rd.payload.page.map((facet) => {
-                    return { displayValue: this.getDisplayValue(facet, data), value: facet.value }
+                    return {
+                      displayValue: this.getDisplayValue(facet, data),
+                      value: facet.value
+                    }
                   })
                 }
               ))

@@ -6,7 +6,6 @@ import { isNotUndefined } from '../../empty.util';
 import { first, map } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { DataService } from '../../../core/data/data.service';
-import { NormalizedDSpaceObject } from '../../../core/cache/models/normalized-dspace-object.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 /**
@@ -16,7 +15,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
   selector: 'ds-edit-comcol',
   template: ''
 })
-export class EditComColPageComponent<TDomain extends DSpaceObject, TNormalized extends NormalizedDSpaceObject> implements OnInit {
+export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
    * Frontend endpoint for this type of DSO
    */
@@ -27,7 +26,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject, TNormalized e
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
   public constructor(
-    protected dsoDataService: DataService<TNormalized, TDomain>,
+    protected dsoDataService: DataService<TDomain>,
     protected router: Router,
     protected route: ActivatedRoute
   ) {

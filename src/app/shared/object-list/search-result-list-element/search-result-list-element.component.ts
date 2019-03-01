@@ -6,7 +6,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
-import { Metadata } from '../../../core/shared/metadata.model';
+import { Metadata } from '../../../core/shared/metadata.utils';
 
 @Component({
   selector: 'ds-search-result-list-element',

@@ -37,7 +37,7 @@ import { HttpClient } from '@angular/common/http';
 import { EmptyError } from 'rxjs/internal-compatibility';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { MetadataValue } from '../shared/metadata.interfaces';
+import { MetadataValue } from '../shared/metadata.models';
 
 /* tslint:disable:max-classes-per-file */
 @Component({

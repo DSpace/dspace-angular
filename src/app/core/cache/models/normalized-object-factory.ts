@@ -11,9 +11,10 @@ import { NormalizedResourcePolicy } from './normalized-resource-policy.model';
 import { NormalizedEPerson } from '../../eperson/models/normalized-eperson.model';
 import { NormalizedGroup } from '../../eperson/models/normalized-group.model';
 import { NormalizedMetadataSchema } from '../../metadata/normalized-metadata-schema.model';
+import { CacheableObject } from '../object-cache.reducer';
 
 export class NormalizedObjectFactory {
-  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
+  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject<CacheableObject>> {
     switch (type) {
       case ResourceType.Bitstream: {
         return NormalizedBitstream

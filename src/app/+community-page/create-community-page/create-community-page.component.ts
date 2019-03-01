@@ -4,7 +4,6 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
 import { CreateComColPageComponent } from '../../shared/comcol-forms/create-comcol-page/create-comcol-page.component';
-import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 
 /**
  * Component that represents the page where a user can create a new Community
@@ -14,7 +13,7 @@ import { NormalizedCommunity } from '../../core/cache/models/normalized-communit
   styleUrls: ['./create-community-page.component.scss'],
   templateUrl: './create-community-page.component.html'
 })
-export class CreateCommunityPageComponent extends CreateComColPageComponent<Community, NormalizedCommunity> {
+export class CreateCommunityPageComponent extends CreateComColPageComponent<Community> {
   protected frontendURL = '/communities/';
 
   public constructor(

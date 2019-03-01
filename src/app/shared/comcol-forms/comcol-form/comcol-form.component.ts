@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { TranslateService } from '@ngx-translate/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.interfaces';
+import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 import { isNotEmpty } from '../../empty.util';
 import { ResourceType } from '../../../core/shared/resource-type';
 
@@ -83,11 +83,14 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   onSubmit() {
     const formMetadata = new Object() as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
-      const value: MetadataValue = { value: fieldModel.value as string, language: null };
+      const value: MetadataValue = {
+          value: fieldModel.value as string,
+          language: null
+        } as any;
       if (formMetadata.hasOwnProperty(fieldModel.name)) {
         formMetadata[fieldModel.name].push(value);
       } else {
-        formMetadata[fieldModel.name] = [ value ];
+        formMetadata[fieldModel.name] = [value];
       }
     });
 
@@ -116,5 +119,9 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
         }
       }
     );
+  }
+
+  onCancel() {
+    this.location.back();
   }
 }

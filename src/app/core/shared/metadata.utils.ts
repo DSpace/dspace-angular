@@ -1,5 +1,11 @@
 import { isEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.interfaces';
+import {
+  MetadataMap,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel
+} from './metadata.models';
+import { groupBy, sortBy } from 'lodash';
 
 /**
  * Utility class for working with DSpace object metadata.
@@ -27,7 +33,7 @@ export class Metadata {
    */
   public static all(mapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                     filter?: MetadataValueFilter): MetadataValue[] {
-    const mdMaps: MetadataMap[] = mapOrMaps instanceof Array ? mapOrMaps : [ mapOrMaps ];
+    const mdMaps: MetadataMap[] = mapOrMaps instanceof Array ? mapOrMaps : [mapOrMaps];
     const matches: MetadataValue[] = [];
     for (const mdMap of mdMaps) {
       for (const mdKey of Metadata.resolveKeys(mdMap, keyOrKeys)) {
@@ -71,7 +77,7 @@ export class Metadata {
    */
   public static first(mdMapOrMaps: MetadataMap | MetadataMap[], keyOrKeys: string | string[],
                       filter?: MetadataValueFilter): MetadataValue {
-    const mdMaps: MetadataMap[] = mdMapOrMaps instanceof Array ? mdMapOrMaps : [ mdMapOrMaps ];
+    const mdMaps: MetadataMap[] = mdMapOrMaps instanceof Array ? mdMapOrMaps : [mdMapOrMaps];
     for (const mdMap of mdMaps) {
       for (const key of Metadata.resolveKeys(mdMap, keyOrKeys)) {
         const values: MetadataValue[] = mdMap[key];
@@ -143,8 +149,8 @@ export class Metadata {
    * @param {MetadataMap} mdMap The source map.
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    */
-  private static resolveKeys(mdMap: MetadataMap, keyOrKeys: string | string[]): string[] {
-    const inputKeys: string[] = keyOrKeys instanceof Array ? keyOrKeys : [ keyOrKeys ];
+  private static resolveKeys(mdMap: MetadataMap = {}, keyOrKeys: string | string[]): string[] {
+    const inputKeys: string[] = keyOrKeys instanceof Array ? keyOrKeys : [keyOrKeys];
     const outputKeys: string[] = [];
     for (const inputKey of inputKeys) {
       if (inputKey.includes('*')) {
@@ -159,5 +165,54 @@ export class Metadata {
       }
     }
     return outputKeys;
+  }
+
+  /**
+   * Creates an array of MetadatumViewModels from an existing MetadataMap.
+   *
+   * @param {MetadataMap} mdMap The source map.
+   * @returns {MetadatumViewModel[]} List of metadata view models based on the source map.
+   */
+  public static toViewModelList(mdMap: MetadataMap): MetadatumViewModel[] {
+    let metadatumList: MetadatumViewModel[] = [];
+    Object.keys(mdMap)
+      .sort()
+      .forEach((key: string) => {
+        const fields = mdMap[key].map(
+          (metadataValue: MetadataValue, index: number) =>
+            Object.assign(
+              {},
+              metadataValue,
+              {
+                order: index,
+                key
+              }));
+        metadatumList = [...metadatumList, ...fields];
+      });
+    return metadatumList;
+  }
+
+  /**
+   * Creates an MetadataMap from an existing array of MetadatumViewModels.
+   *
+   * @param {MetadatumViewModel[]} viewModelList The source list.
+   * @returns {MetadataMap} Map with metadata values based on the source list.
+   */
+  public static toMetadataMap(viewModelList: MetadatumViewModel[]): MetadataMap {
+    const metadataMap: MetadataMap = {};
+    const groupedList = groupBy(viewModelList, (viewModel) => viewModel.key);
+    Object.keys(groupedList)
+      .sort()
+      .forEach((key: string) => {
+        const orderedValues = sortBy(groupedList[key], ['order']);
+        metadataMap[key] = orderedValues.map((value: MetadataValue) => {
+            const val = Object.assign({}, value);
+            delete (val as any).order;
+            delete (val as any).key;
+            return val;
+          }
+        )
+      });
+    return metadataMap;
   }
 }
