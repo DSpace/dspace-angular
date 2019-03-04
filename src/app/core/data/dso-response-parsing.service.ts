@@ -13,6 +13,7 @@ import { RestRequest } from './request.models';
 import { ResponseParsingService } from './parsing.service';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 @Injectable()
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -33,7 +34,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
       processRequestDTO = { page: [] };
     } else {
-      processRequestDTO = this.process<NormalizedObject, ResourceType>(data.payload, request.uuid);
+      processRequestDTO = this.process<NormalizedObject<DSpaceObject>, ResourceType>(data.payload, request.uuid);
     }
     let objectList = processRequestDTO;
 

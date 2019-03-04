@@ -88,5 +88,10 @@ module.exports = {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900
+  },
+  item: {
+    edit: {
+      undoTimeout: 10000 // 10 seconds
+    }
   }
 };

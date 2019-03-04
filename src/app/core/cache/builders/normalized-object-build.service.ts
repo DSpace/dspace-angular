@@ -35,7 +35,7 @@ export class NormalizedObjectBuildService {
    *
    * @param {TDomain} domainModel a domain model
    */
-  normalize<TDomain extends CacheableObject, TNormalized extends NormalizedObject>(domainModel: TDomain): TNormalized {
+  normalize<T extends CacheableObject>(domainModel: T): NormalizedObject<T> {
     const normalizedConstructor = NormalizedObjectFactory.getConstructor(domainModel.type);
     const relationships = getRelationships(normalizedConstructor) || [];
 

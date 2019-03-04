@@ -10,7 +10,7 @@ import { ResourceType } from '../../shared/resource-type';
  */
 @mapsTo(Bitstream)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedBitstream extends NormalizedDSpaceObject {
+export class NormalizedBitstream extends NormalizedDSpaceObject<Bitstream> {
 
   /**
    * The size of this bitstream in bytes

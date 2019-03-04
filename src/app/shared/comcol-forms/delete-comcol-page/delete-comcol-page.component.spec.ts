@@ -9,15 +9,14 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { NormalizedDSpaceObject } from '../../../core/cache/models/normalized-dspace-object.model';
 import { DataService } from '../../../core/data/data.service';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 
 describe('DeleteComColPageComponent', () => {
-  let comp: DeleteComColPageComponent<DSpaceObject, NormalizedDSpaceObject>;
-  let fixture: ComponentFixture<DeleteComColPageComponent<DSpaceObject, NormalizedDSpaceObject>>;
+  let comp: DeleteComColPageComponent<DSpaceObject>;
+  let fixture: ComponentFixture<DeleteComColPageComponent<DSpaceObject>>;
   let dsoDataService: CommunityDataService;
   let router: Router;
 

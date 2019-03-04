@@ -78,7 +78,7 @@ export class ObjectCacheService {
    * @return Observable<T>
    *    An observable of the requested object
    */
-  getByUUID<T extends NormalizedObject>(uuid: string): Observable<T> {
+  getByUUID<T extends CacheableObject>(uuid: string): Observable<NormalizedObject<T>> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
       mergeMap((selfLink: string) => this.getBySelfLink(selfLink)
@@ -86,7 +86,7 @@ export class ObjectCacheService {
     )
   }
 
-  getBySelfLink<T extends NormalizedObject>(selfLink: string): Observable<T> {
+  getBySelfLink<T extends CacheableObject>(selfLink: string): Observable<NormalizedObject<T>> {
     return this.getEntry(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
           if (isNotEmpty(entry.patches)) {
@@ -99,8 +99,8 @@ export class ObjectCacheService {
         }
       ),
       map((entry: ObjectCacheEntry) => {
-        const type: GenericConstructor<NormalizedObject> = NormalizedObjectFactory.getConstructor(entry.data.type);
-        return Object.assign(new type(), entry.data) as T
+        const type: GenericConstructor<NormalizedObject<T>> = NormalizedObjectFactory.getConstructor(entry.data.type);
+        return Object.assign(new type(), entry.data) as NormalizedObject<T>
       })
     );
   }
@@ -145,7 +145,7 @@ export class ObjectCacheService {
    *    The type of the objects to get
    * @return Observable<Array<T>>
    */
-  getList<T extends NormalizedObject>(selfLinks: string[]): Observable<T[]> {
+  getList<T extends CacheableObject>(selfLinks: string[]): Observable<Array<NormalizedObject<T>>> {
     return observableCombineLatest(
       selfLinks.map((selfLink: string) => this.getBySelfLink<T>(selfLink))
     );

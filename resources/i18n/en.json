@@ -123,6 +123,7 @@
         "status": {
           "head": "Item Status",
           "description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+          "title": "Item Edit -  Status",
           "labels": {
             "id": "Item Internal ID",
             "handle": "Handle",
@@ -165,16 +166,20 @@
           }
         },
         "bitstreams": {
-          "head": "Item Bitstreams"
+          "head": "Item Bitstreams",
+          "title": "Item Edit - Bitstreams"
         },
         "metadata": {
-          "head": "Item Metadata"
+          "head": "Item Metadata",
+          "title": "Item Edit -  Metadata"
         },
         "view": {
-          "head": "View Item"
+          "head": "View Item",
+          "title": "Item Edit -  View"
         },
         "curate": {
-          "head": "Curate"
+          "head": "Curate",
+          "title": "Item Edit - Curate"
         }
       },
       "modify.overview": {
@@ -188,7 +193,7 @@
         "confirm": "Withdraw",
         "cancel": "Cancel",
         "success": "The item was withdrawn successfully",
-        "error": "An error occured while withdrawing the item"
+        "error": "An error occurred while withdrawing the item"
       },
       "reinstate": {
         "header": "Reinstate item: {{ id }}",
@@ -196,7 +201,7 @@
         "confirm": "Reinstate",
         "cancel": "Cancel",
         "success": "The item was reinstated successfully",
-        "error": "An error occured while reinstating the item"
+        "error": "An error occurred while reinstating the item"
       },
       "private": {
         "header": "Make item private: {{ id }}",
@@ -204,7 +209,7 @@
         "confirm": "Make it Private",
         "cancel": "Cancel",
         "success": "The item is now private",
-        "error": "An error occured while making the item private"
+        "error": "An error occurred while making the item private"
       },
       "public": {
         "header": "Make item public: {{ id }}",
@@ -212,7 +217,7 @@
         "confirm": "Make it Public",
         "cancel": "Cancel",
         "success": "The item is now public",
-        "error": "An error occured while making the item public"
+        "error": "An error occurred while making the item public"
       },
       "delete": {
         "header": "Delete item: {{ id }}",
@@ -220,7 +225,48 @@
         "confirm": "Delete",
         "cancel": "Cancel",
         "success": "The item has been deleted",
-        "error": "An error occured while deleting the item"
+        "error": "An error occurred while deleting the item"
+      },
+      "metadata": {
+        "add-button": "Add",
+        "discard-button": "Discard",
+        "reinstate-button": "Undo",
+        "save-button": "Save",
+        "headers": {
+          "field": "Field",
+          "value": "Value",
+          "language": "Lang",
+          "edit": "Edit"
+        },
+        "edit": {
+          "buttons": {
+            "edit": "Edit",
+            "unedit": "Stop editing",
+            "remove": "Remove",
+            "undo": "Undo changes"
+          }
+        },
+        "metadatafield": {
+          "invalid": "Please choose a valid metadata field"
+        },
+        "notifications": {
+          "outdated": {
+            "title": "Changed outdated",
+            "content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts"
+          },
+          "discarded": {
+            "title": "Changed discarded",
+            "content": "Your changes were discarded. To reinstate your changes click the 'Undo' button"
+          },
+          "invalid": {
+            "title": "Metadata invalid",
+            "content": "Your changes were not saved. Please make sure all fields are valid before you save."
+          },
+          "saved": {
+            "title": "Metadata saved",
+            "content": "Your changes to this item's metadata were saved."
+          }
+        }
       }
     }
   },

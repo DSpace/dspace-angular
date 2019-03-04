@@ -13,7 +13,7 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
   styleUrls: ['./edit-collection-page.component.scss'],
   templateUrl: './edit-collection-page.component.html'
 })
-export class EditCollectionPageComponent extends EditComColPageComponent<Collection, NormalizedCollection> {
+export class EditCollectionPageComponent extends EditComColPageComponent<Collection> {
   protected frontendURL = '/collections/';
 
   public constructor(

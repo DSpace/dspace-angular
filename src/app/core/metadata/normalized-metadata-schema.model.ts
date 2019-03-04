@@ -1,7 +1,6 @@
 import { autoserialize } from 'cerialize';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { mapsTo } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/object-cache.reducer';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { MetadataSchema } from './metadataschema.model';
 
@@ -9,7 +8,7 @@ import { MetadataSchema } from './metadataschema.model';
  * Normalized class for a DSpace MetadataSchema
  */
 @mapsTo(MetadataSchema)
-export class NormalizedMetadataSchema extends NormalizedObject implements CacheableObject, ListableObject {
+export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> implements ListableObject {
   /**
    * The unique identifier for this schema
    */

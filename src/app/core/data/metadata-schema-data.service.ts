@@ -8,20 +8,19 @@ import { CoreState } from '../core.reducers';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, GetRequest, RestRequest } from './request.models';
+import { FindAllOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { MetadataSchema } from '../metadata/metadataschema.model';
-import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { ChangeAnalyzer } from './change-analyzer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { HttpClient } from '@angular/common/http';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
 @Injectable()
-export class MetadataSchemaDataService extends DataService<NormalizedMetadataSchema, MetadataSchema> {
+export class MetadataSchemaDataService extends DataService<MetadataSchema> {
   protected linkPath = 'metadataschemas';
 
   constructor(
@@ -31,10 +30,10 @@ export class MetadataSchemaDataService extends DataService<NormalizedMetadataSch
     private bs: BrowseService,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
+    protected comparator: DefaultChangeAnalyzer<MetadataSchema>,
     protected dataBuildService: NormalizedObjectBuildService,
-    protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<NormalizedMetadataSchema>) {
+    protected notificationsService: NotificationsService) {
     super();
   }
 
