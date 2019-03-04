@@ -1,0 +1,6 @@
+<div>
+    <div class="modal-header">Edit Item</div>
+    <div class="modal-body">
+        <ds-dso-selector [currentDSOId]="(itemRD$ | async)?.payload.uuid" [type]="type" (onSelect)="editItem($event)"></ds-dso-selector>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<div>
+    <div class="modal-header">New Community</div>
+    <div class="modal-body">
+        <button class="form-control" (click)="createCommunity()">Create a new top-level community</button>
+        <ds-dso-selector [currentDSOId]="(communityRD$ | async)?.payload.uuid" [type]="type" (onSelect)="createCommunity($event)"></ds-dso-selector>
+    </div>
+</div>

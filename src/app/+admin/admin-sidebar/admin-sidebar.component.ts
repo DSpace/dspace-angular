@@ -12,9 +12,12 @@ import { first, map } from 'rxjs/operators';
 import { combineLatest as combineLatestObservable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';
-import { CollectionSelectorModalWrapperComponent } from '../../shared/dso-selector/collection-selector-modal-wrapper/collection-selector-modal-wrapper.component';
-import { ItemSelectorModalWrapperComponent } from '../../shared/dso-selector/item-selector-modal-wrapper/item-selector-modal-wrapper.component';
-import { CommunitySelectorModalWrapperComponent } from '../../shared/dso-selector/community-selector-modal-wrapper/community-selector-modal-wrapper.component';
+import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+import { EditCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-parent-selector/edit-collection-parent-selector.component';
+import { EditItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-parent-selector/edit-item-parent-selector.component';
+import { EditCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-parent-selector/edit-community-parent-selector.component';
 
 /**
  * Component representing the admin sidebar
@@ -113,7 +116,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           type: MenuItemType.ONCLICK,
           text: 'menu.section.new_community',
           function: () => {
-            this.modalService.open(CommunitySelectorModalWrapperComponent);
+            this.modalService.open(CreateCommunityParentSelectorComponent);
           }
         } as OnClickMenuItemModel,
       },
@@ -126,7 +129,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           type: MenuItemType.ONCLICK,
           text: 'menu.section.new_collection',
           function: () => {
-            this.modalService.open(CollectionSelectorModalWrapperComponent);
+            this.modalService.open(CreateCollectionParentSelectorComponent);
           }
         } as OnClickMenuItemModel,
       },
@@ -139,7 +142,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           type: MenuItemType.ONCLICK,
           text: 'menu.section.new_item',
           function: () => {
-            this.modalService.open(ItemSelectorModalWrapperComponent);
+            this.modalService.open(CreateItemParentSelectorComponent);
           }
         } as OnClickMenuItemModel,
       },
@@ -173,10 +176,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: MenuItemType.LINK,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.edit_community',
-          link: '#'
-        } as LinkMenuItemModel,
+          function: () => {
+            this.modalService.open(EditCommunityParentSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
       },
       {
         id: 'edit_collection',
@@ -184,10 +189,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: MenuItemType.LINK,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.edit_collection',
-          link: '#'
-        } as LinkMenuItemModel,
+          function: () => {
+            this.modalService.open(EditCollectionParentSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
       },
       {
         id: 'edit_item',
@@ -195,10 +202,12 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         active: false,
         visible: true,
         model: {
-          type: MenuItemType.LINK,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.edit_item',
-          link: '#'
-        } as LinkMenuItemModel,
+          function: () => {
+            this.modalService.open(EditItemParentSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
       },
 
       /* Import */
@@ -235,7 +244,6 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
           link: '#'
         } as LinkMenuItemModel,
       },
-
       /* Export */
       {
         id: 'export',

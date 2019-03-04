@@ -91,14 +91,17 @@ import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/cre
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
-import { CollectionSelectorModalWrapperComponent } from './dso-selector/collection-selector-modal-wrapper/collection-selector-modal-wrapper.component';
 import { ObjectValuesPipe } from './utils/object-values-pipe';
 import { InListValidator } from './utils/in-list-validator.directive';
 import { AutoFocusDirective } from './utils/auto-focus.directive';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.component';
-import { ItemSelectorModalWrapperComponent } from './dso-selector/item-selector-modal-wrapper/item-selector-modal-wrapper.component';
-import { CommunitySelectorModalWrapperComponent } from './dso-selector/community-selector-modal-wrapper/community-selector-modal-wrapper.component';
+import { CreateCommunityParentSelectorComponent } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import { CreateItemParentSelectorComponent } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CreateCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+import { EditCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-parent-selector/edit-collection-parent-selector.component';
+import { EditItemParentSelectorComponent } from './dso-selector/modal-wrappers/edit-item-parent-selector/edit-item-parent-selector.component';
+import { EditCommunityParentSelectorComponent } from './dso-selector/modal-wrappers/edit-community-parent-selector/edit-community-parent-selector.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -182,9 +185,12 @@ const COMPONENTS = [
   BrowseByComponent,
   InputSuggestionsComponent,
   DSOSelectorComponent,
-  CommunitySelectorModalWrapperComponent,
-  CollectionSelectorModalWrapperComponent,
-  ItemSelectorModalWrapperComponent
+  CreateCommunityParentSelectorComponent,
+  CreateCollectionParentSelectorComponent,
+  CreateItemParentSelectorComponent,
+  EditCommunityParentSelectorComponent,
+  EditCollectionParentSelectorComponent,
+  EditItemParentSelectorComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -199,9 +205,12 @@ const ENTRY_COMPONENTS = [
   SearchResultGridElementComponent,
   BrowseEntryListElementComponent,
   DSOSelectorComponent,
-  CommunitySelectorModalWrapperComponent,
-  CollectionSelectorModalWrapperComponent,
-  ItemSelectorModalWrapperComponent
+  CreateCommunityParentSelectorComponent,
+  CreateCollectionParentSelectorComponent,
+  CreateItemParentSelectorComponent,
+  EditCommunityParentSelectorComponent,
+  EditCollectionParentSelectorComponent,
+  EditItemParentSelectorComponent,
 ];
 
 const PROVIDERS = [

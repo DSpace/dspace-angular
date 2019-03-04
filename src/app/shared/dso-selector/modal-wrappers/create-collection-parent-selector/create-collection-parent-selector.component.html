@@ -1,0 +1,6 @@
+<div>
+    <div class="modal-header">New Collection</div>
+    <div class="modal-body">
+        <ds-dso-selector [currentDSOId]="(communityRD$ | async)?.payload.uuid" [type]="type" (onSelect)="createCollection($event)"></ds-dso-selector>
+    </div>
+</div>

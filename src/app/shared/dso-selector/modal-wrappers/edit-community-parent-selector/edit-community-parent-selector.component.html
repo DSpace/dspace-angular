@@ -1,0 +1,6 @@
+<div>
+    <div class="modal-header">Edit Community</div>
+    <div class="modal-body">
+        <ds-dso-selector [currentDSOId]="(communityRD$ | async)?.payload.uuid" [type]="type" (onSelect)="editCommunity($event)"></ds-dso-selector>
+    </div>
+</div>

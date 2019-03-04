@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
@@ -10,6 +10,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface DSOSelectListEntry {
   parents: DSpaceObject[],
@@ -25,12 +27,14 @@ export class DSOSelectorComponent implements OnInit, AfterViewInit {
   @Input() currentDSOId: string;
   @Input() type: DSpaceObjectType;
 
+  @Output() onSelect: EventEmitter<DSpaceObject> = new EventEmitter();
+
   public input: FormControl = new FormControl();
   // private subs: Subscription[] = [];
   private defaultPagination = { id: 'dso-selector', currentPage: 1, pageSize: 5 } as any;
   listEntries$: Observable<DSOSelectListEntry[]>;
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private modalService: NgbModal) {
 
   }
 
@@ -59,12 +63,23 @@ export class DSOSelectorComponent implements OnInit, AfterViewInit {
           )
         })
       );
-
   }
 
+  ngAfterViewInit(): void {
+    this.listEntries$
+      .pipe(first())
+      .subscribe((entries) => {
+        if (entries.length === 1) {
+          // SELECT ENTRY
+          console.log(entries);
+        }
+      });
+
+    this.input.setValue(this.currentDSOId);
+  }
 
   retrieveParentList(dso: DSpaceObject, parents: DSpaceObject[] = []) {
-    return [{name: 'Test Community'} as any];
+    return [{ name: 'Test Community' } as any];
     // if (hasValue(dso.owner)) {
     //   dso.owner.pipe(
     //     first(),
@@ -80,15 +95,8 @@ export class DSOSelectorComponent implements OnInit, AfterViewInit {
   //   this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   // }
 
-  onSelect(event) {
-
-  }
 
   onClose() {
-
-  }
-
-  ngAfterViewInit(): void {
-    this.input.setValue(this.currentDSOId);
+    // this.modalService.dismissAll();
   }
 }

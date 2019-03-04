@@ -1,0 +1,6 @@
+<div>
+    <div class="modal-header">New Item</div>
+    <div class="modal-body">
+        <ds-dso-selector [currentDSOId]="(collectionRD$ | async)?.payload.uuid" [type]="type"></ds-dso-selector>
+    </div>
+</div>

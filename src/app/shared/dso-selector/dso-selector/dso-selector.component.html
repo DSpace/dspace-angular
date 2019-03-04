@@ -5,8 +5,6 @@
            placeholder="{{ 'submission.sections.general.search-collection' | translate }}"
            [formControl]="input">
 </div>
-
-{{input.value}}
 <div class="dropdown-divider"></div>
 <div class="scrollable-menu">
     <button class="dropdown-item disabled" *ngIf="(listEntries$ | async)?.length == 0">
@@ -15,7 +13,7 @@
     <button *ngFor="let listEntry of (listEntries$ | async)"
             class="dropdown-item collection-item"
             title="{{ listEntry.dso.name }}"
-            (click)="onSelect(listEntry.dso)">
+            (click)="onSelect.emit(listEntry.dso)">
         <ul class="list-unstyled mb-0">
             <li class="list-item text-truncate text-secondary"
                 *ngFor="let parent of listEntry.parents">
