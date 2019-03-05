@@ -27,10 +27,14 @@ export class CreateItemParentSelectorComponent implements OnInit {
   }
 
   createItem(dso: DSpaceObject) {
-    this.activeModal.close();
+    this.close();
 
     let path;
     //   path = this.createPath;
     // this.router.navigate([path]);
+  }
+
+  close() {
+    this.activeModal.close();
   }
 }

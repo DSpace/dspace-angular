@@ -28,12 +28,16 @@ export class CreateCollectionParentSelectorComponent implements OnInit {
   }
 
   createCollection(dso: DSpaceObject) {
-    this.activeModal.close();
+    this.close();
     let navigationExtras: NavigationExtras = {
       queryParams: {
         [COLLECTION_PARENT_PARAMETER]: dso.uuid,
       }
     };
     this.router.navigate([this.createPath], navigationExtras);
+  }
+
+  close() {
+    this.activeModal.close();
   }
 }

@@ -1,5 +1,9 @@
 <div>
-    <div class="modal-header">Edit Item</div>
+    <div class="modal-header">Edit Item
+        <button type="button" class="close" (click)="close()" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
     <div class="modal-body">
         <ds-dso-selector [currentDSOId]="(itemRD$ | async)?.payload.uuid" [type]="type" (onSelect)="editItem($event)"></ds-dso-selector>
     </div>

@@ -27,7 +27,11 @@ export class EditCollectionParentSelectorComponent implements OnInit {
   }
 
   editCollection(dso: DSpaceObject) {
-    this.activeModal.close();
+    this.close();
     this.router.navigate([getCollectionEditPath(dso.uuid)]);
+  }
+
+  close() {
+    this.activeModal.close();
   }
 }

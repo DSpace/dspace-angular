@@ -28,7 +28,11 @@ export class EditItemParentSelectorComponent implements OnInit {
   }
 
   editItem(dso: DSpaceObject) {
-    this.activeModal.close();
+    this.close();
     this.router.navigate([getItemEditPath(dso.uuid)]);
+  }
+
+  close() {
+    this.activeModal.close();
   }
 }

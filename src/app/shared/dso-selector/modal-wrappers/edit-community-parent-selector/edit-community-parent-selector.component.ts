@@ -26,7 +26,12 @@ export class EditCommunityParentSelectorComponent implements OnInit {
   }
 
   editCommunity(dso: DSpaceObject) {
-    this.activeModal.close();
+    this.close();
     this.router.navigate([getCommunityEditPath(dso.uuid)]);
+  }
+
+
+  close() {
+    this.activeModal.close();
   }
 }

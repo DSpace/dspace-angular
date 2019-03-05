@@ -12,7 +12,7 @@ import { COMMUNITY_PARENT_PARAMETER } from '../../../../+community-page/communit
 
 @Component({
   selector: 'ds-create-community-parent-selector',
-  // styleUrls: ['./create-community-parent-selector.component.scss'],
+  styleUrls: ['./create-community-parent-selector.component.scss'],
   templateUrl: './create-community-parent-selector.component.html',
 })
 export class CreateCommunityParentSelectorComponent implements OnInit {
@@ -29,7 +29,7 @@ export class CreateCommunityParentSelectorComponent implements OnInit {
   }
 
   createCommunity(dso?: DSpaceObject) {
-    this.activeModal.close();
+    this.close();
     let navigationExtras: NavigationExtras = {};
     if (hasValue(dso)) {
       navigationExtras = {
@@ -39,5 +39,9 @@ export class CreateCommunityParentSelectorComponent implements OnInit {
       };
     }
     this.router.navigate([this.createPath], navigationExtras);
+  }
+
+  close() {
+    this.activeModal.close();
   }
 }
