@@ -1,8 +1,9 @@
 import {
+  AddToIndexAction,
   IndexAction,
   IndexActionTypes,
-  AddToIndexAction,
-  RemoveFromIndexByValueAction, RemoveFromIndexBySubstringAction
+  RemoveFromIndexBySubstringAction,
+  RemoveFromIndexByValueAction
 } from './index.actions';
 
 export enum IndexName {
@@ -11,16 +12,18 @@ export enum IndexName {
   UUID_MAPPING = 'get-request/configured-to-cache-uuid'
 }
 
-export type IndexState = {
-  [name in IndexName]: {
-    [key: string]: string
-  }
+export interface IndexState {
+  [key: string]: string
+}
+
+export type MetaIndexState = {
+  [name in IndexName]: IndexState
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
-const initialState: IndexState = Object.create(null);
+const initialState: MetaIndexState = Object.create(null);
 
-export function indexReducer(state = initialState, action: IndexAction): IndexState {
+export function indexReducer(state = initialState, action: IndexAction): MetaIndexState {
   switch (action.type) {
 
     case IndexActionTypes.ADD: {
@@ -41,7 +44,7 @@ export function indexReducer(state = initialState, action: IndexAction): IndexSt
   }
 }
 
-function addToIndex(state: IndexState, action: AddToIndexAction): IndexState {
+function addToIndex(state: MetaIndexState, action: AddToIndexAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.assign({}, subState, {
     [action.payload.key]: action.payload.value
@@ -52,7 +55,7 @@ function addToIndex(state: IndexState, action: AddToIndexAction): IndexState {
   return obs;
 }
 
-function removeFromIndexByValue(state: IndexState, action: RemoveFromIndexByValueAction): IndexState {
+function removeFromIndexByValue(state: MetaIndexState, action: RemoveFromIndexByValueAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.create(null);
   for (const value in subState) {
@@ -70,7 +73,7 @@ function removeFromIndexByValue(state: IndexState, action: RemoveFromIndexByValu
  * @param state     The IndexState to remove values from
  * @param action    The RemoveFromIndexByValueAction containing the necessary information to remove the values
  */
-function removeFromIndexBySubstring(state: IndexState, action: RemoveFromIndexByValueAction): IndexState {
+function removeFromIndexBySubstring(state: MetaIndexState, action: RemoveFromIndexByValueAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.create(null);
   for (const value in subState) {

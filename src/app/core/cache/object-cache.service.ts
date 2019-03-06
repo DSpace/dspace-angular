@@ -1,36 +1,39 @@
+import { Injectable } from '@angular/core';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { IndexName } from '../index/index.reducer';
-
-import { CacheableObject, ObjectCacheEntry } from './object-cache.reducer';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { CoreState } from '../core.reducers';
+import { coreSelector } from '../core.selectors';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { selfLinkFromUuidSelector } from '../index/index.selectors';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { NormalizedObjectFactory } from './models/normalized-object-factory';
+import { NormalizedObject } from './models/normalized-object.model';
 import {
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
   ApplyPatchObjectCacheAction,
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
-import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { coreSelector, CoreState } from '../core.reducers';
-import { pathSelector } from '../shared/selectors';
-import { NormalizedObjectFactory } from './models/normalized-object-factory';
-import { NormalizedObject } from './models/normalized-object.model';
-import { applyPatch, Operation } from 'fast-json-patch';
+
+import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
-import { RestRequestMethod } from '../data/rest-request-method';
 
-function selfLinkFromUuidSelector(uuid: string): MemoizedSelector<CoreState, string> {
-  return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.OBJECT, uuid);
-}
+const objectCacheSelector = createSelector(
+  coreSelector,
+  (state: CoreState) => state['cache/object']
+);
 
-function entryFromSelfLinkSelector(selfLink: string): MemoizedSelector<CoreState, ObjectCacheEntry> {
-  return pathSelector<CoreState, ObjectCacheEntry>(coreSelector, 'cache/object', selfLink);
-}
+const entryFromSelfLinkSelector =
+  (selfLink: string): MemoizedSelector<CoreState, ObjectCacheEntry> => createSelector(
+    objectCacheSelector,
+    (state: ObjectCacheState) => state[selfLink],
+  );
 
-/**
+  /**
  * A service to interact with the object cache
  */
 @Injectable()

@@ -1,37 +1,78 @@
 import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
 import {
-  distinctUntilChanged,
   filter,
-  find,
-  first,
   map,
   mergeMap,
-  reduce,
-  startWith,
   switchMap,
   take,
-  tap
 } from 'rxjs/operators';
 import { race as observableRace } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { AppState } from '../../app.reducer';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
-import { coreSelector, CoreState } from '../core.reducers';
-import { IndexName, IndexState } from '../index/index.reducer';
-import { pathSelector } from '../shared/selectors';
+import { CoreState } from '../core.reducers';
+import { coreSelector } from '../core.selectors';
+import {
+  IndexName, IndexState,
+  MetaIndexState
+} from '../index/index.reducer';
+import {
+  originalRequestUUIDFromRequestUUIDSelector, requestIndexSelector,
+  uuidFromHrefSelector
+} from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
 
-import { RequestEntry } from './request.reducer';
+import { RequestEntry, RequestState } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { getResponseFromEntry } from '../shared/operators';
 import { AddToIndexAction, RemoveFromIndexBySubstringAction } from '../index/index.actions';
+
+const requestCacheSelector = createSelector(
+  coreSelector,
+  (state: CoreState) => state['data/request']
+);
+
+const entryFromUUIDSelector = (uuid: string): MemoizedSelector<CoreState, RequestEntry> => createSelector(
+  requestCacheSelector,
+  (state: RequestState) => {
+    return hasValue(state) ? state[uuid] : undefined;
+  }
+);
+
+/**
+ * Create a selector that fetches a list of request UUIDs from a given index substate of which the request href
+ * contains a given substring
+ * @param selector    MemoizedSelector to start from
+ * @param name        The name of the index substate we're fetching request UUIDs from
+ * @param href        Substring that the request's href should contain
+ */
+const uuidsFromHrefSubstringSelector =
+  (selector: MemoizedSelector<AppState, IndexState>, href: string): MemoizedSelector<AppState, string[]> => createSelector(
+    selector,
+    (state: IndexState) => getUuidsFromHrefSubstring(state, href)
+  );
+
+/**
+ * Fetch a list of request UUIDs from a given index substate of which the request href contains a given substring
+ * @param state   The IndexState
+ * @param href    Substring that the request's href should contain
+ */
+const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] => {
+  let result = [];
+  if (isNotEmpty(state)) {
+    result = Object.values(state)
+      .filter((value: string) => value.startsWith(href));
+  }
+  return result;
+};
 
 @Injectable()
 export class RequestService {
@@ -40,51 +81,7 @@ export class RequestService {
   constructor(private objectCache: ObjectCacheService,
               private uuidService: UUIDService,
               private store: Store<CoreState>,
-              private indexStore: Store<IndexState>) {
-  }
-
-  private entryFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, RequestEntry> {
-    return pathSelector<CoreState, RequestEntry>(coreSelector, 'data/request', uuid);
-  }
-
-  private uuidFromHrefSelector(href: string): MemoizedSelector<CoreState, string> {
-    return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.REQUEST, href);
-  }
-
-  private originalUUIDFromUUIDSelector(uuid: string): MemoizedSelector<CoreState, string> {
-    return pathSelector<CoreState, string>(coreSelector, 'index', IndexName.UUID_MAPPING, uuid);
-  }
-
-  /**
-   * Create a selector that fetches a list of request UUIDs from a given index substate of which the request href
-   * contains a given substring
-   * @param selector    MemoizedSelector to start from
-   * @param name        The name of the index substate we're fetching request UUIDs from
-   * @param href        Substring that the request's href should contain
-   */
-  private uuidsFromHrefSubstringSelector(selector: MemoizedSelector<any, IndexState>, name: string, href: string): MemoizedSelector<any, string[]> {
-    return createSelector(selector, (state: IndexState) => this.getUuidsFromHrefSubstring(state, name, href));
-  }
-
-  /**
-   * Fetch a list of request UUIDs from a given index substate of which the request href contains a given substring
-   * @param state   The IndexState
-   * @param name    The name of the index substate we're fetching request UUIDs from
-   * @param href    Substring that the request's href should contain
-   */
-  private getUuidsFromHrefSubstring(state: IndexState, name: string, href: string): string[] {
-    let result = [];
-    if (isNotEmpty(state)) {
-      const subState = state[name];
-      if (isNotEmpty(subState)) {
-        for (const value in subState) {
-          if (value.indexOf(href) > -1) {
-            result = [...result, subState[value]];
-          }
-        }
-      }
-    }
-    return result;
+              private indexStore: Store<MetaIndexState>) {
   }
 
   generateRequestId(): string {
@@ -110,11 +107,11 @@ export class RequestService {
 
   getByUUID(uuid: string): Observable<RequestEntry> {
     return observableRace(
-      this.store.pipe(select(this.entryFromUUIDSelector(uuid))),
+      this.store.pipe(select(entryFromUUIDSelector(uuid))),
       this.store.pipe(
-        select(this.originalUUIDFromUUIDSelector(uuid)),
+        select(originalRequestUUIDFromRequestUUIDSelector(uuid)),
         mergeMap((originalUUID) => {
-            return this.store.pipe(select(this.entryFromUUIDSelector(originalUUID)))
+            return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
           },
         ))
     );
@@ -122,7 +119,7 @@ export class RequestService {
 
   getByHref(href: string): Observable<RequestEntry> {
     return this.store.pipe(
-      select(this.uuidFromHrefSelector(href)),
+      select(uuidFromHrefSelector(href)),
       mergeMap((uuid: string) => this.getByUUID(uuid))
     );
   }
@@ -159,7 +156,7 @@ export class RequestService {
    */
   removeByHrefSubstring(href: string) {
     this.store.pipe(
-      select(this.uuidsFromHrefSubstringSelector(pathSelector<CoreState, IndexState>(coreSelector, 'index'), IndexName.REQUEST, href)),
+      select(uuidsFromHrefSubstringSelector(requestIndexSelector, href)),
       take(1)
     ).subscribe((uuids: string[]) => {
       for (const uuid of uuids) {
@@ -230,7 +227,7 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.store.pipe(select(this.entryFromUUIDSelector(request.href)),
+    this.store.pipe(select(entryFromUUIDSelector(request.href)),
       filter((re: RequestEntry) => hasValue(re)),
       take(1)
     ).subscribe((re: RequestEntry) => {

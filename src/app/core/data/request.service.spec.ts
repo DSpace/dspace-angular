@@ -22,7 +22,7 @@ import { ActionsSubject, Store } from '@ngrx/store';
 import { TestScheduler } from 'rxjs/testing';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { MockStore } from '../../shared/testing/mock-store';
-import { IndexState } from '../index/index.reducer';
+import { MetaIndexState } from '../index/index.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

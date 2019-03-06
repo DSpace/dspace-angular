@@ -1,6 +1,7 @@
 import { delay, exhaustMap, map, switchMap, take } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { coreSelector } from '../core.selectors';
 import {
   AddToSSBAction,
   CommitSSBAction,
@@ -9,7 +10,7 @@ import {
 } from './server-sync-buffer.actions';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { coreSelector, CoreState } from '../core.reducers';
+import { CoreState } from '../core.reducers';
 import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
