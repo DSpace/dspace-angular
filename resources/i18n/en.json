@@ -642,5 +642,31 @@
   },
   "chips": {
     "remove": "Remove chip"
+  },
+  "dso-selector": {
+    "create": {
+      "community": {
+        "head": "New community",
+        "sub-level": "Create a new community in",
+        "top-level": "Create a new top-level community"
+      },
+      "collection": {
+        "head": "New collection"
+      },
+      "item": {
+        "head": "New item"
+      }
+    },
+    "edit": {
+      "community": {
+        "head": "Edit community"
+      },
+      "collection": {
+        "head": "Edit collection"
+      },
+      "item": {
+        "head": "Edit item"
+      }
+    }
   }
 }

@@ -5,39 +5,34 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { COLLECTION_PARENT_PARAMETER } from '../../../../+collection-page/collection-page-routing.module';
+import {
+  COLLECTION_PARENT_PARAMETER,
+  getCollectionCreatePath
+} from '../../../../+collection-page/collection-page-routing.module';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType
+} from '../dso-selector-modal-wrapper.component';
 
 @Component({
   selector: 'ds-create-collection-parent-selector',
-  // styleUrls: ['./create-collection-parent-selector.component.scss'],
-  templateUrl: './create-collection-parent-selector.component.html',
+  templateUrl: '../dso-selector-modal-wrapper.component.html',
 })
-export class CreateCollectionParentSelectorComponent implements OnInit {
-  @Input() communityRD$: Observable<RemoteData<Community>>;
-  type = DSpaceObjectType.COMMUNITY;
+export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+  objectType = DSpaceObjectType.COLLECTION;
+  selectorType = DSpaceObjectType.COMMUNITY;
+  action = SelectorActionType.CREATE;
 
-  private createPath = '/collections/create';
-
-  constructor(private activeModal: NgbActiveModal, private route: ActivatedRoute, private router: Router) {
+  constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
+    super(activeModal, route);
   }
 
-  ngOnInit(): void {
-    this.communityRD$ = this.route.root.firstChild.firstChild.data.pipe(map(data => data.community));
-  }
-
-  createCollection(dso: DSpaceObject) {
-    this.close();
+  navigate(dso: DSpaceObject) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         [COLLECTION_PARENT_PARAMETER]: dso.uuid,
       }
     };
-    this.router.navigate([this.createPath], navigationExtras);
-  }
-
-  close() {
-    this.activeModal.close();
+    this.router.navigate([getCollectionCreatePath()], navigationExtras);
   }
 }

@@ -10,29 +10,25 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Item } from '../../../../core/shared/item.model';
 import { getItemEditPath } from '../../../../+item-page/item-page-routing.module';
+import {
+  DSOSelectorModalWrapperComponent,
+  SelectorActionType
+} from '../dso-selector-modal-wrapper.component';
 
 @Component({
-  selector: 'ds-edit-item-parent-selector',
-  // styleUrls: ['./edit-item-parent-selector.component.scss'],
-  templateUrl: './edit-item-parent-selector.component.html',
+  selector: 'ds-edit-item-selector',
+  templateUrl: '../dso-selector-modal-wrapper.component.html',
 })
-export class EditItemParentSelectorComponent implements OnInit {
-  @Input() itemRD$: Observable<RemoteData<Item>>;
-  type = DSpaceObjectType.ITEM;
+export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
+  objectType = DSpaceObjectType.ITEM;
+  selectorType = DSpaceObjectType.ITEM;
+  action = SelectorActionType.EDIT;
 
-  constructor(private activeModal: NgbActiveModal, private route: ActivatedRoute, private router: Router) {
+  constructor(protected activeModal: NgbActiveModal, protected route: ActivatedRoute, private router: Router) {
+    super(activeModal, route);
   }
 
-  ngOnInit(): void {
-    this.itemRD$ = this.route.root.firstChild.firstChild.data.pipe(map(data => data.item));
-  }
-
-  editItem(dso: DSpaceObject) {
-    this.close();
+  navigate(dso: DSpaceObject) {
     this.router.navigate([getItemEditPath(dso.uuid)]);
-  }
-
-  close() {
-    this.activeModal.close();
   }
 }

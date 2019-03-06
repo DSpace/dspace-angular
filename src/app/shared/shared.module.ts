@@ -99,9 +99,12 @@ import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.c
 import { CreateCommunityParentSelectorComponent } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import { CreateItemParentSelectorComponent } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { CreateCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
-import { EditCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-parent-selector/edit-collection-parent-selector.component';
-import { EditItemParentSelectorComponent } from './dso-selector/modal-wrappers/edit-item-parent-selector/edit-item-parent-selector.component';
-import { EditCommunityParentSelectorComponent } from './dso-selector/modal-wrappers/edit-community-parent-selector/edit-community-parent-selector.component';
+import { CommunitySearchResultListElementComponent } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
+import { CollectionSearchResultListElementComponent } from './object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
+import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-parent-selector/edit-item-selector.component';
+import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-parent-selector/edit-community-selector.component';
+import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-parent-selector/edit-collection-selector.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -188,9 +191,12 @@ const COMPONENTS = [
   CreateCommunityParentSelectorComponent,
   CreateCollectionParentSelectorComponent,
   CreateItemParentSelectorComponent,
-  EditCommunityParentSelectorComponent,
-  EditCollectionParentSelectorComponent,
-  EditItemParentSelectorComponent,
+  EditCommunitySelectorComponent,
+  EditCollectionSelectorComponent,
+  EditItemSelectorComponent,
+  CommunitySearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  ItemSearchResultListElementComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -199,6 +205,9 @@ const ENTRY_COMPONENTS = [
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
+  CommunitySearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  ItemSearchResultListElementComponent,
   ItemGridElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
@@ -208,9 +217,9 @@ const ENTRY_COMPONENTS = [
   CreateCommunityParentSelectorComponent,
   CreateCollectionParentSelectorComponent,
   CreateItemParentSelectorComponent,
-  EditCommunityParentSelectorComponent,
-  EditCollectionParentSelectorComponent,
-  EditItemParentSelectorComponent,
+  EditCommunitySelectorComponent,
+  EditCollectionSelectorComponent,
+  EditItemSelectorComponent,
 ];
 
 const PROVIDERS = [

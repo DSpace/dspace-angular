@@ -21,32 +21,60 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
-interface DSOSelectListEntry {
-  parents: DSpaceObject[],
-  dso: DSpaceObject
-}
-
 @Component({
   selector: 'ds-dso-selector',
   // styleUrls: ['./dso-selector.component.scss'],
   templateUrl: './dso-selector.component.html'
 })
+
+/**
+ * Component to render a list of DSO's of which one can be selected
+ * The user can search the list by using the input field
+ */
 export class DSOSelectorComponent implements OnInit, AfterViewInit {
+
+  /**
+   * The initially selected DSO's uuid
+   */
   @Input() currentDSOId: string;
+
+  /**
+   * The type of DSpace objects this components shows a list of
+   */
   @Input() type: DSpaceObjectType;
 
+  /**
+   * Emits the selected Object when a user selects it in the list
+   */
   @Output() onSelect: EventEmitter<DSpaceObject> = new EventEmitter();
 
+  /**
+   * Input form control to query the list
+   */
   public input: FormControl = new FormControl();
-  // private subs: Subscription[] = [];
+
+  /**
+   * Default pagination for this feature
+   */
   private defaultPagination = { id: 'dso-selector', currentPage: 1, pageSize: 5 } as any;
-  listEntries$: Observable<DSOSelectListEntry[]>;
+
+  /**
+   * List with search results of DSpace objects for the current query
+   */
+  listEntries$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
+
+  /**
+   * List of element references to all elements
+   */
   @ViewChildren('listEntryElement') listElements: QueryList<ElementRef>;
 
   constructor(private searchService: SearchService) {
-
   }
 
+  /**
+   * Fills the listEntries$ variable with search results based on the input field's current value
+   * The search will always start with the initial currentDSOId value
+   */
   ngOnInit(): void {
     this.listEntries$ = this.input.valueChanges
       .pipe(
@@ -60,21 +88,13 @@ export class DSOSelectorComponent implements OnInit, AfterViewInit {
               })
             )
           }
-        ),
-        map((searchResultsRD: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
-          return searchResultsRD.payload.page.map(
-            (searchResult: SearchResult<DSpaceObject>) => {
-              let dso = searchResult.dspaceObject;
-              return {
-                parents: this.retrieveParentList(dso),
-                dso
-              } as DSOSelectListEntry
-            }
-          )
-        })
+        )
       )
   }
 
+  /**
+   * Make sure to set focus on the first list element when the initial search (with currentDSOId) emits a single value
+   */
   ngAfterViewInit(): void {
     this.listElements.changes.pipe(
       take(1)
@@ -83,18 +103,5 @@ export class DSOSelectorComponent implements OnInit, AfterViewInit {
         this.listElements.first.nativeElement.focus();
       }
     });
-  }
-
-  retrieveParentList(dso: DSpaceObject, parents: DSpaceObject[] = []) {
-    return [{ name: 'Test Community' } as any];
-    // if (hasValue(dso.owner)) {
-    //   dso.owner.pipe(
-    //     first(),
-    //   ).subscribe((parentRD) => {
-    //     const newDSO: DSpaceObject = parentRD.payload;
-    //     parents = [...this.retrieveParentList(newDSO, parents), newDSO];
-    //   });
-    // }
-    // return parents;
   }
 }
