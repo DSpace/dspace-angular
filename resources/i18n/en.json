@@ -667,6 +667,8 @@
       "item": {
         "head": "Edit item"
       }
-    }
+    },
+    "placeholder": "Search for a {{ type }}",
+    "no-results": "No {{ type }} found"
   }
 }

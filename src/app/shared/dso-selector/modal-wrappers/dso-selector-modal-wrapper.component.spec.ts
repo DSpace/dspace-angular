@@ -16,6 +16,7 @@ import { first } from 'rxjs/operators';
 import { By } from '@angular/platform-browser';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MockComponent } from 'ng-mocks';
+import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;
@@ -24,7 +25,12 @@ describe('DSOSelectorModalWrapperComponent', () => {
 
   const item = new Item();
   item.uuid = '1234-1234-1234-1234';
-  item.metadata = { 'dc.title': [{ value: 'Item title', language: undefined }] };
+  item.metadata = {
+    'dc.title': [Object.assign(new MetadataValue(), {
+      value: 'Item title',
+      language: undefined
+    })]
+  };
 
   const itemRD = new RemoteData(false, false, true, undefined, item);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);

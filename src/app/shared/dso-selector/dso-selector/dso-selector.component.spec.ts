@@ -10,6 +10,7 @@ import { ItemSearchResult } from '../../object-collection/shared/item-search-res
 import { Item } from '../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;
@@ -20,7 +21,7 @@ describe('DSOSelectorComponent', () => {
   const type = DSpaceObjectType.ITEM;
   const searchResult = new ItemSearchResult();
   const item = new Item();
-  item.metadata = { 'dc.title': [{ value: 'Item title', language: undefined }] };
+  item.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Item title', language: undefined })] };
   searchResult.dspaceObject = item;
   searchResult.hitHighlights = {};
   const searchService = jasmine.createSpyObj('searchService', {

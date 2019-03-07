@@ -9,6 +9,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router-stub';
 import * as itemRouter from '../../../../+item-page/item-page-routing.module';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
 
 describe('EditItemSelectorComponent', () => {
   let component: EditItemSelectorComponent;
@@ -17,7 +18,7 @@ describe('EditItemSelectorComponent', () => {
 
   const item = new Item();
   item.uuid = '1234-1234-1234-1234';
-  item.metadata = { 'dc.title': [{ value: 'Item title', language: undefined }] };
+  item.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Item title', language: undefined })] };
   const router = new RouterStub();
   const itemRD = new RemoteData(false, false, true, undefined, item);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);

@@ -9,6 +9,7 @@ import { RouterStub } from '../../../testing/router-stub';
 import * as collectionRouter from '../../../../+collection-page/collection-page-routing.module';
 import { Community } from '../../../../core/shared/community.model';
 import { CreateCollectionParentSelectorComponent } from './create-collection-parent-selector.component';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
 
 describe('CreateCollectionParentSelectorComponent', () => {
   let component: CreateCollectionParentSelectorComponent;
@@ -17,7 +18,13 @@ describe('CreateCollectionParentSelectorComponent', () => {
 
   const community = new Community();
   community.uuid = '1234-1234-1234-1234';
-  community.metadata = { 'dc.title': [{ value: 'Community title', language: undefined }] };
+  community.metadata = {
+    'dc.title': [
+      Object.assign(new MetadataValue(), {
+      value: 'Community title',
+      language: undefined
+    })]
+  };
   const router = new RouterStub();
   const communityRD = new RemoteData(false, false, true, undefined, community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
@@ -44,7 +51,7 @@ describe('CreateCollectionParentSelectorComponent', () => {
 
   beforeEach(() => {
     spyOnProperty(collectionRouter, 'getCollectionCreatePath').and.callFake(() => {
-        return () => createPath;
+      return () => createPath;
     });
 
     fixture = TestBed.createComponent(CreateCollectionParentSelectorComponent);
@@ -59,7 +66,7 @@ describe('CreateCollectionParentSelectorComponent', () => {
 
   it('should call navigate on the router with the correct edit path when navigate is called', () => {
     component.navigate(community);
-    expect(router.navigate).toHaveBeenCalledWith([createPath], { queryParams: { parent: community.uuid } } );
+    expect(router.navigate).toHaveBeenCalledWith([createPath], { queryParams: { parent: community.uuid } });
   });
 
 });

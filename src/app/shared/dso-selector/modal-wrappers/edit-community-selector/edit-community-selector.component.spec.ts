@@ -9,6 +9,7 @@ import { RouterStub } from '../../../testing/router-stub';
 import * as communityRouter from '../../../../+community-page/community-page-routing.module';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 import { Community } from '../../../../core/shared/community.model';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
 
 describe('EditCommunitySelectorComponent', () => {
   let component: EditCommunitySelectorComponent;
@@ -17,7 +18,7 @@ describe('EditCommunitySelectorComponent', () => {
 
   const community = new Community();
   community.uuid = '1234-1234-1234-1234';
-  community.metadata = { 'dc.title': [{ value: 'Community title', language: undefined }] };
+  community.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Community title', language: undefined })] };
   const router = new RouterStub();
   const communityRD = new RemoteData(false, false, true, undefined, community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
