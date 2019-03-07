@@ -29,8 +29,6 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
   }
 
   navigate(dso: DSpaceObject) {
-    let path;
-    //   path = this.createPath;
-    // this.router.navigate([path]);
+   //There's no submit path per collection yet...
   }
 }

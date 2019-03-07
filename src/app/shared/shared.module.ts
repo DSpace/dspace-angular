@@ -102,9 +102,10 @@ import { CreateCollectionParentSelectorComponent } from './dso-selector/modal-wr
 import { CommunitySearchResultListElementComponent } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { CollectionSearchResultListElementComponent } from './object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
-import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-parent-selector/edit-item-selector.component';
-import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-parent-selector/edit-community-selector.component';
-import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-parent-selector/edit-collection-selector.component';
+import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import { DSOSelectorModalWrapperComponent } from './dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here

@@ -1,11 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MenuItemType } from '../initial-menus-state';
 import { rendersMenuItemForType } from '../menu-item.decorator';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { OnClickMenuItemModel } from './models/onclick.model';
 
 /**
- * Component that renders a menu section of type LINK
+ * Component that renders a menu section of type ONCLICK
  */
 @Component({
   selector: 'ds-onclick-menu-item',
@@ -14,7 +13,7 @@ import { OnClickMenuItemModel } from './models/onclick.model';
 @rendersMenuItemForType(MenuItemType.ONCLICK)
 export class OnClickMenuItemComponent {
   item: OnClickMenuItemModel;
-  constructor(@Inject('itemModelProvider') item: OnClickMenuItemModel, @Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
+  constructor(@Inject('itemModelProvider') item: OnClickMenuItemModel) {
     this.item = item;
   }
 }

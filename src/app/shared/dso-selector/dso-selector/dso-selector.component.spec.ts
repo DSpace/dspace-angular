@@ -11,7 +11,7 @@ import { Item } from '../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list';
 
-fdescribe('DSOSelectorComponent', () => {
+describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;
   let fixture: ComponentFixture<DSOSelectorComponent>;
   let debugElement: DebugElement;
@@ -35,8 +35,7 @@ fdescribe('DSOSelectorComponent', () => {
         { provide: SearchService, useValue: searchService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+    }).compileComponents();
 
   }));
 

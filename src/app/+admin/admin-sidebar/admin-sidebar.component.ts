@@ -15,9 +15,9 @@ import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick
 import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
-import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-parent-selector/edit-item-selector.component';
-import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-parent-selector/edit-community-selector.component';
-import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-parent-selector/edit-collection-selector.component';
+import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 
 /**
  * Component representing the admin sidebar

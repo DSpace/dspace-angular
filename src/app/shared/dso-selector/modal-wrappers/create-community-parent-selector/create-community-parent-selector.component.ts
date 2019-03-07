@@ -1,13 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { Community } from '../../../../core/shared/community.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { hasValue } from '../../../empty.util';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import {
   COMMUNITY_PARENT_PARAMETER,
   getCommunityCreatePath

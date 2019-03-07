@@ -12,6 +12,7 @@ import { AuthService } from '../../core/auth/auth.service';
 
 import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('AdminSidebarComponent', () => {
   let comp: AdminSidebarComponent;
@@ -26,7 +27,13 @@ describe('AdminSidebarComponent', () => {
         { provide: Injector, useValue: {} },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
-        { provide: AuthService, useClass: AuthServiceStub }
+        { provide: AuthService, useClass: AuthServiceStub },
+        {
+          provide: NgbModal, useValue: {
+            open: () => {
+            }
+          }
+        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(AdminSidebarComponent, {
@@ -96,7 +103,10 @@ describe('AdminSidebarComponent', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleMenu');
       const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle')).query(By.css('a.shortcut-icon'));
-      sidebarToggler.triggerEventHandler('click', {preventDefault: () => {/**/}});
+      sidebarToggler.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
     });
 
     it('should call toggleMenu on the menuService', () => {
@@ -108,7 +118,10 @@ describe('AdminSidebarComponent', () => {
     beforeEach(() => {
       spyOn(menuService, 'toggleMenu');
       const sidebarToggler = fixture.debugElement.query(By.css('#sidebar-collapse-toggle')).query(By.css('.sidebar-collapsible')).query(By.css('a'));
-      sidebarToggler.triggerEventHandler('click', {preventDefault: () => {/**/}});
+      sidebarToggler.triggerEventHandler('click', {
+        preventDefault: () => {/**/
+        }
+      });
     });
 
     it('should call toggleMenu on the menuService', () => {
@@ -120,7 +133,10 @@ describe('AdminSidebarComponent', () => {
     it('should call expandPreview on the menuService after 100ms', fakeAsync(() => {
       spyOn(menuService, 'expandMenuPreview');
       const sidebarToggler = fixture.debugElement.query(By.css('nav.navbar'));
-      sidebarToggler.triggerEventHandler('mouseenter', {preventDefault: () => {/**/}});
+      sidebarToggler.triggerEventHandler('mouseenter', {
+        preventDefault: () => {/**/
+        }
+      });
       tick(99);
       expect(menuService.expandMenuPreview).not.toHaveBeenCalled();
       tick(1);
@@ -132,7 +148,10 @@ describe('AdminSidebarComponent', () => {
     it('should call collapseMenuPreview on the menuService after 400ms', fakeAsync(() => {
       spyOn(menuService, 'collapseMenuPreview');
       const sidebarToggler = fixture.debugElement.query(By.css('nav.navbar'));
-      sidebarToggler.triggerEventHandler('mouseleave', {preventDefault: () => {/**/}});
+      sidebarToggler.triggerEventHandler('mouseleave', {
+        preventDefault: () => {/**/
+        }
+      });
       tick(399);
       expect(menuService.collapseMenuPreview).not.toHaveBeenCalled();
       tick(1);
