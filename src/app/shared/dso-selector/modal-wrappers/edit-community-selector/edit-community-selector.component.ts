@@ -23,6 +23,9 @@ export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperCompo
     super(activeModal, route);
   }
 
+  /**
+   * Navigate to the community edit page
+   */
   navigate(dso: DSpaceObject) {
     this.router.navigate([getCommunityEditPath(dso.uuid)]);
   }

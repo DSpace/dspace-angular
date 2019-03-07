@@ -27,6 +27,9 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
     super(activeModal, route);
   }
 
+  /**
+   * Navigate to the collection create page
+   */
   navigate(dso: DSpaceObject) {
     let navigationExtras: NavigationExtras = {
       queryParams: {

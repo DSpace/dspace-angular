@@ -27,6 +27,9 @@ export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrap
     super(activeModal, route);
   }
 
+  /**
+   * Navigate to the community create page
+   */
   navigate(dso: DSpaceObject) {
     let navigationExtras: NavigationExtras = {};
     if (hasValue(dso)) {

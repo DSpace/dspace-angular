@@ -31,7 +31,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
  * Component to render a list of DSO's of which one can be selected
  * The user can search the list by using the input field
  */
-export class DSOSelectorComponent implements OnInit, AfterViewInit {
+export class DSOSelectorComponent implements OnInit {
 
   /**
    * The initially selected DSO's uuid
@@ -76,6 +76,7 @@ export class DSOSelectorComponent implements OnInit, AfterViewInit {
    * The search will always start with the initial currentDSOId value
    */
   ngOnInit(): void {
+    this.input.setValue(this.currentDSOId);
     this.listEntries$ = this.input.valueChanges
       .pipe(
         startWith(this.currentDSOId),
@@ -93,15 +94,11 @@ export class DSOSelectorComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Make sure to set focus on the first list element when the initial search (with currentDSOId) emits a single value
+   * Set focus on the first list element when there is only one result
    */
-  ngAfterViewInit(): void {
-    this.listElements.changes.pipe(
-      take(1)
-    ).subscribe((changes) => {
-      if (changes.length === 1) {
-        this.listElements.first.nativeElement.focus();
-      }
-    });
+  selectSingleResult(): void {
+    if (this.listElements.length > 0) {
+      this.listElements.first.nativeElement.click();
+    }
   }
 }

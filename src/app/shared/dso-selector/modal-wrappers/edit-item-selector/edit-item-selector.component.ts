@@ -28,6 +28,9 @@ export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent 
     super(activeModal, route);
   }
 
+  /**
+   * Navigate to the item edit page
+   */
   navigate(dso: DSpaceObject) {
     this.router.navigate([getItemEditPath(dso.uuid)]);
   }

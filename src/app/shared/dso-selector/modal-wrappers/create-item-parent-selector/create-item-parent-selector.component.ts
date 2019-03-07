@@ -28,6 +28,9 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
     super(activeModal, route);
   }
 
+  /**
+   * Navigate to the item create page
+   */
   navigate(dso: DSpaceObject) {
    //There's no submit path per collection yet...
   }

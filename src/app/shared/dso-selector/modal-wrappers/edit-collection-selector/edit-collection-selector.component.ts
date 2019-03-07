@@ -22,6 +22,9 @@ export class EditCollectionSelectorComponent extends DSOSelectorModalWrapperComp
     super(activeModal, route);
   }
 
+  /**
+   * Navigate to the collection edit page
+   */
   navigate(dso: DSpaceObject) {
     this.router.navigate([getCollectionEditPath(dso.uuid)]);
   }
