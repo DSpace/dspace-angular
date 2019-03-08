@@ -1,0 +1,6 @@
+<ds-item-detail-preview *ngIf="workFlow"
+                        [item]="(workFlow.item | async)?.payload"
+                        [object]="object"
+                        [status]="status"></ds-item-detail-preview>
+
+<ds-claimed-task-actions *ngIf="workFlow" [object]="dso"></ds-claimed-task-actions>

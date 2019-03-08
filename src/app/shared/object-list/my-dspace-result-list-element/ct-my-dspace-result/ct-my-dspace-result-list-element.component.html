@@ -1,0 +1,7 @@
+<ds-item-list-preview *ngIf="workFlow"
+                      [item]="(workFlow.item | async)?.payload"
+                      [object]="object"
+                      [showSubmitter]="showSubmitter"
+                      [status]="status"></ds-item-list-preview>
+
+<ds-claimed-task-actions *ngIf="workFlow" [object]="dso"></ds-claimed-task-actions>

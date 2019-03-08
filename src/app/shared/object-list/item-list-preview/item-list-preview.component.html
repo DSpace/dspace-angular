@@ -1,0 +1,32 @@
+<ng-container *ngIf="item" @fadeInOut>
+  <ng-container *ngIf="status">
+    <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
+  </ng-container>
+  <ds-truncatable [id]="item.id">
+    <h3 class="h3-title" [innerHTML]="firstMetadataValue('dc.title') || ('mydspace.results.no-title' | translate)" [ngClass]="{'lead': true,'text-muted': !firstMetadataValue('dc.title')}"></h3>
+    <div>
+      <span class="text-muted">
+        <ds-truncatable-part [id]="item.id" [minLines]="1">
+          (<span *ngIf="item.hasMetadata('dc.publisher')" class="item-list-publisher"
+                 [innerHTML]="firstMetadataValue('dc.publisher') + ', '"></span>
+          <span class="item-list-date" [innerHTML]="firstMetadataValue('dc.date.issued') || ('mydspace.results.no-date' | translate)"></span>)
+          <span *ngIf="item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);"
+                class="item-list-authors">
+              <span *ngIf="allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length === 0">{{'mydspace.results.no-authors' | translate}}</span>
+              <span *ngFor="let author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
+                <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
+              </span>
+          </span>
+
+          </ds-truncatable-part>
+      </span>
+
+      <ds-truncatable-part [id]="item.id" [minLines]="1" class="item-list-abstract">
+        <span [ngClass]="{'text-muted': !firstMetadataValue('dc.description.abstract')}"
+              [innerHTML]="(firstMetadataValue('dc.description.abstract')) || ('mydspace.results.no-abstract' | translate)"></span>
+      </ds-truncatable-part>
+
+    </div>
+  </ds-truncatable>
+  <ds-item-submitter *ngIf="showSubmitter" [object]="object.dspaceObject"></ds-item-submitter>
+</ng-container>

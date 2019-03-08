@@ -6,33 +6,35 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core';
+
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
+
 import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-list',
-  styleUrls: ['./object-list.component.scss'],
-  templateUrl: './object-list.component.html',
+  selector: 'ds-object-detail',
+  styleUrls: [ './object-detail.component.scss' ],
+  templateUrl: './object-detail.component.html',
   animations: [fadeIn]
 })
-export class ObjectListComponent {
+
+export class ObjectDetailComponent {
 
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
-  @Input() hasBorder = false;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
   private _objects: RemoteData<PaginatedList<ListableObject>>;
   @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
     this._objects = objects;
   }
-
   get objects() {
     return this._objects;
   }
@@ -75,7 +77,6 @@ export class ObjectListComponent {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-
   onPageChange(event) {
     this.pageChange.emit(event);
   }
