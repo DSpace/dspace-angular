@@ -1,14 +1,7 @@
+import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  find,
-  first,
-  map,
-  mergeMap,
-  switchMap,
-  take
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
@@ -34,7 +27,6 @@ import { Operation } from 'fast-json-patch';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -44,8 +36,9 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { RequestEntry } from './request.reducer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { ChangeAnalyzer } from './change-analyzer';
+import { RestRequestMethod } from './rest-request-method';
 
-export abstract class DataService<TNormalized extends NormalizedObject, TDomain extends CacheableObject> {
+export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract dataBuildService: NormalizedObjectBuildService;
@@ -56,7 +49,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
   protected abstract objectCache: ObjectCacheService;
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
-  protected abstract comparator: ChangeAnalyzer<TNormalized>;
+  protected abstract comparator: ChangeAnalyzer<T>;
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
@@ -106,7 +99,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     }
   }
 
-  findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
+  findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
     const hrefObs = this.getFindAllHref(options);
 
     hrefObs.pipe(
@@ -116,7 +109,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
         this.requestService.configure(request, this.forceBypassCache);
       });
 
-    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs) as Observable<RemoteData<PaginatedList<TDomain>>>;
+    return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
   }
 
   /**
@@ -128,7 +121,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
     return `${endpoint}/${resourceID}`;
   }
 
-  findById(id: string): Observable<RemoteData<TDomain>> {
+  findById(id: string): Observable<RemoteData<T>> {
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, id)));
 
@@ -139,12 +132,12 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
         this.requestService.configure(request, this.forceBypassCache);
       });
 
-    return this.rdbService.buildSingle<TNormalized, TDomain>(hrefObs);
+    return this.rdbService.buildSingle<T>(hrefObs);
   }
 
-  findByHref(href: string, options?: HttpOptions): Observable<RemoteData<TDomain>> {
+  findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
     this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options), this.forceBypassCache);
-    return this.rdbService.buildSingle<TNormalized, TDomain>(href);
+    return this.rdbService.buildSingle<T>(href);
   }
 
   protected getSearchEndpoint(searchMethod: string): Observable<string> {
@@ -153,7 +146,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
       map((href: string) => `${href}/${searchMethod}`));
   }
 
-  protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<TDomain>>> {
+  protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options);
 
@@ -164,7 +157,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
         this.requestService.configure(request, true);
       });
 
-    return this.rdbService.buildList<TNormalized, TDomain>(hrefObs) as Observable<RemoteData<PaginatedList<TDomain>>>;
+    return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
   }
 
   /**
@@ -181,11 +174,10 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} object The given object
    */
-  update(object: TDomain): Observable<RemoteData<TDomain>> {
+  update(object: T): Observable<RemoteData<T>> {
     const oldVersion$ = this.objectCache.getBySelfLink(object.self);
-    return oldVersion$.pipe(first(), mergeMap((oldVersion: TNormalized) => {
-        const newVersion = this.dataBuildService.normalize<TDomain, TNormalized>(object);
-        const operations = this.comparator.diff(oldVersion, newVersion);
+    return oldVersion$.pipe(take(1), mergeMap((oldVersion: T) => {
+        const operations = this.comparator.diff(oldVersion, object);
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);
         }
@@ -204,7 +196,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
    * @param {string} parentUUID
    *    The UUID of the parent to create the new object under
    */
-  create(dso: TDomain, parentUUID: string): Observable<RemoteData<TDomain>> {
+  create(dso: T, parentUUID: string): Observable<RemoteData<T>> {
     const requestId = this.requestService.generateRequestId();
     const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
@@ -212,7 +204,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
       map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
     );
 
-    const normalizedObject: TNormalized = this.dataBuildService.normalize<TDomain, TNormalized>(dso);
+    const normalizedObject: NormalizedObject<T> = this.dataBuildService.normalize<T>(dso);
     const serializedDso = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(dso.type)).serialize(normalizedObject);
 
     const request$ = endpoint$.pipe(
@@ -253,7 +245,7 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
    * @param dso The DSpace Object to be removed
    * Return an observable that emits true when the deletion was successful, false when it failed
    */
-  delete(dso: TDomain): Observable<boolean> {
+  delete(dso: T): Observable<boolean> {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
@@ -271,6 +263,14 @@ export abstract class DataService<TNormalized extends NormalizedObject, TDomain 
       find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response.isSuccessful)
     );
+  }
+
+  /**
+   * Commit current object changes to the server
+   * @param method The RestRequestMethod for which de server sync buffer should be committed
+   */
+  commitUpdates(method?: RestRequestMethod) {
+    this.requestService.commit(method);
   }
 
 }

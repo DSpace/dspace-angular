@@ -1,11 +1,10 @@
-import {distinctUntilChanged, map, filter} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedItem } from '../cache/models/normalized-item.model';
 import { CoreState } from '../core.reducers';
 import { Item } from '../shared/item.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -13,16 +12,17 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteRequest, FindAllOptions, PatchRequest, RestRequest } from './request.models';
+import { FindAllOptions, PatchRequest, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { configureRequest, getRequestFromRequestHref } from '../shared/operators';
+import { RequestEntry } from './request.reducer';
 
 @Injectable()
-export class ItemDataService extends DataService<NormalizedItem, Item> {
+export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
   protected forceBypassCache = false;
 
@@ -36,7 +36,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer) {
+    protected comparator: DSOChangeAnalyzer<Item>) {
     super();
   }
 
@@ -92,7 +92,9 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      getResponseFromEntry()
+      map((request: RestRequest) => request.href),
+      getRequestFromRequestHref(this.requestService),
+      map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
 
@@ -111,7 +113,9 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      getResponseFromEntry()
+      map((request: RestRequest) => request.href),
+      getRequestFromRequestHref(this.requestService),
+      map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
 }

@@ -15,7 +15,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 @Injectable()
-export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
+export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
   protected forceBypassCache = false;
 
@@ -29,7 +29,7 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer
+    protected comparator: DSOChangeAnalyzer<Collection>
   ) {
     super();
   }

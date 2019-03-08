@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedDSpaceObject } from '../cache/models/normalized-dspace-object.model';
 import { CoreState } from '../core.reducers';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -17,7 +16,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 /* tslint:disable:max-classes-per-file */
-class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> {
+class DataServiceImpl extends DataService<DSpaceObject> {
   protected linkPath = 'dso';
   protected forceBypassCache = false;
 
@@ -30,7 +29,7 @@ class DataServiceImpl extends DataService<NormalizedDSpaceObject, DSpaceObject> 
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer) {
+    protected comparator: DSOChangeAnalyzer<DSpaceObject>) {
     super();
   }
 
@@ -56,7 +55,7 @@ export class DSpaceObjectDataService {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer) {
+    protected comparator: DSOChangeAnalyzer<DSpaceObject>) {
     this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
   }
 

@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RouteService } from '../../services/route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
-import { isNotUndefined } from '../../empty.util';
 import { first, map } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { DataService } from '../../../core/data/data.service';
-import { NormalizedDSpaceObject } from '../../../core/cache/models/normalized-dspace-object.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'ds-delete-comcol',
   template: ''
 })
-export class DeleteComColPageComponent<TDomain extends DSpaceObject, TNormalized extends NormalizedDSpaceObject> implements OnInit {
+export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
    * Frontend endpoint for this type of DSO
    */
@@ -30,7 +26,7 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject, TNormalized
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
   public constructor(
-    protected dsoDataService: DataService<TNormalized, TDomain>,
+    protected dsoDataService: DataService<TDomain>,
     protected router: Router,
     protected route: ActivatedRoute,
     protected notifications: NotificationsService,

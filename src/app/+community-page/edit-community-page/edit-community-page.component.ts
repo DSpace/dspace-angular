@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NormalizedCommunity } from '../../core/cache/models/normalized-community.model';
 import { EditComColPageComponent } from '../../shared/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 
 /**
@@ -13,7 +12,7 @@ import { EditComColPageComponent } from '../../shared/comcol-forms/edit-comcol-p
   styleUrls: ['./edit-community-page.component.scss'],
   templateUrl: './edit-community-page.component.html'
 })
-export class EditCommunityPageComponent extends EditComColPageComponent<Community, NormalizedCommunity> {
+export class EditCommunityPageComponent extends EditComColPageComponent<Community> {
   protected frontendURL = '/communities/';
 
   public constructor(

@@ -1,28 +1,17 @@
-import {
-  distinctUntilChanged,
-  filter,
-  first,
-  map,
-  mergeMap,
-  share,
-  take,
-  tap
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, share, take, tap } from 'rxjs/operators';
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
 import { FindAllOptions, FindByIDRequest } from './request.models';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestEntry } from './request.reducer';
 import { getResponseFromEntry } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 
-export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain extends CacheableObject> extends DataService<TNormalized, TDomain> {
+export abstract class ComColDataService<T extends CacheableObject> extends DataService<T> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract halService: HALEndpointService;

@@ -3,7 +3,6 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { RouteService } from '../../shared/services/route.service';
 import { Router } from '@angular/router';
 import { CreateComColPageComponent } from '../../shared/comcol-forms/create-comcol-page/create-comcol-page.component';
-import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 
@@ -15,7 +14,7 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
   styleUrls: ['./create-collection-page.component.scss'],
   templateUrl: './create-collection-page.component.html'
 })
-export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection, NormalizedCollection> {
+export class CreateCollectionPageComponent extends CreateComColPageComponent<Collection> {
   protected frontendURL = '/collections/';
 
   public constructor(

@@ -1,12 +1,12 @@
-import { MetadataMap, MetadataValue, MetadataValueFilter } from './metadata.interfaces';
-import { Metadata } from './metadata.model';
-import { isEmpty, isNotEmpty, isUndefined } from '../../shared/empty.util';
+import { Observable } from 'rxjs';
+
+import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
+import { Metadata } from './metadata.utils';
+import { isUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { Observable } from 'rxjs';
-import { autoserialize } from 'cerialize';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -20,13 +20,11 @@ export class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * The human-readable identifier of this DSpaceObject
    */
-  @autoserialize
   id: string;
 
   /**
    * The universally unique identifier of this DSpaceObject
    */
-  @autoserialize
   uuid: string;
 
   /**
@@ -51,8 +49,14 @@ export class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * All metadata of this DSpaceObject
    */
-  @autoserialize
   metadata: MetadataMap;
+
+  /**
+   * Retrieve the current metadata as a list of MetadatumViewModels
+   */
+  get metadataAsList(): MetadatumViewModel[] {
+    return Metadata.toViewModelList(this.metadata);
+  }
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject

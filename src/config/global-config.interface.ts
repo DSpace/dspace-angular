@@ -6,6 +6,7 @@ import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { SubmissionConfig } from './submission-config.interface';
 import { FormConfig } from './form-config.interfaces';
 import {LangConfig} from './lang-config.interface';
+import { ItemPageConfig } from './item-page-config.interface';
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
@@ -21,4 +22,5 @@ export interface GlobalConfig extends Config {
   debug: boolean;
   defaultLanguage: string;
   languages: LangConfig[];
+  item: ItemPageConfig;
 }

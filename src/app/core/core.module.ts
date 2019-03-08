@@ -77,6 +77,8 @@ import { MenuService } from '../shared/menu/menu.service';
 import { SubmissionJsonPatchOperationsService } from './submission/submission-json-patch-operations.service';
 import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
+import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
+import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
 
 const IMPORTS = [
   CommonModule,
@@ -154,8 +156,10 @@ const PROVIDERS = [
   FileService,
   DSpaceObjectDataService,
   DSOChangeAnalyzer,
+  DefaultChangeAnalyzer,
   CSSVariableService,
   MenuService,
+  ObjectUpdatesService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

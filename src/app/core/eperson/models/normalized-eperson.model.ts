@@ -9,7 +9,7 @@ import { NormalizedGroup } from './normalized-group.model';
 
 @mapsTo(EPerson)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedEPerson extends NormalizedDSpaceObject implements CacheableObject, ListableObject {
+export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implements CacheableObject, ListableObject {
 
   @autoserialize
   public handle: string;

@@ -29,27 +29,30 @@ export class NotificationsService {
 
   success(title: any = observableOf(''),
           content: any = observableOf(''),
-          options: NotificationOptions = this.getDefaultOptions(),
+          options: Partial<NotificationOptions> = {},
           html: boolean = false): INotification {
-    const notification = new Notification(uniqueId(), NotificationType.Success, title, content, options, html);
+    const notificationOptions = { ...this.getDefaultOptions(), ...options };
+    const notification = new Notification(uniqueId(), NotificationType.Success, title, content, notificationOptions, html);
     this.add(notification);
     return notification;
   }
 
   error(title: any = observableOf(''),
         content: any = observableOf(''),
-        options: NotificationOptions = this.getDefaultOptions(),
+        options: Partial<NotificationOptions> = {},
         html: boolean = false): INotification {
-    const notification = new Notification(uniqueId(), NotificationType.Error, title, content, options, html);
+    const notificationOptions = { ...this.getDefaultOptions(), ...options };
+    const notification = new Notification(uniqueId(), NotificationType.Error, title, content, notificationOptions, html);
     this.add(notification);
     return notification;
   }
 
   info(title: any = observableOf(''),
        content: any = observableOf(''),
-       options: NotificationOptions = this.getDefaultOptions(),
+       options: Partial<NotificationOptions> = {},
        html: boolean = false): INotification {
-    const notification = new Notification(uniqueId(), NotificationType.Info, title, content, options, html);
+    const notificationOptions = { ...this.getDefaultOptions(), ...options };
+    const notification = new Notification(uniqueId(), NotificationType.Info, title, content, notificationOptions, html);
     this.add(notification);
     return notification;
   }
@@ -58,7 +61,8 @@ export class NotificationsService {
           content: any = observableOf(''),
           options: NotificationOptions = this.getDefaultOptions(),
           html: boolean = false): INotification {
-    const notification = new Notification(uniqueId(), NotificationType.Warning, title, content, options, html);
+    const notificationOptions = { ...this.getDefaultOptions(), ...options };
+    const notification = new Notification(uniqueId(), NotificationType.Warning, title, content, notificationOptions, html);
     this.add(notification);
     return notification;
   }

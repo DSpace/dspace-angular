@@ -16,15 +16,17 @@ import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { compare } from 'fast-json-patch';
+import { Item } from '../shared/item.model';
 
 const endpoint = 'https://rest.api/core';
 
 // tslint:disable:max-classes-per-file
-class NormalizedTestObject extends NormalizedObject {
+class NormalizedTestObject extends NormalizedObject<Item> {
 }
 
-class TestService extends DataService<NormalizedTestObject, any> {
+class TestService extends DataService<any> {
   protected forceBypassCache = false;
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,

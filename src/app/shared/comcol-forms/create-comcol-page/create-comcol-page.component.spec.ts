@@ -11,13 +11,12 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { NormalizedDSpaceObject } from '../../../core/cache/models/normalized-dspace-object.model';
 import { CreateComColPageComponent } from './create-comcol-page.component';
 import { DataService } from '../../../core/data/data.service';
 
 describe('CreateComColPageComponent', () => {
-  let comp: CreateComColPageComponent<DSpaceObject, NormalizedDSpaceObject>;
-  let fixture: ComponentFixture<CreateComColPageComponent<DSpaceObject, NormalizedDSpaceObject>>;
+  let comp: CreateComColPageComponent<DSpaceObject>;
+  let fixture: ComponentFixture<CreateComColPageComponent<DSpaceObject>>;
   let communityDataService: CommunityDataService;
   let dsoDataService: CommunityDataService;
   let routeService: RouteService;

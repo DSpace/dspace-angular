@@ -94,6 +94,9 @@ import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/cre
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
+import { ObjectValuesPipe } from './utils/object-values-pipe';
+import { InListValidator } from './utils/in-list-validator.directive';
+import { AutoFocusDirective } from './utils/auto-focus.directive';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 
 const MODULES = [
@@ -129,7 +132,8 @@ const PIPES = [
   CapitalizePipe,
   ObjectKeysPipe,
   ConsolePipe,
-  ObjNgFor
+  ObjNgFor,
+  ObjectValuesPipe
 ];
 
 const COMPONENTS = [
@@ -220,7 +224,9 @@ const DIRECTIVES = [
   DragClickDirective,
   DebounceDirective,
   ClickOutsideDirective,
-  AuthorityConfidenceStateDirective
+  AuthorityConfidenceStateDirective,
+  InListValidator,
+  AutoFocusDirective
 ];
 
 @NgModule({

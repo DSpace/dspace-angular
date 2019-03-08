@@ -17,9 +17,10 @@ import { SubmissionDefinitionsModel } from '../../config/models/config-submissio
 import { SubmissionFormsModel } from '../../config/models/config-submission-forms.model';
 import { SubmissionSectionModel } from '../../config/models/config-submission-section.model';
 import { NormalizedMetadataSchema } from '../../metadata/normalized-metadata-schema.model';
+import { CacheableObject } from '../object-cache.reducer';
 
 export class NormalizedObjectFactory {
-  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
+  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject<CacheableObject>> {
     switch (type) {
       case ResourceType.Bitstream: {
         return NormalizedBitstream
