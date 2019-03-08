@@ -1,5 +1,4 @@
-<ds-loading *ngIf="(loading | async)"></ds-loading>
-<div *ngIf="!(loading | async)" class="form-login px-4 py-3">
+<div class="form-login px-4">
 
   <div *ngIf="(error | async) && hasError" class="alert alert-danger" role="alert" @fadeOut>{{ error | async }}</div>
 
