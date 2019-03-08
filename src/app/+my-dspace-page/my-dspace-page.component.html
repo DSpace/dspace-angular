@@ -1,0 +1,44 @@
+<div class="container">
+  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Controller]"
+                               (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>
+  <div class="search-page row">
+      <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-3 sidebar-md-sticky"
+                         id="search-sidebar"
+                         [configurationList]="(configurationList$ | async)"
+                         [resultCount]="(resultsRD$ | async)?.payload.totalElements"></ds-search-sidebar>
+      <div class="col-12 col-md-9">
+          <ds-search-form id="mydspace-form"
+                          [query]="(searchOptions$ | async)?.query"
+                          [scope]="(searchOptions$ | async)?.scope"
+                          [currentUrl]="getSearchLink()"
+                          [scopes]="(scopeListRD$ | async)">
+          </ds-search-form>
+          <ds-search-labels></ds-search-labels>
+          <div class="row">
+              <div id="mydspace-body"
+                   class="row-offcanvas row-offcanvas-left"
+                   [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
+                  <ds-search-sidebar *ngIf="(isXsOrSm$ | async)" class="col-12"
+                                     id="mydspace-sidebar-sm"
+                                     [configurationList]="(configurationList$ | async)"
+                                     [resultCount]="(resultsRD$ | async)?.payload.totalElements"
+                                     (toggleSidebar)="closeSidebar()"
+                                     [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
+                  </ds-search-sidebar>
+                  <div id="mydspace-content" class="col-12">
+                      <div class="d-block d-md-none search-controls clearfix">
+                          <ds-view-mode-switch></ds-view-mode-switch>
+                          <button (click)="openSidebar()" aria-controls="#mydspace-body"
+                                  class="btn btn-outline-primary float-right open-sidebar"><i
+                                  class="fas fa-sliders"></i> {{"search.sidebar.open"
+                              | translate}}
+                          </button>
+                      </div>
+                      <ds-my-dspace-results [searchResults]="resultsRD$ | async"
+                                            [searchConfig]="searchOptions$ | async"></ds-my-dspace-results>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
