@@ -12,6 +12,8 @@ import { NormalizedWorkspaceItem } from '../../submission/models/normalized-work
 import { NormalizedEPerson } from '../../eperson/models/normalized-eperson.model';
 import { NormalizedGroup } from '../../eperson/models/normalized-group.model';
 import { NormalizedWorkflowItem } from '../../submission/models/normalized-workflowitem.model';
+import { NormalizedClaimedTask } from '../../tasks/models/normalized-claimed-task-object.model';
+import { NormalizedPoolTask } from '../../tasks/models/normalized-pool-task-object.model';
 import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
 import { SubmissionFormsModel } from '../../config/models/config-submission-forms.model';
@@ -62,6 +64,12 @@ export class NormalizedObjectFactory {
       }
       case ResourceType.Workflowitem: {
         return NormalizedWorkflowItem
+      }
+      case ResourceType.ClaimedTask: {
+        return NormalizedClaimedTask
+      }
+      case ResourceType.PoolTask: {
+        return NormalizedPoolTask
       }
       case ResourceType.BitstreamFormat: {
         return NormalizedBitstreamFormat

@@ -77,6 +77,14 @@ import { MenuService } from '../shared/menu/menu.service';
 import { SubmissionJsonPatchOperationsService } from './submission/submission-json-patch-operations.service';
 import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
+import { RoleService } from './roles/role.service';
+import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
+import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
+import { MessageService } from './message/message.service';
+import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
+import { PoolTaskDataService } from './tasks/pool-task-data.service';
+import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { MessageResponseParsingService } from './message/message-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -128,6 +136,7 @@ const PROVIDERS = [
   RegistryBitstreamformatsResponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
+  MyDSpaceResponseParsingService,
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
@@ -156,6 +165,13 @@ const PROVIDERS = [
   DSOChangeAnalyzer,
   CSSVariableService,
   MenuService,
+  MyDSpaceGuard,
+  RoleService,
+  MessageResponseParsingService,
+  MessageService,
+  TaskResponseParsingService,
+  ClaimedTaskDataService,
+  PoolTaskDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -166,15 +182,20 @@ const PROVIDERS = [
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
+const DIRECTIVES = [
+];
+
 @NgModule({
   imports: [
     ...IMPORTS
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
+    ...DIRECTIVES
   ],
   exports: [
-    ...EXPORTS
+    ...EXPORTS,
+    ...DIRECTIVES
   ],
   providers: [
     ...PROVIDERS

@@ -11,7 +11,7 @@ export class PaginatedList<T> {
     if (hasValue(this.pageInfo) && hasValue(this.pageInfo.elementsPerPage)) {
       return this.pageInfo.elementsPerPage;
     }
-    return this.page.length;
+    return this.getPageLength();
   }
 
   set elementsPerPage(value: number) {
@@ -22,7 +22,7 @@ export class PaginatedList<T> {
     if (hasValue(this.pageInfo) && hasValue(this.pageInfo.totalElements)) {
       return this.pageInfo.totalElements;
     }
-    return this.page.length;
+    return this.getPageLength();
   }
 
   set totalElements(value: number) {
@@ -88,5 +88,9 @@ export class PaginatedList<T> {
 
   set self(self: string) {
     this.pageInfo.self = self;
+  }
+
+  protected getPageLength() {
+    return (Array.isArray(this.page)) ? this.page.length : 0;
   }
 }

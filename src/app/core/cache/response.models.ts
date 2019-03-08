@@ -253,4 +253,28 @@ export class EpersonSuccessResponse extends RestResponse {
   }
 }
 
+export class MessageResponse extends RestResponse {
+  public toCache = false;
+
+  constructor(
+    public statusCode: number,
+    public statusText: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
+
+export class TaskResponse extends RestResponse {
+  public toCache = false;
+
+  constructor(
+    public statusCode: number,
+    public statusText: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
+
 /* tslint:enable:max-classes-per-file */

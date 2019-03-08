@@ -4,7 +4,7 @@ import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { merge as observableMerge, Observable, of as observableOf, race as observableRace } from 'rxjs';
 import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
@@ -123,9 +123,9 @@ export class RequestService {
   // TODO to review "forceBypassCache" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {
+    if (!isGetRequest || !this.isCachedOrPending(request) || (forceBypassCache && !this.isPending(request))) {
       this.dispatchRequest(request);
-      if (isGetRequest && !forceBypassCache) {
+      if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);
       }
     } else {
@@ -137,6 +137,29 @@ export class RequestService {
         }
       )
     }
+  }
+
+  /**
+   * Convert request Payload to a URL-encoded string
+   *
+   * e.g.  prepareBody({param: value, param1: value1})
+   * returns: param=value&param1=value1
+   *
+   * @param body
+   *    The request Payload to convert
+   * @return string
+   *    URL-encoded string
+   */
+  public prepareBody(body: any) {
+    let queryParams = '';
+    if (isNotEmpty(body) && typeof body === 'object') {
+      Object.keys(body)
+        .forEach((param) => {
+          const paramValue = `${param}=${body[param]}`;
+          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+        })
+    }
+    return encodeURI(queryParams);
   }
 
   /**

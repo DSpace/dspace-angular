@@ -10,7 +10,7 @@ import { SearchQueryResponse } from '../../+search-page/search-service/search-qu
 import { MetadataMap, MetadataValue } from '../shared/metadata.interfaces';
 
 @Injectable()
-export class SearchResponseParsingService implements ResponseParsingService {
+export class MyDSpaceResponseParsingService implements ResponseParsingService {
   constructor(private dsoParser: DSOResponseParsingService) {
   }
 
@@ -38,10 +38,6 @@ export class SearchResponseParsingService implements ResponseParsingService {
     const dsoSelfLinks = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
       .map((object) => object._embedded.rObject)
-      // we don't need embedded collections, bitstreamformats, etc for search results.
-      // And parsing them all takes up a lot of time. Throw them away to improve performance
-      // until objs until partial results are supported by the rest api
-      .map((dso) => Object.assign({}, dso, { _embedded: undefined }))
       .map((dso) => this.dsoParser.parse(request, {
         payload: dso,
         statusCode: data.statusCode,
@@ -54,11 +50,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
       .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
         rObject: dsoSelfLinks[index],
-        hitHighlights: hitHighlights[index],
-        // we don't need embedded collections, bitstreamformats, etc for search results.
-        // And parsing them all takes up a lot of time. Throw them away to improve performance
-        // until objs until partial results are supported by the rest api
-        _embedded: undefined
+        hitHighlights: hitHighlights[index]
       }));
     payload.objects = objects;
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
