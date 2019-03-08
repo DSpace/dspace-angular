@@ -6,7 +6,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
-import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { Workflowitem } from './models/workflowitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions } from '../data/request.models';
@@ -16,12 +15,12 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 @Injectable()
-export class WorkflowitemDataService extends DataService<NormalizedWorkflowItem, Workflowitem> {
+export class WorkflowitemDataService extends DataService<Workflowitem> {
   protected linkPath = 'workflowitems';
   protected forceBypassCache = true;
 
   constructor(
-    protected comparator: DSOChangeAnalyzer,
+    protected comparator: DSOChangeAnalyzer<Workflowitem>,
     protected dataBuildService: NormalizedObjectBuildService,
     protected halService: HALEndpointService,
     protected http: HttpClient,

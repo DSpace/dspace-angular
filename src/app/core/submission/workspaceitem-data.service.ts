@@ -7,7 +7,6 @@ import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { Workspaceitem } from './models/workspaceitem.model';
-import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions } from '../data/request.models';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
@@ -16,12 +15,12 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 @Injectable()
-export class WorkspaceitemDataService extends DataService<NormalizedWorkspaceItem, Workspaceitem> {
+export class WorkspaceitemDataService extends DataService<Workspaceitem> {
   protected linkPath = 'workspaceitems';
   protected forceBypassCache = true;
 
   constructor(
-    protected comparator: DSOChangeAnalyzer,
+    protected comparator: DSOChangeAnalyzer<Workspaceitem>,
     protected dataBuildService: NormalizedObjectBuildService,
     protected halService: HALEndpointService,
     protected http: HttpClient,

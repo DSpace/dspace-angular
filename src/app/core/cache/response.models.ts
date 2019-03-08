@@ -11,8 +11,9 @@ import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstream
 import { AuthStatus } from '../auth/models/auth-status.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
-import { NormalizedObject } from './models/normalized-object.model';
 import { PaginatedList } from '../data/paginated-list';
+import { SubmissionObject } from '../submission/models/submission-object.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -233,7 +234,7 @@ export class PostPatchSuccessResponse extends RestResponse {
 
 export class SubmissionSuccessResponse extends RestResponse {
   constructor(
-    public dataDefinition: Array<NormalizedObject | ConfigObject | string>,
+    public dataDefinition: Array<SubmissionObject | ConfigObject | string>,
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo
@@ -244,7 +245,7 @@ export class SubmissionSuccessResponse extends RestResponse {
 
 export class EpersonSuccessResponse extends RestResponse {
   constructor(
-    public epersonDefinition: NormalizedObject[],
+    public epersonDefinition: DSpaceObject[],
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo

@@ -5,11 +5,12 @@ import { NormalizedSubmissionObject } from './normalized-submission-object.model
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { ResourceType } from '../../shared/resource-type';
+import { Workflowitem } from './workflowitem.model';
 
 @mapsTo(Workspaceitem)
 @inheritSerialization(NormalizedDSpaceObject)
 @inheritSerialization(NormalizedSubmissionObject)
-export class NormalizedWorkspaceItem extends NormalizedSubmissionObject {
+export class NormalizedWorkspaceItem extends NormalizedSubmissionObject<Workflowitem> {
 
   @autoserialize
   @relationship(ResourceType.Collection, false)

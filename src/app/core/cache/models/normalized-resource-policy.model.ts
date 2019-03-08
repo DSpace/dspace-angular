@@ -1,10 +1,9 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { ResourcePolicy } from '../../shared/resource-policy.model';
 
-import { mapsTo, relationship } from '../builders/build-decorators';
+import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
 import { IDToUUIDSerializer } from '../id-to-uuid-serializer';
-import { ResourceType } from '../../shared/resource-type';
 import { ActionType } from './action-type.model';
 
 /**

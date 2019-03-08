@@ -1,15 +1,17 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { ConfigObject } from './config.model';
 import { SubmissionSectionModel } from './config-submission-section.model';
 import { PaginatedList } from '../../data/paginated-list';
 
-@inheritSerialization(ConfigObject)
 export class SubmissionDefinitionsModel extends ConfigObject {
 
-  @autoserialize
+  /**
+   * A boolean representing if this submission definition is the default or not
+   */
   isDefault: boolean;
 
-  @autoserializeAs(SubmissionSectionModel)
+  /**
+   * A list of SubmissionSectionModel that are present in this submission definition
+   */
   sections: PaginatedList<SubmissionSectionModel>;
 
 }

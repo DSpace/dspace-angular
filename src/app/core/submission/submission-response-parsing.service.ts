@@ -10,13 +10,13 @@ import { BaseResponseParsingService } from '../data/base-response-parsing.servic
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NormalizedSubmissionObjectFactory } from './normalized-submission-object-factory';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { SubmissionResourceType } from './submission-resource-type';
 import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { NormalizedEditItem } from './models/normalized-edititem.model';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
+import { SubmissionObject } from './models/submission-object.model';
+import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 
 export function isServerFormValue(obj: any): boolean {
   return (typeof obj === 'object'
@@ -66,7 +66,7 @@ export function normalizeSectionData(obj: any) {
 @Injectable()
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
-  protected objectFactory = NormalizedSubmissionObjectFactory;
+  protected objectFactory = NormalizedObjectFactory;
   protected toCache = false;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
@@ -78,7 +78,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
       && (data.statusCode === 201 || data.statusCode === 200)) {
-      const dataDefinition = this.processResponse<NormalizedObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
+      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
       return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else if (isEmpty(data.payload) && data.statusCode === 204) {
       // Response from a DELETE request
@@ -94,7 +94,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
   }
 
   protected processResponse<ObjectDomain, ObjectType>(data: any, requestHref: string): any[] {
-    const dataDefinition = this.process<NormalizedObject | ConfigObject, SubmissionResourceType>(data, requestHref);
+    const dataDefinition = this.process<ObjectDomain, ObjectType>(data, requestHref);
     const normalizedDefinition = Array.of();
     const processedList = Array.isArray(dataDefinition) ? dataDefinition : Array.of(dataDefinition);
 

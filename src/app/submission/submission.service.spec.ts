@@ -772,7 +772,7 @@ describe('SubmissionService test suite', () => {
     it('should return true/false when section is loading/not loading', fakeAsync(() => {
       spyOn((service as any).translate, 'get').and.returnValue(observableOf('test'));
 
-      spyOn((service as any).notificationsService, 'info').and.callThrough();
+      spyOn((service as any).notificationsService, 'info');
 
       service.notifyNewSection(submissionId, sectionId);
       flush();
@@ -864,7 +864,7 @@ describe('SubmissionService test suite', () => {
         })
       );
 
-      const result = service.retrieveSubmission('826').subscribe((r) => {
+      service.retrieveSubmission('826').subscribe((r) => {
         expect(r).toEqual(new RemoteData(
           false,
           false,

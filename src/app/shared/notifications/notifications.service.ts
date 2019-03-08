@@ -52,6 +52,7 @@ export class NotificationsService {
        options: Partial<NotificationOptions> = {},
        html: boolean = false): INotification {
     const notificationOptions = { ...this.getDefaultOptions(), ...options };
+    console.log(notificationOptions);
     const notification = new Notification(uniqueId(), NotificationType.Info, title, content, notificationOptions, html);
     this.add(notification);
     return notification;
