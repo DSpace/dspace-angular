@@ -2,14 +2,28 @@ import * as uuidv4 from 'uuid/v4';
 import { autoserialize, Serialize, Deserialize } from 'cerialize';
 /* tslint:disable:max-classes-per-file */
 
+/** A single metadata value and its properties. */
+export interface MetadataValueInterface {
+
+  /** The language. */
+  language: string;
+
+  /** The string value. */
+  value: string;
+}
+
 /** A map of metadata keys to an ordered list of MetadataValue objects. */
-export class MetadataMap {
+export interface MetadataMapInterface {
+  [key: string]: MetadataValueInterface[];
+}
+
+/** A map of metadata keys to an ordered list of MetadataValue objects. */
+export class MetadataMap implements MetadataMapInterface {
   [key: string]: MetadataValue[];
 }
 
 /** A single metadata value and its properties. */
-
-export class MetadataValue {
+export class MetadataValue implements MetadataValueInterface {
   /** The uuid. */
   uuid: string = uuidv4();
 

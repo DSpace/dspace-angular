@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
-import { MetadataMap, MetadataValue } from '../../../../../core/shared/metadata.interfaces';
-import { Metadata } from '../../../../../core/shared/metadata.model';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { MetadataMap, MetadataValue } from '../../../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-submission-upload-section-file-view',
