@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { BrowseByRoutingModule } from './browse-by-routing.module';
 import { BrowseService } from '../core/browse/browse.service';
 import { BrowseByMetadataPageComponent } from './+browse-by-metadata-page/browse-by-metadata-page.component';
+import { BrowseByDatePageComponent } from './+browse-by-date-page/browse-by-date-page.component';
+import { BrowseByGuard } from './browse-by-guard';
 
 @NgModule({
   imports: [
@@ -15,11 +17,13 @@ import { BrowseByMetadataPageComponent } from './+browse-by-metadata-page/browse
   ],
   declarations: [
     BrowseByTitlePageComponent,
-    BrowseByMetadataPageComponent
+    BrowseByMetadataPageComponent,
+    BrowseByDatePageComponent
   ],
   providers: [
     ItemDataService,
-    BrowseService
+    BrowseService,
+    BrowseByGuard
   ]
 })
 export class BrowseByModule {

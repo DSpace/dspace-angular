@@ -4,17 +4,17 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Item } from '../../core/shared/item.model';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { Community } from '../../core/shared/community.model';
-import { Collection } from '../../core/shared/collection.model';
 import { getSucceededRemoteData } from '../../core/shared/operators';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { take } from 'rxjs/operators';
+import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -73,15 +73,33 @@ export class BrowseByMetadataPageComponent implements OnInit {
   metadata = this.defaultMetadata;
 
   /**
+   * The type of StartsWith options to render
+   * Defaults to text
+   */
+  startsWithType = StartsWithType.text;
+
+  /**
+   * The list of StartsWith options
+   * Should be defined after ngOnInit is called!
+   */
+  startsWithOptions;
+
+  /**
    * The value we're browing items for
    * - When the value is not empty, we're browsing items
    * - When the value is empty, we're browsing browse-entries (values for the given metadata definition)
    */
   value = '';
 
-  public constructor(private route: ActivatedRoute,
-                     private browseService: BrowseService,
-                     private dsoService: DSpaceObjectDataService) {
+  /**
+   * The current startsWith option (fetched and updated from query-params)
+   */
+  startsWith: string;
+
+  public constructor(protected route: ActivatedRoute,
+                     protected browseService: BrowseService,
+                     protected dsoService: DSpaceObjectDataService,
+                     protected router: Router) {
   }
 
   ngOnInit(): void {
@@ -96,6 +114,7 @@ export class BrowseByMetadataPageComponent implements OnInit {
         .subscribe((params) => {
           this.metadata = params.metadata || this.defaultMetadata;
           this.value = +params.value || params.value || '';
+          this.startsWith = +params.startsWith || params.startsWith;
           const searchOptions = browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.metadata);
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value);
@@ -104,6 +123,15 @@ export class BrowseByMetadataPageComponent implements OnInit {
           }
           this.updateParent(params.scope);
         }));
+    this.updateStartsWithTextOptions();
+  }
+
+  /**
+   * Update the StartsWith options with text values
+   * It adds the value "0-9" as well as all letters from A to Z
+   */
+  updateStartsWithTextOptions() {
+    this.startsWithOptions = ['0-9', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')];
   }
 
   /**
@@ -144,6 +172,58 @@ export class BrowseByMetadataPageComponent implements OnInit {
     }
   }
 
+  /**
+   * Navigate to the previous page
+   */
+  goPrev() {
+    if (this.items$) {
+      this.items$.pipe(take(1)).subscribe((items) => {
+        this.items$ = this.browseService.getPrevBrowseItems(items);
+      });
+    } else if (this.browseEntries$) {
+      this.browseEntries$.pipe(take(1)).subscribe((entries) => {
+        this.browseEntries$ = this.browseService.getPrevBrowseEntries(entries);
+      });
+    }
+  }
+
+  /**
+   * Navigate to the next page
+   */
+  goNext() {
+    if (this.items$) {
+      this.items$.pipe(take(1)).subscribe((items) => {
+        this.items$ = this.browseService.getNextBrowseItems(items);
+      });
+    } else if (this.browseEntries$) {
+      this.browseEntries$.pipe(take(1)).subscribe((entries) => {
+        this.browseEntries$ = this.browseService.getNextBrowseEntries(entries);
+      });
+    }
+  }
+
+  /**
+   * Change the page size
+   * @param size
+   */
+  pageSizeChange(size) {
+    this.router.navigate([], {
+      queryParams: Object.assign({ pageSize: size }),
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  /**
+   * Change the sorting direction
+   * @param direction
+   */
+  sortDirectionChange(direction) {
+    this.router.navigate([], {
+      queryParams: Object.assign({ sortDirection: direction }),
+      queryParamsHandling: 'merge'
+    });
+  }
+
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
@@ -177,6 +257,7 @@ export function browseParamsToOptions(params: any,
         field: params.sortField || sortConfig.field
       }
     ),
+    +params.startsWith || params.startsWith,
     params.scope
   );
 }
