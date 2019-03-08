@@ -95,6 +95,8 @@ import { ObjectValuesPipe } from './utils/object-values-pipe';
 import { InListValidator } from './utils/in-list-validator.directive';
 import { AutoFocusDirective } from './utils/auto-focus.directive';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
+import { StartsWithDateComponent } from './starts-with/date/starts-with-date.component';
+import { StartsWithTextComponent } from './starts-with/text/starts-with-text.component';
 import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.component';
 import { CreateCommunityParentSelectorComponent } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
 import { CreateItemParentSelectorComponent } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
@@ -214,6 +216,8 @@ const ENTRY_COMPONENTS = [
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
   BrowseEntryListElementComponent,
+  StartsWithDateComponent,
+  StartsWithTextComponent,
   DSOSelectorComponent,
   CreateCommunityParentSelectorComponent,
   CreateCollectionParentSelectorComponent,
