@@ -81,7 +81,7 @@ export class MetadataService {
       this.clearMetaTags();
     }
     if (routeInfo.data.value.title) {
-      this.translate.get(routeInfo.data.value.title).pipe(take(1)).subscribe((translatedTitle: string) => {
+      this.translate.get(routeInfo.data.value.title, routeInfo.data.value).pipe(take(1)).subscribe((translatedTitle: string) => {
         this.addMetaTag('title', translatedTitle);
         this.title.setTitle(translatedTitle);
       });

@@ -281,4 +281,38 @@ describe('BrowseService', () => {
       });
     });
   });
+
+  describe('getFirstItemFor', () => {
+    beforeEach(() => {
+      requestService = getMockRequestService();
+      rdbService = getMockRemoteDataBuildService();
+      service = initTestService();
+      spyOn(service, 'getBrowseDefinitions').and
+        .returnValue(hot('--a-', { a: {
+            payload: browseDefinitions
+          }}));
+      spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
+    });
+
+    describe('when getFirstItemFor is called with a valid browse definition id', () => {
+      const expectedURL = browseDefinitions[1]._links.items + '?page=0&size=1';
+
+      it('should configure a new BrowseItemsRequest', () => {
+        const expected = new BrowseItemsRequest(requestService.generateRequestId(), expectedURL);
+
+        scheduler.schedule(() => service.getFirstItemFor(browseDefinitions[1].id).subscribe());
+        scheduler.flush();
+
+        expect(requestService.configure).toHaveBeenCalledWith(expected);
+      });
+
+      it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
+        service.getFirstItemFor(browseDefinitions[1].id);
+
+        expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
+      });
+
+    });
+  });
+
 });

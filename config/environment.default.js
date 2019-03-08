@@ -142,6 +142,15 @@ module.exports = {
     label: 'Nederlands',
     active: false,
   }],
+  // Browse-By Pages
+  browseBy: {
+    // Amount of years to display using jumps of one year (current year - oneYearLimit)
+    oneYearLimit: 10,
+    // Limit for years to display using jumps of five years (current year - fiveYearLimit)
+    fiveYearLimit: 30,
+    // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
+    defaultLowerLimit: 1900
+  },
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
