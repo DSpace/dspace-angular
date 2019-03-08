@@ -31,7 +31,7 @@ export class CreateCollectionParentSelectorComponent extends DSOSelectorModalWra
    * Navigate to the collection create page
    */
   navigate(dso: DSpaceObject) {
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: {
         [COLLECTION_PARENT_PARAMETER]: dso.uuid,
       }

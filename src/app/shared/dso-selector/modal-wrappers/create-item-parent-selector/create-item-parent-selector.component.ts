@@ -32,6 +32,6 @@ export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperCo
    * Navigate to the item create page
    */
   navigate(dso: DSpaceObject) {
-   //There's no submit path per collection yet...
+   // There's no submit path per collection yet...
   }
 }

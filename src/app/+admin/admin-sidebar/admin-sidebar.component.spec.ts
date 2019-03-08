@@ -30,8 +30,7 @@ describe('AdminSidebarComponent', () => {
         { provide: AuthService, useClass: AuthServiceStub },
         {
           provide: NgbModal, useValue: {
-            open: () => {
-            }
+            open: () => {/*comment*/}
           }
         }
       ],

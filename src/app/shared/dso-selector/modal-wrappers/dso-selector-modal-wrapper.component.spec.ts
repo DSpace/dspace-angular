@@ -93,7 +93,6 @@ describe('DSOSelectorModalWrapperComponent', () => {
     });
   });
 
-
   describe('when the onSelect method emits on the child component', () => {
     beforeEach(() => {
       spyOn(component, 'selectObject');
@@ -131,5 +130,6 @@ class TestComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   }
 
   navigate(dso: DSpaceObject) {
+    /* comment */
   }
 }

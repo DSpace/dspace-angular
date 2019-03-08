@@ -12,6 +12,7 @@ describe('OnClickMenuItemComponent', () => {
   let debugElement: DebugElement;
   const text = 'HELLO';
   const func = () => {
+    /* comment */
   };
   const item = Object.assign(new OnClickMenuItemModel(), { text, function: func });
 

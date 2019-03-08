@@ -42,7 +42,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
    */
   ngOnInit(): void {
     const typeString = this.selectorType.toString().toLowerCase();
-    this.dsoRD$ = this.route.root.firstChild.firstChild.data.pipe(map(data => data[typeString]));
+    this.dsoRD$ = this.route.root.firstChild.firstChild.data.pipe(map((data) => data[typeString]));
   }
 
   /**
