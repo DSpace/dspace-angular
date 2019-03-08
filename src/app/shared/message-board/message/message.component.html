@@ -1,0 +1,56 @@
+<li *ngVar="m.findMetadata('dc.type') as type"
+    [ngClass]="{'float-left': (type == 'outbound' && isSubmitter) || (type == 'inbound' && !isSubmitter),
+     'float-right': (type == 'outbound' && !isSubmitter) || (type == 'inbound' && isSubmitter),
+      'clearfix':1}">
+
+  <div class="chat-body clearfix">
+    <div class="header clearfix">
+
+      <small class="float-left">
+        <span class="fa fa-clock text-muted ">{{m.findMetadata('dc.date.issued') | date: 'dd/MM/yyyy HH:mm'}}</span>
+      </small>
+
+      <small
+        *ngIf="showUnread"
+        (click)="markAsUnread()"
+        class="text-muted pointer float-right ml-3">
+        <span class="fa fa-envelope"></span> {{'mydspace.messages.mark-as-unread' | translate}}
+      </small>
+
+      <small
+        *ngIf="showRead"
+        (click)="markAsRead()"
+        class="text-muted pointer float-right ml-3">
+        <span class="fa fa-envelope-open"></span> {{'mydspace.messages.mark-as-read' | translate}}
+      </small>
+
+      <div class="truncatable">
+        <ds-truncatable [id]="m.uuid">
+          <ds-truncatable-part [id]="m.uuid" [minLines]="1">
+            <label>From: <span><strong>{{isSubmitter && type == 'inbound' ? 'You' : m.findMetadata('dc.creator')}}</strong></span></label>
+          </ds-truncatable-part>
+        </ds-truncatable>
+      </div>
+
+      <div class="truncatable" *ngVar="'obj_'.concat(m.uuid) as obj_id">
+        <ds-truncatable [id]="obj_id">
+          <ds-truncatable-part [id]="obj_id" [minLines]="1">
+            <label>Object: <span>{{m.findMetadata('dc.title')}}</span></label>
+          </ds-truncatable-part>
+        </ds-truncatable>
+      </div>
+
+    </div>
+
+    <button class="btn btn-link" (click)="toggleDescription()">
+      <small *ngIf="showMessage">{{'mydspace.messages.hide-msg' | translate}}</small>
+      <small *ngIf="!showMessage">{{'mydspace.messages.show-msg' | translate}}</small>
+    </button>
+
+    <div *ngIf="showMessage" class="description">
+      {{messageContent | async}}
+      <ds-loading *ngIf="loadingDescription" message="{{'loading.default' | translate}}"></ds-loading>
+    </div>
+  </div>
+
+</li>
