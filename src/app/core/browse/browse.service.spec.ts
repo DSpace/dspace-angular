@@ -303,7 +303,7 @@ describe('BrowseService', () => {
         scheduler.schedule(() => service.getFirstItemFor(browseDefinitions[1].id).subscribe());
         scheduler.flush();
 
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
