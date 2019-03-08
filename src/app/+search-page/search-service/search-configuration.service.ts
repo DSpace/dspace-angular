@@ -1,3 +1,6 @@
+import { Injectable, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -7,12 +10,11 @@ import {
   Subscription
 } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
-import { ActivatedRoute, Params } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { Injectable, OnDestroy } from '@angular/core';
 import { RouteService } from '../../shared/services/route.service';
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
@@ -28,7 +30,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Default pagination settings
    */
-  private defaultPagination = Object.assign(new PaginationComponentOptions(), {
+  protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
     currentPage: 1
@@ -37,17 +39,22 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Default sort settings
    */
-  private defaultSort = new SortOptions('score', SortDirection.DESC);
+  protected defaultSort = new SortOptions('score', SortDirection.DESC);
+
+  /**
+   * Default configuration parameter setting
+   */
+  protected defaultConfiguration = 'default';
 
   /**
    * Default scope setting
    */
-  private defaultScope = '';
+  protected defaultScope = '';
 
   /**
    * Default query setting
    */
-  private defaultQuery = '';
+  protected defaultQuery = '';
 
   /**
    * Emits the current default values
@@ -74,8 +81,8 @@ export class SearchConfigurationService implements OnDestroy {
    * @param {RouteService} routeService
    * @param {ActivatedRoute} route
    */
-  constructor(private routeService: RouteService,
-              private route: ActivatedRoute) {
+  constructor(protected routeService: RouteService,
+              protected route: ActivatedRoute) {
     this.defaults
       .pipe(getSucceededRemoteData())
       .subscribe((defRD) => {
@@ -85,8 +92,18 @@ export class SearchConfigurationService implements OnDestroy {
 
           this.subs.push(this.subscribeToSearchOptions(defs));
           this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
+
         }
       )
+  }
+
+  /**
+   * @returns {Observable<string>} Emits the current configuration string
+   */
+  getCurrentConfiguration(defaultConfiguration: string) {
+    return this.routeService.getQueryParameterValue('configuration').pipe(map((configuration) => {
+      return configuration || defaultConfiguration;
+    }));
   }
 
   /**
@@ -188,6 +205,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   subscribeToSearchOptions(defaults: SearchOptions): Subscription {
     return observableMerge(
+      this.getConfigurationPart(defaults.configuration),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
@@ -208,6 +226,7 @@ export class SearchConfigurationService implements OnDestroy {
     return observableMerge(
       this.getPaginationPart(defaults.pagination),
       this.getSortPart(defaults.sort),
+      this.getConfigurationPart(defaults.configuration),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
@@ -226,6 +245,7 @@ export class SearchConfigurationService implements OnDestroy {
     if (hasNoValue(this._defaults)) {
       const options = new PaginatedSearchOptions({
         pagination: this.defaultPagination,
+        configuration: this.defaultConfiguration,
         sort: this.defaultSort,
         scope: this.defaultScope,
         query: this.defaultQuery
@@ -242,6 +262,16 @@ export class SearchConfigurationService implements OnDestroy {
     this.subs.forEach((sub) => {
       sub.unsubscribe();
     });
+    this.subs = [];
+  }
+
+  /**
+   * @returns {Observable<string>} Emits the current configuration settings as a partial SearchOptions object
+   */
+  private getConfigurationPart(defaultConfiguration: string): Observable<any> {
+    return this.getCurrentConfiguration(defaultConfiguration).pipe(map((configuration) => {
+      return { configuration }
+    }));
   }
 
   /**

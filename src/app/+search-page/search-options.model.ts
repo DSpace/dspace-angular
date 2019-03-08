@@ -8,12 +8,14 @@ import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
  * This model class represents all parameters needed to request information about a certain search request
  */
 export class SearchOptions {
+  configuration?: string;
   scope?: string;
   query?: string;
   dsoType?: DSpaceObjectType;
   filters?: SearchFilter[];
 
-  constructor(options: {scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[]}) {
+  constructor(options: {configuration?: string, scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[]}) {
+      this.configuration = options.configuration;
       this.scope = options.scope;
       this.query = options.query;
       this.dsoType = options.dsoType;
@@ -28,6 +30,9 @@ export class SearchOptions {
    */
   toRestUrl(url: string, args: string[] = []): string {
 
+    if (isNotEmpty(this.configuration)) {
+      args.push(`configuration=${this.configuration}`);
+    }
     if (isNotEmpty(this.query)) {
       args.push(`query=${this.query}`);
     }

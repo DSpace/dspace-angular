@@ -7,7 +7,7 @@ import {
   Router,
   UrlSegmentGroup
 } from '@angular/router';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, switchMap, take, tap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -23,12 +23,12 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import {
-  configureRequest,
+  configureRequest, filterSuccessfulResponses,
   getResponseFromEntry,
   getSucceededRemoteData
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -64,6 +64,16 @@ export class SearchService implements OnDestroy {
   private facetLinkPathPrefix = 'discover/facets/';
 
   /**
+   * When true, a new search request is always dispatched
+   */
+  private forceBypassCache = false;
+
+  /**
+   * The ResponseParsingService constructor name
+   */
+  private parser: GenericConstructor<ResponseParsingService> = SearchResponseParsingService;
+
+  /**
    * Subscription to unsubscribe from
    */
   private sub;
@@ -79,6 +89,19 @@ export class SearchService implements OnDestroy {
   }
 
   /**
+   * Method to set service options
+   * @param {GenericConstructor<ResponseParsingService>} parser The configuration necessary to perform this search
+   * @param {boolean} forceBypassCache When true, a new search request is always dispatched
+   * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
+   */
+  setServiceOptions(parser: GenericConstructor<ResponseParsingService>, forceBypassCache: boolean) {
+    if (parser) {
+      this.parser = parser;
+    }
+    this.forceBypassCache = forceBypassCache;
+  }
+
+  /**
    * Method to retrieve a paginated list of search results from the server
    * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
@@ -90,13 +113,15 @@ export class SearchService implements OnDestroy {
           url = (searchOptions as PaginatedSearchOptions).toRestUrl(url);
         }
         const request = new GetRequest(this.requestService.generateRequestId(), url);
+        const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
+          return this.parser;
+        };
+
         return Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return SearchResponseParsingService;
-          }
+          getResponseParser: getResponseParserFn
         });
       }),
-      configureRequest(this.requestService)
+      configureRequest(this.requestService, this.forceBypassCache),
     );
     const requestEntryObs = requestObs.pipe(
       switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
@@ -111,8 +136,11 @@ export class SearchService implements OnDestroy {
     // turn dspace href from search results to effective list of DSpaceObjects
     // Turn list of observable remote data DSO's into observable remote data object with list of DSO
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
+      // filter((sqr: SearchQueryResponse) => isNotUndefined(sqr)),
       map((sqr: SearchQueryResponse) => {
-        return sqr.objects.map((nsr: NormalizedSearchResult) => {
+        return sqr.objects
+          .filter((nsr: NormalizedSearchResult) => isNotUndefined(nsr.dspaceObject))
+          .map((nsr: NormalizedSearchResult) => {
           return this.rdb.buildSingle(nsr.dspaceObject);
         })
       }),
@@ -126,7 +154,7 @@ export class SearchService implements OnDestroy {
           let co = DSpaceObject;
           if (dsos.payload[index]) {
             const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-            co = getSearchResultFor(constructor);
+            co = getSearchResultFor(constructor, searchOptions.configuration);
             return Object.assign(new co(), object, {
               dspaceObject: dsos.payload[index]
             });
@@ -134,6 +162,7 @@ export class SearchService implements OnDestroy {
             return undefined;
           }
         });
+        // .filter((object) => isNotUndefined(object));
       })
     );
 
@@ -156,13 +185,17 @@ export class SearchService implements OnDestroy {
    * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
    * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
    */
-  getConfig(scope?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+  getConfig(scope?: string, configuration?: string): Observable<RemoteData<SearchFilterConfig[]>> {
     const requestObs = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
       map((url: string) => {
         const args: string[] = [];
 
         if (isNotEmpty(scope)) {
           args.push(`scope=${scope}`);
+        }
+
+        if (isNotEmpty(configuration)) {
+          args.push(`configuration=${configuration}`);
         }
 
         if (isNotEmpty(args)) {
@@ -176,7 +209,7 @@ export class SearchService implements OnDestroy {
           }
         });
       }),
-      configureRequest(this.requestService)
+      configureRequest(this.requestService, this.forceBypassCache)
     );
 
     const requestEntryObs = requestObs.pipe(
@@ -202,6 +235,7 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
    */
   getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string): Observable<RemoteData<PaginatedList<FacetValue>>> {
+    console.log('getFacetValuesFor');
     const requestObs = this.halService.getEndpoint(this.facetLinkPathPrefix + filterConfig.name).pipe(
       map((url: string) => {
         const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
@@ -219,7 +253,8 @@ export class SearchService implements OnDestroy {
           }
         });
       }),
-      configureRequest(this.requestService)
+      configureRequest(this.requestService, this.forceBypassCache),
+      first()
     );
 
     const requestEntryObs = requestObs.pipe(

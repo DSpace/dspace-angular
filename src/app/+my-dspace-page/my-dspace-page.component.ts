@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map, switchMap, tap, } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Inject, InjectionToken, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -18,9 +18,9 @@ import { SearchConfigurationOption } from '../+search-page/search-switch-configu
 import { RoleType } from '../core/roles/role-types';
 import { SearchConfigurationService } from '../+search-page/search-service/search-configuration.service';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
-import { SearchFilterConfig } from '../+search-page/search-service/search-filter-config.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
+export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
 
 /**
  * This component renders a simple item page.
@@ -33,7 +33,13 @@ export const MYDSPACE_ROUTE = '/mydspace';
   styleUrls: ['./my-dspace-page.component.scss'],
   templateUrl: './my-dspace-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [pushInOut]
+  animations: [pushInOut],
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: MyDSpaceConfigurationService
+    }
+  ]
 })
 
 /**
@@ -77,8 +83,7 @@ export class MyDSpacePageComponent implements OnInit {
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
               private filterService: SearchFilterService,
-              private configurationService: MyDSpaceConfigurationService,
-              private searchConfigService: SearchConfigurationService) {
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.service.setServiceOptions(MyDSpaceResponseParsingService, true);
   }
@@ -91,7 +96,7 @@ export class MyDSpacePageComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    this.configurationList$ = this.configurationService.getAvailableConfigurationOptions();
+    this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
 
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.sub = this.searchOptions$.pipe(

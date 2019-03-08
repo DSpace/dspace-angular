@@ -6,7 +6,13 @@ import { autoserialize, autoserializeAs } from 'cerialize';
  */
 export class FacetValue {
   /**
-   * The display value of the facet value
+   * The display label of the facet value
+   */
+  @autoserialize
+  label: string;
+
+  /**
+   * The value of the facet value
    */
   @autoserializeAs(String, 'label')
   value: string;

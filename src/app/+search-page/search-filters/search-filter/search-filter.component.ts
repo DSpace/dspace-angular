@@ -1,9 +1,10 @@
-
-import { take } from 'rxjs/operators';
 import { Component, Input, OnInit } from '@angular/core';
+
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchFilterService } from './search-filter.service';
-import { Observable } from 'rxjs';
 import { slide } from '../../../shared/animations/slide';
 import { isNotEmpty } from '../../../shared/empty.util';
 

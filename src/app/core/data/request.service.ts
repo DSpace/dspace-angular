@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { merge as observableMerge, Observable, of as observableOf, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { remove } from 'lodash';
 
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -123,7 +124,10 @@ export class RequestService {
   // TODO to review "forceBypassCache" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    if (!isGetRequest || !this.isCachedOrPending(request) || (forceBypassCache && !this.isPending(request))) {
+    if (forceBypassCache) {
+      this.clearRequestsOnTheirWayToTheStore(request);
+    }
+    if (!isGetRequest || (forceBypassCache && !this.isPending(request)) || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request);
       if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);
@@ -248,6 +252,19 @@ export class RequestService {
     });
   }
 
+  /**
+   * This method will store the href of every GET request that gets configured in a local variable, and
+   * remove it as soon as it can be found in the store.
+   */
+  private clearRequestsOnTheirWayToTheStore(request: GetRequest) {
+    this.store.pipe(select(this.entryFromUUIDSelector(request.uuid)),
+      find((re: RequestEntry) => hasValue(re)))
+      .subscribe((re: RequestEntry) => {
+        if (!re.responsePending) {
+          remove(this.requestsOnTheirWayToTheStore, (item) => item === request.href);
+        }
+      });
+  }
   /**
    * Dispatch commit action to send all changes (for a certain method) to the server (buffer)
    * @param {RestRequestMethod} method RestRequestMethod for which the changes should be committed

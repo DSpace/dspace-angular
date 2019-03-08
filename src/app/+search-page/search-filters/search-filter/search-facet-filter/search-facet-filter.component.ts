@@ -21,6 +21,7 @@ import { SearchService } from '../../../search-service/search.service';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
+import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -74,9 +75,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService,
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig) {
   }
 

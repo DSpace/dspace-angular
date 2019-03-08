@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-search-labels',
@@ -24,7 +25,9 @@ export class SearchLabelsComponent {
   /**
    * Initialize the instance variable
    */
-  constructor(private searchService: SearchService, private searchConfigService: SearchConfigurationService) {
+  constructor(
+    private searchService: SearchService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
     this.appliedFilters = this.searchConfigService.getCurrentFrontendFilters();
   }
 

@@ -28,9 +28,35 @@ import { SearchFacetFilterWrapperComponent } from './search-filters/search-filte
 import { SearchBooleanFilterComponent } from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
 import { SearchHierarchyFilterComponent } from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { SearchSwitchConfigurationComponent } from './search-switch-configuration/search-switch-configuration.component';
 
 const effects = [
   SearchSidebarEffects
+];
+
+const components = [
+  SearchPageComponent,
+  SearchResultsComponent,
+  SearchSidebarComponent,
+  SearchSettingsComponent,
+  ItemSearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  CommunitySearchResultListElementComponent,
+  ItemSearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  CommunitySearchResultListElementComponent,
+  SearchFiltersComponent,
+  SearchFilterComponent,
+  SearchFacetFilterComponent,
+  SearchLabelsComponent,
+  SearchFacetFilterComponent,
+  SearchFacetFilterWrapperComponent,
+  SearchRangeFilterComponent,
+  SearchTextFilterComponent,
+  SearchHierarchyFilterComponent,
+  SearchBooleanFilterComponent,
+  SearchSwitchConfigurationComponent
 ];
 
 @NgModule({
@@ -41,29 +67,7 @@ const effects = [
     EffectsModule.forFeature(effects),
     CoreModule.forRoot()
   ],
-  declarations: [
-    SearchPageComponent,
-    SearchResultsComponent,
-    SearchSidebarComponent,
-    SearchSettingsComponent,
-    ItemSearchResultListElementComponent,
-    CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent,
-    ItemSearchResultGridElementComponent,
-    CollectionSearchResultGridElementComponent,
-    CommunitySearchResultGridElementComponent,
-    CommunitySearchResultListElementComponent,
-    SearchFiltersComponent,
-    SearchFilterComponent,
-    SearchFacetFilterComponent,
-    SearchLabelsComponent,
-    SearchFacetFilterComponent,
-    SearchFacetFilterWrapperComponent,
-    SearchRangeFilterComponent,
-    SearchTextFilterComponent,
-    SearchHierarchyFilterComponent,
-    SearchBooleanFilterComponent,
-  ],
+  declarations: components,
   providers: [
     SearchService,
     SearchSidebarService,
@@ -82,7 +86,8 @@ const effects = [
     SearchTextFilterComponent,
     SearchHierarchyFilterComponent,
     SearchBooleanFilterComponent,
-  ]
+  ],
+  exports: components
 })
 
 /**

@@ -37,9 +37,5 @@ export class UserMenuComponent implements OnInit {
     // set user
     this.user$ = this.store.pipe(select(getAuthenticatedUser));
 
-    this.user$.subscribe((user) => {
-      console.log(user, user.name);
-    })
-
   }
 }
