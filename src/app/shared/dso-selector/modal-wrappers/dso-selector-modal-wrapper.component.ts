@@ -12,6 +12,10 @@ export enum SelectorActionType {
   EDIT = 'edit'
 }
 
+/**
+ * Abstract base class that represents a wrapper for modal content used to select a DSpace Object
+ */
+
 @Injectable()
 export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   /**

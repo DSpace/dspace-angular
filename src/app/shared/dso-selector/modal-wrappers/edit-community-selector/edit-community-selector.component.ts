@@ -9,6 +9,11 @@ import {
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
 
+/**
+ * Component to wrap a list of existing communities inside a modal
+ * Used to choose a community from to edit
+ */
+
 @Component({
   selector: 'ds-edit-community-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',

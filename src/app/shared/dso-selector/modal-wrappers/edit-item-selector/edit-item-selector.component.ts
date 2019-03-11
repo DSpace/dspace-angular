@@ -15,6 +15,11 @@ import {
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
 
+/**
+ * Component to wrap a list of existing items inside a modal
+ * Used to choose an item from to edit
+ */
+
 @Component({
   selector: 'ds-edit-item-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',

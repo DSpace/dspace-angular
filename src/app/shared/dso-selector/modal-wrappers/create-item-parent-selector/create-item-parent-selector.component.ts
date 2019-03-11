@@ -14,6 +14,11 @@ import {
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
 
+/**
+ * Component to wrap a list of existing collections inside a modal
+ * Used to choose a collection from to create a new item in
+ */
+
 @Component({
   selector: 'ds-create-item-parent-selector',
   // styleUrls: ['./create-item-parent-selector.component.scss'],

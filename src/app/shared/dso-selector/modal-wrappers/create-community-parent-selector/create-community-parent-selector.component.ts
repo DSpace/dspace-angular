@@ -13,6 +13,13 @@ import {
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
 
+/**
+ * Component to wrap a button - for top communities -
+ * and a list of parent communities - for sub communities
+ * inside a modal
+ * Used to create a new community
+ */
+
 @Component({
   selector: 'ds-create-community-parent-selector',
   styleUrls: ['./create-community-parent-selector.component.scss'],

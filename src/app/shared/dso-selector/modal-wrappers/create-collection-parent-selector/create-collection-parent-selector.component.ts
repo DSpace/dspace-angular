@@ -14,6 +14,11 @@ import {
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
 
+/**
+ * Component to wrap a list of existing communities inside a modal
+ * Used to choose a community from to create a new collection in
+ */
+
 @Component({
   selector: 'ds-create-collection-parent-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',

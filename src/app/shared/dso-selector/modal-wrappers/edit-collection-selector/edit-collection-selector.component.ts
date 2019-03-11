@@ -9,6 +9,11 @@ import {
   SelectorActionType
 } from '../dso-selector-modal-wrapper.component';
 
+/**
+ * Component to wrap a list of existing collections inside a modal
+ * Used to choose a collection from to edit
+ */
+
 @Component({
   selector: 'ds-edit-collection-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',

@@ -45,9 +45,6 @@ const effects = [
     SearchResultsComponent,
     SearchSidebarComponent,
     SearchSettingsComponent,
-    // ItemSearchResultListElementComponent,
-    // CollectionSearchResultListElementComponent,
-    // CommunitySearchResultListElementComponent,
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
@@ -68,9 +65,9 @@ const effects = [
     SearchConfigurationService
   ],
   entryComponents: [
-    // ItemSearchResultListElementComponent,
-    // CollectionSearchResultListElementComponent,
-    // CommunitySearchResultListElementComponent,
+    ItemSearchResultListElementComponent,
+    CollectionSearchResultListElementComponent,
+    CommunitySearchResultListElementComponent,
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
