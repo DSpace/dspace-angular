@@ -22,7 +22,7 @@
         ngbTooltip="{{'submission.workflow.tasks.claimed.return_help' | translate}}"
         [disabled]="(processingReturnToPool$ | async)"
         (click)="returnToPool()">
-  <span *ngIf="(processingReturnToPool$ | async)"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="(processingReturnToPool$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
   <span *ngIf="!(processingReturnToPool$ | async)"><i class="fa fa-undo"></i> {{'submission.workflow.tasks.claimed.return' | translate}}</span>
 </button>
 

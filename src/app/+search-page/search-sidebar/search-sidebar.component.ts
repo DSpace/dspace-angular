@@ -30,6 +30,11 @@ export class SearchSidebarComponent {
   @Input() resultCount;
 
   /**
+   * The list of available view mode options
+   */
+  @Input() viewModeList;
+
+  /**
    * Emits event when the user clicks a button to open or close the sidebar
    */
   @Output() toggleSidebar = new EventEmitter<boolean>();

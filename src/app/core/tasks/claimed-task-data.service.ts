@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { RequestService } from '../data/request.service';
-import { NormalizedClaimedTask } from './models/normalized-claimed-task-object.model';
 import { ClaimedTask } from './models/claimed-task-object.model';
 import { TasksService } from './tasks.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -17,7 +16,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 @Injectable()
-export class ClaimedTaskDataService extends TasksService<NormalizedClaimedTask, ClaimedTask> {
+export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
   protected linkPath = 'claimedtasks';
   protected forceBypassCache = true;
 
@@ -30,7 +29,7 @@ export class ClaimedTaskDataService extends TasksService<NormalizedClaimedTask, 
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer) {
+    protected comparator: DSOChangeAnalyzer<ClaimedTask>) {
     super();
   }
 

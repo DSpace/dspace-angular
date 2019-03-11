@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { AppState } from '../../../app.reducer';
 import { getAuthenticatedUser, isAuthenticationLoading } from '../../../core/auth/selectors';
+import { MYDSPACE_ROUTE } from '../../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-user-menu',
@@ -25,6 +26,12 @@ export class UserMenuComponent implements OnInit {
    * @type {Observable<EPerson>}
    */
   public user$: Observable<EPerson>;
+
+  /**
+   * The mydspace page route.
+   * @type {string}
+   */
+  public mydspaceRoute = MYDSPACE_ROUTE;
 
   constructor(private store: Store<AppState>) {
   }

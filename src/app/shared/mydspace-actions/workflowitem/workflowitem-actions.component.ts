@@ -1,9 +1,9 @@
 import { Component, Injector, Input } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
-import { NormalizedWorkflowItem } from '../../../core/submission/models/normalized-workflowitem.model';
 import { WorkflowitemDataService } from '../../../core/submission/workflowitem-data.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { WorkflowitemDataService } from '../../../core/submission/workflowitem-d
   templateUrl: './workflowitem-actions.component.html',
 })
 
-export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<Workflowitem, NormalizedWorkflowItem, WorkflowitemDataService> {
+export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<Workflowitem, WorkflowitemDataService> {
   @Input() object: Workflowitem;
 
   constructor(protected injector: Injector,

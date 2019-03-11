@@ -1,13 +1,7 @@
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationExtras,
-  PRIMARY_OUTLET,
-  Router,
-  UrlSegmentGroup
-} from '@angular/router';
-import { distinctUntilChanged, filter, first, map, switchMap, take, tap } from 'rxjs/operators';
+import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
+import { first, map, switchMap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -22,11 +16,7 @@ import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import {
-  configureRequest, filterSuccessfulResponses,
-  getResponseFromEntry,
-  getSucceededRemoteData
-} from '../../core/shared/operators';
+import { configureRequest, getResponseFromEntry, getSucceededRemoteData } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
@@ -47,6 +37,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { RouteService } from '../../shared/services/route.service';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -80,6 +71,7 @@ export class SearchService implements OnDestroy {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private routeService: RouteService,
               protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
               private halService: HALEndpointService,
@@ -235,7 +227,6 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<RemoteData<PaginatedList<FacetValue>>>} Emits the given page of facet values
    */
   getFacetValuesFor(filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: SearchOptions, filterQuery?: string): Observable<RemoteData<PaginatedList<FacetValue>>> {
-    console.log('getFacetValuesFor');
     const requestObs = this.halService.getEndpoint(this.facetLinkPathPrefix + filterConfig.name).pipe(
       map((url: string) => {
         const args: string[] = [`page=${valuePage - 1}`, `size=${filterConfig.pageSize}`];
@@ -323,9 +314,9 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<ViewMode>} The current view mode
    */
   getViewMode(): Observable<ViewMode> {
-    return this.route.queryParams.pipe(map((params) => {
-      if (isNotEmpty(params.view) && hasValue(params.view)) {
-        return params.view;
+    return this.routeService.getQueryParamMap().pipe(map((params) => {
+      if (isNotEmpty(params.get('view')) && hasValue(params.get('view'))) {
+        return params.get('view');
       } else {
         return ViewMode.List;
       }
@@ -337,12 +328,21 @@ export class SearchService implements OnDestroy {
    * @param {ViewMode} viewMode Mode to switch to
    */
   setViewMode(viewMode: ViewMode) {
-    const navigationExtras: NavigationExtras = {
-      queryParams: { view: viewMode },
-      queryParamsHandling: 'merge'
-    };
+    this.routeService.getQueryParameterValue('pageSize').pipe(first())
+      .subscribe((pageSize) => {
+        let queryParams = { view: viewMode };
+        if (viewMode === ViewMode.Detail) {
+          queryParams = Object.assign(queryParams, {pageSize: '1'});
+        } else if (pageSize === '1') {
+          queryParams = Object.assign(queryParams, {pageSize: '10'});
+        }
+        const navigationExtras: NavigationExtras = {
+          queryParams: queryParams,
+          queryParamsHandling: 'merge'
+        };
 
-    this.router.navigate([this.getSearchLink()], navigationExtras);
+        this.router.navigate([this.getSearchLink()], navigationExtras);
+      })
   }
 
   /**

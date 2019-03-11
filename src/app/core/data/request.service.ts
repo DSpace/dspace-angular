@@ -253,11 +253,10 @@ export class RequestService {
   }
 
   /**
-   * This method will store the href of every GET request that gets configured in a local variable, and
-   * remove it as soon as it can be found in the store.
+   * This method remove requests that are on their way to the store.
    */
   private clearRequestsOnTheirWayToTheStore(request: GetRequest) {
-    this.store.pipe(select(this.entryFromUUIDSelector(request.uuid)),
+    this.getByHref(request.href).pipe(
       find((re: RequestEntry) => hasValue(re)))
       .subscribe((re: RequestEntry) => {
         if (!re.responsePending) {
@@ -265,6 +264,7 @@ export class RequestService {
         }
       });
   }
+
   /**
    * Dispatch commit action to send all changes (for a certain method) to the server (buffer)
    * @param {RestRequestMethod} method RestRequestMethod for which the changes should be committed

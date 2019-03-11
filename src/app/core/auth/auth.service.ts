@@ -1,43 +1,27 @@
-import {Observable, of, of as observableOf} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  first,
-  map,
-  startWith,
-  switchMap,
-  take,
-  withLatestFrom
-} from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
+import { Observable, of as observableOf } from 'rxjs';
+import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
-
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import {
-  getAuthenticationToken,
-  getRedirectUrl,
-  isAuthenticated,
-  isTokenRefreshing
-} from './selectors';
+import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';

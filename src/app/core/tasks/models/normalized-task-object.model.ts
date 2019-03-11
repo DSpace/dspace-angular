@@ -3,13 +3,14 @@ import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { TaskObject } from './task-object.model';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
 @mapsTo(TaskObject)
 @inheritSerialization(NormalizedDSpaceObject)
-export abstract class NormalizedTaskObject extends NormalizedDSpaceObject {
+export abstract class NormalizedTaskObject<T extends DSpaceObject> extends NormalizedDSpaceObject<T> {
 
   /**
    * The task identifier

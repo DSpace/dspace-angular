@@ -9,12 +9,11 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { ProcessTaskResponse } from './models/process-task-response';
 import { RemoteDataError } from '../data/remote-data-error';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { getResponseFromEntry } from '../shared/operators';
 import { ErrorResponse, MessageResponse, RestResponse } from '../cache/response.models';
 import { CacheableObject } from '../cache/object-cache.reducer';
 
-export abstract class TasksService<TNormalized extends NormalizedObject, TDomain extends CacheableObject> extends DataService<TNormalized, TDomain> {
+export abstract class TasksService<T extends CacheableObject> extends DataService<T> {
 
   public getBrowseEndpoint(options: FindAllOptions): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
@@ -34,7 +33,7 @@ export abstract class TasksService<TNormalized extends NormalizedObject, TDomain
       ));
     const successResponses = responses.pipe(
       filter((response: RestResponse) => response.isSuccessful),
-      map((response: MessageResponse) =>  new ProcessTaskResponse(response.isSuccessful)),
+      map((response: MessageResponse) => new ProcessTaskResponse(response.isSuccessful)),
       distinctUntilChanged()
     );
     return observableMerge(errorResponses, successResponses);

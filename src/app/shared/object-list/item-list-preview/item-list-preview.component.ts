@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { fadeInOut } from '../../animations/fade';
 import { MyDspaceItemStatusType } from '../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { Metadata } from '../../../core/shared/metadata.model';
+import { Metadata } from '../../../core/shared/metadata.utils';
 
 @Component({
   selector: 'ds-item-list-preview',

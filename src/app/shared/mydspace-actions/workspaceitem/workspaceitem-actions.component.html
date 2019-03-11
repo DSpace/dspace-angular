@@ -9,7 +9,7 @@
         class="btn btn-danger mt-1 mb-3"
         ngbTooltip="{{'submission.workflow.generic.delete-help' | translate}}"
         (click)="$event.preventDefault();confirmDiscard(content)">
-  <span *ngIf="(processingDelete$ | async)"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="(processingDelete$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
   <span *ngIf="!(processingDelete$ | async)"><i class="fa fa-trash"></i> {{'submission.workflow.generic.delete' | translate}}</span>
 </button>
 

@@ -54,7 +54,7 @@ export class SearchSettingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 
   /**
@@ -71,6 +71,6 @@ export class SearchSettingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 }

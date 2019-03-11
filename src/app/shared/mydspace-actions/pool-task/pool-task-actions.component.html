@@ -5,8 +5,8 @@
         ngbTooltip="{{'submission.workflow.tasks.pool.claim_help' | translate}}"
         [disabled]="(processingClaim$ | async)"
         (click)="claim()">
-  <span *ngIf="(processingClaim$ | async)"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-  <span *ngIf="!(processingClaim$ | async)"><i class="fa fa-hand-paper-o"></i> {{'submission.workflow.tasks.pool.claim' | translate}}</span>
+  <span *ngIf="(processingClaim$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="!(processingClaim$ | async)"><i class="fas fa-hand-paper"></i> {{'submission.workflow.tasks.pool.claim' | translate}}</span>
 </button>
 
 <ds-message-board

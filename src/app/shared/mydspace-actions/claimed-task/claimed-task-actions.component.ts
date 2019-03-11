@@ -13,7 +13,6 @@ import { NotificationOptions } from '../../notifications/models/notification-opt
 import { isNotUndefined } from '../../empty.util';
 import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { NormalizedClaimedTask } from '../../../core/tasks/models/normalized-claimed-task-object.model';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ResourceType } from '../../../core/shared/resource-type';
 
@@ -23,7 +22,7 @@ import { ResourceType } from '../../../core/shared/resource-type';
   templateUrl: './claimed-task-actions.component.html',
 })
 
-export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, NormalizedClaimedTask, ClaimedTaskDataService> implements OnInit {
+export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<ClaimedTask, ClaimedTaskDataService> implements OnInit {
   @Input() object: ClaimedTask;
 
   public workflowitem$: Observable<Workflowitem>;

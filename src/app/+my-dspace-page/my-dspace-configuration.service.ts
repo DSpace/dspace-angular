@@ -97,4 +97,8 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
     )
   }
 
+  public getCurrentView(): Observable<string> {
+    return this.routeService.getQueryParameterValue('view');
+  }
+
 }

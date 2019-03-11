@@ -8,6 +8,7 @@ import { MyDSpaceResult } from '../my-dspace-result.model';
 import { SearchOptions } from '../../+search-page/search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { isEmpty } from '../../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -28,6 +29,9 @@ export class MyDSpaceResultsComponent {
   @Input() sortConfig: SortOptions;
   @Input() viewMode: ViewMode;
 
-  public hasBorder = true;
+  hasBorder = true;
 
+  isLoading() {
+    return !this.searchResults || isEmpty(this.searchResults) || this.searchResults.isLoading;
+  }
 }

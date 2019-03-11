@@ -34,11 +34,11 @@ export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceRe
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 
-  initItem(itemObs: Observable<RemoteData<Item>>) {
-    itemObs.pipe(
-      find((rd: RemoteData<any>) => rd.hasSucceeded && isNotUndefined(rd.payload))
-    ).subscribe((rd: RemoteData<any>) => {
-      this.item = rd.payload[0];
+  initItem(item$: Observable<RemoteData<Item>>) {
+    item$.pipe(
+      find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload))
+    ).subscribe((rd: RemoteData<Item>) => {
+      this.item = rd.payload;
     });
   }
 

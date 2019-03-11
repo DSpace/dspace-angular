@@ -9,7 +9,7 @@ import { ResourceType } from '../../shared/resource-type';
  */
 @mapsTo(PoolTask)
 @inheritSerialization(NormalizedTaskObject)
-export class NormalizedPoolTask extends NormalizedTaskObject {
+export class NormalizedPoolTask extends NormalizedTaskObject<PoolTask> {
 
   /**
    * The task identifier

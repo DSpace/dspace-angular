@@ -5,7 +5,8 @@
       <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-3 sidebar-md-sticky"
                          id="search-sidebar"
                          [configurationList]="(configurationList$ | async)"
-                         [resultCount]="(resultsRD$ | async)?.payload.totalElements"></ds-search-sidebar>
+                         [resultCount]="(resultsRD$ | async)?.payload.totalElements"
+                         [viewModeList]="viewModeList"></ds-search-sidebar>
       <div class="col-12 col-md-9">
           <ds-search-form id="mydspace-form"
                           [query]="(searchOptions$ | async)?.query"
@@ -27,7 +28,7 @@
                   </ds-search-sidebar>
                   <div id="mydspace-content" class="col-12">
                       <div class="d-block d-md-none search-controls clearfix">
-                          <ds-view-mode-switch></ds-view-mode-switch>
+                          <ds-view-mode-switch [viewModeList]="viewModeList"></ds-view-mode-switch>
                           <button (click)="openSidebar()" aria-controls="#mydspace-body"
                                   class="btn btn-outline-primary float-right open-sidebar"><i
                                   class="fas fa-sliders"></i> {{"search.sidebar.open"

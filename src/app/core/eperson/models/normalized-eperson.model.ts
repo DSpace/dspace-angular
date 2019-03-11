@@ -14,9 +14,6 @@ export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implement
   @autoserialize
   public handle: string;
 
-  @autoserialize
-  public name: string;
-
   @autoserializeAs(NormalizedGroup)
   groups: Group[];
 

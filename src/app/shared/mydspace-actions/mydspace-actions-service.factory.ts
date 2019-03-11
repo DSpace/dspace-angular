@@ -4,10 +4,9 @@ import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-da
 import { ClaimedTaskDataService } from '../../core/tasks/claimed-task-data.service';
 import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
 import { WorkflowitemDataService } from '../../core/submission/workflowitem-data.service';
-import { NormalizedObject } from '../../core/cache/models/normalized-object.model';
 import { CacheableObject } from '../../core/cache/object-cache.reducer';
 
-export class MydspaceActionsServiceFactory<T extends CacheableObject, TNormalized extends NormalizedObject, TService extends DataService<TNormalized, T>> {
+export class MydspaceActionsServiceFactory<T extends CacheableObject, TService extends DataService<T>> {
   public getConstructor(type: ResourceType): TService {
     switch (type) {
       case ResourceType.Workspaceitem: {

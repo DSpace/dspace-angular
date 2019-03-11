@@ -13,7 +13,6 @@ import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service'
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationOptions } from '../../notifications/models/notification-options.model';
 import { isNotUndefined } from '../../empty.util';
-import { NormalizedPoolTask } from '../../../core/tasks/models/normalized-pool-task-object.model';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ResourceType } from '../../../core/shared/resource-type';
 
@@ -23,7 +22,7 @@ import { ResourceType } from '../../../core/shared/resource-type';
   templateUrl: './pool-task-actions.component.html',
 })
 
-export class PoolTaskActionsComponent extends MyDSpaceActionsComponent<PoolTask, NormalizedPoolTask, PoolTaskDataService> {
+export class PoolTaskActionsComponent extends MyDSpaceActionsComponent<PoolTask, PoolTaskDataService> {
   @Input() object: PoolTask;
 
   public processingClaim$ = new BehaviorSubject<boolean>(false);

@@ -5,17 +5,16 @@ import { find } from 'rxjs/operators';
 
 import { MydspaceActionsServiceFactory } from './mydspace-actions-service.factory';
 import { RemoteData } from '../../core/data/remote-data';
-import { NormalizedObject } from '../../core/cache/models/normalized-object.model';
 import { DataService } from '../../core/data/data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { ResourceType } from '../../core/shared/resource-type';
 
-export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TNormalized extends NormalizedObject, TService extends DataService<TNormalized, T>> {
+export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService extends DataService<T>> {
   @Input() abstract object: T;
   protected objectDataService: TService;
 
   constructor(protected objectType: ResourceType, protected injector: Injector, protected router: Router) {
-    const factory = new MydspaceActionsServiceFactory<T, TNormalized, TService>();
+    const factory = new MydspaceActionsServiceFactory<T, TService>();
     this.objectDataService = injector.get(factory.getConstructor(objectType));
   }
 

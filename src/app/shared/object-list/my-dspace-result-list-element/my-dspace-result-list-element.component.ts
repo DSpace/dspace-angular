@@ -4,8 +4,7 @@ import { MyDSpaceResult } from '../../../+my-dspace-page/my-dspace-result.model'
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Metadata } from '../../../core/shared/metadata.model';
-import { TruncatableService } from '../../truncatable/truncatable.service';
+import { Metadata } from '../../../core/shared/metadata.utils';
 
 @Component({
   selector: 'ds-my-dspace-result-list-element',

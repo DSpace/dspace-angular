@@ -7,7 +7,6 @@ import { Store } from '@ngrx/store';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { RequestService } from '../data/request.service';
-import { NormalizedPoolTask } from './models/normalized-pool-task-object.model';
 import { PoolTask } from './models/pool-task-object.model';
 import { TasksService } from './tasks.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -17,7 +16,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 @Injectable()
-export class PoolTaskDataService extends TasksService<NormalizedPoolTask, PoolTask> {
+export class PoolTaskDataService extends TasksService<PoolTask> {
   protected linkPath = 'pooltasks';
   protected forceBypassCache = true;
 
@@ -30,7 +29,7 @@ export class PoolTaskDataService extends TasksService<NormalizedPoolTask, PoolTa
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer) {
+    protected comparator: DSOChangeAnalyzer<PoolTask>) {
     super();
   }
 

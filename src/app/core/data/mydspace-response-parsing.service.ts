@@ -7,7 +7,7 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { hasValue } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
-import { MetadataMap, MetadataValue } from '../shared/metadata.interfaces';
+import { MetadataMap, MetadataValue } from '../shared/metadata.models';
 
 @Injectable()
 export class MyDSpaceResponseParsingService implements ResponseParsingService {
@@ -17,7 +17,7 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     // fallback for unexpected empty response
     const emptyPayload = {
-      _embedded : {
+      _embedded: {
         objects: []
       }
     };
@@ -28,8 +28,11 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
         const mdMap: MetadataMap = {};
         if (hhObject) {
           for (const key of Object.keys(hhObject)) {
-            const value: MetadataValue = { value: hhObject[key].join('...'), language: null };
-            mdMap[key] = [ value ];
+            const value: MetadataValue = Object.assign(new MetadataValue(), {
+              value: hhObject[key].join('...'),
+              language: null
+            });
+            mdMap[key] = [value];
           }
         }
         return mdMap;
@@ -50,10 +53,30 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
       .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
         rObject: dsoSelfLinks[index],
-        hitHighlights: hitHighlights[index]
+        hitHighlights: hitHighlights[index],
+        _embedded: this.filterEmbeddedObjects(object)
       }));
     payload.objects = objects;
     const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
     return new SearchSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(payload));
+  }
+
+  protected filterEmbeddedObjects(object) {
+    const allowedEmbeddedKeys = ['submitter', 'item', 'workspaceitem', 'workflowitem'];
+    if (object._embedded.rObject && object._embedded.rObject._embedded) {
+      return Object.assign({}, object._embedded, {
+        rObject: Object.assign({}, object._embedded.rObject, {
+          _embedded: Object.keys(object._embedded.rObject._embedded)
+            .filter((key) => allowedEmbeddedKeys.includes(key))
+            .reduce((obj, key) => {
+              obj[key] = object._embedded.rObject._embedded[key];
+              return obj;
+            }, {})
+        })
+      });
+    } else {
+      return object;
+    }
+
   }
 }

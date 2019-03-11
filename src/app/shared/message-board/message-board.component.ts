@@ -12,7 +12,6 @@ import {
   mergeMap,
   reduce,
   startWith,
-  tap,
   withLatestFrom
 } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
@@ -77,31 +76,26 @@ export class MessageBoardComponent implements OnDestroy {
     this.user$ = this.store.pipe(
       select(getAuthenticatedUser),
       find((user: EPerson) => isNotEmpty(user)),
-      map((user: EPerson) => user),
-      tap((u) => console.log(u)));
+      map((user: EPerson) => user));
 
     this.item$ = this.dso.item.pipe(
       find((rd: RemoteData<Item>) => (rd.hasSucceeded && isNotEmpty(rd.payload))),
-      map((rd: RemoteData<Item>) => rd.payload),
-      tap((u) => console.log(u)));
+      map((rd: RemoteData<Item>) => rd.payload));
 
     this.submitter$ = (this.dso.submitter as Observable<RemoteData<EPerson[]>>).pipe(
       find((rd: RemoteData<EPerson>) => rd.hasSucceeded && isNotEmpty(rd.payload)),
-      map((rd: RemoteData<EPerson>) => rd.payload),
-      tap((u) => console.log(u)));
+      map((rd: RemoteData<EPerson>) => rd.payload));
 
     this.isSubmitter$ = combineLatest(this.user$, this.submitter$).pipe(
       filter(([user, submitter]) => isNotEmpty(user) && isNotEmpty(submitter)),
-      map(([user, submitter]) => user.uuid === submitter.uuid),
-      tap((u) => console.log(u)));
+      map(([user, submitter]) => user.uuid === submitter.uuid));
 
     this.messages$ = this.item$.pipe(
       find((item: Item) => isNotEmpty(item)),
       flatMap((item: Item) => item.getBitstreamsByBundleName('MESSAGE')),
       filter((bitStreams: Bitstream[]) => isNotEmpty(bitStreams)),
       startWith([]),
-      distinctUntilChanged(),
-      tap((u) => console.log(u)));
+      distinctUntilChanged());
 
     this.unreadMessages$ = this.messages$.pipe(
       filter((messages: Bitstream[]) => isNotEmpty(messages)),
@@ -118,8 +112,7 @@ export class MessageBoardComponent implements OnDestroy {
 
     this.itemUUID$ = this.item$.pipe(
       find((item: Item) => isNotEmpty(item)),
-      map((item: Item) => item.uuid),
-      tap((u) => console.log(u)));
+      map((item: Item) => item.uuid));
 
   }
 

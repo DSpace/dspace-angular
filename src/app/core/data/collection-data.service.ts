@@ -4,7 +4,6 @@ import { filter, map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedCollection } from '../cache/models/normalized-collection.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Collection } from '../shared/collection.model';
