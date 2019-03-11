@@ -1,6 +1,6 @@
 import { Observable, of as observableOf } from 'rxjs';
 
-import { filter, map, mergeMap, startWith, switchMap } from 'rxjs/operators';
+import { filter, first, map, mergeMap, startWith, switchMap, tap } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -9,6 +9,7 @@ import { SearchConfigurationService } from '../search-service/search-configurati
 import { isNotEmpty } from '../../shared/empty.util';
 import { SearchFilterService } from './search-filter/search-filter.service';
 import { getSucceededRemoteData } from '../../core/shared/operators';
+import { FieldUpdate } from '../../core/data/object-updates/object-updates.reducer';
 
 @Component({
   selector: 'ds-search-filters',
@@ -59,11 +60,13 @@ export class SearchFiltersComponent {
    */
   isActive(filterConfig: SearchFilterConfig): Observable<boolean> {
     return this.filterService.getSelectedValuesForFilter(filterConfig).pipe(
-      mergeMap((isActive) => {
+      switchMap((isActive) => {
+        console.log('selected fires');
         if (isNotEmpty(isActive)) {
           return observableOf(true);
         } else {
           return this.searchConfigService.searchOptions.pipe(
+            first(),
             switchMap((options) => {
                 return this.searchService.getFacetValuesFor(filterConfig, 1, options).pipe(
                   filter((RD) => !RD.isLoading),
@@ -73,6 +76,13 @@ export class SearchFiltersComponent {
               }
             ))
         }
-      }),startWith(true),);
+      }), tap(t => console.log(t)), startWith(true));
+  }
+
+  /**
+   * Prevent unnecessary rerendering
+   */
+  trackUpdate(index, config: SearchFilterConfig) {
+    return config ? config.name : undefined;
   }
 }

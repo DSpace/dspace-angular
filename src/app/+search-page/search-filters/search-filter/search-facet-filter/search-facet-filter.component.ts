@@ -290,6 +290,14 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   getDisplayValue(facet: FacetValue, query: string): string {
     return new EmphasizePipe().transform(facet.value, query) + ' (' + facet.count + ')';
   }
+
+
+  /**
+   * Prevent unnecessary rerendering
+   */
+  trackUpdate(index, value: FacetValue) {
+    return value ? value.search : undefined;
+  }
 }
 
 export const facetLoad = trigger('facetLoad', [

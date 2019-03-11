@@ -16,7 +16,7 @@ export class RouteService {
   getQueryParameterValues(paramName: string): Observable<string[]> {
     return this.route.queryParamMap.pipe(
       map((params) => [...params.getAll(paramName)]),
-      distinctUntilChanged()
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
     );
   }
 

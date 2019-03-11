@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, InjectionToken } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
@@ -65,7 +65,9 @@ export class SearchFilterService {
 
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {
-          if (isNotEmpty(values)) {
+        console.log('getSelectedValuesForFilter ', values, prefixValues);
+
+        if (isNotEmpty(values)) {
             return values;
           }
           return prefixValues;
@@ -88,13 +90,14 @@ export class SearchFilterService {
         } else {
           return false;
         }
-      })
+      }),
+      distinctUntilChanged()
     );
   }
 
   /**
    * Request the current page of a given filter
-   * @param {string} filterName The filtername for which the page state is checked
+   * @param {string} filterName The filter name for which the page state is checked
    * @returns {Observable<boolean>} Emits the current page state of the given filter, if it's unavailable, return 1
    */
   getPage(filterName: string): Observable<number> {
@@ -106,7 +109,8 @@ export class SearchFilterService {
         } else {
           return 1;
         }
-      }));
+      }),
+      distinctUntilChanged());
   }
 
   /**

@@ -9,7 +9,7 @@
         <ng-container *ngVar="(filterValues$ | async) as filterValuesRD">
           <div [@facetLoad]="animationState">
             <ng-container *ngFor="let page of filterValuesRD?.payload">
-              <ng-container *ngFor="let value of page.page; let i=index">
+              <ng-container *ngFor="let value of page.page; trackBy: trackUpdate">
                 <a *ngIf="!(selectedValues | async).includes(value.value)" class="d-flex flex-row"
                    [routerLink]="[getSearchLink()]"
                    [queryParams]="getAddParams(value.value) | async" queryParamsHandling="merge" >
