@@ -60,7 +60,7 @@ export const getRemoteDataPayload = () =>
 
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
-    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded), hasValueOperator());
+    source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
 
 export const getFinishedRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
@@ -91,7 +91,7 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
     source.pipe(
       getRemoteDataPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
-        .find((def: BrowseDefinition) => def.id === definitionID && def.metadataBrowse === true)
+        .find((def: BrowseDefinition) => def.id === definitionID)
       ),
       map((def: BrowseDefinition) => {
         if (isNotEmpty(def)) {
@@ -100,4 +100,13 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
           throw new Error(`No metadata browse definition could be found for id '${definitionID}'`);
         }
       })
+    );
+
+/**
+ * Get the first occurrence of an object within a paginated list
+ */
+export const getFirstOccurrence = () =>
+  <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<RemoteData<T>> =>
+    source.pipe(
+      map((rd) => Object.assign(rd, { payload: rd.payload.page.length > 0 ? rd.payload.page[0] : undefined }))
     );

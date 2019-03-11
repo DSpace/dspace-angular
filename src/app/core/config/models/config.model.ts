@@ -1,10 +1,27 @@
-import { autoserialize, inheritSerialization } from 'cerialize';
-import { NormalizedObject } from '../../cache/models/normalized-object.model';
+import { CacheableObject } from '../../cache/object-cache.reducer';
+import { ResourceType } from '../../shared/resource-type';
 
-@inheritSerialization(NormalizedObject)
-export abstract class ConfigObject extends  NormalizedObject {
+export abstract class ConfigObject implements CacheableObject {
 
-  @autoserialize
+  /**
+   * The name for this configuration
+   */
   public name: string;
 
+  /**
+   * A string representing the kind of config object
+   */
+  public type: ResourceType;
+
+  /**
+   * The links to all related resources returned by the rest api.
+   */
+  public _links: {
+    [name: string]: string
+  };
+
+  /**
+   * The link to the rest endpoint where this config object can be found
+   */
+  self: string;
 }

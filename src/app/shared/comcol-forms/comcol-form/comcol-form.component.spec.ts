@@ -50,10 +50,7 @@ describe('ComColFormComponent', () => {
   ];
 
   /* tslint:disable:no-empty */
-  const locationStub = {
-    back: () => {
-    }
-  };
+  const locationStub = jasmine.createSpyObj('location', ['back']);
   /* tslint:enable:no-empty */
 
   beforeEach(async(() => {
@@ -111,5 +108,12 @@ describe('ComColFormComponent', () => {
         )
       );
     })
+  });
+
+  describe('onCancel', () => {
+    it('should call the back method on the Location service', () => {
+        comp.onCancel();
+        expect(locationStub.back).toHaveBeenCalled();
+    });
   });
 });

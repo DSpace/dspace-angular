@@ -21,7 +21,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 @Injectable()
-export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
+export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
   protected topLinkPath = 'communities/search/top';
   protected cds = this;
@@ -36,7 +36,7 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer
+    protected comparator: DSOChangeAnalyzer<Community>
   ) {
     super();
   }
@@ -55,6 +55,6 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<NormalizedCommunity, Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
+    return this.rdbService.buildList<Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
   }
 }

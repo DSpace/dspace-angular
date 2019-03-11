@@ -77,6 +77,8 @@ import { MenuService } from '../shared/menu/menu.service';
 import { SubmissionJsonPatchOperationsService } from './submission/submission-json-patch-operations.service';
 import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
+import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
+import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
 import { RoleService } from './roles/role.service';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
@@ -163,8 +165,10 @@ const PROVIDERS = [
   FileService,
   DSpaceObjectDataService,
   DSOChangeAnalyzer,
+  DefaultChangeAnalyzer,
   CSSVariableService,
   MenuService,
+  ObjectUpdatesService,
   MyDSpaceGuard,
   RoleService,
   MessageResponseParsingService,
@@ -182,20 +186,15 @@ const PROVIDERS = [
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
-const DIRECTIVES = [
-];
-
 @NgModule({
   imports: [
     ...IMPORTS
   ],
   declarations: [
-    ...DECLARATIONS,
-    ...DIRECTIVES
+    ...DECLARATIONS
   ],
   exports: [
-    ...EXPORTS,
-    ...DIRECTIVES
+    ...EXPORTS
   ],
   providers: [
     ...PROVIDERS

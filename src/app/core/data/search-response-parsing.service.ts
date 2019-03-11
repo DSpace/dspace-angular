@@ -7,7 +7,7 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { hasValue } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
-import { MetadataMap, MetadataValue } from '../shared/metadata.interfaces';
+import { MetadataMap, MetadataValue } from '../shared/metadata.models';
 
 @Injectable()
 export class SearchResponseParsingService implements ResponseParsingService {
@@ -28,7 +28,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
         const mdMap: MetadataMap = {};
         if (hhObject) {
           for (const key of Object.keys(hhObject)) {
-            const value: MetadataValue = { value: hhObject[key].join('...'), language: null };
+            const value: MetadataValue = Object.assign(new MetadataValue(), { value: hhObject[key].join('...'), language: null });
             mdMap[key] = [ value ];
           }
         }

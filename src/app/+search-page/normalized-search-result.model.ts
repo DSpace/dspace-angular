@@ -1,5 +1,5 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
-import { MetadataMap } from '../core/shared/metadata.interfaces';
+import { MetadataMap } from '../core/shared/metadata.models';
 import { ListableObject } from '../shared/object-collection/shared/listable-object.model';
 
 /**

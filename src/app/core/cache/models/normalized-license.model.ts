@@ -8,7 +8,7 @@ import { License } from '../../shared/license.model';
  */
 @mapsTo(License)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedLicense extends NormalizedDSpaceObject {
+export class NormalizedLicense extends NormalizedDSpaceObject<License> {
 
   /**
    * A boolean representing if this License is custom or not

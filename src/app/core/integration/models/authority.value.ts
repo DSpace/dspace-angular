@@ -2,12 +2,12 @@ import { IntegrationModel } from './integration.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { OtherInformation } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { MetadataValue } from '../../shared/metadata.interfaces';
+import { MetadataValueInterface } from '../../shared/metadata.models';
 
 /**
  * Class representing an authority object
  */
-export class AuthorityValue extends IntegrationModel implements MetadataValue {
+export class AuthorityValue extends IntegrationModel implements MetadataValueInterface {
 
   /**
    * The identifier of this authority

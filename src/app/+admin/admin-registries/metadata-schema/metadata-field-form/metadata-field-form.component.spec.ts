@@ -27,7 +27,8 @@ describe('MetadataFieldFormComponent', () => {
   /* tslint:disable:no-empty */
   const registryServiceStub = {
     getActiveMetadataField: () => observableOf(undefined),
-    createOrUpdateMetadataField: (field: MetadataField) => observableOf(field)
+    createOrUpdateMetadataField: (field: MetadataField) => observableOf(field),
+    cancelEditMetadataSchema: () => {},
   };
   const formBuilderServiceStub = {
     createFormGroup: () => {

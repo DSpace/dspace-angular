@@ -64,7 +64,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(getRequestFromRequestHref(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.getByHref).toHaveBeenCalledWith(testRequestHref)
+      expect(requestService.getByHref).toHaveBeenCalledWith(testRequestHref);
     });
 
     it('shouldn\'t return anything if there is no request matching the self link', () => {
@@ -156,6 +156,22 @@ describe('Core Module - RxJS Operators', () => {
       });
 
       expect(result).toBeObservable(expected);
+    });
+  });
+
+  describe('getResponseFromEntry', () => {
+    it('should return the response for all not empty request entries, when they have a value', () => {
+      const source = hot('abcdefg', testRCEs);
+      const result = source.pipe(getResponseFromEntry());
+      const expected = cold('abcde--', {
+        a: testRCEs.a.response,
+        b: testRCEs.b.response,
+        c: testRCEs.c.response,
+        d: testRCEs.d.response,
+        e: testRCEs.e.response
+      });
+
+      expect(result).toBeObservable(expected)
     });
   });
 

@@ -15,13 +15,14 @@ import { NormalizedWorkflowItem } from '../../submission/models/normalized-workf
 import { NormalizedClaimedTask } from '../../tasks/models/normalized-claimed-task-object.model';
 import { NormalizedPoolTask } from '../../tasks/models/normalized-pool-task-object.model';
 import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
-import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
-import { SubmissionFormsModel } from '../../config/models/config-submission-forms.model';
-import { SubmissionSectionModel } from '../../config/models/config-submission-section.model';
 import { NormalizedMetadataSchema } from '../../metadata/normalized-metadata-schema.model';
+import { CacheableObject } from '../object-cache.reducer';
+import { NormalizedSubmissionDefinitionsModel } from '../../config/models/normalized-config-submission-definitions.model';
+import { NormalizedSubmissionFormsModel } from '../../config/models/normalized-config-submission-forms.model';
+import { NormalizedSubmissionSectionModel } from '../../config/models/normalized-config-submission-section.model';
 
 export class NormalizedObjectFactory {
-  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject> {
+  public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject<CacheableObject>> {
     switch (type) {
       case ResourceType.Bitstream: {
         return NormalizedBitstream
@@ -47,9 +48,6 @@ export class NormalizedObjectFactory {
       case ResourceType.ResourcePolicy: {
         return NormalizedResourcePolicy
       }
-      case ResourceType.Workspaceitem: {
-        return NormalizedWorkspaceItem
-      }
       case ResourceType.EPerson: {
         return NormalizedEPerson
       }
@@ -62,6 +60,9 @@ export class NormalizedObjectFactory {
       case ResourceType.MetadataField: {
         return NormalizedGroup
       }
+      case ResourceType.Workspaceitem: {
+        return NormalizedWorkspaceItem
+      }
       case ResourceType.Workflowitem: {
         return NormalizedWorkflowItem
       }
@@ -71,20 +72,17 @@ export class NormalizedObjectFactory {
       case ResourceType.PoolTask: {
         return NormalizedPoolTask
       }
-      case ResourceType.BitstreamFormat: {
-        return NormalizedBitstreamFormat
-      }
       case ResourceType.SubmissionDefinition:
       case ResourceType.SubmissionDefinitions: {
-        return SubmissionDefinitionsModel
+        return NormalizedSubmissionDefinitionsModel
       }
       case ResourceType.SubmissionForm:
       case ResourceType.SubmissionForms: {
-        return SubmissionFormsModel
+        return NormalizedSubmissionFormsModel
       }
       case ResourceType.SubmissionSection:
       case ResourceType.SubmissionSections: {
-        return SubmissionSectionModel
+        return NormalizedSubmissionSectionModel
       }
       default: {
         return undefined;

@@ -6,7 +6,7 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Observable } from 'rxjs';
-import { Metadata } from '../../../core/shared/metadata.model';
+import { Metadata } from '../../../core/shared/metadata.utils';
 
 @Component({
   selector: 'ds-search-result-grid-element',

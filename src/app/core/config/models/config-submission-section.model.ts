@@ -1,23 +1,34 @@
-import { autoserialize, inheritSerialization } from 'cerialize';
 import { ConfigObject } from './config.model';
 import { SectionsType } from '../../../submission/sections/sections-type';
 
-@inheritSerialization(ConfigObject)
+/**
+ * An interface that define section visibility and its properties.
+ */
+export interface SubmissionSectionVisibility {
+  main: any,
+  other: any
+}
+
 export class SubmissionSectionModel extends ConfigObject {
 
-  @autoserialize
+  /**
+   * The header for this section
+   */
   header: string;
 
-  @autoserialize
+  /**
+   * A boolean representing if this submission section is the mandatory or not
+   */
   mandatory: boolean;
 
-  @autoserialize
+  /**
+   * A string representing the kind of section object
+   */
   sectionType: SectionsType;
 
-  @autoserialize
-  visibility: {
-    main: any,
-    other: any
-  }
+  /**
+   * The [SubmissionSectionVisibility] object for this section
+   */
+  visibility: SubmissionSectionVisibility
 
 }

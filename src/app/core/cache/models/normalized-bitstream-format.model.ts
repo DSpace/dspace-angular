@@ -11,7 +11,7 @@ import { SupportLevel } from './support-level.model';
  */
 @mapsTo(BitstreamFormat)
 @inheritSerialization(NormalizedObject)
-export class NormalizedBitstreamFormat extends NormalizedObject {
+export class NormalizedBitstreamFormat extends NormalizedObject<BitstreamFormat> {
 
   /**
    * Short description of this Bitstream Format

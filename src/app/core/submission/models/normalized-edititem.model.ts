@@ -5,6 +5,6 @@ import { EditItem } from './edititem.model';
 
 @mapsTo(EditItem)
 @inheritSerialization(NormalizedSubmissionObject)
-export class NormalizedEditItem extends NormalizedSubmissionObject {
+export class NormalizedEditItem extends NormalizedSubmissionObject<EditItem> {
 
 }

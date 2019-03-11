@@ -5,6 +5,7 @@ import { RequestEffects } from './data/request.effects';
 import { AuthEffects } from './auth/auth.effects';
 import { JsonPatchOperationsEffects } from './json-patch/json-patch-operations.effects';
 import { ServerSyncBufferEffects } from './cache/server-sync-buffer.effects';
+import { ObjectUpdatesEffects } from './data/object-updates/object-updates.effects';
 
 export const coreEffects = [
   RequestEffects,
@@ -12,5 +13,6 @@ export const coreEffects = [
   UUIDIndexEffects,
   AuthEffects,
   JsonPatchOperationsEffects,
-  ServerSyncBufferEffects
+  ServerSyncBufferEffects,
+  ObjectUpdatesEffects
 ];

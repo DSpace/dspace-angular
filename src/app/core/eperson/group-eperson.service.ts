@@ -9,7 +9,6 @@ import { EpersonService } from './eperson.service';
 import { RequestService } from '../data/request.service';
 import { FindAllOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NormalizedGroup } from './models/normalized-group.model';
 import { Group } from './models/group.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
@@ -25,13 +24,13 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
  * Provides methods to retrieve eperson group resources.
  */
 @Injectable()
-export class GroupEpersonService extends EpersonService<NormalizedGroup, Group> {
+export class GroupEpersonService extends EpersonService<Group> {
   protected linkPath = 'groups';
   protected browseEndpoint = '';
   protected forceBypassCache = false;
 
   constructor(
-    protected comparator: DSOChangeAnalyzer,
+    protected comparator: DSOChangeAnalyzer<Group>,
     protected dataBuildService: NormalizedObjectBuildService,
     protected http: HttpClient,
     protected notificationsService: NotificationsService,

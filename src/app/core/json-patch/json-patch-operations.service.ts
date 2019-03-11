@@ -1,4 +1,4 @@
-import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
+import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, find, flatMap, map, partition, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
@@ -94,7 +94,7 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
           return observableMerge(
             errorResponse$.pipe(
               tap(() => this.store.dispatch(new RollbacktPatchOperationsAction(resourceType, resourceId))),
-              flatMap((response: ErrorResponse) => observableOf(new Error(`Couldn't patch operations`)))),
+              flatMap((error: ErrorResponse) => observableThrowError(error))),
             successResponse$.pipe(
               filter((response: PostPatchSuccessResponse) => isNotEmpty(response)),
               tap(() => this.store.dispatch(new CommitPatchOperationsAction(resourceType, resourceId))),

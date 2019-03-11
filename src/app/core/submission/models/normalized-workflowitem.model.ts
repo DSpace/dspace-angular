@@ -7,7 +7,7 @@ import { ResourceType } from '../../shared/resource-type';
 
 @mapsTo(Workflowitem)
 @inheritSerialization(NormalizedSubmissionObject)
-export class NormalizedWorkflowItem extends NormalizedSubmissionObject {
+export class NormalizedWorkflowItem extends NormalizedSubmissionObject<Workflowitem> {
 
   @autoserialize
   @relationship(ResourceType.Collection, false)

@@ -10,7 +10,6 @@ import { take } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DataService } from '../../../core/data/data.service';
-import { NormalizedDSpaceObject } from '../../../core/cache/models/normalized-dspace-object.model';
 
 /**
  * Component representing the create page for communities and collections
@@ -19,7 +18,7 @@ import { NormalizedDSpaceObject } from '../../../core/cache/models/normalized-ds
   selector: 'ds-create-comcol',
   template: ''
 })
-export class CreateComColPageComponent<TDomain extends DSpaceObject, TNormalized extends NormalizedDSpaceObject> implements OnInit {
+export class CreateComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
    * Frontend endpoint for this type of DSO
    */
@@ -36,7 +35,7 @@ export class CreateComColPageComponent<TDomain extends DSpaceObject, TNormalized
   public parentRD$: Observable<RemoteData<Community>>;
 
   public constructor(
-    protected dsoDataService: DataService<TNormalized, TDomain>,
+    protected dsoDataService: DataService<TDomain>,
     protected parentDataService: CommunityDataService,
     protected routeService: RouteService,
     protected router: Router

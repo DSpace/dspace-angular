@@ -110,7 +110,12 @@ import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/cre
 import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { LangSwitchComponent } from './lang-switch/lang-switch.component';
+import { ObjectValuesPipe } from './utils/object-values-pipe';
+import { InListValidator } from './utils/in-list-validator.directive';
+import { AutoFocusDirective } from './utils/auto-focus.directive';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
+import { StartsWithDateComponent } from './starts-with/date/starts-with-date.component';
+import { StartsWithTextComponent } from './starts-with/text/starts-with-text.component';
 import { ItemListPreviewComponent } from './object-list/item-list-preview/item-list-preview.component';
 import { ItemPageAuthorFieldComponent } from '../+item-page/simple/field-components/specific-field/author/item-page-author-field.component';
 import { ItemPageDateFieldComponent } from '../+item-page/simple/field-components/specific-field/date/item-page-date-field.component';
@@ -158,6 +163,7 @@ const PIPES = [
   EmphasizePipe,
   CapitalizePipe,
   ObjectKeysPipe,
+  ObjectValuesPipe,
   ConsolePipe,
   ObjNgFor
 ];
@@ -252,7 +258,9 @@ const ENTRY_COMPONENTS = [
   DsDatePickerComponent,
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,
-  DsDatePickerInlineComponent
+  DsDatePickerInlineComponent,
+  StartsWithDateComponent,
+  StartsWithTextComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -284,6 +292,8 @@ const DIRECTIVES = [
   DebounceDirective,
   ClickOutsideDirective,
   AuthorityConfidenceStateDirective,
+  InListValidator,
+  AutoFocusDirective,
   RoleDirective
 ];
 

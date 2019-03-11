@@ -137,6 +137,11 @@ export class SubmissionObjectEffects {
         catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
     }));
 
+  @Effect({dispatch: false}) saveError$ = this.actions$.pipe(
+    ofType(SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR, SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR),
+    withLatestFrom(this.store$),
+    tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.save_error_notice'))));
+
   @Effect() saveAndDeposit$ = this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION),
     withLatestFrom(this.store$),
