@@ -24,7 +24,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { MockStore } from '../../shared/testing/mock-store';
 import { IndexState } from '../index/index.reducer';
 
-fdescribe('RequestService', () => {
+describe('RequestService', () => {
   let scheduler: TestScheduler;
   let service: RequestService;
   let serviceAsAny: any;
@@ -42,6 +42,7 @@ fdescribe('RequestService', () => {
   const testHeadRequest = new HeadRequest(testUUID, testHref);
   const testPatchRequest = new PatchRequest(testUUID, testHref);
   let selectSpy;
+
   beforeEach(() => {
     scheduler = getTestScheduler();
 
@@ -417,76 +418,65 @@ fdescribe('RequestService', () => {
   });
 
   describe('isValid', () => {
-    describe('when the given UUID has no value', () => {
+    describe('when the given entry has no value', () => {
       let valid;
       beforeEach(() => {
-        const uuid = undefined;
-        valid = serviceAsAny.isValid(uuid);
+        const entry = undefined;
+        valid = serviceAsAny.isValid(entry);
       });
       it('return an observable emitting false', () => {
-        valid.subscribe((isValid) => expect(isValid).toBe(false));
+        expect(valid).toBe(false);
       })
     });
 
-    describe('when the given UUID has a value, but no cached entry is found', () => {
+    describe('when the given entry has a value, but the request is not completed', () => {
       let valid;
+      const requestEntry = { completed: false } ;
       beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(undefined));
-        const uuid = 'a45bb291-1adb-40d9-b2fc-7ad9080607be';
-        valid = serviceAsAny.isValid(uuid);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        valid = serviceAsAny.isValid(requestEntry);
       });
       it('return an observable emitting false', () => {
-        valid.subscribe((isValid) => expect(isValid).toBe(false));
+        expect(valid).toBe(false);
       })
     });
 
-    describe('when the given UUID has a value, a cached entry is found, but it has no response', () => {
+    describe('when the given entry has a value, but the response is not successful', () => {
       let valid;
+      const requestEntry = { completed: true, response: { isSuccessful: false } };
       beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf({ response: undefined }));
-        const uuid = '53c9b814-ad8b-4567-9bc1-d9bb6cfba6c8';
-        valid = serviceAsAny.isValid(uuid);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        valid = serviceAsAny.isValid(requestEntry);
       });
       it('return an observable emitting false', () => {
-        valid.subscribe((isValid) => expect(isValid).toBe(false));
+        expect(valid).toBe(false);
       })
     });
 
-    describe('when the given UUID has a value, a cached entry is found, but its response was not successful', () => {
-      let valid;
-      beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf({ response: { isSuccessful: false } }));
-        const uuid = '694c9b32-7b2e-4788-835b-ef3fc2252e6c';
-        valid = serviceAsAny.isValid(uuid);
-      });
-      it('return an observable emitting false', () => {
-        valid.subscribe((isValid) => expect(isValid).toBe(false));
-      })
-    });
-
-    fdescribe('when the given UUID has a value, a cached entry is found, its response was successful, but the response is outdated', () => {
+    describe('when the given UUID has a value, its response was successful, but the response is outdated', () => {
       let valid;
       const now = 100000;
       const timeAdded = 99899;
       const msToLive = 100;
+      const requestEntry = {
+        completed: true,
+        response: {
+          isSuccessful: true,
+          timeAdded: timeAdded
+        },
+        request: {
+          responseMsToLive: msToLive,
+        }
+      };
 
       beforeEach(() => {
         spyOn(Date.prototype, 'getTime').and.returnValue(now);
-        spyOn(service, 'getByUUID').and.returnValue(observableOf({
-          response: {
-            isSuccessful: true,
-            timeAdded: timeAdded
-          },
-          request: {
-            responseMsToLive: msToLive
-          }
-        }));
-        const uuid = 'f9b85788-881c-4994-86b6-bae8dad024d2';
-        valid = serviceAsAny.isValid(uuid);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        valid = serviceAsAny.isValid(requestEntry);
       });
 
       it('return an observable emitting false', () => {
-        valid.subscribe((isValid) => expect(isValid).toBe(false));
+        expect(valid).toBe(false);
       })
     });
 
@@ -496,23 +486,24 @@ fdescribe('RequestService', () => {
       const timeAdded = 99999;
       const msToLive = 100;
 
+      const requestEntry = {
+        completed: true,
+        response: {
+          isSuccessful: true,
+          timeAdded: timeAdded
+        },
+        request: {
+          responseMsToLive: msToLive
+        }
+      };
       beforeEach(() => {
         spyOn(Date.prototype, 'getTime').and.returnValue(now);
-        spyOn(service, 'getByUUID').and.returnValue(observableOf({
-          response: {
-            isSuccessful: true,
-            timeAdded: timeAdded
-          },
-          request: {
-            responseMsToLive: msToLive
-          }
-        }));
-        const uuid = 'f9b85788-881c-4994-86b6-bae8dad024d2';
-        valid = serviceAsAny.isValid(uuid);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        valid = serviceAsAny.isValid(requestEntry);
       });
 
       it('return an observable emitting true', () => {
-        valid.subscribe((isValid) => expect(isValid).toBe(true));
+       expect(valid).toBe(true);
       })
     })
   })
