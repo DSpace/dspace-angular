@@ -78,16 +78,16 @@ export class ObjectCacheService {
    * @return Observable<T>
    *    An observable of the requested object
    */
-  getByUUID<T extends CacheableObject>(uuid: string): Observable<NormalizedObject<T>> {
+  getObjectByUUID<T extends CacheableObject>(uuid: string): Observable<NormalizedObject<T>> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      mergeMap((selfLink: string) => this.getBySelfLink(selfLink)
+      mergeMap((selfLink: string) => this.getObjectBySelfLink(selfLink)
       )
     )
   }
 
-  getBySelfLink<T extends CacheableObject>(selfLink: string): Observable<NormalizedObject<T>> {
-    return this.getEntry(selfLink).pipe(
+  getObjectBySelfLink<T extends CacheableObject>(selfLink: string): Observable<NormalizedObject<T>> {
+    return this.getBySelfLink(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
           if (isNotEmpty(entry.patches)) {
             const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
@@ -105,7 +105,7 @@ export class ObjectCacheService {
     );
   }
 
-  private getEntry(selfLink: string): Observable<ObjectCacheEntry> {
+  getBySelfLink(selfLink: string): Observable<ObjectCacheEntry> {
     return this.store.pipe(
       select(entryFromSelfLinkSelector(selfLink)),
       filter((entry) => this.isValid(entry)),
@@ -114,7 +114,7 @@ export class ObjectCacheService {
   }
 
   getRequestUUIDBySelfLink(selfLink: string): Observable<string> {
-    return this.getEntry(selfLink).pipe(
+    return this.getBySelfLink(selfLink).pipe(
       map((entry: ObjectCacheEntry) => entry.requestUUID),
       distinctUntilChanged());
   }
@@ -147,7 +147,7 @@ export class ObjectCacheService {
    */
   getList<T extends CacheableObject>(selfLinks: string[]): Observable<Array<NormalizedObject<T>>> {
     return observableCombineLatest(
-      selfLinks.map((selfLink: string) => this.getBySelfLink<T>(selfLink))
+      selfLinks.map((selfLink: string) => this.getObjectBySelfLink<T>(selfLink))
     );
   }
 
