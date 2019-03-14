@@ -1,5 +1,5 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, EMPTY } from 'rxjs';
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -7,6 +7,7 @@ import { CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import * as ngrx from '@ngrx/store';
+import { ActionsSubject, Store } from '@ngrx/store';
 import {
   DeleteRequest,
   GetRequest,
@@ -18,11 +19,8 @@ import {
   RestRequest
 } from './request.models';
 import { RequestService } from './request.service';
-import { ActionsSubject, Store } from '@ngrx/store';
 import { TestScheduler } from 'rxjs/testing';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { MockStore } from '../../shared/testing/mock-store';
-import { IndexState } from '../index/index.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -431,7 +429,7 @@ describe('RequestService', () => {
 
     describe('when the given entry has a value, but the request is not completed', () => {
       let valid;
-      const requestEntry = { completed: false } ;
+      const requestEntry = { completed: false };
       beforeEach(() => {
         spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
         valid = serviceAsAny.isValid(requestEntry);
@@ -503,8 +501,42 @@ describe('RequestService', () => {
       });
 
       it('return an observable emitting true', () => {
-       expect(valid).toBe(true);
+        expect(valid).toBe(true);
       })
     })
-  })
+  });
+
+  describe('hasByHref', () => {
+    describe('when nothing is returned by getByHref', () => {
+      beforeEach(() => {
+        spyOn(service, 'getByHref').and.returnValue(EMPTY);
+      });
+      it('hasByHref should return false', () => {
+        const result = service.hasByHref('');
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('when isValid returns false', () => {
+      beforeEach(() => {
+        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
+        spyOn(service as any, 'isValid').and.returnValue(false);
+      });
+      it('hasByHref should return false', () => {
+        const result = service.hasByHref('');
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('when isValid returns true', () => {
+      beforeEach(() => {
+        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
+        spyOn(service as any, 'isValid').and.returnValue(true);
+      });
+      it('hasByHref should return true', () => {
+        const result = service.hasByHref('');
+        expect(result).toBe(true);
+      });
+    });
+  });
 });

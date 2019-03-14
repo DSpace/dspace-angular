@@ -80,6 +80,9 @@ export class RequestService {
     return `client/${this.uuidService.generate()}`;
   }
 
+  /**
+   * Check if a request is currently pending
+   */
   isPending(request: GetRequest): boolean {
     // first check requests that haven't made it to the store yet
     if (this.requestsOnTheirWayToTheStore.includes(request.href)) {
@@ -96,6 +99,9 @@ export class RequestService {
     return isPending;
   }
 
+  /**
+   * Retrieve a RequestEntry based on their uuid
+   */
   getByUUID(uuid: string): Observable<RequestEntry> {
     return observableRace(
       this.store.pipe(select(this.entryFromUUIDSelector(uuid))),
@@ -108,6 +114,9 @@ export class RequestService {
     );
   }
 
+  /**
+   * Retrieve a RequestEntry based on their href
+   */
   getByHref(href: string): Observable<RequestEntry> {
     return this.store.pipe(
       select(this.uuidFromHrefSelector(href)),
@@ -247,7 +256,6 @@ export class RequestService {
     this.getByHref(href).pipe(
       take(1)
     ).subscribe((requestEntry: RequestEntry) => result = this.isValid(requestEntry));
-
     return result;
   }
 
