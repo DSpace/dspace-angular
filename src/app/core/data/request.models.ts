@@ -39,7 +39,7 @@ export abstract class RestRequest {
 }
 
 export class GetRequest extends RestRequest {
-  public responseMsToLive = 10000;
+  public responseMsToLive = 60 * 15 * 1000;
 
   constructor(
     public uuid: string,
