@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockTranslateLoader } from '../../../shared/mocks/mock-translate-loader';
 import { MetadataValuesComponent } from './metadata-values.component';
 import { By } from '@angular/platform-browser';
+import { Metadatum } from '../../../core/shared/metadatum.model';
 
 let comp: MetadataValuesComponent;
 let fixture: ComponentFixture<MetadataValuesComponent>;
@@ -23,7 +24,7 @@ const mockMetadata = [
     key: 'journal.identifier.description',
     language: 'en_US',
     value: 'desc'
-  }];
+  }] as Metadatum[];
 const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
 

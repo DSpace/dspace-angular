@@ -7,7 +7,7 @@ import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedList } from '../data/paginated-list';
-import { Relationship } from './entities/relationship.model';
+import { Relationship } from './item-relationships/relationship.model';
 
 export class Item extends DSpaceObject {
 

@@ -33,6 +33,7 @@ import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { EmptyError } from 'rxjs/internal-compatibility';
+import { Metadatum } from '../shared/metadatum.model';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -223,7 +224,7 @@ describe('MetadataService', () => {
       key: 'dc.publisher',
       language: 'en_US',
       value: 'Mock Publisher'
-    });
+    } as Metadatum);
     return publishedMockItem;
   }
 

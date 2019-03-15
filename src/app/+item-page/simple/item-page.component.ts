@@ -15,6 +15,8 @@ import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
 import * as viewMode from '../../shared/view-mode';
 
+export const VIEW_MODE_FULL = 'full';
+
 /**
  * This component renders a simple item page.
  * The route parameter 'id' is used to request the item it represents.
@@ -46,9 +48,8 @@ export class ItemPageComponent implements OnInit {
 
   /**
    * The view-mode we're currently on
-   * @type {ElementViewMode}
    */
-  ElementViewMode = viewMode.ElementViewMode;
+  viewMode = VIEW_MODE_FULL;
 
   constructor(
     private route: ActivatedRoute,

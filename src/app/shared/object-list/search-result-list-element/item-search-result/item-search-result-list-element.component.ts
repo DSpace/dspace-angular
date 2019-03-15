@@ -4,9 +4,9 @@ import { focusBackground } from '../../../animations/focus';
 
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import * as viewMode from '../../../../shared/view-mode';
 import { SetViewMode } from '../../../view-mode';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
+import { VIEW_MODE_ELEMENT } from '../../../../+item-page/simple/related-items/related-items-component';
 
 @Component({
   selector: 'ds-item-search-result-list-element',
@@ -18,5 +18,5 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
 
 @renderElementsFor(ItemSearchResult, SetViewMode.List)
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
-  ElementViewMode = viewMode.ElementViewMode;
+  viewMode = VIEW_MODE_ELEMENT;
 }

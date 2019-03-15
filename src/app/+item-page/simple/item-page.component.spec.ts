@@ -8,14 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { Observable } from 'rxjs';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { createRelationshipsObservable } from './entity-types/shared/entity.component.spec';
+import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';
 
 const mockItem: Item = Object.assign(new Item(), {

@@ -9,7 +9,7 @@ import { ItemSearchResultListElementComponent } from './item-search-result-list-
 import { By } from '@angular/platform-browser';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { createRelationshipsObservable } from '../../../../+item-page/simple/entity-types/shared/entity.component.spec';
+import { createRelationshipsObservable } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 
 const mockItem: Item = Object.assign(new Item(), {
@@ -81,9 +81,9 @@ describe('ItemSearchResultListElementComponent', () => {
       fixture.detectChanges();
     }));
 
-    it('should call an entity-type-switcher component and pass the item', () => {
-      const entityTypeSwitcher = fixture.debugElement.query(By.css('ds-entity-type-switcher')).componentInstance;
-      expect(entityTypeSwitcher.object).toBe(mockItem);
+    it('should call an item-type-switcher component and pass the item', () => {
+      const itemTypeSwitcher = fixture.debugElement.query(By.css('ds-item-type-switcher')).componentInstance;
+      expect(itemTypeSwitcher.object).toBe(mockItem);
     });
 
   });
