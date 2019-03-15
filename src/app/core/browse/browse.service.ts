@@ -11,16 +11,13 @@ import {
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SortOptions } from '../cache/models/sort-options.model';
-import { GenericSuccessResponse } from '../cache/response-cache.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
+import { GenericSuccessResponse } from '../cache/response.models';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import {
   BrowseEndpointRequest,
   BrowseEntriesRequest,
   BrowseItemsRequest,
-  GetRequest,
   RestRequest
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
@@ -29,21 +26,24 @@ import { BrowseEntry } from '../shared/browse-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   configureRequest,
-  filterSuccessfulResponses, getBrowseDefinitionLinks,
-  getRemoteDataPayload,
-  getRequestFromSelflink,
-  getResponseFromSelflink
+  filterSuccessfulResponses,
+  getBrowseDefinitionLinks,
+  getRemoteDataPayload, getRequestFromRequestHref
 } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { Item } from '../shared/item.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
+/**
+ * Service that performs all actions that have to do with browse.
+ */
 @Injectable()
 export class BrowseService {
   protected linkPath = 'browses';
 
-  private static toSearchKeyArray(metadatumKey: string): string[] {
-    const keyParts = metadatumKey.split('.');
+  private static toSearchKeyArray(metadataKey: string): string[] {
+    const keyParts = metadataKey.split('.');
     const searchFor = [];
     searchFor.push('*');
     for (let i = 0; i < keyParts.length - 1; i++) {
@@ -51,12 +51,11 @@ export class BrowseService {
       const nextPart = [...prevParts, '*'].join('.');
       searchFor.push(nextPart);
     }
-    searchFor.push(metadatumKey);
+    searchFor.push(metadataKey);
     return searchFor;
   }
 
   constructor(
-    protected responseCache: ResponseCacheService,
     protected requestService: RequestService,
     protected halService: HALEndpointService,
     private rdb: RemoteDataBuildService,
@@ -72,11 +71,9 @@ export class BrowseService {
     );
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
-    const payload$ = responseCache$.pipe(
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
+    const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<BrowseDefinition[]>) => response.payload),
       ensureArrayHasValue(),
       map((definitions: BrowseDefinition[]) => definitions
@@ -84,21 +81,21 @@ export class BrowseService {
       distinctUntilChanged()
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  getBrowseEntriesFor(definitionID: string, options: {
-    pagination?: PaginationComponentOptions;
-    sort?: SortOptions;
-  } = {}): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
+  getBrowseEntriesFor(options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<BrowseEntry>>> {
     const request$ = this.getBrowseDefinitions().pipe(
-      getBrowseDefinitionLinks(definitionID),
+      getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
       map((_links: any) => _links.entries),
       hasValueOperator(),
       map((href: string) => {
         // TODO nearly identical to PaginatedSearchOptions => refactor
         const args = [];
+        if (isNotEmpty(options.sort)) {
+          args.push(`scope=${options.scope}`);
+        }
         if (isNotEmpty(options.sort)) {
           args.push(`sort=${options.sort.field},${options.sort.direction}`);
         }
@@ -117,12 +114,10 @@ export class BrowseService {
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
 
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
 
-    const payload$ = responseCache$.pipe(
+    const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<BrowseEntry[]>) => new PaginatedList(response.pageInfo, response.payload)),
       map((list: PaginatedList<BrowseEntry>) => Object.assign(list, {
         page: list.page ? list.page.map((entry: BrowseEntry) => Object.assign(new BrowseEntry(), entry)) : list.page
@@ -130,7 +125,7 @@ export class BrowseService {
       distinctUntilChanged()
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
   /**
@@ -142,17 +137,17 @@ export class BrowseService {
    *                                    sort: SortOptions }
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
-  getBrowseItemsFor(definitionID: string, filterValue: string, options: {
-    pagination?: PaginationComponentOptions;
-    sort?: SortOptions;
-  } = {}): Observable<RemoteData<PaginatedList<Item>>> {
+  getBrowseItemsFor(filterValue: string, options: BrowseEntrySearchOptions): Observable<RemoteData<PaginatedList<Item>>> {
     const request$ = this.getBrowseDefinitions().pipe(
-      getBrowseDefinitionLinks(definitionID),
+      getBrowseDefinitionLinks(options.metadataDefinition),
       hasValueOperator(),
       map((_links: any) => _links.items),
       hasValueOperator(),
       map((href: string) => {
         const args = [];
+        if (isNotEmpty(options.sort)) {
+          args.push(`scope=${options.scope}`);
+        }
         if (isNotEmpty(options.sort)) {
           args.push(`sort=${options.sort.field},${options.sort.direction}`);
         }
@@ -174,12 +169,10 @@ export class BrowseService {
 
     const href$ = request$.pipe(map((request: RestRequest) => request.href));
 
-    const requestEntry$ = href$.pipe(getRequestFromSelflink(this.requestService));
-    const responseCache$ = href$.pipe(getResponseFromSelflink(this.responseCache));
+    const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
 
-    const payload$ = responseCache$.pipe(
+    const payload$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
-      map((entry: ResponseCacheEntry) => entry.response),
       map((response: GenericSuccessResponse<Item[]>) => new PaginatedList(response.pageInfo, response.payload)),
       map((list: PaginatedList<Item>) => Object.assign(list, {
         page: list.page ? list.page.map((item: DSpaceObject) => Object.assign(new Item(), item)) : list.page
@@ -187,11 +180,11 @@ export class BrowseService {
       distinctUntilChanged()
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntry$, responseCache$, payload$);
+    return this.rdb.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  getBrowseURLFor(metadatumKey: string, linkPath: string): Observable<string> {
-    const searchKeyArray = BrowseService.toSearchKeyArray(metadatumKey);
+  getBrowseURLFor(metadataKey: string, linkPath: string): Observable<string> {
+    const searchKeyArray = BrowseService.toSearchKeyArray(metadataKey);
     return this.getBrowseDefinitions().pipe(
       getRemoteDataPayload(),
       map((browseDefinitions: BrowseDefinition[]) => browseDefinitions
@@ -202,7 +195,7 @@ export class BrowseService {
       ),
       map((def: BrowseDefinition) => {
         if (isEmpty(def) || isEmpty(def._links) || isEmpty(def._links[linkPath])) {
-          throw new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`);
+          throw new Error(`A browse endpoint for ${linkPath} on ${metadataKey} isn't configured`);
         } else {
           return def._links[linkPath];
         }

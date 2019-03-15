@@ -1,10 +1,8 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
@@ -22,14 +20,15 @@ import {
 import { RequestService } from './request.service';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { TestScheduler } from 'rxjs/testing';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { MockStore } from '../../shared/testing/mock-store';
+import { IndexState } from '../index/index.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
   let service: RequestService;
   let serviceAsAny: any;
   let objectCache: ObjectCacheService;
-  let responseCache: ResponseCacheService;
   let uuidService: UUIDService;
   let store: Store<CoreState>;
 
@@ -49,14 +48,10 @@ describe('RequestService', () => {
     objectCache = getMockObjectCacheService();
     (objectCache.hasBySelfLink as any).and.returnValue(false);
 
-    responseCache = getMockResponseCacheService();
-    (responseCache.has as any).and.returnValue(false);
-    (responseCache.get as any).and.returnValue(observableOf(undefined));
-
     uuidService = getMockUUIDService();
 
     store = new Store<CoreState>(new BehaviorSubject({}), new ActionsSubject(), null);
-    selectSpy = spyOnProperty(ngrx, 'select')
+    selectSpy = spyOnProperty(ngrx, 'select');
     selectSpy.and.callFake(() => {
       return () => {
         return () => cold('a', { a: undefined });
@@ -65,9 +60,9 @@ describe('RequestService', () => {
 
     service = new RequestService(
       objectCache,
-      responseCache,
       uuidService,
-      store
+      store,
+      undefined
     );
     serviceAsAny = service as any;
   });
@@ -178,11 +173,11 @@ describe('RequestService', () => {
 
       it('should return an Observable of undefined', () => {
         const result = service.getByUUID(testUUID);
-        const expected = cold('b', {
-          b: undefined
-        });
+        // const expected = cold('b', {
+        //   b: undefined
+        // });
 
-        expect(result).toBeObservable(expected);
+        scheduler.expectObservable(result).toBe('b', { b: undefined });
       });
     });
 
@@ -327,7 +322,7 @@ describe('RequestService', () => {
     describe('when the request is cached', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
-          (objectCache.hasBySelfLink as any).and.returnValues(true);
+          (objectCache.hasBySelfLink as any).and.returnValue(true);
         });
 
         it('should return true', () => {
@@ -339,12 +334,13 @@ describe('RequestService', () => {
       });
       describe('in the responseCache', () => {
         beforeEach(() => {
-          (responseCache.has as any).and.returnValues(true);
+          spyOn(serviceAsAny, 'isReusable').and.returnValue(observableOf(true));
+          spyOn(serviceAsAny, 'getByHref').and.returnValue(observableOf(undefined));
         });
 
         describe('and it\'s a DSOSuccessResponse', () => {
           beforeEach(() => {
-            (responseCache.get as any).and.returnValues(observableOf({
+            (serviceAsAny.getByHref as any).and.returnValue(observableOf({
                 response: {
                   isSuccessful: true,
                   resourceSelfLinks: [
@@ -366,6 +362,7 @@ describe('RequestService', () => {
           });
           it('should return false if not all top level links in the response are cached in the object cache', () => {
             (objectCache.hasBySelfLink as any).and.returnValues(false, true, false);
+            spyOn(service, 'isPending').and.returnValue(false);
 
             const result = serviceAsAny.isCachedOrPending(testGetRequest);
             const expected = false;
@@ -373,11 +370,12 @@ describe('RequestService', () => {
             expect(result).toEqual(expected);
           });
         });
+
         describe('and it isn\'t a DSOSuccessResponse', () => {
           beforeEach(() => {
-            (objectCache.hasBySelfLink as any).and.returnValues(false);
-            (responseCache.has as any).and.returnValues(true);
-            (responseCache.get as any).and.returnValues(observableOf({
+            (objectCache.hasBySelfLink as any).and.returnValue(false);
+            (service as any).isReusable.and.returnValue(observableOf(true));
+            (serviceAsAny.getByHref as any).and.returnValue(observableOf({
                 response: {
                   isSuccessful: true
                 }
@@ -463,4 +461,105 @@ describe('RequestService', () => {
       });
     });
   });
+
+  describe('isReusable', () => {
+    describe('when the given UUID is has no value', () => {
+      let reusable;
+      beforeEach(() => {
+        const uuid = undefined;
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, but no cached entry is found', () => {
+      let reusable;
+      beforeEach(() => {
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(undefined));
+        const uuid = 'a45bb291-1adb-40d9-b2fc-7ad9080607be';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, a cached entry is found, but it has no response', () => {
+      let reusable;
+      beforeEach(() => {
+        spyOn(service, 'getByUUID').and.returnValue(observableOf({ response: undefined }));
+        const uuid = '53c9b814-ad8b-4567-9bc1-d9bb6cfba6c8';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, a cached entry is found, but its response was not successful', () => {
+      let reusable;
+      beforeEach(() => {
+        spyOn(service, 'getByUUID').and.returnValue(observableOf({ response: { isSuccessful: false } }));
+        const uuid = '694c9b32-7b2e-4788-835b-ef3fc2252e6c';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, a cached entry is found, its response was successful, but the response is outdated', () => {
+      let reusable;
+      const now = 100000;
+      const timeAdded = 99899;
+      const msToLive = 100;
+
+      beforeEach(() => {
+        spyOn(Date.prototype, 'getTime').and.returnValue(now);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf({
+          response: {
+            isSuccessful: true,
+            timeAdded: timeAdded
+          },
+          request: {
+            responseMsToLive: msToLive
+          }
+        }));
+        const uuid = 'f9b85788-881c-4994-86b6-bae8dad024d2';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+
+      it('return an observable emitting false', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+      })
+    });
+
+    describe('when the given UUID has a value, a cached entry is found, its response was successful, and the response is not outdated', () => {
+      let reusable;
+      const now = 100000;
+      const timeAdded = 99999;
+      const msToLive = 100;
+
+      beforeEach(() => {
+        spyOn(Date.prototype, 'getTime').and.returnValue(now);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf({
+          response: {
+            isSuccessful: true,
+            timeAdded: timeAdded
+          },
+          request: {
+            responseMsToLive: msToLive
+          }
+        }));
+        const uuid = 'f9b85788-881c-4994-86b6-bae8dad024d2';
+        reusable = serviceAsAny.isReusable(uuid);
+      });
+
+      it('return an observable emitting true', () => {
+        reusable.subscribe((isReusable) => expect(isReusable).toBe(true));
+      })
+    })
+  })
 });

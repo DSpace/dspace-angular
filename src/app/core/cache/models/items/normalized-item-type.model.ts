@@ -10,7 +10,7 @@ import { IDToUUIDSerializer } from '../../id-to-uuid-serializer';
  */
 @mapsTo(ItemType)
 @inheritSerialization(NormalizedObject)
-export class NormalizedItemType extends NormalizedObject {
+export class NormalizedItemType extends NormalizedObject<ItemType> {
 
   /**
    * The label that describes the ResourceType of the Item

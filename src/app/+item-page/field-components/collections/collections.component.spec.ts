@@ -14,12 +14,14 @@ let collectionsComponent: CollectionsComponent;
 let fixture: ComponentFixture<CollectionsComponent>;
 
 const mockCollection1: Collection = Object.assign(new Collection(), {
-  metadata: [
-    {
-      key: 'dc.description.abstract',
-      language: 'en_US',
-      value: 'Short description'
-    }]
+  metadata: {
+    'dc.description.abstract': [
+      {
+        language: 'en_US',
+        value: 'Short description'
+      }
+    ]
+  }
 });
 
 const succeededMockItem: Item = Object.assign(new Item(), {owningCollection: observableOf(new RemoteData(false, false, true, null, mockCollection1))});

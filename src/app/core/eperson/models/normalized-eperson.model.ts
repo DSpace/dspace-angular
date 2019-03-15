@@ -8,7 +8,7 @@ import { ResourceType } from '../../shared/resource-type';
 
 @mapsTo(EPerson)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedEPerson extends NormalizedDSpaceObject implements CacheableObject, ListableObject {
+export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implements CacheableObject, ListableObject {
 
   @autoserialize
   public handle: string;

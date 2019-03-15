@@ -101,6 +101,14 @@ import { ItemMetadataListElementComponent } from './object-list/metadata-represe
 import { TooltipModule } from 'ngx-bootstrap';
 import { PersonMetadataListElementComponent } from './object-list/item-list-element/item-types/person/person-metadata-list-element.component';
 import { MetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/metadata-representation-list-element.component';
+import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
+import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
+import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
+import { ObjectValuesPipe } from './utils/object-values-pipe';
+import { InListValidator } from './utils/in-list-validator.directive';
+import { AutoFocusDirective } from './utils/auto-focus.directive';
+import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -138,6 +146,7 @@ const PIPES = [
   EmphasizePipe,
   CapitalizePipe,
   ObjectKeysPipe,
+  ObjectValuesPipe,
   ConsolePipe
 ];
 
@@ -148,6 +157,11 @@ const COMPONENTS = [
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
+  ComColFormComponent,
+  CreateComColPageComponent,
+  EditComColPageComponent,
+  DeleteComColPageComponent,
+  ComcolPageBrowseByComponent,
   DsDynamicFormComponent,
   DsDynamicFormControlComponent,
   DsDynamicListComponent,
@@ -219,7 +233,9 @@ const DIRECTIVES = [
   VarDirective,
   DragClickDirective,
   DebounceDirective,
-  ClickOutsideDirective
+  ClickOutsideDirective,
+  InListValidator,
+  AutoFocusDirective
 ];
 
 @NgModule({

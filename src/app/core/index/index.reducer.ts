@@ -2,12 +2,13 @@ import {
   IndexAction,
   IndexActionTypes,
   AddToIndexAction,
-  RemoveFromIndexByValueAction
+  RemoveFromIndexByValueAction, RemoveFromIndexBySubstringAction
 } from './index.actions';
 
 export enum IndexName {
   OBJECT = 'object/uuid-to-self-link',
   REQUEST = 'get-request/href-to-uuid',
+  UUID_MAPPING = 'get-request/configured-to-cache-uuid'
 }
 
 export type IndexState = {
@@ -30,6 +31,10 @@ export function indexReducer(state = initialState, action: IndexAction): IndexSt
       return removeFromIndexByValue(state, action as RemoveFromIndexByValueAction)
     }
 
+    case IndexActionTypes.REMOVE_BY_SUBSTRING: {
+      return removeFromIndexBySubstring(state, action as RemoveFromIndexBySubstringAction)
+    }
+
     default: {
       return state;
     }
@@ -41,9 +46,10 @@ function addToIndex(state: IndexState, action: AddToIndexAction): IndexState {
   const newSubState = Object.assign({}, subState, {
     [action.payload.key]: action.payload.value
   });
-  return Object.assign({}, state, {
+  const obs = Object.assign({}, state, {
     [action.payload.name]: newSubState
-  })
+  });
+  return obs;
 }
 
 function removeFromIndexByValue(state: IndexState, action: RemoveFromIndexByValueAction): IndexState {
@@ -51,6 +57,24 @@ function removeFromIndexByValue(state: IndexState, action: RemoveFromIndexByValu
   const newSubState = Object.create(null);
   for (const value in subState) {
     if (subState[value] !== action.payload.value) {
+      newSubState[value] = subState[value];
+    }
+  }
+  return Object.assign({}, state, {
+    [action.payload.name]: newSubState
+  });
+}
+
+/**
+ * Remove values from the IndexState's substate that contain a given substring
+ * @param state     The IndexState to remove values from
+ * @param action    The RemoveFromIndexByValueAction containing the necessary information to remove the values
+ */
+function removeFromIndexBySubstring(state: IndexState, action: RemoveFromIndexByValueAction): IndexState {
+  const subState = state[action.payload.name];
+  const newSubState = Object.create(null);
+  for (const value in subState) {
+    if (value.indexOf(action.payload.value) < 0) {
       newSubState[value] = subState[value];
     }
   }

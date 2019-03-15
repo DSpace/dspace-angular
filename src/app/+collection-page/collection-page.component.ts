@@ -51,7 +51,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
-    this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
+    this.sortConfig = new SortOptions('dc.date.issued', SortDirection.DESC);
   }
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         );
         const sort = Object.assign({},
           this.sortConfig,
-          { direction: sortDirection, field: params.sortField }
+          { direction: sortDirection, field: this.sortConfig.field }
         );
         this.collectionRD$.subscribe((rd: RemoteData<Collection>) => {
           this.collectionId = rd.payload.id;

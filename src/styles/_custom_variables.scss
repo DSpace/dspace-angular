@@ -1,6 +1,7 @@
 $content-spacing: $spacer * 1.5;
 
 $button-height: $input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2);
+
 $card-height-percentage:98%;
 $card-thumbnail-height:240px;
 $dropdown-menu-max-height: 200px;
@@ -22,3 +23,7 @@ $admin-sidebar-header-bg: darken($dark, 7%);
 
 $dark-scrollbar-background: $admin-sidebar-active-bg;
 $dark-scrollbar-foreground: #47495d;
+
+$edit-item-button-min-width: 100px;
+$edit-item-metadata-field-width: 190px;
+$edit-item-language-field-width: 43px;

@@ -42,7 +42,7 @@ export class ItemMetadataRepresentation extends Item implements MetadataRepresen
     } else {
       metadata = ItemTypeToValue.Default;
     }
-    return this.findMetadata(metadata);
+    return this.firstMetadataValue(metadata);
   }
 
 }

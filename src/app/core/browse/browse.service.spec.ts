@@ -2,19 +2,19 @@ import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseService } from './browse.service';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
+import { RequestEntry } from '../data/request.reducer';
+import { of as observableOf } from 'rxjs';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
   let service: BrowseService;
-  let responseCache: ResponseCacheService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
 
@@ -79,22 +79,14 @@ describe('BrowseService', () => {
     })
   ];
 
-  function initMockResponseCacheService(isSuccessful: boolean) {
-    const rcs = getMockResponseCacheService();
-    (rcs.get as any).and.returnValue(cold('b-', {
-      b: {
-        response: {
-          isSuccessful,
-          payload: browseDefinitions,
-        }
-      }
-    }));
-    return rcs;
-  }
+  const getRequestEntry$ = (successful: boolean) => {
+    return observableOf({
+      response: { isSuccessful: successful, payload: browseDefinitions } as any
+    } as RequestEntry)
+  };
 
   function initTestService() {
     return new BrowseService(
-      responseCache,
       requestService,
       halService,
       rdbService
@@ -108,8 +100,7 @@ describe('BrowseService', () => {
   describe('getBrowseDefinitions', () => {
 
     beforeEach(() => {
-      responseCache = initMockResponseCacheService(true);
-      requestService = getMockRequestService();
+      requestService = getMockRequestService(getRequestEntry$(true));
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
       spyOn(halService, 'getEndpoint').and
@@ -147,8 +138,7 @@ describe('BrowseService', () => {
     const mockAuthorName = 'Donald Smith';
 
     beforeEach(() => {
-      responseCache = initMockResponseCacheService(true);
-      requestService = getMockRequestService();
+      requestService = getMockRequestService(getRequestEntry$(true));
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
       spyOn(service, 'getBrowseDefinitions').and
@@ -162,14 +152,14 @@ describe('BrowseService', () => {
       it('should configure a new BrowseEntriesRequest', () => {
         const expected = new BrowseEntriesRequest(requestService.generateRequestId(), browseDefinitions[1]._links.entries);
 
-        scheduler.schedule(() => service.getBrowseEntriesFor(browseDefinitions[1].id).subscribe());
+        scheduler.schedule(() => service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
         expect(requestService.configure).toHaveBeenCalledWith(expected);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getBrowseEntriesFor(browseDefinitions[1].id);
+        service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id));
 
         expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 
@@ -181,14 +171,14 @@ describe('BrowseService', () => {
       it('should configure a new BrowseItemsRequest', () => {
         const expected = new BrowseItemsRequest(requestService.generateRequestId(), browseDefinitions[1]._links.items + '?filterValue=' + mockAuthorName);
 
-        scheduler.schedule(() => service.getBrowseItemsFor(browseDefinitions[1].id, mockAuthorName).subscribe());
+        scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
         expect(requestService.configure).toHaveBeenCalledWith(expected);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
-        service.getBrowseItemsFor(browseDefinitions[1].id, mockAuthorName);
+        service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id));
 
         expect(rdbService.toRemoteDataObservable).toHaveBeenCalled();
 
@@ -202,7 +192,7 @@ describe('BrowseService', () => {
         const definitionID = 'invalidID';
         const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`))
 
-        expect(service.getBrowseEntriesFor(definitionID)).toBeObservable(expected);
+        expect(service.getBrowseEntriesFor(new BrowseEntrySearchOptions(definitionID))).toBeObservable(expected);
       });
     });
 
@@ -212,7 +202,7 @@ describe('BrowseService', () => {
         const definitionID = 'invalidID';
         const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`))
 
-        expect(service.getBrowseItemsFor(definitionID, mockAuthorName)).toBeObservable(expected);
+        expect(service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(definitionID))).toBeObservable(expected);
       });
     });
   });
@@ -221,8 +211,7 @@ describe('BrowseService', () => {
 
     describe('if getBrowseDefinitions fires', () => {
       beforeEach(() => {
-        responseCache = initMockResponseCacheService(true);
-        requestService = getMockRequestService();
+        requestService = getMockRequestService(getRequestEntry$(true));
         rdbService = getMockRemoteDataBuildService();
         service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
@@ -231,44 +220,44 @@ describe('BrowseService', () => {
             }}));
       });
 
-      it('should return the URL for the given metadatumKey and linkPath', () => {
-        const metadatumKey = 'dc.date.issued';
+      it('should return the URL for the given metadataKey and linkPath', () => {
+        const metadataKey = 'dc.date.issued';
         const linkPath = 'items';
         const expectedURL = browseDefinitions[0]._links[linkPath];
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
         const expected = cold('c-d-', { c: undefined, d: expectedURL });
 
         expect(result).toBeObservable(expected);
       });
 
-      it('should work when the definition uses a wildcard in the metadatumKey', () => {
-        const metadatumKey = 'dc.contributor.author';  // should match dc.contributor.* in the definition
+      it('should work when the definition uses a wildcard in the metadataKey', () => {
+        const metadataKey = 'dc.contributor.author';  // should match dc.contributor.* in the definition
         const linkPath = 'items';
         const expectedURL = browseDefinitions[1]._links[linkPath];
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
         const expected = cold('c-d-', { c: undefined, d: expectedURL });
 
         expect(result).toBeObservable(expected);
       });
 
       it('should throw an error when the key doesn\'t match', () => {
-        const metadatumKey = 'dc.title'; // isn't in the definitions
+        const metadataKey = 'dc.title'; // isn't in the definitions
         const linkPath = 'items';
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
-        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`));
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
+        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadataKey} isn't configured`));
 
         expect(result).toBeObservable(expected);
       });
 
       it('should throw an error when the link doesn\'t match', () => {
-        const metadatumKey = 'dc.date.issued';
+        const metadataKey = 'dc.date.issued';
         const linkPath = 'collections'; // isn't in the definitions
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
-        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadatumKey} isn't configured`));
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
+        const expected = cold('c-#-', { c: undefined }, new Error(`A browse endpoint for ${linkPath} on ${metadataKey} isn't configured`));
 
         expect(result).toBeObservable(expected);
       });
@@ -277,17 +266,16 @@ describe('BrowseService', () => {
 
     describe('if getBrowseDefinitions doesn\'t fire', () => {
       it('should return undefined', () => {
-        responseCache = initMockResponseCacheService(true);
-        requestService = getMockRequestService();
+        requestService = getMockRequestService(getRequestEntry$(true));
         rdbService = getMockRemoteDataBuildService();
         service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
           .returnValue(hot('----'));
 
-        const metadatumKey = 'dc.date.issued';
+        const metadataKey = 'dc.date.issued';
         const linkPath = 'items';
 
-        const result = service.getBrowseURLFor(metadatumKey, linkPath);
+        const result = service.getBrowseURLFor(metadataKey, linkPath);
         const expected = cold('b---', { b: undefined });
         expect(result).toBeObservable(expected);
       });

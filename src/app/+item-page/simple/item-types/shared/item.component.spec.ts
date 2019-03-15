@@ -28,6 +28,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -75,10 +76,10 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
       fixture.detectChanges();
     }));
 
-    for (const metadata of mockItem.metadata) {
-      it(`should be calling a component with metadata field ${metadata.key}`, () => {
+    for (const key of Object.keys(mockItem.metadata)) {
+      it(`should be calling a component with metadata field ${key}`, () => {
         const fields = fixture.debugElement.queryAll(By.css('ds-generic-item-page-field'));
-        expect(containsFieldInput(fields, metadata.key)).toBeTruthy();
+        expect(containsFieldInput(fields, key)).toBeTruthy();
       });
     }
   }
@@ -324,30 +325,7 @@ describe('ItemComponent', () => {
     const mockItem = Object.assign(new Item(), {
       id: '1',
       uuid: '1',
-      metadata: [
-        {
-          key: metadataField,
-          value: 'Second value',
-          place: 1
-        },
-        {
-          key: metadataField,
-          value: 'Third value',
-          place: 2,
-          authority: 'virtual::123'
-        },
-        {
-          key: metadataField,
-          value: 'First value',
-          place: 0
-        },
-        {
-          key: metadataField,
-          value: 'Fourth value',
-          place: 3,
-          authority: '123'
-        }
-      ],
+      metadata: new MetadataMap(),
       relationships: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [
         Object.assign(new Relationship(), {
           uuid: '123',
@@ -358,22 +336,44 @@ describe('ItemComponent', () => {
         })
       ])))
     });
+    mockItem.metadata[metadataField] = [
+      {
+        value: 'Second value',
+        place: 1
+      },
+      {
+        value: 'Third value',
+        place: 2,
+        authority: 'virtual::123'
+      },
+      {
+        value: 'First value',
+        place: 0
+      },
+      {
+        value: 'Fourth value',
+        place: 3,
+        authority: '123'
+      }
+    ] as MetadataValue[];
     const relatedItem = Object.assign(new Item(), {
       id: '2',
-      metadata: [
-        {
-          key: 'dc.title',
-          value: 'related item'
-        }
-      ]
+      metadata: Object.assign(new MetadataMap(), {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'related item'
+          }
+        ]
+      })
     });
-    const mockItemDataService = {
+    const mockItemDataService = Object.assign({
       findById: (id) => {
         if (id === relatedItem.id) {
           return observableOf(new RemoteData(false, false, true, null, relatedItem))
         }
       }
-    } as ItemDataService;
+    }) as ItemDataService;
 
     let representations: Observable<MetadataRepresentation[]>;
 

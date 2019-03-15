@@ -350,13 +350,13 @@ describe('FormComponent test suite', () => {
       const control = formComp.formGroup.get(['dc_title']);
       control.setValue('Test Title');
       formState.testForm.valid = true;
-      spyOn(formComp.submit, 'emit');
+      spyOn(formComp.submitForm, 'emit');
 
       form.next(formState.testForm);
       formFixture.detectChanges();
 
       formComp.onSubmit();
-      expect(formComp.submit.emit).toHaveBeenCalled();
+      expect(formComp.submitForm.emit).toHaveBeenCalled();
     });
 
     it('should not emit submit Event on form submit whether the form is not valid', () => {

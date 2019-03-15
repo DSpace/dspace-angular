@@ -13,6 +13,38 @@
           "head": "Recent Submissions"
         }
       }
+    },
+    "form": {
+      "title": "Name",
+      "description": "Introductory text (HTML)",
+      "abstract": "Short Description",
+      "rights": "Copyright text (HTML)",
+      "tableofcontents": "News (HTML)",
+      "license": "License",
+      "provenance": "Provenance",
+      "errors": {
+        "title": {
+          "required": "Please enter a collection name"
+        }
+      }
+    },
+    "edit": {
+      "head": "Edit Collection",
+      "delete": "Delete this collection"
+    },
+    "create": {
+      "head": "Create a Collection",
+      "sub-head": "Create a Collection for Community {{ parent }}"
+    },
+    "delete": {
+      "head": "Delete Collection",
+      "text": "Are you sure you want to delete collection \"{{ dso }}\"",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "notification": {
+        "success": "Successfully deleted collection",
+        "fail": "Collection could not be deleted"
+      }
     }
   },
   "community": {
@@ -25,6 +57,36 @@
     },
     "sub-community-list": {
       "head": "Communities of this Community"
+    },
+    "form": {
+      "title": "Name",
+      "description": "Introductory text (HTML)",
+      "abstract": "Short Description",
+      "rights": "Copyright text (HTML)",
+      "tableofcontents": "News (HTML)",
+      "errors": {
+        "title": {
+          "required": "Please enter a community name"
+        }
+      }
+    },
+    "edit": {
+      "head": "Edit Community",
+      "delete": "Delete this community"
+    },
+    "create": {
+      "head": "Create a Community",
+      "sub-head": "Create a Sub-Community for Community {{ parent }}"
+    },
+    "delete": {
+      "head": "Delete Community",
+      "text": "Are you sure you want to delete community \"{{ dso }}\"",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "notification": {
+        "success": "Successfully deleted community",
+        "fail": "Community could not be deleted"
+      }
     }
   },
   "item": {
@@ -63,6 +125,7 @@
         "status": {
           "head": "Item Status",
           "description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+          "title": "Item Edit -  Status",
           "labels": {
             "id": "Item Internal ID",
             "handle": "Handle",
@@ -105,16 +168,20 @@
           }
         },
         "bitstreams": {
-          "head": "Item Bitstreams"
+          "head": "Item Bitstreams",
+          "title": "Item Edit - Bitstreams"
         },
         "metadata": {
-          "head": "Item Metadata"
+          "head": "Item Metadata",
+          "title": "Item Edit -  Metadata"
         },
         "view": {
-          "head": "View Item"
+          "head": "View Item",
+          "title": "Item Edit -  View"
         },
         "curate": {
-          "head": "Curate"
+          "head": "Curate",
+          "title": "Item Edit - Curate"
         }
       },
       "modify.overview": {
@@ -128,7 +195,7 @@
         "confirm": "Withdraw",
         "cancel": "Cancel",
         "success": "The item was withdrawn successfully",
-        "error": "An error occured while withdrawing the item"
+        "error": "An error occurred while withdrawing the item"
       },
       "reinstate": {
         "header": "Reinstate item: {{ id }}",
@@ -136,7 +203,7 @@
         "confirm": "Reinstate",
         "cancel": "Cancel",
         "success": "The item was reinstated successfully",
-        "error": "An error occured while reinstating the item"
+        "error": "An error occurred while reinstating the item"
       },
       "private": {
         "header": "Make item private: {{ id }}",
@@ -144,7 +211,7 @@
         "confirm": "Make it Private",
         "cancel": "Cancel",
         "success": "The item is now private",
-        "error": "An error occured while making the item private"
+        "error": "An error occurred while making the item private"
       },
       "public": {
         "header": "Make item public: {{ id }}",
@@ -152,7 +219,7 @@
         "confirm": "Make it Public",
         "cancel": "Cancel",
         "success": "The item is now public",
-        "error": "An error occured while making the item public"
+        "error": "An error occurred while making the item public"
       },
       "delete": {
         "header": "Delete item: {{ id }}",
@@ -160,7 +227,48 @@
         "confirm": "Delete",
         "cancel": "Cancel",
         "success": "The item has been deleted",
-        "error": "An error occured while deleting the item"
+        "error": "An error occurred while deleting the item"
+      },
+      "metadata": {
+        "add-button": "Add",
+        "discard-button": "Discard",
+        "reinstate-button": "Undo",
+        "save-button": "Save",
+        "headers": {
+          "field": "Field",
+          "value": "Value",
+          "language": "Lang",
+          "edit": "Edit"
+        },
+        "edit": {
+          "buttons": {
+            "edit": "Edit",
+            "unedit": "Stop editing",
+            "remove": "Remove",
+            "undo": "Undo changes"
+          }
+        },
+        "metadatafield": {
+          "invalid": "Please choose a valid metadata field"
+        },
+        "notifications": {
+          "outdated": {
+            "title": "Changed outdated",
+            "content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts"
+          },
+          "discarded": {
+            "title": "Changed discarded",
+            "content": "Your changes were discarded. To reinstate your changes click the 'Undo' button"
+          },
+          "invalid": {
+            "title": "Metadata invalid",
+            "content": "Your changes were not saved. Please make sure all fields are valid before you save."
+          },
+          "saved": {
+            "title": "Metadata saved",
+            "content": "Your changes to this item's metadata were saved."
+          }
+        }
       }
     }
   },
@@ -383,7 +491,21 @@
     }
   },
   "browse": {
-    "title": "Browsing {{ collection }} by {{ field }} {{ value }}"
+    "title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+    "metadata": {
+      "title": "Title",
+      "author": "Author",
+      "subject": "Subject"
+    },
+    "comcol": {
+      "head": "Browse",
+      "by": {
+        "title": "By Title",
+        "author": "By Author",
+        "subject": "By Subject"
+      }
+    },
+    "empty": "No items to show."
   },
   "admin": {
     "registries": {
@@ -391,11 +513,18 @@
         "title": "DSpace Angular :: Metadata Registry",
         "head": "Metadata Registry",
         "description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
+        "form": {
+          "create": "Create metadata schema",
+          "edit": "Edit metadata schema",
+          "namespace": "Namespace",
+          "name": "Name"
+        },
         "schemas": {
           "table": {
             "id": "ID",
             "namespace": "Namespace",
-            "name": "Name"
+            "name": "Name",
+            "delete": "Delete selected"
           },
           "no-items": "No metadata schemas to show."
         }
@@ -404,13 +533,40 @@
         "title": "DSpace Angular :: Metadata Schema Registry",
         "head": "Metadata Schema",
         "description": "This is the metadata schema for \"{{namespace}}\".",
+        "return": "Return",
+        "form": {
+          "create": "Create metadata field",
+          "edit": "Edit metadata field",
+          "element": "Element",
+          "qualifier": "Qualifier",
+          "scopenote": "Scope Note"
+        },
         "fields": {
           "head": "Schema metadata fields",
           "table": {
             "field": "Field",
-            "scopenote": "Scope Note"
+            "scopenote": "Scope Note",
+            "delete": "Delete selected"
           },
           "no-items": "No metadata fields to show."
+        },
+        "notification": {
+          "success": "Success",
+          "failure": "Error",
+          "created": "Successfully created metadata schema \"{{prefix}}\"",
+          "edited": "Successfully edited metadata schema \"{{prefix}}\"",
+          "deleted": {
+            "success": "Successfully deleted {{amount}} metadata schemas",
+            "failure": "Failed to delete {{amount}} metadata schemas"
+          },
+          "field": {
+            "created": "Successfully created metadata field \"{{field}}\"",
+            "edited": "Successfully edited metadata field \"{{field}}\"",
+            "deleted": {
+              "success": "Successfully deleted {{amount}} metadata fields",
+              "failure": "Failed to delete {{amount}} metadata fields"
+            }
+          }
         }
       },
       "bitstream-formats": {
@@ -480,6 +636,7 @@
       "browse_global_by_issue_date": "By Issue Date",
       "browse_global_by_author": "By Author",
       "browse_global_by_title": "By Title",
+      "browse_global_by_subject": "By Subject",
       "statistics": "Statistics",
       "browse_community": "This Community",
       "browse_community_by_issue_date": "By Issue Date",

@@ -11,6 +11,7 @@ import { ITEM } from '../../../items/switcher/item-type-switcher.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { createRelationshipsObservable } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';
+import { MetadataMap } from '../../../../core/shared/metadata.models';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
@@ -19,7 +20,7 @@ const mockItem: Item = Object.assign(new Item(), {
 });
 const mockSearchResult = {
   dspaceObject: mockItem as Item,
-  hitHighlights: []
+  hitHighlights: new MetadataMap()
 } as ItemSearchResult;
 
 describe('ItemSearchResultComponent', () => {

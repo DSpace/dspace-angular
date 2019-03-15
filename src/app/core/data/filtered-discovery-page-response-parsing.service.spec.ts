@@ -4,7 +4,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { ResponseParsingService } from './parsing.service';
 import { GetRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { FilteredDiscoveryQueryResponse } from '../cache/response-cache.models';
+import { FilteredDiscoveryQueryResponse } from '../cache/response.models';
 
 describe('FilteredDiscoveryPageResponseParsingService', () => {
   let service: FilteredDiscoveryPageResponseParsingService;

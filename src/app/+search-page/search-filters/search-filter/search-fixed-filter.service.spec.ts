@@ -1,12 +1,10 @@
 import { SearchFixedFilterService } from './search-fixed-filter.service';
-import { ResponseCacheEntry } from '../../../core/cache/response-cache.reducer';
 import { RouteService } from '../../../shared/services/route.service';
 import { RequestService } from '../../../core/data/request.service';
-import { ResponseCacheService } from '../../../core/cache/response-cache.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response-cache.models';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { of as observableOf } from 'rxjs';
+import { RequestEntry } from '../../../core/data/request.reducer';
+import { FilteredDiscoveryQueryResponse, RestResponse } from '../../../core/cache/response.models';
 
 describe('SearchFixedFilterService', () => {
   let service: SearchFixedFilterService;
@@ -18,19 +16,17 @@ describe('SearchFixedFilterService', () => {
     /* tslint:disable:no-empty */
     configure: () => {},
     /* tslint:enable:no-empty */
-    generateRequestId: () => 'fake-id'
-  }) as RequestService;
-  const responseCacheStub = Object.assign(new ResponseCacheService(undefined), {
-    get: () => observableOf(Object.assign(new ResponseCacheEntry(), {
-      response: new FilteredDiscoveryQueryResponse(filterQuery, '200', new PageInfo())
+    generateRequestId: () => 'fake-id',
+    getByUUID: () => observableOf(Object.assign(new RequestEntry(), {
+      response: new FilteredDiscoveryQueryResponse(filterQuery, '200')
     }))
-  });
-  const halServiceStub = Object.assign(new HALEndpointService(responseCacheStub, requestServiceStub, undefined), {
+  }) as RequestService;
+  const halServiceStub = Object.assign(new HALEndpointService(requestServiceStub, undefined), {
     getEndpoint: () => observableOf('fake-url')
   });
 
   beforeEach(() => {
-    service = new SearchFixedFilterService(routeServiceStub, requestServiceStub, responseCacheStub, halServiceStub);
+    service = new SearchFixedFilterService(routeServiceStub, requestServiceStub, halServiceStub);
   });
 
   describe('when getQueryByFilterName is called with a filterName', () => {

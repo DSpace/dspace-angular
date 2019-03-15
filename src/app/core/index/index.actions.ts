@@ -8,7 +8,8 @@ import { IndexName } from './index.reducer';
  */
 export const IndexActionTypes = {
   ADD: type('dspace/core/index/ADD'),
-  REMOVE_BY_VALUE: type('dspace/core/index/REMOVE_BY_VALUE')
+  REMOVE_BY_VALUE: type('dspace/core/index/REMOVE_BY_VALUE'),
+  REMOVE_BY_SUBSTRING: type('dspace/core/index/REMOVE_BY_SUBSTRING')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -43,6 +44,30 @@ export class AddToIndexAction implements Action {
  */
 export class RemoveFromIndexByValueAction implements Action {
   type = IndexActionTypes.REMOVE_BY_VALUE;
+  payload: {
+    name: IndexName,
+    value: string
+  };
+
+  /**
+   * Create a new RemoveFromIndexByValueAction
+   *
+   * @param name
+   *    the name of the index to remove from
+   * @param value
+   *    the value to remove the UUID for
+   */
+  constructor(name: IndexName, value: string) {
+    this.payload = { name, value };
+  }
+
+}
+
+/**
+ * An ngrx action to remove multiple values from the index by substring
+ */
+export class RemoveFromIndexBySubstringAction implements Action {
+  type = IndexActionTypes.REMOVE_BY_SUBSTRING;
   payload: {
     name: IndexName,
     value: string

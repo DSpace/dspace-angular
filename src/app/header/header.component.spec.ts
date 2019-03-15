@@ -3,12 +3,13 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
+
+import { HeaderComponent } from './header.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/testing/menu-service-stub';
-import { HeaderComponent } from './header.component';
 
 let comp: HeaderComponent;
 let fixture: ComponentFixture<HeaderComponent>;

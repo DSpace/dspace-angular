@@ -81,4 +81,12 @@ export class PaginatedList<T> {
   set last(last: string) {
     this.pageInfo.last = last;
   }
+
+  get self(): string {
+    return this.pageInfo.self;
+  }
+
+  set self(self: string) {
+    this.pageInfo.self = self;
+  }
 }

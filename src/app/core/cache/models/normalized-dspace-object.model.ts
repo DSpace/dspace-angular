@@ -1,7 +1,6 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserializeAs, deserializeAs } from 'cerialize';
 import { DSpaceObject } from '../../shared/dspace-object.model';
-
-import { Metadatum } from '../../shared/metadatum.model';
+import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models';
 import { ResourceType } from '../../shared/resource-type';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
@@ -10,7 +9,7 @@ import { NormalizedObject } from './normalized-object.model';
  * An model class for a DSpaceObject.
  */
 @mapsTo(DSpaceObject)
-export class NormalizedDSpaceObject extends NormalizedObject {
+export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedObject<T> {
 
   /**
    * The link to the rest endpoint where this object can be found
@@ -18,7 +17,7 @@ export class NormalizedDSpaceObject extends NormalizedObject {
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @autoserialize
+  @deserializeAs(String)
   self: string;
 
   /**
@@ -36,37 +35,31 @@ export class NormalizedDSpaceObject extends NormalizedObject {
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @autoserialize
+  @autoserializeAs(String)
   uuid: string;
 
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  @autoserialize
+  @autoserializeAs(String)
   type: ResourceType;
 
   /**
-   * The name for this DSpaceObject
+   * All metadata of this DSpaceObject
    */
-  @autoserialize
-  name: string;
-
-  /**
-   * An array containing all metadata of this DSpaceObject
-   */
-  @autoserializeAs(Metadatum)
-  metadata: Metadatum[];
+  @autoserializeAs(MetadataMapSerializer)
+  metadata: MetadataMap;
 
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
    */
-  @autoserialize
+  @deserializeAs(String)
   parents: string[];
 
   /**
    * The DSpaceObject that owns this DSpaceObject
    */
-  @autoserialize
+  @deserializeAs(String)
   owner: string;
 
   /**
@@ -75,7 +68,7 @@ export class NormalizedDSpaceObject extends NormalizedObject {
    * Repeated here to make the serialization work,
    * inheritSerialization doesn't seem to work for more than one level
    */
-  @autoserialize
+  @deserializeAs(Object)
   _links: {
     [name: string]: string
   }

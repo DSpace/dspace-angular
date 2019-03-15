@@ -7,6 +7,8 @@
         <ds-comcol-page-header
           [name]="collection.name">
         </ds-comcol-page-header>
+        <!-- Browse-By Links -->
+        <ds-comcol-page-browse-by [id]="collection.id"></ds-comcol-page-browse-by>
         <!-- Collection logo -->
         <ds-comcol-page-logo *ngIf="logoRD$"
                              [logo]="(logoRD$ | async)?.payload"

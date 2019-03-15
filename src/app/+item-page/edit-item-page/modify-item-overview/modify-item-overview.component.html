@@ -7,10 +7,12 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let metadatum of metadata" class="metadata-row">
-    <td>{{metadatum.key}}</td>
-    <td>{{metadatum.value}}</td>
-    <td>{{metadatum.language}}</td>
-  </tr>
+  <ng-container *ngFor="let mdEntry of metadata | keyvalue">
+    <tr *ngFor="let mdValue of mdEntry.value" class="metadata-row">
+      <td>{{mdEntry.key}}</td>
+      <td>{{mdValue.value}}</td>
+      <td>{{mdValue.language}}</td>
+    </tr>
+  </ng-container>
   </tbody>
 </table>

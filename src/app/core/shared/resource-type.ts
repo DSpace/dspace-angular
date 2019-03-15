@@ -9,6 +9,8 @@ export enum ResourceType {
   EPerson = 'eperson',
   Group = 'group',
   ResourcePolicy = 'resourcePolicy',
+  MetadataSchema = 'metadataschema',
+  MetadataField = 'metadatafield',
   Relationship = 'relationship',
   RelationshipType = 'relationshiptype',
   ItemType = 'entitytype',

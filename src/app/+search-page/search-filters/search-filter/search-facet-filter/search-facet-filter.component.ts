@@ -6,7 +6,7 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { switchMap, distinctUntilChanged, first, map } from 'rxjs/operators';
+import { switchMap, distinctUntilChanged, map, take } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -21,6 +21,7 @@ import { SearchService } from '../../../search-service/search.service';
 import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
+import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -59,7 +60,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the result values for this filter found by the current filter query
    */
-  filterSearchResults: Observable<any[]> = observableOf([]);
+  filterSearchResults: Observable<InputSuggestion[]> = observableOf([]);
 
   /**
    * Emits the active values for this filter
@@ -126,7 +127,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         this.animationState = 'ready';
         this.filterValues$.next(rd);
       }));
-      this.subs.push(newValues$.pipe(first()).subscribe((rd) => {
+      this.subs.push(newValues$.pipe(take(1)).subscribe((rd) => {
         this.isLastPage$.next(hasNoValue(rd.payload.next))
       }));
     }));
@@ -189,7 +190,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * @param data The string from the input field
    */
   onSubmit(data: any) {
-    this.selectedValues.pipe(first()).subscribe((selectedValues) => {
+    this.selectedValues.pipe(take(1)).subscribe((selectedValues) => {
         if (isNotEmpty(data)) {
           this.router.navigate([this.getSearchLink()], {
             queryParams:
@@ -258,7 +259,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   findSuggestions(data): void {
     if (isNotEmpty(data)) {
-      this.searchConfigService.searchOptions.pipe(first()).subscribe(
+      this.searchConfigService.searchOptions.pipe(take(1)).subscribe(
         (options) => {
           this.filterSearchResults = this.searchService.getFacetValuesFor(this.filterConfig, 1, options, data.toLowerCase())
             .pipe(
@@ -266,7 +267,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               map(
                 (rd: RemoteData<PaginatedList<FacetValue>>) => {
                   return rd.payload.page.map((facet) => {
-                    return { displayValue: this.getDisplayValue(facet, data), value: facet.value }
+                    return {
+                      displayValue: this.getDisplayValue(facet, data),
+                      value: facet.value
+                    }
                   })
                 }
               ))

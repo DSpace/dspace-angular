@@ -1,27 +1,26 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { IntegrationSuccessResponse } from '../cache/response-cache.models';
+import { IntegrationSuccessResponse } from '../cache/response.models';
 import { GetRequest, IntegrationRequest } from '../data/request.models';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IntegrationData } from './integration-data';
 import { IntegrationSearchOptions } from './models/integration-options.model';
+import { RequestEntry } from '../data/request.reducer';
+import { getResponseFromEntry } from '../shared/operators';
 
 export abstract class IntegrationService {
   protected request: IntegrationRequest;
-  protected abstract responseCache: ResponseCacheService;
   protected abstract requestService: RequestService;
   protected abstract linkPath: string;
   protected abstract browseEndpoint: string;
   protected abstract halService: HALEndpointService;
 
   protected getData(request: GetRequest): Observable<IntegrationData> {
-     return this.responseCache.get(request.href).pipe(
-        map((entry: ResponseCacheEntry) => entry.response),
-        mergeMap((response) => {
+     return this.requestService.getByHref(request.href).pipe(
+       getResponseFromEntry(),
+       mergeMap((response) => {
           if (response.isSuccessful && isNotEmpty(response)) {
             const dataResponse = response as IntegrationSuccessResponse;
             return observableOf(new IntegrationData(dataResponse.pageInfo, dataResponse.dataDefinition));

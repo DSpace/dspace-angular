@@ -12,9 +12,9 @@ import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { Metadatum } from '../../../../core/shared/metadatum.model';
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { of } from 'rxjs/internal/observable/of';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -94,14 +94,14 @@ export const relationsToItems = (thisId: string, ids: ItemDataService) =>
  * @param metadata    The list of original Metadatum objects
  * @param ids         The ItemDataService to use for fetching Items from the Rest API
  */
-export const relationsToRepresentations = (thisId: string, itemType: string, metadata: Metadatum[], ids: ItemDataService) =>
+export const relationsToRepresentations = (thisId: string, itemType: string, metadata: MetadataValue[], ids: ItemDataService) =>
   (source: Observable<Relationship[]>): Observable<MetadataRepresentation[]> =>
     source.pipe(
       flatMap((rels: Relationship[]) =>
         observableZip(
           ...metadata
-            .map((metadatum: any) => Object.assign(new Metadatum(), metadatum))
-            .map((metadatum: Metadatum) => {
+            .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
+            .map((metadatum: MetadataValue) => {
             if (metadatum.isVirtual) {
               const matchingRels = rels.filter((rel: Relationship) => ('' + rel.id) === metadatum.virtualValue);
               if (matchingRels.length > 0) {

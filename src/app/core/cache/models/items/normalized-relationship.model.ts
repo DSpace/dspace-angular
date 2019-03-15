@@ -10,7 +10,7 @@ import { IDToUUIDSerializer } from '../../id-to-uuid-serializer';
  */
 @mapsTo(Relationship)
 @inheritSerialization(NormalizedObject)
-export class NormalizedRelationship extends NormalizedObject {
+export class NormalizedRelationship extends NormalizedObject<Relationship> {
 
   /**
    * The identifier of this Relationship

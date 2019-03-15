@@ -16,17 +16,20 @@ import { VIEW_MODE_METADATA } from '../../../+item-page/simple/metadata-represen
 const relationType = 'type';
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'test item'
-    },
-    {
-      key: 'relationship.type',
-      language: 'en_US',
-      value: relationType
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'test item'
+      }
+    ],
+    'relationship.type': [
+      {
+        language: 'en_US',
+        value: relationType
+      }
+    ]
+  }
 });
 const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(relationType), mockItem);
 let viewMode = VIEW_MODE_FULL;

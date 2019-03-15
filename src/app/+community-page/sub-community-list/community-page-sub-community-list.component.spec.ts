@@ -17,45 +17,39 @@ describe('SubCommunityList Component', () => {
   let fixture: ComponentFixture<CommunityPageSubCommunityListComponent>;
 
   const subcommunities = [Object.assign(new Community(), {
-    name: 'SubCommunity 1',
     id: '123456789-1',
-    metadata: [
-      {
-        key: 'dc.title',
-        language: 'en_US',
-        value: 'SubCommunity 1'
-      }]
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'SubCommunity 1' }
+      ]
+    }
   }),
     Object.assign(new Community(), {
-      name: 'SubCommunity 2',
       id: '123456789-2',
-      metadata: [
-        {
-          key: 'dc.title',
-          language: 'en_US',
-          value: 'SubCommunity 2'
-        }]
+      metadata: {
+        'dc.title': [
+          { language: 'en_US', value: 'SubCommunity 2' }
+        ]
+      }
     })
   ];
 
   const emptySubCommunitiesCommunity = Object.assign(new Community(), {
-    metadata: [
-      {
-        key: 'dc.title',
-        language: 'en_US',
-        value: 'Test title'
-      }],
+    metadata: {
+      'dc.title': [
+        { language: 'en_US', value: 'Test title' }
+      ]
+    },
     subcommunities: observableOf(new RemoteData(true, true, true,
       undefined, new PaginatedList(new PageInfo(), [])))
   });
 
   const mockCommunity = Object.assign(new Community(), {
-      metadata: [
-        {
-          key: 'dc.title',
-          language: 'en_US',
-          value: 'Test title'
-        }],
+      metadata: {
+        'dc.title': [
+          { language: 'en_US', value: 'Test title' }
+        ]
+      },
       subcommunities: observableOf(new RemoteData(true, true, true,
         undefined, new PaginatedList(new PageInfo(), subcommunities)))
     })

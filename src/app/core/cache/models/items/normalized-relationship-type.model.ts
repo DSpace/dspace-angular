@@ -11,7 +11,7 @@ import { IDToUUIDSerializer } from '../../id-to-uuid-serializer';
  */
 @mapsTo(RelationshipType)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedRelationshipType extends NormalizedObject {
+export class NormalizedRelationshipType extends NormalizedObject<RelationshipType> {
 
   /**
    * The identifier of this RelationshipType

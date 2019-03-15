@@ -1,29 +1,43 @@
 import { TestBed } from '@angular/core/testing';
 import { RegistryService } from './registry.service';
 import { CommonModule } from '@angular/common';
-import { ResponseCacheService } from '../cache/response-cache.service';
 import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
 import { RequestEntry } from '../data/request.reducer';
 import { RemoteData } from '../data/remote-data';
 import { PageInfo } from '../shared/page-info.model';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
 
 import {
   RegistryBitstreamformatsSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
-  RegistryMetadataschemasSuccessResponse
-} from '../cache/response-cache.models';
+  RegistryMetadataschemasSuccessResponse, RestResponse
+} from '../cache/response.models';
 import { Component } from '@angular/core';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
 import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
+import { MockStore } from '../../shared/testing/mock-store';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  MetadataRegistryCancelFieldAction,
+  MetadataRegistryCancelSchemaAction, MetadataRegistryDeselectAllFieldAction,
+  MetadataRegistryDeselectAllSchemaAction, MetadataRegistryDeselectFieldAction,
+  MetadataRegistryDeselectSchemaAction,
+  MetadataRegistryEditFieldAction,
+  MetadataRegistryEditSchemaAction, MetadataRegistrySelectFieldAction,
+  MetadataRegistrySelectSchemaAction
+} from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
+import { MetadataSchema } from '../metadata/metadataschema.model';
+import { MetadataField } from '../metadata/metadatafield.model';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -52,31 +66,35 @@ describe('RegistryService', () => {
   ];
   const mockFieldsList = [
     {
+      id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8',
       element: 'contributor',
       qualifier: 'advisor',
-      scopenote: null,
+      scopeNote: null,
       schema: mockSchemasList[0]
     },
     {
+      id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9',
       element: 'contributor',
       qualifier: 'author',
-      scopenote: null,
+      scopeNote: null,
       schema: mockSchemasList[0]
     },
     {
+      id: 3,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10',
       element: 'contributor',
       qualifier: 'editor',
-      scopenote: 'test scope note',
+      scopeNote: 'test scope note',
       schema: mockSchemasList[1]
     },
     {
+      id: 4,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11',
       element: 'contributor',
       qualifier: 'illustrator',
-      scopenote: null,
+      scopeNote: null,
       schema: mockSchemasList[1]
     }
   ];
@@ -121,16 +139,17 @@ describe('RegistryService', () => {
 
   const endpoint = 'path';
   const endpointWithParams = `${endpoint}?size=${pageInfo.elementsPerPage}&page=${pageInfo.currentPage - 1}`;
+  const fieldEndpointWithParams = `${endpoint}?schema=${mockSchemasList[0].prefix}&size=${pageInfo.elementsPerPage}&page=${pageInfo.currentPage - 1}`;
 
   const halServiceStub = {
     getEndpoint: (link: string) => observableOf(endpoint)
   };
 
   const rdbStub = {
-    toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, responseCacheObs: Observable<ResponseCacheEntry>, payloadObs: Observable<any>) => {
+    toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
       return observableCombineLatest(requestEntryObs,
-        responseCacheObs, payloadObs).pipe(map(([req, res, pay]) => {
-          return { req, res, pay };
+        payloadObs).pipe(map(([req, pay]) => {
+          return { req, pay };
         })
       );
     },
@@ -139,17 +158,20 @@ describe('RegistryService', () => {
     }
   };
 
+  const mockStore = new MockStore<AppState>(Object.create(null));
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule],
+      imports: [CommonModule, TranslateModule.forRoot()],
       declarations: [
         DummyComponent
       ],
       providers: [
-        { provide: ResponseCacheService, useValue: getMockResponseCacheService() },
         { provide: RequestService, useValue: getMockRequestService() },
         { provide: RemoteDataBuildService, useValue: rdbStub },
         { provide: HALEndpointService, useValue: halServiceStub },
+        { provide: Store, useValue: mockStore },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         RegistryService
       ]
     });
@@ -164,10 +186,10 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadataschemasSuccessResponse(queryResponse, '200', pageInfo);
-    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
+      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getMetadataSchemas(pagination).subscribe((value) => {
       });
@@ -185,10 +207,6 @@ describe('RegistryService', () => {
     it('should call getByHref on the request service with the correct request url', () => {
       expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
     });
-
-    it('should call get on the request service with the correct request url', () => {
-      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
-    });
   });
 
   describe('when requesting metadataschema by name', () => {
@@ -197,10 +215,10 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadataschemasSuccessResponse(queryResponse, '200', pageInfo);
-    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
+      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getMetadataSchemaByName(mockSchemasList[0].prefix).subscribe((value) => {
       });
@@ -218,10 +236,6 @@ describe('RegistryService', () => {
     it('should call getByHref on the request service with the correct request url', () => {
       expect((registryService as any).requestService.getByHref.calls.argsFor(0)[0]).toContain(endpoint);
     });
-
-    it('should call get on the request service with the correct request url', () => {
-      expect((registryService as any).responseCache.get.calls.argsFor(0)[0]).toContain(endpoint);
-    });
   });
 
   describe('when requesting metadatafields', () => {
@@ -230,10 +244,10 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadatafieldsSuccessResponse(queryResponse, '200', pageInfo);
-    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
+      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getMetadataFieldsBySchema(mockSchemasList[0], pagination).subscribe((value) => {
       });
@@ -249,11 +263,7 @@ describe('RegistryService', () => {
     });
 
     it('should call getByHref on the request service with the correct request url', () => {
-      expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
-    });
-
-    it('should call get on the request service with the correct request url', () => {
-      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
+      expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(fieldEndpointWithParams);
     });
   });
 
@@ -263,10 +273,10 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryBitstreamformatsSuccessResponse(queryResponse, '200', pageInfo);
-    const responseEntry = Object.assign(new ResponseCacheEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
-      (registryService as any).responseCache.get.and.returnValue(observableOf(responseEntry));
+      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
       /* tslint:disable:no-empty */
       registryService.getBitstreamFormats(pagination).subscribe((value) => {
       });
@@ -284,9 +294,187 @@ describe('RegistryService', () => {
     it('should call getByHref on the request service with the correct request url', () => {
       expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
     });
+  });
 
-    it('should call get on the request service with the correct request url', () => {
-      expect((registryService as any).responseCache.get).toHaveBeenCalledWith(endpointWithParams);
+  describe('when dispatching to the store', () => {
+    beforeEach(() => {
+      spyOn(mockStore, 'dispatch');
+    });
+
+    describe('when calling editMetadataSchema', () => {
+      beforeEach(() => {
+        registryService.editMetadataSchema(mockSchemasList[0]);
+      });
+
+      it('should dispatch a MetadataRegistryEditSchemaAction with the correct schema', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryEditSchemaAction(mockSchemasList[0]));
+      })
+    });
+
+    describe('when calling cancelEditMetadataSchema', () => {
+      beforeEach(() => {
+        registryService.cancelEditMetadataSchema();
+      });
+
+      it('should dispatch a MetadataRegistryCancelSchemaAction', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryCancelSchemaAction());
+      })
+    });
+
+    describe('when calling selectMetadataSchema', () => {
+      beforeEach(() => {
+        registryService.selectMetadataSchema(mockSchemasList[0]);
+      });
+
+      it('should dispatch a MetadataRegistrySelectSchemaAction with the correct schema', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistrySelectSchemaAction(mockSchemasList[0]));
+      })
+    });
+
+    describe('when calling deselectMetadataSchema', () => {
+      beforeEach(() => {
+        registryService.deselectMetadataSchema(mockSchemasList[0]);
+      });
+
+      it('should dispatch a MetadataRegistryDeselectSchemaAction with the correct schema', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryDeselectSchemaAction(mockSchemasList[0]));
+      })
+    });
+
+    describe('when calling deselectAllMetadataSchema', () => {
+      beforeEach(() => {
+        registryService.deselectAllMetadataSchema();
+      });
+
+      it('should dispatch a MetadataRegistryDeselectAllSchemaAction', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryDeselectAllSchemaAction());
+      })
+    });
+
+    describe('when calling editMetadataField', () => {
+      beforeEach(() => {
+        registryService.editMetadataField(mockFieldsList[0]);
+      });
+
+      it('should dispatch a MetadataRegistryEditFieldAction with the correct Field', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryEditFieldAction(mockFieldsList[0]));
+      })
+    });
+
+    describe('when calling cancelEditMetadataField', () => {
+      beforeEach(() => {
+        registryService.cancelEditMetadataField();
+      });
+
+      it('should dispatch a MetadataRegistryCancelFieldAction', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryCancelFieldAction());
+      })
+    });
+
+    describe('when calling selectMetadataField', () => {
+      beforeEach(() => {
+        registryService.selectMetadataField(mockFieldsList[0]);
+      });
+
+      it('should dispatch a MetadataRegistrySelectFieldAction with the correct Field', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistrySelectFieldAction(mockFieldsList[0]));
+      })
+    });
+
+    describe('when calling deselectMetadataField', () => {
+      beforeEach(() => {
+        registryService.deselectMetadataField(mockFieldsList[0]);
+      });
+
+      it('should dispatch a MetadataRegistryDeselectFieldAction with the correct Field', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryDeselectFieldAction(mockFieldsList[0]));
+      })
+    });
+
+    describe('when calling deselectAllMetadataField', () => {
+      beforeEach(() => {
+        registryService.deselectAllMetadataField();
+      });
+
+      it('should dispatch a MetadataRegistryDeselectAllFieldAction', () => {
+        expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryDeselectAllFieldAction());
+      })
+    });
+  });
+
+  describe('when createOrUpdateMetadataSchema is called', () => {
+    let result: Observable<MetadataSchema>;
+
+    beforeEach(() => {
+      result = registryService.createOrUpdateMetadataSchema(mockSchemasList[0]);
+    });
+
+    it('should return the created/updated metadata schema', () => {
+      result.subscribe((schema: MetadataSchema) => {
+        expect(schema).toEqual(mockSchemasList[0]);
+      });
+    });
+  });
+
+  describe('when createOrUpdateMetadataField is called', () => {
+    let result: Observable<MetadataField>;
+
+    beforeEach(() => {
+      result = registryService.createOrUpdateMetadataField(mockFieldsList[0]);
+    });
+
+    it('should return the created/updated metadata field', () => {
+      result.subscribe((field: MetadataField) => {
+        expect(field).toEqual(mockFieldsList[0]);
+      });
+    });
+  });
+
+  describe('when deleteMetadataSchema is called', () => {
+    let result: Observable<RestResponse>;
+
+    beforeEach(() => {
+      result = registryService.deleteMetadataSchema(mockSchemasList[0].id);
+    });
+
+    it('should return a successful response', () => {
+      result.subscribe((response: RestResponse) => {
+        expect(response.isSuccessful).toBe(true);
+      });
+    })
+  });
+
+  describe('when deleteMetadataField is called', () => {
+    let result: Observable<RestResponse>;
+
+    beforeEach(() => {
+      result = registryService.deleteMetadataField(mockFieldsList[0].id);
+    });
+
+    it('should return a successful response', () => {
+      result.subscribe((response: RestResponse) => {
+        expect(response.isSuccessful).toBe(true);
+      });
+    })
+  });
+
+  describe('when clearMetadataSchemaRequests is called', () => {
+    beforeEach(() => {
+      registryService.clearMetadataSchemaRequests().subscribe();
+    });
+
+    it('should remove the requests related to metadata schemas from cache', () => {
+      expect((registryService as any).requestService.removeByHrefSubstring).toHaveBeenCalled();
+    });
+  });
+
+  describe('when clearMetadataFieldRequests is called', () => {
+    beforeEach(() => {
+      registryService.clearMetadataFieldRequests().subscribe();
+    });
+
+    it('should remove the requests related to metadata fields from cache', () => {
+      expect((registryService as any).requestService.removeByHrefSubstring).toHaveBeenCalled();
     });
   });
 });

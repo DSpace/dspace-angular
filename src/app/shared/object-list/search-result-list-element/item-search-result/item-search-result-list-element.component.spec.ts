@@ -11,10 +11,11 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { createRelationshipsObservable } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { MetadataMap } from '../../../../core/shared/metadata.models';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
-  metadata: [],
+  metadata: new MetadataMap(),
   relationships: createRelationshipsObservable()
 });
 
@@ -27,7 +28,7 @@ describe('ItemSearchResultListElementComponent', () => {
   };
 
   const mockItemWithAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-  mockItemWithAuthorAndDate.hitHighlights = [];
+  mockItemWithAuthorAndDate.hitHighlights = new MetadataMap();
   mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
     bitstreams: observableOf({}),
     metadata: [
@@ -44,7 +45,7 @@ describe('ItemSearchResultListElementComponent', () => {
   });
 
   const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-  mockItemWithoutAuthorAndDate.hitHighlights = [];
+  mockItemWithoutAuthorAndDate.hitHighlights = new MetadataMap();
   mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
     bitstreams: observableOf({}),
     metadata: [

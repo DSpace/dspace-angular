@@ -1,4 +1,4 @@
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -8,15 +8,10 @@ import {
   RemoveFromObjectCacheAction
 } from '../cache/object-cache.actions';
 import { RequestActionTypes, RequestConfigureAction } from '../data/request.actions';
-import { RestRequestMethod } from '../data/request.models';
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
 import { hasValue } from '../../shared/empty.util';
 import { IndexName } from './index.reducer';
-import {
-  AddMenuSectionAction,
-  MenuActionTypes,
-  RemoveMenuSectionAction
-} from '../../shared/menu/menu.actions';
+import { RestRequestMethod } from '../data/rest-request-method';
 
 @Injectable()
 export class UUIDIndexEffects {
@@ -48,7 +43,7 @@ export class UUIDIndexEffects {
   @Effect() addRequest$ = this.actions$
     .pipe(
       ofType(RequestActionTypes.CONFIGURE),
-      filter((action: RequestConfigureAction) => action.payload.method === RestRequestMethod.Get),
+      filter((action: RequestConfigureAction) => action.payload.method === RestRequestMethod.GET),
       map((action: RequestConfigureAction) => {
         return new AddToIndexAction(
           IndexName.REQUEST,

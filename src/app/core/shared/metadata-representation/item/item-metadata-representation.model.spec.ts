@@ -1,18 +1,19 @@
 import { MetadataRepresentationType } from '../metadata-representation.model';
 import { ItemMetadataRepresentation, ItemTypeToValue } from './item-metadata-representation.model';
 import { Item } from '../../item.model';
-import { Metadatum } from '../../metadatum.model';
+import { MetadataMap, MetadataValue } from '../../metadata.models';
 
 describe('ItemMetadataRepresentation', () => {
   const valuePrefix = 'Test value for ';
   const item = new Item();
   let itemMetadataRepresentation: ItemMetadataRepresentation;
-  item.metadata = Object.keys(ItemTypeToValue).map((key: string) => {
-    return Object.assign(new Metadatum(), {
-      key: ItemTypeToValue[key],
+  const metadataMap = new MetadataMap();
+  for (const key of Object.keys(ItemTypeToValue)) {
+    metadataMap[ItemTypeToValue[key]] = [Object.assign(new MetadataValue(), {
       value: `${valuePrefix}${ItemTypeToValue[key]}`
-    });
-  });
+    })];
+  }
+  item.metadata = metadataMap;
 
   for (const itemType of Object.keys(ItemTypeToValue)) {
     describe(`when creating an ItemMetadataRepresentation with item-type "${itemType}"`, () => {

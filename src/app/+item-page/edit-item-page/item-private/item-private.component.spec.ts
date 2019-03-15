@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Item} from '../../../core/shared/item.model';
 import {RouterStub} from '../../../shared/testing/router-stub';
 import {of as observableOf} from 'rxjs';
-import {RestResponse} from '../../../core/cache/response-cache.models';
 import {RemoteData} from '../../../core/data/remote-data';
 import {NotificationsServiceStub} from '../../../shared/testing/notifications-service-stub';
 import {CommonModule} from '@angular/common';
@@ -16,6 +15,7 @@ import {NotificationsService} from '../../../shared/notifications/notifications.
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {ItemPrivateComponent} from './item-private.component';
+import { RestResponse } from '../../../core/cache/response.models';
 
 let comp: ItemPrivateComponent;
 let fixture: ComponentFixture<ItemPrivateComponent>;

@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <ng-container *ngVar="(dsoRD$ | async)?.payload as dso">
+            <div class="col-12 pb-4">
+                <h2 id="header" class="border-bottom pb-2">{{ 'community.delete.head' | translate
+                    }}</h2>
+                <p class="pb-2">{{ 'community.delete.text' | translate:{ dso: dso.name } }}</p>
+                <button class="btn btn-primary mr-2" (click)="onConfirm(dso)">
+                    {{'community.delete.confirm' |
+                    translate}}
+                </button>
+                <button class="btn btn-primary" (click)="onCancel(dso)">{{'community.delete.cancel' | translate}}
+                </button>
+            </div>
+        </ng-container>
+
+    </div>
+
+</div>

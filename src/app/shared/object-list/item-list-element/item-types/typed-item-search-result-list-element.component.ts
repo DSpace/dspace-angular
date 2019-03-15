@@ -5,6 +5,7 @@ import { ITEM } from '../../../items/switcher/item-type-switcher.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { MetadataMap } from '../../../../core/shared/metadata.models';
 
 /**
  * A generic component for displaying item list elements
@@ -27,7 +28,7 @@ export class TypedItemSearchResultListElementComponent extends SearchResultListE
     } else {
       this.object = {
         dspaceObject: obj as Item,
-        hitHighlights: []
+        hitHighlights: new MetadataMap()
       };
       this.dso = obj as Item;
     }

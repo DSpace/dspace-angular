@@ -2,16 +2,20 @@ import * as deepFreeze from 'deep-freeze';
 
 import { requestReducer, RequestState } from './request.reducer';
 import {
-  RequestCompleteAction, RequestConfigureAction, RequestExecuteAction
+  RequestCompleteAction,
+  RequestConfigureAction,
+  RequestExecuteAction, RequestRemoveAction, ResetResponseTimestampsAction
 } from './request.actions';
-import { GetRequest, RestRequest } from './request.models';
+import { GetRequest } from './request.models';
+import { RestResponse } from '../cache/response.models';
 
+const response =  new RestResponse(true, 'OK');
 class NullAction extends RequestCompleteAction {
   type = null;
   payload = null;
 
   constructor() {
-    super(null);
+    super(null, null);
   }
 }
 
@@ -25,7 +29,8 @@ describe('requestReducer', () => {
       request: new GetRequest(id1, link1),
       requestPending: false,
       responsePending: false,
-      completed: false
+      completed: false,
+      response: undefined
     }
   };
   deepFreeze(testState);
@@ -56,6 +61,7 @@ describe('requestReducer', () => {
     expect(newState[id2].requestPending).toEqual(true);
     expect(newState[id2].responsePending).toEqual(false);
     expect(newState[id2].completed).toEqual(false);
+    expect(newState[id2].response).toEqual(undefined);
   });
 
   it('should set \'requestPending\' to false, \'responsePending\' to true and leave \'completed\' untouched for the given RestRequest in the state, in response to an EXECUTE action', () => {
@@ -69,11 +75,13 @@ describe('requestReducer', () => {
     expect(newState[id1].requestPending).toEqual(false);
     expect(newState[id1].responsePending).toEqual(true);
     expect(newState[id1].completed).toEqual(state[id1].completed);
+    expect(newState[id1].response).toEqual(undefined)
   });
+
   it('should leave \'requestPending\' untouched, set \'responsePending\' to false and \'completed\' to true for the given RestRequest in the state, in response to a COMPLETE action', () => {
     const state = testState;
 
-    const action = new RequestCompleteAction(id1);
+    const action = new RequestCompleteAction(id1, response);
     const newState = requestReducer(state, action);
 
     expect(newState[id1].request.uuid).toEqual(id1);
@@ -81,5 +89,34 @@ describe('requestReducer', () => {
     expect(newState[id1].requestPending).toEqual(state[id1].requestPending);
     expect(newState[id1].responsePending).toEqual(false);
     expect(newState[id1].completed).toEqual(true);
+    expect(newState[id1].response.isSuccessful).toEqual(response.isSuccessful)
+    expect(newState[id1].response.statusCode).toEqual(response.statusCode)
+    expect(newState[id1].response.timeAdded).toBeTruthy()
+  });
+
+  it('should leave \'requestPending\' untouched, should leave \'responsePending\' untouched and leave \'completed\' untouched, but update the response\'s timeAdded for the given RestRequest in the state, in response to a COMPLETE action', () => {
+    const update = Object.assign({}, testState[id1], {response});
+    const state = Object.assign({}, testState, {[id1]: update});
+    const timeStamp = 1000;
+    const action = new ResetResponseTimestampsAction(timeStamp);
+    const newState = requestReducer(state, action);
+
+    expect(newState[id1].request.uuid).toEqual(state[id1].request.uuid);
+    expect(newState[id1].request.href).toEqual(state[id1].request.href);
+    expect(newState[id1].requestPending).toEqual(state[id1].requestPending);
+    expect(newState[id1].responsePending).toEqual(state[id1].responsePending);
+    expect(newState[id1].completed).toEqual(state[id1].completed);
+    expect(newState[id1].response.isSuccessful).toEqual(response.isSuccessful);
+    expect(newState[id1].response.statusCode).toEqual(response.statusCode);
+    expect(newState[id1].response.timeAdded).toBe(timeStamp);
+  });
+
+  it('should remove the correct request, in response to a REMOVE action', () => {
+    const state = testState;
+
+    const action = new RequestRemoveAction(id1);
+    const newState = requestReducer(state, action);
+
+    expect(newState[id1]).toBeUndefined();
   });
 });

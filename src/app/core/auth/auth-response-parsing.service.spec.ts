@@ -1,7 +1,6 @@
-import { AuthStatusResponse } from '../cache/response-cache.models';
+import { AuthStatusResponse } from '../cache/response.models';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthResponseParsingService } from './auth-response-parsing.service';
 import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
@@ -11,7 +10,7 @@ import { ObjectCacheState } from '../cache/object-cache.reducer';
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
 
-  const EnvConfig = { cache: { msToLive: 1000 } } as GlobalConfig;
+  const EnvConfig = { cache: { msToLive: 1000 } } as any;
   const store = new MockStore<ObjectCacheState>({});
   const objectCacheService = new ObjectCacheService(store as any);
 
@@ -61,23 +60,26 @@ describe('AuthResponseParsingService', () => {
             handle: null,
             id: '4dc70ab5-cd73-492f-b007-3179d2d9296b',
             lastActive: '2018-05-14T17:03:31.277+0000',
-            metadata: [
-              {
-                key: 'eperson.firstname',
-                language: null,
-                value: 'User'
-              },
-              {
-                key: 'eperson.lastname',
-                language: null,
-                value: 'Test'
-              },
-              {
-                key: 'eperson.language',
-                language: null,
-                value: 'en'
-              }
-            ],
+            metadata: {
+              'eperson.firstname': [
+                {
+                  language: null,
+                  value: 'User'
+                }
+              ],
+              'eperson.lastname': [
+                {
+                  language: null,
+                  value: 'Test'
+                }
+              ],
+              'eperson.language': [
+                {
+                  language: null,
+                  value: 'en'
+                }
+              ]
+            },
             name: 'User Test',
             netid: 'myself@testshib.org',
             requireCertificate: false,

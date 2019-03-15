@@ -16,10 +16,11 @@ import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
 import { of as observableOf } from 'rxjs';
+import { MetadataMap } from '../../../../core/shared/metadata.models';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
-  metadata: [],
+  metadata: new MetadataMap(),
   relationships: createRelationshipsObservable()
 });
 

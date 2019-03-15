@@ -61,7 +61,7 @@ export class ItemTypeSwitcherComponent implements OnInit {
       item = this.object as Item;
     }
 
-    const type = item.findMetadata('relationship.type');
+    const type = item.firstMetadataValue('relationship.type');
     return getComponentByItemType(type, this.viewMode);
   }
 }

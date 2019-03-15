@@ -13,31 +13,37 @@ let fixture: ComponentFixture<JournalIssueListElementComponent>;
 
 const mockItemWithMetadata: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    },
-    {
-      key: 'journalvolume.identifier.volume',
-      language: 'en_US',
-      value: '1234'
-    },
-    {
-      key: 'journalissue.identifier.number',
-      language: 'en_US',
-      value: '5678'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ],
+    'journalvolume.identifier.volume': [
+      {
+        language: 'en_US',
+        value: '1234'
+      }
+    ],
+    'journalissue.identifier.number': [
+      {
+        language: 'en_US',
+        value: '5678'
+      }
+    ]
+  }
 });
 const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ]
+  }
 });
 
 describe('JournalIssueListElementComponent', () => {
