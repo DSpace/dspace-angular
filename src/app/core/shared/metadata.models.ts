@@ -29,7 +29,7 @@ export class MetadataValue {
    * This is used to render metadata in a specific custom order
    */
   @autoserialize
-  order: number;
+  place: number;
 
   /** The authority key used for authority-controlled metadata */
   @autoserialize
@@ -91,7 +91,7 @@ export class MetadatumViewModel {
    * The place of this MetadataValue within his list of metadata
    * This is used to render metadata in a specific custom order
    */
-  order: number;
+  place: number;
 
   /** The authority key used for authority-controlled metadata */
   authority: string;

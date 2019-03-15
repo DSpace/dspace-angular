@@ -119,21 +119,21 @@ export class DSpaceObject implements CacheableObject, ListableObject {
   }
 
   /**
-   * Find metadata on a specific field and order all of them using their "order" property.
+   * Find metadata on a specific field and order all of them using their "place" property.
    * @param key
    */
   findMetadataSortedByPlace(key: string): MetadataValue[] {
     return this.allMetadata([key]).sort((a: MetadataValue, b: MetadataValue) => {
-      if (hasNoValue(a.order) && hasNoValue(b.order)) {
+      if (hasNoValue(a.place) && hasNoValue(b.place)) {
         return 0;
       }
-      if (hasNoValue(a.order)) {
+      if (hasNoValue(a.place)) {
         return -1;
       }
-      if (hasNoValue(b.order)) {
+      if (hasNoValue(b.place)) {
         return 1;
       }
-      return a.order - b.order;
+      return a.place - b.place;
     });
   }
 
