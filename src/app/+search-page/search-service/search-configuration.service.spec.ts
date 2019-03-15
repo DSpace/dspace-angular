@@ -23,17 +23,21 @@ describe('SearchConfigurationService', () => {
 
   const backendFilters = [new SearchFilter('f.author', ['another value']), new SearchFilter('f.date', ['[2013 TO 2018]'])];
 
-  const spy = jasmine.createSpyObj('RouteService', {
+  const routeService = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
-    getQueryParamsWithPrefix: observableOf(prefixFilter)
+    getQueryParamsWithPrefix: observableOf(prefixFilter),
+    getRouteParameterValue: observableOf('')
+  });
+
+  const fixedFilterService = jasmine.createSpyObj('SearchFixedFilterService', {
+    getQueryByFilterName: observableOf(''),
   });
 
   const activatedRoute: any = new ActivatedRouteStub();
 
   beforeEach(() => {
-    service = new SearchConfigurationService(spy, activatedRoute);
+    service = new SearchConfigurationService(routeService, fixedFilterService, activatedRoute);
   });
-
   describe('when the scope is called', () => {
     beforeEach(() => {
       service.getCurrentScope('');
@@ -141,6 +145,31 @@ describe('SearchConfigurationService', () => {
         expect(service.getCurrentDSOType).toHaveBeenCalled();
         expect(service.getCurrentFilters).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('when getCurrentFixedFilter is called', () => {
+    beforeEach(() => {
+      service.getCurrentFixedFilter();
+    });
+    it('should call getRouteParameterValue on the routeService with parameter name \'filter\'', () => {
+      expect((service as any).routeService.getRouteParameterValue).toHaveBeenCalledWith('filter');
+    });
+  });
+
+  describe('when updateFixedFilter is called', () => {
+    const filter = 'filter';
+
+    beforeEach(() => {
+      service.updateFixedFilter(filter);
+    });
+
+    it('should update the paginated search options with the correct fixed filter', () => {
+      expect(service.paginatedSearchOptions.getValue().fixedFilter).toEqual(filter);
+    });
+
+    it('should update the search options with the correct fixed filter', () => {
+      expect(service.searchOptions.getValue().fixedFilter).toEqual(filter);
     });
   });
 });

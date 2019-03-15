@@ -1,0 +1,16 @@
+<ds-truncatable [id]="item.id">
+  <a
+    [routerLink]="['/items/' + item.id]" class="lead"
+    [innerHTML]="getFirstValue('orgunit.identifier.name')"></a>
+  <span class="text-muted">
+    <ds-truncatable-part [id]="item.id" [minLines]="3">
+            <span *ngIf="item.filterMetadata(['orgunit.identifier.description']).length > 0"
+                  class="item-list-orgunit-description">
+                <ds-truncatable-part [id]="item.id" [minLines]="3"><span
+                  [innerHTML]="getFirstValue('orgunit.identifier.description')"></span>
+                </ds-truncatable-part>
+            </span>
+        </ds-truncatable-part>
+  </span>
+</ds-truncatable>
+

@@ -201,4 +201,13 @@ export class IntegrationSuccessResponse extends RestResponse {
   }
 }
 
+export class FilteredDiscoveryQueryResponse extends RestResponse {
+  constructor(
+    public filterQuery: string,
+    public statusCode: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode);
+  }
+}
 /* tslint:enable:max-classes-per-file */

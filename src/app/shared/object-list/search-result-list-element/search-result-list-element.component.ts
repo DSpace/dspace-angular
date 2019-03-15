@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { hasValue } from '../../empty.util';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
@@ -16,9 +17,11 @@ import { Metadata } from '../../../core/shared/metadata.utils';
 export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
 
-  public constructor(@Inject('objectElementProvider') public listable: ListableObject, private truncatableService: TruncatableService) {
+  public constructor(@Inject('objectElementProvider') public listable: ListableObject, protected truncatableService: TruncatableService) {
     super(listable);
-    this.dso = this.object.dspaceObject;
+    if (hasValue(this.object)) {
+      this.dso = this.object.dspaceObject;
+    }
   }
 
   /**

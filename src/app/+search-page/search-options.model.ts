@@ -3,21 +3,25 @@ import { URLCombiner } from '../core/url-combiner/url-combiner';
 import 'core-js/library/fn/object/entries';
 import { SearchFilter } from './search-filter.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
+import { SetViewMode } from '../shared/view-mode';
 
 /**
  * This model class represents all parameters needed to request information about a certain search request
  */
 export class SearchOptions {
+  view?: SetViewMode = SetViewMode.List;
   scope?: string;
   query?: string;
   dsoType?: DSpaceObjectType;
-  filters?: SearchFilter[];
+  filters?: any;
+  fixedFilter?: any;
 
-  constructor(options: {scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[]}) {
+  constructor(options: {scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[], fixedFilter?: any}) {
       this.scope = options.scope;
       this.query = options.query;
       this.dsoType = options.dsoType;
       this.filters = options.filters;
+      this.fixedFilter = options.fixedFilter;
   }
 
   /**
@@ -27,7 +31,9 @@ export class SearchOptions {
    * @returns {string} URL with all search options and passed arguments as query parameters
    */
   toRestUrl(url: string, args: string[] = []): string {
-
+    if (isNotEmpty(this.fixedFilter)) {
+      args.push(this.fixedFilter);
+    }
     if (isNotEmpty(this.query)) {
       args.push(`query=${this.query}`);
     }

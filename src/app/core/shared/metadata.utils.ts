@@ -205,8 +205,8 @@ export class Metadata {
       .sort()
       .forEach((key: string) => {
         const orderedValues = sortBy(groupedList[key], ['order']);
-        metadataMap[key] = orderedValues.map((value: MetadataValue) => {
-            const val = Object.assign({}, value);
+        metadataMap[key] = orderedValues.map((value: MetadatumViewModel) => {
+            const val = Object.assign(new MetadataValue(), value);
             delete (val as any).order;
             delete (val as any).key;
             return val;

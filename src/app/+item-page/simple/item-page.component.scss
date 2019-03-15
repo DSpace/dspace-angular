@@ -1,1 +1,9 @@
 @import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+@include media-breakpoint-down(md) {
+  .container {
+    width: 100%;
+    max-width: none;
+  }
+}

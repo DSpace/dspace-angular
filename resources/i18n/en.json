@@ -91,12 +91,14 @@
   },
   "item": {
     "page": {
-      "author": "Author",
+      "author": "Authors",
       "abstract": "Abstract",
       "date": "Date",
       "uri": "URI",
       "files": "Files",
       "collections": "Collections",
+      "subject": "Keywords", 
+      "citation": "Citation",
       "filesection": {
         "download": "Download",
         "name": "Name:",
@@ -270,6 +272,84 @@
       }
     }
   },
+  "relationships": {
+    "isPublicationOf": "Publications",
+    "isProjectOf": "Projects",
+    "isOrgUnitOf": "Org Units",
+    "isAuthorOf": "Authors",
+    "isPersonOf": "Authors",
+    "isJournalOf": "Journals",
+    "isSingleJournalOf": "Journal",
+    "isVolumeOf": "Volumes",
+    "isSingleVolumeOf": "Volume",
+    "isIssueOf": "Issues",
+    "isJournalIssueOf": "Journal Issue",
+    "isPublicationOfJournalIssue": "Articles"
+  },
+  "person": {
+    "page": {
+      "jobtitle": "Job Title",
+      "lastname": "Last Name",
+      "firstname": "First Name",
+      "email": "Email Address",
+      "orcid": "ORCID",
+      "birthdate": "Birth Date",
+      "staffid": "Staff ID",
+      "link": {
+        "full": "Show all metadata"
+      }
+    }
+  },
+  "project": {
+    "page": {
+      "status": "Status",
+      "id": "ID",
+      "expectedcompletion": "Expected Completion",
+      "description": "Description",
+      "keyword": "Keywords"
+    }
+  },
+  "orgunit": {
+    "page": {
+      "dateestablished": "Date established",
+      "city": "City",
+      "country": "Country",
+      "id": "ID",
+      "description": "Description"
+    }
+  },
+  "journal": {
+    "page": {
+      "issn": "ISSN",
+      "publisher": "Publisher",
+      "description": "Description",
+      "editor": "Editor-in-Chief"
+    }
+  },
+  "journalvolume": {
+    "page": {
+      "volume": "Volume",
+      "issuedate": "Issue Date",
+      "description": "Description"
+    }
+  },
+  "journalissue": {
+    "page": {
+      "number": "Number",
+      "issuedate": "Issue Date",
+      "description": "Description",
+      "keyword": "Keywords",
+      "journal-title": "Journal Title",
+      "journal-issn": "Journal ISSN"
+    }
+  },
+  "publication": {
+    "page": {
+      "journal-title": "Journal Title",
+      "journal-issn": "Journal ISSN",
+      "volume-title": "Volume Title"
+    }
+  },
   "nav": {
     "browse": {
       "header": "All of DSpace"
@@ -319,6 +399,24 @@
     }
   },
   "search": {
+    "journal": {
+      "title": "DSpace Angular :: Journal Search",
+      "results": {
+        "head": "Journal Search Results"
+      }
+    },
+    "person": {
+      "title": "DSpace Angular :: Person Search",
+      "results": {
+        "head": "Person Search Results"
+      }
+    },
+    "publication": {
+      "title": "DSpace Angular :: Publication Search",
+      "results": {
+        "head": "Publication Search Results"
+      }
+    },
     "title": "DSpace Angular :: Search",
     "description": "",
     "form": {
@@ -355,7 +453,8 @@
         "f.dateIssued.min": "Start date",
         "f.dateIssued.max": "End date",
         "f.subject": "Subject",
-        "f.has_content_in_original_bundle": "Has files"
+        "f.has_content_in_original_bundle": "Has files",
+        "f.entityType": "Item Type"
       },
       "filter": {
         "show-more": "Show more",
@@ -383,6 +482,10 @@
         },
         "has_content_in_original_bundle": {
           "head": "Has files"
+        },
+        "entityType": {
+          "placeholder": "Item Type",
+          "head": "Item Type"
         }
       }
     }

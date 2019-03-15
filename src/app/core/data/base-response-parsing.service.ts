@@ -68,7 +68,9 @@ export abstract class BaseResponseParsingService {
     let list = data._embedded;
 
     // Workaround for inconsistency in rest response. Issue: https://github.com/DSpace/dspace-angular/issues/238
-    if (!Array.isArray(list)) {
+    if (hasNoValue(list)) {
+      list = [];
+    } else if (!Array.isArray(list)) {
       list = this.flattenSingleKeyObject(list);
     }
     const page: ObjectDomain[] = this.processArray(list, requestUUID);

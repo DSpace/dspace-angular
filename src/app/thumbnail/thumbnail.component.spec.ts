@@ -36,7 +36,7 @@ describe('ThumbnailComponent', () => {
   it('should display placeholder', () => {
     fixture.detectChanges();
     const image: HTMLElement = de.query(By.css('img')).nativeElement;
-    expect(image.getAttribute('src')).toBe(comp.holderSource);
+    expect(image.getAttribute('src')).toBe(comp.defaultImage);
   });
 
 });

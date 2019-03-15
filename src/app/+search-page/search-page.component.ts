@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Observable ,  Subscription ,  BehaviorSubject } from 'rxjs';
 import { switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
@@ -11,15 +11,10 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchResult } from './search-result.model';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { hasValue } from '../shared/empty.util';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../core/shared/operators';
-
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
+import { RouteService } from '../shared/services/route.service';
 
 @Component({
   selector: 'ds-search-page',
@@ -31,6 +26,7 @@ import { getSucceededRemoteData } from '../core/shared/operators';
 
 /**
  * This component represents the whole search page
+ * It renders search results depending on the current search options
  */
 export class SearchPageComponent implements OnInit {
 
@@ -59,11 +55,30 @@ export class SearchPageComponent implements OnInit {
    */
   sub: Subscription;
 
-  constructor(private service: SearchService,
-              private sidebarService: SearchSidebarService,
-              private windowService: HostWindowService,
-              private filterService: SearchFilterService,
-              private searchConfigService: SearchConfigurationService) {
+  /**
+   * Whether or not the search bar should be visible
+   */
+  @Input()
+  searchEnabled = true;
+
+  /**
+   * The width of the sidebar (bootstrap columns)
+   */
+  @Input()
+  sideBarWidth = 3;
+
+  /**
+   * The currently applied filter (determines title of search)
+   */
+  @Input()
+  fixedFilter$: Observable<string>;
+
+  constructor(protected service: SearchService,
+              protected sidebarService: SearchSidebarService,
+              protected windowService: HostWindowService,
+              protected filterService: SearchFilterService,
+              protected searchConfigService: SearchConfigurationService,
+              protected routeService: RouteService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -75,7 +90,7 @@ export class SearchPageComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
+    this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
       switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData())))
       .subscribe((results) => {
@@ -84,6 +99,17 @@ export class SearchPageComponent implements OnInit {
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
+    if (!isNotEmpty(this.fixedFilter$)) {
+      this.fixedFilter$ = this.routeService.getRouteParameterValue('filter');
+    }
+  }
+
+  /**
+   * Get the current paginated search options
+   * @returns {Observable<PaginatedSearchOptions>}
+   */
+  protected getSearchOptions(): Observable<PaginatedSearchOptions> {
+    return this.searchConfigService.paginatedSearchOptions;
   }
 
   /**
