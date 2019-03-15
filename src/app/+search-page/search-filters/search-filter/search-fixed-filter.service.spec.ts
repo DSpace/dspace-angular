@@ -1,11 +1,7 @@
 import { SearchFixedFilterService } from './search-fixed-filter.service';
-import { ResponseCacheEntry } from '../../../core/cache/response-cache.reducer';
 import { RouteService } from '../../../shared/services/route.service';
 import { RequestService } from '../../../core/data/request.service';
-import { ResponseCacheService } from '../../../core/cache/response-cache.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response-cache.models';
-import { PageInfo } from '../../../core/shared/page-info.model';
 import { of as observableOf } from 'rxjs';
 
 describe('SearchFixedFilterService', () => {
@@ -20,17 +16,12 @@ describe('SearchFixedFilterService', () => {
     /* tslint:enable:no-empty */
     generateRequestId: () => 'fake-id'
   }) as RequestService;
-  const responseCacheStub = Object.assign(new ResponseCacheService(undefined), {
-    get: () => observableOf(Object.assign(new ResponseCacheEntry(), {
-      response: new FilteredDiscoveryQueryResponse(filterQuery, '200', new PageInfo())
-    }))
-  });
-  const halServiceStub = Object.assign(new HALEndpointService(responseCacheStub, requestServiceStub, undefined), {
+  const halServiceStub = Object.assign(new HALEndpointService(requestServiceStub, undefined), {
     getEndpoint: () => observableOf('fake-url')
   });
 
   beforeEach(() => {
-    service = new SearchFixedFilterService(routeServiceStub, requestServiceStub, responseCacheStub, halServiceStub);
+    service = new SearchFixedFilterService(routeServiceStub, requestServiceStub, halServiceStub);
   });
 
   describe('when getQueryByFilterName is called with a filterName', () => {

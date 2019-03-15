@@ -4,27 +4,24 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockTranslateLoader } from '../../../shared/mocks/mock-translate-loader';
 import { MetadataValuesComponent } from './metadata-values.component';
 import { By } from '@angular/platform-browser';
-import { Metadatum } from '../../../core/shared/metadatum.model';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 
 let comp: MetadataValuesComponent;
 let fixture: ComponentFixture<MetadataValuesComponent>;
 
 const mockMetadata = [
   {
-    key: 'journal.identifier.issn',
     language: 'en_US',
     value: '1234'
   },
   {
-    key: 'journal.publisher',
     language: 'en_US',
     value: 'a publisher'
   },
   {
-    key: 'journal.identifier.description',
     language: 'en_US',
     value: 'desc'
-  }] as Metadatum[];
+  }] as MetadataValue[];
 const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
 
@@ -47,7 +44,7 @@ describe('MetadataValuesComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(MetadataValuesComponent);
     comp = fixture.componentInstance;
-    comp.values = mockMetadata;
+    comp.mdValues = mockMetadata;
     comp.separator = mockSeperator;
     comp.label = mockLabel;
     fixture.detectChanges();
