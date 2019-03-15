@@ -67,7 +67,7 @@ describe('SearchService', () => {
 
     it('should return list view mode', () => {
       searchService.getViewMode().subscribe((viewMode) => {
-        expect(viewMode).toBe(SetViewMode.List);
+        expect(viewMode).toBe(ViewMode.List);
       });
     });
   });
@@ -125,33 +125,33 @@ describe('SearchService', () => {
     });
 
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
-      searchService.setViewMode(SetViewMode.List);
+      searchService.setViewMode(ViewMode.List);
       expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { view: SetViewMode.List },
+        queryParams: { view: ViewMode.List },
         queryParamsHandling: 'merge'
       });
     });
 
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
-      searchService.setViewMode(SetViewMode.Grid);
+      searchService.setViewMode(ViewMode.Grid);
       expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { view: SetViewMode.Grid },
+        queryParams: { view: ViewMode.Grid },
         queryParamsHandling: 'merge'
       });
     });
 
     it('should return ViewMode.List when the viewMode is set to ViewMode.List in the ActivatedRoute', () => {
-      let viewMode = SetViewMode.Grid;
-      route.testParams = { view: SetViewMode.List };
+      let viewMode = ViewMode.Grid;
+      route.testParams = { view: ViewMode.List };
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
-      expect(viewMode).toEqual(SetViewMode.List);
+      expect(viewMode).toEqual(ViewMode.List);
     });
 
     it('should return ViewMode.Grid when the viewMode is set to ViewMode.Grid in the ActivatedRoute', () => {
-      let viewMode = SetViewMode.List;
-      route.testParams = { view: SetViewMode.Grid };
+      let viewMode = ViewMode.List;
+      route.testParams = { view: ViewMode.Grid };
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
-      expect(viewMode).toEqual(SetViewMode.Grid);
+      expect(viewMode).toEqual(ViewMode.Grid);
     });
 
     describe('when search is called', () => {

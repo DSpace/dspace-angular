@@ -21,22 +21,26 @@ let fixture: ComponentFixture<JournalComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
-  metadata: [
-    {
-      key: 'journal.identifier.issn',
-      language: 'en_US',
-      value: '1234'
-    },
-    {
-      key: 'journal.publisher',
-      language: 'en_US',
-      value: 'a publisher'
-    },
-    {
-      key: 'journal.identifier.description',
-      language: 'en_US',
-      value: 'desc'
-    }]
+  metadata: {
+    'journal.identifier.issn': [
+      {
+        language: 'en_US',
+        value: '1234'
+      }
+    ],
+    'journal.publisher': [
+      {
+        language: 'en_US',
+        value: 'a publisher'
+      }
+    ],
+    'journal.identifier.description': [
+      {
+        language: 'en_US',
+        value: 'desc'
+      }
+    ]
+  }
 });
 
 describe('JournalComponent', () => {
@@ -67,10 +71,10 @@ describe('JournalComponent', () => {
     fixture.detectChanges();
   }));
 
-  for (const metadata of mockItem.metadata) {
-    it(`should be calling a component with metadata field ${metadata.key}`, () => {
+  for (const key of Object.keys(mockItem.metadata)) {
+    it(`should be calling a component with metadata field ${key}`, () => {
       const fields = fixture.debugElement.queryAll(By.css('.item-page-fields'));
-      expect(containsFieldInput(fields, metadata.key)).toBeTruthy();
+      expect(containsFieldInput(fields, key)).toBeTruthy();
     });
   }
 });

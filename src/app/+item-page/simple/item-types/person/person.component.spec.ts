@@ -8,42 +8,50 @@ import { of as observableOf } from 'rxjs';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
-  metadata: [
-    {
-      key: 'person.identifier.email',
-      language: 'en_US',
-      value: 'fake@email.com'
-    },
-    {
-      key: 'person.identifier.orcid',
-      language: 'en_US',
-      value: 'ORCID-1'
-    },
-    {
-      key: 'person.identifier.birthdate',
-      language: 'en_US',
-      value: '1993'
-    },
-    {
-      key: 'person.identifier.staffid',
-      language: 'en_US',
-      value: '1'
-    },
-    {
-      key: 'person.identifier.jobtitle',
-      language: 'en_US',
-      value: 'Developer'
-    },
-    {
-      key: 'person.identifier.lastname',
-      language: 'en_US',
-      value: 'Doe'
-    },
-    {
-      key: 'person.identifier.firstname',
-      language: 'en_US',
-      value: 'John'
-    }],
+  metadata: {
+    'person.identifier.email': [
+      {
+        language: 'en_US',
+        value: 'fake@email.com'
+      }
+    ],
+    'person.identifier.orcid': [
+      {
+        language: 'en_US',
+        value: 'ORCID-1'
+      }
+    ],
+    'person.identifier.birthdate': [
+      {
+        language: 'en_US',
+        value: '1993'
+      }
+    ],
+    'person.identifier.staffid': [
+      {
+        language: 'en_US',
+        value: '1'
+      }
+    ],
+    'person.identifier.jobtitle': [
+      {
+        language: 'en_US',
+        value: 'Developer'
+      }
+    ],
+    'person.identifier.lastname': [
+      {
+        language: 'en_US',
+        value: 'Doe'
+      }
+    ],
+    'person.identifier.firstname': [
+      {
+        language: 'en_US',
+        value: 'John'
+      }
+    ]
+  },
   relationships: createRelationshipsObservable()
 });
 

@@ -10,7 +10,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { ItemPageFieldComponent } from './item-page-field.component';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { of as observableOf } from 'rxjs';
-import { MetadataMap } from '../../../../core/shared/metadata.models';
+import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -58,6 +58,6 @@ export function mockItemWithMetadataFieldAndValue(field: string, value: string):
   item.metadata[field] = [{
     language: 'en_US',
     value: value
-  }];
+  }] as MetadataValue[];
   return item;
 }

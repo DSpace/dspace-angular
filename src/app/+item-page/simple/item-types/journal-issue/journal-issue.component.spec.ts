@@ -8,27 +8,32 @@ import { of as observableOf } from 'rxjs';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
-  metadata: [
-    {
-      key: 'journalissue.identifier.number',
-      language: 'en_US',
-      value: '1234'
-    },
-    {
-      key: 'journalissue.issuedate',
-      language: 'en_US',
-      value: '2018'
-    },
-    {
-      key: 'journalissue.identifier.description',
-      language: 'en_US',
-      value: 'desc'
-    },
-    {
-      key: 'journalissue.identifier.keyword',
-      language: 'en_US',
-      value: 'keyword'
-    }],
+  metadata: {
+    'journalissue.identifier.number': [
+      {
+        language: 'en_US',
+        value: '1234'
+      }
+    ],
+    'journalissue.issuedate': [
+      {
+        language: 'en_US',
+        value: '2018'
+      }
+    ],
+    'journalissue.identifier.description': [
+      {
+        language: 'en_US',
+        value: 'desc'
+      }
+    ],
+    'journalissue.identifier.keyword': [
+      {
+        language: 'en_US',
+        value: 'keyword'
+      }
+    ]
+  },
   relationships: createRelationshipsObservable()
 });
 
