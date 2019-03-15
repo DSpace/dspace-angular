@@ -5,21 +5,21 @@ import { MockTranslateLoader } from '../../../shared/mocks/mock-translate-loader
 import { By } from '@angular/platform-browser';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 
 let comp: MetadataUriValuesComponent;
 let fixture: ComponentFixture<MetadataUriValuesComponent>;
 
 const mockMetadata = [
   {
-    key: 'dc.identifier.uri',
     language: 'en_US',
     value: 'http://fakelink.org'
   },
   {
-    key: 'dc.identifier.uri',
     language: 'en_US',
     value: 'http://another.fakelink.org'
-  }];
+  }
+] as MetadataValue[];
 const mockSeperator = '<br/>';
 const mockLabel = 'fake.message';
 const mockLinkText = 'fake link text';
@@ -43,7 +43,7 @@ describe('MetadataUriValuesComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(MetadataUriValuesComponent);
     comp = fixture.componentInstance;
-    comp.values = mockMetadata;
+    comp.mdValues = mockMetadata;
     comp.separator = mockSeperator;
     comp.label = mockLabel;
     fixture.detectChanges();

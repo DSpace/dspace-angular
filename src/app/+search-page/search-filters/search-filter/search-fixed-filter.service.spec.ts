@@ -3,6 +3,8 @@ import { RouteService } from '../../../shared/services/route.service';
 import { RequestService } from '../../../core/data/request.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { of as observableOf } from 'rxjs';
+import { RequestEntry } from '../../../core/data/request.reducer';
+import { FilteredDiscoveryQueryResponse, RestResponse } from '../../../core/cache/response.models';
 
 describe('SearchFixedFilterService', () => {
   let service: SearchFixedFilterService;
@@ -14,7 +16,10 @@ describe('SearchFixedFilterService', () => {
     /* tslint:disable:no-empty */
     configure: () => {},
     /* tslint:enable:no-empty */
-    generateRequestId: () => 'fake-id'
+    generateRequestId: () => 'fake-id',
+    getByUUID: () => observableOf(Object.assign(new RequestEntry(), {
+      response: new FilteredDiscoveryQueryResponse(filterQuery, '200')
+    }))
   }) as RequestService;
   const halServiceStub = Object.assign(new HALEndpointService(requestServiceStub, undefined), {
     getEndpoint: () => observableOf('fake-url')

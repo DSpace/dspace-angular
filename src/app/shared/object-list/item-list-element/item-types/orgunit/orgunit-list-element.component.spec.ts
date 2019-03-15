@@ -13,26 +13,31 @@ let fixture: ComponentFixture<OrgUnitListElementComponent>;
 
 const mockItemWithMetadata: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    },
-    {
-      key: 'orgunit.identifier.description',
-      language: 'en_US',
-      value: 'A description about the OrgUnit'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ],
+    'orgunit.identifier.description': [
+      {
+        language: 'en_US',
+        value: 'A description about the OrgUnit'
+      }
+    ]
+  }
 });
 const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ]
+  }
 });
 
 describe('OrgUnitListElementComponent', () => {

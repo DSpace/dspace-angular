@@ -8,7 +8,7 @@ import { ResponseParsingService } from '../../../core/data/parsing.service';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { FilteredDiscoveryPageResponseParsingService } from '../../../core/data/filtered-discovery-page-response-parsing.service';
 import { hasValue } from '../../../shared/empty.util';
-import { configureRequest } from '../../../core/shared/operators';
+import { configureRequest, getResponseFromEntry } from '../../../core/shared/operators';
 import { RouteService } from '../../../shared/services/route.service';
 import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response.models';
 
@@ -33,7 +33,7 @@ export class SearchFixedFilterService {
   getQueryByFilterName(filterName: string): Observable<string> {
     if (hasValue(filterName)) {
       const requestUuid = this.requestService.generateRequestId();
-      const requestObs = this.halService.getEndpoint(this.queryByFilterPath).pipe(
+      this.halService.getEndpoint(this.queryByFilterPath).pipe(
         map((url: string) => {
           url += ('/' + filterName);
           const request = new GetRequest(requestUuid, url);
@@ -44,10 +44,11 @@ export class SearchFixedFilterService {
           });
         }),
         configureRequest(this.requestService)
-      );
+      ).subscribe();
 
       // get search results from response cache
       const filterQuery: Observable<string> = this.requestService.getByUUID(requestUuid).pipe(
+        getResponseFromEntry(),
         map((response: FilteredDiscoveryQueryResponse) =>
           response.filterQuery
         ));

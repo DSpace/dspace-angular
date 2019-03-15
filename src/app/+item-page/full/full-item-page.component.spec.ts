@@ -20,12 +20,14 @@ import { By } from '@angular/platform-browser';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'test item'
-    }]
+  metadata: {
+      'dc.title': [
+        {
+          language: 'en_US',
+          value: 'test item'
+        }
+      ]
+    }
 });
 const routeStub = Object.assign(new ActivatedRouteStub(), {
   data: observableOf({ item: new RemoteData(false, false, true, null, mockItem) })
@@ -69,7 +71,7 @@ describe('FullItemPageComponent', () => {
 
   it('should display the item\'s metadata', () => {
     const table = fixture.debugElement.query(By.css('table'));
-    for (const metadatum of mockItem.metadata) {
+    for (const metadatum of mockItem.allMetadata([])) {
       expect(table.nativeElement.innerHTML).toContain(metadatum.value);
     }
   })

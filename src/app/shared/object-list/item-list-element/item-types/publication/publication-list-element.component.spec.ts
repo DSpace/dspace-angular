@@ -13,41 +13,49 @@ let fixture: ComponentFixture<PublicationListElementComponent>;
 
 const mockItemWithMetadata: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    },
-    {
-      key: 'dc.contributor.author',
-      language: 'en_US',
-      value: 'Smith, Donald'
-    },
-    {
-      key: 'dc.publisher',
-      language: 'en_US',
-      value: 'a publisher'
-    },
-    {
-      key: 'dc.date.issued',
-      language: null,
-      value: '2015-06-26'
-    },
-    {
-      key: 'dc.description.abstract',
-      language: 'en_US',
-      value: 'This is the abstract'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ],
+    'dc.contributor.author': [
+      {
+        language: 'en_US',
+        value: 'Smith, Donald'
+      }
+    ],
+    'dc.publisher': [
+      {
+        language: 'en_US',
+        value: 'a publisher'
+      }
+    ],
+    'dc.date.issued': [
+      {
+        language: 'en_US',
+        value: '2015-06-26'
+      }
+    ],
+    'dc.description.abstract': [
+      {
+        language: 'en_US',
+        value: 'This is the abstract'
+      }
+    ]
+  }
 });
 const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ]
+  }
 });
 
 describe('PublicationListElementComponent', () => {
