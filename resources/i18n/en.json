@@ -492,15 +492,40 @@
   },
   "browse": {
     "title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+    "startsWith": {
+      "jump": "Jump to a point in the index:",
+      "choose_year": "(Choose year)",
+      "choose_start": "(Choose start)",
+      "type_date": "Or type in a date (year-month):",
+      "type_text": "Or enter first few letters:",
+      "months": {
+        "none": "(Choose month)",
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      },
+      "submit": "Go"
+    },
     "metadata": {
       "title": "Title",
       "author": "Author",
-      "subject": "Subject"
+      "subject": "Subject",
+      "dateissued": "Issue Date"
     },
     "comcol": {
       "head": "Browse",
       "by": {
         "title": "By Title",
+        "dateissued": "By Issue Date",
         "author": "By Author",
         "subject": "By Subject"
       }
@@ -681,7 +706,8 @@
     "item": "Loading item...",
     "objects": "Loading...",
     "search-results": "Loading search results...",
-    "browse-by": "Loading items..."
+    "browse-by": "Loading items...",
+    "browse-by-page": "Loading page..."
   },
   "error": {
     "default": "Error",
