@@ -25,21 +25,17 @@ export class MetadataValue {
   value: string;
 
   /**
-   * The place of this Metadatum within his list of metadata
+   * The place of this MetadataValue within his list of metadata
    * This is used to render metadata in a specific custom order
    */
   @autoserialize
-  place: number;
+  order: number;
 
-  /**
-   * The authority key used for authority-controlled metadata
-   */
+  /** The authority key used for authority-controlled metadata */
   @autoserialize
   authority: string;
 
-  /**
-   * The authority confidence value
-   */
+  /** The authority confidence value */
   @autoserialize
   confidence: number;
 
@@ -91,23 +87,16 @@ export class MetadatumViewModel {
   /** The string value. */
   value: string;
 
-  /** The order. */
-  order: number;
-
   /**
-   * The place of this Metadatum within his list of metadata
+   * The place of this MetadataValue within his list of metadata
    * This is used to render metadata in a specific custom order
    */
-  place: number;
+  order: number;
 
-  /**
-   * The authority key used for authority-controlled metadata
-   */
+  /** The authority key used for authority-controlled metadata */
   authority: string;
 
-  /**
-   * The authority confidence value
-   */
+  /** The authority confidence value */
   confidence: number;
 }
 
