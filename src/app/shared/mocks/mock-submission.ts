@@ -3,6 +3,7 @@ import { SubmissionDefinitionsModel } from '../../core/config/models/config-subm
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
+import { Group } from '../../core/eperson/models/group.model';
 
 export const mockSectionsData = {
   traditionalpageone:{
@@ -1364,7 +1365,7 @@ export const mockAccessConditionOptions = [
   }
 ];
 
-export const mockGroup = {
+export const mockGroup = Object.assign(new Group(), {
   handle: null,
   permanent: true,
   self: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1',
@@ -1386,7 +1387,7 @@ export const mockGroup = {
     },
     page: []
   }
-};
+});
 
 export const mockUploadFiles = [
   {

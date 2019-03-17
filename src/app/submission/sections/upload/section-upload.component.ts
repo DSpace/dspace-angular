@@ -23,9 +23,15 @@ import { SubmissionService } from '../../submission.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
 import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
 export const POLICY_DEFAULT_WITH_LIST = 2; // Banner2
+
+export interface AccessConditionGroupsMapEntry {
+  accessCondition: string;
+  groups: Group[]
+}
 
 @Component({
   selector: 'ds-submission-section-upload',
@@ -62,7 +68,7 @@ export class UploadSectionComponent extends SectionModelComponent {
   /*
    * List of Groups available for every access condition
    */
-  protected availableGroups: Map<string, any>; // Groups for any policy
+  protected availableGroups: Map<string, Group[]>; // Groups for any policy
 
   protected subs = [];
 
@@ -117,38 +123,47 @@ export class UploadSectionComponent extends SectionModelComponent {
             : POLICY_DEFAULT_NO_LIST;
 
           this.availableGroups = new Map();
-          const groups$ = [];
+          const mapGroups$: Array<Observable<AccessConditionGroupsMapEntry>> = [];
           // Retrieve Groups for accessConditionPolicies
           this.availableAccessConditionOptions.forEach((accessCondition: AccessConditionOption) => {
             if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
-              groups$.push(
-                this.groupService.findById(accessCondition.groupUUID).pipe(
-                  find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded))
-              );
+              if (accessCondition.groupUUID) {
+                mapGroups$.push(
+                  this.groupService.findById(accessCondition.groupUUID).pipe(
+                    find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
+                    map((rd: RemoteData<Group>) => ({
+                      accessCondition: accessCondition.name,
+                      groups: [rd.payload]
+                    } as AccessConditionGroupsMapEntry)))
+                );
+              } else if (accessCondition.selectGroupUUID) {
+                mapGroups$.push(
+                  this.groupService.findById(accessCondition.selectGroupUUID).pipe(
+                    find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
+                    tap((group: RemoteData<Group>) => console.log(group.payload.groups)),
+                    flatMap((group: RemoteData<Group>) => group.payload.groups),
+                    find((rd: RemoteData<PaginatedList<Group>>) => !rd.isResponsePending && rd.hasSucceeded),
+                    tap((group) => console.log(group)),
+                    map((rd: RemoteData<PaginatedList<Group>>) => ({
+                      accessCondition: accessCondition.name,
+                      groups: rd.payload.page
+                    } as AccessConditionGroupsMapEntry))
+                ));
+              }
             }
           });
-          return groups$;
+          return mapGroups$;
         }),
-        flatMap((group) => group),
-        reduce((acc: Group[], group: RemoteData<Group>) => {
-          acc.push(group.payload);
+        flatMap((entry) => entry),
+        reduce((acc: any[], entry: AccessConditionGroupsMapEntry) => {
+          acc.push(entry);
           return acc;
         }, []),
-      ).subscribe((groups: Group[]) => {
-        groups.forEach((group: Group) => {
-          if (isUndefined(this.availableGroups.get(group.uuid))) {
-            if (Array.isArray(group.groups)) {
-              const groupArrayData = [];
-              for (const groupData of group.groups) {
-                groupArrayData.push({ name: groupData.name, uuid: groupData.uuid });
-              }
-              this.availableGroups.set(group.uuid, groupArrayData);
-            } else {
-              this.availableGroups.set(group.uuid, { name: group.name, uuid: group.uuid });
-            }
-          }
+      ).subscribe((entries: AccessConditionGroupsMapEntry[]) => {
+        console.log(entries);
+        entries.forEach((entry: AccessConditionGroupsMapEntry) => {
+          this.availableGroups.set(entry.accessCondition, entry.groups);
         });
-
         this.changeDetectorRef.detectChanges();
       })
       ,

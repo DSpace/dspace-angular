@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, ViewChild } from '@angular/core';
 
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
@@ -33,6 +33,10 @@ import { SubmissionFormsModel } from '../../../../../core/config/models/config-s
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
 import { SubmissionService } from '../../../../submission.service';
+import { FormService } from '../../../../../shared/form/form.service';
+import { FormComponent } from '../../../../../shared/form/form.component';
+import { FormControl } from '@angular/forms';
+import { Group } from '../../../../../core/eperson/models/group.model';
 
 @Component({
   selector: 'ds-submission-upload-section-file-edit',
@@ -41,7 +45,7 @@ import { SubmissionService } from '../../../../submission.service';
 export class UploadSectionFileEditComponent implements OnChanges {
 
   @Input() availableAccessConditionOptions: any[];
-  @Input() availableAccessConditionGroups: Map<string, any>;
+  @Input() availableAccessConditionGroups: Map<string, Group[]>;
   @Input() collectionId;
   @Input() collectionPolicyType;
   @Input() configMetadataForm: SubmissionFormsModel;
@@ -54,8 +58,11 @@ export class UploadSectionFileEditComponent implements OnChanges {
 
   public formModel: DynamicFormControlModel[];
 
+  @ViewChild('formRef') public formRef: FormComponent;
+
   constructor(private cdr: ChangeDetectorRef,
               private formBuilderService: FormBuilderService,
+              private formService: FormService,
               private submissionService: SubmissionService) {
   }
 
@@ -153,8 +160,8 @@ export class UploadSectionFileEditComponent implements OnChanges {
         .forEach((key) => {
           const metadataModel: any = this.formBuilderService.findById(key, formModel, index);
           if (metadataModel) {
-            if (key === 'groupUUID') {
-              this.availableAccessConditionGroups.forEach((group) => {
+            if (key === 'groupUUID' && this.availableAccessConditionGroups.get(accessCondition.name)) {
+              this.availableAccessConditionGroups.get(accessCondition.name).forEach((group) => {
                 metadataModel.options.push({
                   label: group.name,
                   value: group.uuid
@@ -189,14 +196,20 @@ export class UploadSectionFileEditComponent implements OnChanges {
     if (isNotEmpty(accessCondition)) {
       const showGroups: boolean = accessCondition.hasStartDate === true || accessCondition.hasEndDate === true;
 
-      const groupControl = control.parent.get('groupUUID');
-      const startDateControl = control.parent.get('startDate');
-      const endDateControl = control.parent.get('endDate');
+      const groupControl: FormControl = control.parent.get('groupUUID');
+      const startDateControl: FormControl = control.parent.get('startDate');
+      const endDateControl: FormControl = control.parent.get('endDate');
+
+      // Clear previous state
+      groupControl.markAsUntouched();
+      startDateControl.markAsUntouched();
+      endDateControl.markAsUntouched();
 
       // Clear previous values
       if (showGroups) {
         groupControl.setValue(null);
       } else {
+        groupControl.clearValidators();
         groupControl.setValue(accessCondition.groupUUID);
       }
       startDateControl.setValue(null);
@@ -204,15 +217,15 @@ export class UploadSectionFileEditComponent implements OnChanges {
       endDateControl.setValue(null);
 
       if (showGroups) {
-        if (isNotUndefined(accessCondition.groupUUID)) {
+        if (isNotUndefined(accessCondition.groupUUID) || isNotUndefined(accessCondition.selectGroupUUID)) {
 
           const groupOptions = [];
-          if (isNotUndefined(this.availableAccessConditionGroups.get(accessCondition.groupUUID))) {
+          if (isNotUndefined(this.availableAccessConditionGroups.get(accessCondition.name))) {
             const groupModel = this.formBuilderService.findById(
               'groupUUID',
               (model.parent as DynamicFormArrayGroupModel).group) as DynamicSelectModel<any>;
 
-            this.availableAccessConditionGroups.forEach((group) => {
+            this.availableAccessConditionGroups.get(accessCondition.name).forEach((group) => {
               groupOptions.push({
                 label: group.name,
                 value: group.uuid

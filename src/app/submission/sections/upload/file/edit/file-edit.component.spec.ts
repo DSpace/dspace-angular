@@ -30,6 +30,7 @@ import { FormService } from '../../../../../shared/form/form.service';
 import { GLOBAL_CONFIG } from '../../../../../../config';
 import { MOCK_SUBMISSION_CONFIG } from '../../../../../shared/testing/mock-submission-config';
 import { getMockFormService } from '../../../../../shared/mocks/mock-form-service';
+import { Group } from '../../../../../core/eperson/models/group.model';
 
 describe('UploadSectionFileEditComponent test suite', () => {
 
@@ -44,7 +45,10 @@ describe('UploadSectionFileEditComponent test suite', () => {
   const sectionId = 'upload';
   const collectionId = mockSubmissionCollectionId;
   const availableAccessConditionOptions = mockUploadConfigResponse.accessConditionOptions;
-  const availableGroupsMap = new Map([[mockGroup.id, { name: mockGroup.name, uuid: mockGroup.uuid }]]);
+  const availableGroupsMap: Map<string, Group[]> = new Map([
+    [mockUploadConfigResponse.accessConditionOptions[1].name, [mockGroup as any]],
+    [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
+  ]);
   const collectionPolicyType = POLICY_DEFAULT_WITH_LIST;
   const configMetadataForm: any = mockUploadConfigResponse.metadata;
   const fileIndex = '0';

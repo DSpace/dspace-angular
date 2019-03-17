@@ -180,9 +180,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (changes) {
       super.ngOnChanges(changes);
       if (this.model && this.model.placeholder) {
-        this.translateService.get(this.model.placeholder).subscribe((placeholder) => {
-          this.model.placeholder = placeholder;
-        })
+        this.model.placeholder = this.translateService.instant(this.model.placeholder);
       }
     }
   }

@@ -14,6 +14,11 @@ export class AccessConditionOption {
   groupUUID: string;
 
   /**
+   * The uuid of the Group that contains set of groups this Resource Policy applies to
+   */
+  selectGroupUUID: string;
+
+  /**
    * A boolean representing if this Access Condition has a start date
    */
   hasStartDate: boolean;

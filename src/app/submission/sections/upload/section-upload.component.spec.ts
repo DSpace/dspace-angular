@@ -204,15 +204,17 @@ describe('UploadSectionComponent test suite', () => {
 
       comp.onSectionInit();
 
-      const expectedGroupsMap = new Map();
-      expectedGroupsMap.set(mockGroup.id, { name: mockGroup.name, uuid: mockGroup.uuid });
+      const expectedGroupsMap =  new Map([
+        [mockUploadConfigResponse.accessConditionOptions[1].name, [mockGroup as any]],
+        [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
+      ]);
 
       expect(comp.collectionId).toBe(collectionId);
       expect(comp.collectionName).toBe(mockCollection.name);
       expect(comp.availableAccessConditionOptions.length).toBe(4);
       expect(comp.availableAccessConditionOptions).toEqual(mockUploadConfigResponse.accessConditionOptions as any);
       expect(compAsAny.subs.length).toBe(2);
-      expect(compAsAny.availableGroups.size).toBe(1);
+      expect(compAsAny.availableGroups.size).toBe(2);
       expect(compAsAny.availableGroups).toEqual(expectedGroupsMap);
       expect(compAsAny.fileList).toEqual([]);
       expect(compAsAny.fileIndexes).toEqual([]);
@@ -248,15 +250,17 @@ describe('UploadSectionComponent test suite', () => {
 
       comp.onSectionInit();
 
-      const expectedGroupsMap = new Map();
-      expectedGroupsMap.set(mockGroup.id, { name: mockGroup.name, uuid: mockGroup.uuid });
+      const expectedGroupsMap =  new Map([
+        [mockUploadConfigResponse.accessConditionOptions[1].name, [mockGroup as any]],
+        [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
+      ]);
 
       expect(comp.collectionId).toBe(collectionId);
       expect(comp.collectionName).toBe(mockCollection.name);
       expect(comp.availableAccessConditionOptions.length).toBe(4);
       expect(comp.availableAccessConditionOptions).toEqual(mockUploadConfigResponse.accessConditionOptions as any);
       expect(compAsAny.subs.length).toBe(2);
-      expect(compAsAny.availableGroups.size).toBe(1);
+      expect(compAsAny.availableGroups.size).toBe(2);
       expect(compAsAny.availableGroups).toEqual(expectedGroupsMap);
       expect(compAsAny.fileList).toEqual(mockUploadFiles);
       expect(compAsAny.fileIndexes).toEqual(['123456-test-upload']);
