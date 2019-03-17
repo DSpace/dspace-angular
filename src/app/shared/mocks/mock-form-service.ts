@@ -12,8 +12,8 @@ export function getMockFormService(
     getForm: observableOf({}),
     getUniqueId: id$,
     resetForm: {},
-    validateAllFormFields: {},
-    isValid: observableOf(true),
+    validateAllFormFields: jasmine.createSpy('validateAllFormFields'),
+    isValid: jasmine.createSpy('isValid'),
     isFormInitialized: observableOf(true)
   });
 
