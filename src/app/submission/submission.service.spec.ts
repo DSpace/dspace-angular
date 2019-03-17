@@ -777,7 +777,7 @@ describe('SubmissionService test suite', () => {
       service.notifyNewSection(submissionId, sectionId);
       flush();
 
-      expect((service as any).notificationsService.info).toHaveBeenCalledWith(null, 'test', null, true);
+      expect((service as any).notificationsService.info).toHaveBeenCalledWith(null, 'submission.sections.general.metadata-extracted-new-section', null, true);
     }));
   });
 
@@ -890,7 +890,7 @@ describe('SubmissionService test suite', () => {
       const duration = config.submission.autosave.timer * (1000 * 60);
 
       service.startAutoSave('826');
-      const sub = (service as any).timerObs.subscribe();
+      const sub = (service as any).timer$.subscribe();
 
       tick(duration / 2);
       expect((service as any).store.dispatch).not.toHaveBeenCalled();

@@ -1,9 +1,28 @@
 import { hasValue } from '../../shared/empty.util';
 
+/**
+ * An interface to represent the path of a section error
+ */
 export interface SectionErrorPath {
+
+  /**
+   * The section id
+   */
   sectionId: string;
+
+  /**
+   * The form field id
+   */
   fieldId?: string;
+
+  /**
+   * The form field index
+   */
   fieldIndex?: number;
+
+  /**
+   * The complete path
+   */
   originalPath: string;
 }
 
@@ -12,7 +31,7 @@ const regex = /([^\/]+)/g;
 const regexShort = /\/sections\/(.*)/;
 
 /**
- * the following method accept an array of section path strings and return a path object
+ * The following method accept an array of section path strings and return a path object
  * @param {string | string[]} path
  * @returns {SectionErrorPath[]}
  */

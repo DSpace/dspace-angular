@@ -38,42 +38,138 @@ import { WorkspaceitemSectionDataType } from '../../core/submission/models/works
 import { WorkspaceitemSectionUploadObject } from '../../core/submission/models/workspaceitem-section-upload.model';
 import { SectionsType } from '../sections/sections-type';
 
+/**
+ * An interface to represent section visibility
+ */
 export interface SectionVisibility {
   main: any;
   other: any;
 }
 
+/**
+ * An interface to represent section object state
+ */
 export interface SubmissionSectionObject {
+  /**
+   * The section header
+   */
   header: string;
+
+  /**
+   * The section configuration url
+   */
   config: string;
+
+  /**
+   * A boolean representing if this section is mandatory
+   */
   mandatory: boolean;
+
+  /**
+   * The section type
+   */
   sectionType: SectionsType;
+
+  /**
+   * The section visibility
+   */
   visibility: SectionVisibility;
+
+  /**
+   * A boolean representing if this section is collapsed
+   */
   collapsed: boolean,
+
+  /**
+   * A boolean representing if this section is enabled
+   */
   enabled: boolean;
+
+  /**
+   * The section data object
+   */
   data: WorkspaceitemSectionDataType;
+
+  /**
+   * The list of the section errors
+   */
   errors: SubmissionSectionError[];
+
+  /**
+   * A boolean representing if this section is loading
+   */
   isLoading: boolean;
+
+  /**
+   * A boolean representing if this section is valid
+   */
   isValid: boolean;
 }
 
+/**
+ * An interface to represent section error
+ */
 export interface SubmissionSectionError {
+  /**
+   * A string representing error path
+   */
   path: string;
+
+  /**
+   * The error message
+   */
   message: string;
 }
 
+/**
+ * An interface to represent SubmissionSectionObject entry
+ */
 export interface SubmissionSectionEntry {
   [sectionId: string]: SubmissionSectionObject;
 }
 
+/**
+ * An interface to represent submission object state
+ */
 export interface SubmissionObjectEntry {
+  /**
+   * The collection this submission belonging to
+   */
   collection?: string,
+
+  /**
+   * The configuration name tha define this submission
+   */
   definition?: string,
+
+  /**
+   * The submission self url
+   */
   selfUrl?: string;
+
+  /**
+   * The submission active section
+   */
   activeSection?: string;
+
+  /**
+   * The list of submission's sections
+   */
   sections?: SubmissionSectionEntry;
+
+  /**
+   * A boolean representing if this submission is loading
+   */
   isLoading?: boolean;
+
+  /**
+   * A boolean representing if a submission save operation is pending
+   */
   savePending?: boolean;
+
+  /**
+   * A boolean representing if a submission deposit operation is pending
+   */
   depositPending?: boolean;
 }
 
