@@ -56,7 +56,14 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
       connective: 'OR',
       when: []
     }
-  ]
+  ],
+  required: true,
+  validators: {
+    required: null
+  },
+  errorMessages: {
+    required: 'submission.sections.upload.form.date-required'
+  }
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
@@ -80,7 +87,14 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
       connective: 'OR',
       when: []
     }
-  ]
+  ],
+  required: true,
+  validators: {
+    required: null
+  },
+  errorMessages: {
+    required: 'submission.sections.upload.form.date-required'
+  }
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
@@ -102,7 +116,14 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelCo
       connective: 'OR',
       when: []
     }
-  ]
+  ],
+  required: true,
+  validators: {
+    required: null
+  },
+  errorMessages: {
+    required: 'submission.sections.upload.form.group-required'
+  }
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT: DynamicFormControlLayout = {
   element: {
