@@ -20,13 +20,13 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from '../../../../core/submission/models/workspaceitem-section-upload.model';
-import { UploadSectionFileEditComponent } from './edit/file-edit.component';
+import { UploadSectionFileEditComponent } from './edit/section-upload-file-edit.component';
 import { Group } from '../../../../core/eperson/models/group.model';
 
 @Component({
   selector: 'ds-submission-upload-section-file',
-  styleUrls: ['./file.component.scss'],
-  templateUrl: './file.component.html',
+  styleUrls: ['./section-upload-file.component.scss'],
+  templateUrl: './section-upload-file.component.html',
 })
 export class UploadSectionFileComponent implements OnChanges, OnInit {
 

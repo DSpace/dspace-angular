@@ -9,10 +9,10 @@ import { Group } from '../../../../core/eperson/models/group.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 
 @Component({
-  selector: 'ds-access-conditions',
-  templateUrl: './accessConditions.component.html',
+  selector: 'ds-section-upload-access-conditions',
+  templateUrl: './section-upload-access-conditions.component.html',
 })
-export class AccessConditionsComponent implements OnInit {
+export class SectionUploadAccessConditionsComponent implements OnInit {
 
   @Input() accessConditions: ResourcePolicy[];
 

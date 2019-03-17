@@ -26,7 +26,7 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
-} from './files-edit.model';
+} from './section-upload-file-edit.model';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { isNotEmpty, isNotUndefined } from '../../../../../shared/empty.util';
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
@@ -40,7 +40,7 @@ import { Group } from '../../../../../core/eperson/models/group.model';
 
 @Component({
   selector: 'ds-submission-upload-section-file-edit',
-  templateUrl: './file-edit.component.html',
+  templateUrl: './section-upload-file-edit.component.html',
 })
 export class UploadSectionFileEditComponent implements OnChanges {
 

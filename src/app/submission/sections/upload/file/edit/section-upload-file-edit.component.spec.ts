@@ -15,7 +15,7 @@ import { createTestComponent } from '../../../../../shared/testing/utils';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service-stub';
 import { SubmissionService } from '../../../../submission.service';
-import { UploadSectionFileEditComponent } from './file-edit.component';
+import { UploadSectionFileEditComponent } from './section-upload-file-edit.component';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import {
   mockGroup,

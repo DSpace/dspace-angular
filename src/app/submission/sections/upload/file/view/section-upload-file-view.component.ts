@@ -7,7 +7,7 @@ import { MetadataMap, MetadataValue } from '../../../../../core/shared/metadata.
 
 @Component({
   selector: 'ds-submission-upload-section-file-view',
-  templateUrl: './file-view.component.html',
+  templateUrl: './section-upload-file-view.component.html',
 })
 export class UploadSectionFileViewComponent implements OnInit {
   @Input() fileData: WorkspaceitemSectionUploadFileObject;

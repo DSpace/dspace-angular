@@ -23,10 +23,10 @@ import { SubmissionRestService } from './submission-rest.service';
 import { LicenseSectionComponent } from './sections/license/section-license.component';
 import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
-import { UploadSectionFileComponent } from './sections/upload/file/file.component';
-import { UploadSectionFileEditComponent } from './sections/upload/file/edit/file-edit.component';
-import { UploadSectionFileViewComponent } from './sections/upload/file/view/file-view.component';
-import { AccessConditionsComponent } from './sections/upload/accessConditions/accessConditions.component';
+import { UploadSectionFileComponent } from './sections/upload/file/section-upload-file.component';
+import { UploadSectionFileEditComponent } from './sections/upload/file/edit/section-upload-file-edit.component';
+import { UploadSectionFileViewComponent } from './sections/upload/file/view/section-upload-file-view.component';
+import { SectionUploadAccessConditionsComponent } from './sections/upload/accessConditions/section-upload-access-conditions.component';
 import { SubmissionSubmitComponent } from './submit/submission-submit.component';
 
 @NgModule({
@@ -39,7 +39,7 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     TranslateModule
   ],
   declarations: [
-    AccessConditionsComponent,
+    SectionUploadAccessConditionsComponent,
     UploadSectionComponent,
     FormSectionComponent,
     LicenseSectionComponent,

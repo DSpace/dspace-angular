@@ -15,7 +15,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service-stub';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { UploadSectionFileComponent } from './file.component';
+import { UploadSectionFileComponent } from './section-upload-file.component';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service-stub';
 import {
   mockFileFormData,
@@ -36,7 +36,7 @@ import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/buil
 import { getMockSectionUploadService } from '../../../../shared/mocks/mock-section-upload.service';
 import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { Group } from '../../../../core/eperson/models/group.model';
-import { UploadSectionFileEditComponent } from './edit/file-edit.component';
+import { UploadSectionFileEditComponent } from './edit/section-upload-file-edit.component';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {

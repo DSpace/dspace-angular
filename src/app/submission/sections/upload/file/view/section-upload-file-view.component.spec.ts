@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { createTestComponent } from '../../../../../shared/testing/utils';
 import { mockUploadFiles } from '../../../../../shared/mocks/mock-submission';
 import { FormComponent } from '../../../../../shared/form/form.component';
-import { UploadSectionFileViewComponent } from './file-view.component';
+import { UploadSectionFileViewComponent } from './section-upload-file-view.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 
