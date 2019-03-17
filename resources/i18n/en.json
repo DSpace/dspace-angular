@@ -750,7 +750,9 @@
           "from-placeholder": "From",
           "until-label": "Access grant until",
           "until-placeholder": "Until",
-          "group-label": "Group"
+          "group-label": "Group",
+          "group-required": "Group is required.",
+          "date-required": "Date is required."
         },
         "save-metadata": "Save metadata",
         "undo": "Cancel",
