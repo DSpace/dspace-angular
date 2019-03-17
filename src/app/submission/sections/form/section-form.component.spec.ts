@@ -236,6 +236,7 @@ describe('FormSectionComponent test suite', () => {
 
     it('should init section properly', () => {
       const sectionData = {};
+      formService.isValid.and.returnValue(observableOf(true));
       formConfigService.getConfigByHref.and.returnValue(observableOf(formConfigData));
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
       spyOn(comp, 'initForm');

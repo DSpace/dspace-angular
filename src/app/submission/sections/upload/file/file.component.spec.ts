@@ -35,6 +35,8 @@ import { POLICY_DEFAULT_WITH_LIST } from '../section-upload.component';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { getMockSectionUploadService } from '../../../../shared/mocks/mock-section-upload.service';
 import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
+import { Group } from '../../../../core/eperson/models/group.model';
+import { UploadSectionFileEditComponent } from './edit/file-edit.component';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
@@ -61,7 +63,10 @@ describe('UploadSectionFileComponent test suite', () => {
   const sectionId = 'upload';
   const collectionId = mockSubmissionCollectionId;
   const availableAccessConditionOptions = mockUploadConfigResponse.accessConditionOptions;
-  const availableGroupsMap = new Map([[mockGroup.id, { name: mockGroup.name, uuid: mockGroup.uuid }]]);
+  const availableGroupsMap: Map<string, Group[]> = new Map([
+    [mockUploadConfigResponse.accessConditionOptions[1].name, [mockGroup as any]],
+    [mockUploadConfigResponse.accessConditionOptions[2].name, [mockGroup as any]],
+  ]);
   const collectionPolicyType = POLICY_DEFAULT_WITH_LIST;
   const fileIndex = '0';
   const fileName = '123456-test-upload.jpg';
@@ -98,7 +103,8 @@ describe('UploadSectionFileComponent test suite', () => {
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         ChangeDetectorRef,
         NgbModal,
-        UploadSectionFileComponent
+        UploadSectionFileComponent,
+        UploadSectionFileEditComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -228,10 +234,14 @@ describe('UploadSectionFileComponent test suite', () => {
       expect(fileService.downloadFile).toHaveBeenCalled()
     }));
 
-    it('should download Bitstream File properly', fakeAsync(() => {
+    it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
+      compAsAny.fileEditComp = TestBed.get(UploadSectionFileEditComponent);
+      compAsAny.fileEditComp.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
       const event = new Event('click', null);
       spyOn(comp, 'switchMode');
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockFileFormData));
 
       const response = [
@@ -276,6 +286,20 @@ describe('UploadSectionFileComponent test suite', () => {
 
       expect(comp.switchMode).toHaveBeenCalled();
       expect(uploadService.updateFileData).toHaveBeenCalledWith(submissionId, sectionId, mockUploadFiles[0].uuid, mockUploadFiles[0]);
+
+    }));
+
+    it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
+      compAsAny.fileEditComp = TestBed.get(UploadSectionFileEditComponent);
+      compAsAny.fileEditComp.formRef = {formGroup: null};
+      compAsAny.pathCombiner = pathCombiner;
+      const event = new Event('click', null);
+      spyOn(comp, 'switchMode');
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(observableOf(false));
+
+      expect(comp.switchMode).not.toHaveBeenCalled();
+      expect(uploadService.updateFileData).not.toHaveBeenCalled();
 
     }));
 
