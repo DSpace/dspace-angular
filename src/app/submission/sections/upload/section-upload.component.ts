@@ -160,7 +160,6 @@ export class UploadSectionComponent extends SectionModelComponent {
           return acc;
         }, []),
       ).subscribe((entries: AccessConditionGroupsMapEntry[]) => {
-        console.log(entries);
         entries.forEach((entry: AccessConditionGroupsMapEntry) => {
           this.availableGroups.set(entry.accessCondition, entry.groups);
         });

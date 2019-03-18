@@ -19,7 +19,6 @@ import { submissionEffects } from './submission.effects';
 import { UploadSectionComponent } from './sections/upload/section-upload.component';
 import { SectionUploadService } from './sections/upload/section-upload.service';
 import { SubmissionUploadFilesComponent } from './form/submission-upload-files/submission-upload-files.component';
-import { SubmissionRestService } from './submission-rest.service';
 import { LicenseSectionComponent } from './sections/license/section-license.component';
 import { SubmissionUploadsConfigService } from '../core/config/submission-uploads-config.service';
 import { SubmissionEditComponent } from './edit/submission-edit.component';
@@ -69,9 +68,12 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
   providers: [
     SectionUploadService,
     SectionsService,
-    SubmissionRestService,
     SubmissionUploadsConfigService
   ]
 })
+
+/**
+ * This module handles all components that are necessary for the submission process
+ */
 export class SubmissionModule {
 }

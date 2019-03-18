@@ -68,7 +68,7 @@ import { WorkflowitemDataService } from './submission/workflowitem-data.service'
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { FileService } from './shared/file.service';
-import { SubmissionRestService } from '../submission/submission-rest.service';
+import { SubmissionRestService } from './submission/submission-rest.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';

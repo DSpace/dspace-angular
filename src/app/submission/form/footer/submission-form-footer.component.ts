@@ -4,7 +4,7 @@ import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { SubmissionRestService } from '../../submission-rest.service';
+import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { isNotEmpty } from '../../../shared/empty.util';

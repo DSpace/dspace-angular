@@ -31,7 +31,7 @@ import { submissionObjectFromIdSelector } from './selectors';
 import { GlobalConfig } from '../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../config';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
-import { SubmissionRestService } from './submission-rest.service';
+import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { SectionDataObject } from './sections/models/section-data.model';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
