@@ -321,6 +321,23 @@ describe('FormSectionComponent test suite', () => {
     it('should update form error properly', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
+      const sectionData: any = {
+        'dc.title': [new FormFieldMetadataValueObject('test')]
+      };
+      comp.sectionData.data = {};
+      comp.sectionData.errors = [];
+      compAsAny.formData = sectionData;
+
+      comp.updateForm(sectionData, parsedSectionErrors);
+
+      expect(comp.initForm).not.toHaveBeenCalled();
+      expect(comp.checksForErrors).toHaveBeenCalled();
+      expect(comp.sectionData.data).toEqual(sectionData);
+    });
+
+    it('should update form error properly', () => {
+      spyOn(comp, 'initForm');
+      spyOn(comp, 'checksForErrors');
       const sectionData: any = {};
 
       comp.updateForm(sectionData, parsedSectionErrors);
