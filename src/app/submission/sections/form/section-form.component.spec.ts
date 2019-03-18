@@ -266,6 +266,7 @@ describe('FormSectionComponent test suite', () => {
 
     it('should set a section Error when init form model fails', () => {
       formBuilderService.modelFromConfiguration.and.throwError('test');
+      translateService.instant.and.returnValue('test');
       const sectionData = {};
       const sectionError: SubmissionSectionError = {
         message: 'test' + 'Error: test',
