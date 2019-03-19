@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -12,7 +11,7 @@ import {
 import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { debounceTime, startWith, switchMap } from 'rxjs/operators';
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
@@ -68,6 +67,11 @@ export class DSOSelectorComponent implements OnInit {
    */
   @ViewChildren('listEntryElement') listElements: QueryList<ElementRef>;
 
+  /**
+   * Time to wait before sending a search request to the server when a user types something
+   */
+  debounceTime = 500;
+
   constructor(private searchService: SearchService) {
   }
 
@@ -79,6 +83,7 @@ export class DSOSelectorComponent implements OnInit {
     this.input.setValue(this.currentDSOId);
     this.listEntries$ = this.input.valueChanges
       .pipe(
+        debounceTime(this.debounceTime),
         startWith(this.currentDSOId),
         switchMap((query) => {
             return this.searchService.search(

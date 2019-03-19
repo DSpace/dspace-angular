@@ -1,5 +1,5 @@
 import { PageInfo } from '../shared/page-info.model';
-import { hasValue } from '../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../shared/empty.util';
 
 export class PaginatedList<T> {
 
@@ -21,6 +21,9 @@ export class PaginatedList<T> {
   get totalElements(): number {
     if (hasValue(this.pageInfo) && hasValue(this.pageInfo.totalElements)) {
       return this.pageInfo.totalElements;
+    }
+    if (hasNoValue(this.page)) {
+      return 0;
     }
     return this.page.length;
   }

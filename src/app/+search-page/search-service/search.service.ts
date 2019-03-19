@@ -23,7 +23,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import {
-  configureRequest,
+  configureRequest, filterSuccessfulResponses,
   getResponseFromEntry,
   getSucceededRemoteData
 } from '../../core/shared/operators';
@@ -104,7 +104,7 @@ export class SearchService implements OnDestroy {
 
     // get search results from response cache
     const sqrObs: Observable<SearchQueryResponse> = requestEntryObs.pipe(
-      getResponseFromEntry(),
+      filterSuccessfulResponses(),
       map((response: SearchSuccessResponse) => response.results)
     );
 

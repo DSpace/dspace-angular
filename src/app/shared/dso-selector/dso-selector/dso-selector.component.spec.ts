@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSOSelectorComponent } from './dso-selector.component';
@@ -21,7 +21,12 @@ describe('DSOSelectorComponent', () => {
   const type = DSpaceObjectType.ITEM;
   const searchResult = new ItemSearchResult();
   const item = new Item();
-  item.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Item title', language: undefined })] };
+  item.metadata = {
+    'dc.title': [Object.assign(new MetadataValue(), {
+      value: 'Item title',
+      language: undefined
+    })]
+  };
   searchResult.dspaceObject = item;
   searchResult.hitHighlights = {};
   const searchService = jasmine.createSpyObj('searchService', {
@@ -46,6 +51,7 @@ describe('DSOSelectorComponent', () => {
     debugElement = fixture.debugElement;
     component.currentDSOId = currentDSOId;
     component.type = type;
+
     fixture.detectChanges();
   });
 
@@ -59,7 +65,9 @@ describe('DSOSelectorComponent', () => {
       dsoType: type,
       pagination: (component as any).defaultPagination
     });
+
     expect(searchService.search).toHaveBeenCalledWith(searchOptions);
   });
 
-});
+})
+;
