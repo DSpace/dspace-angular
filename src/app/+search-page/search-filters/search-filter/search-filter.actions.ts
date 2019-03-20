@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../../shared/ngrx/type';
+import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 
 /**
  * For each action type in an action group, make a simple
@@ -12,9 +13,8 @@ import { type } from '../../../shared/ngrx/type';
  */
 export const SearchFilterActionTypes = {
   COLLAPSE: type('dspace/search-filter/COLLAPSE'),
-  INITIAL_COLLAPSE: type('dspace/search-filter/INITIAL_COLLAPSE'),
+  INITIALIZE: type('dspace/search-filter/INITIALIZE'),
   EXPAND: type('dspace/search-filter/EXPAND'),
-  INITIAL_EXPAND: type('dspace/search-filter/INITIAL_EXPAND'),
   TOGGLE: type('dspace/search-filter/TOGGLE'),
   DECREMENT_PAGE: type('dspace/search-filter/DECREMENT_PAGE'),
   INCREMENT_PAGE: type('dspace/search-filter/INCREMENT_PAGE'),
@@ -66,15 +66,13 @@ export class SearchFilterToggleAction extends SearchFilterAction {
 /**
  * Used to set the initial state of a filter to collapsed
  */
-export class SearchFilterInitialCollapseAction extends SearchFilterAction {
-  type = SearchFilterActionTypes.INITIAL_COLLAPSE;
-}
-
-/**
- * Used to set the initial state of a filter to expanded
- */
-export class SearchFilterInitialExpandAction extends SearchFilterAction {
-  type = SearchFilterActionTypes.INITIAL_EXPAND;
+export class SearchFilterInitializeAction extends SearchFilterAction {
+  type = SearchFilterActionTypes.INITIALIZE;
+  initiallyExpanded;
+  constructor(filter: SearchFilterConfig) {
+    super(filter.name);
+    this.initiallyExpanded = filter.isOpenByDefault;
+  }
 }
 
 /**

@@ -1,4 +1,4 @@
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
@@ -6,6 +6,7 @@ import {
   Router,
 } from '@angular/router';
 import { isNotEmpty } from '../empty.util';
+import { detect } from 'rxjs-spy';
 
 @Injectable()
 export class RouteService {
@@ -14,6 +15,7 @@ export class RouteService {
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
+    console.log('called');
     return this.route.queryParamMap.pipe(
       map((params) => [...params.getAll(paramName)]),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
@@ -44,6 +46,7 @@ export class RouteService {
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
     return this.route.queryParamMap.pipe(
       map((qparams) => {
+        console.log('map');
         const params = {};
         qparams.keys
           .filter((key) => key.startsWith(prefix))
@@ -52,6 +55,8 @@ export class RouteService {
           });
         return params;
       }),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)));
+      distinctUntilChanged((a, b) => { console.log('changed?', a, b, JSON.stringify(a) === JSON.stringify(b)); return JSON.stringify(a) === JSON.stringify(b)}),
+      tap((t) => console.log('changed'))
+    );
   }
 }

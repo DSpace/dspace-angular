@@ -62,7 +62,6 @@ export class SearchPageComponent implements OnInit {
   constructor(private service: SearchService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
-              private filterService: SearchFilterService,
               private searchConfigService: SearchConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }

@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, InjectionToken } from '@angular/core';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
@@ -8,8 +8,7 @@ import {
   SearchFilterDecrementPageAction,
   SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
-  SearchFilterInitialCollapseAction,
-  SearchFilterInitialExpandAction,
+  SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
@@ -17,7 +16,9 @@ import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { RouteService } from '../../../shared/services/route.service';
 import { Params } from '@angular/router';
-
+import { tag } from 'rxjs-spy/operators';
+import { create, detect } from "rxjs-spy";
+const spy = create();
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
@@ -58,16 +59,21 @@ export class SearchFilterService {
    * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
    */
   getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
-    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
-    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
-      map((params: Params) => [].concat(...Object.values(params)))
+    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName).pipe(
+      tag("parameter")
     );
+    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
+      map((params: Params) => [].concat(...Object.values(params))),
+      tag("prefix-tag")
+
+
+    );
+    spy.log();
+    detect('prefix-tag');
 
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {
-        console.log('getSelectedValuesForFilter ', values, prefixValues);
-
-        if (isNotEmpty(values)) {
+          if (isNotEmpty(values)) {
             return values;
           }
           return prefixValues;
@@ -138,19 +144,11 @@ export class SearchFilterService {
   }
 
   /**
-   * Dispatches an initial collapse action to the store for a given filter
-   * @param {string} filterName The filter for which the action is dispatched
+   * Dispatches an initialize action to the store for a given filter
+   * @param {SearchFilterConfig} filter The filter for which the action is dispatched
    */
-  public initialCollapse(filterName: string): void {
-    this.store.dispatch(new SearchFilterInitialCollapseAction(filterName));
-  }
-
-  /**
-   * Dispatches an initial expand action to the store for a given filter
-   * @param {string} filterName The filter for which the action is dispatched
-   */
-  public initialExpand(filterName: string): void {
-    this.store.dispatch(new SearchFilterInitialExpandAction(filterName));
+  public initializeFilter(filter: SearchFilterConfig): void {
+    this.store.dispatch(new SearchFilterInitializeAction(filter));
   }
 
   /**

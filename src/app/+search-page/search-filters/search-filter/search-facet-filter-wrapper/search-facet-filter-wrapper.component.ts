@@ -3,6 +3,8 @@ import { renderFilterType } from '../search-filter-type-decorator';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FILTER_CONFIG } from '../search-filter.service';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 
 @Component({
   selector: 'ds-search-facet-filter-wrapper',
@@ -18,6 +20,7 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
    */
   @Input() filterConfig: SearchFilterConfig;
 
+  searchFilter: GenericConstructor<SearchFacetFilterComponent>;
   /**
    * Injector to inject a child component with the @Input parameters
    */
@@ -30,6 +33,7 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
    * Initialize and add the filter config to the injector
    */
   ngOnInit(): void {
+    this.searchFilter = this.getSearchFilter();
     this.objectInjector = Injector.create({
       providers: [
         { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] }
@@ -41,7 +45,7 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
   /**
    * Find the correct component based on the filter config's type
    */
-  getSearchFilter() {
+  private getSearchFilter() {
     const type: FilterType = this.filterConfig.type;
     return renderFilterType(type);
   }

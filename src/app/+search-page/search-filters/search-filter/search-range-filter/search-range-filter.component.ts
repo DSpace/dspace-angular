@@ -28,10 +28,9 @@ import { SearchConfigurationService } from '../../../search-service/search-confi
  * The route parameter 'id' is used to request the item it represents.
  * All fields of the item that should be displayed, are defined in its template.
  */
-const minSuffix = '.min';
-const maxSuffix = '.max';
+export const RANGE_FILTER_MIN_SUFFIX = '.min';
+export const RANGE_FILTER_MAX_SUFFIX = '.max';
 const dateFormats = ['YYYY', 'YYYY-MM', 'YYYY-MM-DD'];
-const rangeDelimiter = '-';
 
 @Component({
   selector: 'ds-search-range-filter',
@@ -85,8 +84,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     super.ngOnInit();
     this.min = moment(this.filterConfig.minValue, dateFormats).year() || this.min;
     this.max = moment(this.filterConfig.maxValue, dateFormats).year() || this.max;
-    const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + minSuffix).pipe(startWith(undefined));
-    const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + maxSuffix).pipe(startWith(undefined));
+    const iniMin = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX).pipe(startWith(undefined));
+    const iniMax = this.route.getQueryParameterValue(this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX).pipe(startWith(undefined));
     this.sub = observableCombineLatest(iniMin, iniMax).pipe(
       map(([min, max]) => {
         const minimum = hasValue(min) ? min : this.min;
@@ -96,22 +95,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     ).subscribe((minmax) => this.range = minmax);
   }
 
-  /**
-   * Calculates the parameters that should change if a given values for this range filter would be changed
-   * @param {string} value The values that are changed for this filter
-   * @returns {Observable<any>} The changed filter parameters
-   */
-  getChangeParams(value: string) {
-    const parts = value.split(rangeDelimiter);
-    const min = parts.length > 1 ? parts[0].trim() : value;
-    const max = parts.length > 1 ? parts[1].trim() : value;
-    return observableOf(
-      {
-        [this.filterConfig.paramName + minSuffix]: [min],
-        [this.filterConfig.paramName + maxSuffix]: [max],
-        page: 1
-      });
-  }
+
 
   /**
    * Submits new custom range values to the range filter from the widget
@@ -122,8 +106,8 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     this.router.navigate([this.getSearchLink()], {
       queryParams:
         {
-          [this.filterConfig.paramName + minSuffix]: newMin,
-          [this.filterConfig.paramName + maxSuffix]: newMax
+          [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,
+          [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: newMax
         },
       queryParamsHandling: 'merge'
     });

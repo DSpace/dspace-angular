@@ -85,8 +85,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
+    console.log('renderSearchFacetFilterComponent')
+
     this.filterValues$ = new BehaviorSubject(new RemoteData(true, false, undefined, undefined, undefined));
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
+
     this.selectedValues = this.filterService.getSelectedValuesForFilter(this.filterConfig);
     const searchOptions = this.searchConfigService.searchOptions;
     this.subs.push(this.searchConfigService.searchOptions.subscribe(() => this.updateFilterValueList()));
@@ -190,6 +193,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * @param data The string from the input field
    */
   onSubmit(data: any) {
+    console.log('onsubmit');
     this.selectedValues.pipe(take(1)).subscribe((selectedValues) => {
         if (isNotEmpty(data)) {
           this.router.navigate([this.getSearchLink()], {

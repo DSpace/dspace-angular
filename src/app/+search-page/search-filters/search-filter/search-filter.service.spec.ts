@@ -5,8 +5,7 @@ import {
   SearchFilterDecrementPageAction,
   SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
-  SearchFilterInitialCollapseAction,
-  SearchFilterInitialExpandAction,
+  SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
@@ -62,25 +61,16 @@ describe('SearchFilterService', () => {
     service = new SearchFilterService(store, routeServiceStub);
   });
 
-  describe('when the initialCollapse method is triggered', () => {
+  describe('when the initializeFilter method is triggered', () => {
     beforeEach(() => {
-      service.initialCollapse(mockFilterConfig.name);
+      service.initializeFilter(mockFilterConfig);
     });
 
-    it('SearchFilterInitialCollapseAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterInitialCollapseAction(mockFilterConfig.name));
+    it('SearchFilterInitializeAction should be dispatched to the store', () => {
+      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterInitializeAction(mockFilterConfig));
     });
   });
 
-  describe('when the initialExpand method is triggered', () => {
-    beforeEach(() => {
-      service.initialExpand(mockFilterConfig.name);
-    });
-
-    it('SearchFilterInitialExpandAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterInitialExpandAction(mockFilterConfig.name));
-    });
-  });
 
   describe('when the collapse method is triggered', () => {
     beforeEach(() => {

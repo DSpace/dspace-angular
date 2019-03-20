@@ -1,15 +1,13 @@
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { filter, first, map, mergeMap, startWith, switchMap, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
-import { isNotEmpty } from '../../shared/empty.util';
 import { SearchFilterService } from './search-filter/search-filter.service';
 import { getSucceededRemoteData } from '../../core/shared/operators';
-import { FieldUpdate } from '../../core/data/object-updates/object-updates.reducer';
 
 @Component({
   selector: 'ds-search-filters',
@@ -51,32 +49,6 @@ export class SearchFiltersComponent {
    */
   getSearchLink() {
     return this.searchService.getSearchLink();
-  }
-
-  /**
-   * Check if a given filter is supposed to be shown or not
-   * @param {SearchFilterConfig} filter The filter to check for
-   * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
-   */
-  isActive(filterConfig: SearchFilterConfig): Observable<boolean> {
-    return this.filterService.getSelectedValuesForFilter(filterConfig).pipe(
-      switchMap((isActive) => {
-        console.log('selected fires');
-        if (isNotEmpty(isActive)) {
-          return observableOf(true);
-        } else {
-          return this.searchConfigService.searchOptions.pipe(
-            first(),
-            switchMap((options) => {
-                return this.searchService.getFacetValuesFor(filterConfig, 1, options).pipe(
-                  filter((RD) => !RD.isLoading),
-                  map((valuesRD) => {
-                    return valuesRD.payload.totalElements > 0
-                  }),)
-              }
-            ))
-        }
-      }), tap(t => console.log(t)), startWith(true));
   }
 
   /**
