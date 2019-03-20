@@ -29,6 +29,9 @@ import { SectionsService } from '../sections.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { FormComponent } from '../../../shared/form/form.component';
 
+/**
+ * This component represents a section that contains the submission license form.
+ */
 @Component({
   selector: 'ds-submission-section-license',
   styleUrls: ['./section-license.component.scss'],
@@ -37,17 +40,68 @@ import { FormComponent } from '../../../shared/form/form.component';
 @renderSectionFor(SectionsType.License)
 export class LicenseSectionComponent extends SectionModelComponent {
 
-  public formId;
+  /**
+   * The form id
+   * @type {string}
+   */
+  public formId: string;
+
+  /**
+   * The form model
+   * @type {DynamicFormControlModel[]}
+   */
   public formModel: DynamicFormControlModel[];
+
+  /**
+   * The [[DynamicFormLayout]] object
+   * @type {DynamicFormLayout}
+   */
   public formLayout: DynamicFormLayout = SECTION_LICENSE_FORM_LAYOUT;
+
+  /**
+   * A boolean representing if to show form submit and cancel buttons
+   * @type {boolean}
+   */
   public displaySubmit = false;
+
+  /**
+   * The submission license text
+   * @type {Array}
+   */
   public licenseText$: Observable<string>;
 
+  /**
+   * The [[JsonPatchOperationPathCombiner]] object
+   * @type {JsonPatchOperationPathCombiner}
+   */
   protected pathCombiner: JsonPatchOperationPathCombiner;
+
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
   protected subs: Subscription[] = [];
 
+  /**
+   * The FormComponent reference
+   */
   @ViewChild('formRef') private formRef: FormComponent;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {ChangeDetectorRef} changeDetectorRef
+   * @param {CollectionDataService} collectionDataService
+   * @param {FormBuilderService} formBuilderService
+   * @param {SectionFormOperationsService} formOperationsService
+   * @param {FormService} formService
+   * @param {JsonPatchOperationsBuilder} operationsBuilder
+   * @param {SectionsService} sectionService
+   * @param {SubmissionService} submissionService
+   * @param {string} injectedCollectionId
+   * @param {SectionDataObject} injectedSectionData
+   * @param {string} injectedSubmissionId
+   */
   constructor(protected changeDetectorRef: ChangeDetectorRef,
               protected collectionDataService: CollectionDataService,
               protected formBuilderService: FormBuilderService,
@@ -62,6 +116,9 @@ export class LicenseSectionComponent extends SectionModelComponent {
     super(injectedCollectionId, injectedSectionData, injectedSubmissionId);
   }
 
+  /**
+   * Initialize all instance variables and retrieve submission license
+   */
   onSectionInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     this.formId = this.formService.getUniqueId(this.sectionData.id);
@@ -126,6 +183,12 @@ export class LicenseSectionComponent extends SectionModelComponent {
     );
   }
 
+  /**
+   * Get section status
+   *
+   * @return Observable<boolean>
+   *     the section status
+   */
   protected getSectionStatus(): Observable<boolean> {
     const model = this.formBuilderService.findById('granted', this.formModel);
     return (model as DynamicCheckboxModel).valueUpdates.pipe(
@@ -133,6 +196,10 @@ export class LicenseSectionComponent extends SectionModelComponent {
       startWith((model as DynamicCheckboxModel).value));
   }
 
+  /**
+   * Method called when a form dfChange event is fired.
+   * Dispatch form operations based on changes.
+   */
   onChange(event: DynamicFormControlEvent) {
     const path = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
@@ -145,6 +212,9 @@ export class LicenseSectionComponent extends SectionModelComponent {
     }
   }
 
+  /**
+   * Unsubscribe from all subscriptions
+   */
   onSectionDestroy() {
     this.subs
       .filter((subscription) => hasValue(subscription))

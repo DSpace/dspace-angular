@@ -14,17 +14,44 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
 import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
 
+/**
+ * This component allows to edit an existing workspaceitem/workflowitem.
+ */
 @Component({
   selector: 'ds-submission-edit',
   styleUrls: ['./submission-edit.component.scss'],
   templateUrl: './submission-edit.component.html'
 })
-
 export class SubmissionEditComponent implements OnDestroy, OnInit {
+
+  /**
+   * The collection id this submission belonging to
+   * @type {string}
+   */
   public collectionId: string;
+
+  /**
+   * The list of submission's sections
+   * @type {WorkspaceitemSectionsObject}
+   */
   public sections: WorkspaceitemSectionsObject;
+
+  /**
+   * The submission self url
+   * @type {string}
+   */
   public selfUrl: string;
+
+  /**
+   * The configuration object that define this submission
+   * @type {SubmissionDefinitionsModel}
+   */
   public submissionDefinition: SubmissionDefinitionsModel;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
   public submissionId: string;
 
   /**
@@ -33,6 +60,16 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
    */
   private subs: Subscription[] = [];
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {ChangeDetectorRef} changeDetectorRef
+   * @param {NotificationsService} notificationsService
+   * @param {ActivatedRoute} route
+   * @param {Router} router
+   * @param {SubmissionService} submissionService
+   * @param {TranslateService} translate
+   */
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private notificationsService: NotificationsService,
               private route: ActivatedRoute,
@@ -41,6 +78,9 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
               private translate: TranslateService) {
   }
 
+  /**
+   * Retrieve workspaceitem/workflowitem from server and initialize all instance variables
+   */
   ngOnInit() {
     this.subs.push(this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.submissionService.retrieveSubmission(params.get('id'))),
@@ -70,7 +110,7 @@ export class SubmissionEditComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Method provided by Angular. Invoked when the instance is destroyed.
+   * Unsubscribe from all subscriptions
    */
   ngOnDestroy() {
     this.subs

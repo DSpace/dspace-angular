@@ -42,46 +42,55 @@ export class FormSectionComponent extends SectionModelComponent {
 
   /**
    * The form id
+   * @type {string}
    */
-  public formId;
+  public formId: string;
 
   /**
    * The form model
+   * @type {DynamicFormControlModel[]}
    */
   public formModel: DynamicFormControlModel[];
 
   /**
    * A boolean representing if this section is updating
+   * @type {boolean}
    */
   public isUpdating = false;
 
   /**
    * A boolean representing if this section is loading
+   * @type {boolean}
    */
   public isLoading = true;
 
   /**
    * The form config
+   * @type {SubmissionFormsModel}
    */
   protected formConfig: SubmissionFormsModel;
 
   /**
    * The form data
+   * @type {any}
    */
   protected formData: any = Object.create({});
 
   /**
    * The [JsonPatchOperationPathCombiner] object
+   * @type {JsonPatchOperationPathCombiner}
    */
   protected pathCombiner: JsonPatchOperationPathCombiner;
 
   /**
    * The [FormFieldPreviousValueObject] object
+   * @type {FormFieldPreviousValueObject}
    */
   protected previousValue: FormFieldPreviousValueObject = new FormFieldPreviousValueObject();
 
   /**
    * The list of Subscription
+   * @type {Array}
    */
   protected subs: Subscription[] = [];
 
@@ -92,6 +101,7 @@ export class FormSectionComponent extends SectionModelComponent {
 
   /**
    * Initialize instance variables
+   *
    * @param {ChangeDetectorRef} cdr
    * @param {FormBuilderService} formBuilderService
    * @param {SectionFormOperationsService} formOperationsService
@@ -158,6 +168,9 @@ export class FormSectionComponent extends SectionModelComponent {
 
   /**
    * Get section status
+   *
+   * @return Observable<boolean>
+   *     the section status
    */
   protected getSectionStatus(): Observable<boolean> {
     return this.formService.isValid(this.formId);
@@ -290,6 +303,9 @@ export class FormSectionComponent extends SectionModelComponent {
   /**
    * Method called when a form dfChange event is fired.
    * Dispatch form operations based on changes.
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
     this.formOperationsService.dispatchOperationsFromEvent(
@@ -308,6 +324,9 @@ export class FormSectionComponent extends SectionModelComponent {
   /**
    * Method called when a form dfFocus event is fired.
    * Initialize [FormFieldPreviousValueObject] instance.
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] emitted
    */
   onFocus(event: DynamicFormControlEvent): void {
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
@@ -324,6 +343,9 @@ export class FormSectionComponent extends SectionModelComponent {
   /**
    * Method called when a form remove event is fired.
    * Dispatch form operations based on changes.
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] emitted
    */
   onRemove(event: DynamicFormControlEvent): void {
     this.formOperationsService.dispatchOperationsFromEvent(

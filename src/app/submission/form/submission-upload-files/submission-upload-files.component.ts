@@ -14,24 +14,72 @@ import { UploaderOptions } from '../../../shared/uploader/uploader-options.model
 import parseSectionErrors from '../../utils/parseSectionErrors';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 
+/**
+ * This component represents the drop zone that provides to add files to the submission.
+ */
 @Component({
   selector: 'ds-submission-upload-files',
   templateUrl: './submission-upload-files.component.html',
 })
 export class SubmissionUploadFilesComponent implements OnChanges {
 
-  @Input() collectionId;
-  @Input() submissionId;
-  @Input() sectionId;
+  /**
+   * The collection id this submission belonging to
+   * @type {string}
+   */
+  @Input() collectionId: string;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
+  @Input() submissionId: string;
+
+  /**
+   * The upload section id
+   * @type {string}
+   */
+  @Input() sectionId: string;
+
+  /**
+   * The uploader configuration options
+   * @type {UploaderOptions}
+   */
   @Input() uploadFilesOptions: UploaderOptions;
 
+  /**
+   * A boolean representing if is possible to active drop zone over the document page
+   * @type {boolean}
+   */
   public enableDragOverDocument = true;
+
+  /**
+   * i18n message label
+   * @type {string}
+   */
   public dropOverDocumentMsg = 'submission.sections.upload.drop-message';
+
+  /**
+   * i18n message label
+   * @type {string}
+   */
   public dropMsg = 'submission.sections.upload.drop-message';
 
-  private subs = [];
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  private subs: Subscription[] = [];
+
+  /**
+   * A boolean representing if upload functionality is enabled
+   * @type {boolean}
+   */
   private uploadEnabled: Observable<boolean> = observableOf(false);
 
+  /**
+   * Save submission before to upload a file
+   */
   public onBeforeUpload = () => {
     const sub: Subscription = this.operationsService.jsonPatchByResourceType(
       this.submissionService.getSubmissionObjectLinkName(),
@@ -42,6 +90,15 @@ export class SubmissionUploadFilesComponent implements OnChanges {
     return sub;
   };
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {NotificationsService} notificationsService
+   * @param {SubmissionJsonPatchOperationsService} operationsService
+   * @param {SectionsService} sectionService
+   * @param {SubmissionService} submissionService
+   * @param {TranslateService} translate
+   */
   constructor(private notificationsService: NotificationsService,
               private operationsService: SubmissionJsonPatchOperationsService,
               private sectionService: SectionsService,
@@ -49,10 +106,19 @@ export class SubmissionUploadFilesComponent implements OnChanges {
               private translate: TranslateService) {
   }
 
+  /**
+   * Check if upload functionality is enabled
+   */
   ngOnChanges() {
     this.uploadEnabled = this.sectionService.isSectionAvailable(this.submissionId, this.sectionId);
   }
 
+  /**
+   * Parse the submission object retrieved from REST after upload
+   *
+   * @param workspaceitem
+   *    The submission object retrieved from REST
+   */
   public onCompleteItem(workspaceitem: Workspaceitem) {
     // Checks if upload section is enabled so do upload
     this.subs.push(
@@ -61,8 +127,8 @@ export class SubmissionUploadFilesComponent implements OnChanges {
         .subscribe((isUploadEnabled) => {
           if (isUploadEnabled) {
 
-            const {sections} = workspaceitem;
-            const {errors} = workspaceitem;
+            const { sections } = workspaceitem;
+            const { errors } = workspaceitem;
 
             const errorsList = parseSectionErrors(errors);
             if (sections && isNotEmpty(sections)) {
@@ -87,12 +153,15 @@ export class SubmissionUploadFilesComponent implements OnChanges {
     );
   }
 
+  /**
+   * Show error notification on upload fails
+   */
   public onUploadError() {
     this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
   }
 
   /**
-   * Method provided by Angular. Invoked when the instance is destroyed.
+   * Unsubscribe from all subscriptions
    */
   ngOnDestroy() {
     this.subs

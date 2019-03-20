@@ -16,12 +16,44 @@ export interface SectionDataModel {
  */
 export abstract class SectionModelComponent implements OnDestroy, OnInit, SectionDataModel {
   protected abstract sectionService: SectionsService;
+
+  /**
+   * The collection id this submission belonging to
+   * @type {string}
+   */
   collectionId: string;
+
+  /**
+   * The section data
+   * @type {SectionDataObject}
+   */
   sectionData: SectionDataObject;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
   submissionId: string;
+
+  /**
+   * A boolean representing if this section is valid
+   * @type {boolean}
+   */
   protected valid: boolean;
+
+  /**
+   * The Subscription to section status observable
+   * @type {Subscription}
+   */
   private sectionStatusSub: Subscription;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {string} injectedCollectionId
+   * @param {SectionDataObject} injectedSectionData
+   * @param {string} injectedSubmissionId
+   */
   public constructor(@Inject('collectionIdProvider') public injectedCollectionId: string,
                      @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
                      @Inject('submissionIdProvider') public injectedSubmissionId: string) {
@@ -30,15 +62,43 @@ export abstract class SectionModelComponent implements OnDestroy, OnInit, Sectio
     this.submissionId = injectedSubmissionId;
   }
 
+  /**
+   * Call abstract methods on component init
+   */
   ngOnInit(): void {
     this.onSectionInit();
     this.updateSectionStatus();
   }
 
+  /**
+   * Abstract method to implement to get section status
+   *
+   * @return Observable<boolean>
+   *     the section status
+   */
   protected abstract getSectionStatus(): Observable<boolean>;
+
+  /**
+   * Abstract method called on component init.
+   * It must be used instead of ngOnInit on the component that extend this abstract class
+   *
+   * @return Observable<boolean>
+   *     the section status
+   */
   protected abstract onSectionInit(): void;
+
+  /**
+   * Abstract method called on component destroy.
+   * It must be used instead of ngOnDestroy on the component that extend this abstract class
+   *
+   * @return Observable<boolean>
+   *     the section status
+   */
   protected abstract onSectionDestroy(): void;
 
+  /**
+   * Subscribe to section status
+   */
   protected updateSectionStatus(): void {
     this.sectionStatusSub = this.getSectionStatus().pipe(
       filter((sectionStatus: boolean) => isNotUndefined(sectionStatus)),
@@ -48,6 +108,9 @@ export abstract class SectionModelComponent implements OnDestroy, OnInit, Sectio
       });
   }
 
+  /**
+   * Unsubscribe from all subscriptions and Call abstract methods on component destroy
+   */
   ngOnDestroy(): void {
     if (hasValue(this.sectionStatusSub)) {
       this.sectionStatusSub.unsubscribe();

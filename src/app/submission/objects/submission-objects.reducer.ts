@@ -138,7 +138,7 @@ export interface SubmissionObjectEntry {
   collection?: string,
 
   /**
-   * The configuration name tha define this submission
+   * The configuration name that define this submission
    */
   definition?: string,
 

@@ -277,7 +277,7 @@ export class SubmissionObjectEffects {
   }
 
   /**
-   * Parse the submission object retrieved from REST haven't section errors and return actions to dispatch
+   * Parse the submission object retrieved from REST and return actions to dispatch
    *
    * @param currentState
    *    The current SubmissionObjectEntry

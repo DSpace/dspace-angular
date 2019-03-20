@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, find, flatMap, map, reduce, take, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
@@ -33,6 +33,9 @@ export interface AccessConditionGroupsMapEntry {
   groups: Group[]
 }
 
+/**
+ * This component represents a section that contains submission's bitstreams
+ */
 @Component({
   selector: 'ds-submission-section-upload',
   styleUrls: ['./section-upload.component.scss'],
@@ -41,37 +44,84 @@ export interface AccessConditionGroupsMapEntry {
 @renderSectionFor(SectionsType.Upload)
 export class UploadSectionComponent extends SectionModelComponent {
 
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
   public AlertTypeEnum = AlertType;
-  public fileIndexes = [];
-  public fileList = [];
-  public fileNames = [];
 
+  /**
+   * The array containing the keys of file list array
+   * @type {Array}
+   */
+  public fileIndexes: string[] = [];
+
+  /**
+   * The file list
+   * @type {Array}
+   */
+  public fileList: any[] = [];
+
+  /**
+   * The array containing the name of the files
+   * @type {Array}
+   */
+  public fileNames: string[] = [];
+
+  /**
+   * The collection name this submission belonging to
+   * @type {string}
+   */
   public collectionName: string;
 
-  /*
+  /**
    * Default access conditions of this collection
+   * @type {Array}
    */
   public collectionDefaultAccessConditions: any[] = [];
 
-  /*
-   * The collection access conditions policy
+  /**
+   * Define if collection access conditions policy type :
+   * POLICY_DEFAULT_NO_LIST : is not possible to define additional access group/s for the single file
+   * POLICY_DEFAULT_WITH_LIST : is possible to define additional access group/s for the single file
+   * @type {number}
    */
-  public collectionPolicyType;
+  public collectionPolicyType: number;
 
+  /**
+   * The configuration for the bitstream's metadata form
+   */
   public configMetadataForm$: Observable<SubmissionFormsModel>;
 
-  /*
+  /**
    * List of available access conditions that could be setted to files
    */
   public availableAccessConditionOptions: AccessConditionOption[];  // List of accessConditions that an user can select
 
-  /*
+  /**
    * List of Groups available for every access condition
    */
   protected availableGroups: Map<string, Group[]>; // Groups for any policy
 
-  protected subs = [];
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  protected subs: Subscription[] = [];
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {SectionUploadService} bitstreamService
+   * @param {ChangeDetectorRef} changeDetectorRef
+   * @param {CollectionDataService} collectionDataService
+   * @param {GroupEpersonService} groupService
+   * @param {SectionsService} sectionService
+   * @param {SubmissionService} submissionService
+   * @param {SubmissionUploadsConfigService} uploadsConfigService
+   * @param {SectionDataObject} injectedSectionData
+   * @param {string} injectedSubmissionId
+   */
   constructor(private bitstreamService: SectionUploadService,
               private changeDetectorRef: ChangeDetectorRef,
               private collectionDataService: CollectionDataService,
@@ -84,10 +134,14 @@ export class UploadSectionComponent extends SectionModelComponent {
     super(undefined, injectedSectionData, injectedSubmissionId);
   }
 
+  /**
+   * Initialize all instance variables and retrieve collection default access conditions
+   */
   onSectionInit() {
     const config$ = this.uploadsConfigService.getConfigByHref(this.sectionData.config).pipe(
       map((config) => config.payload));
 
+    // retrieve configuration for the bitstream's metadata form
     this.configMetadataForm$ = config$.pipe(
       take(1),
       map((config: SubmissionUploadsModel) => config.metadata));
@@ -124,7 +178,7 @@ export class UploadSectionComponent extends SectionModelComponent {
 
           this.availableGroups = new Map();
           const mapGroups$: Array<Observable<AccessConditionGroupsMapEntry>> = [];
-          // Retrieve Groups for accessConditionPolicies
+          // Retrieve Groups for accessCondition Policies
           this.availableAccessConditionOptions.forEach((accessCondition: AccessConditionOption) => {
             if (accessCondition.hasEndDate === true || accessCondition.hasStartDate === true) {
               if (accessCondition.groupUUID) {
@@ -148,7 +202,7 @@ export class UploadSectionComponent extends SectionModelComponent {
                       accessCondition: accessCondition.name,
                       groups: rd.payload.page
                     } as AccessConditionGroupsMapEntry))
-                ));
+                  ));
               }
             }
           });
@@ -164,8 +218,9 @@ export class UploadSectionComponent extends SectionModelComponent {
           this.availableGroups.set(entry.accessCondition, entry.groups);
         });
         this.changeDetectorRef.detectChanges();
-      })
-      ,
+      }),
+
+      // retrieve submission's bitstreams from state
       combineLatest(this.configMetadataForm$,
         this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)).pipe(
         filter(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
@@ -173,24 +228,32 @@ export class UploadSectionComponent extends SectionModelComponent {
         }),
         distinctUntilChanged())
         .subscribe(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
-          this.fileList = [];
-          this.fileIndexes = [];
-          this.fileNames = [];
-          this.changeDetectorRef.detectChanges();
-          if (isNotUndefined(fileList) && fileList.length > 0) {
-            fileList.forEach((file) => {
-              this.fileList.push(file);
-              this.fileIndexes.push(file.uuid);
-              this.fileNames.push(this.getFileName(configMetadataForm, file));
-            });
-          }
+            this.fileList = [];
+            this.fileIndexes = [];
+            this.fileNames = [];
+            this.changeDetectorRef.detectChanges();
+            if (isNotUndefined(fileList) && fileList.length > 0) {
+              fileList.forEach((file) => {
+                this.fileList.push(file);
+                this.fileIndexes.push(file.uuid);
+                this.fileNames.push(this.getFileName(configMetadataForm, file));
+              });
+            }
 
-          this.changeDetectorRef.detectChanges();
-        }
-      )
+            this.changeDetectorRef.detectChanges();
+          }
+        )
     );
   }
 
+  /**
+   * Return file name from metadata
+   *
+   * @param configMetadataForm
+   *    the bitstream's form configuration
+   * @param fileData
+   *    the file metadata
+   */
   private getFileName(configMetadataForm: SubmissionFormsModel, fileData: any): string {
     const metadataName: string = configMetadataForm.rows[0].fields[0].selectableMetadata[0].metadata;
     let title: string;
@@ -203,6 +266,12 @@ export class UploadSectionComponent extends SectionModelComponent {
     return title;
   }
 
+  /**
+   * Get section status
+   *
+   * @return Observable<boolean>
+   *     the section status
+   */
   protected getSectionStatus(): Observable<boolean> {
     return this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id).pipe(
       map((fileList: any[]) => (isNotUndefined(fileList) && fileList.length > 0)));
