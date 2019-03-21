@@ -43,10 +43,10 @@ import { Group } from '../../../../../core/eperson/models/group.model';
  * This component represents the edit form for bitstream
  */
 @Component({
-  selector: 'ds-submission-upload-section-file-edit',
+  selector: 'ds-submission-section-upload-file-edit',
   templateUrl: './section-upload-file-edit.component.html',
 })
-export class UploadSectionFileEditComponent implements OnChanges {
+export class SubmissionSectionUploadFileEditComponent implements OnChanges {
 
   /**
    * The list of available access condition
@@ -272,8 +272,8 @@ export class UploadSectionFileEditComponent implements OnChanges {
   /**
    * Dispatch form model update when changing an access condition
    *
-   * @param formModel
-   *    The form model
+   * @param event
+   *    The event emitted
    */
   public onChange(event: DynamicFormControlEvent) {
     if (event.model.id === 'name') {

@@ -29,7 +29,7 @@ import {
 } from '../../../shared/mocks/mock-submission';
 import { FormComponent } from '../../../shared/form/form.component';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { LicenseSectionComponent } from './section-license.component';
+import { SubmissionSectionLicenseComponent } from './section-license.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
@@ -78,11 +78,11 @@ const dynamicFormControlEvent: DynamicFormControlEvent = {
   type: DynamicFormControlEventType.Change
 };
 
-describe('LicenseSectionComponent test suite', () => {
+describe('SubmissionSectionLicenseComponent test suite', () => {
 
-  let comp: LicenseSectionComponent;
+  let comp: SubmissionSectionLicenseComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<LicenseSectionComponent>;
+  let fixture: ComponentFixture<SubmissionSectionLicenseComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let sectionsServiceStub: SectionsServiceStub;
   let formService: any;
@@ -124,7 +124,7 @@ describe('LicenseSectionComponent test suite', () => {
       ],
       declarations: [
         FormComponent,
-        LicenseSectionComponent,
+        SubmissionSectionLicenseComponent,
         TestComponent
       ],
       providers: [
@@ -141,7 +141,7 @@ describe('LicenseSectionComponent test suite', () => {
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
         FormBuilderService,
-        LicenseSectionComponent
+        SubmissionSectionLicenseComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -164,7 +164,7 @@ describe('LicenseSectionComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create LicenseSectionComponent', inject([LicenseSectionComponent], (app: LicenseSectionComponent) => {
+    it('should create SubmissionSectionLicenseComponent', inject([SubmissionSectionLicenseComponent], (app: SubmissionSectionLicenseComponent) => {
 
       expect(app).toBeDefined();
 
@@ -173,7 +173,7 @@ describe('LicenseSectionComponent test suite', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(LicenseSectionComponent);
+      fixture = TestBed.createComponent(SubmissionSectionLicenseComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.get(SubmissionService);

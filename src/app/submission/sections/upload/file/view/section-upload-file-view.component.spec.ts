@@ -6,15 +6,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { createTestComponent } from '../../../../../shared/testing/utils';
 import { mockUploadFiles } from '../../../../../shared/mocks/mock-submission';
 import { FormComponent } from '../../../../../shared/form/form.component';
-import { UploadSectionFileViewComponent } from './section-upload-file-view.component';
+import { SubmissionSectionUploadFileViewComponent } from './section-upload-file-view.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 
-describe('UploadSectionFileViewComponent test suite', () => {
+describe('SubmissionSectionUploadFileViewComponent test suite', () => {
 
-  let comp: UploadSectionFileViewComponent;
+  let comp: SubmissionSectionUploadFileViewComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<UploadSectionFileViewComponent>;
+  let fixture: ComponentFixture<SubmissionSectionUploadFileViewComponent>;
 
   const fileData: any = mockUploadFiles[0];
 
@@ -26,11 +26,11 @@ describe('UploadSectionFileViewComponent test suite', () => {
       declarations: [
         TruncatePipe,
         FormComponent,
-        UploadSectionFileViewComponent,
+        SubmissionSectionUploadFileViewComponent,
         TestComponent
       ],
       providers: [
-        UploadSectionFileViewComponent
+        SubmissionSectionUploadFileViewComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -43,7 +43,7 @@ describe('UploadSectionFileViewComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const html = `
-      <ds-submission-upload-section-file-view [fileData]="fileData"></ds-submission-upload-section-file-view>`;
+      <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -53,7 +53,7 @@ describe('UploadSectionFileViewComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create UploadSectionFileViewComponent', inject([UploadSectionFileViewComponent], (app: UploadSectionFileViewComponent) => {
+    it('should create SubmissionSectionUploadFileViewComponent', inject([SubmissionSectionUploadFileViewComponent], (app: SubmissionSectionUploadFileViewComponent) => {
 
       expect(app).toBeDefined();
 
@@ -62,7 +62,7 @@ describe('UploadSectionFileViewComponent test suite', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(UploadSectionFileViewComponent);
+      fixture = TestBed.createComponent(SubmissionSectionUploadFileViewComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
     });

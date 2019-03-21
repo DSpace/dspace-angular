@@ -12,10 +12,10 @@ import { RemoteData } from '../../../../core/data/remote-data';
  * This component represents a badge that describe an access condition
  */
 @Component({
-  selector: 'ds-section-upload-access-conditions',
-  templateUrl: './section-upload-access-conditions.component.html',
+  selector: 'ds-submission-section-upload-access-conditions',
+  templateUrl: './submission-section-upload-access-conditions.component.html',
 })
-export class SectionUploadAccessConditionsComponent implements OnInit {
+export class SubmissionSectionUploadAccessConditionsComponent implements OnInit {
 
   /**
    * The list of resource policy

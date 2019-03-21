@@ -38,7 +38,7 @@ import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/
   templateUrl: './section-form.component.html',
 })
 @renderSectionFor(SectionsType.SubmissionForm)
-export class FormSectionComponent extends SectionModelComponent {
+export class SubmissionSectionformComponent extends SectionModelComponent {
 
   /**
    * The form id

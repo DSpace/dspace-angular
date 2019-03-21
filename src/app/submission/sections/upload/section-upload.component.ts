@@ -42,7 +42,7 @@ export interface AccessConditionGroupsMapEntry {
   templateUrl: './section-upload.component.html',
 })
 @renderSectionFor(SectionsType.Upload)
-export class UploadSectionComponent extends SectionModelComponent {
+export class SubmissionSectionUploadComponent extends SectionModelComponent {
 
   /**
    * The AlertType enumeration

@@ -24,7 +24,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
 import { SectionUploadService } from './section-upload.service';
-import { UploadSectionComponent } from './section-upload.component';
+import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { GroupEpersonService } from '../../../core/eperson/group-eperson.service';
 import { cold, hot } from 'jasmine-marbles';
@@ -71,11 +71,11 @@ const sectionObject: SectionDataObject = {
   sectionType: SectionsType.Upload
 };
 
-describe('UploadSectionComponent test suite', () => {
+describe('SubmissionSectionUploadComponent test suite', () => {
 
-  let comp: UploadSectionComponent;
+  let comp: SubmissionSectionUploadComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<UploadSectionComponent>;
+  let fixture: ComponentFixture<SubmissionSectionUploadComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let sectionsServiceStub: SectionsServiceStub;
   let collectionDataService: any;
@@ -114,7 +114,7 @@ describe('UploadSectionComponent test suite', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        UploadSectionComponent,
+        SubmissionSectionUploadComponent,
         TestComponent
       ],
       providers: [
@@ -127,7 +127,7 @@ describe('UploadSectionComponent test suite', () => {
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
-        UploadSectionComponent
+        SubmissionSectionUploadComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -150,7 +150,7 @@ describe('UploadSectionComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create UploadSectionComponent', inject([UploadSectionComponent], (app: UploadSectionComponent) => {
+    it('should create SubmissionSectionUploadComponent', inject([SubmissionSectionUploadComponent], (app: SubmissionSectionUploadComponent) => {
 
       expect(app).toBeDefined();
 
@@ -159,7 +159,7 @@ describe('UploadSectionComponent test suite', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(UploadSectionComponent);
+      fixture = TestBed.createComponent(SubmissionSectionUploadComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.get(SubmissionService);

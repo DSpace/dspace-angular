@@ -15,7 +15,7 @@ import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../../shared/testing/submission-json-patch-operations-service-stub';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { UploadSectionFileComponent } from './section-upload-file.component';
+import { SubmissionSectionUploadFileComponent } from './section-upload-file.component';
 import { SubmissionServiceStub } from '../../../../shared/testing/submission-service-stub';
 import {
   mockFileFormData,
@@ -36,7 +36,7 @@ import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/buil
 import { getMockSectionUploadService } from '../../../../shared/mocks/mock-section-upload.service';
 import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { Group } from '../../../../core/eperson/models/group.model';
-import { UploadSectionFileEditComponent } from './edit/section-upload-file-edit.component';
+import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
@@ -45,11 +45,11 @@ function getMockFileService(): FileService {
   });
 }
 
-describe('UploadSectionFileComponent test suite', () => {
+describe('SubmissionSectionUploadFileComponent test suite', () => {
 
-  let comp: UploadSectionFileComponent;
+  let comp: SubmissionSectionUploadFileComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<UploadSectionFileComponent>;
+  let fixture: ComponentFixture<SubmissionSectionUploadFileComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let uploadService: any;
   let fileService: any;
@@ -90,7 +90,7 @@ describe('UploadSectionFileComponent test suite', () => {
       ],
       declarations: [
         FileSizePipe,
-        UploadSectionFileComponent,
+        SubmissionSectionUploadFileComponent,
         TestComponent
       ],
       providers: [
@@ -103,8 +103,8 @@ describe('UploadSectionFileComponent test suite', () => {
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
         ChangeDetectorRef,
         NgbModal,
-        UploadSectionFileComponent,
-        UploadSectionFileEditComponent
+        SubmissionSectionUploadFileComponent,
+        SubmissionSectionUploadFileEditComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -136,7 +136,7 @@ describe('UploadSectionFileComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create UploadSectionFileComponent', inject([UploadSectionFileComponent], (app: UploadSectionFileComponent) => {
+    it('should create SubmissionSectionUploadFileComponent', inject([SubmissionSectionUploadFileComponent], (app: SubmissionSectionUploadFileComponent) => {
 
       expect(app).toBeDefined();
 
@@ -145,7 +145,7 @@ describe('UploadSectionFileComponent test suite', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(UploadSectionFileComponent);
+      fixture = TestBed.createComponent(SubmissionSectionUploadFileComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.get(SubmissionService);
@@ -235,7 +235,7 @@ describe('UploadSectionFileComponent test suite', () => {
     }));
 
     it('should save Bitstream File data properly when form is valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.get(UploadSectionFileEditComponent);
+      compAsAny.fileEditComp = TestBed.get(SubmissionSectionUploadFileEditComponent);
       compAsAny.fileEditComp.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
       const event = new Event('click', null);
@@ -290,7 +290,7 @@ describe('UploadSectionFileComponent test suite', () => {
     }));
 
     it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
-      compAsAny.fileEditComp = TestBed.get(UploadSectionFileEditComponent);
+      compAsAny.fileEditComp = TestBed.get(SubmissionSectionUploadFileEditComponent);
       compAsAny.fileEditComp.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
       const event = new Event('click', null);

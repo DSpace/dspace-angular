@@ -20,7 +20,7 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from '../../../../core/submission/models/workspaceitem-section-upload.model';
-import { UploadSectionFileEditComponent } from './edit/section-upload-file-edit.component';
+import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { Group } from '../../../../core/eperson/models/group.model';
 
 /**
@@ -31,7 +31,7 @@ import { Group } from '../../../../core/eperson/models/group.model';
   styleUrls: ['./section-upload-file.component.scss'],
   templateUrl: './section-upload-file.component.html',
 })
-export class UploadSectionFileComponent implements OnChanges, OnInit {
+export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
 
   /**
    * The list of available access condition
@@ -138,10 +138,10 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
   protected subscriptions: Subscription[] = [];
 
   /**
-   * The [[UploadSectionFileEditComponent]] reference
-   * @type {UploadSectionFileEditComponent}
+   * The [[SubmissionSectionUploadFileEditComponent]] reference
+   * @type {SubmissionSectionUploadFileEditComponent}
    */
-  @ViewChild(UploadSectionFileEditComponent) fileEditComp: UploadSectionFileEditComponent;
+  @ViewChild(SubmissionSectionUploadFileEditComponent) fileEditComp: SubmissionSectionUploadFileEditComponent;
 
   /**
    * Initialize instance variables

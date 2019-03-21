@@ -15,7 +15,7 @@ import { createTestComponent } from '../../../../../shared/testing/utils';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { SubmissionServiceStub } from '../../../../../shared/testing/submission-service-stub';
 import { SubmissionService } from '../../../../submission.service';
-import { UploadSectionFileEditComponent } from './section-upload-file-edit.component';
+import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import {
   mockGroup,
@@ -32,11 +32,11 @@ import { MOCK_SUBMISSION_CONFIG } from '../../../../../shared/testing/mock-submi
 import { getMockFormService } from '../../../../../shared/mocks/mock-form-service';
 import { Group } from '../../../../../core/eperson/models/group.model';
 
-describe('UploadSectionFileEditComponent test suite', () => {
+describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
-  let comp: UploadSectionFileEditComponent;
+  let comp: SubmissionSectionUploadFileEditComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<UploadSectionFileEditComponent>;
+  let fixture: ComponentFixture<SubmissionSectionUploadFileEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let formbuilderService: any;
 
@@ -66,7 +66,7 @@ describe('UploadSectionFileEditComponent test suite', () => {
       ],
       declarations: [
         FormComponent,
-        UploadSectionFileEditComponent,
+        SubmissionSectionUploadFileEditComponent,
         TestComponent
       ],
       providers: [
@@ -75,7 +75,7 @@ describe('UploadSectionFileEditComponent test suite', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         FormBuilderService,
         ChangeDetectorRef,
-        UploadSectionFileEditComponent
+        SubmissionSectionUploadFileEditComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -88,7 +88,7 @@ describe('UploadSectionFileEditComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const html = `
-      <ds-submission-upload-section-file-edit [availableAccessConditionGroups]="availableAccessConditionGroups"
+      <ds-submission-section-upload-file-edit [availableAccessConditionGroups]="availableAccessConditionGroups"
                                               [availableAccessConditionOptions]="availableAccessConditionOptions"
                                               [collectionId]="collectionId"
                                               [collectionPolicyType]="collectionPolicyType"
@@ -97,7 +97,7 @@ describe('UploadSectionFileEditComponent test suite', () => {
                                               [fileId]="fileId"
                                               [fileIndex]="fileIndex"
                                               [formId]="formId"
-                                              [sectionId]="sectionId"></ds-submission-upload-section-file-edit>`;
+                                              [sectionId]="sectionId"></ds-submission-section-upload-file-edit>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -107,7 +107,7 @@ describe('UploadSectionFileEditComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create UploadSectionFileEditComponent', inject([UploadSectionFileEditComponent], (app: UploadSectionFileEditComponent) => {
+    it('should create SubmissionSectionUploadFileEditComponent', inject([SubmissionSectionUploadFileEditComponent], (app: SubmissionSectionUploadFileEditComponent) => {
 
       expect(app).toBeDefined();
 
@@ -116,7 +116,7 @@ describe('UploadSectionFileEditComponent test suite', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(UploadSectionFileEditComponent);
+      fixture = TestBed.createComponent(SubmissionSectionUploadFileEditComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.get(SubmissionService);

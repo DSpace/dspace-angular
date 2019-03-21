@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, startWith, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, flatMap, map, startWith, take } from 'rxjs/operators';
 import {
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -38,7 +38,7 @@ import { FormComponent } from '../../../shared/form/form.component';
   templateUrl: './section-license.component.html',
 })
 @renderSectionFor(SectionsType.License)
-export class LicenseSectionComponent extends SectionModelComponent {
+export class SubmissionSectionLicenseComponent extends SectionModelComponent {
 
   /**
    * The form id

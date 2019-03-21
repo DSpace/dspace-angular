@@ -34,9 +34,9 @@
         </ng-container>
       </div>
       <div class="clearfix"></div>
-      <ds-submission-upload-section-file-view *ngIf="readMode"
-                                              [fileData]="fileData"></ds-submission-upload-section-file-view>
-      <ds-submission-upload-section-file-edit *ngIf="!readMode"
+      <ds-submission-section-upload-file-view *ngIf="readMode"
+                                              [fileData]="fileData"></ds-submission-section-upload-file-view>
+      <ds-submission-section-upload-file-edit *ngIf="!readMode"
                                               [availableAccessConditionGroups]="availableAccessConditionGroups"
                                               [availableAccessConditionOptions]="availableAccessConditionOptions"
                                               [collectionId]="collectionId"
@@ -46,7 +46,7 @@
                                               [fileId]="fileId"
                                               [fileIndex]="fileIndex"
                                               [formId]="formId"
-                                              [sectionId]="sectionId"></ds-submission-upload-section-file-edit>
+                                              [sectionId]="sectionId"></ds-submission-section-upload-file-edit>
     </div>
   </div>
 </ng-container>

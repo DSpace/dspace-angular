@@ -9,10 +9,10 @@ import { MetadataMap, MetadataValue } from '../../../../../core/shared/metadata.
  * This component allow to show bitstream's metadata
  */
 @Component({
-  selector: 'ds-submission-upload-section-file-view',
+  selector: 'ds-submission-section-upload-file-view',
   templateUrl: './section-upload-file-view.component.html',
 })
-export class UploadSectionFileViewComponent implements OnInit {
+export class SubmissionSectionUploadFileViewComponent implements OnInit {
 
   /**
    * The bitstream's metadata data
