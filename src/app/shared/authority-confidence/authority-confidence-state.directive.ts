@@ -19,25 +19,55 @@ import { isNotEmpty, isNull } from '../empty.util';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { ConfidenceIconConfig } from '../../../config/submission-config.interface';
 
+/**
+ * Directive to add to the element a bootstrap utility class based on metadata confidence value
+ */
 @Directive({
   selector: '[dsAuthorityConfidenceState]'
 })
 export class AuthorityConfidenceStateDirective implements OnChanges {
 
+  /**
+   * The metadata value
+   */
   @Input() authorityValue: AuthorityValue | FormFieldMetadataValueObject | string;
+
+  /**
+   * A boolean representing if to show html icon if authority value is empty
+   */
   @Input() visibleWhenAuthorityEmpty = true;
 
+  /**
+   * The css class applied before directive changes
+   */
   private previousClass: string = null;
+
+  /**
+   * The css class applied after directive changes
+   */
   private newClass: string;
 
+  /**
+   * An event fired when click on element that has a confidence value empty or different from CF_ACCEPTED
+   */
   @Output() whenClickOnConfidenceNotAccepted: EventEmitter<ConfidenceType> = new EventEmitter<ConfidenceType>();
 
+  /**
+   * Listener to click event
+   */
   @HostListener('click') onClick() {
     if (isNotEmpty(this.authorityValue) && this.getConfidenceByValue(this.authorityValue) !== ConfidenceType.CF_ACCEPTED) {
       this.whenClickOnConfidenceNotAccepted.emit(this.getConfidenceByValue(this.authorityValue));
     }
   }
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {GlobalConfig} EnvConfig
+   * @param {ElementRef} elem
+   * @param {Renderer2} renderer
+   */
   constructor(
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     private elem: ElementRef,
@@ -45,6 +75,11 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
   ) {
   }
 
+  /**
+   * Apply css class to element whenever authority value change
+   *
+   * @param {SimpleChanges} changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.authorityValue.firstChange) {
       this.previousClass = this.getClassByConfidence(this.getConfidenceByValue(changes.authorityValue.previousValue))
@@ -59,6 +94,9 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
     }
   }
 
+  /**
+   * Apply css class to element after view init
+   */
   ngAfterViewInit() {
     if (isNull(this.previousClass)) {
       this.renderer.addClass(this.elem.nativeElement, this.newClass);
@@ -68,6 +106,11 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
     }
   }
 
+  /**
+   * Return confidence value as ConfidenceType
+   *
+   * @param value
+   */
   private getConfidenceByValue(value: any): ConfidenceType {
     let confidence: ConfidenceType = ConfidenceType.CF_UNSET;
 
@@ -82,6 +125,11 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
     return confidence;
   }
 
+  /**
+   * Return the properly css class based on confidence value
+   *
+   * @param confidence
+   */
   private getClassByConfidence(confidence: any): string {
     if (!this.visibleWhenAuthorityEmpty && confidence === ConfidenceType.CF_UNSET) {
       return 'd-none';

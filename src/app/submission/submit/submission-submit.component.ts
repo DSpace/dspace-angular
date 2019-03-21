@@ -15,7 +15,7 @@ import { Collection } from '../../core/shared/collection.model';
  * This component allows to submit a new workspaceitem.
  */
 @Component({
-  selector: 'ds-submit-page',
+  selector: 'ds-submission-submit',
   styleUrls: ['./submission-submit.component.scss'],
   templateUrl: './submission-submit.component.html'
 })

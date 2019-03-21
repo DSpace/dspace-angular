@@ -46,7 +46,7 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
   sections: WorkspaceitemSectionsObject;
 
   /**
-   * The submission config definition
+   * The configuration object that define this submission
    */
   submissionDefinition: Observable<RemoteData<SubmissionDefinitionsModel>> | SubmissionDefinitionsModel;
 

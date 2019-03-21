@@ -22,7 +22,7 @@ import { ErrorResponse, RestResponse, SubmissionSuccessResponse } from '../cache
 import { getResponseFromEntry } from '../shared/operators';
 
 /**
- * The service handling all submission requests
+ * The service handling all submission REST requests
  */
 @Injectable()
 export class SubmissionRestService {

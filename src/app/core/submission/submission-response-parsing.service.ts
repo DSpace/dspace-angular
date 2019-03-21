@@ -18,6 +18,11 @@ import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/f
 import { SubmissionObject } from './models/submission-object.model';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 
+/**
+ * Export a function to check if object has same properties of FormFieldMetadataValueObject
+ *
+ * @param obj
+ */
 export function isServerFormValue(obj: any): boolean {
   return (typeof obj === 'object'
     && obj.hasOwnProperty('value')
@@ -27,6 +32,11 @@ export function isServerFormValue(obj: any): boolean {
     && obj.hasOwnProperty('place'))
 }
 
+/**
+ * Export a function to normalize sections object of the server response
+ *
+ * @param obj
+ */
 export function normalizeSectionData(obj: any) {
   let result: any = obj;
   if (isNotNull(obj)) {
@@ -74,6 +84,13 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     super();
   }
 
+  /**
+   * Parses data from the workspaceitems/workflowitems endpoints
+   *
+   * @param {RestRequest} request
+   * @param {DSpaceRESTV2Response} data
+   * @returns {RestResponse}
+   */
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
@@ -93,6 +110,13 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     }
   }
 
+  /**
+   * Parses response and normalize it
+   *
+   * @param {DSpaceRESTV2Response} data
+   * @param {string} requestHref
+   * @returns {any[]}
+   */
   protected processResponse<ObjectDomain, ObjectType>(data: any, requestHref: string): any[] {
     const dataDefinition = this.process<ObjectDomain, ObjectType>(data, requestHref);
     const normalizedDefinition = Array.of();

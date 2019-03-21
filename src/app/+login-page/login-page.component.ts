@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
@@ -16,17 +16,34 @@ import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
 import { isAuthenticated } from '../core/auth/selectors';
 
+/**
+ * This component represents the login page
+ */
 @Component({
   selector: 'ds-login-page',
   styleUrls: ['./login-page.component.scss'],
   templateUrl: './login-page.component.html'
 })
 export class LoginPageComponent implements OnDestroy, OnInit {
+
+  /**
+   * Subscription to unsubscribe onDestroy
+   * @type {Subscription}
+   */
   sub: Subscription;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {ActivatedRoute} route
+   * @param {Store<AppState>} store
+   */
   constructor(private route: ActivatedRoute,
               private store: Store<AppState>) {}
 
+  /**
+   * Initialize instance variables
+   */
   ngOnInit() {
     const queryParamsObs = this.route.queryParams;
     const authenticated = this.store.select(isAuthenticated);
@@ -52,6 +69,9 @@ export class LoginPageComponent implements OnDestroy, OnInit {
     })
   }
 
+  /**
+   * Unsubscribe from subscription
+   */
   ngOnDestroy() {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();

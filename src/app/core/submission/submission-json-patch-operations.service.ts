@@ -9,6 +9,9 @@ import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-respon
 import { SubmissionPatchRequest } from '../data/request.models';
 import { CoreState } from '../core.reducers';
 
+/**
+ * A service that provides methods to make JSON Patch requests.
+ */
 @Injectable()
 export class SubmissionJsonPatchOperationsService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {
   protected linkPath = '';
