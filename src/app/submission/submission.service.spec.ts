@@ -660,9 +660,6 @@ describe('SubmissionService test suite', () => {
       router.setRoute('/workflowitems/826/edit');
       expect(service.getSubmissionScope()).toBe(expected);
 
-      expected = SubmissionScopeType.EditItem;
-      router.setRoute('/items/9e79b1f2-ae0f-4737-9a4b-990952a8857c/edit');
-      expect(service.getSubmissionScope()).toBe(expected);
     });
   });
 

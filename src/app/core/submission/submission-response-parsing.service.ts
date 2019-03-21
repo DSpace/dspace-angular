@@ -13,7 +13,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { SubmissionResourceType } from './submission-resource-type';
 import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
-import { NormalizedEditItem } from './models/normalized-edititem.model';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
@@ -127,8 +126,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
       let normalizedItem = Object.assign({}, item);
       // In case data is an Instance of NormalizedWorkspaceItem normalize field value of all the section of type form
       if (item instanceof NormalizedWorkspaceItem
-        || item instanceof NormalizedWorkflowItem
-        || item instanceof NormalizedEditItem) {
+        || item instanceof NormalizedWorkflowItem) {
         if (item.sections) {
           const precessedSection = Object.create({});
           // Iterate over all workspaceitem's sections

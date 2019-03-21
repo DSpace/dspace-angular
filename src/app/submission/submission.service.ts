@@ -65,7 +65,7 @@ export class SubmissionService {
    * @param {GlobalConfig} EnvConfig
    * @param {NotificationsService} notificationsService
    * @param {SubmissionRestService} restService
-   * @param {Router} restSerroutervice
+   * @param {Router} router
    * @param {RouteService} routeService
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
@@ -202,6 +202,8 @@ export class SubmissionService {
    *
    * @param submissionId
    *    The submission id
+   * @param sectionId
+   *    The section id
    */
   dispatchSaveSection(submissionId, sectionId) {
     this.store.dispatch(new SaveSubmissionSectionFormAction(submissionId, sectionId));
@@ -327,9 +329,6 @@ export class SubmissionService {
       case 'workflowitems':
         scope = SubmissionScopeType.WorkflowItem;
         break;
-      case 'edititems':
-        scope = SubmissionScopeType.EditItem;
-        break;
     }
     return scope;
   }
@@ -400,8 +399,8 @@ export class SubmissionService {
   /**
    * Return the visibility status of the specified section
    *
-   * @param submissionId
-   *    The submission id
+   * @param sectionData
+   *    The section data
    * @return boolean
    *    true if section is hidden, false otherwise
    */
@@ -432,6 +431,8 @@ export class SubmissionService {
    *    The submission id
    * @param sectionId
    *    The section id
+   * @param sectionType
+   *    The section type
    */
   notifyNewSection(submissionId: string, sectionId: string, sectionType?: SectionsType) {
     const m = this.translate.instant('submission.sections.general.metadata-extracted-new-section', { sectionId });
