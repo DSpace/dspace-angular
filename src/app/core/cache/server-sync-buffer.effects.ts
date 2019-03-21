@@ -96,7 +96,7 @@ export class ServerSyncBufferEffects {
    * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
    */
   private applyPatch(href: string): Observable<Action> {
-    const patchObject = this.objectCache.getBySelfLink(href).pipe(take(1));
+    const patchObject = this.objectCache.getObjectBySelfLink(href).pipe(take(1));
 
     return patchObject.pipe(
       map((object) => {

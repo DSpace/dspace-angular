@@ -67,7 +67,7 @@ describe('DataService', () => {
     addPatch: () => {
       /* empty */
     },
-    getBySelfLink: () => {
+    getObjectBySelfLink: () => {
       /* empty */
     }
   } as any;
@@ -189,7 +189,7 @@ describe('DataService', () => {
       dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
       spyOn(service, 'findById').and.returnValues(observableOf(dso));
-      spyOn(objectCache, 'getBySelfLink').and.returnValues(observableOf(dso));
+      spyOn(objectCache, 'getObjectBySelfLink').and.returnValues(observableOf(dso));
       spyOn(objectCache, 'addPatch');
     });
 

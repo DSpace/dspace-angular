@@ -14,6 +14,7 @@ import { BrowseItemsResponseParsingService } from './browse-items-response-parsi
 import { RegistryMetadataschemasResponseParsingService } from './registry-metadataschemas-response-parsing.service';
 import { MetadataschemaParsingService } from './metadataschema-parsing.service';
 import { MetadatafieldParsingService } from './metadatafield-parsing.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -146,11 +147,11 @@ export class FindAllRequest extends GetRequest {
 
 export class EndpointMapRequest extends GetRequest {
   constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any
+    uuid: string,
+    href: string,
+    body?: any
   ) {
-    super(uuid, href, body);
+    super(uuid, new URLCombiner(href, '?endpointMap').toString(), body);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {

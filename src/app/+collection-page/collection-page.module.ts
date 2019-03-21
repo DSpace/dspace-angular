@@ -15,7 +15,6 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
   imports: [
     CommonModule,
     SharedModule,
-    SearchPageModule,
     CollectionPageRoutingModule
   ],
   declarations: [
