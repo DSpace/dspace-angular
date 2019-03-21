@@ -79,6 +79,7 @@ import { NormalizedObjectBuildService } from './cache/builders/normalized-object
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
+import { SearchService } from '../+search-page/search-service/search.service';
 
 const IMPORTS = [
   CommonModule,
@@ -160,6 +161,7 @@ const PROVIDERS = [
   CSSVariableService,
   MenuService,
   ObjectUpdatesService,
+  SearchService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

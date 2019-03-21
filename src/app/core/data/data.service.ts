@@ -213,7 +213,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @param {DSpaceObject} object The given object
    */
   update(object: T): Observable<RemoteData<T>> {
-    const oldVersion$ = this.objectCache.getBySelfLink(object.self);
+    const oldVersion$ = this.objectCache.getObjectBySelfLink(object.self);
     return oldVersion$.pipe(take(1), mergeMap((oldVersion: T) => {
         const operations = this.comparator.diff(oldVersion, object);
         if (isNotEmpty(operations)) {

@@ -95,7 +95,7 @@ describe('ComColDataService', () => {
 
   function initMockObjectCacheService(): ObjectCacheService {
     return jasmine.createSpyObj('objectCache', {
-      getByUUID: cold('d-', {
+      getObjectByUUID: cold('d-', {
         d: {
           _links: {
             [LINK_NAME]: scopedEndpoint
@@ -160,7 +160,7 @@ describe('ComColDataService', () => {
       it('should fetch the scope Community from the cache', () => {
         scheduler.schedule(() => service.getBrowseEndpoint(options).subscribe());
         scheduler.flush();
-        expect(objectCache.getByUUID).toHaveBeenCalledWith(scopeID);
+        expect(objectCache.getObjectByUUID).toHaveBeenCalledWith(scopeID);
       });
 
       it('should return the endpoint to fetch resources within the given scope', () => {

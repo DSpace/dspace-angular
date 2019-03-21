@@ -650,7 +650,7 @@
     "group-collapse": "Collapse",
     "group-expand": "Expand",
     "group-collapse-help": "Click here to collapse",
-    "group-expand-help": "Click here to expand and add more element",
+    "group-expand-help": "Click here to expand and add more elements",
     "other-information": {
     }
   },
@@ -682,6 +682,34 @@
   },
   "chips": {
     "remove": "Remove chip"
+  },
+  "dso-selector": {
+    "create": {
+      "community": {
+        "head": "New community",
+        "sub-level": "Create a new community in",
+        "top-level": "Create a new top-level community"
+      },
+      "collection": {
+        "head": "New collection"
+      },
+      "item": {
+        "head": "New item"
+      }
+    },
+    "edit": {
+      "community": {
+        "head": "Edit community"
+      },
+      "collection": {
+        "head": "Edit collection"
+      },
+      "item": {
+        "head": "Edit item"
+      }
+    },
+    "placeholder": "Search for a {{ type }}",
+    "no-results": "No {{ type }} found"
   },
   "submission": {
     "general":{
