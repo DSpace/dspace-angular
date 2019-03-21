@@ -6,16 +6,34 @@ import {
   RemoveFromIndexByValueAction
 } from './index.actions';
 
+/**
+ * An enum containing all index names
+ */
 export enum IndexName {
+  // Contains all objects in the object cache indexed by UUID
   OBJECT = 'object/uuid-to-self-link',
+
+  // contains all requests in the request cache indexed by UUID
   REQUEST = 'get-request/href-to-uuid',
+
+  /**
+   * Contains the UUIDs of requests that were sent to the server and
+   * have their responses cached, indexed by the UUIDs of requests that
+   * weren't sent because the response they requested was already cached
+   */
   UUID_MAPPING = 'get-request/configured-to-cache-uuid'
 }
 
+/**
+ * The state of a single index
+ */
 export interface IndexState {
   [key: string]: string
 }
 
+/**
+ * The state that contains all indices
+ */
 export type MetaIndexState = {
   [name in IndexName]: IndexState
 }
@@ -23,6 +41,16 @@ export type MetaIndexState = {
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
 const initialState: MetaIndexState = Object.create(null);
 
+/**
+ * The Index Reducer
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    the action to perform on the state
+ * @return MetaIndexState
+ *    the new state
+ */
 export function indexReducer(state = initialState, action: IndexAction): MetaIndexState {
   switch (action.type) {
 
@@ -44,6 +72,16 @@ export function indexReducer(state = initialState, action: IndexAction): MetaInd
   }
 }
 
+/**
+ * Add an entry to a given index
+ *
+ * @param state
+ *    The MetaIndexState that contains all indices
+ * @param action
+ *    The AddToIndexAction containing the value to add, and the index to add it to
+ * @return MetaIndexState
+ *    the new state
+ */
 function addToIndex(state: MetaIndexState, action: AddToIndexAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.assign({}, subState, {
@@ -55,6 +93,16 @@ function addToIndex(state: MetaIndexState, action: AddToIndexAction): MetaIndexS
   return obs;
 }
 
+/**
+ * Remove a entries that contain a given value from a given index
+ *
+ * @param state
+ *    The MetaIndexState that contains all indices
+ * @param action
+ *    The RemoveFromIndexByValueAction containing the value to remove, and the index to remove it from
+ * @return MetaIndexState
+ *    the new state
+ */
 function removeFromIndexByValue(state: MetaIndexState, action: RemoveFromIndexByValueAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.create(null);
@@ -69,9 +117,14 @@ function removeFromIndexByValue(state: MetaIndexState, action: RemoveFromIndexBy
 }
 
 /**
- * Remove values from the IndexState's substate that contain a given substring
- * @param state     The IndexState to remove values from
- * @param action    The RemoveFromIndexByValueAction containing the necessary information to remove the values
+ * Remove entries that contain a given substring from a given index
+ *
+ * @param state
+ *    The MetaIndexState that contains all indices
+ * @param action
+ *    The RemoveFromIndexByValueAction the substring to remove, and the index to remove it from
+ * @return MetaIndexState
+ *    the new state
  */
 function removeFromIndexBySubstring(state: MetaIndexState, action: RemoveFromIndexByValueAction): MetaIndexState {
   const subState = state[action.payload.name];
