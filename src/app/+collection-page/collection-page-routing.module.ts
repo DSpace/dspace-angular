@@ -8,17 +8,36 @@ import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
+import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { getCollectionModulePath } from '../app-routing.module';
+
+export const COLLECTION_PARENT_PARAMETER = 'parent';
+
+export function getCollectionPageRoute(collectionId: string) {
+  return new URLCombiner(getCollectionModulePath(), collectionId).toString();
+}
+
+export function getCollectionEditPath(id: string) {
+  return new URLCombiner(getCollectionModulePath(), COLLECTION_EDIT_PATH.replace(/:id/, id)).toString()
+}
+
+export function getCollectionCreatePath() {
+  return new URLCombiner(getCollectionModulePath(), COLLECTION_CREATE_PATH).toString()
+}
+
+const COLLECTION_CREATE_PATH = 'create';
+const COLLECTION_EDIT_PATH = ':id/edit';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
-        path: 'create',
+        path: COLLECTION_CREATE_PATH,
         component: CreateCollectionPageComponent,
         canActivate: [AuthenticatedGuard, CreateCollectionPageGuard]
       },
       {
-        path: ':id/edit',
+        path: COLLECTION_EDIT_PATH,
         pathMatch: 'full',
         component: EditCollectionPageComponent,
         canActivate: [AuthenticatedGuard],

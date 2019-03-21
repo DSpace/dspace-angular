@@ -5,17 +5,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { LinkMenuItemComponent } from './menu-item/link-menu-item.component';
 import { TextMenuItemComponent } from './menu-item/text-menu-item.component';
+import { OnClickMenuItemComponent } from './menu-item/onclick-menu-item.component';
 
 const COMPONENTS = [
   MenuSectionComponent,
   MenuComponent,
   LinkMenuItemComponent,
-  TextMenuItemComponent
+  TextMenuItemComponent,
+  OnClickMenuItemComponent
 ];
 
 const ENTRY_COMPONENTS = [
   LinkMenuItemComponent,
-  TextMenuItemComponent
+  TextMenuItemComponent,
+  OnClickMenuItemComponent
 ];
 
 const MODULES = [

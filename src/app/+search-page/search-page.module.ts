@@ -11,7 +11,6 @@ import { CommunitySearchResultListElementComponent } from '../shared/object-list
 import { ItemSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/item-search-result/item-search-result-grid-element.component';
 import { CommunitySearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component'
 import { CollectionSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
-import { SearchService } from './search-service/search.service';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchSidebarEffects } from './search-sidebar/search-sidebar.effects';
@@ -46,13 +45,9 @@ const effects = [
     SearchResultsComponent,
     SearchSidebarComponent,
     SearchSettingsComponent,
-    ItemSearchResultListElementComponent,
-    CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent,
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
-    CommunitySearchResultListElementComponent,
     SearchFiltersComponent,
     SearchFilterComponent,
     SearchFacetFilterComponent,
@@ -65,7 +60,6 @@ const effects = [
     SearchBooleanFilterComponent,
   ],
   providers: [
-    SearchService,
     SearchSidebarService,
     SearchFilterService,
     SearchConfigurationService
