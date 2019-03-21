@@ -165,6 +165,11 @@ export abstract class DataService<T extends CacheableObject> {
     return this.rdbService.buildSingle<T>(href);
   }
 
+  /**
+   * Return object search endpoint by given search method
+   *
+   * @param searchMethod The search method for the object
+   */
   protected getSearchEndpoint(searchMethod: string): Observable<string> {
     return this.halService.getEndpoint(`${this.linkPath}/search`).pipe(
       filter((href: string) => isNotEmpty(href)),
