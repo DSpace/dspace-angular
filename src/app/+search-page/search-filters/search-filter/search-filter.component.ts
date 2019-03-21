@@ -28,9 +28,20 @@ export class SearchFilterComponent implements OnInit {
    * True when the filter is 100% collapsed in the UI
    */
   closed = true;
+
+  /**
+   * Emits true when the filter is currently collapsed in the store
+   */
   collapsed$: Observable<boolean>;
 
+  /**
+   * Emits all currently selected values for this filter
+   */
   selectedValues$: Observable<string[]>;
+
+  /**
+   * Emits true when the current filter is supposed to be shown
+   */
   active$: Observable<boolean>;
 
   constructor(private filterService: SearchFilterService, private searchService: SearchService, private searchConfigService: SearchConfigurationService) {

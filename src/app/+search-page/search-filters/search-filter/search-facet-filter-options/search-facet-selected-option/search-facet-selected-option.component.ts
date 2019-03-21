@@ -21,13 +21,17 @@ import { SearchConfigurationService } from '../../../../search-service/search-co
 })
 
 /**
- * Represents a single option in a filter facet
+ * Represents a single selected option in a filter facet
  */
 export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   /**
-   * A single value for this component
+   * The value for this component
    */
   @Input() selectedValue: string;
+
+  /**
+   * The filter configuration for this facet option
+   */
   @Input() filterConfig: SearchFilterConfig;
 
   /**
@@ -35,7 +39,14 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    */
   @Input() selectedValues$: Observable<string[]>;
 
+  /**
+   * UI parameters when this filter is removed
+   */
   removeQueryParams;
+
+  /**
+   * Subscription to unsubscribe from on destroy
+   */
   sub: Subscription;
 
   constructor(protected searchService: SearchService,
@@ -64,8 +75,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
 
   /**
    * Calculates the parameters that should change if a given value for this filter would be removed from the active filters
-   * @param {string} value The value that is removed for this filter
-   * @returns {Observable<any>} The changed filter parameters
+   * @param {string[]} selectedValues The values that are currently selected for this filter
    */
   private updateRemoveParams(selectedValues: string[]): void {
     this.removeQueryParams = {
@@ -74,6 +84,9 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
     };
   }
 
+  /**
+   * Make sure the subscription is unsubscribed from when this component is destroyed
+   */
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();

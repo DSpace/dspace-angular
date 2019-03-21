@@ -73,6 +73,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * State of the requested facets used to time the animation
    */
   animationState = 'loading';
+
+  /**
+   * Emits all current search options available in the search URL
+   */
   searchOptions$: Observable<SearchOptions>;
 
   constructor(protected searchService: SearchService,
@@ -207,6 +211,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     )
   }
 
+  /**
+   * On click, set the input's value to the clicked data
+   * @param data The value of the option that was clicked
+   */
   onClick(data: any) {
     this.filter = data;
   }

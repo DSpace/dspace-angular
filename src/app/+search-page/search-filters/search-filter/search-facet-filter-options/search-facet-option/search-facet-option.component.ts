@@ -22,12 +22,30 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    * A single value for this component
    */
   @Input() filterValue: FacetValue;
+
+  /**
+   * The filter configuration for this facet option
+   */
   @Input() filterConfig: SearchFilterConfig;
+
+  /**
+   * Emits the active values for this filter
+   */
   @Input() selectedValues$: Observable<string[]>;
 
+  /**
+   * Emits true when this option should be visible and false when it should be invisible
+   */
   isVisible: Observable<boolean>;
 
+  /**
+   * UI parameters when this filter is added
+   */
   addQueryParams;
+
+  /**
+   * Subscription to unsubscribe from on destroy
+   */
   sub: Subscription;
 
   constructor(protected searchService: SearchService,
@@ -64,7 +82,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
 
   /**
    * Calculates the parameters that should change if a given value for this filter would be added to the active filters
-   * @param {string} value The value that is added for this filter
+   * @param {string[]} selectedValues The values that are currently selected for this filter
    */
   private updateAddParams(selectedValues: string[]): void {
     this.addQueryParams = {
@@ -73,6 +91,9 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
     };
   }
 
+  /**
+   * Make sure the subscription is unsubscribed from when this component is destroyed
+   */
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();

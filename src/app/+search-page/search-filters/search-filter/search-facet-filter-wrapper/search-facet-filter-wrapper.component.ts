@@ -20,6 +20,9 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
    */
   @Input() filterConfig: SearchFilterConfig;
 
+  /**
+   * The constructor of the search facet filter that should be rendered, based on the filter config's type
+   */
   searchFilter: GenericConstructor<SearchFacetFilterComponent>;
   /**
    * Injector to inject a child component with the @Input parameters

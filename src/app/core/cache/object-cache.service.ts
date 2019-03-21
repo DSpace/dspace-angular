@@ -22,11 +22,18 @@ import {
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 
+/**
+ * The base selector function to select the object cache in the store
+ */
 const objectCacheSelector = createSelector(
   coreSelector,
   (state: CoreState) => state['cache/object']
 );
 
+/**
+ * Selector function to select an object entry by self link from the cache
+ * @param selfLink The self link of the object
+ */
 const entryFromSelfLinkSelector =
   (selfLink: string): MemoizedSelector<CoreState, ObjectCacheEntry> => createSelector(
     objectCacheSelector,

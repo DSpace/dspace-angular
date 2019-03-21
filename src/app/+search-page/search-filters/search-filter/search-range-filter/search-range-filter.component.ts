@@ -1,9 +1,4 @@
-import {
-  of as observableOf,
-  combineLatest as observableCombineLatest,
-  Observable,
-  Subscription
-} from 'rxjs';
+import { combineLatest as observableCombineLatest, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
@@ -24,14 +19,25 @@ import { hasValue } from '../../../../shared/empty.util';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 
 /**
+ * The suffix for a range filters' minimum in the frontend URL
+ */
+export const RANGE_FILTER_MIN_SUFFIX = '.min';
+
+/**
+ * The suffix for a range filters' maximum in the frontend URL
+ */
+export const RANGE_FILTER_MAX_SUFFIX = '.max';
+
+/**
+ * The date formats that are possible to appear in a date filter
+ */
+const dateFormats = ['YYYY', 'YYYY-MM', 'YYYY-MM-DD'];
+
+/**
  * This component renders a simple item page.
  * The route parameter 'id' is used to request the item it represents.
  * All fields of the item that should be displayed, are defined in its template.
  */
-export const RANGE_FILTER_MIN_SUFFIX = '.min';
-export const RANGE_FILTER_MAX_SUFFIX = '.max';
-const dateFormats = ['YYYY', 'YYYY-MM', 'YYYY-MM-DD'];
-
 @Component({
   selector: 'ds-search-range-filter',
   styleUrls: ['./search-range-filter.component.scss'],
@@ -129,9 +135,5 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
-  }
-
-  out(call) {
-    console.log(call);
   }
 }

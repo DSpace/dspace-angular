@@ -64,7 +64,7 @@ export class SearchFilterToggleAction extends SearchFilterAction {
 }
 
 /**
- * Used to set the initial state of a filter to collapsed
+ * Used to set the initial state of a filter
  */
 export class SearchFilterInitializeAction extends SearchFilterAction {
   type = SearchFilterActionTypes.INITIALIZE;

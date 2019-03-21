@@ -28,11 +28,18 @@ import { RestRequestMethod } from './rest-request-method';
 import { AddToIndexAction, RemoveFromIndexBySubstringAction } from '../index/index.actions';
 import { coreSelector } from '../core.selectors';
 
+/**
+ * The base selector function to select the request state in the store
+ */
 const requestCacheSelector = createSelector(
   coreSelector,
   (state: CoreState) => state['data/request']
 );
 
+/**
+ * Selector function to select a request entry by uuid from the cache
+ * @param uuid The uuid of the request
+ */
 const entryFromUUIDSelector = (uuid: string): MemoizedSelector<CoreState, RequestEntry> => createSelector(
   requestCacheSelector,
   (state: RequestState) => {
@@ -67,6 +74,9 @@ const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] =>
   return result;
 };
 
+/**
+ * A service to interact with the request state in the store
+ */
 @Injectable()
 export class RequestService {
   private requestsOnTheirWayToTheStore: string[] = [];
