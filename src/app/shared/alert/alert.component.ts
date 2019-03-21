@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { trigger } from '@angular/animations';
 
-import { AlertType } from './aletrs-type';
+import { AlertType } from './aletr-type';
 import { fadeOutLeave, fadeOutState } from '../animations/fade';
 
 /**
@@ -15,10 +15,10 @@ import { fadeOutLeave, fadeOutState } from '../animations/fade';
       fadeOutLeave, fadeOutState,
     ])
   ],
-  templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss']
+  templateUrl: './alert.component.html',
+  styleUrls: ['./alert.component.scss']
 })
-export class AlertsComponent {
+export class AlertComponent {
 
   /**
    * The alert content

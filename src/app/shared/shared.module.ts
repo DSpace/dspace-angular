@@ -76,7 +76,7 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
-import { AlertsComponent } from './alerts/alerts.component';
+import { AlertComponent } from './alert/alert.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
@@ -140,7 +140,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
-  AlertsComponent,
+  AlertComponent,
   AuthNavMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,
