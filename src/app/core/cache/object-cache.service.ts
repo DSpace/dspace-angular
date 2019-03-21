@@ -65,29 +65,29 @@ export class ObjectCacheService {
   /**
    * Get an observable of the object with the specified UUID
    *
-   * The type needs to be specified as well, in order to turn
-   * the cached plain javascript object in to an instance of
-   * a class.
-   *
-   * e.g. getByUUID('c96588c6-72d3-425d-9d47-fa896255a695', Item)
-   *
    * @param uuid
    *    The UUID of the object to get
-   * @param type
-   *    The type of the object to get
-   * @return Observable<T>
-   *    An observable of the requested object
+   * @return Observable<NormalizedObject<T>>
+   *    An observable of the requested object in normalized form
    */
-  getByUUID<T extends CacheableObject>(uuid: string): Observable<NormalizedObject<T>> {
+  getObjectByUUID<T extends CacheableObject>(uuid: string): Observable<NormalizedObject<T>> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      mergeMap((selfLink: string) => this.getBySelfLink(selfLink)
+      mergeMap((selfLink: string) => this.getObjectBySelfLink(selfLink)
       )
     )
   }
 
-  getBySelfLink<T extends CacheableObject>(selfLink: string): Observable<NormalizedObject<T>> {
-    return this.getEntry(selfLink).pipe(
+  /**
+   * Get an observable of the object with the specified selfLink
+   *
+   * @param selfLink
+   *    The selfLink of the object to get
+   * @return Observable<NormalizedObject<T>>
+   *    An observable of the requested object in normalized form
+   */
+  getObjectBySelfLink<T extends CacheableObject>(selfLink: string): Observable<NormalizedObject<T>> {
+    return this.getBySelfLink(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
           if (isNotEmpty(entry.patches)) {
             const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
@@ -105,7 +105,15 @@ export class ObjectCacheService {
     );
   }
 
-  private getEntry(selfLink: string): Observable<ObjectCacheEntry> {
+  /**
+   * Get an observable of the object cache entry with the specified selfLink
+   *
+   * @param selfLink
+   *    The selfLink of the object to get
+   * @return Observable<ObjectCacheEntry>
+   *    An observable of the requested object cache entry
+   */
+  getBySelfLink(selfLink: string): Observable<ObjectCacheEntry> {
     return this.store.pipe(
       select(entryFromSelfLinkSelector(selfLink)),
       filter((entry) => this.isValid(entry)),
@@ -113,12 +121,28 @@ export class ObjectCacheService {
     );
   }
 
+  /**
+   * Get an observable of the request's uuid with the specified selfLink
+   *
+   * @param selfLink
+   *    The selfLink of the object to get
+   * @return Observable<string>
+   *    An observable of the request's uuid
+   */
   getRequestUUIDBySelfLink(selfLink: string): Observable<string> {
-    return this.getEntry(selfLink).pipe(
+    return this.getBySelfLink(selfLink).pipe(
       map((entry: ObjectCacheEntry) => entry.requestUUID),
       distinctUntilChanged());
   }
 
+  /**
+   * Get an observable of the request's uuid with the specified uuid
+   *
+   * @param uuid
+   *    The uuid of the object to get
+   * @return Observable<string>
+   *    An observable of the request's uuid
+   */
   getRequestUUIDByObjectUUID(uuid: string): Observable<string> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
@@ -147,7 +171,7 @@ export class ObjectCacheService {
    */
   getList<T extends CacheableObject>(selfLinks: string[]): Observable<Array<NormalizedObject<T>>> {
     return observableCombineLatest(
-      selfLinks.map((selfLink: string) => this.getBySelfLink<T>(selfLink))
+      selfLinks.map((selfLink: string) => this.getObjectBySelfLink<T>(selfLink))
     );
   }
 
