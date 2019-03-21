@@ -194,10 +194,8 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
                 mapGroups$.push(
                   this.groupService.findById(accessCondition.selectGroupUUID).pipe(
                     find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded),
-                    tap((group: RemoteData<Group>) => console.log(group.payload.groups)),
                     flatMap((group: RemoteData<Group>) => group.payload.groups),
                     find((rd: RemoteData<PaginatedList<Group>>) => !rd.isResponsePending && rd.hasSucceeded),
-                    tap((group) => console.log(group)),
                     map((rd: RemoteData<PaginatedList<Group>>) => ({
                       accessCondition: accessCondition.name,
                       groups: rd.payload.page
