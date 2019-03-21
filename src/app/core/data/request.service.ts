@@ -7,9 +7,8 @@ import { AppState } from '../../app.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { coreSelector, CoreState } from '../core.reducers';
+import { CoreState } from '../core.reducers';
 import { IndexName, IndexState, MetaIndexState } from '../index/index.reducer';
-import { pathSelector } from '../shared/selectors';
 import {
   originalRequestUUIDFromRequestUUIDSelector,
   requestIndexSelector,
@@ -27,6 +26,7 @@ import { RequestEntry, RequestState } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { AddToIndexAction, RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { coreSelector } from '../core.selectors';
 
 const requestCacheSelector = createSelector(
   coreSelector,
