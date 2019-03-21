@@ -33,7 +33,7 @@ const entryFromSelfLinkSelector =
     (state: ObjectCacheState) => state[selfLink],
   );
 
-  /**
+/**
  * A service to interact with the object cache
  */
 @Injectable()

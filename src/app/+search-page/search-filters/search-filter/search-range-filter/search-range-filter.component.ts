@@ -95,8 +95,6 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
     ).subscribe((minmax) => this.range = minmax);
   }
 
-
-
   /**
    * Submits new custom range values to the range filter from the widget
    */

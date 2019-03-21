@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable, InjectionToken } from '@angular/core';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
@@ -16,9 +16,8 @@ import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { RouteService } from '../../../shared/services/route.service';
 import { Params } from '@angular/router';
-import { tag } from 'rxjs-spy/operators';
-import { create, detect } from "rxjs-spy";
-const spy = create();
+import { SearchOptions } from '../../search-options.model';
+// const spy = create();
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
@@ -59,17 +58,10 @@ export class SearchFilterService {
    * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
    */
   getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
-    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName).pipe(
-      tag("parameter")
-    );
+    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
     const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
       map((params: Params) => [].concat(...Object.values(params))),
-      tag("prefix-tag")
-
-
     );
-    spy.log();
-    detect('prefix-tag');
 
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {

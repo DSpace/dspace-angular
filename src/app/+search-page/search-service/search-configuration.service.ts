@@ -186,7 +186,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @param {SearchOptions} defaults Default values for when no parameters are available
    * @returns {Subscription} The subscription to unsubscribe from
    */
-  subscribeToSearchOptions(defaults: SearchOptions): Subscription {
+  private subscribeToSearchOptions(defaults: SearchOptions): Subscription {
     return observableMerge(
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
@@ -204,7 +204,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @param {PaginatedSearchOptions} defaults Default values for when no parameters are available
    * @returns {Subscription} The subscription to unsubscribe from
    */
-  subscribeToPaginatedSearchOptions(defaults: PaginatedSearchOptions): Subscription {
+  private subscribeToPaginatedSearchOptions(defaults: PaginatedSearchOptions): Subscription {
     return observableMerge(
       this.getPaginationPart(defaults.pagination),
       this.getSortPart(defaults.sort),

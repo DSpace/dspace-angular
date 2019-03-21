@@ -1,11 +1,13 @@
-import { Observable, of as observableOf } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FacetValue } from '../../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../../search-service/search-filter-config.model';
 import { SearchService } from '../../../../search-service/search.service';
 import { SearchFilterService } from '../../search-filter.service';
+import { SearchConfigurationService } from '../../../../search-service/search-configuration.service';
+import { hasValue } from '../../../../../shared/empty.util';
 
 @Component({
   selector: 'ds-search-facet-option',
@@ -15,24 +17,22 @@ import { SearchFilterService } from '../../search-filter.service';
 /**
  * Represents a single option in a filter facet
  */
-export class SearchFacetOptionComponent implements OnInit {
+export class SearchFacetOptionComponent implements OnInit, OnDestroy {
   /**
    * A single value for this component
    */
   @Input() filterValue: FacetValue;
   @Input() filterConfig: SearchFilterConfig;
-
-  /**
-   * Emits the active values for this filter
-   */
-  selectedValues$: Observable<string[]>;
+  @Input() selectedValues$: Observable<string[]>;
 
   isVisible: Observable<boolean>;
 
   addQueryParams;
+  sub: Subscription;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected searchConfigService: SearchConfigurationService,
               protected router: Router
   ) {
   }
@@ -41,9 +41,11 @@ export class SearchFacetOptionComponent implements OnInit {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
-    this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig);
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
-    this.addQueryParams = this.getAddParams();
+    this.sub = observableCombineLatest(this.selectedValues$, this.searchConfigService.searchOptions)
+      .subscribe(([selectedValues, searchOptions]) => {
+        this.updateAddParams(selectedValues)
+      });
   }
 
   /**
@@ -63,16 +65,17 @@ export class SearchFacetOptionComponent implements OnInit {
   /**
    * Calculates the parameters that should change if a given value for this filter would be added to the active filters
    * @param {string} value The value that is added for this filter
-   * @returns {Observable<any>} The changed filter parameters
    */
-  private getAddParams(): Observable<any> {
-    return this.selectedValues$.pipe(map((selectedValues) => {
-      return {
-        [this.filterConfig.paramName]: [...selectedValues, this.filterValue.value],
-        page: 1
-      };
-    }));
+  private updateAddParams(selectedValues: string[]): void {
+    this.addQueryParams = {
+      [this.filterConfig.paramName]: [...selectedValues, this.filterValue.value],
+      page: 1
+    };
   }
 
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
+  }
 }
-

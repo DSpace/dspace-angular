@@ -12,7 +12,6 @@ import { BrowserAppModule } from './modules/app/browser-app.module';
 
 import { ENV_CONFIG } from './config';
 
-
 if (ENV_CONFIG.production) {
   enableProdMode();
 }

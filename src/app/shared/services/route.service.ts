@@ -15,7 +15,6 @@ export class RouteService {
   }
 
   getQueryParameterValues(paramName: string): Observable<string[]> {
-    console.log('called');
     return this.route.queryParamMap.pipe(
       map((params) => [...params.getAll(paramName)]),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
@@ -46,7 +45,6 @@ export class RouteService {
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
     return this.route.queryParamMap.pipe(
       map((qparams) => {
-        console.log('map');
         const params = {};
         qparams.keys
           .filter((key) => key.startsWith(prefix))
@@ -55,8 +53,7 @@ export class RouteService {
           });
         return params;
       }),
-      distinctUntilChanged((a, b) => { console.log('changed?', a, b, JSON.stringify(a) === JSON.stringify(b)); return JSON.stringify(a) === JSON.stringify(b)}),
-      tap((t) => console.log('changed'))
+      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
     );
   }
 }

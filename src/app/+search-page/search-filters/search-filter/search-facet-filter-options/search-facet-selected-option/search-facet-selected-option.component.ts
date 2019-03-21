@@ -1,11 +1,19 @@
-import { Observable, of as observableOf } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  Subscription
+} from 'rxjs';
+import { delay, map } from 'rxjs/operators';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { FacetValue } from '../../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../../search-service/search-filter-config.model';
 import { SearchService } from '../../../../search-service/search.service';
 import { SearchFilterService } from '../../search-filter.service';
+import { hasValue } from '../../../../../shared/empty.util';
+import { SearchOptions } from '../../../../search-options.model';
+import { SearchConfigurationService } from '../../../../search-service/search-configuration.service';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
@@ -15,7 +23,7 @@ import { SearchFilterService } from '../../search-filter.service';
 /**
  * Represents a single option in a filter facet
  */
-export class SearchFacetSelectedOptionComponent implements OnInit {
+export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   /**
    * A single value for this component
    */
@@ -25,12 +33,14 @@ export class SearchFacetSelectedOptionComponent implements OnInit {
   /**
    * Emits the active values for this filter
    */
-  selectedValues$: Observable<string[]>;
+  @Input() selectedValues$: Observable<string[]>;
 
   removeQueryParams;
+  sub: Subscription;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected searchConfigService: SearchConfigurationService,
               protected router: Router
   ) {
   }
@@ -39,8 +49,10 @@ export class SearchFacetSelectedOptionComponent implements OnInit {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
-    this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig);
-    this.removeQueryParams = this.getRemoveParams();
+    this.sub = observableCombineLatest(this.selectedValues$, this.searchConfigService.searchOptions)
+      .subscribe(([selectedValues, searchOptions]) => {
+        this.updateRemoveParams(selectedValues)
+      });
   }
 
   /**
@@ -55,13 +67,16 @@ export class SearchFacetSelectedOptionComponent implements OnInit {
    * @param {string} value The value that is removed for this filter
    * @returns {Observable<any>} The changed filter parameters
    */
-  private getRemoveParams(): Observable<any> {
-    return this.selectedValues$.pipe(map((selectedValues) => {
-      return {
-        [this.filterConfig.paramName]: selectedValues.filter((v) => v !== this.selectedValue),
-        page: 1
-      };
-    }));
+  private updateRemoveParams(selectedValues: string[]): void {
+    this.removeQueryParams = {
+      [this.filterConfig.paramName]: selectedValues.filter((v) => v !== this.selectedValue),
+      page: 1
+    };
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
   }
 }
-

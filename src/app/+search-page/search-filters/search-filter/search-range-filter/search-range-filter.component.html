@@ -24,9 +24,7 @@
         </ng-container>
       <ng-container *ngFor="let page of (filterValues$ | async)?.payload">
         <div [@facetLoad]="animationState">
-          <ng-container *ngFor="let value of page.page; trackBy: trackUpdate">
-
-            </ng-container>
+          <ds-search-facet-range-option *ngFor="let value of page.page; trackBy: trackUpdate" [filterConfig]="filterConfig" [filterValue]="value"></ds-search-facet-range-option>
           </div>
         </ng-container>
     </div>

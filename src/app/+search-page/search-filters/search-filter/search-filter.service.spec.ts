@@ -71,7 +71,6 @@ describe('SearchFilterService', () => {
     });
   });
 
-
   describe('when the collapse method is triggered', () => {
     beforeEach(() => {
       service.collapse(mockFilterConfig.name);

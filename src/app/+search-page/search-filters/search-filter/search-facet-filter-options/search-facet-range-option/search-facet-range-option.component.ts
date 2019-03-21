@@ -1,6 +1,6 @@
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FacetValue } from '../../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../../search-service/search-filter-config.model';
@@ -10,6 +10,8 @@ import {
   RANGE_FILTER_MAX_SUFFIX,
   RANGE_FILTER_MIN_SUFFIX
 } from '../../search-range-filter/search-range-filter.component';
+import { SearchConfigurationService } from '../../../../search-service/search-configuration.service';
+import { hasValue } from '../../../../../shared/empty.util';
 
 const rangeDelimiter = '-';
 
@@ -21,24 +23,21 @@ const rangeDelimiter = '-';
 /**
  * Represents a single option in a filter facet
  */
-export class SearchFacetRangeOptionComponent implements OnInit {
+export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   /**
    * A single value for this component
    */
   @Input() filterValue: FacetValue;
   @Input() filterConfig: SearchFilterConfig;
 
-  /**
-   * Emits the active values for this filter
-   */
-  selectedValues$: Observable<string[]>;
-
   isVisible: Observable<boolean>;
 
   changeQueryParams;
+  sub: Subscription;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
+              protected searchConfigService: SearchConfigurationService,
               protected router: Router
   ) {
   }
@@ -47,9 +46,10 @@ export class SearchFacetRangeOptionComponent implements OnInit {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
-    this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig);
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
-    this.changeQueryParams = this.getChangeParams();
+    this.sub = this.searchConfigService.searchOptions.subscribe(() => {
+      this.updateChangeParams()
+    });
   }
 
   /**
@@ -66,23 +66,24 @@ export class SearchFacetRangeOptionComponent implements OnInit {
     return this.searchService.getSearchLink();
   }
 
-
   /**
    * Calculates the parameters that should change if a given values for this range filter would be changed
    * @param {string} value The values that are changed for this filter
-   * @returns {Observable<any>} The changed filter parameters
    */
-  getChangeParams() {
+  updateChangeParams(): void {
     const parts = this.filterValue.value.split(rangeDelimiter);
     const min = parts.length > 1 ? parts[0].trim() : this.filterValue.value;
     const max = parts.length > 1 ? parts[1].trim() : this.filterValue.value;
-    return observableOf(
-      {
-        [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
-        [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [max],
-        page: 1
-      });
+    this.changeQueryParams = {
+      [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: [min],
+      [this.filterConfig.paramName + RANGE_FILTER_MAX_SUFFIX]: [max],
+      page: 1
+    };
   }
 
+  ngOnDestroy(): void {
+    if (hasValue(this.sub)) {
+      this.sub.unsubscribe();
+    }
+  }
 }
-

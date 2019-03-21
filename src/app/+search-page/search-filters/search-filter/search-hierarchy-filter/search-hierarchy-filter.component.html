@@ -1,15 +1,9 @@
 <div>
     <div class="filters py-2">
-        <a *ngFor="let value of (selectedValues | async)" class="d-flex flex-row"
-           [routerLink]="[getSearchLink()]"
-           [queryParams]="getRemoveParams(value) | async" queryParamsHandling="merge">
-            <input type="checkbox" [checked]="true" class="my-1 align-self-stretch"/>
-            <span class="filter-value pl-1">{{value}}</span>
-        </a>
+        <ds-search-facet-selected-option *ngFor="let value of (selectedValues$ | async)" [selectedValue]="value" [filterConfig]="filterConfig" [selectedValues$]="selectedValues$"></ds-search-facet-selected-option>
         <ng-container *ngFor="let page of (filterValues$ | async)?.payload">
           <div [@facetLoad]="animationState">
-            <ds-search-facet-option *ngFor="let value of page.page; trackBy: trackUpdate" [filterConfig]="filterConfig" [filterValue]="value">
-            </ds-search-facet-option>
+            <ds-search-facet-option *ngFor="let value of page.page; trackBy: trackUpdate" [filterConfig]="filterConfig" [filterValue]="value" [selectedValues$]="selectedValues$"></ds-search-facet-option>
           </div>
         </ng-container>
         <div class="clearfix toggle-more-filters">
