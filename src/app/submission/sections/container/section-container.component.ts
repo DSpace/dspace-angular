@@ -9,11 +9,11 @@ import { AlertType } from '../../../shared/alert/aletr-type';
  * This component represents a section that contains the submission license form.
  */
 @Component({
-  selector: 'ds-submission-form-section-container',
+  selector: 'ds-submission-section-container',
   templateUrl: './section-container.component.html',
   styleUrls: ['./section-container.component.scss']
 })
-export class SectionContainerComponent implements OnInit {
+export class SubmissionSectionContainerComponent implements OnInit {
 
   /**
    * The collection id this submission belonging to

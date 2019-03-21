@@ -10,7 +10,7 @@ import { SubmissionFormCollectionComponent } from './form/collection/submission-
 import { SubmissionFormFooterComponent } from './form/footer/submission-form-footer.component';
 import { SubmissionFormComponent } from './form/submission-form.component';
 import { SubmissionFormSectionAddComponent } from './form/section-add/submission-form-section-add.component';
-import { SectionContainerComponent } from './sections/container/section-container.component';
+import { SubmissionSectionContainerComponent } from './sections/container/section-container.component';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -43,7 +43,7 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
     SectionsDirective,
-    SectionContainerComponent,
+    SubmissionSectionContainerComponent,
     SubmissionEditComponent,
     SubmissionFormSectionAddComponent,
     SubmissionFormCollectionComponent,
@@ -59,7 +59,7 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
     SubmissionSectionUploadComponent,
     SubmissionSectionformComponent,
     SubmissionSectionLicenseComponent,
-    SectionContainerComponent],
+    SubmissionSectionContainerComponent],
   exports: [
     SubmissionEditComponent,
     SubmissionFormComponent,
