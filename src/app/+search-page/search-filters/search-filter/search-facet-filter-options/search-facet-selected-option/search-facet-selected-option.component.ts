@@ -1,18 +1,10 @@
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  Subscription
-} from 'rxjs';
-import { delay, map } from 'rxjs/operators';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FacetValue } from '../../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../../search-service/search-filter-config.model';
 import { SearchService } from '../../../../search-service/search.service';
 import { SearchFilterService } from '../../search-filter.service';
 import { hasValue } from '../../../../../shared/empty.util';
-import { SearchOptions } from '../../../../search-options.model';
 import { SearchConfigurationService } from '../../../../search-service/search-configuration.service';
 
 @Component({

@@ -83,7 +83,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   /**
    * Calculates the parameters that should change if a given values for this range filter would be changed
    */
-  updateChangeParams(): void {
+  private updateChangeParams(): void {
     const parts = this.filterValue.value.split(rangeDelimiter);
     const min = parts.length > 1 ? parts[0].trim() : this.filterValue.value;
     const max = parts.length > 1 ? parts[1].trim() : this.filterValue.value;
