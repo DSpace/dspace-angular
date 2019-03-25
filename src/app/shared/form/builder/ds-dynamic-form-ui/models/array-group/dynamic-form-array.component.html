@@ -9,7 +9,7 @@
 
             <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
 
-            <ds-dynamic-form-control *ngFor="let _model of groupModel.group"
+            <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"
                                                [bindId]="false"
                                                [context]="groupModel"
                                                [group]="control.at(idx)"
@@ -21,7 +21,7 @@
                                                (dfBlur)="onBlur($event)"
                                                (dfChange)="onChange($event)"
                                                (dfFocus)="onFocus($event)"
-                                               (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control>
+                                               (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control-container>
 
             <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: groupModel"></ng-container>
 

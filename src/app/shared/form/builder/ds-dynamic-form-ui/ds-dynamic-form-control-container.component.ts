@@ -131,7 +131,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
 }
 
 @Component({
-  selector: 'ds-dynamic-form-control',
+  selector: 'ds-dynamic-form-control-container',
   styleUrls: ['./ds-dynamic-form-control-container.component.scss'],
   templateUrl: './ds-dynamic-form-control-container.component.html',
   changeDetection: ChangeDetectionStrategy.Default
