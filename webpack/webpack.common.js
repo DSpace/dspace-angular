@@ -22,10 +22,11 @@ module.exports = {
         module: "empty"
     },
     module: {
-        rules: [{
-            test: /\.ts$/,
-            loader: '@ngtools/webpack'
-        },
+        rules: [
+            {
+                test: /\.ts$/,
+                loader: '@ngtools/webpack'
+            },
             {
                 test: /\.css$/,
                 use: [{
@@ -52,19 +53,20 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: [/node_modules/,
-                    path.resolve(__dirname,  '..', 'src/styles/_exposed_variables.scss')
+                    path.resolve(__dirname, '..', 'src/styles/_exposed_variables.scss')
                 ],
-                use: [{
-                    loader: 'to-string-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                }, {
-                    loader: 'raw-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                },
+                use: [
+                    {
+                        loader: 'to-string-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }, {
+                        loader: 'raw-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
                     {
                         loader: 'resolve-url-loader',
                         options: {
@@ -76,7 +78,8 @@ module.exports = {
                         options: {
                             sourceMap: true
                         }
-                    }
+                    },
+                    'webpack-import-glob-loader'
                 ]
             },
             {
