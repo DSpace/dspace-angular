@@ -19,7 +19,7 @@ import { SubmissionObject } from '../../core/submission/models/submission-object
  * This component represents the submission form.
  */
 @Component({
-  selector: 'ds-submission-submit-form',
+  selector: 'ds-submission-form',
   styleUrls: ['./submission-form.component.scss'],
   templateUrl: './submission-form.component.html',
 })
