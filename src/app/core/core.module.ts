@@ -87,6 +87,7 @@ import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { ThemeService } from './theme/theme.service';
 
 const IMPORTS = [
   CommonModule,
@@ -175,6 +176,7 @@ const PROVIDERS = [
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  ThemeService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
