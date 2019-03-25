@@ -5,7 +5,6 @@ import { AuthEffects } from './auth/auth.effects';
 import { JsonPatchOperationsEffects } from './json-patch/json-patch-operations.effects';
 import { ServerSyncBufferEffects } from './cache/server-sync-buffer.effects';
 import { ObjectUpdatesEffects } from './data/object-updates/object-updates.effects';
-import { ThemeEffects } from './theme/theme.effects';
 
 export const coreEffects = [
   RequestEffects,
@@ -15,5 +14,4 @@ export const coreEffects = [
   JsonPatchOperationsEffects,
   ServerSyncBufferEffects,
   ObjectUpdatesEffects,
-  ThemeEffects
 ];

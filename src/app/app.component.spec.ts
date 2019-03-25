@@ -44,6 +44,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from './shared/services/route.service';
 import { MockActivatedRoute } from './shared/mocks/mock-active-router';
 import { MockRouter } from './shared/mocks/mock-router';
+import { ThemeService } from './core/theme/theme.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -78,6 +79,7 @@ describe('App component', () => {
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: ThemeService, useValue: {getCurrentTheme: () => {/* No implementation */}} },
         AppComponent,
         RouteService
       ],
