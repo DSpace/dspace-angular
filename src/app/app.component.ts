@@ -34,7 +34,6 @@ import { combineLatest as combineLatestObservable, of } from 'rxjs';
 import { HostWindowService } from './shared/host-window.service';
 import { ThemeService } from './core/theme/theme.service';
 import { Theme } from '../config/theme.inferface';
-import { isNotEmpty } from './shared/empty.util';
 
 @Component({
   selector: 'ds-app',
@@ -92,10 +91,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    const availableThemes: Theme[] = this.config.themes;
-    if (isNotEmpty(availableThemes)) {
-      this.themeService.setCurrentTheme(availableThemes[0]);
-    }
     this.theme = this.themeService.getCurrentTheme();
 
     const env: string = this.config.production ? 'Production' : 'Development';

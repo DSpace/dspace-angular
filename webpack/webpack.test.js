@@ -165,7 +165,8 @@ module.exports = function (options) {
               options: {
                 sourceMap: true
               }
-            }
+            },
+            'webpack-import-glob-loader'
           ],
           exclude: [root('src/index.html')]
         },
