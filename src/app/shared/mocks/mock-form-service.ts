@@ -2,6 +2,9 @@ import { of as observableOf } from 'rxjs';
 
 import { FormService } from '../form/form.service';
 
+/**
+ * Mock for [[FormService]]
+ */
 export function getMockFormService(
   id$: string = 'random_id'
 ): FormService {

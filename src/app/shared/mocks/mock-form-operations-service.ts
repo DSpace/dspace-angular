@@ -1,5 +1,8 @@
 import { SectionFormOperationsService } from '../../submission/sections/form/section-form-operations.service';
 
+/**
+ * Mock for [[FormOperationsService]]
+ */
 export function getMockFormOperationsService(): SectionFormOperationsService {
   return jasmine.createSpyObj('SectionFormOperationsService', {
     dispatchOperationsFromEvent: jasmine.createSpy('dispatchOperationsFromEvent'),

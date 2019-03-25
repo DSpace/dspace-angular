@@ -1,5 +1,8 @@
-import { Observable, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
+/**
+ * Mock for [[RouterService]]
+ */
 export class MockRouter {
   public events = observableOf({});
   public routerState = {

@@ -6,6 +6,9 @@ import { NormalizedSubmissionFormsModel } from './normalized-config-submission-f
 import { NormalizedSubmissionSectionModel } from './normalized-config-submission-section.model';
 import { NormalizedSubmissionUploadsModel } from './normalized-config-submission-uploads.model';
 
+/**
+ * Class to return normalized models for config objects
+ */
 export class ConfigObjectFactory {
   public static getConstructor(type): GenericConstructor<ConfigObject> {
     switch (type) {
