@@ -29,8 +29,11 @@ import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/initial-menus-state';
 import { Observable } from 'rxjs/internal/Observable';
 import { slideSidebarPadding } from './shared/animations/slide';
-import { combineLatest as combineLatestObservable } from 'rxjs';
+import { combineLatest as combineLatestObservable, of } from 'rxjs';
 import { HostWindowService } from './shared/host-window.service';
+import { ThemeService } from './core/theme/theme.service';
+import { Theme } from '../config/theme.inferface';
+import { isNotEmpty } from './shared/empty.util';
 
 @Component({
   selector: 'ds-app',
@@ -46,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   slideSidebarOver: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
+  theme: Observable<Theme>= of({} as any);
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -58,8 +62,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
+    private themeService: ThemeService
   ) {
+
     // Load all the languages that are defined as active from the config file
     translate.addLangs(config.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
 
@@ -79,10 +85,14 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.info(config);
     }
     this.storeCSSVariables();
-
   }
 
   ngOnInit() {
+    const availableThemes: Theme[] = this.config.themes;
+    if (isNotEmpty(availableThemes)) {
+      this.themeService.setCurrentTheme(availableThemes[0]);
+    }
+    this.theme = this.themeService.getCurrentTheme();
 
     const env: string = this.config.production ? 'Production' : 'Development';
     const color: string = this.config.production ? 'red' : 'green';

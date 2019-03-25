@@ -12,6 +12,7 @@ import {
   objectUpdatesReducer,
   ObjectUpdatesState
 } from './data/object-updates/object-updates.reducer';
+import { themeReducer, ThemeState } from './theme/theme.reducer';
 
 export interface CoreState {
   'cache/object': ObjectCacheState,
@@ -20,6 +21,7 @@ export interface CoreState {
   'data/request': RequestState,
   'index': IndexState,
   'auth': AuthState,
+  'theme': ThemeState
 }
 
 export const coreReducers: ActionReducerMap<CoreState> = {
@@ -29,6 +31,7 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'data/request': requestReducer,
   'index': indexReducer,
   'auth': authReducer,
+  'theme': themeReducer
 };
 
 export const coreSelector = createFeatureSelector<CoreState>('core');

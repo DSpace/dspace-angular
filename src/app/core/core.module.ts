@@ -70,6 +70,7 @@ import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
 import { SearchService } from '../+search-page/search-service/search.service';
+import { ThemeService } from './theme/theme.service';
 
 const IMPORTS = [
   CommonModule,
@@ -140,6 +141,7 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
+  ThemeService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

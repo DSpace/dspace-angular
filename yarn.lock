@@ -8762,6 +8762,12 @@ webpack-dev-server@^3.1.5:
     webpack-log "^2.0.0"
     yargs "12.0.1"
 
+webpack-import-glob-loader@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/webpack-import-glob-loader/-/webpack-import-glob-loader-1.6.3.tgz#1b1de573f49c2c2afdb814dc13b44b2111b2ea7b"
+  dependencies:
+    glob "^5.0.15"
+
 webpack-log@^1.0.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/webpack-log/-/webpack-log-1.2.0.tgz#a4b34cda6b22b518dbb0ab32e567962d5c72a43d"

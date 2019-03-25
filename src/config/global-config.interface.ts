@@ -7,6 +7,7 @@ import { FormConfig } from './form-config.interfaces';
 import {LangConfig} from './lang-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { ItemPageConfig } from './item-page-config.interface';
+import { Theme } from './theme.inferface';
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
@@ -23,4 +24,5 @@ export interface GlobalConfig extends Config {
   languages: LangConfig[];
   browseBy: BrowseByConfig;
   item: ItemPageConfig;
+  themes: Theme[];
 }

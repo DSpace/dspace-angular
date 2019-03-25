@@ -1,5 +1,5 @@
-<div class="outer-wrapper">
-    <ds-admin-sidebar></ds-admin-sidebar>
+<div class="outer-wrapper" [ngClass]="(theme | async)?.cssClass">
+    <!--<ds-admin-sidebar></ds-admin-sidebar>-->
     <div class="inner-wrapper"  [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
      params: {collapsedSidebarWidth: (collapsedSidebarWidth | async), totalSidebarWidth: (totalSidebarWidth | async)}

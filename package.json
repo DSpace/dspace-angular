@@ -219,6 +219,7 @@
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-dev-middleware": "3.2.0",
     "webpack-dev-server": "^3.1.5",
+    "webpack-import-glob-loader": "^1.6.3",
     "webpack-merge": "4.1.4",
     "webpack-node-externals": "1.7.2"
   }
