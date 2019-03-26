@@ -1,7 +1,8 @@
 // @TODO: Merge with keySelector function present in 'src/app/core/shared/selectors.ts'
 import { createSelector, MemoizedSelector, Selector } from '@ngrx/store';
 import { hasValue } from '../../shared/empty.util';
-import { coreSelector, CoreState } from '../core.reducers';
+import { CoreState } from '../core.reducers';
+import { coreSelector } from '../core.selectors';
 import { JsonPatchOperationsEntry, JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 
 export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: string, key: string): MemoizedSelector<T, V> {

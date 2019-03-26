@@ -126,7 +126,6 @@ import { ItemSearchResultListElementComponent } from './object-list/search-resul
 import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
-import { DSOSelectorModalWrapperComponent } from './dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { ItemListPreviewComponent } from './object-list/item-list-preview/item-list-preview.component';
 import { ItemPageAuthorFieldComponent } from '../+item-page/simple/field-components/specific-field/author/item-page-author-field.component';
 import { ItemPageDateFieldComponent } from '../+item-page/simple/field-components/specific-field/date/item-page-date-field.component';

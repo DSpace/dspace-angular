@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { merge as observableMerge, Observable, of as observableOf, race as observableRace } from 'rxjs';
-import { filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { Observable, race as observableRace } from 'rxjs';
+import { filter, find, mergeMap, take } from 'rxjs/operators';
 import { remove } from 'lodash';
 
 import { AppState } from '../../app.reducer';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -17,11 +17,7 @@ import {
   uuidFromHrefSelector
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
-import {
-  RequestConfigureAction,
-  RequestExecuteAction,
-  RequestRemoveAction
-} from './request.actions';
+import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
 import { RequestEntry, RequestState } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
@@ -52,7 +48,6 @@ const entryFromUUIDSelector = (uuid: string): MemoizedSelector<CoreState, Reques
  * Create a selector that fetches a list of request UUIDs from a given index substate of which the request href
  * contains a given substring
  * @param selector    MemoizedSelector to start from
- * @param name        The name of the index substate we're fetching request UUIDs from
  * @param href        Substring that the request's href should contain
  */
 const uuidsFromHrefSubstringSelector =

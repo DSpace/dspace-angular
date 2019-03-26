@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -20,7 +20,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.comp
 /**
  * This component represents the part of the search sidebar that contains filters.
  */
-export class SearchFiltersComponent {
+export class SearchFiltersComponent implements OnInit {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
@@ -43,8 +43,16 @@ export class SearchFiltersComponent {
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
     private filterService: SearchFilterService) {
 
-    this.filters = searchService.getConfig().pipe(getSucceededRemoteData());
-    this.clearParams = searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
+  }
+
+  ngOnInit(): void {
+
+    this.filters = this.searchConfigService.searchOptions.pipe(
+      tap((o) => console.log(o)),
+      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData()))
+    );
+
+    this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;
     }));
@@ -63,4 +71,5 @@ export class SearchFiltersComponent {
   trackUpdate(index, config: SearchFilterConfig) {
     return config ? config.name : undefined;
   }
+
 }

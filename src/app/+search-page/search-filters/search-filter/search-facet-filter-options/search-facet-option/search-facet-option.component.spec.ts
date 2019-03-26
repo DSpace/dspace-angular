@@ -33,10 +33,11 @@ describe('SearchFacetOptionComponent', () => {
     maxValue: 3000,
   });
   const value: FacetValue = {
-      value: value2,
-      count: 20,
-      search: ''
-    };
+    label: value2,
+    value: value2,
+    count: 20,
+    search: ''
+  };
 
   const searchLink = '/search';
   const selectedValues = [value1];

@@ -5,9 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { SearchPageRoutingModule } from './search-page-routing.module';
 import { SearchPageComponent } from './search-page.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
-import { ItemSearchResultListElementComponent } from '../shared/object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
-import { CollectionSearchResultListElementComponent } from '../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
-import { CommunitySearchResultListElementComponent } from '../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { ItemSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/item-search-result/item-search-result-grid-element.component';
 import { CommunitySearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component'
 import { CollectionSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
@@ -41,13 +38,9 @@ const components = [
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
-  ItemSearchResultListElementComponent,
-  CollectionSearchResultListElementComponent,
-  CommunitySearchResultListElementComponent,
   ItemSearchResultGridElementComponent,
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
-  CommunitySearchResultListElementComponent,
   SearchFiltersComponent,
   SearchFilterComponent,
   SearchFacetFilterComponent,
@@ -79,9 +72,6 @@ const components = [
     SearchConfigurationService
   ],
   entryComponents: [
-    ItemSearchResultListElementComponent,
-    CollectionSearchResultListElementComponent,
-    CommunitySearchResultListElementComponent,
     ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
