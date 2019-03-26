@@ -15,7 +15,8 @@ import { renderFacetFor } from '../search-filter-type-decorator';
 @Component({
   selector: 'ds-search-text-filter',
   styleUrls: ['./search-text-filter.component.scss'],
-  templateUrl: './search-text-filter.component.html',
+  // templateUrl: './search-text-filter.component.html',
+  templateUrl: './themes/search-text-filter.component.preview-release.html',
   animations: [facetLoad]
 })
 

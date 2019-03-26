@@ -9,7 +9,8 @@ import { SearchConfigurationService } from '../search-service/search-configurati
 @Component({
   selector: 'ds-search-settings',
   styleUrls: ['./search-settings.component.scss'],
-  templateUrl: './search-settings.component.html'
+  // templateUrl: './search-settings.component.html'
+  templateUrl: './themes/search-settings.component.preview-release.html'
 })
 
 /**
@@ -19,7 +20,7 @@ export class SearchSettingsComponent implements OnInit {
 
   /**
    * The configuration for the current paginated search results
-   */
+     */
   searchOptions$: Observable<PaginatedSearchOptions>;
 
   /**

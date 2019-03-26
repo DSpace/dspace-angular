@@ -10,7 +10,8 @@ import { isNotEmpty } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-search-filter',
   styleUrls: ['./search-filter.component.scss'],
-  templateUrl: './search-filter.component.html',
+  // templateUrl: './search-filter.component.html',
+  templateUrl: './themes/search-filter.component.preview-release.html',
   animations: [slide],
 })
 

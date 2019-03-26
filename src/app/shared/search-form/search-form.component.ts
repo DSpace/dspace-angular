@@ -13,7 +13,8 @@ import { QueryParamsHandling } from '@angular/router/src/config';
 @Component({
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
-  templateUrl: './search-form.component.html'
+  // templateUrl: './search-form.component.html',
+  templateUrl: './themes/search-form.component.preview-release.html'
 })
 
 /**
