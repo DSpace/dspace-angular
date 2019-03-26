@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -48,7 +48,6 @@ export class SearchFiltersComponent implements OnInit {
   ngOnInit(): void {
 
     this.filters = this.searchConfigService.searchOptions.pipe(
-      tap((o) => console.log(o)),
       switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData()))
     );
 
