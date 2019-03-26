@@ -9,7 +9,8 @@ import {
 @Component({
   selector: 'ds-search-hierarchy-filter',
   styleUrls: ['./search-hierarchy-filter.component.scss'],
-  templateUrl: './search-hierarchy-filter.component.html',
+  // templateUrl: './search-hierarchy-filter.component.html',
+  templateUrl: './themes/search-hierarchy-filter.component.preview-release.html',
   animations: [facetLoad]
 })
 

@@ -14,7 +14,8 @@ import { MYDSPACE_ROUTE } from '../../+my-dspace-page/my-dspace-page.component';
 @Component({
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
-  templateUrl: './search-form.component.html'
+  // templateUrl: './search-form.component.html',
+  templateUrl: './themes/search-form.component.preview-release.html'
 })
 
 /**

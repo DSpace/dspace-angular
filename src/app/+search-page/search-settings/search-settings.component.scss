@@ -1,5 +1,2 @@
-@import '../../../styles/variables.scss';
-
-.setting-option {
-  border: 1px solid map-get($theme-colors, light);
-}
+@import './search-settings.component.default';
+@import './themes/*.scss';
