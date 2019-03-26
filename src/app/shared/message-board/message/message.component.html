@@ -1,4 +1,4 @@
-<li *ngVar="m.findMetadata('dc.type') as type"
+<li *ngVar="m.firstMetadataValue('dc.type') as type"
     [ngClass]="{'float-left': (type == 'outbound' && isSubmitter) || (type == 'inbound' && !isSubmitter),
      'float-right': (type == 'outbound' && !isSubmitter) || (type == 'inbound' && isSubmitter),
       'clearfix':1}">
@@ -7,7 +7,7 @@
     <div class="header clearfix">
 
       <small class="float-left">
-        <span class="fa fa-clock text-muted ">{{m.findMetadata('dc.date.issued') | date: 'dd/MM/yyyy HH:mm'}}</span>
+        <span class="fa fa-clock text-muted ">{{m.firstMetadataValue('dc.date.issued') | date: 'dd/MM/yyyy HH:mm'}}</span>
       </small>
 
       <small
@@ -27,7 +27,7 @@
       <div class="truncatable">
         <ds-truncatable [id]="m.uuid">
           <ds-truncatable-part [id]="m.uuid" [minLines]="1">
-            <label>From: <span><strong>{{isSubmitter && type == 'inbound' ? 'You' : m.findMetadata('dc.creator')}}</strong></span></label>
+            <label>From: <span><strong>{{isSubmitter && type == 'inbound' ? 'You' : m.firstMetadataValue('dc.creator')}}</strong></span></label>
           </ds-truncatable-part>
         </ds-truncatable>
       </div>

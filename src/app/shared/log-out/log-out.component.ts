@@ -25,6 +25,7 @@ export class LogOutComponent implements OnInit {
   /**
    * @constructor
    * @param {Store<State>} store
+   * @param {Router} router
    */
   constructor(private router: Router,
               private store: Store<AppState>) {
