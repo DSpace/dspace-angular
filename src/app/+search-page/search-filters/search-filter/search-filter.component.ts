@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { filter, first, map, startWith, switchMap, take } from 'rxjs/operators';
 
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchFilterService } from './search-filter.service';
 import { slide } from '../../../shared/animations/slide';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { SearchService } from '../../search-service/search.service';
+import { SearchConfigurationService } from '../../search-service/search-configuration.service';
 
 @Component({
   selector: 'ds-search-filter',
@@ -27,9 +29,24 @@ export class SearchFilterComponent implements OnInit {
   /**
    * True when the filter is 100% collapsed in the UI
    */
-  collapsed;
+  closed = true;
 
-  constructor(private filterService: SearchFilterService) {
+  /**
+   * Emits true when the filter is currently collapsed in the store
+   */
+  collapsed$: Observable<boolean>;
+
+  /**
+   * Emits all currently selected values for this filter
+   */
+  selectedValues$: Observable<string[]>;
+
+  /**
+   * Emits true when the current filter is supposed to be shown
+   */
+  active$: Observable<boolean>;
+
+  constructor(private filterService: SearchFilterService, private searchService: SearchService, private searchConfigService: SearchConfigurationService) {
   }
 
   /**
@@ -38,11 +55,13 @@ export class SearchFilterComponent implements OnInit {
    * Else, the filter should initially be collapsed
    */
   ngOnInit() {
-    this.getSelectedValues().pipe(take(1)).subscribe((isActive) => {
-      if (this.filter.isOpenByDefault || isNotEmpty(isActive)) {
-        this.initialExpand();
-      } else {
-        this.initialCollapse();
+    this.selectedValues$ = this.getSelectedValues();
+    this.active$ = this.isActive();
+    this.collapsed$ = this.isCollapsed();
+    this.initializeFilter();
+    this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
+      if (isNotEmpty(selectedValues)) {
+        this.filterService.expand(this.filter.name);
       }
     });
   }
@@ -58,30 +77,21 @@ export class SearchFilterComponent implements OnInit {
    * Checks if the filter is currently collapsed
    * @returns {Observable<boolean>} Emits true when the current state of the filter is collapsed, false when it's expanded
    */
-  isCollapsed(): Observable<boolean> {
+  private isCollapsed(): Observable<boolean> {
     return this.filterService.isCollapsed(this.filter.name);
   }
 
   /**
-   *  Changes the initial state to collapsed
+   *  Sets the initial state of the filter
    */
-  initialCollapse() {
-    this.filterService.initialCollapse(this.filter.name);
-    this.collapsed = true;
-  }
-
-  /**
-   *  Changes the initial state to expanded
-   */
-  initialExpand() {
-    this.filterService.initialExpand(this.filter.name);
-    this.collapsed = false;
+  initializeFilter() {
+    this.filterService.initializeFilter(this.filter);
   }
 
   /**
    * @returns {Observable<string[]>} Emits a list of all values that are currently active for this filter
    */
-  getSelectedValues(): Observable<string[]> {
+  private getSelectedValues(): Observable<string[]> {
     return this.filterService.getSelectedValuesForFilter(this.filter);
   }
 
@@ -91,7 +101,7 @@ export class SearchFilterComponent implements OnInit {
    */
   finishSlide(event: any): void {
     if (event.fromState === 'collapsed') {
-      this.collapsed = false;
+      this.closed = false;
     }
   }
 
@@ -101,7 +111,32 @@ export class SearchFilterComponent implements OnInit {
    */
   startSlide(event: any): void {
     if (event.toState === 'collapsed') {
-      this.collapsed = true;
+      this.closed = true;
     }
+  }
+
+  /**
+   * Check if a given filter is supposed to be shown or not
+   * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
+   */
+  private isActive(): Observable<boolean> {
+    return this.selectedValues$.pipe(
+      switchMap((isActive) => {
+        if (isNotEmpty(isActive)) {
+          return observableOf(true);
+        } else {
+          return this.searchConfigService.searchOptions.pipe(
+            first(),
+            switchMap((options) => {
+                return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
+                  filter((RD) => !RD.isLoading),
+                  map((valuesRD) => {
+                    return valuesRD.payload.totalElements > 0
+                  }),)
+              }
+            ))
+        }
+      }),
+      startWith(true));
   }
 }

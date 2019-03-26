@@ -11,7 +11,6 @@ import { CommunitySearchResultListElementComponent } from '../shared/object-list
 import { ItemSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/item-search-result/item-search-result-grid-element.component';
 import { CommunitySearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component'
 import { CollectionSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
-import { SearchService } from './search-service/search.service';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchSidebarEffects } from './search-sidebar/search-sidebar.effects';
@@ -28,6 +27,9 @@ import { SearchFacetFilterWrapperComponent } from './search-filters/search-filte
 import { SearchBooleanFilterComponent } from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
 import { SearchHierarchyFilterComponent } from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { SearchFacetOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetSelectedOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { SearchFacetRangeOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchSwitchConfigurationComponent } from './search-switch-configuration/search-switch-configuration.component';
 
 const effects = [
@@ -56,6 +58,9 @@ const components = [
   SearchTextFilterComponent,
   SearchHierarchyFilterComponent,
   SearchBooleanFilterComponent,
+  SearchFacetOptionComponent,
+  SearchFacetSelectedOptionComponent,
+  SearchFacetRangeOptionComponent,
   SearchSwitchConfigurationComponent
 ];
 
@@ -69,7 +74,6 @@ const components = [
   ],
   declarations: components,
   providers: [
-    SearchService,
     SearchSidebarService,
     SearchFilterService,
     SearchConfigurationService
@@ -86,6 +90,9 @@ const components = [
     SearchTextFilterComponent,
     SearchHierarchyFilterComponent,
     SearchBooleanFilterComponent,
+    SearchFacetOptionComponent,
+    SearchFacetSelectedOptionComponent,
+    SearchFacetRangeOptionComponent
   ],
   exports: components
 })

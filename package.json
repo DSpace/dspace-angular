@@ -120,6 +120,7 @@
     "pem": "1.12.3",
     "reflect-metadata": "0.1.12",
     "rxjs": "6.2.2",
+    "rxjs-spy": "^7.5.1",
     "sortablejs": "1.7.0",
     "text-mask-core": "5.0.1",
     "ts-loader": "^5.2.1",

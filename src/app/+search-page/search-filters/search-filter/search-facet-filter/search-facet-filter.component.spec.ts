@@ -120,20 +120,6 @@ describe('SearchFacetFilterComponent', () => {
     });
   });
 
-  describe('when the getAddParams method is called wih a value', () => {
-    it('should return the selectedValue list with the new parameter value', () => {
-      const result = comp.getAddParams(value3);
-      result.subscribe((r) => expect(r[mockFilterConfig.paramName]).toEqual([value1, value2, value3]));
-    });
-  });
-
-  describe('when the getRemoveParams method is called wih a value', () => {
-    it('should return the selectedValue list with the parameter value left out', () => {
-      const result = comp.getRemoveParams(value1);
-      result.subscribe((r) => expect(r[mockFilterConfig.paramName]).toEqual([value2]));
-    });
-  });
-
   describe('when the showMore method is called', () => {
     beforeEach(() => {
       spyOn(filterService, 'incrementPage');

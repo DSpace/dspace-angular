@@ -22,6 +22,7 @@ import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
+import { SearchOptions } from '../../../search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
@@ -66,13 +67,18 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the active values for this filter
    */
-  selectedValues: Observable<string[]>;
+  selectedValues$: Observable<string[]>;
   private collapseNextUpdate = true;
 
   /**
    * State of the requested facets used to time the animation
    */
   animationState = 'loading';
+
+  /**
+   * Emits all current search options available in the search URL
+   */
+  searchOptions$: Observable<SearchOptions>;
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
@@ -88,10 +94,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.filterValues$ = new BehaviorSubject(new RemoteData(true, false, undefined, undefined, undefined));
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
-    this.selectedValues = this.filterService.getSelectedValuesForFilter(this.filterConfig);
-    const searchOptions = this.searchConfigService.searchOptions;
-    this.subs.push(this.searchConfigService.searchOptions.subscribe(() => this.updateFilterValueList()));
-    const facetValues = observableCombineLatest(searchOptions, this.currentPage).pipe(
+
+    this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig);
+    this.searchOptions$ = this.searchConfigService.searchOptions;
+    this.subs.push(this.searchOptions$.subscribe(() => this.updateFilterValueList()));
+    const facetValues = observableCombineLatest(this.searchOptions$, this.currentPage).pipe(
       map(([options, page]) => {
         return { options, page }
       }),
@@ -191,7 +198,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * @param data The string from the input field
    */
   onSubmit(data: any) {
-    this.selectedValues.pipe(take(1)).subscribe((selectedValues) => {
+    this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
         if (isNotEmpty(data)) {
           this.router.navigate([this.getSearchLink()], {
             queryParams:
@@ -205,6 +212,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     )
   }
 
+  /**
+   * On click, set the input's value to the clicked data
+   * @param data The value of the option that was clicked
+   */
   onClick(data: any) {
     this.filter = data;
   }
@@ -214,34 +225,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   hasValue(o: any): boolean {
     return hasValue(o);
-  }
-
-  /**
-   * Calculates the parameters that should change if a given value for this filter would be removed from the active filters
-   * @param {string} value The value that is removed for this filter
-   * @returns {Observable<any>} The changed filter parameters
-   */
-  getRemoveParams(value: string): Observable<any> {
-    return this.selectedValues.pipe(map((selectedValues) => {
-      return {
-        [this.filterConfig.paramName]: selectedValues.filter((v) => v !== value),
-        page: 1
-      };
-    }));
-  }
-
-  /**
-   * Calculates the parameters that should change if a given value for this filter would be added to the active filters
-   * @param {string} value The value that is added for this filter
-   * @returns {Observable<any>} The changed filter parameters
-   */
-  getAddParams(value: string): Observable<any> {
-    return this.selectedValues.pipe(map((selectedValues) => {
-      return {
-        [this.filterConfig.paramName]: [...selectedValues, value],
-        page: 1
-      };
-    }));
   }
 
   /**
@@ -260,7 +243,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   findSuggestions(data): void {
     if (isNotEmpty(data)) {
-      this.searchConfigService.searchOptions.pipe(take(1)).subscribe(
+      this.searchOptions$.pipe(take(1)).subscribe(
         (options) => {
           this.filterSearchResults = this.searchService.getFacetValuesFor(this.filterConfig, 1, options, data.toLowerCase())
             .pipe(
@@ -290,6 +273,13 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   getDisplayValue(facet: FacetValue, query: string): string {
     return new EmphasizePipe().transform(facet.value, query) + ' (' + facet.count + ')';
+  }
+
+  /**
+   * Prevent unnecessary rerendering
+   */
+  trackUpdate(index, value: FacetValue) {
+    return value ? value.search : undefined;
   }
 }
 

@@ -116,6 +116,17 @@ import { AutoFocusDirective } from './utils/auto-focus.directive';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
 import { StartsWithDateComponent } from './starts-with/date/starts-with-date.component';
 import { StartsWithTextComponent } from './starts-with/text/starts-with-text.component';
+import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.component';
+import { CreateCommunityParentSelectorComponent } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import { CreateItemParentSelectorComponent } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CreateCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+import { CommunitySearchResultListElementComponent } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
+import { CollectionSearchResultListElementComponent } from './object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
+import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import { DSOSelectorModalWrapperComponent } from './dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 import { ItemListPreviewComponent } from './object-list/item-list-preview/item-list-preview.component';
 import { ItemPageAuthorFieldComponent } from '../+item-page/simple/field-components/specific-field/author/item-page-author-field.component';
 import { ItemPageDateFieldComponent } from '../+item-page/simple/field-components/specific-field/date/item-page-date-field.component';
@@ -233,6 +244,16 @@ const COMPONENTS = [
   TruncatablePartComponent,
   BrowseByComponent,
   InputSuggestionsComponent,
+  DSOSelectorComponent,
+  CreateCommunityParentSelectorComponent,
+  CreateCollectionParentSelectorComponent,
+  CreateItemParentSelectorComponent,
+  EditCommunitySelectorComponent,
+  EditCollectionSelectorComponent,
+  EditItemSelectorComponent,
+  CommunitySearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  ItemSearchResultListElementComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -242,6 +263,9 @@ const ENTRY_COMPONENTS = [
   CommunityListElementComponent,
   MyDSpaceResultListElementComponent,
   SearchResultListElementComponent,
+  CommunitySearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  ItemSearchResultListElementComponent,
   ItemGridElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
@@ -260,7 +284,14 @@ const ENTRY_COMPONENTS = [
   DsDynamicFormArrayComponent,
   DsDatePickerInlineComponent,
   StartsWithDateComponent,
-  StartsWithTextComponent
+  StartsWithTextComponent,
+  DSOSelectorComponent,
+  CreateCommunityParentSelectorComponent,
+  CreateCollectionParentSelectorComponent,
+  CreateItemParentSelectorComponent,
+  EditCommunitySelectorComponent,
+  EditCollectionSelectorComponent,
+  EditItemSelectorComponent,
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

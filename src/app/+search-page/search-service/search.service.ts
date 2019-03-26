@@ -16,7 +16,11 @@ import { RequestService } from '../../core/data/request.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { configureRequest, getResponseFromEntry, getSucceededRemoteData } from '../../core/shared/operators';
+import {
+  configureRequest, filterSuccessfulResponses,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
@@ -121,14 +125,13 @@ export class SearchService implements OnDestroy {
 
     // get search results from response cache
     const sqrObs: Observable<SearchQueryResponse> = requestEntryObs.pipe(
-      getResponseFromEntry(),
+      filterSuccessfulResponses(),
       map((response: SearchSuccessResponse) => response.results)
     );
 
     // turn dspace href from search results to effective list of DSpaceObjects
     // Turn list of observable remote data DSO's into observable remote data object with list of DSO
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
-      // filter((sqr: SearchQueryResponse) => isNotUndefined(sqr)),
       map((sqr: SearchQueryResponse) => {
         return sqr.objects
           .filter((nsr: NormalizedSearchResult) => isNotUndefined(nsr.dspaceObject))
@@ -154,7 +157,6 @@ export class SearchService implements OnDestroy {
             return undefined;
           }
         });
-        // .filter((object) => isNotUndefined(object));
       })
     );
 

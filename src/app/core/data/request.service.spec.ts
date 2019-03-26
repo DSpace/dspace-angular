@@ -1,7 +1,7 @@
 import * as ngrx from '@ngrx/store';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { EMPTY, of as observableOf } from 'rxjs';
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -21,8 +21,6 @@ import {
 import { RequestService } from './request.service';
 import { TestScheduler } from 'rxjs/testing';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { MockStore } from '../../shared/testing/mock-store';
-import { IndexState } from '../index/index.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -42,6 +40,7 @@ describe('RequestService', () => {
   const testHeadRequest = new HeadRequest(testUUID, testHref);
   const testPatchRequest = new PatchRequest(testUUID, testHref);
   let selectSpy;
+
   beforeEach(() => {
     scheduler = getTestScheduler();
 
@@ -299,6 +298,7 @@ describe('RequestService', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
           (objectCache.hasBySelfLink as any).and.returnValue(true);
+          spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
         });
 
         it('should return true', () => {
@@ -308,63 +308,16 @@ describe('RequestService', () => {
           expect(result).toEqual(expected);
         });
       });
-      describe('in the responseCache', () => {
+      describe('in the request cache', () => {
         beforeEach(() => {
-          spyOn(serviceAsAny, 'isReusable').and.returnValue(observableOf(true));
-          spyOn(serviceAsAny, 'getByHref').and.returnValue(observableOf(undefined));
+          (objectCache.hasBySelfLink as any).and.returnValue(false);
+          spyOn(serviceAsAny, 'hasByHref').and.returnValue(true);
         });
+        it('should return true', () => {
+          const result = serviceAsAny.isCachedOrPending(testGetRequest);
+          const expected = true;
 
-        describe('and it\'s a DSOSuccessResponse', () => {
-          beforeEach(() => {
-            (serviceAsAny.getByHref as any).and.returnValue(observableOf({
-                response: {
-                  isSuccessful: true,
-                  resourceSelfLinks: [
-                    'https://rest.api/endpoint/selfLink1',
-                    'https://rest.api/endpoint/selfLink2'
-                  ]
-                }
-              }
-            ));
-          });
-
-          it('should return true if all top level links in the response are cached in the object cache', () => {
-            (objectCache.hasBySelfLink as any).and.returnValues(false, true, true);
-
-            const result = serviceAsAny.isCachedOrPending(testGetRequest);
-            const expected = true;
-
-            expect(result).toEqual(expected);
-          });
-          it('should return false if not all top level links in the response are cached in the object cache', () => {
-            (objectCache.hasBySelfLink as any).and.returnValues(false, true, false);
-            spyOn(service, 'isPending').and.returnValue(false);
-
-            const result = serviceAsAny.isCachedOrPending(testGetRequest);
-            const expected = false;
-
-            expect(result).toEqual(expected);
-          });
-        });
-
-        describe('and it isn\'t a DSOSuccessResponse', () => {
-          beforeEach(() => {
-            (objectCache.hasBySelfLink as any).and.returnValue(false);
-            (service as any).isReusable.and.returnValue(observableOf(true));
-            (serviceAsAny.getByHref as any).and.returnValue(observableOf({
-                response: {
-                  isSuccessful: true
-                }
-              }
-            ));
-          });
-
-          it('should return true', () => {
-            const result = serviceAsAny.isCachedOrPending(testGetRequest);
-            const expected = true;
-
-            expect(result).toEqual(expected);
-          });
+          expect(result).toEqual(expected);
         });
       });
     });
@@ -462,104 +415,128 @@ describe('RequestService', () => {
     });
   });
 
-  describe('isReusable', () => {
-    describe('when the given UUID is has no value', () => {
-      let reusable;
+  describe('isValid', () => {
+    describe('when the given entry has no value', () => {
+      let valid;
       beforeEach(() => {
-        const uuid = undefined;
-        reusable = serviceAsAny.isReusable(uuid);
+        const entry = undefined;
+        valid = serviceAsAny.isValid(entry);
       });
       it('return an observable emitting false', () => {
-        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+        expect(valid).toBe(false);
       })
     });
 
-    describe('when the given UUID has a value, but no cached entry is found', () => {
-      let reusable;
+    describe('when the given entry has a value, but the request is not completed', () => {
+      let valid;
+      const requestEntry = { completed: false };
       beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(undefined));
-        const uuid = 'a45bb291-1adb-40d9-b2fc-7ad9080607be';
-        reusable = serviceAsAny.isReusable(uuid);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        valid = serviceAsAny.isValid(requestEntry);
       });
       it('return an observable emitting false', () => {
-        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+        expect(valid).toBe(false);
       })
     });
 
-    describe('when the given UUID has a value, a cached entry is found, but it has no response', () => {
-      let reusable;
+    describe('when the given entry has a value, but the response is not successful', () => {
+      let valid;
+      const requestEntry = { completed: true, response: { isSuccessful: false } };
       beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf({ response: undefined }));
-        const uuid = '53c9b814-ad8b-4567-9bc1-d9bb6cfba6c8';
-        reusable = serviceAsAny.isReusable(uuid);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        valid = serviceAsAny.isValid(requestEntry);
       });
       it('return an observable emitting false', () => {
-        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+        expect(valid).toBe(false);
       })
     });
 
-    describe('when the given UUID has a value, a cached entry is found, but its response was not successful', () => {
-      let reusable;
-      beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf({ response: { isSuccessful: false } }));
-        const uuid = '694c9b32-7b2e-4788-835b-ef3fc2252e6c';
-        reusable = serviceAsAny.isReusable(uuid);
-      });
-      it('return an observable emitting false', () => {
-        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
-      })
-    });
-
-    describe('when the given UUID has a value, a cached entry is found, its response was successful, but the response is outdated', () => {
-      let reusable;
+    describe('when the given UUID has a value, its response was successful, but the response is outdated', () => {
+      let valid;
       const now = 100000;
       const timeAdded = 99899;
       const msToLive = 100;
+      const requestEntry = {
+        completed: true,
+        response: {
+          isSuccessful: true,
+          timeAdded: timeAdded
+        },
+        request: {
+          responseMsToLive: msToLive,
+        }
+      };
 
       beforeEach(() => {
         spyOn(Date.prototype, 'getTime').and.returnValue(now);
-        spyOn(service, 'getByUUID').and.returnValue(observableOf({
-          response: {
-            isSuccessful: true,
-            timeAdded: timeAdded
-          },
-          request: {
-            responseMsToLive: msToLive
-          }
-        }));
-        const uuid = 'f9b85788-881c-4994-86b6-bae8dad024d2';
-        reusable = serviceAsAny.isReusable(uuid);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        valid = serviceAsAny.isValid(requestEntry);
       });
 
       it('return an observable emitting false', () => {
-        reusable.subscribe((isReusable) => expect(isReusable).toBe(false));
+        expect(valid).toBe(false);
       })
     });
 
     describe('when the given UUID has a value, a cached entry is found, its response was successful, and the response is not outdated', () => {
-      let reusable;
+      let valid;
       const now = 100000;
       const timeAdded = 99999;
       const msToLive = 100;
 
+      const requestEntry = {
+        completed: true,
+        response: {
+          isSuccessful: true,
+          timeAdded: timeAdded
+        },
+        request: {
+          responseMsToLive: msToLive
+        }
+      };
       beforeEach(() => {
         spyOn(Date.prototype, 'getTime').and.returnValue(now);
-        spyOn(service, 'getByUUID').and.returnValue(observableOf({
-          response: {
-            isSuccessful: true,
-            timeAdded: timeAdded
-          },
-          request: {
-            responseMsToLive: msToLive
-          }
-        }));
-        const uuid = 'f9b85788-881c-4994-86b6-bae8dad024d2';
-        reusable = serviceAsAny.isReusable(uuid);
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        valid = serviceAsAny.isValid(requestEntry);
       });
 
       it('return an observable emitting true', () => {
-        reusable.subscribe((isReusable) => expect(isReusable).toBe(true));
+        expect(valid).toBe(true);
       })
     })
-  })
+  });
+
+  describe('hasByHref', () => {
+    describe('when nothing is returned by getByHref', () => {
+      beforeEach(() => {
+        spyOn(service, 'getByHref').and.returnValue(EMPTY);
+      });
+      it('hasByHref should return false', () => {
+        const result = service.hasByHref('');
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('when isValid returns false', () => {
+      beforeEach(() => {
+        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
+        spyOn(service as any, 'isValid').and.returnValue(false);
+      });
+      it('hasByHref should return false', () => {
+        const result = service.hasByHref('');
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('when isValid returns true', () => {
+      beforeEach(() => {
+        spyOn(service, 'getByHref').and.returnValue(observableOf(undefined));
+        spyOn(service as any, 'isValid').and.returnValue(true);
+      });
+      it('hasByHref should return true', () => {
+        const result = service.hasByHref('');
+        expect(result).toBe(true);
+      });
+    });
+  });
 });

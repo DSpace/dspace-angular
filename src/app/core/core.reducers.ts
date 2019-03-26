@@ -4,7 +4,7 @@ import {
 } from '@ngrx/store';
 
 import { objectCacheReducer, ObjectCacheState } from './cache/object-cache.reducer';
-import { indexReducer, IndexState } from './index/index.reducer';
+import { indexReducer, MetaIndexState } from './index/index.reducer';
 import { requestReducer, RequestState } from './data/request.reducer';
 import { authReducer, AuthState } from './auth/auth.reducer';
 import { jsonPatchOperationsReducer, JsonPatchOperationsState } from './json-patch/json-patch-operations.reducer';
@@ -19,7 +19,7 @@ export interface CoreState {
   'cache/syncbuffer': ServerSyncBufferState,
   'cache/object-updates': ObjectUpdatesState
   'data/request': RequestState,
-  'index': IndexState,
+  'index': MetaIndexState,
   'auth': AuthState,
   'json/patch': JsonPatchOperationsState
 }
@@ -33,5 +33,3 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'auth': authReducer,
   'json/patch': jsonPatchOperationsReducer
 };
-
-export const coreSelector = createFeatureSelector<CoreState>('core');
