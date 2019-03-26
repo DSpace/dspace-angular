@@ -124,7 +124,6 @@ export class SearchFilterComponent implements OnInit {
           return observableOf(true);
         } else {
           return this.searchConfigService.searchOptions.pipe(
-            first(),
             switchMap((options) => {
                 return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
                   filter((RD) => !RD.isLoading),
