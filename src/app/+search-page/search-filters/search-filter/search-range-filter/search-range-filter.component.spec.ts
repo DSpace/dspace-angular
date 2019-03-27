@@ -19,6 +19,8 @@ import { SearchRangeFilterComponent } from './search-range-filter.component';
 import { RouteService } from '../../../../shared/services/route.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service-stub';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
@@ -76,9 +78,7 @@ describe('SearchRangeFilterComponent', () => {
         { provide: FILTER_CONFIG, useValue: mockFilterConfig },
         { provide: RemoteDataBuildService, useValue: {aggregate: () => observableOf({})} },
         { provide: RouteService, useValue: {getQueryParameterValue: () => observableOf({})} },
-        { provide: SearchConfigurationService, useValue: {
-            searchOptions: observableOf({}) }
-        },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => selectedValues,

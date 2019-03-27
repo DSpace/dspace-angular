@@ -6,27 +6,25 @@ import { Component } from '@angular/core';
 
 import { SearchService } from './search.service';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { ActivatedRoute, Router, UrlTree } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { RouterStub } from '../../shared/testing/router-stub';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import {
-  FacetConfigSuccessResponse,
-  SearchSuccessResponse
-} from '../../core/cache/response.models';
+import { FacetConfigSuccessResponse, SearchSuccessResponse } from '../../core/cache/response.models';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchFilterConfig } from './search-filter-config.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { RouteService } from '../../shared/services/route.service';
+import { routeServiceStub } from '../../shared/testing/route-service-stub';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -50,7 +48,7 @@ describe('SearchService', () => {
         ],
         providers: [
           { provide: Router, useValue: router },
-          { provide: ActivatedRoute, useValue: route },
+          { provide: RouteService, useValue: routeServiceStub },
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: HALEndpointService, useValue: {} },
@@ -71,7 +69,7 @@ describe('SearchService', () => {
   describe('', () => {
     let searchService: SearchService;
     const router = new RouterStub();
-    const route = new ActivatedRouteStub();
+    let routeService;
 
     const halService = {
       /* tslint:disable:no-empty */
@@ -107,7 +105,7 @@ describe('SearchService', () => {
         ],
         providers: [
           { provide: Router, useValue: router },
-          { provide: ActivatedRoute, useValue: route },
+          { provide: RouteService, useValue: routeServiceStub },
           { provide: RequestService, useValue: getMockRequestService() },
           { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
           { provide: HALEndpointService, useValue: halService },
@@ -117,6 +115,7 @@ describe('SearchService', () => {
         ],
       });
       searchService = TestBed.get(SearchService);
+      routeService = TestBed.get(RouteService);
       const urlTree = Object.assign(new UrlTree(), { root: { children: { primary: 'search' } } });
       router.parseUrl.and.returnValue(urlTree);
     });
@@ -139,14 +138,19 @@ describe('SearchService', () => {
 
     it('should return ViewMode.List when the viewMode is set to ViewMode.List in the ActivatedRoute', () => {
       let viewMode = ViewMode.Grid;
-      route.testParams = { view: ViewMode.List };
+      spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
+        [ 'view', ViewMode.List ],
+      ])));
+
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
       expect(viewMode).toEqual(ViewMode.List);
     });
 
     it('should return ViewMode.Grid when the viewMode is set to ViewMode.Grid in the ActivatedRoute', () => {
       let viewMode = ViewMode.List;
-      route.testParams = { view: ViewMode.Grid };
+      spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
+        [ 'view', ViewMode.Grid ],
+      ])));
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
       expect(viewMode).toEqual(ViewMode.Grid);
     });

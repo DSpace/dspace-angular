@@ -74,7 +74,6 @@ export class SearchService implements OnDestroy {
   private sub;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
               private routeService: RouteService,
               protected requestService: RequestService,
               private rdb: RemoteDataBuildService,

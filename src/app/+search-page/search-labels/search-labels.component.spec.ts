@@ -10,6 +10,8 @@ import { Observable, of as observableOf } from 'rxjs';
 import { Params } from '@angular/router';
 import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service-stub';
 
 describe('SearchLabelsComponent', () => {
   let comp: SearchLabelsComponent;
@@ -35,7 +37,8 @@ describe('SearchLabelsComponent', () => {
       declarations: [SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }
+        // { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchLabelsComponent, {

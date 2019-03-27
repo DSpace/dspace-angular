@@ -87,8 +87,8 @@ export class SearchConfigurationService implements OnDestroy {
       .pipe(getSucceededRemoteData())
       .subscribe((defRD) => {
           const defs = defRD.payload;
-          this.paginatedSearchOptions = new BehaviorSubject<SearchOptions>(defs);
-          this.searchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
+          this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
+          this.searchOptions = new BehaviorSubject<SearchOptions>(defs);
 
           this.subs.push(this.subscribeToSearchOptions(defs));
           this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
@@ -129,7 +129,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   getCurrentDSOType(): Observable<DSpaceObjectType> {
     return this.routeService.getQueryParameterValue('dsoType').pipe(
-      filter((type) => hasValue(type) && hasValue(DSpaceObjectType[type.toUpperCase()])),
+      filter((type) => isNotEmpty(type) && hasValue(DSpaceObjectType[type.toUpperCase()])),
       map((type) => DSpaceObjectType[type.toUpperCase()]),);
   }
 

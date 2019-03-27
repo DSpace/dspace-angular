@@ -14,6 +14,7 @@ import { SearchFilterConfig } from '../../search-service/search-filter-config.mo
 import { FilterType } from '../../search-service/filter-type.model';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
 import { of as observableOf } from 'rxjs';
+import { routeServiceStub } from '../../../shared/testing/route-service-stub';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;
@@ -34,24 +35,6 @@ describe('SearchFilterService', () => {
     select: observableOf(true)
   });
 
-  const routeServiceStub: any = {
-    /* tslint:disable:no-empty */
-    hasQueryParamWithValue: (param: string, value: string) => {
-    },
-    hasQueryParam: (param: string) => {
-    },
-    removeQueryParameterValue: (param: string, value: string) => {
-    },
-    addQueryParameterValue: (param: string, value: string) => {
-    },
-    getQueryParameterValues: (param: string) => {
-      return observableOf({});
-    },
-    getQueryParamsWithPrefix: (param: string) => {
-      return observableOf({});
-    }
-    /* tslint:enable:no-empty */
-  };
   const activatedRoute: any = new ActivatedRouteStub();
   const searchServiceStub: any = {
     uiSearchRoute: '/search'

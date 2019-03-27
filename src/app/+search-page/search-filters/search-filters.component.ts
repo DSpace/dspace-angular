@@ -40,8 +40,8 @@ export class SearchFiltersComponent implements OnInit {
    */
   constructor(
     private searchService: SearchService,
-    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
-    private filterService: SearchFilterService) {
+    private filterService: SearchFilterService,
+    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
 
   }
 
