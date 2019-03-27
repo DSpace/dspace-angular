@@ -53,7 +53,7 @@ export class SearchPageComponent implements OnInit {
   /**
    * The current relevant scopes
    */
-  scopeListRD$: Observable<DSpaceObject[]> = new BehaviorSubject([]);
+  scopeListRD$: Observable<DSpaceObject[]>;
 
   /**
    * Emits true if were on a small screen
