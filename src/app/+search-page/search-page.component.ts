@@ -53,7 +53,7 @@ export class SearchPageComponent implements OnInit {
   /**
    * The current relevant scopes
    */
-  scopeListRD$: Observable<DSpaceObject[]> = new BehaviorSubject(null);
+  scopeListRD$: Observable<DSpaceObject[]> = new BehaviorSubject([]);
 
   /**
    * Emits true if were on a small screen
@@ -86,9 +86,9 @@ export class SearchPageComponent implements OnInit {
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
-/*    this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
+    this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
-    );*/
+    );
   }
 
   /**

@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { SubmissionRestService } from '../../../submission/submission-rest.service';
+import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';

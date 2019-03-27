@@ -67,7 +67,7 @@ export class MyDSpacePageComponent implements OnInit {
   /**
    * The current relevant scopes
    */
-  scopeListRD$: Observable<DSpaceObject[]>;
+  scopeListRD$: Observable<DSpaceObject[]> = new BehaviorSubject([]);
 
   /**
    * Emits true if were on a small screen
