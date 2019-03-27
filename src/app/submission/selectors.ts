@@ -4,7 +4,9 @@ import { hasValue } from '../shared/empty.util';
 import { submissionSelector, SubmissionState } from './submission.reducers';
 import { SubmissionObjectEntry, SubmissionSectionObject } from './objects/submission-objects.reducer';
 
-// @TODO: Merge with keySelector function present in 'src/app/core/shared/selectors.ts'
+/**
+ * Export a function to return a subset of the state by key
+ */
 export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: string, key: string): MemoizedSelector<T, V> {
   return createSelector(parentSelector, (state: T) => {
     if (hasValue(state) && hasValue(state[subState])) {
@@ -15,6 +17,9 @@ export function keySelector<T, V>(parentSelector: Selector<any, any>, subState: 
   });
 }
 
+/**
+ * Export a function to return a subset of the state
+ */
 export function subStateSelector<T, V>(parentSelector: Selector<any, any>, subState: string): MemoizedSelector<T, V> {
   return createSelector(parentSelector, (state: T) => {
     if (hasValue(state) && hasValue(state[subState])) {

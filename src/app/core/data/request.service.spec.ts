@@ -20,7 +20,6 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { TestScheduler } from 'rxjs/testing';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

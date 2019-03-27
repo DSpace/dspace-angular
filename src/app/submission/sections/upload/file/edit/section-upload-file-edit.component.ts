@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicDateControlModel,
@@ -12,6 +12,8 @@ import {
   DynamicFormGroupModel,
   DynamicSelectModel
 } from '@ng-dynamic-forms/core';
+
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import {
   BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG,
@@ -26,39 +28,122 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
   BITSTREAM_METADATA_FORM_GROUP_LAYOUT
-} from './files-edit.model';
+} from './section-upload-file-edit.model';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
 import { isNotEmpty, isNotUndefined } from '../../../../../shared/empty.util';
 import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
 import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
 import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
 import { SubmissionService } from '../../../../submission.service';
+import { FormService } from '../../../../../shared/form/form.service';
+import { FormComponent } from '../../../../../shared/form/form.component';
+import { Group } from '../../../../../core/eperson/models/group.model';
 
+/**
+ * This component represents the edit form for bitstream
+ */
 @Component({
-  selector: 'ds-submission-upload-section-file-edit',
-  templateUrl: './file-edit.component.html',
+  selector: 'ds-submission-section-upload-file-edit',
+  templateUrl: './section-upload-file-edit.component.html',
 })
-export class UploadSectionFileEditComponent implements OnChanges {
+export class SubmissionSectionUploadFileEditComponent implements OnChanges {
 
+  /**
+   * The list of available access condition
+   * @type {Array}
+   */
   @Input() availableAccessConditionOptions: any[];
-  @Input() availableAccessConditionGroups: Map<string, any>;
-  @Input() collectionId;
-  @Input() collectionPolicyType;
-  @Input() configMetadataForm: SubmissionFormsModel;
-  @Input() fileData: WorkspaceitemSectionUploadFileObject;
-  @Input() fileId;
-  @Input() fileIndex;
-  @Input() formId;
-  @Input() sectionId;
-  @Input() submissionId;
 
+  /**
+   * The list of available groups for an access condition
+   * @type {Array}
+   */
+  @Input() availableAccessConditionGroups: Map<string, Group[]>;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
+  @Input() collectionId: string;
+
+  /**
+   * Define if collection access conditions policy type :
+   * POLICY_DEFAULT_NO_LIST : is not possible to define additional access group/s for the single file
+   * POLICY_DEFAULT_WITH_LIST : is possible to define additional access group/s for the single file
+   * @type {number}
+   */
+  @Input() collectionPolicyType: number;
+
+  /**
+   * The configuration for the bitstream's metadata form
+   * @type {SubmissionFormsModel}
+   */
+  @Input() configMetadataForm: SubmissionFormsModel;
+
+  /**
+   * The bitstream's metadata data
+   * @type {WorkspaceitemSectionUploadFileObject}
+   */
+  @Input() fileData: WorkspaceitemSectionUploadFileObject;
+
+  /**
+   * The bitstream id
+   * @type {string}
+   */
+  @Input() fileId: string;
+
+  /**
+   * The bitstream array key
+   * @type {string}
+   */
+  @Input() fileIndex: string;
+
+  /**
+   * The form id
+   * @type {string}
+   */
+  @Input() formId: string;
+
+  /**
+   * The section id
+   * @type {string}
+   */
+  @Input() sectionId: string;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
+  @Input() submissionId: string;
+
+  /**
+   * The form model
+   * @type {DynamicFormControlModel[]}
+   */
   public formModel: DynamicFormControlModel[];
 
+  /**
+   * The FormComponent reference
+   */
+  @ViewChild('formRef') public formRef: FormComponent;
+
+  /**
+   * Initialize instance variables
+   *
+   * @param {ChangeDetectorRef} cdr
+   * @param {FormBuilderService} formBuilderService
+   * @param {FormService} formService
+   * @param {SubmissionService} submissionService
+   */
   constructor(private cdr: ChangeDetectorRef,
               private formBuilderService: FormBuilderService,
+              private formService: FormService,
               private submissionService: SubmissionService) {
   }
 
+  /**
+   * Dispatch form model init
+   */
   ngOnChanges() {
     if (this.fileData && this.formId) {
       this.formModel = this.buildFileEditForm();
@@ -66,8 +151,10 @@ export class UploadSectionFileEditComponent implements OnChanges {
     }
   }
 
+  /**
+   * Initialize form model
+   */
   protected buildFileEditForm() {
-    // TODO check in the rest server configuration whether dc.description may be repeatable
     const configDescr: FormFieldModel = Object.assign({}, this.configMetadataForm.rows[0].fields[0]);
     configDescr.repeatable = false;
     const configForm = Object.assign({}, this.configMetadataForm, {
@@ -100,7 +187,7 @@ export class UploadSectionFileEditComponent implements OnChanges {
       }
       accessConditionTypeModelConfig.options = accessConditionTypeOptions;
 
-      // Dynamic assign of relation in config. For startdate, endDate, groups.
+      // Dynamically assign of relation in config. For startdate, endDate, groups.
       const hasStart = [];
       const hasEnd = [];
       const hasGroups = [];
@@ -146,6 +233,12 @@ export class UploadSectionFileEditComponent implements OnChanges {
     return formModel;
   }
 
+  /**
+   * Initialize form model values
+   *
+   * @param formModel
+   *    The form model
+   */
   public initModelData(formModel: DynamicFormControlModel[]) {
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'groupUUID', 'startDate', 'endDate')
@@ -153,8 +246,8 @@ export class UploadSectionFileEditComponent implements OnChanges {
         .forEach((key) => {
           const metadataModel: any = this.formBuilderService.findById(key, formModel, index);
           if (metadataModel) {
-            if (key === 'groupUUID') {
-              this.availableAccessConditionGroups.forEach((group) => {
+            if (key === 'groupUUID' && this.availableAccessConditionGroups.get(accessCondition.name)) {
+              this.availableAccessConditionGroups.get(accessCondition.name).forEach((group) => {
                 metadataModel.options.push({
                   label: group.name,
                   value: group.uuid
@@ -176,27 +269,47 @@ export class UploadSectionFileEditComponent implements OnChanges {
     });
   }
 
+  /**
+   * Dispatch form model update when changing an access condition
+   *
+   * @param event
+   *    The event emitted
+   */
   public onChange(event: DynamicFormControlEvent) {
     if (event.model.id === 'name') {
       this.setOptions(event.model, event.control);
     }
   }
 
-  public setOptions(model, control) {
+  /**
+   * Update `startDate`, 'groupUUID' and 'endDate' model
+   *
+   * @param model
+   *    The [[DynamicFormControlModel]] object
+   * @param control
+   *    The [[FormControl]] object
+   */
+  public setOptions(model: DynamicFormControlModel, control: FormControl) {
     let accessCondition: AccessConditionOption = null;
     this.availableAccessConditionOptions.filter((element) => element.name === control.value)
       .forEach((element) => accessCondition = element);
     if (isNotEmpty(accessCondition)) {
       const showGroups: boolean = accessCondition.hasStartDate === true || accessCondition.hasEndDate === true;
 
-      const groupControl = control.parent.get('groupUUID');
-      const startDateControl = control.parent.get('startDate');
-      const endDateControl = control.parent.get('endDate');
+      const groupControl: FormControl = control.parent.get('groupUUID') as FormControl;
+      const startDateControl: FormControl = control.parent.get('startDate') as FormControl;
+      const endDateControl: FormControl = control.parent.get('endDate') as FormControl;
+
+      // Clear previous state
+      groupControl.markAsUntouched();
+      startDateControl.markAsUntouched();
+      endDateControl.markAsUntouched();
 
       // Clear previous values
       if (showGroups) {
         groupControl.setValue(null);
       } else {
+        groupControl.clearValidators();
         groupControl.setValue(accessCondition.groupUUID);
       }
       startDateControl.setValue(null);
@@ -204,15 +317,15 @@ export class UploadSectionFileEditComponent implements OnChanges {
       endDateControl.setValue(null);
 
       if (showGroups) {
-        if (isNotUndefined(accessCondition.groupUUID)) {
+        if (isNotUndefined(accessCondition.groupUUID) || isNotUndefined(accessCondition.selectGroupUUID)) {
 
           const groupOptions = [];
-          if (isNotUndefined(this.availableAccessConditionGroups.get(accessCondition.groupUUID))) {
+          if (isNotUndefined(this.availableAccessConditionGroups.get(accessCondition.name))) {
             const groupModel = this.formBuilderService.findById(
               'groupUUID',
               (model.parent as DynamicFormArrayGroupModel).group) as DynamicSelectModel<any>;
 
-            this.availableAccessConditionGroups.forEach((group) => {
+            this.availableAccessConditionGroups.get(accessCondition.name).forEach((group) => {
               groupOptions.push({
                 label: group.name,
                 value: group.uuid
@@ -223,8 +336,8 @@ export class UploadSectionFileEditComponent implements OnChanges {
             const confGroup = { relation: groupModel.relation };
             const groupsConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG, confGroup);
             groupsConfig.options = groupOptions;
-            model.parent.group.pop();
-            model.parent.group.push(new DynamicSelectModel(groupsConfig, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT));
+            (model.parent as DynamicFormGroupModel).group.pop();
+            (model.parent as DynamicFormGroupModel).group.push(new DynamicSelectModel(groupsConfig, BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT));
           }
 
         }

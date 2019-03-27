@@ -11,7 +11,7 @@ import { cold, getTestScheduler, hot, } from 'jasmine-marbles';
 import { MockRouter } from '../shared/mocks/mock-router';
 import { SubmissionService } from './submission.service';
 import { submissionReducers } from './submission.reducers';
-import { SubmissionRestService } from './submission-rest.service';
+import { SubmissionRestService } from '../core/submission/submission-rest.service';
 import { RouteService } from '../shared/services/route.service';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service-stub';
 import { MockActivatedRoute } from '../shared/mocks/mock-active-router';
@@ -660,9 +660,6 @@ describe('SubmissionService test suite', () => {
       router.setRoute('/workflowitems/826/edit');
       expect(service.getSubmissionScope()).toBe(expected);
 
-      expected = SubmissionScopeType.EditItem;
-      router.setRoute('/items/9e79b1f2-ae0f-4737-9a4b-990952a8857c/edit');
-      expect(service.getSubmissionScope()).toBe(expected);
     });
   });
 
@@ -777,7 +774,7 @@ describe('SubmissionService test suite', () => {
       service.notifyNewSection(submissionId, sectionId);
       flush();
 
-      expect((service as any).notificationsService.info).toHaveBeenCalledWith(null, 'test', null, true);
+      expect((service as any).notificationsService.info).toHaveBeenCalledWith(null, 'submission.sections.general.metadata-extracted-new-section', null, true);
     }));
   });
 
@@ -890,7 +887,7 @@ describe('SubmissionService test suite', () => {
       const duration = config.submission.autosave.timer * (1000 * 60);
 
       service.startAutoSave('826');
-      const sub = (service as any).timerObs.subscribe();
+      const sub = (service as any).timer$.subscribe();
 
       tick(duration / 2);
       expect((service as any).store.dispatch).not.toHaveBeenCalled();

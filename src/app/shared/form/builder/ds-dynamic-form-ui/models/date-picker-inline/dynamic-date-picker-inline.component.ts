@@ -10,7 +10,7 @@ import {
 } from '@ng-dynamic-forms/core';
 
 @Component({
-  selector: 'ds-date-picker-inline',
+  selector: 'ds-dynamic-date-picker-inline',
   templateUrl: './dynamic-date-picker-inline.component.html'
 })
 export class DsDatePickerInlineComponent extends DynamicFormControlComponent {

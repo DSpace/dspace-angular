@@ -21,12 +21,35 @@ import { FormFieldMetadataValueObject } from '../../../shared/form/builder/model
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 
+/**
+ * The service handling all form section operations
+ */
 @Injectable()
 export class SectionFormOperationsService {
 
-  constructor(private formBuilder: FormBuilderService, private operationsBuilder: JsonPatchOperationsBuilder) {
+  /**
+   * Initialize service variables
+   *
+   * @param {FormBuilderService} formBuilder
+   * @param {JsonPatchOperationsBuilder} operationsBuilder
+   */
+  constructor(
+    private formBuilder: FormBuilderService,
+    private operationsBuilder: JsonPatchOperationsBuilder) {
   }
 
+  /**
+   * Dispatch properly method based on form operation type
+   *
+   * @param pathCombiner
+   *    the [[JsonPatchOperationPathCombiner]] object for the specified operation
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @param previousValue
+   *    the [[FormFieldPreviousValueObject]] for the specified operation
+   * @param hasStoredValue
+   *    representing if field value related to the specified operation has stored value
+   */
   public dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                      event: DynamicFormControlEvent,
                                      previousValue: FormFieldPreviousValueObject,
@@ -43,6 +66,14 @@ export class SectionFormOperationsService {
     }
   }
 
+  /**
+   * Return index if specified field is part of fields array
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @return number
+   *    the array index is part of array, zero otherwise
+   */
   public getArrayIndexFromEvent(event: DynamicFormControlEvent): number {
     let fieldIndex: number;
     if (isNotEmpty(event)) {
@@ -60,7 +91,15 @@ export class SectionFormOperationsService {
     return isNotUndefined(fieldIndex) ? fieldIndex : 0;
   }
 
-  public isPartOfArrayOfGroup(model: any): boolean {
+  /**
+   * Check if specified model is part of array of group
+   *
+   * @param model
+   *    the [[DynamicFormControlModel]] model
+   * @return boolean
+   *    true if is part of array, false otherwise
+   */
+  public isPartOfArrayOfGroup(model: DynamicFormControlModel): boolean {
     return (isNotNull(model.parent)
       && (model.parent as any).type === DYNAMIC_FORM_CONTROL_TYPE_GROUP
       && (model.parent as any).parent
@@ -68,7 +107,15 @@ export class SectionFormOperationsService {
       && (model.parent as any).parent.context.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY);
   }
 
-  public getQualdropValueMap(event): Map<string, any> {
+  /**
+   * Return a map for the values of a Qualdrop field
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @return Map<string, any>
+   *    the map of values
+   */
+  public getQualdropValueMap(event: DynamicFormControlEvent): Map<string, any> {
     const metadataValueMap = new Map();
 
     const context = this.formBuilder.isQualdropGroup(event.model)
@@ -87,12 +134,28 @@ export class SectionFormOperationsService {
     return metadataValueMap;
   }
 
+  /**
+   * Return the absolute path for the field interesting in the specified operation
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @return string
+   *    the field path
+   */
   public getFieldPathFromEvent(event: DynamicFormControlEvent): string {
     const fieldIndex = this.getArrayIndexFromEvent(event);
     const fieldId = this.getFieldPathSegmentedFromChangeEvent(event);
     return (isNotUndefined(fieldIndex)) ? fieldId + '/' + fieldIndex : fieldId;
   }
 
+  /**
+   * Return the absolute path for the Qualdrop field interesting in the specified operation
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @return string
+   *    the field path
+   */
   public getQualdropItemPathFromEvent(event: DynamicFormControlEvent): string {
     const fieldIndex = this.getArrayIndexFromEvent(event);
     const metadataValueMap = new Map();
@@ -117,6 +180,14 @@ export class SectionFormOperationsService {
     return path;
   }
 
+  /**
+   * Return the segmented path for the field interesting in the specified change operation
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @return string
+   *    the field path
+   */
   public getFieldPathSegmentedFromChangeEvent(event: DynamicFormControlEvent): string {
     let fieldId;
     if (this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
@@ -129,6 +200,14 @@ export class SectionFormOperationsService {
     return fieldId;
   }
 
+  /**
+   * Return the value of the field interesting in the specified change operation
+   *
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @return any
+   *    the field value
+   */
   public getFieldValueFromChangeEvent(event: DynamicFormControlEvent): any {
     let fieldValue;
     const value = (event.model as any).value;
@@ -142,12 +221,12 @@ export class SectionFormOperationsService {
       if ((event.model as DsDynamicInputModel).hasAuthority) {
         if (Array.isArray(value)) {
           value.forEach((authority, index) => {
-            authority = Object.assign(new AuthorityValue(), authority, {language});
+            authority = Object.assign(new AuthorityValue(), authority, { language });
             value[index] = authority;
           });
           fieldValue = value;
         } else {
-          fieldValue = Object.assign(new AuthorityValue(), value, {language});
+          fieldValue = Object.assign(new AuthorityValue(), value, { language });
         }
       } else {
         // Language without Authority (input, textArea)
@@ -162,6 +241,14 @@ export class SectionFormOperationsService {
     return fieldValue;
   }
 
+  /**
+   * Return a map for the values of an array of field
+   *
+   * @param items
+   *    the list of items
+   * @return Map<string, any>
+   *    the map of values
+   */
   public getValueMap(items: any[]): Map<string, any> {
     const metadataValueMap = new Map();
 
@@ -177,6 +264,16 @@ export class SectionFormOperationsService {
     return metadataValueMap;
   }
 
+  /**
+   * Handle form remove operations
+   *
+   * @param pathCombiner
+   *    the [[JsonPatchOperationPathCombiner]] object for the specified operation
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @param previousValue
+   *    the [[FormFieldPreviousValueObject]] for the specified operation
+   */
   protected dispatchOperationsFromRemoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject): void {
@@ -189,6 +286,18 @@ export class SectionFormOperationsService {
     }
   }
 
+  /**
+   * Handle form change operations
+   *
+   * @param pathCombiner
+   *    the [[JsonPatchOperationPathCombiner]] object for the specified operation
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @param previousValue
+   *    the [[FormFieldPreviousValueObject]] for the specified operation
+   * @param hasStoredValue
+   *    representing if field value related to the specified operation has stored value
+   */
   protected dispatchOperationsFromChangeEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject,
@@ -243,6 +352,18 @@ export class SectionFormOperationsService {
     }
   }
 
+  /**
+   * Handle form operations interesting a field with a map as value
+   *
+   * @param valueMap
+   *    map of values
+   * @param pathCombiner
+   *    the [[JsonPatchOperationPathCombiner]] object for the specified operation
+   * @param event
+   *    the [[DynamicFormControlEvent]] for the specified operation
+   * @param previousValue
+   *    the [[FormFieldPreviousValueObject]] for the specified operation
+   */
   protected dispatchOperationsFromMap(valueMap: Map<string, any>,
                                       pathCombiner: JsonPatchOperationPathCombiner,
                                       event: DynamicFormControlEvent,

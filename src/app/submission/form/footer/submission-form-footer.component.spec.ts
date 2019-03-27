@@ -13,7 +13,7 @@ import { mockSubmissionId } from '../../../shared/mocks/mock-submission';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service-stub';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
-import { SubmissionRestService } from '../../submission-rest.service';
+import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { createTestComponent } from '../../../shared/testing/utils';
 
 describe('SubmissionFormFooterComponent Component', () => {

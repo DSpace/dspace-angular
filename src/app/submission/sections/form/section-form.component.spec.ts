@@ -12,7 +12,7 @@ import { SubmissionServiceStub } from '../../../shared/testing/submission-servic
 import { getMockTranslateService } from '../../../shared/mocks/mock-translate.service';
 import { SectionsService } from '../sections.service';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service-stub';
-import { FormSectionComponent } from './section-form.component';
+import { SubmissionSectionformComponent } from './section-form.component';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/mock-form-builder-service';
 import { getMockFormOperationsService } from '../../../shared/mocks/mock-form-operations-service';
@@ -132,11 +132,11 @@ const dynamicFormControlEvent: DynamicFormControlEvent = {
   type: DynamicFormControlEventType.Change
 };
 
-describe('FormSectionComponent test suite', () => {
+describe('SubmissionSectionformComponent test suite', () => {
 
-  let comp: FormSectionComponent;
+  let comp: SubmissionSectionformComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<FormSectionComponent>;
+  let fixture: ComponentFixture<SubmissionSectionformComponent>;
   let submissionServiceStub: SubmissionServiceStub;
   let sectionsServiceStub: SectionsServiceStub;
   let notificationsServiceStub: NotificationsServiceStub;
@@ -163,7 +163,7 @@ describe('FormSectionComponent test suite', () => {
       ],
       declarations: [
         FormComponent,
-        FormSectionComponent,
+        SubmissionSectionformComponent,
         TestComponent
       ],
       providers: [
@@ -180,7 +180,7 @@ describe('FormSectionComponent test suite', () => {
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
         ChangeDetectorRef,
-        FormSectionComponent
+        SubmissionSectionformComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
@@ -203,7 +203,7 @@ describe('FormSectionComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create FormSectionComponent', inject([FormSectionComponent], (app: FormSectionComponent) => {
+    it('should create SubmissionSectionformComponent', inject([SubmissionSectionformComponent], (app: SubmissionSectionformComponent) => {
 
       expect(app).toBeDefined();
 
@@ -212,7 +212,7 @@ describe('FormSectionComponent test suite', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(FormSectionComponent);
+      fixture = TestBed.createComponent(SubmissionSectionformComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.get(SubmissionService);
@@ -236,6 +236,7 @@ describe('FormSectionComponent test suite', () => {
 
     it('should init section properly', () => {
       const sectionData = {};
+      formService.isValid.and.returnValue(observableOf(true));
       formConfigService.getConfigByHref.and.returnValue(observableOf(formConfigData));
       sectionsServiceStub.getSectionData.and.returnValue(observableOf(sectionData));
       spyOn(comp, 'initForm');
@@ -265,6 +266,7 @@ describe('FormSectionComponent test suite', () => {
 
     it('should set a section Error when init form model fails', () => {
       formBuilderService.modelFromConfiguration.and.throwError('test');
+      translateService.instant.and.returnValue('test');
       const sectionData = {};
       const sectionError: SubmissionSectionError = {
         message: 'test' + 'Error: test',
@@ -315,6 +317,23 @@ describe('FormSectionComponent test suite', () => {
       expect(notificationsServiceStub.info).toHaveBeenCalled();
       expect(comp.sectionData.data).toEqual(sectionData);
 
+    });
+
+    it('should update form error properly', () => {
+      spyOn(comp, 'initForm');
+      spyOn(comp, 'checksForErrors');
+      const sectionData: any = {
+        'dc.title': [new FormFieldMetadataValueObject('test')]
+      };
+      comp.sectionData.data = {};
+      comp.sectionData.errors = [];
+      compAsAny.formData = sectionData;
+
+      comp.updateForm(sectionData, parsedSectionErrors);
+
+      expect(comp.initForm).not.toHaveBeenCalled();
+      expect(comp.checksForErrors).toHaveBeenCalled();
+      expect(comp.sectionData.data).toEqual(sectionData);
     });
 
     it('should update form error properly', () => {

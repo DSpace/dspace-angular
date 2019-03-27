@@ -15,17 +15,14 @@
   <div *ngIf="collectionDefaultAccessConditions.length > 0" class="row">
     <div class="col-sm-12" >
       <ds-alert [type]="AlertTypeEnum.Warning">
-        <!-- no def , no banner -->
         <ng-container *ngIf="collectionPolicyType === 1">
-          <!-- def e no scelta -->
           {{ 'submission.sections.upload.header.policy.default.nolist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
         <ng-container *ngIf="collectionPolicyType === 2">
-          <!-- def e scelta -->
           {{ 'submission.sections.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
         </ng-container>
         <span class="clearfix"></span>
-        <ds-access-conditions [accessConditions]="collectionDefaultAccessConditions"></ds-access-conditions>
+        <ds-submission-section-upload-access-conditions [accessConditions]="collectionDefaultAccessConditions"></ds-submission-section-upload-access-conditions>
       </ds-alert>
     </div>
   </div>

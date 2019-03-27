@@ -4,11 +4,14 @@ import { Observable, of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { SubmissionRestService } from '../../submission-rest.service';
+import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
 import { isNotEmpty } from '../../../shared/empty.util';
 
+/**
+ * This component represents submission form footer bar.
+ */
 @Component({
   selector: 'ds-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
@@ -16,18 +19,51 @@ import { isNotEmpty } from '../../../shared/empty.util';
 })
 export class SubmissionFormFooterComponent implements OnChanges {
 
-  @Input() submissionId;
+  /**
+   * The submission id
+   * @type {string}
+   */
+  @Input() submissionId: string;
 
+  /**
+   * A boolean representing if a submission deposit operation is pending
+   * @type {Observable<boolean>}
+   */
   public processingDepositStatus: Observable<boolean>;
+
+  /**
+   * A boolean representing if a submission save operation is pending
+   * @type {Observable<boolean>}
+   */
   public processingSaveStatus: Observable<boolean>;
+
+  /**
+   * A boolean representing if showing deposit and discard buttons
+   * @type {Observable<boolean>}
+   */
   public showDepositAndDiscard: Observable<boolean>;
+
+  /**
+   * A boolean representing if submission form is valid or not
+   * @type {Observable<boolean>}
+   */
   private submissionIsInvalid: Observable<boolean> = observableOf(true);
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {NgbModal} modalService
+   * @param {SubmissionRestService} restService
+   * @param {SubmissionService} submissionService
+   */
   constructor(private modalService: NgbModal,
               private restService: SubmissionRestService,
               private submissionService: SubmissionService) {
   }
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnChanges(changes: SimpleChanges) {
     if (isNotEmpty(this.submissionId)) {
       this.submissionIsInvalid = this.submissionService.getSubmissionStatus(this.submissionId).pipe(
@@ -40,18 +76,30 @@ export class SubmissionFormFooterComponent implements OnChanges {
     }
   }
 
+  /**
+   * Dispatch a submission save action
+   */
   save(event) {
     this.submissionService.dispatchSave(this.submissionId);
   }
 
+  /**
+   * Dispatch a submission save for later action
+   */
   saveLater(event) {
     this.submissionService.dispatchSaveForLater(this.submissionId);
   }
 
+  /**
+   * Dispatch a submission deposit action
+   */
   public deposit(event) {
     this.submissionService.dispatchDeposit(this.submissionId);
   }
 
+  /**
+   * Dispatch a submission discard action
+   */
   public confirmDiscard(content) {
     this.modalService.open(content).result.then(
       (result) => {

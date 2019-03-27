@@ -24,9 +24,9 @@
   <div class="submission-form-content">
     <ds-loading *ngIf="(isLoading() | async)" message="Loading..."></ds-loading>
     <ng-container *ngFor="let object of (submissionSections | async)">
-      <ds-submission-form-section-container [collectionId]="collectionId"
-                                            [submissionId]="submissionId"
-                                            [sectionData]="object"></ds-submission-form-section-container>
+      <ds-submission-section-container [collectionId]="collectionId"
+                                       [submissionId]="submissionId"
+                                       [sectionData]="object"></ds-submission-section-container>
     </ng-container>
   </div>
   <div *ngIf="!(isLoading() | async)" class="submission-form-footer mt-3 mb-3 position-sticky">

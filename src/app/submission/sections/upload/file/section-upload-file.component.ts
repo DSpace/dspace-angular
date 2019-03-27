@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
-import { filter, first, flatMap } from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { filter, first, flatMap, take } from 'rxjs/operators';
 import { DynamicFormControlModel, } from '@ng-dynamic-forms/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -20,34 +20,142 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from '../../../../core/submission/models/workspaceitem-section-upload.model';
+import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
+import { Group } from '../../../../core/eperson/models/group.model';
 
+/**
+ * This component represents a single bitstream contained in the submission
+ */
 @Component({
   selector: 'ds-submission-upload-section-file',
-  styleUrls: ['./file.component.scss'],
-  templateUrl: './file.component.html',
+  styleUrls: ['./section-upload-file.component.scss'],
+  templateUrl: './section-upload-file.component.html',
 })
-export class UploadSectionFileComponent implements OnChanges, OnInit {
+export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit {
 
+  /**
+   * The list of available access condition
+   * @type {Array}
+   */
   @Input() availableAccessConditionOptions: any[];
-  @Input() availableAccessConditionGroups: Map<string, any>;
-  @Input() collectionId;
-  @Input() collectionPolicyType;
-  @Input() configMetadataForm: SubmissionFormsModel;
-  @Input() fileId;
-  @Input() fileIndex;
-  @Input() fileName;
-  @Input() sectionId;
-  @Input() submissionId;
 
+  /**
+   * The list of available groups for an access condition
+   * @type {Array}
+   */
+  @Input() availableAccessConditionGroups: Map<string, Group[]>;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
+  @Input() collectionId: string;
+
+  /**
+   * Define if collection access conditions policy type :
+   * POLICY_DEFAULT_NO_LIST : is not possible to define additional access group/s for the single file
+   * POLICY_DEFAULT_WITH_LIST : is possible to define additional access group/s for the single file
+   * @type {number}
+   */
+  @Input() collectionPolicyType: number;
+
+  /**
+   * The configuration for the bitstream's metadata form
+   * @type {SubmissionFormsModel}
+   */
+  @Input() configMetadataForm: SubmissionFormsModel;
+
+  /**
+   * The bitstream id
+   * @type {string}
+   */
+  @Input() fileId: string;
+
+  /**
+   * The bitstream array key
+   * @type {string}
+   */
+  @Input() fileIndex: string;
+
+  /**
+   * The bitstream id
+   * @type {string}
+   */
+  @Input() fileName: string;
+
+  /**
+   * The section id
+   * @type {string}
+   */
+  @Input() sectionId: string;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
+  @Input() submissionId: string;
+
+  /**
+   * The bitstream's metadata data
+   * @type {WorkspaceitemSectionUploadFileObject}
+   */
   public fileData: WorkspaceitemSectionUploadFileObject;
-  public formId;
-  public readMode;
+
+  /**
+   * The form id
+   * @type {string}
+   */
+  public formId: string;
+
+  /**
+   * A boolean representing if to show bitstream edit form
+   * @type {boolean}
+   */
+  public readMode: boolean;
+
+  /**
+   * The form model
+   * @type {DynamicFormControlModel[]}
+   */
   public formModel: DynamicFormControlModel[];
+
+  /**
+   * A boolean representing if a submission delete operation is pending
+   * @type {BehaviorSubject<boolean>}
+   */
   public processingDelete$ = new BehaviorSubject<boolean>(false);
 
+  /**
+   * The [JsonPatchOperationPathCombiner] object
+   * @type {JsonPatchOperationPathCombiner}
+   */
   protected pathCombiner: JsonPatchOperationPathCombiner;
-  protected subscriptions = [];
 
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  protected subscriptions: Subscription[] = [];
+
+  /**
+   * The [[SubmissionSectionUploadFileEditComponent]] reference
+   * @type {SubmissionSectionUploadFileEditComponent}
+   */
+  @ViewChild(SubmissionSectionUploadFileEditComponent) fileEditComp: SubmissionSectionUploadFileEditComponent;
+
+  /**
+   * Initialize instance variables
+   *
+   * @param {ChangeDetectorRef} cdr
+   * @param {FileService} fileService
+   * @param {FormService} formService
+   * @param {HALEndpointService} halService
+   * @param {NgbModal} modalService
+   * @param {JsonPatchOperationsBuilder} operationsBuilder
+   * @param {SubmissionJsonPatchOperationsService} operationsService
+   * @param {SubmissionService} submissionService
+   * @param {SectionUploadService} uploadService
+   */
   constructor(private cdr: ChangeDetectorRef,
               private fileService: FileService,
               private formService: FormService,
@@ -60,6 +168,9 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
     this.readMode = true;
   }
 
+  /**
+   * Retrieve bitstream's metadata
+   */
   ngOnChanges() {
     if (this.availableAccessConditionOptions && this.availableAccessConditionGroups) {
       // Retrieve file state
@@ -75,11 +186,17 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
     }
   }
 
+  /**
+   * Initialize instance variables
+   */
   ngOnInit() {
     this.formId = this.formService.getUniqueId(this.fileId);
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId, 'files', this.fileIndex);
   }
 
+  /**
+   * Delete bitstream from submission
+   */
   protected deleteFile() {
     this.operationsBuilder.remove(this.pathCombiner.getPath());
     this.subscriptions.push(this.operationsService.jsonPatchByResourceID(
@@ -93,6 +210,9 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
       }));
   }
 
+  /**
+   * Show confirmation dialog for delete
+   */
   public confirmDelete(content) {
     this.modalService.open(content).result.then(
       (result) => {
@@ -104,6 +224,9 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
     );
   }
 
+  /**
+   * Perform bitstream download
+   */
   public downloadBitstreamFile() {
     this.halService.getEndpoint('bitstreams').pipe(
       first())
@@ -113,12 +236,24 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
       });
   }
 
+  /**
+   * Save bitstream metadata
+   *
+   * @param event
+   *    the click event emitted
+   */
   public saveBitstreamData(event) {
     event.preventDefault();
 
-    this.subscriptions.push(this.formService.getFormData(this.formId).pipe(
-      first(),
+    // validate form
+    this.formService.validateAllFormFields(this.fileEditComp.formRef.formGroup);
+    this.subscriptions.push(this.formService.isValid(this.formId).pipe(
+      take(1),
+      filter((isValid) => isValid),
+      flatMap(() => this.formService.getFormData(this.formId)),
+      take(1),
       flatMap((formData: any) => {
+        // collect bitstream metadata
         Object.keys((formData.metadata))
           .filter((key) => isNotEmpty(formData.metadata[key]))
           .forEach((key) => {
@@ -166,6 +301,7 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
           this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
         }
 
+        // dispatch a PATCH request to save metadata
         return this.operationsService.jsonPatchByResourceID(
           this.submissionService.getSubmissionObjectLinkName(),
           this.submissionId,
@@ -186,11 +322,20 @@ export class UploadSectionFileComponent implements OnChanges, OnInit {
     }));
   }
 
-  private retrieveValueFromField(field) {
+  /**
+   * Retrieve field value
+   *
+   * @param field
+   *    the specified field object
+   */
+  private retrieveValueFromField(field: any) {
     const temp = Array.isArray(field) ? field[0] : field;
     return (temp) ? temp.value : undefined;
   }
 
+  /**
+   * Switch from edit form to metadata view
+   */
   public switchMode() {
     this.readMode = !this.readMode;
     this.cdr.detectChanges();

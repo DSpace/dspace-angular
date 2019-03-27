@@ -5,8 +5,8 @@ import { Observable, race as observableRace } from 'rxjs';
 import { filter, find, mergeMap, take } from 'rxjs/operators';
 import { remove } from 'lodash';
 
-import { AppState } from '../../app.reducer';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { AppState } from '../../app.reducer';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -137,7 +137,6 @@ export class RequestService {
    * @param {RestRequest} request The request to send out
    * @param {boolean} forceBypassCache When true, a new request is always dispatched
    */
-  // TODO to review "forceBypassCache" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
     if (forceBypassCache) {

@@ -11,21 +11,56 @@ import { SubmissionService } from '../submission.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { Collection } from '../../core/shared/collection.model';
 
+/**
+ * This component allows to submit a new workspaceitem.
+ */
 @Component({
-  selector: 'ds-submit-page',
+  selector: 'ds-submission-submit',
   styleUrls: ['./submission-submit.component.scss'],
   templateUrl: './submission-submit.component.html'
 })
 export class SubmissionSubmitComponent implements OnDestroy, OnInit {
 
+  /**
+   * The collection id this submission belonging to
+   * @type {string}
+   */
   public collectionId: string;
-  public model: any;
+
+  /**
+   * The submission self url
+   * @type {string}
+   */
   public selfUrl: string;
+
+  /**
+   * The configuration object that define this submission
+   * @type {SubmissionDefinitionsModel}
+   */
   public submissionDefinition: SubmissionDefinitionsModel;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
   public submissionId: string;
 
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
   protected subs: Subscription[] = [];
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {ChangeDetectorRef} changeDetectorRef
+   * @param {NotificationsService} notificationsService
+   * @param {SubmissionService} submissioService
+   * @param {Router} router
+   * @param {TranslateService} translate
+   * @param {ViewContainerRef} viewContainerRef
+   */
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private notificationsService: NotificationsService,
               private router: Router,
@@ -34,6 +69,9 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               private viewContainerRef: ViewContainerRef) {
   }
 
+  /**
+   * Create workspaceitem on the server and initialize all instance variables
+   */
   ngOnInit() {
     // NOTE execute the code on the browser side only, otherwise it is executed twice
     this.subs.push(
@@ -56,6 +94,9 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
     )
   }
 
+  /**
+   * Unsubscribe from all subscriptions
+   */
   ngOnDestroy() {
     this.subs
       .filter((subscription) => hasValue(subscription))

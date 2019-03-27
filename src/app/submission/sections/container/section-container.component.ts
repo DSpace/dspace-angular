@@ -3,29 +3,64 @@ import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 import { SectionsDirective } from '../sections.directive';
 import { SectionDataObject } from '../models/section-data.model';
 import { rendersSectionType } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
-import { AlertType } from '../../../shared/alerts/aletrs-type';
+import { AlertType } from '../../../shared/alert/aletr-type';
 
+/**
+ * This component represents a section that contains the submission license form.
+ */
 @Component({
-  selector: 'ds-submission-form-section-container',
+  selector: 'ds-submission-section-container',
   templateUrl: './section-container.component.html',
   styleUrls: ['./section-container.component.scss']
 })
-export class SectionContainerComponent implements OnInit {
+export class SubmissionSectionContainerComponent implements OnInit {
+
+  /**
+   * The collection id this submission belonging to
+   * @type {string}
+   */
   @Input() collectionId: string;
+
+  /**
+   * The section data
+   * @type {SectionDataObject}
+   */
   @Input() sectionData: SectionDataObject;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
   @Input() submissionId: string;
 
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
   public AlertTypeEnum = AlertType;
-  public active = true;
-  public objectInjector: Injector;
-  public sectionComponentType: SectionsType;
 
+  /**
+   * Injector to inject a section component with the @Input parameters
+   * @type {Injector}
+   */
+  public objectInjector: Injector;
+
+  /**
+   * The SectionsDirective reference
+   */
   @ViewChild('sectionRef') sectionRef: SectionsDirective;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {Injector} injector
+   */
   constructor(private injector: Injector) {
   }
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
     this.objectInjector = Injector.create({
       providers: [
@@ -37,12 +72,21 @@ export class SectionContainerComponent implements OnInit {
     });
   }
 
+  /**
+   * Remove section from submission form
+   *
+   * @param event
+   *    the event emitted
+   */
   public removeSection(event) {
     event.preventDefault();
     event.stopPropagation();
     this.sectionRef.removeSection(this.submissionId, this.sectionData.id);
   }
 
+  /**
+   * Find the correct component based on the section's type
+   */
   getSectionContent(): string {
     return rendersSectionType(this.sectionData.sectionType);
   }

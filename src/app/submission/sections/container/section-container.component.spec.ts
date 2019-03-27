@@ -7,7 +7,7 @@ import { of as observableOf } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SectionContainerComponent } from './section-container.component';
+import { SubmissionSectionContainerComponent } from './section-container.component';
 import { createTestComponent } from '../../../shared/testing/utils';
 import { SectionsType } from '../sections-type';
 import { SectionsDirective } from '../sections.directive';
@@ -41,11 +41,11 @@ const sectionObject: SectionDataObject = {
   sectionType:	SectionsType.SubmissionForm
 };
 
-describe('SectionContainerComponent test suite', () => {
+describe('SubmissionSectionContainerComponent test suite', () => {
 
-  let comp: SectionContainerComponent;
+  let comp: SubmissionSectionContainerComponent;
   let compAsAny: any;
-  let fixture: ComponentFixture<SectionContainerComponent>;
+  let fixture: ComponentFixture<SubmissionSectionContainerComponent>;
 
   let submissionServiceStub: SubmissionServiceStub;
   let sectionsServiceStub: SectionsServiceStub;
@@ -71,14 +71,14 @@ describe('SectionContainerComponent test suite', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        SectionContainerComponent,
+        SubmissionSectionContainerComponent,
         SectionsDirective,
         TestComponent,
       ], // declare the test component
       providers: [
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
-        SectionContainerComponent
+        SubmissionSectionContainerComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -93,16 +93,16 @@ describe('SectionContainerComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       html = `
-        <ds-submission-form-section-container [collectionId]="collectionId"
+        <ds-submission-section-container [collectionId]="collectionId"
                                               [submissionId]="submissionId"
-                                              [sectionData]="object"></ds-submission-form-section-container>`;
+                                              [sectionData]="object"></ds-submission-section-container>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
       init();
     });
 
-    it('should create SectionContainerComponent', inject([SectionContainerComponent], (app: SectionContainerComponent) => {
+    it('should create SubmissionSectionContainerComponent', inject([SubmissionSectionContainerComponent], (app: SubmissionSectionContainerComponent) => {
       expect(app).toBeDefined();
     }));
   });
@@ -110,7 +110,7 @@ describe('SectionContainerComponent test suite', () => {
   describe('', () => {
     beforeEach(() => {
       init();
-      fixture = TestBed.createComponent(SectionContainerComponent);
+      fixture = TestBed.createComponent(SubmissionSectionContainerComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       comp.submissionId = submissionId;

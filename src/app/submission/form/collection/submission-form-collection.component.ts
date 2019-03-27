@@ -36,24 +36,48 @@ import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 
+/**
+ * An interface to represent a collection entry
+ */
 interface CollectionListEntryItem {
   id: string;
   name: string;
 }
 
+/**
+ * An interface to represent an entry in the collection list
+ */
 interface CollectionListEntry {
   communities: CollectionListEntryItem[],
   collection: CollectionListEntryItem
 }
 
+/**
+ * This component allows to show the current collection the submission belonging to and to change it.
+ */
 @Component({
   selector: 'ds-submission-form-collection',
   styleUrls: ['./submission-form-collection.component.scss'],
   templateUrl: './submission-form-collection.component.html'
 })
 export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
+
+  /**
+   * The current collection id this submission belonging to
+   * @type {string}
+   */
   @Input() currentCollectionId: string;
+
+  /**
+   * The current configuration object that define this submission
+   * @type {SubmissionDefinitionsModel}
+   */
   @Input() currentDefinition: string;
+
+  /**
+   * The submission id
+   * @type {string}
+   */
   @Input() submissionId;
 
   /**
@@ -62,18 +86,69 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   @Output() collectionChange: EventEmitter<SubmissionObject> = new EventEmitter<SubmissionObject>();
 
+  /**
+   * A boolean representing if this dropdown button is disabled
+   * @type {BehaviorSubject<boolean>}
+   */
   public disabled$ = new BehaviorSubject<boolean>(true);
-  public model: any;
+
+  /**
+   * The search form control
+   * @type {FormControl}
+   */
   public searchField: FormControl = new FormControl();
+
+  /**
+   * The collection list obtained from a search
+   * @type {Observable<CollectionListEntry[]>}
+   */
   public searchListCollection$: Observable<CollectionListEntry[]>;
+
+  /**
+   * The selected collection id
+   * @type {string}
+   */
   public selectedCollectionId: string;
+
+  /**
+   * The selected collection name
+   * @type {Observable<string>}
+   */
   public selectedCollectionName$: Observable<string>;
 
+  /**
+   * The JsonPatchOperationPathCombiner object
+   * @type {JsonPatchOperationPathCombiner}
+   */
   protected pathCombiner: JsonPatchOperationPathCombiner;
+
+  /**
+   * A boolean representing if dropdown list is scrollable to the bottom
+   * @type {boolean}
+   */
   private scrollableBottom = false;
+
+  /**
+   * A boolean representing if dropdown list is scrollable to the top
+   * @type {boolean}
+   */
   private scrollableTop = false;
+
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
   private subs: Subscription[] = [];
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {ChangeDetectorRef} cdr
+   * @param {CommunityDataService} communityDataService
+   * @param {JsonPatchOperationsBuilder} operationsBuilder
+   * @param {SubmissionJsonPatchOperationsService} operationsService
+   * @param {SubmissionService} submissionService
+   */
   constructor(protected cdr: ChangeDetectorRef,
               private communityDataService: CommunityDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
@@ -81,6 +156,13 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
               private submissionService: SubmissionService) {
   }
 
+  /**
+   * Method called on mousewheel event, it prevent the page scroll
+   * when arriving at the top/bottom of dropdown menu
+   *
+   * @param event
+   *     mousewheel event
+   */
   @HostListener('mousewheel', ['$event']) onMousewheel(event) {
     if (event.wheelDelta > 0 && this.scrollableTop) {
       event.preventDefault();
@@ -90,11 +172,19 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     }
   }
 
+  /**
+   * Check if dropdown scrollbar is at the top or bottom of the dropdown list
+   *
+   * @param event
+   */
   onScroll(event) {
     this.scrollableBottom = (event.target.scrollTop + event.target.clientHeight === event.target.scrollHeight);
     this.scrollableTop = (event.target.scrollTop === 0);
   }
 
+  /**
+   * Initialize collection list
+   */
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.currentCollectionId)
       && hasValue(changes.currentCollectionId.currentValue)) {
@@ -153,14 +243,26 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     }
   }
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', 'collection');
   }
 
+  /**
+   * Unsubscribe from all subscriptions
+   */
   ngOnDestroy(): void {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
+  /**
+   * Emit a [collectionChange] event when a new collection is selected from list
+   *
+   * @param event
+   *    the selected [CollectionListEntryItem]
+   */
   onSelect(event) {
     this.searchField.reset();
     this.disabled$.next(true);
@@ -181,10 +283,19 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     );
   }
 
+  /**
+   * Reset search form control on dropdown menu close
+   */
   onClose() {
     this.searchField.reset();
   }
 
+  /**
+   * Reset search form control when dropdown menu is closed
+   *
+   * @param isOpen
+   *    Representing if the dropdown menu is open or not.
+   */
   toggled(isOpen: boolean) {
     if (!isOpen) {
       this.searchField.reset();

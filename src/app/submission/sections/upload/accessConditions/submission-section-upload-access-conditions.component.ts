@@ -8,18 +8,37 @@ import { isEmpty } from '../../../../shared/empty.util';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 
+/**
+ * This component represents a badge that describe an access condition
+ */
 @Component({
-  selector: 'ds-access-conditions',
-  templateUrl: './accessConditions.component.html',
+  selector: 'ds-submission-section-upload-access-conditions',
+  templateUrl: './submission-section-upload-access-conditions.component.html',
 })
-export class AccessConditionsComponent implements OnInit {
+export class SubmissionSectionUploadAccessConditionsComponent implements OnInit {
 
+  /**
+   * The list of resource policy
+   * @type {Array}
+   */
   @Input() accessConditions: ResourcePolicy[];
 
+  /**
+   * The list of access conditions
+   * @type {Array}
+   */
   public accessConditionsList = [];
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {GroupEpersonService} groupService
+   */
   constructor(private groupService: GroupEpersonService) {}
 
+  /**
+   * Retrieve access conditions list
+   */
   ngOnInit() {
     this.accessConditions.forEach((accessCondition: ResourcePolicy) => {
       if (isEmpty(accessCondition.name)) {

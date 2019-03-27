@@ -410,6 +410,7 @@
         "f.dateIssued.min": "Start date",
         "f.dateIssued.max": "End date",
         "f.subject": "Subject",
+        "f.has_content_in_original_bundle": "Has files",
         "f.namedresourcetype": "Status",
         "f.dateSubmitted": "Date submitted",
         "f.itemtype": "Type",
@@ -729,7 +730,7 @@
     "group-collapse": "Collapse",
     "group-expand": "Expand",
     "group-collapse-help": "Click here to collapse",
-    "group-expand-help": "Click here to expand and add more element",
+    "group-expand-help": "Click here to expand and add more elements",
     "other-information": {
     }
   },
@@ -761,6 +762,34 @@
   },
   "chips": {
     "remove": "Remove chip"
+  },
+  "dso-selector": {
+    "create": {
+      "community": {
+        "head": "New community",
+        "sub-level": "Create a new community in",
+        "top-level": "Create a new top-level community"
+      },
+      "collection": {
+        "head": "New collection"
+      },
+      "item": {
+        "head": "New item"
+      }
+    },
+    "edit": {
+      "community": {
+        "head": "Edit community"
+      },
+      "collection": {
+        "head": "Edit collection"
+      },
+      "item": {
+        "head": "Edit item"
+      }
+    },
+    "placeholder": "Search for a {{ type }}",
+    "no-results": "No {{ type }} found"
   },
   "submission": {
     "general":{
@@ -822,14 +851,16 @@
         "upload-successful": "Upload successful",
         "upload-failed": "Upload failed",
         "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicity decided for the single file, with the following group(s):",
+        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
         "form": {
           "access-condition-label": "Access condition type",
           "from-label": "Access grant from",
           "from-placeholder": "From",
           "until-label": "Access grant until",
           "until-placeholder": "Until",
-          "group-label": "Group"
+          "group-label": "Group",
+          "group-required": "Group is required.",
+          "date-required": "Date is required."
         },
         "save-metadata": "Save metadata",
         "undo": "Cancel",
@@ -894,33 +925,5 @@
     "browse": "browse",
     "queue-lenght": "Queue length",
     "processing": "Processing"
-  },
-  "dso-selector": {
-    "create": {
-      "community": {
-        "head": "New community",
-        "sub-level": "Create a new community in",
-        "top-level": "Create a new top-level community"
-      },
-      "collection": {
-        "head": "New collection"
-      },
-      "item": {
-        "head": "New item"
-      }
-    },
-    "edit": {
-      "community": {
-        "head": "Edit community"
-      },
-      "collection": {
-        "head": "Edit collection"
-      },
-      "item": {
-        "head": "Edit item"
-      }
-    },
-    "placeholder": "Search for a {{ type }}",
-    "no-results": "No {{ type }} found"
   }
 }

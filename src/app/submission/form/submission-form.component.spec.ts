@@ -63,10 +63,10 @@ describe('SubmissionFormComponent Component', () => {
     // synchronous beforeEach
     beforeEach(() => {
       const html = `
-        <ds-submission-submit-form [collectionId]="collectionId"
+        <ds-submission-form [collectionId]="collectionId"
                                    [selfUrl]="selfUrl"
                                    [submissionDefinition]="submissionDefinition"
-                                   [submissionId]="submissionId"></ds-submission-submit-form>`;
+                                   [submissionId]="submissionId"></ds-submission-form>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;

@@ -156,7 +156,7 @@ describe('SectionFormOperationsService test suite', () => {
         }
       };
 
-      expect(service.isPartOfArrayOfGroup(model)).toBeTruthy();
+      expect(service.isPartOfArrayOfGroup(model as any)).toBeTruthy();
     });
 
     it('should return false when parent element doesn\'t belong to an array group element', () => {
@@ -164,7 +164,7 @@ describe('SectionFormOperationsService test suite', () => {
         parent: null
       };
 
-      expect(service.isPartOfArrayOfGroup(model)).toBeFalsy();
+      expect(service.isPartOfArrayOfGroup(model as any)).toBeFalsy();
     });
 
   });

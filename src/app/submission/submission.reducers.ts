@@ -5,6 +5,9 @@ import {
   SubmissionObjectState
 } from './objects/submission-objects.reducer';
 
+/**
+ * The Submission State
+ */
 export interface SubmissionState {
   'objects': SubmissionObjectState
 }

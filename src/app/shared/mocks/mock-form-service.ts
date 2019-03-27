@@ -2,6 +2,9 @@ import { of as observableOf } from 'rxjs';
 
 import { FormService } from '../form/form.service';
 
+/**
+ * Mock for [[FormService]]
+ */
 export function getMockFormService(
   id$: string = 'random_id'
 ): FormService {
@@ -12,8 +15,8 @@ export function getMockFormService(
     getForm: observableOf({}),
     getUniqueId: id$,
     resetForm: {},
-    validateAllFormFields: {},
-    isValid: observableOf(true),
+    validateAllFormFields: jasmine.createSpy('validateAllFormFields'),
+    isValid: jasmine.createSpy('isValid'),
     isFormInitialized: observableOf(true)
   });
 

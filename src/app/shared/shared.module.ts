@@ -76,7 +76,7 @@ import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
-import { AlertsComponent } from './alerts/alerts.component';
+import { AlertComponent } from './alert/alert.component';
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
 import { MessageBoardComponent } from './message-board/message-board.component';
 import { MessageComponent } from './message-board/message/message.component';
@@ -180,7 +180,7 @@ const PIPES = [
 
 const COMPONENTS = [
   // put shared components here
-  AlertsComponent,
+  AlertComponent,
   AuthNavMenuComponent,
   UserMenuComponent,
   ChipsComponent,

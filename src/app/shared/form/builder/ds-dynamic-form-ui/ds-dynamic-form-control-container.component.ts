@@ -131,7 +131,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
 }
 
 @Component({
-  selector: 'ds-dynamic-form-control',
+  selector: 'ds-dynamic-form-control-container',
   styleUrls: ['./ds-dynamic-form-control-container.component.scss'],
   templateUrl: './ds-dynamic-form-control-container.component.html',
   changeDetection: ChangeDetectionStrategy.Default
@@ -180,9 +180,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (changes) {
       super.ngOnChanges(changes);
       if (this.model && this.model.placeholder) {
-        this.translateService.get(this.model.placeholder).subscribe((placeholder) => {
-          this.model.placeholder = placeholder;
-        })
+        this.model.placeholder = this.translateService.instant(this.model.placeholder);
       }
     }
   }

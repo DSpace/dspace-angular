@@ -14,51 +14,127 @@ import { submissionUploadedFileFromUuidSelector, submissionUploadedFilesFromIdSe
 import { isUndefined } from '../../../shared/empty.util';
 import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
 
+/**
+ * A service that provides methods to handle submission's bitstream state.
+ */
 @Injectable()
 export class SectionUploadService {
 
+  /**
+   * Initialize service variables
+   *
+   * @param {Store<SubmissionState>} store
+   */
   constructor(private store: Store<SubmissionState>) {}
 
+  /**
+   * Return submission's bitstream list from state
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @returns {Array}
+   *    Returns submission's bitstream list
+   */
   public getUploadedFileList(submissionId: string, sectionId: string): Observable<any> {
     return this.store.select(submissionUploadedFilesFromIdSelector(submissionId, sectionId)).pipe(
       map((state) => state),
       distinctUntilChanged());
   }
 
-  public getFileData(submissionId: string, sectionId: string, fileUuid: string): Observable<any> {
+  /**
+   * Return bitstream's metadata
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param fileUUID
+   *    The bitstream UUID
+   * @returns {Observable}
+   *    Emits bitstream's metadata
+   */
+  public getFileData(submissionId: string, sectionId: string, fileUUID: string): Observable<any> {
     return this.store.select(submissionUploadedFilesFromIdSelector(submissionId, sectionId)).pipe(
       filter((state) => !isUndefined(state)),
       map((state) => {
         let fileState;
         Object.keys(state)
-          .filter((key) => state[key].uuid === fileUuid)
+          .filter((key) => state[key].uuid === fileUUID)
           .forEach((key) => fileState = state[key]);
         return fileState;
       }),
       distinctUntilChanged());
   }
 
-  public getDefaultPolicies(submissionId: string, sectionId: string, fileId: string): Observable<any> {
-    return this.store.select(submissionUploadedFileFromUuidSelector(submissionId, sectionId, fileId)).pipe(
+  /**
+   * Return bitstream's default policies
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param fileUUID
+   *    The bitstream UUID
+   * @returns {Observable}
+   *    Emits bitstream's default policies
+   */
+  public getDefaultPolicies(submissionId: string, sectionId: string, fileUUID: string): Observable<any> {
+    return this.store.select(submissionUploadedFileFromUuidSelector(submissionId, sectionId, fileUUID)).pipe(
       map((state) => state),
       distinctUntilChanged());
   }
 
-  public addUploadedFile(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
+  /**
+   * Add a new bitstream to the state
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param fileUUID
+   *    The bitstream UUID
+   * @param data
+   *    The [[WorkspaceitemSectionUploadFileObject]] object
+   */
+  public addUploadedFile(submissionId: string, sectionId: string, fileUUID: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
-      new NewUploadedFileAction(submissionId, sectionId, fileId, data)
+      new NewUploadedFileAction(submissionId, sectionId, fileUUID, data)
     );
   }
 
-  public updateFileData(submissionId: string, sectionId: string, fileId: string, data: WorkspaceitemSectionUploadFileObject) {
+  /**
+   * Update bitstream metadata into the state
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param fileUUID
+   *    The bitstream UUID
+   * @param data
+   *    The [[WorkspaceitemSectionUploadFileObject]] object
+   */
+  public updateFileData(submissionId: string, sectionId: string, fileUUID: string, data: WorkspaceitemSectionUploadFileObject) {
     this.store.dispatch(
-      new EditFileDataAction(submissionId, sectionId, fileId, data)
+      new EditFileDataAction(submissionId, sectionId, fileUUID, data)
     );
   }
 
-  public removeUploadedFile(submissionId: string, sectionId: string, fileId: string) {
+  /**
+   * Remove bitstream from the state
+   *
+   * @param submissionId
+   *    The submission id
+   * @param sectionId
+   *    The section id
+   * @param fileUUID
+   *    The bitstream UUID
+   */
+  public removeUploadedFile(submissionId: string, sectionId: string, fileUUID: string) {
     this.store.dispatch(
-      new DeleteUploadedFileAction(submissionId, sectionId, fileId)
+      new DeleteUploadedFileAction(submissionId, sectionId, fileUUID)
     );
   }
 }

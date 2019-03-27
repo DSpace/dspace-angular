@@ -11,7 +11,6 @@ export enum SubmissionResourceType {
   Group = 'group',
   WorkspaceItem = 'workspaceitem',
   WorkflowItem = 'workflowitem',
-  EditItem = 'edititem',
   SubmissionDefinitions = 'submissiondefinitions',
   SubmissionDefinition = 'submissiondefinition',
   SubmissionForm = 'submissionform',

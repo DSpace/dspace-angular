@@ -14,6 +14,9 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
+/**
+ * A service that provides methods to make REST requests with workspaceitems endpoint.
+ */
 @Injectable()
 export class WorkspaceitemDataService extends DataService<Workspaceitem> {
   protected linkPath = 'workspaceitems';

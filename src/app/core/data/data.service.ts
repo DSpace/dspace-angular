@@ -53,6 +53,14 @@ export abstract class DataService<T extends CacheableObject> {
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
+  /**
+   * Create the HREF with given options object
+   *
+   * @param options The [[FindAllOptions]] object
+   * @param linkPath The link path for the object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   */
   protected getFindAllHref(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
     let result: Observable<string>;
     const args = [];
@@ -62,6 +70,14 @@ export abstract class DataService<T extends CacheableObject> {
     return this.buildHrefFromFindOptions(result, args, options);
   }
 
+  /**
+   * Create the HREF for a specific object's search method with given options object
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindAllOptions]] object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   */
   protected getSearchByHref(searchMethod: string, options: FindAllOptions = {}): Observable<string> {
     let result: Observable<string>;
     const args = [];
@@ -77,6 +93,15 @@ export abstract class DataService<T extends CacheableObject> {
     return this.buildHrefFromFindOptions(result, args, options);
   }
 
+  /**
+   * Turn an options object into a query string and combine it with the given HREF
+   *
+   * @param href$ The HREF to which the query string should be appended
+   * @param args Array with additional params to combine with query string
+   * @param options The [[FindAllOptions]] object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   */
   protected buildHrefFromFindOptions(href$: Observable<string>, args: string[], options: FindAllOptions): Observable<string> {
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
@@ -140,12 +165,25 @@ export abstract class DataService<T extends CacheableObject> {
     return this.rdbService.buildSingle<T>(href);
   }
 
+  /**
+   * Return object search endpoint by given search method
+   *
+   * @param searchMethod The search method for the object
+   */
   protected getSearchEndpoint(searchMethod: string): Observable<string> {
     return this.halService.getEndpoint(`${this.linkPath}/search`).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => `${href}/${searchMethod}`));
   }
 
+  /**
+   * Make a new FindAllRequest with given search method
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindAllOptions]] object
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
   protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options);
