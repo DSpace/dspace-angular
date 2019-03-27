@@ -1,7 +1,9 @@
-@import '../../styles/variables.scss';
+@import '../../../styles/variables.scss';
 
-nav.navbar {
-    border-bottom: 5px $dark solid;
+:host-context(.preview-release) {
+    nav.navbar {
+        border-bottom: 5px $green solid;
+    }
 }
 
 
