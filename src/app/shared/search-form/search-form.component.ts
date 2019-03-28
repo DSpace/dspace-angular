@@ -39,6 +39,10 @@ export class SearchFormComponent {
    */
   @Input() scopes: DSpaceObject[];
 
+
+  @Input() large = false;
+  @Input() brandColor = 'primary';
+
   constructor(private router: Router) {
   }
 
