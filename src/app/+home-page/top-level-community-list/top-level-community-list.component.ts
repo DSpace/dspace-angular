@@ -37,7 +37,6 @@ export class TopLevelCommunityListComponent implements OnInit {
   }
 
   onPaginationChange(event) {
-    console.log(event);
     this.config.currentPage = event.page;
     this.config.pageSize = event.pageSize;
     this.sortConfig.field = event.sortField;
