@@ -15,15 +15,15 @@ import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/cla
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 
 @Component({
-  selector: 'ds-claimtask-my-dspace-result-list-element',
+  selector: 'ds-claimed-my-dspace-result-list-element',
   styleUrls: ['../my-dspace-result-list-element.component.scss'],
-  templateUrl: './ct-my-dspace-result-list-element.component.html',
+  templateUrl: './claimed-my-dspace-result-list-element.component.html',
   providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
 
 @renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.List)
 @renderElementsFor(ClaimedTask, ViewMode.List)
-export class ClaimedTaskMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
+export class ClaimedMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
   public showSubmitter = true;
   public status = MyDspaceItemStatusType.VALIDATION;
   public workFlow: Workflowitem;

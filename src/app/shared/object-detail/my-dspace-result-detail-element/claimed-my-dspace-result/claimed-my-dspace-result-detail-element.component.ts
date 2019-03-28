@@ -19,15 +19,15 @@ import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 
 @Component({
-  selector: 'ds-claimtask-my-dspace-result-detail-element',
+  selector: 'ds-claimed-my-dspace-result-detail-element',
   styleUrls: ['../my-dspace-result-detail-element.component.scss'],
-  templateUrl: './ct-my-dspace-result-detail-element.component.html',
+  templateUrl: './claimed-my-dspace-result-detail-element.component.html',
   providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 
 @renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.Detail)
 @renderElementsFor(ClaimedTask, ViewMode.Detail)
-export class ClaimedTaskMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
+export class ClaimedMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
   public status = MyDspaceItemStatusType.VALIDATION;
   public workFlow: Workflowitem;
   public rejectForm: FormGroup;

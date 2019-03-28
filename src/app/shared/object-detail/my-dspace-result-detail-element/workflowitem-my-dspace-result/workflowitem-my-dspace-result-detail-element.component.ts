@@ -16,7 +16,7 @@ import { isNotUndefined } from '../../../empty.util';
 @Component({
   selector: 'ds-workflowitem-my-dspace-result-detail-element',
   styleUrls: ['../my-dspace-result-detail-element.component.scss'],
-  templateUrl: './wfi-my-dspace-result-detail-element.component.html',
+  templateUrl: './workflowitem-my-dspace-result-detail-element.component.html',
 })
 
 @renderElementsFor(WorkflowitemMyDSpaceResult, ViewMode.Detail)

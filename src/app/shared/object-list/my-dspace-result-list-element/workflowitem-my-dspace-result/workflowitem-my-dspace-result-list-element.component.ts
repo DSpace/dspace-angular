@@ -16,7 +16,7 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 @Component({
   selector: 'ds-workflowitem-my-dspace-result-list-element',
   styleUrls: ['../my-dspace-result-list-element.component.scss'],
-  templateUrl: './wfi-my-dspace-result-list-element.component.html',
+  templateUrl: './workflowitem-my-dspace-result-list-element.component.html',
 })
 
 @renderElementsFor(WorkflowitemMyDSpaceResult, ViewMode.List)
