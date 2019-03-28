@@ -13,6 +13,9 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { find } from 'rxjs/operators';
 import { isNotUndefined } from '../../../empty.util';
 
+/**
+ * This component renders workflowitem object for the mydspace result in the detail view.
+ */
 @Component({
   selector: 'ds-workflowitem-my-dspace-result-detail-element',
   styleUrls: ['../my-dspace-result-detail-element.component.scss'],
@@ -23,17 +26,30 @@ import { isNotUndefined } from '../../../empty.util';
 @renderElementsFor(Workflowitem, ViewMode.Detail)
 export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkflowitemMyDSpaceResult, Workflowitem> {
 
+  /**
+   * The item object that belonging to the result object
+   */
   public item: Item;
+
+  /**
+   * Represent item's status
+   */
   public status = MyDspaceItemStatusType.WORKFLOW;
 
   constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 
+  /**
+   * Retrieve item from result object
+   */
   initItem(item$: Observable<RemoteData<Item>>) {
     item$.pipe(
       find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload))

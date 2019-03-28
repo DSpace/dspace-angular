@@ -14,6 +14,9 @@ import { ListableObject } from '../../../object-collection/shared/listable-objec
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 
+/**
+ * This component renders workspaceitem object for the mydspace result in the detail view.
+ */
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-detail-element',
   styleUrls: ['../my-dspace-result-detail-element.component.scss', './workspaceitem-my-dspace-result-detail-element.component.scss'],
@@ -23,17 +26,31 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.Detail)
 @renderElementsFor(Workspaceitem, ViewMode.Detail)
 export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
+
+  /**
+   * The item object that belonging to the result object
+   */
   public item: Item;
+
+  /**
+   * Represent item's status
+   */
   status = MyDspaceItemStatusType.IN_PROGRESS;
 
   constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
   }
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 
+  /**
+   * Retrieve item from result object
+   */
   initItem(item$: Observable<RemoteData<Item>>) {
     item$.pipe(
       find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload))

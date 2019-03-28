@@ -7,25 +7,46 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { fadeInOut } from '../../../animations/fade';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 
+/**
+ * This component show metadata for the given item object in the detail view.
+ */
 @Component({
   selector: 'ds-item-detail-preview',
   styleUrls: ['./item-detail-preview.component.scss'],
   templateUrl: './item-detail-preview.component.html',
   animations: [fadeInOut]
 })
-export class ItemDetailPreviewComponent<T> {
+export class ItemDetailPreviewComponent {
 
+  /**
+   * The item to display
+   */
   @Input() item: Item;
+
+  /**
+   * The mydspace result object
+   */
   @Input() object: any;
+
+  /**
+   * Represent item's status
+   */
   @Input() status: MyDspaceItemStatusType;
 
-  public ALL_STATUS = [];
+  /**
+   * A boolean representing if to show submitter information
+   */
+  @Input() showSubmitter = false;
+
+  /**
+   * The item's thumbnail
+   */
   public thumbnail$: Observable<Bitstream>;
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
-    Object.keys(MyDspaceItemStatusType).forEach((s) => {
-      this.ALL_STATUS.push(MyDspaceItemStatusType[s]);
-    });
     this.thumbnail$ = this.item.getThumbnail();
   }
 

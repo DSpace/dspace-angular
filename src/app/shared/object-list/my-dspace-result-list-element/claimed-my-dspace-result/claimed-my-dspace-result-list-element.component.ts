@@ -14,6 +14,9 @@ import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.m
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 
+/**
+ * This component renders claimed task object for the mydspace result in the list view.
+ */
 @Component({
   selector: 'ds-claimed-my-dspace-result-list-element',
   styleUrls: ['../my-dspace-result-list-element.component.scss'],
@@ -24,19 +27,37 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 @renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.List)
 @renderElementsFor(ClaimedTask, ViewMode.List)
 export class ClaimedMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
-  public showSubmitter = true;
-  public status = MyDspaceItemStatusType.VALIDATION;
-  public workFlow: Workflowitem;
 
+  /**
+   * A boolean representing if to show submitter information
+   */
+  public showSubmitter = true;
+
+  /**
+   * Represent item's status
+   */
+  public status = MyDspaceItemStatusType.VALIDATION;
+
+  /**
+   * The workflowitem object that belonging to the result object
+   */
+  public workflowitem: Workflowitem;
+
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
     this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<Workflowitem>>);
   }
 
+  /**
+   * Retrieve workflowitem from result object
+   */
   initWorkflowItem(wfi$: Observable<RemoteData<Workflowitem>>) {
     wfi$.pipe(
       find((rd: RemoteData<Workflowitem>) => (rd.hasSucceeded && isNotUndefined(rd.payload)))
     ).subscribe((rd: RemoteData<Workflowitem>) => {
-      this.workFlow = rd.payload;
+      this.workflowitem = rd.payload;
     });
   }
 }

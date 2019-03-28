@@ -11,47 +11,56 @@ import { ListableObject } from '../../../object-collection/shared/listable-objec
 import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 
+/**
+ * This component renders claimed task object for the mydspace result in the detail view.
+ */
 @Component({
   selector: 'ds-claimed-my-dspace-result-detail-element',
   styleUrls: ['../my-dspace-result-detail-element.component.scss'],
-  templateUrl: './claimed-my-dspace-result-detail-element.component.html',
-  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
+  templateUrl: './claimed-my-dspace-result-detail-element.component.html'
 })
 
 @renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.Detail)
 @renderElementsFor(ClaimedTask, ViewMode.Detail)
 export class ClaimedMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
+
+  /**
+   * A boolean representing if to show submitter information
+   */
+  public showSubmitter = true;
+
+  /**
+   * Represent item's status
+   */
   public status = MyDspaceItemStatusType.VALIDATION;
-  public workFlow: Workflowitem;
-  public rejectForm: FormGroup;
 
-  constructor(private ctDataService: ClaimedTaskDataService,
-              private modalService: NgbModal,
-              private formBuilder: FormBuilder,
-              @Inject('objectElementProvider') public listable: ListableObject) {
+  /**
+   * The workflowitem object that belonging to the result object
+   */
+  public workflowitem: Workflowitem;
+
+  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);
-
-    this.rejectForm = this.formBuilder.group({
-      reason: ['', Validators.required]
-    });
   }
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
     this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<Workflowitem>>);
   }
 
+  /**
+   * Retrieve workflowitem from result object
+   */
   initWorkflowItem(wfi$: Observable<RemoteData<Workflowitem>>) {
     wfi$.pipe(
       find((rd: RemoteData<Workflowitem>) => (rd.hasSucceeded && isNotUndefined(rd.payload)))
     ).subscribe((rd: RemoteData<Workflowitem>) => {
-      this.workFlow = rd.payload;
+      this.workflowitem = rd.payload;
     });
   }
 

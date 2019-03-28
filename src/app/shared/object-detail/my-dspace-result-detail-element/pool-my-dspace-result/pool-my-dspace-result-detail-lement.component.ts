@@ -14,6 +14,9 @@ import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-t
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 
+/**
+ * This component renders pool task object for the mydspace result in the detail view.
+ */
 @Component({
   selector: 'ds-pool-my-dspace-result-detail-element',
   styleUrls: ['../my-dspace-result-detail-element.component.scss'],
@@ -23,23 +26,41 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 @renderElementsFor(PoolTaskMyDSpaceResult, ViewMode.Detail)
 @renderElementsFor(PoolTask, ViewMode.Detail)
 export class PoolMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
+
+  /**
+   * A boolean representing if to show submitter information
+   */
+  public showSubmitter = true;
+
+  /**
+   * Represent item's status
+   */
   public status = MyDspaceItemStatusType.WAITING_CONTROLLER;
-  public workFlow: Workflowitem;
+
+  /**
+   * The workflowitem object that belonging to the result object
+   */
+  public workflowitem: Workflowitem;
 
   constructor(@Inject('objectElementProvider') public listable: ListableObject) {
-
     super(listable);
   }
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
     this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<Workflowitem>>);
   }
 
+  /**
+   * Retrieve workflowitem from result object
+   */
   initWorkflowItem(wfi$: Observable<RemoteData<Workflowitem>>) {
     wfi$.pipe(
       find((rd: RemoteData<Workflowitem>) => (rd.hasSucceeded && isNotUndefined(rd.payload)))
     ).subscribe((rd: RemoteData<Workflowitem>) => {
-      this.workFlow = rd.payload;
+      this.workflowitem = rd.payload;
     });
   }
 

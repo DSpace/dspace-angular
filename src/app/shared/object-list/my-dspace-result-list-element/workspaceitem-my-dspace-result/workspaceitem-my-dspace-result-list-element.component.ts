@@ -13,6 +13,9 @@ import { isNotUndefined } from '../../../empty.util';
 import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 
+/**
+ * This component renders workspaceitem object for the mydspace result in the list view.
+ */
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-list-element',
   styleUrls: ['../my-dspace-result-list-element.component.scss', './workspaceitem-my-dspace-result-list-element.component.scss'],
@@ -22,13 +25,26 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 @renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.List)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
 
+  /**
+   * The item object that belonging to the result object
+   */
   item: Item;
+
+  /**
+   * Represent item's status
+   */
   status = MyDspaceItemStatusType.IN_PROGRESS;
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit() {
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 
+  /**
+   * Retrieve item from result object
+   */
   initItem(item$: Observable<RemoteData<Item>>) {
     item$.pipe(
       find((rd: RemoteData<Item>) => rd.hasSucceeded && isNotUndefined(rd.payload))

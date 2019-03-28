@@ -7,6 +7,9 @@ import { ItemMyDSpaceResult } from '../../../object-collection/shared/item-my-ds
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 
+/**
+ * This component renders item object for the mydspace result in the detail view.
+ */
 @Component({
   selector: 'ds-workspaceitem-my-dspace-result-detail-element',
   styleUrls: ['../my-dspace-result-detail-element.component.scss', './item-my-dspace-result-detail-element.component.scss'],
@@ -16,6 +19,9 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 @renderElementsFor(ItemMyDSpaceResult, ViewMode.Detail)
 export class ItemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ItemMyDSpaceResult, Item> {
 
+  /**
+   * Represent item's status
+   */
   public status = MyDspaceItemStatusType.ACCEPTED;
 
 }
