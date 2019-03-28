@@ -25,11 +25,8 @@ export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
 
 /**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
+ * This component represents the whole mydspace page
  */
-
 @Component({
   selector: 'ds-my-dspace-page',
   styleUrls: ['./my-dspace-page.component.scss'],
@@ -43,10 +40,6 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
     }
   ]
 })
-
-/**
- * This component represents the whole mydspace page
- */
 export class MyDSpacePageComponent implements OnInit {
 
   /**
@@ -79,8 +72,14 @@ export class MyDSpacePageComponent implements OnInit {
    */
   sub: Subscription;
 
+  /**
+   * Variable for enumeration RoleType
+   */
   roleTypeEnum = RoleType;
 
+  /**
+   * List of available view mode
+   */
   viewModeList = [ViewMode.List, ViewMode.Detail];
 
   constructor(private service: SearchService,
@@ -92,6 +91,8 @@ export class MyDSpacePageComponent implements OnInit {
   }
 
   /**
+   * Initialize available configuration list
+   *
    * Listening to changes in the paginated search options
    * If something changes, update the search results
    *
