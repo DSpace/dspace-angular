@@ -21,7 +21,7 @@ export class SearchSettingsComponent implements OnInit {
 
   /**
    * The configuration for the current paginated search results
-     */
+   */
   searchOptions$: Observable<PaginatedSearchOptions>;
 
   /**

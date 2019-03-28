@@ -40,7 +40,6 @@ import { CSSVariableServiceStub } from './shared/testing/css-variable-service-st
 import { MenuServiceStub } from './shared/testing/menu-service-stub';
 import { HostWindowService } from './shared/host-window.service';
 import { HostWindowServiceStub } from './shared/testing/host-window-service-stub';
-import { ThemeService } from './core/theme/theme.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from './shared/services/route.service';
 import { MockActivatedRoute } from './shared/mocks/mock-active-router';
@@ -79,7 +78,6 @@ describe('App component', () => {
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
-        { provide: ThemeService, useValue: {getCurrentTheme: () => {/* No implementation */}} },
         AppComponent,
         RouteService
       ],

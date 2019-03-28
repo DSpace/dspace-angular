@@ -155,13 +155,5 @@ module.exports = {
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
-  },
-  themes: [
-    {
-      name: 'Preview Release',
-      cssClass: 'preview-release'
-    }
-  ]
-
-
+  }
 };
