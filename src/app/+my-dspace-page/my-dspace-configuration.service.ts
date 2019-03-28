@@ -13,7 +13,7 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 
 /**
- * Service that performs all actions that have to do with the current search configuration
+ * Service that performs all actions that have to do with the current mydspace configuration
  */
 @Injectable()
 export class MyDSpaceConfigurationService extends SearchConfigurationService {
@@ -95,10 +95,6 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
         return configurationOptions;
       })
     )
-  }
-
-  public getCurrentView(): Observable<string> {
-    return this.routeService.getQueryParameterValue('view');
   }
 
 }

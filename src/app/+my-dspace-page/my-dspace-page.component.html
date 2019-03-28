@@ -3,7 +3,7 @@
                                (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>
   <div class="search-page row">
       <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-3 sidebar-md-sticky"
-                         id="search-sidebar"
+                         id="mydspace-sidebar"
                          [configurationList]="(configurationList$ | async)"
                          [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                          [viewModeList]="viewModeList"></ds-search-sidebar>

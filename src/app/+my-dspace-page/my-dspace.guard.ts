@@ -22,7 +22,7 @@ export class MyDSpaceGuard implements CanActivate {
   }
 
   /**
-   * True when user is authenticated
+   * True when configuration is valid
    * @method canActivate
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -31,6 +31,15 @@ export class MyDSpaceGuard implements CanActivate {
       map((configurationList) => this.validateConfigurationParam(route.queryParamMap.get('configuration'), configurationList)));
   }
 
+  /**
+   * Check if the given configuration is present in the list of those available
+   *
+   * @param configuration
+   *    the configuration to validate
+   * @param configurationList
+   *    the list of available configuration
+   *
+   */
   private validateConfigurationParam(configuration: string, configurationList: MyDSpaceConfigurationValueType[]): boolean {
     const configurationDefault: string = configurationList[0];
     if (isEmpty(configuration) || !configurationList.includes(configuration as MyDSpaceConfigurationValueType)) {

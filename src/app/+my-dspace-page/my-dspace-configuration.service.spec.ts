@@ -1,28 +1,31 @@
-import { SearchConfigurationService } from './search-configuration.service';
-import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { SearchFilter } from '../search-filter.model';
 import { of as observableOf } from 'rxjs';
 
-describe('SearchConfigurationService', () => {
-  let service: SearchConfigurationService;
+import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
+import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
+import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { SearchFilter } from '../+search-page/search-filter.model';
+import { ActivatedRouteStub } from '../shared/testing/active-router-stub';
+import { MockRoleService } from '../shared/mocks/mock-role-service';
+import { cold, hot } from 'jasmine-marbles';
+import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
+
+describe('MyDSpaceConfigurationService', () => {
+  let service: MyDSpaceConfigurationService;
   const value1 = 'random value';
   const prefixFilter = {
-    'f.author': ['another value'],
-    'f.date.min': ['2013'],
-    'f.date.max': ['2018']
+    'f.namedresourcetype': ['another value'],
+    'f.dateSubmitted.min': ['2013'],
+    'f.dateSubmitted.max': ['2018']
   };
   const defaults = new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 }),
     sort: new SortOptions('score', SortDirection.DESC),
-    configuration: 'default',
     query: '',
     scope: ''
   });
 
-  const backendFilters = [new SearchFilter('f.author', ['another value']), new SearchFilter('f.date', ['[2013 TO 2018]'])];
+  const backendFilters = [new SearchFilter('f.namedresourcetype', ['another value']), new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'])];
 
   const spy = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
@@ -31,8 +34,10 @@ describe('SearchConfigurationService', () => {
 
   const activatedRoute: any = new ActivatedRouteStub();
 
+  const roleService: any = new MockRoleService();
+
   beforeEach(() => {
-    service = new SearchConfigurationService(spy, activatedRoute);
+    service = new MyDSpaceConfigurationService(roleService, spy, activatedRoute);
   });
 
   describe('when the scope is called', () => {
@@ -156,6 +161,93 @@ describe('SearchConfigurationService', () => {
         expect(service.getCurrentDSOType).toHaveBeenCalled();
         expect(service.getCurrentFilters).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('when getAvailableConfigurationTypes is called', () => {
+
+    it('should return properly list when user is submitter', () => {
+      roleService.setSubmitter(true);
+      roleService.setController(false);
+      roleService.setAdmin(false);
+
+      const list$ = service.getAvailableConfigurationTypes();
+
+      expect(list$).toBeObservable(cold('(b|)', {
+        b: [
+          MyDSpaceConfigurationValueType.Workspace
+        ]
+      }));
+    });
+
+    it('should return properly list when user is controller', () => {
+      roleService.setSubmitter(false);
+      roleService.setController(true);
+      roleService.setAdmin(false);
+
+      const list$ = service.getAvailableConfigurationTypes();
+
+      expect(list$).toBeObservable(cold('(b|)', {
+        b: [
+          MyDSpaceConfigurationValueType.Workflow
+        ]
+      }));
+    });
+
+    it('should return properly list when user is admin', () => {
+      roleService.setSubmitter(false);
+      roleService.setController(false);
+      roleService.setAdmin(true);
+
+      const list$ = service.getAvailableConfigurationTypes();
+
+      expect(list$).toBeObservable(cold('(b|)', {
+        b: [
+          MyDSpaceConfigurationValueType.Workflow
+        ]
+      }));
+    });
+
+    it('should return properly list when user is submitter and controller', () => {
+      roleService.setSubmitter(true);
+      roleService.setController(true);
+      roleService.setAdmin(false);
+
+      const list$ = service.getAvailableConfigurationTypes();
+
+      expect(list$).toBeObservable(cold('(b|)', {
+        b: [
+          MyDSpaceConfigurationValueType.Workspace,
+          MyDSpaceConfigurationValueType.Workflow
+        ]
+      }));
+    });
+  });
+
+  describe('when getAvailableConfigurationOptions is called', () => {
+
+    it('should return properly options list', () => {
+      spyOn(service, 'getAvailableConfigurationTypes').and.returnValue(hot('a', {
+        a: [
+          MyDSpaceConfigurationValueType.Workspace,
+          MyDSpaceConfigurationValueType.Workflow
+        ]
+      }));
+
+      const list$ = service.getAvailableConfigurationOptions();
+
+      expect(list$).toBeObservable(cold('(b|)', {
+        b: [
+          {
+            value: MyDSpaceConfigurationValueType.Workspace,
+            label: `mydspace.show.${MyDSpaceConfigurationValueType.Workspace}`
+          },
+          {
+            value: MyDSpaceConfigurationValueType.Workflow,
+            label: `mydspace.show.${MyDSpaceConfigurationValueType.Workflow}`
+          }
+        ]
+      }));
     });
   });
 });
