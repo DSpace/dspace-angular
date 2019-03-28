@@ -31,7 +31,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { slideSidebarPadding } from './shared/animations/slide';
 import { combineLatest as combineLatestObservable, of } from 'rxjs';
 import { HostWindowService } from './shared/host-window.service';
-import { ThemeService } from './core/theme/theme.service';
 import { Theme } from '../config/theme.inferface';
 
 @Component({
@@ -62,7 +61,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
-    private themeService: ThemeService
   ) {
 
     // Load all the languages that are defined as active from the config file
@@ -87,7 +85,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.theme = this.themeService.getCurrentTheme();
 
     const env: string = this.config.production ? 'Production' : 'Development';
     const color: string = this.config.production ? 'red' : 'green';

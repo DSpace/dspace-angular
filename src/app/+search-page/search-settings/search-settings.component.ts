@@ -20,7 +20,7 @@ export class SearchSettingsComponent implements OnInit {
 
   /**
    * The configuration for the current paginated search results
-     */
+   */
   searchOptions$: Observable<PaginatedSearchOptions>;
 
   /**
@@ -54,7 +54,7 @@ export class SearchSettingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate(['/search'], navigationExtras);
   }
 
   /**
@@ -71,6 +71,6 @@ export class SearchSettingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate(['/search'], navigationExtras);
   }
 }

@@ -39,8 +39,14 @@ export class SearchFormComponent {
    */
   @Input() scopes: DSpaceObject[];
 
-
+  /**
+   * Whether or not the search button should be displayed large
+   */
   @Input() large = false;
+
+  /**
+   * The brand color of the search button
+   */
   @Input() brandColor = 'primary';
 
   constructor(private router: Router) {
