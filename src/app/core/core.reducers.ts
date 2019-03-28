@@ -13,7 +13,6 @@ import {
   objectUpdatesReducer,
   ObjectUpdatesState
 } from './data/object-updates/object-updates.reducer';
-import { themeReducer, ThemeState } from './theme/theme.reducer';
 
 export interface CoreState {
   'cache/object': ObjectCacheState,
@@ -22,8 +21,7 @@ export interface CoreState {
   'data/request': RequestState,
   'index': MetaIndexState,
   'auth': AuthState,
-  'json/patch': JsonPatchOperationsState,
-  'theme': ThemeState
+  'json/patch': JsonPatchOperationsState
 }
 
 export const coreReducers: ActionReducerMap<CoreState> = {
@@ -33,6 +31,5 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'data/request': requestReducer,
   'index': indexReducer,
   'auth': authReducer,
-  'json/patch': jsonPatchOperationsReducer,
-  'theme': themeReducer
+  'json/patch': jsonPatchOperationsReducer
 };

@@ -1,4 +1,4 @@
-<div class="outer-wrapper" [ngClass]="(theme | async)?.cssClass">
+<div class="outer-wrapper preview-release">
     <ds-admin-sidebar></ds-admin-sidebar>
     <div class="inner-wrapper"  [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
