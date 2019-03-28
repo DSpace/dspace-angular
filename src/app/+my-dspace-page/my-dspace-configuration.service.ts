@@ -21,7 +21,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    * Default pagination settings
    */
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
-    id: 'mydspace-page-configuration',
+    id: 'mydspace-page',
     pageSize: 10,
     currentPage: 1
   });
@@ -34,7 +34,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
   /**
    * Default configuration parameter setting
    */
-  protected defaultConfiguration = 'default';
+  protected defaultConfiguration = 'workspace';
 
   /**
    * Default scope setting
@@ -62,6 +62,11 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
               protected route: ActivatedRoute) {
 
     super(routeService, route);
+
+    // override parent class initialization
+    this._defaults = null;
+    this.initDefaults();
+
     this.isSubmitter$ = this.roleService.isSubmitter();
     this.isController$ = this.roleService.isController();
     this.isAdmin$ = this.roleService.isAdmin();

@@ -59,7 +59,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Emits the current default values
    */
-  private _defaults: Observable<RemoteData<PaginatedSearchOptions>>;
+  protected _defaults: Observable<RemoteData<PaginatedSearchOptions>>;
 
   /**
    * Emits the current search options
@@ -74,7 +74,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * List of subscriptions to unsubscribe from on destroy
    */
-  private subs: Subscription[] = new Array();
+  protected subs: Subscription[] = new Array();
 
   /**
    * Initialize the search options
@@ -83,6 +83,14 @@ export class SearchConfigurationService implements OnDestroy {
    */
   constructor(protected routeService: RouteService,
               protected route: ActivatedRoute) {
+
+    this.initDefaults();
+  }
+
+  /**
+   * Initialize the search options
+   */
+  protected initDefaults() {
     this.defaults
       .pipe(getSucceededRemoteData())
       .subscribe((defRD) => {
