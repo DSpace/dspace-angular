@@ -3,6 +3,6 @@
         ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
         [disabled]="processingApprove"
         (click)="click()">
-  <span *ngIf="processingApprove"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="processingApprove"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
   <span *ngIf="!processingApprove"><i class="fa fa-thumbs-up"></i> {{'submission.workflow.tasks.claimed.approve' | translate}}</span>
 </button>

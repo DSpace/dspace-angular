@@ -3,7 +3,7 @@
         [ngbTooltip]="rejectTipContent"
         [disabled]="processingReject"
         (click)="openRejectModal(rejectModal)" >
-  <span *ngIf="processingReject"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+  <span *ngIf="processingReject"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
   <span *ngIf="!processingReject"><i class="fa fa-trash"></i> {{'submission.workflow.tasks.claimed.reject.submit' | translate}}</span>
 </button>
 
@@ -32,7 +32,7 @@
         class="btn btn-danger btn-lg btn-block mt-3"
         [disabled]="!rejectForm.valid || processingReject"
         type="submit">
-        <span *ngIf="processingReject"><i class='fa fa-circle-o-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
+        <span *ngIf="processingReject"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
         <span *ngIf="!processingReject">{{'submission.workflow.tasks.claimed.reject.reason.submit' | translate}}</span>
       </button>
     </form>
