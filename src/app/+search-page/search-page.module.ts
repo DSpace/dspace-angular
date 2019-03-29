@@ -27,6 +27,9 @@ import { SearchFacetFilterWrapperComponent } from './search-filters/search-filte
 import { SearchBooleanFilterComponent } from './search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
 import { SearchHierarchyFilterComponent } from './search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { SearchFacetOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetSelectedOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { SearchFacetRangeOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 
 const effects = [
   SearchSidebarEffects
@@ -58,6 +61,9 @@ const effects = [
     SearchTextFilterComponent,
     SearchHierarchyFilterComponent,
     SearchBooleanFilterComponent,
+    SearchFacetOptionComponent,
+    SearchFacetSelectedOptionComponent,
+    SearchFacetRangeOptionComponent
   ],
   providers: [
     SearchSidebarService,
@@ -76,6 +82,9 @@ const effects = [
     SearchTextFilterComponent,
     SearchHierarchyFilterComponent,
     SearchBooleanFilterComponent,
+    SearchFacetOptionComponent,
+    SearchFacetSelectedOptionComponent,
+    SearchFacetRangeOptionComponent
   ]
 })
 

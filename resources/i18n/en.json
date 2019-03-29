@@ -289,7 +289,7 @@
     "results-per-page": "Results Per Page",
     "sort-direction": "Sort Options",
     "showing": {
-      "label": "Now showing items ",
+      "label": "Now showing ",
       "detail": "{{ range }} of {{ total }}"
     }
   },
