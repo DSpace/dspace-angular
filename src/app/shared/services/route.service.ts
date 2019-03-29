@@ -4,7 +4,6 @@ import { ActivatedRoute, NavigationEnd, Params, Router, } from '@angular/router'
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { detect } from 'rxjs-spy';
 
 import { AppState } from '../../app.reducer';
 import { AddUrlToHistoryAction } from '../history/history.actions';

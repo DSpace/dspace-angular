@@ -1,5 +1,6 @@
 import { MemoizedSelector } from '@ngrx/store';
-import { coreSelector, CoreState } from '../core.reducers';
+import { CoreState } from '../core.reducers';
+import { coreSelector } from '../core.selectors';
 import { JsonPatchOperationsEntry, JsonPatchOperationsResourceEntry } from './json-patch-operations.reducer';
 import { keySelector, subStateSelector } from '../../submission/selectors';
 
