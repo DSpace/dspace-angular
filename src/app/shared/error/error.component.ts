@@ -32,5 +32,4 @@ export class ErrorComponent {
       this.subscription.unsubscribe();
     }
   }
-
 }

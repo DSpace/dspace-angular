@@ -21,6 +21,8 @@ import {
 import { RequestService } from './request.service';
 import { TestScheduler } from 'rxjs/testing';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { MockStore } from '../../shared/testing/mock-store';
+import { MetaIndexState } from '../index/index.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
