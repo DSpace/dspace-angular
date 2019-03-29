@@ -28,7 +28,7 @@ export const MetadataRegistryActionTypes = {
 
 /* tslint:disable:max-classes-per-file */
 /**
- * Used to collapse the sidebar
+ * Used to edit a metadata schema in the metadata registry
  */
 export class MetadataRegistryEditSchemaAction implements Action {
   type = MetadataRegistryActionTypes.EDIT_SCHEMA;
@@ -41,12 +41,15 @@ export class MetadataRegistryEditSchemaAction implements Action {
 }
 
 /**
- * Used to expand the sidebar
+ * Used to cancel the editing of a metadata schema in the metadata registry
  */
 export class MetadataRegistryCancelSchemaAction implements Action {
   type = MetadataRegistryActionTypes.CANCEL_EDIT_SCHEMA;
 }
 
+/**
+ * Used to select a single metadata schema in the metadata registry
+ */
 export class MetadataRegistrySelectSchemaAction implements Action {
   type = MetadataRegistryActionTypes.SELECT_SCHEMA;
 
@@ -57,6 +60,9 @@ export class MetadataRegistrySelectSchemaAction implements Action {
   }
 }
 
+/**
+ * Used to deselect a single metadata schema in the metadata registry
+ */
 export class MetadataRegistryDeselectSchemaAction implements Action {
   type = MetadataRegistryActionTypes.DESELECT_SCHEMA;
 
@@ -67,12 +73,15 @@ export class MetadataRegistryDeselectSchemaAction implements Action {
   }
 }
 
+/**
+ * Used to deselect all metadata schemas in the metadata registry
+ */
 export class MetadataRegistryDeselectAllSchemaAction implements Action {
   type = MetadataRegistryActionTypes.DESELECT_ALL_SCHEMA;
 }
 
 /**
- * Used to collapse the sidebar
+ * Used to edit a metadata field in the metadata registry
  */
 export class MetadataRegistryEditFieldAction implements Action {
   type = MetadataRegistryActionTypes.EDIT_FIELD;
@@ -85,12 +94,15 @@ export class MetadataRegistryEditFieldAction implements Action {
 }
 
 /**
- * Used to expand the sidebar
+ * Used to cancel the editing of a metadata field in the metadata registry
  */
 export class MetadataRegistryCancelFieldAction implements Action {
   type = MetadataRegistryActionTypes.CANCEL_EDIT_FIELD;
 }
 
+/**
+ * Used to select a single metadata field in the metadata registry
+ */
 export class MetadataRegistrySelectFieldAction implements Action {
   type = MetadataRegistryActionTypes.SELECT_FIELD;
 
@@ -101,6 +113,9 @@ export class MetadataRegistrySelectFieldAction implements Action {
   }
 }
 
+/**
+ * Used to deselect a single metadata field in the metadata registry
+ */
 export class MetadataRegistryDeselectFieldAction implements Action {
   type = MetadataRegistryActionTypes.DESELECT_FIELD;
 
@@ -111,6 +126,9 @@ export class MetadataRegistryDeselectFieldAction implements Action {
   }
 }
 
+/**
+ * Used to deselect all metadata fields in the metadata registry
+ */
 export class MetadataRegistryDeselectAllFieldAction implements Action {
   type = MetadataRegistryActionTypes.DESELECT_ALL_FIELD;
 }
@@ -120,6 +138,7 @@ export class MetadataRegistryDeselectAllFieldAction implements Action {
 /**
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
+ * These are all the actions to perform on the metadata registry state
  */
 export type MetadataRegistryAction
   = MetadataRegistryEditSchemaAction
