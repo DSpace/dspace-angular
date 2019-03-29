@@ -1,36 +1,25 @@
-import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  find,
-  first,
-  map,
-  mergeMap,
-  reduce,
-  startWith,
-  switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
-import { race as observableRace } from 'rxjs';
+import { Observable, race as observableRace } from 'rxjs';
+import { filter, mergeMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { coreSelector, CoreState } from '../core.reducers';
 import { IndexName, IndexState } from '../index/index.reducer';
 import { pathSelector } from '../shared/selectors';
 import { UUIDService } from '../shared/uuid.service';
-import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
-import { GetRequest, RestRequest } from './request.models';
+import {
+  RequestConfigureAction,
+  RequestExecuteAction,
+  RequestRemoveAction
+} from './request.actions';
+import { EndpointMapRequest, GetRequest, RestRequest } from './request.models';
 
 import { RequestEntry } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
-import { getResponseFromEntry } from '../shared/operators';
 import { AddToIndexAction, RemoveFromIndexBySubstringAction } from '../index/index.actions';
 
 @Injectable()
@@ -91,6 +80,9 @@ export class RequestService {
     return `client/${this.uuidService.generate()}`;
   }
 
+  /**
+   * Check if a request is currently pending
+   */
   isPending(request: GetRequest): boolean {
     // first check requests that haven't made it to the store yet
     if (this.requestsOnTheirWayToTheStore.includes(request.href)) {
@@ -104,10 +96,12 @@ export class RequestService {
       .subscribe((re: RequestEntry) => {
         isPending = (hasValue(re) && !re.completed)
       });
-
     return isPending;
   }
 
+  /**
+   * Retrieve a RequestEntry based on their uuid
+   */
   getByUUID(uuid: string): Observable<RequestEntry> {
     return observableRace(
       this.store.pipe(select(this.entryFromUUIDSelector(uuid))),
@@ -120,6 +114,9 @@ export class RequestService {
     );
   }
 
+  /**
+   * Retrieve a RequestEntry based on their href
+   */
   getByHref(href: string): Observable<RequestEntry> {
     return this.store.pipe(
       select(this.uuidFromHrefSelector(href)),
@@ -183,31 +180,11 @@ export class RequestService {
    * @param {GetRequest} request The request to check
    * @returns {boolean} True if the request is cached or still pending
    */
-  private isCachedOrPending(request: GetRequest) {
-    let isCached = this.objectCache.hasBySelfLink(request.href);
-    if (isCached) {
-      const responses: Observable<RestResponse> = this.isReusable(request.uuid).pipe(
-        filter((reusable: boolean) => reusable),
-        switchMap(() => {
-            return this.getByHref(request.href).pipe(
-              getResponseFromEntry(),
-              take(1)
-            );
-          }
-        ));
+  private isCachedOrPending(request: GetRequest): boolean {
+    const inReqCache = this.hasByHref(request.href);
+    const inObjCache = this.objectCache.hasBySelfLink(request.href);
+    const isCached = inReqCache || inObjCache;
 
-      const errorResponses = responses.pipe(filter((response) => !response.isSuccessful), map(() => true)); // TODO add a configurable number of retries in case of an error.
-      const dsoSuccessResponses = responses.pipe(
-        filter((response) => response.isSuccessful && hasValue((response as DSOSuccessResponse).resourceSelfLinks)),
-        map((response: DSOSuccessResponse) => response.resourceSelfLinks),
-        map((resourceSelfLinks: string[]) => resourceSelfLinks
-          .every((selfLink) => this.objectCache.hasBySelfLink(selfLink))
-        ));
-
-      const otherSuccessResponses = responses.pipe(filter((response) => response.isSuccessful && !hasValue((response as DSOSuccessResponse).resourceSelfLinks)), map(() => true));
-
-      observableMerge(errorResponses, otherSuccessResponses, dsoSuccessResponses).subscribe((c) => isCached = c);
-    }
     const isPending = this.isPending(request);
     return isCached || isPending;
   }
@@ -230,7 +207,7 @@ export class RequestService {
    */
   private trackRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.requestsOnTheirWayToTheStore = [...this.requestsOnTheirWayToTheStore, request.href];
-    this.store.pipe(select(this.entryFromUUIDSelector(request.href)),
+    this.getByHref(request.href).pipe(
       filter((re: RequestEntry) => hasValue(re)),
       take(1)
     ).subscribe((re: RequestEntry) => {
@@ -247,31 +224,39 @@ export class RequestService {
   }
 
   /**
-   * Check whether a Response should still be cached
+   * Check whether a cached response should still be valid
    *
-   * @param uuid
-   *    the uuid of the entry to check
+   * @param entry
+   *    the entry to check
    * @return boolean
-   *    false if the uuid has no value, no entry could be found, the response was nog successful or its time to
-   *    live has exceeded, true otherwise
+   *    false if the uuid has no value, the response was not successful or its time to
+   *    live was exceeded, true otherwise
    */
-  private isReusable(uuid: string): Observable<boolean> {
-    if (hasNoValue(uuid)) {
-      return observableOf(false);
+  private isValid(entry: RequestEntry): boolean {
+    if (hasValue(entry) && entry.completed && entry.response.isSuccessful) {
+      const timeOutdated = entry.response.timeAdded + entry.request.responseMsToLive;
+      const isOutDated = new Date().getTime() > timeOutdated;
+      return !isOutDated;
     } else {
-      const requestEntry$ = this.getByUUID(uuid);
-      return requestEntry$.pipe(
-        filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
-        map((entry: RequestEntry) => {
-          if (hasValue(entry) && entry.response.isSuccessful) {
-            const timeOutdated = entry.response.timeAdded + entry.request.responseMsToLive;
-            const isOutDated = new Date().getTime() > timeOutdated;
-            return !isOutDated;
-          } else {
-            return false;
-          }
-        })
-      );
+      return false;
     }
   }
+
+  /**
+   * Check whether the request with the specified href is cached
+   *
+   * @param href
+   *    The link of the request to check
+   * @return boolean
+   *    true if the request with the specified href is cached,
+   *    false otherwise
+   */
+  hasByHref(href: string): boolean {
+    let result = false;
+    this.getByHref(href).pipe(
+      take(1)
+    ).subscribe((requestEntry: RequestEntry) => result = this.isValid(requestEntry));
+    return result;
+  }
+
 }

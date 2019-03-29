@@ -40,4 +40,8 @@ export class SearchServiceStub {
   getFilterLabels() {
     return observableOf([]);
   }
+
+  search() {
+    return observableOf({});
+  }
 }

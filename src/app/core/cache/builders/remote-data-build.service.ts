@@ -5,8 +5,14 @@ import {
   race as observableRace
 } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, flatMap, map, startWith, switchMap } from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { distinctUntilChanged, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
+import {
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined
+} from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
@@ -50,13 +56,13 @@ export class RemoteDataBuildService {
     const payload$ =
       observableCombineLatest(
         href$.pipe(
-          switchMap((href: string) => this.objectCache.getBySelfLink<T>(href)),
+          switchMap((href: string) => this.objectCache.getObjectBySelfLink<T>(href)),
           startWith(undefined)),
         requestEntry$.pipe(
           getResourceLinksFromResponse(),
           switchMap((resourceSelfLinks: string[]) => {
             if (isNotEmpty(resourceSelfLinks)) {
-              return this.objectCache.getBySelfLink<T>(resourceSelfLinks[0]);
+              return this.objectCache.getObjectBySelfLink<T>(resourceSelfLinks[0]);
             } else {
               return observableOf(undefined);
             }
