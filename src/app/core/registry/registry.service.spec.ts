@@ -5,7 +5,7 @@ import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { RequestEntry } from '../data/request.reducer';
 import { RemoteData } from '../data/remote-data';
 import { PageInfo } from '../shared/page-info.model';
@@ -14,26 +14,29 @@ import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import {
   RegistryBitstreamformatsSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
-  RegistryMetadataschemasSuccessResponse, RestResponse
+  RegistryMetadataschemasSuccessResponse,
+  RestResponse
 } from '../cache/response.models';
 import { Component } from '@angular/core';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
 import { map } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
+import { Store, StoreModule } from '@ngrx/store';
 import { MockStore } from '../../shared/testing/mock-store';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   MetadataRegistryCancelFieldAction,
-  MetadataRegistryCancelSchemaAction, MetadataRegistryDeselectAllFieldAction,
-  MetadataRegistryDeselectAllSchemaAction, MetadataRegistryDeselectFieldAction,
+  MetadataRegistryCancelSchemaAction,
+  MetadataRegistryDeselectAllFieldAction,
+  MetadataRegistryDeselectAllSchemaAction,
+  MetadataRegistryDeselectFieldAction,
   MetadataRegistryDeselectSchemaAction,
   MetadataRegistryEditFieldAction,
-  MetadataRegistryEditSchemaAction, MetadataRegistrySelectFieldAction,
+  MetadataRegistryEditSchemaAction,
+  MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { MetadataSchema } from '../metadata/metadataschema.model';
@@ -45,6 +48,7 @@ class DummyComponent {
 
 describe('RegistryService', () => {
   let registryService: RegistryService;
+  let mockStore;
   const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-service-spec-pagination',
     pageSize: 20
@@ -98,40 +102,6 @@ describe('RegistryService', () => {
       schema: mockSchemasList[1]
     }
   ];
-  const mockFormatsList = [
-    {
-      shortDescription: 'Unknown',
-      description: 'Unknown data format',
-      mimetype: 'application/octet-stream',
-      supportLevel: 0,
-      internal: false,
-      extensions: null
-    },
-    {
-      shortDescription: 'License',
-      description: 'Item-specific license agreed upon to submission',
-      mimetype: 'text/plain; charset=utf-8',
-      supportLevel: 1,
-      internal: true,
-      extensions: null
-    },
-    {
-      shortDescription: 'CC License',
-      description: 'Item-specific Creative Commons license agreed upon to submission',
-      mimetype: 'text/html; charset=utf-8',
-      supportLevel: 2,
-      internal: true,
-      extensions: null
-    },
-    {
-      shortDescription: 'Adobe PDF',
-      description: 'Adobe Portable Document Format',
-      mimetype: 'application/pdf',
-      supportLevel: 0,
-      internal: false,
-      extensions: null
-    }
-  ];
 
   const pageInfo = new PageInfo();
   pageInfo.elementsPerPage = 20;
@@ -158,11 +128,9 @@ describe('RegistryService', () => {
     }
   };
 
-  const mockStore = new MockStore<AppState>(Object.create(null));
-
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot()],
+      imports: [CommonModule, StoreModule.forRoot({}), TranslateModule.forRoot()],
       declarations: [
         DummyComponent
       ],
@@ -170,13 +138,13 @@ describe('RegistryService', () => {
         { provide: RequestService, useValue: getMockRequestService() },
         { provide: RemoteDataBuildService, useValue: rdbStub },
         { provide: HALEndpointService, useValue: halServiceStub },
-        { provide: Store, useValue: mockStore },
+        { provide: Store, useClass: MockStore },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         RegistryService
       ]
     });
     registryService = TestBed.get(RegistryService);
-
+    mockStore = TestBed.get(Store);
     spyOn((registryService as any).halService, 'getEndpoint').and.returnValue(observableOf(endpoint));
   });
 
@@ -185,7 +153,7 @@ describe('RegistryService', () => {
       metadataschemas: mockSchemasList,
       page: pageInfo
     });
-    const response = new RegistryMetadataschemasSuccessResponse(queryResponse, '200', pageInfo);
+    const response = new RegistryMetadataschemasSuccessResponse(queryResponse, 200, 'OK', pageInfo);
     const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
@@ -214,7 +182,7 @@ describe('RegistryService', () => {
       metadataschemas: mockSchemasList,
       page: pageInfo
     });
-    const response = new RegistryMetadataschemasSuccessResponse(queryResponse, '200', pageInfo);
+    const response = new RegistryMetadataschemasSuccessResponse(queryResponse, 200, 'OK', pageInfo);
     const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
@@ -243,7 +211,7 @@ describe('RegistryService', () => {
       metadatafields: mockFieldsList,
       page: pageInfo
     });
-    const response = new RegistryMetadatafieldsSuccessResponse(queryResponse, '200', pageInfo);
+    const response = new RegistryMetadatafieldsSuccessResponse(queryResponse, 200, 'OK', pageInfo);
     const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {
@@ -272,7 +240,7 @@ describe('RegistryService', () => {
       bitstreamformats: mockFieldsList,
       page: pageInfo
     });
-    const response = new RegistryBitstreamformatsSuccessResponse(queryResponse, '200', pageInfo);
+    const response = new RegistryBitstreamformatsSuccessResponse(queryResponse, 200, 'OK', pageInfo);
     const responseEntry = Object.assign(new RequestEntry(), { response: response });
 
     beforeEach(() => {

@@ -1,8 +1,9 @@
-import { Observable, race as observableRace } from 'rxjs';
-import { filter, mergeMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { Observable, race as observableRace } from 'rxjs';
+import { filter, mergeMap, take } from 'rxjs/operators';
+
 import { AppState } from '../../app.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -15,13 +16,8 @@ import {
   uuidFromHrefSelector
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
-import {
-  RequestConfigureAction,
-  RequestExecuteAction,
-  RequestRemoveAction
-} from './request.actions';
+import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
 import { GetRequest, RestRequest } from './request.models';
-
 import { RequestEntry, RequestState } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
@@ -141,7 +137,7 @@ export class RequestService {
    * @param {RestRequest} request The request to send out
    * @param {boolean} forceBypassCache When true, a new request is always dispatched
    */
-  // TODO to review "overrideRequest" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
+  // TODO to review "forceBypassCache" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
     if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {

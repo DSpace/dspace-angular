@@ -1,20 +1,20 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Item} from '../../../core/shared/item.model';
-import {RouterStub} from '../../../shared/testing/router-stub';
-import {of as observableOf} from 'rxjs';
-import {RemoteData} from '../../../core/data/remote-data';
-import {NotificationsServiceStub} from '../../../shared/testing/notifications-service-stub';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateModule} from '@ngx-translate/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ItemDataService} from '../../../core/data/item-data.service';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {ItemPrivateComponent} from './item-private.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Item } from '../../../core/shared/item.model';
+import { RouterStub } from '../../../shared/testing/router-stub';
+import { of as observableOf } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { ItemPrivateComponent } from './item-private.component';
 import { RestResponse } from '../../../core/cache/response.models';
 
 let comp: ItemPrivateComponent;
@@ -44,8 +44,8 @@ describe('ItemPrivateComponent', () => {
       url: `${itemPageUrl}/edit`
     });
 
-    mockItemDataService = jasmine.createSpyObj('mockItemDataService',{
-      setDiscoverable: observableOf(new RestResponse(true, '200'))
+    mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
+      setDiscoverable: observableOf(new RestResponse(true, 200, 'OK'))
     });
 
     routeStub = {
@@ -62,10 +62,10 @@ describe('ItemPrivateComponent', () => {
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
       declarations: [ItemPrivateComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: Router, useValue: routerStub},
-        {provide: ItemDataService, useValue: mockItemDataService},
-        {provide: NotificationsService, useValue: notificationsServiceStub},
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Router, useValue: routerStub },
+        { provide: ItemDataService, useValue: mockItemDataService },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
@@ -73,8 +73,8 @@ describe('ItemPrivateComponent', () => {
   }));
 
   beforeEach(() => {
-    successfulRestResponse = new RestResponse(true, '200');
-    failRestResponse = new RestResponse(false, '500');
+    successfulRestResponse = new RestResponse(true, 200, 'OK');
+    failRestResponse = new RestResponse(false, 500, 'Internal Server Error');
 
     fixture = TestBed.createComponent(ItemPrivateComponent);
     comp = fixture.componentInstance;

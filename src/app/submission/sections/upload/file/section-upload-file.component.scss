@@ -1,0 +1,8 @@
+@import '../../../../../styles/variables';
+
+.sticky-buttons {
+  position: sticky;
+  top: $dropdown-item-padding-x * 3;
+  z-index: $submission-footer-z-index;
+  background-color: rgba($white, .97);
+}

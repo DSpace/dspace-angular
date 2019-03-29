@@ -1,9 +1,13 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
-
-import {distinctUntilChanged, switchMap, tap, filter, catchError, debounceTime, merge, map} from 'rxjs/operators';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, switchMap, tap } from 'rxjs/operators';
+import { Observable, of as observableOf, Subject } from 'rxjs';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -11,11 +15,8 @@ import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { isEmpty, isNotEmpty } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import {
-  DynamicFormControlComponent,
-  DynamicFormLayoutService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+
+import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
@@ -34,7 +35,8 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   searching = false;
   searchOptions: IntegrationSearchOptions;
   searchFailed = false;
-  hideSearchingWhenUnsubscribed = new Observable(() => () => this.changeSearchingStatus(false));
+  hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.changeSearchingStatus(false));
+  click$ = new Subject<string>();
   currentValue: any;
   inputValue: any;
 
@@ -42,8 +44,9 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
     return (typeof x === 'object') ? x.display : x
   };
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
+      merge(this.click$),
       debounceTime(300),
       distinctUntilChanged(),
       tap(() => this.changeSearchingStatus(true)),
@@ -64,12 +67,14 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
             catchError(() => {
               this.searchFailed = true;
               return observableOf({list: []});
-            }),);
+            }));
         }
       }),
       map((results) => results.list),
       tap(() => this.changeSearchingStatus(false)),
-      merge(this.hideSearchingWhenUnsubscribed),);
+      merge(this.hideSearchingWhenUnsubscribed$)
+    )
+  };
 
   constructor(private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef,
@@ -99,8 +104,7 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
 
   onInput(event) {
     if (!this.model.authorityOptions.closed && isNotEmpty(event.target.value)) {
-      const valueObj = new FormFieldMetadataValueObject(event.target.value);
-      this.inputValue = valueObj;
+      this.inputValue = new FormFieldMetadataValueObject(event.target.value);
       this.model.valueUpdates.next(this.inputValue);
     }
   }
@@ -130,5 +134,11 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
     this.currentValue = event.item;
     this.model.valueUpdates.next(event.item);
     this.change.emit(event.item);
+  }
+
+  public whenClickOnConfidenceNotAccepted(confidence: ConfidenceType) {
+    if (!this.model.readOnly) {
+      this.click$.next(this.formatter(this.currentValue));
+    }
   }
 }

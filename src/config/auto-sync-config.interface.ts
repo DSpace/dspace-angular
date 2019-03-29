@@ -27,4 +27,4 @@ export interface AutoSyncConfig {
    * The max number of requests in the buffer before a sync to the server
    */
   maxBufferSize: number;
-};
+}

@@ -155,7 +155,7 @@ describe('SearchService', () => {
       const endPoint = 'http://endpoint.com/test/test';
       const searchOptions = new PaginatedSearchOptions({});
       const queryResponse = Object.assign(new SearchQueryResponse(), { objects: [] });
-      const response = new SearchSuccessResponse(queryResponse, '200');
+      const response = new SearchSuccessResponse(queryResponse, 200, 'OK');
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
         /* tslint:disable:no-empty */
@@ -180,7 +180,7 @@ describe('SearchService', () => {
     describe('when getConfig is called without a scope', () => {
       const endPoint = 'http://endpoint.com/test/config';
       const filterConfig = [new SearchFilterConfig()];
-      const response = new FacetConfigSuccessResponse(filterConfig, '200');
+      const response = new FacetConfigSuccessResponse(filterConfig,  200, 'OK');
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
         /* tslint:disable:no-empty */
@@ -207,7 +207,7 @@ describe('SearchService', () => {
       const scope = 'test';
       const requestUrl = endPoint + '?scope=' + scope;
       const filterConfig = [new SearchFilterConfig()];
-      const response = new FacetConfigSuccessResponse(filterConfig, '200');
+      const response = new FacetConfigSuccessResponse(filterConfig, 200, 'OK');
       beforeEach(() => {
         spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
         /* tslint:disable:no-empty */

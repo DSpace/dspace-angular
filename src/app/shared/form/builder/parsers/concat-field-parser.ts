@@ -31,16 +31,7 @@ export class ConcatFieldParser extends FieldParser {
 
     let clsGroup: DynamicFormControlLayout;
     let clsInput: DynamicFormControlLayout;
-    let newId: string;
-
-    if (this.configData.selectableMetadata[0].metadata.includes('.')) {
-      newId = this.configData.selectableMetadata[0].metadata
-        .split('.')
-        .slice(0, this.configData.selectableMetadata[0].metadata.split('.').length - 1)
-        .join('.');
-    } else {
-      newId = this.configData.selectableMetadata[0].metadata
-    }
+    const id: string = this.configData.selectableMetadata[0].metadata;
 
     clsInput = {
       grid: {
@@ -48,14 +39,14 @@ export class ConcatFieldParser extends FieldParser {
       }
     };
 
-    const groupId = newId.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;
+    const groupId = id.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;
     const concatGroup: DynamicConcatModelConfig = this.initModel(groupId, false, false);
 
     concatGroup.group = [];
     concatGroup.separator = this.separator;
 
-    const input1ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_FIRST_INPUT_SUFFIX, label, false, false);
-    const input2ModelConfig: DynamicInputModelConfig = this.initModel(newId + CONCAT_SECOND_INPUT_SUFFIX, label, true, false);
+    const input1ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_FIRST_INPUT_SUFFIX, label, false, false);
+    const input2ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_SECOND_INPUT_SUFFIX, label, true, false);
 
     if (this.configData.mandatory) {
       input1ModelConfig.required = true;
@@ -67,16 +58,6 @@ export class ConcatFieldParser extends FieldParser {
 
     if (isNotEmpty(this.secondPlaceholder)) {
       input2ModelConfig.placeholder = this.secondPlaceholder;
-    }
-
-    // Init values
-    if (isNotEmpty(fieldValue)) {
-      const values = fieldValue.value.split(this.separator);
-
-      if (values.length > 1) {
-        input1ModelConfig.value = values[0].trim();
-        input2ModelConfig.value = values[1].trim();
-      }
     }
 
     // Split placeholder if is like 'placeholder1/placeholder2'
@@ -98,6 +79,11 @@ export class ConcatFieldParser extends FieldParser {
     };
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();
+
+    // Init values
+    if (isNotEmpty(fieldValue)) {
+      concatModel.value = fieldValue;
+    }
 
     return concatModel;
   }

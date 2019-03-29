@@ -19,7 +19,7 @@ export class RegistryBitstreamformatsResponseParsingService implements ResponseP
     payload.bitstreamformats = bitstreamformats;
 
     const deserialized = new DSpaceRESTv2Serializer(RegistryBitstreamformatsResponse).deserialize(payload);
-    return new RegistryBitstreamformatsSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload.page));
+    return new RegistryBitstreamformatsSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(data.payload.page));
   }
 
 }

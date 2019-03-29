@@ -82,10 +82,10 @@ describe('AbstractSimpleItemActionComponent', () => {
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
       declarations: [MySimpleItemActionComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: Router, useValue: routerStub},
-        {provide: ItemDataService, useValue: mockItemDataService},
-        {provide: NotificationsService, useValue: notificationsServiceStub},
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Router, useValue: routerStub },
+        { provide: ItemDataService, useValue: mockItemDataService },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
@@ -93,12 +93,17 @@ describe('AbstractSimpleItemActionComponent', () => {
   }));
 
   beforeEach(() => {
-    successfulRestResponse = new RestResponse(true, '200');
-    failRestResponse = new RestResponse(false, '500');
+    successfulRestResponse = new RestResponse(true, 200, 'OK');
+    failRestResponse = new RestResponse(false, 500, 'Internal Server Error');
 
     fixture = TestBed.createComponent(MySimpleItemActionComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    comp = null;
   });
 
   it('should render a page with messages based on the provided messageKey', () => {
@@ -124,7 +129,6 @@ describe('AbstractSimpleItemActionComponent', () => {
   });
 
   it('should process a RestResponse to navigate and display success notification', () => {
-    spyOn(notificationsServiceStub, 'success');
     comp.processRestResponse(successfulRestResponse);
 
     expect(notificationsServiceStub.success).toHaveBeenCalled();
@@ -132,7 +136,6 @@ describe('AbstractSimpleItemActionComponent', () => {
   });
 
   it('should process a RestResponse to navigate and display success notification', () => {
-    spyOn(notificationsServiceStub, 'error');
     comp.processRestResponse(failRestResponse);
 
     expect(notificationsServiceStub.error).toHaveBeenCalled();

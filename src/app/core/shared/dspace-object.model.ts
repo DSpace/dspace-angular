@@ -1,20 +1,19 @@
-import {
-  MetadataMap,
-  MetadataValue,
-  MetadataValueFilter,
-  MetadatumViewModel
-} from './metadata.models';
+import { Observable } from 'rxjs';
+
+import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
 import { Metadata } from './metadata.utils';
+import { isUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { Observable } from 'rxjs';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
 export class DSpaceObject implements CacheableObject, ListableObject {
+
+  private _name: string;
 
   self: string;
 
@@ -37,7 +36,14 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    * The name for this DSpaceObject
    */
   get name(): string {
-    return this.firstMetadataValue('dc.title');
+    return (isUndefined(this._name)) ? this.firstMetadataValue('dc.title') : this._name;
+  }
+
+  /**
+   * The name for this DSpaceObject
+   */
+  set name(name) {
+    this._name = name;
   }
 
   /**

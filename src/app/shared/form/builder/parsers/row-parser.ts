@@ -2,7 +2,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_ARRAY, DynamicFormGroupModelConfig } from '@n
 import { uniqueId } from 'lodash';
 
 import { IntegrationSearchOptions } from '../../../../core/integration/models/integration-options.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { isEmpty } from '../../../empty.util';
 import { setLayout } from './parser.utils';
@@ -34,7 +34,8 @@ export class RowParser {
 
     const scopedFields: FormFieldModel[] = this.filterScopedFields(this.rowData.fields);
 
-    const layoutGridClass = ' col-sm-' + Math.trunc(12 / scopedFields.length) + ' d-flex flex-column justify-content-start';
+    const layoutDefaultGridClass = ' col-sm-' + Math.trunc(12 / scopedFields.length);
+    const layoutClass = ' d-flex flex-column justify-content-start';
 
     const parserOptions: ParserOptions = {
       readOnly: this.readOnly,
@@ -45,17 +46,18 @@ export class RowParser {
     // Iterate over row's fields
     scopedFields.forEach((fieldData: FormFieldModel) => {
 
+      const layoutFieldClass = (fieldData.style || layoutDefaultGridClass) + layoutClass;
       const parserCo = ParserFactory.getConstructor(fieldData.input.type as ParserType);
       if (parserCo) {
         fieldModel = new parserCo(fieldData, this.initFormValues, parserOptions).parse();
       } else {
-        throw new Error(`unknown form control model type defined with label "${fieldData.label}"`);
+        throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`, );
       }
 
       if (fieldModel) {
         if (fieldModel.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY || fieldModel.type === DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP) {
           if (this.rowData.fields.length > 1) {
-            setLayout(fieldModel, 'grid', 'host', layoutGridClass);
+            setLayout(fieldModel, 'grid', 'host', layoutFieldClass);
             config.group.push(fieldModel);
             // if (isEmpty(parsedResult)) {
             //   parsedResult = [];
@@ -72,7 +74,7 @@ export class RowParser {
               return;
             })
           } else {
-            setLayout(fieldModel, 'grid', 'host', layoutGridClass);
+            setLayout(fieldModel, 'grid', 'host', layoutFieldClass);
             config.group.push(fieldModel);
           }
         }

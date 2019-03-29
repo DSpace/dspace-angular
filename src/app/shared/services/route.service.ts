@@ -1,12 +1,13 @@
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Params, Router, } from '@angular/router';
+
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import {
-  ActivatedRoute, convertToParamMap, NavigationExtras, Params,
-  Router,
-} from '@angular/router';
-import { isNotEmpty } from '../empty.util';
-import { detect } from 'rxjs-spy';
+import { select, Store } from '@ngrx/store';
+
+import { AppState } from '../../app.reducer';
+import { AddUrlToHistoryAction } from '../history/history.actions';
+import { historySelector } from '../history/selectors';
 
 /**
  * Service to keep track of the current query parameters
@@ -14,7 +15,7 @@ import { detect } from 'rxjs-spy';
 @Injectable()
 export class RouteService {
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
   }
 
   /**
@@ -80,4 +81,23 @@ export class RouteService {
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
     );
   }
+
+  public saveRouting(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
+        this.store.dispatch(new AddUrlToHistoryAction(urlAfterRedirects))
+      });
+  }
+
+  public getHistory(): Observable<string[]> {
+    return this.store.pipe(select(historySelector));
+  }
+
+  public getPreviousUrl(): Observable<string> {
+    return this.getHistory().pipe(
+      map((history: string[]) => history[history.length - 2] || '')
+    );
+  }
+
 }

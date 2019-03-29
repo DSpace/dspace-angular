@@ -1,0 +1,50 @@
+<div>
+  <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group input-group" (openChange)="toggled($event)">
+    <div class="input-group-prepend">
+      <span id="collectionControlsMenuLabel" class="input-group-text">
+        {{ 'submission.sections.general.collection' | translate }}
+      </span>
+    </div>
+    <button aria-describedby="collectionControlsMenuLabel"
+            id="collectionControlsMenuButton"
+            class="btn btn-outline-primary"
+            (blur)="onClose()"
+            (click)="onClose()"
+            [disabled]="(disabled$ | async)"
+            ngbDropdownToggle>
+      <span *ngIf="(disabled$ | async)"><i class='fas fa-circle-notch fa-spin'></i></span>
+      <span *ngIf="!(disabled$ | async)">{{ selectedCollectionName$ | async }}</span>
+    </button>
+
+    <div ngbDropdownMenu
+         class="dropdown-menu"
+         id="collectionControlsDropdownMenu"
+         aria-labelledby="collectionControlsMenuButton">
+      <div class="form-group w-100 pr-2 pl-2">
+        <input *ngIf="searchField"
+               type="search"
+               class="form-control w-100"
+               (click)="$event.stopPropagation();"
+               placeholder="{{ 'submission.sections.general.search-collection' | translate }}"
+               [formControl]="searchField">
+      </div>
+      <div class="dropdown-divider"></div>
+      <div class="scrollable-menu" aria-labelledby="dropdownMenuButton" (scroll)="onScroll($event)">
+        <button class="dropdown-item disabled" *ngIf="(searchListCollection$ | async)?.length == 0">
+          {{'submission.sections.general.no-collection' | translate}}
+        </button>
+        <button *ngFor="let listItem of (searchListCollection$ | async)"
+                class="dropdown-item collection-item"
+                title="{{ listItem.collection.name }}"
+                (click)="onSelect(listItem)">
+          <ul class="list-unstyled mb-0">
+            <li class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities" >
+              {{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i>
+            </li>
+            <li class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</li>
+          </ul>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

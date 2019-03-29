@@ -1,13 +1,14 @@
+import * as ngrx from '@ngrx/store';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { of as observableOf, EMPTY } from 'rxjs';
+import { BehaviorSubject, EMPTY, of as observableOf } from 'rxjs';
+
 import { getMockObjectCacheService } from '../../shared/mocks/mock-object-cache.service';
 import { defaultUUID, getMockUUIDService } from '../../shared/mocks/mock-uuid.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
-import * as ngrx from '@ngrx/store';
-import { ActionsSubject, Store } from '@ngrx/store';
 import {
   DeleteRequest,
   GetRequest,
@@ -20,9 +21,6 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { TestScheduler } from 'rxjs/testing';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { MockStore } from '../../shared/testing/mock-store';
-import { MetaIndexState } from '../index/index.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -174,9 +172,6 @@ describe('RequestService', () => {
 
       it('should return an Observable of undefined', () => {
         const result = service.getByUUID(testUUID);
-        // const expected = cold('b', {
-        //   b: undefined
-        // });
 
         scheduler.expectObservable(result).toBe('b', { b: undefined });
       });
@@ -294,29 +289,8 @@ describe('RequestService', () => {
         service.configure(testPatchRequest);
         expect(serviceAsAny.dispatchRequest).toHaveBeenCalledWith(testPatchRequest);
       });
-
-      it('shouldn\'t track it on it\'s way to the store', () => {
-        spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
-
-        serviceAsAny.dispatchRequest(testPostRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testPutRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testDeleteRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testOptionsRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testHeadRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-
-        serviceAsAny.dispatchRequest(testPatchRequest);
-        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
-      });
     });
+
   });
 
   describe('isCachedOrPending', () => {
@@ -386,6 +360,30 @@ describe('RequestService', () => {
       const request = testGetRequest;
       serviceAsAny.dispatchRequest(request);
       expect(store.dispatch).toHaveBeenCalledWith(new RequestExecuteAction(request.uuid));
+    });
+
+    describe('when it\'s not a GET request', () => {
+      it('shouldn\'t track it', () => {
+        spyOn(serviceAsAny, 'trackRequestsOnTheirWayToTheStore');
+
+        serviceAsAny.dispatchRequest(testPostRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testPutRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testDeleteRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testOptionsRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testHeadRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+
+        serviceAsAny.dispatchRequest(testPatchRequest);
+        expect(serviceAsAny.trackRequestsOnTheirWayToTheStore).not.toHaveBeenCalled();
+      });
     });
   });
 

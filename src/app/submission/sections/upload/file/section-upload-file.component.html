@@ -1,0 +1,68 @@
+<ng-container *ngIf="fileData">
+  <div class="row">
+    <div class="col-md-2">
+      <!--ds-thumbnail [thumbnail]="bitstreamsList[bitstreamKey].url | async"></ds-thumbnail-->
+      <ds-thumbnail [thumbnail]="fileData?.thumbnail"></ds-thumbnail>
+    </div>
+    <div class="col-md-10">
+      <div class="float-left w-75">
+        <h3>{{fileName}} <span class="text-muted">({{fileData?.sizeBytes | dsFileSize}})</span></h3>
+      </div>
+      <div class="float-right w-15" [class.sticky-buttons]="!readMode">
+        <ng-container *ngIf="readMode">
+          <button class="btn btn-link" (click)="downloadBitstreamFile(); $event.stopPropagation()"><i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i></button>
+          <!--<a href="{{fileData.url}}"  title="Download file" target="_blank"><i class="fa fa-download text-normal mr-3" aria-hidden="true"></i></a>-->
+          <button class="btn btn-link" (click)="$event.preventDefault();switchMode();"><i class="fa fa-edit fa-2x text-normal"></i></button>
+          <button class="btn btn-link"
+                  title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
+                  [disabled]="(processingDelete$ | async)"
+                  (click)="$event.preventDefault();confirmDelete(content);">
+            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
+            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="!readMode">
+          <button class="btn btn-link" (click)="saveBitstreamData($event);" title="{{ 'submission.sections.upload.save-metadata' | translate }}"><i class="fa fa-save fa-2x text-success"></i></button>
+          <button class="btn btn-link" (click)="$event.preventDefault();switchMode();" title="{{ 'submission.sections.upload.undo' | translate }}"><i class="fa fa-ban fa-2x text-warning"></i></button>
+          <button class="btn btn-link"
+                  title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
+                  [disabled]="(processingDelete$ | async)"
+                  (click)="$event.preventDefault();confirmDelete(content);">
+            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
+            <i *ngIf="!(processingDelete$ | async)" class="fa fa-trash fa-2x text-danger"></i>
+          </button>
+        </ng-container>
+      </div>
+      <div class="clearfix"></div>
+      <ds-submission-section-upload-file-view *ngIf="readMode"
+                                              [fileData]="fileData"></ds-submission-section-upload-file-view>
+      <ds-submission-section-upload-file-edit *ngIf="!readMode"
+                                              [availableAccessConditionGroups]="availableAccessConditionGroups"
+                                              [availableAccessConditionOptions]="availableAccessConditionOptions"
+                                              [collectionId]="collectionId"
+                                              [collectionPolicyType]="collectionPolicyType"
+                                              [configMetadataForm]="configMetadataForm"
+                                              [fileData]="fileData"
+                                              [fileId]="fileId"
+                                              [fileIndex]="fileIndex"
+                                              [formId]="formId"
+                                              [sectionId]="sectionId"></ds-submission-section-upload-file-edit>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'submission.sections.upload.delete.confirm.info' | translate }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{ 'submission.sections.upload.delete.confirm.cancel' | translate }}</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">{{ 'submission.sections.upload.delete.confirm.submit' | translate }}</button>
+  </div>
+</ng-template>

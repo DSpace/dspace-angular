@@ -2,103 +2,88 @@
      (click)="$event.stopPropagation();"
      (openChange)="openChange($event);">
 
-  <!--Simple lookup, only 1 field -->
-  <div class="form-row" *ngIf="!isLookupName()">
-    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
-      <div class="row">
-        <div class="col">
-          <input class="form-control"
-                 [attr.autoComplete]="model.autoComplete"
-                 [class.is-invalid]="showErrorMessages"
-                 [dynamicId]="bindId && model.id"
-                 [name]="model.name"
-                 [type]="model.inputType"
-                 [(ngModel)]="firstInputValue"
-                 [disabled]="isInputDisabled()"
-                 [placeholder]="model.placeholder"
-                 [readonly]="model.readOnly"
-                 (change)="$event.preventDefault()"
-                 (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-                 (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-                 (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
-                 (input)="onInput($event)">
-        </div>
-
-      </div>
+  <div class="form-row align-items-center">
+    <!--Simple lookup, first field -->
+    <div class="col right-addon">
+      <i dsAuthorityConfidenceState
+         class="far fa-circle fa-2x fa-fw position-absolute mt-1 p-0 pr-2"
+         aria-hidden="true"
+         [authorityValue]="model.value"
+         (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted(sdRef, $event)"></i>
+      <input class="form-control"
+             [attr.autoComplete]="model.autoComplete"
+             [class.is-invalid]="showErrorMessages"
+             [dynamicId]="bindId && model.id"
+             [name]="model.name"
+             [type]="model.inputType"
+             [(ngModel)]="firstInputValue"
+             [disabled]="isInputDisabled()"
+             [placeholder]="model.placeholder | translate"
+             [readonly]="model.readOnly"
+             (change)="$event.preventDefault()"
+             (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
+             (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+             (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
+             (input)="onInput($event)">
     </div>
-    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-1 text-center">
+
+    <!--Lookup-name, second field-->
+    <div *ngIf="isLookupName()" class="col" >
+      <input  class="form-control"
+              [ngClass]="{}"
+              [attr.autoComplete]="model.autoComplete"
+              [class.is-invalid]="showErrorMessages"
+              [dynamicId]="bindId && model.id"
+              [name]="model.name + '_2'"
+              [type]="model.inputType"
+              [(ngModel)]="secondInputValue"
+              [disabled]="firstInputValue.length === 0 || isInputDisabled()"
+              [placeholder]="model.secondPlaceholder | translate"
+              [readonly]="model.readOnly"
+              (change)="$event.preventDefault()"
+              (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
+              (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
+              (click)="$event.stopPropagation(); sdRef.close();"
+              (input)="onInput($event)">
+    </div>
+    <div class="col-auto text-center">
       <button ngbDropdownAnchor
-              *ngIf="!isInputDisabled()" class="btn btn-secondary"
+              class="btn btn-secondary"
               type="button"
+              ngbTooltip="{{'form.search-help' | translate}}"
+              placement="top"
               [disabled]="model.readOnly || isSearchDisabled()"
+              [hidden]="isInputDisabled()"
               (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
       </button>
       <button *ngIf="isInputDisabled()" class="btn btn-secondary"
               type="button"
+              ngbTooltip="{{'form.clear-help' | translate}}"
+              placement="top"
               [disabled]="model.readOnly"
-              (click)="remove($event)">{{'form.remove' | translate}}
+              (click)="remove($event)">{{'form.clear' | translate}}
       </button>
     </div>
-  </div>
-
-  <!--Lookup-name, 2 fields-->
-  <div class="form-row" *ngIf="isLookupName()">
-    <div class="col-xs-12 col-md-8 col-lg-9">
-      <div class="row">
-        <div class="col-xs-12 col-md-6">
-          <input class="form-control"
-                 [attr.autoComplete]="model.autoComplete"
-                 [class.is-invalid]="showErrorMessages"
-                 [dynamicId]="bindId && model.id"
-                 [name]="model.name"
-                 [type]="model.inputType"
-                 [(ngModel)]="firstInputValue"
-                 [disabled]="isInputDisabled()"
-                 [placeholder]="model.placeholder | translate"
-                 [readonly]="model.readOnly"
-                 (change)="$event.preventDefault()"
-                 (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-                 (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-                 (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
-                 (input)="onInput($event)">
-        </div>
-
-        <div *ngIf="isLookupName()" class="col-xs-12 col-md-6 pl-md-0" >
-          <input  class="form-control"
-                  [ngClass]="{}"
-                  [attr.autoComplete]="model.autoComplete"
-                  [class.is-invalid]="showErrorMessages"
-                  [dynamicId]="bindId && model.id"
-                  [name]="model.name + '_2'"
-                  [type]="model.inputType"
-                  [(ngModel)]="secondInputValue"
-                  [disabled]="firstInputValue.length === 0 || isInputDisabled()"
-                  [placeholder]="model.secondPlaceholder | translate"
-                  [readonly]="model.readOnly"
-                  (change)="$event.preventDefault()"
-                  (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
-                  (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-                  (click)="$event.stopPropagation(); sdRef.close();"
-                  (input)="onInput($event)">
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-md-3 col-lg-2 text-center">
-      <button ngbDropdownAnchor
-              *ngIf="!isInputDisabled()" class="btn btn-secondary"
+    <div class="col-auto text-center">
+      <button *ngIf="!editMode" class="btn btn-secondary"
               type="button"
-              [disabled]="isSearchDisabled()"
-              (click)="sdRef.open(); search(); $event.stopPropagation();">{{'form.search' | translate}}
+              ngbTooltip="{{'form.edit-help' | translate}}"
+              placement="top"
+              [disabled]="isEditDisabled()"
+              (click)="switchEditMode()">{{'form.edit' | translate}}
       </button>
-      <button *ngIf="isInputDisabled()" class="btn btn-secondary"
+      <button *ngIf="editMode" class="btn btn-secondary"
               type="button"
-              (click)="remove($event)">{{'form.remove' | translate}}
+              ngbTooltip="{{'form.save-help' | translate}}"
+              placement="top"
+              [disabled]="!hasEmptyValue()"
+              (click)="saveChanges()">{{'form.save' | translate}}
       </button>
     </div>
   </div>
 
   <div ngbDropdownMenu
-       class="mt-0 dropdown-menu scrollable-dropdown-menu w-100"
+       class="dropdown-menu scrollable-dropdown-menu w-100"
        aria-haspopup="true"
        aria-expanded="false"
        aria-labelledby="scrollableDropdownMenuButton">
@@ -114,14 +99,31 @@
               *ngIf="optionsList && optionsList.length == 0"
               (click)="$event.stopPropagation(); clearFields(); sdRef.close();">{{'form.no-results' | translate}}
       </button>
-      <button class="dropdown-item collection-item"
+      <button class="dropdown-item lookup-item"
               *ngFor="let listEntry of optionsList"
               (click)="$event.stopPropagation(); onSelect(listEntry); sdRef.close();"
               title="{{ listEntry.display }}">
-        {{listEntry.value}}
+        <ng-container
+          [ngTemplateOutlet]="(listEntry.hasOtherInformation()) ? hasInfo : noInfo"
+          [ngTemplateOutletContext]="{entry: listEntry}">
+        </ng-container>
       </button>
       <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>
     </div>
   </div>
-
 </div>
+
+<ng-template #hasInfo let-entry="entry">
+  <ul class="list-unstyled mb-0">
+    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item text-truncate text-secondary" *ngFor="let item of entry.otherInformation | dsObjNgFor" >
+      {{ 'form.other-information.' + item.key | translate }} : {{item.value}}
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #noInfo let-entry="entry">
+  <ul class="list-unstyled mb-0">
+    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+  </ul>
+</ng-template>

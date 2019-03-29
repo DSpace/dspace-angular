@@ -44,8 +44,8 @@ describe('ItemPublicComponent', () => {
       url: `${itemPageUrl}/edit`
     });
 
-    mockItemDataService = jasmine.createSpyObj('mockItemDataService',{
-      setDiscoverable: observableOf(new RestResponse(true, '200'))
+    mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
+      setDiscoverable: observableOf(new RestResponse(true, 200, 'OK'))
     });
 
     routeStub = {
@@ -62,10 +62,10 @@ describe('ItemPublicComponent', () => {
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
       declarations: [ItemPublicComponent],
       providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: Router, useValue: routerStub},
-        {provide: ItemDataService, useValue: mockItemDataService},
-        {provide: NotificationsService, useValue: notificationsServiceStub},
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: Router, useValue: routerStub },
+        { provide: ItemDataService, useValue: mockItemDataService },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA
       ]
@@ -73,8 +73,8 @@ describe('ItemPublicComponent', () => {
   }));
 
   beforeEach(() => {
-    successfulRestResponse = new RestResponse(true, '200');
-    failRestResponse = new RestResponse(false, '500');
+    successfulRestResponse = new RestResponse(true, 200, 'OK');
+    failRestResponse = new RestResponse(false, 500, 'Internal Server Error');
 
     fixture = TestBed.createComponent(ItemPublicComponent);
     comp = fixture.componentInstance;
