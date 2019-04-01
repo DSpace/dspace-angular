@@ -9,8 +9,7 @@ import {
 @Component({
   selector: 'ds-search-boolean-filter',
   styleUrls: ['./search-boolean-filter.component.scss'],
-  // templateUrl: './search-boolean-filter.component.html',
-  templateUrl: './themes/search-boolean-filter.component.preview-release.html',
+  templateUrl: './search-boolean-filter.component.html',
   animations: [facetLoad]
 })
 

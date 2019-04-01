@@ -11,7 +11,8 @@ import { hasValue } from '../../../../../shared/empty.util';
 
 @Component({
   selector: 'ds-search-facet-option',
-  templateUrl: './search-facet-option.component.html',
+  // templateUrl: './search-facet-option.component.html',
+  templateUrl: './themes/search-facet-option.component.preview-release.html',
 })
 
 /**
