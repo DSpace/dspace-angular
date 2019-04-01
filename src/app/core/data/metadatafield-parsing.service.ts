@@ -16,7 +16,7 @@ export class MetadatafieldParsingService implements ResponseParsingService {
     const payload = data.payload;
 
     const deserialized = new DSpaceRESTv2Serializer(MetadataField).deserialize(payload);
-    return new MetadatafieldSuccessResponse(deserialized, data.statusCode);
+    return new MetadatafieldSuccessResponse(deserialized, data.statusCode, data.statusText);
   }
 
 }

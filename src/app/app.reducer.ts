@@ -22,9 +22,11 @@ import {
 import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 import { menusReducer, MenusState } from './shared/menu/menu.reducer';
+import { historyReducer, HistoryState } from './shared/history/history.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
+  history: HistoryState;
   hostWindow: HostWindowState;
   forms: FormState;
   metadataRegistry: MetadataRegistryState;
@@ -38,6 +40,7 @@ export interface AppState {
 
 export const appReducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
+  history: historyReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
   metadataRegistry: metadataRegistryReducer,

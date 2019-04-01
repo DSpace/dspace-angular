@@ -18,7 +18,7 @@ describe('SearchFixedFilterService', () => {
     /* tslint:enable:no-empty */
     generateRequestId: () => 'fake-id',
     getByUUID: () => observableOf(Object.assign(new RequestEntry(), {
-      response: new FilteredDiscoveryQueryResponse(filterQuery, '200')
+      response: new FilteredDiscoveryQueryResponse(filterQuery, 200, 'OK')
     }))
   }) as RequestService;
   const halServiceStub = Object.assign(new HALEndpointService(requestServiceStub, undefined), {

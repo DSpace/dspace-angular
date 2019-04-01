@@ -6,7 +6,6 @@ import { ConfigRequest, FindAllOptions, RestRequest } from '../data/request.mode
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigData } from './config-data';
-import { RequestEntry } from '../data/request.reducer';
 import { getResponseFromEntry } from '../shared/operators';
 
 export abstract class ConfigService {

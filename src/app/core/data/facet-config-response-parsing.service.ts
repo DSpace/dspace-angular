@@ -27,6 +27,6 @@ export class FacetConfigResponseParsingService extends BaseResponseParsingServic
     const config = data.payload._embedded.facets;
     const serializer = new DSpaceRESTv2Serializer(SearchFilterConfig);
     const facetConfig = serializer.deserializeArray(config);
-    return new FacetConfigSuccessResponse(facetConfig, data.statusCode);
+    return new FacetConfigSuccessResponse(facetConfig, data.statusCode, data.statusText);
   }
 }

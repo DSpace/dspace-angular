@@ -13,6 +13,7 @@ import { hasValue } from '../empty.util';
 export class LoadingComponent implements OnDestroy, OnInit {
 
   @Input() message: string;
+  @Input() showMessage = true;
 
   private subscription: Subscription;
 

@@ -15,12 +15,12 @@ export class BrowseResponseParsingService implements ResponseParsingService {
       && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {
       const serializer = new DSpaceRESTv2Serializer(BrowseDefinition);
       const browseDefinitions = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
-      return new GenericSuccessResponse(browseDefinitions, data.statusCode);
+      return new GenericSuccessResponse(browseDefinitions, data.statusCode, data.statusText);
     } else {
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from browse endpoint'),
-          { statusText: data.statusCode }
+          { statusCode: data.statusCode, statusText: data.statusText }
         )
       );
     }

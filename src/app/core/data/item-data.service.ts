@@ -24,6 +24,7 @@ import { RequestEntry } from './request.reducer';
 @Injectable()
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
+  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

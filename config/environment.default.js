@@ -48,6 +48,68 @@ module.exports = {
     // NOTE: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale'
     animate: 'scale'
   },
+  // Submission settings
+  submission: {
+    autosave: {
+      // NOTE: which metadata trigger an autosave
+      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv'],
+      // NOTE: every how many minutes submission is saved automatically
+      timer: 5
+    },
+    icons: {
+      metadata: [
+        /**
+         * NOTE: example of configuration
+         * {
+         *    // NOTE: metadata name
+         *    name: 'dc.author',
+         *    // NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
+         *    style: 'fa-user'
+         * }
+         */
+        {
+          name: 'dc.author',
+          style: 'fas fa-user'
+        },
+        // default configuration
+        {
+          name: 'default',
+          style: ''
+        }
+      ],
+      authority: {
+        confidence: [
+          /**
+           * NOTE: example of configuration
+           * {
+           *    // NOTE: confidence value
+           *    value: 'dc.author',
+           *    // NOTE: fontawesome (v4.x) icon classes and bootstrap utility classes can be used
+           *    style: 'fa-user'
+           * }
+           */
+          {
+            value: 600,
+            style: 'text-success'
+          },
+          {
+            value: 500,
+            style: 'text-info'
+          },
+          {
+            value: 400,
+            style: 'text-warning'
+          },
+          // default configuration
+          {
+            value: 'default',
+            style: 'text-muted'
+          },
+
+        ]
+      }
+    }
+  },
   // Angular Universal settings
   universal: {
     preboot: true,

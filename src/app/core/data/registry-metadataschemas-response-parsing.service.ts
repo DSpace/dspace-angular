@@ -23,7 +23,7 @@ export class RegistryMetadataschemasResponseParsingService implements ResponsePa
     payload.metadataschemas = metadataschemas;
 
     const deserialized = new DSpaceRESTv2Serializer(RegistryMetadataschemasResponse).deserialize(payload);
-    return new RegistryMetadataschemasSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload));
+    return new RegistryMetadataschemasSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(data.payload));
   }
 
 }

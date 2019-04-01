@@ -5,11 +5,14 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
-import { ConfigResponseParsingService } from './config-response-parsing.service';
+import { ConfigResponseParsingService } from '../config/config-response-parsing.service';
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
+import { SearchParam } from '../cache/models/search-param.model';
+import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
 import { RegistryMetadataschemasResponseParsingService } from './registry-metadataschemas-response-parsing.service';
 import { MetadataschemaParsingService } from './metadataschema-parsing.service';
@@ -132,6 +135,7 @@ export class FindAllOptions {
   elementsPerPage?: number;
   currentPage?: number;
   sort?: SortOptions;
+  searchParams?: SearchParam[];
   startsWith?: string;
 }
 
@@ -182,8 +186,8 @@ export class BrowseItemsRequest extends GetRequest {
 }
 
 export class ConfigRequest extends GetRequest {
-  constructor(uuid: string, href: string) {
-    super(uuid, href);
+  constructor(uuid: string, href: string, public options?: HttpOptions) {
+    super(uuid, href, null, options);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -273,6 +277,77 @@ export class UpdateMetadataFieldRequest extends PutRequest {
   }
 }
 
+/**
+ * Class representing a submission HTTP GET request object
+ */
+export class SubmissionRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+/**
+ * Class representing a submission HTTP DELETE request object
+ */
+export class SubmissionDeleteRequest extends DeleteRequest {
+  constructor(public uuid: string,
+              public href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+/**
+ * Class representing a submission HTTP PATCH request object
+ */
+export class SubmissionPatchRequest extends PatchRequest {
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any) {
+    super(uuid, href, body);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+/**
+ * Class representing a submission HTTP POST request object
+ */
+export class SubmissionPostRequest extends PostRequest {
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+/**
+ * Class representing an eperson HTTP GET request object
+ */
+export class EpersonRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return EpersonResponseParsingService;
+  }
+}
+
 export class CreateRequest extends PostRequest {
   constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
     super(uuid, href, body, options);
@@ -297,6 +372,7 @@ export class DeleteByIDRequest extends DeleteRequest {
 }
 
 export class RequestError extends Error {
+  statusCode: number;
   statusText: string;
 }
 /* tslint:enable:max-classes-per-file */

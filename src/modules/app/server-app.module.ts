@@ -20,6 +20,8 @@ import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AngularticsMock } from '../../app/shared/mocks/mock-angulartics.service';
+import { SubmissionService } from '../../app/submission/submission.service';
+import { ServerSubmissionService } from '../../app/submission/server-submission.service';
 
 export function createTranslateLoader() {
   return new TranslateUniversalLoader('dist/assets/i18n/', '.json');
@@ -58,7 +60,11 @@ export function createTranslateLoader() {
     {
       provide: CookieService,
       useClass: ServerCookieService
-    }
+    },
+    {
+      provide: SubmissionService,
+      useClass: ServerSubmissionService
+    },
   ]
 })
 export class ServerAppModule {

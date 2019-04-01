@@ -26,6 +26,6 @@ export class FacetValueResponseParsingService extends BaseResponseParsingService
     // const values = payload._embedded.values.map((value) => {value.search = value._links.search.href; return value;});
 
     const facetValues = serializer.deserializeArray(payload._embedded.values);
-    return new FacetValueSuccessResponse(facetValues, data.statusCode, this.processPageInfo(data.payload));
+    return new FacetValueSuccessResponse(facetValues, data.statusCode, data.statusText, this.processPageInfo(data.payload));
   }
 }

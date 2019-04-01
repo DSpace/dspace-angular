@@ -1,6 +1,6 @@
 import * as deepFreeze from 'deep-freeze';
 
-import { IndexName, indexReducer, IndexState } from './index.reducer';
+import { IndexName, indexReducer, MetaIndexState } from './index.reducer';
 import { AddToIndexAction, RemoveFromIndexBySubstringAction, RemoveFromIndexByValueAction } from './index.actions';
 
 class NullAction extends AddToIndexAction {
@@ -17,7 +17,7 @@ describe('requestReducer', () => {
   const key2 = '1911e8a4-6939-490c-b58b-a5d70f8d91fb';
   const val1 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/567a639f-f5ff-4126-807c-b7d0910808c8';
   const val2 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/1911e8a4-6939-490c-b58b-a5d70f8d91fb';
-  const testState: IndexState = {
+  const testState: MetaIndexState = {
     [IndexName.OBJECT]: {
       [key1]: val1
     },[IndexName.REQUEST]: {
