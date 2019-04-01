@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 
@@ -22,12 +21,12 @@ import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 @Injectable()
 export class MetadataSchemaDataService extends DataService<MetadataSchema> {
   protected linkPath = 'metadataschemas';
+  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected store: Store<CoreState>,
-    private bs: BrowseService,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
     protected comparator: DefaultChangeAnalyzer<MetadataSchema>,

@@ -73,7 +73,7 @@ describe('AuthService test', () => {
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
           { provide: ActivatedRoute, useValue: routeStub },
-          {provide: Store, useValue: mockStore},
+          { provide: Store, useValue: mockStore },
           { provide: RemoteDataBuildService, useValue: rdbService },
           CookieService,
           AuthService

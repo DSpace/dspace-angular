@@ -6,3 +6,8 @@
 #loginDropdownMenu {
   min-height: 260px;
 }
+
+.dropdown-item.active, .dropdown-item:active,
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: transparent !important;
+}

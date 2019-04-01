@@ -13,7 +13,7 @@ export class MetadataschemaParsingService implements ResponseParsingService {
     const payload = data.payload;
 
     const deserialized = new DSpaceRESTv2Serializer(MetadataSchema).deserialize(payload);
-    return new MetadataschemaSuccessResponse(deserialized, data.statusCode);
+    return new MetadataschemaSuccessResponse(deserialized, data.statusCode, data.statusText);
   }
 
 }

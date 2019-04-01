@@ -1,15 +1,9 @@
-import {
-  distinctUntilChanged,
-  filter,
-  find,
-  first,
-  map,
-  mergeMap,
-  switchMap,
-  take
-} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
@@ -26,12 +20,13 @@ import {
   GetRequest
 } from './request.models';
 import { RequestService } from './request.service';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { SearchParam } from '../cache/models/search-param.model';
 import { Operation } from 'fast-json-patch';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -50,6 +45,7 @@ export abstract class DataService<T extends CacheableObject> {
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
+  protected abstract forceBypassCache = false;
   protected abstract objectCache: ObjectCacheService;
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
@@ -57,11 +53,57 @@ export abstract class DataService<T extends CacheableObject> {
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
+  /**
+   * Create the HREF with given options object
+   *
+   * @param options The [[FindAllOptions]] object
+   * @param linkPath The link path for the object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   */
   protected getFindAllHref(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
     let result: Observable<string>;
     const args = [];
 
-    result = this.getBrowseEndpoint(options, linkPath);
+    result = this.getBrowseEndpoint(options, linkPath).pipe(distinctUntilChanged());
+
+    return this.buildHrefFromFindOptions(result, args, options);
+  }
+
+  /**
+   * Create the HREF for a specific object's search method with given options object
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindAllOptions]] object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   */
+  protected getSearchByHref(searchMethod: string, options: FindAllOptions = {}): Observable<string> {
+    let result: Observable<string>;
+    const args = [];
+
+    result = this.getSearchEndpoint(searchMethod);
+
+    if (hasValue(options.searchParams)) {
+      options.searchParams.forEach((param: SearchParam) => {
+        args.push(`${param.fieldName}=${param.fieldValue}`);
+      })
+    }
+
+    return this.buildHrefFromFindOptions(result, args, options);
+  }
+
+  /**
+   * Turn an options object into a query string and combine it with the given HREF
+   *
+   * @param href$ The HREF to which the query string should be appended
+   * @param args Array with additional params to combine with query string
+   * @param options The [[FindAllOptions]] object
+   * @return {Observable<string>}
+   *    Return an observable that emits created HREF
+   */
+  protected buildHrefFromFindOptions(href$: Observable<string>, args: string[], options: FindAllOptions): Observable<string> {
+
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
       args.push(`page=${options.currentPage - 1}`);
@@ -76,9 +118,9 @@ export abstract class DataService<T extends CacheableObject> {
       args.push(`startsWith=${options.startsWith}`);
     }
     if (isNotEmpty(args)) {
-      return result.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
+      return href$.pipe(map((href: string) => new URLCombiner(href, `?${args.join('&')}`).toString()));
     } else {
-      return result;
+      return href$;
     }
   }
 
@@ -86,11 +128,10 @@ export abstract class DataService<T extends CacheableObject> {
     const hrefObs = this.getFindAllHref(options);
 
     hrefObs.pipe(
-      filter((href: string) => hasValue(href)),
-      take(1))
+      first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request);
+        this.requestService.configure(request, this.forceBypassCache);
       });
 
     return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
@@ -113,15 +154,48 @@ export abstract class DataService<T extends CacheableObject> {
       find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
-        this.requestService.configure(request);
+        this.requestService.configure(request, this.forceBypassCache);
       });
 
     return this.rdbService.buildSingle<T>(hrefObs);
   }
 
-  findByHref(href: string): Observable<RemoteData<T>> {
-    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href));
+  findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
+    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options), this.forceBypassCache);
     return this.rdbService.buildSingle<T>(href);
+  }
+
+  /**
+   * Return object search endpoint by given search method
+   *
+   * @param searchMethod The search method for the object
+   */
+  protected getSearchEndpoint(searchMethod: string): Observable<string> {
+    return this.halService.getEndpoint(`${this.linkPath}/search`).pipe(
+      filter((href: string) => isNotEmpty(href)),
+      map((href: string) => `${href}/${searchMethod}`));
+  }
+
+  /**
+   * Make a new FindAllRequest with given search method
+   *
+   * @param searchMethod The search method for the object
+   * @param options The [[FindAllOptions]] object
+   * @return {Observable<RemoteData<PaginatedList<T>>}
+   *    Return an observable that emits response from the server
+   */
+  protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+
+    const hrefObs = this.getSearchByHref(searchMethod, options);
+
+    hrefObs.pipe(
+      first((href: string) => hasValue(href)))
+      .subscribe((href: string) => {
+        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+        this.requestService.configure(request, true);
+      });
+
+    return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
   }
 
   /**

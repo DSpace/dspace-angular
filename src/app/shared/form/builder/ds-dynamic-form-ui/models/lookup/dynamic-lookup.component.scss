@@ -4,39 +4,8 @@
   display:none
 }
 
-/* enable absolute positioning */
-.spinner-addon {
-  position: relative;
-}
-
-/* style fa-spin */
-.spinner-addon .fa-spin {
-  color: map-get($theme-colors, primary);
-  position: absolute;
-  margin-top: 3px;
-  padding: 0;
-  pointer-events: none;
-}
-
-/* align fa-spin */
-.left-addon .fa-spin {
-  left: 0px;
-}
-
-.right-addon .fa-spin {
-  right: 0px;
-}
-
-/* add padding  */
-.left-addon input {
-  padding-left: $spacer * 2;
-}
-
-.right-addon input {
-  padding-right: $spacer * 2;
-}
-
 :host /deep/ .dropdown-menu {
+  left: 0 !important;
   width: 100% !important;
   max-height: $dropdown-menu-max-height;
   overflow-y: auto !important;
@@ -50,16 +19,11 @@
   color: $dropdown-link-hover-color !important;
   background-color: $dropdown-link-hover-bg !important;
 }
-//
-//.dropdown-menu {
-//  margin-top: -($spacer * 0.625);
-//}
 
 div {
   overflow: visible;
-  //padding-right: 0 !important;
 }
-//
-//button {
-//  margin-right: $spacer * 0.625;
-//}
+
+.lookup-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
+}

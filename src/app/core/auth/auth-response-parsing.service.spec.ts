@@ -1,20 +1,36 @@
-import { AuthStatusResponse } from '../cache/response.models';
+import { async, TestBed } from '@angular/core/testing';
 
+import { Store, StoreModule } from '@ngrx/store';
+
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { AuthStatusResponse } from '../cache/response.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthResponseParsingService } from './auth-response-parsing.service';
 import { AuthGetRequest, AuthPostRequest } from '../data/request.models';
 import { MockStore } from '../../shared/testing/mock-store';
-import { ObjectCacheState } from '../cache/object-cache.reducer';
 
 describe('AuthResponseParsingService', () => {
   let service: AuthResponseParsingService;
 
-  const EnvConfig = { cache: { msToLive: 1000 } } as any;
-  const store = new MockStore<ObjectCacheState>({});
-  const objectCacheService = new ObjectCacheService(store as any);
+  const EnvConfig: GlobalConfig = { cache: { msToLive: 1000 } } as any;
+  let store: any;
+  let objectCacheService: ObjectCacheService;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({}),
+      ],
+      providers: [
+        { provide: Store, useClass: MockStore }
+      ]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
+    store = TestBed.get(Store);
+    objectCacheService = new ObjectCacheService(store as any);
     service = new AuthResponseParsingService(EnvConfig, objectCacheService);
   });
 
@@ -38,12 +54,14 @@ describe('AuthResponseParsingService', () => {
           expires: 1526318322000
         },
       } as AuthStatus,
-      statusCode: '200'
+      statusCode: 200,
+      statusText: '200'
     };
 
     const validResponse1 = {
       payload: {},
-      statusCode: '404'
+      statusCode: 404,
+      statusText: '404'
     };
 
     const validResponse2 = {
@@ -102,7 +120,9 @@ describe('AuthResponseParsingService', () => {
           }
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: '200'
+
     };
 
     it('should return a AuthStatusResponse if data contains a valid AuthStatus object as payload', () => {

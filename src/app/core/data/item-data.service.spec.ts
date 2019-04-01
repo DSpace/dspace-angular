@@ -30,7 +30,7 @@ describe('ItemDataService', () => {
     },
     getByHref(requestHref: string) {
       const responseCacheEntry = new RequestEntry();
-      responseCacheEntry.response = new RestResponse(true, '200');
+      responseCacheEntry.response = new RestResponse(true, 200, 'OK');
       return observableOf(responseCacheEntry);
     }
   } as RequestService;
@@ -133,7 +133,7 @@ describe('ItemDataService', () => {
     });
 
     it('should setWithDrawn', () => {
-      const expected = new RestResponse(true, '200');
+      const expected = new RestResponse(true, 200, 'OK');
       const result = service.setWithDrawn(scopeID, true);
       result.subscribe((v) => expect(v).toEqual(expected));
 
@@ -155,7 +155,7 @@ describe('ItemDataService', () => {
     });
 
     it('should setDiscoverable', () => {
-      const expected = new RestResponse(true, '200');
+      const expected = new RestResponse(true, 200, 'OK');
       const result = service.setDiscoverable(scopeID, false);
       result.subscribe((v) => expect(v).toEqual(expected));
 

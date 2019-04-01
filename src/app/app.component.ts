@@ -23,6 +23,7 @@ import { NativeWindowRef, NativeWindowService } from './shared/services/window.s
 import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { RouteService } from './shared/services/route.service';
 import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -58,6 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
     private authService: AuthService,
     private router: Router,
+    private routeService: RouteService,
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
@@ -78,6 +80,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     metadata.listenForRouteChange();
 
+    routeService.saveRouting();
+
     if (config.debug) {
       console.info(config);
     }
@@ -85,7 +89,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
     const env: string = this.config.production ? 'Production' : 'Development';
     const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);

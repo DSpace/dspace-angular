@@ -5,6 +5,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX_GROUP,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
+  DYNAMIC_FORM_CONTROL_TYPE_INPUT,
   DYNAMIC_FORM_CONTROL_TYPE_RADIO_GROUP,
   DynamicFormArrayModel,
   DynamicFormControlModel,
@@ -17,17 +18,17 @@ import { isObject, isString, mergeWith } from 'lodash';
 
 import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined, isNull } from '../../empty.util';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { SubmissionFormsModel } from '../../../core/shared/config/config-submission-forms.model';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
-  DynamicGroupModel
-} from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { RowParser } from './parsers/row-parser';
-
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  DynamicRelationGroupModel
+} from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { isNgbDateStruct } from '../../date.util';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -108,7 +109,11 @@ export class FormBuilderService extends DynamicFormService {
       } else if (isObject(controlValue)) {
         const authority = controlValue.authority || controlValue.id || null;
         const place = controlModelIndex || controlValue.place;
-        return new FormFieldMetadataValueObject(controlValue.value, controlLanguage, authority, controlValue.display, place);
+        if (isNgbDateStruct(controlValue)) {
+          return new FormFieldMetadataValueObject(controlValue, controlLanguage, authority, controlValue, place);
+        } else {
+          return new FormFieldMetadataValueObject(controlValue.value, controlLanguage, authority, controlValue.display, place, controlValue.confidence);
+        }
       }
     };
 
@@ -153,7 +158,7 @@ export class FormBuilderService extends DynamicFormService {
         }
 
         if (this.isRelationGroup(controlModel)) {
-          const values = (controlModel as DynamicGroupModel).getGroupValue();
+          const values = (controlModel as DynamicRelationGroupModel).getGroupValue();
           values.forEach((groupValue, groupIndex) => {
             const newGroupValue = Object.create({});
             Object.keys(groupValue)
@@ -266,19 +271,27 @@ export class FormBuilderService extends DynamicFormService {
     return model.type === DYNAMIC_FORM_CONTROL_TYPE_ARRAY;
   }
 
+  isInputModel(model: DynamicFormControlModel): boolean {
+    return model.type === DYNAMIC_FORM_CONTROL_TYPE_INPUT;
+  }
+
   getFormControlById(id: string, formGroup: FormGroup, groupModel: DynamicFormControlModel[], index = 0): AbstractControl {
     const fieldModel = this.findById(id, groupModel, index);
     return isNotEmpty(fieldModel) ? formGroup.get(this.getPath(fieldModel)) : null;
   }
 
   getId(model: DynamicPathable): string {
+    let tempModel: DynamicFormControlModel;
+
     if (this.isArrayGroup(model as DynamicFormControlModel)) {
       return model.index.toString();
+    } else if (this.isModelInCustomGroup(model as DynamicFormControlModel)) {
+      tempModel = (model as any).parent;
     } else {
-      return ((model as DynamicFormControlModel).id !== (model as DynamicFormControlModel).name) ?
-        (model as DynamicFormControlModel).name :
-        (model as DynamicFormControlModel).id;
+      tempModel = (model as any);
     }
+
+    return (tempModel.id !== tempModel.name) ? tempModel.name : tempModel.id;
   }
 
 }

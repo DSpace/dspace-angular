@@ -1,44 +1,13 @@
-import {of as observableOf,  Observable } from 'rxjs';
-import { INotification } from '../notifications/models/notification.model';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 
 export class NotificationsServiceStub {
 
-  success(title: any = observableOf(''),
-          content: any = observableOf(''),
-          options: NotificationOptions = this.getDefaultOptions(),
-          html?: any): INotification {
-    return
-  }
-
-  error(title: any = observableOf(''),
-        content: any = observableOf(''),
-        options: NotificationOptions = this.getDefaultOptions(),
-        html?: any): INotification {
-    return
-  }
-
-  info(title: any = observableOf(''),
-       content: any = observableOf(''),
-       options: NotificationOptions = this.getDefaultOptions(),
-       html?: any): INotification {
-    return
-  }
-
-  warning(title: any = observableOf(''),
-          content: any = observableOf(''),
-          options: NotificationOptions = this.getDefaultOptions(),
-          html?: any): INotification {
-    return
-  }
-
-  remove(notification: INotification) {
-    return
-  }
-
-  removeAll() {
-    return
-  }
+  success = jasmine.createSpy('success');
+  error = jasmine.createSpy('error');
+  info = jasmine.createSpy('info');
+  warning = jasmine.createSpy('warning');
+  remove = jasmine.createSpy('remove');
+  removeAll = jasmine.createSpy('removeAll');
 
   private getDefaultOptions(): NotificationOptions {
     return new NotificationOptions();

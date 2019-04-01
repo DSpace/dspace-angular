@@ -13,36 +13,50 @@ import {
 import { Notification } from './models/notification.model';
 import { NotificationType } from './models/notification-type';
 import { GlobalConfig } from '../../../config/global-config.interface';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MockTranslateLoader } from '../mocks/mock-translate-loader';
+import { GLOBAL_CONFIG } from '../../../config';
 
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {
     dispatch: {},
     select: observableOf(true)
   });
-  let service;
+  let service: NotificationsService;
   let envConfig: GlobalConfig;
+
+  envConfig = {
+    notifications: {
+      rtl: false,
+      position: ['top', 'right'],
+      maxStack: 8,
+      timeOut: 5000,
+      clickToClose: true,
+      animate: 'scale'
+    },
+  } as any;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [NotificationComponent, NotificationsBoardComponent],
-      providers: [NotificationsService],
       imports: [
         StoreModule.forRoot({notificationsReducer}),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        })
+      ],
+      declarations: [NotificationComponent, NotificationsBoardComponent],
+      providers: [
+        { provide: GLOBAL_CONFIG, useValue: envConfig },
+        { provide: Store, useValue: store },
+        NotificationsService,
+        TranslateService
       ]
     });
 
-    envConfig = {
-      notifications: {
-        rtl: false,
-        position: ['top', 'right'],
-        maxStack: 8,
-        timeOut: 5000,
-        clickToClose: true,
-        animate: 'scale'
-      },
-    } as any;
-
-    service = new NotificationsService(envConfig, store);
+    service = TestBed.get(NotificationsService);
   });
 
   it('Success method should dispatch NewNotificationAction with proper parameter', () => {
