@@ -7,7 +7,7 @@
     <div class="clearfix"></div>
   </div>
   <div *ngIf="!(isLoading() | async)" class="submission-form-header mb-3 d-flex flex-wrap position-sticky">
-      <div class="submission-form-header-item mb-3 mb-sm-0">
+      <div class="submission-form-header-item mb-3 mb-sm-0 flex-sm-grow-1 flex-md-grow-0">
         <ds-submission-form-collection [currentCollectionId]="collectionId"
                                        [currentDefinition]="definitionId"
                                        [submissionId]="submissionId"

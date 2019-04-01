@@ -5,8 +5,8 @@ import { Observable, race as observableRace } from 'rxjs';
 import { filter, find, mergeMap, take } from 'rxjs/operators';
 import { remove } from 'lodash';
 
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { AppState } from '../../app.reducer';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';

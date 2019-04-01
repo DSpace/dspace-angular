@@ -40,8 +40,8 @@
         "description": "Beschrijving:"
       },
       "link": {
-        "simple": "Eenvoudige item weergave",
-        "full": "Volledige item weergave"
+        "simple": "Eenvoudige itemweergave",
+        "full": "Volledige itemweergave"
       }
     }
   },
@@ -52,10 +52,10 @@
   },
   "pagination": {
     "results-per-page": "Resultaten per pagina",
-    "sort-direction": "Sorteer mogelijkheden",
+    "sort-direction": "Sorteermogelijkheden",
     "showing": {
-      "label": "Getoonde items ",
-      "detail": "{{ range }} tot {{ total }}"
+      "label": "Resultaten ",
+      "detail": "{{ range }} van {{ total }}"
     }
   },
   "sorting": {
@@ -116,8 +116,8 @@
       "reset": "Filters verwijderen",
       "applied": {
         "f.author": "Auteur",
-        "f.dateIssued.min": "Start datum",
-        "f.dateIssued.max": "Eind datum",
+        "f.dateIssued.min": "Startdatum",
+        "f.dateIssued.max": "Einddatum",
         "f.subject": "Sleutelwoord",
         "f.has_content_in_original_bundle": "Heeft bestanden"
       },
@@ -129,7 +129,7 @@
           "head": "Auteur"
         },
         "scope": {
-          "placeholder": "Bereik filter",
+          "placeholder": "Bereikfilter",
           "head": "Bereik"
         },
         "subject": {
@@ -159,27 +159,27 @@
       "metadata": {
         "title": "DSpace Angular :: Metadata Register",
         "head": "Metadata Register",
-        "description": "Het metadata register omvat de lijst van alle metadata velden die beschikbaar zijn in het systeem. Deze velden kunnen verspreid zijn over verschillende metadata schema's. Het qualified Dublin Core schema (dc) is een verplicht schema en kan niet worden verwijderd.",
+        "description": "Het metadataregister omvat de lijst van alle metadatavelden die beschikbaar zijn in het systeem. Deze velden kunnen verspreid zijn over verschillende metadataschema's. Het qualified Dublin Core schema (dc) is een verplicht schema en kan niet worden verwijderd.",
         "schemas": {
           "table": {
             "id": "ID",
             "namespace": "Naamruimte",
             "name": "Naam"
           },
-          "no-items": "Er kunnen geen metadata schema's getoond worden."
+          "no-items": "Er kunnen geen metadataschema's getoond worden."
         }
       },
       "schema": {
         "title": "DSpace Angular :: Metadata Schema Register",
         "head": "Metadata Schema",
-        "description": "Dit is het metadata schema voor \"{{namespace}}\".",
+        "description": "Dit is het metadataschema voor \"{{namespace}}\".",
         "fields": {
-          "head": "Schema metadata velden",
+          "head": "Schema metadatavelden",
           "table": {
             "field": "Veld",
             "scopenote": "Opmerking over bereik"
           },
-          "no-items": "Er kunnen geen metadata velden getoond worden."
+          "no-items": "Er kunnen geen metadatavelden getoond worden."
         }
       },
       "bitstream-formats": {
@@ -198,7 +198,7 @@
             },
             "internal": "intern"
           },
-          "no-items": "Er kunnen geen bitstream formaten getoond worden."
+          "no-items": "Er kunnen geen bitstreamformaten getoond worden."
         }
       }
     }
@@ -229,7 +229,7 @@
     "validation": {
       "pattern": "Deze invoer is niet toegelaten volgens dit patroon: {{ pattern }}.",
       "license": {
-        "notgranted": "U moet de invoerlicentie goedkeuren om de invoer af te werken. Indien u deze licentie momenteel niet kan of mag goedkeuren, kan u uw werk opslaan en de invoer later afwerken. U kan dit nieuwe item ook verwijderen indien u niet voldoet aan de vereisten van de invoer licentie."
+        "notgranted": "U moet de invoerlicentie goedkeuren om de invoer af te werken. Indien u deze licentie momenteel niet kan of mag goedkeuren, kan u uw werk opslaan en de invoer later afwerken. U kunt dit nieuwe item ook verwijderen indien u niet voldoet aan de vereisten van de invoerlicentie."
       }
     }
   },
@@ -271,7 +271,7 @@
       "expired": "Uw sessie is vervallen. Gelieve opnieuw aan te melden."
     },
     "errors": {
-      "invalid-user": "Ongeldig email adres of wachtwoord."
+      "invalid-user": "Ongeldig e-mailadres of wachtwoord."
     }
   }
 }

@@ -2,6 +2,7 @@
 
 :host /deep/ .card {
   margin-bottom: $submission-sections-margin-bottom;
+  overflow: unset;
 }
 
 .section-focus {

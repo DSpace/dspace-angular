@@ -3,6 +3,11 @@
                 [objects]="objects"
                 [hasBorder]="hasBorder"
                 [hideGear]="hideGear"
+                (paginationChange)="onPaginationChange($event)"
+                (pageChange)="onPageChange($event)"
+                (pageSizeChange)="onPageSizeChange($event)"
+                (sortDirectionChange)="onSortDirectionChange($event)"
+                (sortFieldChange)="onSortFieldChange($event)"
                 *ngIf="getViewMode()===viewModeEnum.List">
 </ds-object-list>
 
@@ -10,6 +15,11 @@
                 [sortConfig]="sortConfig"
                 [objects]="objects"
                 [hideGear]="hideGear"
+                (paginationChange)="onPaginationChange($event)"
+                (pageChange)="onPageChange($event)"
+                (pageSizeChange)="onPageSizeChange($event)"
+                (sortDirectionChange)="onSortDirectionChange($event)"
+                (sortFieldChange)="onSortFieldChange($event)"
                 *ngIf="getViewMode()===viewModeEnum.Grid">
 </ds-object-grid>
 

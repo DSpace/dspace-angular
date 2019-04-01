@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionPlugin = require("compression-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const cssnano = require("cssnano");
 
 const {
     root
@@ -16,12 +18,6 @@ module.exports = {
                 'NODE_ENV': JSON.stringify('production'),
                 'AOT': true
             }
-        }),
-
-        // Loader options
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false
         }),
 
         new BundleAnalyzerPlugin({
@@ -64,6 +60,15 @@ module.exports = {
                     },
                     sourceMap: true
                 }
+            }),
+            new OptimizeCSSAssetsPlugin({
+              cssProcessor: cssnano,
+              cssProcessorOptions: {
+                discardComments: {
+                  removeAll: true,
+                }
+              },
+              safe: true
             })
         ]
     },
