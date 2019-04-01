@@ -10,7 +10,6 @@ import { metadataRegistryReducer, MetadataRegistryState } from './metadata-regis
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import { MetadataField } from '../../../core/metadata/metadatafield.model';
 
-
 class NullAction extends MetadataRegistryEditSchemaAction {
   type = null;
   constructor() {
@@ -140,7 +139,6 @@ describe('metadataRegistryReducer', () => {
 
     expect(newState.selectedSchemas).toEqual([]);
   });
-
 
   it('should update the current state to change the editField to a new field when MetadataRegistryEditFieldAction is dispatched', () => {
     const state = editState;

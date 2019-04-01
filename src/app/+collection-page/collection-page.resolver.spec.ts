@@ -6,9 +6,7 @@ describe('CollectionPageResolver', () => {
   describe('resolve', () => {
     let resolver: CollectionPageResolver;
     let collectionService: any;
-
-    const id = '1234-65487-12354-1235';
-
+    const uuid = '1234-65487-12354-1235';
 
     beforeEach(() => {
       collectionService = {
@@ -17,16 +15,14 @@ describe('CollectionPageResolver', () => {
       resolver = new CollectionPageResolver(collectionService);
     });
 
-
     it('should resolve a collection with the correct id', () => {
-      resolver.resolve({ params: { id } } as any, undefined)
+      resolver.resolve({ params: { id: uuid } } as any, undefined)
         .pipe(first())
         .subscribe(
           (resolved) => {
-            expect(resolved.payload.id).toEqual(id);
+            expect(resolved.payload.id).toEqual(uuid);
           }
         );
     });
-
   });
 });

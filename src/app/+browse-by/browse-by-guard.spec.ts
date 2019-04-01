@@ -16,7 +16,6 @@ describe('BrowseByGuard', () => {
     const scope = '1234-65487-12354-1235';
     const value = 'Filter';
 
-
     beforeEach(() => {
       dsoService = {
         findById: (id: string) => observableOf({ payload: { name: name }, hasSucceeded: true })
@@ -25,7 +24,6 @@ describe('BrowseByGuard', () => {
       translateService = {
         instant: () => field
       };
-
       guard = new BrowseByGuard(dsoService, translateService);
     });
 
@@ -47,8 +45,7 @@ describe('BrowseByGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) => {
-            const result =
-              {
+            const result = {
                 title,
                 metadata,
                 metadataField,
@@ -80,8 +77,7 @@ describe('BrowseByGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) => {
-            const result =
-              {
+            const result = {
                 title,
                 metadata,
                 metadataField,
@@ -112,8 +108,7 @@ describe('BrowseByGuard', () => {
         .pipe(first())
         .subscribe(
           (canActivate) => {
-            const result =
-              {
+            const result = {
                 title,
                 metadata,
                 metadataField,
