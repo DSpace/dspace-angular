@@ -1,0 +1,49 @@
+<div dsSection #sectionRef="sectionRef"
+     [attr.id]="sectionData.id"
+     [ngClass]="{ 'section-focus' : sectionRef.isSectionActive() }"
+     [mandatory]="sectionData.mandatory"
+     [submissionId]="submissionId"
+     [sectionId]="sectionData.id">
+  <ngb-accordion #acc="ngbAccordion"
+                 *ngIf="(sectionRef.isEnabled() | async)"
+                 (panelChange)="sectionRef.sectionChange($event)"
+                 activeIds="{{ sectionData.id }}"
+                 [destroyOnHide]="false">
+    <ngb-panel id="{{ sectionData.id }}">
+      <ng-template ngbPanelTitle>
+        <span class="float-left">{{ 'submission.sections.'+sectionData.header | translate }}</span>
+        <div class="d-inline-block float-right">
+          <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-exclamation-circle text-warning mr-3"
+             aria-hidden="true"></i>
+          <i *ngIf="(sectionRef.hasErrors())" class="fas fa-exclamation-circle text-danger mr-3"
+             aria-hidden="true"></i>
+          <i *ngIf="(sectionRef.isValid() | async) && !(sectionRef.hasErrors())" class="fas fa-check-circle text-success mr-3"
+             aria-hidden="true"></i>
+          <a class="close" aria-label="Close">
+            <span *ngIf="sectionRef.isOpen()" class="fas fa-chevron-up fa-fw"
+                  aria-hidden="true"></span>
+            <span *ngIf="!sectionRef.isOpen()" class="fas fa-chevron-down fa-fw"
+                  aria-hidden="true"></span>
+          </a>
+          <a href="#" class="close mr-3" *ngIf="!sectionRef.isMandatory()"
+             (click)="removeSection($event)">
+            <i class="fas fa-trash-o" aria-hidden="true"></i>
+          </a>
+        </div>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div id="sectionGenericError_{{sectionData.id}}" *ngIf="sectionRef.hasGenericErrors()">
+          <ds-alert *ngFor="let error of sectionRef.getErrors(); let i = index"
+                    [content]="error"
+                    [dismissible]="true"
+                    [type]="AlertTypeEnum.Error"
+                    (close)="sectionRef.removeError(i)"></ds-alert>
+        </div>
+        <div id="sectionContent_{{sectionData.id}}"
+             (click)="sectionRef.setFocus($event)">
+          <ng-container *ngComponentOutlet="getSectionContent(); injector: objectInjector;"></ng-container>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

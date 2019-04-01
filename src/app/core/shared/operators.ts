@@ -50,9 +50,9 @@ export const getResourceLinksFromResponse = () =>
       map((response: DSOSuccessResponse) => response.resourceSelfLinks),
     );
 
-export const configureRequest = (requestService: RequestService) =>
+export const configureRequest = (requestService: RequestService, forceBypassCache?: boolean) =>
   (source: Observable<RestRequest>): Observable<RestRequest> =>
-    source.pipe(tap((request: RestRequest) => requestService.configure(request)));
+    source.pipe(tap((request: RestRequest) => requestService.configure(request, forceBypassCache)));
 
 export const getRemoteDataPayload = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<T> =>

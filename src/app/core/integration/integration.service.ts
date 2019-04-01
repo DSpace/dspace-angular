@@ -7,23 +7,25 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IntegrationData } from './integration-data';
 import { IntegrationSearchOptions } from './models/integration-options.model';
-import { RequestEntry } from '../data/request.reducer';
 import { getResponseFromEntry } from '../shared/operators';
 
 export abstract class IntegrationService {
   protected request: IntegrationRequest;
   protected abstract requestService: RequestService;
   protected abstract linkPath: string;
-  protected abstract browseEndpoint: string;
+  protected abstract entriesEndpoint: string;
+  protected abstract entryValueEndpoint: string;
   protected abstract halService: HALEndpointService;
 
   protected getData(request: GetRequest): Observable<IntegrationData> {
      return this.requestService.getByHref(request.href).pipe(
        getResponseFromEntry(),
-       mergeMap((response) => {
+       mergeMap((response: IntegrationSuccessResponse) => {
           if (response.isSuccessful && isNotEmpty(response)) {
-            const dataResponse = response as IntegrationSuccessResponse;
-            return observableOf(new IntegrationData(dataResponse.pageInfo, dataResponse.dataDefinition));
+            return observableOf(new IntegrationData(
+              response.pageInfo,
+              (response.dataDefinition) ? response.dataDefinition.page : []
+            ));
           } else if (!response.isSuccessful) {
             return observableThrowError(new Error(`Couldn't retrieve the integration data`));
           }
@@ -32,12 +34,12 @@ export abstract class IntegrationService {
       );
   }
 
-  protected getIntegrationHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): string {
+  protected getEntriesHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): string {
     let result;
     const args = [];
 
     if (hasValue(options.name)) {
-      result = `${endpoint}/${options.name}/${this.browseEndpoint}`;
+      result = `${endpoint}/${options.name}/${this.entriesEndpoint}`;
     } else {
       result = endpoint;
     }
@@ -73,9 +75,41 @@ export abstract class IntegrationService {
     return result;
   }
 
+  protected getEntryValueHref(endpoint, options: IntegrationSearchOptions = new IntegrationSearchOptions()): string {
+    let result;
+    const args = [];
+
+    if (hasValue(options.name) && hasValue(options.query)) {
+      result = `${endpoint}/${options.name}/${this.entryValueEndpoint}/${options.query}`;
+    } else {
+      result = endpoint;
+    }
+
+    if (hasValue(options.metadata)) {
+      args.push(`metadata=${options.metadata}`);
+    }
+
+    if (isNotEmpty(args)) {
+      result = `${result}?${args.join('&')}`;
+    }
+
+    return result;
+  }
+
   public getEntriesByName(options: IntegrationSearchOptions): Observable<IntegrationData> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIntegrationHref(endpoint, options)),
+      map((endpoint: string) => this.getEntriesHref(endpoint, options)),
+      filter((href: string) => isNotEmpty(href)),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new IntegrationRequest(this.requestService.generateRequestId(), endpointURL)),
+      tap((request: GetRequest) => this.requestService.configure(request)),
+      mergeMap((request: GetRequest) => this.getData(request)),
+      distinctUntilChanged());
+  }
+
+  public getEntryByValue(options: IntegrationSearchOptions): Observable<IntegrationData> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getEntryValueHref(endpoint, options)),
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => new IntegrationRequest(this.requestService.generateRequestId(), endpointURL)),

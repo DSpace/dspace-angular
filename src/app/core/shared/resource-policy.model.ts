@@ -18,9 +18,9 @@ export class ResourcePolicy implements CacheableObject {
   name: string;
 
   /**
-   * The Group this Resource Policy applies to
+   * The uuid of the Group this Resource Policy applies to
    */
-  group: Group;
+  groupUUID: string;
 
   /**
    * The link to the rest endpoint where this Resource Policy can be found

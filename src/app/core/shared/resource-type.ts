@@ -10,5 +10,14 @@ export enum ResourceType {
   Group = 'group',
   ResourcePolicy = 'resourcePolicy',
   MetadataSchema = 'metadataschema',
-  MetadataField = 'metadatafield'
+  MetadataField = 'metadatafield',
+  License = 'license',
+  Workflowitem = 'workflowitem',
+  Workspaceitem = 'workspaceitem',
+  SubmissionDefinitions = 'submissiondefinitions',
+  SubmissionDefinition = 'submissiondefinition',
+  SubmissionForm = 'submissionform',
+  SubmissionForms = 'submissionforms',
+  SubmissionSections = 'submissionsections',
+  SubmissionSection = 'submissionsection',
 }

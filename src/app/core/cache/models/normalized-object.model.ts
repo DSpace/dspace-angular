@@ -13,11 +13,8 @@ export abstract class NormalizedObject<T extends CacheableObject> implements Cac
   self: string;
 
   /**
-   * The universally unique identifier of this Object
+   * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  @autoserialize
-  uuid: string;
-
   @autoserialize
   type: ResourceType;
 

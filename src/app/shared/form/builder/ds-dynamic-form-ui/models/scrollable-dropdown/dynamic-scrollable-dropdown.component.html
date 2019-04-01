@@ -6,7 +6,7 @@
          [name]="model.name"
          [readonly]="model.readOnly"
          [type]="model.inputType"
-         [value]="formatItemForInput(model.value)"
+         [value]="(currentValue | async)"
          (blur)="onBlur($event)"
          (click)="$event.stopPropagation(); openDropdown(sdRef);"
          (focus)="onFocus($event)"
@@ -15,7 +15,8 @@
             class="ds-form-input-btn  btn btn-outline-primary"
             id="scrollableDropdownMenuButton_{{model.id}}"
             ngbDropdownToggle
-            [disabled]="model.readOnly"></button>
+            [disabled]="model.readOnly"
+            (click)="onToggle(sdRef); $event.stopPropagation();"></button>
 
   <div ngbDropdownMenu
        class="dropdown-menu scrollable-dropdown-menu w-100"
@@ -31,7 +32,7 @@
          [scrollWindow]="false">
 
       <button class="dropdown-item disabled" *ngIf="optionsList && optionsList.length == 0">{{'form.no-results' | translate}}</button>
-      <button class="dropdown-item collection-item" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry)" title="{{ listEntry.display }}">
+      <button class="dropdown-item collection-item text-truncate" *ngFor="let listEntry of optionsList" (click)="onSelect(listEntry)" title="{{ listEntry.display }}">
         {{inputFormatter(listEntry)}}
       </button>
       <div class="scrollable-dropdown-loading text-center" *ngIf="loading"><p>{{'form.loading' | translate}}</p></div>

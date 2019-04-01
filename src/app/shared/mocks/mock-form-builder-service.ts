@@ -7,11 +7,17 @@ export function getMockFormBuilderService(): FormBuilderService {
     createFormGroup: new FormGroup({}),
     getValueFromModel: {},
     getFormControlById: new FormControl(),
+    hasMappedGroupValue: false,
     findById: {},
     getPath: ['test', 'path'],
+    getId: 'path',
     clearAllModelsValue : {},
     insertFormArrayGroup: {},
-    isQualdrop: false
+    isQualdrop: false,
+    isQualdropGroup: false,
+    isModelInCustomGroup: true,
+    isRelationGroup: true,
+    hasArrayGroupValue: true
 
   });
 

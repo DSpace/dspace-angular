@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { coreSelector, CoreState } from '../../core.reducers';
+import { CoreState } from '../../core.reducers';
+import { coreSelector } from '../../core.selectors';
 import {
   FieldState,
   FieldUpdates,

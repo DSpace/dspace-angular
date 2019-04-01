@@ -17,7 +17,7 @@ import { AppState } from '../../app.reducer';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { isNotEmpty, isUndefined } from '../../shared/empty.util';
+import { isNotEmpty, isUndefined, isNotNull } from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -142,7 +142,7 @@ export class AuthInterceptor implements HttpInterceptor {
               url: error.url
             });
             return observableOf(authResponse);
-          } else if (this.isUnauthorized(error)) {
+          } else if (this.isUnauthorized(error) && isNotNull(token) && authService.isTokenExpired()) {
             // The access token provided is expired, revoked, malformed, or invalid for other reasons
             // Redirect to the login route
             this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));

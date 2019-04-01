@@ -116,7 +116,7 @@ describe('MetadataService', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
-        { provide: HALEndpointService, useValue: {}},
+        { provide: HALEndpointService, useValue: {} },
         { provide: AuthService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: HttpClient, useValue: {} },
@@ -180,7 +180,7 @@ describe('MetadataService', () => {
     spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(MockItem));
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
-    expect(tagStore.size).toBeGreaterThan(0)
+    expect(tagStore.size).toBeGreaterThan(0);
     router.navigate(['/other']);
     tick();
     expect(tagStore.size).toEqual(2);
@@ -213,13 +213,13 @@ describe('MetadataService', () => {
       undefined,
       MockItem
     ));
-  }
+  };
 
   const mockType = (mockItem: Item, type: string): Item => {
     const typedMockItem = Object.assign(new Item(), mockItem) as Item;
     typedMockItem.metadata['dc.type'] = [ { value: type } ] as MetadataValue[];
     return typedMockItem;
-  }
+  };
 
   const mockPublisher = (mockItem: Item): Item => {
     const publishedMockItem = Object.assign(new Item(), mockItem) as Item;

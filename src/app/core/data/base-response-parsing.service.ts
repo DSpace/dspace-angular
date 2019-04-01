@@ -37,11 +37,11 @@ export abstract class BaseResponseParsingService {
               if (isNotEmpty(parsedObj)) {
                 if (isRestPaginatedList(data._embedded[property])) {
                   object[property] = parsedObj;
-                  object[property].page = parsedObj.page.map((obj) => obj.self);
+                  object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
                 } else if (isRestDataObject(data._embedded[property])) {
-                  object[property] = parsedObj.self;
+                  object[property] = this.retrieveObjectOrUrl(parsedObj);
                 } else if (Array.isArray(parsedObj)) {
-                  object[property] = parsedObj.map((obj) => obj.self)
+                  object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
                 }
               }
             });
@@ -55,8 +55,7 @@ export abstract class BaseResponseParsingService {
         .filter((property) => data.hasOwnProperty(property))
         .filter((property) => hasValue(data[property]))
         .forEach((property) => {
-          const obj = this.process(data[property], requestUUID);
-          result[property] = obj;
+          result[property] = this.process(data[property], requestUUID);
         });
       return result;
 
@@ -91,8 +90,7 @@ export abstract class BaseResponseParsingService {
 
       if (hasValue(normObjConstructor)) {
         const serializer = new DSpaceRESTv2Serializer(normObjConstructor);
-        const res = serializer.deserialize(obj);
-        return res;
+        return serializer.deserialize(obj);
       } else {
         // TODO: move check to Validator?
         // throw new Error(`The server returned an object with an unknown a known type: ${type}`);
@@ -138,6 +136,10 @@ export abstract class BaseResponseParsingService {
       throw new Error(`Expected an object with a single key, got: ${JSON.stringify(obj)}`);
     }
     return obj[keys[0]];
+  }
+
+  protected retrieveObjectOrUrl(obj: any): any {
+    return this.toCache ? obj.self : obj;
   }
 
   // TODO Remove when https://jira.duraspace.org/browse/DS-4006 is fixed

@@ -36,12 +36,12 @@ export class BrowseEntriesResponseParsingService extends BaseResponseParsingServ
         const serializer = new DSpaceRESTv2Serializer(BrowseEntry);
         browseEntries = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
       }
-      return new GenericSuccessResponse(browseEntries, data.statusCode, this.processPageInfo(data.payload));
+      return new GenericSuccessResponse(browseEntries, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from browse endpoint'),
-          { statusText: data.statusCode }
+          { statusCode: data.statusCode, statusText: data.statusText }
         )
       );
     }
