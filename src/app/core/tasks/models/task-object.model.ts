@@ -6,6 +6,9 @@ import { ListableObject } from '../../../shared/object-collection/shared/listabl
 import { RemoteData } from '../../data/remote-data';
 import { Workflowitem } from '../../submission/models/workflowitem.model';
 
+/**
+ * An abstract model class for a TaskObject.
+ */
 export class TaskObject extends DSpaceObject implements CacheableObject, ListableObject {
 
   /**

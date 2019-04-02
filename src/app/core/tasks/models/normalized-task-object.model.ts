@@ -6,7 +6,7 @@ import { TaskObject } from './task-object.model';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 
 /**
- * An abstract model class for a DSpaceObject.
+ * An abstract normalized model class for a TaskObject.
  */
 @mapsTo(TaskObject)
 @inheritSerialization(NormalizedDSpaceObject)

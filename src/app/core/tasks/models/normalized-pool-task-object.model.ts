@@ -5,7 +5,7 @@ import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 
 /**
- * A model class for a NormalizedPoolTaskObject.
+ * A normalized model class for a PoolTask.
  */
 @mapsTo(PoolTask)
 @inheritSerialization(NormalizedTaskObject)

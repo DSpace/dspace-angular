@@ -14,12 +14,37 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { ProcessTaskResponse } from './models/process-task-response';
 
+/**
+ * The service handling all REST requests for ClaimedTask
+ */
 @Injectable()
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
+
+  /**
+   * The endpoint link name
+   */
   protected linkPath = 'claimedtasks';
+
+  /**
+   * When true, a new request is always dispatched
+   */
   protected forceBypassCache = true;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {RequestService} requestService
+   * @param {RemoteDataBuildService} rdbService
+   * @param {NormalizedObjectBuildService} dataBuildService
+   * @param {Store<CoreState>} store
+   * @param {ObjectCacheService} objectCache
+   * @param {HALEndpointService} halService
+   * @param {NotificationsService} notificationsService
+   * @param {HttpClient} http
+   * @param {DSOChangeAnalyzer<ClaimedTask} comparator
+   */
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
@@ -33,14 +58,32 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
     super();
   }
 
-  public approveTask(scopeId: string): Observable<any> {
+  /**
+   * Make a request to approve the given task
+   *
+   * @param scopeId
+   *    The task id
+   * @return {Observable<ProcessTaskResponse>}
+   *    Emit the server response
+   */
+  public approveTask(scopeId: string): Observable<ProcessTaskResponse> {
     const body = {
       submit_approve: 'true'
     };
     return this.postToEndpoint(this.linkPath, this.requestService.prepareBody(body), scopeId, this.makeHttpOptions());
   }
 
-  public rejectTask(reason: string, scopeId: string): Observable<any> {
+  /**
+   * Make a request to reject the given task
+   *
+   * @param reason
+   *    The reason of reject
+   * @param scopeId
+   *    The task id
+   * @return {Observable<ProcessTaskResponse>}
+   *    Emit the server response
+   */
+  public rejectTask(reason: string, scopeId: string): Observable<ProcessTaskResponse> {
     const body = {
       submit_reject: 'true',
       reason
@@ -48,7 +91,15 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
     return this.postToEndpoint(this.linkPath, this.requestService.prepareBody(body), scopeId, this.makeHttpOptions());
   }
 
-  public returnToPoolTask(scopeId: string): Observable<any> {
+  /**
+   * Make a request to return the given task to the pool
+   *
+   * @param scopeId
+   *    The task id
+   * @return {Observable<ProcessTaskResponse>}
+   *    Emit the server response
+   */
+  public returnToPoolTask(scopeId: string): Observable<ProcessTaskResponse> {
     return this.deleteById(this.linkPath, scopeId, this.makeHttpOptions());
   }
 

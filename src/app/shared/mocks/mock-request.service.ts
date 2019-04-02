@@ -8,6 +8,7 @@ export function getMockRequestService(requestEntry$: Observable<RequestEntry> = 
     generateRequestId: 'clients/b186e8ce-e99c-4183-bc9a-42b4821bdb78',
     getByHref: requestEntry$,
     getByUUID: requestEntry$,
+    prepareBody: jasmine.createSpy('prepareBody'),
     /* tslint:disable:no-empty */
     removeByHrefSubstring: () => {}
     /* tslint:enable:no-empty */

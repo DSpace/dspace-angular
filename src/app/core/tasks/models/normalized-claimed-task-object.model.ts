@@ -5,7 +5,7 @@ import { ClaimedTask } from './claimed-task-object.model';
 import { ResourceType } from '../../shared/resource-type';
 
 /**
- * A model class for a NormalizedClaimedTaskObject.
+ * A normalized model class for a ClaimedTask.
  */
 @mapsTo(ClaimedTask)
 @inheritSerialization(NormalizedTaskObject)

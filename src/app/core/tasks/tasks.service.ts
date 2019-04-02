@@ -13,12 +13,23 @@ import { getResponseFromEntry } from '../shared/operators';
 import { ErrorResponse, MessageResponse, RestResponse } from '../cache/response.models';
 import { CacheableObject } from '../cache/object-cache.reducer';
 
+/**
+ * An abstract class that provides methods to handle task requests.
+ */
 export abstract class TasksService<T extends CacheableObject> extends DataService<T> {
 
   public getBrowseEndpoint(options: FindAllOptions): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
+  /**
+   * Fetch a RestRequest
+   *
+   * @param requestId
+   *    The base endpoint for the type of object
+   * @return Observable<ProcessTaskResponse>
+   *     server response
+   */
   protected fetchRequest(requestId: string): Observable<ProcessTaskResponse> {
     const responses = this.requestService.getByUUID(requestId).pipe(
       getResponseFromEntry()
@@ -39,14 +50,32 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
     return observableMerge(errorResponses, successResponses);
   }
 
+  /**
+   * Create the HREF for a specific submission object based on its identifier
+   *
+   * @param endpoint
+   *    The base endpoint for the type of object
+   * @param resourceID
+   *    The identifier for the object
+   */
   protected getEndpointByIDHref(endpoint, resourceID): string {
     return isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
   }
 
-  protected getEndpointByMethod(endpoint: string, method: string): string {
-    return isNotEmpty(method) ? `${endpoint}/${method}` : `${endpoint}`;
-  }
-
+  /**
+   * Make a new post request
+   *
+   * @param linkPath
+   *    The endpoint link name
+   * @param body
+   *    The request body
+   * @param scopeId
+   *    The task id to be removed
+   * @param options
+   *    The HttpOptions object
+   * @return Observable<SubmitDataResponseDefinitionObject>
+   *     server response
+   */
   public postToEndpoint(linkPath: string, body: any, scopeId?: string, options?: HttpOptions): Observable<ProcessTaskResponse> {
     const requestId = this.requestService.generateRequestId();
     return this.halService.getEndpoint(linkPath).pipe(
@@ -59,9 +88,21 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       distinctUntilChanged());
   }
 
-  public deleteById(linkName: string, scopeId: string, options?: HttpOptions): Observable<ProcessTaskResponse> {
+  /**
+   * Delete an existing task on the server
+   *
+   * @param linkPath
+   *    The endpoint link name
+   * @param scopeId
+   *    The task id to be removed
+   * @param options
+   *    The HttpOptions object
+   * @return Observable<SubmitDataResponseDefinitionObject>
+   *     server response
+   */
+  public deleteById(linkPath: string, scopeId: string, options?: HttpOptions): Observable<ProcessTaskResponse> {
     const requestId = this.requestService.generateRequestId();
-    return this.halService.getEndpoint(linkName || this.linkPath).pipe(
+    return this.halService.getEndpoint(linkPath || this.linkPath).pipe(
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, scopeId)),
@@ -71,6 +112,9 @@ export abstract class TasksService<T extends CacheableObject> extends DataServic
       distinctUntilChanged());
   }
 
+  /**
+   * Create a new HttpOptions
+   */
   protected makeHttpOptions() {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();

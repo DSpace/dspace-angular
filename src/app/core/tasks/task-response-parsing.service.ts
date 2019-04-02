@@ -11,17 +11,33 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { ErrorResponse, RestResponse, TaskResponse } from '../cache/response.models';
 
+/**
+ * Provides methods to parse response for a task request.
+ */
 @Injectable()
 export class TaskResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
   protected objectFactory = NormalizedObjectFactory;
   protected toCache = false;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {GlobalConfig} EnvConfig
+   * @param {ObjectCacheService} objectCache
+   */
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               protected objectCache: ObjectCacheService,) {
     super();
   }
 
+  /**
+   * Parses data from the tasks endpoints
+   *
+   * @param {RestRequest} request
+   * @param {DSpaceRESTV2Response} data
+   * @returns {RestResponse}
+   */
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (this.isSuccessStatus(data.statusCode)) {
       return new TaskResponse( data.statusCode, data.statusText);
