@@ -10,11 +10,24 @@ import { Metadata } from '../../../core/shared/metadata.utils';
   selector: 'ds-my-dspace-result-list-element',
   template: ``
 })
-
 export class MyDSpaceResultListElementComponent<T extends MyDSpaceResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
+
+  /**
+   * The result element object
+   */
   dso: K;
+
+  /**
+   * The array index of the result element
+   */
   dsoIndex: number;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {ListableObject} listable
+   * @param {number} index
+   */
   public constructor(@Inject('objectElementProvider') public listable: ListableObject,
                      @Inject('indexElementProvider') public index: number) {
     super(listable);

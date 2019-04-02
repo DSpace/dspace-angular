@@ -1,16 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { of as observableOf } from 'rxjs';
 
-import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../testing/router-stub';
+import { WrapperDetailElementComponent } from './wrapper-detail-element.component';
 
-import { WrapperGridElementComponent } from '../../object-grid/wrapper-grid-element/wrapper-grid-element.component';
-
-let wrapperGridElementComponent: WrapperGridElementComponent;
-let fixture: ComponentFixture<WrapperGridElementComponent>;
+let wrapperDetailElementComponent: WrapperDetailElementComponent;
+let fixture: ComponentFixture<WrapperDetailElementComponent>;
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const activatedRouteStub = {
@@ -20,14 +19,14 @@ const activatedRouteStub = {
   })
 };
 
-describe('WrapperGridElementComponent', () => {
+describe('WrapperDetailElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WrapperGridElementComponent ],
+      declarations: [ WrapperDetailElementComponent ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useClass: RouterStub },
-        { provide: 'objectElementProvider', useFactory: (wrapperGridElementComponent)}
+        { provide: 'objectElementProvider', useFactory: (WrapperDetailElementComponent)}
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -35,12 +34,11 @@ describe('WrapperGridElementComponent', () => {
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(WrapperGridElementComponent);
-    wrapperGridElementComponent = fixture.componentInstance;
-
+    fixture = TestBed.createComponent(WrapperDetailElementComponent);
+    wrapperDetailElementComponent = fixture.componentInstance;
   }));
 
-  it('should show the wrapper element containing the cards',() => {
-    expect(fixture.debugElement.query(By.css('ds-collection-grid-element'))).toBeDefined();
+  it('should show the wrapper element containing the detail object',() => {
+    expect(fixture.debugElement.query(By.css('ds-workspaceitem-my-dspace-result-detail-element'))).toBeDefined();
   })
 });

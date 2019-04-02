@@ -79,7 +79,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
-   * An event fired when the sort field is changed.
+   * An event fired when the pagination is changed.
    * Event's payload equals to the newly selected sort field.
    */
   @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();

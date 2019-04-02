@@ -10,12 +10,20 @@ import { Metadata } from '../../../core/shared/metadata.utils';
   selector: 'ds-my-dspace-result-detail-element',
   template: ``
 })
-
 export class MyDSpaceResultDetailElementComponent<T extends MyDSpaceResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
+
+  /**
+   * The result element object
+   */
   dso: K;
 
-  public constructor(@Inject('objectElementProvider') public gridable: ListableObject) {
-    super(gridable);
+  /**
+   * Initialize instance variables
+   *
+   * @param {ListableObject} detailable
+   */
+  public constructor(@Inject('objectElementProvider') public detailable: ListableObject) {
+    super(detailable);
     this.dso = this.object.dspaceObject;
   }
 
