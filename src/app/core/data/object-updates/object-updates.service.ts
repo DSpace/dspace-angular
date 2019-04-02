@@ -103,6 +103,21 @@ export class ObjectUpdatesService {
     }))
   }
 
+  getFieldUpdatesExclusive(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
+    const objectUpdates = this.getObjectEntry(url);
+    return objectUpdates.pipe(map((objectEntry) => {
+      const fieldUpdates: FieldUpdates = {};
+      for (const object of initialFields) {
+        let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
+        if (isEmpty(fieldUpdate)) {
+          fieldUpdate = { field: object, changeType: undefined };
+        }
+        fieldUpdates[object.uuid] = fieldUpdate;
+      }
+      return fieldUpdates;
+    }))
+  }
+
   /**
    * Method to check if a specific field is currently editable in the store
    * @param url The URL of the page on which the field resides

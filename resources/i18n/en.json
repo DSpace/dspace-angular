@@ -175,6 +175,10 @@
           "head": "Item Metadata",
           "title": "Item Edit -  Metadata"
         },
+        "relationships": {
+          "head": "Item Relationships",
+          "title": "Item Edit -  Relationships"
+        },
         "view": {
           "head": "View Item",
           "title": "Item Edit -  View"
