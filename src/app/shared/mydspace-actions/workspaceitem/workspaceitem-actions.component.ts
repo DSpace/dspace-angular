@@ -7,50 +7,71 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationOptions } from '../../notifications/models/notification-options.model';
 
+/**
+ * This component represents mydspace actions related to Workspaceitem object.
+ */
 @Component({
   selector: 'ds-workspaceitem-actions',
   styleUrls: ['./workspaceitem-actions.component.scss'],
   templateUrl: './workspaceitem-actions.component.html',
 })
-
 export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Workspaceitem, WorkspaceitemDataService> {
+
+  /**
+   * The workspaceitem object
+   */
   @Input() object: Workspaceitem;
 
+  /**
+   * A boolean representing if a delete operation is pending
+   * @type {BehaviorSubject<boolean>}
+   */
   public processingDelete$ = new BehaviorSubject<boolean>(false);
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {Injector} injector
+   * @param {Router} router
+   * @param {NgbModal} modalService
+   * @param {NotificationsService} notificationsService
+   * @param {TranslateService} translate
+   */
   constructor(protected injector: Injector,
               protected router: Router,
-              private modalService: NgbModal,
-              private notificationsService: NotificationsService,
-              private restService: SubmissionRestService,
-              private translate: TranslateService) {
-    super(ResourceType.Workspaceitem, injector, router);
+              protected modalService: NgbModal,
+              protected notificationsService: NotificationsService,
+              protected translate: TranslateService) {
+    super(ResourceType.Workspaceitem, injector, router, notificationsService, translate);
   }
 
+  /**
+   * Delete the target workspaceitem object
+   */
   public confirmDiscard(content) {
     this.modalService.open(content).result.then(
       (result) => {
         if (result === 'ok') {
           this.processingDelete$.next(true);
-          this.restService.deleteById(this.object.id)
-            .subscribe(() => {
-              this.notificationsService.success(null,
-                this.translate.get('submission.workflow.tasks.generic.success'),
-                new NotificationOptions(5000, false));
+          this.objectDataService.delete(this.object)
+            .subscribe((response: boolean) => {
               this.processingDelete$.next(false);
-              this.reload();
+              this.handleActionResponse(response);
             })
         }
       }
     );
   }
 
+  /**
+   * Init the target object
+   *
+   * @param {Workspaceitem} object
+   */
   initObjects(object: Workspaceitem) {
     this.object = object;
   }

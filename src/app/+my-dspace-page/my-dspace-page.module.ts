@@ -60,6 +60,10 @@ import { MyDSpaceConfigurationService } from './my-dspace-configuration.service'
     PoolMyDSpaceResultDetailElementComponent
   ]
 })
+
+/**
+ * This module handles all components that are necessary for the mydspace page
+ */
 export class MyDSpacePageModule {
 
 }

@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { MyDSpaceResult } from '../my-dspace-result.model';
 import { SearchOptions } from '../../+search-page/search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -11,9 +10,7 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../../shared/empty.util';
 
 /**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
+ * Component that represents all results for mydspace page
  */
 @Component({
   selector: 'ds-my-dspace-results',
@@ -24,13 +21,30 @@ import { isEmpty } from '../../shared/empty.util';
   ]
 })
 export class MyDSpaceResultsComponent {
+
+  /**
+   * The actual search result objects
+   */
   @Input() searchResults: RemoteData<PaginatedList<MyDSpaceResult<DSpaceObject>>>;
+
+  /**
+   * The current configuration of the search
+   */
   @Input() searchConfig: SearchOptions;
-  @Input() sortConfig: SortOptions;
+
+  /**
+   * The current view mode for the search results
+   */
   @Input() viewMode: ViewMode;
 
+  /**
+   * A boolean representing if search results entry are separated by a line
+   */
   hasBorder = true;
 
+  /**
+   * Check if mydspace search results are loading
+   */
   isLoading() {
     return !this.searchResults || isEmpty(this.searchResults) || this.searchResults.isLoading;
   }

@@ -72,6 +72,12 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
     this.isAdmin$ = this.roleService.isAdmin();
   }
 
+  /**
+   * Returns the list of available configuration depend on the user role
+   *
+   * @return {Observable<MyDSpaceConfigurationValueType[]>}
+   *    Emits the available configuration list
+   */
   public getAvailableConfigurationTypes(): Observable<MyDSpaceConfigurationValueType[]> {
     return combineLatest(this.isSubmitter$, this.isController$, this.isAdmin$).pipe(
       first(),
@@ -87,6 +93,12 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
       }));
   }
 
+  /**
+   * Returns the select options for the available configuration list
+   *
+   * @return {Observable<SearchConfigurationOption[]>}
+   *    Emits the select options list
+   */
   public getAvailableConfigurationOptions(): Observable<SearchConfigurationOption[]> {
     return this.getAvailableConfigurationTypes().pipe(
       first(),

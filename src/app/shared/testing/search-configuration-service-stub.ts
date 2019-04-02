@@ -10,7 +10,10 @@ export class SearchConfigurationServiceStub {
   }
 
   getCurrentScope(a) {
-    return observableOf('test-id')
+    return observableOf('test-id');
   }
 
+  getCurrentConfiguration(a) {
+    return observableOf(a);
+  }
 }

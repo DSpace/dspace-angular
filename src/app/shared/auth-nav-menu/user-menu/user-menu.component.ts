@@ -8,6 +8,9 @@ import { AppState } from '../../../app.reducer';
 import { getAuthenticatedUser, isAuthenticationLoading } from '../../../core/auth/selectors';
 import { MYDSPACE_ROUTE } from '../../../+my-dspace-page/my-dspace-page.component';
 
+/**
+ * This component represents the user nav menu.
+ */
 @Component({
   selector: 'ds-user-menu',
   templateUrl: './user-menu.component.html',
@@ -36,6 +39,9 @@ export class UserMenuComponent implements OnInit {
   constructor(private store: Store<AppState>) {
   }
 
+  /**
+   * Initialize all instance variables
+   */
   ngOnInit(): void {
 
     // set loading

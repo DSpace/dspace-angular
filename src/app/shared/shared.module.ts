@@ -140,6 +140,7 @@ import { MetadataValuesComponent } from '../+item-page/field-components/metadata
 import { MetadataUriValuesComponent } from '../+item-page/field-components/metadata-uri-values/metadata-uri-values.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
+import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -234,6 +235,7 @@ const COMPONENTS = [
   ClaimedTaskActionsComponent,
   ClaimedTaskActionsApproveComponent,
   ClaimedTaskActionsRejectComponent,
+  ClaimedTaskActionsReturnToPoolComponent,
   ItemActionsComponent,
   PoolTaskActionsComponent,
   WorkflowitemActionsComponent,

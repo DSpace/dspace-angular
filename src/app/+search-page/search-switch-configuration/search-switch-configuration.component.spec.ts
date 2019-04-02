@@ -1,103 +1,109 @@
-// import { SearchService } from '../../search-service/search.service';
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-// import { SearchSettingsComponent } from '../../search-settings/search-settings.component';
-// import { Observable } from 'rxjs/Observable';
-// import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-// import { SortOptions } from '../../../core/cache/models/sort-options.model';
-// import { TranslateModule } from '@ngx-translate/core';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { ActivatedRoute } from '@angular/router';
-// import { SearchSidebarService } from '../../search-sidebar/search-sidebar.service';
-// import { NO_ERRORS_SCHEMA } from '@angular/core';
-// import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
-// import { By } from '@angular/platform-browser';
-//
-// describe('SearchSettingsComponent', () => {
-//
-//   let comp: SearchSettingsComponent;
-//   let fixture: ComponentFixture<SearchSettingsComponent>;
-//   let searchServiceObject: SearchService;
-//
-//   const pagination: PaginationComponentOptions = new PaginationComponentOptions();
-//   pagination.id = 'search-results-pagination';
-//   pagination.currentPage = 1;
-//   pagination.pageSize = 10;
-//   const sort: SortOptions = new SortOptions();
-//   const mockResults = [ 'test', 'data' ];
-//   const searchServiceStub = {
-//     searchOptions: { pagination: pagination, sort: sort },
-//     search: () => mockResults
-//   };
-//   const queryParam = 'test query';
-//   const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
-//   const activatedRouteStub = {
-//     queryParams: Observable.of({
-//       query: queryParam,
-//       scope: scopeParam
-//     })
-//   };
-//
-//   const sidebarService = {
-//     isCollapsed: Observable.of(true),
-//     collapse: () => this.isCollapsed = Observable.of(true),
-//     expand: () => this.isCollapsed = Observable.of(false)
-//   }
-//
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       imports: [ TranslateModule.forRoot(), RouterTestingModule.withRoutes([]) ],
-//       declarations: [ SearchSettingsComponent, EnumKeysPipe ],
-//       providers: [
-//         { provide: SearchService, useValue: searchServiceStub },
-//
-//         { provide: ActivatedRoute, useValue: activatedRouteStub },
-//         {
-//           provide: SearchSidebarService,
-//           useValue: sidebarService
-//         },
-//       ],
-//       schemas: [ NO_ERRORS_SCHEMA ]
-//     }).compileComponents();
-//   }));
-//
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(SearchSettingsComponent);
-//     comp = fixture.componentInstance;
-//
-//     // SearchPageComponent test instance
-//     fixture.detectChanges();
-//     searchServiceObject = (comp as any).service;
-//     spyOn(comp, 'reloadRPP');
-//     spyOn(comp, 'reloadOrder');
-//     spyOn(searchServiceObject, 'search').and.callThrough();
-//
-//   });
-//
-//   it('it should show the order settings with the respective selectable options', () => {
-//     const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
-//     expect(orderSetting).toBeDefined();
-//     const childElements = orderSetting.query(By.css('.form-control')).children;
-//     expect(childElements.length).toEqual(2);
-//
-//   });
-//
-//   it('it should show the size settings with the respective selectable options', () => {
-//     const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-//     expect(pageSizeSetting).toBeDefined();
-//     const childElements = pageSizeSetting.query(By.css('.form-control')).children;
-//     expect(childElements.length).toEqual(7);
-//   });
-//
-//   it('should have the proper order value selected by default', () => {
-//     const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
-//     const childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'))
-//     expect(childElementToBeSelected).toBeDefined();
-//   });
-//
-//   it('should have the proper rpp value selected by default', () => {
-//     const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-//     const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'))
-//     expect(childElementToBeSelected).toBeDefined();
-//   });
-//
-// });
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { of as observableOf } from 'rxjs';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+import { SearchSwitchConfigurationComponent } from './search-switch-configuration.component';
+import { MYDSPACE_ROUTE, SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service-stub';
+import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
+import { NavigationExtras, Router } from '@angular/router';
+import { RouterStub } from '../../shared/testing/router-stub';
+import { MyDSpaceConfigurationValueType } from '../../+my-dspace-page/my-dspace-configuration-value-type';
+import { SearchService } from '../search-service/search.service';
+
+describe('SearchSwitchConfigurationComponent', () => {
+
+  let comp: SearchSwitchConfigurationComponent;
+  let fixture: ComponentFixture<SearchSwitchConfigurationComponent>;
+  let searchConfService: SearchConfigurationServiceStub;
+  let select: any;
+
+  const searchServiceStub = jasmine.createSpyObj('SearchService', {
+    getSearchLink:  jasmine.createSpy('getSearchLink')
+  });
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: MockTranslateLoader
+          }
+        })
+      ],
+      declarations: [ SearchSwitchConfigurationComponent ],
+      providers: [
+        { provide: Router, useValue: new RouterStub() },
+        { provide: SearchService, useValue: searchServiceStub },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SearchSwitchConfigurationComponent);
+    comp = fixture.componentInstance;
+    searchConfService = TestBed.get(SEARCH_CONFIG_SERVICE);
+
+    spyOn(searchConfService, 'getCurrentConfiguration').and.returnValue(observableOf(MyDSpaceConfigurationValueType.Workspace));
+
+    comp.configurationList = [
+      {
+        value: MyDSpaceConfigurationValueType.Workspace,
+        label: 'workspace'
+      },
+      {
+        value: MyDSpaceConfigurationValueType.Workflow,
+        label: 'workflow'
+      },
+    ];
+
+    // SearchSwitchConfigurationComponent test instance
+    fixture.detectChanges();
+
+  });
+
+  it('should init the current configuration name', () => {
+    expect(comp.selectedOption).toBe(MyDSpaceConfigurationValueType.Workspace);
+  });
+
+  it('should display select field properly', () => {
+    const selectField = fixture.debugElement.query(By.css('.form-control'));
+    expect(selectField).toBeDefined();
+
+    const childElements = selectField.children;
+    expect(childElements.length).toEqual(comp.configurationList.length);
+  });
+
+  it('should call onSelect method when selecting an option', () => {
+    fixture.whenStable().then(() => {
+      spyOn(comp, 'onSelect');
+      select = fixture.debugElement.query(By.css('select'));
+      const selectEl = select.nativeElement;
+      selectEl.value = selectEl.options[1].value;  // <-- select a new value
+      selectEl.dispatchEvent(new Event('change'));
+      fixture.detectChanges();
+      expect(comp.onSelect).toHaveBeenCalled();
+    });
+
+  });
+
+  it('should navigate to the route when selecting an option', () => {
+    (comp as any).searchService.getSearchLink.and.returnValue(MYDSPACE_ROUTE);
+    comp.selectedOption = MyDSpaceConfigurationValueType.Workflow;
+    const navigationExtras: NavigationExtras = {
+      queryParams: {configuration: MyDSpaceConfigurationValueType.Workflow},
+    };
+
+    fixture.detectChanges();
+
+    comp.onSelect();
+
+    expect((comp as any).router.navigate).toHaveBeenCalledWith([MYDSPACE_ROUTE], navigationExtras);
+  });
+});

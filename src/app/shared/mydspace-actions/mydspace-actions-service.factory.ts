@@ -5,10 +5,17 @@ import { ClaimedTaskDataService } from '../../core/tasks/claimed-task-data.servi
 import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
 import { WorkflowitemDataService } from '../../core/submission/workflowitem-data.service';
 import { CacheableObject } from '../../core/cache/object-cache.reducer';
+import { ItemDataService } from '../../core/data/item-data.service';
 
+/**
+ * Class to return DataService for given ResourceType
+ */
 export class MydspaceActionsServiceFactory<T extends CacheableObject, TService extends DataService<T>> {
   public getConstructor(type: ResourceType): TService {
     switch (type) {
+      case ResourceType.Item: {
+        return ItemDataService as any;
+      }
       case ResourceType.Workspaceitem: {
         return WorkspaceitemDataService as any;
       }

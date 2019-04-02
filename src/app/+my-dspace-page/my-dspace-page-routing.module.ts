@@ -18,5 +18,8 @@ import { MyDSpaceGuard } from './my-dspace.guard';
     ])
   ]
 })
+/**
+ * This module defines the default component to load when navigating to the mydspace page path.
+ */
 export class MyDspacePageRoutingModule {
 }

@@ -7,13 +7,26 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 
 export class ClaimedTaskActionsApproveComponent {
+
+  /**
+   * A boolean representing if a reject operation is pending
+   */
   @Input() processingApprove: boolean;
-  @Input() taskId: string;
+
+  /**
+   * CSS classes to append to reject button
+   */
   @Input() wrapperClass: string;
 
+  /**
+   * An event fired when a approve action is confirmed.
+   */
   @Output() approve: EventEmitter<any> = new EventEmitter<any>();
 
-  click() {
+  /**
+   * Emit approve event
+   */
+  confirmApprove() {
     this.approve.emit();
   }
 }
