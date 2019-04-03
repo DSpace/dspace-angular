@@ -19,9 +19,10 @@ import { By } from '@angular/platform-browser';
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
   let fixture: ComponentFixture<SearchFacetOptionComponent>;
-  const filterName1 = 'test name';
+  const filterName1 = 'testname';
   const value1 = 'testvalue1';
   const value2 = 'test2';
+  const operator = 'equals';
   const value3 = 'another value3';
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
@@ -36,7 +37,7 @@ describe('SearchFacetOptionComponent', () => {
     label: value2,
     value: value2,
     count: 20,
-    search: ''
+    search: `http://test.org/api/discover/search/objects?f.${filterName1}=${value2},${operator}`
   };
 
   const searchLink = '/search';
@@ -91,12 +92,12 @@ describe('SearchFacetOptionComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the updateAddParams method is called wih a value', () => {
+  describe('when the updateAddParams method is called with a value', () => {
     it('should update the addQueryParams with the new parameter values', () => {
       comp.addQueryParams = {};
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
-        [mockFilterConfig.paramName]: [value1, value.value],
+        [mockFilterConfig.paramName]: [value1, `${value2},${operator}`],
         page: 1
       });
     });
