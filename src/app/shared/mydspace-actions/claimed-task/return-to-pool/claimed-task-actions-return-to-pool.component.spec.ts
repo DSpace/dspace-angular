@@ -56,7 +56,7 @@ describe('ClaimedTaskActionsReturnToPoolComponent', () => {
   it('should emit return to pool event', () => {
     spyOn(component.returnToPool, 'emit');
 
-    component.confirmApprove();
+    component.confirmReturnToPool();
     fixture.detectChanges();
 
     expect(component.returnToPool.emit).toHaveBeenCalled();

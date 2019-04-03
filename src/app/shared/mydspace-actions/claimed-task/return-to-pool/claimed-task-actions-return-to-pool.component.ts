@@ -24,9 +24,9 @@ export class ClaimedTaskActionsReturnToPoolComponent {
   @Output() returnToPool: EventEmitter<any> = new EventEmitter<any>();
 
   /**
-   * Emit approve event
+   * Emit returnToPool event
    */
-  confirmApprove() {
+  confirmReturnToPool() {
     this.returnToPool.emit();
   }
 }
