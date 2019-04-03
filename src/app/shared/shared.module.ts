@@ -127,17 +127,8 @@ import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-it
 import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
-import { ItemPageAuthorFieldComponent } from '../+item-page/simple/field-components/specific-field/author/item-page-author-field.component';
-import { ItemPageDateFieldComponent } from '../+item-page/simple/field-components/specific-field/date/item-page-date-field.component';
-import { ItemPageAbstractFieldComponent } from '../+item-page/simple/field-components/specific-field/abstract/item-page-abstract-field.component';
-import { ItemPageUriFieldComponent } from '../+item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
-import { ItemPageTitleFieldComponent } from '../+item-page/simple/field-components/specific-field/title/item-page-title-field.component';
-import { ItemPageSpecificFieldComponent } from '../+item-page/simple/field-components/specific-field/item-page-specific-field.component';
-import { FileSectionComponent } from '../+item-page/simple/field-components/file-section/file-section.component';
 import { MetadataFieldWrapperComponent } from '../+item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
-import { CollectionsComponent } from '../+item-page/field-components/collections/collections.component';
 import { MetadataValuesComponent } from '../+item-page/field-components/metadata-values/metadata-values.component';
-import { MetadataUriValuesComponent } from '../+item-page/field-components/metadata-uri-values/metadata-uri-values.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
@@ -296,17 +287,8 @@ const ENTRY_COMPONENTS = [
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
-  CollectionsComponent,
-  FileSectionComponent,
-  ItemPageAuthorFieldComponent,
-  ItemPageDateFieldComponent,
-  ItemPageAbstractFieldComponent,
-  ItemPageUriFieldComponent,
-  ItemPageTitleFieldComponent,
-  ItemPageSpecificFieldComponent,
   MetadataFieldWrapperComponent,
   MetadataValuesComponent,
-  MetadataUriValuesComponent
 ];
 
 const PROVIDERS = [

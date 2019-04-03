@@ -5,6 +5,15 @@ import { SharedModule } from '../shared/shared.module';
 
 import { ItemPageComponent } from './simple/item-page.component';
 import { ItemPageRoutingModule } from './item-page-routing.module';
+import { MetadataUriValuesComponent } from './field-components/metadata-uri-values/metadata-uri-values.component';
+import { ItemPageAuthorFieldComponent } from './simple/field-components/specific-field/author/item-page-author-field.component';
+import { ItemPageDateFieldComponent } from './simple/field-components/specific-field/date/item-page-date-field.component';
+import { ItemPageAbstractFieldComponent } from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
+import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
+import { ItemPageTitleFieldComponent } from './simple/field-components/specific-field/title/item-page-title-field.component';
+import { ItemPageSpecificFieldComponent } from './simple/field-components/specific-field/item-page-specific-field.component';
+import { FileSectionComponent } from './simple/field-components/file-section/file-section.component';
+import { CollectionsComponent } from './field-components/collections/collections.component';
 import { FullItemPageComponent } from './full/full-item-page.component';
 import { FullFileSectionComponent } from './full/field-components/file-section/full-file-section.component';
 import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
@@ -19,6 +28,15 @@ import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
   declarations: [
     ItemPageComponent,
     FullItemPageComponent,
+    MetadataUriValuesComponent,
+    ItemPageAuthorFieldComponent,
+    ItemPageDateFieldComponent,
+    ItemPageAbstractFieldComponent,
+    ItemPageUriFieldComponent,
+    ItemPageTitleFieldComponent,
+    ItemPageSpecificFieldComponent,
+    FileSectionComponent,
+    CollectionsComponent,
     FullFileSectionComponent
   ]
 })
