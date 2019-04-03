@@ -19,7 +19,7 @@
   </div>
   <div *ngFor="let label of relationLabels$ | async" class="mb-2">
     <h5>{{label}}</h5>
-    <div *ngFor="let updateValue of ((getUpdatesByLabel(label) | async)| dsObjectValues)"
+    <div *ngFor="let updateValue of ((getUpdatesByLabel(label) | async)| dsObjectValues); trackBy: trackUpdate"
          ds-edit-in-place-relationship
          [fieldUpdate]="updateValue || {}"
          [url]="url"
