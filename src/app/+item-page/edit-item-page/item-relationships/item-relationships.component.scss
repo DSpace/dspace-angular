@@ -20,3 +20,14 @@
 
 
 }
+
+.relationship-row:not(.alert-danger) {
+  padding: $alert-padding-y 0;
+}
+
+.relationship-row.alert-danger {
+  margin-left: -$alert-padding-x;
+  margin-right: -$alert-padding-x;
+  margin-top: -1px;
+  margin-bottom: -1px;
+}

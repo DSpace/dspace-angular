@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
+import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap, take } from 'rxjs/operators';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -96,6 +96,18 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     return this.getRelatedItemsByLabel(label).pipe(
       switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, items))
     )
+  }
+
+  /**
+   * Get the i18n message key for a relationship
+   * @param label   The relationship type's label
+   */
+  public getRelationshipMessageKey(label: string): string {
+    if (label.indexOf('Of') > -1) {
+      return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`
+    } else {
+      return label;
+    }
   }
 
 }
