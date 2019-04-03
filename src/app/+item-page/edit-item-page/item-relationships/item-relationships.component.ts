@@ -1,22 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, first, flatMap, map, switchMap } from 'rxjs/operators';
-import { zip as observableZip } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { hasValue, hasValueOperator } from '../../../shared/empty.util';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import {
-  compareArraysUsingIds,
-  filterRelationsByTypeLabel,
-  relationsToItems
-} from '../../simple/item-types/shared/item.component';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
+import { switchMap, take } from 'rxjs/operators';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
+import { RelationshipService } from '../../../core/data/relationship.service';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -33,49 +27,32 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    */
   relationLabels$: Observable<string[]>;
 
-  /**
-   * Resolved relationships and types together in one observable
-   */
-  resolvedRelsAndTypes$: Observable<[Relationship[], RelationshipType[]]>;
+  constructor(
+    protected itemService: ItemDataService,
+    protected objectUpdatesService: ObjectUpdatesService,
+    protected router: Router,
+    protected notificationsService: NotificationsService,
+    protected translateService: TranslateService,
+    @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+    protected route: ActivatedRoute,
+    protected relationshipService: RelationshipService
+  ) {
+    super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
+  }
 
   /**
    * Set up and initialize all fields
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.initRelationshipObservables();
-  }
-
-  /**
-   * Initialize the item's relationship observables for easier access across the component
-   */
-  initRelationshipObservables() {
-    const relationships$ = this.getRelationships();
-
-    const relationshipTypes$ = relationships$.pipe(
-      flatMap((rels: Relationship[]) =>
-        observableZip(...rels.map((rel: Relationship) => rel.relationshipType)).pipe(
-          map(([...arr]: Array<RemoteData<RelationshipType>>) => arr.map((d: RemoteData<RelationshipType>) => d.payload).filter((type) => hasValue(type)))
-        )
-      ),
-      distinctUntilChanged(compareArraysUsingIds())
-    );
-
-    this.resolvedRelsAndTypes$ = observableCombineLatest(
-      relationships$,
-      relationshipTypes$
-    );
-    this.relationLabels$ = relationshipTypes$.pipe(
-      map((types: RelationshipType[]) => Array.from(new Set(types.map((type) => type.leftLabel))))
-    );
+    this.relationLabels$ = this.relationshipService.getItemRelationshipLabels(this.item);
   }
 
   /**
    * Initialize the values and updates of the current item's relationship fields
    */
   public initializeUpdates(): void {
-    this.updates$ = this.getRelationships().pipe(
-      relationsToItems(this.item.id, this.itemService),
+    this.updates$ = this.relationshipService.getRelatedItems(this.item).pipe(
       switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdates(this.url, items))
     );
   }
@@ -88,9 +65,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   }
 
   public submit(): void {
-    const updatedItems$ = this.getRelationships().pipe(
-      first(),
-      relationsToItems(this.item.id, this.itemService),
+    const updatedItems$ = this.relationshipService.getRelatedItems(this.item).pipe(
       switchMap((items: Item[]) => this.objectUpdatesService.getUpdatedFields(this.url, items) as Observable<Item[]>)
     );
     // TODO: Delete relationships
@@ -100,25 +75,9 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.getRelationships().pipe(
-      first(),
-      relationsToItems(this.item.id, this.itemService)
-    ).subscribe((items: Item[]) => {
+    this.relationshipService.getRelatedItems(this.item).pipe(take(1)).subscribe((items: Item[]) => {
       this.objectUpdatesService.initialize(this.url, items, this.item.lastModified);
     });
-  }
-
-  /**
-   * Fetch all the relationships of the item
-   */
-  public getRelationships(): Observable<Relationship[]> {
-    return this.item.relationships.pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((rels: PaginatedList<Relationship>) => rels.page),
-      hasValueOperator(),
-      distinctUntilChanged(compareArraysUsingIds())
-    );
   }
 
   /**
@@ -126,10 +85,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    * @param label   The relationship type's label
    */
   public getRelatedItemsByLabel(label: string): Observable<Item[]> {
-    return this.resolvedRelsAndTypes$.pipe(
-      filterRelationsByTypeLabel(label),
-      relationsToItems(this.item.id, this.itemService)
-    );
+    return this.relationshipService.getRelatedItemsByLabel(this.item, label);
   }
 
   /**
