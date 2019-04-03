@@ -70,7 +70,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    * Checks if a value for this filter is currently active
    */
   private isChecked(): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.filterValue.value);
+    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValueFromSearchLink());
   }
 
   /**
@@ -86,11 +86,26 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    */
   private updateAddParams(selectedValues: string[]): void {
     this.addQueryParams = {
-      [this.filterConfig.paramName]: [...selectedValues, this.filterValue.value],
+      [this.filterConfig.paramName]: [...selectedValues, this.getFacetValueFromSearchLink()],
       page: 1
     };
   }
 
+  /**
+   * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
+   * Retrieve facet value from search link
+   */
+  private getFacetValueFromSearchLink(): string {
+    const search = this.filterValue.search;
+    const hashes = search.slice(search.indexOf('?') + 1).split('&');
+    const params = {};
+    hashes.map((hash) => {
+      const [key, val] = hash.split('=');
+      params[key] = decodeURIComponent(val)
+    });
+
+    return params[this.filterConfig.paramName];
+  }
   /**
    * Make sure the subscription is unsubscribed from when this component is destroyed
    */

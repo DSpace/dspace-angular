@@ -56,4 +56,15 @@ export class SearchLabelsComponent {
   getSearchLink() {
     return this.searchService.getSearchLink();
   }
+
+  /**
+   * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
+   * Strips operator from filter value
+   * e.g. 'test ,operator' => 'test'
+   *
+   * @param value
+   */
+  normalizeFilterValue(value: string) {
+    return value.replace(/,[^,]*$/g, '');
+  }
 }

@@ -44,7 +44,10 @@ export class SearchOptions {
     }
     if (isNotEmpty(this.filters)) {
       this.filters.forEach((filter: SearchFilter) => {
-        filter.values.forEach((value) => args.push(`${filter.key}=${value},${filter.operator}`));
+        filter.values.forEach((value) => {
+          const filterValue = value.includes(',') ? `${value}` : `${value},${filter.operator}`;
+          args.push(`${filter.key}=${filterValue}`)
+        });
       });
     }
     if (isNotEmpty(args)) {

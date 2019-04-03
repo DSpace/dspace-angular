@@ -77,6 +77,17 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
+   * Strips operator from filter value
+   * e.g. 'test ,operator' => 'test'
+   *
+   * @param value
+   */
+  normalizeFilterValue(value: string) {
+    return value.replace(/,[^,]*$/g, '');
+  }
+
+  /**
    * Make sure the subscription is unsubscribed from when this component is destroyed
    */
   ngOnDestroy(): void {
