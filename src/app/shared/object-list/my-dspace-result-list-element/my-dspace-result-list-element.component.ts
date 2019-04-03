@@ -31,7 +31,7 @@ export class MyDSpaceResultListElementComponent<T extends MyDSpaceResult<K>, K e
   public constructor(@Inject('objectElementProvider') public listable: ListableObject,
                      @Inject('indexElementProvider') public index: number) {
     super(listable);
-    this.dso = this.object.dspaceObject;
+    this.dso = this.object.indexableObject;
     this.dsoIndex = this.index;
   }
 

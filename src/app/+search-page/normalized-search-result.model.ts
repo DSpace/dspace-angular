@@ -9,8 +9,8 @@ export class NormalizedSearchResult implements ListableObject {
   /**
    * The UUID of the DSpaceObject that was found
    */
-  @autoserializeAs(String, 'resultObject')
-  dspaceObject: string;
+  @autoserialize
+  indexableObject: string;
 
   /**
    * The metadata that was used to find this item, hithighlighted

@@ -18,7 +18,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
 
   public constructor(@Inject('objectElementProvider') public listable: ListableObject, private truncatableService: TruncatableService) {
     super(listable);
-    this.dso = this.object.dspaceObject;
+    this.dso = this.object.indexableObject;
   }
 
   /**

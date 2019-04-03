@@ -17,7 +17,7 @@ const compIndex = 1;
 const mockResultObject: ItemMyDSpaceResult = new ItemMyDSpaceResult();
 mockResultObject.hitHighlights = {};
 
-mockResultObject.dspaceObject = Object.assign(new Item(), {
+mockResultObject.indexableObject = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
     'dc.title': [
@@ -68,7 +68,7 @@ describe('ItemMyDSpaceResultListElementComponent', () => {
   }));
 
   beforeEach(() => {
-    component.dso = mockResultObject.dspaceObject;
+    component.dso = mockResultObject.indexableObject;
     fixture.detectChanges();
   });
 

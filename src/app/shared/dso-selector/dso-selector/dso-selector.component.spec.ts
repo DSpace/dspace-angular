@@ -27,7 +27,7 @@ describe('DSOSelectorComponent', () => {
       language: undefined
     })]
   };
-  searchResult.dspaceObject = item;
+  searchResult.indexableObject = item;
   searchResult.hitHighlights = {};
   const searchService = jasmine.createSpyObj('searchService', {
     search: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(undefined, [searchResult])))

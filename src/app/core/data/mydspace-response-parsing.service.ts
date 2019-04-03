@@ -40,7 +40,7 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
 
     const dsoSelfLinks = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
-      .map((object) => object._embedded.resultObject)
+      .map((object) => object._embedded.indexableObject)
       .map((dso) => this.dsoParser.parse(request, {
         payload: dso,
         statusCode: data.statusCode,
@@ -52,7 +52,7 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
     const objects = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
-        resultObject: dsoSelfLinks[index],
+        indexableObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
         _embedded: this.filterEmbeddedObjects(object)
       }));
@@ -63,13 +63,13 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
 
   protected filterEmbeddedObjects(object) {
     const allowedEmbeddedKeys = ['submitter', 'item', 'workspaceitem', 'workflowitem'];
-    if (object._embedded.resultObject && object._embedded.resultObject._embedded) {
+    if (object._embedded.indexableObject && object._embedded.indexableObject._embedded) {
       return Object.assign({}, object._embedded, {
-        resultObject: Object.assign({}, object._embedded.resultObject, {
-          _embedded: Object.keys(object._embedded.resultObject._embedded)
+        indexableObject: Object.assign({}, object._embedded.indexableObject, {
+          _embedded: Object.keys(object._embedded.indexableObject._embedded)
             .filter((key) => allowedEmbeddedKeys.includes(key))
             .reduce((obj, key) => {
-              obj[key] = object._embedded.resultObject._embedded[key];
+              obj[key] = object._embedded.indexableObject._embedded[key];
               return obj;
             }, {})
         })

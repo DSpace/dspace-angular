@@ -75,7 +75,7 @@ export const toDSpaceObjectListRD = () =>
     source.pipe(
       filter((rd: RemoteData<PaginatedList<SearchResult<T>>>) => rd.hasSucceeded),
       map((rd: RemoteData<PaginatedList<SearchResult<T>>>) => {
-        const dsoPage: T[] = rd.payload.page.map((searchResult: SearchResult<T>) => searchResult.dspaceObject);
+        const dsoPage: T[] = rd.payload.page.map((searchResult: SearchResult<T>) => searchResult.indexableObject);
         const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
         return Object.assign(rd, { payload: payload });
       })

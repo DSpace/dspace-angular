@@ -24,7 +24,7 @@ export class MyDSpaceResultDetailElementComponent<T extends MyDSpaceResult<K>, K
    */
   public constructor(@Inject('objectElementProvider') public detailable: ListableObject) {
     super(detailable);
-    this.dso = this.object.dspaceObject;
+    this.dso = this.object.indexableObject;
   }
 
   /**

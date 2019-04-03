@@ -133,9 +133,9 @@ export class SearchService implements OnDestroy {
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
       map((sqr: SearchQueryResponse) => {
         return sqr.objects
-          .filter((nsr: NormalizedSearchResult) => isNotUndefined(nsr.dspaceObject))
+          .filter((nsr: NormalizedSearchResult) => isNotUndefined(nsr.indexableObject))
           .map((nsr: NormalizedSearchResult) => {
-          return this.rdb.buildSingle(nsr.dspaceObject);
+          return this.rdb.buildSingle(nsr.indexableObject);
         })
       }),
       switchMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input)),
@@ -150,7 +150,7 @@ export class SearchService implements OnDestroy {
             const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
             co = getSearchResultFor(constructor, searchOptions.configuration);
             return Object.assign(new co(), object, {
-              dspaceObject: dsos.payload[index]
+              indexableObject: dsos.payload[index]
             });
           } else {
             return undefined;

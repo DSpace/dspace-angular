@@ -52,7 +52,7 @@ const item = Object.assign(new Item(), {
 const rdItem = new RemoteData(false, false, true, null, item);
 const workflowitem = Object.assign(new Workflowitem(), { item: observableOf(rdItem) });
 const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
-mockResultObject.dspaceObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
 
 describe('PoolMyDSpaceResultListElementComponent', () => {
   beforeEach(async(() => {
@@ -75,7 +75,7 @@ describe('PoolMyDSpaceResultListElementComponent', () => {
   }));
 
   beforeEach(() => {
-    component.dso = mockResultObject.dspaceObject;
+    component.dso = mockResultObject.indexableObject;
     fixture.detectChanges();
   });
 
