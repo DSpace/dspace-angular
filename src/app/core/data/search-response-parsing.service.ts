@@ -37,7 +37,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
 
     const dsoSelfLinks = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
-      .map((object) => object._embedded.resultObject)
+      .map((object) => object._embedded.indexableObject)
       // we don't need embedded collections, bitstreamformats, etc for search results.
       // And parsing them all takes up a lot of time. Throw them away to improve performance
       // until objs until partial results are supported by the rest api
@@ -53,7 +53,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
     const objects = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
-        resultObject: dsoSelfLinks[index],
+        indexableObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
         // we don't need embedded collections, bitstreamformats, etc for search results.
         // And parsing them all takes up a lot of time. Throw them away to improve performance
