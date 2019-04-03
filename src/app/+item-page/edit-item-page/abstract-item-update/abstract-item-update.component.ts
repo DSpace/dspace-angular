@@ -24,7 +24,8 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
    */
   protected item: Item;
   /**
-   * The current values and updates for all this item's metadata fields
+   * The current values and updates for all this item's fields
+   * Should be initialized in the initializeUpdates method of the child component
    */
   protected updates$: Observable<FieldUpdates>;
   /**
@@ -33,6 +34,7 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
   protected url: string;
   /**
    * Prefix for this component's notification translate keys
+   * Should be initialized in the initializeNotificationsPrefix method of the child component
    */
   protected notificationsPrefix;
   /**
@@ -78,7 +80,13 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
     });
 
     this.initializeNotificationsPrefix();
+    this.initializeUpdates();
   }
+
+  /**
+   * Initialize the values and updates of the current item's fields
+   */
+  abstract initializeUpdates(): void;
 
   /**
    * Initialize the prefix for notification messages

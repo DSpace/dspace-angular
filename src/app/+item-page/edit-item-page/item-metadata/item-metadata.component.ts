@@ -54,6 +54,12 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   ngOnInit(): void {
     super.ngOnInit();
     this.metadataFields$ = this.findMetadataFields();
+  }
+
+  /**
+   * Initialize the values and updates of the current item's metadata fields
+   */
+  public initializeUpdates(): void {
     this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
   }
 

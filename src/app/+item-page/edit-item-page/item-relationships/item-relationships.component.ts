@@ -38,13 +38,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
    */
   resolvedRelsAndTypes$: Observable<[Relationship[], RelationshipType[]]>;
 
+  /**
+   * Set up and initialize all fields
+   */
   ngOnInit(): void {
     super.ngOnInit();
-
-    this.updates$ = this.getRelationships().pipe(
-      relationsToItems(this.item.id, this.itemService),
-      switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdates(this.url, items))
-    );
     this.initRelationshipObservables();
   }
 
@@ -69,6 +67,16 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     );
     this.relationLabels$ = relationshipTypes$.pipe(
       map((types: RelationshipType[]) => Array.from(new Set(types.map((type) => type.leftLabel))))
+    );
+  }
+
+  /**
+   * Initialize the values and updates of the current item's relationship fields
+   */
+  public initializeUpdates(): void {
+    this.updates$ = this.getRelationships().pipe(
+      relationsToItems(this.item.id, this.itemService),
+      switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdates(this.url, items))
     );
   }
 

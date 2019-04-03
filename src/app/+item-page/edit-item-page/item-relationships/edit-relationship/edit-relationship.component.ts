@@ -5,16 +5,14 @@ import { Item } from '../../../../core/shared/item.model';
 import { VIEW_MODE_ELEMENT } from '../../../simple/related-items/related-items-component';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: '[ds-edit-in-place-relationship]',
-  styleUrls: ['./edit-in-place-relationship.component.scss'],
-  templateUrl: './edit-in-place-relationship.component.html',
+  selector: '[ds-edit-relationship]',
+  styleUrls: ['./edit-relationship.component.scss'],
+  templateUrl: './edit-relationship.component.html',
 })
-export class EditInPlaceRelationshipComponent implements OnChanges {
+export class EditRelationshipComponent implements OnChanges {
   /**
    * The current field, value and state of the relationship
    */
@@ -45,18 +43,30 @@ export class EditInPlaceRelationshipComponent implements OnChanges {
     this.item = cloneDeep(this.fieldUpdate.field) as Item;
   }
 
+  /**
+   * Sends a new remove update for this field to the object updates service
+   */
   remove(): void {
     this.objectUpdatesService.saveRemoveFieldUpdate(this.url, this.item);
   }
 
+  /**
+   * Cancels the current update for this field in the object updates service
+   */
   undo(): void {
     this.objectUpdatesService.removeSingleFieldUpdate(this.url, this.item.uuid);
   }
 
+  /**
+   * Check if a user should be allowed to remove this field
+   */
   canRemove(): boolean {
     return this.fieldUpdate.changeType !== FieldChangeType.REMOVE;
   }
 
+  /**
+   * Check if a user should be allowed to cancel the update to this field
+   */
   canUndo(): boolean {
     return this.fieldUpdate.changeType >= 0;
   }
