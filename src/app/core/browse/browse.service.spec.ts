@@ -114,7 +114,7 @@ describe('BrowseService', () => {
       scheduler.schedule(() => service.getBrowseDefinitions().subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected);
+      expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
     });
 
     it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
@@ -155,7 +155,7 @@ describe('BrowseService', () => {
         scheduler.schedule(() => service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
@@ -174,7 +174,7 @@ describe('BrowseService', () => {
         scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
 
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {
@@ -190,7 +190,7 @@ describe('BrowseService', () => {
       it('should throw an Error', () => {
 
         const definitionID = 'invalidID';
-        const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`))
+        const expected = cold('--#-', undefined, new Error(`No metadata browse definition could be found for id '${definitionID}'`));
 
         expect(service.getBrowseEntriesFor(new BrowseEntrySearchOptions(definitionID))).toBeObservable(expected);
       });
@@ -303,7 +303,7 @@ describe('BrowseService', () => {
         scheduler.schedule(() => service.getFirstItemFor(browseDefinitions[1].id).subscribe());
         scheduler.flush();
 
-        expect(requestService.configure).toHaveBeenCalledWith(expected);
+        expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
       });
 
       it('should call RemoteDataBuildService to create the RemoteData Observable', () => {

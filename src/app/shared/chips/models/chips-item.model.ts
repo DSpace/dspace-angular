@@ -1,17 +1,19 @@
-import { uniqueId, isObject } from 'lodash';
-import { isNotEmpty } from '../../empty.util';
+import { isObject, uniqueId } from 'lodash';
+import { hasValue, isNotEmpty } from '../../empty.util';
+import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
+import { ConfidenceType } from '../../../core/integration/models/confidence-type';
 
 export interface ChipsItemIcon {
   metadata: string;
-  hasAuthority: boolean;
   style: string;
+  visibleWhenAuthorityEmpty: boolean;
   tooltip?: any;
 }
 
 export class ChipsItem {
   public id: string;
   public display: string;
-  public item: any;
+  private _item: any;
   public editMode?: boolean;
   public icons?: ChipsItemIcon[];
 
@@ -25,7 +27,7 @@ export class ChipsItem {
               editMode?: boolean) {
 
     this.id = uniqueId();
-    this.item = item;
+    this._item = item;
     this.fieldToDisplay = fieldToDisplay;
     this.objToDisplay = objToDisplay;
     this.setDisplayText();
@@ -33,8 +35,46 @@ export class ChipsItem {
     this.icons = icons || [];
   }
 
+  public set item(item) {
+    this._item = item;
+  }
+
+  public get item() {
+    return this._item;
+  }
+
+  isNestedItem(): boolean {
+    return (isNotEmpty(this.item)
+      && isObject(this.item)
+      && isNotEmpty(this.objToDisplay)
+      && this.item[this.objToDisplay]);
+  }
+
   hasIcons(): boolean {
-    return isNotEmpty(this.icons);
+     return isNotEmpty(this.icons);
+  }
+
+  hasVisibleIcons(): boolean {
+    if (isNotEmpty(this.icons)) {
+      let hasVisible = false;
+      // check if it has at least one visible icon
+      for (const icon of this.icons) {
+        if (this._item.hasOwnProperty(icon.metadata)
+          && (((typeof this._item[icon.metadata] === 'string') && hasValue(this._item[icon.metadata]))
+            || (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue())
+          && !(this._item[icon.metadata] as FormFieldMetadataValueObject).hasPlaceholder()) {
+          if ((icon.visibleWhenAuthorityEmpty
+            || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET)
+            && isNotEmpty(icon.style)) {
+            hasVisible = true;
+            break;
+          }
+        }
+      }
+      return hasVisible;
+    } else {
+      return false;
+    }
   }
 
   setEditMode(): void {
@@ -46,7 +86,7 @@ export class ChipsItem {
   }
 
   updateItem(item: any): void {
-    this.item = item;
+    this._item = item;
     this.setDisplayText();
   }
 
@@ -55,10 +95,10 @@ export class ChipsItem {
   }
 
   private setDisplayText(): void {
-    let value = this.item;
-    if (isObject(this.item)) {
+    let value = this._item;
+    if (isObject(this._item)) {
       // Check If displayField is in an internal object
-      const obj = this.objToDisplay ? this.item[this.objToDisplay] : this.item;
+      const obj = this.objToDisplay ? this._item[this.objToDisplay] : this._item;
 
       if (isObject(obj) && obj) {
         value = obj[this.fieldToDisplay] || obj.value;

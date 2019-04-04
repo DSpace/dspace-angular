@@ -31,9 +31,6 @@ export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedOb
 
   /**
    * The universally unique identifier of this DSpaceObject
-   *
-   * Repeated here to make the serialization work,
-   * inheritSerialization doesn't seem to work for more than one level
    */
   @autoserializeAs(String)
   uuid: string;

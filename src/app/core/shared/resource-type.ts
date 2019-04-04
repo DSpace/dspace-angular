@@ -14,4 +14,13 @@ export enum ResourceType {
   Relationship = 'relationship',
   RelationshipType = 'relationshiptype',
   ItemType = 'entitytype',
+  License = 'license',
+  Workflowitem = 'workflowitem',
+  Workspaceitem = 'workspaceitem',
+  SubmissionDefinitions = 'submissiondefinitions',
+  SubmissionDefinition = 'submissiondefinition',
+  SubmissionForm = 'submissionform',
+  SubmissionForms = 'submissionforms',
+  SubmissionSections = 'submissionsections',
+  SubmissionSection = 'submissionsection',
 }

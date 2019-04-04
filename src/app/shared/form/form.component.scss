@@ -1,9 +1,9 @@
 @import "../../../styles/_variables.scss";
 
 .ds-form-input-addon {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-right: 0;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: 0 !important;
 }
 
 .ds-form-input-btn {
@@ -18,6 +18,29 @@
 }
 
 .ds-form-input-value {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+/* style fa-spin */
+.fa-spin {
+  pointer-events: none;
+}
+
+/* align fa-spin */
+.left-addon .far, .left-addon .fas {
+  left: 0;
+}
+
+.right-addon .far, .right-addon .fas {
+  right: 0;
+}
+
+/* add padding  */
+.left-addon input {
+  padding-left: $spacer * 2.25;
+}
+
+.right-addon input {
+  padding-right: $spacer * 2.25;
 }

@@ -24,7 +24,8 @@ describe('FilteredDiscoveryPageResponseParsingService', () => {
       payload: {
         'discovery-query': 'query'
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     it('should return a FilteredDiscoveryQueryResponse containing the correct query', () => {

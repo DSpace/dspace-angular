@@ -1,5 +1,5 @@
 import { MetadataRegistryComponent } from './metadata-registry.component';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -44,7 +44,7 @@ describe('MetadataRegistryComponent', () => {
     getSelectedMetadataSchemas: () => observableOf([]),
     editMetadataSchema: (schema) => {},
     cancelEditMetadataSchema: () => {},
-    deleteMetadataSchema: () => observableOf(new RestResponse(true, '200')),
+    deleteMetadataSchema: () => observableOf(new RestResponse(true, 200, 'OK')),
     deselectAllMetadataSchema: () => {},
     clearMetadataSchemaRequests: () => observableOf(undefined)
   };

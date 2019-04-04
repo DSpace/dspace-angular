@@ -1,25 +1,15 @@
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  race as observableRace
-} from 'rxjs';
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
-import {
-  hasValue,
-  hasValueOperator,
-  isEmpty,
-  isNotEmpty,
-  isNotUndefined
-} from '../../../shared/empty.util';
+
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
+import { distinctUntilChanged, flatMap, map, startWith, switchMap } from 'rxjs/operators';
+
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
 import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-
 import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
 import { DSOSuccessResponse, ErrorResponse } from '../response.models';
@@ -99,7 +89,11 @@ export class RemoteDataBuildService {
           isSuccessful = reqEntry.response.isSuccessful;
           const errorMessage = isSuccessful === false ? (reqEntry.response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
-            error = new RemoteDataError(reqEntry.response.statusCode, errorMessage);
+            error = new RemoteDataError(
+              (reqEntry.response as ErrorResponse).statusCode,
+              (reqEntry.response as ErrorResponse).statusText,
+              errorMessage
+            );
           }
         }
         return new RemoteData(
@@ -232,16 +226,25 @@ export class RemoteDataBuildService {
           }).filter((e: string) => hasValue(e))
           .join(', ');
 
-        const statusCode: string = arr
+        const statusText: string = arr
           .map((d: RemoteData<T>) => d.error)
           .map((e: RemoteDataError, idx: number) => {
             if (hasValue(e)) {
-              return `[${idx}]: ${e.statusCode}`;
+              return `[${idx}]: ${e.statusText}`;
             }
           }).filter((c: string) => hasValue(c))
           .join(', ');
 
-        const error = new RemoteDataError(statusCode, errorMessage);
+        const statusCode: number = arr
+          .map((d: RemoteData<T>) => d.error)
+          .map((e: RemoteDataError, idx: number) => {
+            if (hasValue(e)) {
+              return e.statusCode;
+            }
+          }).filter((c: number) => hasValue(c))
+          .reduce((acc, status) => status, undefined);
+
+        const error = new RemoteDataError(statusCode, statusText, errorMessage);
 
         const payload: T[] = arr.map((d: RemoteData<T>) => d.payload);
 
@@ -260,8 +263,10 @@ export class RemoteDataBuildService {
       map((rd: RemoteData<T[] | PaginatedList<T>>) => {
         if (Array.isArray(rd.payload)) {
           return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })
-        } else {
+        } else if (isNotUndefined(rd.payload)) {
           return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload.page) });
+        } else {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, []) });
         }
       })
     );

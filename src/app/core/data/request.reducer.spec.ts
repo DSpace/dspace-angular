@@ -9,7 +9,7 @@ import {
 import { GetRequest } from './request.models';
 import { RestResponse } from '../cache/response.models';
 
-const response =  new RestResponse(true, 'OK');
+const response =  new RestResponse(true, 200, 'OK');
 class NullAction extends RequestCompleteAction {
   type = null;
   payload = null;
@@ -89,8 +89,8 @@ describe('requestReducer', () => {
     expect(newState[id1].requestPending).toEqual(state[id1].requestPending);
     expect(newState[id1].responsePending).toEqual(false);
     expect(newState[id1].completed).toEqual(true);
-    expect(newState[id1].response.isSuccessful).toEqual(response.isSuccessful)
-    expect(newState[id1].response.statusCode).toEqual(response.statusCode)
+    expect(newState[id1].response.isSuccessful).toEqual(response.isSuccessful);
+    expect(newState[id1].response.statusCode).toEqual(response.statusCode);
     expect(newState[id1].response.timeAdded).toBeTruthy()
   });
 

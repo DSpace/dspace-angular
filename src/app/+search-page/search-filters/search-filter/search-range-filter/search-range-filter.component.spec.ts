@@ -106,16 +106,6 @@ describe('SearchRangeFilterComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the getChangeParams method is called wih a value', () => {
-    it('should return the selectedValue list with the new parameter value', () => {
-      const result$ = comp.getChangeParams(value3);
-      result$.subscribe((result) => {
-        expect(result[mockFilterConfig.paramName + minSuffix]).toEqual(['1990']);
-        expect(result[mockFilterConfig.paramName + maxSuffix]).toEqual(['1992']);
-      });
-    });
-  });
-
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
     // const data = { [mockFilterConfig.paramName + minSuffix]: '1900', [mockFilterConfig.paramName + maxSuffix]: '1950' };

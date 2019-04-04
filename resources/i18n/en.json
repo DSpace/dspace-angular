@@ -369,7 +369,7 @@
     "results-per-page": "Results Per Page",
     "sort-direction": "Sort Options",
     "showing": {
-      "label": "Now showing items ",
+      "label": "Now showing ",
       "detail": "{{ range }} of {{ total }}"
     }
   },
@@ -726,13 +726,25 @@
       "license": {
         "notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission."
       }
+    },
+    "submission": {
+      "sections": {
+        "init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>"
+      }
     }
   },
   "form": {
     "submit": "Submit",
     "cancel": "Cancel",
     "search": "Search",
+    "search-help": "Click here to looking for an existing correspondence",
     "remove": "Remove",
+    "clear": "Clear",
+    "clear-help": "Click here to remove the selected value",
+    "edit": "Edit",
+    "edit-help": "Click here to edit the selected value",
+    "save": "Save",
+    "save-help": "Save changes",
     "first-name": "First name",
     "last-name": "Last name",
     "loading": "Loading...",
@@ -741,7 +753,9 @@
     "group-collapse": "Collapse",
     "group-expand": "Expand",
     "group-collapse-help": "Click here to collapse",
-    "group-expand-help": "Click here to expand and add more elements"
+    "group-expand-help": "Click here to expand and add more elements",
+    "other-information": {
+    }
   },
   "login": {
     "title": "Login",
@@ -799,5 +813,97 @@
     },
     "placeholder": "Search for a {{ type }}",
     "no-results": "No {{ type }} found"
+  },
+  "submission": {
+    "general":{
+      "cannot_submit": "You have not the privilege to make a new submission.",
+      "deposit": "Deposit",
+      "discard": {
+        "submit": "Discard",
+        "confirm": {
+          "cancel": "Cancel",
+          "submit": "Yes, I'm sure",
+          "title": "Discard submission",
+          "info": "This operation can't be undone. Are you sure?"
+        }
+      },
+      "save": "Save",
+      "save-later": "Save for later"
+    },
+    "submit": {
+      "title": "Submission"
+    },
+    "edit": {
+      "title": "Edit Submission"
+    },
+    "mydspace": {
+
+    },
+    "sections": {
+
+      "general": {
+        "add-more": "Add more",
+        "no-sections": "No options available",
+        "sections_not_valid": "There are incomplete sections.",
+        "collection": "Collection",
+        "no-collection": "No collection found",
+        "search-collection": "Search for a collection",
+        "save_error_notice": "There was an issue when saving the item, please try again later.",
+        "deposit_success_notice": "Submission deposited successfully.",
+        "deposit_error_notice": "There was an issue when submitting the item, please try again later.",
+        "discard_success_notice": "Submission discarded successfully.",
+        "discard_error_notice": "There was an issue when discarding the item, please try again later.",
+        "save_success_notice": "Submission saved successfully.",
+        "metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
+        "metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission."
+      },
+      "submit.progressbar.describe.stepone": "Describe",
+      "submit.progressbar.describe.steptwo": "Describe",
+      "submit.progressbar.describe.stepcustom": "Describe",
+      "submit.progressbar.describe.recycle": "Recycle",
+      "submit.progressbar.upload": "Upload files",
+      "submit.progressbar.license": "Deposit license",
+      "submit.progressbar.cclicense": "Creative commons license",
+      "submit.progressbar.detect-duplicate": "Potential duplicates",
+
+      "upload": {
+        "no-entry": "No",
+        "no-file-uploaded": "No file uploaded yet.",
+        "info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+        "drop-message": "Drop files to attach them to the item",
+        "upload-successful": "Upload successful",
+        "upload-failed": "Upload failed",
+        "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
+        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
+        "form": {
+          "access-condition-label": "Access condition type",
+          "from-label": "Access grant from",
+          "from-placeholder": "From",
+          "until-label": "Access grant until",
+          "until-placeholder": "Until",
+          "group-label": "Group",
+          "group-required": "Group is required.",
+          "date-required": "Date is required."
+        },
+        "save-metadata": "Save metadata",
+        "undo": "Cancel",
+        "delete": {
+          "submit": "Delete",
+          "confirm": {
+            "cancel": "Cancel",
+            "submit": "Yes, I'm sure",
+            "title": "Delete bitstream",
+            "info": "This operation can't be undone. Are you sure?"
+          }
+        }
+      }
+    }
+  },
+  "uploader": {
+    "drag-message": "Drag & Drop your files here",
+    "or": ", or",
+    "browse": "browse",
+    "queue-lenght": "Queue length",
+    "processing": "Processing"
   }
 }

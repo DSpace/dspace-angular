@@ -17,6 +17,7 @@ import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
+  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

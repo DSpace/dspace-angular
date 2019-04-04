@@ -1,5 +1,4 @@
 import { HostWindowService } from '../shared/host-window.service';
-import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchPageComponent } from './search-page.component';
@@ -33,10 +32,9 @@ export class FilteredSearchPageComponent extends SearchPageComponent {
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
-              protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
               protected routeService: RouteService) {
-    super(service, sidebarService, windowService, filterService, searchConfigService, routeService);
+    super(service, sidebarService, windowService, searchConfigService, routeService);
   }
 
   /**

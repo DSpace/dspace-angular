@@ -39,7 +39,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     let objectList = processRequestDTO;
 
     if (hasNoValue(processRequestDTO)) {
-      return new DSOSuccessResponse([], data.statusCode, undefined)
+      return new DSOSuccessResponse([], data.statusCode, data.statusText, undefined)
     }
     if (hasValue(processRequestDTO.page)) {
       objectList = processRequestDTO.page;
@@ -47,7 +47,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
       objectList = [processRequestDTO];
     }
     const selfLinks = objectList.map((no) => no.self);
-    return new DSOSuccessResponse(selfLinks, data.statusCode, this.processPageInfo(data.payload))
+    return new DSOSuccessResponse(selfLinks, data.statusCode, data.statusText, this.processPageInfo(data.payload))
   }
 
 }
