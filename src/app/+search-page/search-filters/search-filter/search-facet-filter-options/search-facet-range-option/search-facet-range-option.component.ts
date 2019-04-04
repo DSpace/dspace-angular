@@ -19,7 +19,7 @@ const rangeDelimiter = '-';
   selector: 'ds-search-facet-range-option',
   styleUrls: ['./search-facet-range-option.component.scss'],
   // templateUrl: './search-facet-range-option.component.html',
-  templateUrl: './themes/search-facet-range-option.component.preview-release.html',
+  templateUrl: './themes/search-facet-range-option.component.mantis.html',
 })
 
 /**

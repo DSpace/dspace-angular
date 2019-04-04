@@ -1,6 +1,6 @@
 @import '../../../styles/variables.scss';
 
-:host-context(.preview-release) {
+:host-context(.mantis) {
     ::ng-deep a {
         //color: $dark;
     }

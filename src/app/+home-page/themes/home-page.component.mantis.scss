@@ -1,6 +1,6 @@
 @import '../../../styles/variables.scss';
 
-:host-context(.preview-release) {
+:host-context(.mantis) {
     div.background-image {
         color: white;
         background-color: $info;
