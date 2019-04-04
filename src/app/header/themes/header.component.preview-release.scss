@@ -1,7 +1,0 @@
-@import '../../../styles/variables.scss';
-
-:host-context(.preview-release) {
-    ::ng-deep a {
-        //color: $dark;
-    }
-}

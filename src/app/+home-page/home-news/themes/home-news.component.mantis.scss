@@ -1,19 +1,58 @@
 @import '../../../../styles/variables.scss';
-@import '../../../../styles/mixins.scss';
 
-:host-context(.mantis) {
-  $home-news-link-color: $green !default;
-  $home-news-link-color: darken($home-news-link-color, 15%) !default;
+:host-context(.preview-release) {
+    div.background-image {
+        color: white;
+        background-color: #2e80a3;
+        position: relative;
+        background-position-y: -200px;
+        background-image: url('/assets/images/banner.jpg');
+        background-size: cover;
+        @media screen and (max-width: map-get($grid-breakpoints, lg)) {
+            background-position-y: 0;
+        }
 
-    .jumbotron {
-        background-color: transparent;
+        .container {
+            position: relative;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+            &:before, &:after {
+                content: '';
+                display: block;
+                width: $banner-background-gradient-width;
+                height: 100%;
+                top: 0;
+                position: absolute;
+            }
+
+            &:before {
+                background: linear-gradient(to left, $banner-text-background, transparent);
+                left: -$banner-background-gradient-width;
+
+            }
+
+            &:after {
+                background: linear-gradient(to right, $banner-text-background, transparent);
+                right: -$banner-background-gradient-width;
+            }
+
+            background-color: $banner-text-background;
+
+            .jumbotron {
+                background-color: transparent;
+            }
+
+        }
+
+
+        small.credits {
+            a {
+                color: inherit;
+            }
+            opacity: 0.3;
+            position: absolute;
+            right: 5px;
+            bottom: 0;
+        }
+
     }
-
-  a {
-    color: $home-news-link-color;
-
-    @include hover {
-      color: $home-news-link-color;
-    }
-  }
 }
