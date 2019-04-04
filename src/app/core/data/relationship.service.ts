@@ -3,7 +3,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, flatMap, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 import {
   configureRequest,
   filterSuccessfulResponses,
@@ -46,17 +46,12 @@ export class RelationshipService {
   }
 
   deleteRelationship(uuid: string): Observable<RestResponse> {
-    const requestUuid = this.requestService.generateRequestId();
-
-    this.getRelationshipEndpoint(uuid).pipe(
+    return this.getRelationshipEndpoint(uuid).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpointURL: string) => new DeleteRequest(requestUuid, endpointURL)),
+      map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
-      take(1)
-    ).subscribe();
-
-    return this.requestService.getByUUID(requestUuid).pipe(
+      switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       filterSuccessfulResponses()
     );
   }

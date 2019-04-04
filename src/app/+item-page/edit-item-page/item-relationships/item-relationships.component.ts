@@ -2,7 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { distinctUntilChanged, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -11,6 +12,10 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { RelationshipService } from '../../../core/data/relationship.service';
+import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { RestResponse } from '../../../core/cache/response.models';
+import { isNotEmptyOperator } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -65,10 +70,32 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   }
 
   public submit(): void {
-    const updatedItems$ = this.relationshipService.getRelatedItems(this.item).pipe(
-      switchMap((items: Item[]) => this.objectUpdatesService.getUpdatedFields(this.url, items) as Observable<Item[]>)
+    const removedItemIds$ = this.relationshipService.getRelatedItems(this.item).pipe(
+      switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, items) as Observable<FieldUpdates>),
+      map((fieldUpdates: FieldUpdates) => Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
+      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field.uuid) as string[]),
+      isNotEmptyOperator()
     );
-    // TODO: Delete relationships
+    const allRelationshipsAndRemovedItemIds$ = observableCombineLatest(
+      this.relationshipService.getItemRelationshipsArray(this.item),
+      removedItemIds$
+    );
+    const removedRelationshipIds$ = allRelationshipsAndRemovedItemIds$.pipe(
+      map(([relationships, itemIds]) =>
+        relationships
+          .filter((relationship: Relationship) => itemIds.indexOf(relationship.leftId) > -1 || itemIds.indexOf(relationship.rightId) > -1)
+          .map((relationship: Relationship) => relationship.id))
+    );
+    removedRelationshipIds$.pipe(
+      take(1),
+      switchMap((removedIds: string[]) => observableZip(removedIds.map((uuid: string) => this.relationshipService.deleteRelationship(uuid)))),
+      map((responses: RestResponse[]) => responses.filter((response: RestResponse) => response.isSuccessful))
+    ).subscribe((responses: RestResponse[]) => {
+      console.log(responses);
+      this.initializeOriginalFields();
+      this.initializeUpdates();
+      this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+    });
   }
 
   /**
