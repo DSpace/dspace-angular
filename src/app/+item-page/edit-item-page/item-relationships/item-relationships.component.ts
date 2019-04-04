@@ -16,6 +16,9 @@ import { FieldChangeType } from '../../../core/data/object-updates/object-update
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { RestResponse } from '../../../core/cache/response.models';
 import { isNotEmptyOperator } from '../../../shared/empty.util';
+import { RemoteData } from '../../../core/data/remote-data';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { getSucceededRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -40,7 +43,8 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     protected translateService: TranslateService,
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
     protected route: ActivatedRoute,
-    protected relationshipService: RelationshipService
+    protected relationshipService: RelationshipService,
+    protected objectCache: ObjectCacheService
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
   }
@@ -100,6 +104,8 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     ).subscribe((responses: RestResponse[]) => {
       // Make sure the lists are up-to-date and send a notification that the removal was successful
       // TODO: Fix lists refreshing correctly
+      this.objectCache.remove(this.item.self);
+      this.itemService.findById(this.item.id).pipe(getSucceededRemoteData(), take(1)).subscribe((itemRD: RemoteData<Item>) => this.item = itemRD.payload);
       this.initializeOriginalFields();
       this.initializeUpdates();
       this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));

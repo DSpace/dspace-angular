@@ -28,7 +28,7 @@ import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import { MetadataField } from '../../../core/metadata/metadatafield.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
 
-let comp: ItemMetadataComponent;
+let comp: any;
 let fixture: ComponentFixture<ItemMetadataComponent>;
 let de: DebugElement;
 let el: HTMLElement;
