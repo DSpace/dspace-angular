@@ -196,7 +196,8 @@ export class RegistryService {
 
     const metadatafieldsObs: Observable<MetadataField[]> = rmrObs.pipe(
       map((rmr: RegistryMetadatafieldsResponse) => rmr.metadatafields),
-      map((metadataFields: MetadataField[]) => metadataFields)
+      /* Make sure to explicitly cast this into a MetadataField object, on first page loads this object comes from the object cache created by the server and its prototype is unknown */
+      map((metadataFields: MetadataField[]) => metadataFields.map((metadataField: MetadataField) => Object.assign(new MetadataField(), metadataField)))
     );
 
     const pageInfoObs: Observable<PageInfo> = requestEntryObs.pipe(
