@@ -39,12 +39,20 @@ export class RelationshipService {
               protected itemService: ItemDataService) {
   }
 
+  /**
+   * Get the endpoint for a relationship by ID
+   * @param uuid
+   */
   getRelationshipEndpoint(uuid: string) {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((href: string) => `${href}/${uuid}`)
     );
   }
 
+  /**
+   * Send a delete request for a relationship by ID
+   * @param uuid
+   */
   deleteRelationship(uuid: string): Observable<RestResponse> {
     return this.getRelationshipEndpoint(uuid).pipe(
       isNotEmptyOperator(),
@@ -56,6 +64,11 @@ export class RelationshipService {
     );
   }
 
+  /**
+   * Get a combined observable containing an array of all relationships in an item, as well as an array of the relationships their types
+   * This is used for easier access of a relationship's type because they exist as observables
+   * @param item
+   */
   getItemResolvedRelsAndTypes(item: Item): Observable<[Relationship[], RelationshipType[]]> {
     const relationships$ = this.getItemRelationshipsArray(item);
 
@@ -74,6 +87,10 @@ export class RelationshipService {
     );
   }
 
+  /**
+   * Get an item their relationships in the form of an array
+   * @param item
+   */
   getItemRelationshipsArray(item: Item): Observable<Relationship[]> {
     return item.relationships.pipe(
       getSucceededRemoteData(),
@@ -84,6 +101,11 @@ export class RelationshipService {
     );
   }
 
+  /**
+   * Get an array of an item their unique relationship type's labels
+   * The array doesn't contain any duplicate labels
+   * @param item
+   */
   getItemRelationshipLabels(item: Item): Observable<string[]> {
     return this.getItemResolvedRelsAndTypes(item).pipe(
       map(([relsCurrentPage, relTypesCurrentPage]) => {
@@ -100,12 +122,22 @@ export class RelationshipService {
     )
   }
 
+  /**
+   * Resolve a given item's relationships into related items and return the items as an array
+   * @param item
+   */
   getRelatedItems(item: Item): Observable<Item[]> {
     return this.getItemRelationshipsArray(item).pipe(
       relationsToItems(item.uuid, this.itemService)
     );
   }
 
+  /**
+   * Resolve a given item's relationships into related items, filtered by a relationship label
+   * and return the items as an array
+   * @param item
+   * @param label
+   */
   getRelatedItemsByLabel(item: Item, label: string): Observable<Item[]> {
     return this.getItemResolvedRelsAndTypes(item).pipe(
       filterRelationsByTypeLabel(label),

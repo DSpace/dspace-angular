@@ -69,7 +69,12 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     this.notificationsPrefix = 'item.edit.relationships.notifications.';
   }
 
+  /**
+   * Resolve the currently selected related items back to relationships and send a delete request
+   * Make sure the lists are refreshed afterwards
+   */
   public submit(): void {
+    // Get all IDs of related items of which their relationship with the current item is about to be removed
     const removedItemIds$ = this.relationshipService.getRelatedItems(this.item).pipe(
       switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, items) as Observable<FieldUpdates>),
       map((fieldUpdates: FieldUpdates) => Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
@@ -80,18 +85,21 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       this.relationshipService.getItemRelationshipsArray(this.item),
       removedItemIds$
     );
+    // Get all IDs of the relationships that should be removed
     const removedRelationshipIds$ = allRelationshipsAndRemovedItemIds$.pipe(
       map(([relationships, itemIds]) =>
         relationships
           .filter((relationship: Relationship) => itemIds.indexOf(relationship.leftId) > -1 || itemIds.indexOf(relationship.rightId) > -1)
           .map((relationship: Relationship) => relationship.id))
     );
+    // Request a delete for every relationship found in the observable created above
     removedRelationshipIds$.pipe(
       take(1),
-      switchMap((removedIds: string[]) => observableZip(removedIds.map((uuid: string) => this.relationshipService.deleteRelationship(uuid)))),
+      switchMap((removedIds: string[]) => observableZip(...removedIds.map((uuid: string) => this.relationshipService.deleteRelationship(uuid)))),
       map((responses: RestResponse[]) => responses.filter((response: RestResponse) => response.isSuccessful))
     ).subscribe((responses: RestResponse[]) => {
-      console.log(responses);
+      // Make sure the lists are up-to-date and send a notification that the removal was successful
+      // TODO: Fix lists refreshing correctly
       this.initializeOriginalFields();
       this.initializeUpdates();
       this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
