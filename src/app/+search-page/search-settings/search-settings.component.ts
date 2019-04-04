@@ -10,7 +10,7 @@ import { SearchConfigurationService } from '../search-service/search-configurati
   selector: 'ds-search-settings',
   styleUrls: ['./search-settings.component.scss'],
   // templateUrl: './search-settings.component.html'
-  templateUrl: './themes/search-settings.component.preview-release.html'
+  templateUrl: './themes/search-settings.component.mantis.html'
 })
 
 /**

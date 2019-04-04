@@ -12,7 +12,7 @@ import { getSucceededRemoteData } from '../../core/shared/operators';
 @Component({
   selector: 'ds-search-filters',
   styleUrls: ['./search-filters.component.scss'],
-  templateUrl: './themes/search-filters.component.preview-release.html',
+  templateUrl: './themes/search-filters.component.mantis.html',
 })
 
 /**

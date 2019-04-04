@@ -12,7 +12,7 @@ import { SearchConfigurationService } from '../../search-service/search-configur
   selector: 'ds-search-filter',
   styleUrls: ['./search-filter.component.scss'],
   // templateUrl: './search-filter.component.html',
-  templateUrl: './themes/search-filter.component.preview-release.html',
+  templateUrl: './themes/search-filter.component.mantis.html',
   animations: [slide],
 })
 

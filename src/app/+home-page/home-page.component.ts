@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'ds-home-page',
   styleUrls: ['./home-page.component.scss'],
   // templateUrl: './home-page.component.html'
-  templateUrl: './themes/home-page.component.preview-release.html'
+  templateUrl: './themes/home-page.component.mantis.html'
 })
 export class HomePageComponent {
 }
