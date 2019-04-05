@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, mergeMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -64,8 +64,7 @@ const uuidsFromHrefSubstringSelector =
 const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] => {
   let result = [];
   if (isNotEmpty(state)) {
-    result = Object.values(state)
-      .filter((value: string) => value.startsWith(href));
+    result = Object.keys(state).filter((key) => key.startsWith(href)).map((key) => state[key]);
   }
   return result;
 };

@@ -108,7 +108,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       // TODO: Fix lists refreshing correctly
       this.objectCache.remove(this.item.self);
       this.requestService.removeByHrefSubstring(this.item.self);
-      this.itemService.findById(this.item.id).pipe(getSucceededRemoteData(), take(1)).subscribe((itemRD: RemoteData<Item>) => this.item = itemRD.payload);
+      // this.itemService.findById(this.item.id).pipe(getSucceededRemoteData(), take(1)).subscribe((itemRD: RemoteData<Item>) => this.item = itemRD.payload);
       this.initializeOriginalFields();
       this.initializeUpdates();
       this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
