@@ -78,8 +78,6 @@ import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/mode
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { AlertComponent } from './alert/alert.component';
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
-import { MessageBoardComponent } from './message-board/message-board.component';
-import { MessageComponent } from './message-board/message/message.component';
 import { MyDSpaceResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/my-dspace-result-detail-element.component';
 import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
 import { PoolTaskActionsComponent } from './mydspace-actions/pool-task/pool-task-actions.component';
@@ -202,8 +200,6 @@ const COMPONENTS = [
   LoadingComponent,
   LogInComponent,
   LogOutComponent,
-  MessageBoardComponent,
-  MessageComponent,
   NumberPickerComponent,
   ObjectListComponent,
   ObjectDetailComponent,

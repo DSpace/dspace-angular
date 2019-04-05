@@ -13,12 +13,6 @@
   <span *ngIf="!(processingDelete$ | async)"><i class="fa fa-trash"></i> {{'submission.workflow.generic.delete' | translate}}</span>
 </button>
 
-<ds-message-board *ngIf="object && object.item && object.submitter"
-                  [dso]="object"
-                  [tooltipMessage]="'mydspace.messages.submitter-help'"
-                  (refresh)="refresh()">
-</ds-message-board>
-
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title text-danger">{{'submission.general.discard.confirm.title' | translate}}</h4>

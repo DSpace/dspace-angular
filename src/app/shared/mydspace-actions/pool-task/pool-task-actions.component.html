@@ -6,10 +6,3 @@
   <span *ngIf="(processingClaim$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
   <span *ngIf="!(processingClaim$ | async)"><i class="fas fa-hand-paper"></i> {{'submission.workflow.tasks.pool.claim' | translate}}</span>
 </button>
-
-<ds-message-board
-  [dso]="workflowitem$ | async"
-  [tooltipMessage]="'mydspace.messages.controller-help'"
-  (refresh)="refresh()">
-</ds-message-board>
-

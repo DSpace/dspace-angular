@@ -18,9 +18,3 @@
   <ds-claimed-task-actions-return-to-pool [processingReturnToPool]="(processingReturnToPool$ | async)"
                                           [wrapperClass]="'mt-1 mb-3'"
                                           (returnToPool)="returnToPool()"></ds-claimed-task-actions-return-to-pool>
-
-  <ds-message-board
-    [dso]="workflowitem$ | async"
-    [tooltipMessage]="'mydspace.messages.controller-help'"
-    (refresh)="refresh()">
-  </ds-message-board>
