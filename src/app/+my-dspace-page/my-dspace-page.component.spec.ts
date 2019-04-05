@@ -166,7 +166,7 @@ describe('MyDSpacePageComponent', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#mydspace-sidebar-sm')).nativeElement;
+      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
       comp.isSidebarCollapsed = () => observableOf(true);
       fixture.detectChanges();
     });
@@ -181,7 +181,7 @@ describe('MyDSpacePageComponent', () => {
     let menu: HTMLElement;
 
     beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#mydspace-sidebar-sm')).nativeElement;
+      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
       comp.isSidebarCollapsed = () => observableOf(false);
       fixture.detectChanges();
     });
