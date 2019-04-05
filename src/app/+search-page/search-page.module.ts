@@ -28,6 +28,7 @@ import { SearchFacetOptionComponent } from './search-filters/search-filter/searc
 import { SearchFacetSelectedOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
 import { SearchFacetRangeOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchSwitchConfigurationComponent } from './search-switch-configuration/search-switch-configuration.component';
+import { SearchAuthorityFilterComponent } from './search-filters/search-filter/search-authority-filter/search-authority-filter.component';
 
 const effects = [
   SearchSidebarEffects
@@ -54,7 +55,8 @@ const components = [
   SearchFacetOptionComponent,
   SearchFacetSelectedOptionComponent,
   SearchFacetRangeOptionComponent,
-  SearchSwitchConfigurationComponent
+  SearchSwitchConfigurationComponent,
+  SearchAuthorityFilterComponent
 ];
 
 @NgModule({
@@ -82,7 +84,8 @@ const components = [
     SearchBooleanFilterComponent,
     SearchFacetOptionComponent,
     SearchFacetSelectedOptionComponent,
-    SearchFacetRangeOptionComponent
+    SearchFacetRangeOptionComponent,
+    SearchAuthorityFilterComponent
   ],
   exports: components
 })

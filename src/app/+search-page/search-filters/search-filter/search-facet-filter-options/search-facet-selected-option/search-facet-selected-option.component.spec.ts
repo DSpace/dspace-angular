@@ -32,6 +32,12 @@ describe('SearchFacetSelectedOptionComponent', () => {
 
   const searchLink = '/search';
   const selectedValues = [value1, value2];
+  const facetValue = {
+    label: value2,
+    value: value2,
+    count: 1,
+    search: ''
+  };
   const selectedValues$ = observableOf(selectedValues);
   let filterService;
   let searchService;
@@ -76,7 +82,7 @@ describe('SearchFacetSelectedOptionComponent', () => {
     filterService = (comp as any).filterService;
     searchService = (comp as any).searchService;
     router = (comp as any).router;
-    comp.selectedValue = value2;
+    comp.selectedValue = facetValue;
     comp.selectedValues$ = selectedValues$;
     comp.filterConfig = mockFilterConfig;
     fixture.detectChanges();

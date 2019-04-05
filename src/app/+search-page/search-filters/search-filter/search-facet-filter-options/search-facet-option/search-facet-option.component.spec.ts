@@ -20,10 +20,12 @@ describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
   let fixture: ComponentFixture<SearchFacetOptionComponent>;
   const filterName1 = 'testname';
+  const filterName2 = 'testAuthorityname';
   const value1 = 'testvalue1';
   const value2 = 'test2';
-  const operator = 'equals';
+  const operator = 'authority';
   const value3 = 'another value3';
+
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
     type: FilterType.range,
@@ -33,11 +35,27 @@ describe('SearchFacetOptionComponent', () => {
     minValue: 200,
     maxValue: 3000,
   });
+
+  const mockAuthorityFilterConfig = Object.assign(new SearchFilterConfig(), {
+    name: filterName2,
+    type: FilterType.authority,
+    hasFacets: false,
+    isOpenByDefault: false,
+    pageSize: 2
+  });
+
   const value: FacetValue = {
     label: value2,
     value: value2,
     count: 20,
-    search: `http://test.org/api/discover/search/objects?f.${filterName1}=${value2},${operator}`
+    search: ``
+  };
+
+  const authorityValue: FacetValue = {
+    label: value2,
+    value: value2,
+    count: 20,
+    search: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}`
   };
 
   const searchLink = '/search';
@@ -97,7 +115,22 @@ describe('SearchFacetOptionComponent', () => {
       comp.addQueryParams = {};
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
-        [mockFilterConfig.paramName]: [value1, `${value2},${operator}`],
+        [mockFilterConfig.paramName]: [value1, value.value],
+        page: 1
+      });
+    });
+  });
+
+  describe('when filter type is authority and the updateAddParams method is called with a value', () => {
+    it('should update the addQueryParams with the new parameter values', () => {
+      comp.filterValue = authorityValue;
+      comp.filterConfig = mockAuthorityFilterConfig;
+      fixture.detectChanges();
+
+      comp.addQueryParams = {};
+      (comp as any).updateAddParams(selectedValues);
+      expect(comp.addQueryParams).toEqual({
+        [mockAuthorityFilterConfig.paramName]: [value1, `${value2},${operator}`],
         page: 1
       });
     });

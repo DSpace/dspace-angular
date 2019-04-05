@@ -59,12 +59,14 @@ export class SearchLabelsComponent {
 
   /**
    * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
-   * Strips operator from filter value
-   * e.g. 'test ,operator' => 'test'
+   * Strips authority operator from filter value
+   * e.g. 'test ,authority' => 'test'
    *
    * @param value
    */
   normalizeFilterValue(value: string) {
-    return value.replace(/,[^,]*$/g, '');
+    // const pattern = /,[^,]*$/g;
+    const pattern = /,authority*$/g;
+    return value.replace(pattern, '');
   }
 }

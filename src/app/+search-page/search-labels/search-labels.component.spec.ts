@@ -9,7 +9,6 @@ import { SearchServiceStub } from '../../shared/testing/search-service-stub';
 import { Observable, of as observableOf } from 'rxjs';
 import { Params } from '@angular/router';
 import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
-import { SearchConfigurationService } from '../search-service/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service-stub';
 
@@ -22,8 +21,11 @@ describe('SearchLabelsComponent', () => {
 
   const field1 = 'author';
   const field2 = 'subject';
-  const value1 = 'TestAuthor';
+  const value1 = 'Test, Author';
+  const normValue1 = 'Test, Author';
   const value2 = 'TestSubject';
+  const value3 = 'Test, Authority,authority';
+  const normValue3 = 'Test, Authority';
   const filter1 = [field1, value1];
   const filter2 = [field2, value2];
   const mockFilters = [
@@ -66,6 +68,18 @@ describe('SearchLabelsComponent', () => {
         // Should contain only filter2 and page: length == 2
         expect(Object.keys(params).length).toBe(2);
       });
+    })
+  });
+
+  describe('when normalizeFilterValue is called', () => {
+    it('should return properly filter value', () => {
+      let result: string;
+
+      result = comp.normalizeFilterValue(value1);
+      expect(result).toBe(normValue1);
+
+      result = comp.normalizeFilterValue(value3);
+      expect(result).toBe(normValue3);
     })
   });
 });

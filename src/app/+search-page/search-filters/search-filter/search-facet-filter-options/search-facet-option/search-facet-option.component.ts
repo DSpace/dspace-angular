@@ -8,6 +8,7 @@ import { SearchService } from '../../../../search-service/search.service';
 import { SearchFilterService } from '../../search-filter.service';
 import { SearchConfigurationService } from '../../../../search-service/search-configuration.service';
 import { hasValue } from '../../../../../shared/empty.util';
+import { FilterType } from '../../../../search-service/filter-type.model';
 
 @Component({
   selector: 'ds-search-facet-option',
@@ -70,7 +71,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    * Checks if a value for this filter is currently active
    */
   private isChecked(): Observable<boolean> {
-    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValueFromSearchLink());
+    return this.filterService.isFilterActiveWithValue(this.filterConfig.paramName, this.getFacetValue());
   }
 
   /**
@@ -86,7 +87,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    */
   private updateAddParams(selectedValues: string[]): void {
     this.addQueryParams = {
-      [this.filterConfig.paramName]: [...selectedValues, this.getFacetValueFromSearchLink()],
+      [this.filterConfig.paramName]: [...selectedValues, this.getFacetValue()],
       page: 1
     };
   }
@@ -95,17 +96,22 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
    * Retrieve facet value from search link
    */
-  private getFacetValueFromSearchLink(): string {
-    const search = this.filterValue.search;
-    const hashes = search.slice(search.indexOf('?') + 1).split('&');
-    const params = {};
-    hashes.map((hash) => {
-      const [key, val] = hash.split('=');
-      params[key] = decodeURIComponent(val)
-    });
+  private getFacetValue(): string {
+    if (this.filterConfig.type === FilterType.authority) {
+      const search = this.filterValue.search;
+      const hashes = search.slice(search.indexOf('?') + 1).split('&');
+      const params = {};
+      hashes.map((hash) => {
+        const [key, val] = hash.split('=');
+        params[key] = decodeURIComponent(val)
+      });
 
-    return params[this.filterConfig.paramName];
+      return params[this.filterConfig.paramName];
+    } else {
+      return this.filterValue.value;
+    }
   }
+
   /**
    * Make sure the subscription is unsubscribed from when this component is destroyed
    */

@@ -6,6 +6,7 @@ import { SearchService } from '../../../../search-service/search.service';
 import { SearchFilterService } from '../../search-filter.service';
 import { hasValue } from '../../../../../shared/empty.util';
 import { SearchConfigurationService } from '../../../../search-service/search-configuration.service';
+import { FacetValue } from '../../../../search-service/facet-value.model';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
@@ -19,7 +20,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   /**
    * The value for this component
    */
-  @Input() selectedValue: string;
+  @Input() selectedValue: FacetValue;
 
   /**
    * The filter configuration for this facet option
@@ -71,20 +72,9 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    */
   private updateRemoveParams(selectedValues: string[]): void {
     this.removeQueryParams = {
-      [this.filterConfig.paramName]: selectedValues.filter((v) => v !== this.selectedValue),
+      [this.filterConfig.paramName]: selectedValues.filter((v) => v !== this.selectedValue.label),
       page: 1
     };
-  }
-
-  /**
-   * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
-   * Strips operator from filter value
-   * e.g. 'test ,operator' => 'test'
-   *
-   * @param value
-   */
-  normalizeFilterValue(value: string) {
-    return value.replace(/,[^,]*$/g, '');
   }
 
   /**

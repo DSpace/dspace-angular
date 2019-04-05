@@ -6,7 +6,7 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { switchMap, distinctUntilChanged, map, take } from 'rxjs/operators';
+import { switchMap, distinctUntilChanged, map, take, flatMap } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -57,7 +57,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * List of subscriptions to unsubscribe from
    */
-  private subs: Subscription[] = [];
+  protected subs: Subscription[] = [];
 
   /**
    * Emits the result values for this filter found by the current filter query
@@ -67,8 +67,8 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   /**
    * Emits the active values for this filter
    */
-  selectedValues$: Observable<string[]>;
-  private collapseNextUpdate = true;
+  selectedValues$: Observable<FacetValue[]>;
+  protected collapseNextUpdate = true;
 
   /**
    * State of the requested facets used to time the animation
@@ -95,10 +95,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     this.filterValues$ = new BehaviorSubject(new RemoteData(true, false, undefined, undefined, undefined));
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
 
-    this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig);
     this.searchOptions$ = this.searchConfigService.searchOptions;
     this.subs.push(this.searchOptions$.subscribe(() => this.updateFilterValueList()));
-    const facetValues = observableCombineLatest(this.searchOptions$, this.currentPage).pipe(
+    const facetValues$ = observableCombineLatest(this.searchOptions$, this.currentPage).pipe(
       map(([options, page]) => {
         return { options, page }
       }),
@@ -116,8 +115,17 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           )
       })
     );
+
+    this.selectedValues$ = observableCombineLatest(
+      this.filterService.getSelectedValuesForFilter(this.filterConfig),
+      facetValues$.pipe(flatMap((facetValues) => facetValues.values))).pipe(
+      map(([selectedValues, facetValues]) => {
+        return facetValues.payload.page.filter((facetValue) => selectedValues.includes(this.getFacetValue(facetValue)))
+      })
+    );
+
     let filterValues = [];
-    this.subs.push(facetValues.subscribe((facetOutcome) => {
+    this.subs.push(facetValues$.subscribe((facetOutcome) => {
       const newValues$ = facetOutcome.values;
 
       if (this.collapseNextUpdate) {
@@ -202,7 +210,10 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         if (isNotEmpty(data)) {
           this.router.navigate([this.getSearchLink()], {
             queryParams:
-              { [this.filterConfig.paramName]: [...selectedValues, data] },
+              { [this.filterConfig.paramName]: [
+                  ...selectedValues.map((facet) => this.getFacetValue(facet)),
+                  data
+                ] },
             queryParamsHandling: 'merge'
           });
           this.filter = '';
@@ -253,7 +264,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
                   return rd.payload.page.map((facet) => {
                     return {
                       displayValue: this.getDisplayValue(facet, data),
-                      value: facet.value
+                      value: this.getFacetValue(facet)
                     }
                   })
                 }
@@ -263,6 +274,13 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     } else {
       this.filterSearchResults = observableOf([]);
     }
+  }
+
+  /**
+   * Retrieve facet value
+   */
+  protected getFacetValue(facet: FacetValue): string {
+    return facet.value;
   }
 
   /**
