@@ -353,10 +353,10 @@
     "status": {
       "workflow": "Under review",
       "rejected": "Rejected",
-      "validation": "Validate",
-      "waiting-for-controller": "Claim",
-      "in-progress": "To do",
-      "accepted": "Finalized"
+      "validation": "Validation",
+      "waiting-for-controller": "Waiting for controller",
+      "in-progress": "In progress",
+      "accepted": "Accepted"
     },
     "view-btn": "View",
     "general": {
