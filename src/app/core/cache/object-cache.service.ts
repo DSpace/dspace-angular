@@ -68,8 +68,8 @@ export class ObjectCacheService {
    * @param href
    *    The unique href of the object to be removed
    */
-  remove(uuid: string): void {
-    this.store.dispatch(new RemoveFromObjectCacheAction(uuid));
+  remove(href: string): void {
+    this.store.dispatch(new RemoveFromObjectCacheAction(href));
   }
 
   /**
