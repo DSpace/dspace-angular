@@ -53,13 +53,6 @@ describe('MyDSpaceItemStatusComponent', () => {
   });
 
   it('should init badge content and class', () => {
-    component.status = MyDspaceItemStatusType.REJECTED;
-    fixture.detectChanges();
-    expect(component.badgeContent).toBe(MyDspaceItemStatusType.REJECTED);
-    expect(component.badgeClass).toBe('text-light badge badge-danger');
-  });
-
-  it('should init badge content and class', () => {
     component.status = MyDspaceItemStatusType.VALIDATION;
     fixture.detectChanges();
     expect(component.badgeContent).toBe(MyDspaceItemStatusType.VALIDATION);
