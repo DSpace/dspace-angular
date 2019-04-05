@@ -123,7 +123,7 @@ describe('SearchService', () => {
     it('should call the navigate method on the Router with view mode list parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.List);
       expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { view: ViewMode.List },
+        queryParams: { view: ViewMode.List, page: 1 },
         queryParamsHandling: 'merge'
       });
     });
@@ -131,7 +131,7 @@ describe('SearchService', () => {
     it('should call the navigate method on the Router with view mode grid parameter as a parameter when setViewMode is called', () => {
       searchService.setViewMode(ViewMode.Grid);
       expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { view: ViewMode.Grid },
+        queryParams: { view: ViewMode.Grid, page: 1 },
         queryParamsHandling: 'merge'
       });
     });

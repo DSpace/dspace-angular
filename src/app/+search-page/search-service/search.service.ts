@@ -331,7 +331,7 @@ export class SearchService implements OnDestroy {
   setViewMode(viewMode: ViewMode) {
     this.routeService.getQueryParameterValue('pageSize').pipe(first())
       .subscribe((pageSize) => {
-        let queryParams = { view: viewMode };
+        let queryParams = { view: viewMode, page: 1 };
         if (viewMode === ViewMode.Detail) {
           queryParams = Object.assign(queryParams, {pageSize: '1'});
         } else if (pageSize === '1') {
