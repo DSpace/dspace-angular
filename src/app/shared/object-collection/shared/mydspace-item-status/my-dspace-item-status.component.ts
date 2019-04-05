@@ -42,10 +42,10 @@ export class MyDSpaceItemStatusComponent implements OnInit {
       case MyDspaceItemStatusType.WAITING_CONTROLLER:
         this.badgeClass += 'badge-info';
         break;
-      case MyDspaceItemStatusType.IN_PROGRESS:
+      case MyDspaceItemStatusType.WORKSPACE:
         this.badgeClass += 'badge-primary';
         break;
-      case MyDspaceItemStatusType.ACCEPTED:
+      case MyDspaceItemStatusType.ARCHIVED:
         this.badgeClass += 'badge-success';
         break;
       case MyDspaceItemStatusType.WORKFLOW:

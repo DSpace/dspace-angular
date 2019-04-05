@@ -33,7 +33,7 @@ export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceRes
   /**
    * Represent item's status
    */
-  status = MyDspaceItemStatusType.IN_PROGRESS;
+  status = MyDspaceItemStatusType.WORKSPACE;
 
   /**
    * Initialize all instance variables

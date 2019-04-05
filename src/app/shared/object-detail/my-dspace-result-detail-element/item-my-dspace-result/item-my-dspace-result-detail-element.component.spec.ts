@@ -73,6 +73,6 @@ describe('ItemMyDSpaceResultDetailElementComponent', () => {
   });
 
   it('should have properly status', () => {
-    expect(component.status).toEqual(MyDspaceItemStatusType.ACCEPTED);
+    expect(component.status).toEqual(MyDspaceItemStatusType.ARCHIVED);
   });
 });

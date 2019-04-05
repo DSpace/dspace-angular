@@ -22,6 +22,6 @@ export class ItemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDeta
   /**
    * Represent item's status
    */
-  public status = MyDspaceItemStatusType.ACCEPTED;
+  public status = MyDspaceItemStatusType.ARCHIVED;
 
 }

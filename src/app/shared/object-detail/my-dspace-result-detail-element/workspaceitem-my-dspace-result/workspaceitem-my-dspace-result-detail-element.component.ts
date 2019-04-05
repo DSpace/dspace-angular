@@ -35,7 +35,7 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
   /**
    * Represent item's status
    */
-  status = MyDspaceItemStatusType.IN_PROGRESS;
+  status = MyDspaceItemStatusType.WORKSPACE;
 
   constructor(@Inject('objectElementProvider') public listable: ListableObject) {
     super(listable);

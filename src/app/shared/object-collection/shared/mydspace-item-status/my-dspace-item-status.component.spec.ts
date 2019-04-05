@@ -74,16 +74,16 @@ describe('MyDSpaceItemStatusComponent', () => {
   });
 
   it('should init badge content and class', () => {
-    component.status = MyDspaceItemStatusType.IN_PROGRESS;
+    component.status = MyDspaceItemStatusType.WORKSPACE;
     fixture.detectChanges();
-    expect(component.badgeContent).toBe(MyDspaceItemStatusType.IN_PROGRESS);
+    expect(component.badgeContent).toBe(MyDspaceItemStatusType.WORKSPACE);
     expect(component.badgeClass).toBe('text-light badge badge-primary');
   });
 
   it('should init badge content and class', () => {
-    component.status = MyDspaceItemStatusType.ACCEPTED;
+    component.status = MyDspaceItemStatusType.ARCHIVED;
     fixture.detectChanges();
-    expect(component.badgeContent).toBe(MyDspaceItemStatusType.ACCEPTED);
+    expect(component.badgeContent).toBe(MyDspaceItemStatusType.ARCHIVED);
     expect(component.badgeClass).toBe('text-light badge badge-success');
   });
 

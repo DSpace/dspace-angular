@@ -351,12 +351,11 @@
       "workflow": "All tasks"
     },
     "status": {
-      "workflow": "Under review",
-      "rejected": "Rejected",
+      "workflow": "Workflow",
       "validation": "Validation",
       "waiting-for-controller": "Waiting for controller",
-      "in-progress": "In progress",
-      "accepted": "Accepted"
+      "workspace": "Workspace",
+      "archived": "Archived"
     },
     "view-btn": "View",
     "general": {

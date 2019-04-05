@@ -81,6 +81,6 @@ describe('WorkspaceitemMyDSpaceResultDetailElementComponent', () => {
   });
 
   it('should have properly status', () => {
-    expect(component.status).toEqual(MyDspaceItemStatusType.IN_PROGRESS);
+    expect(component.status).toEqual(MyDspaceItemStatusType.WORKSPACE);
   });
 });
