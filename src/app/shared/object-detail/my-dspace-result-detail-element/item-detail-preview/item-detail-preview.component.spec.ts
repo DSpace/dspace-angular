@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -8,13 +9,15 @@ import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemDetailPreviewComponent } from './item-detail-preview.component';
 import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
+import { FileSizePipe } from '../../../utils/file-size-pipe';
+import { VarDirective } from '../../../utils/var.directive';
 
 let component: ItemDetailPreviewComponent;
 let fixture: ComponentFixture<ItemDetailPreviewComponent>;
 
-const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+const mockItem: Item = Object.assign(new Item(), {
+  bitstreams: observableOf([]),
   metadata: {
     'dc.contributor.author': [
       {
@@ -27,12 +30,7 @@ const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
         language: null,
         value: '2015-06-26'
       }
-    ]
-  }
-});
-const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
+    ],
     'dc.title': [
       {
         language: 'en_US',
@@ -60,12 +58,7 @@ describe('ItemDetailPreviewComponent', () => {
           }
         }),
       ],
-      declarations: [ItemDetailPreviewComponent, TruncatePipe],
-      providers: [
-        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } }
-
-      ],
-
+      declarations: [ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemDetailPreviewComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
@@ -75,16 +68,16 @@ describe('ItemDetailPreviewComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ItemDetailPreviewComponent);
     component = fixture.componentInstance;
+    component.object = { hitHighlights: {} } as any;
+    component.item = mockItem;
+    component.separator = ', ';
+    spyOn(component.item, 'getFiles').and.returnValue(mockItem.bitstreams);
+    fixture.detectChanges();
 
   }));
 
-  beforeEach(() => {
-    component.object = { hitHighlights: {} };
-    component.item = mockItemWithAuthorAndDate;
-    fixture.detectChanges();
-  });
-
-  it('should init thumbnail on init', () => {
+  it('should init thumbnail and bitstreams on init', () => {
     expect(component.thumbnail$).toBeDefined();
+    expect(component.bitstreams$).toBeDefined();
   });
 });

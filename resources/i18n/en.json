@@ -329,7 +329,10 @@
       "no-title": "No title",
       "no-authors": "No Authors",
       "no-date": "No Date",
-      "no-abstract": "No Abstract"
+      "no-abstract": "No Abstract",
+      "no-files": "No Files",
+      "no-uri": "No Uri",
+      "no-collections": "No Collections"
     },
     "messages": {
       "title": "Messages",

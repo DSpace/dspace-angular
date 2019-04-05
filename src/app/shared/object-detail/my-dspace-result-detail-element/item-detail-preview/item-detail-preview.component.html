@@ -1,10 +1,10 @@
-<div class="item-page" @fadeInOut>
+<div *ngIf="item" class="item-page" @fadeInOut>
   <ng-container *ngIf="status">
     <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
   </ng-container>
   <div *ngIf="item">
     <h2 class="item-page-title-field">
-      <ds-metadata-values *ngIf="item.hasMetadata('dc.title')" [mdValues]="item?.allMetadata(fields)"></ds-metadata-values>
+      <ds-metadata-values *ngIf="item.hasMetadata('dc.title')" [mdValues]="item?.allMetadata('dc.title')"></ds-metadata-values>
       <span class="text-muted" *ngIf="!item.hasMetadata('dc.title')">{{('mydspace.results.no-title' | translate)}}</span>
     </h2>
     <div class="row mb-1">
@@ -12,38 +12,46 @@
         <ds-metadata-field-wrapper>
           <ds-thumbnail [thumbnail]="thumbnail$ | async"></ds-thumbnail>
         </ds-metadata-field-wrapper>
-        <ds-metadata-field-wrapper [label]="'item.page.date' | translate">
-          <ng-container *ngIf="item.hasMetadata('dc.date.issued')">
-            <span *ngFor="let mdValue of allMetadataValues('dc.date.issued'); let last=last;">
-              {{mdValue.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
-            </span>
-          </ng-container>
-          <ng-container *ngIf="!item.hasMetadata('dc.date.issued')">
-            <span class="text-muted">{{('mydspace.results.no-date' | translate)}}</span>
-          </ng-container>
-        </ds-metadata-field-wrapper>
-        <ds-metadata-field-wrapper [label]="'item.page.author' | translate">
-          <ng-container *ngIf="item.hasMetadata(['dc.contributor', 'dc.creator', 'dc.contributor.*']);">
-            <span *ngFor="let mdValue of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
-              {{mdValue.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
-            </span>
-          </ng-container>
-          <ng-container *ngIf="!item.hasMetadata(['dc.contributor', 'dc.creator', 'dc.contributor.*']);">
-            <span class="text-muted">{{('mydspace.results.no-authors' | translate)}}</span>
-          </ng-container>
-        </ds-metadata-field-wrapper>
+        <ng-container *ngVar="(bitstreams$ | async) as bitstreams">
+          <ds-metadata-field-wrapper [label]="('item.page.files' | translate)">
+            <div *ngIf="bitstreams?.length > 0" class="file-section">
+              <a *ngFor="let file of bitstreams; let last=last;" [href]="file?.content" target="_blank" [download]="file?.name">
+                <span>{{file?.name}}</span>
+                <span>({{(file?.sizeBytes) | dsFileSize }})</span>
+                <span *ngIf="!last" innerHTML="{{separator}}"></span>
+              </a>
+            </div>
+            <ng-container *ngIf="bitstreams?.length === 0">
+              <span class="text-muted">{{('mydspace.results.no-files' | translate)}}</span>
+            </ng-container>
+          </ds-metadata-field-wrapper>
+        </ng-container>
+        <ds-item-detail-preview-field [item]="item"
+                                      [object]="object"
+                                      [label]="('item.page.date' | translate)"
+                                      [metadata]="'dc.date.issued'"
+                                      [separator]="separator"
+                                      [placeholder]="('mydspace.results.no-date' | translate)"></ds-item-detail-preview-field>
+        <ds-item-detail-preview-field [item]="item"
+                                      [object]="object"
+                                      [label]="('item.page.author' | translate)"
+                                      [metadata]="['dc.contributor', 'dc.creator', 'dc.contributor.*']"
+                                      [separator]="separator"
+                                      [placeholder]="('mydspace.results.no-authors' | translate)"></ds-item-detail-preview-field>
       </div>
       <div class="col-xs-12 col-md-6">
-        <ds-metadata-field-wrapper [label]="'item.page.abstract' | translate">
-          <ng-container *ngIf="item.hasMetadata('dc.description.abstract');">
-            <span *ngFor="let mdValue of allMetadataValues('dc.description.abstract'); let last=last;">
-              {{mdValue.value}}<span *ngIf="!last" [innerHTML]="separator"></span>
-            </span>
-          </ng-container>
-          <ng-container *ngIf="!item.hasMetadata('dc.description.abstract');">
-            <span class="text-muted">{{('mydspace.results.no-abstract' | translate)}}</span>
-          </ng-container>
-        </ds-metadata-field-wrapper>
+        <ds-item-detail-preview-field [item]="item"
+                                      [object]="object"
+                                      [label]="('item.page.abstract' | translate)"
+                                      [metadata]="'dc.description.abstract'"
+                                      [separator]="separator"
+                                      [placeholder]="('mydspace.results.no-abstract' | translate)"></ds-item-detail-preview-field>
+        <ds-item-detail-preview-field [item]="item"
+                                      [object]="object"
+                                      [label]="('item.page.uri' | translate)"
+                                      [metadata]="'dc.identifier.uri'"
+                                      [separator]="separator"
+                                      [placeholder]="('mydspace.results.no-uri' | translate)"></ds-item-detail-preview-field>
         <div>
           <ng-content></ng-content>
         </div>

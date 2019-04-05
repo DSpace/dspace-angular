@@ -4,6 +4,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { Metadata } from '../../../../core/shared/metadata.utils';
+import { MyDSpaceResult } from '../../../../+my-dspace-page/my-dspace-result.model';
 
 /**
  * This component show metadata for the given item object in the list view.
@@ -24,7 +25,7 @@ export class ItemListPreviewComponent {
   /**
    * The mydspace result object
    */
-  @Input() object: any;
+  @Input() object: MyDSpaceResult<any>;
 
   /**
    * Represent item's status

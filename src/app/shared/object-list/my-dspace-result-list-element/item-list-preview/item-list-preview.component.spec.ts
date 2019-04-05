@@ -78,7 +78,7 @@ describe('ItemListPreviewComponent', () => {
   }));
 
   beforeEach(() => {
-    component.object = { hitHighlights: {} };
+    component.object = { hitHighlights: {} } as any;
   });
 
   describe('When the item has an author', () => {

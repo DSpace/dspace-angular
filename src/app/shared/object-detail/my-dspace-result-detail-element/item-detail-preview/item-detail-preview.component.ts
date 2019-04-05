@@ -6,7 +6,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { fadeInOut } from '../../../animations/fade';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Metadata } from '../../../../core/shared/metadata.utils';
+import { MyDSpaceResult } from '../../../../+my-dspace-page/my-dspace-result.model';
 
 /**
  * This component show metadata for the given item object in the detail view.
@@ -27,7 +27,7 @@ export class ItemDetailPreviewComponent {
   /**
    * The mydspace result object
    */
-  @Input() object: any;
+  @Input() object: MyDSpaceResult<any>;
 
   /**
    * Represent item's status
@@ -42,23 +42,24 @@ export class ItemDetailPreviewComponent {
   /**
    * The item's thumbnail
    */
-  public thumbnail$: Observable<Bitstream>;
+  public bitstreams$: Observable<Bitstream[]>;
 
   /**
-   * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
-   *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @returns {string[]} the matching string values or an empty array.
+   * The value's separator
    */
-  allMetadataValues(keyOrKeys: string | string[]): string[] {
-    return Metadata.allValues([this.object.hitHighlights, this.item.metadata], keyOrKeys);
-  }
+  public separator = ', ';
+
+  /**
+   * The item's thumbnail
+   */
+  public thumbnail$: Observable<Bitstream>;
 
   /**
    * Initialize all instance variables
    */
   ngOnInit() {
     this.thumbnail$ = this.item.getThumbnail();
+    this.bitstreams$ = this.item.getFiles();
   }
 
 }
