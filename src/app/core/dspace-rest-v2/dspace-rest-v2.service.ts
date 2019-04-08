@@ -71,6 +71,7 @@ export class DSpaceRESTv2Service {
     if (options && options.responseType) {
       requestOptions.responseType = options.responseType;
     }
+    console.log('url', url);
     return this.http.request(method, url, requestOptions).pipe(
       map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.status, statusText: res.statusText })),
       catchError((err) => {

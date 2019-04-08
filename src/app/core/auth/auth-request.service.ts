@@ -6,11 +6,18 @@ import { RequestService } from '../data/request.service';
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
-import { AuthGetRequest, AuthPostRequest, PostRequest, RestRequest } from '../data/request.models';
+import {
+  AuthGetRequest,
+  AuthPostRequest,
+  GetRequest,
+  PostRequest,
+  RestRequest
+} from '../data/request.models';
 import { AuthStatusResponse, ErrorResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { RequestEntry } from '../data/request.reducer';
 import { getResponseFromEntry } from '../shared/operators';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 @Injectable()
 export class AuthRequestService {
@@ -56,8 +63,8 @@ export class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthGetRequest(this.requestService.generateRequestId(), endpointURL, options)),
-      tap((request: PostRequest) => this.requestService.configure(request, true)),
-      mergeMap((request: PostRequest) => this.fetchRequest(request)),
+      tap((request: GetRequest) => this.requestService.configure(request, true)),
+      mergeMap((request: GetRequest) => this.fetchRequest(request)),
       distinctUntilChanged());
   }
 }
