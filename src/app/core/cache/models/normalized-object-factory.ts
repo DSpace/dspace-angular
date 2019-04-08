@@ -53,9 +53,6 @@ export class NormalizedObjectFactory {
       case ResourceType.Group: {
         return NormalizedGroup
       }
-      case ResourceType.Status: {
-        return NormalizedAuthStatus
-      }
       case ResourceType.MetadataSchema: {
         return NormalizedMetadataSchema
       }
