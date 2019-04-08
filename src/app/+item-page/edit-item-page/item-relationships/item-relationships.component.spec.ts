@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemRelationshipsComponent } from './item-relationships.component';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { RouterStub } from '../../../shared/testing/router-stub';
@@ -24,8 +24,8 @@ import { FieldChangeType } from '../../../core/data/object-updates/object-update
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getTestScheduler } from 'jasmine-marbles';
-import { By } from '@angular/platform-browser';
 import { RestResponse } from '../../../core/cache/response.models';
+import { RequestService } from '../../../core/data/request.service';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -33,6 +33,7 @@ let de: DebugElement;
 let el: HTMLElement;
 let objectUpdatesService;
 let relationshipService;
+let requestService;
 let objectCache;
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -158,6 +159,13 @@ describe('ItemRelationshipsComponent', () => {
       }
     );
 
+    requestService = jasmine.createSpyObj('requestService',
+      {
+        removeByHrefSubstring: {},
+        hasByHrefObservable: observableOf(false)
+      }
+    );
+
     objectCache = jasmine.createSpyObj('objectCache', {
       remove: undefined
     });
@@ -174,7 +182,9 @@ describe('ItemRelationshipsComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: GLOBAL_CONFIG, useValue: { item: { edit: { undoTimeout: 10 } } } as any },
         { provide: RelationshipService, useValue: relationshipService },
-        { provide: ObjectCacheService, useValue: objectCache }
+        { provide: ObjectCacheService, useValue: objectCache },
+        { provide: RequestService, useValue: requestService },
+        ChangeDetectorRef
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -210,17 +220,6 @@ describe('ItemRelationshipsComponent', () => {
     });
   });
 
-  describe('changeType is REMOVE', () => {
-    beforeEach(() => {
-      fieldUpdate1.changeType = FieldChangeType.REMOVE;
-      fixture.detectChanges();
-    });
-    it('the div should have class alert-danger', () => {
-      const element = de.queryAll(By.css('.relationship-row'))[1].nativeElement;
-      expect(element.classList).toContain('alert-danger');
-    });
-  });
-
   describe('submit', () => {
     beforeEach(() => {
       comp.submit();
@@ -229,6 +228,7 @@ describe('ItemRelationshipsComponent', () => {
     it('it should delete the correct relationship and de-cache the current item', () => {
       expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid);
       expect(objectCache.remove).toHaveBeenCalledWith(item.self);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
     });
   });
 });

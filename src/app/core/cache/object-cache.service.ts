@@ -3,7 +3,7 @@ import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, take, tap, } from 'rxjs/operators';
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
@@ -222,6 +222,18 @@ export class ObjectCacheService {
     ).subscribe((entry: ObjectCacheEntry) => result = this.isValid(entry));
 
     return result;
+  }
+
+  /**
+   * Create an observable that emits a new value whenever the availability of the cached object changes.
+   * The value it emits is a boolean stating if the object exists in cache or not.
+   * @param selfLink  The self link of the object to observe
+   */
+  hasBySelfLinkObservable(selfLink: string): Observable<boolean> {
+    return this.store.pipe(
+      select(entryFromSelfLinkSelector(selfLink)),
+      map((entry: ObjectCacheEntry) => this.isValid(entry))
+    );
   }
 
   /**

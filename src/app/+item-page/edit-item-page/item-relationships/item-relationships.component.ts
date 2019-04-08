@@ -1,8 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -20,6 +20,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -29,12 +30,18 @@ import { RequestService } from '../../../core/data/request.service';
 /**
  * Component for displaying an item's relationships edit page
  */
-export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
+export class ItemRelationshipsComponent extends AbstractItemUpdateComponent implements OnDestroy {
 
   /**
    * The labels of all different relations within this item
    */
   relationLabels$: Observable<string[]>;
+
+  /**
+   * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
+   * This is used to update the item in cache after relationships are deleted
+   */
+  itemUpdateSubscription: Subscription;
 
   constructor(
     protected itemService: ItemDataService,
@@ -46,7 +53,8 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
     protected route: ActivatedRoute,
     protected relationshipService: RelationshipService,
     protected objectCache: ObjectCacheService,
-    protected requestService: RequestService
+    protected requestService: RequestService,
+    protected cdRef: ChangeDetectorRef
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
   }
@@ -57,6 +65,16 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   ngOnInit(): void {
     super.ngOnInit();
     this.relationLabels$ = this.relationshipService.getItemRelationshipLabels(this.item);
+
+    // Update the item (and view) when it's removed in the request cache
+    this.itemUpdateSubscription = this.requestService.hasByHrefObservable(this.item.self).pipe(
+      filter((exists: boolean) => !exists),
+      switchMap(() => this.itemService.findById(this.item.uuid)),
+      getSucceededRemoteData(),
+    ).subscribe((itemRD: RemoteData<Item>) => {
+      this.item = itemRD.payload;
+      this.cdRef.detectChanges();
+    });
   }
 
   /**
@@ -104,13 +122,12 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
       switchMap((removedIds: string[]) => observableZip(...removedIds.map((uuid: string) => this.relationshipService.deleteRelationship(uuid)))),
       map((responses: RestResponse[]) => responses.filter((response: RestResponse) => response.isSuccessful))
     ).subscribe((responses: RestResponse[]) => {
-      // Make sure the lists are up-to-date and send a notification that the removal was successful
-      // TODO: Fix lists refreshing correctly
+      // Remove the item's cache to make sure the lists are reloaded with the newest values
       this.objectCache.remove(this.item.self);
       this.requestService.removeByHrefSubstring(this.item.self);
-      // this.itemService.findById(this.item.id).pipe(getSucceededRemoteData(), take(1)).subscribe((itemRD: RemoteData<Item>) => this.item = itemRD.payload);
       this.initializeOriginalFields();
       this.initializeUpdates();
+      // Send a notification that the removal was successful
       this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
     });
   }
@@ -125,33 +142,10 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent {
   }
 
   /**
-   * Transform the item's relationships of a specific type into related items
-   * @param label   The relationship type's label
+   * Unsubscribe from the item update when the component is destroyed
    */
-  public getRelatedItemsByLabel(label: string): Observable<Item[]> {
-    return this.relationshipService.getRelatedItemsByLabel(this.item, label);
-  }
-
-  /**
-   * Get FieldUpdates for the relationships of a specific type
-   * @param label   The relationship type's label
-   */
-  public getUpdatesByLabel(label: string): Observable<FieldUpdates> {
-    return this.getRelatedItemsByLabel(label).pipe(
-      switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, items))
-    )
-  }
-
-  /**
-   * Get the i18n message key for a relationship
-   * @param label   The relationship type's label
-   */
-  public getRelationshipMessageKey(label: string): string {
-    if (label.indexOf('Of') > -1) {
-      return `relationships.${label.substring(0, label.indexOf('Of') + 2)}`
-    } else {
-      return label;
-    }
+  ngOnDestroy(): void {
+    this.itemUpdateSubscription.unsubscribe();
   }
 
 }
