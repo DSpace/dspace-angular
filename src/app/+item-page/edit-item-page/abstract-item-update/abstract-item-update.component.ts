@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { Item } from '../../../core/shared/item.model';
@@ -11,10 +11,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 
-@Component({
-  selector: 'ds-abstract-item-update',
-  template: ``,
-})
+@Injectable()
 /**
  * Abstract component for managing object updates of an item
  */
@@ -22,25 +19,25 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
   /**
    * The item to display the edit page for
    */
-  protected item: Item;
+  item: Item;
   /**
    * The current values and updates for all this item's fields
    * Should be initialized in the initializeUpdates method of the child component
    */
-  protected updates$: Observable<FieldUpdates>;
+  updates$: Observable<FieldUpdates>;
   /**
    * The current url of this page
    */
-  protected url: string;
+  url: string;
   /**
    * Prefix for this component's notification translate keys
    * Should be initialized in the initializeNotificationsPrefix method of the child component
    */
-  protected notificationsPrefix;
+  notificationsPrefix;
   /**
    * The time span for being able to undo discarding changes
    */
-  protected discardTimeOut: number;
+  discardTimeOut: number;
 
   constructor(
     protected itemService: ItemDataService,

@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -60,7 +60,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Initialize the values and updates of the current item's metadata fields
    */
   public initializeUpdates(): void {
-    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+    this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.getMetadataAsListExcludingRelationships());
   }
 
   /**
@@ -82,7 +82,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified);
+    this.objectUpdatesService.initialize(this.url, this.getMetadataAsListExcludingRelationships(), this.item.lastModified);
   }
 
   /**
@@ -92,7 +92,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   public submit() {
     this.isValid().pipe(first()).subscribe((isValid) => {
       if (isValid) {
-        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.item.metadataAsList) as Observable<MetadatumViewModel[]>;
+        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.getMetadataAsListExcludingRelationships()) as Observable<MetadatumViewModel[]>;
         metadata$.pipe(
           first(),
           switchMap((metadata: MetadatumViewModel[]) => {
@@ -105,7 +105,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
           (rd: RemoteData<Item>) => {
             this.item = rd.payload;
             this.initializeOriginalFields();
-            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.getMetadataAsListExcludingRelationships());
             this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
           }
         )
@@ -123,5 +123,9 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
       getSucceededRemoteData(),
       take(1),
       map((remoteData$) => remoteData$.payload.page.map((field: MetadataField) => field.toString())));
+  }
+
+  getMetadataAsListExcludingRelationships(): MetadatumViewModel[] {
+    return this.item.metadataAsList.filter((metadata: MetadatumViewModel) => !metadata.key.startsWith('relation.') && !metadata.key.startsWith('relationship.'));
   }
 }

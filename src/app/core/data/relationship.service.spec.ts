@@ -68,7 +68,7 @@ describe('RelationshipService', () => {
   const relatedItems = [relatedItem1, relatedItem2];
 
   const itemService = jasmine.createSpyObj('itemService', {
-    findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.filter((item) => item.id === uuid)[0])
+    findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.filter((relatedItem) => relatedItem.id === uuid)[0])
   });
 
   function initTestService() {
