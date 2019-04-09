@@ -238,7 +238,6 @@ export class AuthService {
           throw(new Error('auth.errors.invalid-user'));
         }
       }))
-
   }
 
   /**
