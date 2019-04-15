@@ -24,6 +24,7 @@ describe('ObjectUpdatesEffects', () => {
   let actions: Observable<any>;
   let testURL = 'www.dspace.org/dspace7';
   let testUUID = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
+  const fakeID = 'id';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -44,7 +45,9 @@ describe('ObjectUpdatesEffects', () => {
     testURL = 'www.dspace.org/dspace7';
     testUUID = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
     updatesEffects = TestBed.get(ObjectUpdatesEffects);
-    (updatesEffects as any).actionMap[testURL] = new Subject<ObjectUpdatesAction>();
+    (updatesEffects as any).actionMap$[testURL] = new Subject<ObjectUpdatesAction>();
+    (updatesEffects as any).notificationActionMap$[fakeID] = new Subject<ObjectUpdatesAction>();
+    (updatesEffects as any).notificationActionMap$[(updatesEffects as any).allIdentifier] = new Subject<ObjectUpdatesAction>();
   });
 
   describe('mapLastActions$', () => {
@@ -57,7 +60,7 @@ describe('ObjectUpdatesEffects', () => {
       it('should emit the action from the actionMap\'s value which key matches the action\'s URL', () => {
         action = new RemoveObjectUpdatesAction(testURL);
         actions = hot('--a-', { a: action });
-        (updatesEffects as any).actionMap[testURL].subscribe((act) => emittedAction = act);
+        (updatesEffects as any).actionMap$[testURL].subscribe((act) => emittedAction = act);
         const expected = cold('--b-', { b: undefined });
 
         expect(updatesEffects.mapLastActions$).toBeObservable(expected);
