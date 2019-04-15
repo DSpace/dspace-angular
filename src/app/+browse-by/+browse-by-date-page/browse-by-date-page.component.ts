@@ -6,7 +6,6 @@ import {
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list';
 import { Item } from '../../core/shared/item.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ActivatedRoute, Router } from '@angular/router';
