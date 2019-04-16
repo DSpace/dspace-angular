@@ -6,6 +6,10 @@ import { Component } from '@angular/core';
   // templateUrl: './home-news.component.html',
   templateUrl: './themes/home-news.component.mantis.html'
 })
+
+/**
+ * Component to render the news section on the home page
+ */
 export class HomeNewsComponent {
 
 }

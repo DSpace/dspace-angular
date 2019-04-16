@@ -2,14 +2,12 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 import {
   DynamicFormControlModel,
-  DynamicFormGroupModel,
   DynamicFormLayout,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { MetadataField } from '../../../../core/metadata/metadatafield.model';
 import { take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';

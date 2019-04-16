@@ -21,11 +21,19 @@ import { hasValue } from '../shared/empty.util';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
-export class CommunityPageComponent implements OnInit, OnDestroy {
+/**
+ * This component represents a detail page for a single community
+ */
+export class CommunityPageComponent implements OnInit {
+  /**
+   * The community displayed on this page
+   */
   communityRD$: Observable<RemoteData<Community>>;
-  logoRD$: Observable<RemoteData<Bitstream>>;
-  private subs: Subscription[] = [];
 
+  /**
+   * The logo of this community
+   */
+  logoRD$: Observable<RemoteData<Bitstream>>;
   constructor(
     private communityDataService: CommunityDataService,
     private metadata: MetadataService,
@@ -42,7 +50,4 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
       mergeMap((community: Community) => community.logo));
   }
 
-  ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
-  }
 }
