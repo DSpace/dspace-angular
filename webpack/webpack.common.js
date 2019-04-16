@@ -4,6 +4,8 @@ const {
     root,
     join
 } = require('./helpers');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     mode: 'development',
@@ -61,10 +63,18 @@ module.exports = {
                         options: {
                             sourceMap: true
                         }
-                    }, {
-                        loader: 'raw-loader',
+                    },
+                    {
+                        loader: MiniCssExtractPlugin.loader,
                         options: {
-                            sourceMap: true
+                            hmr: process.env.NODE_ENV === 'development',
+                        },
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                            url: false
                         }
                     },
                     {
@@ -107,7 +117,13 @@ module.exports = {
         }, {
             from: join(__dirname, '..', 'resources', 'i18n'),
             to: join('assets', 'i18n')
-        }])
+        }]),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: devMode ? '[name].css' : '[name].[hash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        }),
     ]
 
 };
