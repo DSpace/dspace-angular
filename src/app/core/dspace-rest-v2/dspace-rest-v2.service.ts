@@ -9,6 +9,7 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
+export const DEFAULT_CONTENT_TYPE = 'application/json; charset=utf-8';
 export interface HttpOptions {
   body?: any;
   headers?: HttpHeaders;
@@ -40,9 +41,8 @@ export class DSpaceRESTv2Service {
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
     const requestOptions = {
       observe: 'response' as any,
-      headers: new HttpHeaders()
+      headers: new HttpHeaders({'Content-Type': DEFAULT_CONTENT_TYPE})
     };
-    requestOptions.headers = requestOptions.headers.set( 'Content-Type', 'application/json; charset=utf-8' );
     return this.http.get(absoluteURL, requestOptions).pipe(
       map((res: HttpResponse<any>) => ({
         payload: res.body,
@@ -91,7 +91,7 @@ export class DSpaceRESTv2Service {
 
     if (!requestOptions.headers.has('Content-Type')) {
       // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
-      requestOptions.headers = requestOptions.headers.set('Content-Type', 'application/json; charset=utf-8');
+      requestOptions.headers = requestOptions.headers.set('Content-Type', DEFAULT_CONTENT_TYPE);
     }
     return this.http.request(method, url, requestOptions).pipe(
       map((res) => ({
