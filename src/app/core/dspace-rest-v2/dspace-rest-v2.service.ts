@@ -8,7 +8,6 @@ import { HttpObserve } from '@angular/common/http/src/client';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { cloneDeep } from 'lodash';
 
 export interface HttpOptions {
   body?: any;
@@ -41,8 +40,9 @@ export class DSpaceRESTv2Service {
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
     const requestOptions = {
       observe: 'response' as any,
-      headers: new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' })
+      headers: new HttpHeaders()
     };
+    requestOptions.headers = requestOptions.headers.set( 'Content-Type', 'application/json; charset=utf-8' );
     return this.http.get(absoluteURL, requestOptions).pipe(
       map((res: HttpResponse<any>) => ({
         payload: res.body,
@@ -82,27 +82,17 @@ export class DSpaceRESTv2Service {
     if (options && options.responseType) {
       requestOptions.responseType = options.responseType;
     }
-    // WORKING OPTION
-    // requestOptions.headers = ((options && options.headers) || new HttpHeaders()).set('blaat', 'bla').delete('blaat');
 
-    // OPTION 1
-    // requestOptions.headers = ((options && options.headers) || new HttpHeaders());
+    if (options && options.headers) {
+      requestOptions.headers = Object.assign(new HttpHeaders(), options.headers);
+    } else {
+      requestOptions.headers = new HttpHeaders();
+    }
 
-    // OPTION 2
-    // requestOptions.headers = new HttpHeaders();
-    // if (options && options.headers) {
-    //   options.headers.keys().forEach((key) => {
-    //     options.headers.getAll(key).forEach((header) => {
-    //       // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
-    //       requestOptions.headers = requestOptions.headers.set(key, header);
-    //     })
-    //   });
-    // }
-    //
-    // if (!requestOptions.headers.has('Content-Type')) {
-    //   // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
-    //   requestOptions.headers = requestOptions.headers.set('Content-Type', 'application/json; charset=utf-8');
-    // }
+    if (!requestOptions.headers.has('Content-Type')) {
+      // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
+      requestOptions.headers = requestOptions.headers.set('Content-Type', 'application/json; charset=utf-8');
+    }
     return this.http.request(method, url, requestOptions).pipe(
       map((res) => ({
         payload: res.body,

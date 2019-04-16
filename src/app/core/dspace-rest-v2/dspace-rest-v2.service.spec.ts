@@ -6,7 +6,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpHeaders } from '@angular/common/http';
 
-describe('DSpaceRESTv2Service', () => {
+fdescribe('DSpaceRESTv2Service', () => {
   let dSpaceRESTv2Service: DSpaceRESTv2Service;
   let httpMock: HttpTestingController;
   const url = 'http://www.dspace.org/';
@@ -101,7 +101,8 @@ describe('DSpaceRESTv2Service', () => {
     });
 
     it('when a content-type header is provided, it should not use application/json', () => {
-      const headers = new HttpHeaders({'Content-Type': 'text/html'});
+      let headers = new HttpHeaders();
+      headers = headers.set('Content-Type', 'text/html');
       dSpaceRESTv2Service.request(RestRequestMethod.POST, url, {}, { headers }).subscribe();
 
       const req = httpMock.expectOne(url);
