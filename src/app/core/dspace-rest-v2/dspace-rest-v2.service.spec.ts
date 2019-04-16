@@ -6,7 +6,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpHeaders } from '@angular/common/http';
 
-fdescribe('DSpaceRESTv2Service', () => {
+describe('DSpaceRESTv2Service', () => {
   let dSpaceRESTv2Service: DSpaceRESTv2Service;
   let httpMock: HttpTestingController;
   const url = 'http://www.dspace.org/';
