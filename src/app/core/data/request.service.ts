@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, mergeMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, take } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
@@ -23,6 +23,8 @@ import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
 import { AddToIndexAction, RemoveFromIndexBySubstringAction } from '../index/index.actions';
 import { coreSelector } from '../core.selectors';
+import { HttpHeaders } from '@angular/common/http';
+import { cloneDeep } from 'lodash';
 
 /**
  * The base selector function to select the request state in the store
@@ -118,6 +120,16 @@ export class RequestService {
             return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
           },
         ))
+    ).pipe(
+      map((entry: RequestEntry) => {
+        // Headers break after being retrieved from the store (because of lazy initialization)
+        // Combining them with a new object fixes this issue
+        if (hasValue(entry) && hasValue(entry.request) && hasValue(entry.request.options) && hasValue(entry.request.options.headers)) {
+          entry = cloneDeep(entry);
+          entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers)
+        }
+        return entry;
+      })
     );
   }
 

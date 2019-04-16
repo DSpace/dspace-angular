@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 import { HttpObserve } from '@angular/common/http/src/client';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
 export const DEFAULT_CONTENT_TYPE = 'application/json; charset=utf-8';
@@ -83,10 +83,10 @@ export class DSpaceRESTv2Service {
       requestOptions.responseType = options.responseType;
     }
 
-    if (options && options.headers) {
-      requestOptions.headers = Object.assign(new HttpHeaders(), options.headers);
-    } else {
+    if (hasNoValue(options) || hasNoValue(options.headers)) {
       requestOptions.headers = new HttpHeaders();
+    } else {
+      requestOptions.headers = options.headers;
     }
 
     if (!requestOptions.headers.has('Content-Type')) {
