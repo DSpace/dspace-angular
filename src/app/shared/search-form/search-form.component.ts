@@ -16,7 +16,7 @@ import { SearchService } from '../../+search-page/search-service/search.service'
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
   // templateUrl: './search-form.component.html',
-  templateUrl: './themes/search-form.component.mantis.html'
+  templateUrl: './$themePath$/search-form.component.$theme$.html'
 })
 
 /**

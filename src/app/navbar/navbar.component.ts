@@ -14,7 +14,7 @@ import { HostWindowService } from '../shared/host-window.service';
   selector: 'ds-navbar',
   styleUrls: ['navbar.component.scss'],
   // templateUrl: './navbar.component.html',
-  templateUrl: './themes/navbar.component.mantis.html',
+  templateUrl: './$themePath$/navbar.component.$theme$.html',
   animations: [slideMobileNav]
 })
 export class NavbarComponent extends MenuComponent implements OnInit {

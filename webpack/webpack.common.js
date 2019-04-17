@@ -4,9 +4,25 @@ const {
     root,
     join
 } = require('./helpers');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const devMode = process.env.NODE_ENV !== 'production';
 
+const theme = '';
+const themeFolder = '';
+// const theme = 'mantis';
+// const themeFolder = 'themes';
+
+
+const themeReplaceOptions =
+        {
+            multiple: [
+                {
+                    search: '$theme$.',
+                    replace: theme + (themeFolder.length ? '.' : '')
+                },
+                {
+                    search: '$themePath$/',
+                    replace: themeFolder + (themeFolder.length ? '/' : '')
+                }]
+        };
 module.exports = {
     mode: 'development',
     devtool: 'source-map',
@@ -25,6 +41,16 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.component.ts$/,
+                loader: 'string-replace-loader',
+                options: themeReplaceOptions
+            },
+            // {
+            //     test: /styles\/_variables.scss$/,
+            //     loader: 'string-replace-loader',
+            //     options: themeReplaceOptions
+            // },
             {
                 test: /\.ts$/,
                 loader: '@ngtools/webpack'
@@ -63,18 +89,10 @@ module.exports = {
                         options: {
                             sourceMap: true
                         }
-                    },
-                    {
-                        loader: MiniCssExtractPlugin.loader,
+                    }, {
+                        loader: 'raw-loader',
                         options: {
-                            hmr: process.env.NODE_ENV === 'development',
-                        },
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                            url: false
+                            sourceMap: true
                         }
                     },
                     {
@@ -117,13 +135,7 @@ module.exports = {
         }, {
             from: join(__dirname, '..', 'resources', 'i18n'),
             to: join('assets', 'i18n')
-        }]),
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: devMode ? '[name].css' : '[name].[hash].css',
-            chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
-        }),
+        }])
     ]
 
 };
