@@ -94,7 +94,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
 
   /**
    * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
-   * Retrieve facet value from search link
+   * Retrieve facet value related to facet type
    */
   private getFacetValue(): string {
     if (this.filterConfig.type === FilterType.authority) {

@@ -24,7 +24,6 @@ describe('SearchFacetOptionComponent', () => {
   const value1 = 'testvalue1';
   const value2 = 'test2';
   const operator = 'authority';
-  const value3 = 'another value3';
 
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
@@ -51,6 +50,13 @@ describe('SearchFacetOptionComponent', () => {
     search: ``
   };
 
+  const selectedValue: FacetValue = {
+    label: value1,
+    value: value1,
+    count: 20,
+    search: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1},${operator}`
+  };
+
   const authorityValue: FacetValue = {
     label: value2,
     value: value2,
@@ -59,7 +65,7 @@ describe('SearchFacetOptionComponent', () => {
   };
 
   const searchLink = '/search';
-  const selectedValues = [value1];
+  const selectedValues = [selectedValue];
   const selectedValues$ = observableOf(selectedValues);
   let filterService;
   let searchService;
