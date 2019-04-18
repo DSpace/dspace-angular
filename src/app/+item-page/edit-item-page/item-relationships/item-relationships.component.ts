@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -14,7 +14,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RestResponse } from '../../../core/cache/response.models';
+import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { isNotEmptyOperator } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -95,7 +95,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
 
   /**
    * Resolve the currently selected related items back to relationships and send a delete request
-   * Make sure the lists are refreshed afterwards
+   * Make sure the lists are refreshed afterwards and notifications are sent for success and errors
    */
   public submit(): void {
     // Get all IDs of related items of which their relationship with the current item is about to be removed
@@ -119,16 +119,25 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
     // Request a delete for every relationship found in the observable created above
     removedRelationshipIds$.pipe(
       take(1),
-      switchMap((removedIds: string[]) => observableZip(...removedIds.map((uuid: string) => this.relationshipService.deleteRelationship(uuid)))),
-      map((responses: RestResponse[]) => responses.filter((response: RestResponse) => response.isSuccessful))
+      switchMap((removedIds: string[]) => observableZip(...removedIds.map((uuid: string) => this.relationshipService.deleteRelationship(uuid))))
     ).subscribe((responses: RestResponse[]) => {
-      // Remove the item's cache to make sure the lists are reloaded with the newest values
-      this.objectCache.remove(this.item.self);
-      this.requestService.removeByHrefSubstring(this.item.self);
+      const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
+      const successfulResponses = responses.filter((response: RestResponse) => response.isSuccessful);
+
+      // Display an error notification for each failed request
+      failedResponses.forEach((response: ErrorResponse) => {
+        this.notificationsService.error(this.getNotificationTitle('failed'), response.errorMessage);
+      });
+      if (successfulResponses.length > 0) {
+        // Remove the item's cache to make sure the lists are reloaded with the newest values
+        this.objectCache.remove(this.item.self);
+        this.requestService.removeByHrefSubstring(this.item.self);
+        // Send a notification that the removal was successful
+        this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+      }
+      // Reset the state of editing relationships
       this.initializeOriginalFields();
       this.initializeUpdates();
-      // Send a notification that the removal was successful
-      this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
     });
   }
 

@@ -7,7 +7,7 @@ import { distinctUntilChanged, flatMap, map, switchMap, take, tap } from 'rxjs/o
 import {
   configureRequest,
   filterSuccessfulResponses,
-  getRemoteDataPayload,
+  getRemoteDataPayload, getResponseFromEntry,
   getSucceededRemoteData
 } from '../shared/operators';
 import { DeleteRequest, RestRequest } from './request.models';
@@ -60,7 +60,7 @@ export class RelationshipService {
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-      filterSuccessfulResponses()
+      getResponseFromEntry()
     );
   }
 

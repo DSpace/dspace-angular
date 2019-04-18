@@ -296,6 +296,9 @@
           "saved": {
             "title": "Relationships saved",
             "content": "Your changes to this item's relationships were saved."
+          },
+          "failed": {
+            "title": "Error deleting relationship"
           }
         }
       }
