@@ -12,8 +12,8 @@ import {
 import { MetadataField } from '../../../core/metadata/metadatafield.model';
 
 /**
- * The auth state.
- * @interface State
+ * The metadata registry state.
+ * @interface MetadataRegistryState
  */
 export interface MetadataRegistryState {
   editSchema: MetadataSchema;

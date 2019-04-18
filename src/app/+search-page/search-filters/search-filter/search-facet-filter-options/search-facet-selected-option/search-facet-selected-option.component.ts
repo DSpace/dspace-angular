@@ -11,6 +11,7 @@ import { FilterType } from '../../../../search-service/filter-type.model';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
+  styleUrls: ['./search-facet-selected-option.component.scss'],
   templateUrl: './search-facet-selected-option.component.html',
 })
 
