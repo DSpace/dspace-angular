@@ -5,10 +5,10 @@ const {
     join
 } = require('./helpers');
 
-const theme = '';
-const themeFolder = '';
-// const theme = 'mantis';
-// const themeFolder = 'themes';
+// const theme = '';
+// const themeFolder = '';
+const theme = 'mantis';
+const themeFolder = 'themes';
 
 
 const themeReplaceOptions =
@@ -16,12 +16,24 @@ const themeReplaceOptions =
             multiple: [
                 {
                     search: '$theme$.',
-                    replace: theme + (themeFolder.length ? '.' : '')
+                    replace: theme + (theme.length ? '.' : ''),
+
                 },
                 {
                     search: '$themePath$/',
-                    replace: themeFolder + (themeFolder.length ? '/' : '')
-                }]
+                    replace: themeFolder + (themeFolder.length ? '/' : ''),
+
+                },
+                {
+                    search: '$theme$.',
+                    replace: theme + (theme.length ? '.' : ''),
+
+                },
+                {
+                    search: '$themePath$/',
+                    replace: themeFolder + (themeFolder.length ? '/' : ''),
+                }
+            ]
         };
 module.exports = {
     mode: 'development',
@@ -46,11 +58,28 @@ module.exports = {
                 loader: 'string-replace-loader',
                 options: themeReplaceOptions
             },
-            // {
-            //     test: /styles\/_variables.scss$/,
-            //     loader: 'string-replace-loader',
-            //     options: themeReplaceOptions
-            // },
+            {
+                test: /styles\/_variables_imports.scss$/,
+                enforce: 'pre',
+                use: [
+                    'debug-loader',
+                    {
+                        loader: 'string-replace-loader',
+                        options: themeReplaceOptions
+                    },
+                ]
+
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: 'string-replace-loader',
+                        options: themeReplaceOptions
+                    },
+                ]
+
+            },
             {
                 test: /\.ts$/,
                 loader: '@ngtools/webpack'
@@ -85,11 +114,14 @@ module.exports = {
                 ],
                 use: [
                     {
-                        loader: 'to-string-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    }, {
+                        loader: 'string-replace-loader',
+                        options:
+                                {
+                                    search: 'theme\.',
+                                    replace: theme + (theme.length ? '\.' : ''),
+                                }
+                    },
+                    {
                         loader: 'raw-loader',
                         options: {
                             sourceMap: true
@@ -107,6 +139,7 @@ module.exports = {
                             sourceMap: true
                         }
                     },
+                    'debug-loader',
                     'webpack-import-glob-loader'
                 ]
             },
@@ -135,6 +168,9 @@ module.exports = {
         }, {
             from: join(__dirname, '..', 'resources', 'i18n'),
             to: join('assets', 'i18n')
+        }, {
+            from: join(__dirname, '..', 'src', 'styles', '_variables_imports.scss'),
+            to: join(__dirname, '..', 'src', 'styles', '_variables.scss')
         }])
     ]
 

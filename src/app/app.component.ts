@@ -24,6 +24,7 @@ import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { RouteService } from './shared/services/route.service';
+import global from '../styles/_variables.scss';
 import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -48,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   slideSidebarOver: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
-  theme: Observable<Theme>= of({} as any);
+  theme: Observable<Theme> = of({} as any);
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -64,7 +65,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private menuService: MenuService,
     private windowService: HostWindowService,
   ) {
-
+    console.log(global);
     // Load all the languages that are defined as active from the config file
     translate.addLangs(config.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
 
