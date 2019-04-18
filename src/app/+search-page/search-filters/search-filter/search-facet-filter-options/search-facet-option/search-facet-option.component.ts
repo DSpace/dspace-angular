@@ -32,7 +32,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
   /**
    * Emits the active values for this filter
    */
-  @Input() selectedValues$: Observable<string[]>;
+  @Input() selectedValues$: Observable<FacetValue[]>;
 
   /**
    * Emits true when this option should be visible and false when it should be invisible
@@ -85,9 +85,9 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    * Calculates the parameters that should change if a given value for this filter would be added to the active filters
    * @param {string[]} selectedValues The values that are currently selected for this filter
    */
-  private updateAddParams(selectedValues: string[]): void {
+  private updateAddParams(selectedValues: FacetValue[]): void {
     this.addQueryParams = {
-      [this.filterConfig.paramName]: [...selectedValues, this.getFacetValue()],
+      [this.filterConfig.paramName]: [...selectedValues.map((facetValue: FacetValue) => facetValue.label), this.getFacetValue()],
       page: 1
     };
   }
