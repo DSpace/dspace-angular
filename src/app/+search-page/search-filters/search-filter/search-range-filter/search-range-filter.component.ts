@@ -41,7 +41,7 @@ const dateFormats = ['YYYY', 'YYYY-MM', 'YYYY-MM-DD'];
  */
 @Component({
   selector: 'ds-search-range-filter',
-  styleUrls: ['./search-range-filter.component.scss'],
+  styleUrls: ['./$themePath$/search-range-filter.component.$theme$.scss'],
   templateUrl: './search-range-filter.component.html',
   animations: [facetLoad]
 })

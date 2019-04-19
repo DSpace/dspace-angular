@@ -1,5 +1,3 @@
-@import '_variables.scss';
-
 :export {
     xlMin: map-get($grid-breakpoints, xl);
     mdMin: map-get($grid-breakpoints, md);

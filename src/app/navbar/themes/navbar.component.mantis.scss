@@ -1,9 +1,7 @@
-@import '../../../styles/variables.scss';
+@import '../navbar.component.scss';
 
-:host-context(.mantis) {
-    nav.navbar {
-        border-bottom: 5px $green solid;
-    }
+nav.navbar {
+    border-bottom: 5px $green solid;
 }
 
 

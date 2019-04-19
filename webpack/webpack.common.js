@@ -6,11 +6,12 @@ const {
 } = require('./helpers');
 
 // const theme = '';
-// const themeFolder = '';
 const theme = 'mantis';
-const themeFolder = 'themes';
 
-
+const globalCSSImports = [
+    path.resolve(__dirname, '..', 'src/styles/_variables.scss'),
+    path.resolve(__dirname, '..', 'src/styles/_mixins.scss'),
+];
 const themeReplaceOptions =
         {
             multiple: [
@@ -21,17 +22,17 @@ const themeReplaceOptions =
                 },
                 {
                     search: '$themePath$/',
-                    replace: themeFolder + (themeFolder.length ? '/' : ''),
+                    replace: (theme.length ? 'themes/' : ''),
 
                 },
                 {
                     search: '$theme$.',
-                    replace: theme + (theme.length ? '.' : ''),
+                    replace: (theme.length ? theme + '.' : ''),
 
                 },
                 {
                     search: '$themePath$/',
-                    replace: themeFolder + (themeFolder.length ? '/' : ''),
+                    replace: (theme.length ? 'themes/' : ''),
                 }
             ]
         };
@@ -57,28 +58,6 @@ module.exports = {
                 test: /\.component.ts$/,
                 loader: 'string-replace-loader',
                 options: themeReplaceOptions
-            },
-            {
-                test: /styles\/_variables_imports.scss$/,
-                enforce: 'pre',
-                use: [
-                    'debug-loader',
-                    {
-                        loader: 'string-replace-loader',
-                        options: themeReplaceOptions
-                    },
-                ]
-
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    {
-                        loader: 'string-replace-loader',
-                        options: themeReplaceOptions
-                    },
-                ]
-
             },
             {
                 test: /\.ts$/,
@@ -114,14 +93,6 @@ module.exports = {
                 ],
                 use: [
                     {
-                        loader: 'string-replace-loader',
-                        options:
-                                {
-                                    search: 'theme\.',
-                                    replace: theme + (theme.length ? '\.' : ''),
-                                }
-                    },
-                    {
                         loader: 'raw-loader',
                         options: {
                             sourceMap: true
@@ -139,7 +110,16 @@ module.exports = {
                             sourceMap: true
                         }
                     },
-                    'debug-loader',
+                    {
+                        loader: 'string-replace-loader',
+                        options: themeReplaceOptions
+                    },
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            resources: globalCSSImports
+                        },
+                    },
                     'webpack-import-glob-loader'
                 ]
             },
@@ -150,7 +130,18 @@ module.exports = {
                     loader: "css-loader" // translates CSS into CommonJS
                 }, {
                     loader: "sass-loader" // compiles Sass to CSS
-                }]
+                },
+                    {
+                        loader: 'string-replace-loader',
+                        options: themeReplaceOptions
+                    },
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            resources: globalCSSImports
+                        },
+                    }
+                ]
             },
             {
                 test: /\.html$/,
@@ -168,10 +159,7 @@ module.exports = {
         }, {
             from: join(__dirname, '..', 'resources', 'i18n'),
             to: join('assets', 'i18n')
-        }, {
-            from: join(__dirname, '..', 'src', 'styles', '_variables_imports.scss'),
-            to: join(__dirname, '..', 'src', 'styles', '_variables.scss')
-        }])
+        }
+        ])
     ]
-
 };

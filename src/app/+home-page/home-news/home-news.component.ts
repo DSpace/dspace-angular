@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ds-home-news',
-  styleUrls: ['./home-news.component.scss'],
-  // templateUrl: './home-news.component.html',
+  styleUrls: ['./$themePath$/home-news.component.$theme$.scss'],
   templateUrl: './$themePath$/home-news.component.$theme$.html'
 })
 

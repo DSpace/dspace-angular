@@ -12,8 +12,7 @@ import { HostWindowService } from '../shared/host-window.service';
  */
 @Component({
   selector: 'ds-navbar',
-  styleUrls: ['navbar.component.scss'],
-  // templateUrl: './navbar.component.html',
+  styleUrls: ['./$themePath$/navbar.component.$theme$.scss'],
   templateUrl: './$themePath$/navbar.component.$theme$.html',
   animations: [slideMobileNav]
 })

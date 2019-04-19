@@ -24,14 +24,12 @@ import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { RouteService } from './shared/services/route.service';
-import global from '../styles/_variables.scss';
 import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/initial-menus-state';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { slideSidebarPadding } from './shared/animations/slide';
-import { combineLatest as combineLatestObservable, of } from 'rxjs';
 import { HostWindowService } from './shared/host-window.service';
 import { Theme } from '../config/theme.inferface';
 
@@ -65,7 +63,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private menuService: MenuService,
     private windowService: HostWindowService,
   ) {
-    console.log(global);
     // Load all the languages that are defined as active from the config file
     translate.addLangs(config.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
 

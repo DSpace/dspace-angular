@@ -1,5 +1,3 @@
-@import '../../styles/variables.scss';
-
 @media screen and (max-width: map-get($grid-breakpoints, md)) {
     :host.open {
         background-color: $white;
