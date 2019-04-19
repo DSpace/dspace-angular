@@ -412,6 +412,10 @@ export class TaskDeleteRequest extends DeleteRequest {
   }
 }
 
+export class MyDSpaceRequest extends GetRequest {
+  public responseMsToLive = 0;
+}
+
 export class RequestError extends Error {
   statusCode: number;
   statusText: string;

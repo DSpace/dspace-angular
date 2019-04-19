@@ -20,6 +20,7 @@ import { RoleType } from '../core/roles/role-types';
 import { SearchConfigurationService } from '../+search-page/search-service/search-configuration.service';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
+import { MyDSpaceRequest } from '../core/data/request.models';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -87,7 +88,7 @@ export class MyDSpacePageComponent implements OnInit {
               private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
-    this.service.setServiceOptions(MyDSpaceResponseParsingService, true);
+    this.service.setServiceOptions(MyDSpaceResponseParsingService, MyDSpaceRequest);
   }
 
   /**

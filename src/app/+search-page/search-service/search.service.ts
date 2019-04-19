@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
+import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { first, map, switchMap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
@@ -17,7 +17,8 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import {
-  configureRequest, filterSuccessfulResponses,
+  configureRequest,
+  filterSuccessfulResponses,
   getResponseFromEntry,
   getSucceededRemoteData
 } from '../../core/shared/operators';
@@ -59,14 +60,14 @@ export class SearchService implements OnDestroy {
   private facetLinkPathPrefix = 'discover/facets/';
 
   /**
-   * When true, a new search request is always dispatched
-   */
-  private forceBypassCache = false;
-
-  /**
    * The ResponseParsingService constructor name
    */
   private parser: GenericConstructor<ResponseParsingService> = SearchResponseParsingService;
+
+  /**
+   * The RestRequest constructor name
+   */
+  private request: GenericConstructor<RestRequest> = GetRequest;
 
   /**
    * Subscription to unsubscribe from
@@ -85,15 +86,16 @@ export class SearchService implements OnDestroy {
 
   /**
    * Method to set service options
-   * @param {GenericConstructor<ResponseParsingService>} parser The configuration necessary to perform this search
-   * @param {boolean} forceBypassCache When true, a new search request is always dispatched
-   * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
+   * @param {GenericConstructor<ResponseParsingService>} parser The ResponseParsingService constructor name
+   * @param {boolean} request The RestRequest constructor name
    */
-  setServiceOptions(parser: GenericConstructor<ResponseParsingService>, forceBypassCache: boolean) {
+  setServiceOptions(parser: GenericConstructor<ResponseParsingService>, request: GenericConstructor<RestRequest>) {
     if (parser) {
       this.parser = parser;
     }
-    this.forceBypassCache = forceBypassCache;
+    if (request) {
+      this.request = request;
+    }
   }
 
   /**
@@ -107,7 +109,8 @@ export class SearchService implements OnDestroy {
         if (hasValue(searchOptions)) {
           url = (searchOptions as PaginatedSearchOptions).toRestUrl(url);
         }
-        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        const request = new this.request(this.requestService.generateRequestId(), url);
+
         const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
           return this.parser;
         };
@@ -116,7 +119,7 @@ export class SearchService implements OnDestroy {
           getResponseParser: getResponseParserFn
         });
       }),
-      configureRequest(this.requestService, this.forceBypassCache),
+      configureRequest(this.requestService),
     );
     const requestEntryObs = requestObs.pipe(
       switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
@@ -176,9 +179,10 @@ export class SearchService implements OnDestroy {
   /**
    * Request the filter configuration for a given scope or the whole repository
    * @param {string} scope UUID of the object for which config the filter config is requested, when no scope is provided the configuration for the whole repository is loaded
+   * @param {string} configurationName the name of the configuration
    * @returns {Observable<RemoteData<SearchFilterConfig[]>>} The found filter configuration
    */
-  getConfig(scope?: string, configuration?: string): Observable<RemoteData<SearchFilterConfig[]>> {
+  getConfig(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
     const requestObs = this.halService.getEndpoint(this.facetLinkPathPrefix).pipe(
       map((url: string) => {
         const args: string[] = [];
@@ -187,22 +191,22 @@ export class SearchService implements OnDestroy {
           args.push(`scope=${scope}`);
         }
 
-        if (isNotEmpty(configuration)) {
-          args.push(`configuration=${configuration}`);
+        if (isNotEmpty(configurationName)) {
+          args.push(`configuration=${configurationName}`);
         }
 
         if (isNotEmpty(args)) {
           url = new URLCombiner(url, `?${args.join('&')}`).toString();
         }
 
-        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        const request = new this.request(this.requestService.generateRequestId(), url);
         return Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {
             return FacetConfigResponseParsingService;
           }
         });
       }),
-      configureRequest(this.requestService, this.forceBypassCache)
+      configureRequest(this.requestService)
     );
 
     const requestEntryObs = requestObs.pipe(
@@ -238,14 +242,14 @@ export class SearchService implements OnDestroy {
           url = searchOptions.toRestUrl(url, args);
         }
 
-        const request = new GetRequest(this.requestService.generateRequestId(), url);
+        const request = new this.request(this.requestService.generateRequestId(), url);
         return Object.assign(request, {
           getResponseParser(): GenericConstructor<ResponseParsingService> {
             return FacetValueResponseParsingService;
           }
         });
       }),
-      configureRequest(this.requestService, this.forceBypassCache),
+      configureRequest(this.requestService),
       first()
     );
 
