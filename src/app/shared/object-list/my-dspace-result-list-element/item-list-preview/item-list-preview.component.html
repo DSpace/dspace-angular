@@ -3,7 +3,7 @@
     <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
   </ng-container>
   <ds-truncatable [id]="item.id">
-    <h3 class="h3-title" [innerHTML]="item.firstMetadataValue('dc.title') || ('mydspace.results.no-title' | translate)" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
+    <h3 [innerHTML]="item.firstMetadataValue('dc.title') || ('mydspace.results.no-title' | translate)" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
     <div>
       <span class="text-muted">
         <ds-truncatable-part [id]="item.id" [minLines]="1">
