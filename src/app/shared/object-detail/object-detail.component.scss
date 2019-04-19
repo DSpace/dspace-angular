@@ -6,23 +6,4 @@ ds-wrapper-detail-element ::ng-deep {
     height: $card-thumbnail-height;
     width: 100%;
   }
-  .card-title {
-    line-height: $headings-line-height;
-    height: ($headings-line-height*3) +em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .item-abstract {
-    line-height: $line-height-base;
-    height: ($line-height-base*5)+em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .item-authors{
-    line-height: $line-height-base;
-    height: ($line-height-base*1.5)+em;
-  }
-  div.card {
-    margin-bottom: 20px;
-  }
 }

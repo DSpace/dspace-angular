@@ -117,7 +117,7 @@ describe('TasksService', () => {
 
   describe('deleteById', () => {
 
-    it('should configure a new TaskPostRequest', () => {
+    it('should configure a new TaskDeleteRequest', () => {
       const scopeId = '1234';
       const expected = new TaskDeleteRequest(requestService.generateRequestId(), `${taskEndpoint}/${linkPath}/${scopeId}`, null);
       scheduler.schedule(() => service.deleteById('testTask', scopeId).subscribe());

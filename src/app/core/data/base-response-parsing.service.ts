@@ -162,8 +162,6 @@ export abstract class BaseResponseParsingService {
   }
 
   protected isSuccessStatus(statusCode: number) {
-    return (statusCode === 201
-      || statusCode === 200
-      || statusCode === 204)
+    return statusCode >= 200 && statusCode < 300;
   }
 }
