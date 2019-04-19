@@ -18,7 +18,6 @@ import { MetadataschemaParsingService } from './metadataschema-parsing.service';
 import { MetadatafieldParsingService } from './metadatafield-parsing.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
-import { MessageResponseParsingService } from '../message/message-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -369,26 +368,6 @@ export class DeleteByIDRequest extends DeleteRequest {
     public resourceID: string
   ) {
     super(uuid, href);
-  }
-}
-
-export class MessagePostRequest extends PostRequest {
-  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
-    super(uuid, href, body, options);
-  }
-
-  getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return MessageResponseParsingService;
-  }
-}
-
-export class MessageGetRequest extends GetRequest {
-  constructor(uuid: string, href: string, public options?: HttpOptions) {
-    super(uuid, href, null, options);
-  }
-
-  getResponseParser(): GenericConstructor<ResponseParsingService> {
-    return MessageResponseParsingService;
   }
 }
 
