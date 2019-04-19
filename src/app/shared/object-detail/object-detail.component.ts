@@ -67,6 +67,11 @@ export class ObjectDetailComponent {
   }
 
   /**
+   * Option for hiding the pagination detail
+   */
+  public hidePaginationDetail = true;
+
+  /**
    * An event fired when the page is changed.
    * Event's payload equals to the newly selected page.
    */
