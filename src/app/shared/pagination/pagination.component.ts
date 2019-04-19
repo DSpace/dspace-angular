@@ -85,6 +85,11 @@ export class PaginationComponent implements OnDestroy, OnInit {
   @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();
 
   /**
+   * Option for hiding the pagination detail
+   */
+  @Input() public hidePaginationDetail = false;
+
+  /**
    * Option for hiding the gear
    */
   @Input() public hideGear = false;
