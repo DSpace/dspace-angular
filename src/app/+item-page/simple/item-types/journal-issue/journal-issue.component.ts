@@ -2,13 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
-import { rendersItemType } from '../../../../shared/items/item-type-decorator';
+import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
-import { ItemComponent, filterRelationsByTypeLabel, relationsToItems } from '../shared/item.component';
-import { VIEW_MODE_FULL } from '../../item-page.component';
+import { ItemComponent } from '../shared/item.component';
+import { filterRelationsByTypeLabel, relationsToItems } from '../shared/item-relationships-utils';
 
-@rendersItemType('JournalIssue', VIEW_MODE_FULL)
+@rendersItemType('JournalIssue', ItemViewMode.Full)
 @Component({
   selector: 'ds-journal-issue',
   styleUrls: ['./journal-issue.component.scss'],

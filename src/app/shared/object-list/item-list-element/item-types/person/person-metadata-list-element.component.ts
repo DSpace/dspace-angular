@@ -1,10 +1,9 @@
-import { rendersItemType } from '../../../../items/item-type-decorator';
-import { VIEW_MODE_ELEMENT } from '../../../../../+item-page/simple/related-items/related-items-component';
+import { ItemViewMode, rendersItemType } from '../../../../items/item-type-decorator';
 import { Component } from '@angular/core';
 import { TypedItemSearchResultListElementComponent } from '../typed-item-search-result-list-element.component';
 import { MetadataRepresentationType } from '../../../../../core/shared/metadata-representation/metadata-representation.model';
 
-@rendersItemType('Person', VIEW_MODE_ELEMENT, MetadataRepresentationType.Item)
+@rendersItemType('Person', ItemViewMode.Element, MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-person-metadata-list-element',
   templateUrl: './person-metadata-list-element.component.html'

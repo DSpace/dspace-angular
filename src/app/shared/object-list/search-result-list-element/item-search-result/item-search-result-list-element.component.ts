@@ -6,7 +6,7 @@ import { renderElementsFor } from '../../../object-collection/shared/dso-element
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { SetViewMode } from '../../../view-mode';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
-import { VIEW_MODE_ELEMENT } from '../../../../+item-page/simple/related-items/related-items-component';
+import { ItemViewMode } from '../../../items/item-type-decorator';
 
 @Component({
   selector: 'ds-item-search-result-list-element',
@@ -18,5 +18,5 @@ import { VIEW_MODE_ELEMENT } from '../../../../+item-page/simple/related-items/r
 
 @renderElementsFor(ItemSearchResult, SetViewMode.List)
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
-  viewMode = VIEW_MODE_ELEMENT;
+  viewMode = ItemViewMode.Element;
 }

@@ -3,16 +3,16 @@ import { Observable } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import {
-  DEFAULT_ITEM_TYPE,
+  DEFAULT_ITEM_TYPE, ItemViewMode,
   rendersItemType
 } from '../../../../shared/items/item-type-decorator';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
-import { ItemComponent, filterRelationsByTypeLabel, relationsToItems } from '../shared/item.component';
+import { ItemComponent } from '../shared/item.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { VIEW_MODE_FULL } from '../../item-page.component';
+import { filterRelationsByTypeLabel, relationsToItems } from '../shared/item-relationships-utils';
 
-@rendersItemType('Publication', VIEW_MODE_FULL)
-@rendersItemType(DEFAULT_ITEM_TYPE, VIEW_MODE_FULL)
+@rendersItemType('Publication', ItemViewMode.Full)
+@rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Full)
 @Component({
   selector: 'ds-publication',
   styleUrls: ['./publication.component.scss'],

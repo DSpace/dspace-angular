@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
-import * as viewMode from '../../../shared/view-mode';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-
-export const VIEW_MODE_METADATA = 'metadata';
+import { ItemViewMode } from '../../../shared/items/item-type-decorator';
 
 @Component({
   selector: 'ds-metadata-representation-list',
@@ -27,5 +25,5 @@ export class MetadataRepresentationListComponent {
    * The view-mode we're currently on
    * @type {ElementViewMode}
    */
-  viewMode = VIEW_MODE_METADATA;
+  viewMode = ItemViewMode.Metadata;
 }

@@ -3,7 +3,13 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 import { Observable } from 'rxjs';
 
 @Injectable()
-
+/**
+ * Assemble the correct i18n key for the filtered search page's title depending on the current route's filter parameter
+ * and title data.
+ * The format of the key will be "{title}{filter}.title" with:
+ * - title: The prefix of the key stored in route.data
+ * - filter: The current filter stored in route.params
+ */
 export class FilteredSearchPageGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,

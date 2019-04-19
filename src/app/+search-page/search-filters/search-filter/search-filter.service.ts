@@ -132,63 +132,6 @@ export class SearchFilterService {
   }
 
   /**
-   * Fetch the current paginated search options using the getters from above
-   * and combining them with given defaults
-   * @param defaults    Default paginated search options
-   * @returns {Observable<PaginatedSearchOptions>}
-   */
-  getPaginatedSearchOptions(defaults: any = {}): Observable<PaginatedSearchOptions> {
-    return observableCombineLatest(
-      this.getCurrentPagination(defaults.pagination),
-      this.getCurrentSort(defaults.sort),
-      this.getCurrentView(),
-      this.getCurrentScope(),
-      this.getCurrentQuery(),
-      this.getCurrentFilters(),
-      this.getCurrentFixedFilter()).pipe(
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      map(([pagination, sort, view, scope, query, filters, fixedFilter]) => {
-        return Object.assign(new PaginatedSearchOptions(defaults),
-          {
-            pagination: pagination,
-            sort: sort,
-            view: view,
-            scope: scope || defaults.scope,
-            query: query,
-            filters: filters,
-            fixedFilter: fixedFilter
-          })
-      })
-    )
-  }
-
-  /**
-   * Fetch the current search options (not paginated) using the getters from above
-   * and combining them with given defaults
-   * @param defaults    Default search options
-   * @returns {Observable<SearchOptions>}
-   */
-  getSearchOptions(defaults: any = {}): Observable<SearchOptions> {
-    return observableCombineLatest(
-      this.getCurrentView(),
-      this.getCurrentScope(),
-      this.getCurrentQuery(),
-      this.getCurrentFilters(),
-      this.getCurrentFixedFilter(),
-      (view, scope, query, filters, fixedFilter) => {
-        return Object.assign(new SearchOptions(defaults),
-          {
-            view: view,
-            scope: scope || defaults.scope,
-            query: query,
-            filters: filters,
-            fixedFilter: fixedFilter
-          })
-      }
-    )
-  }
-
-  /**
    * Requests the active filter values set for a given filter
    * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
    * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
