@@ -70,7 +70,7 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
     const body = {
       submit_approve: 'true'
     };
-    return this.postToEndpoint(this.linkPath, this.requestService.prepareBody(body), scopeId, this.makeHttpOptions());
+    return this.postToEndpoint(this.linkPath, this.requestService.uriEncodeBody(body), scopeId, this.makeHttpOptions());
   }
 
   /**
@@ -88,7 +88,7 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
       submit_reject: 'true',
       reason
     };
-    return this.postToEndpoint(this.linkPath, this.requestService.prepareBody(body), scopeId, this.makeHttpOptions());
+    return this.postToEndpoint(this.linkPath, this.requestService.uriEncodeBody(body), scopeId, this.makeHttpOptions());
   }
 
   /**

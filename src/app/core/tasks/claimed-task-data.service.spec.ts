@@ -66,7 +66,7 @@ describe('ClaimedTaskDataService', () => {
       };
 
       spyOn(service, 'postToEndpoint');
-      requestService.prepareBody.and.returnValue(body);
+      requestService.uriEncodeBody.and.returnValue(body);
 
       service.approveTask(scopeId);
 
@@ -85,7 +85,7 @@ describe('ClaimedTaskDataService', () => {
       };
 
       spyOn(service, 'postToEndpoint');
-      requestService.prepareBody.and.returnValue(body);
+      requestService.uriEncodeBody.and.returnValue(body);
 
       service.rejectTask(reason, scopeId);
 

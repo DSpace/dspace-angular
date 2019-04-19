@@ -161,7 +161,7 @@ export class RequestService {
   /**
    * Convert request Payload to a URL-encoded string
    *
-   * e.g.  prepareBody({param: value, param1: value1})
+   * e.g.  uriEncodeBody({param: value, param1: value1})
    * returns: param=value&param1=value1
    *
    * @param body
@@ -169,7 +169,7 @@ export class RequestService {
    * @return string
    *    URL-encoded string
    */
-  public prepareBody(body: any) {
+  public uriEncodeBody(body: any) {
     let queryParams = '';
     if (isNotEmpty(body) && typeof body === 'object') {
       Object.keys(body)
