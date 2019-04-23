@@ -146,14 +146,10 @@ export class AuthService {
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
+      map((status) => this.rdbService.build(status)),
       switchMap((status: AuthStatus) => {
-
         if (status.authenticated) {
-          // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
-          // Review when https://jira.duraspace.org/browse/DS-4006 is fixed
-          // See https://github.com/DSpace/dspace-angular/issues/292
-          const person$ = this.rdbService.buildSingle<EPerson>(status.eperson.toString());
-          return person$.pipe(map((eperson) => eperson.payload));
+          return status.eperson.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
         }
@@ -242,7 +238,6 @@ export class AuthService {
           throw(new Error('auth.errors.invalid-user'));
         }
       }))
-
   }
 
   /**

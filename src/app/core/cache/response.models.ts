@@ -14,6 +14,7 @@ import { MetadataField } from '../metadata/metadatafield.model';
 import { PaginatedList } from '../data/paginated-list';
 import { SubmissionObject } from '../submission/models/submission-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { NormalizedAuthStatus } from '../auth/models/normalized-auth-status.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -202,7 +203,7 @@ export class AuthStatusResponse extends RestResponse {
   public toCache = false;
 
   constructor(
-    public response: AuthStatus,
+    public response: NormalizedAuthStatus,
     public statusCode: number,
     public statusText: string,
   ) {

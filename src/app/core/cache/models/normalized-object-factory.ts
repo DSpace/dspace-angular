@@ -18,6 +18,7 @@ import { CacheableObject } from '../object-cache.reducer';
 import { NormalizedSubmissionDefinitionsModel } from '../../config/models/normalized-config-submission-definitions.model';
 import { NormalizedSubmissionFormsModel } from '../../config/models/normalized-config-submission-forms.model';
 import { NormalizedSubmissionSectionModel } from '../../config/models/normalized-config-submission-section.model';
+import { NormalizedAuthStatus } from '../../auth/models/normalized-auth-status.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject<CacheableObject>> {
