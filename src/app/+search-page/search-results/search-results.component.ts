@@ -31,9 +31,26 @@ export class SearchResultsComponent {
    * The current configuration of the search
    */
   @Input() searchConfig: SearchOptions;
+
+  /**
+   * The current sorting configuration of the search
+   */
   @Input() sortConfig: SortOptions;
+
+  /**
+   * The current view-mode of the list
+   */
   @Input() viewMode: SetViewMode;
+
+  /**
+   * An optional fixed filter to filter the result on one type
+   */
   @Input() fixedFilter: string;
+
+  /**
+   * Whether or not to hide the header of the results
+   * Defaults to a visible header
+   */
   @Input() disableHeader = false;
 
   /**

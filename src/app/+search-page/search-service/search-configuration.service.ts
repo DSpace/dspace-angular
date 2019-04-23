@@ -73,6 +73,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Initialize the search options
    * @param {RouteService} routeService
+   * @param {SearchFixedFilterService} fixedFilterService
    * @param {ActivatedRoute} route
    */
   constructor(private routeService: RouteService,

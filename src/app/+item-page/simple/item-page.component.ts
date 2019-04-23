@@ -13,9 +13,7 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
-import * as viewMode from '../../shared/view-mode';
-
-export const VIEW_MODE_FULL = 'full';
+import { ItemViewMode } from '../../shared/items/item-type-decorator';
 
 /**
  * This component renders a simple item page.
@@ -49,7 +47,7 @@ export class ItemPageComponent implements OnInit {
   /**
    * The view-mode we're currently on
    */
-  viewMode = VIEW_MODE_FULL;
+  viewMode = ItemViewMode.Full;
 
   constructor(
     private route: ActivatedRoute,

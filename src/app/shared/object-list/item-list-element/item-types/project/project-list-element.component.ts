@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { rendersItemType } from '../../../../items/item-type-decorator';
+import { ItemViewMode, rendersItemType } from '../../../../items/item-type-decorator';
 import { TypedItemSearchResultListElementComponent } from '../typed-item-search-result-list-element.component';
-import { VIEW_MODE_ELEMENT } from '../../../../../+item-page/simple/related-items/related-items-component';
 
-@rendersItemType('Project', VIEW_MODE_ELEMENT)
+@rendersItemType('Project', ItemViewMode.Element)
 @Component({
   selector: 'ds-project-list-element',
   styleUrls: ['./project-list-element.component.scss'],

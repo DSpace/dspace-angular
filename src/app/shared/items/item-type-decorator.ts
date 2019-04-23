@@ -1,9 +1,14 @@
 import { hasNoValue, hasValue } from '../empty.util';
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { VIEW_MODE_ELEMENT } from '../../+item-page/simple/related-items/related-items-component';
+
+export enum ItemViewMode {
+  Element = 'element',
+  Full = 'full',
+  Metadata = 'metadata'
+}
 
 export const DEFAULT_ITEM_TYPE = 'Default';
-export const DEFAULT_VIEW_MODE = VIEW_MODE_ELEMENT;
+export const DEFAULT_VIEW_MODE = ItemViewMode.Element;
 export const NO_REPRESENTATION_TYPE = MetadataRepresentationType.None;
 export const DEFAULT_REPRESENTATION_TYPE = MetadataRepresentationType.PlainText;
 

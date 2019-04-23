@@ -7,11 +7,9 @@ import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RemoteData } from '../../../core/data/remote-data';
 import * as decorator from '../item-type-decorator';
-import { getComponentByItemType } from '../item-type-decorator';
+import { getComponentByItemType, ItemViewMode } from '../item-type-decorator';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import createSpy = jasmine.createSpy;
-import { VIEW_MODE_FULL } from '../../../+item-page/simple/item-page.component';
-import { VIEW_MODE_METADATA } from '../../../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 
 const relationType = 'type';
 const mockItem: Item = Object.assign(new Item(), {
@@ -32,7 +30,7 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(relationType), mockItem);
-let viewMode = VIEW_MODE_FULL;
+let viewMode = ItemViewMode.Full;
 
 describe('ItemTypeSwitcherComponent', () => {
   let comp: ItemTypeSwitcherComponent;
@@ -55,7 +53,7 @@ describe('ItemTypeSwitcherComponent', () => {
 
   describe('when the injected object is of type Item', () => {
     beforeEach(() => {
-      viewMode = VIEW_MODE_FULL;
+      viewMode = ItemViewMode.Full;
       comp.object = mockItem;
       comp.viewMode = viewMode;
     });
@@ -73,7 +71,7 @@ describe('ItemTypeSwitcherComponent', () => {
 
   describe('when the injected object is of type MetadataRepresentation', () => {
     beforeEach(() => {
-      viewMode = VIEW_MODE_METADATA;
+      viewMode = ItemViewMode.Metadata;
       comp.object = mockItemMetadataRepresentation;
       comp.viewMode = viewMode;
     });
