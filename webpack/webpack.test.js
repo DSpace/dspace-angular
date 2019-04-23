@@ -1,5 +1,7 @@
 const {
-  root
+    root,
+    globalCSSImports,
+    themeReplaceOptions
 } = require('./helpers');
 
 /**
@@ -80,7 +82,11 @@ module.exports = function (options) {
           exclude: [/node_modules/],
 
         },
-
+        {
+            test: /\.component.ts$/,
+            loader: 'string-replace-loader',
+            options: themeReplaceOptions
+        },
         /**
          * Typescript loader support for .ts and Angular 2 async routes via .async.ts
          *
@@ -127,7 +133,6 @@ module.exports = function (options) {
               }
             }
           ],
-          exclude: [root('src/index.html')]
         },
 
         /**
@@ -136,39 +141,38 @@ module.exports = function (options) {
          *
          */
         {
-          test: /\.scss$/,
-          use: [{
-              loader: 'to-string-loader',
-              options: {
-                sourceMap: true
-              }
-            }, {
-              loader: 'raw-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'resolve-url-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            'webpack-import-glob-loader'
-          ],
-          exclude: [root('src/index.html')]
+            test: /\.scss$/,
+            use: [
+                {
+                    loader: 'raw-loader',
+                    options: {
+                        sourceMap: true
+                    }
+                },
+                {
+                    loader: 'resolve-url-loader',
+                    options: {
+                        sourceMap: true
+                    }
+                },
+                {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMap: true
+                    }
+                },
+                {
+                    loader: 'string-replace-loader',
+                    options: themeReplaceOptions
+                },
+                {
+                    loader: 'sass-resources-loader',
+                    options: {
+                        resources: globalCSSImports
+                    },
+                },
+                'webpack-import-glob-loader'
+            ]
         },
 
         /**

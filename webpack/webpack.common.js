@@ -2,40 +2,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const {
     root,
-    join
+    join,
+    globalCSSImports,
+    themeReplaceOptions
 } = require('./helpers');
 
-// const theme = '';
-const theme = 'mantis';
 
-const globalCSSImports = [
-    path.resolve(__dirname, '..', 'src/styles/_variables.scss'),
-    path.resolve(__dirname, '..', 'src/styles/_mixins.scss'),
-];
-const themeReplaceOptions =
-        {
-            multiple: [
-                {
-                    search: '$theme$.',
-                    replace: theme + (theme.length ? '.' : ''),
-
-                },
-                {
-                    search: '$themePath$/',
-                    replace: (theme.length ? 'themes/' : ''),
-
-                },
-                {
-                    search: '$theme$.',
-                    replace: (theme.length ? theme + '.' : ''),
-
-                },
-                {
-                    search: '$themePath$/',
-                    replace: (theme.length ? 'themes/' : ''),
-                }
-            ]
-        };
 module.exports = {
     mode: 'development',
     devtool: 'source-map',
