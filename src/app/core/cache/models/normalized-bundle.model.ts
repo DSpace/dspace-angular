@@ -4,12 +4,14 @@ import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Bundle } from '../../shared/bundle.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 /**
  * Normalized model class for a DSpace Bundle
  */
 @mapsTo(Bundle)
 @inheritSerialization(NormalizedDSpaceObject)
+@resourceType(ResourceType.Bundle)
 export class NormalizedBundle extends NormalizedDSpaceObject<Bundle> {
   /**
    * The primary bitstream of this Bundle

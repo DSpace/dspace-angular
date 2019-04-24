@@ -4,9 +4,11 @@ import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 @mapsTo(AuthStatus)
 @inheritSerialization(NormalizedObject)
+@resourceType(ResourceType.AuthStatus)
 export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   @autoserialize
   id: string;

@@ -59,10 +59,10 @@ export class NormalizedObjectFactory {
       case ResourceType.MetadataField: {
         return NormalizedGroup
       }
-      case ResourceType.Workspaceitem: {
+      case ResourceType.WorkspaceItem: {
         return NormalizedWorkspaceItem
       }
-      case ResourceType.Workflowitem: {
+      case ResourceType.WorkflowItem: {
         return NormalizedWorkflowItem
       }
       case ResourceType.SubmissionDefinition:

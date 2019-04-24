@@ -4,11 +4,13 @@ import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models
 import { ResourceType } from '../../shared/resource-type';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 /**
  * An model class for a DSpaceObject.
  */
 @mapsTo(DSpaceObject)
+@resourceType(ResourceType.DSpaceObject)
 export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedObject<T> {
 
   /**

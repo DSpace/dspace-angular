@@ -4,12 +4,14 @@ import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Item } from '../../shared/item.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 /**
  * Normalized model class for a DSpace Item
  */
 @mapsTo(Item)
 @inheritSerialization(NormalizedDSpaceObject)
+@resourceType(ResourceType.Item)
 export class NormalizedItem extends NormalizedDSpaceObject<Item> {
 
   /**

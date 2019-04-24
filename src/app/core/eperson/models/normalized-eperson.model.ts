@@ -6,9 +6,11 @@ import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-obj
 import { EPerson } from './eperson.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 @mapsTo(EPerson)
 @inheritSerialization(NormalizedDSpaceObject)
+@resourceType(ResourceType.EPerson)
 export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implements CacheableObject, ListableObject {
 
   /**

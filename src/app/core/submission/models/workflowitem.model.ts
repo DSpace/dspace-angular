@@ -1,7 +1,7 @@
-import { Workspaceitem } from './workspaceitem.model';
+import { WorkspaceItem } from './workspaceitem.model';
 
 /**
- * A model class for a Workflowitem.
+ * A model class for a WorkflowItem.
  */
-export class Workflowitem extends Workspaceitem {
+export class WorkflowItem extends WorkspaceItem {
 }

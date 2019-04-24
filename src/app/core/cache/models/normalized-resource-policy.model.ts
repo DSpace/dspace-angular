@@ -5,12 +5,15 @@ import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
 import { IDToUUIDSerializer } from '../id-to-uuid-serializer';
 import { ActionType } from './action-type.model';
+import { resourceType } from '../../shared/resource-type.decorator';
+import { ResourceType } from '../../shared/resource-type';
 
 /**
  * Normalized model class for a Resource Policy
  */
 @mapsTo(ResourcePolicy)
 @inheritSerialization(NormalizedObject)
+@resourceType(ResourceType.ResourcePolicy)
 export class NormalizedResourcePolicy extends NormalizedObject<ResourcePolicy> {
 
   /**

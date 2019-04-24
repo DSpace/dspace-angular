@@ -4,12 +4,14 @@ import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Community } from '../../shared/community.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 /**
  * Normalized model class for a DSpace Community
  */
 @mapsTo(Community)
 @inheritSerialization(NormalizedDSpaceObject)
+@resourceType(ResourceType.Community)
 export class NormalizedCommunity extends NormalizedDSpaceObject<Community> {
 
   /**

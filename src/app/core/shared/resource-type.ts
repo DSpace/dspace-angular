@@ -12,12 +12,13 @@ export enum ResourceType {
   MetadataSchema = 'metadataschema',
   MetadataField = 'metadatafield',
   License = 'license',
-  Workflowitem = 'workflowitem',
-  Workspaceitem = 'workspaceitem',
+  WorkflowItem = 'workflowitem',
+  WorkspaceItem = 'workspaceitem',
   SubmissionDefinitions = 'submissiondefinitions',
   SubmissionDefinition = 'submissiondefinition',
   SubmissionForm = 'submissionform',
   SubmissionForms = 'submissionforms',
   SubmissionSections = 'submissionsections',
   SubmissionSection = 'submissionsection',
+  AuthStatus = 'status'
 }

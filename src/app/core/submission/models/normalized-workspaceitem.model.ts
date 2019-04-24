@@ -1,19 +1,21 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 
-import { Workspaceitem } from './workspaceitem.model';
+import { WorkspaceItem } from './workspaceitem.model';
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { ResourceType } from '../../shared/resource-type';
-import { Workflowitem } from './workflowitem.model';
+import { WorkflowItem } from './workflowitem.model';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 /**
  * An model class for a NormalizedWorkspaceItem.
  */
-@mapsTo(Workspaceitem)
+@mapsTo(WorkspaceItem)
 @inheritSerialization(NormalizedDSpaceObject)
 @inheritSerialization(NormalizedSubmissionObject)
-export class NormalizedWorkspaceItem extends NormalizedSubmissionObject<Workflowitem> {
+@resourceType(ResourceType.WorkspaceItem)
+export class NormalizedWorkspaceItem extends NormalizedSubmissionObject<WorkflowItem> {
 
   /**
    * The collection this workspaceitem belonging to

@@ -64,7 +64,7 @@ import { RegistryService } from './registry/registry.service';
 import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
-import { WorkflowitemDataService } from './submission/workflowitem-data.service';
+import { WorkflowItemDataService } from './submission/workflowitem-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { FileService } from './shared/file.service';
@@ -152,7 +152,7 @@ const PROVIDERS = [
   UUIDService,
   NotificationsService,
   WorkspaceitemDataService,
-  WorkflowitemDataService,
+  WorkflowItemDataService,
   UploaderService,
   FileService,
   DSpaceObjectDataService,

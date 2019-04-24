@@ -4,12 +4,14 @@ import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Bitstream } from '../../shared/bitstream.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 /**
  * Normalized model class for a DSpace Bitstream
  */
 @mapsTo(Bitstream)
 @inheritSerialization(NormalizedDSpaceObject)
+@resourceType(ResourceType.Bitstream)
 export class NormalizedBitstream extends NormalizedDSpaceObject<Bitstream> {
 
   /**
