@@ -12,7 +12,7 @@ import { mapsTo } from '../../cache/builders/build-decorators';
  */
 @mapsTo(SubmissionDefinitionsModel)
 @inheritSerialization(NormalizedConfigObject)
-@resourceType(ResourceType.SubmissionDefinitions)
+@resourceType(ResourceType.SubmissionDefinitions, ResourceType.SubmissionDefinition)
 export class NormalizedSubmissionDefinitionsModel extends NormalizedConfigObject<SubmissionDefinitionsModel> {
 
   /**

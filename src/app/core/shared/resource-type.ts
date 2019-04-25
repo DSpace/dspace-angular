@@ -20,5 +20,6 @@ export enum ResourceType {
   SubmissionForms = 'submissionforms',
   SubmissionSections = 'submissionsections',
   SubmissionSection = 'submissionsection',
-  AuthStatus = 'status'
+  AuthStatus = 'status',
+  Authority = 'authority'
 }

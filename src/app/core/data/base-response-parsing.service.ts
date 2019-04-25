@@ -9,15 +9,15 @@ import { PaginatedList } from './paginated-list';
 import { ResourceType } from '../shared/resource-type';
 import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
+import { getNormalizedConstructorByType } from '../shared/resource-type.decorator';
 /* tslint:disable:max-classes-per-file */
 
 export abstract class BaseResponseParsingService {
   protected abstract EnvConfig: GlobalConfig;
   protected abstract objectCache: ObjectCacheService;
-  protected abstract objectFactory: any;
   protected abstract toCache: boolean;
 
-  protected process<ObjectDomain, ObjectType>(data: any, requestUUID: string): any {
+  protected process<ObjectDomain>(data: any, requestUUID: string): any {
     if (isNotEmpty(data)) {
       if (hasNoValue(data) || (typeof data !== 'object')) {
         return data;
@@ -32,7 +32,7 @@ export abstract class BaseResponseParsingService {
             .keys(data._embedded)
             .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
-              const parsedObj = this.process<ObjectDomain, ObjectType>(data._embedded[property], requestUUID);
+              const parsedObj = this.process<ObjectDomain>(data._embedded[property], requestUUID);
               if (isNotEmpty(parsedObj)) {
                 if (isRestPaginatedList(data._embedded[property])) {
                   object[property] = parsedObj;
@@ -61,7 +61,7 @@ export abstract class BaseResponseParsingService {
     }
   }
 
-  protected processPaginatedList<ObjectDomain, ObjectType>(data: any, requestUUID: string): PaginatedList<ObjectDomain> {
+  protected processPaginatedList<ObjectDomain>(data: any, requestUUID: string): PaginatedList<ObjectDomain> {
     const pageInfo: PageInfo = this.processPageInfo(data);
     let list = data._embedded;
 
@@ -73,7 +73,7 @@ export abstract class BaseResponseParsingService {
     return new PaginatedList<ObjectDomain>(pageInfo, page, );
   }
 
-  protected processArray<ObjectDomain, ObjectType>(data: any, requestUUID: string): ObjectDomain[] {
+  protected processArray<ObjectDomain>(data: any, requestUUID: string): ObjectDomain[] {
     let array: ObjectDomain[] = [];
     data.forEach((datum) => {
         array = [...array, this.process(datum, requestUUID)];
@@ -82,10 +82,10 @@ export abstract class BaseResponseParsingService {
     return array;
   }
 
-  protected deserialize<ObjectDomain, ObjectType>(obj): any {
-    const type: ObjectType = obj.type;
+  protected deserialize<ObjectDomain>(obj): any {
+    const type: ResourceType = obj.type;
     if (hasValue(type)) {
-      const normObjConstructor = this.objectFactory.getConstructor(type) as GenericConstructor<ObjectDomain>;
+      const normObjConstructor = getNormalizedConstructorByType(type) as GenericConstructor<ObjectDomain>;
 
       if (hasValue(normObjConstructor)) {
         const serializer = new DSpaceRESTv2Serializer(normObjConstructor);
@@ -103,7 +103,7 @@ export abstract class BaseResponseParsingService {
     }
   }
 
-  protected cache<ObjectDomain, ObjectType>(obj, requestUUID) {
+  protected cache<ObjectDomain>(obj, requestUUID) {
     if (this.toCache) {
       this.addToObjectCache(obj, requestUUID);
     }
