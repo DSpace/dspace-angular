@@ -25,4 +25,8 @@ export class MockRouter {
   setParams(paramsMap) {
     this.routerState.snapshot.root.queryParamMap = paramsMap;
   }
+
+  createUrlTree(commands, navExtras = {}) {
+    return {};
+  }
 }

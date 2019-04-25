@@ -322,7 +322,7 @@
   "mydspace": {
     "title": "MyDSpace",
     "description": "",
-    "new-submission-btn": "New submission",
+    "new-submission": "New submission",
     "results": {
       "head": "Your submissions",
       "no-results": "There were no items to show",

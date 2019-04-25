@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -39,7 +38,6 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
               private changeDetectorRef: ChangeDetectorRef,
               private halService: HALEndpointService,
               private notificationsService: NotificationsService,
-              private router: Router,
               private store: Store<SubmissionState>,
               private translate: TranslateService) {
   }
