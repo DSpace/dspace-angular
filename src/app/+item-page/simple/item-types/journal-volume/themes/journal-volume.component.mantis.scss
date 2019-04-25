@@ -27,12 +27,4 @@
             max-width: $thumbnail-max-width;
         }
     }
-
-    .search-container {
-        margin-bottom: $spacer;
-        @media screen and (max-width: map-get($grid-breakpoints, lg)) {
-            width: 100%;
-            max-width: none;
-        }
-    }
 }

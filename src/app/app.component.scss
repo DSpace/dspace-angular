@@ -31,6 +31,8 @@ body {
 .main-content {
   z-index: $main-z-index;
   flex: 1 1 100%;
+  margin-top: $content-spacing;
+  margin-bottom: $content-spacing;
 }
 
 .alert.hide {

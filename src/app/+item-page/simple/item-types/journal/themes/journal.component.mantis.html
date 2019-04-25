@@ -1,8 +1,7 @@
 <div class="top-item-page">
     <div class="container">
         <div class="row">
-
-            <div class="col-12 col-md-2 d-flex flex-column justify-content-between">
+            <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
                 <ds-metadata-field-wrapper>
                     <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
                 </ds-metadata-field-wrapper>
@@ -45,10 +44,10 @@
         </div>
     </div>
 </div>
-<div>
+<div class="relationships-item-page" *ngIf="volumes$ | async">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-4" *ngIf="volumes$ | async">
                 <ds-related-items
                         [items]="volumes$ | async"
                         [label]="'relationships.isVolumeOf' | translate">
@@ -57,6 +56,11 @@
         </div>
     </div>
 </div>
-<ds-related-entities-search [item]="item"
-                            [relationType]="'isJournalOfPublication'">
-</ds-related-entities-search>
+<div>
+    <div class="container search-container">
+        <h3 class="h2">{{"item.page.journal.search.title" | translate}}</h3>
+    </div>
+    <ds-related-entities-search [item]="item"
+                                [relationType]="'isJournalOfPublication'">
+    </ds-related-entities-search>
+</div>
