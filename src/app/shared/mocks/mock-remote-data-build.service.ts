@@ -1,5 +1,5 @@
-import {of as observableOf,  Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestEntry } from '../../core/data/request.reducer';

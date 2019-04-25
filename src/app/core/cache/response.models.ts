@@ -8,7 +8,6 @@ import { IntegrationModel } from '../integration/models/integration.model';
 import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
-import { AuthStatus } from '../auth/models/auth-status.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
 import { PaginatedList } from '../data/paginated-list';
