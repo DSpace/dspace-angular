@@ -22,7 +22,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { getMockScrollToService } from '../../shared/mocks/mock-scroll-to-service';
 import { UploaderService } from '../../shared/uploader/uploader.service';
 
-fdescribe('MyDSpaceNewSubmissionComponent test', () => {
+describe('MyDSpaceNewSubmissionComponent test', () => {
 
   const translateService: any = getMockTranslateService();
   const store: Store<AppState> = jasmine.createSpyObj('store', {
