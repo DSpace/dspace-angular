@@ -16,6 +16,9 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 
+/**
+ * This component renders a paginated set of results in the detail view.
+ */
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,

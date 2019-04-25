@@ -16,15 +16,20 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
 
+/**
+ * This component represents the whole mydspace page header
+ */
 @Component({
   selector: 'ds-my-dspace-new-submission',
   styleUrls: ['./my-dspace-new-submission.component.scss'],
   templateUrl: './my-dspace-new-submission.component.html'
 })
-
 export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   @Output() uploadEnd = new EventEmitter<Array<MyDSpaceResult<DSpaceObject>>>();
 
+  /**
+   * The UploaderOptions object
+   */
   public uploadFilesOptions: UploaderOptions = {
     url: '',
     authToken: null,
@@ -32,8 +37,21 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     itemAlias: null
   };
 
+  /**
+   * Subscription to unsubscribe from
+   */
   private sub: Subscription;
 
+  /**
+   * Initialize instance variables
+   *
+   * @param {AuthService} authService
+   * @param {ChangeDetectorRef} changeDetectorRef
+   * @param {HALEndpointService} halService
+   * @param {NotificationsService} notificationsService
+   * @param {Store<SubmissionState>} store
+   * @param {TranslateService} translate
+   */
   constructor(private authService: AuthService,
               private changeDetectorRef: ChangeDetectorRef,
               private halService: HALEndpointService,
@@ -42,6 +60,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
               private translate: TranslateService) {
   }
 
+  /**
+   * Initialize url and Bearer token
+   */
   ngOnInit() {
     this.sub = this.halService.getEndpoint('workspaceitems').pipe(first()).subscribe((url) => {
         this.uploadFilesOptions.url = url;
@@ -51,10 +72,9 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     );
   }
 
-  onBeforeUpload = () => {
-    // Nothing
-  };
-
+  /**
+   * Method called when file upload is completed to notify upload status
+   */
   public onCompleteItem(res) {
     if (res && res._embedded && res._embedded.workspaceitems && res._embedded.workspaceitems.length > 0) {
       const workspaceitems = res._embedded.workspaceitems;
@@ -80,10 +100,16 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     }
   }
 
+  /**
+   * Method called on file upload error
+   */
   public onUploadError() {
     this.notificationsService.error(null, this.translate.get('mydspace.upload.upload-failed'));
   }
 
+  /**
+   * Unsubscribe from the subscription
+   */
   ngOnDestroy(): void {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
