@@ -108,7 +108,7 @@
     "jwt-decode": "^2.2.0",
     "methods": "1.1.2",
     "moment": "^2.22.1",
-    "morgan": "1.9.0",
+    "morgan": "^1.9.1",
     "ng-mocks": "^6.2.1",
     "ng2-file-upload": "1.2.1",
     "ng2-nouislider": "^1.7.11",

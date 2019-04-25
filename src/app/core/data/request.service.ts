@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, find, mergeMap, take } from 'rxjs/operators';
-import { remove } from 'lodash';
+import { filter, find, map, mergeMap, take } from 'rxjs/operators';
+import { cloneDeep, remove } from 'lodash';
 
 import { AppState } from '../../app.reducer';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
@@ -118,6 +119,16 @@ export class RequestService {
             return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
           },
         ))
+    ).pipe(
+      map((entry: RequestEntry) => {
+        // Headers break after being retrieved from the store (because of lazy initialization)
+        // Combining them with a new object fixes this issue
+        if (hasValue(entry) && hasValue(entry.request) && hasValue(entry.request.options) && hasValue(entry.request.options.headers)) {
+          entry = cloneDeep(entry);
+          entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers)
+        }
+        return entry;
+      })
     );
   }
 
