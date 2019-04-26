@@ -5,13 +5,14 @@ import { ResourceType } from '../../shared/resource-type';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
 import { resourceType } from '../../shared/resource-type.decorator';
+import { TypedObject } from '../object-cache.reducer';
 
 /**
  * An model class for a DSpaceObject.
  */
 @mapsTo(DSpaceObject)
 @resourceType(ResourceType.DSpaceObject)
-export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedObject<T> {
+export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedObject<T> implements TypedObject {
 
   /**
    * The link to the rest endpoint where this object can be found
@@ -40,7 +41,7 @@ export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedOb
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  @autoserializeAs(String)
+  @autoserializeAs(ResourceType)
   type: ResourceType;
 
   /**

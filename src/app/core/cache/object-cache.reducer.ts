@@ -32,6 +32,9 @@ export interface Patch {
   operations: Operation[];
 }
 
+export interface TypedObject {
+  type: ResourceType;
+}
 /**
  * An interface to represent objects that can be cached
  *
@@ -40,13 +43,14 @@ export interface Patch {
 export interface CacheableObject {
   uuid?: string;
   self: string;
-  type?: ResourceType;
   // isNew: boolean;
   // dirtyType: DirtyType;
   // hasDirtyAttributes: boolean;
   // changedAttributes: AttributeDiffh;
   // save(): void;
 }
+
+// export type TypedCacheableObject = TypedObject & CacheableObject;
 
 /**
  * An entry in the ObjectCache

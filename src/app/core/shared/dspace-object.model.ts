@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
 import { Metadata } from './metadata.utils';
 import { isUndefined } from '../../shared/empty.util';
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { CacheableObject, TypedObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
@@ -11,7 +11,7 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 /**
  * An abstract model class for a DSpaceObject.
  */
-export class DSpaceObject implements CacheableObject, ListableObject {
+export class DSpaceObject implements CacheableObject, ListableObject, TypedObject {
 
   private _name: string;
 

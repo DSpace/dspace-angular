@@ -1,11 +1,11 @@
 
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { CacheableObject, TypedObject } from '../cache/object-cache.reducer';
 import { ResourceType } from './resource-type';
 
 /**
  * Model class for a Bitstream Format
  */
-export class BitstreamFormat implements CacheableObject {
+export class BitstreamFormat implements CacheableObject, TypedObject {
 
   /**
    * Short description of this Bitstream Format

@@ -1,4 +1,4 @@
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { CacheableObject, TypedObject } from '../cache/object-cache.reducer';
 import { ResourceType } from './resource-type';
 import { Group } from '../eperson/models/group.model';
 import { ActionType } from '../cache/models/action-type.model';
@@ -6,7 +6,7 @@ import { ActionType } from '../cache/models/action-type.model';
 /**
  * Model class for a Resource Policy
  */
-export class ResourcePolicy implements CacheableObject {
+export class ResourcePolicy implements CacheableObject, TypedObject {
   /**
    * The action that is allowed by this Resource Policy
    */

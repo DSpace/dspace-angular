@@ -1,7 +1,7 @@
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject, TypedObject } from '../../cache/object-cache.reducer';
 import { ResourceType } from '../../shared/resource-type';
 
-export abstract class ConfigObject implements CacheableObject {
+export abstract class ConfigObject implements CacheableObject, TypedObject {
 
   /**
    * The name for this configuration

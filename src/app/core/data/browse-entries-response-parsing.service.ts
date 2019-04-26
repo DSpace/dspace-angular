@@ -18,9 +18,6 @@ import { RestRequest } from './request.models';
 @Injectable()
 export class BrowseEntriesResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
-  protected objectFactory = {
-    getConstructor: () => BrowseEntry
-  };
   protected toCache = false;
 
   constructor(

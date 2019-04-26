@@ -15,7 +15,6 @@ import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
-import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject
@@ -75,7 +74,6 @@ export function normalizeSectionData(obj: any) {
 @Injectable()
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
-  protected objectFactory = NormalizedObjectFactory;
   protected toCache = false;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
@@ -94,7 +92,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
       && (data.statusCode === 201 || data.statusCode === 200)) {
-      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
+      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject>(data.payload, request.href);
       return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else if (isEmpty(data.payload) && data.statusCode === 204) {
       // Response from a DELETE request
@@ -116,8 +114,8 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
    * @param {string} requestHref
    * @returns {any[]}
    */
-  protected processResponse<ObjectDomain, ObjectType>(data: any, requestHref: string): any[] {
-    const dataDefinition = this.process<ObjectDomain, ObjectType>(data, requestHref);
+  protected processResponse<ObjectDomain>(data: any, requestHref: string): any[] {
+    const dataDefinition = this.process<ObjectDomain>(data, requestHref);
     const normalizedDefinition = Array.of();
     const processedList = Array.isArray(dataDefinition) ? dataDefinition : Array.of(dataDefinition);
 

@@ -1,13 +1,13 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
-import { CacheableObject } from '../../cache/object-cache.reducer';
+import { CacheableObject, TypedObject } from '../../cache/object-cache.reducer';
 import { ResourceType } from '../../shared/resource-type';
 
 /**
  * Normalized abstract class for a configuration object
  */
 @inheritSerialization(NormalizedObject)
-export abstract class NormalizedConfigObject<T extends CacheableObject> implements CacheableObject {
+export abstract class NormalizedConfigObject<T extends CacheableObject> implements CacheableObject, TypedObject {
 
   /**
    * The name for this configuration

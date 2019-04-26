@@ -1,10 +1,14 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { ResourceType } from './resource-type';
+import { resourceType } from './resource-type.decorator';
+import { CacheableObject, TypedObject } from '../cache/object-cache.reducer';
 
-export class BrowseEntry implements ListableObject {
+@resourceType(ResourceType.BrowseEntry)
+export class BrowseEntry implements ListableObject, TypedObject {
 
   @autoserialize
-  type: string;
+  type: ResourceType;
 
   @autoserialize
   authority: string;

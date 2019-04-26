@@ -16,8 +16,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 
 @Injectable()
 export class ConfigResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
-
-  protected objectFactory = ConfigObjectFactory;
   protected toCache = false;
 
   constructor(
