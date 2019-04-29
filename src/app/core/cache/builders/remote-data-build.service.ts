@@ -29,7 +29,7 @@ export class RemoteDataBuildService {
               protected requestService: RequestService) {
   }
 
-  buildSingle<T extends TypedObject & CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<T>> {
+  buildSingle<T extends CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -107,7 +107,7 @@ export class RemoteDataBuildService {
     );
   }
 
-  buildList<T extends TypedObject & CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<T>>> {
+  buildList<T extends CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -149,7 +149,7 @@ export class RemoteDataBuildService {
     return this.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  build<T extends TypedObject & CacheableObject>(normalized: NormalizedObject<T>): T {
+  build<T extends CacheableObject>(normalized: NormalizedObject<T>): T {
     const links: any = {};
     const relationships = getRelationships(normalized.constructor) || [];
 

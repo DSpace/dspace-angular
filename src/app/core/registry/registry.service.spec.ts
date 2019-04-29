@@ -39,8 +39,9 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { MetadataSchema } from '../metadata/metadataschema.model';
-import { MetadataField } from '../metadata/metadatafield.model';
+import { ResourceType } from '../shared/resource-type';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { MetadataField } from '../metadata/metadata-field.model';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -59,13 +60,15 @@ describe('RegistryService', () => {
       id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
       prefix: 'dc',
-      namespace: 'http://dublincore.org/documents/dcmi-terms/'
-    },
+      namespace: 'http://dublincore.org/documents/dcmi-terms/',
+      type: ResourceType.MetadataSchema
+},
     {
       id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
       prefix: 'mock',
-      namespace: 'http://dspace.org/mockschema'
+      namespace: 'http://dspace.org/mockschema',
+      type: ResourceType.MetadataSchema
     }
   ];
   const mockFieldsList = [
@@ -75,7 +78,8 @@ describe('RegistryService', () => {
       element: 'contributor',
       qualifier: 'advisor',
       scopeNote: null,
-      schema: mockSchemasList[0]
+      schema: mockSchemasList[0],
+      type: ResourceType.MetadataField
     },
     {
       id: 2,
@@ -83,7 +87,8 @@ describe('RegistryService', () => {
       element: 'contributor',
       qualifier: 'author',
       scopeNote: null,
-      schema: mockSchemasList[0]
+      schema: mockSchemasList[0],
+      type: ResourceType.MetadataField
     },
     {
       id: 3,
@@ -91,7 +96,8 @@ describe('RegistryService', () => {
       element: 'contributor',
       qualifier: 'editor',
       scopeNote: 'test scope note',
-      schema: mockSchemasList[1]
+      schema: mockSchemasList[1],
+      type: ResourceType.MetadataField
     },
     {
       id: 4,
@@ -99,7 +105,8 @@ describe('RegistryService', () => {
       element: 'contributor',
       qualifier: 'illustrator',
       scopeNote: null,
-      schema: mockSchemasList[1]
+      schema: mockSchemasList[1],
+      type: ResourceType.MetadataField
     }
   ];
 

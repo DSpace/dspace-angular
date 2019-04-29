@@ -3,7 +3,6 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { MetadataFieldFormComponent } from './metadata-field-form.component';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { MetadataField } from '../../../../core/metadata/metadatafield.model';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,7 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
+import { MetadataField } from '../../../../core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 
 describe('MetadataFieldFormComponent', () => {
   let component: MetadataFieldFormComponent;

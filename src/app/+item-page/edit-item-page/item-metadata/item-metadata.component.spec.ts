@@ -24,9 +24,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
-import { MetadataField } from '../../../core/metadata/metadatafield.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
 
 let comp: ItemMetadataComponent;
 let fixture: ComponentFixture<ItemMetadataComponent>;

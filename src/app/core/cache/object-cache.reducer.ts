@@ -35,12 +35,13 @@ export interface Patch {
 export interface TypedObject {
   type: ResourceType;
 }
+
 /**
  * An interface to represent objects that can be cached
  *
  * A cacheable object should have a self link
  */
-export interface CacheableObject {
+export interface CacheableObject extends TypedObject {
   uuid?: string;
   self: string;
   // isNew: boolean;
@@ -49,8 +50,6 @@ export interface CacheableObject {
   // changedAttributes: AttributeDiffh;
   // save(): void;
 }
-
-// export type TypedCacheableObject = TypedObject & CacheableObject;
 
 /**
  * An entry in the ObjectCache

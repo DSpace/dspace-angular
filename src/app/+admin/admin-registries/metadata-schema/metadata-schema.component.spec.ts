@@ -3,7 +3,6 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +20,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { RestResponse } from '../../../core/cache/response.models';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;

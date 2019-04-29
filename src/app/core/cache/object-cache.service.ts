@@ -4,13 +4,12 @@ import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { selfLinkFromUuidSelector } from '../index/index.selectors';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
 import {
   AddPatchObjectCacheAction,
@@ -21,6 +20,7 @@ import {
 
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
+import { getNormalizedConstructorByType } from '../shared/resource-type.decorator';
 
 /**
  * The base selector function to select the object cache in the store
@@ -109,7 +109,7 @@ export class ObjectCacheService {
         }
       ),
       map((entry: ObjectCacheEntry) => {
-        const type: GenericConstructor<NormalizedObject<T>> = NormalizedObjectFactory.getConstructor(entry.data.type);
+        const type: GenericConstructor<NormalizedObject<T>> = getNormalizedConstructorByType(entry.data.type);
         return Object.assign(new type(), entry.data) as NormalizedObject<T>
       })
     );

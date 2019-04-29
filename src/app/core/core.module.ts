@@ -1,14 +1,13 @@
-import {
-  ModuleWithProviders,
-  NgModule,
-  Optional,
-  SkipSelf
-} from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
@@ -80,6 +79,27 @@ import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
 import { SearchService } from '../+search-page/search-service/search.service';
+import { NormalizedCollection } from './cache/models/normalized-collection.model';
+import { NormalizedCommunity } from './cache/models/normalized-community.model';
+import { NormalizedDSpaceObject } from './cache/models/normalized-dspace-object.model';
+import { NormalizedBitstream } from './cache/models/normalized-bitstream.model';
+import { NormalizedBundle } from './cache/models/normalized-bundle.model';
+import { NormalizedBitstreamFormat } from './cache/models/normalized-bitstream-format.model';
+import { NormalizedItem } from './cache/models/normalized-item.model';
+import { NormalizedEPerson } from './eperson/models/normalized-eperson.model';
+import { NormalizedGroup } from './eperson/models/normalized-group.model';
+import { NormalizedResourcePolicy } from './cache/models/normalized-resource-policy.model';
+import { NormalizedMetadataSchema } from './metadata/normalized-metadata-schema.model';
+import { NormalizedMetadataField } from './metadata/normalized-metadata-field.model';
+import { NormalizedLicense } from './cache/models/normalized-license.model';
+import { NormalizedWorkflowItem } from './submission/models/normalized-workflowitem.model';
+import { NormalizedWorkspaceItem } from './submission/models/normalized-workspaceitem.model';
+import { NormalizedSubmissionDefinitionsModel } from './config/models/normalized-config-submission-definitions.model';
+import { NormalizedSubmissionFormsModel } from './config/models/normalized-config-submission-forms.model';
+import { NormalizedSubmissionSectionModel } from './config/models/normalized-config-submission-section.model';
+import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model';
+import { NormalizedAuthorityValue } from './integration/models/normalized-authority-value.model';
+import { BrowseEntry } from './shared/browse-entry.model';
 
 const IMPORTS = [
   CommonModule,
@@ -87,13 +107,9 @@ const IMPORTS = [
   EffectsModule.forFeature(coreEffects)
 ];
 
-const DECLARATIONS = [
+const DECLARATIONS = [];
 
-];
-
-const EXPORTS = [
-
-];
+const EXPORTS = [];
 
 const PROVIDERS = [
   ApiService,
@@ -169,8 +185,36 @@ const PROVIDERS = [
     multi: true
   },
   NotificationsService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory }
+  { provide: NativeWindowService, useFactory: NativeWindowFactory },
 ];
+
+/**
+ * Declaration needed to make sure all decorator functions are called in time
+ */
+export const normalizedModels =
+  [
+    NormalizedDSpaceObject,
+    NormalizedBundle,
+    NormalizedBitstream,
+    NormalizedBitstreamFormat,
+    NormalizedItem,
+    NormalizedCollection,
+    NormalizedCommunity,
+    NormalizedEPerson,
+    NormalizedGroup,
+    NormalizedResourcePolicy,
+    NormalizedMetadataSchema,
+    NormalizedMetadataField,
+    NormalizedLicense,
+    NormalizedWorkflowItem,
+    NormalizedWorkspaceItem,
+    NormalizedSubmissionDefinitionsModel,
+    NormalizedSubmissionFormsModel,
+    NormalizedSubmissionSectionModel,
+    NormalizedAuthStatus,
+    NormalizedAuthorityValue,
+    BrowseEntry
+  ];
 
 @NgModule({
   imports: [
@@ -186,8 +230,8 @@ const PROVIDERS = [
     ...PROVIDERS
   ]
 })
-export class CoreModule {
 
+export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
@@ -197,10 +241,9 @@ export class CoreModule {
     };
   }
 
-  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
     if (isNotEmpty(parentModule)) {
       throw new Error('CoreModule is already loaded. Import it in the AppModule only');
     }
   }
-
 }

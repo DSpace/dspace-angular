@@ -4,7 +4,7 @@ import { ResourceType } from '../../shared/resource-type';
 /**
  * An abstract model class for a NormalizedObject.
  */
-export abstract class NormalizedObject<T extends TypedObject> implements CacheableObject, TypedObject {
+export abstract class NormalizedObject<T extends TypedObject> implements CacheableObject {
 
   /**
    * The link to the rest endpoint where this object can be found

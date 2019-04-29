@@ -10,9 +10,15 @@ import { resourceType } from '../../shared/resource-type.decorator';
 @inheritSerialization(NormalizedObject)
 @resourceType(ResourceType.AuthStatus)
 export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
+  /**
+   * The unique identifier of this auth status
+   */
   @autoserialize
   id: string;
 
+  /**
+   * The unique generated uuid of this auth status
+   */
   @autoserializeAs(new IDToUUIDSerializer('auth-status'), 'id')
   uuid: string;
 
@@ -28,11 +34,16 @@ export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   @autoserialize
   authenticated: boolean;
 
+  /**
+   * The self link to the eperson of this auth status
+   */
   @relationship(ResourceType.EPerson, false)
   @autoserialize
   eperson: string;
 
-
+  /**
+   * The resource object of this auth status
+   */
   @autoserialize
   type: ResourceType;
 }

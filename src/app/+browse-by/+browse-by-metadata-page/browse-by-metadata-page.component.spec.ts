@@ -20,6 +20,7 @@ import { Item } from '../../core/shared/item.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { Community } from '../../core/shared/community.model';
 import { MockRouter } from '../../shared/mocks/mock-router';
+import { ResourceType } from '../../core/shared/resource-type';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -39,21 +40,21 @@ describe('BrowseByMetadataPageComponent', () => {
 
   const mockEntries = [
     {
-      type: 'author',
+      type: ResourceType.BrowseEntry,
       authority: null,
       value: 'John Doe',
       language: 'en',
       count: 1
     },
     {
-      type: 'author',
+      type: ResourceType.BrowseEntry,
       authority: null,
       value: 'James Doe',
       language: 'en',
       count: 3
     },
     {
-      type: 'subject',
+      type: ResourceType.BrowseEntry,
       authority: null,
       value: 'Fake subject',
       language: 'en',
@@ -68,7 +69,7 @@ describe('BrowseByMetadataPageComponent', () => {
   ];
 
   const mockBrowseService = {
-    getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData(mockEntries.filter((entry) => entry.type === options.metadataDefinition)),
+    getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData(mockEntries),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData(mockItems)
   };
 
@@ -103,12 +104,6 @@ describe('BrowseByMetadataPageComponent', () => {
     route.params = observableOf({});
     comp.ngOnInit();
     fixture.detectChanges();
-  });
-
-  it('should fetch the correct entries depending on the metadata definition', () => {
-    comp.browseEntries$.subscribe((result) => {
-      expect(result.payload.page).toEqual(mockEntries.filter((entry) => entry.type === 'author'));
-    });
   });
 
   it('should not fetch any items when no value is provided', () => {

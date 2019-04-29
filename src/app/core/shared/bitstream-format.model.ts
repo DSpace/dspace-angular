@@ -5,7 +5,7 @@ import { ResourceType } from './resource-type';
 /**
  * Model class for a Bitstream Format
  */
-export class BitstreamFormat implements CacheableObject, TypedObject {
+export class BitstreamFormat implements CacheableObject {
 
   /**
    * Short description of this Bitstream Format

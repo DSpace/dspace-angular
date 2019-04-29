@@ -11,7 +11,7 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 /**
  * An abstract model class for a DSpaceObject.
  */
-export class DSpaceObject implements CacheableObject, ListableObject, TypedObject {
+export class DSpaceObject implements CacheableObject, ListableObject {
 
   private _name: string;
 

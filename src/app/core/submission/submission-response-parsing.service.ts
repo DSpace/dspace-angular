@@ -10,7 +10,6 @@ import { BaseResponseParsingService } from '../data/base-response-parsing.servic
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { SubmissionResourceType } from './submission-resource-type';
 import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';

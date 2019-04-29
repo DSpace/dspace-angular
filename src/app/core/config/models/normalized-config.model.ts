@@ -7,7 +7,7 @@ import { ResourceType } from '../../shared/resource-type';
  * Normalized abstract class for a configuration object
  */
 @inheritSerialization(NormalizedObject)
-export abstract class NormalizedConfigObject<T extends CacheableObject> implements CacheableObject, TypedObject {
+export abstract class NormalizedConfigObject<T extends CacheableObject> implements CacheableObject {
 
   /**
    * The name for this configuration
