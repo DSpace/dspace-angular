@@ -7,7 +7,8 @@ import { hasValue } from '../../../../shared/empty.util';
  */
 export const ItemTypeToValue = {
   Default: 'dc.title',
-  Person: 'dc.contributor.author'
+  Person: 'dc.contributor.author',
+  OrgUnit: 'dc.title'
 };
 
 /**
@@ -18,11 +19,8 @@ export class ItemMetadataRepresentation extends Item implements MetadataRepresen
   /**
    * The type of item this item can be represented as
    */
-  itemType: string;
-
-  constructor(itemType: string) {
-    super();
-    this.itemType = itemType;
+  get itemType(): string {
+    return this.firstMetadataValue('relationship.type');
   }
 
   /**

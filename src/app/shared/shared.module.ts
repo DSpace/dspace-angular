@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ItemTypeSwitcherComponent } from './items/switcher/item-type-switcher.component';
+import { OrgUnitMetadataListElementComponent } from './object-list/item-list-element/item-types/orgunit/orgunit-metadata-list-element.component';
 import { TypedItemSearchResultListElementComponent } from './object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 import { OrgUnitListElementComponent } from './object-list/item-list-element/item-types/orgunit/orgunit-list-element.component';
@@ -247,6 +248,7 @@ const ENTRY_COMPONENTS = [
   PublicationListElementComponent,
   PersonListElementComponent,
   PersonMetadataListElementComponent,
+  OrgUnitMetadataListElementComponent,
   OrgUnitListElementComponent,
   ProjectListElementComponent,
   JournalListElementComponent,

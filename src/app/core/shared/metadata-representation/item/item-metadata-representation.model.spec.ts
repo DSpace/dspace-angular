@@ -16,9 +16,15 @@ describe('ItemMetadataRepresentation', () => {
   item.metadata = metadataMap;
 
   for (const itemType of Object.keys(ItemTypeToValue)) {
-    describe(`when creating an ItemMetadataRepresentation with item-type "${itemType}"`, () => {
+    describe(`when creating an ItemMetadataRepresentation`, () => {
       beforeEach(() => {
-        itemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(itemType), item);
+        item.metadata['relationship.type'] = [
+          Object.assign(new MetadataValue(), {
+            value: itemType
+          })
+        ];
+
+        itemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(), item);
       });
 
       it('should have a representation type of item', () => {
@@ -30,7 +36,7 @@ describe('ItemMetadataRepresentation', () => {
       });
 
       it('should return the correct item type', () => {
-        expect(itemMetadataRepresentation.itemType).toEqual(itemType);
+        expect(itemMetadataRepresentation.itemType).toEqual(item.firstMetadataValue('relationship.type'));
       });
     });
   }

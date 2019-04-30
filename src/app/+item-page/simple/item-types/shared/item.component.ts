@@ -41,7 +41,7 @@ export const relationsToRepresentations = (thisId: string, itemType: string, met
                 }
                 return ids.findById(queryId).pipe(
                   getSucceededRemoteData(),
-                  map((d: RemoteData<Item>) => Object.assign(new ItemMetadataRepresentation(itemType), d.payload))
+                  map((d: RemoteData<Item>) => Object.assign(new ItemMetadataRepresentation(), d.payload))
                 );
               }
             } else {
