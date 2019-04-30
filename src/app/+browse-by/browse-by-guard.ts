@@ -1,11 +1,12 @@
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
-import { hasValue } from '../shared/empty.util';
+import { hasNoValue, hasValue } from '../shared/empty.util';
 import { map } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
 
 @Injectable()
 /**
@@ -13,14 +14,21 @@ import { of as observableOf } from 'rxjs';
  */
 export class BrowseByGuard implements CanActivate {
 
-  constructor(protected dsoService: DSpaceObjectDataService,
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+              protected dsoService: DSpaceObjectDataService,
               protected translate: TranslateService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const title = route.data.title;
     const metadata = route.params.metadata || route.queryParams.metadata || route.data.metadata;
-    const metadataField = route.data.metadataField;
+    let metadataField = route.data.metadataField;
+    if (hasNoValue(metadataField) && hasValue(metadata)) {
+      const config = this.config.browseBy.types.find((conf) => conf.metadata === metadata);
+      if (hasValue(config) && hasValue(config.metadataField)) {
+        metadataField = config.metadataField;
+      }
+    }
     const scope = route.queryParams.scope;
     const value = route.queryParams.value;
     const metadataTranslated = this.translate.instant('browse.metadata.' + metadata);

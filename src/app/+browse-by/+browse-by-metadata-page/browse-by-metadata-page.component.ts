@@ -15,6 +15,7 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { take } from 'rxjs/operators';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { BrowseByType, rendersBrowseBy } from '../+browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-metadata-page',
@@ -26,6 +27,7 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
  * A metadata definition is a short term used to describe one or multiple metadata fields.
  * An example would be 'author' for 'dc.contributor.*'
  */
+@rendersBrowseBy(BrowseByType.Metadata)
 export class BrowseByMetadataPageComponent implements OnInit {
 
   /**

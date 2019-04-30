@@ -149,7 +149,26 @@ module.exports = {
     // Limit for years to display using jumps of five years (current year - fiveYearLimit)
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
-    defaultLowerLimit: 1900
+    defaultLowerLimit: 1900,
+    types: [
+      {
+        metadata: 'title',
+        type: 'title'
+      },
+      {
+        metadata: 'dateissued',
+        type: 'date',
+        metadataField: 'dc.date.issued'
+      },
+      {
+        metadata: 'author',
+        type: 'metadata'
+      },
+      {
+        metadata: 'subject',
+        type: 'metadata'
+      }
+    ]
   },
   item: {
     edit: {
