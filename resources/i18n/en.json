@@ -288,6 +288,7 @@
   },
   "person": {
     "page": {
+      "titleprefix": "Person: ",
       "jobtitle": "Job Title",
       "lastname": "Last Name",
       "firstname": "First Name",
@@ -298,56 +299,83 @@
       "link": {
         "full": "Show all metadata"
       }
+    },
+    "listelement": {
+      "badge": "Person"
     }
   },
   "project": {
     "page": {
+      "titleprefix": "Research Project: ",
       "status": "Status",
       "id": "ID",
       "expectedcompletion": "Expected Completion",
       "description": "Description",
       "keyword": "Keywords"
+    },
+    "listelement": {
+      "badge": "Research Project"
     }
   },
   "orgunit": {
     "page": {
+      "titleprefix": "Organizational Unit: ",
       "dateestablished": "Date established",
       "city": "City",
       "country": "Country",
       "id": "ID",
       "description": "Description"
+    },
+    "listelement": {
+      "badge": "Organizational Unit"
     }
   },
   "journal": {
     "page": {
+      "titleprefix": "Journal: ",
       "issn": "ISSN",
       "publisher": "Publisher",
       "description": "Description",
       "editor": "Editor-in-Chief"
+    },
+    "listelement": {
+      "badge": "Journal"
     }
   },
   "journalvolume": {
     "page": {
+      "titleprefix": "Journal Volume: ",
       "volume": "Volume",
       "issuedate": "Issue Date",
       "description": "Description"
+    },
+    "listelement": {
+      "badge": "Journal Volume"
     }
   },
   "journalissue": {
     "page": {
+      "titleprefix": "Journal Issue: ",
       "number": "Number",
       "issuedate": "Issue Date",
       "description": "Description",
       "keyword": "Keywords",
       "journal-title": "Journal Title",
       "journal-issn": "Journal ISSN"
+    },
+    "listelement": {
+      "badge": "Journal Issue"
     }
   },
   "publication": {
     "page": {
+      "titleprefix": "Publication: ",
       "journal-title": "Journal Title",
       "journal-issn": "Journal ISSN",
       "volume-title": "Volume Title"
+    },
+    "listelement": {
+      "badge": "Publication"
     }
   },
   "nav": {

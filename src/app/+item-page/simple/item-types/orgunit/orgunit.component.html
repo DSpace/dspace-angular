@@ -1,5 +1,5 @@
 <h2 class="item-page-title-field">
-  <ds-metadata-values [mdValues]="item?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
+  {{'orgunit.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
