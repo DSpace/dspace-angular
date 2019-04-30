@@ -78,6 +78,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         index: 2
       },
     ];
+    // Read the different Browse-By types from config and add them to the browse menu
     const types = this.config.browseBy.types;
     types.forEach((typeConfig) => {
       menuList.push({

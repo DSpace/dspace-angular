@@ -10,6 +10,10 @@ export const DEFAULT_BROWSE_BY_TYPE = BrowseByType.Metadata;
 
 const map = new Map();
 
+/**
+ * Decorator used for rendering Browse-By pages by type
+ * @param browseByType  The type of page
+ */
 export function rendersBrowseBy(browseByType: BrowseByType) {
   return function decorator(component: any) {
     if (hasNoValue(map.get(browseByType))) {
@@ -20,6 +24,10 @@ export function rendersBrowseBy(browseByType: BrowseByType) {
   };
 }
 
+/**
+ * Get the component used for rendering a Browse-By page by type
+ * @param browseByType  The type of page
+ */
 export function getComponentByBrowseByType(browseByType) {
   const comp = map.get(browseByType);
   if (hasNoValue(comp)) {

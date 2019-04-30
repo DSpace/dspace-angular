@@ -20,5 +20,8 @@ export interface BrowseByConfig extends Config {
    */
   defaultLowerLimit: number;
 
+  /**
+   * A list of all the active Browse-By pages
+   */
   types: BrowseByTypeConfig[];
 }

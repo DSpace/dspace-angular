@@ -10,14 +10,23 @@ import { getComponentByBrowseByType } from './browse-by-decorator';
   selector: 'ds-browse-by-switcher',
   templateUrl: './browse-by-switcher.component.html'
 })
+/**
+ * Component for determining what Browse-By component to use depending on the metadata (browse ID) provided
+ */
 export class BrowseBySwitcherComponent implements OnInit {
 
+  /**
+   * Resolved browse config
+   */
   browseByTypeConfig: Observable<BrowseByTypeConfig>;
 
   public constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
                      protected route: ActivatedRoute) {
   }
 
+  /**
+   * Fetch the correct browse config from environment.js
+   */
   ngOnInit(): void {
     this.browseByTypeConfig = this.route.params.pipe(
       map((params) => {
@@ -27,6 +36,9 @@ export class BrowseBySwitcherComponent implements OnInit {
     );
   }
 
+  /**
+   * Fetch the component depending on the browse type
+   */
   getComponent() {
     return this.browseByTypeConfig.pipe(
       map((config: BrowseByTypeConfig) => getComponentByBrowseByType(config.type))

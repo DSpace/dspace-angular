@@ -16,6 +16,9 @@ export class ComcolPageBrowseByComponent implements OnInit {
    */
   @Input() id: string;
 
+  /**
+   * List of currently active browse configurations
+   */
   types: BrowseByTypeConfig[];
 
   constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig) {
