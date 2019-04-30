@@ -296,7 +296,7 @@ export class SectionsService {
    * @param sectionId
    *    The section id
    */
-  public removeSection(submissionId: string, sectionId: string) {
+  public dispatchRemoveSection(submissionId: string, sectionId: string) {
     this.store.dispatch(new DisableSectionAction(submissionId, sectionId))
   }
 

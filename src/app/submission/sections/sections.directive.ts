@@ -220,7 +220,7 @@ export class SectionsDirective implements OnDestroy, OnInit {
    *    Emits true whenever section is valid
    */
   public removeSection(submissionId: string, sectionId: string) {
-    this.sectionService.removeSection(submissionId, sectionId)
+    this.sectionService.dispatchRemoveSection(submissionId, sectionId)
   }
 
   /**

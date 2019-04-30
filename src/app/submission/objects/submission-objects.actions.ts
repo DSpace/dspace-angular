@@ -39,6 +39,8 @@ export const SubmissionObjectActionTypes = {
   INIT_SECTION: type('dspace/submission/INIT_SECTION'),
   ENABLE_SECTION: type('dspace/submission/ENABLE_SECTION'),
   DISABLE_SECTION: type('dspace/submission/DISABLE_SECTION'),
+  DISABLE_SECTION_SUCCESS: type('dspace/submission/DISABLE_SECTION_SUCCESS'),
+  DISABLE_SECTION_ERROR: type('dspace/submission/DISABLE_SECTION_ERROR'),
   SECTION_STATUS_CHANGE: type('dspace/submission/SECTION_STATUS_CHANGE'),
   SECTION_LOADING_STATUS_CHANGE: type('dspace/submission/SECTION_LOADING_STATUS_CHANGE'),
   UPLOAD_SECTION_DATA: type('dspace/submission/UPLOAD_SECTION_DATA'),
@@ -186,6 +188,46 @@ export class DisableSectionAction implements Action {
 
   /**
    * Create a new DisableSectionAction
+   *
+   * @param submissionId
+   *    the submission's ID to remove
+   * @param sectionId
+   *    the section's ID to remove
+   */
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
+  }
+}
+
+export class DisableSectionSuccessAction implements Action {
+  type = SubmissionObjectActionTypes.DISABLE_SECTION_SUCCESS;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+  };
+
+  /**
+   * Create a new DisableSectionSuccessAction
+   *
+   * @param submissionId
+   *    the submission's ID to remove
+   * @param sectionId
+   *    the section's ID to remove
+   */
+  constructor(submissionId: string, sectionId: string) {
+    this.payload = { submissionId, sectionId };
+  }
+}
+
+export class DisableSectionErrorAction implements Action {
+  type = SubmissionObjectActionTypes.DISABLE_SECTION_ERROR;
+  payload: {
+    submissionId: string;
+    sectionId: string;
+  };
+
+  /**
+   * Create a new DisableSectionErrorAction
    *
    * @param submissionId
    *    the submission's ID to remove
@@ -765,6 +807,8 @@ export class DeleteUploadedFileAction implements Action {
  * so that reducers can easily compose action types
  */
 export type SubmissionObjectAction = DisableSectionAction
+  | DisableSectionSuccessAction
+  | DisableSectionErrorAction
   | InitSectionAction
   | EnableSectionAction
   | InitSubmissionFormAction

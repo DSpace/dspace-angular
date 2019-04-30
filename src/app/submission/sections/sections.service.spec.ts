@@ -317,7 +317,7 @@ describe('SectionsService test suite', () => {
   describe('removeSection', () => {
     it('should dispatch a new DisableSectionAction', () => {
 
-      service.removeSection(submissionId, 'newSection');
+      service.dispatchRemoveSection(submissionId, 'newSection');
 
       expect(store.dispatch).toHaveBeenCalledWith(new DisableSectionAction(submissionId, 'newSection'));
     });

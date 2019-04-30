@@ -17,6 +17,7 @@ import { SubmissionServiceStub } from '../../../shared/testing/submission-servic
 import { SectionsServiceStub } from '../../../shared/testing/sections-service-stub';
 import { SectionDataObject } from '../models/section-data.model';
 import { mockSubmissionCollectionId, mockSubmissionId } from '../../../shared/mocks/mock-submission';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 
 const sectionState = {
   header: 'submit.progressbar.describe.stepone',
@@ -52,6 +53,11 @@ describe('SubmissionSectionContainerComponent test suite', () => {
 
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
+  const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
+    add: jasmine.createSpy('add'),
+    replace: jasmine.createSpy('replace'),
+    remove: jasmine.createSpy('remove'),
+  });
 
   function init() {
     sectionsServiceStub = TestBed.get(SectionsService);
@@ -76,6 +82,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
         TestComponent,
       ], // declare the test component
       providers: [
+        { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         SubmissionSectionContainerComponent

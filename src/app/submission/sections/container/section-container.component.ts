@@ -4,6 +4,9 @@ import { SectionsDirective } from '../sections.directive';
 import { SectionDataObject } from '../models/section-data.model';
 import { rendersSectionType } from '../sections-decorator';
 import { AlertType } from '../../../shared/alert/aletr-type';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -40,10 +43,22 @@ export class SubmissionSectionContainerComponent implements OnInit {
   public AlertTypeEnum = AlertType;
 
   /**
+   * A boolean representing if a section delete operation is pending
+   * @type {BehaviorSubject<boolean>}
+   */
+  public isRemoving: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  /**
    * Injector to inject a section component with the @Input parameters
    * @type {Injector}
    */
   public objectInjector: Injector;
+
+  /**
+   * The [[JsonPatchOperationPathCombiner]] object
+   * @type {JsonPatchOperationPathCombiner}
+   */
+  protected pathCombiner: JsonPatchOperationPathCombiner;
 
   /**
    * The SectionsDirective reference
@@ -54,8 +69,9 @@ export class SubmissionSectionContainerComponent implements OnInit {
    * Initialize instance variables
    *
    * @param {Injector} injector
+   * @param {JsonPatchOperationsBuilder} operationsBuilder
    */
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, private operationsBuilder: JsonPatchOperationsBuilder) {
   }
 
   /**
@@ -70,6 +86,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
       ],
       parent: this.injector
     });
+    this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
   }
 
   /**
@@ -81,7 +98,12 @@ export class SubmissionSectionContainerComponent implements OnInit {
   public removeSection(event) {
     event.preventDefault();
     event.stopPropagation();
-    this.sectionRef.removeSection(this.submissionId, this.sectionData.id);
+
+    if (this.isRemoving.value === false) {
+      this.isRemoving.next(true);
+      this.operationsBuilder.remove(this.pathCombiner.getPath());
+      this.sectionRef.removeSection(this.submissionId, this.sectionData.id);
+    }
   }
 
   /**
