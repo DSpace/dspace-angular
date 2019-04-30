@@ -15,7 +15,8 @@
             </div>
             <div class="col-12 col-md-10">
                 <h2 class="item-page-title-field">
-                    <ds-metadata-values
+                  {{'journalvolume.page.titleprefix' | translate}}
+                  <ds-metadata-values
                             [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
                 </h2>
                 <div class="row">
