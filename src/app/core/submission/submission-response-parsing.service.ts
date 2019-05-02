@@ -93,11 +93,10 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
-      && (data.statusCode === 201 || data.statusCode === 200)) {
+      && this.isSuccessStatus(data.statusCode)) {
       const dataDefinition = this.processResponse<SubmissionObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
       return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
-    } else if (isEmpty(data.payload) && data.statusCode === 204) {
-      // Response from a DELETE request
+    } else if (isEmpty(data.payload) && this.isSuccessStatus(data.statusCode)) {
       return new SubmissionSuccessResponse(null, data.statusCode, data.statusText);
     } else {
       return new ErrorResponse(
