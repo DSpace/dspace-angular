@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { distinctUntilChanged, flatMap, map } from 'rxjs/operators';
-import { of, zip as observableZip } from 'rxjs';
+import { of as observableOf, zip as observableZip } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -113,7 +113,7 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
                   );
                 }
               } else {
-                return of(Object.assign(new MetadatumRepresentation(itemType), metadatum));
+                return observableOf(Object.assign(new MetadatumRepresentation(itemType), metadatum));
               }
             })
         )
