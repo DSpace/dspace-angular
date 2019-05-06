@@ -1,9 +1,14 @@
+import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { distinctUntilChanged, flatMap, map } from 'rxjs/operators';
-import { zip as observableZip } from 'rxjs';
+import { of, zip as observableZip } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -77,4 +82,40 @@ export const relationsToItems = (thisId: string, ids: ItemDataService) =>
           .filter((d: RemoteData<Item>) => d.hasSucceeded)
           .map((d: RemoteData<Item>) => d.payload)),
       distinctUntilChanged(compareArraysUsingIds()),
+    );
+
+/**
+ * Operator for turning a list of relationships into a list of metadatarepresentations given the original metadata
+ * @param parentId    The id of the parent item
+ * @param itemType    The type of relation this list resembles (for creating representations)
+ * @param metadata    The list of original Metadatum objects
+ * @param ids         The ItemDataService to use for fetching Items from the Rest API
+ */
+export const relationsToRepresentations = (parentId: string, itemType: string, metadata: MetadataValue[], ids: ItemDataService) =>
+  (source: Observable<Relationship[]>): Observable<MetadataRepresentation[]> =>
+    source.pipe(
+      flatMap((rels: Relationship[]) =>
+        observableZip(
+          ...metadata
+            .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
+            .map((metadatum: MetadataValue) => {
+              if (metadatum.isVirtual) {
+                const matchingRels = rels.filter((rel: Relationship) => ('' + rel.id) === metadatum.virtualValue);
+                if (matchingRels.length > 0) {
+                  const matchingRel = matchingRels[0];
+                  let queryId = matchingRel.leftId;
+                  if (matchingRel.leftId === parentId) {
+                    queryId = matchingRel.rightId;
+                  }
+                  return ids.findById(queryId).pipe(
+                    getSucceededRemoteData(),
+                    map((d: RemoteData<Item>) => Object.assign(new ItemMetadataRepresentation(), d.payload))
+                  );
+                }
+              } else {
+                return of(Object.assign(new MetadatumRepresentation(itemType), metadatum));
+              }
+            })
+        )
+      )
     );
