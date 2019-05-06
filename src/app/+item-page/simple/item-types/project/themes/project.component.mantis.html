@@ -22,10 +22,10 @@
                 </h2>
                 <div class="row">
                     <div class="col-12 col-md-6">
-                      <ds-generic-item-page-field [item]="item"
-                                                  [fields]="['project.contributor.other']"
-                                                  [label]="'project.page.contributor'">
-                      </ds-generic-item-page-field>
+                      <ds-metadata-representation-list
+                                                  [label]="'project.page.contributor' | translate"
+                                                  [representations]="contributors$ | async">
+                      </ds-metadata-representation-list>
                       <ds-generic-item-page-field [item]="item"
                                                   [fields]="['project.identifier.funder']"
                                                   [label]="'project.page.funder'">
