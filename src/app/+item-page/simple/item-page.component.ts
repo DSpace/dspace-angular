@@ -1,6 +1,7 @@
-import { filter, map, mergeMap } from 'rxjs/operators';
+
+import { mergeMap, filter, map, take } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -51,12 +52,18 @@ export class ItemPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private items: ItemDataService,
     private metadataService: MetadataService,
   ) { }
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(map((data) => data.item));
+    this.itemRD$.pipe(take(1)).subscribe((itemRD: RemoteData<Item>) => {
+      if (itemRD.hasFailed && itemRD.error.statusCode === 404) {
+        this.router.navigateByUrl('/404', { skipLocationChange: true });
+      }
+    });
     this.metadataService.processRemoteData(this.itemRD$);
     this.thumbnail$ = this.itemRD$.pipe(
       map((rd: RemoteData<Item>) => rd.payload),
