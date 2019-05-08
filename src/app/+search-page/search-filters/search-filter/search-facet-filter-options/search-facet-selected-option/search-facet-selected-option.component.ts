@@ -9,6 +9,7 @@ import { SearchConfigurationService } from '../../../../search-service/search-co
 
 @Component({
   selector: 'ds-search-facet-selected-option',
+  styleUrls: ['./search-facet-selected-option.component.scss'],
   templateUrl: './search-facet-selected-option.component.html',
 })
 

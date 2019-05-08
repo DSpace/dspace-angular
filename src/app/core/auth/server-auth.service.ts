@@ -34,15 +34,10 @@ export class ServerAuthService extends AuthService {
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
+      map((status) => this.rdbService.build(status)),
       switchMap((status: AuthStatus) => {
-
         if (status.authenticated) {
-
-          // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
-          const person$ = this.rdbService.buildSingle<EPerson>(status.eperson.toString());
-          return person$.pipe(
-            map((eperson) => eperson.payload)
-          );
+          return status.eperson.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
         }
