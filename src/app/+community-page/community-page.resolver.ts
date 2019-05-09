@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RemoteData } from '../core/data/remote-data';
-import { getSucceededRemoteData } from '../core/shared/operators';
 import { Community } from '../core/shared/community.model';
 import { CommunityDataService } from '../core/data/community-data.service';
+import { find } from 'rxjs/operators';
+import { hasValue } from '../shared/empty.util';
 
 /**
  * This class represents a resolver that requests a specific community before the route is activated
@@ -22,7 +23,7 @@ export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Community>> {
     return this.communityService.findById(route.params.id).pipe(
-      getSucceededRemoteData()
+      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );
   }
 }

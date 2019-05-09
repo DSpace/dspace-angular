@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { filter, find, flatMap, map, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
@@ -10,6 +10,8 @@ import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { PaginatedList } from '../data/paginated-list';
 import { SearchResult } from '../../+search-page/search-result.model';
+import { Item } from './item.model';
+import { Router } from '@angular/router';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -61,6 +63,15 @@ export const getRemoteDataPayload = () =>
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
+
+export const renderPageNotFoundOn404 = (router: Router) =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(
+      tap((rd: RemoteData<T>) => {
+        if (rd.hasFailed && rd.error.statusCode === 404) {
+          router.navigateByUrl('/404', { skipLocationChange: true });
+        }
+      }));
 
 export const getFinishedRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>

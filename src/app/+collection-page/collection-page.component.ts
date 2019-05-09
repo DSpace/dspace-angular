@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable,  Subscription } from 'rxjs';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
@@ -19,7 +19,7 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { combineLatest, filter, first, flatMap, map } from 'rxjs/operators';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
-import { toDSpaceObjectListRD } from '../core/shared/operators';
+import { renderPageNotFoundOn404, toDSpaceObjectListRD } from '../core/shared/operators';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
 
 @Component({
@@ -45,7 +45,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     private collectionDataService: CollectionDataService,
     private itemDataService: ItemDataService,
     private metadata: MetadataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.paginationConfig = new PaginationComponentOptions();
     this.paginationConfig.id = 'collection-page-pagination';
@@ -56,7 +57,8 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
-      map((data) => data.collection),
+      map((data) => data.collection as RemoteData<Collection>),
+      renderPageNotFoundOn404(this.router),
       first()
     );
     this.logoRD$ = this.collectionRD$.pipe(

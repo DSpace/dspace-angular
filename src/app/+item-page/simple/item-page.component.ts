@@ -15,6 +15,7 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
 import { ItemViewMode } from '../../shared/items/item-type-decorator';
+import { renderPageNotFoundOn404 } from '../../core/shared/operators';
 
 /**
  * This component renders a simple item page.
@@ -58,12 +59,10 @@ export class ItemPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.pipe(map((data) => data.item));
-    this.itemRD$.pipe(take(1)).subscribe((itemRD: RemoteData<Item>) => {
-      if (itemRD.hasFailed && itemRD.error.statusCode === 404) {
-        this.router.navigateByUrl('/404', { skipLocationChange: true });
-      }
-    });
+    this.itemRD$ = this.route.data.pipe(
+      map((data) => data.item as RemoteData<Item>),
+      renderPageNotFoundOn404(this.router)
+    );
     this.metadataService.processRemoteData(this.itemRD$);
     this.thumbnail$ = this.itemRD$.pipe(
       map((rd: RemoteData<Item>) => rd.payload),
