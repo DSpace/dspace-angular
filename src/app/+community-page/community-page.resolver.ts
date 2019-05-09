@@ -19,11 +19,12 @@ export class CommunityPageResolver implements Resolve<RemoteData<Community>> {
    * Method for resolving a community based on the parameters in the current route
    * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Community>> Emits the found community based on the parameters in the current route
+   * @returns Observable<<RemoteData<Community>> Emits the found community based on the parameters in the current route,
+   * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Community>> {
     return this.communityService.findById(route.params.id).pipe(
-      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
+      find((RD) => hasValue(RD.error) || RD.hasSucceeded)
     );
   }
 }

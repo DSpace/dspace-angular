@@ -64,7 +64,12 @@ export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
 
-export const renderPageNotFoundOn404 = (router: Router) =>
+/**
+ * Operator that checks if a remote data object contains a page not found error
+ * When it does contain such an error, it will redirect the user to a page not found, without altering the current URL
+ * @param router The router used to navigate to a new page
+ */
+export const redirectToPageNotFoundOn404 = (router: Router) =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(
       tap((rd: RemoteData<T>) => {

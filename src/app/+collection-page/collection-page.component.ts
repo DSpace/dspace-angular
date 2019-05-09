@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable,  Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { ItemDataService } from '../core/data/item-data.service';
@@ -16,11 +16,8 @@ import { Item } from '../core/shared/item.model';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { combineLatest, filter, first, flatMap, map } from 'rxjs/operators';
-import { SearchService } from '../+search-page/search-service/search.service';
-import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
-import { renderPageNotFoundOn404, toDSpaceObjectListRD } from '../core/shared/operators';
-import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
+import { filter, first, flatMap, map } from 'rxjs/operators';
+import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
 
 @Component({
   selector: 'ds-collection-page',
@@ -58,7 +55,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.collection as RemoteData<Collection>),
-      renderPageNotFoundOn404(this.router),
+      redirectToPageNotFoundOn404(this.router),
       first()
     );
     this.logoRD$ = this.collectionRD$.pipe(
