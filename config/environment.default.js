@@ -10,7 +10,7 @@ module.exports = {
   // The REST API server settings.
   rest: {
     ssl: true,
-    host: 'dspace7.4science.it',
+    host: 'dspace7.4science.cloud',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/dspace-spring-rest/api'
