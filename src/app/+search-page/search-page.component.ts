@@ -15,6 +15,8 @@ import { SearchConfigurationService } from './search-service/search-configuratio
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 
+export const SEARCH_ROUTE = '/search';
+
 /**
  * This component renders a simple item page.
  * The route parameter 'id' is used to request the item it represents.
