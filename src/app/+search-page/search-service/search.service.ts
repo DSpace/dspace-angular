@@ -43,8 +43,6 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RouteService } from '../../shared/services/route.service';
-import { MYDSPACE_ROUTE } from '../../+my-dspace-page/my-dspace-page.component';
-import { SEARCH_ROUTE } from '../search-page.component';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -359,7 +357,7 @@ export class SearchService implements OnDestroy {
     const urlTree = this.router.parseUrl(this.router.url);
     const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
     const searchLink: any = '/' + g.toString();
-    return (searchLink !== SEARCH_ROUTE || searchLink !== MYDSPACE_ROUTE) ? SEARCH_ROUTE : searchLink;
+    return (searchLink !== '/search' && searchLink !== '/mydspace') ? '/search' : searchLink;
   }
 
   /**
