@@ -108,7 +108,7 @@ export function createRelationshipsObservable() {
     })
   ])));
 }
-fdescribe('ItemComponent', () => {
+describe('ItemComponent', () => {
   const arr1 = [
     {
       id: 1,
