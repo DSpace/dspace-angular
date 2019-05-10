@@ -8,13 +8,13 @@ import { Item } from '../../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
-import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { JournalComponent } from './journal.component';
 import { of as observableOf } from 'rxjs';
+import { GenericItemPageFieldComponent } from '../../../../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;

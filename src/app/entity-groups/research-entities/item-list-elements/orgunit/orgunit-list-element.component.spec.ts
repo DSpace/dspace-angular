@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { ITEM } from '../../../../items/switcher/item-type-switcher.component';
 import { OrgUnitListElementComponent } from './orgunit-list-element.component';
 import { of as observableOf } from 'rxjs';
+import { Item } from '../../../../core/shared/item.model';
+import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
+import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
+import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 
 let orgUnitListElementComponent: OrgUnitListElementComponent;
 let fixture: ComponentFixture<OrgUnitListElementComponent>;
