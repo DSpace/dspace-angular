@@ -3,10 +3,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { distinctUntilChanged, flatMap, map } from 'rxjs/operators';
-import { zip as observableZip } from 'rxjs';
-import { ItemDataService } from '../../../../core/data/item-data.service';
+import { zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -55,26 +53,25 @@ export const filterRelationsByTypeLabel = (label: string) =>
 /**
  * Operator for turning a list of relationships into a list of the relevant items
  * @param {string} thisId           The item's id of which the relations belong to
- * @param {ItemDataService} ids     The ItemDataService to fetch items from the REST API
  * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
  */
-export const relationsToItems = (thisId: string, ids: ItemDataService) =>
+export const relationsToItems = (thisId: string) =>
   (source: Observable<Relationship[]>): Observable<Item[]> =>
     source.pipe(
       flatMap((rels: Relationship[]) =>
         observableZip(
-          ...rels.map((rel: Relationship) => {
-            let queryId = rel.leftId;
-            if (rel.leftId === thisId) {
-              queryId = rel.rightId;
-            }
-            return ids.findById(queryId);
-          })
+          ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem))
         )
       ),
-      map((arr: Array<RemoteData<Item>>) =>
+      map((arr) =>
         arr
-          .filter((d: RemoteData<Item>) => d.hasSucceeded)
-          .map((d: RemoteData<Item>) => d.payload)),
+          .filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded)
+          .map(([leftItem, rightItem]) => {
+            if (leftItem.payload.id === thisId) {
+              return rightItem.payload;
+            } else if (rightItem.payload.id === thisId) {
+              return leftItem.payload;
+            }
+          })),
       distinctUntilChanged(compareArraysUsingIds()),
     );

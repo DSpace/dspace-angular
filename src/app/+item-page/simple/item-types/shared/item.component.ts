@@ -23,7 +23,7 @@ import { compareArraysUsingIds } from './item-relationships-utils';
  * @param metadata    The list of original Metadatum objects
  * @param ids         The ItemDataService to use for fetching Items from the Rest API
  */
-export const relationsToRepresentations = (thisId: string, itemType: string, metadata: MetadataValue[], ids: ItemDataService) =>
+export const relationsToRepresentations = (thisId: string, itemType: string, metadata: MetadataValue[]) =>
   (source: Observable<Relationship[]>): Observable<MetadataRepresentation[]> =>
     source.pipe(
       flatMap((rels: Relationship[]) =>
@@ -35,13 +35,16 @@ export const relationsToRepresentations = (thisId: string, itemType: string, met
               const matchingRels = rels.filter((rel: Relationship) => ('' + rel.id) === metadatum.virtualValue);
               if (matchingRels.length > 0) {
                 const matchingRel = matchingRels[0];
-                let queryId = matchingRel.leftId;
-                if (matchingRel.leftId === thisId) {
-                  queryId = matchingRel.rightId;
-                }
-                return ids.findById(queryId).pipe(
-                  getSucceededRemoteData(),
-                  map((d: RemoteData<Item>) => Object.assign(new ItemMetadataRepresentation(), d.payload))
+                return observableCombineLatest(matchingRel.leftItem, matchingRel.rightItem).pipe(
+                  filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded),
+                  map(([leftItem, rightItem]) => {
+                    if (leftItem.payload.id === thisId) {
+                      return rightItem.payload;
+                    } else if (rightItem.payload.id === thisId) {
+                      return leftItem.payload;
+                    }
+                  }),
+                  map((item: Item) => Object.assign(new ItemMetadataRepresentation(), item))
                 );
               }
             } else {
@@ -102,7 +105,7 @@ export class ItemComponent implements OnInit {
    * @param metadataField     The metadata field that resembles the item type.
    * @param itemDataService   ItemDataService to turn relations into items.
    */
-  buildRepresentations(itemType: string, metadataField: string, itemDataService: ItemDataService): Observable<MetadataRepresentation[]> {
+  buildRepresentations(itemType: string, metadataField: string): Observable<MetadataRepresentation[]> {
     const metadata = this.item.findMetadataSortedByPlace(metadataField);
     const relsCurrentPage$ = this.item.relationships.pipe(
       getSucceededRemoteData(),
@@ -112,7 +115,7 @@ export class ItemComponent implements OnInit {
     );
 
     return relsCurrentPage$.pipe(
-      relationsToRepresentations(this.item.id, itemType, metadata, itemDataService)
+      relationsToRepresentations(this.item.id, itemType, metadata)
     );
   }
 
