@@ -21,7 +21,6 @@ import { compareArraysUsingIds } from './item-relationships-utils';
  * @param thisId      The id of the parent item
  * @param itemType    The type of relation this list resembles (for creating representations)
  * @param metadata    The list of original Metadatum objects
- * @param ids         The ItemDataService to use for fetching Items from the Rest API
  */
 export const relationsToRepresentations = (thisId: string, itemType: string, metadata: MetadataValue[]) =>
   (source: Observable<Relationship[]>): Observable<MetadataRepresentation[]> =>
@@ -103,7 +102,6 @@ export class ItemComponent implements OnInit {
    * certain type.
    * @param itemType          The type of item we're building representations of. Used for matching templates.
    * @param metadataField     The metadata field that resembles the item type.
-   * @param itemDataService   ItemDataService to turn relations into items.
    */
   buildRepresentations(itemType: string, metadataField: string): Observable<MetadataRepresentation[]> {
     const metadata = this.item.findMetadataSortedByPlace(metadataField);

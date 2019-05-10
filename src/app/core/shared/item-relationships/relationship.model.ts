@@ -29,8 +29,14 @@ export class Relationship implements CacheableObject {
    */
   id: string;
 
+  /**
+   * The item to the left of this relationship
+   */
   leftItem: Observable<RemoteData<Item>>;
 
+  /**
+   * The item to the right of this relationship
+   */
   rightItem: Observable<RemoteData<Item>>;
 
   /**
