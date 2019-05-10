@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { Item } from '../../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -64,7 +65,7 @@ describe('ItemSearchResultListElementComponent', () => {
   describe('ItemSearchResultListElementComponent', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        imports: [],
+        imports: [TranslateModule.forRoot()],
         declarations: [ItemSearchResultListElementComponent, TruncatePipe],
         providers: [
           { provide: TruncatableService, useValue: {} },

@@ -26,7 +26,6 @@ export abstract class BaseResponseParsingService {
       } else if (Array.isArray(data)) {
         return this.processArray(data, requestUUID);
       } else if (isRestDataObject(data)) {
-        data = this.fixBadEPersonRestResponse(data);
         const object = this.deserialize(data);
         if (isNotEmpty(data._embedded)) {
           Object
@@ -142,24 +141,5 @@ export abstract class BaseResponseParsingService {
 
   protected retrieveObjectOrUrl(obj: any): any {
     return this.toCache ? obj.self : obj;
-  }
-
-  // TODO Remove when https://jira.duraspace.org/browse/DS-4006 is fixed
-  // See https://github.com/DSpace/dspace-angular/issues/292
-  private fixBadEPersonRestResponse(obj: any): any {
-    if (obj.type === ResourceType.EPerson) {
-      const groups = obj.groups;
-      const normGroups = [];
-      if (isNotEmpty(groups)) {
-        groups.forEach((group) => {
-            const parts = ['eperson', 'groups', group.uuid];
-            const href = new RESTURLCombiner(this.EnvConfig, ...parts).toString();
-            normGroups.push(href);
-          }
-        )
-      }
-      return Object.assign({}, obj, { groups: normGroups });
-    }
-    return obj;
   }
 }

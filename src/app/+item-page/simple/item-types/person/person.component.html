@@ -1,10 +1,10 @@
 <h2 class="item-page-title-field">
-  <ds-metadata-values [mdValues]="item?.allMetadata(['dc.contributor.author'])"></ds-metadata-values>
+  {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.contributor.author'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>
-      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/person-placeholder.png'"></ds-thumbnail>
+      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/person-placeholder.svg'"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.email']"

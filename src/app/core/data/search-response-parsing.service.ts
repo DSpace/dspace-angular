@@ -31,7 +31,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
 
     const dsoSelfLinks = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
-      .map((object) => object._embedded.dspaceObject)
+      .map((object) => object._embedded.indexableObject)
       // we don't need embedded collections, bitstreamformats, etc for search results.
       // And parsing them all takes up a lot of time. Throw them away to improve performance
       // until objs until partial results are supported by the rest api

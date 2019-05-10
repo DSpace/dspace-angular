@@ -29,7 +29,7 @@ const mockItem: Item = Object.assign(new Item(), {
     ]
   }
 });
-const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(relationType), mockItem);
+const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(), mockItem);
 let viewMode = ItemViewMode.Full;
 
 describe('ItemTypeSwitcherComponent', () => {
