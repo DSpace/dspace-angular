@@ -27,7 +27,7 @@ export function main() {
 
   addGoogleAnalytics();
 
-  return platformBrowserDynamic().bootstrapModule(BrowserAppModule);
+  return platformBrowserDynamic().bootstrapModule(BrowserAppModule, {preserveWhitespaces:true});
 }
 
 function addGoogleAnalytics() {

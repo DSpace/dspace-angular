@@ -80,6 +80,12 @@ import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
 import { SearchService } from '../+search-page/search-service/search.service';
+import { RoleService } from './roles/role.service';
+import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
+import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
+import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
+import { PoolTaskDataService } from './tasks/pool-task-data.service';
+import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -131,6 +137,7 @@ const PROVIDERS = [
   RegistryBitstreamformatsResponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
+  MyDSpaceResponseParsingService,
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
@@ -162,6 +169,11 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
+  MyDSpaceGuard,
+  RoleService,
+  TaskResponseParsingService,
+  ClaimedTaskDataService,
+  PoolTaskDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

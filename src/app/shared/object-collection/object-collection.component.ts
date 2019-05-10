@@ -1,20 +1,22 @@
-
-import {map} from 'rxjs/operators';
-import { Component, EventEmitter,
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
   Input,
+  OnChanges,
   OnInit,
-  Output, SimpleChanges, OnChanges, ChangeDetectorRef } from '@angular/core';
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { RemoteData } from '../../core/data/remote-data';
 import { PageInfo } from '../../core/shared/page-info.model';
-
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-
 import { ListableObject } from './shared/listable-object.model';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { ViewMode } from '../../core/shared/view-mode.model';
@@ -29,6 +31,7 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   @Input() objects: RemoteData<ListableObject[]>;
   @Input() config?: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
+  @Input() hasBorder = false;
   @Input() hideGear = false;
   pageInfo: Observable<PageInfo>;
   private sub;
@@ -80,13 +83,17 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   }
 
   /**
+   * @param cdRef
+   *    ChangeDetectorRef service provided by Angular.
    * @param route
    *    Route is a singleton service provided by Angular.
    * @param router
    *    Router is a singleton service provided by Angular.
    */
-  constructor(private cdRef: ChangeDetectorRef, private route: ActivatedRoute,
-              private router: Router) {
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   getViewMode(): ViewMode {

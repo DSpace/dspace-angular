@@ -6,9 +6,8 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
-import { ResourceType } from '../shared/resource-type';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
+
 /* tslint:disable:max-classes-per-file */
 
 export abstract class BaseResponseParsingService {
@@ -139,5 +138,9 @@ export abstract class BaseResponseParsingService {
 
   protected retrieveObjectOrUrl(obj: any): any {
     return this.toCache ? obj.self : obj;
+  }
+
+  protected isSuccessStatus(statusCode: number) {
+    return statusCode >= 200 && statusCode < 300;
   }
 }

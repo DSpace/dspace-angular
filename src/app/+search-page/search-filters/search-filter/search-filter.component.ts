@@ -1,12 +1,15 @@
+import { Component, Inject, Input, OnInit } from '@angular/core';
+
+import { Observable, of as observableOf } from 'rxjs';
 import { filter, first, map, startWith, switchMap, take } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
+
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { SearchFilterService } from './search-filter.service';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { slide } from '../../../shared/animations/slide';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { SearchService } from '../../search-service/search.service';
 import { SearchConfigurationService } from '../../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-search-filter',
@@ -44,7 +47,10 @@ export class SearchFilterComponent implements OnInit {
    */
   active$: Observable<boolean>;
 
-  constructor(private filterService: SearchFilterService, private searchService: SearchService, private searchConfigService: SearchConfigurationService) {
+  constructor(
+    private filterService: SearchFilterService,
+    private searchService: SearchService,
+    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
   }
 
   /**

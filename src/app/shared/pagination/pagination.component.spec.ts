@@ -262,7 +262,7 @@ describe('Pagination component', () => {
 
     changePage(testFixture, 3);
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 'ASC', sortField: 'dc.title' }, queryParamsHandling: 'merge' });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: '3', pageSize: 10, sortDirection: 'ASC', sortField: 'dc.title' }, queryParamsHandling: 'merge' });
 
   }));
 

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-search-settings',
@@ -30,7 +31,7 @@ export class SearchSettingsComponent implements OnInit {
   constructor(private service: SearchService,
               private route: ActivatedRoute,
               private router: Router,
-              private searchConfigurationService: SearchConfigurationService) {
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService) {
   }
 
   /**
@@ -53,7 +54,7 @@ export class SearchSettingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 
   /**
@@ -70,6 +71,6 @@ export class SearchSettingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate([ this.service.getSearchLink() ], navigationExtras);
   }
 }

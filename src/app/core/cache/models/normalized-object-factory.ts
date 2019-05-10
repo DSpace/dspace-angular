@@ -12,13 +12,14 @@ import { NormalizedWorkspaceItem } from '../../submission/models/normalized-work
 import { NormalizedEPerson } from '../../eperson/models/normalized-eperson.model';
 import { NormalizedGroup } from '../../eperson/models/normalized-group.model';
 import { NormalizedWorkflowItem } from '../../submission/models/normalized-workflowitem.model';
+import { NormalizedClaimedTask } from '../../tasks/models/normalized-claimed-task-object.model';
+import { NormalizedPoolTask } from '../../tasks/models/normalized-pool-task-object.model';
 import { NormalizedBitstreamFormat } from './normalized-bitstream-format.model';
 import { NormalizedMetadataSchema } from '../../metadata/normalized-metadata-schema.model';
 import { CacheableObject } from '../object-cache.reducer';
 import { NormalizedSubmissionDefinitionsModel } from '../../config/models/normalized-config-submission-definitions.model';
 import { NormalizedSubmissionFormsModel } from '../../config/models/normalized-config-submission-forms.model';
 import { NormalizedSubmissionSectionModel } from '../../config/models/normalized-config-submission-section.model';
-import { NormalizedAuthStatus } from '../../auth/models/normalized-auth-status.model';
 
 export class NormalizedObjectFactory {
   public static getConstructor(type: ResourceType): GenericConstructor<NormalizedObject<CacheableObject>> {
@@ -64,6 +65,12 @@ export class NormalizedObjectFactory {
       }
       case ResourceType.Workflowitem: {
         return NormalizedWorkflowItem
+      }
+      case ResourceType.ClaimedTask: {
+        return NormalizedClaimedTask
+      }
+      case ResourceType.PoolTask: {
+        return NormalizedPoolTask
       }
       case ResourceType.SubmissionDefinition:
       case ResourceType.SubmissionDefinitions: {

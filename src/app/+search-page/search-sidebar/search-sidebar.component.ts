@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
+
 /**
  * This component renders a simple item page.
  * The route parameter 'id' is used to request the item it represents.
@@ -18,9 +20,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SearchSidebarComponent {
 
   /**
+   * The list of available configuration options
+   */
+  @Input() configurationList: SearchConfigurationOption[];
+
+  /**
    * The total amount of results
    */
   @Input() resultCount;
+
+  /**
+   * The list of available view mode options
+   */
+  @Input() viewModeList;
 
   /**
    * Emits event when the user clicks a button to open or close the sidebar

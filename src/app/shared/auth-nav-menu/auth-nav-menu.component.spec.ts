@@ -228,8 +228,8 @@ describe('AuthNavMenuComponent', () => {
           fixture.destroy();
           component = null;
         });
-        it('should render logout dropdown menu', () => {
-          const logoutDropdownMenu = deNavMenuItem.query(By.css('ul[id=logoutDropdownMenu]'));
+        it('should render UserMenuComponent component', () => {
+          const logoutDropdownMenu = deNavMenuItem.query(By.css('ds-user-menu'));
           expect(logoutDropdownMenu.nativeElement).toBeDefined();
         });
       })

@@ -1,9 +1,4 @@
-import {
-  SearchFilterAction,
-  SearchFilterActionTypes,
-  SearchFilterInitializeAction
-} from './search-filter.actions';
-import { isEmpty, isNotUndefined } from '../../../shared/empty.util';
+import { SearchFilterAction, SearchFilterActionTypes, SearchFilterInitializeAction } from './search-filter.actions';
 
 /**
  * Interface that represents the state for a single filters

@@ -43,7 +43,7 @@ describe('AuthService test', () => {
       pipe: observableOf(true)
     });
     window = new NativeWindowRef();
-    routerStub = new RouterStub()
+    routerStub = new RouterStub();
     token = new AuthTokenInfo('test_token');
     token.expires = Date.now() + (1000 * 60 * 60);
     authenticatedState = {

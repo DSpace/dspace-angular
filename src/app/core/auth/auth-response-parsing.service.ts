@@ -14,7 +14,6 @@ import { AuthType } from './auth-type';
 import { AuthStatus } from './models/auth-status.model';
 import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 
 @Injectable()
 export class AuthResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {

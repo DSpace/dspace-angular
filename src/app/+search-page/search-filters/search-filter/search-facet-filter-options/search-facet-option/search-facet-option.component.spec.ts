@@ -19,10 +19,12 @@ import { By } from '@angular/platform-browser';
 describe('SearchFacetOptionComponent', () => {
   let comp: SearchFacetOptionComponent;
   let fixture: ComponentFixture<SearchFacetOptionComponent>;
-  const filterName1 = 'test name';
+  const filterName1 = 'testname';
+  const filterName2 = 'testAuthorityname';
   const value1 = 'testvalue1';
   const value2 = 'test2';
-  const value3 = 'another value3';
+  const operator = 'authority';
+
   const mockFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: filterName1,
     type: FilterType.range,
@@ -32,14 +34,38 @@ describe('SearchFacetOptionComponent', () => {
     minValue: 200,
     maxValue: 3000,
   });
+
+  const mockAuthorityFilterConfig = Object.assign(new SearchFilterConfig(), {
+    name: filterName2,
+    type: FilterType.authority,
+    hasFacets: false,
+    isOpenByDefault: false,
+    pageSize: 2
+  });
+
   const value: FacetValue = {
-      value: value2,
-      count: 20,
-      search: ''
-    };
+    label: value2,
+    value: value2,
+    count: 20,
+    search: ``
+  };
+
+  const selectedValue: FacetValue = {
+    label: value1,
+    value: value1,
+    count: 20,
+    search: `http://test.org/api/discover/search/objects?f.${filterName1}=${value1},${operator}`
+  };
+
+  const authorityValue: FacetValue = {
+    label: value2,
+    value: value2,
+    count: 20,
+    search: `http://test.org/api/discover/search/objects?f.${filterName2}=${value2},${operator}`
+  };
 
   const searchLink = '/search';
-  const selectedValues = [value1];
+  const selectedValues = [selectedValue];
   const selectedValues$ = observableOf(selectedValues);
   let filterService;
   let searchService;
@@ -90,12 +116,27 @@ describe('SearchFacetOptionComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the updateAddParams method is called wih a value', () => {
+  describe('when the updateAddParams method is called with a value', () => {
     it('should update the addQueryParams with the new parameter values', () => {
       comp.addQueryParams = {};
       (comp as any).updateAddParams(selectedValues);
       expect(comp.addQueryParams).toEqual({
         [mockFilterConfig.paramName]: [value1, value.value],
+        page: 1
+      });
+    });
+  });
+
+  describe('when filter type is authority and the updateAddParams method is called with a value', () => {
+    it('should update the addQueryParams with the new parameter values', () => {
+      comp.filterValue = authorityValue;
+      comp.filterConfig = mockAuthorityFilterConfig;
+      fixture.detectChanges();
+
+      comp.addQueryParams = {};
+      (comp as any).updateAddParams(selectedValues);
+      expect(comp.addQueryParams).toEqual({
+        [mockAuthorityFilterConfig.paramName]: [value1, `${value2},${operator}`],
         page: 1
       });
     });
