@@ -16,8 +16,9 @@ import { Item } from '../core/shared/item.model';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { filter, first, flatMap, map } from 'rxjs/operators';
-import { redirectToPageNotFoundOn404 } from '../core/shared/operators';
+import { filter, first, flatMap, map, switchMap } from 'rxjs/operators';
+import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
+import { getSucceededRemoteData, redirectToPageNotFoundOn404 } from '../core/shared/operators';
 
 @Component({
   selector: 'ds-collection-page',
@@ -36,7 +37,6 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
   private subs: Subscription[] = [];
-  private collectionId: string;
 
   constructor(
     private collectionDataService: CollectionDataService,
@@ -77,24 +77,28 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
           this.sortConfig,
           { direction: sortDirection, field: this.sortConfig.field }
         );
-        this.collectionRD$.subscribe((rd: RemoteData<Collection>) => {
-          this.collectionId = rd.payload.id;
-          this.updatePage({
-            pagination: pagination,
-            sort: sort
-          });
+        this.updatePage({
+          pagination: pagination,
+          sort: sort
         });
       })
     );
   }
 
   updatePage(searchOptions) {
-    this.itemRD$ = this.itemDataService.findAll({
-      scopeID: this.collectionId,
-      currentPage: searchOptions.pagination.currentPage,
-      elementsPerPage: searchOptions.pagination.pageSize,
-      sort: searchOptions.sort
-    });
+    this.itemRD$ = this.collectionRD$.pipe(
+      getSucceededRemoteData(),
+      map((rd) => rd.payload.id),
+      switchMap((id: string) => {
+        return this.itemDataService.findAll(
+          new PaginatedSearchOptions({
+            scope: id,
+            currentPage: searchOptions.pagination.currentPage,
+            elementsPerPage: searchOptions.pagination.pageSize,
+            sort: searchOptions.sort
+          }));
+      })
+    )
   }
 
   ngOnDestroy(): void {
