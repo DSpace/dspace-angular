@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { SearchService } from './search.service';
+import { ItemDataService } from './../../core/data/item-data.service';
+import { SetViewMode } from '../../shared/view-mode';
+import { GLOBAL_CONFIG } from '../../../config';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { Router, UrlTree } from '@angular/router';
 import { RequestService } from '../../core/data/request.service';

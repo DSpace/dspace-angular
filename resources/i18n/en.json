@@ -91,12 +91,14 @@
   },
   "item": {
     "page": {
-      "author": "Author",
+      "author": "Authors",
       "abstract": "Abstract",
       "date": "Date",
       "uri": "URI",
       "files": "Files",
       "collections": "Collections",
+      "subject": "Keywords",
+      "citation": "Citation",
       "filesection": {
         "download": "Download",
         "name": "Name:",
@@ -270,6 +272,114 @@
       }
     }
   },
+  "relationships": {
+    "isPublicationOf": "Publications",
+    "isProjectOf": "Research Projects",
+    "isOrgUnitOf": "Organizational Units",
+    "isAuthorOf": "Authors",
+    "isPersonOf": "Authors",
+    "isJournalOf": "Journals",
+    "isSingleJournalOf": "Journal",
+    "isVolumeOf": "Journal Volumes",
+    "isSingleVolumeOf": "Journal Volume",
+    "isIssueOf": "Journal Issues",
+    "isJournalIssueOf": "Journal Issue",
+    "isPublicationOfJournalIssue": "Articles"
+  },
+  "person": {
+    "page": {
+      "titleprefix": "Person: ",
+      "jobtitle": "Job Title",
+      "lastname": "Last Name",
+      "firstname": "First Name",
+      "email": "Email Address",
+      "orcid": "ORCID",
+      "birthdate": "Birth Date",
+      "staffid": "Staff ID",
+      "link": {
+        "full": "Show all metadata"
+      }
+    },
+    "listelement": {
+      "badge": "Person"
+    }
+  },
+  "project": {
+    "page": {
+      "titleprefix": "Research Project: ",
+      "status": "Status",
+      "contributor": "Contributors",
+      "funder": "Funders",
+      "id": "ID",
+      "expectedcompletion": "Expected Completion",
+      "description": "Description",
+      "keyword": "Keywords"
+    },
+    "listelement": {
+      "badge": "Research Project"
+    }
+  },
+  "orgunit": {
+    "page": {
+      "titleprefix": "Organizational Unit: ",
+      "dateestablished": "Date established",
+      "city": "City",
+      "country": "Country",
+      "id": "ID",
+      "description": "Description"
+    },
+    "listelement": {
+      "badge": "Organizational Unit"
+    }
+  },
+  "journal": {
+    "page": {
+      "titleprefix": "Journal: ",
+      "issn": "ISSN",
+      "publisher": "Publisher",
+      "description": "Description",
+      "editor": "Editor-in-Chief"
+    },
+    "listelement": {
+      "badge": "Journal"
+    }
+  },
+  "journalvolume": {
+    "page": {
+      "titleprefix": "Journal Volume: ",
+      "volume": "Volume",
+      "issuedate": "Issue Date",
+      "description": "Description"
+    },
+    "listelement": {
+      "badge": "Journal Volume"
+    }
+  },
+  "journalissue": {
+    "page": {
+      "titleprefix": "Journal Issue: ",
+      "number": "Number",
+      "issuedate": "Issue Date",
+      "description": "Description",
+      "keyword": "Keywords",
+      "journal-title": "Journal Title",
+      "journal-issn": "Journal ISSN"
+    },
+    "listelement": {
+      "badge": "Journal Issue"
+    }
+  },
+  "publication": {
+    "page": {
+      "titleprefix": "Publication: ",
+      "journal-title": "Journal Title",
+      "journal-issn": "Journal ISSN",
+      "volume-title": "Volume Title"
+    },
+    "listelement": {
+      "badge": "Publication"
+    }
+  },
   "nav": {
     "browse": {
       "header": "All of DSpace"
@@ -371,6 +481,24 @@
     }
   },
   "search": {
+    "journal": {
+      "title": "DSpace Angular :: Journal Search",
+      "results": {
+        "head": "Journal Search Results"
+      }
+    },
+    "person": {
+      "title": "DSpace Angular :: Person Search",
+      "results": {
+        "head": "Person Search Results"
+      }
+    },
+    "publication": {
+      "title": "DSpace Angular :: Publication Search",
+      "results": {
+        "head": "Publication Search Results"
+      }
+    },
     "title": "DSpace Angular :: Search",
     "description": "",
     "form": {
@@ -413,6 +541,7 @@
         "f.dateIssued.max": "End date",
         "f.subject": "Subject",
         "f.has_content_in_original_bundle": "Has files",
+        "f.entityType": "Item Type",
         "f.namedresourcetype": "Status",
         "f.dateSubmitted": "Date submitted",
         "f.itemtype": "Type",
@@ -444,6 +573,10 @@
         },
         "has_content_in_original_bundle": {
           "head": "Has files"
+        },
+        "entityType": {
+          "placeholder": "Item Type",
+          "head": "Item Type"
         },
         "namedresourcetype": {
           "placeholder": "Status",

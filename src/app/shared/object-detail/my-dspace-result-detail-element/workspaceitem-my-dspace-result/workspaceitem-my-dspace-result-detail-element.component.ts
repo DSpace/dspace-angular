@@ -13,6 +13,7 @@ import { isNotUndefined } from '../../../empty.util';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { SetViewMode } from '../../../view-mode';
 
 /**
  * This component renders workspaceitem object for the mydspace result in the detail view.
@@ -23,8 +24,8 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
   templateUrl: './workspaceitem-my-dspace-result-detail-element.component.html',
 })
 
-@renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.Detail)
-@renderElementsFor(Workspaceitem, ViewMode.Detail)
+@renderElementsFor(WorkspaceitemMyDSpaceResult, SetViewMode.Detail)
+@renderElementsFor(Workspaceitem, SetViewMode.Detail)
 export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
 
   /**

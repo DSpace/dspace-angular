@@ -1,5 +1,4 @@
-
-import {mergeMap, filter, map} from 'rxjs/operators';
+import { filter, map, mergeMap } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,6 +13,7 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
+import { ItemViewMode } from '../../shared/items/item-type-decorator';
 
 /**
  * This component renders a simple item page.
@@ -29,21 +29,31 @@ import { hasValue } from '../../shared/empty.util';
 })
 export class ItemPageComponent implements OnInit {
 
+  /**
+   * The item's id
+   */
   id: number;
 
-  private sub: any;
-
+  /**
+   * The item wrapped in a remote-data object
+   */
   itemRD$: Observable<RemoteData<Item>>;
 
+  /**
+   * The item's thumbnail
+   */
   thumbnail$: Observable<Bitstream>;
+
+  /**
+   * The view-mode we're currently on
+   */
+  viewMode = ItemViewMode.Full;
 
   constructor(
     private route: ActivatedRoute,
     private items: ItemDataService,
-    private metadataService: MetadataService
-  ) {
-
-  }
+    private metadataService: MetadataService,
+  ) { }
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(map((data) => data.item));

@@ -63,4 +63,8 @@ export class NormalizedItem extends NormalizedDSpaceObject<Item> {
   @relationship(ResourceType.Bitstream, true)
   bitstreams: string[];
 
+  @autoserialize
+  @relationship(ResourceType.Relationship, true)
+  relationships: string[];
+
 }

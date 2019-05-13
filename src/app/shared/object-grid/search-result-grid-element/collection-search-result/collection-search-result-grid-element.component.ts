@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { renderElementsFor} from '../../../object-collection/shared/dso-element-decorator';
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
+import { SetViewMode } from '../../../view-mode';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-collection-search-result-grid-element',
@@ -12,5 +12,5 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
   templateUrl: 'collection-search-result-grid-element.component.html'
 })
 
-@renderElementsFor(CollectionSearchResult, ViewMode.Grid)
+@renderElementsFor(CollectionSearchResult, SetViewMode.Grid)
 export class CollectionSearchResultGridElementComponent extends SearchResultGridElementComponent<CollectionSearchResult, Collection> {}

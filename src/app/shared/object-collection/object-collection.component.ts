@@ -18,8 +18,8 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ListableObject } from './shared/listable-object.model';
+import { SetViewMode } from '../view-mode';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-viewable-collection',
@@ -61,8 +61,8 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-  currentMode: ViewMode = ViewMode.List;
-  viewModeEnum = ViewMode;
+  currentMode: SetViewMode = SetViewMode.List;
+  viewModeEnum = SetViewMode;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.objects && !changes.objects.isFirstChange()) {
@@ -96,7 +96,7 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
     private router: Router) {
   }
 
-  getViewMode(): ViewMode {
+  getViewMode(): SetViewMode {
     this.route.queryParams.pipe(map((params) => {
       if (isNotEmpty(params.view) && hasValue(params.view)) {
         this.currentMode = params.view;

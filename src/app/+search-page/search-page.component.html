@@ -1,16 +1,16 @@
 <div class="container">
     <div class="search-page row">
-        <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-3 sidebar-md-sticky"
+        <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-{{sideBarWidth}} sidebar-md-sticky"
                            id="search-sidebar"
                            [resultCount]="(resultsRD$ | async)?.payload.totalElements"></ds-search-sidebar>
-        <div class="col-12 col-md-9">
-            <ds-search-form id="search-form"
+        <div class="col-12 col-md-{{12 - sideBarWidth}}">
+            <ds-search-form *ngIf="searchEnabled" id="search-form"
                             [query]="(searchOptions$ | async)?.query"
                             [scope]="(searchOptions$ | async)?.scope"
                             [currentUrl]="getSearchLink()"
                             [scopes]="(scopeListRD$ | async)">
             </ds-search-form>
-            <ds-search-labels></ds-search-labels>
+            <ds-search-labels *ngIf="searchEnabled"></ds-search-labels>
             <div class="row">
                 <div id="search-body"
                      class="row-offcanvas row-offcanvas-left"
@@ -31,7 +31,9 @@
                             </button>
                         </div>
                         <ds-search-results [searchResults]="resultsRD$ | async"
-                                           [searchConfig]="searchOptions$ | async"></ds-search-results>
+                                           [searchConfig]="searchOptions$ | async"
+                                           [fixedFilter]="fixedFilter$ | async"
+                                           [disableHeader]="!searchEnabled"></ds-search-results>
                     </div>
                 </div>
             </div>

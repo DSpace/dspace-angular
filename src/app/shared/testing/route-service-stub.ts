@@ -21,6 +21,12 @@ export const routeServiceStub: any = {
   },
   getQueryParameterValue: () => {
     return observableOf({})
+  },
+  getRouteParameterValue: (param) => {
+    return observableOf('')
+  },
+  getRouteDataValue: (param) => {
+    return observableOf({})
   }
   /* tslint:enable:no-empty */
 };

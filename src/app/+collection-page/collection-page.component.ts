@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable,  Subscription } from 'rxjs';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { CollectionDataService } from '../core/data/collection-data.service';
+import { ItemDataService } from '../core/data/item-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 
@@ -15,7 +16,7 @@ import { Item } from '../core/shared/item.model';
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { filter, flatMap, map, tap } from 'rxjs/operators';
+import { combineLatest, filter, first, flatMap, map } from 'rxjs/operators';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { toDSpaceObjectListRD } from '../core/shared/operators';
@@ -42,7 +43,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private collectionDataService: CollectionDataService,
-    private searchService: SearchService,
+    private itemDataService: ItemDataService,
     private metadata: MetadataService,
     private route: ActivatedRoute
   ) {
@@ -50,13 +51,13 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     this.paginationConfig.id = 'collection-page-pagination';
     this.paginationConfig.pageSize = 5;
     this.paginationConfig.currentPage = 1;
-    this.sortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
+    this.sortConfig = new SortOptions('dc.date.issued', SortDirection.DESC);
   }
 
   ngOnInit(): void {
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.collection),
-      tap((data) => this.collectionId = data.payload.id)
+      first()
     );
     this.logoRD$ = this.collectionRD$.pipe(
       map((rd: RemoteData<Collection>) => rd.payload),
@@ -68,26 +69,33 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
         this.metadata.processRemoteData(this.collectionRD$);
         const page = +params.page || this.paginationConfig.currentPage;
         const pageSize = +params.pageSize || this.paginationConfig.pageSize;
+        const sortDirection = +params.page || this.sortConfig.direction;
         const pagination = Object.assign({},
           this.paginationConfig,
           { currentPage: page, pageSize: pageSize }
         );
-        this.updatePage({
-          pagination: pagination,
-          sort: this.sortConfig
+        const sort = Object.assign({},
+          this.sortConfig,
+          { direction: sortDirection, field: this.sortConfig.field }
+        );
+        this.collectionRD$.subscribe((rd: RemoteData<Collection>) => {
+          this.collectionId = rd.payload.id;
+          this.updatePage({
+            pagination: pagination,
+            sort: sort
+          });
         });
-      }));
-
+      })
+    );
   }
 
   updatePage(searchOptions) {
-    this.itemRD$ = this.searchService.search(
-      new PaginatedSearchOptions({
-        scope: this.collectionId,
-        pagination: searchOptions.pagination,
-        sort: searchOptions.sort,
-        dsoType: DSpaceObjectType.ITEM
-      })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
+    this.itemRD$ = this.itemDataService.findAll({
+      scopeID: this.collectionId,
+      currentPage: searchOptions.pagination.currentPage,
+      elementsPerPage: searchOptions.pagination.pageSize,
+      sort: searchOptions.sort
+    });
   }
 
   ngOnDestroy(): void {

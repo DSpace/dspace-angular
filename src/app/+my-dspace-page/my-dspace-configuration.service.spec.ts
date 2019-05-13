@@ -29,15 +29,21 @@ describe('MyDSpaceConfigurationService', () => {
 
   const spy = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
-    getQueryParamsWithPrefix: observableOf(prefixFilter)
+    getQueryParamsWithPrefix: observableOf(prefixFilter),
+    getRouteParameterValue: observableOf(''),
+    getRouteDataValue: observableOf({})
   });
 
   const activatedRoute: any = new ActivatedRouteStub();
 
   const roleService: any = new MockRoleService();
 
+  const fixedFilterService = jasmine.createSpyObj('SearchFixedFilterService', {
+    getQueryByFilterName: observableOf(''),
+  });
+
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, activatedRoute);
+    service = new MyDSpaceConfigurationService(roleService, fixedFilterService, spy, activatedRoute);
   });
 
   describe('when the scope is called', () => {

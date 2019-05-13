@@ -13,6 +13,7 @@ import { Workflowitem } from '../../../../core/submission/models/workflowitem.mo
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { SetViewMode } from '../../../view-mode';
 
 /**
  * This component renders claimed task object for the mydspace result in the list view.
@@ -24,8 +25,8 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
   providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
 
-@renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.List)
-@renderElementsFor(ClaimedTask, ViewMode.List)
+@renderElementsFor(ClaimedTaskMyDSpaceResult, SetViewMode.List)
+@renderElementsFor(ClaimedTask, SetViewMode.List)
 export class ClaimedMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
 
   /**

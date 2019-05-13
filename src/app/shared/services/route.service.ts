@@ -1,7 +1,7 @@
+import { distinctUntilChanged, map, mergeMap, filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } from '@angular/router';
 
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { isEqual } from 'lodash';
@@ -15,8 +15,11 @@ import { historySelector } from '../history/selectors';
  */
 @Injectable()
 export class RouteService {
+  params: Observable<Params>;
 
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
+    this.subscribeToRouterParams();
+
   }
 
   /**
@@ -64,6 +67,14 @@ export class RouteService {
     );
   }
 
+  getRouteParameterValue(paramName: string): Observable<string> {
+    return this.params.pipe(map((params) => params[paramName]),distinctUntilChanged(),);
+  }
+
+  getRouteDataValue(datafield: string): Observable<any> {
+    return this.route.data.pipe(map((data) => data[datafield]),distinctUntilChanged(),);
+  }
+
   /**
    * Retrieves all query parameters of which the parameter name starts with the given prefix
    * @param prefix The prefix of the parameter name to look for
@@ -102,6 +113,18 @@ export class RouteService {
       .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
         this.store.dispatch(new AddUrlToHistoryAction(urlAfterRedirects))
       });
+  }
+
+  subscribeToRouterParams() {
+    this.params = this.router.events.pipe(
+      mergeMap((event) => {
+        let active = this.route;
+        while (active.firstChild) {
+          active = active.firstChild;
+        }
+        return active.params;
+      })
+    );
   }
 
   public getHistory(): Observable<string[]> {

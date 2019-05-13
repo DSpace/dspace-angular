@@ -9,10 +9,13 @@ import { Item } from '../../../../core/shared/item.model';
  */
 
 @Component({
-    templateUrl: './item-page-specific-field.component.html'
+    templateUrl: './item-page-field.component.html'
 })
-export class ItemPageSpecificFieldComponent {
+export class ItemPageFieldComponent {
 
+    /**
+     * The item to display metadata for
+     */
     @Input() item: Item;
 
     /**

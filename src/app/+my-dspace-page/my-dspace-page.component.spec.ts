@@ -28,6 +28,7 @@ import { SearchFilterService } from '../+search-page/search-filters/search-filte
 import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
 import { MockRoleService } from '../shared/mocks/mock-role-service';
+import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -79,6 +80,11 @@ describe('MyDSpacePageComponent', () => {
     collapse: () => this.isCollapsed = observableOf(true),
     expand: () => this.isCollapsed = observableOf(false)
   };
+  const mockFixedFilterService: SearchFixedFilterService = {
+    getQueryByFilterName: (filter: string) => {
+      return observableOf(undefined)
+    }
+  } as SearchFixedFilterService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -117,6 +123,10 @@ describe('MyDSpacePageComponent', () => {
         {
           provide: RoleService,
           useValue: new MockRoleService()
+        },
+        {
+          provide: SearchFixedFilterService,
+          useValue: mockFixedFilterService
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]

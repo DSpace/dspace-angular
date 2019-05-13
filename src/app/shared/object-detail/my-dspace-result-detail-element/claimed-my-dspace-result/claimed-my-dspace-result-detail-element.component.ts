@@ -13,6 +13,7 @@ import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.m
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { SetViewMode } from '../../../view-mode';
 
 /**
  * This component renders claimed task object for the mydspace result in the detail view.
@@ -23,8 +24,8 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
   templateUrl: './claimed-my-dspace-result-detail-element.component.html'
 })
 
-@renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.Detail)
-@renderElementsFor(ClaimedTask, ViewMode.Detail)
+@renderElementsFor(ClaimedTaskMyDSpaceResult, SetViewMode.Detail)
+@renderElementsFor(ClaimedTask, SetViewMode.Detail)
 export class ClaimedMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
 
   /**

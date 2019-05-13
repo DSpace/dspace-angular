@@ -278,4 +278,14 @@ export class TaskResponse extends RestResponse {
   }
 }
 
+export class FilteredDiscoveryQueryResponse extends RestResponse {
+  constructor(
+    public filterQuery: string,
+    public statusCode: number,
+    public statusText: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
 /* tslint:enable:max-classes-per-file */
