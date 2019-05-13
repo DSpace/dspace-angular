@@ -29,7 +29,9 @@ describe('MyDSpaceConfigurationService', () => {
 
   const spy = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
-    getQueryParamsWithPrefix: observableOf(prefixFilter)
+    getQueryParamsWithPrefix: observableOf(prefixFilter),
+    getRouteParameterValue: observableOf(''),
+    getRouteDataValue: observableOf({})
   });
 
   const activatedRoute: any = new ActivatedRouteStub();

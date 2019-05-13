@@ -8,6 +8,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 let itemSearchResultListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -16,41 +17,31 @@ const truncatableServiceStub: any = {
   isCollapsed: (id: number) => observableOf(true),
 };
 
-const mockItemWithAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-mockItemWithAuthorAndDate.hitHighlights = {};
-mockItemWithAuthorAndDate.indexableObject = Object.assign(new Item(), {
+const type = 'authorOfPublication';
+
+const mockItemWithRelationshipType: ItemSearchResult = new ItemSearchResult();
+mockItemWithRelationshipType.hitHighlights = {};
+mockItemWithRelationshipType.indexableObject = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
-    'dc.contributor.author': [
+    'relationship.type': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
-    ],
-    'dc.date.issued': [
-      {
-        language: null,
-        value: '2015-06-26'
+        value: type
       }
     ]
   }
 });
 
-const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-mockItemWithoutAuthorAndDate.hitHighlights = {};
-mockItemWithoutAuthorAndDate.indexableObject = Object.assign(new Item(), {
+const mockItemWithoutRelationshipType: ItemSearchResult = new ItemSearchResult();
+mockItemWithoutRelationshipType.hitHighlights = {};
+mockItemWithoutRelationshipType.indexableObject = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
     'dc.title': [
       {
         language: 'en_US',
         value: 'This is just another title'
-      }
-    ],
-    'dc.type': [
-      {
-        language: null,
-        value: 'Article'
       }
     ]
   }
@@ -59,11 +50,11 @@ mockItemWithoutAuthorAndDate.indexableObject = Object.assign(new Item(), {
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
-        { provide: 'objectElementProvider', useValue: (mockItemWithoutAuthorAndDate) }
+        { provide: 'objectElementProvider', useValue: (mockItemWithoutRelationshipType) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultListElementComponent, {
@@ -76,51 +67,28 @@ describe('ItemSearchResultListElementComponent', () => {
     itemSearchResultListElementComponent = fixture.componentInstance;
   }));
 
-  describe('When the item has an author', () => {
+  describe('When the item has a relationship type', () => {
     beforeEach(() => {
-      itemSearchResultListElementComponent.dso = mockItemWithAuthorAndDate.indexableObject;
+      itemSearchResultListElementComponent.object = mockItemWithRelationshipType;
       fixture.detectChanges();
     });
 
-    it('should show the author paragraph', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
-      expect(itemAuthorField).not.toBeNull();
+    it('should show the relationship type badge', () => {
+      const badge = fixture.debugElement.query(By.css('span.badge'));
+      console.log(itemSearchResultListElementComponent.dso);
+      expect(badge.nativeElement.textContent).toContain(type.toLowerCase());
     });
   });
 
-  describe('When the item has no author', () => {
+  describe('When the item has no relationship type', () => {
     beforeEach(() => {
-      itemSearchResultListElementComponent.dso = mockItemWithoutAuthorAndDate.indexableObject;
+      itemSearchResultListElementComponent.object = mockItemWithoutRelationshipType;
       fixture.detectChanges();
     });
 
-    it('should not show the author paragraph', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
-      expect(itemAuthorField).toBeNull();
-    });
-  });
-
-  describe('When the item has an issuedate', () => {
-    beforeEach(() => {
-      itemSearchResultListElementComponent.dso = mockItemWithAuthorAndDate.indexableObject;
-      fixture.detectChanges();
-    });
-
-    it('should show the issuedate span', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-date'));
-      expect(itemAuthorField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no issuedate', () => {
-    beforeEach(() => {
-      itemSearchResultListElementComponent.dso = mockItemWithoutAuthorAndDate.indexableObject;
-      fixture.detectChanges();
-    });
-
-    it('should not show the issuedate span', () => {
-      const dateField = fixture.debugElement.query(By.css('span.item-list-date'));
-      expect(dateField).toBeNull();
+    it('should not show a badge', () => {
+      const badge = fixture.debugElement.query(By.css('span.badge'));
+      expect(badge).toBeNull();
     });
   });
 });

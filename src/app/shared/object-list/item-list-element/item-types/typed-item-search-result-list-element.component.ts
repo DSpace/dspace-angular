@@ -22,7 +22,7 @@ export class TypedItemSearchResultListElementComponent extends SearchResultListE
     @Inject(ITEM) public obj: Item | ItemSearchResult,
   ) {
     super(undefined, truncatableService);
-    if (hasValue((obj as any).dspaceObject)) {
+    if (hasValue((obj as any).indexableObject)) {
       this.object = obj as ItemSearchResult;
       this.dso = this.object.indexableObject;
     } else {
