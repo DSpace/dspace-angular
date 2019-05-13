@@ -5,7 +5,8 @@
  */
 export enum SetViewMode {
   List = 'list',
-  Grid = 'grid'
+  Grid = 'grid',
+  Detail = 'detail'
 }
 
 /**

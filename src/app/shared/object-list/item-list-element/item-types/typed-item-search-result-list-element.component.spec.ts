@@ -19,7 +19,7 @@ const mockItem: Item = Object.assign(new Item(), {
   relationships: createRelationshipsObservable()
 });
 const mockSearchResult = {
-  dspaceObject: mockItem as Item,
+  indexableObject: mockItem as Item,
   hitHighlights: new MetadataMap()
 } as ItemSearchResult;
 
@@ -50,7 +50,7 @@ describe('ItemSearchResultComponent', () => {
     it('should initiate item, object and dso correctly', () => {
       expect(comp.item).toBe(mockItem);
       expect(comp.dso).toBe(mockItem);
-      expect(comp.object.dspaceObject).toBe(mockItem);
+      expect(comp.object.indexableObject).toBe(mockItem);
     })
   });
 
@@ -77,7 +77,7 @@ describe('ItemSearchResultComponent', () => {
     it('should initiate item, object and dso correctly', () => {
       expect(comp.item).toBe(mockItem);
       expect(comp.dso).toBe(mockItem);
-      expect(comp.object.dspaceObject).toBe(mockItem);
+      expect(comp.object.indexableObject).toBe(mockItem);
     })
   });
 });

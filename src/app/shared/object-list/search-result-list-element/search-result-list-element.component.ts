@@ -20,7 +20,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   public constructor(@Inject('objectElementProvider') public listable: ListableObject, protected truncatableService: TruncatableService) {
     super(listable);
     if (hasValue(this.object)) {
-      this.dso = this.object.dspaceObject;
+      this.dso = this.object.indexableObject;
     }
   }
 

@@ -97,7 +97,7 @@
       "uri": "URI",
       "files": "Files",
       "collections": "Collections",
-      "subject": "Keywords", 
+      "subject": "Keywords",
       "citation": "Citation",
       "filesection": {
         "download": "Download",
@@ -392,6 +392,7 @@
     },
     "login": "Log In",
     "logout": "Log Out",
+    "mydspace": "MyDSpace",
     "language": "Language switch",
     "search": "Search"
   },
@@ -428,6 +429,57 @@
       "help": "Select a community to browse its collections."
     }
   },
+  "mydspace": {
+    "title": "MyDSpace",
+    "description": "",
+    "new-submission": "New submission",
+    "results": {
+      "head": "Your submissions",
+      "no-results": "There were no items to show",
+      "no-title": "No title",
+      "no-authors": "No Authors",
+      "no-date": "No Date",
+      "no-abstract": "No Abstract",
+      "no-files": "No Files",
+      "no-uri": "No Uri",
+      "no-collections": "No Collections"
+    },
+    "messages": {
+      "title": "Messages",
+      "to": "To",
+      "hide-msg": "Hide message",
+      "show-msg": "Show message",
+      "no-messages": "No messages yet.",
+      "no-content": "No content.",
+      "send-btn": "Send",
+      "subject-placeholder": "Subject...",
+      "description-placeholder": "Insert your message here...",
+      "mark-as-read": "Mark as read",
+      "mark-as-unread": "Mark as unread",
+      "submitter-help": "Select this option to send a message to controller.",
+      "controller-help": "Select this option to send a message to item's submitter."
+    },
+    "show": {
+      "workspace": "Your Submissions",
+      "workflow": "All tasks"
+    },
+    "status": {
+      "workflow": "Workflow",
+      "validation": "Validation",
+      "waiting-for-controller": "Waiting for controller",
+      "workspace": "Workspace",
+      "archived": "Archived"
+    },
+    "view-btn": "View",
+    "general": {
+      "text-here": "HERE"
+    },
+    "upload": {
+      "upload-successful": "New workspace item created. Click {{here}} for edit it.",
+      "upload-multiple-successful": "{{qty}} new workspace items created.",
+      "upload-failed": "Error creating new workspace. Please verify the content uploaded before retry."
+    }
+  },
   "search": {
     "journal": {
       "title": "DSpace Angular :: Journal Search",
@@ -451,7 +503,8 @@
     "description": "",
     "form": {
       "search": "Search",
-      "search_dspace": "Search DSpace"
+      "search_dspace": "Search DSpace",
+      "search_mydspace": "Search MyDSpace"
     },
     "results": {
       "head": "Search Results",
@@ -471,9 +524,13 @@
         "rpp": "Results per page"
       }
     },
+    "switch-configuration": {
+      "title":"Show"
+    },
     "view-switch": {
       "show-list": "Show as list",
-      "show-grid": "Show as grid"
+      "show-grid": "Show as grid",
+      "show-detail": "Show detail"
     },
     "filters": {
       "head": "Filters",
@@ -484,7 +541,11 @@
         "f.dateIssued.max": "End date",
         "f.subject": "Subject",
         "f.has_content_in_original_bundle": "Has files",
-        "f.entityType": "Item Type"
+        "f.entityType": "Item Type",
+        "f.namedresourcetype": "Status",
+        "f.dateSubmitted": "Date submitted",
+        "f.itemtype": "Type",
+        "f.submitter": "Submitter"
       },
       "filter": {
         "show-more": "Show more",
@@ -516,6 +577,26 @@
         "entityType": {
           "placeholder": "Item Type",
           "head": "Item Type"
+        },
+        "namedresourcetype": {
+          "placeholder": "Status",
+          "head": "Status"
+        },
+        "dateSubmitted": {
+          "placeholder": "Date submitted",
+          "head": "Date submitted"
+        },
+        "itemtype": {
+          "placeholder": "Type",
+          "head": "Type"
+        },
+        "submitter": {
+          "placeholder": "Submitter",
+          "head": "Submitter"
+        },
+        "objectpeople": {
+          "placeholder": "People",
+          "head": "People"
         }
       }
     }
@@ -736,6 +817,7 @@
     "item": "Loading item...",
     "objects": "Loading...",
     "search-results": "Loading search results...",
+    "mydspace-results": "Loading items...",
     "browse-by": "Loading items...",
     "browse-by-page": "Loading page..."
   },
@@ -925,6 +1007,49 @@
             "title": "Delete bitstream",
             "info": "This operation can't be undone. Are you sure?"
           }
+        }
+      }
+    },
+    "workflow": {
+      "generic": {
+        "delete": "Delete",
+        "delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+        "edit": "Edit",
+        "edit-help": "Select this option to change the item's metadata.",
+        "view": "View",
+        "view-help": "Select this option to view the item's metadata."
+      },
+      "tasks": {
+        "generic": {
+          "processing": "Processing...",
+          "success": "Operation successful",
+          "error": "Error occurred during operation...",
+          "submitter": "Submitter"
+        },
+        "claimed": {
+          "approve": "Approve",
+          "approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+          "edit": "Edit",
+          "edit_help": "Select this option to change the item's metadata.",
+          "reject": {
+            "submit": "Reject",
+            "reason": {
+              "submit": "Reject item",
+              "title": "Reason",
+              "info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
+              "placeholder": "Describe the reason of reject"
+            }
+          },
+          "reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+          "return": "Return to pool",
+          "return_help": "Return the task to the pool so that another user may perform the task."
+
+        },
+        "pool": {
+          "claim": "Claim",
+          "claim_help": "Assign this task to yourself.",
+          "show-detail": "Show detail",
+          "hide-detail": "Hide detail"
         }
       }
     }

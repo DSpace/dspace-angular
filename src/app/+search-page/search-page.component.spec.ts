@@ -20,11 +20,16 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { RemoteData } from '../core/data/remote-data';
+import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { RouteService } from '../shared/services/route.service';
+import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
+import { PaginatedSearchOptions } from './paginated-search-options.model';
+import { SearchFixedFilterService } from './search-filters/search-filter/search-fixed-filter.service';
 
 let comp: SearchPageComponent;
 let fixture: ComponentFixture<SearchPageComponent>;
 let searchServiceObject: SearchService;
+let searchConfigurationServiceObject: SearchConfigurationService;
 const store: Store<SearchPageComponent> = jasmine.createSpyObj('store', {
   /* tslint:disable:no-empty */
   dispatch: {},
@@ -42,17 +47,25 @@ const searchServiceStub = jasmine.createSpyObj('SearchService', {
   getSearchLink: '/search',
   getScopes: observableOf(['test-scope'])
 });
+const configurationParam = 'default';
 const queryParam = 'test query';
 const scopeParam = '7669c72a-3f2a-451f-a3b9-9210e7a4c02f';
 const fixedFilter = 'fixed filter';
-const paginatedSearchOptions = {
+const paginatedSearchOptions = new PaginatedSearchOptions({
+  configuration: configurationParam,
   query: queryParam,
   scope: scopeParam,
   fixedFilter: fixedFilter,
   pagination,
   sort
-};
+});
 const activatedRouteStub = {
+  snapshot: {
+    queryParamMap: new Map([
+      ['query', queryParam],
+      ['scope', scopeParam]
+    ])
+  },
   queryParams: observableOf({
     query: queryParam,
     scope: scopeParam
@@ -67,8 +80,19 @@ const sidebarService = {
 const routeServiceStub = {
   getRouteParameterValue: () => {
     return observableOf('');
+  },
+  getQueryParameterValue: () => {
+    return observableOf('')
+  },
+  getQueryParamsWithPrefix: () => {
+    return observableOf('')
   }
 };
+const mockFixedFilterService: SearchFixedFilterService = {
+  getQueryByFilterName: (filter: string) => {
+    return observableOf(undefined)
+  }
+} as SearchFixedFilterService;
 
 export function configureSearchComponentTestingModule(compType) {
   TestBed.configureTestingModule({
@@ -81,6 +105,7 @@ export function configureSearchComponentTestingModule(compType) {
         useValue: jasmine.createSpyObj('communityService', ['findById', 'findAll'])
       },
       { provide: ActivatedRoute, useValue: activatedRouteStub },
+      { provide: RouteService, useValue: routeServiceStub },
       {
         provide: Store, useValue: store
       },
@@ -101,6 +126,10 @@ export function configureSearchComponentTestingModule(compType) {
         useValue: {}
       },
       {
+        provide: SearchFixedFilterService,
+        useValue: mockFixedFilterService
+      },
+      {
         provide: SearchConfigurationService,
         useValue: {
           paginatedSearchOptions: hot('a', {
@@ -114,9 +143,9 @@ export function configureSearchComponentTestingModule(compType) {
         }
       },
       {
-        provide: RouteService,
-        useValue: routeServiceStub
-      }
+        provide: SEARCH_CONFIG_SERVICE,
+        useValue: new SearchConfigurationServiceStub()
+      },
     ],
     schemas: [NO_ERRORS_SCHEMA]
   }).overrideComponent(compType, {
@@ -125,7 +154,6 @@ export function configureSearchComponentTestingModule(compType) {
 }
 
 describe('SearchPageComponent', () => {
-
   beforeEach(async(() => {
     configureSearchComponentTestingModule(SearchPageComponent);
   }));
@@ -135,25 +163,21 @@ describe('SearchPageComponent', () => {
     comp = fixture.componentInstance; // SearchPageComponent test instance
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;
+    searchConfigurationServiceObject = (comp as any).searchConfigService;
+  });
+
+  afterEach(() => {
+    comp = null;
+    searchServiceObject = null;
+    searchConfigurationServiceObject = null;
   });
 
   it('should get the scope and query from the route parameters', () => {
+
+    searchConfigurationServiceObject.paginatedSearchOptions.next(paginatedSearchOptions);
     expect(comp.searchOptions$).toBeObservable(cold('b', {
       b: paginatedSearchOptions
     }));
-  });
-
-  describe('when the closeSidebar event is emitted clicked in mobile view', () => {
-
-    beforeEach(() => {
-      spyOn(comp, 'closeSidebar');
-      const closeSidebarButton = fixture.debugElement.query(By.css('#search-sidebar-sm'));
-      closeSidebarButton.triggerEventHandler('toggleSidebar', null);
-    });
-
-    it('should trigger the closeSidebar function', () => {
-      expect(comp.closeSidebar).toHaveBeenCalled();
-    });
 
   });
 

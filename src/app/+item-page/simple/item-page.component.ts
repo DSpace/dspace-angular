@@ -61,6 +61,6 @@ export class ItemPageComponent implements OnInit {
     this.thumbnail$ = this.itemRD$.pipe(
       map((rd: RemoteData<Item>) => rd.payload),
       filter((item: Item) => hasValue(item)),
-      mergeMap((item: Item) => item.getThumbnail()),);
+      mergeMap((item: Item) => item.getThumbnail()));
   }
 }

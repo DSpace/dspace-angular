@@ -87,6 +87,20 @@ import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { AlertComponent } from './alert/alert.component';
+import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
+import { MyDSpaceResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/my-dspace-result-detail-element.component';
+import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
+import { PoolTaskActionsComponent } from './mydspace-actions/pool-task/pool-task-actions.component';
+import { ObjectDetailComponent } from './object-detail/object-detail.component';
+import { WrapperDetailElementComponent } from './object-detail/wrapper-detail-element/wrapper-detail-element.component';
+import { ItemDetailPreviewComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
+import { MyDSpaceItemStatusComponent } from './object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
+import { WorkspaceitemActionsComponent } from './mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { WorkflowitemActionsComponent } from './mydspace-actions/workflowitem/workflowitem-actions.component';
+import { ItemSubmitterComponent } from './object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import { ItemActionsComponent } from './mydspace-actions/item/item-actions.component';
+import { ClaimedTaskActionsApproveComponent } from './mydspace-actions/claimed-task/approve/claimed-task-actions-approve.component';
+import { ClaimedTaskActionsRejectComponent } from './mydspace-actions/claimed-task/reject/claimed-task-actions-reject.component';
 import { ObjNgFor } from './utils/object-ngfor.pipe';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
@@ -125,7 +139,13 @@ import { ItemSearchResultListElementComponent } from './object-list/search-resul
 import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
-import { DSOSelectorModalWrapperComponent } from './dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
+import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
+import { MetadataFieldWrapperComponent } from '../+item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataValuesComponent } from '../+item-page/field-components/metadata-values/metadata-values.component';
+import { RoleDirective } from './roles/role.directive';
+import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
+import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
+import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -172,6 +192,7 @@ const COMPONENTS = [
   // put shared components here
   AlertComponent,
   AuthNavMenuComponent,
+  UserMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
@@ -201,9 +222,11 @@ const COMPONENTS = [
   LogOutComponent,
   NumberPickerComponent,
   ObjectListComponent,
+  ObjectDetailComponent,
+  ObjectGridComponent,
   AbstractListableElementComponent,
   WrapperListElementComponent,
-  ObjectGridComponent,
+  WrapperDetailElementComponent,
   WrapperGridElementComponent,
   ObjectCollectionComponent,
   PaginationComponent,
@@ -212,6 +235,19 @@ const COMPONENTS = [
   GridThumbnailComponent,
   UploaderComponent,
   WrapperListElementComponent,
+  ItemListPreviewComponent,
+  MyDSpaceItemStatusComponent,
+  ItemSubmitterComponent,
+  ItemDetailPreviewComponent,
+  ItemDetailPreviewFieldComponent,
+  ClaimedTaskActionsComponent,
+  ClaimedTaskActionsApproveComponent,
+  ClaimedTaskActionsRejectComponent,
+  ClaimedTaskActionsReturnToPoolComponent,
+  ItemActionsComponent,
+  PoolTaskActionsComponent,
+  WorkflowitemActionsComponent,
+  WorkspaceitemActionsComponent,
   ViewModeSwitchComponent,
   TruncatableComponent,
   TruncatablePartComponent,
@@ -237,6 +273,7 @@ const ENTRY_COMPONENTS = [
   ItemListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
+  MyDSpaceResultListElementComponent,
   SearchResultListElementComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
@@ -255,6 +292,8 @@ const ENTRY_COMPONENTS = [
   JournalVolumeListElementComponent,
   JournalIssueListElementComponent,
   BrowseEntryListElementComponent,
+  MyDSpaceResultDetailElementComponent,
+  SearchResultGridElementComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,
   DsDynamicScrollableDropdownComponent,
@@ -280,6 +319,11 @@ const ENTRY_COMPONENTS = [
   MetadataRepresentationListElementComponent
 ];
 
+const SHARED_ITEM_PAGE_COMPONENTS = [
+  MetadataFieldWrapperComponent,
+  MetadataValuesComponent,
+];
+
 const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
@@ -296,7 +340,8 @@ const DIRECTIVES = [
   ClickOutsideDirective,
   AuthorityConfidenceStateDirective,
   InListValidator,
-  AutoFocusDirective
+  AutoFocusDirective,
+  RoleDirective
 ];
 
 @NgModule({
@@ -309,6 +354,7 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
+    ...SHARED_ITEM_PAGE_COMPONENTS
   ],
   providers: [
     ...PROVIDERS
@@ -317,6 +363,7 @@ const DIRECTIVES = [
     ...MODULES,
     ...PIPES,
     ...COMPONENTS,
+    ...SHARED_ITEM_PAGE_COMPONENTS,
     ...DIRECTIVES
   ],
   entryComponents: [

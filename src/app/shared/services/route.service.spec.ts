@@ -29,6 +29,9 @@ describe('RouteService', () => {
     select: jasmine.createSpy('select')
   });
 
+  const router = new MockRouter();
+  router.setParams(convertToParamMap(paramObject));
+
   paramObject[paramName1] = paramValue1;
   paramObject[paramName2] = [paramValue2a, paramValue2b];
 
@@ -42,7 +45,7 @@ describe('RouteService', () => {
             queryParamMap: observableOf(convertToParamMap(paramObject))
           },
         },
-        { provide: Router, useValue: new MockRouter() },
+        { provide: Router, useValue: router },
         { provide: Store, useValue: store },
       ]
     });

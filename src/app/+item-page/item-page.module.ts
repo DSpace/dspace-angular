@@ -6,9 +6,7 @@ import { GenericItemPageFieldComponent } from './simple/field-components/specifi
 
 import { ItemPageComponent } from './simple/item-page.component';
 import { ItemPageRoutingModule } from './item-page-routing.module';
-import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
 import { MetadataUriValuesComponent } from './field-components/metadata-uri-values/metadata-uri-values.component';
-import { MetadataFieldWrapperComponent } from './field-components/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ItemPageAuthorFieldComponent } from './simple/field-components/specific-field/author/item-page-author-field.component';
 import { ItemPageDateFieldComponent } from './simple/field-components/specific-field/date/item-page-date-field.component';
 import { ItemPageAbstractFieldComponent } from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
@@ -44,9 +42,7 @@ import { RelatedEntitiesSearchComponent } from './simple/related-entities/relate
   declarations: [
     ItemPageComponent,
     FullItemPageComponent,
-    MetadataValuesComponent,
     MetadataUriValuesComponent,
-    MetadataFieldWrapperComponent,
     ItemPageAuthorFieldComponent,
     ItemPageDateFieldComponent,
     ItemPageAbstractFieldComponent,
