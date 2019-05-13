@@ -3,6 +3,11 @@
  */
 export enum FilterType {
   /**
+   * Represents authority facets
+   */
+  authority = 'authority',
+
+  /**
    * Represents simple text facets
    */
   text = 'text',

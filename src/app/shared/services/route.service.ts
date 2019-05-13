@@ -1,9 +1,10 @@
 import { distinctUntilChanged, map, mergeMap, filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router, } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { isEqual } from 'lodash';
 
 import { AppState } from '../../app.reducer';
 import { AddUrlToHistoryAction } from '../history/history.actions';
@@ -26,8 +27,8 @@ export class RouteService {
    * @param paramName The name of the parameter to look for
    */
   getQueryParameterValues(paramName: string): Observable<string[]> {
-    return this.route.queryParamMap.pipe(
-      map((paramMap) => [...paramMap.getAll(paramName)]),
+    return this.getQueryParamMap().pipe(
+      map((params) => [...params.getAll(paramName)]),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
     );
   }
@@ -37,8 +38,8 @@ export class RouteService {
    * @param paramName The name of the parameter to look for
    */
   getQueryParameterValue(paramName: string): Observable<string> {
-    return this.route.queryParamMap.pipe(
-      map((paramMap) => paramMap.get(paramName)),
+    return this.getQueryParamMap().pipe(
+      map((params) => params.get(paramName)),
       distinctUntilChanged()
     );
   }
@@ -48,8 +49,8 @@ export class RouteService {
    * @param paramName The name of the parameter to look for
    */
   hasQueryParam(paramName: string): Observable<boolean> {
-    return this.route.queryParamMap.pipe(
-      map((paramMap) => paramMap.has(paramName)),
+    return this.getQueryParamMap().pipe(
+      map((params) => params.has(paramName)),
       distinctUntilChanged()
     );
   }
@@ -60,8 +61,8 @@ export class RouteService {
    * @param paramValue The value of the parameter to look for
    */
   hasQueryParamWithValue(paramName: string, paramValue: string): Observable<boolean> {
-    return this.route.queryParamMap.pipe(
-      map((paramMap) => paramMap.getAll(paramName).indexOf(paramValue) > -1),
+    return this.getQueryParamMap().pipe(
+      map((params) => params.getAll(paramName).indexOf(paramValue) > -1),
       distinctUntilChanged()
     );
   }
@@ -79,18 +80,31 @@ export class RouteService {
    * @param prefix The prefix of the parameter name to look for
    */
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
-    return this.route.queryParamMap.pipe(
-      map((paramMap) => {
+    return this.getQueryParamMap().pipe(
+      map((qparams) => {
         const params = {};
-        paramMap.keys
+        qparams.keys
           .filter((key) => key.startsWith(prefix))
           .forEach((key) => {
-            params[key] = [...paramMap.getAll(key)];
+            params[key] = [...qparams.getAll(key)];
           });
         return params;
       }),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
     );
+  }
+
+  public getQueryParamMap(): Observable<any> {
+    return this.route.queryParamMap.pipe(
+      map((paramMap) => {
+        const snapshot: RouterStateSnapshot = this.router.routerState.snapshot;
+        // Due to an Angular bug, sometimes change of QueryParam is not detected so double checks with route snapshot
+        if (!isEqual(paramMap, snapshot.root.queryParamMap)) {
+          return snapshot.root.queryParamMap;
+        } else {
+          return paramMap;
+        }
+      }))
   }
 
   public saveRouting(): void {

@@ -9,6 +9,7 @@ import { SetViewMode } from '../shared/view-mode';
  * This model class represents all parameters needed to request information about a certain search request
  */
 export class SearchOptions {
+  configuration?: string;
   view?: SetViewMode = SetViewMode.List;
   scope?: string;
   query?: string;
@@ -16,7 +17,8 @@ export class SearchOptions {
   filters?: any;
   fixedFilter?: any;
 
-  constructor(options: {scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[], fixedFilter?: any}) {
+  constructor(options: {configuration?: string, scope?: string, query?: string, dsoType?: DSpaceObjectType, filters?: SearchFilter[], fixedFilter?: any}) {
+      this.configuration = options.configuration;
       this.scope = options.scope;
       this.query = options.query;
       this.dsoType = options.dsoType;
@@ -31,6 +33,9 @@ export class SearchOptions {
    * @returns {string} URL with all search options and passed arguments as query parameters
    */
   toRestUrl(url: string, args: string[] = []): string {
+    if (isNotEmpty(this.configuration)) {
+      args.push(`configuration=${this.configuration}`);
+    }
     if (isNotEmpty(this.fixedFilter)) {
       args.push(this.fixedFilter);
     }
@@ -45,7 +50,10 @@ export class SearchOptions {
     }
     if (isNotEmpty(this.filters)) {
       this.filters.forEach((filter: SearchFilter) => {
-        filter.values.forEach((value) => args.push(`${filter.key}=${value},${filter.operator}`));
+        filter.values.forEach((value) => {
+          const filterValue = value.includes(',') ? `${value}` : `${value},${filter.operator}`;
+          args.push(`${filter.key}=${filterValue}`)
+        });
       });
     }
     if (isNotEmpty(args)) {

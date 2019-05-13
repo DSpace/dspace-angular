@@ -32,7 +32,7 @@ export class FilteredSearchPageComponent extends SearchPageComponent {
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
-              protected searchConfigService: SearchConfigurationService,
+              public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService) {
     super(service, sidebarService, windowService, searchConfigService, routeService);
   }

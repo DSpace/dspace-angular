@@ -68,6 +68,8 @@ export class DSpaceRESTv2Service {
    *    the URL for the request
    * @param body
    *    an optional body for the request
+   * @param options
+   *    the HttpOptions object
    * @return {Observable<string>}
    *      An Observable<string> containing the response from the server
    */

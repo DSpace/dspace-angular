@@ -17,7 +17,8 @@ import { Router } from '@angular/router';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service-stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -35,14 +36,17 @@ describe('SearchFacetFilterComponent', () => {
   });
   const values: FacetValue[] = [
     {
+      label: value1,
       value: value1,
       count: 52,
       search: ''
     }, {
+      label: value2,
       value: value2,
       count: 20,
       search: ''
     }, {
+      label: value3,
       value: value3,
       count: 5,
       search: ''
@@ -66,7 +70,7 @@ describe('SearchFacetFilterComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         { provide: RemoteDataBuildService, useValue: {aggregate: () => observableOf({})} },
-        { provide: SearchConfigurationService, useValue: {searchOptions: observableOf({})} },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => observableOf(selectedValues),

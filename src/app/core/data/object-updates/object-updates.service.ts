@@ -5,7 +5,8 @@ import { coreSelector } from '../../core.selectors';
 import {
   FieldState,
   FieldUpdates,
-  Identifiable, OBJECT_UPDATES_TRASH_PATH,
+  Identifiable,
+  OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
   ObjectUpdatesState
 } from './object-updates.reducer';
@@ -17,9 +18,10 @@ import {
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
-  SetEditableFieldUpdateAction, SetValidFieldUpdateAction
+  SetEditableFieldUpdateAction,
+  SetValidFieldUpdateAction
 } from './object-updates.actions';
-import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 
@@ -212,6 +214,7 @@ export class ObjectUpdatesService {
   /**
    * Method to dispatch an RemoveFieldUpdateAction to the store
    * @param url The page's URL for which the changes should be removed
+   * @param uuid The UUID of the field that should be set
    */
   removeSingleFieldUpdate(url: string, uuid) {
     this.store.dispatch(new RemoveFieldUpdateAction(url, uuid));

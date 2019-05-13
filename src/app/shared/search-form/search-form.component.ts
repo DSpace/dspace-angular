@@ -3,6 +3,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { QueryParamsHandling } from '@angular/router/src/config';
+import { MYDSPACE_ROUTE } from '../../+my-dspace-page/my-dspace-page.component';
 
 /**
  * This component renders a simple item page.
@@ -64,7 +65,7 @@ export class SearchFormComponent {
   updateSearch(data: any) {
     const newUrl = hasValue(this.currentUrl) ? this.currentUrl : '/search';
     let handling: QueryParamsHandling = '' ;
-    if (this.currentUrl === '/search') {
+    if (this.currentUrl === '/search' || this.currentUrl === MYDSPACE_ROUTE) {
       handling = 'merge';
     }
     this.router.navigate([newUrl], {
