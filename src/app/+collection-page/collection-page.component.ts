@@ -17,8 +17,8 @@ import { fadeIn, fadeInOut } from '../shared/animations/fade';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { filter, first, flatMap, map, switchMap } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { getSucceededRemoteData, redirectToPageNotFoundOn404 } from '../core/shared/operators';
+import { FindAllOptions } from '../core/data/request.models';
 
 @Component({
   selector: 'ds-collection-page',
@@ -91,12 +91,12 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       map((rd) => rd.payload.id),
       switchMap((id: string) => {
         return this.itemDataService.findAll(
-          new PaginatedSearchOptions({
-            scope: id,
+          {
+            scopeID: id,
             currentPage: searchOptions.pagination.currentPage,
             elementsPerPage: searchOptions.pagination.pageSize,
             sort: searchOptions.sort
-          }));
+          });
       })
     )
   }

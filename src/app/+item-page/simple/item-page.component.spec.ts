@@ -4,7 +4,7 @@ import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ItemPageComponent } from './item-page.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { MetadataService } from '../../core/metadata/metadata.service';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -48,7 +48,8 @@ describe('ItemPageComponent', () => {
       providers: [
         {provide: ActivatedRoute, useValue: mockRoute},
         {provide: ItemDataService, useValue: {}},
-        {provide: MetadataService, useValue: mockMetadataService}
+        {provide: MetadataService, useValue: mockMetadataService},
+        {provide: Router, useValue: {}}
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
