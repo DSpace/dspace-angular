@@ -1,6 +1,12 @@
-import { distinctUntilChanged, map, mergeMap, filter } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Params,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -136,5 +142,4 @@ export class RouteService {
       map((history: string[]) => history[history.length - 2] || '')
     );
   }
-
 }
