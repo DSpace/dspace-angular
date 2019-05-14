@@ -11,8 +11,8 @@ import { filterRelationsByTypeLabel, relationsToItems } from '../shared/item-rel
 @rendersItemType('JournalVolume', ItemViewMode.Full)
 @Component({
   selector: 'ds-journal-volume',
-  styleUrls: ['./journal-volume.component.scss'],
-  templateUrl: './journal-volume.component.html'
+  styleUrls: ['./themes/journal-volume.component.mantis.scss'],
+  templateUrl: './themes/journal-volume.component.mantis.html'
 })
 /**
  * The component for displaying metadata and relations of an item of the type Journal Volume

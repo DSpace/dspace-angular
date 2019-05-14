@@ -1,0 +1,30 @@
+@import '../../../../../../styles/variables.scss';
+
+:host {
+    > * {
+        display: block;
+        padding-top: $content-spacing;
+        padding-bottom: $content-spacing;
+    }
+
+    .top-item-page {
+        background-color: $gray-100;
+        margin-top: -$content-spacing;
+    }
+
+    .relationships-item-page {
+        padding-bottom: $content-spacing - $spacer;
+    }
+
+    ds-metadata-field-wrapper {
+        @media screen and (max-width: map-get($grid-breakpoints, md)) {
+            flex: 1;
+            padding-right: $spacer/2;
+        }
+
+        ds-thumbnail {
+            display: block;
+            max-width: $thumbnail-max-width;
+        }
+    }
+}

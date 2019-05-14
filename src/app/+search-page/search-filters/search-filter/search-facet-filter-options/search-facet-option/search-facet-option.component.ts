@@ -13,7 +13,8 @@ import { FilterType } from '../../../../search-service/filter-type.model';
 @Component({
   selector: 'ds-search-facet-option',
   styleUrls: ['./search-facet-option.component.scss'],
-  templateUrl: './search-facet-option.component.html',
+  // templateUrl: './search-facet-option.component.html',
+  templateUrl: './themes/search-facet-option.component.mantis.html',
 })
 
 /**

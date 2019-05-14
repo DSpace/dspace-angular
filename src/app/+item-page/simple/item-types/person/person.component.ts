@@ -12,8 +12,8 @@ import { filterRelationsByTypeLabel, relationsToItems } from '../shared/item-rel
 @rendersItemType('Person', ItemViewMode.Full)
 @Component({
   selector: 'ds-person',
-  styleUrls: ['./person.component.scss'],
-  templateUrl: './person.component.html'
+  styleUrls: ['./themes/person.component.mantis.scss'],
+  templateUrl: './themes/person.component.mantis.html'
 })
 /**
  * The component for displaying metadata and relations of an item of the type Person

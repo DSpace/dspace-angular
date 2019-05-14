@@ -1,0 +1,16 @@
+@import '../../../styles/variables.scss';
+
+:host {
+  display: block;
+  margin-top: -$content-spacing;
+  margin-bottom: -$content-spacing;
+}
+
+.display-3 {
+  word-break: break-word;
+}
+
+.dspace-logo {
+  height: 110px;
+  width: 110px;
+}

@@ -1,0 +1,11 @@
+@import '../../../../../styles/variables.scss';
+@import '../../../../../styles/mixins.scss';
+
+:host-context(.mantis) .facet-filter {
+    background-color: map-get($theme-colors, light);
+    border-radius: $border-radius;
+
+    h5 {
+       font-size: 1.1rem
+    }
+}

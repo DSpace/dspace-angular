@@ -1,0 +1,19 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/mixins.scss';
+
+:host-context(.mantis) {
+  $home-news-link-color: $green !default;
+  $home-news-link-color: darken($home-news-link-color, 15%) !default;
+
+    .jumbotron {
+        background-color: transparent;
+    }
+
+  a {
+    color: $home-news-link-color;
+
+    @include hover {
+      color: $home-news-link-color;
+    }
+  }
+}

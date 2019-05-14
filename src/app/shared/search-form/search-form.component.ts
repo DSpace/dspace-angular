@@ -14,7 +14,8 @@ import { MYDSPACE_ROUTE } from '../../+my-dspace-page/my-dspace-page.component';
 @Component({
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
-  templateUrl: './search-form.component.html'
+  // templateUrl: './search-form.component.html',
+  templateUrl: './themes/search-form.component.mantis.html'
 })
 
 /**
@@ -38,6 +39,16 @@ export class SearchFormComponent {
    * The available scopes
    */
   @Input() scopes: DSpaceObject[];
+
+  /**
+   * Whether or not the search button should be displayed large
+   */
+  @Input() large = false;
+
+  /**
+   * The brand color of the search button
+   */
+  @Input() brandColor = 'primary';
 
   constructor(private router: Router) {
   }

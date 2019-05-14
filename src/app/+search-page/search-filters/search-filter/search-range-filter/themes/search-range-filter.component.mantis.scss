@@ -1,0 +1,7 @@
+@import '../../../../../../styles/variables.scss';
+
+:host-context(.mantis) {
+    ::ng-deep .noUi-connect {
+        background: $info;
+    }
+}

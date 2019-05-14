@@ -12,6 +12,7 @@
                   class="item-list-authors">
                     <span *ngFor="let author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
                         <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
+                        <span *ngIf="!last">; </span>
                     </span>
             </span>
         </ds-truncatable-part>

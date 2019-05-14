@@ -10,7 +10,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.comp
 @Component({
   selector: 'ds-search-settings',
   styleUrls: ['./search-settings.component.scss'],
-  templateUrl: './search-settings.component.html'
+  // templateUrl: './search-settings.component.html'
+  templateUrl: './themes/search-settings.component.mantis.html'
 })
 
 /**

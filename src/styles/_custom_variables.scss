@@ -20,9 +20,9 @@ $sidebar-z-index: 20;
 $header-logo-height: 80px;
 $header-logo-height-xs: 50px;
 
-$admin-sidebar-bg: $dark;
-$admin-sidebar-active-bg: darken($dark, 3%);
-$admin-sidebar-header-bg: darken($dark, 7%);
+$admin-sidebar-bg: darken(#2B4E72, 17%);
+$admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%);
+$admin-sidebar-header-bg: darken($admin-sidebar-bg, 7%);
 
 $dark-scrollbar-background: $admin-sidebar-active-bg;
 $dark-scrollbar-foreground: #47495d;
@@ -32,3 +32,5 @@ $submission-sections-margin-bottom: .5rem !default;
 $edit-item-button-min-width: 100px;
 $edit-item-metadata-field-width: 190px;
 $edit-item-language-field-width: 43px;
+
+$thumbnail-max-width: 175px;

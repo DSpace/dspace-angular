@@ -14,7 +14,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.c
 @Component({
   selector: 'ds-search-filter',
   styleUrls: ['./search-filter.component.scss'],
-  templateUrl: './search-filter.component.html',
+  // templateUrl: './search-filter.component.html',
+  templateUrl: './themes/search-filter.component.mantis.html',
   animations: [slide],
 })
 

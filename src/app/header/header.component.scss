@@ -1,12 +1,2 @@
-@import '../../styles/variables.scss';
-
-.navbar-brand img {
-    height: $header-logo-height;
-    @media screen and (max-width: map-get($grid-breakpoints, sm)) {
-        height: $header-logo-height-xs;
-    }
-}
-.navbar-toggler .navbar-toggler-icon {
-    background-image: none !important;
-    line-height: 1.5;
-}
+@import './header.component.default';
+@import './themes/*.scss';

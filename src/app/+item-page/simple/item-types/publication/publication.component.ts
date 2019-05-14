@@ -15,8 +15,8 @@ import { filterRelationsByTypeLabel, relationsToItems } from '../shared/item-rel
 @rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Full)
 @Component({
   selector: 'ds-publication',
-  styleUrls: ['./publication.component.scss'],
-  templateUrl: './publication.component.html',
+  styleUrls: ['./themes/publication.component.mantis.scss'],
+  templateUrl: './themes/publication.component.mantis.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublicationComponent extends ItemComponent implements OnInit {

@@ -1,0 +1,13 @@
+@import '../../../../styles/variables.scss';
+@import '../../../../styles/mixins.scss';
+
+:host .facet-filter {
+  border: 1px solid map-get($theme-colors, light);
+  cursor: pointer;
+  .search-filter-wrapper.closed {
+    overflow: hidden;
+  }
+  .filter-toggle {
+    line-height: $line-height-base;
+  }
+}

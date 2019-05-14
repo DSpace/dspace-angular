@@ -1,4 +1,4 @@
-<div class="outer-wrapper">
+<div class="outer-wrapper mantis">
     <ds-admin-sidebar></ds-admin-sidebar>
     <div class="inner-wrapper"  [@slideSidebarPadding]="{
      value: (!(sidebarVisible | async) ? 'hidden' : (slideSidebarOver | async) ? 'shown' : 'expanded'),
@@ -9,7 +9,6 @@
         <ds-notifications-board
                 [options]="config.notifications">
         </ds-notifications-board>
-
         <main class="main-content">
             <div class="container" *ngIf="isLoading">
                 <ds-loading message="{{'loading.default' | translate}}"></ds-loading>

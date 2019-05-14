@@ -11,8 +11,8 @@ import { filterRelationsByTypeLabel, relationsToItems } from '../shared/item-rel
 @rendersItemType('OrgUnit', ItemViewMode.Full)
 @Component({
   selector: 'ds-orgunit',
-  styleUrls: ['./orgunit.component.scss'],
-  templateUrl: './orgunit.component.html'
+  styleUrls: ['./themes/orgunit.component.mantis.scss'],
+  templateUrl: './themes/orgunit.component.mantis.html'
 })
 /**
  * The component for displaying metadata and relations of an item of the type Organisation Unit
