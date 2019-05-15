@@ -35,6 +35,11 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   @Input() selectedValues$: Observable<FacetValue[]>;
 
   /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
+
+  /**
    * UI parameters when this filter is removed
    */
   removeQueryParams;
@@ -62,9 +67,12 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @returns {string} The base path to the search page
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  getSearchLink() {
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
     return this.searchService.getSearchLink();
   }
 

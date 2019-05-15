@@ -18,7 +18,7 @@ import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { SearchService } from '../../../search-service/search.service';
-import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
@@ -85,6 +85,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+              @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig) {
   }
 
@@ -167,10 +168,23 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @returns {string} The base path to the search page
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  getSearchLink() {
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
     return this.searchService.getSearchLink();
+  }
+
+  /**
+   * @returns {string[]} The base path to the search page, or the current page when inPlaceSearch is true, split in separate pieces
+   */
+  public getSearchLinkParts(): string[] {
+    if (this.inPlaceSearch) {
+      return [];
+    }
+    return this.getSearchLink().split('/');
   }
 
   /**
@@ -208,7 +222,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   onSubmit(data: any) {
     this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
         if (isNotEmpty(data)) {
-          this.router.navigate([this.getSearchLink()], {
+          this.router.navigate(this.getSearchLinkParts(), {
             queryParams:
               { [this.filterConfig.paramName]: [
                   ...selectedValues.map((facet) => this.getFacetValue(facet)),

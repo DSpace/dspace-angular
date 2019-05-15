@@ -28,6 +28,11 @@ export class SearchFilterComponent implements OnInit {
   @Input() filter: SearchFilterConfig;
 
   /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
+
+  /**
    * True when the filter is 100% collapsed in the UI
    */
   closed = true;
