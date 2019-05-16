@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of as observableOf, Observable, Subject } from 'rxjs';
-import { filter, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, flatMap, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
@@ -78,7 +78,6 @@ export class CollectionPageComponent implements OnInit {
     });
 
     this.itemRD$ = this.paginationChanges$.pipe(
-      tap((dto) => console.log('dto', dto)),
       switchMap((dto) => this.collectionRD$.pipe(
         getSucceededRemoteData(),
         map((rd) => rd.payload.id),
@@ -90,7 +89,8 @@ export class CollectionPageComponent implements OnInit {
                 sort: dto.sortConfig,
                 dsoType: DSpaceObjectType.ITEM
               })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>
-        })
+        }),
+        startWith(undefined) // Make sure switching page shows loading component
         )
       )
     );
