@@ -21,6 +21,8 @@ import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { Params } from '@angular/router';
+import * as postcss from 'postcss';
+import prefix = postcss.vendor.prefix;
 // const spy = create();
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -142,7 +144,6 @@ export class SearchFilterService {
     const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
       map((params: Params) => [].concat(...Object.values(params))),
     );
-
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {
           if (isNotEmpty(values)) {
