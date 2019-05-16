@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../search-filter.service';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { FacetValue } from '../../../search-service/facet-value.model';
@@ -71,6 +71,7 @@ describe('SearchFacetFilterComponent', () => {
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         { provide: RemoteDataBuildService, useValue: {aggregate: () => observableOf({})} },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: IN_PLACE_SEARCH, useValue: false },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => observableOf(selectedValues),
@@ -178,7 +179,7 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call navigate on the router with the right searchlink and parameters', () => {
-      expect(router.navigate).toHaveBeenCalledWith([searchUrl], {
+      expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: { [mockFilterConfig.paramName]: [...selectedValues, testValue] },
         queryParamsHandling: 'merge'
       });
