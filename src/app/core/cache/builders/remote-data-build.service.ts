@@ -218,8 +218,7 @@ export class RemoteDataBuildService {
           .map((d: RemoteData<T>) => d.isResponsePending)
           .find((b: boolean) => b === true);
 
-
-        let isSuccessful: boolean = undefined;
+        let isSuccessful: boolean;
         // isSuccessful should be undefined until all responses have come in.
         // We can't know its state beforehand. We also can't say it's false
         // because that would imply a request failed.

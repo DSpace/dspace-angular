@@ -79,7 +79,6 @@ export class SearchSettingsComponent implements OnInit {
     this.router.navigate(this.getSearchLinkParts(), navigationExtras);
   }
 
-
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
@@ -99,5 +98,4 @@ export class SearchSettingsComponent implements OnInit {
     }
     return this.getSearchLink().split('/');
   }
-
 }

@@ -69,7 +69,6 @@ export class SearchFormComponent {
    * @param data Updated parameters
    */
   updateSearch(data: any) {
-
     this.router.navigate(this.getSearchLinkParts(), {
       queryParams: Object.assign({}, { page: 1 }, data),
       queryParamsHandling: 'merge'
@@ -82,7 +81,6 @@ export class SearchFormComponent {
   isNotEmpty(object: any) {
     return isNotEmpty(object);
   }
-
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true

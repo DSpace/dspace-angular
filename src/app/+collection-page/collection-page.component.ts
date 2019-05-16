@@ -90,14 +90,14 @@ export class CollectionPageComponent implements OnInit {
                 dsoType: DSpaceObjectType.ITEM
               })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>
         }),
-        startWith(undefined) // Make sure switching page shows loading component
+        startWith(undefined) // Make sure switching pages shows loading component
         )
       )
     );
 
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.metadata.processRemoteData(this.collectionRD$);
-      this.onPaginationChange(params)
+      this.onPaginationChange(params);
     })
   }
 
