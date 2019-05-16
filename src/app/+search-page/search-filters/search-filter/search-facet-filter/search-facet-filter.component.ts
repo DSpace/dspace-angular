@@ -137,7 +137,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
             map((selectedValues) => {
               return selectedValues.map((value: string) => {
-                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => facetValue.value === value)
+                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => facetValue.value === value);
                 if (hasValue(fValue)) {
                   return fValue;
                 }
