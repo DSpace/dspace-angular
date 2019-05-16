@@ -19,6 +19,7 @@ import { SearchFacetFilterComponent } from './search-facet-filter.component';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service-stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { tap } from 'rxjs/operators';
 
 describe('SearchFacetFilterComponent', () => {
   let comp: SearchFacetFilterComponent;
@@ -69,7 +70,7 @@ describe('SearchFacetFilterComponent', () => {
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
-        { provide: RemoteDataBuildService, useValue: {aggregate: () => observableOf({})} },
+        { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: IN_PLACE_SEARCH, useValue: false },
         {
@@ -173,7 +174,14 @@ describe('SearchFacetFilterComponent', () => {
     const searchUrl = '/search/path';
     const testValue = 'test';
     const data = testValue;
+
     beforeEach(() => {
+      comp.selectedValues$ = observableOf(selectedValues.map((value) =>
+        Object.assign(new FacetValue(), {
+          label: value,
+          value: value
+        })));
+      fixture.detectChanges();
       spyOn(comp, 'getSearchLink').and.returnValue(searchUrl);
       comp.onSubmit(data);
     });
@@ -193,9 +201,9 @@ describe('SearchFacetFilterComponent', () => {
     });
 
     it('should call showFirstPageOnly and empty the filter', () => {
-        expect(comp.animationState).toEqual('loading');
-        expect((comp as any).collapseNextUpdate).toBeTruthy();
-        expect(comp.filter).toEqual('');
+      expect(comp.animationState).toEqual('loading');
+      expect((comp as any).collapseNextUpdate).toBeTruthy();
+      expect(comp.filter).toEqual('');
     });
   });
 

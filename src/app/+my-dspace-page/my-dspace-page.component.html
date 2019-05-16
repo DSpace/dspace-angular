@@ -6,7 +6,8 @@
                          id="search-sidebar"
                          [configurationList]="(configurationList$ | async)"
                          [resultCount]="(resultsRD$ | async)?.payload.totalElements"
-                         [viewModeList]="viewModeList"></ds-search-sidebar>
+                         [viewModeList]="viewModeList"
+                         [inPlaceSearch]="inPlaceSearch"></ds-search-sidebar>
       <div class="col-12 col-md-9">
           <ds-search-form id="search-form"
                           [query]="(searchOptions$ | async)?.query"

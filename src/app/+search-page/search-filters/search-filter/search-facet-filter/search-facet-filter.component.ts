@@ -6,7 +6,7 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { switchMap, distinctUntilChanged, map, take, flatMap } from 'rxjs/operators';
+import { switchMap, distinctUntilChanged, map, take, flatMap, tap } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -117,14 +117,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.selectedValues$ = observableCombineLatest(
-      this.filterService.getSelectedValuesForFilter(this.filterConfig),
-      facetValues$.pipe(flatMap((facetValues) => facetValues.values))).pipe(
-      map(([selectedValues, facetValues]) => {
-        return facetValues.payload.page.filter((facetValue) => selectedValues.includes(this.getFacetValue(facetValue)))
-      })
-    );
-
     let filterValues = [];
     this.subs.push(facetValues$.subscribe((facetOutcome) => {
       const newValues$ = facetOutcome.values;
@@ -140,9 +132,24 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
       filterValues = [...filterValues, newValues$];
 
-      this.subs.push(this.rdbs.aggregate(filterValues).subscribe((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => {
+      this.subs.push(this.rdbs.aggregate(filterValues).pipe(
+        tap((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => {
+          this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
+            map((selectedValues) => {
+              return selectedValues.map((value: string) => {
+                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => facetValue.value === value);
+                if (hasValue(fValue)) {
+                  return fValue;
+                }
+                return Object.assign(new FacetValue(), { label: value, value: value });
+              });
+            })
+          );
+        })
+      ).subscribe((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => {
         this.animationState = 'ready';
         this.filterValues$.next(rd);
+
       }));
       this.subs.push(newValues$.pipe(take(1)).subscribe((rd) => {
         this.isLastPage$.next(hasNoValue(rd.payload.next))
@@ -224,10 +231,12 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
         if (isNotEmpty(data)) {
           this.router.navigate(this.getSearchLinkParts(), {
             queryParams:
-              { [this.filterConfig.paramName]: [
+              {
+                [this.filterConfig.paramName]: [
                   ...selectedValues.map((facet) => this.getFacetValue(facet)),
                   data
-                ] },
+                ]
+              },
             queryParamsHandling: 'merge'
           });
           this.filter = '';
