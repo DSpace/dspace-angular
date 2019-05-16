@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { filter, flatMap, map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, of as observableOf, Observable, Subject } from 'rxjs';
+import { filter, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
@@ -22,7 +22,7 @@ import {
 } from '../core/shared/operators';
 
 import { fadeIn, fadeInOut } from '../shared/animations/fade';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../shared/empty.util';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 
 @Component({
@@ -41,6 +41,10 @@ export class CollectionPageComponent implements OnInit {
   logoRD$: Observable<RemoteData<Bitstream>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
+  private paginationChanges$: Subject<{
+    paginationConfig: PaginationComponentOptions,
+    sortConfig: SortOptions
+  }>;
 
   constructor(
     private collectionDataService: CollectionDataService,
@@ -67,26 +71,34 @@ export class CollectionPageComponent implements OnInit {
       filter((collection: Collection) => hasValue(collection)),
       flatMap((collection: Collection) => collection.logo)
     );
+
+    this.paginationChanges$ = new BehaviorSubject({
+      paginationConfig: this.paginationConfig,
+      sortConfig: this.sortConfig
+    });
+
+    this.itemRD$ = this.paginationChanges$.pipe(
+      tap((dto) => console.log('dto', dto)),
+      switchMap((dto) => this.collectionRD$.pipe(
+        getSucceededRemoteData(),
+        map((rd) => rd.payload.id),
+        switchMap((id: string) => {
+          return this.searchService.search(
+              new PaginatedSearchOptions({
+                scope: id,
+                pagination: dto.paginationConfig,
+                sort: dto.sortConfig,
+                dsoType: DSpaceObjectType.ITEM
+              })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>
+        })
+        )
+      )
+    );
+
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       this.metadata.processRemoteData(this.collectionRD$);
       this.onPaginationChange(params)
     })
-  }
-
-  updatePage() {
-    this.itemRD$ = this.collectionRD$.pipe(
-      getSucceededRemoteData(),
-      map((rd) => rd.payload.id),
-      switchMap((id: string) => {
-        return this.searchService.search(
-          new PaginatedSearchOptions({
-            scope: id,
-            pagination: this.paginationConfig,
-            sort: this.sortConfig,
-            dsoType: DSpaceObjectType.ITEM
-          })).pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
-      })
-    )
   }
 
   isNotEmpty(object: any) {
@@ -94,10 +106,14 @@ export class CollectionPageComponent implements OnInit {
   }
 
   onPaginationChange(event) {
-      this.paginationConfig.currentPage = +event.page || this.paginationConfig.currentPage;
-      this.paginationConfig.pageSize = +event.pageSize || this.paginationConfig.pageSize;
-      this.sortConfig.direction = event.sortDirection || this.sortConfig.direction;
-      this.sortConfig.field = event.sortField || this.sortConfig.field;
-      this.updatePage();
+    this.paginationConfig.currentPage = +event.page || this.paginationConfig.currentPage;
+    this.paginationConfig.pageSize = +event.pageSize || this.paginationConfig.pageSize;
+    this.sortConfig.direction = event.sortDirection || this.sortConfig.direction;
+    this.sortConfig.field = event.sortField || this.sortConfig.field;
+
+    this.paginationChanges$.next({
+      paginationConfig: this.paginationConfig,
+      sortConfig: this.sortConfig
+    });
   }
 }
