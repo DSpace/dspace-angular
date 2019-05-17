@@ -1,5 +1,5 @@
 
-import { mergeMap, filter, map, take } from 'rxjs/operators';
+import { mergeMap, filter, map, take, tap } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -42,11 +42,6 @@ export class ItemPageComponent implements OnInit {
   itemRD$: Observable<RemoteData<Item>>;
 
   /**
-   * The item's thumbnail
-   */
-  thumbnail$: Observable<Bitstream>;
-
-  /**
    * The view-mode we're currently on
    */
   viewMode = ItemViewMode.Full;
@@ -64,9 +59,5 @@ export class ItemPageComponent implements OnInit {
       redirectToPageNotFoundOn404(this.router)
     );
     this.metadataService.processRemoteData(this.itemRD$);
-    this.thumbnail$ = this.itemRD$.pipe(
-      map((rd: RemoteData<Item>) => rd.payload),
-      filter((item: Item) => hasValue(item)),
-      mergeMap((item: Item) => item.getThumbnail()));
   }
 }

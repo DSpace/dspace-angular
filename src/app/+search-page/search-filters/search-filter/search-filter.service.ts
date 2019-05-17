@@ -21,10 +21,13 @@ import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { Params } from '@angular/router';
+import * as postcss from 'postcss';
+import prefix = postcss.vendor.prefix;
 // const spy = create();
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
+export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
 
 /**
  * Service that performs all actions that have to do with search filters and facets
@@ -141,7 +144,6 @@ export class SearchFilterService {
     const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
       map((params: Params) => [].concat(...Object.values(params))),
     );
-
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {
           if (isNotEmpty(values)) {

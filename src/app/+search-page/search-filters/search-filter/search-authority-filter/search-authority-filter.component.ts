@@ -33,5 +33,4 @@ export class SearchAuthorityFilterComponent extends SearchFacetFilterComponent i
 
     return params[this.filterConfig.paramName];
   }
-
 }

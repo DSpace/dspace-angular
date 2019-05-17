@@ -6,7 +6,7 @@ import {
   Subject,
   Subscription
 } from 'rxjs';
-import { switchMap, distinctUntilChanged, map, take, flatMap } from 'rxjs/operators';
+import { switchMap, distinctUntilChanged, map, take, flatMap, tap } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ import { EmphasizePipe } from '../../../../shared/utils/emphasize.pipe';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { SearchService } from '../../../search-service/search.service';
-import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
@@ -85,6 +85,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
               protected rdbs: RemoteDataBuildService,
               protected router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+              @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig) {
   }
 
@@ -116,14 +117,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.selectedValues$ = observableCombineLatest(
-      this.filterService.getSelectedValuesForFilter(this.filterConfig),
-      facetValues$.pipe(flatMap((facetValues) => facetValues.values))).pipe(
-      map(([selectedValues, facetValues]) => {
-        return facetValues.payload.page.filter((facetValue) => selectedValues.includes(this.getFacetValue(facetValue)))
-      })
-    );
-
     let filterValues = [];
     this.subs.push(facetValues$.subscribe((facetOutcome) => {
       const newValues$ = facetOutcome.values;
@@ -139,9 +132,24 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
 
       filterValues = [...filterValues, newValues$];
 
-      this.subs.push(this.rdbs.aggregate(filterValues).subscribe((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => {
+      this.subs.push(this.rdbs.aggregate(filterValues).pipe(
+        tap((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => {
+          this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
+            map((selectedValues) => {
+              return selectedValues.map((value: string) => {
+                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => facetValue.value === value);
+                if (hasValue(fValue)) {
+                  return fValue;
+                }
+                return Object.assign(new FacetValue(), { label: value, value: value });
+              });
+            })
+          );
+        })
+      ).subscribe((rd: RemoteData<Array<PaginatedList<FacetValue>>>) => {
         this.animationState = 'ready';
         this.filterValues$.next(rd);
+
       }));
       this.subs.push(newValues$.pipe(take(1)).subscribe((rd) => {
         this.isLastPage$.next(hasNoValue(rd.payload.next))
@@ -167,10 +175,23 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @returns {string} The base path to the search page
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  getSearchLink() {
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
     return this.searchService.getSearchLink();
+  }
+
+  /**
+   * @returns {string[]} The base path to the search page, or the current page when inPlaceSearch is true, split in separate pieces
+   */
+  public getSearchLinkParts(): string[] {
+    if (this.inPlaceSearch) {
+      return [];
+    }
+    return this.getSearchLink().split('/');
   }
 
   /**
@@ -208,12 +229,14 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
   onSubmit(data: any) {
     this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
         if (isNotEmpty(data)) {
-          this.router.navigate([this.getSearchLink()], {
+          this.router.navigate(this.getSearchLinkParts(), {
             queryParams:
-              { [this.filterConfig.paramName]: [
+              {
+                [this.filterConfig.paramName]: [
                   ...selectedValues.map((facet) => this.getFacetValue(facet)),
                   data
-                ] },
+                ]
+              },
             queryParamsHandling: 'merge'
           });
           this.filter = '';

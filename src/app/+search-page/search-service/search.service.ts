@@ -332,7 +332,7 @@ export class SearchService implements OnDestroy {
    * Changes the current view mode in the current URL
    * @param {ViewMode} viewMode Mode to switch to
    */
-  setViewMode(viewMode: ViewMode) {
+  setViewMode(viewMode: ViewMode, searchLinkParts?: string[]) {
     this.routeService.getQueryParameterValue('pageSize').pipe(first())
       .subscribe((pageSize) => {
         let queryParams = { view: viewMode, page: 1 };
@@ -346,7 +346,7 @@ export class SearchService implements OnDestroy {
           queryParamsHandling: 'merge'
         };
 
-        this.router.navigate([this.getSearchLink()], navigationExtras);
+        this.router.navigate(hasValue(searchLinkParts) ? searchLinkParts : [this.getSearchLink()], navigationExtras);
       })
   }
 
@@ -354,10 +354,7 @@ export class SearchService implements OnDestroy {
    * @returns {string} The base path to the search page
    */
   getSearchLink(): string {
-    const urlTree = this.router.parseUrl(this.router.url);
-    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
-    const searchLink: any = '/' + g.toString();
-    return (searchLink !== '/search' && searchLink !== '/mydspace') ? '/search' : searchLink;
+    return '/search';
   }
 
   /**

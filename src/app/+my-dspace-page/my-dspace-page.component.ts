@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Inject, InjectionToken, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  InjectionToken,
+  Input,
+  OnInit
+} from '@angular/core';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { switchMap, tap, } from 'rxjs/operators';
@@ -42,6 +49,11 @@ export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> =
   ]
 })
 export class MyDSpacePageComponent implements OnInit {
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch = true;
 
   /**
    * The list of available configuration options

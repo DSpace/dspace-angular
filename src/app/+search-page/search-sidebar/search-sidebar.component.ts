@@ -35,7 +35,13 @@ export class SearchSidebarComponent {
   @Input() viewModeList;
 
   /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
+
+  /**
    * Emits event when the user clicks a button to open or close the sidebar
    */
   @Output() toggleSidebar = new EventEmitter<boolean>();
+
 }

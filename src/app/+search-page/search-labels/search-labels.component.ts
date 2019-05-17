@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
@@ -21,6 +21,11 @@ export class SearchLabelsComponent {
    * Emits the currently active filters
    */
   appliedFilters: Observable<Params>;
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
 
   /**
    * Initialize the instance variable
@@ -51,9 +56,12 @@ export class SearchLabelsComponent {
   }
 
   /**
-   * @returns {string} The base path to the search page
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  getSearchLink() {
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
     return this.searchService.getSearchLink();
   }
 

@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { SearchService } from '../../+search-page/search-service/search.service';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
@@ -18,6 +19,12 @@ describe('SearchFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [
+        {
+          provide: SearchService,
+          useValue: {}
+        }
+      ],
       declarations: [SearchFormComponent]
     }).compileComponents();
   }));
