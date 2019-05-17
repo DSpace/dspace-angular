@@ -30,8 +30,7 @@ export class ThumbnailComponent implements OnInit {
   ngOnInit(): void {
       if (hasValue(this.thumbnail) && this.thumbnail.content) {
         this.src = this.thumbnail.content;
-      }
-      else {
+      } else {
         this.src = this.defaultImage
       }
   }
