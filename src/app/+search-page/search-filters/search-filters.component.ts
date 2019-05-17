@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -33,6 +33,11 @@ export class SearchFiltersComponent implements OnInit {
   clearParams;
 
   /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
+
+  /**
    * Initialize instance variables
    * @param {SearchService} searchService
    * @param {SearchConfigurationService} searchConfigService
@@ -58,9 +63,12 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   /**
-   * @returns {string} The base path to the search page
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  getSearchLink() {
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
     return this.searchService.getSearchLink();
   }
 

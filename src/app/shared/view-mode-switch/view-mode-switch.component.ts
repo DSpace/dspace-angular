@@ -17,6 +17,11 @@ import { isEmpty } from '../empty.util';
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
   @Input() viewModeList: ViewMode[];
 
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
+
   currentMode: ViewMode = ViewMode.List;
   viewModeEnum = ViewMode;
   private sub: Subscription;
@@ -35,7 +40,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
   }
 
   switchViewTo(viewMode: ViewMode) {
-    this.searchService.setViewMode(viewMode);
+    this.searchService.setViewMode(viewMode, this.getSearchLinkParts());
   }
 
   ngOnDestroy() {
@@ -47,4 +52,25 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
   isToShow(viewMode: ViewMode) {
     return this.viewModeList && this.viewModeList.includes(viewMode);
   }
+
+  /**
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
+   */
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
+    return this.searchService.getSearchLink();
+  }
+
+  /**
+   * @returns {string[]} The base path to the search page, or the current page when inPlaceSearch is true, split in separate pieces
+   */
+  public getSearchLinkParts(): string[] {
+    if (this.searchService) {
+      return [];
+    }
+    return this.getSearchLink().split('/');
+  }
+
 }

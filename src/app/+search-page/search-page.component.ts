@@ -70,6 +70,11 @@ export class SearchPageComponent implements OnInit {
   sub: Subscription;
 
   /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch = true;
+
+  /**
    * Whether or not the search bar should be visible
    */
   @Input()
@@ -148,9 +153,12 @@ export class SearchPageComponent implements OnInit {
   }
 
   /**
-   * @returns {string} The base path to the search page
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
   public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
     return this.service.getSearchLink();
   }
 
