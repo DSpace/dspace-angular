@@ -116,7 +116,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.statistics',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
         index: 2
       },

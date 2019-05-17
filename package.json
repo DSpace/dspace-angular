@@ -10,9 +10,6 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "config": {
-    "wp_cmd": "node --max_old_space_size=4096 ./node_modules/webpack/bin/webpack.js"
-  },
   "scripts": {
     "global": "npm install -g @angular/cli marked node-gyp nodemon node-nightly npm-check-updates npm-run-all rimraf typescript ts-node typedoc webpack webpack-bundle-analyzer pm2 rollup",
     "clean:coverage": "rimraf coverage",
@@ -26,9 +23,9 @@
     "prebuild": "yarn run clean:dist",
     "prebuild:aot": "yarn run prebuild",
     "prebuild:prod": "yarn run prebuild",
-    "build": "$npm_package_config_wp_cmd --progress --mode development",
-    "build:aot": "$npm_package_config_wp_cmd --env.aot --env.server --mode development && $npm_package_config_wp_cmd --env.aot --env.client --mode development",
-    "build:prod": "$npm_package_config_wp_cmd --env.aot --env.server --mode production && $npm_package_config_wp_cmd --env.aot --env.client --mode production",
+    "build": "node ./webpack/run-webpack.js --progress --mode development",
+    "build:aot": "node ./webpack/run-webpack.js --env.aot --env.server --mode development && node ./webpack/run-webpack.js --env.aot --env.client --mode development",
+    "build:prod": "node ./webpack/run-webpack.js --env.aot --env.server --mode production && node ./webpack/run-webpack.js --env.aot --env.client --mode production",
     "postbuild:prod": "yarn run rollup",
     "rollup": "rollup -c rollup.config.js",
     "prestart": "yarn run build:prod",
@@ -43,7 +40,7 @@
     "server": "node dist/server.js",
     "server:watch": "nodemon dist/server.js",
     "server:watch:debug": "nodemon --debug dist/server.js",
-    "webpack:watch": "$npm_package_config_wp_cmd -w --mode development",
+    "webpack:watch": "node ./webpack/run-webpack.js -w --mode development",
     "watch": "yarn run build && npm-run-all -p webpack:watch server:watch",
     "watch:debug": "yarn run build && npm-run-all -p webpack:watch server:watch:debug",
     "predebug": "yarn run build",
