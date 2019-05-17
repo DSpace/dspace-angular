@@ -210,8 +210,8 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       ).pipe(
         getSucceededRemoteData(),
         map((collections: RemoteData<PaginatedList<SearchResult<Collection>>>) => collections.payload.page),
-        filter((collectionData: SearchResult<Collection>[]) => isNotEmpty(collectionData)),
-        map((collectionData: SearchResult<Collection>[]) => {
+        filter((collectionData: Array<SearchResult<Collection>>) => isNotEmpty(collectionData)),
+        map((collectionData: Array<SearchResult<Collection>>) => {
           return collectionData.map((collection: SearchResult<Collection>) => {
             return {
               communities: [{
@@ -223,7 +223,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
           })
         })
       );
-
 
       this.selectedCollectionName$ = listCollection$.pipe(
         map((collectionData: CollectionListEntry[]) => collectionData.find((entry: CollectionListEntry) => entry.collection.id === this.selectedCollectionId)),
