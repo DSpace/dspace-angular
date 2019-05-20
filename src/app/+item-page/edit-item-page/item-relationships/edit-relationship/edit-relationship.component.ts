@@ -2,9 +2,9 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { cloneDeep } from 'lodash';
 import { Item } from '../../../../core/shared/item.model';
-import { VIEW_MODE_ELEMENT } from '../../../simple/related-items/related-items-component';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
+import { ItemViewMode } from '../../../../shared/items/item-type-decorator';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -31,7 +31,7 @@ export class EditRelationshipComponent implements OnChanges {
   /**
    * The view-mode we're currently on
    */
-  viewMode = VIEW_MODE_ELEMENT;
+  viewMode = ItemViewMode.Element;
 
   constructor(private objectUpdatesService: ObjectUpdatesService) {
   }

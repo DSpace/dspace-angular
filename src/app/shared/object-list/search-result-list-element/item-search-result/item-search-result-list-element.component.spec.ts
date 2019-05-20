@@ -1,91 +1,94 @@
-import { Item } from '../../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../core/data/paginated-list';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { createRelationshipsObservable } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
+import { Item } from '../../../../core/shared/item.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { MetadataMap } from '../../../../core/shared/metadata.models';
+import { TranslateModule } from '@ngx-translate/core';
 
-const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
-  metadata: new MetadataMap(),
-  relationships: createRelationshipsObservable()
+let itemSearchResultListElementComponent: ItemSearchResultListElementComponent;
+let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
+
+const truncatableServiceStub: any = {
+  isCollapsed: (id: number) => observableOf(true),
+};
+
+const type = 'authorOfPublication';
+
+const mockItemWithRelationshipType: ItemSearchResult = new ItemSearchResult();
+mockItemWithRelationshipType.hitHighlights = {};
+mockItemWithRelationshipType.indexableObject = Object.assign(new Item(), {
+  bitstreams: observableOf({}),
+  metadata: {
+    'relationship.type': [
+      {
+        language: 'en_US',
+        value: type
+      }
+    ]
+  }
+});
+
+const mockItemWithoutRelationshipType: ItemSearchResult = new ItemSearchResult();
+mockItemWithoutRelationshipType.hitHighlights = {};
+mockItemWithoutRelationshipType.indexableObject = Object.assign(new Item(), {
+  bitstreams: observableOf({}),
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ]
+  }
 });
 
 describe('ItemSearchResultListElementComponent', () => {
-  let comp: ItemSearchResultListElementComponent;
-  let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
+      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: 'objectElementProvider', useValue: (mockItemWithoutRelationshipType) }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-  const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
-  };
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(ItemSearchResultListElementComponent);
+    itemSearchResultListElementComponent = fixture.componentInstance;
+  }));
 
-  const mockItemWithAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-  mockItemWithAuthorAndDate.hitHighlights = new MetadataMap();
-  mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
-    bitstreams: observableOf({}),
-    metadata: [
-      {
-        key: 'dc.contributor.author',
-        language: 'en_US',
-        value: 'Smith, Donald'
-      },
-      {
-        key: 'dc.date.issued',
-        language: null,
-        value: '2015-06-26'
-      }]
-  });
-
-  const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-  mockItemWithoutAuthorAndDate.hitHighlights = new MetadataMap();
-  mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
-    bitstreams: observableOf({}),
-    metadata: [
-      {
-        key: 'dc.title',
-        language: 'en_US',
-        value: 'This is just another title'
-      },
-      {
-        key: 'dc.type',
-        language: null,
-        value: 'Article'
-      }]
-  });
-
-  describe('ItemSearchResultListElementComponent', () => {
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [],
-        declarations: [ItemSearchResultListElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: {} },
-          { provide: 'objectElementProvider', useValue: mockItem }
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(ItemSearchResultListElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
-
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ItemSearchResultListElementComponent);
-      comp = fixture.componentInstance;
+  describe('When the item has a relationship type', () => {
+    beforeEach(() => {
+      itemSearchResultListElementComponent.object = mockItemWithRelationshipType;
       fixture.detectChanges();
-    }));
-
-    it('should call an item-type-switcher component and pass the item', () => {
-      const itemTypeSwitcher = fixture.debugElement.query(By.css('ds-item-type-switcher')).componentInstance;
-      expect(itemTypeSwitcher.object).toBe(mockItem);
     });
 
+    it('should show the relationship type badge', () => {
+      const badge = fixture.debugElement.query(By.css('span.badge'));
+      console.log(itemSearchResultListElementComponent.dso);
+      expect(badge.nativeElement.textContent).toContain(type.toLowerCase());
+    });
+  });
+
+  describe('When the item has no relationship type', () => {
+    beforeEach(() => {
+      itemSearchResultListElementComponent.object = mockItemWithoutRelationshipType;
+      fixture.detectChanges();
+    });
+
+    it('should not show a badge', () => {
+      const badge = fixture.debugElement.query(By.css('span.badge'));
+      expect(badge).toBeNull();
+    });
   });
 });

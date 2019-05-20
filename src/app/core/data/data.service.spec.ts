@@ -9,13 +9,12 @@ import { Observable, of as observableOf } from 'rxjs';
 import { FindAllOptions } from './request.models';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { Operation } from '../../../../node_modules/fast-json-patch';
+import { compare, Operation } from 'fast-json-patch';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { ChangeAnalyzer } from './change-analyzer';
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { compare } from 'fast-json-patch';
 import { Item } from '../shared/item.model';
 
 const endpoint = 'https://rest.api/core';

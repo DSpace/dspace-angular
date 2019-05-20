@@ -1,4 +1,6 @@
-<ds-item-page-title-field [item]="item"></ds-item-page-title-field>
+<h2 class="item-page-title-field">
+  {{'publication.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+</h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>

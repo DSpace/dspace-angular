@@ -1,6 +1,7 @@
 <ds-object-list [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
+                [hasBorder]="hasBorder"
                 [hideGear]="hideGear"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
@@ -21,5 +22,12 @@
                 (sortFieldChange)="onSortFieldChange($event)"
                 *ngIf="getViewMode()===viewModeEnum.Grid">
 </ds-object-grid>
+
+<ds-object-detail [config]="config"
+                  [sortConfig]="sortConfig"
+                  [objects]="objects"
+                  [hideGear]="hideGear"
+                  *ngIf="getViewMode()===viewModeEnum.Detail">
+</ds-object-detail>
 
 

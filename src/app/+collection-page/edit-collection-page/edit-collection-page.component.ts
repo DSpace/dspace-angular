@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditComColPageComponent } from '../../shared/comcol-forms/edit-comcol-page/edit-comcol-page.component';
-import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { Collection } from '../../core/shared/collection.model';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 

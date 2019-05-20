@@ -4,7 +4,8 @@ import { Collection } from '../core/shared/collection.model';
 import { Observable } from 'rxjs';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { RemoteData } from '../core/data/remote-data';
-import { getSucceededRemoteData } from '../core/shared/operators';
+import { find } from 'rxjs/operators';
+import { hasValue } from '../shared/empty.util';
 
 /**
  * This class represents a resolver that requests a specific collection before the route is activated
@@ -18,11 +19,12 @@ export class CollectionPageResolver implements Resolve<RemoteData<Collection>> {
    * Method for resolving a collection based on the parameters in the current route
    * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Collection>> Emits the found collection based on the parameters in the current route
+   * @returns Observable<<RemoteData<Collection>> Emits the found collection based on the parameters in the current route,
+   * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Collection>> {
     return this.collectionService.findById(route.params.id).pipe(
-      getSucceededRemoteData()
+      find((RD) => hasValue(RD.error) || RD.hasSucceeded),
     );
   }
 }

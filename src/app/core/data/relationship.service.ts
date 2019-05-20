@@ -17,14 +17,14 @@ import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RemoteData } from './remote-data';
-import {
-  compareArraysUsingIds,
-  filterRelationsByTypeLabel, relationsToItems
-} from '../../+item-page/simple/item-types/shared/item.component';
 import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
 import { zip as observableZip } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
+import {
+  compareArraysUsingIds, filterRelationsByTypeLabel,
+  relationsToItems
+} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 /**
  * The service handling all relationship requests

@@ -3,7 +3,7 @@ import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { distinctUntilChanged, filter, map, mergeMap, take, tap, } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';

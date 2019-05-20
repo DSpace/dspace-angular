@@ -1,10 +1,10 @@
 <h2 class="item-page-title-field">
-  <ds-metadata-values [mdValues]="item?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
+  {{'orgunit.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>
-      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/orgunit-placeholder.jpg'"></ds-thumbnail>
+      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="item"
       [fields]="['orgunit.identifier.dateestablished']"

@@ -2,12 +2,13 @@ import { HostWindowService } from '../shared/host-window.service';
 import { SearchService } from './search-service/search.service';
 import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchPageComponent } from './search-page.component';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { RouteService } from '../shared/services/route.service';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from './paginated-search-options.model';
+import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 
 /**
  * This component renders a simple item page.
@@ -18,7 +19,13 @@ import { PaginatedSearchOptions } from './paginated-search-options.model';
   styleUrls: ['./search-page.component.scss'],
   templateUrl: './search-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [pushInOut]
+  animations: [pushInOut],
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: SearchConfigurationService
+    }
+  ]
 })
 
 export class FilteredSearchPageComponent extends SearchPageComponent {
@@ -32,7 +39,7 @@ export class FilteredSearchPageComponent extends SearchPageComponent {
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
-              protected searchConfigService: SearchConfigurationService,
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService) {
     super(service, sidebarService, windowService, searchConfigService, routeService);
   }

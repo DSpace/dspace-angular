@@ -16,19 +16,16 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { compareArraysUsing, compareArraysUsingIds, ItemComponent } from './item.component';
+import { ItemComponent } from './item.component';
 import { of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ItemPageComponent } from '../../item-page.component';
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { ActivatedRoute } from '@angular/router';
-import { MetadataService } from '../../../../core/metadata/metadata.service';
-import { of } from 'rxjs/internal/observable/of';
 import { Observable } from 'rxjs/internal/Observable';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
+import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component

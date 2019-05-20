@@ -7,7 +7,7 @@ import { ItemMetadataRepresentation } from '../../../core/shared/metadata-repres
 
 const itemType = 'type';
 const metadataRepresentation1 = new MetadatumRepresentation(itemType);
-const metadataRepresentation2 = new ItemMetadataRepresentation(itemType);
+const metadataRepresentation2 = new ItemMetadataRepresentation();
 const representations = [metadataRepresentation1, metadataRepresentation2];
 
 describe('MetadataRepresentationListComponent', () => {

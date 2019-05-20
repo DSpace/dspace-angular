@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
+import { filter, find, map, mergeMap, take } from 'rxjs/operators';
+import { cloneDeep, remove } from 'lodash';
 
 import { AppState } from '../../app.reducer';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -47,7 +49,6 @@ const entryFromUUIDSelector = (uuid: string): MemoizedSelector<CoreState, Reques
  * Create a selector that fetches a list of request UUIDs from a given index substate of which the request href
  * contains a given substring
  * @param selector    MemoizedSelector to start from
- * @param name        The name of the index substate we're fetching request UUIDs from
  * @param href        Substring that the request's href should contain
  */
 const uuidsFromHrefSubstringSelector =
@@ -117,6 +118,16 @@ export class RequestService {
             return this.store.pipe(select(entryFromUUIDSelector(originalUUID)))
           },
         ))
+    ).pipe(
+      map((entry: RequestEntry) => {
+        // Headers break after being retrieved from the store (because of lazy initialization)
+        // Combining them with a new object fixes this issue
+        if (hasValue(entry) && hasValue(entry.request) && hasValue(entry.request.options) && hasValue(entry.request.options.headers)) {
+          entry = cloneDeep(entry);
+          entry.request.options.headers = Object.assign(new HttpHeaders(), entry.request.options.headers)
+        }
+        return entry;
+      })
     );
   }
 
@@ -136,12 +147,14 @@ export class RequestService {
    * @param {RestRequest} request The request to send out
    * @param {boolean} forceBypassCache When true, a new request is always dispatched
    */
-  // TODO to review "forceBypassCache" param when https://github.com/DSpace/dspace-angular/issues/217 will be fixed
   configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    if (!isGetRequest || !this.isCachedOrPending(request) || forceBypassCache) {
+    if (forceBypassCache) {
+      this.clearRequestsOnTheirWayToTheStore(request);
+    }
+    if (!isGetRequest || (forceBypassCache && !this.isPending(request)) || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request);
-      if (isGetRequest && !forceBypassCache) {
+      if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);
       }
     } else {
@@ -153,6 +166,29 @@ export class RequestService {
         }
       )
     }
+  }
+
+  /**
+   * Convert request Payload to a URL-encoded string
+   *
+   * e.g.  uriEncodeBody({param: value, param1: value1})
+   * returns: param=value&param1=value1
+   *
+   * @param body
+   *    The request Payload to convert
+   * @return string
+   *    URL-encoded string
+   */
+  public uriEncodeBody(body: any) {
+    let queryParams = '';
+    if (isNotEmpty(body) && typeof body === 'object') {
+      Object.keys(body)
+        .forEach((param) => {
+          const paramValue = `${param}=${body[param]}`;
+          queryParams = isEmpty(queryParams) ? queryParams.concat(paramValue) : queryParams.concat('&', paramValue);
+        })
+    }
+    return encodeURI(queryParams);
   }
 
   /**
@@ -219,6 +255,19 @@ export class RequestService {
     ).subscribe((re: RequestEntry) => {
       this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((pendingHref: string) => pendingHref !== request.href)
     });
+  }
+
+  /**
+   * This method remove requests that are on their way to the store.
+   */
+  private clearRequestsOnTheirWayToTheStore(request: GetRequest) {
+    this.getByHref(request.href).pipe(
+      find((re: RequestEntry) => hasValue(re)))
+      .subscribe((re: RequestEntry) => {
+        if (!re.responsePending) {
+          remove(this.requestsOnTheirWayToTheStore, (item) => item === request.href);
+        }
+      });
   }
 
   /**

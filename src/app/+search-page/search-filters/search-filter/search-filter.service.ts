@@ -21,10 +21,13 @@ import { SearchOptions } from '../../search-options.model';
 import { PaginatedSearchOptions } from '../../paginated-search-options.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { Params } from '@angular/router';
+import * as postcss from 'postcss';
+import prefix = postcss.vendor.prefix;
 // const spy = create();
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
+export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
 
 /**
  * Service that performs all actions that have to do with search filters and facets
@@ -132,63 +135,6 @@ export class SearchFilterService {
   }
 
   /**
-   * Fetch the current paginated search options using the getters from above
-   * and combining them with given defaults
-   * @param defaults    Default paginated search options
-   * @returns {Observable<PaginatedSearchOptions>}
-   */
-  getPaginatedSearchOptions(defaults: any = {}): Observable<PaginatedSearchOptions> {
-    return observableCombineLatest(
-      this.getCurrentPagination(defaults.pagination),
-      this.getCurrentSort(defaults.sort),
-      this.getCurrentView(),
-      this.getCurrentScope(),
-      this.getCurrentQuery(),
-      this.getCurrentFilters(),
-      this.getCurrentFixedFilter()).pipe(
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      map(([pagination, sort, view, scope, query, filters, fixedFilter]) => {
-        return Object.assign(new PaginatedSearchOptions(defaults),
-          {
-            pagination: pagination,
-            sort: sort,
-            view: view,
-            scope: scope || defaults.scope,
-            query: query,
-            filters: filters,
-            fixedFilter: fixedFilter
-          })
-      })
-    )
-  }
-
-  /**
-   * Fetch the current search options (not paginated) using the getters from above
-   * and combining them with given defaults
-   * @param defaults    Default search options
-   * @returns {Observable<SearchOptions>}
-   */
-  getSearchOptions(defaults: any = {}): Observable<SearchOptions> {
-    return observableCombineLatest(
-      this.getCurrentView(),
-      this.getCurrentScope(),
-      this.getCurrentQuery(),
-      this.getCurrentFilters(),
-      this.getCurrentFixedFilter(),
-      (view, scope, query, filters, fixedFilter) => {
-        return Object.assign(new SearchOptions(defaults),
-          {
-            view: view,
-            scope: scope || defaults.scope,
-            query: query,
-            filters: filters,
-            fixedFilter: fixedFilter
-          })
-      }
-    )
-  }
-
-  /**
    * Requests the active filter values set for a given filter
    * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
    * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
@@ -198,7 +144,6 @@ export class SearchFilterService {
     const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
       map((params: Params) => [].concat(...Object.values(params))),
     );
-
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {
           if (isNotEmpty(values)) {

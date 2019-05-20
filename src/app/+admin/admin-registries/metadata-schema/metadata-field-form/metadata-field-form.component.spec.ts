@@ -28,6 +28,7 @@ describe('MetadataFieldFormComponent', () => {
   const registryServiceStub = {
     getActiveMetadataField: () => observableOf(undefined),
     createOrUpdateMetadataField: (field: MetadataField) => observableOf(field),
+    cancelEditMetadataField: () => {},
     cancelEditMetadataSchema: () => {},
   };
   const formBuilderServiceStub = {
@@ -61,6 +62,11 @@ describe('MetadataFieldFormComponent', () => {
   beforeEach(inject([RegistryService], (s) => {
     registryService = s;
   }));
+
+  afterEach(() => {
+    component = null;
+    registryService = null
+  })
 
   describe('when submitting the form', () => {
     const element = 'fakeElement';

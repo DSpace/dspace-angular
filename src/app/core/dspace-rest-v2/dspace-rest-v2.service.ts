@@ -1,14 +1,15 @@
-import {throwError as observableThrowError,  Observable } from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import { Observable, throwError as observableThrowError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
 
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 import { HttpObserve } from '@angular/common/http/src/client';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
+export const DEFAULT_CONTENT_TYPE = 'application/json; charset=utf-8';
 export interface HttpOptions {
   body?: any;
   headers?: HttpHeaders;
@@ -38,11 +39,23 @@ export class DSpaceRESTv2Service {
    *      An Observable<string> containing the response from the server
    */
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
-    return this.http.get(absoluteURL, { observe: 'response' }).pipe(
-      map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.status, statusText: res.statusText })),
+    const requestOptions = {
+      observe: 'response' as any,
+      headers: new HttpHeaders({'Content-Type': DEFAULT_CONTENT_TYPE})
+    };
+    return this.http.get(absoluteURL, requestOptions).pipe(
+      map((res: HttpResponse<any>) => ({
+        payload: res.body,
+        statusCode: res.status,
+        statusText: res.statusText
+      })),
       catchError((err) => {
         console.log('Error: ', err);
-        return observableThrowError({statusCode: err.status, statusText: err.statusText, message: err.message});
+        return observableThrowError({
+          statusCode: err.status,
+          statusText: err.statusText,
+          message: err.message
+        });
       }));
   }
 
@@ -55,6 +68,8 @@ export class DSpaceRESTv2Service {
    *    the URL for the request
    * @param body
    *    an optional body for the request
+   * @param options
+   *    the HttpOptions object
    * @return {Observable<string>}
    *      An Observable<string> containing the response from the server
    */
@@ -65,17 +80,35 @@ export class DSpaceRESTv2Service {
       requestOptions.body = this.buildFormData(body);
     }
     requestOptions.observe = 'response';
-    if (options && options.headers) {
-      requestOptions.headers = Object.assign(new HttpHeaders(),  options.headers);
-    }
+
     if (options && options.responseType) {
       requestOptions.responseType = options.responseType;
     }
+
+    if (hasNoValue(options) || hasNoValue(options.headers)) {
+      requestOptions.headers = new HttpHeaders();
+    } else {
+      requestOptions.headers = options.headers;
+    }
+
+    if (!requestOptions.headers.has('Content-Type')) {
+      // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
+      requestOptions.headers = requestOptions.headers.set('Content-Type', DEFAULT_CONTENT_TYPE);
+    }
     return this.http.request(method, url, requestOptions).pipe(
-      map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.status, statusText: res.statusText })),
+      map((res) => ({
+        payload: res.body,
+        headers: res.headers,
+        statusCode: res.status,
+        statusText: res.statusText
+      })),
       catchError((err) => {
         console.log('Error: ', err);
-        return observableThrowError({statusCode: err.status, statusText: err.statusText, message: err.message});
+        return observableThrowError({
+          statusCode: err.status,
+          statusText: err.statusText,
+          message: err.message
+        });
       }));
   }
 

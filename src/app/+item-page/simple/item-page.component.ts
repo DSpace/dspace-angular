@@ -1,6 +1,7 @@
-import { filter, map, mergeMap } from 'rxjs/operators';
+
+import { mergeMap, filter, map, take, tap } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -13,9 +14,8 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
-import * as viewMode from '../../shared/view-mode';
-
-export const VIEW_MODE_FULL = 'full';
+import { redirectToPageNotFoundOn404 } from '../../core/shared/operators';
+import { ItemViewMode } from '../../shared/items/item-type-decorator';
 
 /**
  * This component renders a simple item page.
@@ -42,27 +42,22 @@ export class ItemPageComponent implements OnInit {
   itemRD$: Observable<RemoteData<Item>>;
 
   /**
-   * The item's thumbnail
-   */
-  thumbnail$: Observable<Bitstream>;
-
-  /**
    * The view-mode we're currently on
    */
-  viewMode = VIEW_MODE_FULL;
+  viewMode = ItemViewMode.Full;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private items: ItemDataService,
     private metadataService: MetadataService,
   ) { }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.pipe(map((data) => data.item));
+    this.itemRD$ = this.route.data.pipe(
+      map((data) => data.item as RemoteData<Item>),
+      redirectToPageNotFoundOn404(this.router)
+    );
     this.metadataService.processRemoteData(this.itemRD$);
-    this.thumbnail$ = this.itemRD$.pipe(
-      map((rd: RemoteData<Item>) => rd.payload),
-      filter((item: Item) => hasValue(item)),
-      mergeMap((item: Item) => item.getThumbnail()),);
   }
 }

@@ -4,7 +4,7 @@ import { Item } from '../../../core/shared/item.model';
 import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { SetViewMode } from '../../view-mode';
-import { VIEW_MODE_ELEMENT } from '../../../+item-page/simple/related-items/related-items-component';
+import { ItemViewMode } from '../../items/item-type-decorator';
 
 @Component({
   selector: 'ds-item-list-element',
@@ -18,5 +18,5 @@ import { VIEW_MODE_ELEMENT } from '../../../+item-page/simple/related-items/rela
  */
 @renderElementsFor(Item, SetViewMode.List)
 export class ItemListElementComponent extends AbstractListableElementComponent<Item> {
-  viewMode = VIEW_MODE_ELEMENT;
+  viewMode = ItemViewMode.Element;
 }

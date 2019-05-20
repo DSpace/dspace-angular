@@ -1,14 +1,22 @@
 <h2 class="item-page-title-field">
-  <ds-metadata-values [mdValues]="item?.allMetadata(['project.identifier.name'])"></ds-metadata-values>
+  {{'project.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['project.identifier.name'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>
-      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/project-placeholder.png'"></ds-thumbnail>
+      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/project-placeholder.svg'"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="item"
       [fields]="['project.identifier.status']"
       [label]="'project.page.status'">
+    </ds-generic-item-page-field>
+    <ds-metadata-representation-list
+      [label]="'project.page.contributor' | translate"
+      [representations]="contributors$ | async">
+    </ds-metadata-representation-list>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['project.identifier.funder']"
+      [label]="'project.page.funder'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['project.identifier.id']"

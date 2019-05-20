@@ -2,13 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
-import { rendersItemType } from '../../../../shared/items/item-type-decorator';
+import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { isNotEmpty } from '../../../../shared/empty.util';
-import { ItemComponent, filterRelationsByTypeLabel, relationsToItems } from '../shared/item.component';
-import { VIEW_MODE_FULL } from '../../item-page.component';
+import { ItemComponent } from '../shared/item.component';
+import { filterRelationsByTypeLabel, relationsToItems } from '../shared/item-relationships-utils';
 
-@rendersItemType('Project', VIEW_MODE_FULL)
+@rendersItemType('Project', ItemViewMode.Full)
 @Component({
   selector: 'ds-project',
   styleUrls: ['./project.component.scss'],
@@ -18,6 +19,11 @@ import { VIEW_MODE_FULL } from '../../item-page.component';
  * The component for displaying metadata and relations of an item of the type Project
  */
 export class ProjectComponent extends ItemComponent implements OnInit {
+  /**
+   * The contributors related to this project
+   */
+  contributors$: Observable<MetadataRepresentation[]>;
+
   /**
    * The people related to this project
    */
@@ -44,6 +50,8 @@ export class ProjectComponent extends ItemComponent implements OnInit {
     super.ngOnInit();
 
     if (isNotEmpty(this.resolvedRelsAndTypes$)) {
+      this.contributors$ = this.buildRepresentations('OrgUnit', 'project.contributor.other', this.ids);
+
       this.people$ = this.resolvedRelsAndTypes$.pipe(
         filterRelationsByTypeLabel('isPersonOfProject'),
         relationsToItems(this.item.id, this.ids)
