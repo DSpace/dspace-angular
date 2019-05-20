@@ -131,7 +131,10 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
           // Iterate over all workspaceitem's sections
           Object.keys(item.sections)
             .forEach((sectionId) => {
-              if (typeof item.sections[sectionId] === 'object' && isNotEmpty(item.sections[sectionId])) {
+              if (typeof item.sections[sectionId] === 'object' && (isNotEmpty(item.sections[sectionId]) &&
+                // When Upload section is disabled, add to submission only if there are files
+                (!item.sections[sectionId].hasOwnProperty('files') || isNotEmpty((item.sections[sectionId] as any).files)))) {
+
                 const normalizedSectionData = Object.create({});
                 // Iterate over all sections property
                 Object.keys(item.sections[sectionId])
