@@ -24,6 +24,8 @@ import { ItemComponent } from './simple/item-types/shared/item.component';
 import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
 import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedEntitiesSearchComponent } from './simple/related-entities/related-entities-search/related-entities-search.component';
+import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
+import { MetadataFieldWrapperComponent } from './field-components/metadata-field-wrapper/metadata-field-wrapper.component';
 
 @NgModule({
   imports: [
@@ -59,7 +61,8 @@ import { RelatedEntitiesSearchComponent } from './simple/related-entities/relate
     MetadataFieldWrapperComponent,
     GenericItemPageFieldComponent,
     RelatedEntitiesSearchComponent,
-    RelatedItemsComponent
+    RelatedItemsComponent,
+    MetadataRepresentationListComponent
   ],
   entryComponents: [
     PublicationComponent
