@@ -5,10 +5,7 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
-import {
-  DSOSelectorModalWrapperComponent,
-  SelectorActionType
-} from './dso-selector-modal-wrapper.component';
+import { DSOSelectorModalWrapperComponent, SelectorActionType } from './dso-selector-modal-wrapper.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -16,7 +13,7 @@ import { first } from 'rxjs/operators';
 import { By } from '@angular/platform-browser';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MockComponent } from 'ng-mocks';
-import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../core/shared/metadata.models';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;

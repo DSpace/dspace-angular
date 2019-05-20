@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { filter, find, flatMap, map, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, take, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
 import { RemoteData } from '../data/remote-data';
@@ -10,6 +10,8 @@ import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { PaginatedList } from '../data/paginated-list';
 import { SearchResult } from '../../+search-page/search-result.model';
+import { Item } from './item.model';
+import { Router } from '@angular/router';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -62,6 +64,20 @@ export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
 
+/**
+ * Operator that checks if a remote data object contains a page not found error
+ * When it does contain such an error, it will redirect the user to a page not found, without altering the current URL
+ * @param router The router used to navigate to a new page
+ */
+export const redirectToPageNotFoundOn404 = (router: Router) =>
+  <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
+    source.pipe(
+      tap((rd: RemoteData<T>) => {
+        if (rd.hasFailed && rd.error.statusCode === 404) {
+          router.navigateByUrl('/404', { skipLocationChange: true });
+        }
+      }));
+
 export const getFinishedRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => !rd.isLoading));
@@ -75,7 +91,7 @@ export const toDSpaceObjectListRD = () =>
     source.pipe(
       filter((rd: RemoteData<PaginatedList<SearchResult<T>>>) => rd.hasSucceeded),
       map((rd: RemoteData<PaginatedList<SearchResult<T>>>) => {
-        const dsoPage: T[] = rd.payload.page.map((searchResult: SearchResult<T>) => searchResult.dspaceObject);
+        const dsoPage: T[] = rd.payload.page.map((searchResult: SearchResult<T>) => searchResult.indexableObject);
         const payload = Object.assign(rd.payload, { page: dsoPage }) as PaginatedList<T>;
         return Object.assign(rd, { payload: payload });
       })

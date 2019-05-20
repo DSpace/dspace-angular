@@ -8,12 +8,12 @@ import { IntegrationModel } from '../integration/models/integration.model';
 import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
-import { AuthStatus } from '../auth/models/auth-status.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
 import { PaginatedList } from '../data/paginated-list';
 import { SubmissionObject } from '../submission/models/submission-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { NormalizedAuthStatus } from '../auth/models/normalized-auth-status.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -202,7 +202,7 @@ export class AuthStatusResponse extends RestResponse {
   public toCache = false;
 
   constructor(
-    public response: AuthStatus,
+    public response: NormalizedAuthStatus,
     public statusCode: number,
     public statusText: string,
   ) {
@@ -246,6 +246,30 @@ export class SubmissionSuccessResponse extends RestResponse {
 export class EpersonSuccessResponse extends RestResponse {
   constructor(
     public epersonDefinition: DSpaceObject[],
+    public statusCode: number,
+    public statusText: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
+
+export class MessageResponse extends RestResponse {
+  public toCache = false;
+
+  constructor(
+    public statusCode: number,
+    public statusText: string,
+    public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
+
+export class TaskResponse extends RestResponse {
+  public toCache = false;
+
+  constructor(
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo

@@ -11,6 +11,8 @@ import { SearchFilterComponent } from './search-filter.component';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
 import { SearchConfigurationService } from '../../search-service/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service-stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -54,8 +56,6 @@ describe('SearchFilterComponent', () => {
     getFacetValuesFor: (filter) => mockResults
   };
 
-  const searchConfigServiceStub = {};
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
@@ -66,7 +66,7 @@ describe('SearchFilterComponent', () => {
           provide: SearchFilterService,
           useValue: mockFilterService
         },
-        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFilterComponent, {

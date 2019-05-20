@@ -7,7 +7,10 @@ export class MockRouter {
   public events = observableOf({});
   public routerState = {
     snapshot: {
-      url: ''
+      url: '',
+      root: {
+        queryParamMap: null
+      }
     }
   };
 
@@ -17,5 +20,13 @@ export class MockRouter {
 
   setRoute(route) {
     this.routerState.snapshot.url = route;
+  }
+
+  setParams(paramsMap) {
+    this.routerState.snapshot.root.queryParamMap = paramsMap;
+  }
+
+  createUrlTree(commands, navExtras = {}) {
+    return {};
   }
 }
