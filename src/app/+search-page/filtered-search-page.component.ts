@@ -54,5 +54,4 @@ export class FilteredSearchPageComponent extends SearchPageComponent {
     this.searchConfigService.updateFixedFilter(this.fixedFilterQuery);
     return this.searchConfigService.paginatedSearchOptions;
   }
-
 }

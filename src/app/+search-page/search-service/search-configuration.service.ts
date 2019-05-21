@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { filter, flatMap, map } from 'rxjs/operators';
+import { filter, flatMap, map, tap } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
@@ -99,10 +99,8 @@ export class SearchConfigurationService implements OnDestroy {
           const defs = defRD.payload;
           this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
           this.searchOptions = new BehaviorSubject<SearchOptions>(defs);
-
           this.subs.push(this.subscribeToSearchOptions(defs));
           this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
-
         }
       )
   }
@@ -357,7 +355,8 @@ export class SearchConfigurationService implements OnDestroy {
       isNotEmptyOperator(),
       map((fixedFilter) => {
         return { fixedFilter }
-      })
+      }),
+      tap(t => console.log(t))
     );
   }
 
