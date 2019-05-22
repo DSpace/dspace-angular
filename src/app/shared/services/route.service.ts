@@ -96,7 +96,9 @@ export class RouteService {
   }
 
   getRouteParameterValue(paramName: string): Observable<string> {
-    return this.store.pipe(select(routeParameterSelector(paramName)), tap((t) => console.log(paramName, t)));
+    const test = this.store.pipe(select(routeParameterSelector(paramName)));
+    test.subscribe((t) => {console.log('test', t)});
+    return test;
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
@@ -139,7 +141,6 @@ export class RouteService {
     combineLatest(this.router.events, this.getRouteParams(), this.route.queryParams)
       .pipe(filter(([event, params, queryParams]) => event instanceof NavigationEnd))
       .subscribe(([event, params, queryParams]: [NavigationEnd, Params, Params]) => {
-        console.log(params);
         this.store.dispatch(new SetParametersAction(params));
         this.store.dispatch(new SetQueryParametersAction(queryParams));
         this.store.dispatch(new AddUrlToHistoryAction(event.urlAfterRedirects));
@@ -148,7 +149,6 @@ export class RouteService {
 
   private getRouteParams(): Observable<Params> {
     let active = this.route;
-    console.log(active);
     while (active.firstChild) {
       active = active.firstChild;
     }

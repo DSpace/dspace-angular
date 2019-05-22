@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { filter, flatMap, map, tap } from 'rxjs/operators';
+import { filter, flatMap, map, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
@@ -204,7 +204,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   getCurrentFixedFilter(): Observable<string> {
     return this.routeService.getRouteParameterValue('filter').pipe(
-      flatMap((f) => this.fixedFilterService.getQueryByFilterName(f))
+      switchMap((f) => this.fixedFilterService.getQueryByFilterName(f))
     );
   }
 
@@ -229,6 +229,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFiltersPart(),
       this.getFixedFilterPart()
     ).subscribe((update) => {
+      console.log(update);
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(currentValue, update);
       this.searchOptions.next(updatedValue);
@@ -356,21 +357,6 @@ export class SearchConfigurationService implements OnDestroy {
       map((fixedFilter) => {
         return { fixedFilter }
       }),
-      tap(t => console.log(t))
     );
-  }
-
-  /**
-   * Update the fixed filter in paginated and non-paginated search options with a given value
-   * @param {string} fixedFilter
-   */
-  public updateFixedFilter(fixedFilter: string) {
-    const currentPaginatedValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-    const updatedPaginatedValue: PaginatedSearchOptions = Object.assign(currentPaginatedValue, { fixedFilter: fixedFilter });
-    this.paginatedSearchOptions.next(updatedPaginatedValue);
-
-    const currentValue: SearchOptions = this.searchOptions.getValue();
-    const updatedValue: SearchOptions = Object.assign(currentValue, { fixedFilter: fixedFilter });
-    this.searchOptions.next(updatedValue);
   }
 }
