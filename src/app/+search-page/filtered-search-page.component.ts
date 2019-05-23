@@ -9,9 +9,7 @@ import { SearchConfigurationService } from './search-service/search-configuratio
 import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
-import { map, switchMap } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../core/shared/operators';
-import { isNotEmpty } from '../shared/empty.util';
+import { map } from 'rxjs/operators';
 
 /**
  * This component renders a simple item page.
@@ -33,7 +31,6 @@ import { isNotEmpty } from '../shared/empty.util';
 })
 
 export class FilteredSearchPageComponent extends SearchPageComponent implements OnInit {
-
   /**
    * The actual query for the fixed filter.
    * If empty, the query will be determined by the route parameter called 'filter'
@@ -58,7 +55,6 @@ export class FilteredSearchPageComponent extends SearchPageComponent implements 
   ngOnInit(): void {
     super.ngOnInit();
   }
-
 
   /**
    * Get the current paginated search options after updating the fixed filter using the fixedFilterQuery input

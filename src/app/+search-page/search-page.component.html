@@ -2,7 +2,7 @@
     <div class="search-page row">
         <ds-search-sidebar *ngIf="!(isXsOrSm$ | async)" class="col-{{sideBarWidth}} sidebar-md-sticky"
                            id="search-sidebar"
-                           [resultCount]="(resultsRD$ | async)?.payload.totalElements" [inPlaceSearch]="inPlaceSearch"></ds-search-sidebar>
+                           [resultCount]="(resultsRD$ | async)?.payload?.totalElements" [inPlaceSearch]="inPlaceSearch"></ds-search-sidebar>
         <div class="col-12 col-md-{{12 - sideBarWidth}}">
             <ds-search-form *ngIf="searchEnabled" id="search-form"
                             [query]="(searchOptions$ | async)?.query"

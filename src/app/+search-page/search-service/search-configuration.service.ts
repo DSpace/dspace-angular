@@ -229,7 +229,6 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFiltersPart(),
       this.getFixedFilterPart()
     ).subscribe((update) => {
-      console.log(update);
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(currentValue, update);
       this.searchOptions.next(updatedValue);

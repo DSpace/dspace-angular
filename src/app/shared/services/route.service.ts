@@ -21,11 +21,11 @@ import { coreSelector } from '../../core/core.selectors';
 
 export const routeParametersSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state['route'].params
+  (state: CoreState) => state.route.params
 );
 export const queryParametersSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state['route'].queryParams
+  (state: CoreState) => state.route.queryParams
 );
 
 export const routeParameterSelector = (key: string) => parameterSelector(key, routeParametersSelector);
@@ -96,9 +96,7 @@ export class RouteService {
   }
 
   getRouteParameterValue(paramName: string): Observable<string> {
-    const test = this.store.pipe(select(routeParameterSelector(paramName)));
-    test.subscribe((t) => {console.log('test', t)});
-    return test;
+    return this.store.pipe(select(routeParameterSelector(paramName)));
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
