@@ -9,7 +9,7 @@ export class SearchResult<T extends DSpaceObject> implements ListableObject {
   /**
    * The DSpaceObject that was found
    */
-  dspaceObject: T;
+  indexableObject: T;
 
   /**
    * The metadata that was used to find this item, hithighlighted

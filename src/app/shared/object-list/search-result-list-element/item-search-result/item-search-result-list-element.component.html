@@ -1,24 +1,4 @@
-<ds-truncatable [id]="dso.id">
-        <a
-            [routerLink]="['/items/' + dso.id]" class="lead"
-            [innerHTML]="firstMetadataValue('dc.title')"></a>
-  <span class="text-muted">
-    <ds-truncatable-part [id]="dso.id" [minLines]="1">
-            (<span *ngIf="dso.hasMetadata('dc.publisher')" class="item-list-publisher"
-                   [innerHTML]="firstMetadataValue('dc.publisher') + ', '"></span><span
-      *ngIf="dso.hasMetadata('dc.date.issued')" class="item-list-date"
-      [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)
-            <span *ngIf="dso.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])"
-                  class="item-list-authors">
-                    <span *ngFor="let author of allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">
-                        <span [innerHTML]="author"><span [innerHTML]="author"></span></span>
-                    </span>
-            </span>
-        </ds-truncatable-part>
-  </span>
-            <div *ngIf="dso.hasMetadata('dc.description.abstract')" class="item-list-abstract">
-                <ds-truncatable-part [id]="dso.id" [minLines]="3"><span
-                        [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
-                </ds-truncatable-part>
-            </div>
-</ds-truncatable>
+<div *ngIf="object && object.indexableObject && object.indexableObject.firstMetadataValue('relationship.type') as type">
+  <span class="badge badge-light">{{ type.toLowerCase() + '.listelement.badge' | translate }}</span>
+</div>
+<ds-item-type-switcher [object]="object" [viewMode]="viewMode"></ds-item-type-switcher>

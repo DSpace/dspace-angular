@@ -6,8 +6,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
-import { ResourceType } from '../shared/resource-type';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
 import { getNormalizedConstructorByType } from '../shared/resource-type.decorator';
 /* tslint:disable:max-classes-per-file */
@@ -66,7 +64,9 @@ export abstract class BaseResponseParsingService {
     let list = data._embedded;
 
     // Workaround for inconsistency in rest response. Issue: https://github.com/DSpace/dspace-angular/issues/238
-    if (!Array.isArray(list)) {
+    if (hasNoValue(list)) {
+      list = [];
+    } else if (!Array.isArray(list)) {
       list = this.flattenSingleKeyObject(list);
     }
     const page: ObjectDomain[] = this.processArray(list, requestUUID);
@@ -139,5 +139,9 @@ export abstract class BaseResponseParsingService {
 
   protected retrieveObjectOrUrl(obj: any): any {
     return this.toCache ? obj.self : obj;
+  }
+
+  protected isSuccessStatus(statusCode: number) {
+    return statusCode >= 200 && statusCode < 300;
   }
 }

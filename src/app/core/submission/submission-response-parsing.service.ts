@@ -25,16 +25,16 @@ export function isServerFormValue(obj: any): boolean {
     && obj.hasOwnProperty('value')
     && obj.hasOwnProperty('language')
     && obj.hasOwnProperty('authority')
-    && obj.hasOwnProperty('confidence')
-    && obj.hasOwnProperty('place'))
+    && obj.hasOwnProperty('confidence'))
 }
 
 /**
  * Export a function to normalize sections object of the server response
  *
  * @param obj
+ * @param objIndex
  */
-export function normalizeSectionData(obj: any) {
+export function normalizeSectionData(obj: any, objIndex?: number) {
   let result: any = obj;
   if (isNotNull(obj)) {
     // If is an Instance of FormFieldMetadataValueObject normalize it
@@ -47,14 +47,14 @@ export function normalizeSectionData(obj: any) {
         obj.language,
         obj.authority,
         (obj.display || obj.value),
-        obj.place,
+        obj.place || objIndex,
         obj.confidence,
         obj.otherInformation
       );
     } else if (Array.isArray(obj)) {
       result = [];
       obj.forEach((item, index) => {
-        result[index] = normalizeSectionData(item);
+        result[index] = normalizeSectionData(item, index);
       });
     } else if (typeof obj === 'object') {
       result = Object.create({});
@@ -90,11 +90,10 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
-      && (data.statusCode === 201 || data.statusCode === 200)) {
+      && this.isSuccessStatus(data.statusCode)) {
       const dataDefinition = this.processResponse<SubmissionObject | ConfigObject>(data.payload, request.href);
       return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
-    } else if (isEmpty(data.payload) && data.statusCode === 204) {
-      // Response from a DELETE request
+    } else if (isEmpty(data.payload) && this.isSuccessStatus(data.statusCode)) {
       return new SubmissionSuccessResponse(null, data.statusCode, data.statusText);
     } else {
       return new ErrorResponse(
@@ -138,9 +137,9 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
                     // If entry is not an array, for sure is not a section of type form
                     if (Array.isArray(entry)) {
                       normalizedSectionData[metdadataId] = [];
-                      entry.forEach((valueItem) => {
+                      entry.forEach((valueItem, index) => {
                         // Parse value and normalize it
-                        const normValue = normalizeSectionData(valueItem);
+                        const normValue = normalizeSectionData(valueItem, index);
                         if (isNotEmpty(normValue)) {
                           normalizedSectionData[metdadataId].push(normValue);
                         }

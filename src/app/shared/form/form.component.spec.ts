@@ -23,7 +23,7 @@ import { MockStore } from '../testing/mock-store';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { createTestComponent } from '../testing/utils';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 let TEST_FORM_MODEL;
 

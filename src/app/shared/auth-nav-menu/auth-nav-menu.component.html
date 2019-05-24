@@ -13,10 +13,9 @@
   <li *ngIf="(isAuthenticated | async) && !(isXsOrSm$ | async) && (showAuth | async)" class="nav-item">
     <div ngbDropdown placement="bottom-right" class="d-inline-block" @fadeInOut>
       <a href="#" id="dropdownUser" (click)="$event.preventDefault()" class="px-1" ngbDropdownToggle><i class="fas fa-user-circle fa-lg fa-fw" [title]="'nav.logout' | translate"></i></a>
-      <ul id="logoutDropdownMenu" ngbDropdownMenu aria-labelledby="dropdownUser">
-        <li class="dropdown-item">{{(user | async).name}} ({{(user | async).email}})</li>
-        <li class="dropdown-item"><ds-log-out></ds-log-out></li>
-      </ul>
+      <div id="logoutDropdownMenu" ngbDropdownMenu aria-labelledby="dropdownUser">
+        <ds-user-menu></ds-user-menu>
+      </div>
     </div>
   </li>
   <li *ngIf="(isAuthenticated | async) && (isXsOrSm$ | async)" class="nav-item">

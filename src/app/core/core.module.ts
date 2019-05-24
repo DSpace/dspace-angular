@@ -71,6 +71,7 @@ import { SubmissionRestService } from './submission/submission-rest.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
 import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
+import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { SubmissionJsonPatchOperationsService } from './submission/submission-json-patch-operations.service';
@@ -100,6 +101,12 @@ import { NormalizedSubmissionSectionModel } from './config/models/normalized-con
 import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model';
 import { NormalizedAuthorityValue } from './integration/models/normalized-authority-value.model';
 import { BrowseEntry } from './shared/browse-entry.model';
+import { RoleService } from './roles/role.service';
+import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
+import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
+import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
+import { PoolTaskDataService } from './tasks/pool-task-data.service';
+import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -147,6 +154,7 @@ const PROVIDERS = [
   RegistryBitstreamformatsResponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
+  MyDSpaceResponseParsingService,
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
@@ -178,6 +186,11 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
+  MyDSpaceGuard,
+  RoleService,
+  TaskResponseParsingService,
+  ClaimedTaskDataService,
+  PoolTaskDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -185,7 +198,8 @@ const PROVIDERS = [
     multi: true
   },
   NotificationsService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory },
+  FilteredDiscoveryPageResponseParsingService,
+  { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
 /**

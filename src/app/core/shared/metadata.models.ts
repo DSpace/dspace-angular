@@ -1,6 +1,9 @@
 import * as uuidv4 from 'uuid/v4';
 import { autoserialize, Serialize, Deserialize } from 'cerialize';
+import { hasValue } from '../../shared/empty.util';
 /* tslint:disable:max-classes-per-file */
+
+const VIRTUAL_METADATA_PREFIX = 'virtual::';
 
 /** A single metadata value and its properties. */
 export interface MetadataValueInterface {
@@ -34,6 +37,40 @@ export class MetadataValue implements MetadataValueInterface {
   /** The string value. */
   @autoserialize
   value: string;
+
+  /**
+   * The place of this MetadataValue within his list of metadata
+   * This is used to render metadata in a specific custom order
+   */
+  @autoserialize
+  place: number;
+
+  /** The authority key used for authority-controlled metadata */
+  @autoserialize
+  authority: string;
+
+  /** The authority confidence value */
+  @autoserialize
+  confidence: number;
+
+  /**
+   * Returns true if this Metadatum's authority key starts with 'virtual::'
+   */
+  get isVirtual(): boolean {
+    return hasValue(this.authority) && this.authority.startsWith(VIRTUAL_METADATA_PREFIX);
+  }
+
+  /**
+   * If this is a virtual Metadatum, it returns everything in the authority key after 'virtual::'.
+   * Returns undefined otherwise.
+   */
+  get virtualValue(): string {
+    if (this.isVirtual) {
+      return this.authority.substring(this.authority.indexOf(VIRTUAL_METADATA_PREFIX) + VIRTUAL_METADATA_PREFIX.length);
+    } else {
+      return undefined;
+    }
+  }
 }
 
 /** Constraints for matching metadata values. */
@@ -64,8 +101,17 @@ export class MetadatumViewModel {
   /** The string value. */
   value: string;
 
-  /** The order. */
-  order: number;
+  /**
+   * The place of this MetadataValue within his list of metadata
+   * This is used to render metadata in a specific custom order
+   */
+  place: number;
+
+  /** The authority key used for authority-controlled metadata */
+  authority: string;
+
+  /** The authority confidence value */
+  confidence: number;
 }
 
 /** Serializer used for MetadataMaps.

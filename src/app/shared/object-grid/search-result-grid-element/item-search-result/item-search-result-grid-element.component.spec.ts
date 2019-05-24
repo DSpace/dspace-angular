@@ -18,7 +18,7 @@ const truncatableServiceStub: any = {
 
 const mockItemWithAuthorAndDate: ItemSearchResult = new ItemSearchResult();
 mockItemWithAuthorAndDate.hitHighlights = {};
-mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
+mockItemWithAuthorAndDate.indexableObject = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
     'dc.contributor.author': [
@@ -38,7 +38,7 @@ mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
 
 const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
 mockItemWithoutAuthorAndDate.hitHighlights = {};
-mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
+mockItemWithoutAuthorAndDate.indexableObject = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
     'dc.title': [
@@ -78,7 +78,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   describe('When the item has an author', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.indexableObject;
       fixture.detectChanges();
     });
 
@@ -90,7 +90,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   describe('When the item has no author', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.indexableObject;
       fixture.detectChanges();
     });
 
@@ -102,7 +102,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   describe('When the item has an issuedate', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.indexableObject;
       fixture.detectChanges();
     });
 
@@ -114,7 +114,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   describe('When the item has no issuedate', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.indexableObject;
       fixture.detectChanges();
     });
 

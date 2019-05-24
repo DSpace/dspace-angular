@@ -1,9 +1,16 @@
+import { distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router, } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Params,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { isEqual } from 'lodash';
 
 import { AppState } from '../../app.reducer';
 import { AddUrlToHistoryAction } from '../history/history.actions';
@@ -14,8 +21,11 @@ import { historySelector } from '../history/selectors';
  */
 @Injectable()
 export class RouteService {
+  params: Observable<Params>;
 
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
+    this.subscribeToRouterParams();
+
   }
 
   /**
@@ -23,7 +33,7 @@ export class RouteService {
    * @param paramName The name of the parameter to look for
    */
   getQueryParameterValues(paramName: string): Observable<string[]> {
-    return this.route.queryParamMap.pipe(
+    return this.getQueryParamMap().pipe(
       map((params) => [...params.getAll(paramName)]),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
     );
@@ -34,7 +44,7 @@ export class RouteService {
    * @param paramName The name of the parameter to look for
    */
   getQueryParameterValue(paramName: string): Observable<string> {
-    return this.route.queryParamMap.pipe(
+    return this.getQueryParamMap().pipe(
       map((params) => params.get(paramName)),
       distinctUntilChanged()
     );
@@ -45,7 +55,7 @@ export class RouteService {
    * @param paramName The name of the parameter to look for
    */
   hasQueryParam(paramName: string): Observable<boolean> {
-    return this.route.queryParamMap.pipe(
+    return this.getQueryParamMap().pipe(
       map((params) => params.has(paramName)),
       distinctUntilChanged()
     );
@@ -57,10 +67,18 @@ export class RouteService {
    * @param paramValue The value of the parameter to look for
    */
   hasQueryParamWithValue(paramName: string, paramValue: string): Observable<boolean> {
-    return this.route.queryParamMap.pipe(
+    return this.getQueryParamMap().pipe(
       map((params) => params.getAll(paramName).indexOf(paramValue) > -1),
       distinctUntilChanged()
     );
+  }
+
+  getRouteParameterValue(paramName: string): Observable<string> {
+    return this.params.pipe(map((params) => params[paramName]),distinctUntilChanged(),);
+  }
+
+  getRouteDataValue(datafield: string): Observable<any> {
+    return this.route.data.pipe(map((data) => data[datafield]),distinctUntilChanged(),);
   }
 
   /**
@@ -68,7 +86,7 @@ export class RouteService {
    * @param prefix The prefix of the parameter name to look for
    */
   getQueryParamsWithPrefix(prefix: string): Observable<Params> {
-    return this.route.queryParamMap.pipe(
+    return this.getQueryParamMap().pipe(
       map((qparams) => {
         const params = {};
         qparams.keys
@@ -82,12 +100,37 @@ export class RouteService {
     );
   }
 
+  public getQueryParamMap(): Observable<any> {
+    return this.route.queryParamMap.pipe(
+      map((paramMap) => {
+        const snapshot: RouterStateSnapshot = this.router.routerState.snapshot;
+        // Due to an Angular bug, sometimes change of QueryParam is not detected so double checks with route snapshot
+        if (!isEqual(paramMap, snapshot.root.queryParamMap)) {
+          return snapshot.root.queryParamMap;
+        } else {
+          return paramMap;
+        }
+      }))
+  }
+
   public saveRouting(): void {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
         this.store.dispatch(new AddUrlToHistoryAction(urlAfterRedirects))
       });
+  }
+
+  subscribeToRouterParams() {
+    this.params = this.router.events.pipe(
+      mergeMap((event) => {
+        let active = this.route;
+        while (active.firstChild) {
+          active = active.firstChild;
+        }
+        return active.params;
+      })
+    );
   }
 
   public getHistory(): Observable<string[]> {
@@ -99,5 +142,4 @@ export class RouteService {
       map((history: string[]) => history[history.length - 2] || '')
     );
   }
-
 }

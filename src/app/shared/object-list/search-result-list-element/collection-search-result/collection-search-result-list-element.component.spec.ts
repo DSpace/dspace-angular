@@ -17,7 +17,7 @@ const truncatableServiceStub: any = {
 
 const mockCollectionWithAbstract: CollectionSearchResult = new CollectionSearchResult();
 mockCollectionWithAbstract.hitHighlights = {};
-mockCollectionWithAbstract.dspaceObject = Object.assign(new Collection(), {
+mockCollectionWithAbstract.indexableObject = Object.assign(new Collection(), {
   metadata: {
     'dc.description.abstract': [
       {
@@ -30,7 +30,7 @@ mockCollectionWithAbstract.dspaceObject = Object.assign(new Collection(), {
 
 const mockCollectionWithoutAbstract: CollectionSearchResult = new CollectionSearchResult();
 mockCollectionWithoutAbstract.hitHighlights = {};
-mockCollectionWithoutAbstract.dspaceObject = Object.assign(new Collection(), {
+mockCollectionWithoutAbstract.indexableObject = Object.assign(new Collection(), {
   metadata: {
     'dc.title': [
       {
@@ -63,7 +63,7 @@ describe('CollectionSearchResultListElementComponent', () => {
 
   describe('When the collection has an abstract', () => {
     beforeEach(() => {
-      collectionSearchResultListElementComponent.dso = mockCollectionWithAbstract.dspaceObject;
+      collectionSearchResultListElementComponent.dso = mockCollectionWithAbstract.indexableObject;
       fixture.detectChanges();
     });
 
@@ -75,7 +75,7 @@ describe('CollectionSearchResultListElementComponent', () => {
 
   describe('When the collection has no abstract', () => {
     beforeEach(() => {
-      collectionSearchResultListElementComponent.dso = mockCollectionWithoutAbstract.dspaceObject;
+      collectionSearchResultListElementComponent.dso = mockCollectionWithoutAbstract.indexableObject;
       fixture.detectChanges();
     });
 

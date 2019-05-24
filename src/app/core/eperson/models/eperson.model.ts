@@ -47,7 +47,9 @@ export class EPerson extends DSpaceObject {
    */
   public selfRegistered: boolean;
 
-  /** Getter to retrieve the EPerson's full name as a string */
+  /**
+   * Getter to retrieve the EPerson's full name as a string
+   */
   get name(): string {
     return this.firstMetadataValue('eperson.firstname') + ' ' + this.firstMetadataValue('eperson.lastname');
   }

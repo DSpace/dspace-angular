@@ -1,4 +1,4 @@
-import { autoserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
@@ -16,6 +16,12 @@ export class NormalizedSubmissionObject<T extends DSpaceObject> extends Normaliz
    */
   @autoserialize
   id: string;
+
+  /**
+   * The workspaceitem/workflowitem identifier
+   */
+  @autoserializeAs(String, 'id')
+  uuid: string;
 
   /**
    * The workspaceitem/workflowitem last modified date
