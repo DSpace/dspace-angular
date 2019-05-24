@@ -16,31 +16,23 @@ import { getComponentByBrowseByType } from './browse-by-decorator';
 export class BrowseBySwitcherComponent implements OnInit {
 
   /**
-   * Resolved browse config
+   * Resolved browse-by component
    */
-  browseByTypeConfig: Observable<BrowseByTypeConfig>;
+  browseByComponent: Observable<any>;
 
   public constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
                      protected route: ActivatedRoute) {
   }
 
   /**
-   * Fetch the correct browse config from environment.js
+   * Fetch the correct browse-by component by using the relevant config from environment.js
    */
   ngOnInit(): void {
-    this.browseByTypeConfig = this.route.params.pipe(
+    this.browseByComponent = this.route.params.pipe(
       map((params) => {
         const metadata = params.metadata;
         return this.config.browseBy.types.find((config: BrowseByTypeConfig) => config.metadata === metadata);
-      })
-    );
-  }
-
-  /**
-   * Fetch the component depending on the browse type
-   */
-  getComponent() {
-    return this.browseByTypeConfig.pipe(
+      }),
       map((config: BrowseByTypeConfig) => getComponentByBrowseByType(config.type))
     );
   }
