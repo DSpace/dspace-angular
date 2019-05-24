@@ -4,11 +4,13 @@ import { ResourceType } from '../../../shared/resource-type';
 import { mapsTo, relationship } from '../../builders/build-decorators';
 import { NormalizedObject } from '../normalized-object.model';
 import { IDToUUIDSerializer } from '../../id-to-uuid-serializer';
+import { resourceType } from '../../../shared/resource-type.decorator';
 
 /**
  * Normalized model class for a DSpace Relationship
  */
 @mapsTo(Relationship)
+@resourceType(ResourceType.Relationship)
 @inheritSerialization(NormalizedObject)
 export class NormalizedRelationship extends NormalizedObject<Relationship> {
 

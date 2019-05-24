@@ -16,7 +16,7 @@ import { Item } from '../../../core/shared/item.model';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;
@@ -61,7 +61,7 @@ const item = Object.assign(new Item(), {
   }
 });
 const rdItem = new RemoteData(false, false, true, null, item);
-const workflowitem = Object.assign(new Workflowitem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
 const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
 mockObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
 

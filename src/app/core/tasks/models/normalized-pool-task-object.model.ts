@@ -3,11 +3,13 @@ import { PoolTask } from './pool-task-object.model';
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 /**
  * A normalized model class for a PoolTask.
  */
 @mapsTo(PoolTask)
+@resourceType(ResourceType.PoolTask)
 @inheritSerialization(NormalizedTaskObject)
 export class NormalizedPoolTask extends NormalizedTaskObject<PoolTask> {
 
@@ -33,6 +35,6 @@ export class NormalizedPoolTask extends NormalizedTaskObject<PoolTask> {
    * The workflowitem object whom this task is related
    */
   @autoserialize
-  @relationship(ResourceType.Workflowitem, false)
+  @relationship(ResourceType.WorkflowItem, false)
   workflowitem: string;
 }

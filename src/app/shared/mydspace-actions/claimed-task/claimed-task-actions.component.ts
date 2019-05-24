@@ -9,7 +9,7 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { isNotUndefined } from '../../empty.util';
-import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ResourceType } from '../../../core/shared/resource-type';
@@ -33,7 +33,7 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   /**
    * The workflowitem object that belonging to the ClaimedTask object
    */
-  public workflowitem$: Observable<Workflowitem>;
+  public workflowitem$: Observable<WorkflowItem>;
 
   /**
    * A boolean representing if an approve operation is pending
@@ -73,15 +73,15 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
   }
 
   /**
-   * Init the ClaimedTask and Workflowitem objects
+   * Init the ClaimedTask and WorkflowItem objects
    *
    * @param {PoolTask} object
    */
   initObjects(object: ClaimedTask) {
     this.object = object;
-    this.workflowitem$ = (this.object.workflowitem as Observable<RemoteData<Workflowitem>>).pipe(
-      filter((rd: RemoteData<Workflowitem>) => ((!rd.isRequestPending) && isNotUndefined(rd.payload))),
-      map((rd: RemoteData<Workflowitem>) => rd.payload));
+    this.workflowitem$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
+      filter((rd: RemoteData<WorkflowItem>) => ((!rd.isRequestPending) && isNotUndefined(rd.payload))),
+      map((rd: RemoteData<WorkflowItem>) => rd.payload));
   }
 
   /**

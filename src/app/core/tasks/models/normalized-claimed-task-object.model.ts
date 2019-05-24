@@ -3,11 +3,13 @@ import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { ClaimedTask } from './claimed-task-object.model';
 import { ResourceType } from '../../shared/resource-type';
+import { resourceType } from '../../shared/resource-type.decorator';
 
 /**
  * A normalized model class for a ClaimedTask.
  */
 @mapsTo(ClaimedTask)
+@resourceType(ResourceType.ClaimedTask)
 @inheritSerialization(NormalizedTaskObject)
 export class NormalizedClaimedTask extends NormalizedTaskObject<ClaimedTask> {
 
@@ -33,7 +35,7 @@ export class NormalizedClaimedTask extends NormalizedTaskObject<ClaimedTask> {
    * The workflowitem object whom this task is related
    */
   @autoserialize
-  @relationship(ResourceType.Workflowitem, false)
+  @relationship(ResourceType.WorkflowItem, false)
   workflowitem: string;
 
 }

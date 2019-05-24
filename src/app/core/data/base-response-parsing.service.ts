@@ -8,6 +8,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
 import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
 import { getNormalizedConstructorByType } from '../shared/resource-type.decorator';
+import { ResourceType } from '../shared/resource-type';
 /* tslint:disable:max-classes-per-file */
 
 export abstract class BaseResponseParsingService {

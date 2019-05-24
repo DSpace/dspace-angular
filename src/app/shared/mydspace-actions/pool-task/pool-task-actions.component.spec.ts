@@ -16,7 +16,7 @@ import { Item } from '../../../core/shared/item.model';
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
-import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 
 let component: PoolTaskActionsComponent;
 let fixture: ComponentFixture<PoolTaskActionsComponent>;
@@ -59,7 +59,7 @@ const item = Object.assign(new Item(), {
   }
 });
 const rdItem = new RemoteData(false, false, true, null, item);
-const workflowitem = Object.assign(new Workflowitem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
 const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
 mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
 

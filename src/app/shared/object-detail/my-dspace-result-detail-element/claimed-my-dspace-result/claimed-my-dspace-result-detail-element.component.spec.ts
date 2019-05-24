@@ -10,7 +10,7 @@ import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/cla
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 
 let component: ClaimedMyDSpaceResultDetailElementComponent;
 let fixture: ComponentFixture<ClaimedMyDSpaceResultDetailElementComponent>;
@@ -50,7 +50,7 @@ const item = Object.assign(new Item(), {
   }
 });
 const rdItem = new RemoteData(false, false, true, null, item);
-const workflowitem = Object.assign(new Workflowitem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
 const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
 mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
 

@@ -7,7 +7,7 @@ import { cold } from 'jasmine-marbles';
 
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ItemSubmitterComponent } from './item-submitter.component';
-import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { EPersonMock } from '../../../testing/eperson-mock';
 import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
@@ -21,7 +21,7 @@ const compIndex = 1;
 let mockResultObject: PoolTask;
 
 const rdSumbitter = new RemoteData(false, false, true, null, EPersonMock);
-const workflowitem = Object.assign(new Workflowitem(), { submitter: observableOf(rdSumbitter) });
+const workflowitem = Object.assign(new WorkflowItem(), { submitter: observableOf(rdSumbitter) });
 const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
 mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
 

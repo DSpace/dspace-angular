@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
@@ -39,7 +39,7 @@ export class PoolTaskActionsComponent extends MyDSpaceActionsComponent<PoolTask,
   /**
    * The workflowitem object that belonging to the PoolTask object
    */
-  public workflowitem$: Observable<Workflowitem>;
+  public workflowitem$: Observable<WorkflowItem>;
 
   /**
    * Initialize instance variables
@@ -64,15 +64,15 @@ export class PoolTaskActionsComponent extends MyDSpaceActionsComponent<PoolTask,
   }
 
   /**
-   * Init the PoolTask and Workflowitem objects
+   * Init the PoolTask and WorkflowItem objects
    *
    * @param {PoolTask} object
    */
   initObjects(object: PoolTask) {
     this.object = object;
-    this.workflowitem$ = (this.object.workflowitem as Observable<RemoteData<Workflowitem>>).pipe(
-      filter((rd: RemoteData<Workflowitem>) => ((!rd.isRequestPending) && isNotUndefined(rd.payload))),
-      map((rd: RemoteData<Workflowitem>) => rd.payload));
+    this.workflowitem$ = (this.object.workflowitem as Observable<RemoteData<WorkflowItem>>).pipe(
+      filter((rd: RemoteData<WorkflowItem>) => ((!rd.isRequestPending) && isNotUndefined(rd.payload))),
+      map((rd: RemoteData<WorkflowItem>) => rd.payload));
   }
 
   /**

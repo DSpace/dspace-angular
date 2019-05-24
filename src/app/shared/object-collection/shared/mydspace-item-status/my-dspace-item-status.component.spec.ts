@@ -6,7 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { RemoteData } from '../../../../core/data/remote-data';
 
-import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { EPersonMock } from '../../../testing/eperson-mock';
 import { MyDSpaceItemStatusComponent } from './my-dspace-item-status.component';
@@ -20,7 +20,7 @@ let fixture: ComponentFixture<MyDSpaceItemStatusComponent>;
 let mockResultObject: PoolTask;
 
 const rdSumbitter = new RemoteData(false, false, true, null, EPersonMock);
-const workflowitem = Object.assign(new Workflowitem(), { submitter: observableOf(rdSumbitter) });
+const workflowitem = Object.assign(new WorkflowItem(), { submitter: observableOf(rdSumbitter) });
 const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
 mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
 

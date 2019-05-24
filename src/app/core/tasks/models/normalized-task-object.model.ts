@@ -34,6 +34,6 @@ export abstract class NormalizedTaskObject<T extends DSpaceObject> extends Norma
    * The workflowitem object whom this task is related
    */
   @autoserialize
-  @relationship(ResourceType.Workflowitem, false)
+  @relationship(ResourceType.WorkflowItem, false)
   workflowitem: string;
 }
