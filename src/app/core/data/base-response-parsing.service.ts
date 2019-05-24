@@ -6,9 +6,8 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
-import { ResourceType } from '../shared/resource-type';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
 import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
+
 /* tslint:disable:max-classes-per-file */
 
 export abstract class BaseResponseParsingService {
@@ -26,7 +25,6 @@ export abstract class BaseResponseParsingService {
       } else if (Array.isArray(data)) {
         return this.processArray(data, requestUUID);
       } else if (isRestDataObject(data)) {
-        data = this.fixBadEPersonRestResponse(data);
         const object = this.deserialize(data);
         if (isNotEmpty(data._embedded)) {
           Object
@@ -67,7 +65,9 @@ export abstract class BaseResponseParsingService {
     let list = data._embedded;
 
     // Workaround for inconsistency in rest response. Issue: https://github.com/DSpace/dspace-angular/issues/238
-    if (!Array.isArray(list)) {
+    if (hasNoValue(list)) {
+      list = [];
+    } else if (!Array.isArray(list)) {
       list = this.flattenSingleKeyObject(list);
     }
     const page: ObjectDomain[] = this.processArray(list, requestUUID);
@@ -142,22 +142,7 @@ export abstract class BaseResponseParsingService {
     return this.toCache ? obj.self : obj;
   }
 
-  // TODO Remove when https://jira.duraspace.org/browse/DS-4006 is fixed
-  // See https://github.com/DSpace/dspace-angular/issues/292
-  private fixBadEPersonRestResponse(obj: any): any {
-    if (obj.type === ResourceType.EPerson) {
-      const groups = obj.groups;
-      const normGroups = [];
-      if (isNotEmpty(groups)) {
-        groups.forEach((group) => {
-            const parts = ['eperson', 'groups', group.uuid];
-            const href = new RESTURLCombiner(this.EnvConfig, ...parts).toString();
-            normGroups.push(href);
-          }
-        )
-      }
-      return Object.assign({}, obj, { groups: normGroups });
-    }
-    return obj;
+  protected isSuccessStatus(statusCode: number) {
+    return statusCode >= 200 && statusCode < 300;
   }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-search-settings',
@@ -16,6 +17,11 @@ import { SearchConfigurationService } from '../search-service/search-configurati
  * This component represents the part of the search sidebar that contains the general search settings.
  */
 export class SearchSettingsComponent implements OnInit {
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
 
   /**
    * The configuration for the current paginated search results
@@ -30,7 +36,7 @@ export class SearchSettingsComponent implements OnInit {
   constructor(private service: SearchService,
               private route: ActivatedRoute,
               private router: Router,
-              private searchConfigurationService: SearchConfigurationService) {
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigurationService: SearchConfigurationService) {
   }
 
   /**
@@ -53,7 +59,7 @@ export class SearchSettingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate(this.getSearchLinkParts(), navigationExtras);
   }
 
   /**
@@ -70,6 +76,26 @@ export class SearchSettingsComponent implements OnInit {
       },
       queryParamsHandling: 'merge'
     };
-    this.router.navigate([ '/search' ], navigationExtras);
+    this.router.navigate(this.getSearchLinkParts(), navigationExtras);
+  }
+
+  /**
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
+   */
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
+    return this.service.getSearchLink();
+  }
+
+  /**
+   * @returns {string[]} The base path to the search page, or the current page when inPlaceSearch is true, split in separate pieces
+   */
+  public getSearchLinkParts(): string[] {
+    if (this.service) {
+      return [];
+    }
+    return this.getSearchLink().split('/');
   }
 }

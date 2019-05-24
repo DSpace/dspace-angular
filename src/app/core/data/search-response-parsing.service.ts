@@ -15,7 +15,13 @@ export class SearchResponseParsingService implements ResponseParsingService {
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    const payload = data.payload._embedded.searchResult;
+    // fallback for unexpected empty response
+    const emptyPayload = {
+      _embedded : {
+        objects: []
+      }
+    };
+    const payload = data.payload._embedded.searchResult || emptyPayload;
     const hitHighlights: MetadataMap[] = payload._embedded.objects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {
@@ -31,7 +37,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
 
     const dsoSelfLinks = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
-      .map((object) => object._embedded.dspaceObject)
+      .map((object) => object._embedded.indexableObject)
       // we don't need embedded collections, bitstreamformats, etc for search results.
       // And parsing them all takes up a lot of time. Throw them away to improve performance
       // until objs until partial results are supported by the rest api
@@ -47,7 +53,7 @@ export class SearchResponseParsingService implements ResponseParsingService {
     const objects = payload._embedded.objects
       .filter((object) => hasValue(object._embedded))
       .map((object, index) => Object.assign({}, object, {
-        dspaceObject: dsoSelfLinks[index],
+        indexableObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
         // we don't need embedded collections, bitstreamformats, etc for search results.
         // And parsing them all takes up a lot of time. Throw them away to improve performance

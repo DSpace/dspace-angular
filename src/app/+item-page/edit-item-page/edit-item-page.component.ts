@@ -1,6 +1,6 @@
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { Observable } from 'rxjs';

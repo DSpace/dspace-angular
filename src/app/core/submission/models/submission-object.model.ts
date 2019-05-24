@@ -26,6 +26,11 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
   id: string;
 
   /**
+   * The workspaceitem/workflowitem identifier
+   */
+  uuid: string;
+
+  /**
    * The workspaceitem/workflowitem last modified date
    */
   lastModified: Date;

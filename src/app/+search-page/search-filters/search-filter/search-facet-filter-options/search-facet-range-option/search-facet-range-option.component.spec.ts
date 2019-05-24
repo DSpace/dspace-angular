@@ -35,10 +35,11 @@ describe('SearchFacetRangeOptionComponent', () => {
     maxValue: 3000,
   });
   const value: FacetValue = {
-      value: value2,
-      count: 20,
-      search: ''
-    };
+    label: value2,
+    value: value2,
+    count: 20,
+    search: ''
+  };
 
   const searchLink = '/search';
   let filterService;
@@ -92,10 +93,11 @@ describe('SearchFacetRangeOptionComponent', () => {
     it('should update the changeQueryParams with the new parameter values', () => {
       comp.changeQueryParams = {};
       comp.filterValue = {
-          value: '50-60',
-          count: 20,
-          search: ''
-        };
+        label: '50-60',
+        value: '50-60',
+        count: 20,
+        search: ''
+      };
       (comp as any).updateChangeParams();
       expect(comp.changeQueryParams).toEqual({
         [mockFilterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: ['50'],

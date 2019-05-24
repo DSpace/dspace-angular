@@ -18,8 +18,8 @@ import { rendersSectionForMenu } from '../../../shared/menu/menu-section.decorat
   templateUrl: './expandable-admin-sidebar-section.component.html',
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor]
-
 })
+
 @rendersSectionForMenu(MenuID.ADMIN, true)
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
   /**

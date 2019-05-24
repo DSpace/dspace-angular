@@ -11,6 +11,9 @@ export enum ResourceType {
   ResourcePolicy = 'resourcePolicy',
   MetadataSchema = 'metadataschema',
   MetadataField = 'metadatafield',
+  Relationship = 'relationship',
+  RelationshipType = 'relationshiptype',
+  ItemType = 'entitytype',
   License = 'license',
   Workflowitem = 'workflowitem',
   Workspaceitem = 'workspaceitem',
@@ -20,4 +23,6 @@ export enum ResourceType {
   SubmissionForms = 'submissionforms',
   SubmissionSections = 'submissionsections',
   SubmissionSection = 'submissionsection',
+  ClaimedTask = 'claimedtask',
+  PoolTask = 'pooltask'
 }

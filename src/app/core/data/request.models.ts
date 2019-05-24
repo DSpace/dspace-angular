@@ -14,10 +14,10 @@ import { RestRequestMethod } from './rest-request-method';
 import { SearchParam } from '../cache/models/search-param.model';
 import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
-import { RegistryMetadataschemasResponseParsingService } from './registry-metadataschemas-response-parsing.service';
 import { MetadataschemaParsingService } from './metadataschema-parsing.service';
 import { MetadatafieldParsingService } from './metadatafield-parsing.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
+import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -369,6 +369,30 @@ export class DeleteByIDRequest extends DeleteRequest {
   ) {
     super(uuid, href);
   }
+}
+
+export class TaskPostRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TaskResponseParsingService;
+  }
+}
+
+export class TaskDeleteRequest extends DeleteRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TaskResponseParsingService;
+  }
+}
+
+export class MyDSpaceRequest extends GetRequest {
+  public responseMsToLive = 0;
 }
 
 export class RequestError extends Error {

@@ -12,10 +12,19 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 })
 export class MetadataValuesComponent {
 
+  /**
+   * The metadata values to display
+   */
   @Input() mdValues: MetadataValue[];
 
+  /**
+   * The seperator used to split the metadata values (can contain HTML)
+   */
   @Input() separator: string;
 
+  /**
+   * The label for this iteration of metadata values
+   */
   @Input() label: string;
 
 }

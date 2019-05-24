@@ -18,7 +18,7 @@
          [uploader]="uploader"
          (fileOver)="fileOverBase($event)"
          class="well ds-base-drop-zone mt-1 mb-3 text-muted">
-      <p class="text-center m-0 pt-2" [hidden]="uploader?.queue?.length !== 0">
+      <p class="text-center m-0 p-0 d-flex justify-content-center align-items-center" *ngIf="uploader?.queue?.length === 0">
         <span><i class="fas fa-cloud-upload" aria-hidden="true"></i> {{dropMsg | translate}} {{'uploader.or' | translate}}
           <label class="btn btn-link m-0 p-0">
             <input class="d-none" type="file" ng2FileSelect [uploader]="uploader" multiple  />
