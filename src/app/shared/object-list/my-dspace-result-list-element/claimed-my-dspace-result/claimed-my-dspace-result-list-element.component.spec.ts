@@ -10,6 +10,7 @@ import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/cla
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 
 let component: ClaimedMyDSpaceResultListElementComponent;
 let fixture: ComponentFixture<ClaimedMyDSpaceResultListElementComponent>;

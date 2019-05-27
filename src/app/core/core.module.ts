@@ -107,6 +107,12 @@ import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { NormalizedClaimedTask } from './tasks/models/normalized-claimed-task-object.model';
+import { NormalizedTaskObject } from './tasks/models/normalized-task-object.model';
+import { NormalizedPoolTask } from './tasks/models/normalized-pool-task-object.model';
+import { NormalizedRelationship } from './cache/models/items/normalized-relationship.model';
+import { NormalizedRelationshipType } from './cache/models/items/normalized-relationship-type.model';
+import { NormalizedItemType } from './cache/models/items/normalized-item-type.model';
 
 const IMPORTS = [
   CommonModule,
@@ -227,7 +233,13 @@ export const normalizedModels =
     NormalizedSubmissionSectionModel,
     NormalizedAuthStatus,
     NormalizedAuthorityValue,
-    BrowseEntry
+    BrowseEntry,
+    NormalizedClaimedTask,
+    NormalizedTaskObject,
+    NormalizedPoolTask,
+    NormalizedRelationship,
+    NormalizedRelationshipType,
+    NormalizedItemType
   ];
 
 @NgModule({

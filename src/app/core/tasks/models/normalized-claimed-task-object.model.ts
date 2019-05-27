@@ -32,6 +32,20 @@ export class NormalizedClaimedTask extends NormalizedTaskObject<ClaimedTask> {
   action: string;
 
   /**
+   * The eperson object for this task
+   */
+  @autoserialize
+  @relationship(ResourceType.EPerson, false)
+  eperson: string;
+
+  /**
+   * The group object for this task
+   */
+  @autoserialize
+  @relationship(ResourceType.Group, false)
+  group: string;
+
+  /**
    * The workflowitem object whom this task is related
    */
   @autoserialize
