@@ -11,6 +11,7 @@ import { Item } from '../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '../../testing/utils';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;
@@ -30,7 +31,7 @@ describe('DSOSelectorComponent', () => {
   searchResult.indexableObject = item;
   searchResult.hitHighlights = {};
   const searchService = jasmine.createSpyObj('searchService', {
-    search: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(undefined, [searchResult])))
+    search: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [searchResult]))
   });
 
   beforeEach(async(() => {

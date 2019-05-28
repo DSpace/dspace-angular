@@ -11,6 +11,7 @@ import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 let component: PoolMyDSpaceResultListElementComponent;
 let fixture: ComponentFixture<PoolMyDSpaceResultListElementComponent>;
@@ -49,9 +50,9 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rdItem = new RemoteData(false, false, true, null, item);
+const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
-const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
+const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
 
 describe('PoolMyDSpaceResultListElementComponent', () => {

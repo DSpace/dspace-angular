@@ -10,6 +10,7 @@ import * as collectionRouter from '../../../../+collection-page/collection-page-
 import { Community } from '../../../../core/shared/community.model';
 import { CreateCollectionParentSelectorComponent } from './create-collection-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 describe('CreateCollectionParentSelectorComponent', () => {
   let component: CreateCollectionParentSelectorComponent;
@@ -26,7 +27,7 @@ describe('CreateCollectionParentSelectorComponent', () => {
     })]
   };
   const router = new RouterStub();
-  const communityRD = new RemoteData(false, false, true, undefined, community);
+  const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const createPath = 'testCreatePath';
 

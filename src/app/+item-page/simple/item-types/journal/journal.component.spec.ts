@@ -15,12 +15,13 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { JournalComponent } from './journal.component';
 import { of as observableOf } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
     'journal.identifier.issn': [
       {

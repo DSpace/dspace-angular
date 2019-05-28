@@ -12,6 +12,7 @@ import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { EPersonMock } from '../../../testing/eperson-mock';
 import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
 import { By } from '@angular/platform-browser';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 let component: ItemSubmitterComponent;
 let fixture: ComponentFixture<ItemSubmitterComponent>;
@@ -20,9 +21,9 @@ const compIndex = 1;
 
 let mockResultObject: PoolTask;
 
-const rdSumbitter = new RemoteData(false, false, true, null, EPersonMock);
+const rdSumbitter = createSuccessfulRemoteDataObject(EPersonMock);
 const workflowitem = Object.assign(new WorkflowItem(), { submitter: observableOf(rdSumbitter) });
-const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
+const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
 
 describe('ItemSubmitterComponent', () => {

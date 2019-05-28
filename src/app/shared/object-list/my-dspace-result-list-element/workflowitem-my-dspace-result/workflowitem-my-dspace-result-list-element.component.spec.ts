@@ -10,6 +10,7 @@ import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/wo
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 let component: WorkflowitemMyDSpaceResultListElementComponent;
 let fixture: ComponentFixture<WorkflowitemMyDSpaceResultListElementComponent>;
@@ -48,7 +49,7 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rd = new RemoteData(false, false, true, null, item);
+const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: observableOf(rd) });
 
 describe('WorkflowitemMyDSpaceResultListElementComponent', () => {

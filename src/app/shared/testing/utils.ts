@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RemoteData } from '../../core/data/remote-data';
+import { Observable, of as observableOf } from 'rxjs';
+import { RemoteDataError } from '../../core/data/remote-data-error';
 
 /**
  * Returns true if a Native Element has a specified css class.
@@ -49,4 +52,46 @@ export function spyOnOperator(obj: any, prop: string): any {
   });
 
   return spyOn(obj, prop);
+}
+
+export function createSuccessfulRemoteDataObject<T>(object: T): RemoteData<T>{
+  return new RemoteData(
+    false,
+    false,
+    true,
+    undefined,
+    object
+  );
+}
+
+export function createSuccessfulRemoteDataObject$<T>(object: T): Observable<RemoteData<T>>{
+  return observableOf(createSuccessfulRemoteDataObject(object));
+}
+
+export function createFailedRemoteDataObject<T>(object?: T, error?: RemoteDataError): RemoteData<T>{
+  return new RemoteData(
+    false,
+    false,
+    false,
+    error,
+    object
+  );
+}
+
+export function createFailedRemoteDataObject$<T>(object?: T, error?: RemoteDataError): Observable<RemoteData<T>>{
+  return observableOf(createFailedRemoteDataObject(object, error));
+}
+
+export function createPendingRemoteDataObject<T>(object?: T): RemoteData<T>{
+  return new RemoteData(
+    true,
+    true,
+    true,
+    null,
+    object
+  );
+}
+
+export function createPendingRemoteDataObject$<T>(object?: T): Observable<RemoteData<T>>{
+  return observableOf(createPendingRemoteDataObject(object));
 }

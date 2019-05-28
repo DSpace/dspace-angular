@@ -2,6 +2,10 @@ import {RemoteData} from '../../core/data/remote-data';
 import {hot} from 'jasmine-marbles';
 import {Item} from '../../core/shared/item.model';
 import {findSuccessfulAccordingTo} from './edit-item-operators';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject
+} from '../../shared/testing/utils';
 
 describe('findSuccessfulAccordingTo', () => {
   let mockItem1;
@@ -19,11 +23,11 @@ describe('findSuccessfulAccordingTo', () => {
   });
   it('should return first successful RemoteData Observable that complies to predicate', () => {
     const testRD = {
-      a: new RemoteData(false, false, true, null, undefined),
-      b: new RemoteData(false, false, false, null, mockItem1),
-      c: new RemoteData(false, false, true, null, mockItem2),
-      d: new RemoteData(false, false, true, null, mockItem1),
-      e: new RemoteData(false, false, true, null, mockItem2),
+      a: createSuccessfulRemoteDataObject(undefined),
+      b: createFailedRemoteDataObject(mockItem1),
+      c: createSuccessfulRemoteDataObject(mockItem2),
+      d: createSuccessfulRemoteDataObject(mockItem1),
+      e: createSuccessfulRemoteDataObject(mockItem2),
     };
 
     const source = hot('abcde', testRD);

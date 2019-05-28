@@ -22,6 +22,7 @@ import {
   getResourceLinksFromResponse
 } from '../../shared/operators';
 import { CacheableObject, TypedObject } from '../object-cache.reducer';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -200,7 +201,7 @@ export class RemoteDataBuildService {
   aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {
 
     if (isEmpty(input)) {
-      return observableOf(new RemoteData(false, false, true, null, []));
+      return createSuccessfulRemoteDataObject$([]);
     }
 
     return observableCombineLatest(...input).pipe(

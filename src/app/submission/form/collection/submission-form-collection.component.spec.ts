@@ -23,7 +23,10 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
-import { createTestComponent } from '../../../shared/testing/utils';
+import {
+  createSuccessfulRemoteDataObject$,
+  createTestComponent
+} from '../../../shared/testing/utils';
 import { cold } from 'jasmine-marbles';
 
 const subcommunities = [Object.assign(new Community(), {
@@ -101,10 +104,8 @@ const mockCommunity = Object.assign(new Community(), {
       language: 'en_US',
       value: 'Community 1'
     }],
-  collections: observableOf(new RemoteData(true, true, true,
-    undefined, new PaginatedList(new PageInfo(), [mockCommunity1Collection1, mockCommunity1Collection2]))),
-  subcommunities: observableOf(new RemoteData(true, true, true,
-    undefined, new PaginatedList(new PageInfo(), subcommunities))),
+  collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [mockCommunity1Collection1, mockCommunity1Collection2])), //LOTTE
+  subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), subcommunities)),
 });
 
 const mockCommunity2 = Object.assign(new Community(), {
@@ -116,14 +117,11 @@ const mockCommunity2 = Object.assign(new Community(), {
       language: 'en_US',
       value: 'Community 2'
     }],
-  collections: observableOf(new RemoteData(true, true, true,
-    undefined, new PaginatedList(new PageInfo(), [mockCommunity2Collection1, mockCommunity2Collection2]))),
-  subcommunities: observableOf(new RemoteData(true, true, true,
-    undefined, new PaginatedList(new PageInfo(), []))),
+  collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [mockCommunity2Collection1, mockCommunity2Collection2])),
+  subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
 });
 
-const mockCommunityList = observableOf(new RemoteData(true, true, true,
-  undefined, new PaginatedList(new PageInfo(), [mockCommunity, mockCommunity2])));
+const mockCommunityList = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [mockCommunity, mockCommunity2]));
 
 const mockCollectionList = [
   {

@@ -14,6 +14,7 @@ import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 
 let component: WorkflowitemActionsComponent;
 let fixture: ComponentFixture<WorkflowitemActionsComponent>;
@@ -51,7 +52,7 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rd = new RemoteData(false, false, true, null, item);
+const rd = createSuccessfulRemoteDataObject(item);
 mockObject = Object.assign(new WorkflowItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
 
 describe('WorkflowitemActionsComponent', () => {

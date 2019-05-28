@@ -17,6 +17,7 @@ import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.se
 import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;
@@ -60,9 +61,9 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rdItem = new RemoteData(false, false, true, null, item);
+const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
-const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
+const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
 
 describe('ClaimedTaskActionsComponent', () => {

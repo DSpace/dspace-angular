@@ -18,6 +18,7 @@ import { Item } from '../../core/shared/item.model';
 import { ENV_CONFIG, GLOBAL_CONFIG } from '../../../config';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { toRemoteData } from '../+browse-by-metadata-page/browse-by-metadata-page.component.spec';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -48,11 +49,11 @@ describe('BrowseByDatePageComponent', () => {
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
-    getFirstItemFor: () => observableOf(new RemoteData(false, false, true, undefined, firstItem))
+    getFirstItemFor: () => createSuccessfulRemoteDataObject$(firstItem)
   };
 
   const mockDsoService = {
-    findById: () => observableOf(new RemoteData(false, false, true, null, mockCommunity))
+    findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {

@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
 
-import { createTestComponent } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$, createTestComponent } from '../../../shared/testing/utils';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
 import { SectionsService } from '../sections.service';
@@ -30,7 +30,6 @@ import { GroupEpersonService } from '../../../core/eperson/group-eperson.service
 import { cold, hot } from 'jasmine-marbles';
 import { Collection } from '../../../core/shared/collection.model';
 import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { ConfigData } from '../../../core/config/config-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Group } from '../../../core/eperson/models/group.model';
@@ -180,24 +179,17 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
-      collectionDataService.findById.and.returnValue(observableOf(
-        new RemoteData(false, false, true,
-        undefined, mockCollection)));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 
-      collectionDataService.findByHref.and.returnValue(observableOf(
-        new RemoteData(false, false, true,
-          undefined, mockDefaultAccessCondition)
-      ));
+      collectionDataService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
       uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
         new ConfigData(new PageInfo(), mockUploadConfigResponse as any)
       ));
 
       groupService.findById.and.returnValues(
-        observableOf(new RemoteData(false, false, true,
-          undefined, Object.assign(new Group(), mockGroup))),
-        observableOf(new RemoteData(false, false, true,
-          undefined, Object.assign(new Group(), mockGroup)))
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(observableOf([]));
@@ -226,24 +218,17 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
-      collectionDataService.findById.and.returnValue(observableOf(
-        new RemoteData(false, false, true,
-          undefined, mockCollection)));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 
-      collectionDataService.findByHref.and.returnValue(observableOf(
-        new RemoteData(false, false, true,
-          undefined, mockDefaultAccessCondition)
-      ));
+      collectionDataService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
       uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
         new ConfigData(new PageInfo(), mockUploadConfigResponse as any)
       ));
 
       groupService.findById.and.returnValues(
-        observableOf(new RemoteData(false, false, true,
-          undefined, Object.assign(new Group(), mockGroup))),
-        observableOf(new RemoteData(false, false, true,
-          undefined, Object.assign(new Group(), mockGroup)))
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
 
       bitstreamService.getUploadedFileList.and.returnValue(observableOf(mockUploadFiles));

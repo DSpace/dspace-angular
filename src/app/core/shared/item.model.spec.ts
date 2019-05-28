@@ -5,6 +5,7 @@ import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { isEmpty } from '../../shared/empty.util';
 import { first, map } from 'rxjs/operators';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('Item', () => {
 
@@ -32,9 +33,9 @@ describe('Item', () => {
       content: bitstream2Path
     }];
 
-    remoteDataThumbnail = createRemoteDataObject(thumbnail);
-    remoteDataFiles = createRemoteDataObject(bitstreams);
-    remoteDataAll = createRemoteDataObject([...bitstreams, thumbnail]);
+    remoteDataThumbnail = createSuccessfulRemoteDataObject$(thumbnail);
+    remoteDataFiles = createSuccessfulRemoteDataObject$(bitstreams);
+    remoteDataAll = createSuccessfulRemoteDataObject$([...bitstreams, thumbnail]);
 
     // Create Bundles
 
@@ -101,14 +102,3 @@ describe('Item', () => {
   });
 
 });
-
-function createRemoteDataObject(object: any) {
-  return observableOf(new RemoteData(
-    false,
-    false,
-    true,
-    undefined,
-    object
-  ));
-
-}

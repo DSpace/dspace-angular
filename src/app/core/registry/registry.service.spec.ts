@@ -42,6 +42,7 @@ import {
 import { ResourceType } from '../shared/resource-type';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -131,7 +132,7 @@ describe('RegistryService', () => {
       );
     },
     aggregate: (input: Array<Observable<RemoteData<any>>>): Observable<RemoteData<any[]>> => {
-      return observableOf(new RemoteData(false, false, true, null, []));
+      return createSuccessfulRemoteDataObject$([]);
     }
   };
 

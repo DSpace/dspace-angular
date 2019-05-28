@@ -21,6 +21,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { RestResponse } from '../../../core/cache/response.models';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
@@ -74,12 +75,12 @@ describe('MetadataSchemaComponent', () => {
       schema: mockSchemasList[1]
     }
   ];
-  const mockSchemas = observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
+  const mockSchemas = createSuccessfulRemoteDataObject$(new PaginatedList(null, mockSchemasList));
   /* tslint:disable:no-empty */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,
-    getMetadataFieldsBySchema: (schema: MetadataSchema) => observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFieldsList.filter((value) => value.schema === schema)))),
-    getMetadataSchemaByName: (schemaName: string) => observableOf(new RemoteData(false, false, true, undefined, mockSchemasList.filter((value) => value.prefix === schemaName)[0])),
+    getMetadataFieldsBySchema: (schema: MetadataSchema) => createSuccessfulRemoteDataObject$(new PaginatedList(null, mockFieldsList.filter((value) => value.schema === schema))),
+    getMetadataSchemaByName: (schemaName: string) => createSuccessfulRemoteDataObject$(mockSchemasList.filter((value) => value.prefix === schemaName)[0]),
     getActiveMetadataField: () => observableOf(undefined),
     getSelectedMetadataFields: () => observableOf([]),
     editMetadataField: (schema) => {},

@@ -17,6 +17,7 @@ import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service'
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 
 let component: PoolTaskActionsComponent;
 let fixture: ComponentFixture<PoolTaskActionsComponent>;
@@ -58,9 +59,9 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rdItem = new RemoteData(false, false, true, null, item);
+const rdItem = createSuccessfulRemoteDataObject(item);
 const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
-const rdWorkflowitem = new RemoteData(false, false, true, null, workflowitem);
+const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
 
 describe('PoolTaskActionsComponent', () => {

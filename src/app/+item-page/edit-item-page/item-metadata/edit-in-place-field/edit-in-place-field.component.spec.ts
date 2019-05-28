@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 let comp: EditInPlaceFieldComponent;
 let fixture: ComponentFixture<EditInPlaceFieldComponent>;
@@ -59,7 +60,7 @@ describe('EditInPlaceFieldComponent', () => {
     paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
 
     metadataFieldService = jasmine.createSpyObj({
-      queryMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields)),
+      queryMetadataFields: createSuccessfulRemoteDataObject$(paginatedMetadataFields),
     });
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {

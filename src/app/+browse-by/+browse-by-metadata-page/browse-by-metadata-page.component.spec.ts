@@ -21,6 +21,7 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { Community } from '../../core/shared/community.model';
 import { MockRouter } from '../../shared/mocks/mock-router';
 import { ResourceType } from '../../core/shared/resource-type';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -74,7 +75,7 @@ describe('BrowseByMetadataPageComponent', () => {
   };
 
   const mockDsoService = {
-    findById: () => observableOf(new RemoteData(false, false, true, null, mockCommunity))
+    findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
@@ -155,5 +156,5 @@ describe('BrowseByMetadataPageComponent', () => {
 });
 
 export function toRemoteData(objects: any[]): Observable<RemoteData<PaginatedList<any>>> {
-  return observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), objects)));
+  return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), objects));
 }

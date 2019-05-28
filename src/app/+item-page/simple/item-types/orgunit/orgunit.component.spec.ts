@@ -5,9 +5,10 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { createRelationshipsObservable, getItemPageFieldsTest } from '../shared/item.component.spec';
 import { OrgunitComponent } from './orgunit.component';
 import { of as observableOf } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
     'orgunit.identifier.dateestablished': [
       {

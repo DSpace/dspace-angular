@@ -16,9 +16,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from './item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';
+import {
+  createFailedRemoteDataObject$, createPendingRemoteDataObject$, createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
@@ -33,7 +37,7 @@ describe('ItemPageComponent', () => {
     /* tslint:enable:no-empty */
   };
   const mockRoute = Object.assign(new ActivatedRouteStub(), {
-    data: observableOf({ item: new RemoteData(false, false, true, null, mockItem) })
+    data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
   });
 
   beforeEach(async(() => {
@@ -66,7 +70,8 @@ describe('ItemPageComponent', () => {
 
   describe('when the item is loading', () => {
     beforeEach(() => {
-      comp.itemRD$ = observableOf(new RemoteData(true, true, true, null, undefined));
+      comp.itemRD$ = createPendingRemoteDataObject$(undefined);
+      // comp.itemRD$ = observableOf(new RemoteData(true, true, true, null, undefined));
       fixture.detectChanges();
     });
 
@@ -78,7 +83,7 @@ describe('ItemPageComponent', () => {
 
   describe('when the item failed loading', () => {
     beforeEach(() => {
-      comp.itemRD$ = observableOf(new RemoteData(false, false, false, null, undefined));
+      comp.itemRD$ = createFailedRemoteDataObject$(undefined);
       fixture.detectChanges();
     });
 

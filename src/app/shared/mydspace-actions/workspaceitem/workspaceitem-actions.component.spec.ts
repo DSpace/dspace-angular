@@ -16,6 +16,7 @@ import { Item } from '../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 
 let component: WorkspaceitemActionsComponent;
 let fixture: ComponentFixture<WorkspaceitemActionsComponent>;
@@ -56,7 +57,7 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rd = new RemoteData(false, false, true, null, item);
+const rd = createSuccessfulRemoteDataObject(item);
 mockObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
 
 describe('WorkspaceitemActionsComponent', () => {
