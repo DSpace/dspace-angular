@@ -20,8 +20,8 @@
         <tr *ngFor="let item of itemsRD?.payload?.page">
           <td><input class="item-checkbox" [ngModel]="getSelected(item.id) | async" (change)="switch(item.id)" type="checkbox" name="{{item.id}}"></td>
           <td *ngIf="!hideCollection"><a [routerLink]="['/items', item.id]">{{(item.owningCollection | async)?.payload?.name}}</a></td>
-          <td><a *ngIf="item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0" [routerLink]="['/items', item.id]">{{item.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])[0].value}}</a></td>
-          <td><a [routerLink]="['/items', item.id]">{{item.findMetadata("dc.title")}}</a></td>
+          <td><a *ngIf="item.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])" [routerLink]="['/items', item.id]">{{item.firstMetadataValue(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])}}</a></td>
+          <td><a [routerLink]="['/items', item.id]">{{item.firstMetadataValue("dc.title")}}</a></td>
         </tr>
         </tbody>
       </table>

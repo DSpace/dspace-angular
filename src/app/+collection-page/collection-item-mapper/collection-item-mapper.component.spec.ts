@@ -72,7 +72,7 @@ describe('CollectionItemMapperComponent', () => {
     paginatedSearchOptions: mockSearchOptions
   };
   const itemDataServiceStub = {
-    mapToCollection: () => of(new RestResponse(true, '200'))
+    mapToCollection: () => of(new RestResponse(true, 200, 'OK'))
   };
   const activatedRouteStub = new ActivatedRouteStub({}, { collection: mockCollectionRD });
   const translateServiceStub = {
@@ -134,11 +134,6 @@ describe('CollectionItemMapperComponent', () => {
   describe('mapItems', () => {
     const ids = ['id1', 'id2', 'id3', 'id4'];
 
-    beforeEach(() => {
-      spyOn(notificationsService, 'success').and.callThrough();
-      spyOn(notificationsService, 'error').and.callThrough();
-    });
-
     it('should display a success message if at least one mapping was successful', () => {
       comp.mapItems(ids);
       expect(notificationsService.success).toHaveBeenCalled();
@@ -146,7 +141,7 @@ describe('CollectionItemMapperComponent', () => {
     });
 
     it('should display an error message if at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'mapToCollection').and.returnValue(of(new RestResponse(false, '404')));
+      spyOn(itemDataService, 'mapToCollection').and.returnValue(of(new RestResponse(false, 404, 'Not Found')));
       comp.mapItems(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();

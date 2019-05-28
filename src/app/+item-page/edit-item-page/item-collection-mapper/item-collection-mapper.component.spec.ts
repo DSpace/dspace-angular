@@ -69,8 +69,8 @@ describe('ItemCollectionMapperComponent', () => {
   };
   const mockCollectionsRD = new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []));
   const itemDataServiceStub = {
-    mapToCollection: () => of(new RestResponse(true, '200')),
-    removeMappingFromCollection: () => of(new RestResponse(true, '200')),
+    mapToCollection: () => of(new RestResponse(true, 200, 'OK')),
+    removeMappingFromCollection: () => of(new RestResponse(true, 200, 'OK')),
     getMappedCollections: () => of(mockCollectionsRD),
     /* tslint:disable:no-empty */
     clearMappedCollectionsRequests: () => {}
@@ -128,11 +128,6 @@ describe('ItemCollectionMapperComponent', () => {
   describe('mapCollections', () => {
     const ids = ['id1', 'id2', 'id3', 'id4'];
 
-    beforeEach(() => {
-      spyOn(notificationsService, 'success').and.callThrough();
-      spyOn(notificationsService, 'error').and.callThrough();
-    });
-
     it('should display a success message if at least one mapping was successful', () => {
       comp.mapCollections(ids);
       expect(notificationsService.success).toHaveBeenCalled();
@@ -140,7 +135,7 @@ describe('ItemCollectionMapperComponent', () => {
     });
 
     it('should display an error message if at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'mapToCollection').and.returnValue(of(new RestResponse(false, '404')));
+      spyOn(itemDataService, 'mapToCollection').and.returnValue(of(new RestResponse(false, 404, 'Not Found')));
       comp.mapCollections(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
@@ -150,11 +145,6 @@ describe('ItemCollectionMapperComponent', () => {
   describe('removeMappings', () => {
     const ids = ['id1', 'id2', 'id3', 'id4'];
 
-    beforeEach(() => {
-      spyOn(notificationsService, 'success').and.callThrough();
-      spyOn(notificationsService, 'error').and.callThrough();
-    });
-
     it('should display a success message if the removal of at least one mapping was successful', () => {
       comp.removeMappings(ids);
       expect(notificationsService.success).toHaveBeenCalled();
@@ -162,7 +152,7 @@ describe('ItemCollectionMapperComponent', () => {
     });
 
     it('should display an error message if the removal of at least one mapping was unsuccessful', () => {
-      spyOn(itemDataService, 'removeMappingFromCollection').and.returnValue(of(new RestResponse(false, '404')));
+      spyOn(itemDataService, 'removeMappingFromCollection').and.returnValue(of(new RestResponse(false, 404, 'Not Found')));
       comp.removeMappings(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
