@@ -20,8 +20,6 @@ describe('ItemOperationComponent', () => {
   beforeEach(() => {
     itemOperation  = new ItemOperation('key1', 'url1');
 
-    itemOperation = new ItemOperation('key1', 'url1');
-
     fixture = TestBed.createComponent(ItemOperationComponent);
     comp = fixture.componentInstance;
     comp.operation = itemOperation;
