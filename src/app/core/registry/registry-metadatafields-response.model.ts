@@ -1,6 +1,8 @@
 import { PageInfo } from '../shared/page-info.model';
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
 import { MetadataField } from '../metadata/metadata-field.model';
+import { relationship } from '../cache/builders/build-decorators';
+import { ResourceType } from '../shared/resource-type';
 
 /**
  * Class that represents a response with a registry's metadata fields
@@ -9,7 +11,8 @@ export class RegistryMetadatafieldsResponse {
   /**
    * List of metadata fields in the response
    */
-  @autoserializeAs(MetadataField)
+  @deserialize
+  @relationship(ResourceType.MetadataField, true)
   metadatafields: MetadataField[];
 
   /**
