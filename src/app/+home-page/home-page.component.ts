@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ds-home-page',
-  styleUrls: ['./$themePath$/home-page.component.$theme$.scss'],
-  templateUrl: './$themePath$/home-page.component.$theme$.html'
+  styleUrls: ['./home-page.component.scss'],
+  templateUrl: './home-page.component.html'
 })
 export class HomePageComponent {
 }

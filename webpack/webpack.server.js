@@ -12,7 +12,6 @@ module.exports = {
       output: {
         filename: 'server.js'
       },
-    module: {rules: []},
     target: 'node',
       externals: [nodeExternals({
         whitelist: [

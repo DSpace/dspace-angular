@@ -13,8 +13,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.c
 
 @Component({
   selector: 'ds-search-filter',
-  styleUrls: ['./$themePath$/search-filter.component.$theme$.scss'],
-  templateUrl: './$themePath$/search-filter.component.$theme$.html',
+  styleUrls: ['./search-filter.component.scss'],
+  templateUrl: './search-filter.component.html',
   animations: [slide],
 })
 

@@ -14,7 +14,7 @@ import { FilterType } from '../../../../search-service/filter-type.model';
   selector: 'ds-search-facet-option',
   styleUrls: ['./search-facet-option.component.scss'],
   // templateUrl: './search-facet-option.component.html',
-  templateUrl: './$themePath$/search-facet-option.component.$theme$.html',
+  templateUrl: './search-facet-option.component.html',
 })
 
 /**
