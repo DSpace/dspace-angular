@@ -1,18 +1,19 @@
+import * as ngrx from '@ngrx/store';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
 import { ObjectCacheService } from './object-cache.service';
 import {
   AddPatchObjectCacheAction,
-  AddToObjectCacheAction, ApplyPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
 import { CoreState } from '../core.reducers';
 import { ResourceType } from '../shared/resource-type';
 import { NormalizedItem } from './models/normalized-item.model';
 import { first } from 'rxjs/operators';
-import * as ngrx from '@ngrx/store';
-import { Operation } from '../../../../node_modules/fast-json-patch';
+import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { Patch } from './object-cache.reducer';

@@ -1,43 +1,27 @@
-import {Observable, of, of as observableOf} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  first,
-  map,
-  startWith,
-  switchMap,
-  take,
-  withLatestFrom
-} from 'rxjs/operators';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
+import { Observable, of as observableOf } from 'rxjs';
+import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
 
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
-
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../../shared/services/cookie.service';
-import {
-  getAuthenticationToken,
-  getRedirectUrl,
-  isAuthenticated,
-  isTokenRefreshing
-} from './selectors';
+import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -146,14 +130,10 @@ export class AuthService {
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
+      map((status) => this.rdbService.build(status)),
       switchMap((status: AuthStatus) => {
-
         if (status.authenticated) {
-          // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
-          // Review when https://jira.duraspace.org/browse/DS-4006 is fixed
-          // See https://github.com/DSpace/dspace-angular/issues/292
-          const person$ = this.rdbService.buildSingle<EPerson>(status.eperson.toString());
-          return person$.pipe(map((eperson) => eperson.payload));
+          return status.eperson.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
         }
@@ -242,7 +222,6 @@ export class AuthService {
           throw(new Error('auth.errors.invalid-user'));
         }
       }))
-
   }
 
   /**

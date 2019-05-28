@@ -1,4 +1,4 @@
-import { autoserialize } from 'cerialize';
+import { autoserialize, autoserializeAs } from 'cerialize';
 import { MetadataMap } from '../core/shared/metadata.models';
 import { ListableObject } from '../shared/object-collection/shared/listable-object.model';
 
@@ -10,7 +10,7 @@ export class NormalizedSearchResult implements ListableObject {
    * The UUID of the DSpaceObject that was found
    */
   @autoserialize
-  dspaceObject: string;
+  indexableObject: string;
 
   /**
    * The metadata that was used to find this item, hithighlighted

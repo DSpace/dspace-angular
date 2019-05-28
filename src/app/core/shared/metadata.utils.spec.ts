@@ -9,7 +9,7 @@ import {
 import { Metadata } from './metadata.utils';
 
 const mdValue = (value: string, language?: string): MetadataValue => {
-  return { uuid: uuidv4(), value: value, language: isUndefined(language) ? null : language };
+  return Object.assign(new MetadataValue(), { uuid: uuidv4(), value: value, language: isUndefined(language) ? null : language, place: 0, authority: undefined, confidence: undefined });
 };
 
 const dcDescription = mdValue('Some description');

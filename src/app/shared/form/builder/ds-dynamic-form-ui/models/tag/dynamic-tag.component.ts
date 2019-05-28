@@ -168,7 +168,7 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
   }
 
   private addTagsToChips() {
-    if (!this.hasAuthority || !this.model.authorityOptions.closed) {
+    if (hasValue(this.currentValue) && (!this.hasAuthority || !this.model.authorityOptions.closed)) {
       let res: string[] = [];
       res = this.currentValue.split(',');
 

@@ -10,13 +10,14 @@ import {
   SearchFacetFilterComponent
 } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
-import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../search-filter.service';
 import { SearchService } from '../../../search-service/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { RouteService } from '../../../../shared/services/route.service';
 import { hasValue } from '../../../../shared/empty.util';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL
@@ -72,13 +73,14 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
 
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
-              protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected rdbs: RemoteDataBuildService,
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+              @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
               @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
               @Inject(PLATFORM_ID) private platformId: any,
               private route: RouteService) {
-    super(searchService, filterService, searchConfigService, rdbs, router, filterConfig);
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig);
 
   }
 
@@ -107,7 +109,7 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   onSubmit() {
     const newMin = this.range[0] !== this.min ? [this.range[0]] : null;
     const newMax = this.range[1] !== this.max ? [this.range[1]] : null;
-    this.router.navigate([this.getSearchLink()], {
+    this.router.navigate(this.getSearchLinkParts(), {
       queryParams:
         {
           [this.filterConfig.paramName + RANGE_FILTER_MIN_SUFFIX]: newMin,

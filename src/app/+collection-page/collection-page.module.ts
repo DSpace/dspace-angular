@@ -7,9 +7,9 @@ import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageRoutingModule } from './collection-page-routing.module';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { CollectionFormComponent } from './collection-form/collection-form.component';
-import { SearchPageModule } from '../+search-page/search-page.module';
 import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
+import { SearchService } from '../+search-page/search-service/search.service';
 
 @NgModule({
   imports: [
@@ -23,6 +23,9 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
     EditCollectionPageComponent,
     DeleteCollectionPageComponent,
     CollectionFormComponent
+  ],
+  providers: [
+    SearchService
   ]
 })
 export class CollectionPageModule {

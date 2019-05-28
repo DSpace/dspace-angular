@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSOSelectorComponent } from './dso-selector.component';
@@ -27,7 +27,7 @@ describe('DSOSelectorComponent', () => {
       language: undefined
     })]
   };
-  searchResult.dspaceObject = item;
+  searchResult.indexableObject = item;
   searchResult.hitHighlights = {};
   const searchService = jasmine.createSpyObj('searchService', {
     search: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(undefined, [searchResult])))

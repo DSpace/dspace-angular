@@ -17,11 +17,24 @@ import { MetadataValue } from '../../../core/shared/metadata.models';
 })
 export class MetadataUriValuesComponent extends MetadataValuesComponent {
 
+  /**
+   * Optional text to replace the links with
+   * If undefined, the metadata value (uri) is displayed
+   */
   @Input() linktext: any;
 
+  /**
+   * The metadata values to display
+   */
   @Input() mdValues: MetadataValue[];
 
+  /**
+   * The seperator used to split the metadata values (can contain HTML)
+   */
   @Input() separator: string;
 
+  /**
+   * The label for this iteration of metadata values
+   */
   @Input() label: string;
 }
