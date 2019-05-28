@@ -12,15 +12,17 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteByIDRequest, FindAllOptions, PatchRequest, PutRequest, RestRequest } from './request.models';
+import { FindAllOptions, PatchRequest, PutRequest, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { configureRequest, getRequestFromRequestHref } from '../shared/operators';
 import { RequestEntry } from './request.reducer';
 import { RestResponse } from '../cache/response.models';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { Collection } from '../shared/collection.model';
 
 @Injectable()
 export class ItemDataService extends DataService<Item> {
@@ -120,22 +122,26 @@ export class ItemDataService extends DataService<Item> {
     );
   }
 
-  public getMoveItemEndpoint(itemId: string, collectionId?: string): Observable<string> {
+  public getMoveItemEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, itemId)),
-      map((endpoint: string) => `${endpoint}/owningCollection/move/${collectionId ? `/${collectionId}` : ''}`)
+      map((endpoint: string) => `${endpoint}/owningCollection`)
     );
   }
 
-  public moveToCollection(itemId: string, collectionId: string): Observable<RestResponse> {
-    const requestId = this.requestService.generateRequestId();
+  public moveToCollection(itemId: string, collection: Collection): Observable<RestResponse> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
 
-    const hrefObs = this.getMoveItemEndpoint(itemId, collectionId);
+    const requestId = this.requestService.generateRequestId();
+    const hrefObs = this.getMoveItemEndpoint(itemId);
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PutRequest(requestId, href);
+        const request = new PutRequest(requestId, href, collection.self, options);
         this.requestService.configure(request);
       })
     ).subscribe();

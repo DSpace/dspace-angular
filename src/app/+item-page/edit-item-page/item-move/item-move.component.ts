@@ -17,6 +17,7 @@ import {getItemEditPath} from '../../item-page-routing.module';
 import {Observable} from 'rxjs';
 import {of as observableOf} from 'rxjs';
 import { RestResponse } from '../../../core/cache/response.models';
+import { Collection } from '../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-item-move',
@@ -34,6 +35,7 @@ export class ItemMoveComponent implements OnInit {
   itemRD$: Observable<RemoteData<Item>>;
   collectionSearchResults: Observable<any[]> = observableOf([]);
   selectedCollection: string;
+  selectedCollectionObject: Collection;
 
   selectedCollectionId: string;
   itemId: string;
@@ -92,6 +94,7 @@ export class ItemMoveComponent implements OnInit {
   onClick(data: any): void {
     this.selectedCollection = data.name;
     this.selectedCollectionId = data.id;
+    this.selectedCollectionObject = data;
   }
 
   /**
@@ -105,7 +108,7 @@ export class ItemMoveComponent implements OnInit {
    * Moves the item to a new collection based on the selected collection
    */
   moveCollection() {
-    this.itemDataService.moveToCollection(this.itemId, this.selectedCollectionId).pipe(first()).subscribe(
+    this.itemDataService.moveToCollection(this.itemId, this.selectedCollectionObject).pipe(first()).subscribe(
       (response: RestResponse) => {
         this.router.navigate([getItemEditPath(this.itemId)]);
         if (response.isSuccessful) {
