@@ -1,6 +1,6 @@
 import { map, distinctUntilChanged, filter } from 'rxjs/operators';
 import { Inject, Injectable } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
@@ -82,12 +82,13 @@ export class FormService {
   /**
    * Method to validate form's fields
    */
-  public validateAllFormFields(formGroup: FormGroup) {
+  public validateAllFormFields(formGroup: FormGroup | FormArray) {
     Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
+        control.markAsDirty({ onlySelf: true });
+      } else if (control instanceof FormGroup || control instanceof FormArray) {
         this.validateAllFormFields(control);
       }
     });
@@ -98,7 +99,7 @@ export class FormService {
     const errorKey = this.getValidatorNameFromMap(message);
     let errorMsg = message;
 
-    // if form control model has not errorMessages object, create it
+    // if form control model has no errorMessages object, create it
     if (!model.errorMessages) {
       model.errorMessages = {};
     }

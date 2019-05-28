@@ -6,7 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output, ViewEncapsulation
 } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
@@ -31,7 +31,7 @@ import { FormEntry, FormError } from './form.reducer';
   exportAs: 'formComponent',
   selector: 'ds-form',
   styleUrls: ['form.component.scss'],
-  templateUrl: 'form.component.html',
+  templateUrl: 'form.component.html'
 })
 export class FormComponent implements OnDestroy, OnInit {
 
@@ -73,7 +73,13 @@ export class FormComponent implements OnDestroy, OnInit {
    * An event fired when form is valid and submitted .
    * Event's payload equals to the form content.
    */
-  @Output() submit: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
+  @Output() cancel: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
+
+  /**
+   * An event fired when form is valid and submitted .
+   * Event's payload equals to the form content.
+   */
+  @Output() submitForm: EventEmitter<Observable<any>> = new EventEmitter<Observable<any>>();
 
   /**
    * An object of FormGroup type
@@ -130,7 +136,9 @@ export class FormComponent implements OnDestroy, OnInit {
 
     } else {
       this.formModel.forEach((model) => {
-        this.formBuilderService.addFormGroupControl(this.formGroup, this.parentFormModel, model);
+        if (this.parentFormModel) {
+          this.formBuilderService.addFormGroupControl(this.formGroup, this.parentFormModel, model);
+        }
       });
     }
 
@@ -264,7 +272,7 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   onSubmit(): void {
     if (this.getFormGroupValidStatus()) {
-      this.submit.emit(this.formService.getFormData(this.formId));
+      this.submitForm.emit(this.formService.getFormData(this.formId));
     } else {
       this.formService.validateAllFormFields(this.formGroup);
     }
@@ -275,6 +283,7 @@ export class FormComponent implements OnDestroy, OnInit {
    */
   reset(): void {
     this.formGroup.reset();
+    this.cancel.emit();
   }
 
   isItemReadOnly(arrayContext: DynamicFormArrayModel, index: number): boolean {

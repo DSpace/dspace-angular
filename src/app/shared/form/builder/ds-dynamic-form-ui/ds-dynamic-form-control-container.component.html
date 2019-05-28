@@ -1,0 +1,44 @@
+<div [class.form-group]="(model.type !== 'GROUP' && asBootstrapFormGroup) || getClass('element', 'container').includes('form-group')"
+     [formGroup]="group"
+     [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
+
+    <label *ngIf="!isCheckbox && hasLabel"
+           [for]="model.id"
+           [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
+           [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
+
+    <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
+
+  <div [ngClass]="{'form-row': model.hasLanguages }">
+    <div [ngClass]="getClass('grid', 'control')">
+
+      <ng-container #componentViewContainer></ng-container>
+
+      <small *ngIf="hasHint" class="text-muted" [innerHTML]="model.hint" [ngClass]="getClass('element', 'hint')"></small>
+
+      <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
+        <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate:model.validators }}</small>
+      </div>
+
+    </div>
+
+    <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2">
+      <select
+        #language="ngModel"
+        [disabled]="model.readOnly"
+        [(ngModel)]="model.language"
+        class="form-control"
+        (blur)="onBlur($event)"
+        (change)="onChangeLanguage($event)"
+        [ngModelOptions]="{standalone: true}"
+        required>
+        <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
+      </select>
+    </div>
+  </div>
+
+    <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
+
+    <ng-content></ng-content>
+
+</div>

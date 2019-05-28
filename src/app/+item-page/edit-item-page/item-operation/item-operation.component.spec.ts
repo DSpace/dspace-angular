@@ -4,11 +4,11 @@ import {ItemOperationComponent} from './item-operation.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {By} from '@angular/platform-browser';
 
-const itemOperation: ItemOperation = new ItemOperation('key1', 'url1');
-
-let fixture;
-let comp;
 describe('ItemOperationComponent', () => {
+  let itemOperation: ItemOperation;
+
+  let fixture;
+  let comp;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -18,6 +18,7 @@ describe('ItemOperationComponent', () => {
   }));
 
   beforeEach(() => {
+    itemOperation  = new ItemOperation('key1', 'url1');
 
     fixture = TestBed.createComponent(ItemOperationComponent);
     comp = fixture.componentInstance;

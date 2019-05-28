@@ -1,7 +1,6 @@
 import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
-import { AuthorityValueModel } from '../../../../../core/integration/models/authority-value.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
@@ -28,8 +27,11 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   get value() {
     const firstValue = (this.get(0) as DsDynamicInputModel).value;
     const secondValue = (this.get(1) as DsDynamicInputModel).value;
+
     if (isNotEmpty(firstValue) && isNotEmpty(secondValue)) {
       return new FormFieldMetadataValueObject(firstValue + this.separator + secondValue);
+    } else if (isNotEmpty(firstValue)) {
+      return new FormFieldMetadataValueObject(firstValue);
     } else {
       return null;
     }
@@ -37,14 +39,24 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
 
   set value(value: string | FormFieldMetadataValueObject) {
     let values;
+    let tempValue: string;
+
     if (typeof value === 'string') {
-      values =  value ? value.split(this.separator) : [null, null];
+      tempValue =  value;
     } else {
-      values =  value ? value.value.split(this.separator) : [null, null];
+      tempValue = value.value;
     }
 
-    if (values.length > 1) {
+    if (tempValue.includes(this.separator)) {
+      values = tempValue.split(this.separator);
+    } else {
+      values = [tempValue, null];
+    }
+
+    if (values[0]) {
       (this.get(0) as DsDynamicInputModel).valueUpdates.next(values[0]);
+    }
+    if (values[1]) {
       (this.get(1) as DsDynamicInputModel).valueUpdates.next(values[1]);
     }
   }

@@ -27,7 +27,7 @@ export const DATE_TEST_MODEL_CONFIG = {
   placeholder: 'Date',
   readOnly: false,
   required: true,
-  toggleIcon: 'fa fa-calendar'
+  toggleIcon: 'fas fa-calendar'
 };
 
 describe('DsDatePickerComponent test suite', () => {

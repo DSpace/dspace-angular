@@ -1,4 +1,4 @@
-import { filter, first, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -23,16 +23,30 @@ import { NativeWindowRef, NativeWindowService } from './shared/services/window.s
 import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { RouteService } from './shared/services/route.service';
+import variables from '../styles/_exposed_variables.scss';
+import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
+import { MenuService } from './shared/menu/menu.service';
+import { MenuID } from './shared/menu/initial-menus-state';
+import { Observable } from 'rxjs/internal/Observable';
+import { slideSidebarPadding } from './shared/animations/slide';
+import { combineLatest as combineLatestObservable } from 'rxjs';
+import { HostWindowService } from './shared/host-window.service';
 
 @Component({
   selector: 'ds-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [slideSidebarPadding]
 })
 export class AppComponent implements OnInit, AfterViewInit {
   isLoading = true;
+  sidebarVisible: Observable<boolean>;
+  slideSidebarOver: Observable<boolean>;
+  collapsedSidebarWidth: Observable<string>;
+  totalSidebarWidth: Observable<string>;
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -42,18 +56,34 @@ export class AppComponent implements OnInit, AfterViewInit {
     private metadata: MetadataService,
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private routeService: RouteService,
+    private cssService: CSSVariableService,
+    private menuService: MenuService,
+    private windowService: HostWindowService
   ) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
+    // Load all the languages that are defined as active from the config file
+    translate.addLangs(config.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
+
+    // Load the default language from the config file
+    translate.setDefaultLang(config.defaultLanguage);
+
+    // Attempt to get the browser language from the user
+    if (translate.getLangs().includes(translate.getBrowserLang())) {
+      translate.use(translate.getBrowserLang());
+    } else {
+      translate.use(config.defaultLanguage);
+    }
 
     metadata.listenForRouteChange();
+
+    routeService.saveRouting();
 
     if (config.debug) {
       console.info(config);
     }
+    this.storeCSSVariables();
+
   }
 
   ngOnInit() {
@@ -64,10 +94,26 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     // Whether is not authenticathed try to retrieve a possible stored auth token
     this.store.pipe(select(isAuthenticated),
-      first(),
+      take(1),
       filter((authenticated) => !authenticated)
     ).subscribe((authenticated) => this.authService.checkAuthenticationToken());
+    this.sidebarVisible = this.menuService.isMenuVisible(MenuID.ADMIN);
 
+    this.collapsedSidebarWidth = this.cssService.getVariable('collapsedSidebarWidth');
+    this.totalSidebarWidth = this.cssService.getVariable('totalSidebarWidth');
+
+    const sidebarCollapsed = this.menuService.isMenuCollapsed(MenuID.ADMIN);
+    this.slideSidebarOver = combineLatestObservable(sidebarCollapsed, this.windowService.isXsOrSm())
+      .pipe(
+        map(([collapsed, mobile]) => collapsed || mobile)
+      );
+  }
+
+  private storeCSSVariables() {
+    const vars = variables.locals || {};
+    Object.keys(vars).forEach((name: string) => {
+      this.cssService.addCSSVariable(name, vars[name]);
+    })
   }
 
   ngAfterViewInit() {

@@ -1,12 +1,13 @@
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Request } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http'
-import { RestRequestMethod } from '../data/request.models';
 
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 import { HttpObserve } from '@angular/common/http/src/client';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { isNotEmpty } from '../../shared/empty.util';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 export interface HttpOptions {
   body?: any;
@@ -38,10 +39,10 @@ export class DSpaceRESTv2Service {
    */
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
     return this.http.get(absoluteURL, { observe: 'response' }).pipe(
-      map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.statusText })),
+      map((res: HttpResponse<any>) => ({ payload: res.body, statusCode: res.status, statusText: res.statusText })),
       catchError((err) => {
         console.log('Error: ', err);
-        return observableThrowError(err);
+        return observableThrowError({statusCode: err.status, statusText: err.statusText, message: err.message});
       }));
   }
 
@@ -60,6 +61,9 @@ export class DSpaceRESTv2Service {
   request(method: RestRequestMethod, url: string, body?: any, options?: HttpOptions): Observable<DSpaceRESTV2Response> {
     const requestOptions: HttpOptions = {};
     requestOptions.body = body;
+    if (method === RestRequestMethod.POST && isNotEmpty(body) && isNotEmpty(body.name)) {
+      requestOptions.body = this.buildFormData(body);
+    }
     requestOptions.observe = 'response';
     if (options && options.headers) {
       requestOptions.headers = Object.assign(new HttpHeaders(),  options.headers);
@@ -68,11 +72,32 @@ export class DSpaceRESTv2Service {
       requestOptions.responseType = options.responseType;
     }
     return this.http.request(method, url, requestOptions).pipe(
-      map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.statusText })),
+      map((res) => ({ payload: res.body, headers: res.headers, statusCode: res.status, statusText: res.statusText })),
       catchError((err) => {
         console.log('Error: ', err);
-        return observableThrowError(err);
+        return observableThrowError({statusCode: err.status, statusText: err.statusText, message: err.message});
       }));
+  }
+
+  /**
+   * Create a FormData object from a DSpaceObject
+   *
+   * @param {DSpaceObject} dso
+   *    the DSpaceObject
+   * @return {FormData}
+   *    the result
+   */
+  buildFormData(dso: DSpaceObject): FormData {
+    const form: FormData = new FormData();
+    form.append('name', dso.name);
+    if (dso.metadata) {
+      for (const key of Object.keys(dso.metadata)) {
+        for (const value of dso.allMetadataValues(key)) {
+          form.append(key, value);
+        }
+      }
+    }
+    return form;
   }
 
 }

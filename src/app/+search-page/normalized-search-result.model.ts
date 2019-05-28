@@ -1,5 +1,5 @@
 import { autoserialize } from 'cerialize';
-import { Metadatum } from '../core/shared/metadatum.model';
+import { MetadataMap } from '../core/shared/metadata.models';
 import { ListableObject } from '../shared/object-collection/shared/listable-object.model';
 
 /**
@@ -16,6 +16,6 @@ export class NormalizedSearchResult implements ListableObject {
    * The metadata that was used to find this item, hithighlighted
    */
   @autoserialize
-  hitHighlights: Metadatum[];
+  hitHighlights: MetadataMap;
 
 }

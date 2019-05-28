@@ -13,6 +13,38 @@
           "head": "Recent Submissions"
         }
       }
+    },
+    "form": {
+      "title": "Name",
+      "description": "Introductory text (HTML)",
+      "abstract": "Short Description",
+      "rights": "Copyright text (HTML)",
+      "tableofcontents": "News (HTML)",
+      "license": "License",
+      "provenance": "Provenance",
+      "errors": {
+        "title": {
+          "required": "Please enter a collection name"
+        }
+      }
+    },
+    "edit": {
+      "head": "Edit Collection",
+      "delete": "Delete this collection"
+    },
+    "create": {
+      "head": "Create a Collection",
+      "sub-head": "Create a Collection for Community {{ parent }}"
+    },
+    "delete": {
+      "head": "Delete Collection",
+      "text": "Are you sure you want to delete collection \"{{ dso }}\"",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "notification": {
+        "success": "Successfully deleted collection",
+        "fail": "Collection could not be deleted"
+      }
     }
   },
   "community": {
@@ -22,6 +54,39 @@
     },
     "sub-collection-list": {
       "head": "Collections of this Community"
+    },
+    "sub-community-list": {
+      "head": "Communities of this Community"
+    },
+    "form": {
+      "title": "Name",
+      "description": "Introductory text (HTML)",
+      "abstract": "Short Description",
+      "rights": "Copyright text (HTML)",
+      "tableofcontents": "News (HTML)",
+      "errors": {
+        "title": {
+          "required": "Please enter a community name"
+        }
+      }
+    },
+    "edit": {
+      "head": "Edit Community",
+      "delete": "Delete this community"
+    },
+    "create": {
+      "head": "Create a Community",
+      "sub-head": "Create a Sub-Community for Community {{ parent }}"
+    },
+    "delete": {
+      "head": "Delete Community",
+      "text": "Are you sure you want to delete community \"{{ dso }}\"",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "notification": {
+        "success": "Successfully deleted community",
+        "fail": "Community could not be deleted"
+      }
     }
   },
   "item": {
@@ -58,6 +123,7 @@
         "status": {
           "head": "Item Status",
           "description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+          "title": "Item Edit -  Status",
           "labels": {
             "id": "Item Internal ID",
             "handle": "Handle",
@@ -73,6 +139,10 @@
               "label": "Withdraw item from the repository",
               "button": "Withdraw..."
             },
+            "reinstate": {
+              "label": "Reinstate item into the repository",
+              "button": "Reinstate..."
+            },
             "move": {
               "label": "Move item to another collection",
               "button": "Move..."
@@ -80,6 +150,10 @@
             "private": {
               "label": "Make item private",
               "button": "Make it private..."
+            },
+            "public": {
+              "label": "Make item public",
+              "button": "Make it public..."
             },
             "delete": {
               "label": "Completely expunge item",
@@ -92,16 +166,20 @@
           }
         },
         "bitstreams": {
-          "head": "Item Bitstreams"
+          "head": "Item Bitstreams",
+          "title": "Item Edit - Bitstreams"
         },
         "metadata": {
-          "head": "Item Metadata"
+          "head": "Item Metadata",
+          "title": "Item Edit -  Metadata"
         },
         "view": {
-          "head": "View Item"
+          "head": "View Item",
+          "title": "Item Edit -  View"
         },
         "curate": {
-          "head": "Curate"
+          "head": "Curate",
+          "title": "Item Edit - Curate"
         }
       },
       "move": {
@@ -116,19 +194,115 @@
         "cancel": "Cancel",
         "success": "The item has been moved succesfully",
         "error": "An error occured when attempting to move the item"
+      },
+      "modify.overview": {
+        "field": "Field",
+        "value": "Value",
+        "language": "Language"
+      },
+      "withdraw": {
+        "header": "Withdraw item: {{ id }}",
+        "description": "Are you sure this item should be withdrawn from the archive?",
+        "confirm": "Withdraw",
+        "cancel": "Cancel",
+        "success": "The item was withdrawn successfully",
+        "error": "An error occurred while withdrawing the item"
+      },
+      "reinstate": {
+        "header": "Reinstate item: {{ id }}",
+        "description": "Are you sure this item should be reinstated to the archive?",
+        "confirm": "Reinstate",
+        "cancel": "Cancel",
+        "success": "The item was reinstated successfully",
+        "error": "An error occurred while reinstating the item"
+      },
+      "private": {
+        "header": "Make item private: {{ id }}",
+        "description": "Are you sure this item should be made private in the archive?",
+        "confirm": "Make it Private",
+        "cancel": "Cancel",
+        "success": "The item is now private",
+        "error": "An error occurred while making the item private"
+      },
+      "public": {
+        "header": "Make item public: {{ id }}",
+        "description": "Are you sure this item should be made public in the archive?",
+        "confirm": "Make it Public",
+        "cancel": "Cancel",
+        "success": "The item is now public",
+        "error": "An error occurred while making the item public"
+      },
+      "delete": {
+        "header": "Delete item: {{ id }}",
+        "description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "success": "The item has been deleted",
+        "error": "An error occurred while deleting the item"
+      },
+      "metadata": {
+        "add-button": "Add",
+        "discard-button": "Discard",
+        "reinstate-button": "Undo",
+        "save-button": "Save",
+        "headers": {
+          "field": "Field",
+          "value": "Value",
+          "language": "Lang",
+          "edit": "Edit"
+        },
+        "edit": {
+          "buttons": {
+            "edit": "Edit",
+            "unedit": "Stop editing",
+            "remove": "Remove",
+            "undo": "Undo changes"
+          }
+        },
+        "metadatafield": {
+          "invalid": "Please choose a valid metadata field"
+        },
+        "notifications": {
+          "outdated": {
+            "title": "Changed outdated",
+            "content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts"
+          },
+          "discarded": {
+            "title": "Changed discarded",
+            "content": "Your changes were discarded. To reinstate your changes click the 'Undo' button"
+          },
+          "invalid": {
+            "title": "Metadata invalid",
+            "content": "Your changes were not saved. Please make sure all fields are valid before you save."
+          },
+          "saved": {
+            "title": "Metadata saved",
+            "content": "Your changes to this item's metadata were saved."
+          }
+        }
       }
     }
   },
   "nav": {
-    "home": "Home",
+    "browse": {
+      "header": "All of DSpace"
+    },
+    "community-browse": {
+      "header": "By Community"
+    },
+    "statistics": {
+      "header": "Statistics"
+    },
     "login": "Log In",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "language": "Language switch",
+    "search": "Search"
   },
   "pagination": {
     "results-per-page": "Results Per Page",
     "sort-direction": "Sort Options",
     "showing": {
-      "label": "Now showing items ",
+      "label": "Now showing ",
       "detail": "{{ range }} of {{ total }}"
     }
   },
@@ -227,7 +401,46 @@
     }
   },
   "browse": {
-    "title": "Browsing {{ collection }} by {{ field }} {{ value }}"
+    "title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+    "startsWith": {
+      "jump": "Jump to a point in the index:",
+      "choose_year": "(Choose year)",
+      "choose_start": "(Choose start)",
+      "type_date": "Or type in a date (year-month):",
+      "type_text": "Or enter first few letters:",
+      "months": {
+        "none": "(Choose month)",
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      },
+      "submit": "Go"
+    },
+    "metadata": {
+      "title": "Title",
+      "author": "Author",
+      "subject": "Subject",
+      "dateissued": "Issue Date"
+    },
+    "comcol": {
+      "head": "Browse",
+      "by": {
+        "title": "By Title",
+        "dateissued": "By Issue Date",
+        "author": "By Author",
+        "subject": "By Subject"
+      }
+    },
+    "empty": "No items to show."
   },
   "admin": {
     "registries": {
@@ -235,11 +448,18 @@
         "title": "DSpace Angular :: Metadata Registry",
         "head": "Metadata Registry",
         "description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
+        "form": {
+          "create": "Create metadata schema",
+          "edit": "Edit metadata schema",
+          "namespace": "Namespace",
+          "name": "Name"
+        },
         "schemas": {
           "table": {
             "id": "ID",
             "namespace": "Namespace",
-            "name": "Name"
+            "name": "Name",
+            "delete": "Delete selected"
           },
           "no-items": "No metadata schemas to show."
         }
@@ -248,13 +468,40 @@
         "title": "DSpace Angular :: Metadata Schema Registry",
         "head": "Metadata Schema",
         "description": "This is the metadata schema for \"{{namespace}}\".",
+        "return": "Return",
+        "form": {
+          "create": "Create metadata field",
+          "edit": "Edit metadata field",
+          "element": "Element",
+          "qualifier": "Qualifier",
+          "scopenote": "Scope Note"
+        },
         "fields": {
           "head": "Schema metadata fields",
           "table": {
             "field": "Field",
-            "scopenote": "Scope Note"
+            "scopenote": "Scope Note",
+            "delete": "Delete selected"
           },
           "no-items": "No metadata fields to show."
+        },
+        "notification": {
+          "success": "Success",
+          "failure": "Error",
+          "created": "Successfully created metadata schema \"{{prefix}}\"",
+          "edited": "Successfully edited metadata schema \"{{prefix}}\"",
+          "deleted": {
+            "success": "Successfully deleted {{amount}} metadata schemas",
+            "failure": "Failed to delete {{amount}} metadata schemas"
+          },
+          "field": {
+            "created": "Successfully created metadata field \"{{field}}\"",
+            "edited": "Successfully edited metadata field \"{{field}}\"",
+            "deleted": {
+              "success": "Successfully deleted {{amount}} metadata fields",
+              "failure": "Failed to delete {{amount}} metadata fields"
+            }
+          }
         }
       },
       "bitstream-formats": {
@@ -278,17 +525,99 @@
       }
     }
   },
+  "menu": {
+    "header": {
+      "admin": "Admin",
+      "image": {
+        "logo": "Repository logo"
+      }
+    },
+    "section": {
+      "pin": "Pin sidebar",
+      "unpin": "Unpin sidebar",
+      "new": "New",
+      "new_community": "Community",
+      "new_collection": "Collection",
+      "new_item": "Item",
+      "new_item_version": "Item Version",
+      "edit": "Edit",
+      "edit_community": "Community",
+      "edit_collection": "Collection",
+      "edit_item": "Item",
+      "import": "Import",
+      "import_metadata": "Metadata",
+      "import_batch": "Batch Import (ZIP)",
+      "export": "Export",
+      "export_community": "Community",
+      "export_collection": "Collection",
+      "export_item": "Item",
+      "export_metadata": "Metadata",
+      "access_control": "Access Control",
+      "access_control_people": "People",
+      "access_control_groups": "Groups",
+      "access_control_authorizations": "Authorizations",
+      "find": "Find",
+      "find_items": "Items",
+      "find_withdrawn_items": "Withdrawn Items",
+      "find_private_items": "Private Items",
+      "registries": "Registries",
+      "registries_metadata": "Metadata",
+      "registries_format": "Format",
+      "curation_task": "Curation Task",
+      "statistics_task": "Statistics Task",
+      "control_panel": "Control Panel",
+      "browse_global": "All of DSpace",
+      "browse_global_communities_and_collections": "Communities & Collections",
+      "browse_global_by_issue_date": "By Issue Date",
+      "browse_global_by_author": "By Author",
+      "browse_global_by_title": "By Title",
+      "browse_global_by_subject": "By Subject",
+      "statistics": "Statistics",
+      "browse_community": "This Community",
+      "browse_community_by_issue_date": "By Issue Date",
+      "browse_community_by_author": "By Author",
+      "browse_community_by_title": "By Title",
+      "icon": {
+        "pin": "Pin sidebar",
+        "unpin": "Unpin sidebar",
+        "new": "New menu section",
+        "edit": "Edit menu section",
+        "import": "Import menu section",
+        "export": "Export menu section",
+        "access_control": "Access Control menu section",
+        "find": "Find menu section",
+        "registries": "Registries menu section",
+        "curation_task": "Curation Task menu section",
+        "statistics_task": "Statistics Task menu section",
+        "control_panel": "Control Panel menu section"
+      },
+      "toggle": {
+        "new": "Toggle New section",
+        "edit": "Toggle Edit section",
+        "import": "Toggle Import section",
+        "export": "Toggle Export section",
+        "access_control": "Toggle Access Control section",
+        "find": "Toggle Find section",
+        "registries": "Toggle Registries section",
+        "curation_task": "Toggle Curation Task section",
+        "statistics_task": "Toggle Statistics Task section",
+        "control_panel": "Toggle Control Panel section"
+      }
+    }
+  },
   "loading": {
     "default": "Loading...",
     "top-level-communities": "Loading top-level communities...",
     "community": "Loading community...",
     "collection": "Loading collection...",
     "sub-collections": "Loading sub-collections...",
+    "sub-communities": "Loading sub-communities...",
     "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
     "objects": "Loading...",
     "search-results": "Loading search results...",
-    "browse-by": "Loading items..."
+    "browse-by": "Loading items...",
+    "browse-by-page": "Loading page..."
   },
   "error": {
     "default": "Error",
@@ -296,6 +625,7 @@
     "community": "Error fetching community",
     "collection": "Error fetching collection",
     "sub-collections": "Error fetching sub-collections",
+    "sub-communities": "Error fetching sub-communities",
     "recent-submissions": "Error fetching recent submissions",
     "item": "Error fetching item",
     "objects": "Error fetching objects",
@@ -306,13 +636,25 @@
       "license": {
         "notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission."
       }
+    },
+    "submission": {
+      "sections": {
+        "init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>"
+      }
     }
   },
   "form": {
     "submit": "Submit",
     "cancel": "Cancel",
     "search": "Search",
+    "search-help": "Click here to looking for an existing correspondence",
     "remove": "Remove",
+    "clear": "Clear",
+    "clear-help": "Click here to remove the selected value",
+    "edit": "Edit",
+    "edit-help": "Click here to edit the selected value",
+    "save": "Save",
+    "save-help": "Save changes",
     "first-name": "First name",
     "last-name": "Last name",
     "loading": "Loading...",
@@ -321,7 +663,9 @@
     "group-collapse": "Collapse",
     "group-expand": "Expand",
     "group-collapse-help": "Click here to collapse",
-    "group-expand-help": "Click here to expand and add more elements"
+    "group-expand-help": "Click here to expand and add more elements",
+    "other-information": {
+    }
   },
   "login": {
     "title": "Login",
@@ -348,5 +692,128 @@
     "errors": {
       "invalid-user": "Invalid email address or password."
     }
+  },
+  "chips": {
+    "remove": "Remove chip"
+  },
+  "dso-selector": {
+    "create": {
+      "community": {
+        "head": "New community",
+        "sub-level": "Create a new community in",
+        "top-level": "Create a new top-level community"
+      },
+      "collection": {
+        "head": "New collection"
+      },
+      "item": {
+        "head": "New item"
+      }
+    },
+    "edit": {
+      "community": {
+        "head": "Edit community"
+      },
+      "collection": {
+        "head": "Edit collection"
+      },
+      "item": {
+        "head": "Edit item"
+      }
+    },
+    "placeholder": "Search for a {{ type }}",
+    "no-results": "No {{ type }} found"
+  },
+  "submission": {
+    "general":{
+      "cannot_submit": "You have not the privilege to make a new submission.",
+      "deposit": "Deposit",
+      "discard": {
+        "submit": "Discard",
+        "confirm": {
+          "cancel": "Cancel",
+          "submit": "Yes, I'm sure",
+          "title": "Discard submission",
+          "info": "This operation can't be undone. Are you sure?"
+        }
+      },
+      "save": "Save",
+      "save-later": "Save for later"
+    },
+    "submit": {
+      "title": "Submission"
+    },
+    "edit": {
+      "title": "Edit Submission"
+    },
+    "mydspace": {
+
+    },
+    "sections": {
+
+      "general": {
+        "add-more": "Add more",
+        "no-sections": "No options available",
+        "sections_not_valid": "There are incomplete sections.",
+        "collection": "Collection",
+        "no-collection": "No collection found",
+        "search-collection": "Search for a collection",
+        "save_error_notice": "There was an issue when saving the item, please try again later.",
+        "deposit_success_notice": "Submission deposited successfully.",
+        "deposit_error_notice": "There was an issue when submitting the item, please try again later.",
+        "discard_success_notice": "Submission discarded successfully.",
+        "discard_error_notice": "There was an issue when discarding the item, please try again later.",
+        "save_success_notice": "Submission saved successfully.",
+        "metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
+        "metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission."
+      },
+      "submit.progressbar.describe.stepone": "Describe",
+      "submit.progressbar.describe.steptwo": "Describe",
+      "submit.progressbar.describe.stepcustom": "Describe",
+      "submit.progressbar.describe.recycle": "Recycle",
+      "submit.progressbar.upload": "Upload files",
+      "submit.progressbar.license": "Deposit license",
+      "submit.progressbar.cclicense": "Creative commons license",
+      "submit.progressbar.detect-duplicate": "Potential duplicates",
+
+      "upload": {
+        "no-entry": "No",
+        "no-file-uploaded": "No file uploaded yet.",
+        "info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+        "drop-message": "Drop files to attach them to the item",
+        "upload-successful": "Upload successful",
+        "upload-failed": "Upload failed",
+        "header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
+        "header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
+        "form": {
+          "access-condition-label": "Access condition type",
+          "from-label": "Access grant from",
+          "from-placeholder": "From",
+          "until-label": "Access grant until",
+          "until-placeholder": "Until",
+          "group-label": "Group",
+          "group-required": "Group is required.",
+          "date-required": "Date is required."
+        },
+        "save-metadata": "Save metadata",
+        "undo": "Cancel",
+        "delete": {
+          "submit": "Delete",
+          "confirm": {
+            "cancel": "Cancel",
+            "submit": "Yes, I'm sure",
+            "title": "Delete bitstream",
+            "info": "This operation can't be undone. Are you sure?"
+          }
+        }
+      }
+    }
+  },
+  "uploader": {
+    "drag-message": "Drag & Drop your files here",
+    "or": ", or",
+    "browse": "browse",
+    "queue-lenght": "Queue length",
+    "processing": "Processing"
   }
 }

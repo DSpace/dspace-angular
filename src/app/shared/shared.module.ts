@@ -4,12 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NouisliderModule } from 'ng2-nouislider';
 
-import {
-  NgbDatepickerModule,
-  NgbModule,
-  NgbTimepickerModule,
-  NgbTypeaheadModule
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -30,7 +25,6 @@ import { ItemListElementComponent } from './object-list/item-list-element/item-l
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
 import { WrapperListElementComponent } from './object-list/wrapper-list-element/wrapper-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
-
 import { CollectionGridElementComponent } from './object-grid/collection-grid-element/collection-grid-element.component';
 import { CommunityGridElementComponent } from './object-grid/community-grid-element/community-grid-element.component';
 import { ItemGridElementComponent } from './object-grid/item-grid-element/item-grid-element.component';
@@ -56,9 +50,12 @@ import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DsDynamicFormControlComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control.component';
+import {
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn
+} from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TextMaskModule } from 'angular2-text-mask';
 import { DragClickDirective } from './utils/drag-click.directive';
@@ -70,13 +67,17 @@ import { UploaderComponent } from './uploader/uploader.component';
 import { ChipsComponent } from './chips/chips.component';
 import { DsDynamicTagComponent } from './form/builder/ds-dynamic-form-ui/models/tag/dynamic-tag.component';
 import { DsDynamicListComponent } from './form/builder/ds-dynamic-form-ui/models/list/dynamic-list.component';
-import { DsDynamicGroupComponent } from './form/builder/ds-dynamic-form-ui/models/dynamic-group/dynamic-group.components';
+import { DsDynamicFormGroupComponent } from './form/builder/ds-dynamic-form-ui/models/form-group/dynamic-form-group.component';
+import { DsDynamicFormArrayComponent } from './form/builder/ds-dynamic-form-ui/models/array-group/dynamic-form-array.component';
+import { DsDynamicRelationGroupComponent } from './form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.components';
+import { DsDatePickerInlineComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker-inline/dynamic-date-picker-inline.component';
 import { SortablejsModule } from 'angular-sortablejs';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
-import { BrowseByModule } from '../+browse-by/browse-by.module';
+import { AlertComponent } from './alert/alert.component';
+import { ObjNgFor } from './utils/object-ngfor.pipe';
 import { BrowseByComponent } from './browse-by/browse-by.component';
 import { BrowseEntryListElementComponent } from './object-list/browse-entry-list-element/browse-entry-list-element.component';
 import { DebounceDirective } from './utils/debounce.directive';
@@ -86,6 +87,30 @@ import { InputSuggestionsComponent } from './input-suggestions/input-suggestions
 import { CapitalizePipe } from './utils/capitalize.pipe';
 import { ObjectKeysPipe } from './utils/object-keys-pipe';
 import { MomentModule } from 'ngx-moment';
+import { AuthorityConfidenceStateDirective } from './authority-confidence/authority-confidence-state.directive';
+import { MenuModule } from './menu/menu.module';
+import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
+import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
+import { EditComColPageComponent } from './comcol-forms/edit-comcol-page/edit-comcol-page.component';
+import { DeleteComColPageComponent } from './comcol-forms/delete-comcol-page/delete-comcol-page.component';
+import { LangSwitchComponent } from './lang-switch/lang-switch.component';
+import { ObjectValuesPipe } from './utils/object-values-pipe';
+import { InListValidator } from './utils/in-list-validator.directive';
+import { AutoFocusDirective } from './utils/auto-focus.directive';
+import { ComcolPageBrowseByComponent } from './comcol-page-browse-by/comcol-page-browse-by.component';
+import { StartsWithDateComponent } from './starts-with/date/starts-with-date.component';
+import { StartsWithTextComponent } from './starts-with/text/starts-with-text.component';
+import { DSOSelectorComponent } from './dso-selector/dso-selector/dso-selector.component';
+import { CreateCommunityParentSelectorComponent } from './dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
+import { CreateItemParentSelectorComponent } from './dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
+import { CreateCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
+import { CommunitySearchResultListElementComponent } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
+import { CollectionSearchResultListElementComponent } from './object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
+import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
+import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
+import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import { DSOSelectorModalWrapperComponent } from './dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -106,7 +131,8 @@ const MODULES = [
   TranslateModule,
   NouisliderModule,
   MomentModule,
-  TextMaskModule
+  TextMaskModule,
+  MenuModule
 ];
 
 const PIPES = [
@@ -118,27 +144,39 @@ const PIPES = [
   EmphasizePipe,
   CapitalizePipe,
   ObjectKeysPipe,
-  ConsolePipe
+  ObjectValuesPipe,
+  ConsolePipe,
+  ObjNgFor
 ];
 
 const COMPONENTS = [
   // put shared components here
+  AlertComponent,
   AuthNavMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
+  ComColFormComponent,
+  CreateComColPageComponent,
+  EditComColPageComponent,
+  DeleteComColPageComponent,
+  ComcolPageBrowseByComponent,
   DsDynamicFormComponent,
-  DsDynamicFormControlComponent,
+  DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,
-  DsDynamicGroupComponent,
+  DsDynamicRelationGroupComponent,
   DsDatePickerComponent,
+  DsDynamicFormGroupComponent,
+  DsDynamicFormArrayComponent,
+  DsDatePickerInlineComponent,
   ErrorComponent,
   FormComponent,
+  LangSwitchComponent,
   LoadingComponent,
   LogInComponent,
   LogOutComponent,
@@ -159,7 +197,17 @@ const COMPONENTS = [
   TruncatableComponent,
   TruncatablePartComponent,
   BrowseByComponent,
-  InputSuggestionsComponent
+  InputSuggestionsComponent,
+  DSOSelectorComponent,
+  CreateCommunityParentSelectorComponent,
+  CreateCollectionParentSelectorComponent,
+  CreateItemParentSelectorComponent,
+  EditCommunitySelectorComponent,
+  EditCollectionSelectorComponent,
+  EditItemSelectorComponent,
+  CommunitySearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  ItemSearchResultListElementComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -168,23 +216,52 @@ const ENTRY_COMPONENTS = [
   CollectionListElementComponent,
   CommunityListElementComponent,
   SearchResultListElementComponent,
+  CommunitySearchResultListElementComponent,
+  CollectionSearchResultListElementComponent,
+  ItemSearchResultListElementComponent,
   ItemGridElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
-  BrowseEntryListElementComponent
+  BrowseEntryListElementComponent,
+  DsDynamicListComponent,
+  DsDynamicLookupComponent,
+  DsDynamicScrollableDropdownComponent,
+  DsDynamicTagComponent,
+  DsDynamicTypeaheadComponent,
+  DsDynamicRelationGroupComponent,
+  DsDatePickerComponent,
+  DsDynamicFormGroupComponent,
+  DsDynamicFormArrayComponent,
+  DsDatePickerInlineComponent,
+  StartsWithDateComponent,
+  StartsWithTextComponent,
+  DSOSelectorComponent,
+  CreateCommunityParentSelectorComponent,
+  CreateCollectionParentSelectorComponent,
+  CreateItemParentSelectorComponent,
+  EditCommunitySelectorComponent,
+  EditCollectionSelectorComponent,
+  EditItemSelectorComponent,
 ];
 
 const PROVIDERS = [
   TruncatableService,
-  MockAdminGuard
+  MockAdminGuard,
+  {
+    provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+    useValue: dsDynamicFormControlMapFn
+  }
 ];
 
 const DIRECTIVES = [
   VarDirective,
   DragClickDirective,
   DebounceDirective,
-  ClickOutsideDirective
+  ClickOutsideDirective,
+  AuthorityConfidenceStateDirective,
+  InListValidator,
+  AutoFocusDirective
 ];
 
 @NgModule({
@@ -196,7 +273,6 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...DIRECTIVES
   ],
   providers: [
     ...PROVIDERS

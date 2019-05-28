@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
 import { CacheableObject } from './object-cache.reducer';
+import { Operation } from 'fast-json-patch';
 
 /**
  * The list of ObjectCacheAction type definitions
@@ -9,7 +10,9 @@ import { CacheableObject } from './object-cache.reducer';
 export const ObjectCacheActionTypes = {
   ADD: type('dspace/core/cache/object/ADD'),
   REMOVE: type('dspace/core/cache/object/REMOVE'),
-  RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS')
+  RESET_TIMESTAMPS: type('dspace/core/cache/object/RESET_TIMESTAMPS'),
+  ADD_PATCH: type('dspace/core/cache/object/ADD_PATCH'),
+  APPLY_PATCH: type('dspace/core/cache/object/APPLY_PATCH')
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -22,7 +25,7 @@ export class AddToObjectCacheAction implements Action {
     objectToCache: CacheableObject;
     timeAdded: number;
     msToLive: number;
-    requestHref: string;
+    requestUUID: string;
   };
 
   /**
@@ -39,8 +42,8 @@ export class AddToObjectCacheAction implements Action {
    *    This isn't necessarily the same as the object's self
    *    link, it could have been part of a list for example
    */
-  constructor(objectToCache: CacheableObject, timeAdded: number, msToLive: number, requestHref: string) {
-    this.payload = { objectToCache, timeAdded, msToLive, requestHref };
+  constructor(objectToCache: CacheableObject, timeAdded: number, msToLive: number, requestUUID: string) {
+    this.payload = { objectToCache, timeAdded, msToLive, requestUUID };
   }
 }
 
@@ -54,11 +57,11 @@ export class RemoveFromObjectCacheAction implements Action {
   /**
    * Create a new RemoveFromObjectCacheAction
    *
-   * @param uuid
-   *    the UUID of the object to remove
+   * @param href
+   *    the unique href of the object to remove
    */
-  constructor(uuid: string) {
-    this.payload = uuid;
+  constructor(href: string) {
+    this.payload = href;
   }
 }
 
@@ -79,6 +82,48 @@ export class ResetObjectCacheTimestampsAction implements Action {
     this.payload = newTimestamp;
   }
 }
+
+/**
+ * An ngrx action to add new operations to a specified cached object
+ */
+export class AddPatchObjectCacheAction implements Action {
+  type = ObjectCacheActionTypes.ADD_PATCH;
+  payload: {
+    href: string,
+    operations: Operation[]
+  };
+
+  /**
+   * Create a new AddPatchObjectCacheAction
+   *
+   * @param href
+   *    the unique href of the object that should be updated
+   * @param operations
+   *    the list of operations to add
+   */
+  constructor(href: string, operations: Operation[]) {
+    this.payload = { href, operations };
+  }
+}
+
+/**
+ * An ngrx action to apply all existing operations to a specified cached object
+ */
+export class ApplyPatchObjectCacheAction implements Action {
+  type = ObjectCacheActionTypes.APPLY_PATCH;
+  payload: string;
+
+  /**
+   * Create a new ApplyPatchObjectCacheAction
+   *
+   * @param href
+   *    the unique href of the object that should be updated
+   */
+  constructor(href: string) {
+    this.payload = href;
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -87,4 +132,6 @@ export class ResetObjectCacheTimestampsAction implements Action {
 export type ObjectCacheAction
   = AddToObjectCacheAction
   | RemoveFromObjectCacheAction
-  | ResetObjectCacheTimestampsAction;
+  | ResetObjectCacheTimestampsAction
+  | AddPatchObjectCacheAction
+  | ApplyPatchObjectCacheAction;

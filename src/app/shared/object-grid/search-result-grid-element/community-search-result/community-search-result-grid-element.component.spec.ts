@@ -16,25 +16,29 @@ const truncatableServiceStub: any = {
 };
 
 const mockCommunityWithAbstract: CommunitySearchResult = new CommunitySearchResult();
-mockCommunityWithAbstract.hitHighlights = [];
+mockCommunityWithAbstract.hitHighlights = {};
 mockCommunityWithAbstract.dspaceObject = Object.assign(new Community(), {
-  metadata: [
-    {
-      key: 'dc.description.abstract',
-      language: 'en_US',
-      value: 'Short description'
-    } ]
+  metadata: {
+    'dc.description.abstract': [
+      {
+        language: 'en_US',
+        value: 'Short description'
+      }
+    ]
+  }
 });
 
 const mockCommunityWithoutAbstract: CommunitySearchResult = new CommunitySearchResult();
-mockCommunityWithoutAbstract.hitHighlights = [];
+mockCommunityWithoutAbstract.hitHighlights = {};
 mockCommunityWithoutAbstract.dspaceObject = Object.assign(new Community(), {
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'Test title'
-    } ]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title'
+      }
+    ]
+  }
 });
 
 describe('CommunitySearchResultGridElementComponent', () => {

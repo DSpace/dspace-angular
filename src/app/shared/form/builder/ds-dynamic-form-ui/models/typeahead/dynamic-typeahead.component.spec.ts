@@ -1,30 +1,33 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { of as observableOf } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import {
-  DynamicFormLayoutService,
-  DynamicFormsCoreModule,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DsDynamicTypeaheadComponent } from './dynamic-typeahead.component';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createTestComponent } from '../../../../../testing/utils';
+import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 
 export let TYPEAHEAD_TEST_GROUP;
 
 export let TYPEAHEAD_TEST_MODEL_CONFIG;
+
+const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
 function init() {
   TYPEAHEAD_TEST_GROUP = new FormGroup({
@@ -61,7 +64,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
   // async beforeEach
   beforeEach(async(() => {
     const authorityServiceStub = new AuthorityServiceStub();
-    init()
+    init();
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
@@ -69,14 +72,18 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         FormsModule,
         NgbModule.forRoot(),
         ReactiveFormsModule,
+        TranslateModule.forRoot()
       ],
       declarations: [
         DsDynamicTypeaheadComponent,
         TestComponent,
+        AuthorityConfidenceStateDirective,
+        ObjNgFor
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
         DsDynamicTypeaheadComponent,
+        { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: AuthorityService, useValue: authorityServiceStub },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} }
@@ -131,12 +138,15 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       });
 
       it('should search when 3+ characters typed', fakeAsync(() => {
+
         spyOn((typeaheadComp as any).authorityService, 'getEntriesByName').and.callThrough();
 
-        typeaheadComp.search(observableOf('test')).subscribe(() => {
-          expect((typeaheadComp as any).authorityService.getEntriesByName).toHaveBeenCalled();
-        });
+        typeaheadComp.search(observableOf('test')).subscribe();
 
+        tick(300);
+        typeaheadFixture.detectChanges();
+
+        expect((typeaheadComp as any).authorityService.getEntriesByName).toHaveBeenCalled();
       }));
 
       it('should set model.value on input type when AuthorityOptions.closed is false', () => {

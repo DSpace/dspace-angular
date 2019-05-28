@@ -1,4 +1,4 @@
-import {mergeMap, filter, map} from 'rxjs/operators';
+import { mergeMap, filter, map } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -21,11 +21,19 @@ import { hasValue } from '../shared/empty.util';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
-export class CommunityPageComponent implements OnInit, OnDestroy {
+/**
+ * This component represents a detail page for a single community
+ */
+export class CommunityPageComponent implements OnInit {
+  /**
+   * The community displayed on this page
+   */
   communityRD$: Observable<RemoteData<Community>>;
-  logoRD$: Observable<RemoteData<Bitstream>>;
-  private subs: Subscription[] = [];
 
+  /**
+   * The logo of this community
+   */
+  logoRD$: Observable<RemoteData<Bitstream>>;
   constructor(
     private communityDataService: CommunityDataService,
     private metadata: MetadataService,
@@ -40,10 +48,6 @@ export class CommunityPageComponent implements OnInit, OnDestroy {
       map((rd: RemoteData<Community>) => rd.payload),
       filter((community: Community) => hasValue(community)),
       mergeMap((community: Community) => community.logo));
-  }
-
-  ngOnDestroy(): void {
-    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 
 }

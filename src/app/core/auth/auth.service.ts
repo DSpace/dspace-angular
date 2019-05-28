@@ -1,4 +1,4 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {Observable, of, of as observableOf} from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
@@ -152,7 +152,7 @@ export class AuthService {
           // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
           // Review when https://jira.duraspace.org/browse/DS-4006 is fixed
           // See https://github.com/DSpace/dspace-angular/issues/292
-          const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
+          const person$ = this.rdbService.buildSingle<EPerson>(status.eperson.toString());
           return person$.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
@@ -277,7 +277,7 @@ export class AuthService {
   public isTokenExpiring(): Observable<boolean> {
     return this.store.pipe(
       select(isTokenRefreshing),
-      first(),
+      take(1),
       map((isRefreshing: boolean) => {
         if (this.isTokenExpired() || isRefreshing) {
           return false;
@@ -360,7 +360,7 @@ export class AuthService {
    */
   public redirectToPreviousUrl() {
     this.getRedirectUrl().pipe(
-      first())
+      take(1))
       .subscribe((redirectUrl) => {
 
         if (isNotEmpty(redirectUrl)) {

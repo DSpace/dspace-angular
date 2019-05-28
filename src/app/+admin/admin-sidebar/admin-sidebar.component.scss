@@ -1,0 +1,77 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+$icon-z-index: 10;
+
+:host {
+    left: 0;
+    top: 0;
+    height: 100vh;
+    flex: 1 1 auto;
+    nav {
+        height: 100%;
+        flex-direction: column;
+        > div {
+            width: 100%;
+            &.sidebar-top-level-items {
+                flex: 1;
+                overflow: auto;
+                @include dark-scrollbar;
+            }
+        }
+
+        &.inactive ::ng-deep .sidebar-collapsible {
+            margin-left: -#{$sidebar-items-width};
+        }
+
+        .navbar-nav {
+            .admin-menu-header {
+                background-color: $admin-sidebar-header-bg;
+                .logo-wrapper {
+                    img {
+                        height: 20px;
+                    }
+                }
+                .section-header-text {
+                    line-height: 1.5;
+                }
+
+            }
+        }
+
+
+        ::ng-deep {
+            .navbar-nav {
+                .sidebar-section {
+                    display: flex;
+                    align-content: stretch;
+                    background-color: $dark;
+                    .nav-item {
+                        padding-top: $spacer;
+                        padding-bottom: $spacer;
+                    }
+                    .shortcut-icon {
+                        padding-left: $icon-padding;
+                        padding-right: $icon-padding;
+                    }
+                    .shortcut-icon, .icon-wrapper {
+                        background-color: inherit;
+                        z-index: $icon-z-index;
+                    }
+                    .sidebar-collapsible {
+                        width: $sidebar-items-width;
+                        position: relative;
+                        a {
+                            padding-right: $spacer;
+                            width: 100%;
+                        }
+                    }
+                    &.active > .sidebar-collapsible > .nav-link {
+                        color: $navbar-dark-active-color;
+                    }
+                }
+            }
+        }
+
+    }
+
+}

@@ -1,0 +1,21 @@
+@import '../../../styles/variables';
+
+.submission-form-header {
+  background-color: rgba($white, .97);
+  padding: ($spacer / 2) 0 ($spacer / 2) 0;
+  top: 0;
+  z-index: $submission-header-z-index;
+}
+
+.submission-form-header-item {
+  flex-grow: 1;
+}
+
+.submission-form-footer {
+  border-radius: $card-border-radius;
+  bottom: 0;
+  background-color: $gray-400;
+  padding: $spacer / 2;
+  z-index: $submission-footer-z-index;
+}
+

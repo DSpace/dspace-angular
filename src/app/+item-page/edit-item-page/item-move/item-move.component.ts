@@ -13,10 +13,10 @@ import {NotificationsService} from '../../../shared/notifications/notifications.
 import {TranslateService} from '@ngx-translate/core';
 import {getSucceededRemoteData} from '../../../core/shared/operators';
 import {ItemDataService} from '../../../core/data/item-data.service';
-import {RestResponse} from '../../../core/cache/response-cache.models';
 import {getItemEditPath} from '../../item-page-routing.module';
 import {Observable} from 'rxjs';
 import {of as observableOf} from 'rxjs';
+import { RestResponse } from '../../../core/cache/response.models';
 
 @Component({
   selector: 'ds-item-move',

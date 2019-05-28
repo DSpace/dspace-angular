@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import {
   FacetConfigSuccessResponse,
   RestResponse
-} from '../cache/response-cache.models';
+} from '../cache/response.models';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
@@ -27,6 +27,6 @@ export class FacetConfigResponseParsingService extends BaseResponseParsingServic
     const config = data.payload._embedded.facets;
     const serializer = new DSpaceRESTv2Serializer(SearchFilterConfig);
     const facetConfig = serializer.deserializeArray(config);
-    return new FacetConfigSuccessResponse(facetConfig, data.statusCode);
+    return new FacetConfigSuccessResponse(facetConfig, data.statusCode, data.statusText);
   }
 }

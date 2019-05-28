@@ -1,12 +1,12 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {ItemPageComponent} from './simple/item-page.component';
-import {FullItemPageComponent} from './full/full-item-page.component';
-import {ItemPageResolver} from './item-page.resolver';
-import {AuthenticatedGuard} from '../core/auth/authenticated.guard';
-import {URLCombiner} from '../core/url-combiner/url-combiner';
-import {getItemModulePath} from '../app-routing.module';
+import { ItemPageComponent } from './simple/item-page.component';
+import { FullItemPageComponent } from './full/full-item-page.component';
+import { ItemPageResolver } from './item-page.resolver';
+import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { getItemModulePath } from '../app-routing.module';
+import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModulePath(), itemId).toString();
@@ -39,7 +39,7 @@ const ITEM_EDIT_PATH = ':id/edit';
         path: ITEM_EDIT_PATH,
         loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
         canActivate: [AuthenticatedGuard]
-      }
+      },
     ])
   ],
   providers: [

@@ -12,8 +12,8 @@ describe('protractor App', () => {
     expect<any>(page.getPageTitleText()).toEqual('DSpace Angular :: Home');
   });
 
-  it('should display header "Welcome to DSpace"', () => {
+  it('should contain a news section', () => {
     page.navigateTo();
-    expect<any>(page.getFirstHeaderText()).toEqual('Welcome to DSpace');
+    expect<any>(page.getHomePageNewsText()).toBeDefined();
   });
 });

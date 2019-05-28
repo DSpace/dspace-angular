@@ -77,7 +77,7 @@ describe('InputSuggestionsComponent', () => {
       });
 
       it('should put the focus on the last element ', () => {
-        const lastLink = de.query(By.css('.list-unstyled > li:last-child a'));
+        const lastLink = de.query(By.css('.dropdown-list > div:last-child a'));
         const activeElement = el.ownerDocument.activeElement;
         expect(activeElement).toEqual(lastLink.nativeElement);
       });
@@ -103,7 +103,7 @@ describe('InputSuggestionsComponent', () => {
       });
 
       it('should put the focus on the first element ', () => {
-        const firstLink = de.query(By.css('.list-unstyled > li:first-child a'));
+        const firstLink = de.query(By.css('.dropdown-list > div:first-child a'));
         const activeElement = el.ownerDocument.activeElement;
         expect(activeElement).toEqual(firstLink.nativeElement);
       });
@@ -117,7 +117,7 @@ describe('InputSuggestionsComponent', () => {
       });
 
       it('should put the focus on the second element', () => {
-        const secondLink = de.query(By.css('.list-unstyled > li:nth-child(2) a'));
+        const secondLink = de.query(By.css('.dropdown-list > div:nth-child(2) a'));
         const activeElement = el.ownerDocument.activeElement;
         expect(activeElement).toEqual(secondLink.nativeElement);
       });
@@ -126,7 +126,7 @@ describe('InputSuggestionsComponent', () => {
 
   describe('when the first element is in focus', () => {
     beforeEach(() => {
-      const firstLink = de.query(By.css('.list-unstyled > li:first-child a'));
+      const firstLink = de.query(By.css('.dropdown-list > div:first-child a'));
       firstLink.nativeElement.focus();
       comp.selectedIndex = 0;
       fixture.detectChanges();
@@ -140,7 +140,7 @@ describe('InputSuggestionsComponent', () => {
       });
 
       it('should put the focus on the last element ', () => {
-        const lastLink = de.query(By.css('.list-unstyled > li:last-child a'));
+        const lastLink = de.query(By.css('.dropdown-list > div:last-child a'));
         const activeElement = el.ownerDocument.activeElement;
         expect(activeElement).toEqual(lastLink.nativeElement);
       });
@@ -153,7 +153,7 @@ describe('InputSuggestionsComponent', () => {
       });
 
       it('should put the focus on the second element ', () => {
-        const secondLink = de.query(By.css('.list-unstyled > li:nth-child(2) a'));
+        const secondLink = de.query(By.css('.dropdown-list > div:nth-child(2) a'));
         const activeElement = el.ownerDocument.activeElement;
         expect(activeElement).toEqual(secondLink.nativeElement);
       });
@@ -162,7 +162,7 @@ describe('InputSuggestionsComponent', () => {
 
   describe('when the last element is in focus', () => {
     beforeEach(() => {
-      const lastLink = de.query(By.css('.list-unstyled > li:last-child a'));
+      const lastLink = de.query(By.css('.dropdown-list > div:last-child a'));
       lastLink.nativeElement.focus();
       comp.selectedIndex = suggestions.length - 1;
       fixture.detectChanges();
@@ -176,7 +176,7 @@ describe('InputSuggestionsComponent', () => {
       });
 
       it('should put the focus on the second last element ', () => {
-        const secondLastLink = de.query(By.css('.list-unstyled > li:nth-last-child(2) a'));
+        const secondLastLink = de.query(By.css('.dropdown-list > div:nth-last-child(2) a'));
         const activeElement = el.ownerDocument.activeElement;
         expect(activeElement).toEqual(secondLastLink.nativeElement);
       });
@@ -189,7 +189,7 @@ describe('InputSuggestionsComponent', () => {
       });
 
       it('should put the focus on the first element ', () => {
-        const firstLink = de.query(By.css('.list-unstyled > li:first-child a'));
+        const firstLink = de.query(By.css('.dropdown-list > div:first-child a'));
         const activeElement = el.ownerDocument.activeElement;
         expect(activeElement).toEqual(firstLink.nativeElement);
       });
@@ -294,7 +294,7 @@ describe('InputSuggestionsComponent', () => {
     const clickedIndex = 0;
     beforeEach(() => {
       spyOn(comp, 'onClickSuggestion');
-      const clickedLink = de.query(By.css('.list-unstyled > li:nth-child(' + (clickedIndex + 1) + ') a'));
+      const clickedLink = de.query(By.css('.dropdown-list > div:nth-child(' + (clickedIndex + 1) + ') a'));
       clickedLink.triggerEventHandler('click', {} );
       fixture.detectChanges();
     });
