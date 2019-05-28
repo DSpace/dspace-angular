@@ -48,7 +48,7 @@ module.exports = {
         use: (info) => {
           const parsedPath = path.parse(info.resource);
           const themedStylePath = getThemedPath(info.resource, 'scss');
-
+          console.log('themedStylePath', themedStylePath);
           return [
             'debug-loader',
             {

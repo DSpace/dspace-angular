@@ -25,7 +25,7 @@ import { ItemViewMode } from '../../shared/items/item-type-decorator';
 @Component({
   selector: 'ds-item-page',
   styleUrls: ['./item-page.component.scss'],
-  templateUrl: './themes/item-page.component.mantis.html',
+  templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })

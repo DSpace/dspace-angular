@@ -10,7 +10,7 @@ import { hasValue } from '../shared/empty.util';
 
 @Component({
   selector: 'ds-thumbnail',
-  styleUrls: ['./themes/thumbnail.component.mantis.scss'],
+  styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html'
 })
 export class ThumbnailComponent implements OnInit {
