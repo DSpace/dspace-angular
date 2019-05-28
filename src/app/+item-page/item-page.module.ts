@@ -33,11 +33,11 @@ import { RelatedEntitiesSearchComponent } from './simple/related-entities/relate
 
 @NgModule({
   imports: [
+    ItemPageRoutingModule,
     CommonModule,
     SharedModule,
-    EditItemPageModule,
-    ItemPageRoutingModule,
-    SearchPageModule
+    SearchPageModule,
+    EditItemPageModule
   ],
   declarations: [
     ItemPageComponent,
