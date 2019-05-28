@@ -4,7 +4,7 @@ import { ResourceType } from '../../shared/resource-type';
 /**
  * An abstract model class for a NormalizedObject.
  */
-export abstract class NormalizedObject implements CacheableObject {
+export abstract class NormalizedObject<T extends CacheableObject> implements CacheableObject {
 
   /**
    * The link to the rest endpoint where this object can be found
@@ -13,11 +13,8 @@ export abstract class NormalizedObject implements CacheableObject {
   self: string;
 
   /**
-   * The universally unique identifier of this Object
+   * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  @autoserialize
-  uuid: string;
-
   @autoserialize
   type: ResourceType;
 

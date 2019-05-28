@@ -1,21 +1,22 @@
-
-import {tap} from 'rxjs/operators';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { isNull, isUndefined } from '../../../../../empty.util';
-import { AuthorityService } from '../../../../../../core/integration/authority.service';
-import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { IntegrationData } from '../../../../../../core/integration/integration-data';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { Observable, of as observableOf } from 'rxjs';
+import { catchError, first, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlComponent,
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
+
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { isNull, isUndefined } from '../../../../../empty.util';
+import { AuthorityService } from '../../../../../../core/integration/authority.service';
+import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
+import { IntegrationData } from '../../../../../../core/integration/integration-data';
 
 @Component({
   selector: 'ds-dynamic-scrollable-dropdown',
@@ -31,6 +32,7 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
+  public currentValue: Observable<string>;
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: any;
@@ -53,20 +55,26 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
       '',
       this.model.maxOptions,
       1);
-    this.authorityService.getEntriesByName(this.searchOptions)
+    this.authorityService.getEntriesByName(this.searchOptions).pipe(
+      catchError(() => {
+        const emptyResult = new IntegrationData(
+          new PageInfo(),
+          []
+        );
+        return observableOf(emptyResult);
+      }),
+      first())
       .subscribe((object: IntegrationData) => {
         this.optionsList = object.payload;
+        if (this.model.value) {
+          this.setCurrentValue(this.model.value);
+        }
         this.pageInfo = object.pageInfo;
         this.cdr.detectChanges();
       })
   }
 
-  public formatItemForInput(item: any): string {
-    if (isUndefined(item) || isNull(item)) { return '' }
-    return (typeof item === 'string') ? item : this.inputFormatter(item);
-  }
-
-  inputFormatter = (x: AuthorityValueModel) => x.display || x.value;
+  inputFormatter = (x: AuthorityValue): string => x.display || x.value;
 
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
@@ -79,6 +87,13 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
       this.loading = true;
       this.searchOptions.currentPage++;
       this.authorityService.getEntriesByName(this.searchOptions).pipe(
+        catchError(() => {
+          const emptyResult = new IntegrationData(
+            new PageInfo(),
+            []
+          );
+          return observableOf(emptyResult);
+        }),
         tap(() => this.loading = false))
         .subscribe((object: IntegrationData) => {
           this.optionsList = this.optionsList.concat(object.payload);
@@ -100,5 +115,31 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
     this.group.markAsDirty();
     this.model.valueUpdates.next(event);
     this.change.emit(event);
+    this.setCurrentValue(event);
+  }
+
+  onToggle(sdRef: NgbDropdown) {
+    if (sdRef.isOpen()) {
+      this.focus.emit(event);
+    } else {
+      this.blur.emit(event);
+    }
+  }
+
+  setCurrentValue(value): void {
+    let result: string;
+    if (isUndefined(value) || isNull(value)) {
+      result = '';
+    } else if (typeof value === 'string') {
+      result = value;
+    } else {
+      for (const item of this.optionsList) {
+        if (value.value === (item as any).value) {
+          result = this.inputFormatter(item);
+          break;
+        }
+      }
+    }
+    this.currentValue = observableOf(result);
   }
 }

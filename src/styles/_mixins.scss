@@ -1,15 +1,43 @@
 @import '../../node_modules/bootstrap/scss/functions.scss';
 @import '../../node_modules/bootstrap/scss/mixins.scss';
-@import '../../node_modules/bootstrap/scss/variables.scss';
+@import 'variables.scss';
 
 @mixin word-wrap() {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-all;
-  word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+@mixin dark-scrollbar() {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 3px;
+    }
+    &::-webkit-scrollbar-button {
+        background-color: $dark-scrollbar-background;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: lighten($dark-scrollbar-background, 2%);
+    }
+    &::-webkit-scrollbar-track-piece {
+        background-color: $dark-scrollbar-background;
+    }
+    &::-webkit-scrollbar-thumb {
+        height: 50px;
+        background-color: $dark-scrollbar-foreground;
+        border-radius: 3px;
+    }
+    &::-webkit-scrollbar-corner {
+        background-color: lighten($dark-scrollbar-background, 2%);
+    }
+    &::-webkit-resizer {
+        background-color: $dark-scrollbar-background;
+    }
+
 }

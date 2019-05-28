@@ -3,7 +3,11 @@ import { ServerConfig } from './server-config.interface';
 import { CacheConfig } from './cache-config.interface';
 import { UniversalConfig } from './universal-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
+import { SubmissionConfig } from './submission-config.interface';
 import { FormConfig } from './form-config.interfaces';
+import {LangConfig} from './lang-config.interface';
+import { BrowseByConfig } from './browse-by-config.interface';
+import { ItemPageConfig } from './item-page-config.interface';
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
@@ -12,8 +16,13 @@ export interface GlobalConfig extends Config {
   cache: CacheConfig;
   form: FormConfig;
   notifications: INotificationBoardOptions;
+  submission: SubmissionConfig;
   universal: UniversalConfig;
   gaTrackingId: string;
   logDirectory: string;
   debug: boolean;
+  defaultLanguage: string;
+  languages: LangConfig[];
+  browseBy: BrowseByConfig;
+  item: ItemPageConfig;
 }

@@ -30,3 +30,23 @@ export const createTestComponent = <T>(html: string, type: { new(...args: any[])
   fixture.detectChanges();
   return fixture as ComponentFixture<T>;
 };
+
+/**
+ * Allows you to spy on a read only property
+ *
+ * @param obj
+ *    The object to spy on
+ * @param prop
+ *    The property to spy on
+ */
+export function spyOnOperator(obj: any, prop: string): any {
+  const oldProp = obj[prop];
+  Object.defineProperty(obj, prop, {
+    configurable: true,
+    enumerable: true,
+    value: oldProp,
+    writable: true
+  });
+
+  return spyOn(obj, prop);
+}

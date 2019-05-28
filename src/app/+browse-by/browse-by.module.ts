@@ -4,8 +4,10 @@ import { BrowseByTitlePageComponent } from './+browse-by-title-page/browse-by-ti
 import { ItemDataService } from '../core/data/item-data.service';
 import { SharedModule } from '../shared/shared.module';
 import { BrowseByRoutingModule } from './browse-by-routing.module';
-import { BrowseByAuthorPageComponent } from './+browse-by-author-page/browse-by-author-page.component';
 import { BrowseService } from '../core/browse/browse.service';
+import { BrowseByMetadataPageComponent } from './+browse-by-metadata-page/browse-by-metadata-page.component';
+import { BrowseByDatePageComponent } from './+browse-by-date-page/browse-by-date-page.component';
+import { BrowseByGuard } from './browse-by-guard';
 
 @NgModule({
   imports: [
@@ -15,11 +17,13 @@ import { BrowseService } from '../core/browse/browse.service';
   ],
   declarations: [
     BrowseByTitlePageComponent,
-    BrowseByAuthorPageComponent
+    BrowseByMetadataPageComponent,
+    BrowseByDatePageComponent
   ],
   providers: [
     ItemDataService,
-    BrowseService
+    BrowseService,
+    BrowseByGuard
   ]
 })
 export class BrowseByModule {

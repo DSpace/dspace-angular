@@ -1,178 +1,186 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Item} from '../../../core/shared/item.model';
-import {RouterStub} from '../../../shared/testing/router-stub';
-import {CommonModule} from '@angular/common';
-import {RouterTestingModule} from '@angular/router/testing';
-import {TranslateModule} from '@ngx-translate/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ItemMoveComponent} from './item-move.component';
-import {NotificationsServiceStub} from '../../../shared/testing/notifications-service-stub';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {SearchService} from '../../../+search-page/search-service/search.service';
-import {of as observableOf} from 'rxjs';
-import {FormsModule} from '@angular/forms';
-import {ItemDataService} from '../../../core/data/item-data.service';
-import {RestResponse} from '../../../core/cache/response-cache.models';
-import {RemoteData} from '../../../core/data/remote-data';
-import {PaginatedList} from '../../../core/data/paginated-list';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-
-let comp: ItemMoveComponent;
-let fixture: ComponentFixture<ItemMoveComponent>;
-
-const mockItem = Object.assign(new Item(), {
-  id: 'fake-id',
-  handle: 'fake/handle',
-  lastModified: '2018'
-});
-
-const itemPageUrl = `fake-url/${mockItem.id}`;
-const routerStub = Object.assign(new RouterStub(), {
-  url: `${itemPageUrl}/edit`
-});
-
-const mockItemDataService = jasmine.createSpyObj({
-  moveToCollection: observableOf(new RestResponse(true, '200'))
-});
-
-const mockItemDataServiceFail = jasmine.createSpyObj({
-  moveToCollection: observableOf(new RestResponse(false, '500'))
-});
-
-const routeStub = {
-  data: observableOf({
-    item: new RemoteData(false, false, true, null, {
-      id: 'item1'
-    })
-  })
-};
-
-const mockSearchService = {
-  search: () => {
-    return observableOf(new RemoteData(false, false, true, null,
-      new PaginatedList(null, [
-        {
-          dspaceObject: {
-            name: 'Test collection 1',
-            uuid: 'collection1'
-          }, hitHighlights: {}
-        }, {
-          dspaceObject: {
-            name: 'Test collection 2',
-            uuid: 'collection2'
-          }, hitHighlights: {}
-        }
-      ])));
-  }
-};
-
-const notificationsServiceStub = new NotificationsServiceStub();
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Item } from '../../../core/shared/item.model';
+import { RouterStub } from '../../../shared/testing/router-stub';
+import { CommonModule } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ItemMoveComponent } from './item-move.component';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { SearchService } from '../../../+search-page/search-service/search.service';
+import { of as observableOf } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RestResponse } from '../../../core/cache/response.models';
+import { Collection } from '../../../core/shared/collection.model';
 
 describe('ItemMoveComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [ItemMoveComponent],
-      providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: Router, useValue: routerStub},
-        {provide: ItemDataService, useValue: mockItemDataService},
-        {provide: NotificationsService, useValue: notificationsServiceStub},
-        {provide: SearchService, useValue: mockSearchService},
-      ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
-    }).compileComponents();
-  }));
+  let comp: ItemMoveComponent;
+  let fixture: ComponentFixture<ItemMoveComponent>;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ItemMoveComponent);
-    comp = fixture.componentInstance;
-    fixture.detectChanges();
+  const mockItem = Object.assign(new Item(), {
+    id: 'fake-id',
+    handle: 'fake/handle',
+    lastModified: '2018'
   });
-  it('should load suggestions', () => {
-    const expected = [
-      {
-        displayValue: 'Test collection 1',
-        value: {
-          name: 'Test collection 1',
-          id: 'collection1',
+
+  const itemPageUrl = `fake-url/${mockItem.id}`;
+  const routerStub = Object.assign(new RouterStub(), {
+    url: `${itemPageUrl}/edit`
+  });
+
+  const mockItemDataService = jasmine.createSpyObj({
+    moveToCollection: observableOf(new RestResponse(true, 200, 'Success'))
+  });
+
+  const mockItemDataServiceFail = jasmine.createSpyObj({
+    moveToCollection: observableOf(new RestResponse(false, 500, 'Internal server error'))
+  });
+
+  const routeStub = {
+    data: observableOf({
+      item: new RemoteData(false, false, true, null, {
+        id: 'item1'
+      })
+    })
+  };
+
+  const collection1 = Object.assign(new Collection(),{
+    uuid: 'collection-uuid-1',
+    name: 'Test collection 1',
+    self: 'self-link-1',
+  });
+
+  const collection2 = Object.assign(new Collection(),{
+    uuid: 'collection-uuid-2',
+    name: 'Test collection 2',
+    self: 'self-link-2',
+  });
+
+  const mockSearchService = {
+    search: () => {
+      return observableOf(new RemoteData(false, false, true, null,
+        new PaginatedList(null, [
+          {
+            indexableObject: collection1,
+            hitHighlights: {}
+          }, {
+            indexableObject: collection2,
+            hitHighlights: {}
+          }
+        ])));
+    }
+  };
+
+  const notificationsServiceStub = new NotificationsServiceStub();
+
+  describe('ItemMoveComponent success', () => {
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+        declarations: [ItemMoveComponent],
+        providers: [
+          {provide: ActivatedRoute, useValue: routeStub},
+          {provide: Router, useValue: routerStub},
+          {provide: ItemDataService, useValue: mockItemDataService},
+          {provide: NotificationsService, useValue: notificationsServiceStub},
+          {provide: SearchService, useValue: mockSearchService},
+        ], schemas: [
+          CUSTOM_ELEMENTS_SCHEMA
+        ]
+      }).compileComponents();
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ItemMoveComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    it('should load suggestions', () => {
+      const expected = [
+        {
+          displayValue: 'Test collection 1',
+          value: {
+            name: 'Test collection 1',
+            object: collection1,
+          }
+        },
+        {
+          displayValue: 'Test collection 2',
+          value: {
+            name: 'Test collection 2',
+            object: collection2,
+          }
         }
-      },
-      {
-        displayValue: 'Test collection 2',
-        value: {
-          name: 'Test collection 2',
-          id: 'collection2',
+      ];
+
+      comp.collectionSearchResults.subscribe((value) => {
+          expect(value).toEqual(expected);
         }
-      }
-    ];
+      );
+    });
+    it('should get current url ', () => {
+      expect(comp.getCurrentUrl()).toEqual('fake-url/fake-id/edit');
+    });
+    it('should on click select the correct collection name and id', () => {
+      const data = {
+        name: 'Test collection 1',
+        object: collection1,
+      };
+      comp.onClick(data);
 
-    comp.collectionSearchResults.subscribe((value) => {
-        expect(value).toEqual(expected);
-      }
-    );
-  });
-  it('should get current url ', () => {
-    expect(comp.getCurrentUrl()).toEqual('fake-url/fake-id/edit');
-  });
-  it('should on click select the correct collection name and id', () => {
-    const data = {
-      name: 'Test collection 1',
-      id: 'collection1',
-    };
-    comp.onClick(data);
+      expect(comp.selectedCollection).toEqual('Test collection 1');
+      expect(comp.selectedCollectionObject).toEqual(collection1);
+    });
+    describe('moveCollection', () => {
+      it('should call itemDataService.moveToCollection', () => {
+        comp.itemId = 'item-id';
+        comp.selectedCollection = 'selected-collection-id';
+        comp.selectedCollectionObject = collection1;
+        comp.moveCollection();
 
-    expect(comp.selectedCollection).toEqual('Test collection 1');
-    expect(comp.selectedCollectionId).toEqual('collection1');
+        expect(mockItemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1);
+      });
+      it('should call notificationsService success message on success', () => {
+        comp.moveCollection();
+
+        expect(notificationsServiceStub.success).toHaveBeenCalled();
+      });
+    });
   });
-  describe('moveCollection', () => {
-    it('should call itemDataService.moveToCollection', () => {
-      comp.itemId = 'item-id';
-      comp.selectedCollectionId = 'selected-collection-id';
+
+  describe('ItemMoveComponent fail', () => {
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
+        declarations: [ItemMoveComponent],
+        providers: [
+          {provide: ActivatedRoute, useValue: routeStub},
+          {provide: Router, useValue: routerStub},
+          {provide: ItemDataService, useValue: mockItemDataServiceFail},
+          {provide: NotificationsService, useValue: notificationsServiceStub},
+          {provide: SearchService, useValue: mockSearchService},
+        ], schemas: [
+          CUSTOM_ELEMENTS_SCHEMA
+        ]
+      }).compileComponents();
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ItemMoveComponent);
+      comp = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should call notificationsService error message on fail', () => {
       comp.moveCollection();
 
-      expect(mockItemDataService.moveToCollection).toHaveBeenCalledWith('item-id', 'selected-collection-id');
+      expect(notificationsServiceStub.error).toHaveBeenCalled();
     });
-    it('should call notificationsService success message on success', () => {
-      spyOn(notificationsServiceStub, 'success');
-
-      comp.moveCollection();
-
-      expect(notificationsServiceStub.success).toHaveBeenCalled();
-    });
-  });
-});
-
-describe('ItemMoveComponent fail', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [ItemMoveComponent],
-      providers: [
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: Router, useValue: routerStub},
-        {provide: ItemDataService, useValue: mockItemDataServiceFail},
-        {provide: NotificationsService, useValue: notificationsServiceStub},
-        {provide: SearchService, useValue: mockSearchService},
-      ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ItemMoveComponent);
-    comp = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should call notificationsService error message on fail', () => {
-    spyOn(notificationsServiceStub, 'error');
-
-    comp.moveCollection();
-
-    expect(notificationsServiceStub.error).toHaveBeenCalled();
   });
 });

@@ -1,0 +1,10 @@
+<div>
+  <div class="modal-header">{{'dso-selector.'+ action + '.' + objectType.toString().toLowerCase() + '.head' | translate}}
+    <button type="button" class="close" (click)="close()" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ds-dso-selector [currentDSOId]="(dsoRD$ | async)?.payload.uuid" [type]="selectorType" (onSelect)="selectObject($event)"></ds-dso-selector>
+  </div>
+</div>

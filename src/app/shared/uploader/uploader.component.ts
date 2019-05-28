@@ -1,5 +1,3 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -11,6 +9,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core'
 
+import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
 import { uniqueId } from 'lodash';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
@@ -58,6 +57,11 @@ export class UploaderComponent {
    * The function to call when upload is completed
    */
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * The function to call on error occurred
+   */
+  @Output() onUploadError: EventEmitter<any> = new EventEmitter<any>();
 
   public uploader: FileUploader;
   public uploaderId: string;
@@ -110,6 +114,9 @@ export class UploaderComponent {
     this.uploader.onAfterAddingFile = ((item) => {
       item.withCredentials = false;
     });
+    if (isUndefined(this.onBeforeUpload)) {
+      this.onBeforeUpload = () => {return};
+    }
     this.uploader.onBeforeUploadItem = () => {
       this.onBeforeUpload();
       this.isOverDocumentDropZone = observableOf(false);
@@ -125,6 +132,10 @@ export class UploaderComponent {
         const responsePath = JSON.parse(response);
         this.onCompleteItem.emit(responsePath);
       }
+    };
+    this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
+      this.onUploadError.emit(null);
+      this.uploader.cancelAll();
     };
     this.uploader.onProgressAll = () => this.onProgress();
     this.uploader.onProgressItem = () => this.onProgress();

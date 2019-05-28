@@ -1,0 +1,11 @@
+<li class="sidebar-section">
+    <a class="nav-item nav-link shortcut-icon" [routerLink]="itemModel.link">
+        <i class="fas fa-{{section.icon}} fa-fw" [title]="('menu.section.icon.' + section.id) | translate"></i>
+    </a>
+    <div class="sidebar-collapsible">
+            <span class="section-header-text">
+        <ng-container
+                *ngComponentOutlet="itemComponents.get(section.id); injector: itemInjectors.get(section.id);"></ng-container>
+            </span>
+    </div>
+</li>

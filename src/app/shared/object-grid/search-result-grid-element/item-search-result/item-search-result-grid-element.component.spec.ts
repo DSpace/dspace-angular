@@ -17,37 +17,43 @@ const truncatableServiceStub: any = {
 };
 
 const mockItemWithAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-mockItemWithAuthorAndDate.hitHighlights = [];
-mockItemWithAuthorAndDate.dspaceObject = Object.assign(new Item(), {
+mockItemWithAuthorAndDate.hitHighlights = {};
+mockItemWithAuthorAndDate.indexableObject = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.contributor.author',
-      language: 'en_US',
-      value: 'Smith, Donald'
-    },
-    {
-      key: 'dc.date.issued',
-      language: null,
-      value: '2015-06-26'
-    }]
+  metadata: {
+    'dc.contributor.author': [
+      {
+        language: 'en_US',
+        value: 'Smith, Donald'
+      }
+    ],
+    'dc.date.issued': [
+      {
+        language: null,
+        value: '2015-06-26'
+      }
+    ]
+  }
 });
 
 const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-mockItemWithoutAuthorAndDate.hitHighlights = [];
-mockItemWithoutAuthorAndDate.dspaceObject = Object.assign(new Item(), {
+mockItemWithoutAuthorAndDate.hitHighlights = {};
+mockItemWithoutAuthorAndDate.indexableObject = Object.assign(new Item(), {
   bitstreams: observableOf({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    },
-    {
-      key: 'dc.type',
-      language: null,
-      value: 'Article'
-    }]
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ],
+    'dc.type': [
+      {
+        language: null,
+        value: 'Article'
+      }
+    ]
+  }
 });
 
 describe('ItemSearchResultGridElementComponent', () => {
@@ -72,7 +78,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   describe('When the item has an author', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.indexableObject;
       fixture.detectChanges();
     });
 
@@ -84,7 +90,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   describe('When the item has no author', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.indexableObject;
       fixture.detectChanges();
     });
 
@@ -96,7 +102,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   describe('When the item has an issuedate', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.dspaceObject;
+      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.indexableObject;
       fixture.detectChanges();
     });
 
@@ -108,7 +114,7 @@ describe('ItemSearchResultGridElementComponent', () => {
 
   describe('When the item has no issuedate', () => {
     beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.dspaceObject;
+      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.indexableObject;
       fixture.detectChanges();
     });
 

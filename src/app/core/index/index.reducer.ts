@@ -1,27 +1,57 @@
 import {
+  AddToIndexAction,
   IndexAction,
   IndexActionTypes,
-  AddToIndexAction,
+  RemoveFromIndexBySubstringAction,
   RemoveFromIndexByValueAction
 } from './index.actions';
 
+/**
+ * An enum containing all index names
+ */
 export enum IndexName {
+  // Contains all objects in the object cache indexed by UUID
   OBJECT = 'object/uuid-to-self-link',
-  REQUEST = 'get-request/href-to-uuid'
+
+  // contains all requests in the request cache indexed by UUID
+  REQUEST = 'get-request/href-to-uuid',
+
+  /**
+   * Contains the UUIDs of requests that were sent to the server and
+   * have their responses cached, indexed by the UUIDs of requests that
+   * weren't sent because the response they requested was already cached
+   */
+  UUID_MAPPING = 'get-request/configured-to-cache-uuid'
 }
 
+/**
+ * The state of a single index
+ */
 export interface IndexState {
-  // TODO this should be `[name in IndexName]: {` but that's currently broken,
-  // see https://github.com/Microsoft/TypeScript/issues/13042
-  [name: string]: {
-    [key: string]: string
-  }
+  [key: string]: string
+}
+
+/**
+ * The state that contains all indices
+ */
+export type MetaIndexState = {
+  [name in IndexName]: IndexState
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
-const initialState: IndexState = Object.create(null);
+const initialState: MetaIndexState = Object.create(null);
 
-export function indexReducer(state = initialState, action: IndexAction): IndexState {
+/**
+ * The Index Reducer
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    the action to perform on the state
+ * @return MetaIndexState
+ *    the new state
+ */
+export function indexReducer(state = initialState, action: IndexAction): MetaIndexState {
   switch (action.type) {
 
     case IndexActionTypes.ADD: {
@@ -32,27 +62,75 @@ export function indexReducer(state = initialState, action: IndexAction): IndexSt
       return removeFromIndexByValue(state, action as RemoveFromIndexByValueAction)
     }
 
+    case IndexActionTypes.REMOVE_BY_SUBSTRING: {
+      return removeFromIndexBySubstring(state, action as RemoveFromIndexBySubstringAction)
+    }
+
     default: {
       return state;
     }
   }
 }
 
-function addToIndex(state: IndexState, action: AddToIndexAction): IndexState {
+/**
+ * Add an entry to a given index
+ *
+ * @param state
+ *    The MetaIndexState that contains all indices
+ * @param action
+ *    The AddToIndexAction containing the value to add, and the index to add it to
+ * @return MetaIndexState
+ *    the new state
+ */
+function addToIndex(state: MetaIndexState, action: AddToIndexAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.assign({}, subState, {
     [action.payload.key]: action.payload.value
   });
-  return Object.assign({}, state, {
+  const obs = Object.assign({}, state, {
     [action.payload.name]: newSubState
-  })
+  });
+  return obs;
 }
 
-function removeFromIndexByValue(state: IndexState, action: RemoveFromIndexByValueAction): IndexState {
+/**
+ * Remove a entries that contain a given value from a given index
+ *
+ * @param state
+ *    The MetaIndexState that contains all indices
+ * @param action
+ *    The RemoveFromIndexByValueAction containing the value to remove, and the index to remove it from
+ * @return MetaIndexState
+ *    the new state
+ */
+function removeFromIndexByValue(state: MetaIndexState, action: RemoveFromIndexByValueAction): MetaIndexState {
   const subState = state[action.payload.name];
   const newSubState = Object.create(null);
   for (const value in subState) {
     if (subState[value] !== action.payload.value) {
+      newSubState[value] = subState[value];
+    }
+  }
+  return Object.assign({}, state, {
+    [action.payload.name]: newSubState
+  });
+}
+
+/**
+ * Remove entries that contain a given substring from a given index
+ *
+ * @param state
+ *    The MetaIndexState that contains all indices
+ * @param action
+ *    The RemoveFromIndexByValueAction the substring to remove, and the index to remove it from
+ * @return MetaIndexState
+ *    the new state
+ */
+function removeFromIndexBySubstring(state: MetaIndexState, action: RemoveFromIndexByValueAction): MetaIndexState {
+  const subState = state[action.payload.name];
+  const newSubState = Object.create(null);
+  for (const value in subState) {
+    if (value.indexOf(action.payload.value) < 0) {
       newSubState[value] = subState[value];
     }
   }

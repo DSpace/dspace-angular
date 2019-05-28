@@ -31,7 +31,7 @@ import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.mod
 import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DynamicGroupModel } from './ds-dynamic-form-ui/models/dynamic-group/dynamic-group.model';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicTypeaheadModel } from './ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.model';
@@ -41,7 +41,7 @@ import { FormFieldModel } from './models/form-field.model';
 import {
   FormRowModel,
   SubmissionFormsModel
-} from '../../../core/shared/config/config-submission-forms.model';
+} from '../../../core/config/models/config-submission-forms.model';
 import { FormBuilderService } from './form-builder.service';
 import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -203,7 +203,7 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicListRadioGroupModel({id: 'testRadioList', authorityOptions: authorityOptions, repeatable: false}),
 
-      new DynamicGroupModel({
+      new DynamicRelationGroupModel({
         id: 'testRelationGroup',
         formConfiguration: [{
           fields: [{
@@ -372,7 +372,7 @@ describe('FormBuilderService test suite', () => {
       _links: {
         self: 'testFormConfiguration.url'
       }
-    }
+    } as any;
   });
 
   beforeEach(inject([FormBuilderService], (formService: FormBuilderService) => service = formService));

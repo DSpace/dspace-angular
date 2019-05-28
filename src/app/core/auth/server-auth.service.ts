@@ -1,4 +1,4 @@
-import { first, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -10,7 +10,6 @@ import { AuthService } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { CheckAuthenticationTokenAction } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
-import { NormalizedEPerson } from '../eperson/models/normalized-eperson.model';
 
 /**
  * The auth service.
@@ -35,18 +34,14 @@ export class ServerAuthService extends AuthService {
 
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
+      map((status) => this.rdbService.build(status)),
       switchMap((status: AuthStatus) => {
-
         if (status.authenticated) {
-
-          // TODO this should be cleaned up, AuthStatus could be parsed by the RemoteDataService as a whole...
-          const person$ = this.rdbService.buildSingle<NormalizedEPerson, EPerson>(status.eperson.toString());
-          // person$.subscribe(() => console.log('test'));
-          return person$.pipe(map((eperson) => eperson.payload));
+          return status.eperson.pipe(map((eperson) => eperson.payload));
         } else {
           throw(new Error('Not authenticated'));
         }
-      }))
+      }));
   }
 
   /**
@@ -61,7 +56,7 @@ export class ServerAuthService extends AuthService {
    */
   public redirectToPreviousUrl() {
     this.getRedirectUrl().pipe(
-      first())
+      take(1))
       .subscribe((redirectUrl) => {
         if (isNotEmpty(redirectUrl)) {
           // override the route reuse strategy

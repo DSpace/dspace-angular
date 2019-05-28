@@ -82,3 +82,8 @@ declare module '*.json' {
 }
 
 declare module 'reflect-metadata';
+
+declare module '*.scss' {
+  const content: any;
+  export default content;
+}

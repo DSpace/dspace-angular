@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -9,7 +9,11 @@ import { Community } from '../../core/shared/community.model';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { take } from 'rxjs/operators';
 
+/**
+ * this component renders the Top-Level Community list
+ */
 @Component({
   selector: 'ds-top-level-community-list',
   styleUrls: ['./top-level-community-list.component.scss'],
@@ -17,9 +21,21 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut]
 })
-export class TopLevelCommunityListComponent {
-  communitiesRDObs: Observable<RemoteData<PaginatedList<Community>>>;
+
+export class TopLevelCommunityListComponent implements OnInit {
+  /**
+   * A list of remote data objects of all top communities
+   */
+  communitiesRD$: BehaviorSubject<RemoteData<PaginatedList<Community>>> = new BehaviorSubject<RemoteData<PaginatedList<Community>>>({} as any);
+
+  /**
+   * The pagination configuration
+   */
   config: PaginationComponentOptions;
+
+  /**
+   * The sorting configuration
+   */
   sortConfig: SortOptions;
 
   constructor(private cds: CommunityDataService) {
@@ -28,20 +44,34 @@ export class TopLevelCommunityListComponent {
     this.config.pageSize = 5;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
-
-    this.updatePage({
-      page: this.config.currentPage,
-      pageSize: this.config.pageSize,
-      sortField: this.sortConfig.field,
-      direction: this.sortConfig.direction
-    });
   }
 
-  updatePage(data) {
-    this.communitiesRDObs = this.cds.findTop({
-      currentPage: data.page,
-      elementsPerPage: data.pageSize,
-      sort: { field: data.sortField, direction: data.sortDirection }
+  ngOnInit() {
+    this.updatePage();
+  }
+
+  /**
+   * Called when one of the pagination settings is changed
+   * @param event The new pagination data
+   */
+  onPaginationChange(event) {
+    this.config.currentPage = event.page;
+    this.config.pageSize = event.pageSize;
+    this.sortConfig.field = event.sortField;
+    this.sortConfig.direction = event.sortDirection;
+    this.updatePage();
+  }
+
+  /**
+   * Update the list of top communities
+   */
+  updatePage() {
+    this.cds.findTop({
+      currentPage: this.config.currentPage,
+      elementsPerPage: this.config.pageSize,
+      sort: { field: this.sortConfig.field, direction: this.sortConfig.direction }
+    }).pipe(take(1)).subscribe((results) => {
+      this.communitiesRD$.next(results);
     });
   }
 }

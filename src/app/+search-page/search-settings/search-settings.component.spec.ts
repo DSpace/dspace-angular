@@ -14,8 +14,8 @@ import { By } from '@angular/platform-browser';
 import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 import { hot } from 'jasmine-marbles';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { SearchConfigurationService } from '../search-service/search-configuration.service';
 import { first } from 'rxjs/operators';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 
 describe('SearchSettingsComponent', () => {
 
@@ -73,7 +73,7 @@ describe('SearchSettingsComponent', () => {
           useValue: {}
         },
         {
-          provide: SearchConfigurationService,
+          provide: SEARCH_CONFIG_SERVICE,
           useValue: {
             paginatedSearchOptions: hot('a', {
               a: paginatedSearchOptions

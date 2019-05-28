@@ -20,9 +20,13 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { By } from '@angular/platform-browser';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { createTestComponent } from '../../../../../testing/utils';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../../../config';
+import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
 
 let LOOKUP_TEST_MODEL_CONFIG = {
   authorityOptions: {
@@ -72,6 +76,8 @@ let LOOKUP_TEST_GROUP = new FormGroup({
   lookup: new FormControl(),
   lookupName: new FormControl()
 });
+
+const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
 describe('Dynamic Lookup component', () => {
   function init() {
@@ -150,10 +156,13 @@ describe('Dynamic Lookup component', () => {
       declarations: [
         DsDynamicLookupComponent,
         TestComponent,
+        AuthorityConfidenceStateDirective,
+        ObjNgFor
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
         DsDynamicLookupComponent,
+        { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: AuthorityService, useValue: authorityService },
         { provide: DynamicFormLayoutService, useValue: {} },
         { provide: DynamicFormValidationService, useValue: {} }
@@ -174,6 +183,7 @@ describe('Dynamic Lookup component', () => {
         [bindId]="bindId"
         [group]="group"
         [model]="model"
+        [showErrorMessages]="showErrorMessages"
         (blur)="onBlur($event)"
         (change)="onValueChange($event)"
         (focus)="onFocus($event)"></ds-dynamic-lookup>`;
@@ -249,7 +259,7 @@ describe('Dynamic Lookup component', () => {
         it('should select a results entry properly', fakeAsync(() => {
           let de = lookupFixture.debugElement.queryAll(By.css('button'));
           const btnEl = de[0].nativeElement;
-          const selectedValue = Object.assign(new AuthorityValueModel(), {
+          const selectedValue = Object.assign(new AuthorityValue(), {
             id: 1,
             display: 'one',
             value: 1
@@ -353,12 +363,12 @@ describe('Dynamic Lookup component', () => {
 
         it('should select a results entry properly', fakeAsync(() => {
           const payload = [
-            Object.assign(new AuthorityValueModel(), {
+            Object.assign(new AuthorityValue(), {
               id: 1,
               display: 'Name, Lastname',
               value: 1
             }),
-            Object.assign(new AuthorityValueModel(), {
+            Object.assign(new AuthorityValue(), {
               id: 2,
               display: 'NameTwo, LastnameTwo',
               value: 2
@@ -366,7 +376,7 @@ describe('Dynamic Lookup component', () => {
           ];
           let de = lookupFixture.debugElement.queryAll(By.css('button'));
           const btnEl = de[0].nativeElement;
-          const selectedValue = Object.assign(new AuthorityValueModel(), {
+          const selectedValue = Object.assign(new AuthorityValue(), {
             id: 1,
             display: 'Name, Lastname',
             value: 1

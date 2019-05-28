@@ -1,0 +1,5 @@
+<ds-metadata-field-wrapper *ngIf="representations && representations.length > 0" [label]="label">
+  <ds-item-type-switcher *ngFor="let rep of representations"
+                           [object]="rep" [viewMode]="viewMode">
+  </ds-item-type-switcher>
+</ds-metadata-field-wrapper>

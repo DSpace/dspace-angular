@@ -1,5 +1,5 @@
 <ng-container *ngVar="(subCollectionsRDObs | async) as subCollectionsRD">
-  <div *ngIf="subCollectionsRD?.hasSucceeded" @fadeIn>
+  <div *ngIf="subCollectionsRD?.hasSucceeded && subCollectionsRD?.payload.totalElements > 0" @fadeIn>
     <h2>{{'community.sub-collection-list.head' | translate}}</h2>
     <ul>
       <li *ngFor="let collection of subCollectionsRD?.payload.page">

@@ -1,10 +1,9 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { ResourcePolicy } from '../../shared/resource-policy.model';
 
-import { mapsTo, relationship } from '../builders/build-decorators';
+import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
 import { IDToUUIDSerializer } from '../id-to-uuid-serializer';
-import { ResourceType } from '../../shared/resource-type';
 import { ActionType } from './action-type.model';
 
 /**
@@ -12,11 +11,12 @@ import { ActionType } from './action-type.model';
  */
 @mapsTo(ResourcePolicy)
 @inheritSerialization(NormalizedObject)
-export class NormalizedResourcePolicy extends NormalizedObject {
+export class NormalizedResourcePolicy extends NormalizedObject<ResourcePolicy> {
 
   /**
    * The action that is allowed by this Resource Policy
    */
+  @autoserialize
   action: ActionType;
 
   /**
@@ -28,9 +28,8 @@ export class NormalizedResourcePolicy extends NormalizedObject {
   /**
    * The uuid of the Group this Resource Policy applies to
    */
-  @relationship(ResourceType.Group, false)
-  @autoserializeAs(String, 'groupUUID')
-  group: string;
+  @autoserialize
+  groupUUID: string;
 
   /**
    * Identifier for this Resource Policy
@@ -46,4 +45,5 @@ export class NormalizedResourcePolicy extends NormalizedObject {
    */
   @autoserializeAs(new IDToUUIDSerializer('resource-policy'), 'id')
   uuid: string;
+
 }

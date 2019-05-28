@@ -16,25 +16,29 @@ const truncatableServiceStub: any = {
 };
 
 const mockCollectionWithAbstract: CollectionSearchResult = new CollectionSearchResult();
-mockCollectionWithAbstract.hitHighlights = [];
-mockCollectionWithAbstract.dspaceObject = Object.assign(new Collection(), {
-  metadata: [
-    {
-      key: 'dc.description.abstract',
-      language: 'en_US',
-      value: 'Short description'
-    } ]
+mockCollectionWithAbstract.hitHighlights = {};
+mockCollectionWithAbstract.indexableObject = Object.assign(new Collection(), {
+  metadata: {
+    'dc.description.abstract': [
+      {
+        language: 'en_US',
+        value: 'Short description'
+      }
+    ]
+  }
 });
 
 const mockCollectionWithoutAbstract: CollectionSearchResult = new CollectionSearchResult();
-mockCollectionWithoutAbstract.hitHighlights = [];
-mockCollectionWithoutAbstract.dspaceObject = Object.assign(new Collection(), {
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'Test title'
-    } ]
+mockCollectionWithoutAbstract.hitHighlights = {};
+mockCollectionWithoutAbstract.indexableObject = Object.assign(new Collection(), {
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title'
+      }
+    ]
+  }
 });
 
 describe('CollectionSearchResultGridElementComponent', () => {
@@ -59,7 +63,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
 
   describe('When the collection has an abstract', () => {
     beforeEach(() => {
-      collectionSearchResultGridElementComponent.dso = mockCollectionWithAbstract.dspaceObject;
+      collectionSearchResultGridElementComponent.dso = mockCollectionWithAbstract.indexableObject;
       fixture.detectChanges();
     });
 
@@ -71,7 +75,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
 
   describe('When the collection has no abstract', () => {
     beforeEach(() => {
-      collectionSearchResultGridElementComponent.dso = mockCollectionWithoutAbstract.dspaceObject;
+      collectionSearchResultGridElementComponent.dso = mockCollectionWithoutAbstract.indexableObject;
       fixture.detectChanges();
     });
 

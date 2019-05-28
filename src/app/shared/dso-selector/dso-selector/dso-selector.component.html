@@ -1,0 +1,20 @@
+<div class="form-group w-100 pr-2 pl-2">
+    <input type="search"
+           class="form-control"
+           (click)="$event.stopPropagation();"
+           placeholder="{{'dso-selector.placeholder' | translate: { type: type.toString().toLowerCase() } }}"
+           [formControl]="input" dsAutoFocus (keyup.enter)="selectSingleResult()">
+</div>
+<div class="dropdown-divider"></div>
+<div class="scrollable-menu list-group">
+    <button class="list-group-item list-group-item-action border-0 disabled"
+            *ngIf="(listEntries$ | async)?.payload.page.length == 0">
+        {{'dso-selector.no-results' | translate: { type: type.toString().toLowerCase() } }}
+    </button>
+    <button *ngFor="let listEntry of (listEntries$ | async)?.payload.page"
+            class="list-group-item list-group-item-action border-0 list-entry"
+            title="{{ listEntry.indexableObject.name }}"
+            (click)="onSelect.emit(listEntry.indexableObject)" #listEntryElement>
+        <ds-wrapper-list-element [object]="listEntry"></ds-wrapper-list-element>
+    </button>
+</div>

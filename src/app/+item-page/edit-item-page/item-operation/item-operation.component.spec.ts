@@ -18,6 +18,7 @@ describe('ItemOperationComponent', () => {
   }));
 
   beforeEach(() => {
+    itemOperation  = new ItemOperation('key1', 'url1');
 
     itemOperation = new ItemOperation('key1', 'url1');
 

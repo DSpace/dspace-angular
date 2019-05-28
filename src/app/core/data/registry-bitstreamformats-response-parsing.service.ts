@@ -1,4 +1,4 @@
-import { RegistryBitstreamformatsSuccessResponse, RestResponse } from '../cache/response-cache.models';
+import { RegistryBitstreamformatsSuccessResponse, RestResponse } from '../cache/response.models';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
@@ -19,7 +19,7 @@ export class RegistryBitstreamformatsResponseParsingService implements ResponseP
     payload.bitstreamformats = bitstreamformats;
 
     const deserialized = new DSpaceRESTv2Serializer(RegistryBitstreamformatsResponse).deserialize(payload);
-    return new RegistryBitstreamformatsSuccessResponse(deserialized, data.statusCode, this.dsoParser.processPageInfo(data.payload.page));
+    return new RegistryBitstreamformatsSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(data.payload.page));
   }
 
 }

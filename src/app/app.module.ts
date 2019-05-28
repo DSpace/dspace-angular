@@ -31,6 +31,12 @@ import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-s
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { SharedModule } from './shared/shared.module';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
+import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
+import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
+import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
+import { NavbarModule } from './navbar/navbar.module';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -48,9 +54,11 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
 const IMPORTS = [
   CommonModule,
   SharedModule,
+  NavbarModule,
   HttpClientModule,
   AppRoutingModule,
   CoreModule.forRoot(),
+  ScrollToModule.forRoot(),
   NgbModule.forRoot(),
   TranslateModule.forRoot(),
   EffectsModule.forRoot(appEffects),
@@ -88,6 +96,10 @@ const PROVIDERS = [
 const DECLARATIONS = [
   AppComponent,
   HeaderComponent,
+  HeaderNavbarWrapperComponent,
+  AdminSidebarComponent,
+  AdminSidebarSectionComponent,
+  ExpandableAdminSidebarSectionComponent,
   FooterComponent,
   PageNotFoundComponent,
   NotificationComponent,
@@ -106,10 +118,14 @@ const EXPORTS = [
     ...PROVIDERS
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ],
   exports: [
     ...EXPORTS
+  ],
+  entryComponents: [
+    AdminSidebarSectionComponent,
+    ExpandableAdminSidebarSectionComponent
   ]
 })
 export class AppModule {

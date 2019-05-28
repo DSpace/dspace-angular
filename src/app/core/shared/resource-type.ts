@@ -8,5 +8,21 @@ export enum ResourceType {
   Community = 'community',
   EPerson = 'eperson',
   Group = 'group',
-  ResourcePolicy = 'resourcePolicy'
+  ResourcePolicy = 'resourcePolicy',
+  MetadataSchema = 'metadataschema',
+  MetadataField = 'metadatafield',
+  Relationship = 'relationship',
+  RelationshipType = 'relationshiptype',
+  ItemType = 'entitytype',
+  License = 'license',
+  Workflowitem = 'workflowitem',
+  Workspaceitem = 'workspaceitem',
+  SubmissionDefinitions = 'submissiondefinitions',
+  SubmissionDefinition = 'submissiondefinition',
+  SubmissionForm = 'submissionform',
+  SubmissionForms = 'submissionforms',
+  SubmissionSections = 'submissionsections',
+  SubmissionSection = 'submissionsection',
+  ClaimedTask = 'claimedtask',
+  PoolTask = 'pooltask'
 }

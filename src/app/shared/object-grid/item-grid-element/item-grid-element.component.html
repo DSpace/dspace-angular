@@ -5,19 +5,19 @@
       </ds-grid-thumbnail>
     </a>
     <div class="card-body">
-      <h4 class="card-title">{{object.findMetadata('dc.title')}}</h4>
+      <h4 class="card-title">{{object.firstMetadataValue('dc.title')}}</h4>
 
       <ds-truncatable-part [id]="object.id" [minLines]="2">
-        <p *ngIf="object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0" class="item-authors card-text text-muted">
-            <span *ngFor="let authorMd of object.filterMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{authorMd.value}}
+        <p *ngIf="object.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])" class="item-authors card-text text-muted">
+            <span *ngFor="let author of object.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']); let last=last;">{{author}}
                 <span *ngIf="!last">; </span>
             </span>
-          <span *ngIf="hasValue(object.findMetadata('dc.date.issued'))" class="item-date">{{object.findMetadata("dc.date.issued")}}</span>
+          <span *ngIf="object.hasMetadata('dc.date.issued')" class="item-date">{{object.firstMetadataValue("dc.date.issued")}}</span>
         </p>
       </ds-truncatable-part>
 
       <ds-truncatable-part [id]="object.id" [minLines]="5">
-        <p *ngIf="object.findMetadata('dc.description.abstract')" class="item-abstract card-text">{{object.findMetadata("dc.description.abstract") }}</p>
+        <p *ngIf="object.hasMetadata('dc.description.abstract')" class="item-abstract card-text">{{object.firstMetadataValue("dc.description.abstract")}}</p>
       </ds-truncatable-part>
 
       <div class="text-center pt-2">
