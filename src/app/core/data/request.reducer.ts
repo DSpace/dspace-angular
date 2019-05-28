@@ -90,7 +90,17 @@ function completeRequest(state: RequestState, action: RequestCompleteAction): Re
   });
 }
 
-function resetResponseTimestamps(state: RequestState, action: ResetResponseTimestampsAction) {
+/**
+ * Reset the timeAdded property of all responses
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a RequestCompleteAction
+ * @return RequestState
+ *    the new state, with the timeAdded property reset
+ */
+function resetResponseTimestamps(state: RequestState, action: ResetResponseTimestampsAction): RequestState {
   const newState = Object.create(null);
   Object.keys(state).forEach((key) => {
     newState[key] = Object.assign({}, state[key],
@@ -100,6 +110,11 @@ function resetResponseTimestamps(state: RequestState, action: ResetResponseTimes
   return newState;
 }
 
+/**
+ * Remove a request from the RequestState
+ * @param state   The current RequestState
+ * @param action  The RequestRemoveAction to perform
+ */
 function removeRequest(state: RequestState, action: RequestRemoveAction): RequestState {
   const newState = Object.create(null);
   for (const value in state) {

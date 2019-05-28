@@ -10,6 +10,9 @@ import { SearchService } from '../../search-service/search.service';
 import { SearchFilterComponent } from './search-filter.component';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
+import { SearchConfigurationService } from '../../search-service/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service-stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 
 describe('SearchFilterComponent', () => {
   let comp: SearchFilterComponent;
@@ -33,9 +36,7 @@ describe('SearchFilterComponent', () => {
     },
     expand: (filter) => {
     },
-    initialCollapse: (filter) => {
-    },
-    initialExpand: (filter) => {
+    initializeFilter: (filter) => {
     },
     getSelectedValuesForFilter: (filter) => {
       return observableOf([filterName1, filterName2, filterName3])
@@ -65,6 +66,7 @@ describe('SearchFilterComponent', () => {
           provide: SearchFilterService,
           useValue: mockFilterService
         },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFilterComponent, {
@@ -91,32 +93,21 @@ describe('SearchFilterComponent', () => {
     });
   });
 
-  describe('when the initialCollapse method is triggered', () => {
+  describe('when the initializeFilter method is triggered', () => {
     beforeEach(() => {
-      spyOn(filterService, 'initialCollapse');
-      comp.initialCollapse();
+      spyOn(filterService, 'initializeFilter');
+      comp.initializeFilter();
     });
 
     it('should call initialCollapse with the correct filter configuration name', () => {
-      expect(filterService.initialCollapse).toHaveBeenCalledWith(mockFilterConfig.name)
-    });
-  });
-
-  describe('when the initialExpand method is triggered', () => {
-    beforeEach(() => {
-      spyOn(filterService, 'initialExpand');
-      comp.initialExpand();
-    });
-
-    it('should call initialCollapse with the correct filter configuration name', () => {
-      expect(filterService.initialExpand).toHaveBeenCalledWith(mockFilterConfig.name)
+      expect(filterService.initializeFilter).toHaveBeenCalledWith(mockFilterConfig)
     });
   });
 
   describe('when getSelectedValues is called', () => {
     let valuesObservable: Observable<string[]>;
     beforeEach(() => {
-      valuesObservable = comp.getSelectedValues();
+      valuesObservable = (comp as any).getSelectedValues();
     });
 
     it('should return an observable containing the existing filters', () => {
@@ -141,7 +132,7 @@ describe('SearchFilterComponent', () => {
     let isActive: Observable<boolean>;
     beforeEach(() => {
       filterService.isCollapsed = () => observableOf(true);
-      isActive = comp.isCollapsed();
+      isActive = (comp as any).isCollapsed();
     });
 
     it('should return an observable containing true', () => {
@@ -156,7 +147,7 @@ describe('SearchFilterComponent', () => {
     let isActive: Observable<boolean>;
     beforeEach(() => {
       filterService.isCollapsed = () => observableOf(false);
-      isActive = comp.isCollapsed();
+      isActive = (comp as any).isCollapsed();
     });
 
     it('should return an observable containing false', () => {

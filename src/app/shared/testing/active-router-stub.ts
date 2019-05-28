@@ -14,6 +14,7 @@ export class ActivatedRouteStub {
 
   params = this.subject.asObservable();
   queryParams = this.subject.asObservable();
+  paramMap = this.subject.asObservable().pipe(map((params: Params) => convertToParamMap(params)));;
   queryParamMap = this.subject.asObservable().pipe(map((params: Params) => convertToParamMap(params)));
   data = this.dataSubject.asObservable();
 

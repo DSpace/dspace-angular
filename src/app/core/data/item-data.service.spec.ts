@@ -7,32 +7,37 @@ import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { FindAllOptions, RestRequest } from './request.models';
-import { Observable, of as observableOf } from 'rxjs';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { Observable } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { HttpClient } from '@angular/common/http';
 import { RequestEntry } from './request.reducer';
+import { of as observableOf } from 'rxjs';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
   let service: ItemDataService;
   let bs: BrowseService;
-  const requestService = Object.assign({
+  const requestService = {
     generateRequestId(): string {
       return scopeID;
     },
     configure(request: RestRequest) {
       // Do nothing
     },
-    getByUUID() {
-      const requestEntry = new RequestEntry();
-      requestEntry.response = new RestResponse(true, '200');
-      return observableOf(requestEntry);
+    getByHref(requestHref: string) {
+      const responseCacheEntry = new RequestEntry();
+      responseCacheEntry.response = new RestResponse(true, 200, 'OK');
+      return observableOf(responseCacheEntry);
     }
-  }) as RequestService;
+  } as RequestService;
   const rdbService = {} as RemoteDataBuildService;
-  const objectCache = {} as ObjectCacheService;
+
   const store = {} as Store<CoreState>;
+  const objectCache = {} as ObjectCacheService;
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
       return cold('a', {a: itemEndpoint});
@@ -53,12 +58,16 @@ describe('ItemDataService', () => {
   const scopedEndpoint = `${itemBrowseEndpoint}?scope=${scopeID}`;
   const serviceEndpoint = `https://rest.api/core/items`;
   const browseError = new Error('getBrowseURL failed');
+  const notificationsService = {} as NotificationsService;
+  const http = {} as HttpClient;
+  const comparator = {} as any;
+  const dataBuildService = {} as NormalizedObjectBuildService;
   const itemEndpoint = 'https://rest.api/core/items';
   const ScopedItemEndpoint = `https://rest.api/core/items/${scopeID}`;
 
   function initMockBrowseService(isSuccessful: boolean) {
     const obs = isSuccessful ?
-      cold('--a-', {a: itemBrowseEndpoint}) :
+      cold('--a-', { a: itemBrowseEndpoint }) :
       cold('--#-', undefined, browseError);
     return jasmine.createSpyObj('bs', {
       getBrowseURLFor: obs
@@ -69,10 +78,14 @@ describe('ItemDataService', () => {
     return new ItemDataService(
       requestService,
       rdbService,
+      dataBuildService,
       store,
       bs,
+      objectCache,
       halEndpointService,
-      objectCache
+      notificationsService,
+      http,
+      comparator
     );
   }
 
@@ -86,7 +99,7 @@ describe('ItemDataService', () => {
       service = initTestService();
 
       const result = service.getBrowseEndpoint(options);
-      const expected = cold('--b-', {b: scopedEndpoint});
+      const expected = cold('--b-', { b: scopedEndpoint });
 
       expect(result).toBeObservable(expected);
     });
@@ -120,7 +133,7 @@ describe('ItemDataService', () => {
     });
 
     it('should setWithDrawn', () => {
-      const expected = new RestResponse(true, '200');
+      const expected = new RestResponse(true, 200, 'OK');
       const result = service.setWithDrawn(scopeID, true);
       result.subscribe((v) => expect(v).toEqual(expected));
 
@@ -142,29 +155,8 @@ describe('ItemDataService', () => {
     });
 
     it('should setDiscoverable', () => {
-      const expected = new RestResponse(true, '200');
+      const expected = new RestResponse(true, 200, 'OK');
       const result = service.setDiscoverable(scopeID, false);
-      result.subscribe((v) => expect(v).toEqual(expected));
-
-    });
-  });
-
-  describe('getItemDeleteEndpoint', () => {
-    beforeEach(() => {
-      scheduler = getTestScheduler();
-      service = initTestService();
-    });
-
-    it('should return the endpoint to make an item private or public', () => {
-      const result = service.getItemDeleteEndpoint(scopeID);
-      const expected = cold('a', {a: ScopedItemEndpoint});
-
-      expect(result).toBeObservable(expected);
-    });
-
-    it('should delete the item', () => {
-      const expected = new RestResponse(true, '200');
-      const result = service.delete(scopeID);
       result.subscribe((v) => expect(v).toEqual(expected));
 
     });

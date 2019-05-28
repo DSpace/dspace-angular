@@ -1,9 +1,8 @@
-import { filter, mergeMap, take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
@@ -12,22 +11,31 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions, FindAllRequest } from './request.models';
 import { RemoteData } from './remote-data';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { Observable } from 'rxjs';
 import { PaginatedList } from './paginated-list';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 @Injectable()
-export class CommunityDataService extends ComColDataService<NormalizedCommunity, Community> {
+export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
   protected topLinkPath = 'communities/search/top';
   protected cds = this;
+  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DSOChangeAnalyzer<Community>
   ) {
     super();
   }
@@ -46,6 +54,6 @@ export class CommunityDataService extends ComColDataService<NormalizedCommunity,
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<NormalizedCommunity, Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
+    return this.rdbService.buildList<Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
   }
 }

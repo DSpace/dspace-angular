@@ -31,6 +31,7 @@ import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-s
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { SharedModule } from './shared/shared.module';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
 import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
 import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
@@ -57,6 +58,7 @@ const IMPORTS = [
   HttpClientModule,
   AppRoutingModule,
   CoreModule.forRoot(),
+  ScrollToModule.forRoot(),
   NgbModule.forRoot(),
   TranslateModule.forRoot(),
   EffectsModule.forRoot(appEffects),

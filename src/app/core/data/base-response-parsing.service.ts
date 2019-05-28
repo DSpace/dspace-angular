@@ -6,16 +6,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
-import { ResourceType } from '../shared/resource-type';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
-
-function isObjectLevel(halObj: any) {
-  return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
-}
-
-function isPaginatedResponse(halObj: any) {
-  return hasValue(halObj.page) && hasValue(halObj._embedded);
-}
+import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -29,12 +20,11 @@ export abstract class BaseResponseParsingService {
     if (isNotEmpty(data)) {
       if (hasNoValue(data) || (typeof data !== 'object')) {
         return data;
-      } else if (isPaginatedResponse(data)) {
+      } else if (isRestPaginatedList(data)) {
         return this.processPaginatedList(data, requestUUID);
       } else if (Array.isArray(data)) {
         return this.processArray(data, requestUUID);
-      } else if (isObjectLevel(data)) {
-        data = this.fixBadEPersonRestResponse(data);
+      } else if (isRestDataObject(data)) {
         const object = this.deserialize(data);
         if (isNotEmpty(data._embedded)) {
           Object
@@ -43,13 +33,13 @@ export abstract class BaseResponseParsingService {
             .forEach((property) => {
               const parsedObj = this.process<ObjectDomain, ObjectType>(data._embedded[property], requestUUID);
               if (isNotEmpty(parsedObj)) {
-                if (isPaginatedResponse(data._embedded[property])) {
+                if (isRestPaginatedList(data._embedded[property])) {
                   object[property] = parsedObj;
-                  object[property].page = parsedObj.page.map((obj) => obj.self);
-                } else if (isObjectLevel(data._embedded[property])) {
-                  object[property] = parsedObj.self;
+                  object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
+                } else if (isRestDataObject(data._embedded[property])) {
+                  object[property] = this.retrieveObjectOrUrl(parsedObj);
                 } else if (Array.isArray(parsedObj)) {
-                  object[property] = parsedObj.map((obj) => obj.self)
+                  object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
                 }
               }
             });
@@ -63,8 +53,7 @@ export abstract class BaseResponseParsingService {
         .filter((property) => data.hasOwnProperty(property))
         .filter((property) => hasValue(data[property]))
         .forEach((property) => {
-          const obj = this.process(data[property], requestUUID);
-          result[property] = obj;
+          result[property] = this.process(data[property], requestUUID);
         });
       return result;
 
@@ -76,11 +65,13 @@ export abstract class BaseResponseParsingService {
     let list = data._embedded;
 
     // Workaround for inconsistency in rest response. Issue: https://github.com/DSpace/dspace-angular/issues/238
-    if (!Array.isArray(list)) {
+    if (hasNoValue(list)) {
+      list = [];
+    } else if (!Array.isArray(list)) {
       list = this.flattenSingleKeyObject(list);
     }
     const page: ObjectDomain[] = this.processArray(list, requestUUID);
-    return new PaginatedList<ObjectDomain>(pageInfo, page);
+    return new PaginatedList<ObjectDomain>(pageInfo, page, );
   }
 
   protected processArray<ObjectDomain, ObjectType>(data: any, requestUUID: string): ObjectDomain[] {
@@ -99,8 +90,7 @@ export abstract class BaseResponseParsingService {
 
       if (hasValue(normObjConstructor)) {
         const serializer = new DSpaceRESTv2Serializer(normObjConstructor);
-        const res = serializer.deserialize(obj);
-        return res;
+        return serializer.deserialize(obj);
       } else {
         // TODO: move check to Validator?
         // throw new Error(`The server returned an object with an unknown a known type: ${type}`);
@@ -148,22 +138,11 @@ export abstract class BaseResponseParsingService {
     return obj[keys[0]];
   }
 
-  // TODO Remove when https://jira.duraspace.org/browse/DS-4006 is fixed
-  // See https://github.com/DSpace/dspace-angular/issues/292
-  private fixBadEPersonRestResponse(obj: any): any {
-    if (obj.type === ResourceType.EPerson) {
-      const groups = obj.groups;
-      const normGroups = [];
-      if (isNotEmpty(groups)) {
-        groups.forEach((group) => {
-            const parts = ['eperson', 'groups', group.uuid];
-            const href = new RESTURLCombiner(this.EnvConfig, ...parts).toString();
-            normGroups.push(href);
-          }
-        )
-      }
-      return Object.assign({}, obj, { groups: normGroups });
-    }
-    return obj;
+  protected retrieveObjectOrUrl(obj: any): any {
+    return this.toCache ? obj.self : obj;
+  }
+
+  protected isSuccessStatus(statusCode: number) {
+    return statusCode >= 200 && statusCode < 300;
   }
 }

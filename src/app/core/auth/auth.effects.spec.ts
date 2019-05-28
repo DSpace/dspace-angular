@@ -22,7 +22,7 @@ import {
 } from './auth.actions';
 import { AuthServiceStub } from '../../shared/testing/auth-service-stub';
 import { AuthService } from './auth.service';
-import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
+import { AuthState } from './auth.reducer';
 
 import { EPersonMock } from '../../shared/testing/eperson-mock';
 
@@ -30,7 +30,7 @@ describe('AuthEffects', () => {
   let authEffects: AuthEffects;
   let actions: Observable<any>;
   let authServiceStub;
-  const store: Store<TruncatablesState> = jasmine.createSpyObj('store', {
+  const store: Store<AuthState> = jasmine.createSpyObj('store', {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */

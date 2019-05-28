@@ -1,8 +1,8 @@
 import {
+  ModuleWithProviders,
   NgModule,
   Optional,
-  SkipSelf,
-  ModuleWithProviders
+  SkipSelf
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -24,7 +24,9 @@ import { DSOResponseParsingService } from './data/dso-response-parsing.service';
 import { SearchResponseParsingService } from './data/search-response-parsing.service';
 import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
+import { SectionFormOperationsService } from '../submission/sections/form/section-form-operations.service';
 import { FormService } from '../shared/form/form.service';
+import { GroupEpersonService } from './eperson/group-eperson.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ItemDataService } from './data/item-data.service';
 import { MetadataService } from './metadata/metadata.service';
@@ -37,13 +39,17 @@ import { ServerResponseService } from '../shared/services/server-response.servic
 import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
 import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
-import { ConfigResponseParsingService } from './data/config-response-parsing.service';
+import { ConfigResponseParsingService } from './config/config-response-parsing.service';
 import { RouteService } from '../shared/services/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
+import { SubmissionResponseParsingService } from './submission/submission-response-parsing.service';
+import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
+import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
 import { AuthorityService } from './integration/authority.service';
 import { IntegrationResponseParsingService } from './integration/integration-response-parsing.service';
+import { WorkspaceitemDataService } from './submission/workspaceitem-data.service';
 import { UUIDService } from './shared/uuid.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthRequestService } from './auth/auth-request.service';
@@ -56,15 +62,31 @@ import { FacetValueMapResponseParsingService } from './data/facet-value-map-resp
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
 import { RegistryService } from './registry/registry.service';
 import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
-import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
+import { WorkflowitemDataService } from './submission/workflowitem-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
+import { FileService } from './shared/file.service';
+import { SubmissionRestService } from './submission/submission-rest.service';
 import { BrowseItemsResponseParsingService } from './data/browse-items-response-parsing-service';
 import { DSpaceObjectDataService } from './data/dspace-object-data.service';
+import { MetadataschemaParsingService } from './data/metadataschema-parsing.service';
+import { FilteredDiscoveryPageResponseParsingService } from './data/filtered-discovery-page-response-parsing.service';
 import { CSSVariableService } from '../shared/sass-helper/sass-helper.service';
 import { MenuService } from '../shared/menu/menu.service';
+import { SubmissionJsonPatchOperationsService } from './submission/submission-json-patch-operations.service';
+import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
+import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
+import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
+import { SearchService } from '../+search-page/search-service/search.service';
+import { RoleService } from './roles/role.service';
+import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
+import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
+import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
+import { PoolTaskDataService } from './tasks/pool-task-data.service';
+import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
 import { MappingCollectionsReponseParsingService } from './data/mapping-collections-reponse-parsing.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
 
@@ -95,7 +117,10 @@ const PROVIDERS = [
   DynamicFormService,
   DynamicFormValidationService,
   FormBuilderService,
+  SectionFormOperationsService,
   FormService,
+  EpersonResponseParsingService,
+  GroupEpersonService,
   HALEndpointService,
   HostWindowService,
   ItemDataService,
@@ -103,6 +128,7 @@ const PROVIDERS = [
   ObjectCacheService,
   PaginationComponentOptions,
   RegistryService,
+  NormalizedObjectBuildService,
   RemoteDataBuildService,
   RequestService,
   EndpointMapResponseParsingService,
@@ -113,9 +139,9 @@ const PROVIDERS = [
   RegistryMetadatafieldsResponseParsingService,
   RegistryBitstreamformatsResponseParsingService,
   MappingCollectionsReponseParsingService,
-  MetadataschemaParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
+  MyDSpaceResponseParsingService,
   ServerResponseService,
   BrowseResponseParsingService,
   BrowseEntriesResponseParsingService,
@@ -125,15 +151,34 @@ const PROVIDERS = [
   RouteService,
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
+  SubmissionRestService,
   SubmissionSectionsConfigService,
+  SubmissionResponseParsingService,
+  SubmissionJsonPatchOperationsService,
+  JsonPatchOperationsBuilder,
   AuthorityService,
   IntegrationResponseParsingService,
+  MetadataschemaParsingService,
   UploaderService,
   UUIDService,
+  NotificationsService,
+  WorkspaceitemDataService,
+  WorkflowitemDataService,
+  UploaderService,
+  FileService,
   DSpaceObjectDataService,
+  DSOChangeAnalyzer,
+  DefaultChangeAnalyzer,
   ObjectSelectService,
   CSSVariableService,
   MenuService,
+  ObjectUpdatesService,
+  SearchService,
+  MyDSpaceGuard,
+  RoleService,
+  TaskResponseParsingService,
+  ClaimedTaskDataService,
+  PoolTaskDataService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -141,6 +186,7 @@ const PROVIDERS = [
     multi: true
   },
   NotificationsService,
+  FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 

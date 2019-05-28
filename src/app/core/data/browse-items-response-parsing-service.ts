@@ -1,20 +1,17 @@
 import { Inject, Injectable } from '@angular/core';
+
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import {
-  ErrorResponse,
-  GenericSuccessResponse,
-  RestResponse
-} from '../cache/response.models';
+import { ErrorResponse, GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
-import { Item } from '../shared/item.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { NormalizedDSpaceObject } from '../cache/models/normalized-dspace-object.model';
 
 /**
  * A ResponseParsingService used to parse DSpaceRESTV2Response coming from the REST API to Browse Items (DSpaceObject[])
@@ -42,14 +39,16 @@ export class BrowseItemsResponseParsingService extends BaseResponseParsingServic
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._embedded)
       && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {
-      const serializer = new DSpaceRESTv2Serializer(DSpaceObject);
+      const serializer = new DSpaceRESTv2Serializer(NormalizedDSpaceObject);
       const items = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
-      return new GenericSuccessResponse(items, data.statusCode, this.processPageInfo(data.payload));
+      return new GenericSuccessResponse(items, data.statusCode, data.statusText, this.processPageInfo(data.payload));
+    } else if (hasValue(data.payload) && hasValue(data.payload.page)) {
+      return new GenericSuccessResponse([], data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from browse endpoint'),
-          { statusText: data.statusCode }
+          { statusCode: data.statusCode, statusText: data.statusText }
         )
       );
     }

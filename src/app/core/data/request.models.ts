@@ -5,12 +5,19 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { EndpointMapResponseParsingService } from './endpoint-map-response-parsing.service';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
-import { ConfigResponseParsingService } from './config-response-parsing.service';
+import { ConfigResponseParsingService } from '../config/config-response-parsing.service';
 import { AuthResponseParsingService } from '../auth/auth-response-parsing.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
 import { IntegrationResponseParsingService } from '../integration/integration-response-parsing.service';
 import { RestRequestMethod } from './rest-request-method';
+import { SearchParam } from '../cache/models/search-param.model';
+import { EpersonResponseParsingService } from '../eperson/eperson-response-parsing.service';
 import { BrowseItemsResponseParsingService } from './browse-items-response-parsing-service';
+import { MetadataschemaParsingService } from './metadataschema-parsing.service';
+import { MetadatafieldParsingService } from './metadatafield-parsing.service';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { MappingCollectionsReponseParsingService } from './mapping-collections-reponse-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
@@ -129,6 +136,7 @@ export class FindAllOptions {
   elementsPerPage?: number;
   currentPage?: number;
   sort?: SortOptions;
+  searchParams?: SearchParam[];
   startsWith?: string;
 }
 
@@ -144,11 +152,11 @@ export class FindAllRequest extends GetRequest {
 
 export class EndpointMapRequest extends GetRequest {
   constructor(
-    public uuid: string,
-    public href: string,
-    public body?: any
+    uuid: string,
+    href: string,
+    body?: any
   ) {
-    super(uuid, href, body);
+    super(uuid, new URLCombiner(href, '?endpointMap').toString(), body);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -185,8 +193,8 @@ export class MappingCollectionsRequest extends GetRequest {
 }
 
 export class ConfigRequest extends GetRequest {
-  constructor(uuid: string, href: string) {
-    super(uuid, href);
+  constructor(uuid: string, href: string, public options?: HttpOptions) {
+    super(uuid, href, null, options);
   }
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
@@ -224,7 +232,178 @@ export class IntegrationRequest extends GetRequest {
   }
 }
 
+/**
+ * Request to create a MetadataSchema
+ */
+export class CreateMetadataSchemaRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadataschemaParsingService;
+  }
+}
+
+/**
+ * Request to update a MetadataSchema
+ */
+export class UpdateMetadataSchemaRequest extends PutRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadataschemaParsingService;
+  }
+}
+
+/**
+ * Request to create a MetadataField
+ */
+export class CreateMetadataFieldRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadatafieldParsingService;
+  }
+}
+
+/**
+ * Request to update a MetadataField
+ */
+export class UpdateMetadataFieldRequest extends PutRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MetadatafieldParsingService;
+  }
+}
+
+/**
+ * Class representing a submission HTTP GET request object
+ */
+export class SubmissionRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+/**
+ * Class representing a submission HTTP DELETE request object
+ */
+export class SubmissionDeleteRequest extends DeleteRequest {
+  constructor(public uuid: string,
+              public href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+/**
+ * Class representing a submission HTTP PATCH request object
+ */
+export class SubmissionPatchRequest extends PatchRequest {
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any) {
+    super(uuid, href, body);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+/**
+ * Class representing a submission HTTP POST request object
+ */
+export class SubmissionPostRequest extends PostRequest {
+  constructor(public uuid: string,
+              public href: string,
+              public body?: any,
+              public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return SubmissionResponseParsingService;
+  }
+}
+
+/**
+ * Class representing an eperson HTTP GET request object
+ */
+export class EpersonRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return EpersonResponseParsingService;
+  }
+}
+
+export class CreateRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return DSOResponseParsingService;
+  }
+}
+
+/**
+ * Request to delete an object based on its identifier
+ */
+export class DeleteByIDRequest extends DeleteRequest {
+  constructor(
+    uuid: string,
+    href: string,
+    public resourceID: string
+  ) {
+    super(uuid, href);
+  }
+}
+
+export class TaskPostRequest extends PostRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TaskResponseParsingService;
+  }
+}
+
+export class TaskDeleteRequest extends DeleteRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return TaskResponseParsingService;
+  }
+}
+
+export class MyDSpaceRequest extends GetRequest {
+  public responseMsToLive = 0;
+}
+
 export class RequestError extends Error {
+  statusCode: number;
   statusText: string;
 }
 /* tslint:enable:max-classes-per-file */

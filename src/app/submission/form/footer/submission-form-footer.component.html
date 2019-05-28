@@ -1,0 +1,49 @@
+<div class="row" *ngIf="!!submissionId">
+  <div class="col">
+    <button *ngIf="(showDepositAndDiscard | async)" type="button" class="btn btn-danger" (click)="$event.preventDefault();confirmDiscard(content)">{{'submission.general.discard.submit' | translate}}</button>
+  </div>
+  <div *ngIf="(processingSaveStatus | async) || (processingDepositStatus | async)" class="col d-flex justify-content-end align-items-center">
+    <div class="progress w-75">
+      <div *ngIf="(processingSaveStatus | async)" class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Saving...</div>
+      <div *ngIf="(processingDepositStatus | async)" class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Depositing...</div>
+    </div>
+  </div>
+  <div *ngIf="!(processingSaveStatus | async) && !(processingDepositStatus | async)" class="col text-right">
+    <button type="button"
+            class="btn btn-info"
+            id="save"
+            [disabled]="(processingSaveStatus | async)"
+            (click)="save($event)">
+      <span>{{'submission.general.save' | translate}}</span>
+    </button>
+    <button type="button"
+            class="btn btn-info"
+            id="saveForLater"
+            [disabled]="(processingSaveStatus | async)"
+            (click)="saveLater($event)">
+      <span>{{'submission.general.save-later' | translate}}</span>
+    </button>
+    <button *ngIf="(showDepositAndDiscard | async)"
+            type="button"
+            class="btn btn-primary"
+            [disabled]="(submissionIsInvalid | async)" (click)="deposit()">
+      <span>{{'submission.general.deposit' | translate}}</span>
+    </button>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">{{'submission.general.discard.confirm.title' | translate}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{'submission.general.discard.confirm.info' | translate}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'submission.general.discard.confirm.cancel' | translate}}</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">{{'submission.general.discard.confirm.submit' | translate}}</button>
+  </div>
+</ng-template>

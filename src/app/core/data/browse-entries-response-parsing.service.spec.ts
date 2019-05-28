@@ -101,30 +101,17 @@ describe('BrowseEntriesResponseParsingService', () => {
           number: 0
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     const invalidResponseNotAList = {
-      payload: {
-        authority: null,
-        value: 'Arulmozhiyal, Ramaswamy',
-        valueLang: null,
-        count: 1,
-        type: 'browseEntry',
-        _links: {
-          self: {
-            href: 'https://rest.api/discover/browses/author/entries'
-          },
-          items: {
-            href: 'https://rest.api/discover/browses/author/items?filterValue=Arulmozhiyal, Ramaswamy'
-          }
-        },
-      },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     const invalidResponseStatusCode = {
-      payload: {}, statusCode: '500'
+      payload: {}, statusCode: 500, statusText: 'Internal Server Error'
     } as DSpaceRESTV2Response;
 
     it('should return a GenericSuccessResponse if data contains a valid browse entries response', () => {

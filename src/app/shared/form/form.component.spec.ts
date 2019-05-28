@@ -10,7 +10,7 @@ import {
   DynamicFormValidationService,
   DynamicInputModel
 } from '@ng-dynamic-forms/core';
-import { Store } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -23,7 +23,7 @@ import { MockStore } from '../testing/mock-store';
 import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
 import { GLOBAL_CONFIG } from '../../../config';
 import { createTestComponent } from '../testing/utils';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 let TEST_FORM_MODEL;
 
@@ -124,7 +124,6 @@ function init() {
     }
   };
 
-  store = new MockStore<FormState>(formState);
 }
 
 describe('FormComponent test suite', () => {
@@ -144,6 +143,7 @@ describe('FormComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule.forRoot(),
+        StoreModule.forRoot({}),
         TranslateModule.forRoot()
       ],
       declarations: [
@@ -157,9 +157,7 @@ describe('FormComponent test suite', () => {
         FormComponent,
         FormService,
         { provide: GLOBAL_CONFIG, useValue: config },
-        {
-          provide: Store, useValue: store
-        }
+        { provide: Store, useClass: MockStore }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -177,6 +175,7 @@ describe('FormComponent test suite', () => {
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
+
     });
     afterEach(() => {
       testFixture.destroy();
@@ -194,6 +193,7 @@ describe('FormComponent test suite', () => {
     beforeEach(() => {
 
       formFixture = TestBed.createComponent(FormComponent);
+      store = TestBed.get(Store);
       formComp = formFixture.componentInstance; // FormComponent test instance
       formComp.formId = 'testForm';
       formComp.formModel = TEST_FORM_MODEL;
@@ -350,13 +350,13 @@ describe('FormComponent test suite', () => {
       const control = formComp.formGroup.get(['dc_title']);
       control.setValue('Test Title');
       formState.testForm.valid = true;
-      spyOn(formComp.submit, 'emit');
+      spyOn(formComp.submitForm, 'emit');
 
       form.next(formState.testForm);
       formFixture.detectChanges();
 
       formComp.onSubmit();
-      expect(formComp.submit.emit).toHaveBeenCalled();
+      expect(formComp.submitForm.emit).toHaveBeenCalled();
     });
 
     it('should not emit submit Event on form submit whether the form is not valid', () => {
@@ -384,6 +384,7 @@ describe('FormComponent test suite', () => {
     beforeEach(() => {
 
       formFixture = TestBed.createComponent(FormComponent);
+      store = TestBed.get(Store);
       formComp = formFixture.componentInstance; // FormComponent test instance
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;

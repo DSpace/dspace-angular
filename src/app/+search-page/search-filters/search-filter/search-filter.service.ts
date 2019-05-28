@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { mergeMap, map, distinctUntilChanged } from 'rxjs/operators';
 import { Injectable, InjectionToken } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
@@ -8,19 +8,26 @@ import {
   SearchFilterDecrementPageAction,
   SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
-  SearchFilterInitialCollapseAction,
-  SearchFilterInitialExpandAction,
+  SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { RouteService } from '../../../shared/services/route.service';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SearchOptions } from '../../search-options.model';
+import { PaginatedSearchOptions } from '../../paginated-search-options.model';
+import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { Params } from '@angular/router';
-
+import * as postcss from 'postcss';
+import prefix = postcss.vendor.prefix;
+// const spy = create();
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
+export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
 
 /**
  * Service that performs all actions that have to do with search filters and facets
@@ -29,8 +36,8 @@ export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionTo
 export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,
-              private routeService: RouteService
-  ) {
+              private routeService: RouteService,
+              private fixedFilterService: SearchFixedFilterService) {
   }
 
   /**
@@ -53,6 +60,81 @@ export class SearchFilterService {
   }
 
   /**
+   * Fetch the current active scope from the query parameters
+   * @returns {Observable<string>}
+   */
+  getCurrentScope() {
+    return this.routeService.getQueryParameterValue('scope');
+  }
+
+  /**
+   * Fetch the current query from the query parameters
+   * @returns {Observable<string>}
+   */
+  getCurrentQuery() {
+    return this.routeService.getQueryParameterValue('query');
+  }
+
+  /**
+   * Fetch the current pagination from query parameters 'page' and 'pageSize'
+   * and combine them with a given pagination
+   * @param pagination      Pagination options to combine the query parameters with
+   * @returns {Observable<PaginationComponentOptions>}
+   */
+  getCurrentPagination(pagination: any = {}): Observable<PaginationComponentOptions> {
+    const page$ = this.routeService.getQueryParameterValue('page');
+    const size$ = this.routeService.getQueryParameterValue('pageSize');
+    return observableCombineLatest(page$, size$).pipe(map(([page, size]) => {
+      return Object.assign(new PaginationComponentOptions(), pagination, {
+        currentPage: page || 1,
+        pageSize: size || pagination.pageSize
+      });
+    }))
+  }
+
+  /**
+   * Fetch the current sorting options from query parameters 'sortDirection' and 'sortField'
+   * and combine them with given sorting options
+   * @param {SortOptions} defaultSort       Sorting options to combine the query parameters with
+   * @returns {Observable<SortOptions>}
+   */
+  getCurrentSort(defaultSort: SortOptions): Observable<SortOptions> {
+    const sortDirection$ = this.routeService.getQueryParameterValue('sortDirection');
+    const sortField$ = this.routeService.getQueryParameterValue('sortField');
+    return observableCombineLatest(sortDirection$, sortField$).pipe(map(([sortDirection, sortField]) => {
+        const field = sortField || defaultSort.field;
+        const direction = SortDirection[sortDirection] || defaultSort.direction;
+        return new SortOptions(field, direction)
+      }
+    ))
+  }
+
+  /**
+   * Fetch the current active filters from the query parameters
+   * @returns {Observable<Params>}
+   */
+  getCurrentFilters() {
+    return this.routeService.getQueryParamsWithPrefix('f.');
+  }
+
+  /**
+   * Fetch the current active fixed filter from the route parameters and return the query by filter name
+   * @returns {Observable<string>}
+   */
+  getCurrentFixedFilter(): Observable<string> {
+    const filter: Observable<string> = this.routeService.getRouteParameterValue('filter');
+    return filter.pipe(mergeMap((f) => this.fixedFilterService.getQueryByFilterName(f)));
+  }
+
+  /**
+   * Fetch the current view from the query parameters
+   * @returns {Observable<string>}
+   */
+  getCurrentView() {
+    return this.routeService.getQueryParameterValue('view');
+  }
+
+  /**
    * Requests the active filter values set for a given filter
    * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
    * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
@@ -60,9 +142,8 @@ export class SearchFilterService {
   getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
     const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
     const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
-      map((params: Params) => [].concat(...Object.values(params)))
+      map((params: Params) => [].concat(...Object.values(params))),
     );
-
     return observableCombineLatest(values$, prefixValues$).pipe(
       map(([values, prefixValues]) => {
           if (isNotEmpty(values)) {
@@ -88,13 +169,14 @@ export class SearchFilterService {
         } else {
           return false;
         }
-      })
+      }),
+      distinctUntilChanged()
     );
   }
 
   /**
    * Request the current page of a given filter
-   * @param {string} filterName The filtername for which the page state is checked
+   * @param {string} filterName The filter name for which the page state is checked
    * @returns {Observable<boolean>} Emits the current page state of the given filter, if it's unavailable, return 1
    */
   getPage(filterName: string): Observable<number> {
@@ -106,7 +188,8 @@ export class SearchFilterService {
         } else {
           return 1;
         }
-      }));
+      }),
+      distinctUntilChanged());
   }
 
   /**
@@ -134,19 +217,11 @@ export class SearchFilterService {
   }
 
   /**
-   * Dispatches an initial collapse action to the store for a given filter
-   * @param {string} filterName The filter for which the action is dispatched
+   * Dispatches an initialize action to the store for a given filter
+   * @param {SearchFilterConfig} filter The filter for which the action is dispatched
    */
-  public initialCollapse(filterName: string): void {
-    this.store.dispatch(new SearchFilterInitialCollapseAction(filterName));
-  }
-
-  /**
-   * Dispatches an initial expand action to the store for a given filter
-   * @param {string} filterName The filter for which the action is dispatched
-   */
-  public initialExpand(filterName: string): void {
-    this.store.dispatch(new SearchFilterInitialExpandAction(filterName));
+  public initializeFilter(filter: SearchFilterConfig): void {
+    this.store.dispatch(new SearchFilterInitializeAction(filter));
   }
 
   /**

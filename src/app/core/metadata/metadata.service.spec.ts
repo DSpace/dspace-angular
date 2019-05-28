@@ -31,8 +31,13 @@ import { MockItem } from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { BrowseService } from '../browse/browse.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { AuthService } from '../auth/auth.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
 import { EmptyError } from 'rxjs/internal-compatibility';
-import { IndexState } from '../index/index.reducer';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { MetadataValue } from '../shared/metadata.models';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -61,13 +66,13 @@ describe('MetadataService', () => {
   let title: Title;
 
   let store: Store<CoreState>;
-  let indexStore: Store<IndexState>;
 
   let objectCacheService: ObjectCacheService;
   let requestService: RequestService;
   let uuidService: UUIDService;
   let remoteDataBuildService: RemoteDataBuildService;
   let itemDataService: ItemDataService;
+  let authService: AuthService;
 
   let location: Location;
   let router: Router;
@@ -80,12 +85,11 @@ describe('MetadataService', () => {
   beforeEach(() => {
 
     store = new Store<CoreState>(undefined, undefined, undefined);
-    indexStore = new Store<IndexState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
 
     objectCacheService = new ObjectCacheService(store);
     uuidService = new UUIDService();
-    requestService = new RequestService(objectCacheService, uuidService, store, indexStore);
+    requestService = new RequestService(objectCacheService, uuidService, store, undefined);
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, requestService);
 
     TestBed.configureTestingModule({
@@ -112,7 +116,12 @@ describe('MetadataService', () => {
         { provide: RequestService, useValue: requestService },
         { provide: RemoteDataBuildService, useValue: remoteDataBuildService },
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
-        { provide: HALEndpointService, useValue: {}},
+        { provide: HALEndpointService, useValue: {} },
+        { provide: AuthService, useValue: {} },
+        { provide: NotificationsService, useValue: {} },
+        { provide: HttpClient, useValue: {} },
+        { provide: NormalizedObjectBuildService, useValue: {} },
+        { provide: DSOChangeAnalyzer, useValue: {} },
         Meta,
         Title,
         ItemDataService,
@@ -125,6 +134,7 @@ describe('MetadataService', () => {
     title = TestBed.get(Title);
     itemDataService = TestBed.get(ItemDataService);
     metadataService = TestBed.get(MetadataService);
+    authService = TestBed.get(AuthService);
 
     envConfig = TestBed.get(GLOBAL_CONFIG);
 
@@ -143,7 +153,7 @@ describe('MetadataService', () => {
     expect(title.getTitle()).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_title')[0].content).toEqual('Test PowerPoint Document');
     expect(tagStore.get('citation_author')[0].content).toEqual('Doe, Jane');
-    expect(tagStore.get('citation_date')[0].content).toEqual('1650-06-26T19:58:25Z');
+    expect(tagStore.get('citation_date')[0].content).toEqual('1650-06-26');
     expect(tagStore.get('citation_issn')[0].content).toEqual('123456789');
     expect(tagStore.get('citation_language')[0].content).toEqual('en');
     expect(tagStore.get('citation_keywords')[0].content).toEqual('keyword1; keyword2; keyword3');
@@ -170,7 +180,7 @@ describe('MetadataService', () => {
     spyOn(itemDataService, 'findById').and.returnValue(mockRemoteData(MockItem));
     router.navigate(['/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357']);
     tick();
-    expect(tagStore.size).toBeGreaterThan(0)
+    expect(tagStore.size).toBeGreaterThan(0);
     router.navigate(['/other']);
     tick();
     expect(tagStore.size).toEqual(2);
@@ -203,26 +213,22 @@ describe('MetadataService', () => {
       undefined,
       MockItem
     ));
-  }
+  };
 
   const mockType = (mockItem: Item, type: string): Item => {
     const typedMockItem = Object.assign(new Item(), mockItem) as Item;
-    for (const metadatum of typedMockItem.metadata) {
-      if (metadatum.key === 'dc.type') {
-        metadatum.value = type;
-        break;
-      }
-    }
+    typedMockItem.metadata['dc.type'] = [ { value: type } ] as MetadataValue[];
     return typedMockItem;
-  }
+  };
 
   const mockPublisher = (mockItem: Item): Item => {
     const publishedMockItem = Object.assign(new Item(), mockItem) as Item;
-    publishedMockItem.metadata.push({
-      key: 'dc.publisher',
-      language: 'en_US',
-      value: 'Mock Publisher'
-    });
+    publishedMockItem.metadata['dc.publisher'] = [
+      {
+        language: 'en_US',
+        value: 'Mock Publisher'
+      }
+    ] as MetadataValue[];
     return publishedMockItem;
   }
 

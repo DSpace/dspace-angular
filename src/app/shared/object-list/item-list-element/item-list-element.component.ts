@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 import { Item } from '../../../core/shared/item.model';
-import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { SetViewMode } from '../../view-mode';
+import { ItemViewMode } from '../../items/item-type-decorator';
 
 @Component({
   selector: 'ds-item-list-element',
@@ -11,5 +12,11 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
   templateUrl: './item-list-element.component.html'
 })
 
-@renderElementsFor(Item, ViewMode.List)
-export class ItemListElementComponent extends AbstractListableElementComponent<Item> {}
+/**
+ * The component used to list items depending on type
+ * Uses item-type-switcher to determine which components to use for displaying the list
+ */
+@renderElementsFor(Item, SetViewMode.List)
+export class ItemListElementComponent extends AbstractListableElementComponent<Item> {
+  viewMode = ItemViewMode.Element;
+}

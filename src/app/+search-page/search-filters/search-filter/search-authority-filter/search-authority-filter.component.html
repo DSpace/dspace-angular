@@ -1,0 +1,27 @@
+<div>
+    <div class="filters py-2">
+        <ds-search-facet-selected-option *ngFor="let value of (selectedValues$ | async)" [selectedValue]="value" [filterConfig]="filterConfig" [selectedValues$]="selectedValues$" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-selected-option>
+        <ng-container *ngFor="let page of (filterValues$ | async)?.payload">
+          <div [@facetLoad]="animationState">
+                  <ds-search-facet-option *ngFor="let value of page.page; trackBy: trackUpdate" [filterConfig]="filterConfig" [filterValue]="value" [selectedValues$]="selectedValues$" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-option>
+          </div>
+        </ng-container>
+        <div class="clearfix toggle-more-filters">
+            <a class="float-left" *ngIf="!(isLastPage$ | async)"
+               (click)="showMore()">{{"search.filters.filter.show-more"
+                | translate}}</a>
+            <a class="float-right" *ngIf="(currentPage | async) > 1"
+               (click)="showFirstPageOnly()">{{"search.filters.filter.show-less"
+                | translate}}</a>
+        </div>
+    </div>
+    <ds-input-suggestions [suggestions]="(filterSearchResults | async)"
+                          [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"
+                          [action]="getCurrentUrl()"
+                          [name]="filterConfig.paramName"
+                          [(ngModel)]="filter"
+                          (submitSuggestion)="onSubmit($event)"
+                          (clickSuggestion)="onSubmit($event)"
+                          (findSuggestions)="findSuggestions($event)"
+                          ngDefaultControl></ds-input-suggestions>
+</div>

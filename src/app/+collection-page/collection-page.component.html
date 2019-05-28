@@ -1,56 +1,62 @@
 <div class="container">
-  <div class="collection-page"
-       *ngVar="(collectionRD$ | async) as collectionRD">
-    <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
-      <div *ngIf="collectionRD?.payload as collection">
-        <!-- Collection Name -->
-        <ds-comcol-page-header
-          [name]="collection.name">
-        </ds-comcol-page-header>
-        <!-- Collection logo -->
-        <ds-comcol-page-logo *ngIf="logoRD$"
-                             [logo]="(logoRD$ | async)?.payload"
-                             [alternateText]="'Collection Logo'">
-        </ds-comcol-page-logo>
-        <!-- Introductionary text -->
-        <ds-comcol-page-content
-          [content]="collection.introductoryText"
-          [hasInnerHtml]="true">
-        </ds-comcol-page-content>
-        <!-- News -->
-        <ds-comcol-page-content
-          [content]="collection.sidebarText"
-          [hasInnerHtml]="true"
-          [title]="'community.page.news'">
-        </ds-comcol-page-content>
-        <!-- Copyright -->
-        <ds-comcol-page-content
-          [content]="collection.copyrightText"
-          [hasInnerHtml]="true">
-        </ds-comcol-page-content>
-        <!-- Licence -->
-        <ds-comcol-page-content
-          [content]="collection.license"
-          [title]="'collection.page.license'">
-        </ds-comcol-page-content>
-      </div>
+    <div class="collection-page"
+         *ngVar="(collectionRD$ | async) as collectionRD">
+        <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
+            <div *ngIf="collectionRD?.payload as collection">
+                <!-- Collection Name -->
+                <ds-comcol-page-header
+                        [name]="collection.name">
+                </ds-comcol-page-header>
+                <!-- Browse-By Links -->
+                <ds-comcol-page-browse-by [id]="collection.id"></ds-comcol-page-browse-by>
+                <!-- Collection logo -->
+                <ds-comcol-page-logo *ngIf="logoRD$"
+                                     [logo]="(logoRD$ | async)?.payload"
+                                     [alternateText]="'Collection Logo'">
+                </ds-comcol-page-logo>
+                <!-- Introductionary text -->
+                <ds-comcol-page-content
+                        [content]="collection.introductoryText"
+                        [hasInnerHtml]="true">
+                </ds-comcol-page-content>
+                <!-- News -->
+                <ds-comcol-page-content
+                        [content]="collection.sidebarText"
+                        [hasInnerHtml]="true"
+                        [title]="'community.page.news'">
+                </ds-comcol-page-content>
+                <!-- Copyright -->
+                <ds-comcol-page-content
+                        [content]="collection.copyrightText"
+                        [hasInnerHtml]="true">
+                </ds-comcol-page-content>
+                <!-- Licence -->
+                <ds-comcol-page-content
+                        [content]="collection.dcLicense"
+                        [title]="'collection.page.license'">
+                </ds-comcol-page-content>
+            </div>
+            <br>
+            <ng-container *ngVar="(itemRD$ | async) as itemRD">
+                <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
+                    <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
+                    <ds-viewable-collection
+                            [config]="paginationConfig"
+                            [sortConfig]="sortConfig"
+                            [objects]="itemRD"
+                            [hideGear]="true"
+                            (paginationChange)="onPaginationChange($event)">
+                    </ds-viewable-collection>
+                </div>
+                <ds-error *ngIf="itemRD?.hasFailed"
+                          message="{{'error.recent-submissions' | translate}}"></ds-error>
+                <ds-loading *ngIf="!itemRD || itemRD.isLoading"
+                            message="{{'loading.recent-submissions' | translate}}"></ds-loading>
+            </ng-container>
+        </div>
+        <ds-error *ngIf="collectionRD?.hasFailed"
+                  message="{{'error.collection' | translate}}"></ds-error>
+        <ds-loading *ngIf="collectionRD?.isLoading"
+                    message="{{'loading.collection' | translate}}"></ds-loading>
     </div>
-    <ds-error *ngIf="collectionRD?.hasFailed" message="{{'error.collection' | translate}}"></ds-error>
-    <ds-loading *ngIf="collectionRD?.isLoading" message="{{'loading.collection' | translate}}"></ds-loading>
-    <br>
-    <ng-container *ngVar="(itemRD$ | async) as itemRD">
-      <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
-        <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
-        <ds-viewable-collection
-          [config]="paginationConfig"
-          [sortConfig]="sortConfig"
-          [objects]="itemRD"
-          [hideGear]="true"
-          (paginationChange)="onPaginationChange($event)">
-        </ds-viewable-collection>
-      </div>
-      <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
-      <ds-loading *ngIf="!itemRD || itemRD.isLoading" message="{{'loading.recent-submissions' | translate}}"></ds-loading>
-    </ng-container>
-  </div>
 </div>

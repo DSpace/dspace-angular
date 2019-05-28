@@ -13,6 +13,7 @@ import { RestRequest } from './request.models';
 import { ResponseParsingService } from './parsing.service';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 @Injectable()
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -28,11 +29,17 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    const processRequestDTO = this.process<NormalizedObject, ResourceType>(data.payload, request.uuid);
+    let processRequestDTO;
+    // Prevent empty pages returning an error, initialize empty array instead.
+    if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
+      processRequestDTO = { page: [] };
+    } else {
+      processRequestDTO = this.process<NormalizedObject<DSpaceObject>, ResourceType>(data.payload, request.uuid);
+    }
     let objectList = processRequestDTO;
 
     if (hasNoValue(processRequestDTO)) {
-      return new DSOSuccessResponse([], data.statusCode, undefined)
+      return new DSOSuccessResponse([], data.statusCode, data.statusText, undefined)
     }
     if (hasValue(processRequestDTO.page)) {
       objectList = processRequestDTO.page;
@@ -40,7 +47,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
       objectList = [processRequestDTO];
     }
     const selfLinks = objectList.map((no) => no.self);
-    return new DSOSuccessResponse(selfLinks, data.statusCode, this.processPageInfo(data.payload))
+    return new DSOSuccessResponse(selfLinks, data.statusCode, data.statusText, this.processPageInfo(data.payload))
   }
 
 }

@@ -8,16 +8,19 @@ import {
   Output,
   ViewEncapsulation
 } from '@angular/core'
-
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription, Observable } from 'rxjs';
+import { isNumeric } from 'rxjs/internal-compatibility';
+import { isEqual, isObject, transform } from 'lodash';
+
 import { HostWindowService } from '../host-window.service';
 import { HostWindowState } from '../host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { difference } from '../object.util';
 
 /**
  * The default pagination controls component.
@@ -76,10 +79,15 @@ export class PaginationComponent implements OnDestroy, OnInit {
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
 
   /**
-   * An event fired when the sort field is changed.
+   * An event fired when the pagination is changed.
    * Event's payload equals to the newly selected sort field.
    */
   @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();
+
+  /**
+   * Option for hiding the pagination detail
+   */
+  @Input() public hidePaginationDetail = false;
 
   /**
    * Option for hiding the gear
@@ -168,7 +176,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
     this.subs.push(this.route.queryParams
       .subscribe((queryParams) => {
         if (this.isEmptyPaginationParams(queryParams)) {
-          this.initializeConfig();
+          this.initializeConfig(queryParams);
         } else {
           this.currentQueryParams = queryParams;
           const fixedProperties = this.validateParams(queryParams);
@@ -197,7 +205,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
   /**
    * Initializes all default variables
    */
-  private initializeConfig() {
+  private initializeConfig(queryParams: any = {}) {
     // Set initial values
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
@@ -207,13 +215,13 @@ export class PaginationComponent implements OnDestroy, OnInit {
       this.sortDirection = this.sortOptions.direction;
       this.sortField = this.sortOptions.field;
     }
-    this.currentQueryParams = {
+    this.currentQueryParams = Object.assign({}, queryParams, {
       pageId: this.id,
       page: this.currentPage,
       pageSize: this.pageSize,
       sortDirection: this.sortDirection,
       sortField: this.sortField
-    };
+    });
   }
 
   /**
@@ -235,7 +243,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.updateRoute({ page: page });
+    this.updateRoute({ page: page.toString() });
   }
 
   /**
@@ -333,10 +341,23 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Method to update the route parameters
    */
   private updateRoute(params: {}) {
-    this.router.navigate([], {
-      queryParams: Object.assign({}, this.currentQueryParams, params),
-      queryParamsHandling: 'merge'
-    });
+    if (isNotEmpty(difference(params, this.currentQueryParams))) {
+      this.router.navigate([], {
+        queryParams: Object.assign({}, this.currentQueryParams, params),
+        queryParamsHandling: 'merge'
+      });
+    }
+  }
+
+  private difference(object, base) {
+    const changes = (o, b) => {
+      return transform(o, (result, value, key) => {
+        if (!isEqual(value, b[key]) && isNotEmpty(value)) {
+          result[key] = (isObject(value) && isObject(b[key])) ? changes(value, b[key]) : value;
+        }
+      });
+    };
+    return changes(object, base);
   }
 
   /**
@@ -418,7 +439,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    */
   private validatePage(page: any): number {
     let result = this.currentPage;
-    if (!isNaN(page)) {
+    if (isNumeric(page)) {
       result = +page;
     }
     return result;

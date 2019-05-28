@@ -1,26 +1,15 @@
-import {
-  combineLatest as observableCombineLatest,
-  Observable,
-  of as observableOf,
-  race as observableRace
-} from 'rxjs';
 import { Injectable } from '@angular/core';
-import {
-  distinctUntilChanged,
-  flatMap,
-  map,
-  startWith,
-  switchMap,
-  take
-} from 'rxjs/operators';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
+import { distinctUntilChanged, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
+
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
 import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-
 import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
 import { DSOSuccessResponse, ErrorResponse } from '../response.models';
@@ -28,9 +17,11 @@ import { getMapsTo, getRelationMetadata, getRelationships } from './build-decora
 import { PageInfo } from '../../shared/page-info.model';
 import {
   filterSuccessfulResponses,
-  getRequestFromRequestHref, getRequestFromRequestUUID,
+  getRequestFromRequestHref,
+  getRequestFromRequestUUID,
   getResourceLinksFromResponse
 } from '../../shared/operators';
+import { CacheableObject } from '../object-cache.reducer';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -38,7 +29,7 @@ export class RemoteDataBuildService {
               protected requestService: RequestService) {
   }
 
-  buildSingle<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<TDomain>> {
+  buildSingle<T extends CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -50,21 +41,18 @@ export class RemoteDataBuildService {
     const requestEntry$ = observableRace(
       href$.pipe(getRequestFromRequestHref(this.requestService)),
       requestUUID$.pipe(getRequestFromRequestUUID(this.requestService)),
-    ).pipe(
-      take(1)
     );
-
     // always use self link if that is cached, only if it isn't, get it via the response.
     const payload$ =
       observableCombineLatest(
         href$.pipe(
-          switchMap((href: string) => this.objectCache.getBySelfLink<TNormalized>(href)),
+          switchMap((href: string) => this.objectCache.getObjectBySelfLink<T>(href)),
           startWith(undefined)),
         requestEntry$.pipe(
           getResourceLinksFromResponse(),
           switchMap((resourceSelfLinks: string[]) => {
             if (isNotEmpty(resourceSelfLinks)) {
-              return this.objectCache.getBySelfLink(resourceSelfLinks[0]);
+              return this.objectCache.getObjectBySelfLink<T>(resourceSelfLinks[0]);
             } else {
               return observableOf(undefined);
             }
@@ -81,8 +69,8 @@ export class RemoteDataBuildService {
           }
         }),
         hasValueOperator(),
-        map((normalized: TNormalized) => {
-          return this.build<TNormalized, TDomain>(normalized);
+        map((normalized: NormalizedObject<T>) => {
+          return this.build<T>(normalized);
         }),
         startWith(undefined),
         distinctUntilChanged()
@@ -101,7 +89,11 @@ export class RemoteDataBuildService {
           isSuccessful = reqEntry.response.isSuccessful;
           const errorMessage = isSuccessful === false ? (reqEntry.response as ErrorResponse).errorMessage : undefined;
           if (hasValue(errorMessage)) {
-            error = new RemoteDataError(reqEntry.response.statusCode, errorMessage);
+            error = new RemoteDataError(
+              (reqEntry.response as ErrorResponse).statusCode,
+              (reqEntry.response as ErrorResponse).statusText,
+              errorMessage
+            );
           }
         }
         return new RemoteData(
@@ -115,7 +107,7 @@ export class RemoteDataBuildService {
     );
   }
 
-  buildList<TNormalized extends NormalizedObject, TDomain>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<TDomain>>> {
+  buildList<T extends CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -125,9 +117,9 @@ export class RemoteDataBuildService {
       getResourceLinksFromResponse(),
       flatMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs).pipe(
-          map((normList: TNormalized[]) => {
-            return normList.map((normalized: TNormalized) => {
-              return this.build<TNormalized, TDomain>(normalized);
+          map((normList: Array<NormalizedObject<T>>) => {
+            return normList.map((normalized: NormalizedObject<T>) => {
+              return this.build<T>(normalized);
             });
           }));
       }),
@@ -157,7 +149,7 @@ export class RemoteDataBuildService {
     return this.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  build<TNormalized, TDomain>(normalized: TNormalized): TDomain {
+  build<T extends CacheableObject>(normalized: NormalizedObject<T>): T {
     const links: any = {};
     const relationships = getRelationships(normalized.constructor) || [];
 
@@ -213,17 +205,28 @@ export class RemoteDataBuildService {
 
     return observableCombineLatest(...input).pipe(
       map((arr) => {
+        // The request of an aggregate RD should be pending if at least one
+        // of the RDs it's based on is still in the state RequestPending
         const requestPending: boolean = arr
           .map((d: RemoteData<T>) => d.isRequestPending)
-          .every((b: boolean) => b === true);
+          .find((b: boolean) => b === true);
 
-        const responsePending: boolean = arr
+        // The response of an aggregate RD should be pending if no requests
+        // are still pending and at least one of the RDs it's based
+        // on is still in the state ResponsePending
+        const responsePending: boolean = !requestPending && arr
           .map((d: RemoteData<T>) => d.isResponsePending)
-          .every((b: boolean) => b === true);
+          .find((b: boolean) => b === true);
 
-        const isSuccessful: boolean = arr
-          .map((d: RemoteData<T>) => d.hasSucceeded)
-          .every((b: boolean) => b === true);
+        let isSuccessful: boolean;
+        // isSuccessful should be undefined until all responses have come in.
+        // We can't know its state beforehand. We also can't say it's false
+        // because that would imply a request failed.
+        if (!(requestPending || responsePending)) {
+          isSuccessful = arr
+            .map((d: RemoteData<T>) => d.hasSucceeded)
+            .every((b: boolean) => b === true);
+        }
 
         const errorMessage: string = arr
           .map((d: RemoteData<T>) => d.error)
@@ -234,16 +237,25 @@ export class RemoteDataBuildService {
           }).filter((e: string) => hasValue(e))
           .join(', ');
 
-        const statusCode: string = arr
+        const statusText: string = arr
           .map((d: RemoteData<T>) => d.error)
           .map((e: RemoteDataError, idx: number) => {
             if (hasValue(e)) {
-              return `[${idx}]: ${e.statusCode}`;
+              return `[${idx}]: ${e.statusText}`;
             }
           }).filter((c: string) => hasValue(c))
           .join(', ');
 
-        const error = new RemoteDataError(statusCode, errorMessage);
+        const statusCode: number = arr
+          .map((d: RemoteData<T>) => d.error)
+          .map((e: RemoteDataError, idx: number) => {
+            if (hasValue(e)) {
+              return e.statusCode;
+            }
+          }).filter((c: number) => hasValue(c))
+          .reduce((acc, status) => status, undefined);
+
+        const error = new RemoteDataError(statusCode, statusText, errorMessage);
 
         const payload: T[] = arr.map((d: RemoteData<T>) => d.payload);
 
@@ -262,8 +274,10 @@ export class RemoteDataBuildService {
       map((rd: RemoteData<T[] | PaginatedList<T>>) => {
         if (Array.isArray(rd.payload)) {
           return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload) })
-        } else {
+        } else if (isNotUndefined(rd.payload)) {
           return Object.assign(rd, { payload: new PaginatedList(pageInfo, rd.payload.page) });
+        } else {
+          return Object.assign(rd, { payload: new PaginatedList(pageInfo, []) });
         }
       })
     );

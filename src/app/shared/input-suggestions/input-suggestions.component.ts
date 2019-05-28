@@ -1,29 +1,44 @@
 import {
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
   Input,
+  OnChanges,
   Output,
-  QueryList, SimpleChanges,
+  QueryList,
+  SimpleChanges,
   ViewChild,
   ViewChildren
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { hasValue, isNotEmpty } from '../empty.util';
+import { InputSuggestion } from './input-suggestions.model';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'ds-input-suggestions',
   styleUrls: ['./input-suggestions.component.scss'],
-  templateUrl: './input-suggestions.component.html'
+  templateUrl: './input-suggestions.component.html',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
+      // tslint:disable-next-line:no-forward-ref
+      useExisting: forwardRef(() => InputSuggestionsComponent),
+      multi: true
+    }
+  ]
 })
 
 /**
  * Component representing a form with a autocomplete functionality
  */
-export class InputSuggestionsComponent {
+export class InputSuggestionsComponent implements ControlValueAccessor, OnChanges {
   /**
    * The suggestions that should be shown
    */
-  @Input() suggestions: any[] = [];
+  @Input() suggestions: InputSuggestion[] = [];
 
   /**
    * The time waited to detect if any other input will follow before requesting the suggestions
@@ -46,14 +61,9 @@ export class InputSuggestionsComponent {
   @Input() name;
 
   /**
-   * Value of the input field
+   * Whether or not the current input is valid
    */
-  @Input() ngModel;
-
-  /**
-   * Output for when the input field's value changes
-   */
-  @Output() ngModelChange = new EventEmitter();
+  @Input() valid = true;
 
   /**
    * Output for when the form is submitted
@@ -64,6 +74,11 @@ export class InputSuggestionsComponent {
    * Output for when a suggestion is clicked
    */
   @Output() clickSuggestion = new EventEmitter();
+
+  /**
+   * Output for when something is typed in the input field
+   */
+  @Output() typeSuggestion = new EventEmitter();
 
   /**
    * Output for when new suggestions should be requested
@@ -95,11 +110,25 @@ export class InputSuggestionsComponent {
   @ViewChildren('suggestion') resultViews: QueryList<ElementRef>;
 
   /**
+   * Value of the input field
+   */
+  _value: string;
+
+  /** Fields needed to add ngModel */
+  @Input() disabled = false;
+  propagateChange = (_: any) => {
+    /* Empty implementation */
+  };
+  propagateTouch = (_: any) => {
+    /* Empty implementation */
+  };
+
+  /**
    * When any of the inputs change, check if we should still show the suggestions
    */
   ngOnChanges(changes: SimpleChanges) {
     if (hasValue(changes.suggestions)) {
-      this.show.next(isNotEmpty(changes.suggestions.currentValue));
+      this.show.next(isNotEmpty(changes.suggestions.currentValue) && !changes.suggestions.firstChange);
     }
   }
 
@@ -170,6 +199,7 @@ export class InputSuggestionsComponent {
    * Make sure that if a suggestion is clicked, the suggestions dropdown closes, does not reopen and the focus moves to the input field
    */
   onClickSuggestion(data) {
+    this.value = data;
     this.clickSuggestion.emit(data);
     this.close();
     this.blockReopen = true;
@@ -184,8 +214,40 @@ export class InputSuggestionsComponent {
   find(data) {
     if (!this.blockReopen) {
       this.findSuggestions.emit(data);
+      this.typeSuggestion.emit(data);
     }
     this.blockReopen = false;
   }
 
+  onSubmit(data) {
+    this.value = data;
+    this.submitSuggestion.emit(data);
+  }
+
+  /* START - Method's needed to add ngModel (ControlValueAccessor) to a component */
+  registerOnChange(fn: any): void {
+    this.propagateChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.propagateTouch = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: any): void {
+    this.value = value;
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  set value(val) {
+    this._value = val;
+    this.propagateChange(this._value);
+  }
+  /* END - Method's needed to add ngModel to a component */
 }

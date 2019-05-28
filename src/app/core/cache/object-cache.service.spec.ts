@@ -1,18 +1,19 @@
+import * as ngrx from '@ngrx/store';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
 import { ObjectCacheService } from './object-cache.service';
 import {
   AddPatchObjectCacheAction,
-  AddToObjectCacheAction, ApplyPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
 import { CoreState } from '../core.reducers';
 import { ResourceType } from '../shared/resource-type';
 import { NormalizedItem } from './models/normalized-item.model';
 import { first } from 'rxjs/operators';
-import * as ngrx from '@ngrx/store';
-import { Operation } from '../../../../node_modules/fast-json-patch';
+import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { Patch } from './object-cache.reducer';
@@ -80,7 +81,7 @@ describe('ObjectCacheService', () => {
       });
 
       // due to the implementation of spyOn above, this subscribe will be synchronous
-      service.getBySelfLink(selfLink).pipe(first()).subscribe((o) => {
+      service.getObjectBySelfLink(selfLink).pipe(first()).subscribe((o) => {
           expect(o.self).toBe(selfLink);
           // this only works if testObj is an instance of TestClass
           expect(o instanceof NormalizedItem).toBeTruthy();
@@ -96,7 +97,7 @@ describe('ObjectCacheService', () => {
       });
 
       let getObsHasFired = false;
-      const subscription = service.getBySelfLink(selfLink).subscribe((o) => getObsHasFired = true);
+      const subscription = service.getObjectBySelfLink(selfLink).subscribe((o) => getObsHasFired = true);
       expect(getObsHasFired).toBe(false);
       subscription.unsubscribe();
     });
@@ -106,7 +107,7 @@ describe('ObjectCacheService', () => {
     it('should return an observable of the array of cached objects with the specified self link and type', () => {
       const item = new NormalizedItem();
       item.self = selfLink;
-      spyOn(service, 'getBySelfLink').and.returnValue(observableOf(item));
+      spyOn(service, 'getObjectBySelfLink').and.returnValue(observableOf(item));
 
       service.getList([selfLink, selfLink]).pipe(first()).subscribe((arr) => {
         expect(arr[0].self).toBe(selfLink);

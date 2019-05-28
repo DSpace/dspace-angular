@@ -2,8 +2,7 @@ import { NotificationsActions, NotificationsActionTypes, RemoveNotificationActio
 import { INotification } from './models/notification.model';
 
 /**
- * The auth state.
- * @interface State
+ * The notification state.
  */
 export interface NotificationsState extends Array<INotification> {
 
@@ -38,6 +37,5 @@ export function notificationsReducer(state: any = initialState, action: Notifica
 }
 
 const removeNotification = (state: NotificationsState, action: RemoveNotificationAction): NotificationsState => {
-  const newState = state.filter((item: INotification) => item.id !== action.payload);
-  return newState;
+  return state.filter((item: INotification) => item.id !== action.payload);
 };

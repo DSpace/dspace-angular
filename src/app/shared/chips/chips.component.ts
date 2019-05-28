@@ -7,6 +7,7 @@ import { isObject } from 'lodash';
 import { Chips } from './models/chips.model';
 import { ChipsItem } from './models/chips-item.model';
 import { UploaderService } from '../uploader/uploader.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-chips',
@@ -18,6 +19,7 @@ export class ChipsComponent implements OnChanges {
   @Input() chips: Chips;
   @Input() wrapperClass: string;
   @Input() editable = true;
+  @Input() showIcons = false;
 
   @Output() selected: EventEmitter<number> = new EventEmitter<number>();
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();
@@ -25,9 +27,13 @@ export class ChipsComponent implements OnChanges {
 
   options: SortablejsOptions;
   dragged = -1;
-  tipText: string;
+  tipText: string[];
 
-  constructor(private cdr: ChangeDetectorRef, private uploaderService: UploaderService) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private uploaderService: UploaderService,
+    private translate: TranslateService) {
+
     this.options = {
       animation: 300,
       chosenClass: 'm-0',
@@ -79,16 +85,34 @@ export class ChipsComponent implements OnChanges {
 
   showTooltip(tooltip: NgbTooltip, index, field?) {
     tooltip.close();
-    const item = this.chips.getChipByIndex(index);
-    if (!item.editMode && this.dragged === -1) {
+    const chipsItem = this.chips.getChipByIndex(index);
+    const textToDisplay: string[] = [];
+    if (!chipsItem.editMode && this.dragged === -1) {
       if (field) {
-        this.tipText = (isObject(item.item[field])) ? item.item[field].display : item.item[field];
+        if (isObject(chipsItem.item[field])) {
+          textToDisplay.push(chipsItem.item[field].display);
+          if (chipsItem.item[field].hasOtherInformation()) {
+            Object.keys(chipsItem.item[field].otherInformation)
+              .forEach((otherField) => {
+                this.translate.get('form.other-information.' + otherField)
+                  .subscribe((label) => {
+                    textToDisplay.push(label + ': ' + chipsItem.item[field].otherInformation[otherField]);
+                  })
+            })
+          }
+        } else {
+          textToDisplay.push(chipsItem.item[field]);
+        }
       } else {
-        this.tipText = item.display;
+        textToDisplay.push(chipsItem.display);
       }
 
       this.cdr.detectChanges();
-      tooltip.open();
+      if (!chipsItem.hasIcons() || !chipsItem.hasVisibleIcons() || field) {
+        this.tipText = textToDisplay;
+        tooltip.open();
+      }
+
     }
   }
 

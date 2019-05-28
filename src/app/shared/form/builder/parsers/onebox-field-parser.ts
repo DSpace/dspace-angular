@@ -20,7 +20,7 @@ export class OneboxFieldParser extends FieldParser {
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
     if (this.configData.selectableMetadata.length > 1) {
-      // Case ComboBox
+      // Case Qualdrop Model
       const clsGroup = {
         element: {
           control: 'form-row',
@@ -29,7 +29,7 @@ export class OneboxFieldParser extends FieldParser {
 
       const clsSelect = {
         element: {
-          control: 'input-group-addon ds-form-input-addon',
+          control: 'ds-form-input-addon custom-select',
         },
         grid: {
           host: 'col-sm-4 pr-0'
@@ -73,13 +73,13 @@ export class OneboxFieldParser extends FieldParser {
       const typeaheadModelConfig: DsDynamicTypeaheadModelConfig = this.initModel(null, label);
       this.setAuthorityOptions(typeaheadModelConfig, this.parserOptions.authorityUuid);
       this.setValues(typeaheadModelConfig, fieldValue, true);
-      const typeaheadModel = new DynamicTypeaheadModel(typeaheadModelConfig);
-      return typeaheadModel;
+
+      return new DynamicTypeaheadModel(typeaheadModelConfig);
     } else {
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel(null, label);
       this.setValues(inputModelConfig, fieldValue);
-      const inputModel = new DsDynamicInputModel(inputModelConfig);
-      return inputModel;
+
+      return new DsDynamicInputModel(inputModelConfig);
     }
   }
 }

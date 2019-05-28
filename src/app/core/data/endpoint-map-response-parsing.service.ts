@@ -20,12 +20,12 @@ export class EndpointMapResponseParsingService implements ResponseParsingService
       for (const link of Object.keys(links)) {
         links[link] = links[link].href;
       }
-      return new EndpointMapSuccessResponse(links, data.statusCode);
+      return new EndpointMapSuccessResponse(links, data.statusCode, data.statusText);
     } else {
       return new ErrorResponse(
         Object.assign(
           new Error('Unexpected response from root endpoint'),
-          { statusText: data.statusCode }
+          { statusCode: data.statusCode, statusText: data.statusText }
         )
       );
     }

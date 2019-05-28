@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+
+import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedCollection } from '../cache/models/normalized-collection.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Collection } from '../shared/collection.model';
@@ -9,32 +11,58 @@ import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { FindAllOptions, GetRequest } from './request.models';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
-import { distinctUntilChanged, map, take, tap } from 'rxjs/operators';
-import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
-import { GetRequest } from './request.models';
 import { configureRequest } from '../shared/operators';
-import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { ResponseParsingService } from './parsing.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
+import { ResponseParsingService } from './parsing.service';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 
 @Injectable()
-export class CollectionDataService extends ComColDataService<NormalizedCollection, Collection> {
+export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
+  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected cds: CommunityDataService,
+    protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DSOChangeAnalyzer<Collection>
   ) {
     super();
+  }
+
+  /**
+   * Find whether there is a collection whom user has authorization to submit to
+   *
+   * @return boolean
+   *    true if the user has at least one collection to submit to
+   */
+  hasAuthorizedCollection(): Observable<boolean> {
+    const searchHref = 'findAuthorized';
+    const options = new FindAllOptions();
+    options.elementsPerPage = 1;
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending),
+      take(1),
+      map((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.totalElements > 0)
+    );
   }
 
   /**
@@ -43,7 +71,7 @@ export class CollectionDataService extends ComColDataService<NormalizedCollectio
    */
   getMappingItemsEndpoint(collectionId): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, collectionId)),
+      map((endpoint: string) => this.getIDHref(endpoint, collectionId)),
       map((endpoint: string) => `${endpoint}/mappingItems`)
     );
   }

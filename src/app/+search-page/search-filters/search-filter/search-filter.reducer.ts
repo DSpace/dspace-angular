@@ -1,5 +1,4 @@
-import { SearchFilterAction, SearchFilterActionTypes } from './search-filter.actions';
-import { isEmpty } from '../../../shared/empty.util';
+import { SearchFilterAction, SearchFilterActionTypes, SearchFilterInitializeAction } from './search-filter.actions';
 
 /**
  * Interface that represents the state for a single filters
@@ -28,27 +27,14 @@ export function filterReducer(state = initialState, action: SearchFilterAction):
 
   switch (action.type) {
 
-    case SearchFilterActionTypes.INITIAL_COLLAPSE: {
-      if (isEmpty(state) || isEmpty(state[action.filterName])) {
-        return Object.assign({}, state, {
-          [action.filterName]: {
-            filterCollapsed: true,
-            page: 1
-          }
-        });
-      }
-      return state;
-    }
-
-    case SearchFilterActionTypes.INITIAL_EXPAND: {
-      if (isEmpty(state) || isEmpty(state[action.filterName])) {
-        return Object.assign({}, state, {
-          [action.filterName]: {
-            filterCollapsed: false,
-            page: 1
-          }
-        });
-      }
+    case SearchFilterActionTypes.INITIALIZE: {
+      const initAction = (action as SearchFilterInitializeAction);
+      return Object.assign({}, state, {
+        [action.filterName]: {
+          filterCollapsed: !initAction.initiallyExpanded,
+          page: 1
+        }
+      });
       return state;
     }
 

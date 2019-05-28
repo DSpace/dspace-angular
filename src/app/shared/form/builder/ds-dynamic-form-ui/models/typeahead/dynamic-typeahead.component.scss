@@ -1,19 +1,14 @@
 @import "../../../../../../../styles/variables";
 
-/* style fa-spin */
-.fa-spin {
-  pointer-events: none;
-}
-
-/* align fa-spin */
-.left-addon .fa-spin  { left:  0;}
-.right-addon .fa-spin { right: 0;}
-
 :host /deep/ .dropdown-menu {
   width: 100% !important;
   max-height: $dropdown-menu-max-height;
   overflow-y: auto !important;
   overflow-x: hidden;
+}
+
+:host /deep/ .dropdown-item {
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
 }
 
 :host /deep/ .dropdown-item.active,

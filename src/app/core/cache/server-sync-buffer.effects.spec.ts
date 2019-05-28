@@ -1,20 +1,17 @@
 import { TestBed } from '@angular/core/testing';
+
 import { Observable, of as observableOf } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, hot } from 'jasmine-marbles';
+
 import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
 import { GLOBAL_CONFIG } from '../../../config';
-import {
-  CommitSSBAction,
-  EmptySSBAction,
-  ServerSyncBufferActionTypes
-} from './server-sync-buffer.actions';
+import { CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { Store } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { RequestService } from '../data/request.service';
 import { ObjectCacheService } from './object-cache.service';
 import { MockStore } from '../../shared/testing/mock-store';
-import { ObjectCacheState } from './object-cache.reducer';
 import * as operators from 'rxjs/operators';
 import { spyOnOperator } from '../../shared/testing/utils';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -38,8 +35,10 @@ describe('ServerSyncBufferEffects', () => {
   let store;
 
   beforeEach(() => {
-    store = new MockStore<ObjectCacheState>({});
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({}),
+      ],
       providers: [
         ServerSyncBufferEffects,
         provideMockActions(() => actions),
@@ -47,18 +46,19 @@ describe('ServerSyncBufferEffects', () => {
         { provide: RequestService, useValue: getMockRequestService() },
         {
           provide: ObjectCacheService, useValue: {
-            getBySelfLink: (link) => {
+            getObjectBySelfLink: (link) => {
               const object = new DSpaceObject();
               object.self = link;
               return observableOf(object);
             }
           }
         },
-        { provide: Store, useValue: store }
+        { provide: Store, useClass: MockStore }
         // other providers
       ],
     });
 
+    store = TestBed.get(Store);
     ssbEffects = TestBed.get(ServerSyncBufferEffects);
   });
 

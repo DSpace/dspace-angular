@@ -5,16 +5,17 @@ import {
   SearchFilterDecrementPageAction,
   SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
-  SearchFilterInitialCollapseAction,
-  SearchFilterInitialExpandAction,
+  SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction
 } from './search-filter.actions';
 import { SearchFiltersState } from './search-filter.reducer';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
 import { FilterType } from '../../search-service/filter-type.model';
+import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
 import { of as observableOf } from 'rxjs';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;
@@ -26,6 +27,12 @@ describe('SearchFilterService', () => {
     isOpenByDefault: false,
     pageSize: 2
   });
+
+  const mockFixedFilterService: SearchFixedFilterService = {
+    getQueryByFilterName: (filter: string) => {
+      return observableOf(undefined)
+    }
+  } as SearchFixedFilterService
   const value1 = 'random value';
   // const value2 = 'another value';
   const store: Store<SearchFiltersState> = jasmine.createSpyObj('store', {
@@ -45,11 +52,15 @@ describe('SearchFilterService', () => {
     },
     addQueryParameterValue: (param: string, value: string) => {
     },
+    getQueryParameterValue: (param: string) => {
+    },
     getQueryParameterValues: (param: string) => {
       return observableOf({});
     },
     getQueryParamsWithPrefix: (param: string) => {
       return observableOf({});
+    },
+    getRouteParameterValue: (param: string) => {
     }
     /* tslint:enable:no-empty */
   };
@@ -59,26 +70,16 @@ describe('SearchFilterService', () => {
   };
 
   beforeEach(() => {
-    service = new SearchFilterService(store, routeServiceStub);
+    service = new SearchFilterService(store, routeServiceStub, mockFixedFilterService);
   });
 
-  describe('when the initialCollapse method is triggered', () => {
+  describe('when the initializeFilter method is triggered', () => {
     beforeEach(() => {
-      service.initialCollapse(mockFilterConfig.name);
+      service.initializeFilter(mockFilterConfig);
     });
 
-    it('SearchFilterInitialCollapseAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterInitialCollapseAction(mockFilterConfig.name));
-    });
-  });
-
-  describe('when the initialExpand method is triggered', () => {
-    beforeEach(() => {
-      service.initialExpand(mockFilterConfig.name);
-    });
-
-    it('SearchFilterInitialExpandAction should be dispatched to the store', () => {
-      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterInitialExpandAction(mockFilterConfig.name));
+    it('SearchFilterInitializeAction should be dispatched to the store', () => {
+      expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterInitializeAction(mockFilterConfig));
     });
   });
 
@@ -176,6 +177,115 @@ describe('SearchFilterService', () => {
 
     it('should call getQueryParameterValues on the route service with the same parameters', () => {
       expect(routeServiceStub.getQueryParameterValues).toHaveBeenCalledWith(mockFilterConfig.paramName);
+    });
+  });
+
+  describe('when the getCurrentScope method is called', () => {
+    beforeEach(() => {
+      spyOn(routeServiceStub, 'getQueryParameterValue');
+      service.getCurrentScope();
+    });
+
+    it('should call getQueryParameterValue on the route service with scope', () => {
+      expect(routeServiceStub.getQueryParameterValue).toHaveBeenCalledWith('scope');
+    });
+  });
+
+  describe('when the getCurrentQuery method is called', () => {
+    beforeEach(() => {
+      spyOn(routeServiceStub, 'getQueryParameterValue');
+      service.getCurrentQuery();
+    });
+
+    it('should call getQueryParameterValue on the route service with query', () => {
+      expect(routeServiceStub.getQueryParameterValue).toHaveBeenCalledWith('query');
+    });
+  });
+
+  describe('when the getCurrentPagination method is called', () => {
+    let result;
+    const mockReturn = 5;
+
+    beforeEach(() => {
+      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(observableOf(mockReturn));
+      result = service.getCurrentPagination();
+    });
+
+    it('should call getQueryParameterValue on the route service with page', () => {
+      expect(routeServiceStub.getQueryParameterValue).toHaveBeenCalledWith('page');
+    });
+
+    it('should call getQueryParameterValue on the route service with pageSize', () => {
+      expect(routeServiceStub.getQueryParameterValue).toHaveBeenCalledWith('pageSize');
+    });
+
+    it('should return an observable containing the correct pagination', () => {
+      result.subscribe((pagination) => {
+        expect(pagination.currentPage).toBe(mockReturn);
+        expect(pagination.pageSize).toBe(mockReturn);
+      });
+    });
+  });
+
+  describe('when the getCurrentSort method is called', () => {
+    let result;
+    const field = 'author';
+    const direction = SortDirection.ASC;
+
+    beforeEach(() => {
+      spyOn(routeServiceStub, 'getQueryParameterValue').and.returnValue(observableOf(undefined));
+      result = service.getCurrentSort(new SortOptions(field, direction));
+    });
+
+    it('should call getQueryParameterValue on the route service with sortDirection', () => {
+      expect(routeServiceStub.getQueryParameterValue).toHaveBeenCalledWith('sortDirection');
+    });
+
+    it('should call getQueryParameterValue on the route service with sortField', () => {
+      expect(routeServiceStub.getQueryParameterValue).toHaveBeenCalledWith('sortField');
+    });
+
+    it('should return an observable containing the correct sortOptions', () => {
+      result.subscribe((sort) => {
+        expect(sort.field).toBe(field);
+        expect(sort.direction).toBe(direction);
+      });
+    });
+  });
+
+  describe('when the getCurrentFilters method is called', () => {
+    beforeEach(() => {
+      spyOn(routeServiceStub, 'getQueryParamsWithPrefix');
+      service.getCurrentFilters();
+    });
+
+    it('should call getQueryParamsWithPrefix on the route service with prefix \'f.\'', () => {
+      expect(routeServiceStub.getQueryParamsWithPrefix).toHaveBeenCalledWith('f.');
+    });
+  });
+
+  describe('when the getCurrentFixedFilter method is called', () => {
+    const filter = 'filter';
+
+    beforeEach(() => {
+      spyOn(routeServiceStub, 'getRouteParameterValue').and.returnValue(observableOf(filter));
+      spyOn(mockFixedFilterService, 'getQueryByFilterName').and.returnValue(observableOf(filter));
+      service.getCurrentFixedFilter().subscribe();
+    });
+
+    it('should call getQueryByFilterName on the fixed-filter service with the correct filter', () => {
+      expect(mockFixedFilterService.getQueryByFilterName).toHaveBeenCalledWith(filter);
+    });
+  });
+
+  describe('when the getCurrentView method is called', () => {
+    beforeEach(() => {
+      spyOn(routeServiceStub, 'getQueryParameterValue');
+      service.getCurrentView();
+    });
+
+    it('should call getQueryParameterValue on the route service with view', () => {
+      expect(routeServiceStub.getQueryParameterValue).toHaveBeenCalledWith('view');
     });
   });
 

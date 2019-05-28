@@ -26,21 +26,24 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-da
 
 describe('AuthService test', () => {
 
-  const mockStore: Store<AuthState> = jasmine.createSpyObj('store', {
-    dispatch: {},
-    pipe: observableOf(true)
-  });
+  let mockStore: Store<AuthState>;
   let authService: AuthService;
   let authRequest;
-  const window = new NativeWindowRef();
-  const routerStub = new RouterStub();
+  let window;
+  let routerStub;
   let routeStub;
   let storage: CookieService;
   let token: AuthTokenInfo;
   let authenticatedState;
-  const rdbService = getMockRemoteDataBuildService();
+  let rdbService;
 
   function init() {
+    mockStore = jasmine.createSpyObj('store', {
+      dispatch: {},
+      pipe: observableOf(true)
+    });
+    window = new NativeWindowRef();
+    routerStub = new RouterStub();
     token = new AuthTokenInfo('test_token');
     token.expires = Date.now() + (1000 * 60 * 60);
     authenticatedState = {
@@ -52,15 +55,14 @@ describe('AuthService test', () => {
     };
     authRequest = new AuthRequestServiceStub();
     routeStub = new ActivatedRouteStub();
-  }
+    rdbService = getMockRemoteDataBuildService();
+    spyOn(rdbService, 'build').and.returnValue({authenticated: true, eperson: observableOf({payload: {}})});
 
-  beforeEach(() => {
-    init();
-  });
+  }
 
   describe('', () => {
     beforeEach(() => {
-
+      init();
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
@@ -73,7 +75,7 @@ describe('AuthService test', () => {
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
           { provide: ActivatedRoute, useValue: routeStub },
-          {provide: Store, useValue: mockStore},
+          { provide: Store, useValue: mockStore },
           { provide: RemoteDataBuildService, useValue: rdbService },
           CookieService,
           AuthService
@@ -137,7 +139,8 @@ describe('AuthService test', () => {
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
           { provide: RemoteDataBuildService, useValue: rdbService },
-          CookieService
+          CookieService,
+          AuthService
         ]
       }).compileComponents();
     }));
@@ -176,8 +179,8 @@ describe('AuthService test', () => {
   });
 
   describe('', () => {
-
     beforeEach(async(() => {
+      init();
       TestBed.configureTestingModule({
         imports: [
           StoreModule.forRoot({ authReducer })
@@ -186,8 +189,10 @@ describe('AuthService test', () => {
           { provide: AuthRequestService, useValue: authRequest },
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
+          { provide: RemoteDataBuildService, useValue: rdbService },
           ClientCookieService,
-          CookieService
+          CookieService,
+          AuthService
         ]
       }).compileComponents();
     }));

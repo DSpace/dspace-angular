@@ -24,13 +24,14 @@ describe('BrowseItemsResponseParsingService', () => {
               uuid: 'd7b6bc6f-ff6c-444a-a0d3-0cd9b68043e7',
               name: 'Development of Local Supply Chain : A Critical Link for Concentrated Solar Power in India',
               handle: '10986/17472',
-              metadata: [
-                {
-                  key: 'dc.creator',
-                  value: 'World Bank',
-                  language: null
-                }
-              ],
+              metadata: {
+                'dc.creator': [
+                  {
+                    value: 'World Bank',
+                    language: null
+                  }
+                ]
+              },
               inArchive: true,
               discoverable: true,
               withdrawn: false,
@@ -56,13 +57,14 @@ describe('BrowseItemsResponseParsingService', () => {
               uuid: '27c6f976-257c-4ad0-a0ef-c5e34ffe4d5b',
               name: 'Development of Local Supply Chain : The Missing Link for Concentrated Solar Power Projects in India',
               handle: '10986/17475',
-              metadata: [
-                {
-                  key: 'dc.creator',
-                  value: 'World Bank',
-                  language: null
-                }
-              ],
+              metadata: {
+                'dc.creator': [
+                  {
+                    value: 'World Bank',
+                    language: null
+                  }
+                ]
+              },
               inArchive: true,
               discoverable: true,
               withdrawn: false,
@@ -106,7 +108,8 @@ describe('BrowseItemsResponseParsingService', () => {
           number: 0
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     const invalidResponseNotAList = {
@@ -115,13 +118,14 @@ describe('BrowseItemsResponseParsingService', () => {
         uuid: 'd7b6bc6f-ff6c-444a-a0d3-0cd9b68043e7',
         name: 'Development of Local Supply Chain : A Critical Link for Concentrated Solar Power in India',
         handle: '10986/17472',
-        metadata: [
-          {
-            key: 'dc.creator',
-            value: 'World Bank',
-            language: null
-          }
-        ],
+        metadata: {
+          'dc.creator': [
+            {
+              value: 'World Bank',
+              language: null
+            }
+          ]
+        },
         inArchive: true,
         discoverable: true,
         withdrawn: false,
@@ -142,11 +146,12 @@ describe('BrowseItemsResponseParsingService', () => {
           }
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     } as DSpaceRESTV2Response;
 
     const invalidResponseStatusCode = {
-      payload: {}, statusCode: '500'
+      payload: {}, statusCode: 500, statusText: 'Internal Server Error'
     } as DSpaceRESTV2Response;
 
     it('should return a GenericSuccessResponse if data contains a valid browse items response', () => {

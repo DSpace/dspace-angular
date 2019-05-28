@@ -10,7 +10,7 @@ import { ResourceType } from '../../shared/resource-type';
  */
 @mapsTo(Bundle)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedBundle extends NormalizedDSpaceObject {
+export class NormalizedBundle extends NormalizedDSpaceObject<Bundle> {
   /**
    * The primary bitstream of this Bundle
    */

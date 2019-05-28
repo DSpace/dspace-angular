@@ -1,27 +1,17 @@
-import {
-  distinctUntilChanged,
-  filter,
-  first,
-  map,
-  mergeMap,
-  share,
-  take,
-  tap
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, share, take, tap } from 'rxjs/operators';
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
 import { FindAllOptions, FindByIDRequest } from './request.models';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestEntry } from './request.reducer';
 import { getResponseFromEntry } from '../shared/operators';
+import { CacheableObject } from '../cache/object-cache.reducer';
 
-export abstract class ComColDataService<TNormalized extends NormalizedObject, TDomain> extends DataService<TNormalized, TDomain> {
+export abstract class ComColDataService<T extends CacheableObject> extends DataService<T> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract halService: HALEndpointService;
@@ -41,7 +31,7 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       return this.halService.getEndpoint(linkPath);
     } else {
       const scopeCommunityHrefObs = this.cds.getEndpoint().pipe(
-        mergeMap((endpoint: string) => this.cds.getFindByIDHref(endpoint, options.scopeID)),
+        mergeMap((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
         filter((href: string) => isNotEmpty(href)),
         take(1),
         tap((href: string) => {
@@ -59,7 +49,7 @@ export abstract class ComColDataService<TNormalized extends NormalizedObject, TD
       );
       const successResponses = responses.pipe(
         filter((response) => response.isSuccessful),
-        mergeMap(() => this.objectCache.getByUUID(options.scopeID)),
+        mergeMap(() => this.objectCache.getObjectByUUID(options.scopeID)),
         map((nc: NormalizedCommunity) => nc._links[linkPath]),
         filter((href) => isNotEmpty(href))
       );

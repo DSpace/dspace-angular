@@ -1,7 +1,7 @@
 import * as deepFreeze from 'deep-freeze';
 
-import { IndexName, indexReducer, IndexState } from './index.reducer';
-import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
+import { IndexName, indexReducer, MetaIndexState } from './index.reducer';
+import { AddToIndexAction, RemoveFromIndexBySubstringAction, RemoveFromIndexByValueAction } from './index.actions';
 
 class NullAction extends AddToIndexAction {
   type = null;
@@ -17,7 +17,7 @@ describe('requestReducer', () => {
   const key2 = '1911e8a4-6939-490c-b58b-a5d70f8d91fb';
   const val1 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/567a639f-f5ff-4126-807c-b7d0910808c8';
   const val2 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/1911e8a4-6939-490c-b58b-a5d70f8d91fb';
-  const testState: IndexState = {
+  const testState: MetaIndexState = {
     [IndexName.OBJECT]: {
       [key1]: val1
     },[IndexName.REQUEST]: {
@@ -55,6 +55,15 @@ describe('requestReducer', () => {
     const state = testState;
 
     const action = new RemoveFromIndexByValueAction(IndexName.OBJECT, val1);
+    const newState = indexReducer(state, action);
+
+    expect(newState[IndexName.OBJECT][key1]).toBeUndefined();
+  });
+
+  it('should remove the given \'value\' from its corresponding \'key\' in the correct substate, in response to a REMOVE_BY_SUBSTRING action', () => {
+    const state = testState;
+
+    const action = new RemoveFromIndexBySubstringAction(IndexName.OBJECT, key1);
     const newState = indexReducer(state, action);
 
     expect(newState[IndexName.OBJECT][key1]).toBeUndefined();

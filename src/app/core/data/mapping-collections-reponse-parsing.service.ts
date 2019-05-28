@@ -21,12 +21,11 @@ export class MappingCollectionsReponseParsingService implements ResponseParsingS
         totalPages: 1,
         currentPage: 1
       }), mappingCollections);
-      return new GenericSuccessResponse(paginatedMappingCollections, data.statusCode);
+      return new GenericSuccessResponse(paginatedMappingCollections, data.statusCode, data.statusText);
     } else {
       return new ErrorResponse(
         Object.assign(
-          new Error('Unexpected response from mappingCollections endpoint'),
-          { statusText: data.statusCode }
+          new Error('Unexpected response from mappingCollections endpoint'), data
         )
       );
     }

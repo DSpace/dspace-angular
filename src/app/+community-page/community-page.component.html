@@ -3,6 +3,8 @@
     <div *ngIf="communityRD?.payload; let communityPayload">
       <!-- Community name -->
       <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
+      <!-- Browse-By Links -->
+      <ds-comcol-page-browse-by [id]="communityPayload.id"></ds-comcol-page-browse-by>
       <!-- Community logo -->
       <ds-comcol-page-logo *ngIf="logoRD$"
                            [logo]="(logoRD$ | async)?.payload"
@@ -28,7 +30,7 @@
       <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
     </div>
   </div>
+
   <ds-error *ngIf="communityRD?.hasFailed" message="{{'error.community' | translate}}"></ds-error>
-  <ds-loading *ngIf="communityRD?.isLoading"
-              message="{{'loading.community' | translate}}"></ds-loading>
+  <ds-loading *ngIf="communityRD?.isLoading" message="{{'loading.community' | translate}}"></ds-loading>
 </div>

@@ -15,15 +15,22 @@ import {
   NotificationsState
 } from './shared/notifications/notifications.reducers';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
+import {
+  metadataRegistryReducer,
+  MetadataRegistryState
+} from './+admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 import { menusReducer, MenusState } from './shared/menu/menu.reducer';
+import { historyReducer, HistoryState } from './shared/history/history.reducer';
 import { ObjectSelectionListState, objectSelectionReducer } from './shared/object-select/object-select.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
+  history: HistoryState;
   hostWindow: HostWindowState;
   forms: FormState;
+  metadataRegistry: MetadataRegistryState;
   notifications: NotificationsState;
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
@@ -35,8 +42,10 @@ export interface AppState {
 
 export const appReducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
+  history: historyReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
+  metadataRegistry: metadataRegistryReducer,
   notifications: notificationsReducer,
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,

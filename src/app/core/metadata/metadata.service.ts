@@ -58,7 +58,7 @@ export class MetadataService {
       map((route: ActivatedRoute) => {
         route = this.getCurrentRoute(route);
         return { params: route.params, data: route.data };
-      }),).subscribe((routeInfo: any) => {
+      })).subscribe((routeInfo: any) => {
       this.processRouteChange(routeInfo);
     });
   }
@@ -66,7 +66,7 @@ export class MetadataService {
   public processRemoteData(remoteData: Observable<RemoteData<CacheableObject>>): void {
     remoteData.pipe(map((rd: RemoteData<CacheableObject>) => rd.payload),
       filter((co: CacheableObject) => hasValue(co)),
-      take(1),)
+      take(1))
       .subscribe((dspaceObject: DSpaceObject) => {
         if (!this.initialized) {
           this.initialize(dspaceObject);
@@ -80,7 +80,7 @@ export class MetadataService {
       this.clearMetaTags();
     }
     if (routeInfo.data.value.title) {
-      this.translate.get(routeInfo.data.value.title).pipe(take(1)).subscribe((translatedTitle: string) => {
+      this.translate.get(routeInfo.data.value.title, routeInfo.data.value).pipe(take(1)).subscribe((translatedTitle: string) => {
         this.addMetaTag('title', translatedTitle);
         this.title.setTitle(translatedTitle);
       });
@@ -276,7 +276,7 @@ export class MetadataService {
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {
             bitstream.format.pipe(
-              take(1),
+              first(),
               catchError((error: Error) => {
                 console.debug(error.message);
                 return []
@@ -293,6 +293,10 @@ export class MetadataService {
     }
   }
 
+  private hasType(value: string): boolean {
+    return this.currentObject.value.hasMetadata('dc.type', { value: value, ignoreCase: true });
+  }
+
   /**
    * Returns true if this._item is a dissertation
    *
@@ -300,14 +304,7 @@ export class MetadataService {
    *      true if this._item has a dc.type equal to 'Thesis'
    */
   private isDissertation(): boolean {
-    let isDissertation = false;
-    for (const metadatum of this.currentObject.value.metadata) {
-      if (metadatum.key === 'dc.type') {
-        isDissertation = metadatum.value.toLowerCase() === 'thesis';
-        break;
-      }
-    }
-    return isDissertation;
+    return this.hasType('thesis');
   }
 
   /**
@@ -317,40 +314,15 @@ export class MetadataService {
    *      true if this._item has a dc.type equal to 'Technical Report'
    */
   private isTechReport(): boolean {
-    let isTechReport = false;
-    for (const metadatum of this.currentObject.value.metadata) {
-      if (metadatum.key === 'dc.type') {
-        isTechReport = metadatum.value.toLowerCase() === 'technical report';
-        break;
-      }
-    }
-    return isTechReport;
+    return this.hasType('technical report');
   }
 
   private getMetaTagValue(key: string): string {
-    let value: string;
-    for (const metadatum of this.currentObject.value.metadata) {
-      if (metadatum.key === key) {
-        value = metadatum.value;
-      }
-    }
-    return value;
+    return this.currentObject.value.firstMetadataValue(key);
   }
 
   private getFirstMetaTagValue(keys: string[]): string {
-    let value: string;
-    for (const metadatum of this.currentObject.value.metadata) {
-      for (const key of keys) {
-        if (key === metadatum.key) {
-          value = metadatum.value;
-          break;
-        }
-      }
-      if (value !== undefined) {
-        break;
-      }
-    }
-    return value;
+    return this.currentObject.value.firstMetadataValue(keys);
   }
 
   private getMetaTagValuesAndCombine(key: string): string {
@@ -358,15 +330,7 @@ export class MetadataService {
   }
 
   private getMetaTagValues(keys: string[]): string[] {
-    const values: string[] = [];
-    for (const metadatum of this.currentObject.value.metadata) {
-      for (const key of keys) {
-        if (key === metadatum.key) {
-          values.push(metadatum.value);
-        }
-      }
-    }
-    return values;
+    return this.currentObject.value.allMetadataValues(keys);
   }
 
   private addMetaTag(property: string, content: string): void {

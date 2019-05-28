@@ -1,10 +1,8 @@
 import * as deepFreeze from 'deep-freeze';
 import {
   SearchFilterCollapseAction, SearchFilterExpandAction, SearchFilterIncrementPageAction,
-  SearchFilterInitialCollapseAction,
-  SearchFilterInitialExpandAction,
   SearchFilterToggleAction,
-  SearchFilterDecrementPageAction, SearchFilterResetPageAction
+  SearchFilterDecrementPageAction, SearchFilterResetPageAction, SearchFilterInitializeAction
 } from './search-filter.actions';
 import { filterReducer } from './search-filter.reducer';
 
@@ -98,35 +96,39 @@ describe('filterReducer', () => {
     filterReducer(state, action);
   });
 
-  it('should set filterCollapsed to true in response to the INITIAL_COLLAPSE action when no state has been set for this filter', () => {
+  it('should set filterCollapsed to true in response to the INITIALIZE action with isOpenByDefault to false when no state has been set for this filter', () => {
     const state = {};
     state[filterName2] = { filterCollapsed: false, page: 1 };
-    const action = new SearchFilterInitialCollapseAction(filterName1);
+    const filterConfig = {isOpenByDefault: false, name: filterName1} as any;
+    const action = new SearchFilterInitializeAction(filterConfig);
     const newState = filterReducer(state, action);
 
     expect(newState[filterName1].filterCollapsed).toEqual(true);
   });
 
-  it('should set filterCollapsed to true in response to the INITIAL_EXPAND action when no state has been set for this filter', () => {
+  it('should set filterCollapsed to false in response to the INITIALIZE action with isOpenByDefault to true when no state has been set for this filter', () => {
     const state = {};
     state[filterName2] = { filterCollapsed: true, page: 1 };
-    const action = new SearchFilterInitialExpandAction(filterName1);
+    const filterConfig = {isOpenByDefault: true, name: filterName1} as any;
+    const action = new SearchFilterInitializeAction(filterConfig);
     const newState = filterReducer(state, action);
     expect(newState[filterName1].filterCollapsed).toEqual(false);
   });
 
-  it('should not change the state in response to the INITIAL_COLLAPSE action when the state has already been set for this filter', () => {
+  it('should not change the state in response to  the INITIALIZE action with isOpenByDefault to false when the state has already been set for this filter', () => {
     const state = {};
     state[filterName1] = { filterCollapsed: false, page: 1 };
-    const action = new SearchFilterInitialCollapseAction(filterName1);
+    const filterConfig = { isOpenByDefault: true, name: filterName1 } as any;
+    const action = new SearchFilterInitializeAction(filterConfig);
     const newState = filterReducer(state, action);
     expect(newState).toEqual(state);
   });
 
-  it('should not change the state in response to the INITIAL_EXPAND action when the state has already been set for this filter', () => {
+  it('should not change the state in response to  the INITIALIZE action with isOpenByDefault to true when the state has already been set for this filter', () => {
     const state = {};
     state[filterName1] = { filterCollapsed: true, page: 1 };
-    const action = new SearchFilterInitialExpandAction(filterName1);
+    const filterConfig = { isOpenByDefault: false, name: filterName1 } as any;
+    const action = new SearchFilterInitializeAction(filterConfig);
     const newState = filterReducer(state, action);
     expect(newState).toEqual(state);
   });

@@ -1,12 +1,10 @@
-
-import { distinctUntilChanged, map, filter, switchMap, tap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedItem } from '../cache/models/normalized-item.model';
 import { CoreState } from '../core.reducers';
 import { Item } from '../shared/item.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -23,24 +21,38 @@ import {
   RestRequest
 } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import {
+  configureRequest,
+  filterSuccessfulResponses,
+  getRequestFromRequestHref,
+  getResponseFromEntry
+} from '../shared/operators';
+import { RequestEntry } from './request.reducer';
 import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
-import { configureRequest, filterSuccessfulResponses, getResponseFromEntry } from '../shared/operators';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { Collection } from '../shared/collection.model';
-import { RequestEntry } from './request.reducer';
 
 @Injectable()
-export class ItemDataService extends DataService<NormalizedItem, Item> {
+export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
+  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     private bs: BrowseService,
+    protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService) {
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DSOChangeAnalyzer<Item>) {
     super();
   }
 
@@ -69,7 +81,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    */
   public getMappingCollectionsEndpoint(itemId: string, collectionId?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId)),
+      map((endpoint: string) => this.getIDHref(endpoint, itemId)),
       map((endpoint: string) => `${endpoint}/mappingCollections${collectionId ? `/${collectionId}` : ''}`)
     );
   }
@@ -145,7 +157,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    */
   public getItemWithdrawEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+      map((endpoint: string) => this.getIDHref(endpoint, itemId))
     );
   }
 
@@ -155,17 +167,7 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
    */
   public getItemDiscoverableEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
-    );
-  }
-
-  /**
-   * Get the endpoint to delete the item
-   * @param itemId
-   */
-  public getItemDeleteEndpoint(itemId: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getFindByIDHref(endpoint, itemId))
+      map((endpoint: string) => this.getIDHref(endpoint, itemId))
     );
   }
 
@@ -184,8 +186,9 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
-      getResponseFromEntry()
+      map((request: RestRequest) => request.href),
+      getRequestFromRequestHref(this.requestService),
+      map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
 
@@ -204,25 +207,9 @@ export class ItemDataService extends DataService<NormalizedItem, Item> {
         new PatchRequest(this.requestService.generateRequestId(), endpointURL, patchOperation)
       ),
       configureRequest(this.requestService),
-      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
-      getResponseFromEntry()
+      map((request: RestRequest) => request.href),
+      getRequestFromRequestHref(this.requestService),
+      map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
-
-  /**
-   * Delete the item
-   * @param itemId
-   */
-  public delete(itemId: string) {
-    return this.getItemDeleteEndpoint(itemId).pipe(
-      distinctUntilChanged(),
-      map((endpointURL: string) =>
-        new DeleteRequest(this.requestService.generateRequestId(), endpointURL)
-      ),
-      configureRequest(this.requestService),
-      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
-      getResponseFromEntry()
-    );
-  }
-
 }

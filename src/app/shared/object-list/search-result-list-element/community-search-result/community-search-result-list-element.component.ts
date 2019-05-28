@@ -4,8 +4,8 @@ import { renderElementsFor } from '../../../object-collection/shared/dso-element
 
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 import { Community } from '../../../../core/shared/community.model';
+import { SetViewMode } from '../../../view-mode';
 import { CommunitySearchResult } from '../../../object-collection/shared/community-search-result.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-community-search-result-list-element',
@@ -13,7 +13,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
   templateUrl: 'community-search-result-list-element.component.html'
 })
 
-@renderElementsFor(CommunitySearchResult, ViewMode.List)
+@renderElementsFor(CommunitySearchResult, SetViewMode.List)
 export class CommunitySearchResultListElementComponent extends SearchResultListElementComponent<CommunitySearchResult, Community> {
 
 }

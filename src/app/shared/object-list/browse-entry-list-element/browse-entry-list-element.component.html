@@ -1,5 +1,5 @@
 <div class="d-flex flex-row">
-  <a [routerLink]="" [queryParams]="{value: object.value}" class="lead">
+  <a [routerLink]="" [queryParams]="{value: object.value, startsWith: undefined}" [queryParamsHandling]="'merge'" class="lead">
     {{object.value}}
   </a>
   <span class="pr-2">&nbsp;</span>

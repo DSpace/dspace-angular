@@ -5,28 +5,38 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { FindAllOptions } from './request.models';
-import { SortOptions, SortDirection } from '../cache/models/sort-options.model';
-import { of as observableOf } from 'rxjs';
+import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { Operation } from '../../../../node_modules/fast-json-patch';
+import { compare, Operation } from 'fast-json-patch';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { ChangeAnalyzer } from './change-analyzer';
+import { HttpClient } from '@angular/common/http';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { Item } from '../shared/item.model';
 
 const endpoint = 'https://rest.api/core';
 
 // tslint:disable:max-classes-per-file
-class NormalizedTestObject extends NormalizedObject {
+class NormalizedTestObject extends NormalizedObject<Item> {
 }
 
-class TestService extends DataService<NormalizedTestObject, any> {
+class TestService extends DataService<any> {
+  protected forceBypassCache = false;
+
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected linkPath: string,
     protected halService: HALEndpointService,
-    protected objectCache: ObjectCacheService
+    protected objectCache: ObjectCacheService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: ChangeAnalyzer<NormalizedTestObject>
   ) {
     super();
   }
@@ -36,17 +46,29 @@ class TestService extends DataService<NormalizedTestObject, any> {
   }
 }
 
+class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
+  diff(object1: NormalizedTestObject, object2: NormalizedTestObject): Operation[] {
+    return compare((object1 as any).metadata, (object2 as any).metadata);
+  }
+
+}
 describe('DataService', () => {
   let service: TestService;
   let options: FindAllOptions;
   const requestService = {} as RequestService;
   const halService = {} as HALEndpointService;
   const rdbService = {} as RemoteDataBuildService;
+  const notificationsService = {} as NotificationsService;
+  const http = {} as HttpClient;
+  const comparator = new DummyChangeAnalyzer() as any;
+  const dataBuildService = {
+    normalize: (object) => object
+  } as NormalizedObjectBuildService;
   const objectCache = {
     addPatch: () => {
       /* empty */
     },
-    getBySelfLink: () => {
+    getObjectBySelfLink: () => {
       /* empty */
     }
   } as any;
@@ -56,13 +78,16 @@ describe('DataService', () => {
     return new TestService(
       requestService,
       rdbService,
+      dataBuildService,
       store,
       endpoint,
       halService,
-      objectCache
+      objectCache,
+      notificationsService,
+      http,
+      comparator,
     );
   }
-
   service = initTestService();
 
   describe('getFindAllHref', () => {
@@ -120,7 +145,7 @@ describe('DataService', () => {
         elementsPerPage: 10,
         sort: sortOptions,
         startsWith: 'ab'
-      }
+      };
       const expected = `${endpoint}?page=${options.currentPage - 1}&size=${options.elementsPerPage}` +
         `&sort=${sortOptions.field},${sortOptions.direction}&startsWith=${options.startsWith}`;
 
@@ -134,7 +159,7 @@ describe('DataService', () => {
     let selfLink;
 
     beforeEach(() => {
-      operations = [{ op: 'replace', path: '/name', value: 'random string' } as Operation];
+      operations = [{ op: 'replace', path: '/metadata/dc.title', value: 'random string' } as Operation];
       selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
       spyOn(objectCache, 'addPatch');
     });
@@ -153,28 +178,29 @@ describe('DataService', () => {
     const name1 = 'random string';
     const name2 = 'another random string';
     beforeEach(() => {
-      operations = [{ op: 'replace', path: '/name', value: name2 } as Operation];
+      operations = [{ op: 'replace', path: '/0/value', value: name2 } as Operation];
       selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
 
       dso = new DSpaceObject();
       dso.self = selfLink;
-      dso.name = name1;
+      dso.metadata = [{ key: 'dc.title', value: name1 }];
 
       dso2 = new DSpaceObject();
       dso2.self = selfLink;
-      dso2.name = name2;
+      dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
-      spyOn(objectCache, 'getBySelfLink').and.returnValue(dso);
+      spyOn(service, 'findById').and.returnValues(observableOf(dso));
+      spyOn(objectCache, 'getObjectBySelfLink').and.returnValues(observableOf(dso));
       spyOn(objectCache, 'addPatch');
     });
 
     it('should call addPatch on the object cache with the right parameters when there are differences', () => {
-      service.update(dso2);
+      service.update(dso2).subscribe();
       expect(objectCache.addPatch).toHaveBeenCalledWith(selfLink, operations);
     });
 
     it('should not call addPatch on the object cache with the right parameters when there are no differences', () => {
-      service.update(dso);
+      service.update(dso).subscribe();
       expect(objectCache.addPatch).not.toHaveBeenCalled();
     });
   });

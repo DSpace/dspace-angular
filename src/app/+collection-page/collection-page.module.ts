@@ -5,19 +5,29 @@ import { SharedModule } from '../shared/shared.module';
 
 import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageRoutingModule } from './collection-page-routing.module';
-import { SearchPageModule } from '../+search-page/search-page.module';
+import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
+import { CollectionFormComponent } from './collection-form/collection-form.component';
+import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
+import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
+import { SearchService } from '../+search-page/search-service/search.service';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    SearchPageModule,
     CollectionPageRoutingModule
   ],
   declarations: [
     CollectionPageComponent,
+    CreateCollectionPageComponent,
+    EditCollectionPageComponent,
+    DeleteCollectionPageComponent,
+    CollectionFormComponent,
     CollectionItemMapperComponent
+  ],
+  providers: [
+    SearchService
   ]
 })
 export class CollectionPageModule {
