@@ -82,7 +82,7 @@ export class ItemDataService extends DataService<Item> {
   public getMappingCollectionsEndpoint(itemId: string, collectionId?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, itemId)),
-      map((endpoint: string) => `${endpoint}/mappingCollections${collectionId ? `/${collectionId}` : ''}`)
+      map((endpoint: string) => `${endpoint}/mappedCollections${collectionId ? `/${collectionId}` : ''}`)
     );
   }
 

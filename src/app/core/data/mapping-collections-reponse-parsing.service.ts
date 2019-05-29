@@ -11,16 +11,16 @@ export class MappingCollectionsReponseParsingService implements ResponseParsingS
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload;
 
-    if (payload._embedded && payload._embedded.mappingCollections) {
-      const mappingCollections = payload._embedded.mappingCollections;
+    if (payload._embedded && payload._embedded.mappedCollections) {
+      const mappedCollections = payload._embedded.mappedCollections;
       // TODO: When the API supports it, change this to fetch a paginated list, instead of creating static one
       // Reason: Pagination is currently not supported on the mappingCollections endpoint
       const paginatedMappingCollections = new PaginatedList(Object.assign(new PageInfo(), {
-        elementsPerPage: mappingCollections.length,
-        totalElements: mappingCollections.length,
+        elementsPerPage: mappedCollections.length,
+        totalElements: mappedCollections.length,
         totalPages: 1,
         currentPage: 1
-      }), mappingCollections);
+      }), mappedCollections);
       return new GenericSuccessResponse(paginatedMappingCollections, data.statusCode, data.statusText);
     } else {
       return new ErrorResponse(
