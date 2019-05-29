@@ -37,8 +37,10 @@ import { ObjectSelectService } from '../../shared/object-select/object-select.se
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service-stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
+import { of as observableOf, of } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../../core/cache/response.models';
+import { RouteService } from '../../shared/services/route.service';
+import { SearchFixedFilterService } from '../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -94,6 +96,22 @@ describe('CollectionItemMapperComponent', () => {
     clearMappingItemsRequests: () => {}
     /* tslint:enable:no-empty */
   };
+  const routeServiceStub = {
+    getRouteParameterValue: () => {
+      return observableOf('');
+    },
+    getQueryParameterValue: () => {
+      return observableOf('')
+    },
+    getQueryParamsWithPrefix: () => {
+      return observableOf('')
+    }
+  };
+  const fixedFilterServiceStub = {
+    getQueryByFilterName: () => {
+      return observableOf('')
+    }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -109,7 +127,9 @@ describe('CollectionItemMapperComponent', () => {
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: TranslateService, useValue: translateServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
-        { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() }
+        { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
+        { provide: RouteService, useValue: routeServiceStub },
+        { provide: SearchFixedFilterService, useValue: fixedFilterServiceStub }
       ]
     }).compileComponents();
   }));
