@@ -129,22 +129,23 @@ export class SearchFilterComponent implements OnInit {
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
   private isActive(): Observable<boolean> {
-    return this.selectedValues$.pipe(
-      switchMap((isActive) => {
-        if (isNotEmpty(isActive)) {
-          return observableOf(true);
-        } else {
-          return this.searchConfigService.searchOptions.pipe(
-            switchMap((options) => {
-                return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
-                  filter((RD) => !RD.isLoading),
-                  map((valuesRD) => {
-                    return valuesRD.payload.totalElements > 0
-                  }),)
-              }
-            ))
-        }
-      }),
-      startWith(true));
+    return observableOf(true);
+    // return this.selectedValues$.pipe(
+    //   switchMap((isActive) => {
+    //     if (isNotEmpty(isActive)) {
+    //       return observableOf(true);
+    //     } else {
+    //       return this.searchConfigService.searchOptions.pipe(
+    //         switchMap((options) => {
+    //             return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
+    //               filter((RD) => !RD.isLoading),
+    //               map((valuesRD) => {
+    //                 return valuesRD.payload.totalElements > 0
+    //               }),)
+    //           }
+    //         ))
+    //     }
+    //   }),
+    //   startWith(true));
   }
 }
