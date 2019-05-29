@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+  SimpleChange
+} from '@angular/core';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +16,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
-import { mockSubmissionId, mockSubmissionRestResponse } from '../../../shared/mocks/mock-submission';
+import {
+  mockSubmissionId,
+  mockSubmissionRestResponse
+} from '../../../shared/mocks/mock-submission';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
 import { CommunityDataService } from '../../../core/data/community-data.service';
@@ -19,7 +28,6 @@ import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testin
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { Community } from '../../../core/shared/community.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
@@ -104,7 +112,7 @@ const mockCommunity = Object.assign(new Community(), {
       language: 'en_US',
       value: 'Community 1'
     }],
-  collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [mockCommunity1Collection1, mockCommunity1Collection2])), //LOTTE
+  collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [mockCommunity1Collection1, mockCommunity1Collection2])),
   subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), subcommunities)),
 });
 
@@ -212,7 +220,10 @@ describe('SubmissionFormCollectionComponent Component', () => {
         TestComponent
       ],
       providers: [
-        { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
+        {
+          provide: SubmissionJsonPatchOperationsService,
+          useClass: SubmissionJsonPatchOperationsServiceStub
+        },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: CommunityDataService, useValue: communityDataService },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
@@ -426,6 +437,8 @@ class TestComponent {
   definitionId = 'traditional';
   submissionId = mockSubmissionId;
 
-  onCollectionChange = () => { return; }
+  onCollectionChange = () => {
+    return;
+  }
 
 }

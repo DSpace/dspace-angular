@@ -26,7 +26,7 @@ export const hasClass = (element: any, className: string): boolean => {
  */
 export const createTestComponent = <T>(html: string, type: { new(...args: any[]): T }): ComponentFixture<T> => {
   TestBed.overrideComponent(type, {
-    set: {template: html}
+    set: { template: html }
   });
   const fixture = TestBed.createComponent(type);
 
@@ -54,7 +54,11 @@ export function spyOnOperator(obj: any, prop: string): any {
   return spyOn(obj, prop);
 }
 
-export function createSuccessfulRemoteDataObject<T>(object: T): RemoteData<T>{
+/**
+ * Method to create a remote data object that has succeeded
+ * @param object The object to wrap
+ */
+export function createSuccessfulRemoteDataObject<T>(object: T): RemoteData<T> {
   return new RemoteData(
     false,
     false,
@@ -64,11 +68,20 @@ export function createSuccessfulRemoteDataObject<T>(object: T): RemoteData<T>{
   );
 }
 
-export function createSuccessfulRemoteDataObject$<T>(object: T): Observable<RemoteData<T>>{
+/**
+ * Method to create a remote data object that has succeeded, wrapped in an observable
+ * @param object The object to wrap
+ */
+export function createSuccessfulRemoteDataObject$<T>(object: T): Observable<RemoteData<T>> {
   return observableOf(createSuccessfulRemoteDataObject(object));
 }
 
-export function createFailedRemoteDataObject<T>(object?: T, error?: RemoteDataError): RemoteData<T>{
+/**
+ * Method to create a remote data object that has failed
+ * @param object The object to wrap
+ * @param error The RemoteDataError that caused the failure
+ */
+export function createFailedRemoteDataObject<T>(object?: T, error?: RemoteDataError): RemoteData<T> {
   return new RemoteData(
     false,
     false,
@@ -78,11 +91,20 @@ export function createFailedRemoteDataObject<T>(object?: T, error?: RemoteDataEr
   );
 }
 
-export function createFailedRemoteDataObject$<T>(object?: T, error?: RemoteDataError): Observable<RemoteData<T>>{
+/**
+ * Method to create a remote data object that has failed, wrapped in an observable
+ * @param object The object to wrap
+ * @param error The RemoteDataError that caused the failure
+ */
+export function createFailedRemoteDataObject$<T>(object?: T, error?: RemoteDataError): Observable<RemoteData<T>> {
   return observableOf(createFailedRemoteDataObject(object, error));
 }
 
-export function createPendingRemoteDataObject<T>(object?: T): RemoteData<T>{
+/**
+ * Method to create a remote data object that is still pending
+ * @param object The object to wrap
+ */
+export function createPendingRemoteDataObject<T>(object?: T): RemoteData<T> {
   return new RemoteData(
     true,
     true,
@@ -92,6 +114,10 @@ export function createPendingRemoteDataObject<T>(object?: T): RemoteData<T>{
   );
 }
 
-export function createPendingRemoteDataObject$<T>(object?: T): Observable<RemoteData<T>>{
+/**
+ * Method to create a remote data object that is still pending, wrapped in an observable
+ * @param object The object to wrap
+ */
+export function createPendingRemoteDataObject$<T>(object?: T): Observable<RemoteData<T>> {
   return observableOf(createPendingRemoteDataObject(object));
 }

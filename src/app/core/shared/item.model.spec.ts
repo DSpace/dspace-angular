@@ -1,7 +1,6 @@
 import { Observable, of as observableOf } from 'rxjs';
 
 import { Item } from './item.model';
-import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { isEmpty } from '../../shared/empty.util';
 import { first, map } from 'rxjs/operators';
@@ -38,7 +37,6 @@ describe('Item', () => {
     remoteDataAll = createSuccessfulRemoteDataObject$([...bitstreams, thumbnail]);
 
     // Create Bundles
-
     const bundles =
       [
         {
@@ -52,7 +50,6 @@ describe('Item', () => {
         }];
 
     item = Object.assign(new Item(), { bitstreams: remoteDataAll });
-
   });
 
   it('should return the bitstreams related to this item with the specified bundle name', () => {
@@ -100,5 +97,4 @@ describe('Item', () => {
     });
 
   });
-
 });
