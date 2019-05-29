@@ -11,6 +11,7 @@ import { EditCollectionPageComponent } from './edit-collection-page/edit-collect
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
+import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { CollectionItemMapperComponent } from './collection-item-mapper/collecti
     CollectionItemMapperComponent
   ],
   providers: [
-    SearchService
+    SearchService,
+    SearchFixedFilterService
   ]
 })
 export class CollectionPageModule {

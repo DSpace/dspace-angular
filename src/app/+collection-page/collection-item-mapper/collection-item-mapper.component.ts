@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
@@ -21,6 +21,7 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { RestResponse } from '../../core/cache/response.models';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-collection-item-mapper',
@@ -30,6 +31,12 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
   animations: [
     fadeIn,
     fadeInOut
+  ],
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: SearchConfigurationService
+    }
   ]
 })
 /**
@@ -73,7 +80,7 @@ export class CollectionItemMapperComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private searchConfigService: SearchConfigurationService,
+              @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
               private searchService: SearchService,
               private notificationsService: NotificationsService,
               private itemDataService: ItemDataService,
@@ -130,10 +137,10 @@ export class CollectionItemMapperComponent implements OnInit {
   mapItems(ids: string[], remove?: boolean) {
     const responses$ = this.collectionRD$.pipe(
       getSucceededRemoteData(),
-      map((collectionRD: RemoteData<Collection>) => collectionRD.payload.id),
-      switchMap((collectionId: string) =>
+      map((collectionRD: RemoteData<Collection>) => collectionRD.payload),
+      switchMap((collection: Collection) =>
         observableCombineLatest(ids.map((id: string) =>
-          remove ? this.itemDataService.removeMappingFromCollection(id, collectionId) : this.itemDataService.mapToCollection(id, collectionId)
+          remove ? this.itemDataService.removeMappingFromCollection(id, collection.id) : this.itemDataService.mapToCollection(id, collection.self)
         ))
       )
     );

@@ -23,7 +23,7 @@ import {
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import {
   configureRequest,
@@ -36,6 +36,7 @@ import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { Collection } from '../shared/collection.model';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 @Injectable()
 export class ItemDataService extends DataService<Item> {
@@ -104,14 +105,20 @@ export class ItemDataService extends DataService<Item> {
 
   /**
    * Maps an item to a collection
-   * @param itemId        The item's id
-   * @param collectionId  The collection's id
+   * @param itemId          The item's id
+   * @param collectionHref  The collection's self link
    */
-  public mapToCollection(itemId: string, collectionId: string): Observable<RestResponse> {
-    return this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
+  public mapToCollection(itemId: string, collectionHref: string): Observable<RestResponse> {
+    return this.getMappingCollectionsEndpoint(itemId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL)),
+      map((endpointURL: string) => {
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'text/uri-list');
+        options.headers = headers;
+        return new PostRequest(this.requestService.generateRequestId(), endpointURL, collectionHref, options);
+      }),
       configureRequest(this.requestService),
       switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
       getResponseFromEntry()
