@@ -1,3 +1,4 @@
+<script src="../search-switch-configuration/search-switch-configuration.component.ts"></script>
 <ng-container *ngVar="(searchOptions$ | async) as config">
     <h3>{{ 'search.sidebar.settings.title' | translate}}</h3>
     <div *ngIf="config?.sort" class="setting-option result-order-settings mb-3 p-3">
