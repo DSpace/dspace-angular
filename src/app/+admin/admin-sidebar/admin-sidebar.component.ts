@@ -138,13 +138,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         parentID: 'new',
         active: false,
         visible: true,
+        // model: {
+        //   type: MenuItemType.ONCLICK,
+        //   text: 'menu.section.new_item',
+        //   function: () => {
+        //     this.modalService.open(CreateItemParentSelectorComponent);
+        //   }
+        // } as OnClickMenuItemModel,
         model: {
-          type: MenuItemType.ONCLICK,
+          type: MenuItemType.LINK,
           text: 'menu.section.new_item',
-          function: () => {
-            this.modalService.open(CreateItemParentSelectorComponent);
-          }
-        } as OnClickMenuItemModel,
+          link: '/submit'
+        } as LinkMenuItemModel,
       },
       {
         id: 'new_item_version',
@@ -154,7 +159,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.new_item_version',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
 
@@ -230,7 +235,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.import_metadata',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
       {
@@ -241,7 +246,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.import_batch',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
       /* Export */
@@ -264,7 +269,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.export_community',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
       {
@@ -275,7 +280,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.export_collection',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
       {
@@ -286,7 +291,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.export_item',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       }, {
         id: 'export_metadata',
@@ -296,7 +301,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.export_metadata',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
 
@@ -320,7 +325,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.access_control_people',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
       {
@@ -331,7 +336,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.access_control_groups',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
       {
@@ -342,7 +347,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.access_control_authorizations',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
 
@@ -377,7 +382,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.find_withdrawn_items',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
       },
       {
@@ -388,7 +393,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.find_private_items',
-          link: '/admin/items'
+          link: ''
         } as LinkMenuItemModel,
       },
 
@@ -435,7 +440,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.curation_task',
-          link: '/curation'
+          link: ''
         } as LinkMenuItemModel,
         icon: 'filter',
         index: 7
@@ -449,7 +454,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.statistics_task',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
         icon: 'chart-bar',
         index: 8
@@ -463,7 +468,7 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         model: {
           type: MenuItemType.LINK,
           text: 'menu.section.control_panel',
-          link: '#'
+          link: ''
         } as LinkMenuItemModel,
         icon: 'cogs',
         index: 9

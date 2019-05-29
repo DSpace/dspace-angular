@@ -17,7 +17,7 @@ const truncatableServiceStub: any = {
 
 const mockCommunityWithAbstract: CommunitySearchResult = new CommunitySearchResult();
 mockCommunityWithAbstract.hitHighlights = {};
-mockCommunityWithAbstract.dspaceObject = Object.assign(new Community(), {
+mockCommunityWithAbstract.indexableObject = Object.assign(new Community(), {
   metadata: {
     'dc.description.abstract': [
       {
@@ -30,7 +30,7 @@ mockCommunityWithAbstract.dspaceObject = Object.assign(new Community(), {
 
 const mockCommunityWithoutAbstract: CommunitySearchResult = new CommunitySearchResult();
 mockCommunityWithoutAbstract.hitHighlights = {};
-mockCommunityWithoutAbstract.dspaceObject = Object.assign(new Community(), {
+mockCommunityWithoutAbstract.indexableObject = Object.assign(new Community(), {
   metadata: {
     'dc.title': [
       {
@@ -63,7 +63,7 @@ describe('CommunitySearchResultListElementComponent', () => {
 
   describe('When the community has an abstract', () => {
     beforeEach(() => {
-      communitySearchResultListElementComponent.dso = mockCommunityWithAbstract.dspaceObject;
+      communitySearchResultListElementComponent.dso = mockCommunityWithAbstract.indexableObject;
       fixture.detectChanges();
     });
 
@@ -75,7 +75,7 @@ describe('CommunitySearchResultListElementComponent', () => {
 
   describe('When the community has no abstract', () => {
     beforeEach(() => {
-      communitySearchResultListElementComponent.dso = mockCommunityWithoutAbstract.dspaceObject;
+      communitySearchResultListElementComponent.dso = mockCommunityWithoutAbstract.indexableObject;
       fixture.detectChanges();
     });
 

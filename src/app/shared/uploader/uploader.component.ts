@@ -1,5 +1,3 @@
-
-import {of as observableOf,  Observable } from 'rxjs';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -11,6 +9,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core'
 
+import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
 import { uniqueId } from 'lodash';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
@@ -115,6 +114,9 @@ export class UploaderComponent {
     this.uploader.onAfterAddingFile = ((item) => {
       item.withCredentials = false;
     });
+    if (isUndefined(this.onBeforeUpload)) {
+      this.onBeforeUpload = () => {return};
+    }
     this.uploader.onBeforeUploadItem = () => {
       this.onBeforeUpload();
       this.isOverDocumentDropZone = observableOf(false);

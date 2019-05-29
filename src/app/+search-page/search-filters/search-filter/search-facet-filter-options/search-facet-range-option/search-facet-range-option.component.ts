@@ -17,6 +17,7 @@ const rangeDelimiter = '-';
 
 @Component({
   selector: 'ds-search-facet-range-option',
+  styleUrls: ['./search-facet-range-option.component.scss'],
   templateUrl: './search-facet-range-option.component.html',
 })
 
@@ -33,6 +34,11 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    * The filter configuration for this facet option
    */
   @Input() filterConfig: SearchFilterConfig;
+
+  /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
 
   /**
    * Emits true when this option should be visible and false when it should be invisible
@@ -74,9 +80,12 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @returns {string} The base path to the search page
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  getSearchLink() {
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
     return this.searchService.getSearchLink();
   }
 

@@ -54,9 +54,9 @@ export class ItemTypeSwitcherComponent implements OnInit {
     }
 
     let item: Item;
-    if (hasValue((this.object as any).dspaceObject)) {
+    if (hasValue((this.object as any).indexableObject)) {
       const searchResult = this.object as ItemSearchResult;
-      item = searchResult.dspaceObject;
+      item = searchResult.indexableObject;
     } else {
       item = this.object as Item;
     }

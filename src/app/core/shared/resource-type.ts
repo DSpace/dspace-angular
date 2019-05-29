@@ -23,4 +23,6 @@ export enum ResourceType {
   SubmissionForms = 'submissionforms',
   SubmissionSections = 'submissionsections',
   SubmissionSection = 'submissionsection',
+  ClaimedTask = 'claimedtask',
+  PoolTask = 'pooltask'
 }

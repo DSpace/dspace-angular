@@ -1,6 +1,6 @@
 import {filter, map} from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable ,  BehaviorSubject } from 'rxjs';
 
@@ -35,8 +35,8 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit {
 
   metadata$: Observable<MetadataMap>;
 
-  constructor(route: ActivatedRoute, items: ItemDataService, metadataService: MetadataService) {
-    super(route, items, metadataService);
+  constructor(route: ActivatedRoute, router: Router, items: ItemDataService, metadataService: MetadataService) {
+    super(route, router, items, metadataService);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
