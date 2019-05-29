@@ -44,7 +44,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Default configuration parameter setting
    */
-  protected defaultConfiguration = 'default';
+  protected defaultConfiguration;
 
   /**
    * Default scope setting
