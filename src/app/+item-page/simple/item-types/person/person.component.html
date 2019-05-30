@@ -1,5 +1,5 @@
 <h2 class="item-page-title-field">
-  {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.contributor.author'])"></ds-metadata-values>
+  {{'Person: ' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.contributor.author'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
@@ -8,41 +8,41 @@
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.email']"
-      [label]="'person.page.email'">
+      [label]="'Email Address'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.orcid']"
-      [label]="'person.page.orcid'">
+      [label]="'ORCID'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.birthdate']"
-      [label]="'person.page.birthdate'">
+      [label]="'Birth Date'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.staffid']"
-      [label]="'person.page.staffid'">
+      [label]="'Staff ID'">
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
       [items]="projects$ | async"
-      [label]="'relationships.isProjectOf' | translate">
+      [label]="'Research Projects' | translate">
     </ds-related-items>
     <ds-related-items
       [items]="orgUnits$ | async"
-      [label]="'relationships.isOrgUnitOf' | translate">
+      [label]="'Organizational Units' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.jobtitle']"
-      [label]="'person.page.jobtitle'">
+      [label]="'Job Title'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.lastname']"
-      [label]="'person.page.lastname'">
+      [label]="'Last Name'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['person.identifier.firstname']"
-      [label]="'person.page.firstname'">
+      [label]="'First Name'">
     </ds-generic-item-page-field>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">

@@ -1,5 +1,5 @@
 <h2 class="item-page-title-field">
-  {{'publication.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+  {{'Publication: ' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
@@ -11,43 +11,43 @@
     <ds-item-page-author-field *ngIf="!(authors$ | async)" [item]="item"></ds-item-page-author-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journal.title']"
-      [label]="'publication.page.journal-title'">
+      [label]="'Journal Title'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journal.identifier.issn']"
-      [label]="'publication.page.journal-issn'">
+      [label]="'Journal ISSN'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journalvolume.identifier.name']"
-      [label]="'publication.page.volume-title'">
+      [label]="'Volume Title'">
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-metadata-representation-list
-      [label]="'relationships.isAuthorOf' | translate"
+      [label]="'Authors' | translate"
       [representations]="authors$ | async">
     </ds-metadata-representation-list>
     <ds-related-items
       [items]="projects$ | async"
-      [label]="'relationships.isProjectOf' | translate">
+      [label]="'Research Projects' | translate">
     </ds-related-items>
     <ds-related-items
       [items]="orgUnits$ | async"
-      [label]="'relationships.isOrgUnitOf' | translate">
+      [label]="'Organizational Units' | translate">
     </ds-related-items>
     <ds-related-items
       [items]="journalIssues$ | async"
-      [label]="'relationships.isJournalIssueOf' | translate">
+      [label]="'Journal Issue' | translate">
     </ds-related-items>
     <ds-item-page-abstract-field [item]="item"></ds-item-page-abstract-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['dc.subject']"
       [separator]="','"
-      [label]="'item.page.subject'">
+      [label]="'Keywords'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['dc.identifier.citation']"
-      [label]="'item.page.citation'">
+      [label]="'Citation'">
     </ds-generic-item-page-field>    
     <ds-item-page-uri-field [item]="item"></ds-item-page-uri-field>
     <ds-item-page-collections [item]="item"></ds-item-page-collections>

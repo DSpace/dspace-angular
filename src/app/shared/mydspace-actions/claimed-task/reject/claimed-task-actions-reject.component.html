@@ -1,15 +1,15 @@
-<ng-template #rejectTipContent><p [innerHTML]="'submission.workflow.tasks.claimed.reject_help' | translate"></p></ng-template>
+<ng-template #rejectTipContent><p [innerHTML]="'If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \Reject\.  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.' | translate"></p></ng-template>
 <button [className]="'btn btn-danger ' + wrapperClass"
         [ngbTooltip]="rejectTipContent"
         [disabled]="processingReject"
         (click)="openRejectModal(rejectModal)" >
-  <span *ngIf="processingReject"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-  <span *ngIf="!processingReject"><i class="fa fa-trash"></i> {{'submission.workflow.tasks.claimed.reject.submit' | translate}}</span>
+  <span *ngIf="processingReject"><i class='fas fa-circle-notch fa-spin'></i> {{'Processing...' | translate}}</span>
+  <span *ngIf="!processingReject"><i class="fa fa-trash"></i> {{'Reject' | translate}}</span>
 </button>
 
 <ng-template #rejectModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">{{'submission.workflow.tasks.claimed.reject.reason.title' | translate}}</h4>
+    <h4 class="modal-title">{{'Reason' | translate}}</h4>
     <button type="button"
             class="close"
             aria-label="Close"
@@ -19,19 +19,19 @@
   </div>
   <div class="modal-body">
     <div class="alert alert-info" role="alert">
-      {{'submission.workflow.tasks.claimed.reject.reason.info' | translate}}
+      {{'Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.' | translate}}
     </div>
     <form (ngSubmit)="confirmReject(rejectModal);" [formGroup]="rejectForm" >
       <textarea style="width: 100%"
                 formControlName="reason"
                 rows="4"
-                placeholder="{{'submission.workflow.tasks.claimed.reject.reason.placeholder' | translate}}"></textarea>
+                placeholder="{{'Describe the reason of reject' | translate}}"></textarea>
       <button id="btn-chat"
               class="btn btn-danger btn-lg btn-block mt-3"
               [disabled]="!rejectForm.valid || processingReject"
               type="submit">
-        <span *ngIf="processingReject"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-        <span *ngIf="!processingReject">{{'submission.workflow.tasks.claimed.reject.reason.submit' | translate}}</span>
+        <span *ngIf="processingReject"><i class='fas fa-circle-notch fa-spin'></i> {{'Processing...' | translate}}</span>
+        <span *ngIf="!processingReject">{{'Reject item' | translate}}</span>
       </button>
     </form>
   </div>

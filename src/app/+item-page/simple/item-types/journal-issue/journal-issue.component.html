@@ -26,12 +26,12 @@
   <div class="col-xs-12 col-md-6">
     <ds-related-items
       [items]="volumes$ | async"
-      [label]="'relationships.isSingleVolumeOf' | translate">
+      [label]="'Journal Volume' | translate">
     </ds-related-items>
     <ds-related-items
       class="mb-1 mt-1"
       [items]="publications$ | async"
-      [label]="'relationships.isPublicationOfJournalIssue' | translate">
+      [label]="'Articles' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journalissue.identifier.description']"

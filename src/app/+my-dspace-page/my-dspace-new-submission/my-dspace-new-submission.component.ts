@@ -88,15 +88,15 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
           NotificationType.Success,
           options,
           link,
-          'mydspace.general.text-here',
-          'mydspace.upload.upload-successful',
+          'HERE',
+          'New workspace item created. Click {{here}} for edit it.',
           'here');
       } else if (workspaceitems.length > 1) {
-        this.notificationsService.success(null, this.translate.get('mydspace.upload.upload-multiple-successful', {qty: workspaceitems.length}));
+        this.notificationsService.success(null, this.translate.get('{{qty}} new workspace items created.', {qty: workspaceitems.length}));
       }
 
     } else {
-      this.notificationsService.error(null, this.translate.get('mydspace.upload.upload-failed'));
+      this.notificationsService.error(null, this.translate.get('Error creating new workspace. Please verify the content uploaded before retry.'));
     }
   }
 
@@ -104,7 +104,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
    * Method called on file upload error
    */
   public onUploadError() {
-    this.notificationsService.error(null, this.translate.get('mydspace.upload.upload-failed'));
+    this.notificationsService.error(null, this.translate.get('Error creating new workspace. Please verify the content uploaded before retry.'));
   }
 
   /**

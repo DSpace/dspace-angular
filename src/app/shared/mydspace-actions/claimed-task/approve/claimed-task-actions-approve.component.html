@@ -1,8 +1,8 @@
 <button type="button"
         [className]="'btn btn-success ' + wrapperClass"
-        ngbTooltip="{{'submission.workflow.tasks.claimed.approve_help' | translate}}"
+        ngbTooltip="{{'If you have reviewed the item and it is suitable for inclusion in the collection, select \Approve\.' | translate}}"
         [disabled]="processingApprove"
         (click)="confirmApprove()">
-  <span *ngIf="processingApprove"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-  <span *ngIf="!processingApprove"><i class="fa fa-thumbs-up"></i> {{'submission.workflow.tasks.claimed.approve' | translate}}</span>
+  <span *ngIf="processingApprove"><i class='fas fa-circle-notch fa-spin'></i> {{'Processing...' | translate}}</span>
+  <span *ngIf="!processingApprove"><i class="fa fa-thumbs-up"></i> {{'Approve' | translate}}</span>
 </button>

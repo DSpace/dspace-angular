@@ -1,16 +1,16 @@
 <a class="btn btn-primary mt-1 mb-3"
-   ngbTooltip="{{'submission.workflow.generic.edit-help' | translate}}"
+   ngbTooltip="{{'Select this option to change the item's metadata.' | translate}}"
    [routerLink]="['/workspaceitems/' + object.id + '/edit']"
    role="button">
-  <i class="fa fa-edit"></i> {{'submission.workflow.generic.edit' | translate}}
+  <i class="fa fa-edit"></i> {{'Edit' | translate}}
 </a>
 
 <button type="button"
         class="btn btn-danger mt-1 mb-3"
-        ngbTooltip="{{'submission.workflow.generic.delete-help' | translate}}"
+        ngbTooltip="{{'If you would to discard this item, select \Delete\.  You will then be asked to confirm it.' | translate}}"
         (click)="$event.preventDefault();confirmDiscard(content)">
-  <span *ngIf="(processingDelete$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>
-  <span *ngIf="!(processingDelete$ | async)"><i class="fa fa-trash"></i> {{'submission.workflow.generic.delete' | translate}}</span>
+  <span *ngIf="(processingDelete$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'Processing...' | translate}}</span>
+  <span *ngIf="!(processingDelete$ | async)"><i class="fa fa-trash"></i> {{'Delete' | translate}}</span>
 </button>
 
 <ng-template #content let-c="close" let-d="dismiss">

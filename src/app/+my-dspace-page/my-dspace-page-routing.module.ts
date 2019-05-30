@@ -10,7 +10,7 @@ import { MyDSpaceGuard } from './my-dspace.guard';
       {
         path: '',
         component: MyDSpacePageComponent,
-        data: { title: 'mydspace.title' },
+        data: { title: 'MyDSpace' },
         canActivate: [
           MyDSpaceGuard
         ]

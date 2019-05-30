@@ -18,11 +18,11 @@
   <div class="col-xs-12 col-md-6">
     <ds-related-items
       [items]="journals$ | async"
-      [label]="'relationships.isSingleJournalOf' | translate">
+      [label]="'Journal' | translate">
     </ds-related-items>
     <ds-related-items
       [items]="issues$ | async"
-      [label]="'relationships.isIssueOf' | translate">
+      [label]="'Journal Issues' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journalvolume.identifier.description']"

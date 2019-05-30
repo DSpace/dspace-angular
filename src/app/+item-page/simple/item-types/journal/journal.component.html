@@ -22,7 +22,7 @@
   <div class="col-xs-12 col-md-6">
     <ds-related-items
       [items]="volumes$ | async"
-      [label]="'relationships.isVolumeOf' | translate">
+      [label]="'Journal Volumes' | translate">
     </ds-related-items>
     <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journal.identifier.description']"

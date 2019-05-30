@@ -1,5 +1,5 @@
 <h2 class="item-page-title-field">
-  {{'orgunit.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
+  {{'Organizational Unit: ' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
@@ -8,37 +8,37 @@
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="item"
       [fields]="['orgunit.identifier.dateestablished']"
-      [label]="'orgunit.page.dateestablished'">
+      [label]="'Date established'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['orgunit.identifier.city']"
-      [label]="'orgunit.page.city'">
+      [label]="'City'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['orgunit.identifier.country']"
-      [label]="'orgunit.page.country'">
+      [label]="'Country'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['orgunit.identifier.id']"
-      [label]="'orgunit.page.id'">
+      [label]="'ID'">
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
       [items]="people$ | async"
-      [label]="'relationships.isPersonOf' | translate">
+      [label]="'Authors' | translate">
     </ds-related-items>
     <ds-related-items
       [items]="projects$ | async"
-      [label]="'relationships.isProjectOf' | translate">
+      [label]="'Research Projects' | translate">
     </ds-related-items>
     <ds-related-items
       [items]="publications$ | async"
-      [label]="'relationships.isPublicationOf' | translate">
+      [label]="'Publications' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
       [fields]="['orgunit.identifier.description']"
-      [label]="'orgunit.page.description'">
+      [label]="'Description'">
     </ds-generic-item-page-field>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">

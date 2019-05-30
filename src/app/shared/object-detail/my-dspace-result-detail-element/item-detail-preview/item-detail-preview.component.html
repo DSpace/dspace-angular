@@ -5,7 +5,7 @@
   <div *ngIf="item">
     <h2 class="item-page-title-field">
       <ds-metadata-values *ngIf="item.hasMetadata('dc.title')" [mdValues]="item?.allMetadata('dc.title')"></ds-metadata-values>
-      <span class="text-muted" *ngIf="!item.hasMetadata('dc.title')">{{('mydspace.results.no-title' | translate)}}</span>
+      <span class="text-muted" *ngIf="!item.hasMetadata('dc.title')">{{('No title' | translate)}}</span>
     </h2>
     <div class="row mb-1">
       <div class="col-xs-12 col-md-4">
@@ -22,7 +22,7 @@
               </a>
             </div>
             <ng-container *ngIf="bitstreams?.length === 0">
-              <span class="text-muted">{{('mydspace.results.no-files' | translate)}}</span>
+              <span class="text-muted">{{('No Files' | translate)}}</span>
             </ng-container>
           </ds-metadata-field-wrapper>
         </ng-container>
@@ -31,13 +31,13 @@
                                       [label]="('item.page.date' | translate)"
                                       [metadata]="'dc.date.issued'"
                                       [separator]="separator"
-                                      [placeholder]="('mydspace.results.no-date' | translate)"></ds-item-detail-preview-field>
+                                      [placeholder]="('No Date' | translate)"></ds-item-detail-preview-field>
         <ds-item-detail-preview-field [item]="item"
                                       [object]="object"
-                                      [label]="('item.page.author' | translate)"
+                                      [label]="('Authors' | translate)"
                                       [metadata]="['dc.contributor', 'dc.creator', 'dc.contributor.*']"
                                       [separator]="separator"
-                                      [placeholder]="('mydspace.results.no-authors' | translate)"></ds-item-detail-preview-field>
+                                      [placeholder]="('No Authors' | translate)"></ds-item-detail-preview-field>
       </div>
       <div class="col-xs-12 col-md-6">
         <ds-item-detail-preview-field [item]="item"
@@ -45,13 +45,13 @@
                                       [label]="('item.page.abstract' | translate)"
                                       [metadata]="'dc.description.abstract'"
                                       [separator]="separator"
-                                      [placeholder]="('mydspace.results.no-abstract' | translate)"></ds-item-detail-preview-field>
+                                      [placeholder]="('No Abstract' | translate)"></ds-item-detail-preview-field>
         <ds-item-detail-preview-field [item]="item"
                                       [object]="object"
                                       [label]="('item.page.uri' | translate)"
                                       [metadata]="'dc.identifier.uri'"
                                       [separator]="separator"
-                                      [placeholder]="('mydspace.results.no-uri' | translate)"></ds-item-detail-preview-field>
+                                      [placeholder]="('No Uri' | translate)"></ds-item-detail-preview-field>
         <div>
           <ng-content></ng-content>
         </div>

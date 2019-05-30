@@ -1,10 +1,10 @@
 
   <a [class.disabled]="!(object.workflowitem | async)?.hasSucceeded"
      class="btn btn-primary mt-1 mb-3"
-     ngbTooltip="{{'submission.workflow.tasks.claimed.edit_help' | translate}}"
+     ngbTooltip="{{'Select this option to change the item's metadata.' | translate}}"
      [routerLink]="['/workflowitems/' + (object.workflowitem | async)?.payload.id + '/' + object.id + '/edit']"
      role="button">
-    <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}
+    <i class="fa fa-edit"></i> {{'Edit' | translate}}
   </a>
 
   <ds-claimed-task-actions-approve [processingApprove]="(processingApprove$ | async)"

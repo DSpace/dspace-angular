@@ -88,11 +88,11 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
     if (result) {
       this.reload();
       this.notificationsService.success(null,
-        this.translate.get('submission.workflow.tasks.generic.success'),
+        this.translate.get('Operation successful'),
         new NotificationOptions(5000, false));
     } else {
       this.notificationsService.error(null,
-        this.translate.get('submission.workflow.tasks.generic.error'),
+        this.translate.get('Error occurred during operation...'),
         new NotificationOptions(20000, true));
     }
   }
