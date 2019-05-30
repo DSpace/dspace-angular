@@ -7,6 +7,6 @@
     [hideGear]="true">
   </ds-viewable-collection>
 </div>
-<ds-loading *ngIf="isLoading()" message="{{'loading.mydspace-results' | translate}}"></ds-loading>
-<ds-error *ngIf="searchResults?.hasFailed && (!searchResults?.error || searchResults?.error?.statusCode != 400)" message="{{'error.search-results' | translate}}"></ds-error>
+<ds-loading *ngIf="isLoading()" message="{{'Loading items...' | translate}}"></ds-loading>
+<ds-error *ngIf="searchResults?.hasFailed && (!searchResults?.error || searchResults?.error?.statusCode != 400)" message="{{'Error fetching search results' | translate}}"></ds-error>
 <h3 *ngIf="searchResults?.payload?.page.length == 0" class="text-center text-muted" ><span>{{'There were no items to show' | translate}}</span></h3>

@@ -50,7 +50,7 @@
       <button ngbDropdownAnchor
               class="btn btn-secondary"
               type="button"
-              ngbTooltip="{{'form.search-help' | translate}}"
+              ngbTooltip="{{'Click here to looking for an existing correspondence' | translate}}"
               placement="top"
               [disabled]="model.readOnly || isSearchDisabled()"
               [hidden]="isInputDisabled()"
@@ -58,7 +58,7 @@
       </button>
       <button *ngIf="isInputDisabled()" class="btn btn-secondary"
               type="button"
-              ngbTooltip="{{'form.clear-help' | translate}}"
+              ngbTooltip="{{'Click here to remove the selected value' | translate}}"
               placement="top"
               [disabled]="model.readOnly"
               (click)="remove($event)">{{'Remove' | translate}}

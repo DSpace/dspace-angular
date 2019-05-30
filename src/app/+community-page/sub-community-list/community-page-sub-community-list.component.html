@@ -1,6 +1,6 @@
 <ng-container *ngVar="(subCommunitiesRDObs | async) as subCommunitiesRD">
   <div *ngIf="subCommunitiesRD?.hasSucceeded && subCommunitiesRD?.payload.totalElements > 0" @fadeIn>
-    <h2>{{'community.sub-community-list.head' | translate}}</h2>
+    <h2>{{'Communities of this Community' | translate}}</h2>
     <ul>
       <li *ngFor="let community of subCommunitiesRD?.payload.page">
         <p>
@@ -10,6 +10,6 @@
       </li>
     </ul>
   </div>
-  <ds-error *ngIf="subCommunitiesRD?.hasFailed" message="{{'error.sub-communities' | translate}}"></ds-error>
-  <ds-loading *ngIf="subCommunitiesRD?.isLoading" message="{{'loading.sub-communities' | translate}}"></ds-loading>
+  <ds-error *ngIf="subCommunitiesRD?.hasFailed" message="{{'Error fetching sub-communities' | translate}}"></ds-error>
+  <ds-loading *ngIf="subCommunitiesRD?.isLoading" message="{{'Loading sub-communities...' | translate}}"></ds-loading>
 </ng-container>

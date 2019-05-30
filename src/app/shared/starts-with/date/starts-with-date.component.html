@@ -1,12 +1,12 @@
 <form class="w-100" [formGroup]="formData" (ngSubmit)="submitForm(formData.value)">
   <div class="row">
     <span class="col-12 font-weight-bold mb-1">
-      {{'browse.startsWith.jump' | translate}}
+      {{'Jump to a point in the index:' | translate}}
     </span>
     <div class="col-6 col-md-2">
       <select id="year-select" class="form-control" (change)="setStartsWithYearEvent($event)">
         <option [value]="-1" [selected]="!startsWithYear">
-          {{'browse.startsWith.choose_year' | translate}}
+          {{'(Choose year)' | translate}}
         </option>
         <option *ngFor="let option of startsWithOptions"
                 [value]="option"
@@ -25,9 +25,9 @@
       </select>
     </div>
     <div class="form-group input-group col-12 col-md-6 pt-1 pt-md-0">
-      <input class="form-control" placeholder="{{'browse.startsWith.type_date' | translate}}" type="text" name="startsWith" formControlName="startsWith" [value]="getStartsWith() ? getStartsWith() : ''" />
+      <input class="form-control" placeholder="{{'Or type in a date (year-month):' | translate}}" type="text" name="startsWith" formControlName="startsWith" [value]="getStartsWith() ? getStartsWith() : ''" />
       <span class="input-group-append">
-        <button class="btn btn-secondary" type="submit">{{'browse.startsWith.submit' | translate}}</button>
+        <button class="btn btn-secondary" type="submit">{{'Go' | translate}}</button>
       </span>
     </div>
   </div>
