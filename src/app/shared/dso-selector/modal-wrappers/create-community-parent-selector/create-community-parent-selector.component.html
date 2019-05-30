@@ -5,7 +5,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <button class="btn btn-outline-primary btn-lg btn-block" (click)="selectObject(undefined)">{{'dso-selector.create.community.top-level' | translate}}</button>
+        <button class="btn btn-outline-primary btn-lg btn-block" (click)="selectObject(undefined)">{{'Create a new top-level community' | translate}}</button>
         <h3 class="position-relative py-1 my-3 font-weight-normal">
             <hr>
             <div id="create-community-or-separator" class="text-center position-absolute w-100">
@@ -13,7 +13,7 @@
             </div>
         </h3>
 
-        <h5 class="px-2">{{'dso-selector.create.community.sub-level' | translate}}</h5>
+        <h5 class="px-2">{{'Create a new community in' | translate}}</h5>
         <ds-dso-selector [currentDSOId]="(dsoRD$ | async)?.payload.uuid" [type]="selectorType" (onSelect)="selectObject($event)"></ds-dso-selector>
     </div>
 </div>

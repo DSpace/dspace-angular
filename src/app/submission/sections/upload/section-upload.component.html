@@ -5,7 +5,7 @@
 <ng-container *ngIf="fileList.length == 0">
   <div class="row">
     <div class="col-md-12">
-      <h3 class="text-center"><span class="text-muted">{{'submission.sections.upload.no-file-uploaded' | translate}}</span></h3>
+      <h3 class="text-center"><span class="text-muted">{{'No file uploaded yet.' | translate}}</span></h3>
     </div>
   </div>
 </ng-container>
@@ -16,10 +16,10 @@
     <div class="col-sm-12" >
       <ds-alert [type]="AlertTypeEnum.Warning">
         <ng-container *ngIf="collectionPolicyType === 1">
-          {{ 'submission.sections.upload.header.policy.default.nolist' | translate:{ "collectionName": collectionName } }}
+          {{ 'Uploaded files in the {'+'{collectionName}'+'} collection will be accessible according to the following group(s):' | translate:{ "collectionName": collectionName } }}
         </ng-container>
         <ng-container *ngIf="collectionPolicyType === 2">
-          {{ 'submission.sections.upload.header.policy.default.withlist' | translate:{ "collectionName": collectionName } }}
+          {{ 'Please note that uploaded files in the {'+'{collectionName}'+'} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):' | translate:{ "collectionName": collectionName } }}
         </ng-container>
         <span class="clearfix"></span>
         <ds-submission-section-upload-access-conditions [accessConditions]="collectionDefaultAccessConditions"></ds-submission-section-upload-access-conditions>

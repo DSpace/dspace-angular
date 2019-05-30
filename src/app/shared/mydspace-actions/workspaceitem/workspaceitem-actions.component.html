@@ -15,16 +15,16 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title text-danger">{{'submission.general.discard.confirm.title' | translate}}</h4>
+    <h4 class="modal-title text-danger">{{'Discard submission' | translate}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p>{{'submission.general.discard.confirm.info' | translate}}</p>
+    <p>{{'This operation can\'t be undone. Are you sure?' | translate}}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'submission.general.discard.confirm.cancel' | translate}}</button>
-    <button type="button" class="btn btn-danger" (click)="c('ok')">{{'submission.general.discard.confirm.submit' | translate}}</button>
+    <button type="button" class="btn btn-secondary" (click)="c('cancel')">{{'Cancel' | translate}}</button>
+    <button type="button" class="btn btn-danger" (click)="c('ok')">{{'Yes, I\'m sure' | translate}}</button>
   </div>
 </ng-template>

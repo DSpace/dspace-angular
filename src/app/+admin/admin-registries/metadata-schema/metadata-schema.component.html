@@ -52,7 +52,7 @@
 
       <div>
         <button [routerLink]="['/admin/registries/metadata']" class="btn btn-primary">{{'admin.registries.schema.return' | translate}}</button>
-        <button *ngIf="(metadataFields | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteFields()">{{'admin.registries.schema.fields.table.delete' | translate}}</button>
+        <button *ngIf="(metadataFields | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteFields()">{{'Delete selected' | translate}}</button>
       </div>
 
     </div>

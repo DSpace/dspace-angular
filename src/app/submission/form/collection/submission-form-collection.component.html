@@ -2,7 +2,7 @@
   <div ngbDropdown #collectionControls="ngbDropdown" class="btn-group input-group" (openChange)="toggled($event)">
     <div class="input-group-prepend">
       <span id="collectionControlsMenuLabel" class="input-group-text">
-        {{ 'submission.sections.general.collection' | translate }}
+        {{ 'Collection' | translate }}
       </span>
     </div>
     <button aria-describedby="collectionControlsMenuLabel"
@@ -25,13 +25,13 @@
                type="search"
                class="form-control w-100"
                (click)="$event.stopPropagation();"
-               placeholder="{{ 'submission.sections.general.search-collection' | translate }}"
+               placeholder="{{ 'Search for a collection' | translate }}"
                [formControl]="searchField">
       </div>
       <div class="dropdown-divider"></div>
       <div class="scrollable-menu" aria-labelledby="dropdownMenuButton" (scroll)="onScroll($event)">
         <button class="dropdown-item disabled" *ngIf="(searchListCollection$ | async)?.length == 0">
-          {{'submission.sections.general.no-collection' | translate}}
+          {{'No collection found' | translate}}
         </button>
         <button *ngFor="let listItem of (searchListCollection$ | async)"
                 class="dropdown-item collection-item"
