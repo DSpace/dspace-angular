@@ -8,15 +8,15 @@
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journal.identifier.issn']"
-      [label]="'journal.page.issn'">
+      [label]="'ISSN'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journal.publisher']"
-      [label]="'journal.page.publisher'">
+      [label]="'Publisher'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journal.contributor.editor']"
-      [label]="'journal.page.editor'">
+      [label]="'Editor-in-Chief'">
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
@@ -26,7 +26,7 @@
     </ds-related-items>
     <ds-generic-item-page-field class="item-page-fields" [item]="item"
       [fields]="['journal.identifier.description']"
-      [label]="'journal.page.description'">
+      [label]="'Description'">
     </ds-generic-item-page-field>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">

@@ -8,11 +8,11 @@
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journalvolume.identifier.volume']"
-      [label]="'journalvolume.page.volume'">
+      [label]="'Volume'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journalvolume.issuedate']"
-      [label]="'journalvolume.page.issuedate'">
+      [label]="'Issue Date'">
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
@@ -26,7 +26,7 @@
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journalvolume.identifier.description']"
-      [label]="'journalvolume.page.description'">
+      [label]="'Description'">
     </ds-generic-item-page-field>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">
