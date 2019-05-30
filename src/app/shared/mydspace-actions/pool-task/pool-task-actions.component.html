@@ -1,6 +1,6 @@
 <button type="button"
         class="btn btn-info mt-1 mb-3"
-        ngbTooltip="{{'Claim_help' | translate}}"
+        ngbTooltip="{{'Assign this task to yourself.' | translate}}"
         [disabled]="(processingClaim$ | async)"
         (click)="claim()">
   <span *ngIf="(processingClaim$ | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'Processing...' | translate}}</span>

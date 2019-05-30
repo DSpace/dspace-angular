@@ -1,6 +1,6 @@
 <button type="button"
         [className]="'btn btn-secondary ' + wrapperClass"
-        ngbTooltip="{{'Return to pool_help' | translate}}"
+        ngbTooltip="{{'Return the task to the pool so that another user may perform the task.' | translate}}"
         [disabled]="processingReturnToPool"
         (click)="confirmReturnToPool()">
   <span *ngIf="processingReturnToPool"><i class='fas fa-circle-notch fa-spin'></i> {{'Processing...' | translate}}</span>

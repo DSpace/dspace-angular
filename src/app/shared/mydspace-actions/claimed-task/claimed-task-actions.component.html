@@ -1,7 +1,7 @@
 
   <a [class.disabled]="!(object.workflowitem | async)?.hasSucceeded"
      class="btn btn-primary mt-1 mb-3"
-     ngbTooltip="{{'Select this option to change the item's metadata.' | translate}}"
+     ngbTooltip="{{'Select this option to change the item\'s metadata.' | translate}}"
      [routerLink]="['/workflowitems/' + (object.workflowitem | async)?.payload.id + '/' + object.id + '/edit']"
      role="button">
     <i class="fa fa-edit"></i> {{'Edit' | translate}}
