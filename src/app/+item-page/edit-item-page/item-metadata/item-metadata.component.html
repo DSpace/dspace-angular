@@ -25,10 +25,10 @@
     <table class="table table-responsive table-striped table-bordered">
         <tbody>
         <tr>
-            <th>{{'item.edit.metadata.headers.field' | translate}}</th>
-            <th>{{'item.edit.metadata.headers.value' | translate}}</th>
-            <th class="text-center">{{'item.edit.metadata.headers.language' | translate}}</th>
-            <th class="text-center">{{'item.edit.metadata.headers.edit' | translate}}</th>
+            <th>{{'Field' | translate}}</th>
+            <th>{{'Value' | translate}}</th>
+            <th class="text-center">{{'Lang' | translate}}</th>
+            <th class="text-center">{{'Edit' | translate}}</th>
         </tr>
         <tr *ngFor="let updateValue of ((updates$ | async)| dsObjectValues); trackBy: trackUpdate"
             ds-edit-in-place-field

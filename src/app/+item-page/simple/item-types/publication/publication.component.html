@@ -7,7 +7,7 @@
       <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-item-page-file-section [item]="item"></ds-item-page-file-section>
-    <ds-item-page-date-field [item]="item"></ds-item-page-date-field>
+    <ds-Date-field [item]="item"></ds-Date-field>
     <ds-item-page-author-field *ngIf="!(authors$ | async)" [item]="item"></ds-item-page-author-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['journal.title']"
@@ -39,7 +39,7 @@
       [items]="journalIssues$ | async"
       [label]="'Journal Issue' | translate">
     </ds-related-items>
-    <ds-item-page-abstract-field [item]="item"></ds-item-page-abstract-field>
+    <ds-Abstract-field [item]="item"></ds-Abstract-field>
     <ds-generic-item-page-field [item]="item"
       [fields]="['dc.subject']"
       [separator]="','"
@@ -49,7 +49,7 @@
       [fields]="['dc.identifier.citation']"
       [label]="'Citation'">
     </ds-generic-item-page-field>    
-    <ds-item-page-uri-field [item]="item"></ds-item-page-uri-field>
+    <ds-URI-field [item]="item"></ds-URI-field>
     <ds-item-page-collections [item]="item"></ds-item-page-collections>
     <div>
       <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">

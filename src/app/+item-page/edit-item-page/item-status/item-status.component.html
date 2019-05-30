@@ -1,4 +1,4 @@
-<p class="mt-2">{{'item.edit.tabs.status.description' | translate}}</p>
+<p class="mt-2">{{'Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.' | translate}}</p>
 <div class="row">
   <div *ngFor="let statusKey of statusDataKeys" class="w-100">
     <div class="col-3 float-left status-label">
@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="col-3 float-left status-label">
-    {{'item.edit.tabs.status.labels.itemPage' | translate}}:
+    {{'Item Page' | translate}}:
   </div>
   <div class="col-9 float-left status-data" id="status-itemPage">
     <a href="{{getItemPage((itemRD$ | async)?.payload)}}">{{getItemPage((itemRD$ | async)?.payload)}}</a>

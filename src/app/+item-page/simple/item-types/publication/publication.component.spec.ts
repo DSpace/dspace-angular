@@ -63,7 +63,7 @@ describe('PublicationComponent', () => {
   }));
 
   it('should contain a component to display the date', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-page-date-field'));
+    const fields = fixture.debugElement.queryAll(By.css('ds-Date-field'));
     expect(fields.length).toBeGreaterThanOrEqual(1);
   });
 
@@ -73,12 +73,12 @@ describe('PublicationComponent', () => {
   });
 
   it('should contain a component to display the abstract', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-page-abstract-field'));
+    const fields = fixture.debugElement.queryAll(By.css('ds-Abstract-field'));
     expect(fields.length).toBeGreaterThanOrEqual(1);
   });
 
   it('should contain a component to display the uri', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-page-uri-field'));
+    const fields = fixture.debugElement.queryAll(By.css('ds-URI-field'));
     expect(fields.length).toBeGreaterThanOrEqual(1);
   });
 

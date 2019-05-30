@@ -13,7 +13,7 @@
           <ds-thumbnail [thumbnail]="thumbnail$ | async"></ds-thumbnail>
         </ds-metadata-field-wrapper>
         <ng-container *ngVar="(bitstreams$ | async) as bitstreams">
-          <ds-metadata-field-wrapper [label]="('item.page.files' | translate)">
+          <ds-metadata-field-wrapper [label]="('Files' | translate)">
             <div *ngIf="bitstreams?.length > 0" class="file-section">
               <a *ngFor="let file of bitstreams; let last=last;" [href]="file?.content" target="_blank" [download]="file?.name">
                 <span>{{file?.name}}</span>
@@ -28,7 +28,7 @@
         </ng-container>
         <ds-item-detail-preview-field [item]="item"
                                       [object]="object"
-                                      [label]="('item.page.date' | translate)"
+                                      [label]="('Date' | translate)"
                                       [metadata]="'dc.date.issued'"
                                       [separator]="separator"
                                       [placeholder]="('No Date' | translate)"></ds-item-detail-preview-field>
@@ -42,13 +42,13 @@
       <div class="col-xs-12 col-md-6">
         <ds-item-detail-preview-field [item]="item"
                                       [object]="object"
-                                      [label]="('item.page.abstract' | translate)"
+                                      [label]="('Abstract' | translate)"
                                       [metadata]="'dc.description.abstract'"
                                       [separator]="separator"
                                       [placeholder]="('No Abstract' | translate)"></ds-item-detail-preview-field>
         <ds-item-detail-preview-field [item]="item"
                                       [object]="object"
-                                      [label]="('item.page.uri' | translate)"
+                                      [label]="('URI' | translate)"
                                       [metadata]="'dc.identifier.uri'"
                                       [separator]="separator"
                                       [placeholder]="('No Uri' | translate)"></ds-item-detail-preview-field>

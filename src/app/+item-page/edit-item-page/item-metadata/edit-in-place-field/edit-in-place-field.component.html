@@ -48,22 +48,22 @@
     <div class="btn-group edit-field">
         <button [disabled]="!(canSetEditable() | async)" *ngIf="!(editable | async)"
                 (click)="setEditable(true)" class="btn btn-outline-primary btn-sm"
-                title="{{'item.edit.metadata.edit.buttons.edit' | translate}}">
+                title="{{'Edit' | translate}}">
             <i class="fas fa-edit fa-fw"></i>
         </button>
         <button [disabled]="!(canSetUneditable() | async)" *ngIf="(editable | async)"
                 (click)="setEditable(false)" class="btn btn-outline-success btn-sm"
-                title="{{'item.edit.metadata.edit.buttons.unedit' | translate}}">
+                title="{{'Stop editing' | translate}}">
             <i class="fas fa-check fa-fw"></i>
         </button>
         <button [disabled]="!(canRemove() | async)" (click)="remove()"
                 class="btn btn-outline-danger btn-sm"
-                title="{{'item.edit.metadata.edit.buttons.remove' | translate}}">
+                title="{{'Remove' | translate}}">
             <i class="fas fa-trash-alt fa-fw"></i>
         </button>
         <button [disabled]="!(canUndo() | async)" (click)="removeChangesFromField()"
                 class="btn btn-outline-warning btn-sm"
-                title="{{'item.edit.metadata.edit.buttons.undo' | translate}}">
+                title="{{'Undo changes' | translate}}">
             <i class="fas fa-undo-alt fa-fw"></i>
         </button>
     </div>
