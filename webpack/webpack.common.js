@@ -1,22 +1,12 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const fs = require('fs');
 const {
   root,
-  join,
   globalCSSImports,
   themeReplaceOptions,
-  theme,
-  themePath
+  themedTest,
+  themedUse
 } = require('./helpers');
-
-const srcPath = root('src');
-
-const getThemedPath = (componentPath, ext) => {
-  const parsedPath = path.parse(componentPath);
-  const relativePath = path.relative(srcPath, parsedPath.dir);
-  return path.join(themePath, relativePath, `${parsedPath.name}.${ext}`);
-};
 
 module.exports = {
   mode: 'development',
@@ -37,58 +27,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: (filePath) => {
-          if (/\.component.ts$/.test(filePath)) {
-            const themedStylePath = getThemedPath(filePath, 'scss');
-            return fs.existsSync(themedStylePath);
-          } else {
-            return false;
-          }
-        },
-        use: (info) => {
-          const parsedPath = path.parse(info.resource);
-          const themedStylePath = getThemedPath(info.resource, 'scss');
-          console.log('themedStylePath', themedStylePath);
-          return [
-            'debug-loader',
-            {
-              loader: 'string-replace-loader',
-              options: {
-                search: `\.\/${parsedPath.name}\.scss`,
-                replace: themedStylePath,
-                flags: 'g'
-              }
-
-            }
-          ]
-        }
+        test: (filePath) => themedTest(filePath, 'scss'),
+        use: (info) => themedUse(info.resource, 'scss')
       },
       {
-        test: (filePath) => {
-          if (/\.component.ts$/.test(filePath)) {
-            const themedTemplatePath = getThemedPath(filePath, 'html');
-            return fs.existsSync(themedTemplatePath);
-          } else {
-            return false;
-          }
-        },
-        use: (info) => {
-          const parsedPath = path.parse(info.resource);
-          const themedTemplatePath = getThemedPath(info.resource, 'html');
-
-          return [
-            'debug-loader',
-            {
-              loader: 'string-replace-loader',
-              options: {
-                search: `\.\/${parsedPath.name}\.html`,
-                replace: themedTemplatePath,
-                flags: 'g'
-              }
-
-            }
-          ]
-        }
+        test: (filePath) => themedTest(filePath, 'html'),
+        use: (info) => themedUse(info.resource, 'html')
       },
       {
         test: /\.ts$/,
@@ -182,14 +126,14 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin([{
-      from: join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
-      to: join('assets', 'fonts')
+      from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
+      to: path.join('assets', 'fonts')
     }, {
-      from: join(__dirname, '..', 'resources', 'images'),
-      to: join('assets', 'images')
+      from: path.join(__dirname, '..', 'resources', 'images'),
+      to: path.join('assets', 'images')
     }, {
-      from: join(__dirname, '..', 'resources', 'i18n'),
-      to: join('assets', 'i18n')
+      from: path.join(__dirname, '..', 'resources', 'i18n'),
+      to: path.join('assets', 'i18n')
     }
     ])
   ]
