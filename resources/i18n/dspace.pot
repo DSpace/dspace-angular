@@ -17,34 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-msgid "Welcome to DSpace"
-msgstr ""
-
-msgid "DSpace is an open source software platform that enables organisations to:"
-msgstr ""
-
-msgid "distribute an organisation's digital assets over the web through a search "
-"and retrieval system"
-msgstr ""
-
-msgid "preserve digital assets over the long term"
-msgstr ""
-
-msgid "capture and describe digital material using a submission workflow module, or "
-"a variety of programmatic ingest options"
-msgstr ""
-
-msgid "Expand-help"
-msgstr ""
-
-msgid "Collapse-help"
-msgstr ""
-
-msgid "Now showing items "
-msgstr ""
-
-msgid "title"
-msgstr ""
+# #-#-#-#-# 404 #-#-#-#-#
 
 #: .404.help
 msgid ""
@@ -59,6 +32,8 @@ msgstr ""
 #: .404.page-not-found
 msgid "page not found"
 msgstr ""
+
+# #-#-#-#-# Admin #-#-#-#-#
 
 #: .admin.registries.bitstream-formats.description
 msgid ""
@@ -272,6 +247,8 @@ msgstr ""
 msgid "Your session has expired. Please log in again."
 msgstr ""
 
+# #-#-#-#-# Browse #-#-#-#-#
+
 #: .browse.comcol.by.author
 msgctxt ".browse.comcol.by.author"
 msgid "By Author"
@@ -395,8 +372,6 @@ msgstr ""
 msgid "Or enter first few letters:"
 msgstr ""
 
-# #-#-#-#-#  dspace.pot (DSpace 7)  #-#-#-#-#
-# Collection and Community viewing
 #: .browse.title
 msgid "Browsing {{ collection }} by {{ field }} {{ value }}"
 msgstr ""
@@ -404,6 +379,8 @@ msgstr ""
 #: .chips.remove
 msgid "Remove chip"
 msgstr ""
+
+# #-#-#-#-# Collection #-#-#-#-#
 
 #: .collection.create.head
 msgid "Create a Collection"
@@ -499,6 +476,8 @@ msgctxt ".collection.page.news"
 msgid "News"
 msgstr ""
 
+# #-#-#-#-# Community #-#-#-#-#
+
 #: .community.create.head
 msgid "Create a Community"
 msgstr ""
@@ -588,6 +567,8 @@ msgstr ""
 msgid "Communities of this Community"
 msgstr ""
 
+# #-#-#-#-# DSpace Object #-#-#-#-#
+
 #: .dso-selector.create.collection.head
 msgid "New collection"
 msgstr ""
@@ -628,8 +609,8 @@ msgstr ""
 msgid "Search for a {{ type }}"
 msgstr ""
 
-# #-#-#-#-#  dspace.pot (DSpace 7)  #-#-#-#-#
-# Errors
+# #-#-#-#-# Error #-#-#-#-#
+
 #: .error.browse-by
 msgid "Error fetching items"
 msgstr ""
@@ -692,6 +673,8 @@ msgstr ""
 msgid "This input is restricted by the current pattern: {{ pattern }}."
 msgstr ""
 
+# #-#-#-#-# Footer #-#-#-#-#
+
 #: .footer.copyright footer.component.html:5
 msgid "copyright © 2002-{{ year }}"
 msgstr ""
@@ -703,6 +686,8 @@ msgstr ""
 #: .footer.link.duraspace footer.component.html:6
 msgid "DuraSpace"
 msgstr ""
+
+# #-#-#-#-# Form #-#-#-#-#
 
 #: .form.cancel
 msgctxt ".form.cancel"
@@ -791,7 +776,10 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+# #-#-#-#-#  Home Page #-#-#-#-#
+
 #: .home.description
+#| msgid ""
 msgctxt ".home.description"
 msgid ""
 msgstr ""
@@ -807,6 +795,33 @@ msgstr ""
 #: .home.top-level-communities.help
 msgid "Select a community to browse its collections."
 msgstr ""
+
+#: No key used in old en.json file, text was straight in code
+msgid "Welcome to DSpace"
+msgstr ""
+
+#: No key used in old en.json file, text was straight in code
+msgid ""
+"DSpace is an open source software platform that enables organisations to:"
+msgstr ""
+
+#: No key used in old en.json file, text was straight in code
+msgid ""
+"distribute an organisation's digital assets over the web through a search "
+"and retrieval system"
+msgstr ""
+
+#: No key used in old en.json file, text was straight in code
+msgid "preserve digital assets over the long term"
+msgstr ""
+
+#: No key used in old en.json file, text was straight in code
+msgid ""
+"capture and describe digital material using a submission workflow module, or "
+"a variety of programmatic ingest options"
+msgstr ""
+
+# #-#-#-#-#  Item  Edit #-#-#-#-#
 
 #: .item.edit.delete.cancel
 msgctxt ".item.edit.delete.cancel"
@@ -836,8 +851,6 @@ msgstr ""
 msgid "The item has been deleted"
 msgstr ""
 
-# #-#-#-#-#  dspace.pot (DSpace 7)  #-#-#-#-#
-# Edit item
 #: .item.edit.head
 msgid "Edit Item"
 msgstr ""
@@ -1180,15 +1193,15 @@ msgstr ""
 msgid "The item was withdrawn successfully"
 msgstr ""
 
-# #-#-#-#-#  dspace.pot (DSpace 7)  #-#-#-#-#
-# Item page
+# #-#-#-#-#  Item Page  #-#-#-#-#
+
 #: .item.page.abstract
 msgid "Abstract"
 msgstr ""
 
 #: .item.page.author
 msgctxt ".item.page.author"
-msgid "Author"
+msgid "Authors"
 msgstr ""
 
 #: .item.page.collections
@@ -1202,6 +1215,15 @@ msgstr ""
 
 #: .item.page.files
 msgid "Files"
+msgstr ""
+
+#: .item.page.subject
+msgctxt ".item.page.subject"
+msgid "Keywords"
+msgstr ""
+
+#: .item.page.citation
+msgid "Citation"
 msgstr ""
 
 #: .item.page.filesection.description
@@ -1255,6 +1277,97 @@ msgctxt ".item.select.table.title"
 msgid "Title"
 msgstr ""
 
+# #-#-#-#-# Journal #-#-#-#-#
+
+#: .journal.page.titleprefix
+msgid "Journal: "
+msgstr ""
+
+#: .journal.page.issn
+msgid "ISSN"
+msgstr ""
+
+#: .journal.page.publisher
+msgid "Publisher"
+msgstr ""
+
+#: .journal.page.description
+msgctxt ".journal.page.description"
+msgid "Description"
+msgstr ""
+
+#: .journal.page.editor
+msgid "Editor-in-Chief"
+msgstr ""
+
+#: .journal.listelement.badge
+msgctxt ".journal.listelement.badge"
+msgid "Journal"
+msgstr ""
+
+#: .journalissue.page.titleprefix
+msgid "Journal Issue: "
+msgstr ""
+
+#: .journalissue.page.number
+msgid "Number"
+msgstr ""
+
+#: .journalissue.page.issuedate
+msgctxt ".journalissue.page.issuedate"
+msgid "Issue Date"
+msgstr ""
+
+#: .journalissue.page.description
+msgctxt ".journalissue.page.description"
+msgid "Description"
+msgstr ""
+
+#: .journalissue.page.keyword
+msgctxt ".journalissue.page.keyword"
+msgid "Keywords"
+msgstr ""
+
+#: .journalissue.page.journal-title
+msgctxt ".journalissue.page.journal-title"
+msgid "Journal Title"
+msgstr ""
+
+#: .journalissue.page.journal-issn
+msgctxt ".journalissue.page.journal-issn"
+msgid "Journal ISSN"
+msgstr ""
+
+#: .journalissue.listelement.badge
+msgctxt ".journalissue.listelement.badge"
+msgid "Journal Issue"
+msgstr ""
+
+#: .journalvolume.page.titleprefix
+msgid "Journal Volume: "
+msgstr ""
+
+#: .journalvolume.page.volume
+msgid "Volume"
+msgstr ""
+
+#: .journalvolume.page.issuedate
+msgctxt ".journalvolume.page.issuedate"
+msgid "Issue Date"
+msgstr ""
+
+#: .journalvolume.page.description
+msgctxt ".journalvolume.page.description"
+msgid "Description"
+msgstr ""
+
+#: .journalvolume.listelement.badge
+msgctxt ".journalvolume.listelement.badge"
+msgid "Journal Volume"
+msgstr ""
+
+# #-#-#-#-# Loading #-#-#-#-#
+
 #: .loading.browse-by
 msgid "Loading items..."
 msgstr ""
@@ -1285,6 +1398,11 @@ msgctxt ".loading.objects"
 msgid "Loading..."
 msgstr ""
 
+#: .loading.mydspace-results
+msgctxt ".loading.mydspace-results"
+msgid "Loading items..."
+msgstr ""
+
 #: .loading.recent-submissions
 msgid "Loading recent submissions..."
 msgstr ""
@@ -1304,6 +1422,8 @@ msgstr ""
 #: .loading.top-level-communities
 msgid "Loading top-level communities..."
 msgstr ""
+
+# #-#-#-#-# Login #-#-#-#-#
 
 #: .login.form.email
 msgid "Email address"
@@ -1344,6 +1464,8 @@ msgstr ""
 #: .logout.title
 msgid "Logout"
 msgstr ""
+
+# #-#-#-#-# Menu #-#-#-#-#
 
 #: .menu.header.admin
 msgid "Admin"
@@ -1643,6 +1765,163 @@ msgctxt ".menu.section.unpin"
 msgid "Unpin sidebar"
 msgstr ""
 
+# #-#-#-#-#  MyDSpace  #-#-#-#-#
+
+#: .mydspace.description
+msgctxt ".mydspace.description"
+msgid ""
+msgstr ""
+
+#: .mydspace.new-submission
+msgid "New submission"
+msgstr ""
+
+#: .mydspace.messages.title
+msgid "Messages"
+msgstr ""
+
+#: .mydspace.messages.to
+msgid "To"
+msgstr ""
+
+#: .mydspace.messages.hide-msg
+msgid "Hide message"
+msgstr ""
+
+#: .mydspace.messages.show-msg
+msgid "Show message"
+msgstr ""
+
+#: .mydspace.messages.no-messages
+msgid "No messages yet."
+msgstr ""
+
+#: .mydspace.messages.no-content
+msgid "No content."
+msgstr ""
+
+#: .mydspace.messages.send-btn
+msgid "Send"
+msgstr ""
+
+#: .mydspace.messages.subject-placeholder
+msgid "Subject..."
+msgstr ""
+
+#: .mydspace.messages.description-placeholder
+msgid "Insert your message here..."
+msgstr ""
+
+#: .mydspace.messages.mark-as-read
+msgid "Mark as read"
+msgstr ""
+
+#: .mydspace.messages.mark-as-unread
+msgid "Mark as unread"
+msgstr ""
+
+#: .mydspace.messages.submitter-help
+msgid "Select this option to send a message to controller."
+msgstr ""
+
+#: .mydspace.messages.controller-help
+msgid "Select this option to send a message to item's submitter."
+msgstr ""
+
+#: .mydspace.results.head
+msgid "Your submissions"
+msgstr ""
+
+#: .mydspace.results.no-results
+msgid "There were no items to show"
+msgstr ""
+
+#: .mydspace.results.no-title
+msgid "No title"
+msgstr ""
+
+#: .mydspace.results.no-authors
+msgid "No Authors"
+msgstr ""
+
+#: .mydspace.results.no-date
+msgid "No Date"
+msgstr ""
+
+#: .mydspace.results.no-abstract
+msgid "No Abstract"
+msgstr ""
+
+#: .mydspace.results.no-files
+msgid "No Files"
+msgstr ""
+
+#: .mydspace.results.no-uri
+msgid "No Uri"
+msgstr ""
+
+#: .mydspace.results.no-collections
+msgid "No Collections"
+msgstr ""
+
+#: .mydspace.title
+msgctxt ".mydspace.title"
+msgid "MyDSpace"
+msgstr ""
+
+#: .mydspace.show.workspace
+msgid "Your Submissions"
+msgstr ""
+
+#: .mydspace.show.workflow
+msgid "All tasks"
+msgstr ""
+
+#: .mydspace.status.workflow
+msgid "Workflow"
+msgstr ""
+
+#: .mydspace.status.validation
+msgid "Validation"
+msgstr ""
+
+#: .mydspace.status.waiting-for-controller
+msgid "Waiting for controller"
+msgstr ""
+
+#: .mydspace.status.workspace
+msgid "Workspace"
+msgstr ""
+
+#: .mydspace.status.archived
+msgid "Archived"
+msgstr ""
+
+#: .mydspace.view-btn
+msgctxt ".mydspace.view-btn"
+msgid "View"
+msgstr ""
+
+#: .mydspace.general.text-here
+msgid "HERE"
+msgstr ""
+
+#: .mydspace.upload.upload-successful
+msgid "New workspace item created. Click {{here}} for edit it."
+msgstr ""
+
+#: .mydspace.upload.upload-multiple-successful
+msgid "{{qty}} new workspace items created."
+msgstr ""
+
+#: .mydspace.upload.upload-failed
+msgid ""
+"Error creating new workspace. Please verify the content uploaded before "
+"retry."
+msgstr ""
+
+# #-#-#-#-# Nav #-#-#-#-#
+
 #: .nav.browse.header
 msgctxt ".nav.browse.header"
 msgid "All of DSpace"
@@ -1664,6 +1943,11 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
+#: .nav.mydspace
+msgctxt ".nav.mydspace"
+msgid "MyDSpace"
+msgstr ""
+
 #: .nav.search
 msgctxt ".nav.search"
 msgid "Search"
@@ -1673,6 +1957,44 @@ msgstr ""
 msgctxt ".nav.statistics.header"
 msgid "Statistics"
 msgstr ""
+
+#: header.component.html:12
+msgid "Home"
+msgstr ""
+
+# #-#-#-#-# Organizational Unit #-#-#-#-#
+
+#: .orgunit.page.titleprefix
+msgid "Organizational Unit: "
+msgstr ""
+
+#: .orgunit.page.dateestablished
+msgid "Date established"
+msgstr ""
+
+#: .orgunit.page.city
+msgid "City"
+msgstr ""
+
+#: .orgunit.page.country
+msgid "Country"
+msgstr ""
+
+#: .orgunit.page.id
+msgctxt ".orgunit.page.id"
+msgid "ID"
+msgstr ""
+
+#: .orgunit.page.description
+msgctxt ".orgunit.page.description"
+msgid "Description"
+msgstr ""
+
+#: .orgunit.listelement.badge
+msgid "Organizational Unit"
+msgstr ""
+
+# #-#-#-#-# Pagination #-#-#-#-#
 
 #: .pagination.results-per-page
 msgid "Results Per Page"
@@ -1686,11 +2008,181 @@ msgstr ""
 msgid "Now showing "
 msgstr ""
 
+#: pagination.component.html:5
+msgid "Now showing items "
+msgstr ""
+
 #: .pagination.sort-direction
 msgid "Sort Options"
 msgstr ""
 
+# #-#-#-#-# Person #-#-#-#-#
+
+#: .person.page.titleprefix
+msgid "Person: "
+msgstr ""
+
+#: .person.page.jobtitle
+msgid "Job Title"
+msgstr ""
+
+#: .person.page.lastname
+msgid "Last Name"
+msgstr ""
+
+#: .person.page.firstname
+msgid "First Name"
+msgstr ""
+
+#: .person.page.email
+msgid "Email Address"
+msgstr ""
+
+#: .person.page.orcid
+msgid "ORCID"
+msgstr ""
+
+#: .person.page.birthdate
+msgid "Birth Date"
+msgstr ""
+
+#: .person.page.staffid
+msgid "Staff ID"
+msgstr ""
+
+#: .person.page.link.full
+msgid "Show all metadata"
+msgstr ""
+
+#: .person.listelement.badge
+msgid "Person"
+msgstr ""
+
+# #-#-#-#-# Project #-#-#-#-#
+
+#: .project.page.titleprefix
+msgid "Research Project: "
+msgstr ""
+
+#: .project.page.status
+msgctxt ".project.page.status"
+msgid "Status"
+msgstr ""
+
+#: .project.page.contributor
+msgid "Contributors"
+msgstr ""
+
+#: .project.page.funder
+msgid "Funders"
+msgstr ""
+
+#: .project.page.id
+msgctxt ".project.page.id"
+msgid "ID"
+msgstr ""
+
+#: .project.page.expectedcompletion
+msgid "Expected Completion"
+msgstr ""
+
+#: .project.page.description
+msgctxt ".project.page.description"
+msgid "Description"
+msgstr ""
+
+#: .project.page.keyword
+msgctxt ".project.page.keyword"
+msgid "Keywords"
+msgstr ""
+
+#: .project.listelement.badge
+msgid "Research Project"
+msgstr ""
+
+# #-#-#-#-# Publication #-#-#-#-#
+
+#: .publication.page.titleprefix
+msgid "Publication: "
+msgstr ""
+
+#: .publication.page.journal-title
+msgctxt ".publication.page.journal-title"
+msgid "Journal Title"
+msgstr ""
+
+#: .publication.page.journal-issn
+msgctxt ".publication.page.journal-issn"
+msgid "Journal ISSN"
+msgstr ""
+
+#: .publication.page.volume-title
+msgid "Volume Title"
+msgstr ""
+
+#: .publication.listelement.badge
+msgid "Publication"
+msgstr ""
+
+# #-#-#-#-# Relationships #-#-#-#-#
+
+#: .relationships.isPublicationOf
+msgid "Publications"
+msgstr ""
+
+#: .relationships.isProjectOf
+msgid "Research Projects"
+msgstr ""
+
+#: .relationships.isOrgUnitOf
+msgid "Organizational Units"
+msgstr ""
+
+#: .relationships.isAuthorOf
+msgctxt ".relationships.isAuthorOf"
+msgid "Authors"
+msgstr ""
+
+#: .relationships.isPersonOf
+msgctxt ".relationships.isPersonOf"
+msgid "Authors"
+msgstr ""
+
+#: .relationships.isJournalOf
+msgid "Journals"
+msgstr ""
+
+#: .relationships.isSingleJournalOf
+msgctxt ".relationships.isSingleJournalOf"
+msgid "Journal"
+msgstr ""
+
+#: .relationships.isVolumeOf
+msgid "Journal Volumes"
+msgstr ""
+
+#: .relationships.isSingleVolumeOf
+msgctxt ".relationships.isSingleVolumeOf"
+msgid "Journal Volume"
+msgstr ""
+
+#: .relationships.isIssueOf
+msgid "Journal Issues"
+msgstr ""
+
+#: .relationships.isJournalIssueOf
+msgctxt ".relationships.isJournalIssueOf"
+msgid "Journal Issue"
+msgstr ""
+
+#: .relationships.isPublicationOfJournalIssue
+msgid "Articles"
+msgstr ""
+
+# #-#-#-#-# Search #-#-#-#-#
+
 #: .search.description
+#| msgid ""
 msgctxt ".search.description"
 msgid ""
 msgstr ""
@@ -1708,14 +2200,39 @@ msgstr ""
 msgid "Start date"
 msgstr ""
 
+#: .search.filters.applied.f.dateSubmitted
+msgctxt ".search.filters.applied.f.dateSubmitted"
+msgid "Date submitted"
+msgstr ""
+
+#: .search.filters.applied.f.entityType
+msgctxt ".search.filters.applied.f.entityType"
+msgid "Item Type"
+msgstr ""
+
 #: .search.filters.applied.f.has_content_in_original_bundle
 msgctxt ".search.filters.applied.f.has_content_in_original_bundle"
 msgid "Has files"
 msgstr ""
 
+#: .search.filters.applied.f.itemtype
+msgctxt ".search.filters.applied.f.itemtype"
+msgid "Type"
+msgstr ""
+
+#: .search.filters.applied.f.namedresourcetype
+msgctxt ".search.filters.applied.f.namedresourcetype"
+msgid "Status"
+msgstr ""
+
 #: .search.filters.applied.f.subject
 msgctxt ".search.filters.applied.f.subject"
 msgid "Subject"
+msgstr ""
+
+#: .search.filters.applied.f.submitter
+msgctxt ".search.filters.applied.f.submitter"
+msgid "Submitter"
 msgstr ""
 
 #: .search.filters.filter.author.head
@@ -1732,6 +2249,16 @@ msgctxt ".search.filters.filter.dateIssued.head"
 msgid "Date"
 msgstr ""
 
+#: .search.filters.filter.dateSubmitted.head
+msgctxt ".search.filters.filter.dateSubmitted.head"
+msgid "Date submitted"
+msgstr ""
+
+#: .search.filters.filter.dateSubmitted.placeholder
+msgctxt ".search.filters.filter.dateSubmitted.placeholder"
+msgid "Date submitted"
+msgstr ""
+
 #: .search.filters.filter.dateIssued.max.placeholder
 msgid "Minimum Date"
 msgstr ""
@@ -1740,9 +2267,49 @@ msgstr ""
 msgid "Maximum Date"
 msgstr ""
 
+#: .search.filters.filter.entityType.head
+msgctxt ".search.filters.filter.entityType.head"
+msgid "Item Type"
+msgstr ""
+
+#: .search.filters.filter.entityType.placeholder
+msgctxt ".search.filters.filter.entityType.placeholder"
+msgid "Item Type"
+msgstr ""
+
 #: .search.filters.filter.has_content_in_original_bundle.head
 msgctxt ".search.filters.filter.has_content_in_original_bundle.head"
 msgid "Has files"
+msgstr ""
+
+#: .search.filters.filter.itemtype.head
+msgctxt ".search.filters.filter.itemtype.head"
+msgid "Type"
+msgstr ""
+
+#: .search.filters.filter.itemtype.placeholder
+msgctxt ".search.filters.filter.itemtype.placeholder"
+msgid "Type"
+msgstr ""
+
+#: .search.filters.filter.namedresourcetype.head
+msgctxt ".search.filters.filter.namedresourcetype.head"
+msgid "Status"
+msgstr ""
+
+#: .search.filters.filter.namedresourcetype.placeholder
+msgctxt ".search.filters.filter.namedresourcetype.placeholder"
+msgid "Status"
+msgstr ""
+
+#: .search.filters.filter.objectpeople.head
+msgctxt ".search.filters.filter.objectpeople.head"
+msgid "People"
+msgstr ""
+
+#: .search.filters.filter.objectpeople.placeholder
+msgctxt ".search.filters.filter.objectpeople.placeholder"
+msgid "People"
 msgstr ""
 
 #: .search.filters.filter.scope.head
@@ -1751,6 +2318,16 @@ msgstr ""
 
 #: .search.filters.filter.scope.placeholder
 msgid "Scope filter"
+msgstr ""
+
+#: .search.filters.filter.submitter.head
+msgctxt ".search.filters.filter.submitter.head"
+msgid "Submitter"
+msgstr ""
+
+#: .search.filters.filter.submitter.placeholder
+msgctxt ".search.filters.filter.submitter.placeholder"
+msgid "Submitter"
 msgstr ""
 
 #: .search.filters.filter.show-less
@@ -1788,6 +2365,34 @@ msgstr ""
 
 #: .search.form.search_dspace
 msgid "Search DSpace"
+msgstr ""
+
+#: .search.form.search_mydspace
+msgid "Search MyDSpace"
+msgstr ""
+
+#: .search.journal.title
+msgid "DSpace Angular :: Journal Search"
+msgstr ""
+
+#: .search.journal.results.head
+msgid "Journal Search Results"
+msgstr ""
+
+#: .search.person.title
+msgid "DSpace Angular :: Person Search"
+msgstr ""
+
+#: .search.person.results.head
+msgid "Person Search Results"
+msgstr ""
+
+#: .search.publication.title
+msgid "DSpace Angular :: Publication Search"
+msgstr ""
+
+#: .search.publication.results.head
+msgid "Publication Search Results"
 msgstr ""
 
 #: .search.results.head
@@ -1833,8 +2438,17 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#: .search.switch-configuration.title
+msgid "Show"
+msgstr ""
+
 #: .search.title
 msgid "DSpace Angular :: Search"
+msgstr ""
+
+#: .search.view-switch.show-detail
+msgctxt ".search.view-switch.show-detail"
+msgid "Show detail"
 msgstr ""
 
 #: .search.view-switch.show-grid
@@ -1844,6 +2458,8 @@ msgstr ""
 #: .search.view-switch.show-list
 msgid "Show as list"
 msgstr ""
+
+# #-#-#-#-# Sorting #-#-#-#-#
 
 #: .sorting.dc.title.ASC
 msgid "Title Ascending"
@@ -1856,6 +2472,8 @@ msgstr ""
 #: .sorting.score.DESC
 msgid "Relevance"
 msgstr ""
+
+# #-#-#-#-# Submission #-#-#-#-#
 
 #: .submission.edit.title
 msgid "Edit Submission"
@@ -2106,9 +2724,133 @@ msgstr ""
 msgid "Submission"
 msgstr ""
 
+#: .submission.workflow.generic.delete
+msgctxt ".submission.workflow.generic.delete"
+msgid "Delete"
+msgstr ""
+
+#: .submission.workflow.generic.delete-help
+msgid ""
+"If you would to discard this item, select \"Delete\".  You will then be "
+"asked to confirm it."
+msgstr ""
+
+#: .submission.workflow.generic.edit
+msgctxt ".submission.workflow.generic.edit"
+msgid "Edit"
+msgstr ""
+
+#: .submission.workflow.generic.edit-help
+msgctxt ".submission.workflow.generic.edit-help"
+msgid "Select this option to change the item's metadata."
+msgstr ""
+
+#: .submission.workflow.generic.view
+msgctxt ".submission.workflow.generic.view"
+msgid "View"
+msgstr ""
+
+#: .submission.workflow.generic.view-help
+msgid "Select this option to view the item's metadata."
+msgstr ""
+
+#: .submission.workflow.tasks.generic.processing
+msgid "Processing..."
+msgstr ""
+
+#: .submission.workflow.tasks.generic.success
+msgid "Operation successful"
+msgstr ""
+
+#: .submission.workflow.tasks.generic.error
+msgid "Error occurred during operation..."
+msgstr ""
+
+#: .submission.workflow.tasks.generic.submitter
+msgctxt ".submission.workflow.tasks.generic.submitter"
+msgid "Submitter"
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.approve
+msgid "Approve"
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.approve_help
+msgid ""
+"If you have reviewed the item and it is suitable for inclusion in the "
+"collection, select \"Approve\"."
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.edit
+msgctxt ".submission.workflow.tasks.claimed.edit"
+msgid "Edit"
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.edit_help
+msgctxt ".submission.workflow.tasks.claimed.edit_help"
+msgid "Select this option to change the item's metadata."
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.reject.submit
+msgid "Reject"
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.reject.reason.submit
+msgid "Reject item"
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.reject.reason.title
+msgid "Reason"
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.reject.reason.info
+msgid ""
+"Please enter your reason for rejecting the submission into the box below, "
+"indicating whether the submitter may fix a problem and resubmit."
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.reject.reason.placeholder
+msgid "Describe the reason of reject"
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.reject_help
+msgid ""
+"If you have reviewed the item and found it is <strong>not</strong> suitable "
+"for inclusion in the collection, select \"Reject\".  You will then be asked "
+"to enter a message indicating why the item is unsuitable, and whether the "
+"submitter should change something and resubmit."
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.return
+msgid "Return to pool"
+msgstr ""
+
+#: .submission.workflow.tasks.claimed.return_help
+msgid "Return the task to the pool so that another user may perform the task."
+msgstr ""
+
+#: .submission.workflow.tasks.pool.claim
+msgid "Claim"
+msgstr ""
+
+#: .submission.workflow.tasks.pool.claim_help
+msgid "Assign this task to yourself."
+msgstr ""
+
+#: .submission.workflow.tasks.pool.show-detail
+msgctxt ".submission.workflow.tasks.pool.show-detail"
+msgid "Show detail"
+msgstr ""
+
+#: .submission.workflow.tasks.pool.hide-detail
+msgid "Hide detail"
+msgstr ""
+
 #: .title
 msgid "DSpace"
 msgstr ""
+
+# #-#-#-#-# Uploader #-#-#-#-#
 
 #: .uploader.browse
 msgid "browse"
@@ -2128,8 +2870,4 @@ msgstr ""
 
 #: .uploader.queue-lenght
 msgid "Queue length"
-msgstr ""
-
-#: header.component.html:12
-msgid "Home"
 msgstr ""
