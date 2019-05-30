@@ -4,7 +4,7 @@
             <div class="col-12 pb-4">
                 <h2 id="header" class="border-bottom pb-2">{{ 'Delete Community' | translate
                     }}</h2>
-                <p class="pb-2">{{ 'Are you sure you want to delete community \"{{ dso }}\"' | translate:{ dso: dso.name } }}</p>
+                <p class="pb-2">{{ 'Are you sure you want to delete community "{'+'{ dso }'+'}"' | translate:{ dso: dso.name } }}</p>
                 <button class="btn btn-primary mr-2" (click)="onConfirm(dso)">
                     {{'community.delete.confirm' |
                     translate}}
