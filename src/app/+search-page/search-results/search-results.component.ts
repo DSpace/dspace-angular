@@ -62,7 +62,7 @@ export class SearchResultsComponent {
    */
   getTitleKey() {
     if (isNotEmpty(this.fixedFilter)) {
-      return 'search.' + this.fixedFilter + '.results.head'
+      return this.fixedFilter + '.search.results.head'
     } else {
       return 'search.results.head';
     }
