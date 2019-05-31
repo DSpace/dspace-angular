@@ -74,6 +74,41 @@ const themedUse = (resource, extension) => {
   ]
 };
 
+const cssLoaders = [
+  {
+    loader: 'raw-loader',
+    options: {
+      sourceMap: true
+    }
+  },
+  {
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: true
+    }
+  },
+  {
+    loader: 'resolve-url-loader',
+    options: {
+      sourceMap: true
+    }
+  },
+];
+
+const scssLoaders = [
+  ...cssLoaders,
+  {
+    loader: 'sass-loader',
+    options: {
+      sourceMap: true
+    }
+  },
+  {
+    loader: 'string-replace-loader',
+    options: themeReplaceOptions
+  }
+];
+
 module.exports = {
   projectRoot,
   buildRoot,
@@ -81,6 +116,8 @@ module.exports = {
   getThemedPath,
   themedTest,
   themedUse,
+  cssLoaders,
+  scssLoaders,
   globalCSSImports,
   themeReplaceOptions
 };

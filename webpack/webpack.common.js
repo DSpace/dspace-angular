@@ -3,7 +3,8 @@ const path = require('path');
 const {
   projectRoot,
   globalCSSImports,
-  themeReplaceOptions,
+  cssLoaders,
+  scssLoaders,
   themedTest,
   themedUse
 } = require('./helpers');
@@ -40,55 +41,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [{
-          loader: 'to-string-loader',
-          options: {
-            sourceMap: true
-          }
-        },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              modules: true
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
+        use: cssLoaders
       },
       {
         test: /\.scss$/,
         exclude: [/node_modules/,
-          path.resolve(__dirname, '..', 'src/styles/_exposed_variables.scss')
+          path.resolve(__dirname, '..', 'src/styles/_exposed_variables.scss'),
+          path.resolve(__dirname, '..', 'src/styles/_variables.scss')
         ],
         use: [
-          {
-            loader: 'raw-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'resolve-url-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: 'string-replace-loader',
-            options: themeReplaceOptions
-          },
+          ...scssLoaders,
           {
             loader: 'sass-resources-loader',
             options: {
@@ -98,24 +60,9 @@ module.exports = {
         ]
       },
       {
-        test: /_exposed_variables.scss$/,
+        test: /^(_exposed)?_variables.scss$/,
         exclude: /node_modules/,
-        use: [{
-          loader: "css-loader" // translates CSS into CommonJS
-        }, {
-          loader: "sass-loader" // compiles Sass to CSS
-        },
-          {
-            loader: 'string-replace-loader',
-            options: themeReplaceOptions
-          },
-          {
-            loader: 'sass-resources-loader',
-            options: {
-              resources: globalCSSImports
-            },
-          }
-        ]
+        use: scssLoaders
       },
       {
         test: /\.html$/,
