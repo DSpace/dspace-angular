@@ -28,11 +28,6 @@ export class MetadataFieldFormComponent implements OnInit, OnDestroy {
   formId = 'metadata-field-form';
 
   /**
-   * The prefix for all messages related to this form
-   */
-  messagePrefix = 'admin.registries.schema.form';
-
-  /**
    * The metadata schema this field is attached to
    */
   @Input() metadataSchema: MetadataSchema;
