@@ -2,9 +2,17 @@ const path = require('path');
 const fs = require('fs');
 
 
-function root(relativePath) {
+const projectRoot = (relativePath) => {
   return path.resolve(__dirname, '..', relativePath);
-}
+};
+
+const buildRoot = (relativePath) => {
+  if (process.env.DSPACE_BUILD_DIR) {
+    return path.resolve(projectRoot(process.env.DSPACE_BUILD_DIR), relativePath);
+  } else {
+    return path.resolve(projectRoot('src'), relativePath);
+  }
+};
 
 // const theme = '';
 const theme = 'mantis';
@@ -22,12 +30,17 @@ const themeReplaceOptions =
       {
         search: '$themePath$/',
         replace: (themePath.length ? themePath + '/' : ''),
-
+        flags: 'g'
+      },
+      {
+        search: '@import \'~/',
+        replace: '@import \'' + projectRoot('./') + '/',
+        flags: 'g'
       }
     ]
   };
 
-const srcPath = root('src');
+const srcPath = projectRoot('src');
 
 const getThemedPath = (componentPath, ext) => {
   const parsedPath = path.parse(componentPath);
@@ -62,11 +75,12 @@ const themedUse = (resource, extension) => {
 };
 
 module.exports = {
-  root: root,
-  theme: theme,
-  getThemedPath: getThemedPath,
-  themedTest: themedTest,
-  themedUse: themedUse,
-  globalCSSImports: globalCSSImports,
-  themeReplaceOptions: themeReplaceOptions
+  projectRoot,
+  buildRoot,
+  theme,
+  getThemedPath,
+  themedTest,
+  themedUse,
+  globalCSSImports,
+  themeReplaceOptions
 };

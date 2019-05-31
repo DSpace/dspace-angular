@@ -1,12 +1,12 @@
 var nodeExternals = require('webpack-node-externals');
 
 const {
-    root
+    buildRoot
 } = require('./helpers');
 
 module.exports = {
   getServerWebpackPartial: function (aot) {
-    const entry = aot ? root('./src/main.server.aot.ts') : root('./src/main.server.ts');
+    const entry = aot ? buildRoot('./main.server.aot.ts') : buildRoot('./main.server.ts');
     return {
       entry: entry,
       output: {

@@ -1,5 +1,5 @@
 const {
-    root,
+    projectRoot,
     globalCSSImports,
     themeReplaceOptions
 } = require('./helpers');
@@ -53,7 +53,7 @@ module.exports = function (options) {
       /**
        * Make sure root is src
        */
-      modules: [root('src'), 'node_modules']
+      modules: [projectRoot('src'), 'node_modules']
 
     },
 
@@ -97,7 +97,7 @@ module.exports = function (options) {
             loaders: [{
               loader: 'ts-loader',
               options: {
-                configFile: root('src/tsconfig.test.json'),
+                configFile: projectRoot('src/tsconfig.test.json'),
                 transpileOnly: true
               }
             },
@@ -184,7 +184,7 @@ module.exports = function (options) {
         {
           test: /\.html$/,
           loader: 'raw-loader',
-          exclude: [root('src/index.html')]
+          exclude: [projectRoot('src/index.html')]
         },
 
         /**
@@ -200,7 +200,7 @@ module.exports = function (options) {
           query: {
             esModules: true
           },
-          include: root('src'),
+          include: projectRoot('src'),
           exclude: [
             /\.(e2e|spec)\.ts$/,
             /node_modules/
@@ -219,12 +219,12 @@ module.exports = function (options) {
 
       new ContextReplacementPlugin(
         /angular(\\|\/)core(\\|\/)@angular/,
-        root('./src'), {}
+        projectRoot('./src'), {}
       ),
       // Workaround for https://github.com/angular/angular/issues/20357
       new ContextReplacementPlugin(
         /\@angular(\\|\/)core(\\|\/)esm5/,
-        root('./src'), {}
+        projectRoot('./src'), {}
       ),
 
       /**

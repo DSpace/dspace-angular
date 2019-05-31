@@ -1,5 +1,5 @@
 const {
-  root
+  buildRoot
 } = require('./helpers');
 
 const {
@@ -7,13 +7,13 @@ const {
 } = require('@ngtools/webpack');
 
 const tsconfigs = {
-  client: root('./src/tsconfig.browser.json'),
-  server: root('./src/tsconfig.server.json')
+  client: buildRoot('./tsconfig.browser.json'),
+  server: buildRoot('./tsconfig.server.json')
 };
 
 const aotTsconfigs = {
-  client: root('./src/tsconfig.browser.json'),
-  server: root('./src/tsconfig.server.aot.json')
+  client: buildRoot('./tsconfig.browser.json'),
+  server: buildRoot('./tsconfig.server.aot.json')
 };
 
 /**

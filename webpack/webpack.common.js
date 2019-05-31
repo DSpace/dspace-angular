@@ -1,7 +1,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const {
-  root,
+  projectRoot,
   globalCSSImports,
   themeReplaceOptions,
   themedTest,
@@ -15,7 +15,7 @@ module.exports = {
     extensions: ['.ts', '.js', '.json']
   },
   output: {
-    path: root('dist')
+    path: projectRoot('dist')
   },
   watchOptions: {
     aggregateTimeout: 50,
@@ -94,8 +94,7 @@ module.exports = {
             options: {
               resources: globalCSSImports
             },
-          },
-          'webpack-import-glob-loader'
+          }
         ]
       },
       {
