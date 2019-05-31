@@ -57,7 +57,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
     private authService: AuthService,
     private router: Router,
-    private routeService: RouteService,
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService
@@ -77,13 +76,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     metadata.listenForRouteChange();
 
-    routeService.saveRouting();
-
     if (config.debug) {
       console.info(config);
     }
     this.storeCSSVariables();
-
   }
 
   ngOnInit() {

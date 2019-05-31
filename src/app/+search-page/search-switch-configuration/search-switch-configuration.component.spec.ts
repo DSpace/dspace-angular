@@ -94,7 +94,7 @@ describe('SearchSwitchConfigurationComponent', () => {
   });
 
   it('should navigate to the route when selecting an option', () => {
-    (comp as any).searchService.getSearchLink.and.returnValue(MYDSPACE_ROUTE);
+    spyOn((comp as any), 'getSearchLinkParts').and.returnValue([MYDSPACE_ROUTE]);
     comp.selectedOption = MyDSpaceConfigurationValueType.Workflow;
     const navigationExtras: NavigationExtras = {
       queryParams: {configuration: MyDSpaceConfigurationValueType.Workflow},

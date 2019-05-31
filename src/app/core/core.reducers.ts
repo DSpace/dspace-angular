@@ -13,6 +13,7 @@ import {
   objectUpdatesReducer,
   ObjectUpdatesState
 } from './data/object-updates/object-updates.reducer';
+import { routeReducer, RouteState } from '../shared/services/route.reducer';
 
 export interface CoreState {
   'cache/object': ObjectCacheState,
@@ -21,7 +22,8 @@ export interface CoreState {
   'data/request': RequestState,
   'index': MetaIndexState,
   'auth': AuthState,
-  'json/patch': JsonPatchOperationsState
+  'json/patch': JsonPatchOperationsState,
+  'route': RouteState
 }
 
 export const coreReducers: ActionReducerMap<CoreState> = {
@@ -31,5 +33,6 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'data/request': requestReducer,
   'index': indexReducer,
   'auth': authReducer,
-  'json/patch': jsonPatchOperationsReducer
+  'json/patch': jsonPatchOperationsReducer,
+  'route': routeReducer
 };
