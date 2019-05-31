@@ -14,23 +14,44 @@ import { isEqual } from 'lodash';
 
 import { AddUrlToHistoryAction } from '../history/history.actions';
 import { historySelector } from '../history/selectors';
-import { SetParametersAction, SetQueryParametersAction } from './route.action';
+import { SetParametersAction, SetQueryParametersAction } from './route.actions';
 import { CoreState } from '../../core/core.reducers';
 import { hasValue } from '../empty.util';
 import { coreSelector } from '../../core/core.selectors';
 
+/**
+ * Selector to select all route parameters from the store
+ */
 export const routeParametersSelector = createSelector(
   coreSelector,
   (state: CoreState) => state.route.params
 );
+
+/**
+ * Selector to select all query parameters from the store
+ */
 export const queryParametersSelector = createSelector(
   coreSelector,
   (state: CoreState) => state.route.queryParams
 );
 
+/**
+ * Selector to select a specific route parameter from the store
+ * @param key The key of the parameter
+ */
 export const routeParameterSelector = (key: string) => parameterSelector(key, routeParametersSelector);
+
+/**
+ * Selector to select a specific query parameter from the store
+ * @param key The key of the parameter
+ */
 export const queryParameterSelector = (key: string) => parameterSelector(key, queryParametersSelector);
 
+/**
+ * Function to select a specific parameter from the store
+ * @param key The key to look for
+ * @param paramsSelector The selector that selects the parameters to search in
+ */
 export function parameterSelector(key: string, paramsSelector: (state: CoreState) => Params): MemoizedSelector<CoreState, string> {
   return createSelector(paramsSelector, (state: Params) => {
     if (hasValue(state)) {

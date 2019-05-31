@@ -2,22 +2,36 @@ import { Params } from '@angular/router';
 import {
   AddParameterAction,
   AddQueryParameterAction,
-  RouteAction,
+  RouteActions,
   RouteActionTypes, SetParametersAction, SetQueryParametersAction
-} from './route.action';
+} from './route.actions';
 
+/**
+ * Interface to represent the parameter state of a current route in the store
+ */
 export interface RouteState {
   queryParams: Params;
   params: Params;
 }
 
+/**
+ * The initial route state
+ */
 const initialState: RouteState = {
   queryParams: {},
   params: {}
 };
 
-export function routeReducer(state = initialState, action: RouteAction): RouteState {
+/**
+ * Reducer function to save the current route parameters and query parameters in the store
+ * @param state The current or initial state
+ * @param action The action to perform on the state
+ */
+export function routeReducer(state = initialState, action: RouteActions): RouteState {
   switch (action.type) {
+    case RouteActionTypes.RESET: {
+      return initialState
+    }
     case RouteActionTypes.SET_PARAMETERS: {
       return setParameters(state, action as SetParametersAction, 'params');
     }
@@ -36,6 +50,12 @@ export function routeReducer(state = initialState, action: RouteAction): RouteSt
   }
 }
 
+/**
+ * Add a route or query parameter in the store
+ * @param state The current state
+ * @param action The add action to perform on the current state
+ * @param paramType The type of parameter to add: route or query parameter
+ */
 function addParameter(state: RouteState, action: AddParameterAction | AddQueryParameterAction, paramType: string): RouteState {
   const subState = state[paramType];
   const existingValues = subState[action.payload.key] || [];
@@ -43,7 +63,12 @@ function addParameter(state: RouteState, action: AddParameterAction | AddQueryPa
   const newSubstate = Object.assign(subState, { [action.payload.key]: newValues });
   return Object.assign({}, state, { [paramType]: newSubstate });
 }
-
+/**
+ * Set a route or query parameter in the store
+ * @param state The current state
+ * @param action The set action to perform on the current state
+ * @param paramType The type of parameter to set: route or query parameter
+ */
 function setParameters(state: RouteState, action: SetParametersAction | SetQueryParametersAction, paramType: string): RouteState {
   return Object.assign({}, state, { [paramType]: action.payload });
 }

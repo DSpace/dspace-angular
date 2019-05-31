@@ -10,6 +10,7 @@ export const RouteActionTypes = {
   SET_PARAMETERS: type('dspace/core/route/SET_PARAMETERS'),
   ADD_QUERY_PARAMETER: type('dspace/core/route/ADD_QUERY_PARAMETER'),
   ADD_PARAMETER: type('dspace/core/route/ADD_PARAMETER'),
+  RESET: type('dspace/core/route/RESET'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -95,9 +96,21 @@ export class AddParameterAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to reset the route state
+ */
+export class ResetRouteStateAction implements Action {
+  type = RouteActionTypes.RESET;
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
  * A type to encompass all RouteActions
  */
-export type RouteAction = SetQueryParametersAction | SetParametersAction | AddQueryParameterAction | AddParameterAction;
+export type RouteActions =
+  SetQueryParametersAction
+  | SetParametersAction
+  | AddQueryParameterAction
+  | AddParameterAction
+  | ResetRouteStateAction;
