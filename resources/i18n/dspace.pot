@@ -54,7 +54,6 @@ msgid "MIME Type"
 msgstr ""
 
 #: .admin.registries.bitstream-formats.formats.table.name
-msgctxt ".admin.registries.bitstream-formats.formats.table.name"
 msgid "Name"
 msgstr ""
 
@@ -98,12 +97,10 @@ msgid "Edit metadata schema"
 msgstr ""
 
 #: .admin.registries.metadata.form.name
-msgctxt ".admin.registries.metadata.form.name"
 msgid "Name"
 msgstr ""
 
 #: .admin.registries.metadata.form.namespace
-msgctxt ".admin.registries.metadata.form.namespace"
 msgid "Namespace"
 msgstr ""
 
@@ -116,7 +113,6 @@ msgid "No metadata schemas to show."
 msgstr ""
 
 #: .admin.registries.metadata.schemas.table.delete
-msgctxt ".admin.registries.metadata.schemas.table.delete"
 msgid "Delete selected"
 msgstr ""
 
@@ -125,12 +121,10 @@ msgid "ID"
 msgstr ""
 
 #: .admin.registries.metadata.schemas.table.name
-msgctxt ".admin.registries.metadata.schemas.table.name"
 msgid "Name"
 msgstr ""
 
 #: .admin.registries.metadata.schemas.table.namespace
-msgctxt ".admin.registries.metadata.schemas.table.namespace"
 msgid "Namespace"
 msgstr ""
 
@@ -151,17 +145,14 @@ msgid "No metadata fields to show."
 msgstr ""
 
 #: .admin.registries.schema.fields.table.delete
-msgctxt ".admin.registries.schema.fields.table.delete"
 msgid "Delete selected"
 msgstr ""
 
 #: .admin.registries.schema.fields.table.field
-msgctxt ".admin.registries.schema.fields.table.field"
 msgid "Field"
 msgstr ""
 
 #: .admin.registries.schema.fields.table.scopenote
-msgctxt ".admin.registries.schema.fields.table.scopenote"
 msgid "Scope Note"
 msgstr ""
 
@@ -182,7 +173,6 @@ msgid "Qualifier"
 msgstr ""
 
 #: .admin.registries.schema.form.scopenote
-msgctxt ".admin.registries.schema.form.scopenote"
 msgid "Scope Note"
 msgstr ""
 
@@ -207,7 +197,6 @@ msgid "Successfully edited metadata schema \"{{prefix}}\""
 msgstr ""
 
 #: .admin.registries.schema.notification.failure
-msgctxt ".admin.registries.schema.notification.failure"
 msgid "Error"
 msgstr ""
 
@@ -250,22 +239,18 @@ msgstr ""
 # #-#-#-#-# Browse #-#-#-#-#
 
 #: .browse.comcol.by.author
-msgctxt ".browse.comcol.by.author"
 msgid "By Author"
 msgstr ""
 
 #: .browse.comcol.by.dateissued
-msgctxt ".browse.comcol.by.dateissued"
 msgid "By Issue Date"
 msgstr ""
 
 #: .browse.comcol.by.subject
-msgctxt ".browse.comcol.by.subject"
 msgid "By Subject"
 msgstr ""
 
 #: .browse.comcol.by.title
-msgctxt ".browse.comcol.by.title"
 msgid "By Title"
 msgstr ""
 
@@ -277,23 +262,24 @@ msgstr ""
 msgid "No items to show."
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Author"
 #: .browse.metadata.author
-msgctxt ".browse.metadata.author"
-msgid "Author"
+msgid "browse.metadata.author"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Issue Date"
 #: .browse.metadata.dateissued
-msgid "Issue Date"
+msgid "browse.metadata.dateissued"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Subject"
 #: .browse.metadata.subject
-msgctxt ".browse.metadata.subject"
-msgid "Subject"
+msgid "browse.metadata.subject"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Title"
 #: .browse.metadata.title
-msgctxt ".browse.metadata.title"
-msgid "Title"
+msgid "browse.metadata.title"
 msgstr ""
 
 #: .browse.startsWith.choose_start
@@ -391,12 +377,10 @@ msgid "Create a Collection for Community {{ parent }}"
 msgstr ""
 
 #: .collection.delete.cancel
-msgctxt ".collection.delete.cancel"
 msgid "Cancel"
 msgstr ""
 
 #: .collection.delete.confirm
-msgctxt ".collection.delete.confirm"
 msgid "Confirm"
 msgstr ""
 
@@ -425,12 +409,10 @@ msgid "Edit Collection"
 msgstr ""
 
 #: .collection.form.abstract
-msgctxt ".collection.form.abstract"
 msgid "Short Description"
 msgstr ""
 
 #: .collection.form.description
-msgctxt ".collection.form.description"
 msgid "Introductory text (HTML)"
 msgstr ""
 
@@ -439,7 +421,6 @@ msgid "Please enter a collection name"
 msgstr ""
 
 #: .collection.form.license
-msgctxt ".collection.form.license"
 msgid "License"
 msgstr ""
 
@@ -448,17 +429,14 @@ msgid "Provenance"
 msgstr ""
 
 #: .collection.form.rights
-msgctxt ".collection.form.rights"
 msgid "Copyright text (HTML)"
 msgstr ""
 
 #: .collection.form.tableofcontents
-msgctxt ".collection.form.tableofcontents"
 msgid "News (HTML)"
 msgstr ""
 
 #: .collection.form.title
-msgctxt ".collection.form.title"
 msgid "Name"
 msgstr ""
 
@@ -467,12 +445,10 @@ msgid "Recent Submissions"
 msgstr ""
 
 #: .collection.page.license
-msgctxt ".collection.page.license"
 msgid "License"
 msgstr ""
 
 #: .collection.page.news
-msgctxt ".collection.page.news"
 msgid "News"
 msgstr ""
 
@@ -487,12 +463,10 @@ msgid "Create a Sub-Community for Community {{ parent }}"
 msgstr ""
 
 #: .community.delete.cancel
-msgctxt ".community.delete.cancel"
 msgid "Cancel"
 msgstr ""
 
 #: .community.delete.confirm
-msgctxt ".community.delete.confirm"
 msgid "Confirm"
 msgstr ""
 
@@ -521,12 +495,10 @@ msgid "Edit Community"
 msgstr ""
 
 #: .community.form.abstract
-msgctxt ".community.form.abstract"
 msgid "Short Description"
 msgstr ""
 
 #: .community.form.description
-msgctxt ".community.form.description"
 msgid "Introductory text (HTML)"
 msgstr ""
 
@@ -535,27 +507,22 @@ msgid "Please enter a community name"
 msgstr ""
 
 #: .community.form.rights
-msgctxt ".community.form.rights"
 msgid "Copyright text (HTML)"
 msgstr ""
 
 #: .community.form.tableofcontents
-msgctxt ".community.form.tableofcontents"
 msgid "News (HTML)"
 msgstr ""
 
 #: .community.form.title
-msgctxt ".community.form.title"
 msgid "Name"
 msgstr ""
 
 #: .community.page.license
-msgctxt ".community.page.license"
 msgid "License"
 msgstr ""
 
 #: .community.page.news
-msgctxt ".community.page.news"
 msgid "News"
 msgstr ""
 
@@ -569,36 +536,44 @@ msgstr ""
 
 # #-#-#-#-# DSpace Object #-#-#-#-#
 
+#. ENGLISH ORIGINAL: "New collection"
 #: .dso-selector.create.collection.head
-msgid "New collection"
+msgid "dso-selector.create.collection.head"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "New community"
 #: .dso-selector.create.community.head
-msgid "New community"
+msgid "dso-selector.create.community.head"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Create a new community in"
 #: .dso-selector.create.community.sub-level
-msgid "Create a new community in"
+msgid "dso-selector.create.community.sub-level"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Create a new top-level community"
 #: .dso-selector.create.community.top-level
-msgid "Create a new top-level community"
+msgid "dso-selector.create.community.top-level"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "New item"
 #: .dso-selector.create.item.head
-msgid "New item"
+msgid "dso-selector.create.item.head"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Edit collection"
 #: .dso-selector.edit.collection.head
-msgid "Edit collection"
+msgid "dso-selector.edit.collection.head"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Edit community"
 #: .dso-selector.edit.community.head
-msgid "Edit community"
+msgid "dso-selector.edit.community.head"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Edit item"
 #: .dso-selector.edit.item.head
-msgid "Edit item"
+msgid "dso-selector.edit.item.head"
 msgstr ""
 
 #: .dso-selector.no-results
@@ -624,7 +599,6 @@ msgid "Error fetching community"
 msgstr ""
 
 #: .error.default
-msgctxt ".error.default"
 msgid "Error"
 msgstr ""
 
@@ -690,7 +664,6 @@ msgstr ""
 # #-#-#-#-# Form #-#-#-#-#
 
 #: .form.cancel
-msgctxt ".form.cancel"
 msgid "Cancel"
 msgstr ""
 
@@ -703,7 +676,6 @@ msgid "Click here to remove the selected value"
 msgstr ""
 
 #: .form.edit
-msgctxt ".form.edit"
 msgid "Edit"
 msgstr ""
 
@@ -716,7 +688,6 @@ msgid "First name"
 msgstr ""
 
 #: .form.group-collapse
-msgctxt ".form.group-collapse"
 msgid "Collapse"
 msgstr ""
 
@@ -737,7 +708,6 @@ msgid "Last name"
 msgstr ""
 
 #: .form.loading
-msgctxt ".form.loading"
 msgid "Loading..."
 msgstr ""
 
@@ -750,12 +720,10 @@ msgid "No value entered"
 msgstr ""
 
 #: .form.remove
-msgctxt ".form.remove"
 msgid "Remove"
 msgstr ""
 
 #: .form.save
-msgctxt ".form.save"
 msgid "Save"
 msgstr ""
 
@@ -764,7 +732,6 @@ msgid "Save changes"
 msgstr ""
 
 #: .form.search
-msgctxt ".form.search"
 msgid "Search"
 msgstr ""
 
@@ -780,7 +747,6 @@ msgstr ""
 
 #: .home.description
 #| msgid ""
-msgctxt ".home.description"
 msgid ""
 msgstr ""
 
@@ -824,12 +790,10 @@ msgstr ""
 # #-#-#-#-#  Item  Edit #-#-#-#-#
 
 #: .item.edit.delete.cancel
-msgctxt ".item.edit.delete.cancel"
 msgid "Cancel"
 msgstr ""
 
 #: .item.edit.delete.confirm
-msgctxt ".item.edit.delete.confirm"
 msgid "Delete"
 msgstr ""
 
@@ -860,17 +824,14 @@ msgid "Add"
 msgstr ""
 
 #: .item.edit.metadata.discard-button
-msgctxt ".item.edit.metadata.discard-button"
 msgid "Discard"
 msgstr ""
 
 #: .item.edit.metadata.edit.buttons.edit
-msgctxt ".item.edit.metadata.edit.buttons.edit"
 msgid "Edit"
 msgstr ""
 
 #: .item.edit.metadata.edit.buttons.remove
-msgctxt ".item.edit.metadata.edit.buttons.remove"
 msgid "Remove"
 msgstr ""
 
@@ -883,12 +844,10 @@ msgid "Stop editing"
 msgstr ""
 
 #: .item.edit.metadata.headers.edit
-msgctxt ".item.edit.metadata.headers.edit"
 msgid "Edit"
 msgstr ""
 
 #: .item.edit.metadata.headers.field
-msgctxt ".item.edit.metadata.headers.field"
 msgid "Field"
 msgstr ""
 
@@ -897,7 +856,6 @@ msgid "Lang"
 msgstr ""
 
 #: .item.edit.metadata.headers.value
-msgctxt ".item.edit.metadata.headers.value"
 msgid "Value"
 msgstr ""
 
@@ -948,12 +906,10 @@ msgid "Undo"
 msgstr ""
 
 #: .item.edit.metadata.save-button
-msgctxt ".item.edit.metadata.save-button"
 msgid "Save"
 msgstr ""
 
 #: .item.edit.modify.overview.field
-msgctxt ".item.edit.modify.overview.field"
 msgid "Field"
 msgstr ""
 
@@ -962,12 +918,10 @@ msgid "Language"
 msgstr ""
 
 #: .item.edit.modify.overview.value
-msgctxt ".item.edit.modify.overview.value"
 msgid "Value"
 msgstr ""
 
 #: .item.edit.private.cancel
-msgctxt ".item.edit.private.cancel"
 msgid "Cancel"
 msgstr ""
 
@@ -992,7 +946,6 @@ msgid "The item is now private"
 msgstr ""
 
 #: .item.edit.public.cancel
-msgctxt ".item.edit.public.cancel"
 msgid "Cancel"
 msgstr ""
 
@@ -1017,7 +970,6 @@ msgid "The item is now public"
 msgstr ""
 
 #: .item.edit.reinstate.cancel
-msgctxt ".item.edit.reinstate.cancel"
 msgid "Cancel"
 msgstr ""
 
@@ -1065,68 +1017,84 @@ msgstr ""
 msgid "Item Edit -  Metadata"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Authorizations..."
 #: .item.edit.tabs.status.buttons.authorizations.button
-msgid "Authorizations..."
+msgid "item.edit.tabs.status.buttons.authorizations.button"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Edit item's authorization policies"
 #: .item.edit.tabs.status.buttons.authorizations.label
-msgid "Edit item's authorization policies"
+msgid "item.edit.tabs.status.buttons.authorizations.label"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Permanently delete"
 #: .item.edit.tabs.status.buttons.delete.button
-msgid "Permanently delete"
+msgid "item.edit.tabs.status.buttons.delete.button"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Completely expunge item"
 #: .item.edit.tabs.status.buttons.delete.label
-msgid "Completely expunge item"
+msgid "item.edit.tabs.status.buttons.delete.label"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Mapped collections"
 #: .item.edit.tabs.status.buttons.mappedCollections.button
-msgid "Mapped collections"
+msgid "item.edit.tabs.status.buttons.mappedCollections.button"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Manage mapped collections"
 #: .item.edit.tabs.status.buttons.mappedCollections.label
-msgid "Manage mapped collections"
+msgid "item.edit.tabs.status.buttons.mappedCollections.label"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Move..."
 #: .item.edit.tabs.status.buttons.move.button
-msgid "Move..."
+msgid "item.edit.tabs.status.buttons.move.button"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Move item to another collection"
 #: .item.edit.tabs.status.buttons.move.label
-msgid "Move item to another collection"
+msgid "item.edit.tabs.status.buttons.move.label"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Make it private..."
 #: .item.edit.tabs.status.buttons.private.button
-msgid "Make it private..."
+msgid "item.edit.tabs.status.buttons.private.button"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Make item private"
 #: .item.edit.tabs.status.buttons.private.label
-msgid "Make item private"
+msgid "item.edit.tabs.status.buttons.private.label"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Make it public..."
 #: .item.edit.tabs.status.buttons.public.button
-msgid "Make it public..."
+msgid "item.edit.tabs.status.buttons.public.button"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Make item public"
 #: .item.edit.tabs.status.buttons.public.label
-msgid "Make item public"
+msgid "item.edit.tabs.status.buttons.public.label"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Reinstate..."
 #: .item.edit.tabs.status.buttons.reinstate.button
-msgid "Reinstate..."
+msgid "item.edit.tabs.status.buttons.reinstate.button"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Reinstate item into the repository"
 #: .item.edit.tabs.status.buttons.reinstate.label
-msgid "Reinstate item into the repository"
+msgid "item.edit.tabs.status.buttons.reinstate.label"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Withdraw..."
 #: .item.edit.tabs.status.buttons.withdraw.button
-msgid "Withdraw..."
+msgid "item.edit.tabs.status.buttons.withdraw.button"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Withdraw item from the repository"
 #: .item.edit.tabs.status.buttons.withdraw.label
-msgid "Withdraw item from the repository"
+msgid "item.edit.tabs.status.buttons.withdraw.label"
 msgstr ""
 
 #: .item.edit.tabs.status.description
@@ -1169,7 +1137,6 @@ msgid "Item Edit -  View"
 msgstr ""
 
 #: .item.edit.withdraw.cancel
-msgctxt ".item.edit.withdraw.cancel"
 msgid "Cancel"
 msgstr ""
 
@@ -1200,7 +1167,6 @@ msgid "Abstract"
 msgstr ""
 
 #: .item.page.author
-msgctxt ".item.page.author"
 msgid "Authors"
 msgstr ""
 
@@ -1209,7 +1175,6 @@ msgid "Collections"
 msgstr ""
 
 #: .item.page.date
-msgctxt ".item.page.date"
 msgid "Date"
 msgstr ""
 
@@ -1218,7 +1183,6 @@ msgid "Files"
 msgstr ""
 
 #: .item.page.subject
-msgctxt ".item.page.subject"
 msgid "Keywords"
 msgstr ""
 
@@ -1263,24 +1227,22 @@ msgid "Confirm selected"
 msgstr ""
 
 #: .item.select.table.author
-msgctxt ".item.select.table.author"
 msgid "Author"
 msgstr ""
 
 #: .item.select.table.collection
-msgctxt ".item.select.table.collection"
 msgid "Collection"
 msgstr ""
 
 #: .item.select.table.title
-msgctxt ".item.select.table.title"
 msgid "Title"
 msgstr ""
 
 # #-#-#-#-# Journal #-#-#-#-#
 
+#. ENGLISH ORIGINAL: "Journal: "
 #: .journal.page.titleprefix
-msgid "Journal: "
+msgid "journal.page.titleprefix"
 msgstr ""
 
 #: .journal.page.issn
@@ -1292,7 +1254,6 @@ msgid "Publisher"
 msgstr ""
 
 #: .journal.page.description
-msgctxt ".journal.page.description"
 msgid "Description"
 msgstr ""
 
@@ -1300,13 +1261,15 @@ msgstr ""
 msgid "Editor-in-Chief"
 msgstr ""
 
+#. ENGLISH ORIGINAL: Journal
 #: .journal.listelement.badge
-msgctxt ".journal.listelement.badge"
-msgid "Journal"
+#: item-search-result-list-element.component.html:2
+msgid "journal.listelement.badge"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Journal Issue: "
 #: .journalissue.page.titleprefix
-msgid "Journal Issue: "
+msgid "journalissue.page.titleprefix"
 msgstr ""
 
 #: .journalissue.page.number
@@ -1314,37 +1277,34 @@ msgid "Number"
 msgstr ""
 
 #: .journalissue.page.issuedate
-msgctxt ".journalissue.page.issuedate"
 msgid "Issue Date"
 msgstr ""
 
 #: .journalissue.page.description
-msgctxt ".journalissue.page.description"
 msgid "Description"
 msgstr ""
 
 #: .journalissue.page.keyword
-msgctxt ".journalissue.page.keyword"
 msgid "Keywords"
 msgstr ""
 
 #: .journalissue.page.journal-title
-msgctxt ".journalissue.page.journal-title"
 msgid "Journal Title"
 msgstr ""
 
 #: .journalissue.page.journal-issn
-msgctxt ".journalissue.page.journal-issn"
 msgid "Journal ISSN"
 msgstr ""
 
+#. ENGLISH KEY: "Journal Issue"
 #: .journalissue.listelement.badge
-msgctxt ".journalissue.listelement.badge"
-msgid "Journal Issue"
+#: item-search-result-list-element.component.html:2
+msgid "journalissue.listelement.badge"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Journal Volume: "
 #: .journalvolume.page.titleprefix
-msgid "Journal Volume: "
+msgid "journalvolume.page.titleprefix"
 msgstr ""
 
 #: .journalvolume.page.volume
@@ -1352,18 +1312,17 @@ msgid "Volume"
 msgstr ""
 
 #: .journalvolume.page.issuedate
-msgctxt ".journalvolume.page.issuedate"
 msgid "Issue Date"
 msgstr ""
 
 #: .journalvolume.page.description
-msgctxt ".journalvolume.page.description"
 msgid "Description"
 msgstr ""
 
+#. ENGLISH KEY: "Journal Volume"
 #: .journalvolume.listelement.badge
-msgctxt ".journalvolume.listelement.badge"
-msgid "Journal Volume"
+#: item-search-result-list-element.component.html:2
+msgid "journalvolume.listelement.badge"
 msgstr ""
 
 # #-#-#-#-# Loading #-#-#-#-#
@@ -1385,7 +1344,6 @@ msgid "Loading community..."
 msgstr ""
 
 #: .loading.default
-msgctxt ".loading.default"
 msgid "Loading..."
 msgstr ""
 
@@ -1394,12 +1352,10 @@ msgid "Loading item..."
 msgstr ""
 
 #: .loading.objects
-msgctxt ".loading.objects"
 msgid "Loading..."
 msgstr ""
 
 #: .loading.mydspace-results
-msgctxt ".loading.mydspace-results"
 msgid "Loading items..."
 msgstr ""
 
@@ -1496,42 +1452,34 @@ msgid "This Community"
 msgstr ""
 
 #: .menu.section.browse_community_by_author
-msgctxt ".menu.section.browse_community_by_author"
 msgid "By Author"
 msgstr ""
 
 #: .menu.section.browse_community_by_issue_date
-msgctxt ".menu.section.browse_community_by_issue_date"
 msgid "By Issue Date"
 msgstr ""
 
 #: .menu.section.browse_community_by_title
-msgctxt ".menu.section.browse_community_by_title"
 msgid "By Title"
 msgstr ""
 
 #: .menu.section.browse_global
-msgctxt ".menu.section.browse_global"
 msgid "All of DSpace"
 msgstr ""
 
 #: .menu.section.browse_global_by_author
-msgctxt ".menu.section.browse_global_by_author"
 msgid "By Author"
 msgstr ""
 
 #: .menu.section.browse_global_by_issue_date
-msgctxt ".menu.section.browse_global_by_issue_date"
 msgid "By Issue Date"
 msgstr ""
 
 #: .menu.section.browse_global_by_subject
-msgctxt ".menu.section.browse_global_by_subject"
 msgid "By Subject"
 msgstr ""
 
 #: .menu.section.browse_global_by_title
-msgctxt ".menu.section.browse_global_by_title"
 msgid "By Title"
 msgstr ""
 
@@ -1548,22 +1496,18 @@ msgid "Curation Task"
 msgstr ""
 
 #: .menu.section.edit
-msgctxt ".menu.section.edit"
 msgid "Edit"
 msgstr ""
 
 #: .menu.section.edit_collection
-msgctxt ".menu.section.edit_collection"
 msgid "Collection"
 msgstr ""
 
 #: .menu.section.edit_community
-msgctxt ".menu.section.edit_community"
 msgid "Community"
 msgstr ""
 
 #: .menu.section.edit_item
-msgctxt ".menu.section.edit_item"
 msgid "Item"
 msgstr ""
 
@@ -1572,22 +1516,18 @@ msgid "Export"
 msgstr ""
 
 #: .menu.section.export_collection
-msgctxt ".menu.section.export_collection"
 msgid "Collection"
 msgstr ""
 
 #: .menu.section.export_community
-msgctxt ".menu.section.export_community"
 msgid "Community"
 msgstr ""
 
 #: .menu.section.export_item
-msgctxt ".menu.section.export_item"
 msgid "Item"
 msgstr ""
 
 #: .menu.section.export_metadata
-msgctxt ".menu.section.export_metadata"
 msgid "Metadata"
 msgstr ""
 
@@ -1640,7 +1580,6 @@ msgid "New menu section"
 msgstr ""
 
 #: .menu.section.icon.pin
-msgctxt ".menu.section.icon.pin"
 msgid "Pin sidebar"
 msgstr ""
 
@@ -1653,7 +1592,6 @@ msgid "Statistics Task menu section"
 msgstr ""
 
 #: .menu.section.icon.unpin
-msgctxt ".menu.section.icon.unpin"
 msgid "Unpin sidebar"
 msgstr ""
 
@@ -1666,7 +1604,6 @@ msgid "Batch Import (ZIP)"
 msgstr ""
 
 #: .menu.section.import_metadata
-msgctxt ".menu.section.import_metadata"
 msgid "Metadata"
 msgstr ""
 
@@ -1675,17 +1612,14 @@ msgid "New"
 msgstr ""
 
 #: .menu.section.new_collection
-msgctxt ".menu.section.new_collection"
 msgid "Collection"
 msgstr ""
 
 #: .menu.section.new_community
-msgctxt ".menu.section.new_community"
 msgid "Community"
 msgstr ""
 
 #: .menu.section.new_item
-msgctxt ".menu.section.new_item"
 msgid "Item"
 msgstr ""
 
@@ -1694,7 +1628,6 @@ msgid "Item Version"
 msgstr ""
 
 #: .menu.section.pin
-msgctxt ".menu.section.pin"
 msgid "Pin sidebar"
 msgstr ""
 
@@ -1707,12 +1640,10 @@ msgid "Format"
 msgstr ""
 
 #: .menu.section.registries_metadata
-msgctxt ".menu.section.registries_metadata"
 msgid "Metadata"
 msgstr ""
 
 #: .menu.section.statistics
-msgctxt ".menu.section.statistics"
 msgid "Statistics"
 msgstr ""
 
@@ -1761,14 +1692,12 @@ msgid "Toggle Statistics Task section"
 msgstr ""
 
 #: .menu.section.unpin
-msgctxt ".menu.section.unpin"
 msgid "Unpin sidebar"
 msgstr ""
 
 # #-#-#-#-#  MyDSpace  #-#-#-#-#
 
 #: .mydspace.description
-msgctxt ".mydspace.description"
 msgid ""
 msgstr ""
 
@@ -1865,7 +1794,6 @@ msgid "No Collections"
 msgstr ""
 
 #: .mydspace.title
-msgctxt ".mydspace.title"
 msgid "MyDSpace"
 msgstr ""
 
@@ -1898,7 +1826,6 @@ msgid "Archived"
 msgstr ""
 
 #: .mydspace.view-btn
-msgctxt ".mydspace.view-btn"
 msgid "View"
 msgstr ""
 
@@ -1923,7 +1850,6 @@ msgstr ""
 # #-#-#-#-# Nav #-#-#-#-#
 
 #: .nav.browse.header
-msgctxt ".nav.browse.header"
 msgid "All of DSpace"
 msgstr ""
 
@@ -1944,17 +1870,14 @@ msgid "Log Out"
 msgstr ""
 
 #: .nav.mydspace
-msgctxt ".nav.mydspace"
 msgid "MyDSpace"
 msgstr ""
 
 #: .nav.search
-msgctxt ".nav.search"
 msgid "Search"
 msgstr ""
 
 #: .nav.statistics.header
-msgctxt ".nav.statistics.header"
 msgid "Statistics"
 msgstr ""
 
@@ -1964,8 +1887,9 @@ msgstr ""
 
 # #-#-#-#-# Organizational Unit #-#-#-#-#
 
+#. ENGLISH ORIGINAL: "Organizational Unit: "
 #: .orgunit.page.titleprefix
-msgid "Organizational Unit: "
+msgid "orgunit.page.titleprefix"
 msgstr ""
 
 #: .orgunit.page.dateestablished
@@ -1981,17 +1905,16 @@ msgid "Country"
 msgstr ""
 
 #: .orgunit.page.id
-msgctxt ".orgunit.page.id"
 msgid "ID"
 msgstr ""
 
 #: .orgunit.page.description
-msgctxt ".orgunit.page.description"
 msgid "Description"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Organizational Unit"
 #: .orgunit.listelement.badge
-msgid "Organizational Unit"
+msgid "orgunit.listelement.badge"
 msgstr ""
 
 # #-#-#-#-# Pagination #-#-#-#-#
@@ -2018,8 +1941,9 @@ msgstr ""
 
 # #-#-#-#-# Person #-#-#-#-#
 
+#. ENGLISH ORIGINAL: "Person: "
 #: .person.page.titleprefix
-msgid "Person: "
+msgid "person.page.titleprefix"
 msgstr ""
 
 #: .person.page.jobtitle
@@ -2054,18 +1978,19 @@ msgstr ""
 msgid "Show all metadata"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Person"
 #: .person.listelement.badge
-msgid "Person"
+msgid "person.listelement.badge"
 msgstr ""
 
 # #-#-#-#-# Project #-#-#-#-#
 
+#. ENGLISH ORIGINAL: "Research Project: "
 #: .project.page.titleprefix
-msgid "Research Project: "
+msgid "project.page.titleprefix"
 msgstr ""
 
 #: .project.page.status
-msgctxt ".project.page.status"
 msgid "Status"
 msgstr ""
 
@@ -2078,7 +2003,6 @@ msgid "Funders"
 msgstr ""
 
 #: .project.page.id
-msgctxt ".project.page.id"
 msgid "ID"
 msgstr ""
 
@@ -2087,32 +2011,30 @@ msgid "Expected Completion"
 msgstr ""
 
 #: .project.page.description
-msgctxt ".project.page.description"
 msgid "Description"
 msgstr ""
 
 #: .project.page.keyword
-msgctxt ".project.page.keyword"
 msgid "Keywords"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Research Project"
 #: .project.listelement.badge
-msgid "Research Project"
+msgid "project.listelement.badge"
 msgstr ""
 
 # #-#-#-#-# Publication #-#-#-#-#
 
+#. ENGLISH ORIGINAL: "Publication: "
 #: .publication.page.titleprefix
-msgid "Publication: "
+msgid "publication.page.titleprefix"
 msgstr ""
 
 #: .publication.page.journal-title
-msgctxt ".publication.page.journal-title"
 msgid "Journal Title"
 msgstr ""
 
 #: .publication.page.journal-issn
-msgctxt ".publication.page.journal-issn"
 msgid "Journal ISSN"
 msgstr ""
 
@@ -2120,8 +2042,9 @@ msgstr ""
 msgid "Volume Title"
 msgstr ""
 
+#. ENGLISH ORIGINAL: "Publication"
 #: .publication.listelement.badge
-msgid "Publication"
+msgid "publication.listelement.badge"
 msgstr ""
 
 # #-#-#-#-# Relationships #-#-#-#-#
@@ -2139,12 +2062,10 @@ msgid "Organizational Units"
 msgstr ""
 
 #: .relationships.isAuthorOf
-msgctxt ".relationships.isAuthorOf"
 msgid "Authors"
 msgstr ""
 
 #: .relationships.isPersonOf
-msgctxt ".relationships.isPersonOf"
 msgid "Authors"
 msgstr ""
 
@@ -2153,7 +2074,6 @@ msgid "Journals"
 msgstr ""
 
 #: .relationships.isSingleJournalOf
-msgctxt ".relationships.isSingleJournalOf"
 msgid "Journal"
 msgstr ""
 
@@ -2162,7 +2082,6 @@ msgid "Journal Volumes"
 msgstr ""
 
 #: .relationships.isSingleVolumeOf
-msgctxt ".relationships.isSingleVolumeOf"
 msgid "Journal Volume"
 msgstr ""
 
@@ -2171,7 +2090,6 @@ msgid "Journal Issues"
 msgstr ""
 
 #: .relationships.isJournalIssueOf
-msgctxt ".relationships.isJournalIssueOf"
 msgid "Journal Issue"
 msgstr ""
 
@@ -2183,133 +2101,137 @@ msgstr ""
 
 #: .search.description
 #| msgid ""
-msgctxt ".search.description"
 msgid ""
 msgstr ""
 
+#. ENGLISH KEY: "Author"
 #: .search.filters.applied.f.author
-msgctxt ".search.filters.applied.f.author"
-msgid "Author"
+msgid "search.filters.applied.f.author"
 msgstr ""
 
+#. ENGLISH KEY: "End date"
 #: .search.filters.applied.f.dateIssued.max
-msgid "End date"
+msgid "search.filters.applied.f.dateIssued.max"
 msgstr ""
 
+#. ENGLISH KEY: "Start date"
 #: .search.filters.applied.f.dateIssued.min
-msgid "Start date"
+msgid "search.filters.applied.f.dateIssued.min"
 msgstr ""
 
+#. ENGLISH KEY: "Date submitted"
 #: .search.filters.applied.f.dateSubmitted
-msgctxt ".search.filters.applied.f.dateSubmitted"
-msgid "Date submitted"
+msgid "search.filters.applied.f.dateSubmitted"
 msgstr ""
 
+#. ENGLISH KEY: "Item Type"
 #: .search.filters.applied.f.entityType
-msgctxt ".search.filters.applied.f.entityType"
-msgid "Item Type"
+msgid "search.filters.applied.f.entityType"
 msgstr ""
 
-#: .search.filters.applied.f.has_content_in_original_bundle
-msgctxt ".search.filters.applied.f.has_content_in_original_bundle"
-msgid "Has files"
+#. ENGLISH KEY: "Has files"
+#: .search.filters.applied.f.has_content_in_origingal_bundle
+msgid "search.filters.applied.f.has_content_in_original_bundle"
 msgstr ""
 
+#. ENGLISH KEY: "Type"
 #: .search.filters.applied.f.itemtype
-msgctxt ".search.filters.applied.f.itemtype"
-msgid "Type"
+msgid "search.filters.applied.f.itemtype"
 msgstr ""
 
+#. ENGLISH KEY: "Status"
 #: .search.filters.applied.f.namedresourcetype
-msgctxt ".search.filters.applied.f.namedresourcetype"
-msgid "Status"
+msgid "search.filters.applied.f.namedresourcetype"
 msgstr ""
 
+#. ENGLISH KEY: "Subject"
 #: .search.filters.applied.f.subject
-msgctxt ".search.filters.applied.f.subject"
-msgid "Subject"
+msgid "search.filters.applied.f.subject"
 msgstr ""
 
+#. ENGLISH KEY: "Submitter"
 #: .search.filters.applied.f.submitter
-msgctxt ".search.filters.applied.f.submitter"
-msgid "Submitter"
+msgid "search.filters.applied.f.submitter"
 msgstr ""
 
+#. ENGLISH KEY: "Author"
 #: .search.filters.filter.author.head
-msgctxt ".search.filters.filter.author.head"
-msgid "Author"
+msgid "search.filters.filter.author.head"
 msgstr ""
 
+#. ENGLISH KEY: "Author name"
 #: .search.filters.filter.author.placeholder
-msgid "Author name"
+msgid "search.filters.filter.author.placeholder"
 msgstr ""
 
+#. ENGLISH KEY: "Date"
 #: .search.filters.filter.dateIssued.head
-msgctxt ".search.filters.filter.dateIssued.head"
-msgid "Date"
+msgid "search.filters.filter.dateIssued.head"
 msgstr ""
 
+#. ENGLISH KEY: "Date submitted"
 #: .search.filters.filter.dateSubmitted.head
-msgctxt ".search.filters.filter.dateSubmitted.head"
-msgid "Date submitted"
+msgid "search.filters.filter.dateSubmitted.head"
 msgstr ""
 
+#. ENGLISH KEY: "Date submitted"
 #: .search.filters.filter.dateSubmitted.placeholder
-msgctxt ".search.filters.filter.dateSubmitted.placeholder"
-msgid "Date submitted"
+msgid "search.filters.filter.dateSubmitted.placeholder"
 msgstr ""
 
+#. ENGLISH KEY: "Minimum Date"
 #: .search.filters.filter.dateIssued.max.placeholder
-msgid "Minimum Date"
+msgid "search.filters.filter.dateIssued.max.placeholder"
 msgstr ""
 
+#. ENGLISH KEY: "Maximum Date"
 #: .search.filters.filter.dateIssued.min.placeholder
-msgid "Maximum Date"
+msgid "search.filters.filter.dateIssued.min.placeholder"
 msgstr ""
 
+#. ENGLISH KEY: "Item Type"
 #: .search.filters.filter.entityType.head
-msgctxt ".search.filters.filter.entityType.head"
-msgid "Item Type"
+msgid "search.filters.filter.entityType.head"
 msgstr ""
 
+#. ENGLISH KEY: "Item Type"
 #: .search.filters.filter.entityType.placeholder
-msgctxt ".search.filters.filter.entityType.placeholder"
-msgid "Item Type"
+msgid "search.filters.filter.entityType.placeholder"
 msgstr ""
 
+#. ENGLISH KEY: "Has files"
 #: .search.filters.filter.has_content_in_original_bundle.head
-msgctxt ".search.filters.filter.has_content_in_original_bundle.head"
-msgid "Has files"
+msgid "search.filters.filter.has_content_in_original_bundle.head"
 msgstr ""
 
+#. ENGLISH KEY: "Type"
 #: .search.filters.filter.itemtype.head
-msgctxt ".search.filters.filter.itemtype.head"
-msgid "Type"
+msgid "search.filters.filter.itemtype.head"
 msgstr ""
 
+#. ENGLISH KEY: "Type"
 #: .search.filters.filter.itemtype.placeholder
-msgctxt ".search.filters.filter.itemtype.placeholder"
-msgid "Type"
+msgid "search.filters.filter.itemtype.placeholder"
 msgstr ""
 
+#. ENGLISH KEY: "Status"
 #: .search.filters.filter.namedresourcetype.head
-msgctxt ".search.filters.filter.namedresourcetype.head"
-msgid "Status"
+msgid "search.filters.filter.namedresourcetype.head"
 msgstr ""
 
+#. ENGLISH KEY: "Status"
 #: .search.filters.filter.namedresourcetype.placeholder
-msgctxt ".search.filters.filter.namedresourcetype.placeholder"
-msgid "Status"
+msgid "search.filters.filter.namedresourcetype.placeholder"
 msgstr ""
 
+#. ENGLISH KEY: "People"
 #: .search.filters.filter.objectpeople.head
-msgctxt ".search.filters.filter.objectpeople.head"
-msgid "People"
+msgid "search.filters.filter.objectpeople.head"
 msgstr ""
 
+#. ENGLISH KEY: "People"
 #: .search.filters.filter.objectpeople.placeholder
-msgctxt ".search.filters.filter.objectpeople.placeholder"
-msgid "People"
+msgid "search.filters.filter.objectpeople.placeholder"
 msgstr ""
 
 #: .search.filters.filter.scope.head
@@ -2321,17 +2243,14 @@ msgid "Scope filter"
 msgstr ""
 
 #: .search.filters.filter.submitter.head
-msgctxt ".search.filters.filter.submitter.head"
-msgid "Submitter"
+msgid "search.filters.filter.submitter.head"
 msgstr ""
 
 #: .search.filters.filter.submitter.placeholder
-msgctxt ".search.filters.filter.submitter.placeholder"
-msgid "Submitter"
+msgid "search.filters.filter.submitter.placeholder"
 msgstr ""
 
 #: .search.filters.filter.show-less
-msgctxt ".search.filters.filter.show-less"
 msgid "Collapse"
 msgstr ""
 
@@ -2340,17 +2259,14 @@ msgid "Show more"
 msgstr ""
 
 #: .search.filters.filter.subject.head
-msgctxt ".search.filters.filter.subject.head"
-msgid "Subject"
+msgid "search.filters.filter.subject.head"
 msgstr ""
 
 #: .search.filters.filter.subject.placeholder
-msgctxt ".search.filters.filter.subject.placeholder"
-msgid "Subject"
+msgid "search.filters.filter.subject.placeholder"
 msgstr ""
 
 #: .search.filters.head
-msgctxt ".search.filters.head"
 msgid "Filters"
 msgstr ""
 
@@ -2359,7 +2275,6 @@ msgid "Reset filters"
 msgstr ""
 
 #: .search.form.search
-msgctxt ".search.form.search"
 msgid "Search"
 msgstr ""
 
@@ -2414,7 +2329,6 @@ msgid "Back to results"
 msgstr ""
 
 #: .search.sidebar.filters.title
-msgctxt ".search.sidebar.filters.title"
 msgid "Filters"
 msgstr ""
 
@@ -2447,7 +2361,6 @@ msgid "DSpace Angular :: Search"
 msgstr ""
 
 #: .search.view-switch.show-detail
-msgctxt ".search.view-switch.show-detail"
 msgid "Show detail"
 msgstr ""
 
@@ -2488,17 +2401,14 @@ msgid "Deposit"
 msgstr ""
 
 #: .submission.general.discard.confirm.cancel
-msgctxt ".submission.general.discard.confirm.cancel"
 msgid "Cancel"
 msgstr ""
 
 #: .submission.general.discard.confirm.info
-msgctxt ".submission.general.discard.confirm.info"
 msgid "This operation can't be undone. Are you sure?"
 msgstr ""
 
 #: .submission.general.discard.confirm.submit
-msgctxt ".submission.general.discard.confirm.submit"
 msgid "Yes, I'm sure"
 msgstr ""
 
@@ -2507,12 +2417,10 @@ msgid "Discard submission"
 msgstr ""
 
 #: .submission.general.discard.submit
-msgctxt ".submission.general.discard.submit"
 msgid "Discard"
 msgstr ""
 
 #: .submission.general.save
-msgctxt ".submission.general.save"
 msgid "Save"
 msgstr ""
 
@@ -2525,7 +2433,6 @@ msgid "Add more"
 msgstr ""
 
 #: .submission.sections.general.collection
-msgctxt ".submission.sections.general.collection"
 msgid "Collection"
 msgstr ""
 
@@ -2589,17 +2496,14 @@ msgid "Recycle"
 msgstr ""
 
 #: .submission.sections.submit.progressbar.describe.stepcustom
-msgctxt ".submission.sections.submit.progressbar.describe.stepcustom"
 msgid "Describe"
 msgstr ""
 
 #: .submission.sections.submit.progressbar.describe.stepone
-msgctxt ".submission.sections.submit.progressbar.describe.stepone"
 msgid "Describe"
 msgstr ""
 
 #: .submission.sections.submit.progressbar.describe.steptwo
-msgctxt ".submission.sections.submit.progressbar.describe.steptwo"
 msgid "Describe"
 msgstr ""
 
@@ -2616,17 +2520,14 @@ msgid "Upload files"
 msgstr ""
 
 #: .submission.sections.upload.delete.confirm.cancel
-msgctxt ".submission.sections.upload.delete.confirm.cancel"
 msgid "Cancel"
 msgstr ""
 
 #: .submission.sections.upload.delete.confirm.info
-msgctxt ".submission.sections.upload.delete.confirm.info"
 msgid "This operation can't be undone. Are you sure?"
 msgstr ""
 
 #: .submission.sections.upload.delete.confirm.submit
-msgctxt ".submission.sections.upload.delete.confirm.submit"
 msgid "Yes, I'm sure"
 msgstr ""
 
@@ -2635,7 +2536,6 @@ msgid "Delete bitstream"
 msgstr ""
 
 #: .submission.sections.upload.delete.submit
-msgctxt ".submission.sections.upload.delete.submit"
 msgid "Delete"
 msgstr ""
 
@@ -2691,7 +2591,7 @@ msgstr ""
 #: .submission.sections.upload.info
 msgid ""
 "Here you will find all the files currently in the item. You can update the "
-"fle metadata and access conditions or <strong>upload additional files just "
+"file metadata and access conditions or <strong>upload additional files just "
 "dragging & dropping them everywhere in the page</strong>"
 msgstr ""
 
@@ -2708,7 +2608,6 @@ msgid "Save metadata"
 msgstr ""
 
 #: .submission.sections.upload.undo
-msgctxt ".submission.sections.upload.undo"
 msgid "Cancel"
 msgstr ""
 
@@ -2725,7 +2624,6 @@ msgid "Submission"
 msgstr ""
 
 #: .submission.workflow.generic.delete
-msgctxt ".submission.workflow.generic.delete"
 msgid "Delete"
 msgstr ""
 
@@ -2736,17 +2634,14 @@ msgid ""
 msgstr ""
 
 #: .submission.workflow.generic.edit
-msgctxt ".submission.workflow.generic.edit"
 msgid "Edit"
 msgstr ""
 
 #: .submission.workflow.generic.edit-help
-msgctxt ".submission.workflow.generic.edit-help"
 msgid "Select this option to change the item's metadata."
 msgstr ""
 
 #: .submission.workflow.generic.view
-msgctxt ".submission.workflow.generic.view"
 msgid "View"
 msgstr ""
 
@@ -2767,7 +2662,6 @@ msgid "Error occurred during operation..."
 msgstr ""
 
 #: .submission.workflow.tasks.generic.submitter
-msgctxt ".submission.workflow.tasks.generic.submitter"
 msgid "Submitter"
 msgstr ""
 
@@ -2782,12 +2676,10 @@ msgid ""
 msgstr ""
 
 #: .submission.workflow.tasks.claimed.edit
-msgctxt ".submission.workflow.tasks.claimed.edit"
 msgid "Edit"
 msgstr ""
 
 #: .submission.workflow.tasks.claimed.edit_help
-msgctxt ".submission.workflow.tasks.claimed.edit_help"
 msgid "Select this option to change the item's metadata."
 msgstr ""
 
@@ -2838,7 +2730,6 @@ msgid "Assign this task to yourself."
 msgstr ""
 
 #: .submission.workflow.tasks.pool.show-detail
-msgctxt ".submission.workflow.tasks.pool.show-detail"
 msgid "Show detail"
 msgstr ""
 
