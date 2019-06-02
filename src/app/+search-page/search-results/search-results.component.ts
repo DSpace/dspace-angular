@@ -62,7 +62,7 @@ export class SearchResultsComponent {
     if (isNotEmpty(this.fixedFilter)) {
       return 'search.' + this.fixedFilter + '.results.head'
     } else {
-      return 'search.results.head';
+      return 'Search Results';
     }
   }
 
