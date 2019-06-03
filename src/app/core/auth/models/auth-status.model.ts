@@ -17,6 +17,8 @@ export class AuthStatus implements CacheableObject {
 
   eperson: Observable<RemoteData<EPerson>>;
 
+  ssoLoginUrl?: string;
+
   token?: AuthTokenInfo;
 
   self: string;
