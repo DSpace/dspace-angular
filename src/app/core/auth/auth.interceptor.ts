@@ -21,6 +21,7 @@ import { isNotEmpty, isUndefined, isNotNull } from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import {AuthError} from './models/auth-error.model';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -56,11 +57,11 @@ export class AuthInterceptor implements HttpInterceptor {
     return http.url && http.url.endsWith('/authn/logout');
   }
 
-  private makeAuthStatusObject(authenticated:boolean, accessToken?: string, error?: string, location?): AuthStatus {
+  private makeAuthStatusObject(authenticated:boolean, accessToken?: string, error?: string, location?: string): AuthStatus {
     const authStatus = new AuthStatus();
     authStatus.id = null;
     authStatus.okay = true;
-    authStatus.ssoLoginUrl = location; // this line added while developing shibboleth dev
+    authStatus.ssoLoginUrl = location; // this line was  added while developing shibboleth dev
     if (authenticated) {
       authStatus.authenticated = true;
       authStatus.token = new AuthTokenInfo(accessToken);
@@ -128,13 +129,17 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error, caught) => {
+        console.log('catchError operator in auth.interceptor was triggered');
         // Intercept an error response
         if (error instanceof HttpErrorResponse) {
           // Checks if is a response from a request to an authentication endpoint
           if (this.isAuthRequest(error)) {
+            console.log('catchError isAuthRequest=true');
             // clean eventually refresh Requests list
             this.refreshTokenRequestUrls = [];
+            // console.log('error: ', error);
             const location = error.headers.get('Location');// this  line added while shibboleth dev
+            console.log('error.headers.get("Location"): ', location);
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
               body: this.makeAuthStatusObject(false, null, error.error, location),
