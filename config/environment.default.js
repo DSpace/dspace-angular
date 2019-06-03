@@ -29,6 +29,13 @@ module.exports = {
       timePerMethod: {'PATCH': 3} //time in seconds
     }
   },
+  // Authentications
+  auth: {
+    target: {
+      host: 'https://dspace7.4science.it',
+      page: '/dspace-spring-rest/shib.html'
+    }
+  },
   // Form settings
   form: {
     // NOTE: Map server-side validators to comparative Angular form validators
