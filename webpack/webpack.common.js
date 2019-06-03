@@ -2,9 +2,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const {
   projectRoot,
+  buildRoot,
   globalCSSImports,
-  cssLoaders,
-  scssLoaders,
+  themeReplaceOptions,
+  themePath,
   themedTest,
   themedUse
 } = require('./helpers');
@@ -41,28 +42,109 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: cssLoaders
+        use: [
+          {
+            loader: 'to-string-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.scss$/,
-        exclude: [/node_modules/,
-          path.resolve(__dirname, '..', 'src/styles/_exposed_variables.scss'),
-          path.resolve(__dirname, '..', 'src/styles/_variables.scss')
+        exclude: [
+          /node_modules/,
+          buildRoot('styles/_exposed_variables.scss'),
+          buildRoot('styles/_variables.scss')
         ],
         use: [
-          ...scssLoaders,
+          {
+            loader: 'raw-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              includePaths: [path.join(themePath, 'styles')]
+            }
+          },
+          'debug-loader',
           {
             loader: 'sass-resources-loader',
             options: {
               resources: globalCSSImports
             },
+          },
+          {
+            loader: 'string-replace-loader',
+            options: themeReplaceOptions
           }
         ]
       },
       {
-        test: /^(_exposed)?_variables.scss$/,
-        exclude: /node_modules/,
-        use: scssLoaders
+        test: /(_exposed)?_variables.scss$/,
+        exclude: [/node_modules/],
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              includePaths: [path.join(themePath, 'styles')]
+            }
+          },
+          {
+            loader: 'string-replace-loader',
+            options: themeReplaceOptions
+          }
+        ]
       },
       {
         test: /\.html$/,

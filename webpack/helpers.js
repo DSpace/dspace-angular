@@ -20,18 +20,13 @@ const theme = 'mantis';
 const themePath = path.normalize(path.join(__dirname, '..', 'themes', theme));
 
 const globalCSSImports = [
-  path.resolve(__dirname, '..', 'src/styles/_variables.scss'),
-  path.resolve(__dirname, '..', 'src/styles/_mixins.scss'),
+  buildRoot('styles/_variables.scss'),
+  buildRoot('styles/_mixins.scss'),
 ];
 
 const themeReplaceOptions =
   {
     multiple: [
-      {
-        search: '$themePath$/',
-        replace: (themePath.length ? themePath + '/' : ''),
-        flags: 'g'
-      },
       {
         search: '@import \'~/',
         replace: '@import \'' + projectRoot('./') + '/',
@@ -62,7 +57,6 @@ const themedUse = (resource, extension) => {
   const themedPath = getThemedPath(resource, extension);
 
   return [
-    //'debug-loader',
     {
       loader: 'string-replace-loader',
       options: {
@@ -74,50 +68,14 @@ const themedUse = (resource, extension) => {
   ]
 };
 
-const cssLoaders = [
-  {
-    loader: 'raw-loader',
-    options: {
-      sourceMap: true
-    }
-  },
-  {
-    loader: 'postcss-loader',
-    options: {
-      sourceMap: true
-    }
-  },
-  {
-    loader: 'resolve-url-loader',
-    options: {
-      sourceMap: true
-    }
-  },
-];
-
-const scssLoaders = [
-  ...cssLoaders,
-  {
-    loader: 'sass-loader',
-    options: {
-      sourceMap: true
-    }
-  },
-  {
-    loader: 'string-replace-loader',
-    options: themeReplaceOptions
-  }
-];
-
 module.exports = {
   projectRoot,
   buildRoot,
   theme,
+  themePath,
   getThemedPath,
   themedTest,
   themedUse,
-  cssLoaders,
-  scssLoaders,
   globalCSSImports,
   themeReplaceOptions
 };
