@@ -8,7 +8,7 @@ import {
   LogOutErrorAction,
   RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction,
-  RefreshTokenSuccessAction,
+  RefreshTokenSuccessAction, RetrieveAuthMethodsSuccessAction,
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
@@ -45,6 +45,9 @@ export interface AuthState {
   // true when refreshing token
   refreshing?: boolean;
 
+  // sso login url
+  ssoLoginUrl?: string;
+
   // the authenticated user
   user?: EPerson;
 }
@@ -56,6 +59,7 @@ const initialState: AuthState = {
   authenticated: false,
   loaded: false,
   loading: false,
+  ssoLoginUrl: ''
 };
 
 /**
@@ -185,6 +189,23 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
       return Object.assign({}, state, {
         error: undefined,
         info: undefined,
+      });
+
+      // next three cases are used by shibboleth login
+    case AuthActionTypes.RETRIEVE_AUTH_METHODS:
+      return Object.assign({}, state, {
+        loading: true
+      });
+
+    case AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        ssoLoginUrl: (action as RetrieveAuthMethodsSuccessAction).payload
+      });
+
+    case AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR:
+      return Object.assign({}, state, {
+        loading: false
       });
 
     case AuthActionTypes.SET_REDIRECT_URL:
