@@ -202,6 +202,7 @@ export class AuthService {
    * @returns {User}
    */
   public retrieveAuthMethods(): Observable<string> {
+    console.log('auth.service retrieveAuthMethods() was called');
     return this.authRequestService.getRequest('login').pipe(
       map((status: AuthStatus) => {
         let url = '';
@@ -214,6 +215,7 @@ export class AuthService {
   }
 
   private parseSSOLocation(url: string): string {
+    console.log('auth.service parseSSOLocation was called');
     const parseUrl = decodeURIComponent(url);
     // const urlTree: UrlTree = this.router.parseUrl(url);
     // this.router.parseUrl(url);
