@@ -56,10 +56,11 @@ export class AuthInterceptor implements HttpInterceptor {
     return http.url && http.url.endsWith('/authn/logout');
   }
 
-  private makeAuthStatusObject(authenticated:boolean, accessToken?: string, error?: string): AuthStatus {
+  private makeAuthStatusObject(authenticated:boolean, accessToken?: string, error?: string, location?): AuthStatus {
     const authStatus = new AuthStatus();
     authStatus.id = null;
     authStatus.okay = true;
+    authStatus.ssoLoginUrl = location; // this line added while developing shibboleth dev
     if (authenticated) {
       authStatus.authenticated = true;
       authStatus.token = new AuthTokenInfo(accessToken);
@@ -133,9 +134,10 @@ export class AuthInterceptor implements HttpInterceptor {
           if (this.isAuthRequest(error)) {
             // clean eventually refresh Requests list
             this.refreshTokenRequestUrls = [];
+            const location = error.headers.get('Location');// this  line added while shibboleth dev
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
-              body: this.makeAuthStatusObject(false, null, error.error),
+              body: this.makeAuthStatusObject(false, null, error.error, location),
               headers: error.headers,
               status: error.status,
               statusText: error.statusText,

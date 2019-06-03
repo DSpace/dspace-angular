@@ -26,7 +26,7 @@ import {
   RefreshTokenSuccessAction,
   RegistrationAction,
   RegistrationErrorAction,
-  RegistrationSuccessAction
+  RegistrationSuccessAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -168,6 +168,19 @@ export class AuthEffects {
       tap(() => this.authService.removeToken()),
       tap(() => this.authService.redirectToLoginWhenTokenExpired())
     );
+
+  @Effect()
+  public retrieveMethods$: Observable<Action> = this.actions$
+    .pipe(
+      ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
+      switchMap(() => {
+      return this.authService.retrieveAuthMethods()
+        .pipe(
+          map((location: any) => new RetrieveAuthMethodsSuccessAction(location)),
+          catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
+        )
+    })
+    )
 
   /**
    * @constructor
