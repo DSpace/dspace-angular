@@ -311,6 +311,7 @@ export class ResetAuthenticationMessagesAction implements Action {
   public type: string = AuthActionTypes.RESET_MESSAGES;
 }
 
+// Next three Actions are used by shibboleth login
 /**
  * Check if token is already present upon initial load.
  * @class CheckAuthenticationTokenAction
