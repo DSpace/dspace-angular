@@ -1,0 +1,1 @@
+{"version":3,"file":"rest-url-combiner.js","sourceRoot":"","sources":["rest-url-combiner.ts"],"names":[],"mappings":";AAAA,OAAO,EAAE,WAAW,EAAE,MAAM,gBAAgB,CAAC;AAI7C;;;;;GAKG;AACH;IAAqC,2CAAW;IAC9C,yBAAY,SAAuB;QAAE,eAAkB;aAAlB,UAAkB,EAAlB,qBAAkB,EAAlB,IAAkB;YAAlB,8BAAkB;;mCAC/C,SAAS,CAAC,IAAI,CAAC,OAAO,SAAK,KAAK;IACxC,CAAC;IACH,sBAAC;AAAD,CAAC,AAJD,CAAqC,WAAW,GAI/C"}
