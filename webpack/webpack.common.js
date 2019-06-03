@@ -16,6 +16,8 @@ module.exports = {
     },
     watchOptions: {
         aggregateTimeout: 50,
+        poll: 1000,
+        ignored: /node_modules/
     },
     node: {
         fs: "empty",
