@@ -108,6 +108,14 @@ const _getRegistrationError = (state: AuthState) => state.error;
 const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
 
 /**
+ * Returns the sso login url.
+ * @function _getSSOLoginUrl
+ * @param {State} state
+ * @returns {string}
+ */
+const _getSSOLoginUrl = (state: AuthState) => state.ssoLoginUrl;
+
+/**
  * Returns the authenticated user
  * @function getAuthenticatedUser
  * @param {AuthState} state
@@ -204,3 +212,12 @@ export const getRegistrationError = createSelector(getAuthState, _getRegistratio
  * @return {string}
  */
 export const getRedirectUrl = createSelector(getAuthState, _getRedirectUrl);
+
+/**
+ * Returns the sso login url.
+ * @function getSSOLoginUrl
+ * @param {AuthState} state
+ * @param {any} props
+ * @return {string}
+ */
+export const getSSOLoginUrl = createSelector(getAuthState, _getSSOLoginUrl);
