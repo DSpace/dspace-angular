@@ -237,7 +237,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
           if (isEmpty(searchTerm)) {
             return listCollection;
           } else {
-            return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5)
+            return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
           }
         }));
     }

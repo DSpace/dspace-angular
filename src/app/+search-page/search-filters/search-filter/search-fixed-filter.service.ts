@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { flatMap, map } from 'rxjs/operators';
-import { Observable ,  of as observableOf } from 'rxjs';
+import { flatMap, map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of as observableOf } from 'rxjs';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { GetRequest, RestRequest } from '../../../core/data/request.models';
 import { RequestService } from '../../../core/data/request.service';
@@ -33,7 +33,7 @@ export class SearchFixedFilterService {
   getQueryByFilterName(filterName: string): Observable<string> {
     if (hasValue(filterName)) {
       const requestUuid = this.requestService.generateRequestId();
-      this.halService.getEndpoint(this.queryByFilterPath).pipe(
+      const requestObs = this.halService.getEndpoint(this.queryByFilterPath).pipe(
         map((url: string) => {
           url += ('/' + filterName);
           const request = new GetRequest(requestUuid, url);
@@ -44,10 +44,12 @@ export class SearchFixedFilterService {
           });
         }),
         configureRequest(this.requestService)
-      ).subscribe();
+      );
 
-      // get search results from response cache
-      const filterQuery: Observable<string> = this.requestService.getByUUID(requestUuid).pipe(
+      const requestEntryObs = requestObs.pipe(
+        switchMap((request: RestRequest) => this.requestService.getByHref(request.href)),
+      );
+      const filterQuery = requestEntryObs.pipe(
         getResponseFromEntry(),
         map((response: FilteredDiscoveryQueryResponse) =>
           response.filterQuery
@@ -75,5 +77,4 @@ export class SearchFixedFilterService {
   getFilterByRelation(relationType: string, itemUUID: string): string {
     return `f.${relationType}=${itemUUID}`;
   }
-
 }
