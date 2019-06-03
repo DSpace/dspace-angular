@@ -11,7 +11,7 @@ import {
 
 import {
   getAuthenticationError,
-  getAuthenticationInfo,
+  getAuthenticationInfo, getSSOLoginUrl,
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
@@ -82,6 +82,18 @@ export class LogInComponent implements OnDestroy, OnInit {
   private alive = true;
 
   /**
+   * The redirect url to login with sso.
+   * @type {Observable<string>}
+   */
+  public ssoLoginUrl: Observable<string>;
+
+  /**
+   * True if is present the url to login with sso.
+   * @type {Observable<boolean>}
+   */
+  public hasSsoLoginUrl: Observable<boolean>;
+
+  /**
    * @constructor
    * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
@@ -129,6 +141,9 @@ export class LogInComponent implements OnDestroy, OnInit {
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
 
+    // set sso login url
+    this.ssoLoginUrl = this.store.pipe(select(getSSOLoginUrl));
+
     // subscribe to success
     this.store.pipe(
       select(isAuthenticated),
@@ -138,6 +153,9 @@ export class LogInComponent implements OnDestroy, OnInit {
           this.authService.redirectToPreviousUrl();
         }
       );
+
+    this.hasSsoLoginUrl = this.ssoLoginUrl
+      .pipe(map((url) => isNotEmpty(url)))
   }
 
   /**
