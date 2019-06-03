@@ -26,7 +26,7 @@ import {
   RefreshTokenSuccessAction,
   RegistrationAction,
   RegistrationErrorAction,
-  RegistrationSuccessAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction
+  RegistrationSuccessAction, RetrieveAuthMethodsAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -87,6 +87,13 @@ export class AuthEffects {
         );
       })
     );
+
+  @Effect()
+  public checkTokenError$: Observable<Action> = this.actions$
+    .pipe(
+    ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_ERROR),
+    map(() => new RetrieveAuthMethodsAction())
+    )
 
   @Effect()
   public createUser$: Observable<Action> = this.actions$.pipe(
