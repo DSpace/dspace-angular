@@ -1,7 +1,7 @@
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
+import {Observable, of as observableOf, throwError as observableThrowError} from 'rxjs';
 
-import { catchError, filter, map } from 'rxjs/operators';
-import { Injectable, Injector } from '@angular/core';
+import {catchError, filter, map} from 'rxjs/operators';
+import {Injectable, Injector} from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -11,16 +11,16 @@ import {
   HttpResponse,
   HttpResponseBase
 } from '@angular/common/http';
-import { find } from 'lodash';
+import {find} from 'lodash';
 
-import { AppState } from '../../app.reducer';
-import { AuthService } from './auth.service';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
-import { isNotEmpty, isUndefined, isNotNull } from '../../shared/empty.util';
-import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
-import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
+import {AppState} from '../../app.reducer';
+import {AuthService} from './auth.service';
+import {AuthStatus} from './models/auth-status.model';
+import {AuthTokenInfo} from './models/auth-token-info.model';
+import {isNotEmpty, isUndefined, isNotNull} from '../../shared/empty.util';
+import {RedirectWhenTokenExpiredAction, RefreshTokenAction} from './auth.actions';
+import {Store} from '@ngrx/store';
+import {Router} from '@angular/router';
 import {AuthError} from './models/auth-error.model';
 
 @Injectable()
@@ -31,7 +31,8 @@ export class AuthInterceptor implements HttpInterceptor {
   // we're creating a refresh token request list
   protected refreshTokenRequestUrls = [];
 
-  constructor(private inj: Injector, private router: Router, private store: Store<AppState>) { }
+  constructor(private inj: Injector, private router: Router, private store: Store<AppState>) {
+  }
 
   private is405AuthResponse(response: HttpResponseBase): boolean {
     return response.status === 405;
@@ -61,7 +62,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return http.url && http.url.endsWith('/authn/logout');
   }
 
-  private makeAuthStatusObject(authenticated:boolean, accessToken?: string, error?: string, location?: string): AuthStatus {
+  private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string, location?: string): AuthStatus {
     const authStatus = new AuthStatus();
     authStatus.id = null;
     authStatus.okay = true;
@@ -146,10 +147,19 @@ export class AuthInterceptor implements HttpInterceptor {
           if (this.isAuthRequest(error)) {
             console.log('catchError isAuthRequest=true');
             // clean eventually refresh Requests list
+
             this.refreshTokenRequestUrls = [];
             // console.log('error: ', error);
-            const location = error.headers.get('Location');// this  line added while shibboleth dev
-            console.log('error.headers.get("Location"): ', location);
+            let location = error.headers.get('location');// this  line added while shibboleth dev
+            console.log('error.headers.get("location"): ', location);
+
+            console.log('www-authenticate', error.headers.get('www-authenticate'));
+            let strings = error.headers.get('www-authenticate').split(',');
+            let string = strings[1];
+            let s = string.replace('location=', '');
+            let s1 = s.replace('"', '').trim();
+            console.log('This should be the location: ', s1);
+            location = s1;
 
             console.log('error headers: ', error.headers);
             console.log('error', error);
