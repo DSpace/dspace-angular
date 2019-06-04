@@ -609,6 +609,34 @@
         "birthDate": {
           "placeholder": "Birth Date",
           "head": "Birth Date"
+        },
+        "creativeWorkPublisher": {
+          "placeholder": "Publisher",
+          "head": "Publisher"
+        },
+        "creativeWorkEditor": {
+          "placeholder": "Editor",
+          "head": "Editor"
+        },
+        "creativeWorkKeywords": {
+          "placeholder": "Subject",
+          "head": "Subject"
+        },
+        "creativeDatePublished": {
+          "placeholder": "Date Published",
+          "head": "Date Published"
+        },
+        "organizationAddressCountry": {
+          "placeholder": "Country",
+          "head": "Country"
+        },
+        "organizationAddressLocality": {
+          "placeholder": "City",
+          "head": "City"
+        },
+        "organizationFoundingDate": {
+          "placeholder": "Date Founded",
+          "head": "Date Founded"
         }
       }
     }
