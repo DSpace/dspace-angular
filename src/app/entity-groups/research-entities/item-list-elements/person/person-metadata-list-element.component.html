@@ -10,6 +10,6 @@
 </ng-template>
 <ds-truncatable [id]="item.id">
   <a [routerLink]="['/items/' + item.id]"
-     [innerHTML]="firstMetadataValue('dc.contributor.author')"
+     [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"
      [tooltip]="descTemplate"></a>
 </ds-truncatable>
