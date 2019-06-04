@@ -117,7 +117,7 @@
     "ngx-moment": "^3.1.0",
     "ngx-pagination": "3.0.3",
     "nouislider": "^11.0.0",
-    "pem": "1.12.3",
+    "pem": "1.13.2",
     "reflect-metadata": "0.1.12",
     "rxjs": "6.2.2",
     "rxjs-spy": "^7.5.1",
