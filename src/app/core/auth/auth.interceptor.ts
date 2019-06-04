@@ -33,6 +33,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private inj: Injector, private router: Router, private store: Store<AppState>) { }
 
+  private is405AuthResponse(response: HttpResponseBase): boolean {
+    return response.status === 405;
+  }
+
   private isUnauthorized(response: HttpResponseBase): boolean {
     // invalid_token The access token provided is expired, revoked, malformed, or invalid for other reasons
     return response.status === 401;
@@ -132,6 +136,12 @@ export class AuthInterceptor implements HttpInterceptor {
         console.log('catchError operator in auth.interceptor was triggered');
         // Intercept an error response
         if (error instanceof HttpErrorResponse) {
+
+          // Check for 405
+          if (this.is405AuthResponse(error)) {
+            console.log('the caught error is a 405');
+          }
+
           // Checks if is a response from a request to an authentication endpoint
           if (this.isAuthRequest(error)) {
             console.log('catchError isAuthRequest=true');
@@ -140,6 +150,10 @@ export class AuthInterceptor implements HttpInterceptor {
             // console.log('error: ', error);
             const location = error.headers.get('Location');// this  line added while shibboleth dev
             console.log('error.headers.get("Location"): ', location);
+
+            console.log('error headers: ', error.headers);
+            console.log('error', error);
+
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
               body: this.makeAuthStatusObject(false, null, error.error, location),
