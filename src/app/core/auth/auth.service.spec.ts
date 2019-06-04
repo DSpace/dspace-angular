@@ -140,8 +140,7 @@ describe('AuthService test', () => {
           { provide: AuthRequestService, useValue: authRequest },
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
-
-          CookieService,
+           CookieService,
           AuthService,
         ]
       }).compileComponents();
@@ -153,7 +152,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService( {}, window, undefined, authReqService, router, cookieService, store, rdbService);
+      authService = new AuthService(undefined,  {}, window, undefined, authReqService, router, cookieService, store, rdbService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -214,7 +213,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, router, cookieService, store, rdbService);
+      authService = new AuthService(undefined, {}, window, undefined, authReqService, router, cookieService, store, rdbService);
       storage = (authService as any).storage;
       spyOn(storage, 'get');
       spyOn(storage, 'remove');

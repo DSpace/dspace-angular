@@ -43,7 +43,7 @@ export class AuthService {
   protected _authenticated: boolean;
 
   constructor(
-    // @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     @Inject(REQUEST) protected req: any,
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     protected authRequestService: AuthRequestService,
@@ -216,7 +216,7 @@ export class AuthService {
     )
   }
 
-/*  private parseSSOLocation(url: string): string {
+  private parseSSOLocation(url: string): string {
     console.log('auth.service parseSSOLocation was called');
     const parseUrl = decodeURIComponent(url);
     // const urlTree: UrlTree = this.router.parseUrl(url);
@@ -229,7 +229,7 @@ export class AuthService {
     // console.log(url);
     const target = `?target=${this.config.auth.target.host}${this.config.auth.target.page}`;
     return parseUrl.replace(/\?target=http.+/g, target);
-  }*/
+  }
 
   /**
    * Create a new user
