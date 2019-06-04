@@ -23,6 +23,8 @@ import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../../shared/services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
+import {GlobalConfig} from '../../../config/global-config.interface';
+import {GLOBAL_CONFIG} from '../../../config';
 
 describe('AuthService test', () => {
 
@@ -138,9 +140,9 @@ describe('AuthService test', () => {
           { provide: AuthRequestService, useValue: authRequest },
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
-          { provide: RemoteDataBuildService, useValue: rdbService },
+
           CookieService,
-          AuthService
+          AuthService,
         ]
       }).compileComponents();
     }));
@@ -151,7 +153,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, router, cookieService, store, rdbService);
+      authService = new AuthService( {}, window, undefined, authReqService, router, cookieService, store, rdbService);
     }));
 
     it('should return true when user is logged in', () => {

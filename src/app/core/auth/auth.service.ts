@@ -43,7 +43,7 @@ export class AuthService {
   protected _authenticated: boolean;
 
   constructor(
-    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+    // @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     @Inject(REQUEST) protected req: any,
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     protected authRequestService: AuthRequestService,
@@ -203,18 +203,20 @@ export class AuthService {
    */
   public retrieveAuthMethods(): Observable<string> {
     console.log('auth.service retrieveAuthMethods() was called');
-    return this.authRequestService.getRequest('login').pipe(
+    // return this.authRequestService.getRequest('login').pipe(
+    return this.authRequestService.postToEndpoint('login', {}).pipe(
       map((status: AuthStatus) => {
         let url = '';
         if (isNotEmpty(status.ssoLoginUrl)) {
-          url = this.parseSSOLocation(status.ssoLoginUrl);
+          // url = this.parseSSOLocation(status.ssoLoginUrl);
+          url = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https%3A%2F%2Ffis.tiss.tuwien.ac.at';
         }
         return url;
       })
     )
   }
 
-  private parseSSOLocation(url: string): string {
+/*  private parseSSOLocation(url: string): string {
     console.log('auth.service parseSSOLocation was called');
     const parseUrl = decodeURIComponent(url);
     // const urlTree: UrlTree = this.router.parseUrl(url);
@@ -227,7 +229,7 @@ export class AuthService {
     // console.log(url);
     const target = `?target=${this.config.auth.target.host}${this.config.auth.target.page}`;
     return parseUrl.replace(/\?target=http.+/g, target);
-  }
+  }*/
 
   /**
    * Create a new user

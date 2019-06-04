@@ -32,8 +32,8 @@ module.exports = {
   // Authentications
   auth: {
     target: {
-      host: 'https://dspace7.4science.it',
-      page: '/dspace-spring-rest/shib.html'
+      host: 'https://fis.tiss.tuwien.ac.at',
+      page: '/spring-rest/login.html'
     }
   },
   // Form settings
