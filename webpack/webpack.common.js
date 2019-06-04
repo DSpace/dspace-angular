@@ -97,7 +97,6 @@ module.exports = {
               includePaths: [path.join(themePath, 'styles')]
             }
           },
-          'debug-loader',
           {
             loader: 'sass-resources-loader',
             options: {

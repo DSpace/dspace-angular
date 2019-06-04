@@ -6,6 +6,8 @@ const projectRoot = (relativePath) => {
   return path.resolve(__dirname, '..', relativePath);
 };
 
+const srcPath = projectRoot('src');
+
 const buildRoot = (relativePath) => {
   if (process.env.DSPACE_BUILD_DIR) {
     return path.resolve(projectRoot(process.env.DSPACE_BUILD_DIR), relativePath);
@@ -14,10 +16,46 @@ const buildRoot = (relativePath) => {
   }
 };
 
-// const theme = '';
-const theme = 'mantis';
+//TODO refactor to share between this and config.ts.
+const getThemeName = () => {
+  let defaultCfg = require(projectRoot('config/environment.default.js'));
+  let envConfigFile, envConfigOverride;
 
-const themePath = path.normalize(path.join(__dirname, '..', 'themes', theme));
+  switch (process.env.NODE_ENV) {
+    case 'prod':
+    case 'production':
+      // webpack.prod.dspace-angular-config.ts defines process.env.NODE_ENV = 'production'
+      envConfigFile = projectRoot('config/environment.prod.js');
+      break;
+    case 'test':
+      // webpack.test.dspace-angular-config.ts defines process.env.NODE_ENV = 'test'
+      envConfigFile = projectRoot('config/environment.test.js');
+      break;
+    default:
+      // if not using webpack.prod.dspace-angular-config.ts or webpack.test.dspace-angular-config.ts, it must be development
+      envConfigFile = projectRoot('config/environment.dev.js');
+  }
+
+  if (envConfigFile) {
+    try {
+      envConfigOverride = require(envConfigFile);
+    } catch (e) {
+    }
+  }
+
+  return Object.assign({}, defaultCfg.theme, envConfigOverride.theme).name;
+}
+
+const theme = getThemeName();
+
+let themePath;
+
+if (theme !== null && theme !== undefined) {
+  themePath = path.normalize(path.join(__dirname, '..', 'themes', theme));
+}
+else {
+  themePath = srcPath;
+}
 
 const globalCSSImports = [
   buildRoot('styles/_variables.scss'),
@@ -35,7 +73,6 @@ const themeReplaceOptions =
     ]
   };
 
-const srcPath = projectRoot('src');
 
 const getThemedPath = (componentPath, ext) => {
   const parsedPath = path.parse(componentPath);
@@ -71,7 +108,7 @@ const themedUse = (resource, extension) => {
 module.exports = {
   projectRoot,
   buildRoot,
-  theme,
+  theme: theme,
   themePath,
   getThemedPath,
   themedTest,

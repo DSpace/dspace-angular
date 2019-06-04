@@ -155,5 +155,9 @@ module.exports = {
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
+  },
+  theme: {
+    name: 'default',
+    cssClass: 'default',
   }
 };

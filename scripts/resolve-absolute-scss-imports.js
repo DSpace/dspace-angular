@@ -1,7 +1,7 @@
 const replace = require('replace-in-file');
 const {
   projectRoot,
-} = require('./helpers');
+} = require('../webpack/helpers');
 
 /**
  * This script ensures you can use ~ to reference the project dir
