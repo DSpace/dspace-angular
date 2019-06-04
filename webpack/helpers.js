@@ -19,7 +19,8 @@ const buildRoot = (relativePath) => {
 //TODO refactor to share between this and config.ts.
 const getThemeName = () => {
   let defaultCfg = require(projectRoot('config/environment.default.js'));
-  let envConfigFile, envConfigOverride;
+  let envConfigFile;
+  let envConfigOverride = {};
 
   switch (process.env.NODE_ENV) {
     case 'prod':
