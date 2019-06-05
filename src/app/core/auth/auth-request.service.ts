@@ -1,15 +1,15 @@
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
-import { Inject, Injectable } from '@angular/core';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from '../data/request.service';
-import { GLOBAL_CONFIG } from '../../../config';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { isNotEmpty } from '../../shared/empty.util';
-import { AuthGetRequest, AuthPostRequest, GetRequest, PostRequest, RestRequest } from '../data/request.models';
-import { AuthStatusResponse, ErrorResponse } from '../cache/response.models';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { getResponseFromEntry } from '../shared/operators';
+import {Observable, of as observableOf, throwError as observableThrowError} from 'rxjs';
+import {distinctUntilChanged, filter, map, mergeMap, tap} from 'rxjs/operators';
+import {Inject, Injectable} from '@angular/core';
+import {HALEndpointService} from '../shared/hal-endpoint.service';
+import {RequestService} from '../data/request.service';
+import {GLOBAL_CONFIG} from '../../../config';
+import {GlobalConfig} from '../../../config/global-config.interface';
+import {isNotEmpty} from '../../shared/empty.util';
+import {AuthGetRequest, AuthPostRequest, GetRequest, PostRequest, RestRequest} from '../data/request.models';
+import {AuthStatusResponse, ErrorResponse} from '../cache/response.models';
+import {HttpOptions} from '../dspace-rest-v2/dspace-rest-v2.service';
+import {getResponseFromEntry} from '../shared/operators';
 
 @Injectable()
 export class AuthRequestService {
@@ -41,7 +41,9 @@ export class AuthRequestService {
   public postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<any> {
     return this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
+      tap((href: string) => console.log('This is href in postToEndpoint(): ' , href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
+      tap((href2) => {console.log('href2', href2)}),
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthPostRequest(this.requestService.generateRequestId(), endpointURL, body, options)),
       tap((request: PostRequest) => this.requestService.configure(request, true)),
@@ -53,9 +55,9 @@ export class AuthRequestService {
     console.log('auth.request getRequest() was called');
     return this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
-      tap((href) => console.log('auth-request.service getRequest()',href)),
+      tap((href) => console.log('auth-request.service getRequest()', href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
-      tap((whatsThis) => console.log('whatsThis: ', whatsThis )),
+      tap((whatsThis) => console.log('whatsThis: ', whatsThis)),
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthGetRequest(this.requestService.generateRequestId(), endpointURL, options)),
       tap((request: GetRequest) => this.requestService.configure(request, true)),
