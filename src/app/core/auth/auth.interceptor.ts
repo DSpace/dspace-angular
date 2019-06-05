@@ -154,10 +154,10 @@ export class AuthInterceptor implements HttpInterceptor {
             console.log('error.headers.get("location"): ', location);
 
             console.log('www-authenticate', error.headers.get('www-authenticate'));
-            let strings = error.headers.get('www-authenticate').split(',');
-            let string = strings[1];
-            let s = string.replace('location=', '');
-            let s1 = s.replace('"', '').trim();
+            const strings = error.headers.get('www-authenticate').split(',');
+            const locationstring = strings[1];
+            const s = locationstring.replace('location=', '');
+            const s1 = s.replace('"', '').trim();
             console.log('This should be the location: ', s1);
             location = s1;
 
