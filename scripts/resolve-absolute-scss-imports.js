@@ -1,4 +1,5 @@
 const replace = require('replace-in-file');
+const path = require('path');
 const {
   projectRoot,
 } = require('../webpack/helpers');
@@ -10,9 +11,9 @@ const {
 
 
 const options = {
-  files: projectRoot('build') + '/**/*.scss',
-  from: /@import '~\//g,
-  to: `@import '${projectRoot('./')}/`,
+  files: path.join(projectRoot('build'), '**', '*.scss'),
+  from: /@import '~\/([^']+)/g,
+  to: `@import '${path.join(projectRoot('./'), '$1')}`,
 };
 
 try {

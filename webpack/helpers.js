@@ -9,7 +9,6 @@ const projectRoot = (relativePath) => {
 const srcPath = projectRoot('src');
 
 const buildRoot = (relativePath, env) => {
-  console.log(env.aot);
   if (env.aot) {
     return path.resolve(projectRoot('./build'), relativePath);
   } else {
@@ -68,8 +67,8 @@ const themeReplaceOptions =
   {
     multiple: [
       {
-        search: '@import \'~/',
-        replace: '@import \'' + projectRoot('./') + '/',
+        search: '@import \'~/([^\']+)',
+        replace: '@import \'' + path.join(projectRoot('./'), '$1'),
         flags: 'g'
       }
     ]
