@@ -63,18 +63,6 @@ const globalCSSImports = (env) => { return [
   buildRoot('styles/_mixins.scss', env),
 ]};
 
-const themeReplaceOptions =
-  {
-    multiple: [
-      {
-        search: '@import \'~/([^\']+)',
-        replace: '@import \'' + path.join(projectRoot('./'), '$1'),
-        flags: 'g'
-      }
-    ]
-  };
-
-
 const getThemedPath = (componentPath, ext) => {
   const parsedPath = path.parse(componentPath);
   const relativePath = path.relative(srcPath, parsedPath.dir);
@@ -114,6 +102,5 @@ module.exports = {
   getThemedPath,
   themedTest,
   themedUse,
-  globalCSSImports,
-  themeReplaceOptions
+  globalCSSImports
 };

@@ -4,8 +4,7 @@ const {
     themedTest,
     themedUse,
     themePath,
-    globalCSSImports,
-    themeReplaceOptions
+    globalCSSImports
 } = require('./helpers');
 const path = require('path');
 
@@ -171,7 +170,7 @@ module.exports = function (env) {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
-                                includePaths: [path.join(themePath, 'styles')]
+                                includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
                             }
                         },
                         {
@@ -179,10 +178,6 @@ module.exports = function (env) {
                             options: {
                                 resources: globalCSSImports(env)
                             },
-                        },
-                        {
-                            loader: 'string-replace-loader',
-                            options: themeReplaceOptions
                         }
                     ]
                 },
@@ -213,12 +208,8 @@ module.exports = function (env) {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
-                                includePaths: [path.join(themePath, 'styles')]
+                                includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
                             }
-                        },
-                        {
-                            loader: 'string-replace-loader',
-                            options: themeReplaceOptions
                         }
                     ]
                 },

@@ -4,7 +4,6 @@ const {
     projectRoot,
     buildRoot,
     globalCSSImports,
-    themeReplaceOptions,
     themePath,
     themedTest,
     themedUse
@@ -95,7 +94,7 @@ module.exports = (env) => {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
-                                includePaths: [path.join(themePath, 'styles')]
+                                includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
                             }
                         },
                         {
@@ -103,10 +102,6 @@ module.exports = (env) => {
                             options: {
                                 resources: globalCSSImports(env)
                             },
-                        },
-                        {
-                            loader: 'string-replace-loader',
-                            options: themeReplaceOptions
                         }
                     ]
                 },
@@ -137,12 +132,8 @@ module.exports = (env) => {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
-                                includePaths: [path.join(themePath, 'styles')]
+                                includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
                             }
-                        },
-                        {
-                            loader: 'string-replace-loader',
-                            options: themeReplaceOptions
                         }
                     ]
                 },
