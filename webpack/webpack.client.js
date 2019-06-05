@@ -6,20 +6,22 @@ const {
   buildRoot
 } = require('./helpers');
 
-module.exports = {
-  entry: buildRoot('./main.browser.ts'),
-  output: {
-    filename: 'client.js'
-  },
-  target: 'web',
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: buildRoot('./index.html'),
-      output: projectRoot('dist'),
-      inject: 'head'
-    }),
-    new ScriptExtPlugin({
-      defaultAttribute: 'defer'
-    })
-  ]
-};
+module.exports = (env) => {
+  return {
+    entry: buildRoot('./main.browser.ts', env),
+    output: {
+      filename: 'client.js'
+    },
+    target: 'web',
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: buildRoot('./index.html', env),
+        output: projectRoot('dist'),
+        inject: 'head'
+      }),
+      new ScriptExtPlugin({
+        defaultAttribute: 'defer'
+      })
+    ]
+  };
+}

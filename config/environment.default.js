@@ -157,7 +157,7 @@ module.exports = {
     }
   },
   theme: {
-    name: 'default',
-    cssClass: 'default',
+    name: 'mantis',
+    cssClass: 'mantis',
   }
 };

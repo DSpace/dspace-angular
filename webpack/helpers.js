@@ -8,9 +8,10 @@ const projectRoot = (relativePath) => {
 
 const srcPath = projectRoot('src');
 
-const buildRoot = (relativePath) => {
-  if (process.env.DSPACE_BUILD_DIR) {
-    return path.resolve(projectRoot(process.env.DSPACE_BUILD_DIR), relativePath);
+const buildRoot = (relativePath, env) => {
+  console.log(env.aot);
+  if (env.aot) {
+    return path.resolve(projectRoot('./build'), relativePath);
   } else {
     return path.resolve(projectRoot('src'), relativePath);
   }
@@ -58,10 +59,10 @@ else {
   themePath = srcPath;
 }
 
-const globalCSSImports = [
-  buildRoot('styles/_variables.scss'),
-  buildRoot('styles/_mixins.scss'),
-];
+const globalCSSImports = (env) => { return [
+  buildRoot('styles/_variables.scss', env),
+  buildRoot('styles/_mixins.scss', env),
+]};
 
 const themeReplaceOptions =
   {
