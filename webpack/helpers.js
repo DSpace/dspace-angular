@@ -80,7 +80,10 @@ const themedTest = (origPath, extension) => {
 
 const themedUse = (resource, extension) => {
   const origPath = path.parse(resource);
-  const themedPath = getThemedPath(resource, extension);
+  let themedPath = getThemedPath(resource, extension);
+
+  /* Make sure backslashes are escaped twice, because the replace unescapes those again */
+  themedPath = themedPath.replace(/\\/g, '\\\\');
 
   return [
     {
