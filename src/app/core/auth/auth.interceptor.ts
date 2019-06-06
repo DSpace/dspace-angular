@@ -5,7 +5,7 @@ import {Injectable, Injector} from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler,
+  HttpHandler, HttpHeaders,
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
@@ -77,6 +77,19 @@ export class AuthInterceptor implements HttpInterceptor {
     return authStatus;
   }
 
+  private getLocationfromHeader(header: HttpHeaders): string {
+    console.log('HEADER www-authenticate: ', header.get('www-authenticate'));
+    let location = '';
+    if (header.get('www-authenticate').startsWith('shibboleth realm')) {
+      const strings = header.get('www-authenticate').split(',');
+      location = strings[1];
+      location = location.replace('location=', '');
+      console.log('This should be the location: ', location);
+      return location = location.replace('"', '').trim();
+    }
+    return location;
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const authService = this.inj.get(AuthService);
@@ -139,30 +152,17 @@ export class AuthInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
 
           // Check for 405
-          if (this.is405AuthResponse(error)) {
-            console.log('the caught error is a 405');
-          }
+          /*     if (this.is405AuthResponse(error)) {
+                 console.log('the caught error is a 405');
+               }*/
 
           // Checks if is a response from a request to an authentication endpoint
           if (this.isAuthRequest(error)) {
             console.log('catchError isAuthRequest=true');
             // clean eventually refresh Requests list
-
             this.refreshTokenRequestUrls = [];
             // console.log('error: ', error);
-            let location = error.headers.get('location');// this  line added while shibboleth dev
-            console.log('error.headers.get("location"): ', location);
-
-            console.log('www-authenticate', error.headers.get('www-authenticate'));
-            const strings = error.headers.get('www-authenticate').split(',');
-            const locationstring = strings[1];
-            const s = locationstring.replace('location=', '');
-            const s1 = s.replace('"', '').trim();
-            console.log('This should be the location: ', s1);
-            location = s1;
-
-            console.log('error headers: ', error.headers);
-            console.log('error', error);
+            const location = this.getLocationfromHeader(error.headers);
 
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
