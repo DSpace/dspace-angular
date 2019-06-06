@@ -42,6 +42,7 @@ describe('RouteService', () => {
           provide: ActivatedRoute,
           useValue: {
             queryParams: observableOf(paramObject),
+            params: observableOf(paramObject),
             queryParamMap: observableOf(convertToParamMap(paramObject))
           },
         },

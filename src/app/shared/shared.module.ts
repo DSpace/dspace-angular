@@ -10,15 +10,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ItemTypeSwitcherComponent } from './items/switcher/item-type-switcher.component';
-import { OrgUnitMetadataListElementComponent } from './object-list/item-list-element/item-types/orgunit/orgunit-metadata-list-element.component';
 import { TypedItemSearchResultListElementComponent } from './object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
-import { OrgUnitListElementComponent } from './object-list/item-list-element/item-types/orgunit/orgunit-list-element.component';
-import { PersonListElementComponent } from './object-list/item-list-element/item-types/person/person-list-element.component';
-import { ProjectListElementComponent } from './object-list/item-list-element/item-types/project/project-list-element.component';
-import { JournalListElementComponent } from './object-list/item-list-element/item-types/journal/journal-list-element.component';
-import { JournalVolumeListElementComponent } from './object-list/item-list-element/item-types/journal-volume/journal-volume-list-element.component';
-import { JournalIssueListElementComponent } from './object-list/item-list-element/item-types/journal-issue/journal-issue-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -117,7 +110,6 @@ import { LangSwitchComponent } from './lang-switch/lang-switch.component';
 import { PlainTextMetadataListElementComponent } from './object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';
 import { ItemMetadataListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-list-element.component';
 import { TooltipModule } from 'ngx-bootstrap';
-import { PersonMetadataListElementComponent } from './object-list/item-list-element/item-types/person/person-metadata-list-element.component';
 import { MetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { ComColFormComponent } from './comcol-forms/comcol-form/comcol-form.component';
 import { CreateComColPageComponent } from './comcol-forms/create-comcol-page/create-comcol-page.component';
@@ -283,14 +275,6 @@ const ENTRY_COMPONENTS = [
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
   PublicationListElementComponent,
-  PersonListElementComponent,
-  PersonMetadataListElementComponent,
-  OrgUnitMetadataListElementComponent,
-  OrgUnitListElementComponent,
-  ProjectListElementComponent,
-  JournalListElementComponent,
-  JournalVolumeListElementComponent,
-  JournalIssueListElementComponent,
   BrowseEntryListElementComponent,
   MyDSpaceResultDetailElementComponent,
   SearchResultGridElementComponent,
