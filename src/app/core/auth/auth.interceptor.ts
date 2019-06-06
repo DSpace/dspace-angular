@@ -77,7 +77,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return authStatus;
   }
 
-  private getLocationfromHeader(header: HttpHeaders): string {
+  private getSSOLocationfromHeader(header: HttpHeaders): string {
     console.log('HEADER www-authenticate: ', header.get('www-authenticate'));
     let location = '';
     if (header.get('www-authenticate').startsWith('shibboleth realm')) {
@@ -164,7 +164,7 @@ export class AuthInterceptor implements HttpInterceptor {
             // console.log('error: ', error);
             let location = '';
             if (error.headers.get('www-authenticate') != null) {
-              location = this.getLocationfromHeader(error.headers);
+              location = this.getSSOLocationfromHeader(error.headers);
             }
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({

@@ -33,7 +33,7 @@ module.exports = {
   auth: {
     target: {
       host: 'https://fis.tiss.tuwien.ac.at',
-      page: '/spring-rest/login.html'
+      page: ''
     }
   },
   // Form settings
