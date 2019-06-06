@@ -1,20 +1,23 @@
+import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
+
+import { catchError, filter, map } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
 import {
-  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse,
-  HttpErrorResponse, HttpResponseBase
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+  HttpResponseBase
 } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/observable/throw'
-import 'rxjs/add/operator/catch';
-
 import { find } from 'lodash';
 
 import { AppState } from '../../app.reducer';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { isNotEmpty, isUndefined } from '../../shared/empty.util';
+import { isNotEmpty, isUndefined, isNotNull } from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -79,11 +82,11 @@ export class AuthInterceptor implements HttpInterceptor {
       // The access token is expired
       // Redirect to the login route
       this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));
-      return Observable.of(null);
+      return observableOf(null);
     } else if (!this.isAuthRequest(req) && isNotEmpty(token)) {
       // Intercept a request that is not to the authentication endpoint
-      authService.isTokenExpiring()
-        .filter((isExpiring) => isExpiring)
+      authService.isTokenExpiring().pipe(
+        filter((isExpiring) => isExpiring))
         .subscribe(() => {
           // If the current request url is already in the refresh token request list, skip it
           if (isUndefined(find(this.refreshTokenRequestUrls, req.url))) {
@@ -101,8 +104,8 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     // Pass on the new request instead of the original request.
-    return next.handle(newReq)
-      .map((response) => {
+    return next.handle(newReq).pipe(
+      map((response) => {
         // Intercept a Login/Logout response
         if (response instanceof HttpResponse && this.isSuccess(response) && (this.isLoginResponse(response) || this.isLogoutResponse(response))) {
           // It's a success Login/Logout response
@@ -122,8 +125,8 @@ export class AuthInterceptor implements HttpInterceptor {
         } else {
           return response;
         }
-      })
-      .catch((error, caught) => {
+      }),
+      catchError((error, caught) => {
         // Intercept an error response
         if (error instanceof HttpErrorResponse) {
           // Checks if is a response from a request to an authentication endpoint
@@ -138,16 +141,15 @@ export class AuthInterceptor implements HttpInterceptor {
               statusText: error.statusText,
               url: error.url
             });
-            return Observable.of(authResponse);
-          } else if (this.isUnauthorized(error)) {
+            return observableOf(authResponse);
+          } else if (this.isUnauthorized(error) && isNotNull(token) && authService.isTokenExpired()) {
             // The access token provided is expired, revoked, malformed, or invalid for other reasons
             // Redirect to the login route
             this.store.dispatch(new RedirectWhenTokenExpiredAction('auth.messages.expired'));
           }
         }
         // Return error response as is.
-        return Observable.throw(error);
-      }) as any;
-
+        return observableThrowError(error);
+      })) as any;
   }
 }

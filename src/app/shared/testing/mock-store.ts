@@ -1,24 +1,21 @@
-import { Action } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Injectable } from '@angular/core';
+import { ActionsSubject, ReducerManager, StateObservable, Store } from '@ngrx/store';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
-export class MockStore<T> extends BehaviorSubject<T> {
+@Injectable()
+export class MockStore<T> extends Store<T> {
+  private stateSubject = new BehaviorSubject<T>({} as T);
 
-  constructor(private _initialState: T) {
-    super(_initialState);
+  constructor(
+    state$: StateObservable,
+    actionsObserver: ActionsSubject,
+    reducerManager: ReducerManager
+  ) {
+    super(state$, actionsObserver, reducerManager);
+    this.source = this.stateSubject.asObservable();
   }
 
-  dispatch = (action: Action): void => {
-    // console.info(action);
-  };
-
-  select = <R>(pathOrMapFn: any): Observable<T> => {
-    return this.asObservable()
-      .map((value) => pathOrMapFn.projector(value))
-  };
-
-  nextState(_newState: T) {
-    this.next(_newState);
+  nextState(nextState: T) {
+    this.stateSubject.next(nextState);
   }
-
 }

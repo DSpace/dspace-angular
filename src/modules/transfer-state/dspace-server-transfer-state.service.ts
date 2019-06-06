@@ -1,3 +1,5 @@
+
+import {take} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { DSpaceTransferState } from './dspace-transfer-state.service';
 
@@ -6,7 +8,7 @@ export class DSpaceServerTransferState extends DSpaceTransferState {
   transfer() {
     this.transferState.onSerialize(DSpaceTransferState.NGRX_STATE, () => {
       let state;
-      this.store.take(1).subscribe((saveState: any) => {
+      this.store.pipe(take(1)).subscribe((saveState: any) => {
         state = saveState;
       });
 

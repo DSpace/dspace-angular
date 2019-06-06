@@ -1,5 +1,6 @@
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { isNull } from '../../shared/empty.util';
 
 /**
  * Contains the mapping between a search result component and a DSpaceObject
@@ -11,12 +12,19 @@ const searchResultMap = new Map();
  * @param {GenericConstructor<ListableObject>} domainConstructor The constructor of the DSpaceObject
  * @returns Decorator function that performs the actual mapping on initialization of the component
  */
-export function searchResultFor(domainConstructor: GenericConstructor<ListableObject>) {
+export function searchResultFor(domainConstructor: GenericConstructor<ListableObject>, configuration: string = null) {
   return function decorator(searchResult: any) {
     if (!searchResult) {
       return;
     }
-    searchResultMap.set(domainConstructor, searchResult);
+    if (isNull(configuration)) {
+      searchResultMap.set(domainConstructor, searchResult);
+    } else {
+      if (!searchResultMap.get(configuration)) {
+        searchResultMap.set(configuration, new Map());
+      }
+      searchResultMap.get(configuration).set(domainConstructor, searchResult);
+    }
   };
 }
 
@@ -25,6 +33,10 @@ export function searchResultFor(domainConstructor: GenericConstructor<ListableOb
  * @param {GenericConstructor<ListableObject>} domainConstructor The DSpaceObject's constructor for which the search result component is requested
  * @returns The component's constructor that matches the given DSpaceObject
  */
-export function getSearchResultFor(domainConstructor: GenericConstructor<ListableObject>) {
-  return searchResultMap.get(domainConstructor);
+export function getSearchResultFor(domainConstructor: GenericConstructor<ListableObject>, configuration: string = null) {
+  if (isNull(configuration) || configuration === 'default') {
+    return searchResultMap.get(domainConstructor);
+  } else {
+    return searchResultMap.get(configuration).get(domainConstructor);
+  }
 }

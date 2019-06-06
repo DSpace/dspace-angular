@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
+import { mergeMap, filter, map, take, tap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
@@ -12,6 +14,8 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
+import { redirectToPageNotFoundOn404 } from '../../core/shared/operators';
+import { ItemViewMode } from '../../shared/items/item-type-decorator';
 
 /**
  * This component renders a simple item page.
@@ -27,28 +31,33 @@ import { hasValue } from '../../shared/empty.util';
 })
 export class ItemPageComponent implements OnInit {
 
+  /**
+   * The item's id
+   */
   id: number;
 
-  private sub: any;
-
+  /**
+   * The item wrapped in a remote-data object
+   */
   itemRD$: Observable<RemoteData<Item>>;
 
-  thumbnail$: Observable<Bitstream>;
+  /**
+   * The view-mode we're currently on
+   */
+  viewMode = ItemViewMode.Full;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private items: ItemDataService,
-    private metadataService: MetadataService
-  ) {
-
-  }
+    private metadataService: MetadataService,
+  ) { }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.map((data) => data.item);
+    this.itemRD$ = this.route.data.pipe(
+      map((data) => data.item as RemoteData<Item>),
+      redirectToPageNotFoundOn404(this.router)
+    );
     this.metadataService.processRemoteData(this.itemRD$);
-    this.thumbnail$ = this.itemRD$
-      .map((rd: RemoteData<Item>) => rd.payload)
-      .filter((item: Item) => hasValue(item))
-      .flatMap((item: Item) => item.getThumbnail());
   }
 }

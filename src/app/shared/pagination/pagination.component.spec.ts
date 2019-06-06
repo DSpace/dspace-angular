@@ -20,7 +20,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { StoreModule } from '@ngrx/store';
@@ -262,7 +262,7 @@ describe('Pagination component', () => {
 
     changePage(testFixture, 3);
     tick();
-    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: 3, pageSize: 10, sortDirection: 'ASC', sortField: 'dc.title' }, queryParamsHandling: 'merge' });
+    expect(routerStub.navigate).toHaveBeenCalledWith([], { queryParams: { pageId: 'test', page: '3', pageSize: 10, sortDirection: 'ASC', sortField: 'dc.title' }, queryParamsHandling: 'merge' });
 
   }));
 

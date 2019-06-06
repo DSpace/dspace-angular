@@ -1,10 +1,19 @@
-import { RouteService } from './route.service';
+import { ActivatedRoute, convertToParamMap, NavigationEnd, Params, Router } from '@angular/router';
 import { async, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap, Params } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+
+import { of as observableOf } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { getTestScheduler, hot } from 'jasmine-marbles';
+
+import { RouteService } from './route.service';
+import { MockRouter } from '../mocks/mock-router';
+import { TestScheduler } from 'rxjs/testing';
+import { AddUrlToHistoryAction } from '../history/history.actions';
 
 describe('RouteService', () => {
+  let scheduler: TestScheduler;
   let service: RouteService;
+  let serviceAsAny: any;
   const paramName1 = 'name';
   const paramValue1 = 'Test Name';
   const paramName2 = 'id';
@@ -15,6 +24,14 @@ describe('RouteService', () => {
 
   const paramObject: Params = {};
 
+  const store: any = jasmine.createSpyObj('store', {
+    dispatch: jasmine.createSpy('dispatch'),
+    select: jasmine.createSpy('select')
+  });
+
+  const router = new MockRouter();
+  router.setParams(convertToParamMap(paramObject));
+
   paramObject[paramName1] = paramValue1;
   paramObject[paramName2] = [paramValue2a, paramValue2b];
 
@@ -24,16 +41,20 @@ describe('RouteService', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            queryParams: Observable.of(paramObject),
-            queryParamMap: Observable.of(convertToParamMap(paramObject))
+            queryParams: observableOf(paramObject),
+            params: observableOf(paramObject),
+            queryParamMap: observableOf(convertToParamMap(paramObject))
           },
         },
+        { provide: Router, useValue: router },
+        { provide: Store, useValue: store },
       ]
     });
   }));
 
   beforeEach(() => {
-    service = new RouteService(TestBed.get(ActivatedRoute));
+    service = new RouteService(TestBed.get(ActivatedRoute), TestBed.get(Router), TestBed.get(Store));
+    serviceAsAny = service;
   });
 
   describe('hasQueryParam', () => {
@@ -101,4 +122,31 @@ describe('RouteService', () => {
     });
   });
 
+  describe('saveRouting', () => {
+
+    it('should dispatch AddUrlToHistoryAction on NavigationEnd event', () => {
+      scheduler = getTestScheduler();
+
+      serviceAsAny.router.events = hot('a-b', {
+        a: new NavigationEnd(0, 'url', 'url'),
+        b: new NavigationEnd(1, 'newurl', 'newurl')
+      });
+
+      scheduler.schedule(() => service.saveRouting());
+      scheduler.flush();
+
+      expect(serviceAsAny.store.dispatch).toHaveBeenCalledWith(new AddUrlToHistoryAction('url'));
+      expect(serviceAsAny.store.dispatch).toHaveBeenCalledWith(new AddUrlToHistoryAction('newurl'));
+    });
+  });
+
+  describe('getHistory', () => {
+    it('should dispatch AddUrlToHistoryAction on NavigationEnd event', () => {
+      serviceAsAny.store = observableOf({ history: ['url', 'newurl'] });
+
+      service.getHistory().subscribe((history) => {
+        expect(history).toEqual(['url', 'newurl']);
+      })
+    })
+  })
 });

@@ -1,5 +1,5 @@
+import { Observable, of as observableOf } from 'rxjs';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
-import { Observable } from 'rxjs/Observable';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPersonMock } from './eperson-mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -20,8 +20,8 @@ export class AuthServiceStub {
       authStatus.okay = true;
       authStatus.authenticated = true;
       authStatus.token = this.token;
-      authStatus.eperson = Observable.of(new RemoteData<EPerson>(false, false, true, undefined, EPersonMock));
-      return Observable.of(authStatus);
+      authStatus.eperson = observableOf(new RemoteData<EPerson>(false, false, true, undefined, EPersonMock));
+      return observableOf(authStatus);
     } else {
       console.log('error');
       throw(new Error('Message Error test'));
@@ -30,7 +30,7 @@ export class AuthServiceStub {
 
   public authenticatedUser(token: AuthTokenInfo): Observable<EPerson> {
     if (token.accessToken === 'token_test') {
-      return Observable.of(EPersonMock);
+      return observableOf(EPersonMock);
     } else {
       throw(new Error('Message Error test'));
     }
@@ -45,11 +45,11 @@ export class AuthServiceStub {
   }
 
   public hasValidAuthenticationToken(): Observable<AuthTokenInfo> {
-    return Observable.of(this.token);
+    return observableOf(this.token);
   }
 
   public logout(): Observable<boolean> {
-    return Observable.of(true);
+    return observableOf(true);
   }
 
   public isTokenExpired(token?: AuthTokenInfo): boolean {
@@ -71,11 +71,11 @@ export class AuthServiceStub {
   }
 
   public isTokenExpiring(): Observable<boolean> {
-    return Observable.of(false);
+    return observableOf(false);
   }
 
   public refreshAuthenticationToken(token: AuthTokenInfo): Observable<AuthTokenInfo> {
-    return Observable.of(this.token);
+    return observableOf(this.token);
   }
 
   public redirectToPreviousUrl() {
@@ -92,5 +92,9 @@ export class AuthServiceStub {
 
   public storeToken(token: AuthTokenInfo) {
     return;
+  }
+
+  isAuthenticated() {
+    return observableOf(true);
   }
 }

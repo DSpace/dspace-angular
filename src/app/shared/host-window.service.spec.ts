@@ -1,20 +1,25 @@
 import { Store } from '@ngrx/store';
 import { cold, hot } from 'jasmine-marbles';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { AppState } from '../app.reducer';
-import { HostWindowState } from './host-window.reducer';
 
-import { GridBreakpoint, HostWindowService, WidthCategory } from './host-window.service';
-
+import { HostWindowService, WidthCategory } from './host-window.service';
+import { CSSVariableServiceStub } from './testing/css-variable-service-stub';
 describe('HostWindowService', () => {
   let service: HostWindowService;
   let store: Store<AppState>;
+  enum GridBreakpoint {
+    SM_MIN = 576,
+    MD_MIN = 768,
+    LG_MIN = 992,
+    XL_MIN = 1200
+  };
 
   describe('', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 1600, height: 770 } };
-      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
     it('isXs() should return false with width = 1600', () => {
@@ -49,8 +54,8 @@ describe('HostWindowService', () => {
   describe('', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 1100, height: 770 } };
-      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
     it('isXs() should return false with width = 1100', () => {
@@ -85,8 +90,8 @@ describe('HostWindowService', () => {
   describe('', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 800, height: 770 } };
-      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
     it('isXs() should return false with width = 800', () => {
@@ -121,8 +126,8 @@ describe('HostWindowService', () => {
   describe('', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 600, height: 770 } };
-      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
     it('isXs() should return false with width = 600', () => {
@@ -157,8 +162,8 @@ describe('HostWindowService', () => {
   describe('', () => {
     beforeEach(() => {
       const _initialState = { hostWindow: { width: 400, height: 770 } };
-      store = new Store<AppState>(Observable.of(_initialState), undefined, undefined);
-      service = new HostWindowService(store);
+      store = new Store<AppState>(observableOf(_initialState), undefined, undefined);
+      service = new HostWindowService(store, new CSSVariableServiceStub() as any);
     });
 
     it('isXs() should return true with width = 400', () => {
@@ -192,7 +197,7 @@ describe('HostWindowService', () => {
 
   describe('widthCategory', () => {
     beforeEach(() => {
-      service = new HostWindowService({} as Store<AppState>);
+      service = new HostWindowService({} as Store<AppState>,  new CSSVariableServiceStub() as any);
     });
 
     it('should call getWithObs to get the current width', () => {

@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { hasValue } from '../empty.util';
 
 @Component({
@@ -13,6 +13,7 @@ import { hasValue } from '../empty.util';
 export class LoadingComponent implements OnDestroy, OnInit {
 
   @Input() message: string;
+  @Input() showMessage = true;
 
   private subscription: Subscription;
 

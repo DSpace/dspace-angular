@@ -34,7 +34,7 @@ export class SearchQueryResponse {
    * The sort parameters used in the search request
    */
   @autoserialize
-  configurationName: string;
+  configuration: string;
 
   /**
    * The sort parameters used in the search request

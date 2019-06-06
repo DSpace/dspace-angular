@@ -1,7 +1,7 @@
 import { SearchService } from '../search-service/search.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchSettingsComponent } from './search-settings.component';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,7 +14,8 @@ import { By } from '@angular/platform-browser';
 import { SearchFilterService } from '../search-filters/search-filter/search-filter.service';
 import { hot } from 'jasmine-marbles';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { first } from 'rxjs/operators';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 
 describe('SearchSettingsComponent', () => {
 
@@ -43,16 +44,16 @@ describe('SearchSettingsComponent', () => {
   };
 
   const activatedRouteStub = {
-    queryParams: Observable.of({
+    queryParams: observableOf({
       query: queryParam,
       scope: scopeParam
     })
   };
 
   const sidebarService = {
-    isCollapsed: Observable.of(true),
-    collapse: () => this.isCollapsed = Observable.of(true),
-    expand: () => this.isCollapsed = Observable.of(false)
+    isCollapsed: observableOf(true),
+    collapse: () => this.isCollapsed = observableOf(true),
+    expand: () => this.isCollapsed = observableOf(false)
   };
 
   beforeEach(async(() => {
@@ -72,7 +73,7 @@ describe('SearchSettingsComponent', () => {
           useValue: {}
         },
         {
-          provide: SearchConfigurationService,
+          provide: SEARCH_CONFIG_SERVICE,
           useValue: {
             paginatedSearchOptions: hot('a', {
               a: paginatedSearchOptions
@@ -101,7 +102,7 @@ describe('SearchSettingsComponent', () => {
   });
 
   it('it should show the order settings with the respective selectable options', () => {
-    (comp as any).searchOptions$.first().subscribe((options) => {
+    (comp as any).searchOptions$.pipe(first()).subscribe((options) => {
       fixture.detectChanges();
       const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
       expect(orderSetting).toBeDefined();
@@ -111,7 +112,7 @@ describe('SearchSettingsComponent', () => {
   });
 
   it('it should show the size settings with the respective selectable options', () => {
-    (comp as any).searchOptions$.first().subscribe((options) => {
+    (comp as any).searchOptions$.pipe(first()).subscribe((options) => {
         fixture.detectChanges();
         const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
         expect(pageSizeSetting).toBeDefined();
@@ -122,7 +123,7 @@ describe('SearchSettingsComponent', () => {
   });
 
   it('should have the proper order value selected by default', () => {
-    (comp as any).searchOptions$.first().subscribe((options) => {
+    (comp as any).searchOptions$.pipe(first()).subscribe((options) => {
       fixture.detectChanges();
       const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
       const childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'));
@@ -131,7 +132,7 @@ describe('SearchSettingsComponent', () => {
   });
 
   it('should have the proper rpp value selected by default', () => {
-    (comp as any).searchOptions$.first().subscribe((options) => {
+    (comp as any).searchOptions$.pipe(first()).subscribe((options) => {
       fixture.detectChanges();
       const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
       const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'));

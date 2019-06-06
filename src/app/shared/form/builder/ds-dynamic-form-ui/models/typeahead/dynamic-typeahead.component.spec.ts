@@ -1,48 +1,58 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, fakeAsync, inject, TestBed, } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DsDynamicTypeaheadComponent } from './dynamic-typeahead.component';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { createTestComponent } from '../../../../../testing/utils';
+import { AuthorityConfidenceStateDirective } from '../../../../../authority-confidence/authority-confidence-state.directive';
+import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 
-export const TYPEAHEAD_TEST_GROUP = new FormGroup({
-  typeahead: new FormControl(),
-});
+export let TYPEAHEAD_TEST_GROUP;
 
-export const TYPEAHEAD_TEST_MODEL_CONFIG = {
-  authorityOptions: {
-    closed: false,
-    metadata: 'typeahead',
-    name: 'EVENTAuthority',
-    scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
-  } as AuthorityOptions,
-  disabled: false,
-  id: 'typeahead',
-  label: 'Conference',
-  minChars: 3,
-  name: 'typeahead',
-  placeholder: 'Conference',
-  readOnly: false,
-  required: false,
-  repeatable: false,
-  value: undefined
-};
+export let TYPEAHEAD_TEST_MODEL_CONFIG;
 
+const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
+
+function init() {
+  TYPEAHEAD_TEST_GROUP = new FormGroup({
+    typeahead: new FormControl(),
+  });
+
+  TYPEAHEAD_TEST_MODEL_CONFIG = {
+    authorityOptions: {
+      closed: false,
+      metadata: 'typeahead',
+      name: 'EVENTAuthority',
+      scope: 'c1c16450-d56f-41bc-bb81-27f1d1eb5c23'
+    } as AuthorityOptions,
+    disabled: false,
+    id: 'typeahead',
+    label: 'Conference',
+    minChars: 3,
+    name: 'typeahead',
+    placeholder: 'Conference',
+    readOnly: false,
+    required: false,
+    repeatable: false,
+    value: undefined
+  };
+}
 describe('DsDynamicTypeaheadComponent test suite', () => {
 
   let testComp: TestComponent;
@@ -54,7 +64,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
   // async beforeEach
   beforeEach(async(() => {
     const authorityServiceStub = new AuthorityServiceStub();
-
+    init();
     TestBed.configureTestingModule({
       imports: [
         DynamicFormsCoreModule,
@@ -62,16 +72,21 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         FormsModule,
         NgbModule.forRoot(),
         ReactiveFormsModule,
+        TranslateModule.forRoot()
       ],
       declarations: [
         DsDynamicTypeaheadComponent,
         TestComponent,
+        AuthorityConfidenceStateDirective,
+        ObjNgFor
       ], // declare the test component
       providers: [
         ChangeDetectorRef,
         DsDynamicTypeaheadComponent,
-        {provide: AuthorityService, useValue: authorityServiceStub},
-        {provide: GLOBAL_CONFIG, useValue: {} as GlobalConfig},
+        { provide: GLOBAL_CONFIG, useValue: envConfig },
+        { provide: AuthorityService, useValue: authorityServiceStub },
+        { provide: DynamicFormLayoutService, useValue: {} },
+        { provide: DynamicFormValidationService, useValue: {} }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -85,7 +100,6 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       <ds-dynamic-typeahead [bindId]="bindId"
                             [group]="group"
                             [model]="model"
-                            [showErrorMessages]="showErrorMessages"
                             (blur)="onBlur($event)"
                             (change)="onValueChange($event)"
                             (focus)="onFocus($event)"></ds-dynamic-typeahead>`;
@@ -94,6 +108,9 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       testComp = testFixture.componentInstance;
     });
 
+    afterEach(() => {
+      testFixture.destroy();
+    });
     it('should create DsDynamicTypeaheadComponent', inject([DsDynamicTypeaheadComponent], (app: DsDynamicTypeaheadComponent) => {
 
       expect(app).toBeDefined();
@@ -121,12 +138,15 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
       });
 
       it('should search when 3+ characters typed', fakeAsync(() => {
+
         spyOn((typeaheadComp as any).authorityService, 'getEntriesByName').and.callThrough();
 
-        typeaheadComp.search(Observable.of('test')).subscribe(() => {
-          expect((typeaheadComp as any).authorityService.getEntriesByName).toHaveBeenCalled();
-        });
+        typeaheadComp.search(observableOf('test')).subscribe();
 
+        tick(300);
+        typeaheadFixture.detectChanges();
+
+        expect((typeaheadComp as any).authorityService.getEntriesByName).toHaveBeenCalled();
       }));
 
       it('should set model.value on input type when AuthorityOptions.closed is false', () => {
@@ -218,7 +238,5 @@ class TestComponent {
   group: FormGroup = TYPEAHEAD_TEST_GROUP;
 
   model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
-
-  showErrorMessages = false;
 
 }

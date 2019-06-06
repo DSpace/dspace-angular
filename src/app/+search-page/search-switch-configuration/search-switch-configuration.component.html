@@ -1,0 +1,13 @@
+<div *ngIf="configurationList?.length > 1" class="search-switch-configuration">
+  <h5>{{ 'search.switch-configuration.title' | translate}}</h5>
+
+  <select class="form-control"
+          [compareWith]="compare"
+          [(ngModel)]="selectedOption"
+          (change)="onSelect()">
+    <option *ngFor="let option of configurationList;" [ngValue]="option.value">
+      {{option.label | translate}}
+    </option>
+  </select>
+
+</div>

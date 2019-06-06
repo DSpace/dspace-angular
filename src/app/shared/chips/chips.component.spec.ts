@@ -1,7 +1,6 @@
 // Load the implementations that should be tested
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
-import 'rxjs/add/observable/of';
 
 import { Chips } from './models/chips.model';
 import { UploaderService } from '../uploader/uploader.service';
@@ -11,6 +10,12 @@ import { SortablejsModule } from 'angular-sortablejs';
 import { By } from '@angular/platform-browser';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { createTestComponent, hasClass } from '../testing/utils';
+import { AuthorityConfidenceStateDirective } from '../authority-confidence/authority-confidence-state.directive';
+import { TranslateModule } from '@ngx-translate/core';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../config';
+import { MOCK_SUBMISSION_CONFIG } from '../testing/mock-submission-config';
+import { ConfidenceType } from '../../core/integration/models/confidence-type';
 
 describe('ChipsComponent test suite', () => {
 
@@ -21,6 +26,7 @@ describe('ChipsComponent test suite', () => {
   let html;
   let chips: Chips;
 
+  const envConfig: GlobalConfig = MOCK_SUBMISSION_CONFIG;
   // async beforeEach
   beforeEach(async(() => {
 
@@ -28,12 +34,15 @@ describe('ChipsComponent test suite', () => {
       imports: [
         NgbModule.forRoot(),
         SortablejsModule.forRoot({animation: 150}),
+        TranslateModule.forRoot()
       ],
       declarations: [
         ChipsComponent,
         TestComponent,
+        AuthorityConfidenceStateDirective
       ], // declare the test component
       providers: [
+        { provide: GLOBAL_CONFIG, useValue: envConfig },
         ChangeDetectorRef,
         ChipsComponent,
         UploaderService
@@ -140,77 +149,35 @@ describe('ChipsComponent test suite', () => {
   describe('when has items as object', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, 'test001'),
-        relatedField: new FormFieldMetadataValueObject('related test', null, 'test002'),
+        mainField: new FormFieldMetadataValueObject('main test', null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
+        relatedField: new FormFieldMetadataValueObject('related test', null, 'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
         otherRelatedField: new FormFieldMetadataValueObject('other related test')
       };
-      const iconsConfig = [
-        {
-          name: 'mainField',
-          config: {
-            withAuthority:{
-              style: 'fa-user'
-            }
-          }
-        },
-        {
-          name: 'relatedField',
-          config: {
-            withAuthority:{
-              style: 'fa-user-alt'
-            },
-            withoutAuthority:{
-              style: 'fa-user-alt text-muted'
-            }
-          }
-        },
-        {
-          name: 'otherRelatedField',
-          config: {
-            withAuthority:{
-              style: 'fa-user-alt'
-            },
-            withoutAuthority:{
-              style: 'fa-user-alt text-muted'
-            }
-          }
-        },
-        {
-          name: 'default',
-          config: {}
-        }
-      ];
 
-      chips = new Chips([item], 'display', 'mainField', iconsConfig);
+      chips = new Chips([item], 'display', 'mainField', envConfig.submission.icons.metadata);
       chipsFixture = TestBed.createComponent(ChipsComponent);
       chipsComp = chipsFixture.componentInstance; // TruncatableComponent test instance
       chipsComp.editable = true;
+      chipsComp.showIcons = true;
       chipsComp.chips = chips;
       chipsFixture.detectChanges();
     });
 
     it('should show icon for every field that has a configured icon', () => {
       const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fa'));
+      const icons = de.queryAll(By.css('i.fas'));
 
       expect(icons.length).toBe(4);
 
     });
 
-    it('should has text-muted on icon style when field value had not authority', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fa'));
-
-      expect(hasClass(icons[2].nativeElement, 'text-muted')).toBeTruthy();
-    });
-
     it('should show tooltip on mouse over an icon', () => {
       const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
-      const icons = de.queryAll(By.css('i.fa'));
+      const icons = de.queryAll(By.css('i.fas'));
 
       icons[0].triggerEventHandler('mouseover', null);
 
-      expect(chipsComp.tipText).toBe('main test')
+      expect(chipsComp.tipText).toEqual(['main test'])
     });
   });
 });

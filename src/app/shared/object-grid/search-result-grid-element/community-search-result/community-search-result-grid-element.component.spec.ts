@@ -1,6 +1,6 @@
 import { CommunitySearchResultGridElementComponent } from './community-search-result-grid-element.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
@@ -12,29 +12,33 @@ let communitySearchResultGridElementComponent: CommunitySearchResultGridElementC
 let fixture: ComponentFixture<CommunitySearchResultGridElementComponent>;
 
 const truncatableServiceStub: any = {
-  isCollapsed: (id: number) => Observable.of(true),
+  isCollapsed: (id: number) => observableOf(true),
 };
 
 const mockCommunityWithAbstract: CommunitySearchResult = new CommunitySearchResult();
-mockCommunityWithAbstract.hitHighlights = [];
-mockCommunityWithAbstract.dspaceObject = Object.assign(new Community(), {
-  metadata: [
-    {
-      key: 'dc.description.abstract',
-      language: 'en_US',
-      value: 'Short description'
-    } ]
+mockCommunityWithAbstract.hitHighlights = {};
+mockCommunityWithAbstract.indexableObject = Object.assign(new Community(), {
+  metadata: {
+    'dc.description.abstract': [
+      {
+        language: 'en_US',
+        value: 'Short description'
+      }
+    ]
+  }
 });
 
 const mockCommunityWithoutAbstract: CommunitySearchResult = new CommunitySearchResult();
-mockCommunityWithoutAbstract.hitHighlights = [];
-mockCommunityWithoutAbstract.dspaceObject = Object.assign(new Community(), {
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'Test title'
-    } ]
+mockCommunityWithoutAbstract.hitHighlights = {};
+mockCommunityWithoutAbstract.indexableObject = Object.assign(new Community(), {
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title'
+      }
+    ]
+  }
 });
 
 describe('CommunitySearchResultGridElementComponent', () => {
@@ -59,7 +63,7 @@ describe('CommunitySearchResultGridElementComponent', () => {
 
   describe('When the community has an abstract', () => {
     beforeEach(() => {
-      communitySearchResultGridElementComponent.dso = mockCommunityWithAbstract.dspaceObject;
+      communitySearchResultGridElementComponent.dso = mockCommunityWithAbstract.indexableObject;
       fixture.detectChanges();
     });
 
@@ -71,7 +75,7 @@ describe('CommunitySearchResultGridElementComponent', () => {
 
   describe('When the community has no abstract', () => {
     beforeEach(() => {
-      communitySearchResultGridElementComponent.dso = mockCommunityWithoutAbstract.dspaceObject;
+      communitySearchResultGridElementComponent.dso = mockCommunityWithoutAbstract.indexableObject;
       fixture.detectChanges();
     });
 

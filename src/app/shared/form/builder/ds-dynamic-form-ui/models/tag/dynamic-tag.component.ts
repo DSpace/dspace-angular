@@ -1,15 +1,21 @@
-import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import {
+  DynamicFormControlComponent,
+  DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
+import { of as observableOf,  Observable } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, tap, switchMap, map, merge } from 'rxjs/operators';
+import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { isEqual } from 'lodash';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicTagModel } from './dynamic-tag.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
-import { isEqual } from 'lodash';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 
@@ -18,15 +24,16 @@ import { GLOBAL_CONFIG } from '../../../../../../../config';
   styleUrls: ['./dynamic-tag.component.scss'],
   templateUrl: './dynamic-tag.component.html'
 })
-export class DsDynamicTagComponent implements OnInit {
+export class DsDynamicTagComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTagModel;
-  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+
+  @ViewChild('instance') instance: NgbTypeahead;
 
   chips: Chips;
   hasAuthority: boolean;
@@ -40,41 +47,46 @@ export class DsDynamicTagComponent implements OnInit {
   formatter = (x: { display: string }) => x.display;
 
   search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .do(() => this.changeSearchingStatus(true))
-      .switchMap((term) => {
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.changeSearchingStatus(true)),
+      switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return Observable.of({list: []});
+          return observableOf({list: []});
         } else {
           this.searchOptions.query = term;
-          return this.authorityService.getEntriesByName(this.searchOptions)
-            .map((authorities) => {
+          return this.authorityService.getEntriesByName(this.searchOptions).pipe(
+            map((authorities) => {
               // @TODO Pagination for authority is not working, to refactor when it will be fixed
               return {
                 list: authorities.payload,
                 pageInfo: authorities.pageInfo
               };
-            })
-            .do(() => this.searchFailed = false)
-            .catch(() => {
+            }),
+            tap(() => this.searchFailed = false),
+            catchError(() => {
               this.searchFailed = true;
-              return Observable.of({list: []});
-            });
+              return observableOf({list: []});
+            }));
         }
-      })
-      .map((results) => results.list)
-      .do(() => this.changeSearchingStatus(false))
-      .merge(this.hideSearchingWhenUnsubscribed);
+      }),
+      map((results) => results.list),
+      tap(() => this.changeSearchingStatus(false)),
+      merge(this.hideSearchingWhenUnsubscribed),);
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               private authorityService: AuthorityService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
   }
 
   ngOnInit() {
     this.hasAuthority = this.model.authorityOptions && hasValue(this.model.authorityOptions.name);
+
     if (this.hasAuthority) {
       this.searchOptions = new IntegrationSearchOptions(
         this.model.authorityOptions.scope,
@@ -82,7 +94,11 @@ export class DsDynamicTagComponent implements OnInit {
         this.model.authorityOptions.metadata);
     }
 
-    this.chips = new Chips(this.model.value, 'display');
+    this.chips = new Chips(
+      this.model.value,
+      'display',
+      null,
+      this.EnvConfig.submission.icons.metadata);
 
     this.chips.chipsItems
       .subscribe((subItems: any[]) => {
@@ -108,7 +124,7 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   onBlur(event: Event) {
-    if (isNotEmpty(this.currentValue)) {
+    if (isNotEmpty(this.currentValue) && !this.instance.isPopupOpen()) {
       this.addTagsToChips();
     }
     this.blur.emit(event);
@@ -152,7 +168,7 @@ export class DsDynamicTagComponent implements OnInit {
   }
 
   private addTagsToChips() {
-    if (!this.hasAuthority || !this.model.authorityOptions.closed) {
+    if (hasValue(this.currentValue) && (!this.hasAuthority || !this.model.authorityOptions.closed)) {
       let res: string[] = [];
       res = this.currentValue.split(',');
 

@@ -1,7 +1,5 @@
-<div class="simple-view-element">
-  <span *ngIf="content.children.length != 0">
-    <h5 class="simple-view-element-header" *ngIf="label">{{ label }}</h5>
-  </span>
+<div class="simple-view-element" [class.d-none]="content.textContent.trim().length === 0 && hasNoValue(content.querySelector('img'))">
+  <h5 class="simple-view-element-header" *ngIf="label">{{ label }}</h5>
   <div #content class="simple-view-element-body">
     <ng-content></ng-content>
   </div>

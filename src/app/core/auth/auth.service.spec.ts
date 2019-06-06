@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, StoreModule } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import 'rxjs/add/observable/of';
+import { of as observableOf } from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
@@ -27,43 +26,57 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-da
 
 describe('AuthService test', () => {
 
-  const mockStore: Store<AuthState> = jasmine.createSpyObj('store', {
-    dispatch: {},
-    select: Observable.of(true)
-  });
+  let mockStore: Store<AuthState>;
   let authService: AuthService;
-  const authRequest = new AuthRequestServiceStub();
-  const window = new NativeWindowRef();
-  const routerStub = new RouterStub();
-  const routeStub = new ActivatedRouteStub();
+  let authRequest;
+  let window;
+  let routerStub;
+  let routeStub;
   let storage: CookieService;
-  const token: AuthTokenInfo = new AuthTokenInfo('test_token');
-  token.expires = Date.now() + (1000 * 60 * 60);
-  let authenticatedState = {
-    authenticated: true,
-    loaded: true,
-    loading: false,
-    authToken: token,
-    user: EPersonMock
-  };
-  const rdbService = getMockRemoteDataBuildService();
-  describe('', () => {
+  let token: AuthTokenInfo;
+  let authenticatedState;
+  let rdbService;
 
+  function init() {
+    mockStore = jasmine.createSpyObj('store', {
+      dispatch: {},
+      pipe: observableOf(true)
+    });
+    window = new NativeWindowRef();
+    routerStub = new RouterStub();
+    token = new AuthTokenInfo('test_token');
+    token.expires = Date.now() + (1000 * 60 * 60);
+    authenticatedState = {
+      authenticated: true,
+      loaded: true,
+      loading: false,
+      authToken: token,
+      user: EPersonMock
+    };
+    authRequest = new AuthRequestServiceStub();
+    routeStub = new ActivatedRouteStub();
+    rdbService = getMockRemoteDataBuildService();
+    spyOn(rdbService, 'build').and.returnValue({authenticated: true, eperson: observableOf({payload: {}})});
+
+  }
+
+  describe('', () => {
     beforeEach(() => {
+      init();
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
-          StoreModule.forRoot({authReducer}),
+          StoreModule.forRoot({ authReducer }),
         ],
         declarations: [],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: NativeWindowService, useValue: window},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
-          {provide: ActivatedRoute, useValue: routeStub},
-          {provide: Store, useValue: mockStore},
-          {provide: RemoteDataBuildService, useValue: rdbService},
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: NativeWindowService, useValue: window },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: ActivatedRoute, useValue: routeStub },
+          { provide: Store, useValue: mockStore },
+          { provide: RemoteDataBuildService, useValue: rdbService },
           CookieService,
           AuthService
         ],
@@ -116,16 +129,18 @@ describe('AuthService test', () => {
   describe('', () => {
 
     beforeEach(async(() => {
+      init();
       TestBed.configureTestingModule({
         imports: [
-          StoreModule.forRoot({authReducer})
+          StoreModule.forRoot({ authReducer })
         ],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
-          {provide: RemoteDataBuildService, useValue: rdbService},
-          CookieService
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: RemoteDataBuildService, useValue: rdbService },
+          CookieService,
+          AuthService
         ]
       }).compileComponents();
     }));
@@ -136,7 +151,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, authReqService, router, cookieService, store, rdbService);
+      authService = new AuthService({}, window, undefined, authReqService, router, cookieService, store, rdbService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -164,18 +179,20 @@ describe('AuthService test', () => {
   });
 
   describe('', () => {
-
     beforeEach(async(() => {
+      init();
       TestBed.configureTestingModule({
         imports: [
-          StoreModule.forRoot({authReducer})
+          StoreModule.forRoot({ authReducer })
         ],
         providers: [
-          {provide: AuthRequestService, useValue: authRequest},
-          {provide: REQUEST, useValue: {}},
-          {provide: Router, useValue: routerStub},
+          { provide: AuthRequestService, useValue: authRequest },
+          { provide: REQUEST, useValue: {} },
+          { provide: Router, useValue: routerStub },
+          { provide: RemoteDataBuildService, useValue: rdbService },
           ClientCookieService,
-          CookieService
+          CookieService,
+          AuthService
         ]
       }).compileComponents();
     }));
@@ -195,7 +212,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, authReqService, router, cookieService, store, rdbService);
+      authService = new AuthService({}, window, undefined, authReqService, router, cookieService, store, rdbService);
       storage = (authService as any).storage;
       spyOn(storage, 'get');
       spyOn(storage, 'remove');

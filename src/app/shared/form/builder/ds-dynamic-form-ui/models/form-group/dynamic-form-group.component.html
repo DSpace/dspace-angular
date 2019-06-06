@@ -1,0 +1,24 @@
+<ng-container [formGroup]="group">
+
+  <div role="group"
+       [dynamicId]="bindId && model.id"
+       [formGroupName]="model.id"
+       [ngClass]="getClass('element','control')">
+
+    <ds-dynamic-form-control-container *ngFor="let _model of model.group"
+                                       [asBootstrapFormGroup]="true"
+                                       [formId]="formId"
+                                       [group]="control"
+                                       [hasErrorMessaging]="model.hasErrorMessages"
+                                       [hidden]="_model.hidden"
+                                       [layout]="layout"
+                                       [model]="_model"
+                                       [templates]="templates"
+                                       [ngClass]="[getClass('element', 'host', _model), getClass('grid', 'host', _model)]"
+                                       (dfBlur)="onBlur($event)"
+                                       (dfChange)="onChange($event)"
+                                       (dfFocus)="onFocus($event)"
+                                       (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control-container>
+  </div>
+
+</ng-container>

@@ -7,17 +7,19 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchFilterService } from './search-filter/search-filter.service';
 import { SearchFiltersComponent } from './search-filters.component';
 import { SearchService } from '../search-service/search.service';
-import { Observable } from 'rxjs/Observable';
-import { SearchConfigurationService } from '../search-service/search-configuration.service';
+import { of as observableOf } from 'rxjs';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service-stub';
 
 describe('SearchFiltersComponent', () => {
   let comp: SearchFiltersComponent;
   let fixture: ComponentFixture<SearchFiltersComponent>;
   let searchService: SearchService;
+
   const searchServiceStub = {
     /* tslint:disable:no-empty */
     getConfig: () =>
-      Observable.of({ hasSucceeded: true, payload: [] }),
+      observableOf({ hasSucceeded: true, payload: [] }),
     getClearFiltersQueryParams: () => {
     },
     getSearchLink: () => {
@@ -30,17 +32,13 @@ describe('SearchFiltersComponent', () => {
       []
   };
 
-  const searchConfigServiceStub = jasmine.createSpyObj('SearchConfigurationService', {
-    getCurrentFrontendFilters: Observable.of({})
-  });
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
       declarations: [SearchFiltersComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
-        { provide: SearchConfigurationService, useValue: searchConfigServiceStub },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SearchFilterService, useValue: searchFiltersStub },
 
       ],

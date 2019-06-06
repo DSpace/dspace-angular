@@ -34,12 +34,22 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AngularticsMock } from './shared/mocks/mock-angulartics.service';
 import { AuthServiceMock } from './shared/mocks/mock-auth.service';
 import { AuthService } from './core/auth/auth.service';
-import { Router } from '@angular/router';
+import { MenuService } from './shared/menu/menu.service';
+import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
+import { CSSVariableServiceStub } from './shared/testing/css-variable-service-stub';
+import { MenuServiceStub } from './shared/testing/menu-service-stub';
+import { HostWindowService } from './shared/host-window.service';
+import { HostWindowServiceStub } from './shared/testing/host-window-service-stub';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouteService } from './shared/services/route.service';
+import { MockActivatedRoute } from './shared/mocks/mock-active-router';
+import { MockRouter } from './shared/mocks/mock-router';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
 let de: DebugElement;
 let el: HTMLElement;
+const menuService = new MenuServiceStub();
 
 describe('App component', () => {
 
@@ -63,8 +73,13 @@ describe('App component', () => {
         { provide: MetadataService, useValue: new MockMetadataService() },
         { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
-        { provide: Router, useValue: {} },
-        AppComponent
+        { provide: Router, useValue: new MockRouter() },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: MenuService, useValue: menuService },
+        { provide: CSSVariableService, useClass: CSSVariableServiceStub },
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        AppComponent,
+        RouteService
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -75,7 +90,6 @@ describe('App component', () => {
     fixture = TestBed.createComponent(AppComponent);
 
     comp = fixture.componentInstance; // component test instance
-
     // query for the <div class='outer-wrapper'> by CSS element selector
     de = fixture.debugElement.query(By.css('div.outer-wrapper'));
     el = de.nativeElement;
@@ -92,7 +106,7 @@ describe('App component', () => {
     let store: Store<HostWindowState>;
 
     beforeEach(() => {
-      store = fixture.debugElement.injector.get(Store);
+      store = fixture.debugElement.injector.get(Store) as Store<HostWindowState>;
       spyOn(store, 'dispatch');
 
       window.dispatchEvent(new Event('resize'));

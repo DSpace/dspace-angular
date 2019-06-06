@@ -1,7 +1,16 @@
+/** Help Variables **/
+$fa-fixed-width: 1.25rem;
+$icon-padding: 1rem;
+$collapsed-sidebar-width: calculatePx($fa-fixed-width + (2 * $icon-padding));
+$sidebar-items-width: 250px;
+$total-sidebar-width: $collapsed-sidebar-width + $sidebar-items-width;
+
 /* Fonts */
 $fa-font-path: "../assets/fonts";
 /* Images */
 $image-path: "../assets/images";
+
+/** Bootstrap Variables **/
 /* Colors */
 $gray-base: #000 !default;
 $gray-900: lighten($gray-base, 13.5%) !default; // #222
@@ -9,12 +18,14 @@ $gray-800: lighten($gray-base, 26.6%) !default; // #444
 $gray-700: lighten($gray-base, 46.6%) !default; // #777
 $gray-600: lighten($gray-base, 73.3%) !default; // #bbb
 $gray-100: lighten($gray-base, 93.5%) !default; // #eee
+
 /* Reassign color vars to semantic color scheme */
-$blue:    #2B4E72 !default;
-$green:   #94BA65 !default;
-$cyan:    #2790B0 !default;
-$yellow:  #EBBB54 !default;
-$red:     #CF4444 !default;
+$blue:      #2B4E72 !default;
+$green: #94BA65 !default;
+$cyan: #2790B0 !default;
+$yellow: #ec9433 !default;
+$red: #CF4444 !default;
+$dark: darken($blue, 17%) !default;
 
 $theme-colors: (
         primary: $blue,
@@ -24,14 +35,24 @@ $theme-colors: (
         warning: $yellow,
         danger: $red,
         light: $gray-100,
-        dark: $blue
+        dark: $dark
 ) !default;
 /* Fonts */
 $link-color: map-get($theme-colors, info) !default;
 
-$navbar-dark-color:                rgba(white, .5) !default;
-$navbar-light-color:                rgba(black, .5) !default;
+$navbar-dark-color: rgba(white, .5) !default;
+$navbar-light-color: rgba(black, .5) !default;
 $navbar-dark-toggler-icon-bg: url("data%3Aimage%2Fsvg+xml%3Bcharset%3Dutf8%2C%3Csvg+viewBox%3D%270+0+30+30%27+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cpath+stroke%3D%27#{$navbar-dark-color}%27+stroke-width%3D%272%27+stroke-linecap%3D%27round%27+stroke-miterlimit%3D%2710%27+d%3D%27M4+7h22M4+15h22M4+23h22%27%2F%3E%3C%2Fsvg%3E");
 $navbar-light-toggler-icon-bg: url("data%3Aimage%2Fsvg+xml%3Bcharset%3Dutf8%2C%3Csvg+viewBox%3D%270+0+30+30%27+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cpath+stroke%3D%27#{$navbar-light-color}%27+stroke-width%3D%272%27+stroke-linecap%3D%27round%27+stroke-miterlimit%3D%2710%27+d%3D%27M4+7h22M4+15h22M4+23h22%27%2F%3E%3C%2Fsvg%3E");
 
 $enable-shadows: true !default;
+
+$grid-breakpoints: (
+        xs: 0,
+        sm: (576px - $collapsed-sidebar-width),
+        md: (768px - $collapsed-sidebar-width),
+        lg: (992px - $collapsed-sidebar-width),
+        xl: (1200px - $collapsed-sidebar-width)
+) !default;
+
+$yiq-contrasted-threshold:  165 !default;

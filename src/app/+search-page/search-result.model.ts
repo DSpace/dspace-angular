@@ -1,5 +1,5 @@
 import { DSpaceObject } from '../core/shared/dspace-object.model';
-import { Metadatum } from '../core/shared/metadatum.model';
+import { MetadataMap } from '../core/shared/metadata.models';
 import { ListableObject } from '../shared/object-collection/shared/listable-object.model';
 
 /**
@@ -9,11 +9,11 @@ export class SearchResult<T extends DSpaceObject> implements ListableObject {
   /**
    * The DSpaceObject that was found
    */
-  dspaceObject: T;
+  indexableObject: T;
 
   /**
    * The metadata that was used to find this item, hithighlighted
    */
-  hitHighlights: Metadatum[];
+  hitHighlights: MetadataMap;
 
 }

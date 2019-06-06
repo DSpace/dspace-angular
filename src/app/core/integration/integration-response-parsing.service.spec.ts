@@ -1,4 +1,4 @@
-import { ErrorResponse, IntegrationSuccessResponse } from '../cache/response-cache.models';
+import { ErrorResponse, IntegrationSuccessResponse } from '../cache/response.models';
 
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { IntegrationResponseParsingService } from './integration-response-parsing.service';
 import { IntegrationRequest } from '../data/request.models';
-import { AuthorityValueModel } from './models/authority-value.model';
+import { AuthorityValue } from './models/authority.value';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from '../data/paginated-list';
 
@@ -23,15 +23,57 @@ describe('IntegrationResponseParsingService', () => {
   const uuid = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const integrationEndpoint = 'https://rest.api/integration/authorities';
   const entriesEndpoint = `${integrationEndpoint}/${name}/entries?query=${query}&metadata=${metadata}&uuid=${uuid}`;
+  let validRequest;
 
-  beforeEach(() => {
-    service = new IntegrationResponseParsingService(EnvConfig, objectCacheService);
-  });
+  let validResponse;
 
-  describe('parse', () => {
-    const validRequest = new IntegrationRequest('69f375b5-19f4-4453-8c7a-7dc5c55aafbb', entriesEndpoint);
+  let invalidResponse1;
+  let invalidResponse2;
+  let pageInfo;
+  let definitions;
 
-    const validResponse = {
+  function initVars() {
+    pageInfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1, self: 'https://rest.api/integration/authorities/type/entries'});
+    definitions = new PaginatedList(pageInfo,[
+      Object.assign(new AuthorityValue(), {
+        type: 'authority',
+        display: 'One',
+        id: 'One',
+        otherInformation: undefined,
+        value: 'One'
+      }),
+      Object.assign(new AuthorityValue(), {
+        type: 'authority',
+        display: 'Two',
+        id: 'Two',
+        otherInformation: undefined,
+        value: 'Two'
+      }),
+      Object.assign(new AuthorityValue(), {
+        type: 'authority',
+        display: 'Three',
+        id: 'Three',
+        otherInformation: undefined,
+        value: 'Three'
+      }),
+      Object.assign(new AuthorityValue(), {
+        type: 'authority',
+        display: 'Four',
+        id: 'Four',
+        otherInformation: undefined,
+        value: 'Four'
+      }),
+      Object.assign(new AuthorityValue(), {
+        type: 'authority',
+        display: 'Five',
+        id: 'Five',
+        otherInformation: undefined,
+        value: 'Five'
+      })
+    ]);
+    validRequest = new IntegrationRequest('69f375b5-19f4-4453-8c7a-7dc5c55aafbb', entriesEndpoint);
+
+    validResponse = {
       payload: {
         page: {
           number: 0,
@@ -83,15 +125,17 @@ describe('IntegrationResponseParsingService', () => {
           self: { href: 'https://rest.api/integration/authorities/type/entries' }
         }
       },
-      statusCode: '200'
+      statusCode: 200,
+      statusText: 'OK'
     };
 
-    const invalidResponse1 = {
+    invalidResponse1 = {
       payload: {},
-      statusCode: '200'
+      statusCode: 400,
+      statusText: 'Bad Request'
     };
 
-    const invalidResponse2 = {
+    invalidResponse2 = {
       payload: {
         page: {
           number: 0,
@@ -141,47 +185,16 @@ describe('IntegrationResponseParsingService', () => {
         },
         _links: {}
       },
-      statusCode: '200'
+      statusCode: 500,
+      statusText: 'Internal Server Error'
     };
-    const pageinfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1 });
-    const definitions = new PaginatedList(pageinfo,[
-      Object.assign({}, new AuthorityValueModel(), {
-        type: 'authority',
-        display: 'One',
-        id: 'One',
-        otherInformation: undefined,
-        value: 'One'
-      }),
-      Object.assign({}, new AuthorityValueModel(), {
-        type: 'authority',
-        display: 'Two',
-        id: 'Two',
-        otherInformation: undefined,
-        value: 'Two'
-      }),
-      Object.assign({}, new AuthorityValueModel(), {
-        type: 'authority',
-        display: 'Three',
-        id: 'Three',
-        otherInformation: undefined,
-        value: 'Three'
-      }),
-      Object.assign({}, new AuthorityValueModel(), {
-        type: 'authority',
-        display: 'Four',
-        id: 'Four',
-        otherInformation: undefined,
-        value: 'Four'
-      }),
-      Object.assign({}, new AuthorityValueModel(), {
-        type: 'authority',
-        display: 'Five',
-        id: 'Five',
-        otherInformation: undefined,
-        value: 'Five'
-      })
-    ]);
+  }
+  beforeEach(() => {
+    initVars();
+    service = new IntegrationResponseParsingService(EnvConfig, objectCacheService);
+  });
 
+  describe('parse', () => {
     it('should return a IntegrationSuccessResponse if data contains a valid endpoint response', () => {
       const response = service.parse(validRequest, validResponse);
       expect(response.constructor).toBe(IntegrationSuccessResponse);

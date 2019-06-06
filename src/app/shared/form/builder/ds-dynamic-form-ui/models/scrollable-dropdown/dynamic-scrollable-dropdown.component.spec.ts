@@ -2,24 +2,20 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, fakeAsync, inject, TestBed, tick, } from '@angular/core/testing';
-
+import { By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { DynamicFormLayoutService, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
-import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
-import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { TranslateModule } from '@ngx-translate/core';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
-import { DsDynamicTypeaheadComponent } from '../typeahead/dynamic-typeahead.component';
-import { DynamicTypeaheadModel } from '../typeahead/dynamic-typeahead.model';
-import { TYPEAHEAD_TEST_GROUP, TYPEAHEAD_TEST_MODEL_CONFIG } from '../typeahead/dynamic-typeahead.component.spec';
-import { By } from '@angular/platform-browser';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
-import { hasClass, createTestComponent } from '../../../../../testing/utils';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { createTestComponent, hasClass } from '../../../../../testing/utils';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),
@@ -77,6 +73,8 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         ChangeDetectorRef,
         DsDynamicScrollableDropdownComponent,
         {provide: AuthorityService, useValue: authorityServiceStub},
+        {provide: DynamicFormLayoutService, useValue: {}},
+        {provide: DynamicFormValidationService, useValue: {}}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -90,7 +88,6 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
       <ds-dynamic-scrollable-dropdown [bindId]="bindId"
                                       [group]="group"
                                       [model]="model"
-                                      [showErrorMessages]="showErrorMessages"
                                       (blur)="onBlur($event)"
                                       (change)="onValueChange($event)"
                                       (focus)="onFocus($event)"></ds-dynamic-scrollable-dropdown>`;
@@ -155,13 +152,10 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
       }));
 
       it('should select a results entry properly', fakeAsync(() => {
-        const selectedValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1});
+        const selectedValue = Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1});
 
         let de: any = scrollableDropdownFixture.debugElement.query(By.css('button.ds-form-input-btn'));
         let btnEl = de.nativeElement;
-
-        de = scrollableDropdownFixture.debugElement.query(By.css('div.scrollable-dropdown-menu'));
-        const menuEl = de.nativeElement;
 
         btnEl.click();
         scrollableDropdownFixture.detectChanges();
@@ -196,7 +190,7 @@ describe('Dynamic Dynamic Scrollable Dropdown component', () => {
         scrollableDropdownFixture = TestBed.createComponent(DsDynamicScrollableDropdownComponent);
         scrollableDropdownComp = scrollableDropdownFixture.componentInstance; // FormComponent test instance
         scrollableDropdownComp.group = SD_TEST_GROUP;
-        modelValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1});
+        modelValue = Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1});
         scrollableDropdownComp.model = new DynamicScrollableDropdownModel(SD_TEST_MODEL_CONFIG);
         scrollableDropdownComp.model.value = modelValue;
         scrollableDropdownFixture.detectChanges();

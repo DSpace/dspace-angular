@@ -1,30 +1,59 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistryService } from '../../../core/registry/registry.service';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataField } from '../../../core/metadata/metadatafield.model';
 import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { map, take } from 'rxjs/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { RestResponse } from '../../../core/cache/response.models';
+import { zip } from 'rxjs/internal/observable/zip';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-metadata-schema',
-  templateUrl: './metadata-schema.component.html'
+  templateUrl: './metadata-schema.component.html',
+  styleUrls: ['./metadata-schema.component.scss']
 })
+/**
+ * A component used for managing all existing metadata fields within the current metadata schema.
+ * The admin can create, edit or delete metadata fields here.
+ */
 export class MetadataSchemaComponent implements OnInit {
 
+  /**
+   * The namespace of the metadata schema
+   */
   namespace;
 
+  /**
+   * The metadata schema
+   */
   metadataSchema: Observable<RemoteData<MetadataSchema>>;
+
+  /**
+   * A list of all the fields attached to this metadata schema
+   */
   metadataFields: Observable<RemoteData<PaginatedList<MetadataField>>>;
+
+  /**
+   * Pagination config used to display the list of metadata fields
+   */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-metadatafields-pagination',
-    pageSize: 10000
+    pageSize: 25,
+    pageSizeOptions: [25, 50, 100, 200]
   });
 
-  constructor(private registryService: RegistryService, private route: ActivatedRoute) {
+  constructor(private registryService: RegistryService,
+              private route: ActivatedRoute,
+              private notificationsService: NotificationsService,
+              private router: Router,
+              private translateService: TranslateService) {
 
   }
 
@@ -34,22 +63,143 @@ export class MetadataSchemaComponent implements OnInit {
     });
   }
 
+  /**
+   * Initialize the component using the params within the url (schemaName)
+   * @param params
+   */
   initialize(params) {
     this.metadataSchema = this.registryService.getMetadataSchemaByName(params.schemaName);
     this.updateFields();
   }
 
+  /**
+   * Event triggered when the user changes page
+   * @param event
+   */
   onPageChange(event) {
     this.config.currentPage = event;
     this.updateFields();
   }
 
+  /**
+   * Update the list of fields by fetching it from the rest api or cache
+   */
   private updateFields() {
     this.metadataSchema.subscribe((schemaData) => {
       const schema = schemaData.payload;
       this.metadataFields = this.registryService.getMetadataFieldsBySchema(schema, this.config);
-      this.namespace = { namespace: schemaData.payload.namespace };
+      this.namespace = {namespace: schemaData.payload.namespace};
     });
   }
 
+  /**
+   * Force-update the list of fields by first clearing the cache related to metadata fields, then performing
+   * a new REST call
+   */
+  public forceUpdateFields() {
+    this.registryService.clearMetadataFieldRequests().subscribe();
+    this.updateFields();
+  }
+
+  /**
+   * Start editing the selected metadata field
+   * @param field
+   */
+  editField(field: MetadataField) {
+    this.getActiveField().pipe(take(1)).subscribe((activeField) => {
+      if (field === activeField) {
+        this.registryService.cancelEditMetadataField();
+      } else {
+        this.registryService.editMetadataField(field);
+      }
+    });
+  }
+
+  /**
+   * Checks whether the given metadata field is active (being edited)
+   * @param field
+   */
+  isActive(field: MetadataField): Observable<boolean> {
+    return this.getActiveField().pipe(
+      map((activeField) => field === activeField)
+    );
+  }
+
+  /**
+   * Gets the active metadata field (being edited)
+   */
+  getActiveField(): Observable<MetadataField> {
+    return this.registryService.getActiveMetadataField();
+  }
+
+  /**
+   * Select a metadata field within the list (checkbox)
+   * @param field
+   * @param event
+   */
+  selectMetadataField(field: MetadataField, event) {
+    event.target.checked ?
+      this.registryService.selectMetadataField(field) :
+      this.registryService.deselectMetadataField(field);
+  }
+
+  /**
+   * Checks whether a given metadata field is selected in the list (checkbox)
+   * @param field
+   */
+  isSelected(field: MetadataField): Observable<boolean> {
+    return this.registryService.getSelectedMetadataFields().pipe(
+      map((fields) => fields.find((selectedField) => selectedField === field) != null)
+    );
+  }
+
+  /**
+   * Delete all the selected metadata fields
+   */
+  deleteFields() {
+    this.registryService.getSelectedMetadataFields().pipe(take(1)).subscribe(
+      (fields) => {
+        const tasks$ = [];
+        for (const field of fields) {
+          if (hasValue(field.id)) {
+            tasks$.push(this.registryService.deleteMetadataField(field.id));
+          }
+        }
+        zip(...tasks$).subscribe((responses: RestResponse[]) => {
+          const successResponses = responses.filter((response: RestResponse) => response.isSuccessful);
+          const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
+          if (successResponses.length > 0) {
+            this.showNotification(true, successResponses.length);
+          }
+          if (failedResponses.length > 0) {
+            this.showNotification(false, failedResponses.length);
+          }
+          this.registryService.deselectAllMetadataField();
+          this.registryService.cancelEditMetadataField();
+          this.forceUpdateFields();
+        });
+      }
+    )
+  }
+
+  /**
+   * Show notifications for an amount of deleted metadata fields
+   * @param success   Whether or not the notification should be a success message (error message when false)
+   * @param amount    The amount of deleted metadata fields
+   */
+  showNotification(success: boolean, amount: number) {
+    const prefix = 'admin.registries.schema.notification';
+    const suffix = success ? 'success' : 'failure';
+    const messages = observableCombineLatest(
+      this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
+      this.translateService.get(`${prefix}.field.deleted.${suffix}`, { amount: amount })
+    );
+    messages.subscribe(([head, content]) => {
+      if (success) {
+        this.notificationsService.success(head, content)
+      } else {
+        this.notificationsService.error(head, content)
+      }
+    });
+  }
 }

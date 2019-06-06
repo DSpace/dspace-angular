@@ -1,0 +1,15 @@
+<div class="col-3 float-left d-flex h-100 action-label">
+      <span class="justify-content-center align-self-center">
+        {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.label' | translate}}
+      </span>
+</div>
+<div *ngIf="!operation.disabled" class="col-9 float-left action-button">
+  <a class="btn btn-outline-secondary" href="{{operation.operationUrl}}">
+    {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
+  </a>
+</div>
+<div *ngIf="operation.disabled" class="col-9 float-left action-button">
+  <span class="btn btn-danger">
+    {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
+  </span>
+</div>

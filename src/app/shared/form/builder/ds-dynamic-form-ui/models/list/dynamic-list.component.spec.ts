@@ -9,13 +9,18 @@ import { DsDynamicListComponent } from './dynamic-list.component';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { AuthorityOptions } from '../../../../../../core/integration/models/authority-options.model';
 import { FormBuilderService } from '../../../form-builder.service';
-import { DynamicFormControlLayout, DynamicFormsCoreModule, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout,
+  DynamicFormLayoutService,
+  DynamicFormsCoreModule,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { AuthorityServiceStub } from '../../../../../testing/authority-service-stub';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { By } from '@angular/platform-browser';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { createTestComponent } from '../../../../../testing/utils';
 
 export const LAYOUT_TEST = {
@@ -90,12 +95,13 @@ describe('DsDynamicListComponent test suite', () => {
         TestComponent,
       ], // declare the test component
       providers: [
-        AuthorityService,
         ChangeDetectorRef,
         DsDynamicListComponent,
         DynamicFormValidationService,
         FormBuilderService,
         {provide: AuthorityService, useValue: authorityServiceStub},
+        {provide: DynamicFormLayoutService, useValue: {}},
+        {provide: DynamicFormValidationService, useValue: {}}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -110,7 +116,6 @@ describe('DsDynamicListComponent test suite', () => {
         [bindId]="bindId"
         [group]="group"
         [model]="model"
-        [showErrorMessages]="showErrorMessages"
         (blur)="onBlur($event)"
         (change)="onValueChange($event)"
         (focus)="onFocus($event)"></ds-dynamic-list>`;
@@ -155,7 +160,7 @@ describe('DsDynamicListComponent test suite', () => {
         const de = listFixture.debugElement.queryAll(By.css('div.custom-checkbox'));
         const items = de[0].queryAll(By.css('input.custom-control-input'));
         const item = items[0];
-        modelValue = [Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1})];
+        modelValue = [Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1})];
 
         item.nativeElement.click();
 
@@ -182,7 +187,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = LIST_TEST_GROUP;
         listComp.model = new DynamicListCheckboxGroupModel(LIST_CHECKBOX_TEST_MODEL_CONFIG, LAYOUT_TEST);
-        modelValue = [Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1})];
+        modelValue = [Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1})];
         listComp.model.value = modelValue;
         listFixture.detectChanges();
       });
@@ -245,7 +250,7 @@ describe('DsDynamicListComponent test suite', () => {
         const de = listFixture.debugElement.queryAll(By.css('div.custom-radio'));
         const items = de[0].queryAll(By.css('input.custom-control-input'));
         const item = items[0];
-        modelValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1});
+        modelValue = Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1});
 
         item.nativeElement.click();
 
@@ -260,7 +265,7 @@ describe('DsDynamicListComponent test suite', () => {
         listComp = listFixture.componentInstance; // FormComponent test instance
         listComp.group = LIST_TEST_GROUP;
         listComp.model = new DynamicListRadioGroupModel(LIST_RADIO_TEST_MODEL_CONFIG, LAYOUT_TEST);
-        modelValue = Object.assign(new AuthorityValueModel(), {id: 1, display: 'one', value: 1});
+        modelValue = Object.assign(new AuthorityValue(), {id: 1, display: 'one', value: 1});
         listComp.model.value = modelValue;
         listFixture.detectChanges();
       });

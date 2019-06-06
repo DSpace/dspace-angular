@@ -2,7 +2,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { Bitstream } from './bitstream.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { PaginatedList } from '../data/paginated-list';
 
 export class Community extends DSpaceObject {
@@ -17,7 +17,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.description
    */
   get introductoryText(): string {
-    return this.findMetadata('dc.description');
+    return this.firstMetadataValue('dc.description');
   }
 
   /**
@@ -25,7 +25,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.description.abstract
    */
   get shortDescription(): string {
-    return this.findMetadata('dc.description.abstract');
+    return this.firstMetadataValue('dc.description.abstract');
   }
 
   /**
@@ -33,7 +33,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.rights
    */
   get copyrightText(): string {
-    return this.findMetadata('dc.rights');
+    return this.firstMetadataValue('dc.rights');
   }
 
   /**
@@ -41,7 +41,7 @@ export class Community extends DSpaceObject {
    * Corresponds to the metadata field dc.description.tableofcontents
    */
   get sidebarText(): string {
-    return this.findMetadata('dc.description.tableofcontents');
+    return this.firstMetadataValue('dc.description.tableofcontents');
   }
 
   /**
@@ -61,6 +61,6 @@ export class Community extends DSpaceObject {
 
   collections: Observable<RemoteData<PaginatedList<Collection>>>;
 
-  subcommunities: Observable<RemoteData<PaginatedList<Collection>>>;
+  subcommunities: Observable<RemoteData<PaginatedList<Community>>>;
 
 }

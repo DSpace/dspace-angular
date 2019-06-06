@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { FILTER_CONFIG, SearchFilterService } from '../search-filter.service';
+import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../search-filter.service';
 import { SearchFilterConfig } from '../../../search-service/search-filter-config.model';
 import { FilterType } from '../../../search-service/filter-type.model';
 import { FacetValue } from '../../../search-service/facet-value.model';
 import { FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs'
 import { SearchService } from '../../../search-service/search.service';
 import { SearchServiceStub } from '../../../../shared/testing/search-service-stub';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -18,7 +18,8 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
 import { RouteService } from '../../../../shared/services/route.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
-import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service-stub';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
@@ -41,14 +42,17 @@ describe('SearchRangeFilterComponent', () => {
   });
   const values: FacetValue[] = [
     {
+      label: value1,
       value: value1,
       count: 52,
       search: ''
     }, {
+      label: value2,
       value: value2,
       count: 20,
       search: ''
     }, {
+      label: value3,
       value: value3,
       count: 5,
       search: ''
@@ -56,13 +60,13 @@ describe('SearchRangeFilterComponent', () => {
   ];
 
   const searchLink = '/search';
-  const selectedValues = Observable.of([value1]);
+  const selectedValues = observableOf([value1]);
   let filterService;
   let searchService;
   let router;
-  const page = Observable.of(0);
+  const page = observableOf(0);
 
-  const mockValues = Observable.of(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), values)));
+  const mockValues = observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), values)));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
@@ -71,11 +75,10 @@ describe('SearchRangeFilterComponent', () => {
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
         { provide: FILTER_CONFIG, useValue: mockFilterConfig },
-        { provide: RemoteDataBuildService, useValue: {aggregate: () => Observable.of({})} },
-        { provide: RouteService, useValue: {getQueryParameterValue: () => Observable.of({})} },
-        { provide: SearchConfigurationService, useValue: {
-            searchOptions: Observable.of({}) }
-        },
+        { provide: RemoteDataBuildService, useValue: {aggregate: () => observableOf({})} },
+        { provide: RouteService, useValue: {getQueryParameterValue: () => observableOf({})} },
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: IN_PLACE_SEARCH, useValue: false },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => selectedValues,
@@ -106,16 +109,6 @@ describe('SearchRangeFilterComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when the getChangeParams method is called wih a value', () => {
-    it('should return the selectedValue list with the new parameter value', () => {
-      const result$ = comp.getChangeParams(value3);
-      result$.subscribe((result) => {
-        expect(result[mockFilterConfig.paramName + minSuffix]).toEqual(['1990']);
-        expect(result[mockFilterConfig.paramName + maxSuffix]).toEqual(['1992']);
-      });
-    });
-  });
-
   describe('when the onSubmit method is called with data', () => {
     const searchUrl = '/search/path';
     // const data = { [mockFilterConfig.paramName + minSuffix]: '1900', [mockFilterConfig.paramName + maxSuffix]: '1950' };
@@ -126,7 +119,7 @@ describe('SearchRangeFilterComponent', () => {
     });
 
     it('should call navigate on the router with the right searchlink and parameters', () => {
-      expect(router.navigate).toHaveBeenCalledWith([searchUrl], {
+      expect(router.navigate).toHaveBeenCalledWith(searchUrl.split('/'), {
         queryParams: {
           [mockFilterConfig.paramName + minSuffix]: [1900],
           [mockFilterConfig.paramName + maxSuffix]: [1950]

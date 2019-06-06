@@ -6,7 +6,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/mock-remote-data-build.service';
 import { Item } from '../../../core/shared/item.model';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -14,16 +14,18 @@ let collectionsComponent: CollectionsComponent;
 let fixture: ComponentFixture<CollectionsComponent>;
 
 const mockCollection1: Collection = Object.assign(new Collection(), {
-  metadata: [
-    {
-      key: 'dc.description.abstract',
-      language: 'en_US',
-      value: 'Short description'
-    }]
+  metadata: {
+    'dc.description.abstract': [
+      {
+        language: 'en_US',
+        value: 'Short description'
+      }
+    ]
+  }
 });
 
-const succeededMockItem: Item = Object.assign(new Item(), {owningCollection: Observable.of(new RemoteData(false, false, true, null, mockCollection1))});
-const failedMockItem: Item = Object.assign(new Item(), {owningCollection: Observable.of(new RemoteData(false, false, false, null, mockCollection1))});
+const succeededMockItem: Item = Object.assign(new Item(), {owningCollection: observableOf(new RemoteData(false, false, true, null, mockCollection1))});
+const failedMockItem: Item = Object.assign(new Item(), {owningCollection: observableOf(new RemoteData(false, false, false, null, mockCollection1))});
 
 describe('CollectionsComponent', () => {
   beforeEach(async(() => {

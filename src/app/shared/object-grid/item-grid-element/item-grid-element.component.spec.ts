@@ -4,38 +4,44 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { Item } from '../../../core/shared/item.model';
-import { Observable } from 'rxjs/Observable';
+import { of as observableOf } from 'rxjs';
 
 let itemGridElementComponent: ItemGridElementComponent;
 let fixture: ComponentFixture<ItemGridElementComponent>;
 
 const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of({}),
-  metadata: [
-    {
-      key: 'dc.contributor.author',
-      language: 'en_US',
-      value: 'Smith, Donald'
-    },
-    {
-      key: 'dc.date.issued',
-      language: null,
-      value: '2015-06-26'
-    }]
+  bitstreams: observableOf({}),
+  metadata: {
+    'dc.contributor.author': [
+      {
+        language: 'en_US',
+        value: 'Smith, Donald'
+      }
+    ],
+    'dc.date.issued': [
+      {
+        language: null,
+        value: '2015-06-26'
+      }
+    ]
+  }
 });
 const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: Observable.of({}),
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'This is just another title'
-    },
-    {
-      key: 'dc.type',
-      language: null,
-      value: 'Article'
-    }]
+  bitstreams: observableOf({}),
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ],
+    'dc.type': [
+      {
+        language: null,
+        value: 'Article'
+      }
+    ]
+  }
 });
 
 describe('ItemGridElementComponent', () => {

@@ -7,8 +7,12 @@ import { IntegrationSearchOptions } from '../../../../../../core/integration/mod
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';
 import { FormBuilderService } from '../../../form-builder.service';
-import { DynamicCheckboxModel } from '@ng-dynamic-forms/core';
-import { AuthorityValueModel } from '../../../../../../core/integration/models/authority-value.model';
+import {
+  DynamicCheckboxModel,
+  DynamicFormControlComponent, DynamicFormLayoutService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
+import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 
@@ -25,23 +29,26 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html'
 })
 
-export class DsDynamicListComponent implements OnInit {
+export class DsDynamicListComponent extends DynamicFormControlComponent implements OnInit {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicListCheckboxGroupModel | DynamicListRadioGroupModel;
-  @Input() showErrorMessages = false;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public items: ListItem[][] = [];
-  protected optionsList: AuthorityValueModel[];
+  protected optionsList: AuthorityValue[];
   protected searchOptions: IntegrationSearchOptions;
 
   constructor(private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef,
-              private formBuilderService: FormBuilderService) {
+              private formBuilderService: FormBuilderService,
+              protected layoutService: DynamicFormLayoutService,
+              protected validationService: DynamicFormValidationService
+  ) {
+    super(layoutService, validationService);
   }
 
   ngOnInit() {
@@ -70,7 +77,7 @@ export class DsDynamicListComponent implements OnInit {
     const target = event.target as any;
     if (this.model.repeatable) {
       // Target tabindex coincide with the array index of the value into the authority list
-      const authorityValue: AuthorityValueModel = this.optionsList[target.tabIndex];
+      const authorityValue: AuthorityValue = this.optionsList[target.tabIndex];
       if (target.checked) {
         this.model.valueUpdates.next(authorityValue);
       } else {
@@ -93,13 +100,13 @@ export class DsDynamicListComponent implements OnInit {
         let groupCounter = 0;
         let itemsPerGroup = 0;
         let tempList: ListItem[] = [];
-        this.optionsList = authorities.payload as AuthorityValueModel[];
+        this.optionsList = authorities.payload as AuthorityValue[];
         // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
-        (authorities.payload as AuthorityValueModel[]).forEach((option, key) => {
+        (authorities.payload as AuthorityValue[]).forEach((option, key) => {
           const value = option.id || option.value;
           const checked: boolean = isNotEmpty(findKey(
             this.model.value,
-            {value: option.value}));
+            (v) => v.value === option.value));
 
           const item: ListItem = {
             id: value,
@@ -110,7 +117,10 @@ export class DsDynamicListComponent implements OnInit {
           if (this.model.repeatable) {
             this.formBuilderService.addFormGroupControl(listGroup, (this.model as DynamicListCheckboxGroupModel), new DynamicCheckboxModel(item));
           } else {
-            (this.model as DynamicListRadioGroupModel).options.push({label: item.label, value: option});
+            (this.model as DynamicListRadioGroupModel).options.push({
+              label: item.label,
+              value: option
+            });
           }
           tempList.push(item);
           itemsPerGroup++;
@@ -121,7 +131,7 @@ export class DsDynamicListComponent implements OnInit {
             tempList = [];
           }
         });
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
       });
 
     }

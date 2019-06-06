@@ -31,6 +31,14 @@ import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-s
 import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
 import { NotificationComponent } from './shared/notifications/notification/notification.component';
 import { SharedModule } from './shared/shared.module';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
+import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
+import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
+import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
+import { NavbarModule } from './navbar/navbar.module';
+import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -45,54 +53,88 @@ export function getMetaReducers(config: GlobalConfig): Array<MetaReducer<AppStat
   return config.debug ? [...metaReducers, ...debugMetaReducers] : metaReducers;
 }
 
-const DEV_MODULES: any[] = [];
+const IMPORTS = [
+  CommonModule,
+  SharedModule,
+  NavbarModule,
+  HttpClientModule,
+  AppRoutingModule,
+  CoreModule.forRoot(),
+  ScrollToModule.forRoot(),
+  NgbModule.forRoot(),
+  TranslateModule.forRoot(),
+  EffectsModule.forRoot(appEffects),
+  StoreModule.forRoot(appReducers),
+  StoreRouterConnectingModule,
+];
 
-if (!ENV_CONFIG.production) {
-  DEV_MODULES.push(StoreDevtoolsModule.instrument({ maxAge: 500 }));
-}
+const ENTITY_IMPORTS = [
+  JournalEntitiesModule,
+  ResearchEntitiesModule
+];
+
+IMPORTS.push(
+  StoreDevtoolsModule.instrument({
+    maxAge: 100,
+    logOnly: ENV_CONFIG.production,
+  })
+);
+
+const PROVIDERS = [
+  {
+    provide: GLOBAL_CONFIG,
+    useFactory: (getConfig)
+  },
+  {
+    provide: APP_BASE_HREF,
+    useFactory: (getBase)
+  },
+  {
+    provide: META_REDUCERS,
+    useFactory: getMetaReducers,
+    deps: [GLOBAL_CONFIG]
+  },
+  {
+    provide: RouterStateSerializer,
+    useClass: DSpaceRouterStateSerializer
+  }
+];
+
+const DECLARATIONS = [
+  AppComponent,
+  HeaderComponent,
+  HeaderNavbarWrapperComponent,
+  AdminSidebarComponent,
+  AdminSidebarSectionComponent,
+  ExpandableAdminSidebarSectionComponent,
+  FooterComponent,
+  PageNotFoundComponent,
+  NotificationComponent,
+  NotificationsBoardComponent
+];
+
+const EXPORTS = [
+  AppComponent
+];
 
 @NgModule({
   imports: [
-    CommonModule,
-    SharedModule,
-    HttpClientModule,
-    AppRoutingModule,
-    CoreModule.forRoot(),
-    NgbModule.forRoot(),
-    TranslateModule.forRoot(),
-    EffectsModule.forRoot(appEffects),
-    StoreModule.forRoot(appReducers),
-    StoreRouterConnectingModule,
-    ...DEV_MODULES
+    ...IMPORTS,
+    ...ENTITY_IMPORTS
   ],
   providers: [
-    {
-      provide: GLOBAL_CONFIG,
-      useFactory: (getConfig)
-    },
-    {
-      provide: APP_BASE_HREF,
-      useFactory: (getBase)
-    },
-    {
-      provide: META_REDUCERS,
-      useFactory: getMetaReducers,
-      deps: [GLOBAL_CONFIG]
-    },
-    {
-      provide: RouterStateSerializer,
-      useClass: DSpaceRouterStateSerializer
-    }
+    ...PROVIDERS
   ],
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    PageNotFoundComponent,
-    NotificationComponent,
-    NotificationsBoardComponent
+    ...DECLARATIONS,
   ],
-  exports: [AppComponent]
+  exports: [
+    ...EXPORTS
+  ],
+  entryComponents: [
+    AdminSidebarSectionComponent,
+    ExpandableAdminSidebarSectionComponent
+  ]
 })
 export class AppModule {
 

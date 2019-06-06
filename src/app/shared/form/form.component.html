@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <form [formGroup]="formGroup">
+  <form class="form-horizontal" [formGroup]="formGroup">
 
     <ds-dynamic-form
       [formId]="formId"
@@ -14,30 +14,30 @@
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
 
         <!--Array with repeteable items-->
-        <div *ngIf="!context.notRepeteable"
+        <div *ngIf="!context.notRepeatable"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
                     [disabled]="isItemReadOnly(context, index)"
                     (click)="insertItem($event, group.context, group.index + 1)">
-              <i class="fa fa-plus" aria-hidden="true"></i>
+              <i class="fas fa-plus" aria-hidden="true"></i>
             </button>
             <button type="button" class="btn btn-secondary"
                     (click)="removeItem($event, context, index)"
                     [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
-              <i class="fa fa-trash" aria-hidden="true"></i>
+              <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>
         </div>
 
         <!--Array with non repeteable items - Only delete button-->
-        <div *ngIf="context.notRepeteable && group.context.groups.length > 1"
+        <div *ngIf="context.notRepeatable && group.context.groups.length > 1"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
                     (click)="removeItem($event, context, index)"
                     [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
-              <i class="fa fa-trash" aria-hidden="true"></i>
+              <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>
         </div>
@@ -51,7 +51,7 @@
 
         <div class="col text-right">
           <button type="reset" class="btn btn-default" (click)="reset()">{{'form.cancel' | translate}}</button>
-          <button type="submit" class="btn btn-primary" (click)="onSubmit($event)"
+          <button type="submit" class="btn btn-primary" (click)="onSubmit()"
                   [disabled]="!(isValid() | async)">{{'form.submit' | translate}}
           </button>
         </div>

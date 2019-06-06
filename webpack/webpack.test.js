@@ -5,11 +5,14 @@ const {
 /**
  * Webpack Plugins
  */
+
+
+
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 /**
  * Webpack Constants
  */
@@ -22,7 +25,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
  */
 module.exports = function (options) {
   return {
-
+    mode: 'development',
     /**
      * Source map for Karma from the help of karma-sourcemap-loader &  karma-webpack
      *
@@ -81,14 +84,15 @@ module.exports = function (options) {
         /**
          * Typescript loader support for .ts and Angular 2 async routes via .async.ts
          *
-         * See: https://github.com/s-panferov/awesome-typescript-loader
+         * See: https://github.com/TypeStrong/ts-loader
          */
         {
-          test: /\.ts$/,
-          loaders: [{
-              loader: 'awesome-typescript-loader',
+            test: /\.tsx?$/,
+            loaders: [{
+              loader: 'ts-loader',
               options: {
-                configFileName: './src/tsconfig.test.json'
+                configFile: root('src/tsconfig.test.json'),
+                transpileOnly: true
               }
             },
             'angular2-template-loader'
@@ -179,17 +183,6 @@ module.exports = function (options) {
         },
 
         /**
-         * Json loader support for *.json files.
-         *
-         * See: https://github.com/webpack/json-loader
-         */
-        {
-          test: /\.json$/,
-          loader: 'json-loader',
-          exclude: [root('src/index.html')]
-        },
-
-        /**
          * Instruments JS files with Istanbul for subsequent code coverage reporting.
          * Instrument only testing sources.
          *
@@ -248,19 +241,7 @@ module.exports = function (options) {
           'HMR': false,
         }
       }),
-
-      /**
-       * Plugin LoaderOptionsPlugin (experimental)
-       *
-       * See: https://gist.github.com/sokra/27b24881210b56bbaff7
-       */
-      new LoaderOptionsPlugin({
-        debug: false,
-        options: {
-
-        }
-      }),
-
+      new ForkTsCheckerWebpackPlugin()
     ],
 
     /**
@@ -288,4 +269,4 @@ module.exports = function (options) {
     }
 
   };
-}
+};

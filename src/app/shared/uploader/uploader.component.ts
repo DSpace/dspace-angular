@@ -9,8 +9,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core'
 
+import { of as observableOf } from 'rxjs';
 import { FileUploader } from 'ng2-file-upload';
-import { Observable } from 'rxjs/Observable';
 import { uniqueId } from 'lodash';
 import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
@@ -58,10 +58,15 @@ export class UploaderComponent {
    */
   @Output() onCompleteItem: EventEmitter<any> = new EventEmitter<any>();
 
+  /**
+   * The function to call on error occurred
+   */
+  @Output() onUploadError: EventEmitter<any> = new EventEmitter<any>();
+
   public uploader: FileUploader;
   public uploaderId: string;
-  public isOverBaseDropZone = Observable.of(false);
-  public isOverDocumentDropZone = Observable.of(false);
+  public isOverBaseDropZone = observableOf(false);
+  public isOverDocumentDropZone = observableOf(false);
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
@@ -70,7 +75,7 @@ export class UploaderComponent {
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
-        this.isOverDocumentDropZone = Observable.of(true);
+        this.isOverDocumentDropZone = observableOf(true);
       }
     }
   }
@@ -109,9 +114,12 @@ export class UploaderComponent {
     this.uploader.onAfterAddingFile = ((item) => {
       item.withCredentials = false;
     });
+    if (isUndefined(this.onBeforeUpload)) {
+      this.onBeforeUpload = () => {return};
+    }
     this.uploader.onBeforeUploadItem = () => {
       this.onBeforeUpload();
-      this.isOverDocumentDropZone = Observable.of(false);
+      this.isOverDocumentDropZone = observableOf(false);
 
       // Move page target to the uploader
       const config: ScrollToConfigOptions = {
@@ -125,6 +133,10 @@ export class UploaderComponent {
         this.onCompleteItem.emit(responsePath);
       }
     };
+    this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
+      this.onUploadError.emit(null);
+      this.uploader.cancelAll();
+    };
     this.uploader.onProgressAll = () => this.onProgress();
     this.uploader.onProgressItem = () => this.onProgress();
   }
@@ -133,7 +145,7 @@ export class UploaderComponent {
    * Called when files are dragged on the base drop area.
    */
   public fileOverBase(isOver: boolean): void {
-    this.isOverBaseDropZone = Observable.of(isOver);
+    this.isOverBaseDropZone = observableOf(isOver);
   }
 
   /**
@@ -141,7 +153,7 @@ export class UploaderComponent {
    */
   public fileOverDocument(isOver: boolean) {
     if (!isOver) {
-      this.isOverDocumentDropZone = Observable.of(isOver);
+      this.isOverDocumentDropZone = observableOf(isOver);
     }
   }
 

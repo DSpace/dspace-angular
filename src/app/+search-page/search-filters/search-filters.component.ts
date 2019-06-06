@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+
 import { SearchService } from '../search-service/search.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { SearchFilterConfig } from '../search-service/search-filter-config.model';
-import { Observable } from 'rxjs/Observable';
 import { SearchConfigurationService } from '../search-service/search-configuration.service';
-import { isNotEmpty } from '../../shared/empty.util';
 import { SearchFilterService } from './search-filter/search-filter.service';
 import { getSucceededRemoteData } from '../../core/shared/operators';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 
 @Component({
   selector: 'ds-search-filters',
@@ -17,7 +20,7 @@ import { getSucceededRemoteData } from '../../core/shared/operators';
 /**
  * This component represents the part of the search sidebar that contains filters.
  */
-export class SearchFiltersComponent {
+export class SearchFiltersComponent implements OnInit {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
@@ -30,47 +33,50 @@ export class SearchFiltersComponent {
   clearParams;
 
   /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
+
+  /**
    * Initialize instance variables
    * @param {SearchService} searchService
    * @param {SearchConfigurationService} searchConfigService
    * @param {SearchFilterService} filterService
    */
-  constructor(private searchService: SearchService, private searchConfigService: SearchConfigurationService, private filterService: SearchFilterService) {
-    this.filters = searchService.getConfig().pipe(getSucceededRemoteData());
-    this.clearParams = searchConfigService.getCurrentFrontendFilters().map((filters) => {
+  constructor(
+    private searchService: SearchService,
+    private filterService: SearchFilterService,
+    @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
+
+  }
+
+  ngOnInit(): void {
+
+    this.filters = this.searchConfigService.searchOptions.pipe(
+      switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData()))
+    );
+
+    this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;
-    });
+    }));
   }
 
   /**
-   * @returns {string} The base path to the search page
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  getSearchLink() {
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
     return this.searchService.getSearchLink();
   }
 
   /**
-   * Check if a given filter is supposed to be shown or not
-   * @param {SearchFilterConfig} filter The filter to check for
-   * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
+   * Prevent unnecessary rerendering
    */
-  isActive(filter: SearchFilterConfig): Observable<boolean> {
-    return this.filterService.getSelectedValuesForFilter(filter)
-      .flatMap((isActive) => {
-        if (isNotEmpty(isActive)) {
-          return Observable.of(true);
-        } else {
-          return this.searchConfigService.searchOptions
-            .switchMap((options) => {
-                return this.searchService.getFacetValuesFor(filter, 1, options)
-                  .filter((RD) => !RD.isLoading)
-                  .map((valuesRD) => {
-                    return valuesRD.payload.totalElements > 0
-                  })
-              }
-            )
-        }
-      }).startWith(true);
+  trackUpdate(index, config: SearchFilterConfig) {
+    return config ? config.name : undefined;
   }
+
 }

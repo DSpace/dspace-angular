@@ -4,14 +4,15 @@
         <button (click)="toggleSidebar.emit()"
                 aria-controls="#search-body"
                 class="btn btn-outline-primary float-right close-sidebar"><i
-                class="fa fa-arrow-right"></i> {{"search.sidebar.close" | translate}}
+                class="fas fa-arrow-right" [title]="'search.sidebar.close' | translate"></i> {{"search.sidebar.close" | translate}}
         </button>
     </div>
     <div id="search-sidebar-content">
-        <ds-view-mode-switch class="d-none d-md-block"></ds-view-mode-switch>
+        <ds-view-mode-switch [viewModeList]="viewModeList" class="d-none d-md-block"></ds-view-mode-switch>
         <div class="sidebar-content">
-            <ds-search-filters></ds-search-filters>
-            <ds-search-settings></ds-search-settings>
+            <ds-search-switch-configuration [inPlaceSearch]="inPlaceSearch" *ngIf="configurationList" [configurationList]="configurationList"></ds-search-switch-configuration>
+            <ds-search-filters [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
+            <ds-search-settings [inPlaceSearch]="inPlaceSearch"></ds-search-settings>
         </div>
     </div>
 </div>

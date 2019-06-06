@@ -1,104 +1,115 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { TestScheduler } from '../../../../node_modules/rxjs';
+import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
-import { getMockResponseCacheService } from '../../shared/mocks/mock-response-cache.service';
-import { ResponseCacheEntry } from '../cache/response-cache.reducer';
-import { ResponseCacheService } from '../cache/response-cache.service';
-import { GetRequest, RestRequest } from '../data/request.models';
+import { GetRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import {
   configureRequest,
-  filterSuccessfulResponses, getRemoteDataPayload,
-  getRequestFromSelflink, getResourceLinksFromResponse,
-  getResponseFromSelflink
+  filterSuccessfulResponses,
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getRequestFromRequestHref,
+  getRequestFromRequestUUID,
+  getResourceLinksFromResponse,
+  getResponseFromEntry,
+  getSucceededRemoteData, redirectToPageNotFoundOn404
 } from './operators';
+import { RemoteData } from '../data/remote-data';
+import { RemoteDataError } from '../data/remote-data-error';
+import { of as observableOf } from 'rxjs';
 
 describe('Core Module - RxJS Operators', () => {
   let scheduler: TestScheduler;
   let requestService: RequestService;
-  const testSelfLink = 'https://rest.api/';
+  const testRequestHref = 'https://rest.api/';
+  const testRequestUUID = 'https://rest.api/';
 
   const testRCEs = {
     a: { response: { isSuccessful: true, resourceSelfLinks: ['a', 'b', 'c', 'd'] } },
     b: { response: { isSuccessful: false, resourceSelfLinks: ['e', 'f'] } },
     c: { response: { isSuccessful: undefined, resourceSelfLinks: ['g', 'h', 'i'] } },
     d: { response: { isSuccessful: true, resourceSelfLinks: ['j', 'k', 'l', 'm', 'n'] } },
-    e: { response: { isSuccessful: 1, resourceSelfLinks: [] } }
+    e: { response: { isSuccessful: 1, resourceSelfLinks: [] } },
+    f: { response: undefined },
+    g: undefined
+  };
+
+  const testResponses = {
+    a: testRCEs.a.response,
+    b: testRCEs.b.response,
+    c: testRCEs.c.response,
+    d: testRCEs.d.response,
+    e: testRCEs.e.response
   };
 
   beforeEach(() => {
     scheduler = getTestScheduler();
   });
 
-  describe('getRequestFromSelflink', () => {
+  describe('getRequestFromRequestHref', () => {
 
     it('should return the RequestEntry corresponding to the self link in the source', () => {
       requestService = getMockRequestService();
 
-      const source = hot('a', { a: testSelfLink });
-      const result = source.pipe(getRequestFromSelflink(requestService));
-      const expected = cold('a', { a: new RequestEntry()});
+      const source = hot('a', { a: testRequestHref });
+      const result = source.pipe(getRequestFromRequestHref(requestService));
+      const expected = cold('a', { a: new RequestEntry() });
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
 
     it('should use the requestService to fetch the request by its self link', () => {
       requestService = getMockRequestService();
 
-      const source = hot('a', { a: testSelfLink });
-      scheduler.schedule(() => source.pipe(getRequestFromSelflink(requestService)).subscribe());
+      const source = hot('a', { a: testRequestHref });
+      scheduler.schedule(() => source.pipe(getRequestFromRequestHref(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.getByHref).toHaveBeenCalledWith(testSelfLink)
+      expect(requestService.getByHref).toHaveBeenCalledWith(testRequestHref);
     });
 
     it('shouldn\'t return anything if there is no request matching the self link', () => {
       requestService = getMockRequestService(cold('a', { a: undefined }));
 
-      const source = hot('a', { a: testSelfLink });
-      const result = source.pipe(getRequestFromSelflink(requestService));
+      const source = hot('a', { a: testRequestUUID });
+      const result = source.pipe(getRequestFromRequestHref(requestService));
       const expected = cold('-');
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
-  describe('getResponseFromSelflink', () => {
-    let responseCacheService: ResponseCacheService;
+  describe('getRequestFromRequestUUID', () => {
 
-    beforeEach(() => {
-      scheduler = getTestScheduler();
+    it('should return the RequestEntry corresponding to the request uuid in the source', () => {
+      requestService = getMockRequestService();
+
+      const source = hot('a', { a: testRequestUUID });
+      const result = source.pipe(getRequestFromRequestUUID(requestService));
+      const expected = cold('a', { a: new RequestEntry() });
+
+      expect(result).toBeObservable(expected);
     });
 
-    it('should return the ResponseCacheEntry corresponding to the self link in the source', () => {
-      responseCacheService = getMockResponseCacheService();
+    it('should use the requestService to fetch the request by its request uuid', () => {
+      requestService = getMockRequestService();
 
-      const source = hot('a', { a: testSelfLink });
-      const result = source.pipe(getResponseFromSelflink(responseCacheService));
-      const expected = cold('a', { a: new ResponseCacheEntry()});
-
-      expect(result).toBeObservable(expected)
-    });
-
-    it('should use the responseCacheService to fetch the response by the request\'s link', () => {
-      responseCacheService = getMockResponseCacheService();
-
-      const source = hot('a', { a: testSelfLink });
-      scheduler.schedule(() => source.pipe(getResponseFromSelflink(responseCacheService)).subscribe());
+      const source = hot('a', { a: testRequestUUID });
+      scheduler.schedule(() => source.pipe(getRequestFromRequestUUID(requestService)).subscribe());
       scheduler.flush();
 
-      expect(responseCacheService.get).toHaveBeenCalledWith(testSelfLink)
+      expect(requestService.getByUUID).toHaveBeenCalledWith(testRequestUUID)
     });
 
-    it('shouldn\'t return anything if there is no response matching the request\'s link', () => {
-      responseCacheService = getMockResponseCacheService(undefined, cold('a', { a: undefined }));
+    it('shouldn\'t return anything if there is no request matching the request uuid', () => {
+      requestService = getMockRequestService(cold('a', { a: undefined }));
 
-      const source = hot('a', { a: testSelfLink });
-      const result = source.pipe(getResponseFromSelflink(responseCacheService));
+      const source = hot('a', { a: testRequestUUID });
+      const result = source.pipe(getRequestFromRequestUUID(requestService));
       const expected = cold('-');
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
@@ -106,9 +117,9 @@ describe('Core Module - RxJS Operators', () => {
     it('should only return responses for which isSuccessful === true', () => {
       const source = hot('abcde', testRCEs);
       const result = source.pipe(filterSuccessfulResponses());
-      const expected = cold('a--d-', testRCEs);
+      const expected = cold('a--d-', testResponses);
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
@@ -121,19 +132,19 @@ describe('Core Module - RxJS Operators', () => {
         d: testRCEs.d.response.resourceSelfLinks
       });
 
-      expect(result).toBeObservable(expected)
+      expect(result).toBeObservable(expected);
     });
   });
 
   describe('configureRequest', () => {
     it('should call requestService.configure with the source request', () => {
       requestService = getMockRequestService();
-      const testRequest = new GetRequest('6b789e31-f026-4ff8-8993-4eb3b730c841', testSelfLink);
+      const testRequest = new GetRequest('6b789e31-f026-4ff8-8993-4eb3b730c841', testRequestHref);
       const source = hot('a', { a: testRequest });
       scheduler.schedule(() => source.pipe(configureRequest(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(testRequest)
+      expect(requestService.configure).toHaveBeenCalledWith(testRequest, undefined);
     });
   });
 
@@ -146,7 +157,104 @@ describe('Core Module - RxJS Operators', () => {
         a: testRD.a.payload,
       });
 
+      expect(result).toBeObservable(expected);
+    });
+  });
+
+  describe('getResponseFromEntry', () => {
+    it('should return the response for all not empty request entries, when they have a value', () => {
+      const source = hot('abcdefg', testRCEs);
+      const result = source.pipe(getResponseFromEntry());
+      const expected = cold('abcde--', {
+        a: testRCEs.a.response,
+        b: testRCEs.b.response,
+        c: testRCEs.c.response,
+        d: testRCEs.d.response,
+        e: testRCEs.e.response
+      });
+
       expect(result).toBeObservable(expected)
     });
+  });
+
+  describe('getSucceededRemoteData', () => {
+    it('should return the first() hasSucceeded RemoteData Observable', () => {
+      const testRD = {
+        a: new RemoteData(false, false, true, null, undefined),
+        b: new RemoteData(false, false, false, null, 'b'),
+        c: new RemoteData(false, false, undefined, null, 'c'),
+        d: new RemoteData(false, false, true, null, 'd'),
+        e: new RemoteData(false, false, true, null, 'e'),
+      };
+      const source = hot('abcde', testRD);
+      const result = source.pipe(getSucceededRemoteData());
+
+      result.subscribe((value) => expect(value)
+        .toEqual(new RemoteData(false, false, true, null, 'd')));
+
+    });
+  });
+
+  describe('redirectToPageNotFoundOn404', () => {
+    let router;
+    beforeEach(() => {
+      router = jasmine.createSpyObj('router', ['navigateByUrl']);
+    });
+
+    it('should call navigateByUrl to a 404 page, when the remote data contains a 404 error', () => {
+      const testRD = new RemoteData(false, false, false, new RemoteDataError(404, 'Not Found', 'Object was not found'), undefined);
+
+      observableOf(testRD).pipe(redirectToPageNotFoundOn404(router)).subscribe();
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/404', { skipLocationChange: true });
+    });
+
+    it('should not call navigateByUrl to a 404 page, when the remote data contains another error than a 404', () => {
+      const testRD = new RemoteData(false, false, false, new RemoteDataError(500, 'Server Error', 'Something went wrong'), undefined);
+
+      observableOf(testRD).pipe(redirectToPageNotFoundOn404(router)).subscribe();
+      expect(router.navigateByUrl).not.toHaveBeenCalled();
+    });
+
+    it('should not call navigateByUrl to a 404 page, when the remote data contains no error', () => {
+      const testRD = new RemoteData(false, false, true, null, undefined);
+
+      observableOf(testRD).pipe(redirectToPageNotFoundOn404(router)).subscribe();
+      expect(router.navigateByUrl).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('getResponseFromEntry', () => {
+    it('should return the response for all not empty request entries, when they have a value', () => {
+      const source = hot('abcdefg', testRCEs);
+      const result = source.pipe(getResponseFromEntry());
+      const expected = cold('abcde--', {
+        a: testRCEs.a.response,
+        b: testRCEs.b.response,
+        c: testRCEs.c.response,
+        d: testRCEs.d.response,
+        e: testRCEs.e.response
+      });
+
+      expect(result).toBeObservable(expected)
+    });
+  });
+
+  describe('getAllSucceededRemoteData', () => {
+    it('should return all hasSucceeded RemoteData Observables', () => {
+      const testRD = {
+        a: new RemoteData(false, false, true, null, undefined),
+        b: new RemoteData(false, false, false, null, 'b'),
+        c: new RemoteData(false, false, undefined, null, 'c'),
+        d: new RemoteData(false, false, true, null, 'd'),
+        e: new RemoteData(false, false, true, null, 'e'),
+      };
+      const source = hot('abcde', testRD);
+      const result = source.pipe(getAllSucceededRemoteData());
+      const expected = cold('---de', testRD);
+
+      expect(result).toBeObservable(expected);
+
+    });
+
   });
 });
