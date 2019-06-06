@@ -1,18 +1,41 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const fs = require('fs');
 const {
     projectRoot,
     buildRoot,
     globalCSSImports,
+    theme,
     themePath,
     themedTest,
     themedUse
 } = require('./helpers');
 
 module.exports = (env) => {
-    return {
-        mode: 'development',
-        devtool: 'source-map',
+  let copyWebpackOptions = [{
+    from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
+    to: path.join('assets', 'fonts')
+  }, {
+    from: path.join(__dirname, '..', 'resources', 'images'),
+    to: path.join('assets', 'images')
+  }, {
+    from: path.join(__dirname, '..', 'resources', 'i18n'),
+    to: path.join('assets', 'i18n')
+  }
+  ];
+
+  const themeImages = path.join(themePath, 'resources', 'images');
+  if(theme && fs.existsSync(themeImages)) {
+    copyWebpackOptions.push({
+      from: themeImages,
+      to: path.join('assets', 'images')  ,
+      force: true,
+    });
+  }
+
+  return {
+    mode: 'development',
+    devtool: 'source-map',
         resolve: {
             extensions: ['.ts', '.js', '.json']
         },
@@ -144,17 +167,7 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            new CopyWebpackPlugin([{
-                from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
-                to: path.join('assets', 'fonts')
-            }, {
-                from: path.join(__dirname, '..', 'resources', 'images'),
-                to: path.join('assets', 'images')
-            }, {
-                from: path.join(__dirname, '..', 'resources', 'i18n'),
-                to: path.join('assets', 'i18n')
-            }
-            ])
+            new CopyWebpackPlugin(copyWebpackOptions)
         ]
     }
 };
