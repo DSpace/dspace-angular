@@ -1,12 +1,12 @@
 import {
-  combineLatest as observableCombineLatest,
-  of as observableOf,
   BehaviorSubject,
+  combineLatest as observableCombineLatest,
   Observable,
+  of as observableOf,
   Subject,
   Subscription
 } from 'rxjs';
-import { switchMap, distinctUntilChanged, map, take, flatMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take, tap } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -137,7 +137,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
             map((selectedValues) => {
               return selectedValues.map((value: string) => {
-                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => facetValue.value === value);
+                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
                 if (hasValue(fValue)) {
                   return fValue;
                 }
