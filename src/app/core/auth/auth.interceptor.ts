@@ -162,8 +162,10 @@ export class AuthInterceptor implements HttpInterceptor {
             // clean eventually refresh Requests list
             this.refreshTokenRequestUrls = [];
             // console.log('error: ', error);
-            const location = this.getLocationfromHeader(error.headers);
-
+            let location = '';
+            if (error.headers.get('www-authenticate') != null) {
+              location = this.getLocationfromHeader(error.headers);
+            }
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
               body: this.makeAuthStatusObject(false, null, error.error, location),
