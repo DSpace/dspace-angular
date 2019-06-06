@@ -209,7 +209,9 @@ export class AuthService {
         let url = '';
         if (isNotEmpty(status.ssoLoginUrl)) {
           // url = this.parseSSOLocation(status.ssoLoginUrl);
-          url = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at';
+          // console.log('Parsed SSOLoginUrl: ', url);
+           url = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at';
+          // url = status.ssoLoginUrl;
         }
         return url;
       })
