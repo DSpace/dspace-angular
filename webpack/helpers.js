@@ -58,7 +58,7 @@ else {
   themePath = srcPath;
 }
 
-const relativeThemePath = path.relative(projectRoot('./'), themePath);
+const relativeThemePath = path.relative(srcPath, themePath);
 
 const globalCSSImports = (env) => { return [
   buildRoot('styles/_variables.scss', env),
