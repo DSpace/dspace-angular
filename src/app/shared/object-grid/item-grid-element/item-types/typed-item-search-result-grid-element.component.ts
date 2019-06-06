@@ -1,20 +1,20 @@
-import { Component, Inject } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { hasValue } from '../../../empty.util';
-import { ITEM } from '../../../items/switcher/item-type-switcher.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { Item } from '../../../../core/shared/item.model';
+import { SearchResultGridElementComponent } from '../../search-result-grid-element/search-result-grid-element.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { Component, Inject } from '@angular/core';
+import { ITEM } from '../../../items/switcher/item-type-switcher.component';
+import { hasValue } from '../../../empty.util';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
 
 /**
- * A generic component for displaying item list elements
+ * A generic component for displaying item grid elements
  */
 @Component({
-  selector: 'ds-item-search-result-list-element',
+  selector: 'ds-item-search-result-grid-element',
   template: ''
 })
-export class TypedItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+export class TypedItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
   item: Item;
 
   constructor(
