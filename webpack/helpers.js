@@ -58,8 +58,6 @@ else {
   themePath = srcPath;
 }
 
-const relativeThemePath = path.relative(srcPath, themePath);
-
 const globalCSSImports = (env) => { return [
   buildRoot('styles/_variables.scss', env),
   buildRoot('styles/_mixins.scss', env),
@@ -68,7 +66,7 @@ const globalCSSImports = (env) => { return [
 const getThemedPath = (componentPath, ext) => {
   const parsedPath = path.parse(componentPath);
   const relativePath = path.relative(srcPath, parsedPath.dir);
-  return path.join(relativeThemePath, relativePath, `${parsedPath.name}.${ext}`);
+  return path.join(themePath, relativePath, `${parsedPath.name}.${ext}`);
 };
 
 const themedTest = (origPath, extension) => {
