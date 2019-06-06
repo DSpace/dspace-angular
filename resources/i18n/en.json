@@ -386,7 +386,10 @@
       "titleprefix": "Publication: ",
       "journal-title": "Journal Title",
       "journal-issn": "Journal ISSN",
-      "volume-title": "Volume Title"
+      "volume-title": "Volume Title",
+      "publisher": "Publisher",
+      "description": "Description"
+
     },
     "listelement": {
       "badge": "Publication"
