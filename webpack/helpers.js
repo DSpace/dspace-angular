@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const slash = require('slash');
+
 
 const projectRoot = (relativePath) => {
   return path.resolve(__dirname, '..', relativePath);
@@ -68,7 +68,7 @@ const globalCSSImports = (env) => { return [
 const getThemedPath = (componentPath, ext) => {
   const parsedPath = path.parse(componentPath);
   const relativePath = path.relative(srcPath, parsedPath.dir);
-  return slash(path.join(relativeThemePath, relativePath, `${parsedPath.name}.${ext}`));
+  return path.join(relativeThemePath, relativePath, `${parsedPath.name}.${ext}`);
 };
 
 const themedTest = (origPath, extension) => {
