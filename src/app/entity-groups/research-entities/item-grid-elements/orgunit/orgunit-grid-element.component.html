@@ -2,7 +2,7 @@
   <div class="card" [@focusShadow]="(isCollapsed() | async)?'blur':'focus'">
     <a [routerLink]="['/items/' + dso.id]" class="card-img-top full-width">
       <div>
-        <ds-grid-thumbnail [thumbnail]="dso.getThumbnail()" [defaultImage]="'assets/images/orgunit-placeholder.svg'">
+        <ds-grid-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/orgunit-placeholder.svg'">
         </ds-grid-thumbnail>
       </div>
     </a>

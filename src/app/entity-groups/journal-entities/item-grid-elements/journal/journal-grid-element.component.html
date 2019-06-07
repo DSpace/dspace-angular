@@ -11,18 +11,17 @@
       <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="3" type="h4">
         <h4 class="card-title" [innerHTML]="dso.firstMetadataValue('dc.title')"></h4>
       </ds-truncatable-part>
-      <p *ngIf="dso.hasMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*'])"
-         class="item-authors card-text text-muted">
+      <p *ngIf="dso.hasMetadata('journal.contributor.editor')"
+         class="item-publisher card-text text-muted">
         <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="1">
-          <span *ngIf="dso.hasMetadata('dc.date.issued')" class="item-date">{{dso.firstMetadataValue('dc.date.issued')}}</span>
-          <span *ngFor="let author of dso.allMetadataValues(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']);">,
-                        <span [innerHTML]="author"></span>
-                    </span>
+          <span *ngIf="dso.hasMetadata('journal.contributor.editor')" class="item-date">{{dso.firstMetadataValue('journal.contributor.editor')}}</span>
+          <span>, </span>
+          <span *ngIf="dso.hasMetadata('journal.publisher')" class="item-date">{{dso.firstMetadataValue('journal.publisher')}}</span>
         </ds-truncatable-part>
       </p>
-      <p class="item-abstract card-text">
+      <p class="item-description card-text">
         <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="3">
-          <span [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
+          <span [innerHTML]="firstMetadataValue('journal.identifier.description')"></span>
         </ds-truncatable-part>
       </p>
       <div class="text-center">
