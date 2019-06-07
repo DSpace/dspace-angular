@@ -14,12 +14,12 @@
       <p *ngIf="dso.hasMetadata('journal.contributor.editor')"
          class="item-publisher card-text text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">
-          <span *ngIf="dso.hasMetadata('journal.contributor.editor')" class="item-date">{{dso.firstMetadataValue('journal.contributor.editor')}}</span>
+          <span *ngIf="dso.hasMetadata('journal.contributor.editor')" class="item-editor">{{dso.firstMetadataValue('journal.contributor.editor')}}</span>
           <span>, </span>
-          <span *ngIf="dso.hasMetadata('journal.publisher')" class="item-date">{{dso.firstMetadataValue('journal.publisher')}}</span>
+          <span *ngIf="dso.hasMetadata('journal.publisher')" class="item-publisher">{{dso.firstMetadataValue('journal.publisher')}}</span>
         </ds-truncatable-part>
       </p>
-      <p class="item-description card-text">
+      <p *ngIf="dso.hasMetadata('journal.identifier.description')" class="item-description card-text">
         <ds-truncatable-part [id]="dso.id" [minLines]="3">
           <span [innerHTML]="firstMetadataValue('journal.identifier.description')"></span>
         </ds-truncatable-part>

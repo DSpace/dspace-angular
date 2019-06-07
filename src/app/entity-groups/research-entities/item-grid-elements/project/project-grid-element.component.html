@@ -11,7 +11,7 @@
       <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
         <h4 class="card-title" [innerHTML]="dso.firstMetadataValue('dc.title')"></h4>
       </ds-truncatable-part>
-      <p class="item-funder card-text text-muted">
+      <p *ngIf="dso.hasMetadata('project.identifier.funder')" class="item-funder card-text text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="3">
           <span [innerHTML]="firstMetadataValue('project.identifier.funder')"></span>
         </ds-truncatable-part>

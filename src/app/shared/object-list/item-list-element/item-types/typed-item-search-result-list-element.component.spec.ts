@@ -23,7 +23,7 @@ const mockSearchResult = {
   hitHighlights: new MetadataMap()
 } as ItemSearchResult;
 
-describe('ItemSearchResultComponent', () => {
+describe('TypedItemSearchResultListElementComponent', () => {
   let comp: TypedItemSearchResultListElementComponent;
   let fixture: ComponentFixture<TypedItemSearchResultListElementComponent>;
 
