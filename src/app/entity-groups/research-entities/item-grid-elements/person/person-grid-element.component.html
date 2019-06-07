@@ -2,22 +2,22 @@
   <div class="card" [@focusShadow]="(isCollapsed() | async)?'blur':'focus'">
     <a [routerLink]="['/items/' + dso.id]" class="card-img-top full-width">
       <div>
-        <ds-grid-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/person-placeholder.svg'">
+        <ds-grid-thumbnail [thumbnail]="this.item.getThumbnail() | async">
         </ds-grid-thumbnail>
       </div>
     </a>
     <div class="card-body">
       <ds-item-type-badge [object]="object"></ds-item-type-badge>
-      <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="3" type="h4">
+      <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
         <h4 class="card-title" [innerHTML]="dso.firstMetadataValue('dc.title')"></h4>
       </ds-truncatable-part>
       <p class="item-email card-text text-muted">
-        <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="1">
+        <ds-truncatable-part [id]="dso.id" [minLines]="1">
           <span *ngIf="dso.hasMetadata('person.identifier.email')">{{dso.firstMetadataValue('person.identifier.email')}}</span>
         </ds-truncatable-part>
       </p>
       <p class="item-jobtitle card-text">
-        <ds-truncatable-part [fixedHeight]="true" [id]="dso.id" [minLines]="3">
+        <ds-truncatable-part [id]="dso.id" [minLines]="3">
           <span [innerHTML]="firstMetadataValue('person.identifier.jobtitle')"></span>
         </ds-truncatable-part>
       </p>
