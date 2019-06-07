@@ -378,6 +378,12 @@
     },
     "listelement": {
       "badge": "Person"
+    },
+    "search": {
+      "title": "DSpace Angular :: Person Search",
+      "results": {
+        "head": "Person Search Results"
+      }
     }
   },
   "project": {
@@ -418,6 +424,12 @@
     },
     "listelement": {
       "badge": "Journal"
+    },
+    "search": {
+      "title": "DSpace Angular :: Journal Search",
+      "results": {
+        "head": "Journal Search Results"
+      }
     }
   },
   "journalvolume": {
@@ -454,6 +466,12 @@
     },
     "listelement": {
       "badge": "Publication"
+    },
+    "search": {
+      "title": "DSpace Angular :: Publication Search",
+      "results": {
+        "head": "Publication Search Results"
+      }
     }
   },
   "nav": {
@@ -557,24 +575,6 @@
     }
   },
   "search": {
-    "journal": {
-      "title": "DSpace Angular :: Journal Search",
-      "results": {
-        "head": "Journal Search Results"
-      }
-    },
-    "person": {
-      "title": "DSpace Angular :: Person Search",
-      "results": {
-        "head": "Person Search Results"
-      }
-    },
-    "publication": {
-      "title": "DSpace Angular :: Publication Search",
-      "results": {
-        "head": "Publication Search Results"
-      }
-    },
     "title": "DSpace Angular :: Search",
     "description": "",
     "form": {
@@ -673,6 +673,18 @@
         "objectpeople": {
           "placeholder": "People",
           "head": "People"
+        },
+        "jobTitle": {
+          "placeholder": "Job Title",
+          "head": "Job Title"
+        },
+        "knowsLanguage": {
+          "placeholder": "Known language",
+          "head": "Known language"
+        },
+        "birthDate": {
+          "placeholder": "Birth Date",
+          "head": "Birth Date"
         }
       }
     }

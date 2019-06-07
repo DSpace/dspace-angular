@@ -20,16 +20,12 @@ import { FullFileSectionComponent } from './full/field-components/file-section/f
 import { RelatedItemsComponent } from './simple/related-items/related-items-component';
 import { SearchPageModule } from '../+search-page/search-page.module';
 import { PublicationComponent } from './simple/item-types/publication/publication.component';
-import { PersonComponent } from './simple/item-types/person/person.component';
-import { OrgunitComponent } from './simple/item-types/orgunit/orgunit.component';
-import { ProjectComponent } from './simple/item-types/project/project.component';
-import { JournalComponent } from './simple/item-types/journal/journal.component';
-import { JournalVolumeComponent } from './simple/item-types/journal-volume/journal-volume.component';
-import { JournalIssueComponent } from './simple/item-types/journal-issue/journal-issue.component';
 import { ItemComponent } from './simple/item-types/shared/item.component';
 import { EditItemPageModule } from './edit-item-page/edit-item-page.module';
 import { MetadataRepresentationListComponent } from './simple/metadata-representation-list/metadata-representation-list.component';
 import { RelatedEntitiesSearchComponent } from './simple/related-entities/related-entities-search/related-entities-search.component';
+import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
+import { MetadataFieldWrapperComponent } from './field-components/metadata-field-wrapper/metadata-field-wrapper.component';
 
 @NgModule({
   imports: [
@@ -53,26 +49,23 @@ import { RelatedEntitiesSearchComponent } from './simple/related-entities/relate
     CollectionsComponent,
     FullFileSectionComponent,
     PublicationComponent,
-    ProjectComponent,
-    OrgunitComponent,
-    PersonComponent,
     RelatedItemsComponent,
     ItemComponent,
     GenericItemPageFieldComponent,
-    JournalComponent,
-    JournalIssueComponent,
-    JournalVolumeComponent,
     MetadataRepresentationListComponent,
     RelatedEntitiesSearchComponent
   ],
+  exports: [
+    ItemComponent,
+    MetadataValuesComponent,
+    MetadataFieldWrapperComponent,
+    GenericItemPageFieldComponent,
+    RelatedEntitiesSearchComponent,
+    RelatedItemsComponent,
+    MetadataRepresentationListComponent
+  ],
   entryComponents: [
-    PublicationComponent,
-    ProjectComponent,
-    OrgunitComponent,
-    PersonComponent,
-    JournalComponent,
-    JournalIssueComponent,
-    JournalVolumeComponent
+    PublicationComponent
   ]
 })
 export class ItemPageModule {

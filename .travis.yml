@@ -18,9 +18,6 @@ cache:
 
 bundler_args: --retry 5
 
-before_install:
-  - travis_retry yarn run global
-
 install:
   - travis_retry yarn install
 

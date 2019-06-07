@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, map, mergeMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRoute,
@@ -8,24 +8,67 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { select, Store } from '@ngrx/store';
+import { combineLatest, Observable } from 'rxjs';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { isEqual } from 'lodash';
 
-import { AppState } from '../../app.reducer';
 import { AddUrlToHistoryAction } from '../history/history.actions';
 import { historySelector } from '../history/selectors';
+import { SetParametersAction, SetQueryParametersAction } from './route.actions';
+import { CoreState } from '../../core/core.reducers';
+import { hasValue } from '../empty.util';
+import { coreSelector } from '../../core/core.selectors';
+
+/**
+ * Selector to select all route parameters from the store
+ */
+export const routeParametersSelector = createSelector(
+  coreSelector,
+  (state: CoreState) => state.route.params
+);
+
+/**
+ * Selector to select all query parameters from the store
+ */
+export const queryParametersSelector = createSelector(
+  coreSelector,
+  (state: CoreState) => state.route.queryParams
+);
+
+/**
+ * Selector to select a specific route parameter from the store
+ * @param key The key of the parameter
+ */
+export const routeParameterSelector = (key: string) => parameterSelector(key, routeParametersSelector);
+
+/**
+ * Selector to select a specific query parameter from the store
+ * @param key The key of the parameter
+ */
+export const queryParameterSelector = (key: string) => parameterSelector(key, queryParametersSelector);
+
+/**
+ * Function to select a specific parameter from the store
+ * @param key The key to look for
+ * @param paramsSelector The selector that selects the parameters to search in
+ */
+export function parameterSelector(key: string, paramsSelector: (state: CoreState) => Params): MemoizedSelector<CoreState, string> {
+  return createSelector(paramsSelector, (state: Params) => {
+    if (hasValue(state)) {
+      return state[key];
+    } else {
+      return undefined;
+    }
+  });
+}
 
 /**
  * Service to keep track of the current query parameters
  */
 @Injectable()
 export class RouteService {
-  params: Observable<Params>;
-
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState>) {
-    this.subscribeToRouterParams();
-
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<CoreState>) {
+    this.saveRouting();
   }
 
   /**
@@ -74,11 +117,11 @@ export class RouteService {
   }
 
   getRouteParameterValue(paramName: string): Observable<string> {
-    return this.params.pipe(map((params) => params[paramName]),distinctUntilChanged(),);
+    return this.store.pipe(select(routeParameterSelector(paramName)));
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
-    return this.route.data.pipe(map((data) => data[datafield]),distinctUntilChanged(),);
+    return this.route.data.pipe(map((data) => data[datafield]), distinctUntilChanged(),);
   }
 
   /**
@@ -114,23 +157,21 @@ export class RouteService {
   }
 
   public saveRouting(): void {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
-        this.store.dispatch(new AddUrlToHistoryAction(urlAfterRedirects))
+    combineLatest(this.router.events, this.getRouteParams(), this.route.queryParams)
+      .pipe(filter(([event, params, queryParams]) => event instanceof NavigationEnd))
+      .subscribe(([event, params, queryParams]: [NavigationEnd, Params, Params]) => {
+        this.store.dispatch(new SetParametersAction(params));
+        this.store.dispatch(new SetQueryParametersAction(queryParams));
+        this.store.dispatch(new AddUrlToHistoryAction(event.urlAfterRedirects));
       });
   }
 
-  subscribeToRouterParams() {
-    this.params = this.router.events.pipe(
-      mergeMap((event) => {
-        let active = this.route;
-        while (active.firstChild) {
-          active = active.firstChild;
-        }
-        return active.params;
-      })
-    );
+  private getRouteParams(): Observable<Params> {
+    let active = this.route;
+    while (active.firstChild) {
+      active = active.firstChild;
+    }
+    return active.params;
   }
 
   public getHistory(): Observable<string[]> {
