@@ -12,7 +12,7 @@ import {
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: {
-    'publicationVolume.volumeNumber': [
+    'publicationvolume.volumeNumber': [
       {
         language: 'en_US',
         value: '1234'
