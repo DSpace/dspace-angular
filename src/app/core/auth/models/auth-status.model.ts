@@ -20,4 +20,8 @@ export class AuthStatus implements CacheableObject {
   token?: AuthTokenInfo;
 
   self: string;
+
+  ssoLoginUrl?: string;
+
+
 }
