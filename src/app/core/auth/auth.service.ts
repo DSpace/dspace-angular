@@ -1,27 +1,29 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
-import { HttpHeaders } from '@angular/common/http';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+import {Inject, Injectable, Optional} from '@angular/core';
+import {PRIMARY_OUTLET, Router, UrlSegmentGroup, UrlTree} from '@angular/router';
+import {HttpHeaders} from '@angular/common/http';
+import {REQUEST, RESPONSE} from '@nguniversal/express-engine/tokens';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLatestFrom } from 'rxjs/operators';
-import { RouterReducerState } from '@ngrx/router-store';
-import { select, Store } from '@ngrx/store';
-import { CookieAttributes } from 'js-cookie';
+import {Observable, of as observableOf} from 'rxjs';
+import {distinctUntilChanged, filter, map, startWith, switchMap, take, withLatestFrom} from 'rxjs/operators';
+import {RouterReducerState} from '@ngrx/router-store';
+import {select, Store} from '@ngrx/store';
+import {CookieAttributes} from 'js-cookie';
 
-import { EPerson } from '../eperson/models/eperson.model';
-import { AuthRequestService } from './auth-request.service';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
-import { CookieService } from '../../shared/services/cookie.service';
-import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
-import { AppState, routerStateSelector } from '../../app.reducer';
-import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
-import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
-import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import {EPerson} from '../eperson/models/eperson.model';
+import {AuthRequestService} from './auth-request.service';
+import {HttpOptions} from '../dspace-rest-v2/dspace-rest-v2.service';
+import {AuthStatus} from './models/auth-status.model';
+import {AuthTokenInfo, TOKENITEM} from './models/auth-token-info.model';
+import {isEmpty, isNotEmpty, isNotNull, isNotUndefined} from '../../shared/empty.util';
+import {CookieService} from '../../shared/services/cookie.service';
+import {getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing} from './selectors';
+import {AppState, routerStateSelector} from '../../app.reducer';
+import {ResetAuthenticationMessagesAction, SetRedirectUrlAction} from './auth.actions';
+import {NativeWindowRef, NativeWindowService} from '../../shared/services/window.service';
+import {Base64EncodeUrl} from '../../shared/utils/encode-decode.util';
+import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
+import {GlobalConfig} from "../../../config/global-config.interface";
+import {GLOBAL_CONFIG} from "../../../config";
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -40,7 +42,8 @@ export class AuthService {
    */
   protected _authenticated: boolean;
 
-  constructor(@Inject(REQUEST) protected req: any,
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+              @Inject(REQUEST) protected req: any,
               @Inject(NativeWindowService) protected _window: NativeWindowRef,
               protected authRequestService: AuthRequestService,
               @Optional() @Inject(RESPONSE) private response: any,
@@ -194,6 +197,37 @@ export class AuthService {
   }
 
   /**
+   * Retrieve authentication methods available
+   * @returns {User}
+   */
+  public retrieveAuthMethods(): Observable<string> {
+    return this.authRequestService.getRequest('login')
+      .pipe(
+        map((status: AuthStatus) => {
+          let url = '';
+          if (isNotEmpty(status.ssoLoginUrl)) {
+            url = this.parseSSOLocation(status.ssoLoginUrl);
+          }
+          return url;
+        })
+      )
+  }
+
+  private parseSSOLocation(url: string): string {
+    const parseUrl = decodeURIComponent(url);
+    // const urlTree: UrlTree = this.router.parseUrl(url);
+    // this.router.parseUrl(url);
+    // if (url.endsWith('/')) {
+    //   url += 'login';
+    // } else {
+    //   url = url.replace('/?target=http(.+)/g', 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
+    // }
+    // console.log(url);
+    const target = `?target=${this.config.auth.target.host}${this.config.auth.target.page}`;
+    return parseUrl.replace(/\?target=http.+/g, target);
+  }
+
+  /**
    * Create a new user
    * @returns {User}
    */
@@ -213,7 +247,7 @@ export class AuthService {
     // Send a request that sign end the session
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    const options: HttpOptions = Object.create({ headers, responseType: 'text' });
+    const options: HttpOptions = Object.create({headers, responseType: 'text'});
     return this.authRequestService.getRequest('logout', options).pipe(
       map((status: AuthStatus) => {
         if (!status.authenticated) {
@@ -289,7 +323,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: CookieAttributes = {expires: expires};
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -388,7 +422,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: CookieAttributes = {expires: expires};
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
