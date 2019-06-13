@@ -15,6 +15,13 @@ module.exports = {
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/dspace-spring-rest/api'
   },
+  // Authentications
+  auth: {
+    target: {
+      host: 'https://dspace7.4science.cloud',
+      page: '/dspace-spring-rest/shib.html'
+    }
+  },
   // Caching settings
   cache: {
     // NOTE: how long should objects be cached for by default
