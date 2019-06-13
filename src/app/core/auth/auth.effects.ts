@@ -1,14 +1,12 @@
-import {of as observableOf, Observable} from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 
-import {filter, debounceTime, switchMap, take, tap, catchError, map} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-
+import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 // import @ngrx
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Action, select, Store} from '@ngrx/store';
-
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Action, select, Store } from '@ngrx/store';
 // import services
-import {AuthService} from './auth.service';
+import { AuthService } from './auth.service';
 // import actions
 import {
   AuthActionTypes,
@@ -26,14 +24,16 @@ import {
   RefreshTokenSuccessAction,
   RegistrationAction,
   RegistrationErrorAction,
-  RegistrationSuccessAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction
+  RegistrationSuccessAction,
+  RetrieveAuthMethodsErrorAction,
+  RetrieveAuthMethodsSuccessAction
 } from './auth.actions';
-import {EPerson} from '../eperson/models/eperson.model';
-import {AuthStatus} from './models/auth-status.model';
-import {AuthTokenInfo} from './models/auth-token-info.model';
-import {AppState} from '../../app.reducer';
-import {isAuthenticated} from './selectors';
-import {StoreActionTypes} from '../../store.actions';
+import { EPerson } from '../eperson/models/eperson.model';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AppState } from '../../app.reducer';
+import { isAuthenticated } from './selectors';
+import { StoreActionTypes } from '../../store.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -170,14 +170,14 @@ export class AuthEffects {
     );
 
 
- /* @Effect()
-  public retrieveMethods$: Observable<Action> = this.actions$
-    .ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS)
-    .switchMap(() => {
-      return this.authService.retrieveAuthMethods()
-        .map((location: any) => new RetrieveAuthMethodsSuccessAction(location))
-        .catch((error) => Observable.of(new RetrieveAuthMethodsErrorAction()));
-    });
+  /*   @Effect()
+     public retrieveMethods$: Observable<Action> = this.actions$
+       .ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS)
+       .switchMap(() => {
+         return this.authService.retrieveAuthMethods()
+           .map((location: any) => new RetrieveAuthMethodsSuccessAction(location))
+           .catch((error) => Observable.of(new RetrieveAuthMethodsErrorAction()));
+       });*/
 
   @Effect()
   public retrieveMethods$: Observable<Action> = this.actions$
@@ -187,11 +187,10 @@ export class AuthEffects {
           return this.authService.retrieveAuthMethods()
             .pipe(
               map((location: any) => new RetrieveAuthMethodsSuccessAction(location)),
-              catch((error) => Observable.observableOf(new RetrieveAuthMethodsErrorAction()));
-        )
-
+              catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction())))
         }
-      );*/
+      )
+    );
 
 
   /**
