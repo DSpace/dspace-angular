@@ -32,6 +32,7 @@ import { SearchFacetSelectedOptionComponent } from './search-filters/search-filt
 import { SearchFacetRangeOptionComponent } from './search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchSwitchConfigurationComponent } from './search-switch-configuration/search-switch-configuration.component';
 import { SearchAuthorityFilterComponent } from './search-filters/search-filter/search-authority-filter/search-authority-filter.component';
+import { SearchLabelComponent } from './search-labels/search-label/search-label.component';
 
 const effects = [
   SearchSidebarEffects
@@ -49,6 +50,7 @@ const components = [
   SearchFilterComponent,
   SearchFacetFilterComponent,
   SearchLabelsComponent,
+  SearchLabelComponent,
   SearchFacetFilterComponent,
   SearchFacetFilterWrapperComponent,
   SearchRangeFilterComponent,

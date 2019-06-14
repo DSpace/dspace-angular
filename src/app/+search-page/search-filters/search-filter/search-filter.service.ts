@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { mergeMap, map, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
 import { Injectable, InjectionToken } from '@angular/core';
 import { SearchFiltersState, SearchFilterState } from './search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
@@ -17,12 +17,8 @@ import { SearchFilterConfig } from '../../search-service/search-filter-config.mo
 import { RouteService } from '../../../shared/services/route.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../../search-options.model';
-import { PaginatedSearchOptions } from '../../paginated-search-options.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { Params } from '@angular/router';
-import * as postcss from 'postcss';
-import prefix = postcss.vendor.prefix;
 // const spy = create();
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 

@@ -49,6 +49,8 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    */
   sub: Subscription;
 
+  searchLink: string;
+
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
@@ -64,12 +66,13 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
       .subscribe(([selectedValues, searchOptions]) => {
         this.updateRemoveParams(selectedValues)
       });
+    this.searchLink = this.getSearchLink();
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  public getSearchLink(): string {
+  private getSearchLink(): string {
     if (this.inPlaceSearch) {
       return './';
     }

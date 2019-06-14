@@ -15,10 +15,12 @@ import { Metadata } from '../../../core/shared/metadata.utils';
 
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
+  isCollapsed$: Observable<boolean>;
 
   public constructor(@Inject('objectElementProvider') public listableObject: ListableObject, private truncatableService: TruncatableService) {
     super(listableObject);
     this.dso = this.object.indexableObject;
+    this.isCollapsed$ = this.isCollapsed();
   }
 
   /**
@@ -41,7 +43,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
     return Metadata.firstValue([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
 
-  isCollapsed(): Observable<boolean> {
+  private isCollapsed(): Observable<boolean> {
     return this.truncatableService.isCollapsed(this.dso.id);
   }
 

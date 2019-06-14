@@ -91,6 +91,9 @@ export class SearchPageComponent implements OnInit {
   @Input()
   fixedFilter$: Observable<string>;
 
+  searchLink: string;
+  isSidebarCollapsed$: Observable<boolean>;
+
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
@@ -107,6 +110,8 @@ export class SearchPageComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    this.isSidebarCollapsed$ = this.isSidebarCollapsed();
+    this.searchLink = this.getSearchLink();
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
       switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(observableOf(undefined)))))
@@ -147,14 +152,14 @@ export class SearchPageComponent implements OnInit {
    * Check if the sidebar is collapsed
    * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
    */
-  public isSidebarCollapsed(): Observable<boolean> {
+  private isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  public getSearchLink(): string {
+  private getSearchLink(): string {
     if (this.inPlaceSearch) {
       return './';
     }
