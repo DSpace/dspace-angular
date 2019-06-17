@@ -10,7 +10,7 @@
     <div id="search-sidebar-content">
         <ds-view-mode-switch [viewModeList]="viewModeList" class="d-none d-md-block"></ds-view-mode-switch>
         <div class="sidebar-content">
-            <ds-search-switch-configuration *ngIf="configurationList" [configurationList]="configurationList"></ds-search-switch-configuration>
+            <ds-search-switch-configuration [inPlaceSearch]="inPlaceSearch" *ngIf="configurationList" [configurationList]="configurationList"></ds-search-switch-configuration>
             <ds-search-filters [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
             <ds-search-settings [inPlaceSearch]="inPlaceSearch"></ds-search-settings>
         </div>

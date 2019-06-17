@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
-import { Observable ,  Subscription ,  BehaviorSubject } from 'rxjs';
-import { switchMap, } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import { startWith, switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -43,7 +43,6 @@ export const SEARCH_ROUTE = '/search';
  * It renders search results depending on the current search options
  */
 export class SearchPageComponent implements OnInit {
-
   /**
    * The current search results
    */
@@ -110,7 +109,7 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
-      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData())))
+      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(observableOf(undefined)))))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
