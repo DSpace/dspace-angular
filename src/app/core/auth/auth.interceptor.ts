@@ -38,6 +38,10 @@ export class AuthInterceptor implements HttpInterceptor {
     return response.status === 405;
   }
 
+  private is302Response(response: HttpResponseBase): boolean {
+    return response.status === 302;
+  }
+
   private isUnauthorized(response: HttpResponseBase): boolean {
     // invalid_token The access token provided is expired, revoked, malformed, or invalid for other reasons
     return response.status === 401;
@@ -131,7 +135,7 @@ export class AuthInterceptor implements HttpInterceptor {
           // It's a success Login/Logout response
           let authRes: HttpResponse<any>;
           if (this.isLoginResponse(response)) {
-            console.log('auth.interceptor passes success login response from backend with token: ',response.headers.get('authorization') );
+            console.log('auth.interceptor passes success login response from backend with token: ', response.headers.get('authorization'));
             // login successfully
             const newToken = response.headers.get('authorization');
             authRes = response.clone({body: this.makeAuthStatusObject(true, newToken)});

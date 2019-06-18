@@ -206,4 +206,10 @@ export class LogInComponent implements OnDestroy, OnInit {
     // clear form
     this.form.reset();
   }
+
+  postLoginCall() {
+    const email = '';
+    const password = '';
+    this.store.dispatch(new AuthenticateAction(email, password));
+  }
 }
