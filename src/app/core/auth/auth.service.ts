@@ -115,7 +115,8 @@ export class AuthService {
   }
 
   public startShibbAuth():  Observable<AuthStatus> {
-    return this.authRequestService.postToShibbEndpoint().pipe(
+    console.log('startShibAuth() was called');
+    return this.authRequestService.postToEndpoint('login').pipe(
       map((status: AuthStatus) => {
         if (status.authenticated) {
           return status;

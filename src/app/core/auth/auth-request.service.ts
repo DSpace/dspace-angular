@@ -40,7 +40,7 @@ export class AuthRequestService {
     return isNotEmpty(method) ? `${endpoint}/${method}` : `${endpoint}`;
   }
 
-  public postToEndpoint(method: string, body: any, options?: HttpOptions): Observable<any> {
+  public postToEndpoint(method: string, body?: any, options?: HttpOptions): Observable<any> {
     return this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
       tap((href: string) => console.log('This is href in postToEndpoint(): ' , href)),
@@ -51,26 +51,6 @@ export class AuthRequestService {
       tap((request: PostRequest) => this.requestService.configure(request, true)),
       mergeMap((request: PostRequest) => this.fetchRequest(request)),
       distinctUntilChanged());
-  }
-
-  postToShibbEndpoint(): Observable<any> {
-    console.log('postToShibbLogin() was called');
-    return this.http.post('https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login',
-      {
-        name: 'morpheus',
-        job: 'leader'
-      })
-     /* .subscribe(
-        (val) => {
-          console.log('POST call successful value returned in body',
-            val);
-        },
-        (response) => {
-          console.log('POST call in error', response);
-        },
-        () => {
-          console.log('The POST observable is now completed.');
-        });*/
   }
 
   public getRequest(method: string, options?: HttpOptions): Observable<any> {

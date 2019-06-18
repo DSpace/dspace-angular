@@ -209,11 +209,11 @@ export class LogInComponent implements OnDestroy, OnInit {
     this.form.reset();
   }
 
-  public postLoginCall() {
+/*  public postLoginCall() {
     console.log('postLoginCall() was called');
-    /*   const email = 'test@test.at';
+    /!*   const email = 'test@test.at';
        const password = 'test';
-       this.store.dispatch(new AuthenticateAction(email, password));*/
+       this.store.dispatch(new AuthenticateAction(email, password));*!/
     this.http.post('https://fis.tiss.tuwien.ac.at/spring-rest/api/authn/login',
       {
         name: 'morpheus',
@@ -230,26 +230,13 @@ export class LogInComponent implements OnDestroy, OnInit {
         () => {
           console.log('The POST observable is now completed.');
         });
-  }
+  }*/
 
   dispatchShibbLoginAction() {
-    const ssoLoginUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login'
-    // this.store.dispatch(new ShibbLoginAction(ssoLoginUrl));
-    this.http.post(ssoLoginUrl,
-      {
-        name: 'morpheus',
-        job: 'leader'
-      })
-      .subscribe(
-        (val) => {
-          console.log('POST call successful value returned in body',
-            val);
-        },
-        (response) => {
-          console.log('POST call in error', response);
-        },
-        () => {
-          console.log('The POST observable is now completed.');
-        });
+    console.log('dispatchShibbLoginAction() was called');
+    // const ssoLoginUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login'
+    this.store.dispatch(new ShibbLoginAction());
+    // this.store.dispatch(new AuthenticateAction(email, password));
+
   }
 }
