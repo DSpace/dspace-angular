@@ -15,7 +15,7 @@ import { AuthorityService } from '../../../../../../core/integration/authority.s
 import { DynamicTagModel } from './dynamic-tag.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
 import { Chips } from '../../../../../chips/models/chips.model';
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../../../../../empty.util';
 import { GlobalConfig } from '../../../../../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 
@@ -124,7 +124,7 @@ export class DsDynamicTagComponent extends DynamicFormControlComponent implement
   }
 
   onBlur(event: Event) {
-    if (isNotEmpty(this.currentValue) && !this.instance.isPopupOpen()) {
+    if (isNotEmpty(this.currentValue) && (isUndefined(this.instance) || !this.instance.isPopupOpen())) {
       this.addTagsToChips();
     }
     this.blur.emit(event);
