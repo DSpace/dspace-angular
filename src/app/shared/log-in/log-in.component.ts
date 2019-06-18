@@ -1,9 +1,9 @@
-import { filter, map, takeWhile } from 'rxjs/operators';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {filter, map, takeWhile} from 'rxjs/operators';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction
@@ -15,11 +15,12 @@ import {
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
-import { CoreState } from '../../core/core.reducers';
+import {CoreState} from '../../core/core.reducers';
 
-import { isNotEmpty } from '../empty.util';
-import { fadeOut } from '../animations/fade';
-import { AuthService } from '../../core/auth/auth.service';
+import {isNotEmpty} from '../empty.util';
+import {fadeOut} from '../animations/fade';
+import {AuthService} from '../../core/auth/auth.service';
+import {HttpClient} from '@angular/common/http';
 
 /**
  * /users/sign-in
@@ -102,7 +103,8 @@ export class LogInComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private store: Store<CoreState>
+    private store: Store<CoreState>,
+    private http: HttpClient
   ) {
   }
 
@@ -207,9 +209,27 @@ export class LogInComponent implements OnDestroy, OnInit {
     this.form.reset();
   }
 
-  postLoginCall() {
-    const email = '';
-    const password = '';
-    this.store.dispatch(new AuthenticateAction(email, password));
+  public postLoginCall() {
+    console.log('postLoginCall() was called');
+    /*   const email = 'test@test.at';
+       const password = 'test';
+       this.store.dispatch(new AuthenticateAction(email, password));*/
+    this.http.post('https://fis.tiss.tuwien.ac.at/spring-rest/api/authn/login',
+      {
+        name: 'morpheus',
+        job: 'leader'
+      })
+      .subscribe(
+        (val) => {
+          console.log('POST call successful value returned in body',
+            val);
+        },
+        (response) => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed.');
+        });
   }
+
 }
