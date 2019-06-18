@@ -354,7 +354,10 @@ export class SearchService implements OnDestroy {
    * @returns {string} The base path to the search page
    */
   getSearchLink(): string {
-    return '/search';
+    const urlTree = this.router.parseUrl(this.router.url);
+    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
+    const searchLink: any = '/' + g.toString();
+    return (searchLink !== '/search' && searchLink !== '/mydspace') ? '/search' : searchLink;
   }
 
   /**
