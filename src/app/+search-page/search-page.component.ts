@@ -13,7 +13,7 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../core/shared/operators';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 
 export const SEARCH_ROUTE = '/search';
@@ -114,16 +114,16 @@ export class SearchPageComponent implements OnInit {
     this.searchLink = this.getSearchLink();
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
-      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(observableOf(undefined)))))
+      switchMap((options) => this.service.search(options).pipe(
+        getSucceededRemoteData(),
+        startWith(undefined)
+      )))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
-    if (!isNotEmpty(this.fixedFilter$)) {
-      this.fixedFilter$ = this.routeService.getRouteParameterValue('filter');
-    }
   }
 
   /**

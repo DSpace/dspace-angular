@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Community } from '../../../core/shared/community.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
 import { Observable } from 'rxjs';
-import { RouteService } from '../../services/route.service';
+import { RouteService } from '../../../core/services/route.service';
 import { Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
 import { isNotEmpty, isNotUndefined } from '../../empty.util';

@@ -12,7 +12,7 @@ import { MockRouter } from '../shared/mocks/mock-router';
 import { SubmissionService } from './submission.service';
 import { submissionReducers } from './submission.reducers';
 import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service-stub';
 import { MockActivatedRoute } from '../shared/mocks/mock-active-router';
 import { GLOBAL_CONFIG } from '../../config';

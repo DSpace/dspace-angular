@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  NavigationEnd,
+  Router,
+  RouterStateSnapshot
+} from '@angular/router';
 import { Observable } from 'rxjs';
+import { SearchFixedFilterService } from './search-filters/search-filter/search-fixed-filter.service';
+import { map, take, tap, filter } from 'rxjs/operators';
+import { isEmpty, isNotEmpty } from '../shared/empty.util';
+import { Location } from '@angular/common';
 
 @Injectable()
 /**
@@ -9,14 +19,33 @@ import { Observable } from 'rxjs';
  * - filter: The current filter stored in route.params
  */
 export class FilteredSearchPageGuard implements CanActivate {
+  constructor(private service: SearchFixedFilterService, private router: Router, private location: Location) {
+  }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    const filter = route.params.filter;
+    route.params = Object.assign({}, route.params, { filter: route.params.filter.toLowerCase() });
+    const filterName = route.params.filter;
 
-    const newTitle = filter + '.search.title';
+    const newTitle = filterName + '.search.title';
 
     route.data = { title: newTitle };
-    return true;
+
+    return this.service.getQueryByFilterName(filterName).pipe(
+      tap((query) => {
+          if (isEmpty(query)) {
+            this.router.navigateByUrl('/404', { skipLocationChange: true });
+            this.router.events
+              .pipe(
+                filter((event) => event instanceof NavigationEnd),
+                take(1)
+              )
+              .subscribe(() => this.location.replaceState(state.url));
+          }
+        }
+      ),
+      map((query) => isNotEmpty(query))
+    );
   }
 }

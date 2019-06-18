@@ -14,7 +14,7 @@ import {
 } from './search-filter.actions';
 import { hasValue, isNotEmpty, } from '../../../shared/empty.util';
 import { SearchFilterConfig } from '../../search-service/search-filter-config.model';
-import { RouteService } from '../../../shared/services/route.service';
+import { RouteService } from '../../../core/services/route.service';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';

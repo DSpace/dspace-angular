@@ -1,5 +1,5 @@
 import { SearchFixedFilterService } from './search-fixed-filter.service';
-import { RouteService } from '../../../shared/services/route.service';
+import { RouteService } from '../../../core/services/route.service';
 import { RequestService } from '../../../core/data/request.service';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { of as observableOf } from 'rxjs';

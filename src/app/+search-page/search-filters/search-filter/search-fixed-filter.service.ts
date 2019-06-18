@@ -9,7 +9,6 @@ import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { FilteredDiscoveryPageResponseParsingService } from '../../../core/data/filtered-discovery-page-response-parsing.service';
 import { hasValue } from '../../../shared/empty.util';
 import { configureRequest, getResponseFromEntry } from '../../../core/shared/operators';
-import { RouteService } from '../../../shared/services/route.service';
 import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response.models';
 
 /**
@@ -19,8 +18,7 @@ import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response.mod
 export class SearchFixedFilterService {
   private queryByFilterPath = 'filtered-discovery-pages';
 
-  constructor(private routeService: RouteService,
-              protected requestService: RequestService,
+  constructor(protected requestService: RequestService,
               private halService: HALEndpointService) {
 
   }

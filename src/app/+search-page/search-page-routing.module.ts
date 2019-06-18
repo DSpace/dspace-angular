@@ -9,8 +9,13 @@ import { FilteredSearchPageGuard } from './filtered-search-page.guard';
   imports: [
     RouterModule.forChild([
       { path: '', component: SearchPageComponent, data: { title: 'search.title' } },
-      { path: ':filter', component: FilteredSearchPageComponent, canActivate: [FilteredSearchPageGuard]}
+      {
+        path: ':filter',
+        component: FilteredSearchPageComponent,
+        canActivate: [FilteredSearchPageGuard],
+      }
     ])
   ]
 })
-export class SearchPageRoutingModule { }
+export class SearchPageRoutingModule {
+}
