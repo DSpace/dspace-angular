@@ -6,7 +6,7 @@ import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {
   AuthenticateAction,
-  ResetAuthenticationMessagesAction
+  ResetAuthenticationMessagesAction, ShibbLoginAction
 } from '../../core/auth/auth.actions';
 
 import {
@@ -232,4 +232,24 @@ export class LogInComponent implements OnDestroy, OnInit {
         });
   }
 
+  dispatchShibbLoginAction() {
+    const ssoLoginUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login'
+    // this.store.dispatch(new ShibbLoginAction(ssoLoginUrl));
+    this.http.post(ssoLoginUrl,
+      {
+        name: 'morpheus',
+        job: 'leader'
+      })
+      .subscribe(
+        (val) => {
+          console.log('POST call successful value returned in body',
+            val);
+        },
+        (response) => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed.');
+        });
+  }
 }

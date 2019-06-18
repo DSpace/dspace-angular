@@ -10,6 +10,7 @@ import { AuthTokenInfo } from './models/auth-token-info.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
+  SHIBB_LOGIN: type('dspace/auth/SHIBB_LOGIN'),
   AUTHENTICATE_ERROR: type('dspace/auth/AUTHENTICATE_ERROR'),
   AUTHENTICATE_SUCCESS: type('dspace/auth/AUTHENTICATE_SUCCESS'),
   AUTHENTICATED: type('dspace/auth/AUTHENTICATED'),
@@ -52,6 +53,22 @@ export class AuthenticateAction implements Action {
 
   constructor(email: string, password: string) {
     this.payload = { email, password };
+  }
+}
+
+/**
+ * ShibbLoginAction.
+ * @class ShibbLoginAction
+ * @implements {Action}
+ */
+export class ShibbLoginAction implements Action {
+  public type: string = AuthActionTypes.SHIBB_LOGIN;
+  payload: {
+    ssoLoginUrl: string;
+    };
+
+  constructor(ssoLoginUrl: string) {
+    this.payload = { ssoLoginUrl };
   }
 }
 
@@ -366,6 +383,7 @@ export class SetRedirectUrlAction implements Action {
  */
 export type AuthActions
   = AuthenticateAction
+  | ShibbLoginAction
   | AuthenticatedAction
   | AuthenticatedErrorAction
   | AuthenticatedSuccessAction

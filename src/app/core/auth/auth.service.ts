@@ -114,6 +114,17 @@ export class AuthService {
 
   }
 
+  public startShibbAuth():  Observable<AuthStatus> {
+    return this.authRequestService.postToShibbEndpoint().pipe(
+      map((status: AuthStatus) => {
+        if (status.authenticated) {
+          return status;
+        } else {
+          throw(new Error('Invalid email or password'));
+        }
+      }))
+  }
+
   /**
    * Determines if the user is authenticated
    * @returns {Observable<boolean>}
@@ -440,4 +451,5 @@ export class AuthService {
     this.store.dispatch(new SetRedirectUrlAction(''));
     this.storage.remove(REDIRECT_COOKIE);
   }
+
 }

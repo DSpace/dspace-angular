@@ -26,7 +26,11 @@ import {
   RefreshTokenSuccessAction,
   RegistrationAction,
   RegistrationErrorAction,
-  RegistrationSuccessAction, RetrieveAuthMethodsAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction
+  RegistrationSuccessAction,
+  RetrieveAuthMethodsAction,
+  RetrieveAuthMethodsErrorAction,
+  RetrieveAuthMethodsSuccessAction,
+  ShibbLoginAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -53,6 +57,22 @@ export class AuthEffects {
         );
       })
     );
+
+  /**
+   * Shib Login.
+   * @method shibLogin
+   */
+  @Effect()
+  public shibbLogin$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActionTypes.SHIBB_LOGIN),
+    switchMap((action: ShibbLoginAction) => {
+      return this.authService.startShibbAuth().pipe(
+        take(1),
+        map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
+        catchError((error) => observableOf(new AuthenticationErrorAction(error)))
+      );
+    })
+  );
 
   @Effect()
   public authenticateSuccess$: Observable<Action> = this.actions$.pipe(

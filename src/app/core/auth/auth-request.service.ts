@@ -10,6 +10,7 @@ import {AuthGetRequest, AuthPostRequest, GetRequest, PostRequest, RestRequest} f
 import {AuthStatusResponse, ErrorResponse} from '../cache/response.models';
 import {HttpOptions} from '../dspace-rest-v2/dspace-rest-v2.service';
 import {getResponseFromEntry} from '../shared/operators';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class AuthRequestService {
@@ -18,7 +19,8 @@ export class AuthRequestService {
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               protected halService: HALEndpointService,
-              protected requestService: RequestService) {
+              protected requestService: RequestService,
+              private http: HttpClient) {
   }
 
   protected fetchRequest(request: RestRequest): Observable<any> {
@@ -51,6 +53,26 @@ export class AuthRequestService {
       distinctUntilChanged());
   }
 
+  postToShibbEndpoint(): Observable<any> {
+    console.log('postToShibbLogin() was called');
+    return this.http.post('https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login',
+      {
+        name: 'morpheus',
+        job: 'leader'
+      })
+     /* .subscribe(
+        (val) => {
+          console.log('POST call successful value returned in body',
+            val);
+        },
+        (response) => {
+          console.log('POST call in error', response);
+        },
+        () => {
+          console.log('The POST observable is now completed.');
+        });*/
+  }
+
   public getRequest(method: string, options?: HttpOptions): Observable<any> {
     console.log('auth.request getRequest() was called');
     return this.halService.getEndpoint(this.linkName).pipe(
@@ -64,4 +86,5 @@ export class AuthRequestService {
       mergeMap((request: GetRequest) => this.fetchRequest(request)),
       distinctUntilChanged());
   }
+
 }
