@@ -20,7 +20,6 @@ import {CoreState} from '../../core/core.reducers';
 import {isNotEmpty} from '../empty.util';
 import {fadeOut} from '../animations/fade';
 import {AuthService} from '../../core/auth/auth.service';
-import {HttpClient} from '@angular/common/http';
 
 /**
  * /users/sign-in
@@ -104,7 +103,7 @@ export class LogInComponent implements OnDestroy, OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private store: Store<CoreState>,
-    private http: HttpClient
+
   ) {
   }
 

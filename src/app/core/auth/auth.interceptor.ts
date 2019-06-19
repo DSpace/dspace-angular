@@ -1,6 +1,6 @@
 import {Observable, of as observableOf, throwError as observableThrowError} from 'rxjs';
 
-import {catchError, filter, map} from 'rxjs/operators';
+import {catchError, filter, map, tap} from 'rxjs/operators';
 import {Injectable, Injector} from '@angular/core';
 import {
   HttpErrorResponse,
@@ -131,6 +131,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // Pass on the new request instead of the original request.
     return next.handle(newReq).pipe(
+      tap((response) => console.log('next.handle: ', response)),
       map((response) => {
         // Intercept a Login/Logout response
         if (response instanceof HttpResponse && this.isSuccess(response) && (this.isLoginResponse(response) || this.isLogoutResponse(response))) {
