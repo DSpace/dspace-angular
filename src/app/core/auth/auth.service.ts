@@ -116,7 +116,7 @@ export class AuthService {
 
   public startShibbAuth():  Observable<AuthStatus> {
     console.log('startShibAuth() was called');
-    // Attempt authenticating the user using the supplied credentials.
+    // Attempt authenticating the user after the shibboleth/saml response reached the backend
  /*   const user = 'test@test.at';
     const password = 'rest'
     const body = (`password=${Base64EncodeUrl(password)}&user=${Base64EncodeUrl(user)}`);
