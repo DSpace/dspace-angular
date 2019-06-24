@@ -4,10 +4,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import {
-  filterRelationsByTypeLabel,
-  relationsToItems
-} from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 @rendersItemType('JournalVolume', ItemViewMode.Full)
 @Component({
@@ -34,12 +31,10 @@ export class JournalVolumeComponent extends ItemComponent {
 
     if (isNotEmpty(this.resolvedRelsAndTypes$)) {
       this.journals$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isJournalOfVolume'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isJournalOfVolume')
       );
       this.issues$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isIssueOfJournalVolume'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isIssueOfJournalVolume')
       );
     }
   }

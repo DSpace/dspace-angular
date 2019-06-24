@@ -4,10 +4,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import {
-  filterRelationsByTypeLabel,
-  relationsToItems
-} from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 @rendersItemType('OrgUnit', ItemViewMode.Full)
 @Component({
@@ -39,18 +36,15 @@ export class OrgunitComponent extends ItemComponent implements OnInit {
 
     if (isNotEmpty(this.resolvedRelsAndTypes$)) {
       this.people$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isPersonOfOrgUnit'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isPersonOfOrgUnit')
       );
 
       this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isProjectOfOrgUnit'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfOrgUnit')
       );
 
       this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isPublicationOfOrgUnit'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfOrgUnit')
       );
     }
   }}

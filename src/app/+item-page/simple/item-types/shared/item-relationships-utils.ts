@@ -3,7 +3,7 @@ import { MetadataRepresentation } from '../../../../core/shared/metadata-represe
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
+import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
@@ -12,6 +12,14 @@ import { of as observableOf, zip as observableZip, combineLatest as observableCo
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+
+/**
+ * An enum defining one side of a relationship between two entities
+ */
+export enum RelationshipSide {
+  left = 'left',
+  right = 'right'
+}
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -43,15 +51,20 @@ export const compareArraysUsingIds = <T extends { id: string }>() =>
 /**
  * Fetch the relationships which match the type label given
  * @param {string} label      Type label
+ * @param side                Which side to filter the relationships on: left/right (takes both sides when not provided)
  * @returns {(source: Observable<[Relationship[] , RelationshipType[]]>) => Observable<Relationship[]>}
  */
-export const filterRelationsByTypeLabel = (label: string) =>
+export const filterRelationsByTypeLabel = (label: string, side?: RelationshipSide) =>
   (source: Observable<[Relationship[], RelationshipType[]]>): Observable<Relationship[]> =>
     source.pipe(
       map(([relsCurrentPage, relTypesCurrentPage]) =>
         relsCurrentPage.filter((rel: Relationship, idx: number) =>
-          hasValue(relTypesCurrentPage[idx]) && (relTypesCurrentPage[idx].leftLabel === label ||
-          relTypesCurrentPage[idx].rightLabel === label)
+          hasValue(relTypesCurrentPage[idx]) && (
+            (hasNoValue(side) && (relTypesCurrentPage[idx].leftLabel === label ||
+              relTypesCurrentPage[idx].rightLabel === label)) ||
+            (side === RelationshipSide.left && relTypesCurrentPage[idx].leftLabel === label) ||
+            (side === RelationshipSide.right && relTypesCurrentPage[idx].rightLabel === label)
+          )
         )
       ),
       distinctUntilChanged(compareArraysUsingIds())
@@ -59,10 +72,11 @@ export const filterRelationsByTypeLabel = (label: string) =>
 
 /**
  * Operator for turning a list of relationships into a list of the relevant items
- * @param {string} thisId           The item's id of which the relations belong to
+ * @param {string} thisId       The item's id of which the relations belong to
+ * @param side                  Filter only on one side of the relationship (for example: child-parent relationships)
  * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
  */
-export const relationsToItems = (thisId: string) =>
+export const relationsToItems = (thisId: string, side?: RelationshipSide) =>
   (source: Observable<Relationship[]>): Observable<Item[]> =>
     source.pipe(
       flatMap((rels: Relationship[]) =>
@@ -74,13 +88,28 @@ export const relationsToItems = (thisId: string) =>
         arr
           .filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded)
           .map(([leftItem, rightItem]) => {
-            if (leftItem.payload.id === thisId) {
+            if ((hasNoValue(side) || side !== RelationshipSide.left) && leftItem.payload.id === thisId) {
               return rightItem.payload;
-            } else if (rightItem.payload.id === thisId) {
+            } else if ((hasNoValue(side) || side !== RelationshipSide.right) && rightItem.payload.id === thisId) {
               return leftItem.payload;
             }
-          })),
+          })
+          .filter((item: Item) => hasValue(item))
+      ),
       distinctUntilChanged(compareArraysUsingIds()),
+    );
+
+/**
+ * Operator for turning a list of relationships and their relationship-types into a list of relevant items by relationship label
+ * @param thisId  The item's id of which the relations belong to
+ * @param label   The label of the relationship-type to filter on
+ * @param side    Filter only on one side of the relationship (for example: child-parent relationships)
+ */
+export const getRelatedItemsByTypeLabel = (thisId: string, label: string, side?: RelationshipSide) =>
+  (source: Observable<[Relationship[], RelationshipType[]]>): Observable<Item[]> =>
+    source.pipe(
+      filterRelationsByTypeLabel(label, side),
+      relationsToItems(thisId, side)
     );
 
 /**
