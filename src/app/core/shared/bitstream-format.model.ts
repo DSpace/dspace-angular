@@ -6,7 +6,9 @@ import { ResourceType } from './resource-type';
  * Model class for a Bitstream Format
  */
 export class BitstreamFormat implements CacheableObject {
+  static type = new ResourceType('bitstreamformat');
 
+  bitstreamformat
   /**
    * Short description of this Bitstream Format
    */

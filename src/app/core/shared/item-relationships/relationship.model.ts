@@ -8,6 +8,8 @@ import { RelationshipType } from './relationship-type.model';
  * Describes a Relationship between two Items
  */
 export class Relationship implements CacheableObject {
+  static type = new ResourceType('relationship');
+
   /**
    * The link to the rest endpoint where this object can be found
    */

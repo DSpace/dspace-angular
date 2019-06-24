@@ -5,14 +5,11 @@ import { ListableObject } from '../../../shared/object-collection/shared/listabl
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { EPerson } from './eperson.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { resourceType } from '../../shared/resource-type.decorator';
+import { Group } from './group.model';
 
 @mapsTo(EPerson)
 @inheritSerialization(NormalizedDSpaceObject)
-@resourceType(ResourceType.EPerson)
 export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implements CacheableObject, ListableObject {
-
   /**
    * A string representing the unique handle of this EPerson
    */
@@ -23,7 +20,7 @@ export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implement
    * List of Groups that this EPerson belong to
    */
   @deserialize
-  @relationship(ResourceType.Group, true)
+  @relationship(Group, true)
   groups: string[];
 
   /**

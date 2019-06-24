@@ -2,17 +2,15 @@ import { NormalizedTaskObject } from './normalized-task-object.model';
 import { PoolTask } from './pool-task-object.model';
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { resourceType } from '../../shared/resource-type.decorator';
+import { Group } from '../../eperson/models/group.model';
+import { WorkflowItem } from '../../submission/models/workflowitem.model';
 
 /**
  * A normalized model class for a PoolTask.
  */
 @mapsTo(PoolTask)
-@resourceType(ResourceType.PoolTask)
 @inheritSerialization(NormalizedTaskObject)
 export class NormalizedPoolTask extends NormalizedTaskObject<PoolTask> {
-
   /**
    * The task identifier
    */
@@ -35,13 +33,13 @@ export class NormalizedPoolTask extends NormalizedTaskObject<PoolTask> {
    * The group object for this task
    */
   @autoserialize
-  @relationship(ResourceType.Group, false)
+  @relationship(Group, false)
   group: string;
 
   /**
    * The workflowitem object whom this task is related
    */
   @autoserialize
-  @relationship(ResourceType.WorkflowItem, false)
+  @relationship(WorkflowItem, false)
   workflowitem: string;
 }

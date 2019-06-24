@@ -6,6 +6,8 @@ import { ActionType } from '../cache/models/action-type.model';
  * Model class for a Resource Policy
  */
 export class ResourcePolicy implements CacheableObject {
+  static type = new ResourceType('resourcePolicy');
+
   /**
    * The action that is allowed by this Resource Policy
    */

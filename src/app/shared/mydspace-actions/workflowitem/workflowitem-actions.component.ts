@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**
@@ -36,7 +35,7 @@ export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<Workf
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
-    super(ResourceType.WorkflowItem, injector, router, notificationsService, translate);
+    super(WorkflowItem.type, injector, router, notificationsService, translate);
   }
 
   /**

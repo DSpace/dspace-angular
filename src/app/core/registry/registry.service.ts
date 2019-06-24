@@ -63,7 +63,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
-import { getNormalizedConstructorByType } from '../shared/resource-type.decorator';
+import { getMapsToType } from '../cache/builders/build-decorators';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -463,7 +463,7 @@ export class RegistryService {
       distinctUntilChanged()
     );
 
-    const serializedSchema = new DSpaceRESTv2Serializer(getNormalizedConstructorByType(ResourceType.MetadataSchema)).serialize(schema as NormalizedMetadataSchema);
+    const serializedSchema = new DSpaceRESTv2Serializer(getMapsToType(MetadataSchema.type)).serialize(schema as NormalizedMetadataSchema);
 
     const request$ = endpoint$.pipe(
       take(1),

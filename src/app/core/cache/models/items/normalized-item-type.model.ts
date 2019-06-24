@@ -1,19 +1,15 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { ItemType } from '../../../shared/item-relationships/item-type.model';
-import { ResourceType } from '../../../shared/resource-type';
 import { mapsTo } from '../../builders/build-decorators';
 import { NormalizedObject } from '../normalized-object.model';
 import { IDToUUIDSerializer } from '../../id-to-uuid-serializer';
-import { resourceType } from '../../../shared/resource-type.decorator';
 
 /**
  * Normalized model class for a DSpace ItemType
  */
 @mapsTo(ItemType)
-@resourceType(ResourceType.ItemType)
 @inheritSerialization(NormalizedObject)
 export class NormalizedItemType extends NormalizedObject<ItemType> {
-
   /**
    * The label that describes the ResourceType of the Item
    */
@@ -29,6 +25,6 @@ export class NormalizedItemType extends NormalizedObject<ItemType> {
   /**
    * The universally unique identifier of this ItemType
    */
-  @autoserializeAs(new IDToUUIDSerializer(ResourceType.ItemType), 'id')
+  @autoserializeAs(new IDToUUIDSerializer(ItemType.type.value), 'id')
   uuid: string;
 }

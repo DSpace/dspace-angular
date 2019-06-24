@@ -7,8 +7,8 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
 import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
-import { getNormalizedConstructorByType } from '../shared/resource-type.decorator';
 import { ResourceType } from '../shared/resource-type';
+import { getMapsToType } from '../cache/builders/build-decorators';
 /* tslint:disable:max-classes-per-file */
 
 export abstract class BaseResponseParsingService {
@@ -84,9 +84,9 @@ export abstract class BaseResponseParsingService {
   }
 
   protected deserialize<ObjectDomain>(obj): any {
-    const type: ResourceType = obj.type;
+    const type: string = obj.type;
     if (hasValue(type)) {
-      const normObjConstructor = getNormalizedConstructorByType(type) as GenericConstructor<ObjectDomain>;
+      const normObjConstructor = getMapsToType(type) as GenericConstructor<ObjectDomain>;
 
       if (hasValue(normObjConstructor)) {
         const serializer = new DSpaceRESTv2Serializer(normObjConstructor);

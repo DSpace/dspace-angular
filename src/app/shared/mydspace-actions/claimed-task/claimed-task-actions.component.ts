@@ -62,7 +62,7 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
-    super(ResourceType.ClaimedTask, injector, router, notificationsService, translate);
+    super(ClaimedTask.type, injector, router, notificationsService, translate);
   }
 
   /**

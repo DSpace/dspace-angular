@@ -4,9 +4,11 @@ import { WorkspaceItem } from './workspaceitem.model';
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
-import { ResourceType } from '../../shared/resource-type';
 import { WorkflowItem } from './workflowitem.model';
-import { resourceType } from '../../shared/resource-type.decorator';
+import { Item } from '../../shared/item.model';
+import { Collection } from '../../shared/collection.model';
+import { SubmissionDefinitionModel } from '../../config/models/config-submission-definition.model';
+import { EPerson } from '../../eperson/models/eperson.model';
 
 /**
  * An model class for a NormalizedWorkspaceItem.
@@ -14,34 +16,33 @@ import { resourceType } from '../../shared/resource-type.decorator';
 @mapsTo(WorkspaceItem)
 @inheritSerialization(NormalizedDSpaceObject)
 @inheritSerialization(NormalizedSubmissionObject)
-@resourceType(ResourceType.WorkspaceItem)
 export class NormalizedWorkspaceItem extends NormalizedSubmissionObject<WorkflowItem> {
 
   /**
    * The collection this workspaceitem belonging to
    */
   @autoserialize
-  @relationship(ResourceType.Collection, false)
+  @relationship(Collection, false)
   collection: string;
 
   /**
    * The item created with this workspaceitem
    */
   @autoserialize
-  @relationship(ResourceType.Item, false)
+  @relationship(Item, false)
   item: string;
 
   /**
    * The configuration object that define this workspaceitem
    */
   @autoserialize
-  @relationship(ResourceType.SubmissionDefinition, false)
+  @relationship(SubmissionDefinitionModel, false)
   submissionDefinition: string;
 
   /**
    * The EPerson who submit this workspaceitem
    */
   @autoserialize
-  @relationship(ResourceType.EPerson, false)
+  @relationship(EPerson, false)
   submitter: string;
 }

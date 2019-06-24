@@ -20,7 +20,7 @@ import {
 
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
-import { getNormalizedConstructorByType } from '../shared/resource-type.decorator';
+import { getMapsToType } from './builders/build-decorators';
 
 /**
  * The base selector function to select the object cache in the store
@@ -109,7 +109,7 @@ export class ObjectCacheService {
         }
       ),
       map((entry: ObjectCacheEntry) => {
-        const type: GenericConstructor<NormalizedObject<T>> = getNormalizedConstructorByType(entry.data.type);
+        const type: GenericConstructor<NormalizedObject<T>> = getMapsToType((entry.data as any).type);
         return Object.assign(new type(), entry.data) as NormalizedObject<T>
       })
     );

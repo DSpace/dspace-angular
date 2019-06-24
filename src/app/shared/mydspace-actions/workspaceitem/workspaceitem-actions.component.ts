@@ -46,7 +46,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
               protected modalService: NgbModal,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
-    super(ResourceType.WorkspaceItem, injector, router, notificationsService, translate);
+    super(WorkspaceItem.type, injector, router, notificationsService, translate);
   }
 
   /**

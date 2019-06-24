@@ -10,6 +10,8 @@ import { ResourceType } from '../../shared/resource-type';
  * Object that represents the authenticated status of a user
  */
 export class AuthStatus implements CacheableObject {
+  static type = new ResourceType('status');
+
   /**
    * The unique identifier of this auth status
    */
@@ -49,10 +51,4 @@ export class AuthStatus implements CacheableObject {
    * The self link of this auth status' REST object
    */
   self: string;
-
-  /**
-   * The resource object of this auth status
-   */
-  type: ResourceType;
-
 }

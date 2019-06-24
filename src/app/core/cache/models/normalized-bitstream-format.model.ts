@@ -5,17 +5,13 @@ import { mapsTo } from '../builders/build-decorators';
 import { IDToUUIDSerializer } from '../id-to-uuid-serializer';
 import { NormalizedObject } from './normalized-object.model';
 import { SupportLevel } from './support-level.model';
-import { resourceType } from '../../shared/resource-type.decorator';
-import { ResourceType } from '../../shared/resource-type';
 
 /**
  * Normalized model class for a Bitstream Format
  */
 @mapsTo(BitstreamFormat)
 @inheritSerialization(NormalizedObject)
-@resourceType(ResourceType.BitstreamFormat)
 export class NormalizedBitstreamFormat extends NormalizedObject<BitstreamFormat> {
-
   /**
    * Short description of this Bitstream Format
    */

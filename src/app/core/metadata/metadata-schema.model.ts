@@ -5,6 +5,8 @@ import { ResourceType } from '../shared/resource-type';
  * Class that represents a metadata schema
  */
 export class MetadataSchema implements ListableObject {
+  static type = new ResourceType('metadataschema');
+
   /**
    * The unique identifier for this metadata schema
    */

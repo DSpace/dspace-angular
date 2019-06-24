@@ -32,8 +32,8 @@ export interface Patch {
   operations: Operation[];
 }
 
-export interface TypedObject {
-  type: ResourceType;
+export abstract class TypedObject {
+  static type: ResourceType;
 }
 
 /**
@@ -41,7 +41,7 @@ export interface TypedObject {
  *
  * A cacheable object should have a self link
  */
-export interface CacheableObject extends TypedObject {
+export class CacheableObject extends TypedObject {
   uuid?: string;
   self: string;
   // isNew: boolean;

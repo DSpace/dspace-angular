@@ -66,7 +66,7 @@ const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdIt
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
 
-describe('ClaimedTaskActionsComponent', () => {
+fdescribe('ClaimedTaskActionsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [

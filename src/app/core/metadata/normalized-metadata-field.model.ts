@@ -1,16 +1,15 @@
 import { autoserialize, deserialize } from 'cerialize';
 import { mapsTo, relationship } from '../cache/builders/build-decorators';
 import { ResourceType } from '../shared/resource-type';
-import { resourceType } from '../shared/resource-type.decorator';
 import { MetadataField } from './metadata-field.model';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { MetadataSchema } from './metadata-schema.model';
 
 /**
  * Class the represents a normalized metadata field
  */
 @mapsTo(MetadataField)
-@resourceType(ResourceType.MetadataField)
 export class NormalizedMetadataField extends NormalizedObject<MetadataField> implements ListableObject {
 
   /**
@@ -47,7 +46,7 @@ export class NormalizedMetadataField extends NormalizedObject<MetadataField> imp
    * The link to the metadata schema of this normalized metadata field
    */
   @deserialize
-  @relationship(ResourceType.MetadataSchema)
+  @relationship(MetadataSchema)
   schema: string;
 
   /**

@@ -1,18 +1,20 @@
 import { PageInfo } from '../shared/page-info.model';
 import { autoserialize, deserialize } from 'cerialize';
-import { MetadataField } from '../metadata/metadata-field.model';
-import { relationship } from '../cache/builders/build-decorators';
 import { ResourceType } from '../shared/resource-type';
+import { relationship } from '../cache/builders/build-decorators';
+import { NormalizedMetadataField } from '../metadata/normalized-metadata-field.model';
+import { MetadataField } from '../metadata/metadata-field.model';
 
 /**
  * Class that represents a response with a registry's metadata fields
  */
 export class RegistryMetadatafieldsResponse {
+  static type = new ResourceType('metadatafield');
   /**
    * List of metadata fields in the response
    */
   @deserialize
-  @relationship(ResourceType.MetadataField, true)
+  @relationship(MetadataField, true)
   metadatafields: MetadataField[];
 
   /**

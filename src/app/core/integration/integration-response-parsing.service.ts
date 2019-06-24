@@ -2,11 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { RestRequest } from '../data/request.models';
 import { ResponseParsingService } from '../data/parsing.service';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import {
-  ErrorResponse,
-  IntegrationSuccessResponse,
-  RestResponse
-} from '../cache/response.models';
+import { ErrorResponse, IntegrationSuccessResponse, RestResponse } from '../cache/response.models';
 import { isNotEmpty } from '../../shared/empty.util';
 
 import { BaseResponseParsingService } from '../data/base-response-parsing.service';
@@ -16,7 +12,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { IntegrationModel } from './models/integration.model';
 import { AuthorityValue } from './models/authority.value';
 import { PaginatedList } from '../data/paginated-list';
-import { ResourceType } from '../shared/resource-type';
 
 @Injectable()
 export class IntegrationResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
@@ -47,7 +42,7 @@ export class IntegrationResponseParsingService extends BaseResponseParsingServic
   protected processResponse(data: PaginatedList<IntegrationModel>): any {
     const returnList = Array.of();
     data.page.forEach((item, index) => {
-      if (item.type === ResourceType.Authority) {
+      if (item.type === AuthorityValue.type) {
         data.page[index] = Object.assign(new AuthorityValue(), item);
       }
     });

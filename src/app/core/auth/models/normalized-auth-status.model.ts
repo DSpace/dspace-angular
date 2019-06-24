@@ -4,11 +4,10 @@ import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { resourceType } from '../../shared/resource-type.decorator';
+import { EPerson } from '../../eperson/models/eperson.model';
 
 @mapsTo(AuthStatus)
 @inheritSerialization(NormalizedObject)
-@resourceType(ResourceType.AuthStatus)
 export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   /**
    * The unique identifier of this auth status
@@ -37,7 +36,7 @@ export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   /**
    * The self link to the eperson of this auth status
    */
-  @relationship(ResourceType.EPerson, false)
+  @relationship(EPerson, false)
   @autoserialize
   eperson: string;
 

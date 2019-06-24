@@ -51,7 +51,7 @@ describe('DSOSelectorComponent', () => {
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     component.currentDSOId = currentDSOId;
-    component.type = type;
+    component.value = type;
 
     fixture.detectChanges();
   });

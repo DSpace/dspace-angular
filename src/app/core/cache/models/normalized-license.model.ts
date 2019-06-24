@@ -2,7 +2,6 @@ import { autoserialize, inheritSerialization } from 'cerialize';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { License } from '../../shared/license.model';
-import { resourceType } from '../../shared/resource-type.decorator';
 import { ResourceType } from '../../shared/resource-type';
 
 /**
@@ -10,7 +9,6 @@ import { ResourceType } from '../../shared/resource-type';
  */
 @mapsTo(License)
 @inheritSerialization(NormalizedDSpaceObject)
-@resourceType(ResourceType.License)
 export class NormalizedLicense extends NormalizedDSpaceObject<License> {
 
   /**

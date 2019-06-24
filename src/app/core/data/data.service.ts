@@ -36,7 +36,7 @@ import { RequestEntry } from './request.reducer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { ChangeAnalyzer } from './change-analyzer';
 import { RestRequestMethod } from './rest-request-method';
-import { getNormalizedConstructorByType } from '../shared/resource-type.decorator';
+import { getMapsToType } from '../cache/builders/build-decorators';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -243,7 +243,7 @@ export abstract class DataService<T extends CacheableObject> {
     );
 
     const normalizedObject: NormalizedObject<T> = this.dataBuildService.normalize<T>(dso);
-    const serializedDso = new DSpaceRESTv2Serializer(getNormalizedConstructorByType(dso.type)).serialize(normalizedObject);
+    const serializedDso = new DSpaceRESTv2Serializer(getMapsToType((dso as any).type)).serialize(normalizedObject);
 
     const request$ = endpoint$.pipe(
       take(1),

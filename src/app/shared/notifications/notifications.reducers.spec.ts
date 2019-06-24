@@ -123,7 +123,7 @@ describe('Notifications reducer', () => {
       cdr.detectChanges();
 
       const action = new NewNotificationAction(notification);
-      action.type = 'NothingToDo, return only the state';
+      action.value = 'NothingToDo, return only the state';
 
       const lastState = notificationsReducer(stateBis, action);
       expect(lastState.length).toEqual(1);

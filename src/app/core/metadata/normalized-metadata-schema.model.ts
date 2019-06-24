@@ -2,7 +2,6 @@ import { autoserialize } from 'cerialize';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { mapsTo } from '../cache/builders/build-decorators';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { resourceType } from '../shared/resource-type.decorator';
 import { ResourceType } from '../shared/resource-type';
 import { MetadataSchema } from './metadata-schema.model';
 
@@ -10,7 +9,6 @@ import { MetadataSchema } from './metadata-schema.model';
  * Normalized class for a DSpace MetadataSchema
  */
 @mapsTo(MetadataSchema)
-@resourceType(ResourceType.MetadataSchema)
 export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> implements ListableObject {
   /**
    * The unique identifier for this schema

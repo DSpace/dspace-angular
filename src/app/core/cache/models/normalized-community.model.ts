@@ -1,19 +1,20 @@
-import { autoserialize, deserialize, inheritSerialization, serialize } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Community } from '../../shared/community.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { ResourceType } from '../../shared/resource-type';
-import { resourceType } from '../../shared/resource-type.decorator';
+import { NormalizedBitstream } from './normalized-bitstream.model';
+import { NormalizedCollection } from './normalized-collection.model';
+import { Bitstream } from '../../shared/bitstream.model';
+import { Collection } from '../../shared/collection.model';
 
 /**
  * Normalized model class for a DSpace Community
  */
 @mapsTo(Community)
 @inheritSerialization(NormalizedDSpaceObject)
-@resourceType(ResourceType.Community)
 export class NormalizedCommunity extends NormalizedDSpaceObject<Community> {
-
   /**
    * A string representing the unique handle of this Community
    */
@@ -24,32 +25,32 @@ export class NormalizedCommunity extends NormalizedDSpaceObject<Community> {
    * The Bitstream that represents the logo of this Community
    */
   @deserialize
-  @relationship(ResourceType.Bitstream, false)
+  @relationship(Bitstream, false)
   logo: string;
 
   /**
    * An array of Communities that are direct parents of this Community
    */
   @deserialize
-  @relationship(ResourceType.Community, true)
+  @relationship(Community, true)
   parents: string[];
 
   /**
    * The Community that owns this Community
    */
   @deserialize
-  @relationship(ResourceType.Community, false)
+  @relationship(Community, false)
   owner: string;
 
   /**
    * List of Collections that are owned by this Community
    */
   @deserialize
-  @relationship(ResourceType.Collection, true)
+  @relationship(Collection, true)
   collections: string[];
 
   @deserialize
-  @relationship(ResourceType.Community, true)
+  @relationship(Community, true)
   subcommunities: string[];
 
 }

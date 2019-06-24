@@ -53,7 +53,7 @@ export class PoolTaskActionsComponent extends MyDSpaceActionsComponent<PoolTask,
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
-    super(ResourceType.PoolTask, injector, router, notificationsService, translate);
+    super(PoolTask.type, injector, router, notificationsService, translate);
   }
 
   /**

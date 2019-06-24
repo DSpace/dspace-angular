@@ -62,14 +62,14 @@ describe('RegistryService', () => {
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
       prefix: 'dc',
       namespace: 'http://dublincore.org/documents/dcmi-terms/',
-      type: ResourceType.MetadataSchema
+      type: MetadataSchema.type
 },
     {
       id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
       prefix: 'mock',
       namespace: 'http://dspace.org/mockschema',
-      type: ResourceType.MetadataSchema
+      type: MetadataSchema.type
     }
   ];
   const mockFieldsList = [
@@ -80,7 +80,7 @@ describe('RegistryService', () => {
       qualifier: 'advisor',
       scopeNote: null,
       schema: mockSchemasList[0],
-      type: ResourceType.MetadataField
+      type: MetadataField.type
     },
     {
       id: 2,
@@ -89,7 +89,7 @@ describe('RegistryService', () => {
       qualifier: 'author',
       scopeNote: null,
       schema: mockSchemasList[0],
-      type: ResourceType.MetadataField
+      type: MetadataField.type
     },
     {
       id: 3,
@@ -98,7 +98,7 @@ describe('RegistryService', () => {
       qualifier: 'editor',
       scopeNote: 'test scope note',
       schema: mockSchemasList[1],
-      type: ResourceType.MetadataField
+      type: MetadataField.type
     },
     {
       id: 4,
@@ -107,7 +107,7 @@ describe('RegistryService', () => {
       qualifier: 'illustrator',
       scopeNote: null,
       schema: mockSchemasList[1],
-      type: ResourceType.MetadataField
+      type: MetadataField.type
     }
   ];
 
