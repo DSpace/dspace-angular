@@ -101,7 +101,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = authService.getToken();
     let newReq;
 
-    console.log('intercept() request: ', req);
+    // console.log('intercept() request: ', req);
 
     if (authService.isTokenExpired()) {
       authService.setRedirectUrl(this.router.url);
