@@ -6,7 +6,7 @@ import {CoreState} from '../../core/core.reducers';
 @Component({
   selector: 'ds-shibboleth-page',
   templateUrl: './shibboleth.component.html',
-  styleUrls: ['./shibboleth.component.css']
+  styleUrls: ['./shibboleth.component.scss']
 })
 export class ShibbolethComponent implements OnInit {
 
