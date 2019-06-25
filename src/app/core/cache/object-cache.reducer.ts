@@ -36,6 +36,7 @@ export abstract class TypedObject {
   static type: ResourceType;
 }
 
+/* tslint:disable:max-classes-per-file */
 /**
  * An interface to represent objects that can be cached
  *
@@ -62,6 +63,7 @@ export class ObjectCacheEntry implements CacheEntry {
   patches: Patch[] = [];
   isDirty: boolean;
 }
+/* tslint:enable:max-classes-per-file */
 
 /**
  * The ObjectCache State

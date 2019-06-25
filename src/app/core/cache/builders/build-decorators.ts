@@ -10,7 +10,6 @@ const relationshipKey = Symbol('relationship');
 const relationshipMap = new Map();
 const typeMap = new Map();
 
-
 export function mapsTo(value: GenericConstructor<TypedObject>) {
   return function decorator(objectConstructor: GenericConstructor<TypedObject>) {
     Reflect.defineMetadata(mapsToMetadataKey, value, objectConstructor);
