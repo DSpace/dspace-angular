@@ -30,7 +30,7 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  ShibbLoginAction
+  GetJWTafterShibbLoginAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -65,7 +65,7 @@ export class AuthEffects {
   @Effect()
   public shibbLogin$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.SHIBB_LOGIN),
-    switchMap((action: ShibbLoginAction) => {
+    switchMap((action: GetJWTafterShibbLoginAction) => {
       return this.authService.startShibbAuth().pipe(
         take(1),
         map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),

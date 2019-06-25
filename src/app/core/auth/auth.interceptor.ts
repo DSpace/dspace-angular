@@ -34,9 +34,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private inj: Injector, private router: Router, private store: Store<AppState>) {
   }
 
-  private is405AuthResponse(response: HttpResponseBase): boolean {
-    return response.status === 405;
-  }
 
   private is302Response(response: HttpResponseBase): boolean {
     return response.status === 302;
@@ -59,7 +56,8 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private isLoginResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
-    return http.url && http.url.endsWith('/authn/login');
+    return http.url && http.url.endsWith('/authn/login')
+    /*|| http.url.endsWith('/shibboleth');*/
   }
 
   private isLogoutResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
@@ -81,17 +79,27 @@ export class AuthInterceptor implements HttpInterceptor {
     return authStatus;
   }
 
-  private getSSOLocationfromHeader(header: HttpHeaders): string {
-    console.log('HEADER www-authenticate: ', header.get('www-authenticate'));
-    let location = '';
+  private getShibbUrlFromHeader(header: HttpHeaders): string {
+    // console.log('HEADER www-authenticate: ', header.get('www-authenticate'));
+    let shibbolethUrl = '';
+
     if (header.get('www-authenticate').startsWith('shibboleth realm')) {
-      const strings = header.get('www-authenticate').split(',');
-      location = strings[1];
+      let urlParts: string[] = header.get('www-authenticate').split(',');
+      let location = urlParts[1];
+      let re = /"/g;
+      location = location.replace(re, '').trim();
       location = location.replace('location=', '');
-      console.log('This should be the location: ', location);
-      return location = location.replace('"', '').trim();
+      // console.log('location: ', location);
+      urlParts = location.split('?');
+      const host = urlParts[1].replace('target=', '');
+      console.log('host: ', host);
+      shibbolethUrl = host + location + '/shibboleth';
+      re = /%3A%2F%2F/g;
+      shibbolethUrl = shibbolethUrl.replace(re, '://');
+      // console.log('shibbolethUrl: ', shibbolethUrl);
+      return shibbolethUrl;
     }
-    return location;
+    return shibbolethUrl;
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -159,11 +167,6 @@ export class AuthInterceptor implements HttpInterceptor {
         // Intercept an error response
         if (error instanceof HttpErrorResponse) {
 
-          // Check for 405
-          /*     if (this.is405AuthResponse(error)) {
-                 console.log('the caught error is a 405');
-               }*/
-
           // Checks if is a response from a request to an authentication endpoint
           if (this.isAuthRequest(error)) {
             console.log('catchError isAuthRequest=true');
@@ -171,8 +174,8 @@ export class AuthInterceptor implements HttpInterceptor {
             this.refreshTokenRequestUrls = [];
             // console.log('error: ', error);
             let location = '';
-            if (error.headers.get('www-authenticate') != null) {
-              location = this.getSSOLocationfromHeader(error.headers);
+            if (error.headers.get('www-authenticate') != null && error.headers.get('www-authenticate').includes('shibboleth realm')) {
+              location = this.getShibbUrlFromHeader(error.headers);
             }
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({

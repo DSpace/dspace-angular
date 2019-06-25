@@ -57,11 +57,11 @@ export class AuthenticateAction implements Action {
 }
 
 /**
- * ShibbLoginAction.
- * @class ShibbLoginAction
+ * GetJWTafterShibbLoginAction.
+ * @class GetJWTafterShibbLoginAction
  * @implements {Action}
  */
-export class ShibbLoginAction implements Action {
+export class GetJWTafterShibbLoginAction implements Action {
   public type: string = AuthActionTypes.SHIBB_LOGIN;
 }
 
@@ -380,7 +380,7 @@ export class SetRedirectUrlAction implements Action {
  */
 export type AuthActions
   = AuthenticateAction
-  | ShibbLoginAction
+  | GetJWTafterShibbLoginAction
   | AuthenticatedAction
   | AuthenticatedErrorAction
   | AuthenticatedSuccessAction

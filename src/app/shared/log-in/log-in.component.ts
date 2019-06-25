@@ -6,7 +6,7 @@ import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {
   AuthenticateAction,
-  ResetAuthenticationMessagesAction, ShibbLoginAction
+  ResetAuthenticationMessagesAction, GetJWTafterShibbLoginAction
 } from '../../core/auth/auth.actions';
 
 import {
@@ -234,7 +234,7 @@ export class LogInComponent implements OnDestroy, OnInit {
   dispatchShibbLoginAction() {
     console.log('dispatchShibbLoginAction() was called');
     // const ssoLoginUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login'
-    this.store.dispatch(new ShibbLoginAction());
+    this.store.dispatch(new GetJWTafterShibbLoginAction());
     // this.store.dispatch(new AuthenticateAction(email, password));
 
   }

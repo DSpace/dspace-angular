@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ShibbLoginAction} from '../../core/auth/auth.actions';
+import {GetJWTafterShibbLoginAction} from '../../core/auth/auth.actions';
 import {Store} from '@ngrx/store';
 import {CoreState} from '../../core/core.reducers';
 
@@ -13,7 +13,7 @@ export class ShibbolethComponent implements OnInit {
   constructor( private store: Store<CoreState>,) { }
 
   ngOnInit() {
-    this.store.dispatch(new ShibbLoginAction());
+    this.store.dispatch(new GetJWTafterShibbLoginAction());
   }
 
 }

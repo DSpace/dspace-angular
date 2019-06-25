@@ -231,15 +231,15 @@ export class AuthService {
         if (isNotEmpty(status.ssoLoginUrl)) {
           // url = this.parseSSOLocation(status.ssoLoginUrl);
           // console.log('Parsed SSOLoginUrl: ', url);
-           url = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at';
-          // url = status.ssoLoginUrl;
+           // url = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at';
+          url = status.ssoLoginUrl;
         }
         return url;
       })
     )
   }
 
-  private parseSSOLocation(url: string): string {
+ /* private parseSSOLocation(url: string): string {
     console.log('auth.service parseSSOLocation was called');
     const parseUrl = decodeURIComponent(url);
     // const urlTree: UrlTree = this.router.parseUrl(url);
@@ -252,7 +252,7 @@ export class AuthService {
     // console.log(url);
     const target = `?target=${this.config.auth.target.host}${this.config.auth.target.page}`;
     return parseUrl.replace(/\?target=http.+/g, target);
-  }
+  }*/
 
   /**
    * Create a new user
