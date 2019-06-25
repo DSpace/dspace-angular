@@ -54,7 +54,7 @@ import { UUIDService } from './shared/uuid.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthRequestService } from './auth/auth-request.service';
 import { AuthResponseParsingService } from './auth/auth-response-parsing.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { HALEndpointService } from './shared/hal-endpoint.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
@@ -87,6 +87,21 @@ import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import {
+  MOCK_RESPONSE_MAP,
+  MockResponseMap,
+  mockResponseMap
+} from './dspace-rest-v2/mocks/mock-response-map';
+import { EndpointMockingRestService } from './dspace-rest-v2/endpoint-mocking-rest.service';
+import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
+
+export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
+  if (ENV_CONFIG.production) {
+    return new DSpaceRESTv2Service(http);
+  } else {
+    return new EndpointMockingRestService(cfg, mocks, http);
+  }
+};
 
 const IMPORTS = [
   CommonModule,
@@ -110,6 +125,8 @@ const PROVIDERS = [
   CommunityDataService,
   CollectionDataService,
   DSOResponseParsingService,
+  { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
+  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]},
   DSpaceRESTv2Service,
   DynamicFormLayoutService,
   DynamicFormService,
