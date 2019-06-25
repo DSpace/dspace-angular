@@ -39,6 +39,7 @@ export class EndpointMockingRestService extends DSpaceRESTv2Service {
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
     const mockData = this.getMockData(absoluteURL);
     if (isEmpty(mockData)) {
+      console.log(absoluteURL);
       return super.get(absoluteURL);
     } else {
       return this.toMockResponse$(mockData);

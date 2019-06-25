@@ -96,6 +96,7 @@ import { EndpointMockingRestService } from './dspace-rest-v2/endpoint-mocking-re
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
+  console.log('REST SERVICE FACTORY');
   if (ENV_CONFIG.production) {
     return new DSpaceRESTv2Service(http);
   } else {
@@ -127,7 +128,6 @@ const PROVIDERS = [
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
   { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]},
-  DSpaceRESTv2Service,
   DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,

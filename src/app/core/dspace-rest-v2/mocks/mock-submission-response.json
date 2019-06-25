@@ -1,0 +1,377 @@
+{
+  "id": 733,
+  "errors": [
+    {
+      "message": "error.validation.required",
+      "paths": [
+        "/sections/traditionalpageone/dc.title",
+        "/sections/traditionalpageone/dc.date.issued"
+      ]
+    }
+  ],
+  "lastModified": "2019-06-25T13:44:29.178+0000",
+  "sections": {
+    "license": {
+      "url": null,
+      "acceptanceDate": null,
+      "granted": false
+    },
+    "upload": {
+      "files": []
+    },
+    "collection": "51715dd3-5590-49f2-b227-6a663c849921",
+    "traditionalpagetwo": {},
+    "traditionalpageone": {}
+  },
+  "type": "workspaceitem",
+  "_links": {
+    "collection": {
+      "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/submission/workspaceitems/733/collection"
+    },
+    "item": {
+      "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/submission/workspaceitems/733/item"
+    },
+    "submissionDefinition": {
+      "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/submission/workspaceitems/733/submissionDefinition"
+    },
+    "submitter": {
+      "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/submission/workspaceitems/733/submitter"
+    },
+    "self": {
+      "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/submission/workspaceitems/733"
+    }
+  },
+  "_embedded": {
+    "submitter": {
+      "id": "335647b6-8a52-4ecb-a8c1-7ebabb199bda",
+      "uuid": "335647b6-8a52-4ecb-a8c1-7ebabb199bda",
+      "name": "dspacedemo+admin@gmail.com",
+      "handle": null,
+      "metadata": {
+        "eperson.firstname": [
+          {
+            "value": "Demo",
+            "language": null,
+            "authority": null,
+            "confidence": -1,
+            "place": 0
+          }
+        ],
+        "eperson.language": [
+          {
+            "value": "en",
+            "language": null,
+            "authority": null,
+            "confidence": -1,
+            "place": 0
+          }
+        ],
+        "eperson.lastname": [
+          {
+            "value": "Site Administrator",
+            "language": null,
+            "authority": null,
+            "confidence": -1,
+            "place": 0
+          }
+        ]
+      },
+      "netid": null,
+      "lastActive": "2019-06-25T13:44:28.616+0000",
+      "canLogIn": true,
+      "email": "dspacedemo+admin@gmail.com",
+      "requireCertificate": false,
+      "selfRegistered": false,
+      "type": "eperson",
+      "_links": {
+        "groups": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda/groups"
+        },
+        "self": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/eperson/epersons/335647b6-8a52-4ecb-a8c1-7ebabb199bda"
+        }
+      },
+      "_embedded": {
+        "groups": null
+      }
+    },
+    "item": {
+      "id": "0b692d3b-70b9-415f-a56d-e557f026accc",
+      "uuid": "0b692d3b-70b9-415f-a56d-e557f026accc",
+      "name": null,
+      "handle": null,
+      "metadata": {},
+      "inArchive": false,
+      "discoverable": true,
+      "withdrawn": false,
+      "lastModified": "2019-06-25T13:44:29.160+0000",
+      "type": "item",
+      "_links": {
+        "bitstreams": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/items/0b692d3b-70b9-415f-a56d-e557f026accc/bitstreams"
+        },
+        "owningCollection": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/items/0b692d3b-70b9-415f-a56d-e557f026accc/owningCollection"
+        },
+        "relationships": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/items/0b692d3b-70b9-415f-a56d-e557f026accc/relationships"
+        },
+        "templateItemOf": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/items/0b692d3b-70b9-415f-a56d-e557f026accc/templateItemOf"
+        },
+        "self": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/items/0b692d3b-70b9-415f-a56d-e557f026accc"
+        }
+      },
+      "_embedded": {
+        "relationships": {
+          "_embedded": {
+            "relationships": []
+          },
+          "page": {
+            "number": 0,
+            "size": 0,
+            "totalPages": 1,
+            "totalElements": 0
+          },
+          "_links": {
+            "self": {
+              "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/items/0b692d3b-70b9-415f-a56d-e557f026accc/relationships"
+            }
+          }
+        },
+        "owningCollection": null,
+        "templateItemOf": null,
+        "bitstreams": {
+          "_embedded": {
+            "bitstreams": []
+          },
+          "page": {
+            "number": 0,
+            "size": 0,
+            "totalPages": 1,
+            "totalElements": 0
+          },
+          "_links": {
+            "self": {
+              "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/items/0b692d3b-70b9-415f-a56d-e557f026accc/bitstreams"
+            }
+          }
+        }
+      }
+    },
+    "submissionDefinition": {
+      "id": "traditional",
+      "name": "traditional",
+      "type": "submissiondefinition",
+      "isDefault": true,
+      "_links": {
+        "collections": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections"
+        },
+        "sections": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections"
+        },
+        "self": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissiondefinitions/traditional"
+        }
+      },
+      "_embedded": {
+        "collections": {
+          "_embedded": {
+            "collections": []
+          },
+          "page": {
+            "number": 0,
+            "size": 0,
+            "totalPages": 1,
+            "totalElements": 0
+          },
+          "_links": {
+            "self": {
+              "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections"
+            }
+          }
+        },
+        "sections": {
+          "_embedded": {
+            "sections": [
+              {
+                "id": "collection",
+                "mandatory": true,
+                "sectionType": "collection",
+                "visibility": {
+                  "main": "HIDDEN",
+                  "other": "HIDDEN"
+                },
+                "type": "submissionsection",
+                "_links": {
+                  "self": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionsections/collection"
+                  }
+                }
+              },
+              {
+                "id": "relationships",
+                "header": "submit.progressbar.relationships",
+                "mandatory": true,
+                "sectionType": "relationships",
+                "type": "submissionsection",
+                "_links": {
+                  "self": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionsections/relationships"
+                  }
+                }
+              },
+              {
+                "id": "traditionalpageone",
+                "header": "submit.progressbar.describe.stepone",
+                "mandatory": true,
+                "sectionType": "submission-form",
+                "type": "submissionsection",
+                "_links": {
+                  "self": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionsections/traditionalpageone"
+                  },
+                  "config": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionforms/traditionalpageone"
+                  }
+                }
+              },
+              {
+                "id": "traditionalpagetwo",
+                "header": "submit.progressbar.describe.steptwo",
+                "mandatory": true,
+                "sectionType": "submission-form",
+                "type": "submissionsection",
+                "_links": {
+                  "self": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo"
+                  },
+                  "config": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo"
+                  }
+                }
+              },
+              {
+                "id": "upload",
+                "header": "submit.progressbar.upload",
+                "mandatory": true,
+                "sectionType": "upload",
+                "type": "submissionsection",
+                "_links": {
+                  "self": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionsections/upload"
+                  },
+                  "config": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionuploads/upload"
+                  }
+                }
+              },
+              {
+                "id": "license",
+                "header": "submit.progressbar.license",
+                "mandatory": true,
+                "sectionType": "license",
+                "visibility": {
+                  "main": null,
+                  "other": "READONLY"
+                },
+                "type": "submissionsection",
+                "_links": {
+                  "self": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissionsections/license"
+                  }
+                }
+              }
+            ]
+          },
+          "page": {
+            "number": 0,
+            "size": 20,
+            "totalPages": 1,
+            "totalElements": 5
+          },
+          "_links": {
+            "self": {
+              "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections"
+            }
+          }
+        }
+      }
+    },
+    "collection": {
+      "id": "51715dd3-5590-49f2-b227-6a663c849921",
+      "uuid": "51715dd3-5590-49f2-b227-6a663c849921",
+      "name": "1-step Workflow collection",
+      "handle": "123456789/500",
+      "metadata": {
+        "dc.description": [
+          {
+            "value": "Start a new <a href=\"/submit\">submission</a>.",
+            "language": null,
+            "authority": null,
+            "confidence": -1,
+            "place": 0
+          }
+        ],
+        "dc.title": [
+          {
+            "value": "1-step Workflow collection",
+            "language": null,
+            "authority": null,
+            "confidence": -1,
+            "place": 0
+          }
+        ]
+      },
+      "type": "collection",
+      "_links": {
+        "license": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/collections/51715dd3-5590-49f2-b227-6a663c849921/license"
+        },
+        "defaultAccessConditions": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/collections/51715dd3-5590-49f2-b227-6a663c849921/defaultAccessConditions"
+        },
+        "logo": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/collections/51715dd3-5590-49f2-b227-6a663c849921/logo"
+        },
+        "self": {
+          "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/collections/51715dd3-5590-49f2-b227-6a663c849921"
+        }
+      },
+      "_embedded": {
+        "logo": null,
+        "defaultAccessConditions": {
+          "_embedded": {
+            "defaultAccessConditions": [
+              {
+                "id": 3649,
+                "name": null,
+                "groupUUID": "f2c7eb75-aec0-4604-ab7f-6676723818ad",
+                "action": "DEFAULT_BITSTREAM_READ",
+                "type": "resourcePolicy",
+                "_links": {
+                  "self": {
+                    "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/authz/resourcePolicies/3649"
+                  }
+                }
+              }
+            ]
+          },
+          "page": {
+            "number": 0,
+            "size": 20,
+            "totalPages": 1,
+            "totalElements": 1
+          },
+          "_links": {
+            "self": {
+              "href": "https://dspace7.4science.cloud/dspace-spring-rest/api/core/collections/51715dd3-5590-49f2-b227-6a663c849921/defaultAccessConditions"
+            }
+          }
+        }
+      }
+    }
+  }
+}
