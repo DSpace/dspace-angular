@@ -11,7 +11,6 @@ import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 import { RouterStub } from '../../testing/router-stub';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';

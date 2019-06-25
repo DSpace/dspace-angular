@@ -12,7 +12,6 @@ import { isNotUndefined } from '../../empty.util';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**

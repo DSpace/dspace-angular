@@ -5,10 +5,8 @@ import { DSOSelectorComponent } from './dso-selector.component';
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../../testing/utils';
@@ -51,7 +49,7 @@ describe('DSOSelectorComponent', () => {
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
     component.currentDSOId = currentDSOId;
-    component.value = type;
+    component.type = type;
 
     fixture.detectChanges();
   });
@@ -69,6 +67,4 @@ describe('DSOSelectorComponent', () => {
 
     expect(searchService.search).toHaveBeenCalledWith(searchOptions);
   });
-
-})
-;
+});

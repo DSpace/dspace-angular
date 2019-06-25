@@ -12,7 +12,6 @@ import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
 import { isNotUndefined } from '../../empty.util';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**

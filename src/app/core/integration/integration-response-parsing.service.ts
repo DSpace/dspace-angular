@@ -42,7 +42,7 @@ export class IntegrationResponseParsingService extends BaseResponseParsingServic
   protected processResponse(data: PaginatedList<IntegrationModel>): any {
     const returnList = Array.of();
     data.page.forEach((item, index) => {
-      if (item.type === AuthorityValue.type) {
+      if (item.type === AuthorityValue.type.value) {
         data.page[index] = Object.assign(new AuthorityValue(), item);
       }
     });

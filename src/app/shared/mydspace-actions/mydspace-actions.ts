@@ -3,6 +3,7 @@ import { Injector, Input } from '@angular/core';
 
 import { find } from 'rxjs/operators';
 
+import { MydspaceActionsServiceFactory } from './mydspace-actions-service.factory';
 import { RemoteData } from '../../core/data/remote-data';
 import { DataService } from '../../core/data/data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -10,7 +11,6 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { getMapsToType } from '../../core/cache/builders/build-decorators';
 
 /**
  * Abstract class for all different representations of mydspace actions
@@ -42,7 +42,8 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
     protected router: Router,
     protected notificationsService: NotificationsService,
     protected translate: TranslateService) {
-    this.objectDataService = injector.get(getMapsToType(objectType));
+    const factory = new MydspaceActionsServiceFactory<T, TService>();
+    this.objectDataService = injector.get(factory.getConstructor(objectType));
   }
 
   /**
