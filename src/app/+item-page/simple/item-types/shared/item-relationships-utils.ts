@@ -7,11 +7,12 @@ import { hasValue } from '../../../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { distinctUntilChanged, flatMap, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, flatMap, map, tap } from 'rxjs/operators';
 import { of as observableOf, zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -119,4 +120,18 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
             })
         )
       )
+    );
+
+/**
+ * Operator for fetching an item's relationships, but filtered by related item IDs (essentially performing a reverse lookup)
+ * Only relationships where leftItem or rightItem's ID is present in the list provided will be returned
+ * @param item
+ * @param relationshipService
+ */
+export const getRelationsByRelatedItemIds = (item: Item, relationshipService: RelationshipService) =>
+  (source: Observable<string[]>): Observable<Relationship[]> =>
+    source.pipe(
+      flatMap((relatedItemIds: string[]) => relationshipService.getItemResolvedRelatedItemsAndRelationships(item).pipe(
+        map(([leftItems, rightItems, rels]) => rels.filter((rel: Relationship, index: number) => relatedItemIds.indexOf(leftItems[index].uuid) > -1 || relatedItemIds.indexOf(rightItems[index].uuid) > -1))
+      ))
     );

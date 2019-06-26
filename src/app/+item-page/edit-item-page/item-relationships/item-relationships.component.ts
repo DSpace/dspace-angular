@@ -21,6 +21,7 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { getRelationsByRelatedItemIds } from '../../simple/item-types/shared/item-relationships-utils';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -94,7 +95,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   }
 
   /**
-   * Resolve the currently selected related items back to relationships and send a delete request
+   * Resolve the currently selected related items back to relationships and send a delete request for each of the relationships found
    * Make sure the lists are refreshed afterwards and notifications are sent for success and errors
    */
   public submit(): void {
@@ -105,40 +106,49 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
       map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field.uuid) as string[]),
       isNotEmptyOperator()
     );
-    const allRelationshipsAndRemovedItemIds$ = observableCombineLatest(
-      this.relationshipService.getItemRelationshipsArray(this.item),
-      removedItemIds$
-    );
-    // Get all IDs of the relationships that should be removed
-    const removedRelationshipIds$ = allRelationshipsAndRemovedItemIds$.pipe(
-      map(([relationships, itemIds]) =>
-        relationships
-          .filter((relationship: Relationship) => itemIds.indexOf(relationship.leftId) > -1 || itemIds.indexOf(relationship.rightId) > -1)
-          .map((relationship: Relationship) => relationship.id))
+    // Get all the relationships that should be removed
+    const removedRelationships$ = removedItemIds$.pipe(
+      getRelationsByRelatedItemIds(this.item, this.relationshipService)
     );
     // Request a delete for every relationship found in the observable created above
-    removedRelationshipIds$.pipe(
+    removedRelationships$.pipe(
       take(1),
+      map((removedRelationships: Relationship[]) => removedRelationships.map((rel: Relationship) => rel.id)),
       switchMap((removedIds: string[]) => observableZip(...removedIds.map((uuid: string) => this.relationshipService.deleteRelationship(uuid))))
     ).subscribe((responses: RestResponse[]) => {
-      const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
-      const successfulResponses = responses.filter((response: RestResponse) => response.isSuccessful);
-
-      // Display an error notification for each failed request
-      failedResponses.forEach((response: ErrorResponse) => {
-        this.notificationsService.error(this.getNotificationTitle('failed'), response.errorMessage);
-      });
-      if (successfulResponses.length > 0) {
-        // Remove the item's cache to make sure the lists are reloaded with the newest values
-        this.objectCache.remove(this.item.self);
-        this.requestService.removeByHrefSubstring(this.item.self);
-        // Send a notification that the removal was successful
-        this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
-      }
-      // Reset the state of editing relationships
-      this.initializeOriginalFields();
-      this.initializeUpdates();
+      this.displayNotifications(responses);
+      this.reset();
     });
+  }
+
+  /**
+   * Display notifications
+   * - Error notification for each failed response with their message
+   * - Success notification in case there's at least one successful response
+   * @param responses
+   */
+  displayNotifications(responses: RestResponse[]) {
+    const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
+    const successfulResponses = responses.filter((response: RestResponse) => response.isSuccessful);
+
+    failedResponses.forEach((response: ErrorResponse) => {
+      this.notificationsService.error(this.getNotificationTitle('failed'), response.errorMessage);
+    });
+    if (successfulResponses.length > 0) {
+      // Remove the item's cache to make sure the lists are reloaded with the newest values
+      this.objectCache.remove(this.item.self);
+      this.requestService.removeByHrefSubstring(this.item.self);
+      // Send a notification that the removal was successful
+      this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+    }
+  }
+
+  /**
+   * Reset the state of editing relationships
+   */
+  reset() {
+    this.initializeOriginalFields();
+    this.initializeUpdates();
   }
 
   /**
