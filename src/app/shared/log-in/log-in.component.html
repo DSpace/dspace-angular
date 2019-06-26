@@ -25,9 +25,9 @@
 
   <button class="btn btn-lg btn-primary btn-block mt-3" type="submit"
           [disabled]="!form.valid">{{"login.form.submit" | translate}}</button>
-
+  <br>
   <div *ngIf="(hasSsoLoginUrl | async)">
-    <div class="text-center mt-2"><span class="align-middle">{{"login.form.or-divider" | translate}}</span></div>
+    <!--<div class="text-center mt-2"><span class="align-middle">{{"login.form.or-divider" | translate}}</span></div>-->
     <a class="btn btn-lg btn-primary btn-block mt-2" [href]="(ssoLoginUrl | async)"
        role="button">{{"login.form.ssoLogin" | translate}}</a>
   </div>

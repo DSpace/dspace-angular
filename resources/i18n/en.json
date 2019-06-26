@@ -538,7 +538,7 @@
       }
     },
     "switch-configuration": {
-      "title":"Show"
+      "title": "Show"
     },
     "view-switch": {
       "show-list": "Show as list",
@@ -930,7 +930,8 @@
       "forgot-password": "Have you forgotten your password?",
       "new-user": "New user? Click here to register.",
       "password": "Password",
-      "submit": "Log in"
+      "submit": "Log in",
+      "ssoLogin": "Shibboleth"
     }
   },
   "logout": {
@@ -980,7 +981,7 @@
     "no-results": "No {{ type }} found"
   },
   "submission": {
-    "general":{
+    "general": {
       "cannot_submit": "You have not the privilege to make a new submission.",
       "deposit": "Deposit",
       "discard": {
@@ -1002,10 +1003,8 @@
       "title": "Edit Submission"
     },
     "mydspace": {
-
     },
     "sections": {
-
       "general": {
         "add-more": "Add more",
         "no-sections": "No options available",
@@ -1030,7 +1029,6 @@
       "submit.progressbar.license": "Deposit license",
       "submit.progressbar.cclicense": "Creative commons license",
       "submit.progressbar.detect-duplicate": "Potential duplicates",
-
       "upload": {
         "no-entry": "No",
         "no-file-uploaded": "No file uploaded yet.",
@@ -1096,7 +1094,6 @@
           "reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
           "return": "Return to pool",
           "return_help": "Return the task to the pool so that another user may perform the task."
-
         },
         "pool": {
           "claim": "Claim",

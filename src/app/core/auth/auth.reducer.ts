@@ -200,6 +200,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
       // next three cases are used by shibboleth login
     case AuthActionTypes.RETRIEVE_AUTH_METHODS:
+      console.log(' case AuthActionTypes.RETRIEVE_AUTH_METHODS');
       return Object.assign({}, state, {
         loading: true
       });

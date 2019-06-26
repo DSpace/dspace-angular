@@ -174,7 +174,9 @@ export class AuthInterceptor implements HttpInterceptor {
             // console.log('error: ', error);
             let location = '';
             if (error.headers.get('www-authenticate') != null && error.headers.get('www-authenticate').includes('shibboleth realm')) {
+
               location = this.getShibbUrlFromHeader(error.headers);
+              console.log('shibb url from header: ', location);
             }
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
