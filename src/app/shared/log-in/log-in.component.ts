@@ -1,4 +1,4 @@
-import {filter, map, takeWhile} from 'rxjs/operators';
+import {filter, map, takeWhile, tap} from 'rxjs/operators';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -112,6 +112,7 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
+    console.log('log-in.componetn.ngOnInit() called');
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
@@ -156,7 +157,9 @@ export class LogInComponent implements OnDestroy, OnInit {
       );
 
     this.hasSsoLoginUrl = this.ssoLoginUrl
-      .pipe(map((url) => isNotEmpty(url)))
+      .pipe(
+        tap((url) => console.log('url in ngOnInit(): ', url)),
+        map((url) => isNotEmpty(url)))
   }
 
   /**
