@@ -34,6 +34,7 @@ const ITEM_EDIT_DELETE_PATH = 'delete';
           {
             path: '',
             redirectTo: 'status',
+            pathMatch: 'full'
           },
           {
             path: 'status',

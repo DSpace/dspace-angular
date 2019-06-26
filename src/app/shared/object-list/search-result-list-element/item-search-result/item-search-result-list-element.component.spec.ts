@@ -75,7 +75,6 @@ describe('ItemSearchResultListElementComponent', () => {
 
     it('should show the relationship type badge', () => {
       const badge = fixture.debugElement.query(By.css('span.badge'));
-      console.log(itemSearchResultListElementComponent.dso);
       expect(badge.nativeElement.textContent).toContain(type.toLowerCase());
     });
   });

@@ -3,6 +3,7 @@ import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
 import { ResourceType } from '../resource-type';
 import { RelationshipType } from './relationship-type.model';
+import { Item } from '../item.model';
 
 /**
  * Describes a Relationship between two Items
@@ -29,14 +30,14 @@ export class Relationship implements CacheableObject {
   id: string;
 
   /**
-   * The identifier of the Item to the left side of this Relationship
+   * The item to the left of this relationship
    */
-  leftId: string;
+  leftItem: Observable<RemoteData<Item>>;
 
   /**
-   * The identifier of the Item to the right side of this Relationship
+   * The item to the right of this relationship
    */
-  rightId: string;
+  rightItem: Observable<RemoteData<Item>>;
 
   /**
    * The place of the Item to the left side of this Relationship
