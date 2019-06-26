@@ -68,10 +68,12 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_RELATION } from './models/lookup-relation/dynamic-lookup-relation.model';
+import { DsDynamicLookupRelationComponent } from './models/lookup-relation/dynamic-lookup-relation.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
+  console.log(model.type);
   switch (model.type) {
-
     case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
       return DsDynamicFormArrayComponent;
 
@@ -125,6 +127,9 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
     case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME:
       return DsDynamicLookupComponent;
 
+    case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_RELATION:
+      return DsDynamicLookupRelationComponent;
+
     default:
       return null;
   }
@@ -157,7 +162,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Output('dfFocus') focus: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   /* tslint:enable:no-output-rename */
-  @ViewChild('componentViewContainer', {read: ViewContainerRef}) componentViewContainerRef: ViewContainerRef;
+  @ViewChild('componentViewContainer', { read: ViewContainerRef }) componentViewContainerRef: ViewContainerRef;
 
   private showErrorMessagesPreviousStage: boolean;
 
@@ -166,6 +171,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   protected test: boolean;
+
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected layoutService: DynamicFormLayoutService,

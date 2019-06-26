@@ -39,7 +39,7 @@ const effects = [
 
 const components = [
   SearchPageComponent,
-  SearchResultsComponent,
+  // SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
   ItemSearchResultGridElementComponent,

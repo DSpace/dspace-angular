@@ -1,0 +1,34 @@
+<div>
+    <div class="form-row align-items-center">
+        <!--Simple lookup, first field -->
+        <div class="col right-addon">
+            <input class="form-control"
+                   [attr.autoComplete]="model.autoComplete"
+                   [class.is-invalid]="showErrorMessages"
+                   [dynamicId]="bindId && model.id"
+                   [name]="model.name"
+                   [type]="model.inputType"
+                   [(ngModel)]="model.value"
+                   [disabled]="model.disabled"
+                   [placeholder]="model.placeholder | translate"
+                   [readonly]="model.readOnly">
+        </div>
+        <div class="col-auto text-center">
+            <button class="btn btn-secondary"
+                    type="button"
+                    ngbTooltip="{{'form.lookup-help' | translate}}"
+                    placement="top"
+                    (click)="openLookup(); $event.stopPropagation();">{{'form.lookup' | translate}}
+            </button>
+        </div>
+        <div class="col-auto text-center">
+            <button class="btn btn-secondary"
+                    type="button"
+                    ngbTooltip="{{'form.add-help' | translate}}"
+                    placement="top"
+                    [disabled]="!hasEmptyValue()"
+                    (click)="alert('add'); $event.stopPropagation();">{{'form.add' | translate}}
+            </button>
+        </div>
+    </div>
+</div>

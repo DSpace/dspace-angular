@@ -1,0 +1,7 @@
+<div>
+  LOOKUP WINDOW FOR {{relationKey}}
+<ds-search-results [searchResults]="resultsRD$ | async"
+                   [searchConfig]="{}"
+                   [fixedFilter]="relationKey"
+                   [disableHeader]="true"></ds-search-results>
+</div>

@@ -104,7 +104,6 @@
     "https": "1.0.0",
     "js-cookie": "2.2.0",
     "js.clone": "0.0.3",
-    "json-loader": "^0.5.7",
     "jsonschema": "1.2.2",
     "jwt-decode": "^2.2.0",
     "methods": "1.1.2",

@@ -78,6 +78,7 @@ import { SortablejsModule } from 'angular-sortablejs';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
+import { DsDynamicLookupRelationComponent } from './form/builder/ds-dynamic-form-ui/models/lookup-relation/dynamic-lookup-relation.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { AlertComponent } from './alert/alert.component';
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
@@ -138,6 +139,8 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { DsDynamicLookupRelationModalComponent } from './form/builder/ds-dynamic-form-ui/models/lookup-relation/dynamic-lookup-relation-modal.component';
+import { SearchResultsComponent } from '../+search-page/search-results/search-results.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -198,6 +201,8 @@ const COMPONENTS = [
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,
+  DsDynamicLookupRelationComponent,
+  DsDynamicLookupRelationModalComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,
@@ -257,7 +262,8 @@ const COMPONENTS = [
   ItemSearchResultListElementComponent,
   TypedItemSearchResultListElementComponent,
   ItemTypeSwitcherComponent,
-  BrowseByComponent
+  BrowseByComponent,
+  SearchResultsComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -280,6 +286,8 @@ const ENTRY_COMPONENTS = [
   SearchResultGridElementComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,
+  DsDynamicLookupRelationComponent,
+  DsDynamicLookupRelationModalComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,
@@ -300,7 +308,8 @@ const ENTRY_COMPONENTS = [
   StartsWithTextComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
-  MetadataRepresentationListElementComponent
+  MetadataRepresentationListElementComponent,
+  SearchResultsComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
