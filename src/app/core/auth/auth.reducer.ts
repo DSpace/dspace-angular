@@ -78,7 +78,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         info: undefined
       });
 
-    case AuthActionTypes.SHIBB_LOGIN:
+    case AuthActionTypes.GET_JWT_AFTER_SHIBB_LOGIN:
       return Object.assign({}, state, {
         error: undefined,
         loading: true,

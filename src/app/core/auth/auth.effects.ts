@@ -64,7 +64,7 @@ export class AuthEffects {
    */
   @Effect()
   public shibbLogin$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActionTypes.SHIBB_LOGIN),
+    ofType(AuthActionTypes.GET_JWT_AFTER_SHIBB_LOGIN),
     switchMap((action: GetJWTafterShibbLoginAction) => {
       return this.authService.startShibbAuth().pipe(
         take(1),

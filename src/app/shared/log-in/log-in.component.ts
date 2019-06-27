@@ -112,7 +112,7 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
-    console.log('log-in.componetn.ngOnInit() called');
+    console.log('log-in.component.ngOnInit() called');
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
@@ -145,6 +145,7 @@ export class LogInComponent implements OnDestroy, OnInit {
 
     // set sso login url
     this.ssoLoginUrl = this.store.pipe(select(getSSOLoginUrl));
+    this.ssoLoginUrl.subscribe((url) => console.log('url after store select: ', url));
 
     // subscribe to success
     this.store.pipe(
@@ -211,34 +212,4 @@ export class LogInComponent implements OnDestroy, OnInit {
     this.form.reset();
   }
 
-/*  public postLoginCall() {
-    console.log('postLoginCall() was called');
-    /!*   const email = 'test@test.at';
-       const password = 'test';
-       this.store.dispatch(new AuthenticateAction(email, password));*!/
-    this.http.post('https://fis.tiss.tuwien.ac.at/spring-rest/api/authn/login',
-      {
-        name: 'morpheus',
-        job: 'leader'
-      })
-      .subscribe(
-        (val) => {
-          console.log('POST call successful value returned in body',
-            val);
-        },
-        (response) => {
-          console.log('POST call in error', response);
-        },
-        () => {
-          console.log('The POST observable is now completed.');
-        });
-  }*/
-
-  dispatchShibbLoginAction() {
-    console.log('dispatchShibbLoginAction() was called');
-    // const ssoLoginUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login'
-    this.store.dispatch(new GetJWTafterShibbLoginAction());
-    // this.store.dispatch(new AuthenticateAction(email, password));
-
-  }
 }
