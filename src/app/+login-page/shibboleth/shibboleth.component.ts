@@ -12,7 +12,7 @@ import {Observable, of} from 'rxjs';
 export class ShibbolethComponent implements OnInit {
 
   /**
-   * True if the authentication is loading.
+   * True if the shibboleth authentication is loading.
    * @type {boolean}
    */
   public loading: Observable<boolean>;
