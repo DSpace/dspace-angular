@@ -66,8 +66,13 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   ngOnInit(): void {
     super.ngOnInit();
     this.relationLabels$ = this.relationshipService.getItemRelationshipLabels(this.item);
+    this.initializeItemUpdate();
+  }
 
-    // Update the item (and view) when it's removed in the request cache
+  /**
+   * Update the item (and view) when it's removed in the request cache
+   */
+  public initializeItemUpdate(): void {
     this.itemUpdateSubscription = this.requestService.hasByHrefObservable(this.item.self).pipe(
       filter((exists: boolean) => !exists),
       switchMap(() => this.itemService.findById(this.item.uuid)),
@@ -144,11 +149,12 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   }
 
   /**
-   * Reset the state of editing relationships
+   * Re-initialize fields and subscriptions
    */
   reset() {
     this.initializeOriginalFields();
     this.initializeUpdates();
+    this.initializeItemUpdate();
   }
 
   /**
