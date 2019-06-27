@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GetJWTafterShibbLoginAction} from '../../core/auth/auth.actions';
 import {Store} from '@ngrx/store';
 import {CoreState} from '../../core/core.reducers';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'ds-shibboleth-page',
@@ -10,10 +11,17 @@ import {CoreState} from '../../core/core.reducers';
 })
 export class ShibbolethComponent implements OnInit {
 
-  constructor( private store: Store<CoreState>,) { }
+  /**
+   * True if the authentication is loading.
+   * @type {boolean}
+   */
+  public loading: Observable<boolean>;
 
   ngOnInit() {
+    this.loading = of(true);
     this.store.dispatch(new GetJWTafterShibbLoginAction());
   }
+
+  constructor( private store: Store<CoreState>,) { }
 
 }

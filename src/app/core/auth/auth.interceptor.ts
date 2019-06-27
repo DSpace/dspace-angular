@@ -56,7 +56,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private isLoginResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
     return http.url && http.url.endsWith('/authn/login')
-    /*|| http.url.endsWith('/shibboleth');*/
   }
 
   private isLogoutResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
@@ -67,7 +66,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const authStatus = new AuthStatus();
     authStatus.id = null;
     authStatus.okay = true;
-    authStatus.ssoLoginUrl = location; // this line was  added while developing shibboleth dev
+    authStatus.ssoLoginUrl = location; // this line was  added while developing shibboleth login
     if (authenticated) {
       authStatus.authenticated = true;
       authStatus.token = new AuthTokenInfo(accessToken);
