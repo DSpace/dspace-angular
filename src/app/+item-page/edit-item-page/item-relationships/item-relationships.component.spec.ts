@@ -15,7 +15,7 @@ import { GLOBAL_CONFIG } from '../../../../config';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -78,16 +78,12 @@ describe('ItemRelationshipsComponent', () => {
         self: url + '/2',
         id: '2',
         uuid: '2',
-        leftId: 'author1',
-        rightId: 'publication',
         relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
       }),
       Object.assign(new Relationship(), {
         self: url + '/3',
         id: '3',
         uuid: '3',
-        leftId: 'author2',
-        rightId: 'publication',
         relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
       })
     ];
@@ -108,6 +104,11 @@ describe('ItemRelationshipsComponent', () => {
       id: 'author2',
       uuid: 'author2'
     });
+
+    relationships[0].leftItem = observableOf(new RemoteData(false, false, true, undefined, author1));
+    relationships[0].rightItem = observableOf(new RemoteData(false, false, true, undefined, item));
+    relationships[1].leftItem = observableOf(new RemoteData(false, false, true, undefined, author2));
+    relationships[1].rightItem = observableOf(new RemoteData(false, false, true, undefined, item));
 
     fieldUpdate1 = {
       field: author1,
@@ -155,7 +156,8 @@ describe('ItemRelationshipsComponent', () => {
         getRelatedItems: observableOf([author1, author2]),
         getRelatedItemsByLabel: observableOf([author1, author2]),
         getItemRelationshipsArray: observableOf(relationships),
-        deleteRelationship: observableOf(new RestResponse(true, 200, 'OK'))
+        deleteRelationship: observableOf(new RestResponse(true, 200, 'OK')),
+        getItemResolvedRelatedItemsAndRelationships: observableCombineLatest(observableOf([author1, author2]), observableOf([item, item]), observableOf(relationships))
       }
     );
 
