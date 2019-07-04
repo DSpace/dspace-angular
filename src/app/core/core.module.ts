@@ -87,6 +87,7 @@ import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { MetadatafieldParsingService } from './data/metadatafield-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -155,6 +156,7 @@ const PROVIDERS = [
   JsonPatchOperationsBuilder,
   AuthorityService,
   IntegrationResponseParsingService,
+  MetadatafieldParsingService,
   MetadataschemaParsingService,
   UploaderService,
   UUIDService,
