@@ -19,6 +19,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { FindAllOptions } from './request.models';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
+import { SearchParam } from '../cache/models/search-param.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
@@ -38,6 +39,22 @@ export class CollectionDataService extends ComColDataService<Collection> {
     protected comparator: DSOChangeAnalyzer<Collection>
   ) {
     super();
+  }
+
+  /**
+   * Get all collections whom user has authorization to submit to by community
+   *
+   * @return boolean
+   *    true if the user has at least one collection to submit to
+   */
+  getAuthorizedCollectionByCommunity(communityId): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAuthorizedByCommunity';
+    const options = new FindAllOptions();
+    options.elementsPerPage = 1000;
+    options.searchParams = [new SearchParam('uuid', communityId)];
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
   /**
