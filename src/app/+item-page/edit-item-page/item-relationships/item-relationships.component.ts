@@ -140,10 +140,6 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
       this.notificationsService.error(this.getNotificationTitle('failed'), response.errorMessage);
     });
     if (successfulResponses.length > 0) {
-      // Remove the item's cache to make sure the lists are reloaded with the newest values
-      this.objectCache.remove(this.item.self);
-      this.requestService.removeByHrefSubstring(this.item.self);
-      // Send a notification that the removal was successful
       this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
     }
   }
