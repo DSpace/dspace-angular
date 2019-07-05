@@ -44,7 +44,6 @@ export abstract class BaseResponseParsingService {
               }
             });
         }
-
         this.cache(object, requestUUID);
         return object;
       }

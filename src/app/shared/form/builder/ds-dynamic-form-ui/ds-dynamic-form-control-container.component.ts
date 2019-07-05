@@ -72,7 +72,6 @@ import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_RELATION } from './models/lookup-relat
 import { DsDynamicLookupRelationComponent } from './models/lookup-relation/dynamic-lookup-relation.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
-  console.log(model.type);
   switch (model.type) {
     case DYNAMIC_FORM_CONTROL_TYPE_ARRAY:
       return DsDynamicFormArrayComponent;

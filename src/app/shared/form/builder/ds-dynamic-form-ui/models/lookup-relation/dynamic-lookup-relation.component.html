@@ -3,15 +3,20 @@
         <!--Simple lookup, first field -->
         <div class="col right-addon">
             <input class="form-control"
-                   [attr.autoComplete]="model.autoComplete"
                    [class.is-invalid]="showErrorMessages"
-                   [dynamicId]="bindId && model.id"
-                   [name]="model.name"
-                   [type]="model.inputType"
-                   [(ngModel)]="model.value"
+                   [value]="modalValuesString"
                    [disabled]="model.disabled"
+                   [type]="model.inputType"
                    [placeholder]="model.placeholder | translate"
                    [readonly]="model.readOnly">
+            <ng-container *ngFor="let value of model.value">
+                <input [dynamicId]="bindId && model.id"
+                       [name]="model.name"
+                       type="hidden"
+                       [ngModel]="value.uuid"
+                       [disabled]="true"
+                       [readonly]="true">
+            </ng-container>
         </div>
         <div class="col-auto text-center">
             <button class="btn btn-secondary"

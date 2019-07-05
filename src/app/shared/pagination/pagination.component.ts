@@ -328,13 +328,19 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Method to emit a general pagination change event
    */
   private emitPaginationChange() {
-    this.paginationChange.emit({
-      pageId: this.id,
-      page: this.currentPage,
-      pageSize: this.pageSize,
-      sortDirection: this.sortDirection,
-      sortField: this.sortField
-    });
+    this.paginationChange.emit(
+      {
+        pagination: Object.assign(
+          new PaginationComponentOptions(),
+          {
+            id: this.id,
+            currentPage: this.currentPage,
+            pageSize: this.pageSize,
+          }),
+        sort: Object.assign(
+          new SortOptions(this.sortField, this.sortDirection)
+        )
+      })
   }
 
   /**

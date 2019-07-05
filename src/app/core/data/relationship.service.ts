@@ -10,7 +10,7 @@ import {
   getRemoteDataPayload, getResponseFromEntry,
   getSucceededRemoteData
 } from '../shared/operators';
-import { DeleteRequest, RestRequest } from './request.models';
+import { DeleteRequest, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { Item } from '../shared/item.model';
@@ -58,6 +58,22 @@ export class RelationshipService {
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
+      configureRequest(this.requestService),
+      switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
+      getResponseFromEntry()
+    );
+  }
+
+  /**
+   * Send a post request for a relationship by ID
+   * @param item1
+   * @param item2
+   */
+  addRelationship(item1: Item, item2: Item): Observable<RestResponse> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, `${item1.self} ${item2.self}`)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry()

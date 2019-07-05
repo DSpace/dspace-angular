@@ -1,26 +1,88 @@
-<div class="container">
-    <div class="search-page row">
-        <div class="col-12">
-            <div class="row">
-                <div id="search-body">
-                    <div id="search-content" class="col-12" *ngVar="(resultsRD$ | async) as resultsRD">
-                        <ds-pagination
-                                [paginationOptions]="searchConfig.pagination"
-                                [collectionSize]="resultsRD?.payload?.totalElements"
-                                [sortOptions]="searchConfig.sort"
-                                [hideGear]="true"
-                                [hidePagerWhenSinglePage]="true"
-                                (paginationChange)="onPaginationChange($event)">
-                        <ul class="lookup-results list-unstyled">
-                            <li *ngFor="let result of resultsRD?.payload?.page; let i = index" class="my-4 d-flex">
-                                <input type="checkbox" [value]="result.indexableObject.uuid"/>
-                                <ds-wrapper-list-element class="result-list-element" [object]="result" [index]="i"></ds-wrapper-list-element>
-                            </li>
-                        </ul>
-                        </ds-pagination>
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Choose a {{fieldName}}</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body" *ngVar="(resultsRD$ | async) as resultsRD">
+    <ds-loading *ngIf="!resultsRD || resultsRD.isLoading"></ds-loading>
+    <div *ngIf="resultsRD.hasSucceeded">
+        <div *ngIf="repeatable">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <!-- In theory we don't need separate checkboxes for this,
+                        but I wasn't able to get this to work correctly without them.
+                        Checkboxes that are in the indeterminate state always switch to checked when clicked
+                        This seemed like the cleanest and clearest solution to solve this issue for now.
+                        -->
+                        <input *ngIf="!isAllSelected() && !isSomeSelected()" type="checkbox"
+                               [indeterminate]="false"
+                               (change)="selectAll()"
+                        >
+                        <input *ngIf="!isAllSelected() && isSomeSelected()" type="checkbox"
+                               [indeterminate]="true"
+                               (change)="deselectAll()"
+                        >
+                        <input *ngIf="isAllSelected()" type="checkbox"
+                               [checked]="true"
+                               (change)="deselectAll()"
+                        >
+                    </div>
+                </div>
+                <div ngbDropdown class="input-group-append">
+                    <button id="resultdropdown" type="button" ngbDropdownToggle
+                            class="btn btn-outline-secondary dropdown-toggle-split"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="resultdropdown">
+                        <button class="dropdown-item"
+                                (click)="selectPage(resultsRD?.payload?.page)">Select page
+                        </button>
+                        <button class="dropdown-item"
+                                (click)="deselectPage(resultsRD?.payload?.page)">Deselect
+                            page
+                        </button>
+                        <button class="dropdown-item" (click)="selectAll()">Select all</button>
+                        <button class="dropdown-item" (click)="deselectAll()">Deselect all</button>
                     </div>
                 </div>
             </div>
         </div>
+        <ds-pagination
+                [paginationOptions]="searchConfig.pagination"
+                [collectionSize]="resultsRD?.payload?.totalElements"
+                [sortOptions]="searchConfig.sort"
+                [hideGear]="true"
+                [hidePagerWhenSinglePage]="true"
+                (paginationChange)="onPaginationChange($event.pagination)">
+            <div class="form-check" *ngFor="let result of resultsRD?.payload?.page; let i = index">
+                <input *ngIf="repeatable" class="form-check-input" type="checkbox"
+                       [name]="'checkbox' + i"
+                       [id]="'object'+i"
+                       [checked]="isSelected(result.indexableObject)"
+                       (change)="selectCheckbox($event.currentTarget.checked, result.indexableObject)">
+                <input *ngIf="!repeatable" class="form-check-input" type="radio"
+                       [name]="'radio' + i"
+                       [id]="'object'+i"
+                       [checked]="isSelected(result.indexableObject)"
+                       (change)="selectRadio($event.currentTarget.checked, result.indexableObject)">
+                <label class="form-check-label" [for]="'object'+i">
+                    <ds-wrapper-list-element class="result-list-element"
+                                             [object]="result"
+                                             [index]="i"></ds-wrapper-list-element>
+                </label>
+            </div>
+        </ds-pagination>
+    </div>
+</div>
+<div class="modal-footer">
+    <small>Selected {{selection.length}} items</small>
+    <div>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel
+        </button>
+        <button type="button" class="btn btn-danger" (click)="close()">Ok</button>
     </div>
 </div>
