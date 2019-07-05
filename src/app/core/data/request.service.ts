@@ -65,8 +65,7 @@ const uuidsFromHrefSubstringSelector =
 const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] => {
   let result = [];
   if (isNotEmpty(state)) {
-    result = Object.values(state)
-      .filter((value: string) => value.startsWith(href));
+    result = Object.keys(state).filter((key) => key.startsWith(href)).map((key) => state[key]);
   }
   return result;
 };
@@ -313,6 +312,17 @@ export class RequestService {
       take(1)
     ).subscribe((requestEntry: RequestEntry) => result = this.isValid(requestEntry));
     return result;
+  }
+
+  /**
+   * Create an observable that emits a new value whenever the availability of the cached request changes.
+   * The value it emits is a boolean stating if the request exists in cache or not.
+   * @param href  The href of the request to observe
+   */
+  hasByHrefObservable(href: string): Observable<boolean> {
+    return this.getByHref(href).pipe(
+      map((requestEntry: RequestEntry) => this.isValid(requestEntry))
+    );
   }
 
 }

@@ -175,6 +175,10 @@
           "head": "Item Metadata",
           "title": "Item Edit -  Metadata"
         },
+        "relationships": {
+          "head": "Item Relationships",
+          "title": "Item Edit -  Relationships"
+        },
         "view": {
           "head": "View Item",
           "title": "Item Edit -  View"
@@ -267,6 +271,34 @@
           "saved": {
             "title": "Metadata saved",
             "content": "Your changes to this item's metadata were saved."
+          }
+        }
+      },
+      "relationships": {
+        "discard-button": "Discard",
+        "reinstate-button": "Undo",
+        "save-button": "Save",
+        "edit": {
+          "buttons": {
+            "remove": "Remove",
+            "undo": "Undo changes"
+          }
+        },
+        "notifications": {
+          "outdated": {
+            "title": "Changed outdated",
+            "content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts"
+          },
+          "discarded": {
+            "title": "Changed discarded",
+            "content": "Your changes were discarded. To reinstate your changes click the 'Undo' button"
+          },
+          "saved": {
+            "title": "Relationships saved",
+            "content": "Your changes to this item's relationships were saved."
+          },
+          "failed": {
+            "title": "Error deleting relationship"
           }
         }
       }
@@ -827,6 +859,7 @@
     "sub-communities": "Loading sub-communities...",
     "recent-submissions": "Loading recent submissions...",
     "item": "Loading item...",
+    "items": "Loading items...",
     "objects": "Loading...",
     "search-results": "Loading search results...",
     "mydspace-results": "Loading items...",
