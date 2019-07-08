@@ -227,10 +227,8 @@ describe('ItemRelationshipsComponent', () => {
       comp.submit();
     });
 
-    it('it should delete the correct relationship and de-cache the current item', () => {
+    it('it should delete the correct relationship', () => {
       expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid);
-      expect(objectCache.remove).toHaveBeenCalledWith(item.self);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
     });
   });
 });

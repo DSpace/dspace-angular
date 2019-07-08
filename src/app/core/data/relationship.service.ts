@@ -51,6 +51,10 @@ export class RelationshipService {
     );
   }
 
+  /**
+   * Find a relationship by its UUID
+   * @param uuid
+   */
   findById(uuid: string): Observable<RemoteData<Relationship>> {
     const href$ = this.getRelationshipEndpoint(uuid);
     return this.rdbService.buildSingle<Relationship>(href$);
@@ -211,6 +215,10 @@ export class RelationshipService {
     );
   }
 
+  /**
+   * Clear object and request caches of the items related to a relationship (left and right items)
+   * @param uuid
+   */
   clearRelatedCache(uuid: string) {
     this.findById(uuid).pipe(
       getSucceededRemoteData(),
