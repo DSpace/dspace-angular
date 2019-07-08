@@ -1,7 +1,7 @@
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, zip as observableZip } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
-import { first, map, switchMap } from 'rxjs/operators';
+import { first, map, switchMap, tap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -23,7 +23,7 @@ import {
   getSucceededRemoteData
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -137,10 +137,11 @@ export class SearchService implements OnDestroy {
       map((sqr: SearchQueryResponse) => {
         return sqr.objects
           .filter((nsr: NormalizedSearchResult) => isNotUndefined(nsr.indexableObject))
-          .map((nsr: NormalizedSearchResult) => {
-          return this.rdb.buildSingle(nsr.indexableObject);
-        })
+          .map((nsr: NormalizedSearchResult) => new GetRequest(this.requestService.generateRequestId(), nsr.indexableObject))
       }),
+      // Send a request for each item to ensure fresh cache
+      tap((reqs: RestRequest[]) => reqs.forEach((req: RestRequest) => this.requestService.configure(req))),
+      map((reqs: RestRequest[]) => reqs.map((req: RestRequest) => this.rdb.buildSingle(req.href))),
       switchMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input)),
     );
 
