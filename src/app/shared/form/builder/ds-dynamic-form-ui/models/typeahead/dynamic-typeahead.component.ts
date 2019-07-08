@@ -31,6 +31,8 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild('instance') instance: NgbTypeahead;
+
   searching = false;
   searchOptions: IntegrationSearchOptions;
   searchFailed = false;
@@ -74,8 +76,6 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
       merge(this.hideSearchingWhenUnsubscribed$)
     )
   };
-
-  @ViewChild('instance') instance: NgbTypeahead;
 
   constructor(private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef,
