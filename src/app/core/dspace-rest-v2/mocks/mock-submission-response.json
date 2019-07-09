@@ -10,7 +10,7 @@
           },
           "label": "Journal Issue",
           "mandatory": true,
-          "repeatable": true,
+          "repeatable": false,
           "mandatoryMessage": "Required field!",
           "hints": "Select a journal issue for this publication.",
           "selectableMetadata": [

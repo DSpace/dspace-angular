@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { SearchResult } from '../../../../../../+search-page/search-result.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import { asyncScheduler, Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { SearchService } from '../../../../../../+search-page/search-service/search.service';
 import { PaginatedSearchOptions } from '../../../../../../+search-page/paginated-search-options.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
@@ -10,8 +10,7 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../../empty.util';
 import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
-import { finalize, map, takeUntil, takeWhile } from 'rxjs/operators';
-import { concat, multicast, take } from 'rxjs/operators';
+import { concat, map, multicast, take, takeWhile } from 'rxjs/operators';
 
 const RELATION_TYPE_FILTER_PREFIX = 'f.entityType=';
 
@@ -36,7 +35,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 5
-  });;
+  });
   constructor(public modal: NgbActiveModal, private searchService: SearchService) {
   }
 

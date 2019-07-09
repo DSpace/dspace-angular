@@ -125,6 +125,7 @@
     "text-mask-core": "5.0.1",
     "ts-loader": "^5.2.1",
     "ts-md5": "^1.2.4",
+    "url-parse": "^1.4.7",
     "uuid": "^3.2.1",
     "webfontloader": "1.6.28",
     "webpack-cli": "^3.1.0",

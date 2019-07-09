@@ -1,6 +1,6 @@
 <script src="dynamic-lookup-relation.component.ts"></script>
 <div>
-    <div *ngIf="model.repeatable || !model.value" class="form-row align-items-center">
+    <div *ngIf="model.repeatable || !(model.value && model.value.length > 0)" class="form-row align-items-center">
         <div class="col">
             <input class="form-control"
                    [class.is-invalid]="showErrorMessages"
