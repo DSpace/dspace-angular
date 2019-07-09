@@ -5,12 +5,14 @@ export const DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_RELATION = 'LOOKUP_RELATION';
 
 export interface DynamicLookupRelationModelConfig extends DsDynamicInputModelConfig {
   value?: any;
+  repeatable: boolean;
 }
 
 export class DynamicLookupRelationModel extends DsDynamicInputModel {
 
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_RELATION;
   @serializable() value: any[];
+  @serializable() repeatable: boolean;
 
   constructor(config: DynamicLookupRelationModelConfig, layout?: DynamicFormControlLayout) {
 
@@ -18,6 +20,7 @@ export class DynamicLookupRelationModel extends DsDynamicInputModel {
 
     this.readOnly = true;
     this.disabled = true;
+    this.repeatable = config.repeatable;
     this.valueUpdates.next(config.value);
   }
 }

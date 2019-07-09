@@ -97,7 +97,6 @@ import { EndpointMockingRestService } from './dspace-rest-v2/endpoint-mocking-re
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
-  console.log('REST SERVICE FACTORY');
   if (ENV_CONFIG.production) {
     return new DSpaceRESTv2Service(http);
   } else {

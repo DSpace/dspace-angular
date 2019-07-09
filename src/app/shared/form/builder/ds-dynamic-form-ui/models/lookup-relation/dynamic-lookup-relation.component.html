@@ -1,7 +1,7 @@
+<script src="dynamic-lookup-relation.component.ts"></script>
 <div>
-    <div class="form-row align-items-center">
-        <!--Simple lookup, first field -->
-        <div class="col right-addon">
+    <div *ngIf="model.repeatable || !model.value" class="form-row align-items-center">
+        <div class="col">
             <input class="form-control"
                    [class.is-invalid]="showErrorMessages"
                    [value]="modalValuesString"
@@ -9,14 +9,6 @@
                    [type]="model.inputType"
                    [placeholder]="model.placeholder | translate"
                    [readonly]="model.readOnly">
-            <ng-container *ngFor="let value of model.value">
-                <input [dynamicId]="bindId && model.id"
-                       [name]="model.name"
-                       type="hidden"
-                       [ngModel]="value.uuid"
-                       [disabled]="true"
-                       [readonly]="true">
-            </ng-container>
         </div>
         <div class="col-auto text-center">
             <button class="btn btn-secondary"
@@ -30,10 +22,28 @@
             <button class="btn btn-secondary"
                     type="button"
                     ngbTooltip="{{'form.add-help' | translate}}"
+                    #tooltip = ngbTooltip
                     placement="top"
-                    [disabled]="!hasEmptyValue()"
-                    (click)="alert('add'); $event.stopPropagation();">{{'form.add' | translate}}
+                    [disabled]="!hasResultsSelected()"
+                    (click)="add(); tooltip.close(); $event.stopPropagation();">{{'form.add' | translate}}
             </button>
         </div>
+    </div>
+    <div class="mt-3">
+        <ul class="list-unstyled">
+            <li *ngFor="let value of model.value">
+                <button type="button" class="close float-left" aria-label="Close button"
+                        (click)="removeSelection(value.uuid)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span class="d-inline-block align-middle ml-1">{{value.name}}</span>
+                <input [dynamicId]="bindId && model.id"
+                           [name]="model.name"
+                           type="hidden"
+                           [ngModel]="value.uuid"
+                           [disabled]="true"
+                           [readonly]="true">
+            </li>
+        </ul>
     </div>
 </div>

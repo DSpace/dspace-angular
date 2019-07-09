@@ -28,24 +28,32 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   fieldName: string;
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
   searchConfig: PaginatedSearchOptions;
-  repeatable: boolean = true;
+  repeatable: boolean;
   selection: DSpaceObject[] = [];
   allSelected = false;
-
-  constructor(protected modal: NgbActiveModal, private searchService: SearchService) {
+  queryInput;
+  searchQuery;
+  initialPagination = Object.assign(new PaginationComponentOptions(), {
+    id: 'submission-relation-list',
+    pageSize: 5
+  });;
+  constructor(public modal: NgbActiveModal, private searchService: SearchService) {
   }
 
   ngOnInit(): void {
     this.fieldName = this.relationKey.substring(RELATION_TYPE_METADATA_PREFIX.length);
-    const pagination = Object.assign(new PaginationComponentOptions(), {
-      id: 'submission-relation-list',
-      pageSize: 5
-    });
-    this.onPaginationChange(pagination);
+    this.onPaginationChange(this.initialPagination);
+  }
+
+  search() {
+    this.searchQuery = this.queryInput;
+    this.onPaginationChange(this.initialPagination);
+    this.deselectAll();
   }
 
   onPaginationChange(pagination: PaginationComponentOptions) {
     this.searchConfig = new PaginatedSearchOptions({
+      query: this.searchQuery,
       pagination: pagination,
       fixedFilter: RELATION_TYPE_FILTER_PREFIX + this.fieldName
     });
@@ -105,6 +113,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   selectAll() {
     this.allSelected = true;
     const fullPagination = Object.assign(new PaginationComponentOptions(), {
+      query: this.searchQuery,
       currentPage: 1,
       pageSize: Number.POSITIVE_INFINITY
     });

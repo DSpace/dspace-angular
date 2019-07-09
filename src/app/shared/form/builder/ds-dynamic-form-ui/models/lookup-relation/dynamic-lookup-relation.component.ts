@@ -11,11 +11,9 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { DynamicLookupRelationModel } from './dynamic-lookup-relation.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
-import { RelationshipService } from '../../../../../../core/data/relationship.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation',
-  // styleUrls: ['./dynamic-lookup-relation.component.scss'],
   templateUrl: './dynamic-lookup-relation.component.html'
 })
 export class DsDynamicLookupRelationComponent extends DynamicFormControlComponent implements OnInit {
@@ -30,34 +28,44 @@ export class DsDynamicLookupRelationComponent extends DynamicFormControlComponen
 
   modalRef: NgbModalRef;
   modalValuesString = '';
-  currentObjects;
+  selectedResults: DSpaceObject[];
 
   constructor(private modalService: NgbModal,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              private relationshipService: RelationshipService
   ) {
     super(layoutService, validationService);
   }
 
   ngOnInit(): void {
-    this.currentObjects = this.relationshipService.getItemRelationshipLabels();
   }
 
-  public hasEmptyValue() {
-    return isNotEmpty(this.model.value);
+  public hasResultsSelected() {
+    return isNotEmpty(this.selectedResults);
   }
 
   openLookup() {
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent);
+    this.modalRef.componentInstance.repeatable = this.model.repeatable;
     this.modalRef.componentInstance.relationKey = this.model.name;
     this.modalRef.result.then((resultList) => {
-      this.model.value = resultList;
+      this.selectedResults = resultList;
       this.modalValuesString = resultList.map((dso: DSpaceObject) => dso.name).join('; ');
     });
   }
 
-  alert(t: string) {
-    alert(t);
+  add() {
+    if (isNotEmpty(this.model.value)) {
+      this.model.value = [...this.model.value, ...this.selectedResults];
+    } else {
+      this.model.value = this.selectedResults;
+    }
+
+    this.modalValuesString = '';
+    this.selectedResults = [];
+  }
+
+  removeSelection(uuid: string) {
+    this.model.value = this.model.value.filter((dso: DSpaceObject) => dso.uuid !== uuid);
   }
 }

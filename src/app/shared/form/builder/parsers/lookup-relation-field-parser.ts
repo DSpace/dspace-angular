@@ -1,5 +1,8 @@
 import { FieldParser } from './field-parser';
-import { DynamicLookupModel, DynamicLookupModelConfig } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
+import {
+  DynamicLookupModel,
+  DynamicLookupModelConfig
+} from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import {
   DynamicLookupRelationModel,
@@ -9,9 +12,9 @@ import {
 export class LookupRelationFieldParser extends FieldParser {
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
-      const lookupModelConfig: DynamicLookupRelationModelConfig = this.initModel(null, label);
+    const lookupModelConfig: DynamicLookupRelationModelConfig = this.initModel(null, label);
+    lookupModelConfig.repeatable = this.configData.repeatable;
 
-
-      return new DynamicLookupRelationModel(lookupModelConfig);
+    return new DynamicLookupRelationModel(lookupModelConfig);
   }
 }

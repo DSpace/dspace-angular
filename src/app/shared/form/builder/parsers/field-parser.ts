@@ -27,6 +27,7 @@ export abstract class FieldParser {
       && (this.configData.input.type !== 'list')
       && (this.configData.input.type !== 'tag')
       && (this.configData.input.type !== 'group')
+      && (this.configData.input.type !== 'lookup-relation')
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;

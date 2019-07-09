@@ -6,8 +6,14 @@
     </button>
 </div>
 <div class="modal-body" *ngVar="(resultsRD$ | async) as resultsRD">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search query" [(ngModel)]="queryInput">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="search()">Go</button>
+        </div>
+    </div>
     <ds-loading *ngIf="!resultsRD || resultsRD.isLoading"></ds-loading>
-    <div *ngIf="resultsRD.hasSucceeded">
+    <div *ngIf="resultsRD?.hasSucceeded && resultsRD.payload.page.length > 0">
         <div *ngIf="repeatable">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -76,6 +82,9 @@
                 </label>
             </div>
         </ds-pagination>
+    </div>
+    <div *ngIf="resultsRD?.hasSucceeded && resultsRD.payload.page.length === 0">
+        {{ 'form.no-results' | translate}}
     </div>
 </div>
 <div class="modal-footer">
