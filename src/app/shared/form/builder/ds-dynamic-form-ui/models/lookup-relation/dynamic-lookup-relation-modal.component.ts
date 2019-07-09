@@ -29,6 +29,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   searchConfig: PaginatedSearchOptions;
   repeatable: boolean;
   selection: DSpaceObject[] = [];
+  previousSelection: DSpaceObject[] = [];
   allSelected = false;
   searchQuery;
   initialPagination = Object.assign(new PaginationComponentOptions(), {
@@ -75,7 +76,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   }
 
   isSelected(dso: DSpaceObject): boolean {
-    return hasValue(this.selection.find((selected) => selected.uuid === dso.uuid));
+    const completeSelection = [...this.selection, ...this.previousSelection];
+    return hasValue(completeSelection.find((selected) => selected.uuid === dso.uuid));
+  }
+
+  isDisabled(dso: DSpaceObject): boolean {
+    return hasValue(this.previousSelection.find((selected) => selected.uuid === dso.uuid));
   }
 
   selectCheckbox(value: boolean, dso: DSpaceObject) {
@@ -98,7 +104,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   selectPage(page: SearchResult<DSpaceObject>[]) {
     const newObjects: DSpaceObject[] = page
       .map((searchResult) => searchResult.indexableObject)
-      .filter((dso) => hasNoValue(this.selection.find((selected) => selected.uuid === dso.uuid)));
+      .filter((dso) => hasNoValue(this.selection.find((selected) => selected.uuid === dso.uuid)))
+      .filter((dso) => hasNoValue(this.previousSelection.find((object) => object.uuid === dso.uuid)));
     this.selection = [...this.selection, ...newObjects]
   }
 
@@ -119,11 +126,13 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     const fullSearchConfig = Object.assign(this.searchConfig, { pagination: fullPagination });
     const results = this.searchService.search(fullSearchConfig);
     results.pipe(
-        getSucceededRemoteData(),
-        map((resultsRD) => resultsRD.payload.page)
-      )
+      getSucceededRemoteData(),
+      map((resultsRD) => resultsRD.payload.page)
+    )
       .subscribe((results) =>
-        this.selection = [...this.selection, ...results.map((searchResult) => searchResult.indexableObject)]
+        this.selection = results
+          .map((searchResult) => searchResult.indexableObject)
+          .filter((dso) => hasNoValue(this.previousSelection.find((object) => object.uuid === dso.uuid)))
       );
   }
 

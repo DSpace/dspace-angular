@@ -6,8 +6,9 @@
     </button>
 </div>
 <div class="modal-body" *ngVar="(resultsRD$ | async) as resultsRD">
-    <form class="input-group mb-3" #queryForm="ngForm" (ngSubmit)="search(queryForm.value.query)" >
-        <input type="text" class="form-control" name="query" placeholder="Search query" [ngModel]="searchQuery">
+    <form class="input-group mb-3" #queryForm="ngForm" (ngSubmit)="search(queryForm.value.query)">
+        <input type="text" class="form-control" name="query" placeholder="Search query"
+               [ngModel]="searchQuery">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="submit">Go</button>
         </div>
@@ -25,16 +26,13 @@
                         -->
                         <input *ngIf="!isAllSelected() && !isSomeSelected()" type="checkbox"
                                [indeterminate]="false"
-                               (change)="selectAll()"
-                        >
+                               (change)="selectAll()">
                         <input *ngIf="!isAllSelected() && isSomeSelected()" type="checkbox"
                                [indeterminate]="true"
-                               (change)="deselectAll()"
-                        >
+                               (change)="deselectAll()">
                         <input *ngIf="isAllSelected()" type="checkbox"
                                [checked]="true"
-                               (change)="deselectAll()"
-                        >
+                               (change)="deselectAll()">
                     </div>
                 </div>
                 <div ngbDropdown class="input-group-append">
@@ -69,6 +67,7 @@
                        [name]="'checkbox' + i"
                        [id]="'object'+i"
                        [checked]="isSelected(result.indexableObject)"
+                       [disabled]="isDisabled(result.indexableObject)"
                        (change)="selectCheckbox($event.currentTarget.checked, result.indexableObject)">
                 <input *ngIf="!repeatable" class="form-check-input" type="radio"
                        [name]="'radio' + i"

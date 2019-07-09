@@ -47,6 +47,8 @@ export class DsDynamicLookupRelationComponent extends DynamicFormControlComponen
   openLookup() {
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent);
     this.modalRef.componentInstance.repeatable = this.model.repeatable;
+    this.modalRef.componentInstance.selection = this.selectedResults || [];
+    this.modalRef.componentInstance.previousSelection = this.model.value || [];
     this.modalRef.componentInstance.relationKey = this.model.name;
     this.modalRef.result.then((resultList) => {
       this.selectedResults = resultList;
