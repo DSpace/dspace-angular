@@ -6,12 +6,12 @@
     </button>
 </div>
 <div class="modal-body" *ngVar="(resultsRD$ | async) as resultsRD">
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search query" [(ngModel)]="queryInput">
+    <form class="input-group mb-3" #queryForm="ngForm" (ngSubmit)="search(queryForm.value.query)" >
+        <input type="text" class="form-control" name="query" placeholder="Search query" [ngModel]="searchQuery">
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" (click)="search()">Go</button>
+            <button class="btn btn-outline-secondary" type="submit">Go</button>
         </div>
-    </div>
+    </form>
     <ds-loading *ngIf="!resultsRD || resultsRD.isLoading"></ds-loading>
     <div *ngIf="resultsRD?.hasSucceeded && resultsRD.payload.page.length > 0">
         <div *ngIf="repeatable">

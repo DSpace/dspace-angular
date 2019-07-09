@@ -30,12 +30,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   repeatable: boolean;
   selection: DSpaceObject[] = [];
   allSelected = false;
-  queryInput;
   searchQuery;
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 5
   });
+
   constructor(public modal: NgbActiveModal, private searchService: SearchService) {
   }
 
@@ -44,8 +44,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     this.onPaginationChange(this.initialPagination);
   }
 
-  search() {
-    this.searchQuery = this.queryInput;
+  search(query: string) {
+    this.searchQuery = query;
     this.onPaginationChange(this.initialPagination);
     this.deselectAll();
   }
