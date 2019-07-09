@@ -8,6 +8,7 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
 import { DSpaceRESTv2Service, HttpOptions } from './dspace-rest-v2.service';
 import { MOCK_RESPONSE_MAP, MockResponseMap } from './mocks/mock-response-map';
+import { URL } from "url";
 
 /**
  * Service to access DSpace's REST API.
@@ -39,7 +40,6 @@ export class EndpointMockingRestService extends DSpaceRESTv2Service {
   get(absoluteURL: string): Observable<DSpaceRESTV2Response> {
     const mockData = this.getMockData(absoluteURL);
     if (isEmpty(mockData)) {
-      console.log(absoluteURL);
       return super.get(absoluteURL);
     } else {
       return this.toMockResponse$(mockData);
