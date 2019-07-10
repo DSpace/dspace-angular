@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
-import { isNotUndefined } from '../../empty.util';
+import { isNotEmpty, isNotUndefined } from '../../empty.util';
 import { first, map } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { DataService } from '../../../core/data/data.service';
@@ -13,41 +13,48 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
  */
 @Component({
   selector: 'ds-edit-comcol',
-  template: ''
+  templateUrl: './edit-comcol-page.component.html'
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
-   * Frontend endpoint for this type of DSO
+   * The type of DSpaceObject (used to create i18n messages)
    */
-  protected frontendURL: string;
+  protected type: string;
+
   /**
-   * The initial DSO object
+   * The current page outlet string
    */
+  public currentPage: string;
+
+  /**
+   * All possible page outlet strings
+   */
+  public pages: string[];
+
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
   public constructor(
-    protected dsoDataService: DataService<TDomain>,
     protected router: Router,
     protected route: ActivatedRoute
   ) {
+    this.router.events.subscribe(() => {
+      this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
+    });
   }
 
   ngOnInit(): void {
+    this.pages = this.route.routeConfig.children
+      .map((child: any) => child.path)
+      .filter((path: string) => isNotEmpty(path)); // ignore reroutes
     this.dsoRD$ = this.route.data.pipe(first(), map((data) => data.dso));
   }
 
   /**
-   * @param {TDomain} dso The updated version of the DSO
-   * Updates an existing DSO based on the submitted user data and navigates to the edited object's home page
+   * Get the dso's page url
+   * This method is expected to be overridden in the edit community/collection page components
+   * @param dso The DSpaceObject for which the url is requested
    */
-  onSubmit(dso: TDomain) {
-    this.dsoDataService.update(dso)
-      .pipe(getSucceededRemoteData())
-      .subscribe((dsoRD: RemoteData<TDomain>) => {
-        if (isNotUndefined(dsoRD)) {
-          const newUUID = dsoRD.payload.uuid;
-          this.router.navigate([this.frontendURL + newUUID]);
-        }
-      });
+  getPageUrl(dso: TDomain): string {
+    return this.router.url;
   }
 }

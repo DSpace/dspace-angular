@@ -30,7 +30,26 @@
     },
     "edit": {
       "head": "Edit Collection",
-      "delete": "Delete this collection"
+      "delete": "Delete this collection",
+      "tabs": {
+        "metadata": {
+          "title": "Collection Edit - Metadata",
+          "head": "Edit Metadata"
+        },
+        "roles": {
+          "title": "Collection Edit - Roles",
+          "head": "Assign Roles"
+        },
+        "source": {
+          "title": "Collection Edit - Content Source",
+          "head": "Content Source"
+        },
+        "curate": {
+          "title": "Collection Edit - Curate",
+          "head": "Curate"
+        }
+      },
+      "return": "Return"
     },
     "create": {
       "head": "Create a Collection",
@@ -72,7 +91,22 @@
     },
     "edit": {
       "head": "Edit Community",
-      "delete": "Delete this community"
+      "delete": "Delete this community",
+      "tabs": {
+        "metadata": {
+          "title": "Community Edit - Metadata",
+          "head": "Edit Metadata"
+        },
+        "roles": {
+          "title": "Community Edit - Roles",
+          "head": "Assign Roles"
+        },
+        "curate": {
+          "title": "Community Edit - Curate",
+          "head": "Curate"
+        }
+      },
+      "return": "Return"
     },
     "create": {
       "head": "Create a Community",

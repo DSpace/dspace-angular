@@ -9,7 +9,6 @@ import { CommunityPageRoutingModule } from './community-page-routing.module';
 import {CommunityPageSubCommunityListComponent} from './sub-community-list/community-page-sub-community-list.component';
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
 import { CommunityFormComponent } from './community-form/community-form.component';
-import { EditCommunityPageComponent } from './edit-community-page/edit-community-page.component';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 
 @NgModule({
@@ -23,8 +22,10 @@ import { DeleteCommunityPageComponent } from './delete-community-page/delete-com
     CommunityPageSubCollectionListComponent,
     CommunityPageSubCommunityListComponent,
     CreateCommunityPageComponent,
-    EditCommunityPageComponent,
     DeleteCommunityPageComponent,
+    CommunityFormComponent
+  ],
+  exports: [
     CommunityFormComponent
   ]
 })

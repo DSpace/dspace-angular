@@ -139,6 +139,7 @@ import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import { AbstractTrackableComponent } from './trackable/abstract-trackable.component';
+import { ComcolMetadataComponent } from './comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -259,7 +260,8 @@ const COMPONENTS = [
   TypedItemSearchResultListElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent,
-  AbstractTrackableComponent
+  AbstractTrackableComponent,
+  ComcolMetadataComponent
 ];
 
 const ENTRY_COMPONENTS = [
