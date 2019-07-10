@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { SearchFixedFilterService } from '../../../../core/shared/search/search-fixed-filter.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { of } from 'rxjs/internal/observable/of';
 

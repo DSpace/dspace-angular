@@ -1,7 +1,7 @@
 import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
-import { SearchResult } from '../../../+search-page/search-result.model';
+import { SearchResult } from '../../search/search-result.model';
 import { MyDSpaceConfigurationValueType } from '../../../+my-dspace-page/my-dspace-configuration-value-type';
-import { searchResultFor } from '../../../+search-page/search-service/search-result-element-decorator';
+import { searchResultFor } from '../../search/search-result-element-decorator';
 
 /**
  * Represents a search result object of a Workflowitem object

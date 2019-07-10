@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
-import { SearchResult } from '../../../../../../+search-page/search-result.model';
+import { SearchResult } from '../../../../../search/search-result.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Observable, ReplaySubject } from 'rxjs';
-import { SearchService } from '../../../../../../+search-page/search-service/search.service';
-import { PaginatedSearchOptions } from '../../../../../../+search-page/paginated-search-options.model';
+import { SearchService } from '../../../../../../core/shared/search/search.service';
+import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasNoValue, hasValue, isNotEmpty } from '../../../../../empty.util';
 import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
-import { concat, map, multicast, take, takeWhile } from 'rxjs/operators';
+import { concat, map, multicast, take, takeWhile, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 
 const RELATION_TYPE_FILTER_PREFIX = 'f.entityType=';
 
@@ -20,7 +23,13 @@ const RELATION_TYPE_METADATA_PREFIX = 'relation.isPublicationOf';
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
   styleUrls: ['./dynamic-lookup-relation-modal.component.scss'],
-  templateUrl: './dynamic-lookup-relation-modal.component.html'
+  templateUrl: './dynamic-lookup-relation-modal.component.html',
+  providers: [
+    {
+      provide: SEARCH_CONFIG_SERVICE,
+      useClass: SearchConfigurationService
+    }
+  ]
 })
 export class DsDynamicLookupRelationModalComponent implements OnInit {
   relationKey: string;
@@ -34,19 +43,22 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   searchQuery;
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
-    pageSize: 5
+    pageSize: 10
   });
+  selectAllLoading = false;
 
-  constructor(public modal: NgbActiveModal, private searchService: SearchService) {
+  constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.resetRoute();
     this.fieldName = this.relationKey.substring(RELATION_TYPE_METADATA_PREFIX.length);
     this.onPaginationChange(this.initialPagination);
   }
 
   search(query: string) {
     this.searchQuery = query;
+    this.resetRoute();
     this.onPaginationChange(this.initialPagination);
     this.deselectAll();
   }
@@ -118,6 +130,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
 
   selectAll() {
     this.allSelected = true;
+    this.selectAllLoading = true;
     const fullPagination = Object.assign(new PaginationComponentOptions(), {
       query: this.searchQuery,
       currentPage: 1,
@@ -127,7 +140,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     const results = this.searchService.search(fullSearchConfig);
     results.pipe(
       getSucceededRemoteData(),
-      map((resultsRD) => resultsRD.payload.page)
+      map((resultsRD) => resultsRD.payload.page),
+      tap(() => this.selectAllLoading = false)
     )
       .subscribe((results) =>
         this.selection = results
@@ -148,5 +162,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
 
   isSomeSelected() {
     return isNotEmpty(this.selection);
+  }
+
+  resetRoute() {
+    this.router.navigate([], {
+      queryParams: Object.assign({}, { page: 1, query: this.searchQuery }),
+    });
   }
 }

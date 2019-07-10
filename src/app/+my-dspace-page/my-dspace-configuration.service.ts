@@ -6,12 +6,12 @@ import { first, map } from 'rxjs/operators';
 
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 import { RoleService } from '../core/roles/role.service';
-import { SearchConfigurationOption } from '../+search-page/search-switch-configuration/search-configuration-option.model';
-import { SearchConfigurationService } from '../+search-page/search-service/search-configuration.service';
+import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { RouteService } from '../shared/services/route.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { SearchFixedFilterService } from '../core/shared/search/search-fixed-filter.service';
 
 /**
  * Service that performs all actions that have to do with the current mydspace configuration

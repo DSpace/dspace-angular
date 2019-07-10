@@ -80,7 +80,7 @@ import { NormalizedObjectBuildService } from './cache/builders/normalized-object
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
-import { SearchService } from '../+search-page/search-service/search.service';
+import { SearchService } from './shared/search/search.service';
 import { RelationshipService } from './data/relationship.service';
 import { RoleService } from './roles/role.service';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
@@ -95,6 +95,11 @@ import {
 } from './dspace-rest-v2/mocks/mock-response-map';
 import { EndpointMockingRestService } from './dspace-rest-v2/endpoint-mocking-rest.service';
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
+import { SearchSidebarService } from './shared/search/search-sidebar.service';
+import { SearchFilterService } from './shared/search/search-filter.service';
+import { SearchFixedFilterService } from './shared/search/search-fixed-filter.service';
+import { FilteredSearchPageGuard } from '../+search-page/filtered-search-page.guard';
+import { SearchConfigurationService } from './shared/search/search-configuration.service';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
   // if (ENV_CONFIG.production) {
@@ -193,6 +198,13 @@ const PROVIDERS = [
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  SearchService,
+  SearchSidebarService,
+  SearchFilterService,
+  SearchFixedFilterService,
+  FilteredSearchPageGuard,
+  SearchFilterService,
+  SearchConfigurationService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

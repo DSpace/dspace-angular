@@ -15,7 +15,7 @@ import { isNumeric } from 'rxjs/internal-compatibility';
 import { isEqual, isObject, transform } from 'lodash';
 
 import { HostWindowService } from '../host-window.service';
-import { HostWindowState } from '../host-window.reducer';
+import { HostWindowState } from '../search/host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue, isNotEmpty } from '../empty.util';
@@ -513,5 +513,4 @@ export class PaginationComponent implements OnDestroy, OnInit {
   get shouldShowBottomPager(): boolean {
     return this.hasMultiplePages || !this.hidePagerWhenSinglePage
   }
-
 }

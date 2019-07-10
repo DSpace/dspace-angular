@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../empty.util';
 

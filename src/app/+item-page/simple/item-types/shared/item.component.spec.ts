@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angula
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { isNotEmpty } from '../../../../shared/empty.util';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { SearchFixedFilterService } from '../../../../core/shared/search/search-fixed-filter.service';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';

@@ -140,7 +140,26 @@ import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import { DsDynamicLookupRelationModalComponent } from './form/builder/ds-dynamic-form-ui/models/lookup-relation/dynamic-lookup-relation-modal.component';
-import { SearchResultsComponent } from '../+search-page/search-results/search-results.component';
+import { SearchResultsComponent } from './search/search-results/search-results.component';
+import { SearchSidebarComponent } from './search/search-sidebar/search-sidebar.component';
+import { SearchSettingsComponent } from './search/search-settings/search-settings.component';
+import { ItemSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/item-search-result-grid-element.component';
+import { CollectionSearchResultGridElementComponent } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
+import { CommunitySearchResultGridElementComponent } from './object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
+import { SearchFiltersComponent } from './search/search-filters/search-filters.component';
+import { SearchFilterComponent } from './search/search-filters/search-filter/search-filter.component';
+import { SearchFacetFilterComponent } from './search/search-filters/search-filter/search-facet-filter/search-facet-filter.component';
+import { SearchLabelsComponent } from './search/search-labels/search-labels.component';
+import { SearchFacetFilterWrapperComponent } from './search/search-filters/search-filter/search-facet-filter-wrapper/search-facet-filter-wrapper.component';
+import { SearchRangeFilterComponent } from './search/search-filters/search-filter/search-range-filter/search-range-filter.component';
+import { SearchTextFilterComponent } from './search/search-filters/search-filter/search-text-filter/search-text-filter.component';
+import { SearchHierarchyFilterComponent } from './search/search-filters/search-filter/search-hierarchy-filter/search-hierarchy-filter.component';
+import { SearchBooleanFilterComponent } from './search/search-filters/search-filter/search-boolean-filter/search-boolean-filter.component';
+import { SearchFacetOptionComponent } from './search/search-filters/search-filter/search-facet-filter-options/search-facet-option/search-facet-option.component';
+import { SearchFacetSelectedOptionComponent } from './search/search-filters/search-filter/search-facet-filter-options/search-facet-selected-option/search-facet-selected-option.component';
+import { SearchFacetRangeOptionComponent } from './search/search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
+import { SearchSwitchConfigurationComponent } from './search/search-switch-configuration/search-switch-configuration.component';
+import { SearchAuthorityFilterComponent } from './search/search-filters/search-filter/search-authority-filter/search-authority-filter.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -263,7 +282,27 @@ const COMPONENTS = [
   TypedItemSearchResultListElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent,
-  SearchResultsComponent
+  SearchResultsComponent,
+  SearchSidebarComponent,
+  SearchSettingsComponent,
+  ItemSearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  SearchFiltersComponent,
+  SearchFilterComponent,
+  SearchFacetFilterComponent,
+  SearchLabelsComponent,
+  SearchFacetFilterComponent,
+  SearchFacetFilterWrapperComponent,
+  SearchRangeFilterComponent,
+  SearchTextFilterComponent,
+  SearchHierarchyFilterComponent,
+  SearchBooleanFilterComponent,
+  SearchFacetOptionComponent,
+  SearchFacetSelectedOptionComponent,
+  SearchFacetRangeOptionComponent,
+  SearchSwitchConfigurationComponent,
+  SearchAuthorityFilterComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -309,7 +348,19 @@ const ENTRY_COMPONENTS = [
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
-  SearchResultsComponent
+  SearchResultsComponent,
+  ItemSearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  SearchFacetFilterComponent,
+  SearchRangeFilterComponent,
+  SearchTextFilterComponent,
+  SearchHierarchyFilterComponent,
+  SearchBooleanFilterComponent,
+  SearchFacetOptionComponent,
+  SearchFacetSelectedOptionComponent,
+  SearchFacetRangeOptionComponent,
+  SearchAuthorityFilterComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

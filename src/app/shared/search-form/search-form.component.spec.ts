@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../core/shared/search/search.service';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;

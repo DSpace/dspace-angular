@@ -1,15 +1,15 @@
 import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
-import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
+import { hostWindowReducer, HostWindowState } from './shared/search/host-window.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
 import {
   SearchSidebarState,
   sidebarReducer
-} from './+search-page/search-sidebar/search-sidebar.reducer';
+} from './shared/search/search-sidebar/search-sidebar.reducer';
 import {
   filterReducer,
   SearchFiltersState
-} from './+search-page/search-filters/search-filter/search-filter.reducer';
+} from './shared/search/search-filters/search-filter/search-filter.reducer';
 import {
   notificationsReducer,
   NotificationsState

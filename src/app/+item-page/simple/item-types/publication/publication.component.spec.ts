@@ -5,7 +5,7 @@ import { GenericItemPageFieldComponent } from '../../field-components/specific-f
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { SearchFixedFilterService } from '../../../../core/shared/search/search-fixed-filter.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';

@@ -1,7 +1,7 @@
 import { FilteredSearchPageComponent } from './filtered-search-page.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { configureSearchComponentTestingModule } from './search-page.component.spec';
-import { SearchConfigurationService } from './search-service/search-configuration.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 
 describe('FilteredSearchPageComponent', () => {
   let comp: FilteredSearchPageComponent;

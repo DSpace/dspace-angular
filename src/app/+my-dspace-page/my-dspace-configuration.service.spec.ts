@@ -1,10 +1,10 @@
 import { of as observableOf } from 'rxjs';
 
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
-import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
+import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
-import { SearchFilter } from '../+search-page/search-filter.model';
+import { SearchFilter } from '../shared/search/search-filter.model';
 import { ActivatedRouteStub } from '../shared/testing/active-router-stub';
 import { MockRoleService } from '../shared/mocks/mock-role-service';
 import { cold, hot } from 'jasmine-marbles';

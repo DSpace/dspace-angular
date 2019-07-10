@@ -64,11 +64,6 @@ export class RelationshipService {
     );
   }
 
-  /**
-   * Send a post request for a relationship by ID
-   * @param item1
-   * @param item2
-   */
   addRelationship(item1: Item, item2: Item): Observable<RestResponse> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),

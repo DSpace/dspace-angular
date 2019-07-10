@@ -18,7 +18,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 
 import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
-import { HostWindowState } from './shared/host-window.reducer';
+import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
 import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';

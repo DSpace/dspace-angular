@@ -4,7 +4,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { MyDSpaceResult } from '../my-dspace-result.model';
-import { SearchOptions } from '../../+search-page/search-options.model';
+import { SearchOptions } from '../../shared/search/search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../../shared/empty.util';

@@ -4,7 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { SearchFixedFilterService } from '../../../../core/shared/search/search-fixed-filter.service';
 import { Item } from '../../../../core/shared/item.model';
 
 describe('RelatedEntitiesSearchComponent', () => {

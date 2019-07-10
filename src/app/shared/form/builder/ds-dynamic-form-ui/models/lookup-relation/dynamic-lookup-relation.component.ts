@@ -11,6 +11,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { DynamicLookupRelationModel } from './dynamic-lookup-relation.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
+import { RelationshipService } from '../../../../../../core/data/relationship.service';
+import { Item } from '../../../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation',
@@ -28,11 +30,12 @@ export class DsDynamicLookupRelationComponent extends DynamicFormControlComponen
 
   modalRef: NgbModalRef;
   modalValuesString = '';
-  selectedResults: DSpaceObject[];
+  selectedResults: Item[];
 
   constructor(private modalService: NgbModal,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              private relationService: RelationshipService
   ) {
     super(layoutService, validationService);
   }
@@ -45,7 +48,7 @@ export class DsDynamicLookupRelationComponent extends DynamicFormControlComponen
   }
 
   openLookup() {
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent);
+    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
     this.modalRef.componentInstance.repeatable = this.model.repeatable;
     this.modalRef.componentInstance.selection = this.selectedResults || [];
     this.modalRef.componentInstance.previousSelection = this.model.value || [];
@@ -65,6 +68,9 @@ export class DsDynamicLookupRelationComponent extends DynamicFormControlComponen
 
     this.modalValuesString = '';
     this.selectedResults = [];
+    this.selectedResults.forEach((item: Item) => {
+      this.relationService.addRelationship(this.model.item, item);
+    })
   }
 
   removeSelection(uuid: string) {

@@ -1,5 +1,5 @@
 import { Component, InjectionToken, Injector, Input, OnInit } from '@angular/core';
-import { SearchResult } from '../../../+search-page/search-result.model';
+import { SearchResult } from '../../search/search-result.model';
 import { Item } from '../../../core/shared/item.model';
 import { hasValue } from '../../empty.util';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
