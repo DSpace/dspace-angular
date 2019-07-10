@@ -13,7 +13,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
  */
 @Component({
   selector: 'ds-edit-comcol',
-  templateUrl: './edit-comcol-page.component.html'
+  template: ''
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
@@ -31,6 +31,9 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
    */
   public pages: string[];
 
+  /**
+   * The DSO to render the edit page for
+   */
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
   public constructor(
