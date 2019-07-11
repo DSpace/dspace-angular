@@ -1039,7 +1039,8 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         data: {},
         errors: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
+        removePending: false
       } as any,
       collection: {
         config: '',
@@ -1054,7 +1055,8 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         data: {},
         errors: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
+        removePending: false
       } as any,
       traditionalpageone: {
         header: 'submit.progressbar.describe.stepone',
@@ -1066,7 +1068,8 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         data: {},
         errors: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
+        removePending: false
       } as any,
       traditionalpagetwo: {
         header: 'submit.progressbar.describe.steptwo',
@@ -1078,7 +1081,8 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         data: {},
         errors: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
+        removePending: false
       } as any,
       upload: {
         header: 'submit.progressbar.upload',
@@ -1092,7 +1096,8 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         },
         errors: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
+        removePending: false
       } as any,
       license: {
         header: 'submit.progressbar.license',
@@ -1108,7 +1113,8 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         data: {},
         errors: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
+        removePending: false
       } as any
     },
     isLoading: false,
@@ -1146,7 +1152,8 @@ export const mockSectionsState = Object.assign({}, {
     data: {},
     errors: [],
     isLoading: false,
-    isValid: false
+    isValid: false,
+    removePending: false
   } as any,
   traditionalpageone: {
     header: 'submit.progressbar.describe.stepone',
@@ -1158,7 +1165,8 @@ export const mockSectionsState = Object.assign({}, {
     data: {},
     errors: [],
     isLoading: false,
-    isValid: false
+    isValid: false,
+    removePending: false
   } as any,
   traditionalpagetwo: {
     header: 'submit.progressbar.describe.steptwo',
@@ -1170,7 +1178,8 @@ export const mockSectionsState = Object.assign({}, {
     data: {},
     errors: [],
     isLoading: false,
-    isValid: false
+    isValid: false,
+    removePending: false
   } as any,
   upload: {
     header: 'submit.progressbar.upload',
@@ -1182,7 +1191,8 @@ export const mockSectionsState = Object.assign({}, {
     data: {},
     errors: [],
     isLoading: false,
-    isValid: false
+    isValid: false,
+    removePending: false
   } as any,
   license: {
     header: 'submit.progressbar.license',
@@ -1198,7 +1208,8 @@ export const mockSectionsState = Object.assign({}, {
     data: {},
     errors: [],
     isLoading: false,
-    isValid: false
+    isValid: false,
+    removePending: false
   } as any
 });
 

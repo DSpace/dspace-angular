@@ -10,6 +10,7 @@ import {
   DepositSubmissionErrorAction,
   DepositSubmissionSuccessAction,
   DisableSectionAction,
+  DisableSectionErrorAction,
   EditFileDataAction,
   EnableSectionAction,
   InertSectionErrorsAction,
@@ -99,6 +100,11 @@ export interface SubmissionSectionObject {
    * A boolean representing if this section is loading
    */
   isLoading: boolean;
+
+  /**
+   * A boolean representing if this section removal is pending
+   */
+  removePending:boolean;
 
   /**
    * A boolean representing if this section is valid
@@ -267,7 +273,15 @@ export function submissionObjectReducer(state = initialState, action: Submission
     }
 
     case SubmissionObjectActionTypes.DISABLE_SECTION: {
+      return changeSectionRemoveState(state, action as DisableSectionAction, true);
+    }
+
+    case SubmissionObjectActionTypes.DISABLE_SECTION_SUCCESS: {
       return changeSectionState(state, action as DisableSectionAction, false);
+    }
+
+    case SubmissionObjectActionTypes.DISABLE_SECTION_ERROR: {
+      return changeSectionRemoveState(state, action as DisableSectionErrorAction, false);
     }
 
     case SubmissionObjectActionTypes.SECTION_STATUS_CHANGE: {
@@ -361,7 +375,7 @@ const addError = (state: SubmissionObjectState, action: InertSectionErrorsAction
  * @param state
  *    the current state
  * @param action
- *    an RemoveSectionErrorsAction
+ *    a RemoveSectionErrorsAction
  * @return SubmissionObjectState
  *    the new state, with the section's errors updated.
  */
@@ -416,7 +430,7 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
  * @param state
  *    the current state
  * @param action
- *    an ResetSubmissionFormAction
+ *    a ResetSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
@@ -439,7 +453,7 @@ function resetSubmission(state: SubmissionObjectState, action: ResetSubmissionFo
  * @param state
  *    the current state
  * @param action
- *    an CompleteInitSubmissionFormAction
+ *    a CompleteInitSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
@@ -461,7 +475,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
  * @param state
  *    the current state
  * @param action
- *    an SaveSubmissionFormAction | SaveSubmissionSectionFormAction
+ *    a SaveSubmissionFormAction | SaveSubmissionSectionFormAction
  *    | SaveForLaterSubmissionFormAction | SaveAndDepositSubmissionAction
  * @return SubmissionObjectState
  *    the new state, with the flag set to true.
@@ -491,7 +505,7 @@ function saveSubmission(state: SubmissionObjectState,
  * @param state
  *    the current state
  * @param action
- *    an SaveSubmissionFormSuccessAction | SaveForLaterSubmissionFormSuccessAction
+ *    a SaveSubmissionFormSuccessAction | SaveForLaterSubmissionFormSuccessAction
  *    | SaveSubmissionSectionFormSuccessAction | SaveSubmissionFormErrorAction
  *    | SaveForLaterSubmissionFormErrorAction | SaveSubmissionSectionFormErrorAction
  * @return SubmissionObjectState
@@ -521,7 +535,7 @@ function completeSave(state: SubmissionObjectState,
  * @param state
  *    the current state
  * @param action
- *    an DepositSubmissionAction
+ *    a DepositSubmissionAction
  * @return SubmissionObjectState
  *    the new state, with the deposit flag changed.
  */
@@ -544,7 +558,7 @@ function startDeposit(state: SubmissionObjectState, action: DepositSubmissionAct
  * @param state
  *    the current state
  * @param action
- *    an DepositSubmissionSuccessAction or DepositSubmissionErrorAction
+ *    a DepositSubmissionSuccessAction or a DepositSubmissionErrorAction
  * @return SubmissionObjectState
  *    the new state, with the deposit flag changed.
  */
@@ -586,7 +600,7 @@ function changeCollection(state: SubmissionObjectState, action: ChangeSubmission
  * @param state
  *    the current state
  * @param action
- *    an SetActiveSectionAction
+ *    a SetActiveSectionAction
  * @return SubmissionObjectState
  *    the new state, with the active section.
  */
@@ -631,7 +645,8 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             data: action.payload.data,
             errors: action.payload.errors || [],
             isLoading: false,
-            isValid: false
+            isValid: false,
+            removePending: false
           }
         })
       })
@@ -676,7 +691,7 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
  * @param state
  *    the current state
  * @param action
- *    an DisableSectionAction
+ *    a DisableSectionAction
  * @param enabled
  *    enabled or disabled section.
  * @return SubmissionObjectState
@@ -689,7 +704,38 @@ function changeSectionState(state: SubmissionObjectState, action: EnableSectionA
         // sections: deleteProperty(state[ action.payload.submissionId ].sections, action.payload.sectionId),
         sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
           [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
-            enabled
+            enabled,
+            data: (enabled) ? state[ action.payload.submissionId ].sections [ action.payload.sectionId ] : {},
+            removePending: false
+          })
+        })
+      })
+    });
+  } else {
+    return state;
+  }
+}
+
+/**
+ * Change removePending flag.
+ *
+ * @param state
+ *    the current state
+ * @param action
+ *    a DisableSectionAction or a DisableSectionErrorAction
+ * @param removePending
+ *    representing if remove operation is pending or not.
+ * @return SubmissionObjectState
+ *    the new state, with the section removed.
+ */
+function changeSectionRemoveState(state: SubmissionObjectState, action: DisableSectionAction | DisableSectionErrorAction, removePending: boolean): SubmissionObjectState {
+  if (hasValue(state[ action.payload.submissionId ].sections[ action.payload.sectionId ])) {
+    return Object.assign({}, state, {
+      [ action.payload.submissionId ]: Object.assign({}, state[ action.payload.submissionId ], {
+        // sections: deleteProperty(state[ action.payload.submissionId ].sections, action.payload.sectionId),
+        sections: Object.assign({}, state[ action.payload.submissionId ].sections, {
+          [ action.payload.sectionId ]: Object.assign({}, state[ action.payload.submissionId ].sections [ action.payload.sectionId ], {
+            removePending
           })
         })
       })
@@ -705,7 +751,7 @@ function changeSectionState(state: SubmissionObjectState, action: EnableSectionA
  * @param state
  *    the current state
  * @param action
- *    an SectionStatusChangeAction
+ *    a SectionStatusChangeAction
  * @return SubmissionObjectState
  *    the new state, with the section new validity status.
  */
@@ -769,7 +815,7 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
  * @param state
  *    the current state
  * @param action
- *    a EditFileDataAction action
+ *    an EditFileDataAction action
  * @return SubmissionObjectState
  *    the new state, with the edited file.
  */

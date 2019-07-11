@@ -9,6 +9,7 @@ import {
   DepositSubmissionErrorAction,
   DepositSubmissionSuccessAction,
   DisableSectionAction,
+  DisableSectionSuccessAction,
   DiscardSubmissionAction,
   DiscardSubmissionSuccessAction,
   EditFileDataAction,
@@ -22,7 +23,6 @@ import {
   SaveAndDepositSubmissionAction,
   SaveForLaterSubmissionFormAction,
   SaveForLaterSubmissionFormErrorAction,
-  SaveForLaterSubmissionFormSuccessAction,
   SaveSubmissionFormAction,
   SaveSubmissionFormErrorAction,
   SaveSubmissionFormSuccessAction,
@@ -64,7 +64,7 @@ describe('submissionReducer test suite', () => {
         sections: Object.create(null),
         isLoading: true,
         savePending: false,
-        depositPending: false,
+        depositPending: false
       }
     };
 
@@ -239,7 +239,8 @@ describe('submissionReducer test suite', () => {
       data: {},
       errors: [],
       isLoading: false,
-      isValid: false
+      isValid: false,
+      removePending: false
     } as any;
 
     let action: any = new InitSubmissionFormAction(collectionId, submissionId, selfUrl, submissionDefinition, {}, []);
@@ -271,7 +272,7 @@ describe('submissionReducer test suite', () => {
     expect(newState[826].sections.traditionalpagetwo.enabled).toBeTruthy();
   });
 
-  it('should enable submission section properly', () => {
+  it('should disable submission section properly', () => {
 
     let action = new EnableSectionAction(submissionId, 'traditionalpagetwo');
     let newState = submissionObjectReducer(initState, action);
@@ -279,6 +280,13 @@ describe('submissionReducer test suite', () => {
     action = new DisableSectionAction(submissionId, 'traditionalpagetwo');
     newState = submissionObjectReducer(newState, action);
 
+    expect(newState[826].sections.traditionalpagetwo.removePending).toBeTruthy();
+    expect(newState[826].sections.traditionalpagetwo.enabled).toBeTruthy();
+
+    action = new DisableSectionSuccessAction(submissionId, 'traditionalpagetwo');
+    newState = submissionObjectReducer(newState, action);
+
+    expect(newState[826].sections.traditionalpagetwo.removePending).toBeFalsy();
     expect(newState[826].sections.traditionalpagetwo.enabled).toBeFalsy();
   });
 
