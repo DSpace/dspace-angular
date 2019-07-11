@@ -100,6 +100,7 @@ import { SearchFilterService } from './shared/search/search-filter.service';
 import { SearchFixedFilterService } from './shared/search/search-fixed-filter.service';
 import { FilteredSearchPageGuard } from '../+search-page/filtered-search-page.guard';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
+import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
   // if (ENV_CONFIG.production) {
@@ -205,6 +206,7 @@ const PROVIDERS = [
   FilteredSearchPageGuard,
   SearchFilterService,
   SearchConfigurationService,
+  SelectableListService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

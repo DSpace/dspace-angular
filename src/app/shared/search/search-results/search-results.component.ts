@@ -55,6 +55,9 @@ export class SearchResultsComponent {
    */
   @Input() disableHeader = false;
 
+  @Input() selectable = false;
+
+  @Input() selectionConfig: {repeatable: boolean, listId: string};
   /**
    * Get the i18n key for the title depending on the fixed filter
    * Defaults to 'search.results.head' if there's no fixed filter found

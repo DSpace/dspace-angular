@@ -23,6 +23,10 @@ import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 import { menusReducer, MenusState } from './shared/menu/menu.reducer';
 import { historyReducer, HistoryState } from './shared/history/history.reducer';
+import {
+  selectableListReducer,
+  SelectableListsState
+} from './shared/object-list/selectable-list/selectable-list.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -36,6 +40,7 @@ export interface AppState {
   truncatable: TruncatablesState;
   cssVariables: CSSVariablesState;
   menus: MenusState;
+  selectableLists: SelectableListsState
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -50,6 +55,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   truncatable: truncatableReducer,
   cssVariables: cssVariablesReducer,
   menus: menusReducer,
+  selectableLists: selectableListReducer
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

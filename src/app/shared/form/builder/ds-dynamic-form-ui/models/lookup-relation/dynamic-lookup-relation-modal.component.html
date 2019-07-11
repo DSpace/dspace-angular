@@ -5,111 +5,114 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="search-page">
-    <div class="modal-body" *ngVar="(resultsRD$ | async) as resultsRD">
-        <div class="row">
-            <ds-search-sidebar class="col-4" id="search-sidebar"
-                               [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
-                               [inPlaceSearch]="true"></ds-search-sidebar>
-            <div class="col-8">
-                <form class="input-group mb-3" #queryForm="ngForm"
-                      (ngSubmit)="search(queryForm.value.query)">
-                    <input type="text" class="form-control" name="query" placeholder="Search query"
-                           [ngModel]="searchQuery">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">Go</button>
-                    </div>
-                </form>
-                <ds-loading *ngIf="!resultsRD || resultsRD.isLoading"></ds-loading>
-                <div *ngIf="resultsRD?.hasSucceeded && resultsRD.payload.page.length > 0">
-                    <div *ngIf="repeatable">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <!-- In theory we don't need separate checkboxes for this,
-                                    but I wasn't able to get this to work correctly without them.
-                                    Checkboxes that are in the indeterminate state always switch to checked when clicked
-                                    This seemed like the cleanest and clearest solution to solve this issue for now.
-                                    -->
-                                    <input *ngIf="!isAllSelected() && !isSomeSelected()"
-                                           type="checkbox"
-                                           [indeterminate]="false"
-                                           (change)="selectAll()">
-                                    <input *ngIf="!isAllSelected() && isSomeSelected()"
-                                           type="checkbox"
-                                           [indeterminate]="true"
-                                           (change)="deselectAll()">
-                                    <input *ngIf="isAllSelected()" type="checkbox"
-                                           [checked]="true"
-                                           (change)="deselectAll()">
-                                </div>
-                            </div>
-                            <button *ngIf="selectAllLoading" type="button"
-                                    class="btn btn-outline-secondary">
-                            <span class="spinner-border spinner-border-sm" role="status"
-                                  aria-hidden="true"></span>
-                                <span class="sr-only">Loading...</span>
-                            </button>
-                            <div ngbDropdown class="input-group-append">
-                                <button *ngIf="!selectAllLoading" id="resultdropdown" type="button"
-                                        ngbDropdownToggle
-                                        class="btn btn-outline-secondary dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
+<div class="modal-body" *ngVar="(resultsRD$ | async) as resultsRD">
+    <div class="row">
+        <ds-search-sidebar class="col-4" id="search-sidebar"
+                           [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
+                           [inPlaceSearch]="true"></ds-search-sidebar>
+        <div class="col-8">
+            <form class="input-group mb-3" #queryForm="ngForm"
+                  (ngSubmit)="search(queryForm.value.query)">
+                <input type="text" class="form-control" name="query" placeholder="Search query"
+                       [ngModel]="searchQuery">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Go</button>
+                </div>
+            </form>
+            <ds-search-results [searchResults]="resultsRD" [sortConfig]="this.searchConfig.sort"
+                               [searchConfig]="this.searchConfig"
+                               [selectable]="true"
+                               [selectionConfig]="{ repeatable: repeatable, listId: listId }">
+            </ds-search-results>
+            <!--<ds-loading *ngIf="!resultsRD || resultsRD.isLoading"></ds-loading>-->
+            <!--<div *ngIf="resultsRD?.hasSucceeded && resultsRD.payload.page.length > 0">-->
+            <!--<div *ngIf="repeatable">-->
+            <!--<div class="input-group mb-3">-->
+            <!--<div class="input-group-prepend">-->
+            <!--<div class="input-group-text">-->
+            <!--&lt;!&ndash; In theory we don't need separate checkboxes for this,-->
+            <!--but I wasn't able to get this to work correctly without them.-->
+            <!--Checkboxes that are in the indeterminate state always switch to checked when clicked-->
+            <!--This seemed like the cleanest and clearest solution to solve this issue for now.-->
+            <!--&ndash;&gt;-->
+            <!--<input *ngIf="!isAllSelected() && !isSomeSelected()"-->
+            <!--type="checkbox"-->
+            <!--[indeterminate]="false"-->
+            <!--(change)="selectAll()">-->
+            <!--<input *ngIf="!isAllSelected() && isSomeSelected()"-->
+            <!--type="checkbox"-->
+            <!--[indeterminate]="true"-->
+            <!--(change)="deselectAll()">-->
+            <!--<input *ngIf="isAllSelected()" type="checkbox"-->
+            <!--[checked]="true"-->
+            <!--(change)="deselectAll()">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<button *ngIf="selectAllLoading" type="button"-->
+            <!--class="btn btn-outline-secondary">-->
+            <!--<span class="spinner-border spinner-border-sm" role="status"-->
+            <!--aria-hidden="true"></span>-->
+            <!--<span class="sr-only">Loading...</span>-->
+            <!--</button>-->
+            <!--<div ngbDropdown class="input-group-append">-->
+            <!--<button *ngIf="!selectAllLoading" id="resultdropdown" type="button"-->
+            <!--ngbDropdownToggle-->
+            <!--class="btn btn-outline-secondary dropdown-toggle-split"-->
+            <!--data-toggle="dropdown" aria-haspopup="true"-->
+            <!--aria-expanded="false">-->
+            <!--<span class="sr-only">Toggle Dropdown</span>-->
+            <!--</button>-->
 
-                                <div ngbDropdownMenu aria-labelledby="resultdropdown">
-                                    <button class="dropdown-item"
-                                            (click)="selectPage(resultsRD?.payload?.page)">Select
-                                        page
-                                    </button>
-                                    <button class="dropdown-item"
-                                            (click)="deselectPage(resultsRD?.payload?.page)">
-                                        Deselect
-                                        page
-                                    </button>
-                                    <button class="dropdown-item" (click)="selectAll()">Select all
-                                    </button>
-                                    <button class="dropdown-item" (click)="deselectAll()">Deselect
-                                        all
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <ds-pagination
-                            [paginationOptions]="searchConfig.pagination"
-                            [collectionSize]="resultsRD?.payload?.totalElements"
-                            [sortOptions]="searchConfig.sort"
-                            [hideGear]="true"
-                            [hidePagerWhenSinglePage]="true"
-                            (paginationChange)="onPaginationChange($event.pagination)">
-                        <div class="form-check"
-                             *ngFor="let result of resultsRD?.payload?.page; let i = index">
-                            <input *ngIf="repeatable" class="form-check-input" type="checkbox"
-                                   [name]="'checkbox' + i"
-                                   [id]="'object'+i"
-                                   [checked]="isSelected(result.indexableObject)"
-                                   [disabled]="isDisabled(result.indexableObject)"
-                                   (change)="selectCheckbox($event.currentTarget.checked, result.indexableObject)">
-                            <input *ngIf="!repeatable" class="form-check-input" type="radio"
-                                   [name]="'radio' + i"
-                                   [id]="'object'+i"
-                                   [checked]="isSelected(result.indexableObject)"
-                                   (change)="selectRadio($event.currentTarget.checked, result.indexableObject)">
-                            <label class="form-check-label" [for]="'object'+i">
-                                <ds-wrapper-list-element class="result-list-element"
-                                                         [object]="result"
-                                                         [index]="i"></ds-wrapper-list-element>
-                            </label>
-                        </div>
-                    </ds-pagination>
-                </div>
-                <div *ngIf="resultsRD?.hasSucceeded && resultsRD.payload.page.length === 0">
-                    {{ 'form.no-results' | translate}}
-                </div>
-            </div>
+            <!--<div ngbDropdownMenu aria-labelledby="resultdropdown">-->
+            <!--<button class="dropdown-item"-->
+            <!--(click)="selectPage(resultsRD?.payload?.page)">Select-->
+            <!--page-->
+            <!--</button>-->
+            <!--<button class="dropdown-item"-->
+            <!--(click)="deselectPage(resultsRD?.payload?.page)">-->
+            <!--Deselect-->
+            <!--page-->
+            <!--</button>-->
+            <!--<button class="dropdown-item" (click)="selectAll()">Select all-->
+            <!--</button>-->
+            <!--<button class="dropdown-item" (click)="deselectAll()">Deselect-->
+            <!--all-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<ds-pagination-->
+            <!--[paginationOptions]="searchConfig.pagination"-->
+            <!--[collectionSize]="resultsRD?.payload?.totalElements"-->
+            <!--[sortOptions]="searchConfig.sort"-->
+            <!--[hideGear]="true"-->
+            <!--[hidePagerWhenSinglePage]="true"-->
+            <!--(paginationChange)="onPaginationChange($event.pagination)">-->
+            <!--<div class="form-check"-->
+            <!--*ngFor="let result of resultsRD?.payload?.page; let i = index">-->
+            <!--<input *ngIf="repeatable" class="form-check-input" type="checkbox"-->
+            <!--[name]="'checkbox' + i"-->
+            <!--[id]="'object'+i"-->
+            <!--[checked]="isSelected(result.indexableObject)"-->
+            <!--[disabled]="isDisabled(result.indexableObject)"-->
+            <!--(change)="selectCheckbox($event.currentTarget.checked, result.indexableObject)">-->
+            <!--<input *ngIf="!repeatable" class="form-check-input" type="radio"-->
+            <!--[name]="'radio' + i"-->
+            <!--[id]="'object'+i"-->
+            <!--[checked]="isSelected(result.indexableObject)"-->
+            <!--(change)="selectRadio($event.currentTarget.checked, result.indexableObject)">-->
+            <!--<label class="form-check-label" [for]="'object'+i">-->
+            <!--<ds-wrapper-list-element class="result-list-element"-->
+            <!--[object]="result"-->
+            <!--[index]="i"></ds-wrapper-list-element>-->
+            <!--</label>-->
+            <!--</div>-->
+            <!--</ds-pagination>-->
+            <!--</div>-->
+            <!--<div *ngIf="resultsRD?.hasSucceeded && resultsRD.payload.page.length === 0">-->
+            <!--{{ 'form.no-results' | translate}}-->
+            <!--</div>-->
         </div>
     </div>
 </div>

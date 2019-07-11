@@ -12,6 +12,9 @@ import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { SearchResult } from '../search/search-result.model';
+import { SelectableListService } from './selectable-list/selectable-list.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -22,13 +25,22 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   animations: [fadeIn]
 })
 export class ObjectListComponent {
-
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
   @Input() hasBorder = false;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
+  @Input() selectable = false;
+  @Input() selectionConfig: { repeatable: boolean, listId: string };
+  // @Input() previousSelection: ListableObject[] = [];
+  // allSelected = false;
+  // selectAllLoading = false;
+
   private _objects: RemoteData<PaginatedList<ListableObject>>;
+
+  constructor(protected selectionService: SelectableListService) {
+  }
+
   @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
     this._objects = objects;
   }
@@ -95,5 +107,67 @@ export class ObjectListComponent {
   onPaginationChange(event) {
     this.paginationChange.emit(event);
   }
+
+  // isDisabled(object: ListableObject): boolean {
+  //   return hasValue(this.previousSelection.find((selected) => selected === object));
+  // }
+
+  selectCheckbox(value: boolean, object: ListableObject) {
+    if (value) {
+      this.selectionService.selectSingle(this.selectionConfig.listId, object);
+    } else {
+      this.selectionService.deselectSingle(this.selectionConfig.listId, object);
+    }
+  }
+
+  selectRadio(value: boolean, object: ListableObject) {
+    if (value) {
+      this.selectionService.selectSingle(this.selectionConfig.listId, object, false);
+    }
+  }
+
+  selectPage(page: SearchResult<DSpaceObject>[]) {
+    this.selectionService.select(this.selectionConfig.listId, this.objects.payload.page);
+  }
+
+  deselectPage(page: SearchResult<DSpaceObject>[]) {
+    this.selectionService.deselect(this.selectionConfig.listId, this.objects.payload.page);
+
+  }
+
+  deselectAll() {
+    this.selectionService.deselectAll(this.selectionConfig.listId);
+  }
+
+  // isAllSelected() {
+  //   return this.allSelected;
+  // }
+  //
+  // isSomeSelected() {
+  //   return isNotEmpty(this.selection);
+  // }
+  //
+  //
+  // selectAll() {
+  //   this.allSelected = true;
+  //   this.selectAllLoading = true;
+  //   const fullPagination = Object.assign(new PaginationComponentOptions(), {
+  //     query: this.searchQuery,
+  //     currentPage: 1,
+  //     pageSize: Number.POSITIVE_INFINITY
+  //   });
+  //   const fullSearchConfig = Object.assign(this.searchConfig, { pagination: fullPagination });
+  //   const results = this.searchService.search(fullSearchConfig);
+  //   results.pipe(
+  //     getSucceededRemoteData(),
+  //     map((resultsRD) => resultsRD.payload.page),
+  //     tap(() => this.selectAllLoading = false)
+  //   )
+  //     .subscribe((results) =>
+  //       this.selection = results
+  //         .map((searchResult) => searchResult.indexableObject)
+  //         .filter((dso) => hasNoValue(this.previousSelection.find((object) => object === dso)))
+  //     );
+  // }
 
 }

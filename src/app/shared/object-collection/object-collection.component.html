@@ -8,6 +8,8 @@
                 (pageSizeChange)="onPageSizeChange($event)"
                 (sortDirectionChange)="onSortDirectionChange($event)"
                 (sortFieldChange)="onSortFieldChange($event)"
+                [selectable]="selectable"
+                [selectionConfig]="selectionConfig"
                 *ngIf="getViewMode()===viewModeEnum.List">
 </ds-object-list>
 

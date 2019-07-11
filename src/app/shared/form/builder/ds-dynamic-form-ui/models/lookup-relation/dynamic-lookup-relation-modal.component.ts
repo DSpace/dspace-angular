@@ -14,6 +14,7 @@ import { concat, map, multicast, take, takeWhile, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 
 const RELATION_TYPE_FILTER_PREFIX = 'f.entityType=';
 
@@ -37,22 +38,21 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
   searchConfig: PaginatedSearchOptions;
   repeatable: boolean;
-  selection: DSpaceObject[] = [];
   previousSelection: DSpaceObject[] = [];
-  allSelected = false;
   searchQuery;
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 10
   });
-  selectAllLoading = false;
+  listId;
 
-  constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router) {
+  constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService) {
   }
 
   ngOnInit(): void {
     this.resetRoute();
     this.fieldName = this.relationKey.substring(RELATION_TYPE_METADATA_PREFIX.length);
+    this.listId = 'list-' + this.fieldName;
     this.onPaginationChange(this.initialPagination);
   }
 
@@ -60,7 +60,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     this.searchQuery = query;
     this.resetRoute();
     this.onPaginationChange(this.initialPagination);
-    this.deselectAll();
+    this.selectableListService.deselectAll(this.listId);
   }
 
   onPaginationChange(pagination: PaginationComponentOptions) {
@@ -84,84 +84,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   }
 
   close() {
-    this.modal.close(this.selection);
-  }
-
-  isSelected(dso: DSpaceObject): boolean {
-    const completeSelection = [...this.selection, ...this.previousSelection];
-    return hasValue(completeSelection.find((selected) => selected.uuid === dso.uuid));
-  }
-
-  isDisabled(dso: DSpaceObject): boolean {
-    return hasValue(this.previousSelection.find((selected) => selected.uuid === dso.uuid));
-  }
-
-  selectCheckbox(value: boolean, dso: DSpaceObject) {
-    if (value) {
-      this.selection = [...this.selection, dso];
-    } else {
-      this.allSelected = false;
-      this.selection = this.selection.filter((selected) => {
-        return selected.uuid !== dso.uuid
-      });
-    }
-  }
-
-  selectRadio(value: boolean, dso: DSpaceObject) {
-    if (value) {
-      this.selection = [dso];
-    }
-  }
-
-  selectPage(page: SearchResult<DSpaceObject>[]) {
-    const newObjects: DSpaceObject[] = page
-      .map((searchResult) => searchResult.indexableObject)
-      .filter((dso) => hasNoValue(this.selection.find((selected) => selected.uuid === dso.uuid)))
-      .filter((dso) => hasNoValue(this.previousSelection.find((object) => object.uuid === dso.uuid)));
-    this.selection = [...this.selection, ...newObjects]
-  }
-
-  deselectPage(page: SearchResult<DSpaceObject>[]) {
-    this.allSelected = false;
-    const objects: DSpaceObject[] = page
-      .map((searchResult) => searchResult.indexableObject);
-    this.selection = this.selection.filter((selected) => hasNoValue(objects.find((object) => object.uuid === selected.uuid)));
-  }
-
-  selectAll() {
-    this.allSelected = true;
-    this.selectAllLoading = true;
-    const fullPagination = Object.assign(new PaginationComponentOptions(), {
-      query: this.searchQuery,
-      currentPage: 1,
-      pageSize: Number.POSITIVE_INFINITY
-    });
-    const fullSearchConfig = Object.assign(this.searchConfig, { pagination: fullPagination });
-    const results = this.searchService.search(fullSearchConfig);
-    results.pipe(
-      getSucceededRemoteData(),
-      map((resultsRD) => resultsRD.payload.page),
-      tap(() => this.selectAllLoading = false)
-    )
-      .subscribe((results) =>
-        this.selection = results
-          .map((searchResult) => searchResult.indexableObject)
-          .filter((dso) => hasNoValue(this.previousSelection.find((object) => object.uuid === dso.uuid)))
-      );
-  }
-
-  deselectAll() {
-    this.allSelected = false;
-    this.selection = [];
-  }
-
-
-  isAllSelected() {
-    return this.allSelected;
-  }
-
-  isSomeSelected() {
-    return isNotEmpty(this.selection);
+    this.modal.close(this.selectableListService.getSelectableList(this.listId));
   }
 
   resetRoute() {

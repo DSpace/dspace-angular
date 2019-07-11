@@ -33,6 +33,9 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   @Input() sortConfig: SortOptions;
   @Input() hasBorder = false;
   @Input() hideGear = false;
+  @Input() selectable = false;
+  @Input() selectionConfig: {repeatable: boolean, listId: string};
+
   pageInfo: Observable<PageInfo>;
   private sub;
   /**
