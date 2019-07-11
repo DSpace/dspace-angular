@@ -781,7 +781,7 @@
       "control_panel": "Control Panel",
       "browse_global": "All of DSpace",
       "browse_global_communities_and_collections": "Communities & Collections",
-      "browse_global_by_issue_date": "By Issue Date",
+      "browse_global_by_dateissued": "By Issue Date",
       "browse_global_by_author": "By Author",
       "browse_global_by_title": "By Title",
       "browse_global_by_subject": "By Subject",
