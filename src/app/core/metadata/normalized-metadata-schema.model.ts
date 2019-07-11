@@ -33,10 +33,4 @@ export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> i
    */
   @autoserialize
   namespace: string;
-
-  /**
-   * The resource type of this metadata schema
-   */
-  @autoserialize
-  type: ResourceType;
 }

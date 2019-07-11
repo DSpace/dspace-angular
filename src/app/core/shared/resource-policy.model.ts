@@ -29,11 +29,6 @@ export class ResourcePolicy implements CacheableObject {
   self: string;
 
   /**
-   * A ResourceType representing the kind of Object of this ResourcePolicy
-   */
-  type: ResourceType;
-
-  /**
    * The universally unique identifier for this Resource Policy
    */
   uuid: string;

@@ -16,12 +16,6 @@ export abstract class NormalizedConfigObject<T extends CacheableObject> implemen
   public name: string;
 
   /**
-   * A string representing the kind of config object
-   */
-  @autoserialize
-  public type: ResourceType;
-
-  /**
    * The links to all related resources returned by the rest api.
    */
   @autoserialize

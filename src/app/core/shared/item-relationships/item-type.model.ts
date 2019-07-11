@@ -18,11 +18,6 @@ export class ItemType implements CacheableObject {
   self: string;
 
   /**
-   * The type of Resource this is
-   */
-  type: ResourceType;
-
-  /**
    * The universally unique identifier of this ItemType
    */
   uuid: string;

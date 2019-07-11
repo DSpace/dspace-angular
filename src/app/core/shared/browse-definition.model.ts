@@ -16,9 +16,6 @@ export class BrowseDefinition implements TypedObject {
   @autoserializeAs('order')
   defaultSortOrder: string;
 
-  @autoserialize
-  type: ResourceType;
-
   @autoserializeAs('metadata')
   metadataKeys: string[];
 

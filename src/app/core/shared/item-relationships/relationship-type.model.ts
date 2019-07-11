@@ -16,11 +16,6 @@ export class RelationshipType implements CacheableObject {
   self: string;
 
   /**
-   * The type of Resource this is
-   */
-  type: ResourceType;
-
-  /**
    * The label that describes this RelationshipType
    */
   label: string;

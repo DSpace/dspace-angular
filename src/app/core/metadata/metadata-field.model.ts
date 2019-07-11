@@ -40,11 +40,6 @@ export class MetadataField implements ListableObject {
   schema: MetadataSchema;
 
   /**
-   * The resource type of this metadata field
-   */
-  type: ResourceType;
-
-  /**
    * Method to print this metadata field as a string
    * @param separator The separator between the schema, element and qualifier in the string
    */

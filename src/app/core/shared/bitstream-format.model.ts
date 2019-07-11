@@ -45,11 +45,6 @@ export class BitstreamFormat implements CacheableObject {
   self: string;
 
   /**
-   * A ResourceType representing the kind of Object of this BitstreamFormat
-   */
-  type: ResourceType;
-
-  /**
    * Universally unique identifier for this Bitstream Format
    */
   uuid: string;

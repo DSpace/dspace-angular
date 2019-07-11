@@ -39,10 +39,4 @@ export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   @relationship(EPerson, false)
   @autoserialize
   eperson: string;
-
-  /**
-   * The resource object of this auth status
-   */
-  @autoserialize
-  type: ResourceType;
 }

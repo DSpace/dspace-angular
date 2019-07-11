@@ -1,6 +1,5 @@
 import { autoserialize, deserialize } from 'cerialize';
 import { mapsTo, relationship } from '../cache/builders/build-decorators';
-import { ResourceType } from '../shared/resource-type';
 import { MetadataField } from './metadata-field.model';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
@@ -48,10 +47,4 @@ export class NormalizedMetadataField extends NormalizedObject<MetadataField> imp
   @deserialize
   @relationship(MetadataSchema)
   schema: string;
-
-  /**
-   * The resource type of this normalized metadata field
-   */
-  @autoserialize
-  type: ResourceType;
 }

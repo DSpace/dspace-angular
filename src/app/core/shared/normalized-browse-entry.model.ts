@@ -11,12 +11,6 @@ import { mapsTo } from '../cache/builders/build-decorators';
 @mapsTo(BrowseEntry)
 export class NormalizedBrowseEntry extends NormalizedObject<BrowseEntry> {
   /**
-   * The resource type of this browse entry
-   */
-  @autoserialize
-  type: ResourceType;
-
-  /**
    * The authority string of this browse entry
    */
   @autoserialize

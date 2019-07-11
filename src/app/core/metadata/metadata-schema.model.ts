@@ -26,9 +26,4 @@ export class MetadataSchema implements ListableObject {
    * The namespace of this metadata schema
    */
   namespace: string;
-
-  /**
-   * The resource type of this metadata schema
-   */
-  type: ResourceType;
 }

@@ -16,11 +16,6 @@ export class Relationship implements CacheableObject {
   self: string;
 
   /**
-   * The type of Resource this is
-   */
-  type: ResourceType;
-
-  /**
    * The universally unique identifier of this Relationship
    */
   uuid: string;
