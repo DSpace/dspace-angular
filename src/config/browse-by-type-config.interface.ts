@@ -9,7 +9,7 @@ export interface  BrowseByTypeConfig extends Config {
    * The browse id used for fetching browse data from the rest api
    * e.g. author
    */
-  metadata: string;
+  id: string;
 
   /**
    * The type of Browse-By page to render

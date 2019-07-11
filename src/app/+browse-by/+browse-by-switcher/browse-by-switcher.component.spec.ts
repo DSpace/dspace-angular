@@ -13,7 +13,7 @@ describe('BrowseBySwitcherComponent', () => {
 
   const types = ENV_CONFIG.browseBy.types;
 
-  const params = new BehaviorSubject(createParamsWithMetadata('initialValue'));
+  const params = new BehaviorSubject(createParamsWithId('initialValue'));
 
   const activatedRouteStub = {
     params: params
@@ -37,9 +37,9 @@ describe('BrowseBySwitcherComponent', () => {
   }));
 
   types.forEach((type) => {
-    describe(`when switching to a browse-by page for "${type.metadata}"`, () => {
+    describe(`when switching to a browse-by page for "${type.id}"`, () => {
       beforeEach(() => {
-        params.next(createParamsWithMetadata(type.metadata));
+        params.next(createParamsWithId(type.id));
         fixture.detectChanges();
       });
 
@@ -50,6 +50,6 @@ describe('BrowseBySwitcherComponent', () => {
   });
 });
 
-export function createParamsWithMetadata(metadata) {
-  return { metadata: metadata };
+export function createParamsWithId(id) {
+  return { id: id };
 }

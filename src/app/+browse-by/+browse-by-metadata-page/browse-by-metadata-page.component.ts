@@ -24,7 +24,7 @@ import { BrowseByType, rendersBrowseBy } from '../+browse-by-switcher/browse-by-
 })
 /**
  * Component for browsing (items) by metadata definition
- * A metadata definition is a short term used to describe one or multiple metadata fields.
+ * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'author' for 'dc.contributor.*'
  */
 @rendersBrowseBy(BrowseByType.Metadata)
@@ -65,14 +65,14 @@ export class BrowseByMetadataPageComponent implements OnInit {
   subs: Subscription[] = [];
 
   /**
-   * The default metadata definition to resort to when none is provided
+   * The default browse id to resort to when none is provided
    */
-  defaultMetadata = 'author';
+  defaultBrowseId = 'author';
 
   /**
-   * The current metadata definition
+   * The current browse id
    */
-  metadata = this.defaultMetadata;
+  browseId = this.defaultBrowseId;
 
   /**
    * The type of StartsWith options to render
@@ -114,10 +114,10 @@ export class BrowseByMetadataPageComponent implements OnInit {
           return Object.assign({}, params, queryParams);
         })
         .subscribe((params) => {
-          this.metadata = params.metadata || this.defaultMetadata;
+          this.browseId = params.id || this.defaultBrowseId;
           this.value = +params.value || params.value || '';
           this.startsWith = +params.startsWith || params.startsWith;
-          const searchOptions = browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.metadata);
+          const searchOptions = browseParamsToOptions(params, this.paginationConfig, this.sortConfig, this.browseId);
           if (isNotEmpty(this.value)) {
             this.updatePageWithItems(searchOptions, this.value);
           } else {

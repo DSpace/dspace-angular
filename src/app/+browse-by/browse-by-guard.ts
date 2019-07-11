@@ -21,36 +21,36 @@ export class BrowseByGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const title = route.data.title;
-    const metadata = route.params.metadata || route.queryParams.metadata || route.data.metadata;
+    const id = route.params.id || route.queryParams.id || route.data.id;
     let metadataField = route.data.metadataField;
-    if (hasNoValue(metadataField) && hasValue(metadata)) {
-      const config = this.config.browseBy.types.find((conf) => conf.metadata === metadata);
+    if (hasNoValue(metadataField) && hasValue(id)) {
+      const config = this.config.browseBy.types.find((conf) => conf.id === id);
       if (hasValue(config) && hasValue(config.metadataField)) {
         metadataField = config.metadataField;
       }
     }
     const scope = route.queryParams.scope;
     const value = route.queryParams.value;
-    const metadataTranslated = this.translate.instant('browse.metadata.' + metadata);
+    const metadataTranslated = this.translate.instant('browse.metadata.' + id);
     if (hasValue(scope)) {
       const dsoAndMetadata$ = this.dsoService.findById(scope).pipe(getSucceededRemoteData());
       return dsoAndMetadata$.pipe(
         map((dsoRD) => {
           const name = dsoRD.payload.name;
-          route.data = this.createData(title, metadata, metadataField, name, metadataTranslated, value);
+          route.data = this.createData(title, id, metadataField, name, metadataTranslated, value);
           return true;
         })
       );
     } else {
-      route.data = this.createData(title, metadata, metadataField, '', metadataTranslated, value);
+      route.data = this.createData(title, id, metadataField, '', metadataTranslated, value);
       return observableOf(true);
     }
   }
 
-  private createData(title, metadata, metadataField, collection, field, value) {
+  private createData(title, id, metadataField, collection, field, value) {
     return {
       title: title,
-      metadata: metadata,
+      id: id,
       metadataField: metadataField,
       collection: collection,
       field: field,

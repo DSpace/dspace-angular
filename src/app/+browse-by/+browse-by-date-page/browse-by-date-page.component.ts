@@ -22,7 +22,7 @@ import { BrowseByType, rendersBrowseBy } from '../+browse-by-switcher/browse-by-
 })
 /**
  * Component for browsing items by metadata definition of type 'date'
- * A metadata definition is a short term used to describe one or multiple metadata fields.
+ * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'dateissued' for 'dc.date.issued'
  */
 @rendersBrowseBy(BrowseByType.Date)
@@ -55,12 +55,12 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         })
         .subscribe((params) => {
           const metadataField = params.metadataField || this.defaultMetadataField;
-          this.metadata = params.metadata || this.defaultMetadata;
+          this.browseId = params.id || this.defaultBrowseId;
           this.startsWith = +params.startsWith || params.startsWith;
-          const searchOptions = browseParamsToOptions(params, Object.assign({}), this.sortConfig, this.metadata);
+          const searchOptions = browseParamsToOptions(params, Object.assign({}), this.sortConfig, this.browseId);
           this.updatePageWithItems(searchOptions, this.value);
           this.updateParent(params.scope);
-          this.updateStartsWithOptions(this.metadata, metadataField, params.scope);
+          this.updateStartsWithOptions(this.browseId, metadataField, params.scope);
         }));
   }
 

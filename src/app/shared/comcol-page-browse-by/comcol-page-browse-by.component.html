@@ -1,6 +1,6 @@
 <h3>{{'browse.comcol.head' | translate}}</h3>
 <ul>
   <li *ngFor="let config of types">
-    <a [routerLink]="['/browse/' + config.metadata]" [queryParams]="{scope: id}">{{'browse.comcol.by.' + config.metadata | translate}}</a>
+    <a [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}">{{'browse.comcol.by.' + config.id | translate}}</a>
   </li>
 </ul>

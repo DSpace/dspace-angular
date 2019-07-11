@@ -30,8 +30,8 @@ export class BrowseBySwitcherComponent implements OnInit {
   ngOnInit(): void {
     this.browseByComponent = this.route.params.pipe(
       map((params) => {
-        const metadata = params.metadata;
-        return this.config.browseBy.types.find((config: BrowseByTypeConfig) => config.metadata === metadata);
+        const id = params.id;
+        return this.config.browseBy.types.find((config: BrowseByTypeConfig) => config.id === id);
       }),
       map((config: BrowseByTypeConfig) => getComponentByBrowseByType(config.type))
     );

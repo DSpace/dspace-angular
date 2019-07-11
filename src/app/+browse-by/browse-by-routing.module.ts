@@ -6,7 +6,7 @@ import { BrowseBySwitcherComponent } from './+browse-by-switcher/browse-by-switc
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: ':metadata', component: BrowseBySwitcherComponent, canActivate: [BrowseByGuard], data: { title: 'browse.title' } }
+      { path: ':id', component: BrowseBySwitcherComponent, canActivate: [BrowseByGuard], data: { title: 'browse.title' } }
     ])
   ]
 })

@@ -82,14 +82,14 @@ export class NavbarComponent extends MenuComponent implements OnInit {
     const types = this.config.browseBy.types;
     types.forEach((typeConfig) => {
       menuList.push({
-        id: `browse_global_by_${typeConfig.metadata}`,
+        id: `browse_global_by_${typeConfig.id}`,
         parentID: 'browse_global',
         active: false,
         visible: true,
         model: {
           type: MenuItemType.LINK,
-          text: `menu.section.browse_global_by_${typeConfig.metadata}`,
-          link: `/browse/${typeConfig.metadata}`
+          text: `menu.section.browse_global_by_${typeConfig.id}`,
+          link: `/browse/${typeConfig.id}`
         } as LinkMenuItemModel
       });
     });
