@@ -22,6 +22,7 @@ import { Community } from '../../core/shared/community.model';
 import { MockRouter } from '../../shared/mocks/mock-router';
 import { ResourceType } from '../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -41,21 +42,21 @@ describe('BrowseByMetadataPageComponent', () => {
 
   const mockEntries = [
     {
-      type: ResourceType.BrowseEntry,
+      type: BrowseEntry.type,
       authority: null,
       value: 'John Doe',
       language: 'en',
       count: 1
     },
     {
-      type: ResourceType.BrowseEntry,
+      type: BrowseEntry.type,
       authority: null,
       value: 'James Doe',
       language: 'en',
       count: 3
     },
     {
-      type: ResourceType.BrowseEntry,
+      type: BrowseEntry.type,
       authority: null,
       value: 'Fake subject',
       language: 'en',

@@ -66,7 +66,7 @@ describe('AlertComponent test suite', () => {
       compAsAny = comp;
       comp.content = 'test alert';
       comp.dismissible = true;
-      comp.value = AlertType.Info;
+      comp.type = AlertType.Info;
       fixture.detectChanges();
     });
 
