@@ -4,6 +4,9 @@ import { Collection } from '../../../core/shared/collection.model';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+/**
+ * Component for editing a collection's metadata
+ */
 @Component({
   selector: 'ds-collection-metadata',
   templateUrl: './collection-metadata.component.html',
