@@ -1,7 +1,16 @@
-<h4>Content source</h4>
-<div class="form-check">
-  <input type="checkbox" class="form-check-input" id="externalSourceCheck" [checked]="externalSource" (change)="externalSource = !externalSource">
-  <label class="form-check-label" for="externalSourceCheck">This collection harvests its content from an external source</label>
+<div class="container-fluid">
+  <h4>{{ 'collection.edit.tabs.source.head' | translate }}</h4>
+  <div class="form-check mb-4">
+    <input type="checkbox" class="form-check-input" id="externalSourceCheck" [checked]="contentSource.enabled" (change)="changeExternalSource()">
+    <label class="form-check-label" for="externalSourceCheck">{{ 'collection.edit.tabs.source.external' | translate }}</label>
+  </div>
+  <h4>{{ 'collection.edit.tabs.source.form.head' | translate }}</h4>
 </div>
-<h4>Configure an external source</h4>
-<ds-form></ds-form>
+<ds-form *ngIf="formGroup"
+         [formId]="'collection-source-form-id'"
+         [formGroup]="formGroup"
+         [formModel]="formModel"
+         [formLayout]="formLayout"
+         (dfChange)="onChange($event)"
+         (submitForm)="onSubmit()"
+         (cancel)="onCancel()"></ds-form>

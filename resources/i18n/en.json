@@ -42,7 +42,20 @@
         },
         "source": {
           "title": "Collection Edit - Content Source",
-          "head": "Content Source"
+          "head": "Content Source",
+          "external": "This collection harvests its content from an external source",
+          "form": {
+            "head": "Configure an external source",
+            "provider": "OAI Provider",
+            "set": "OAI specific set id",
+            "format": "Metadata Format",
+            "harvest": "Content being harvested",
+            "errors": {
+              "provider": {
+                "required": "You must provide a set id of the target collection."
+              }
+            }
+          }
         },
         "curate": {
           "title": "Collection Edit - Curate",
