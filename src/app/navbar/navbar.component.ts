@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { slideMobileNav } from '../shared/animations/slide';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
@@ -6,6 +6,7 @@ import { MenuID, MenuItemType } from '../shared/menu/initial-menus-state';
 import { TextMenuItemModel } from '../shared/menu/menu-item/models/text.model';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { HostWindowService } from '../shared/host-window.service';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
 
 /**
  * Component representing the public navbar
@@ -23,7 +24,8 @@ export class NavbarComponent extends MenuComponent implements OnInit {
    */
   menuID = MenuID.PUBLIC;
 
-  constructor(protected menuService: MenuService,
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+              protected menuService: MenuService,
               protected injector: Injector,
               public windowService: HostWindowService
   ) {
@@ -39,7 +41,7 @@ export class NavbarComponent extends MenuComponent implements OnInit {
    * Initialize all menu sections and items for this menu
    */
   createMenu() {
-    const menuList = [
+    const menuList: any[] = [
       /* News */
       {
         id: 'browse_global',
@@ -62,50 +64,6 @@ export class NavbarComponent extends MenuComponent implements OnInit {
       //     link: '#'
       //   } as LinkMenuItemModel,
       // },
-      {
-        id: 'browse_global_global_by_title',
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_title',
-          link: '/browse/title'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'browse_global_global_by_issue_date',
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_issue_date',
-          link: '/browse/dateissued'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'browse_global_by_author',
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_author',
-          link: '/browse/author'
-        } as LinkMenuItemModel,
-      },
-      {
-        id: 'browse_global_by_subject',
-        parentID: 'browse_global',
-        active: false,
-        visible: true,
-        model: {
-          type: MenuItemType.LINK,
-          text: 'menu.section.browse_global_by_subject',
-          link: '/browse/subject'
-        } as LinkMenuItemModel,
-      },
 
       /* Statistics */
       {
@@ -120,6 +78,21 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         index: 2
       },
     ];
+    // Read the different Browse-By types from config and add them to the browse menu
+    const types = this.config.browseBy.types;
+    types.forEach((typeConfig) => {
+      menuList.push({
+        id: `browse_global_by_${typeConfig.id}`,
+        parentID: 'browse_global',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: `menu.section.browse_global_by_${typeConfig.id}`,
+          link: `/browse/${typeConfig.id}`
+        } as LinkMenuItemModel
+      });
+    });
     menuList.forEach((menuSection) => this.menuService.addSection(this.menuID, menuSection));
 
   }
