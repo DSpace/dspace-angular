@@ -71,6 +71,14 @@ module.exports = {
           name: 'dc.author',
           style: 'fas fa-user'
         },
+        {
+          name: 'dc.contributor.author',
+          style: 'fas fa-user'
+        },
+        {
+          name: 'local.contributor.affiliation',
+          style: 'fas fa-university'
+        },
         // default configuration
         {
           name: 'default',
