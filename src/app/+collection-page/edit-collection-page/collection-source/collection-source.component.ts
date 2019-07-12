@@ -229,20 +229,22 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       map((updates: FieldUpdates) => updates[initialContentSource.uuid])
     );
     this.updateSub = this.update$.subscribe((update: FieldUpdate) => {
-      const field = update.field as ContentSource;
-      this.formGroup.patchValue({
-        providerContainer: {
-          provider: field.provider
-        },
-        setContainer: {
-          set: field.set,
-          format: field.format
-        },
-        harvestContainer: {
-          harvest: field.harvest
-        }
-      });
-      this.contentSource = cloneDeep(field);
+      if (update) {
+        const field = update.field as ContentSource;
+        this.formGroup.patchValue({
+          providerContainer: {
+            provider: field.provider
+          },
+          setContainer: {
+            set: field.set,
+            format: field.format
+          },
+          harvestContainer: {
+            harvest: field.harvest
+          }
+        });
+        this.contentSource = cloneDeep(field);
+      }
       this.switchEnableForm();
     });
   }
