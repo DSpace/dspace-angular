@@ -194,6 +194,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     super(objectUpdatesService, notificationsService, translate);
   }
 
+  /**
+   * Initialize properties to setup the Field Update and Form
+   */
   ngOnInit(): void {
     this.notificationsPrefix = 'collection.edit.tabs.source.notifications.';
     this.discardTimeOut = this.EnvConfig.collection.edit.undoTimeout;
@@ -216,6 +219,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.initializeOriginalContentSource();
   }
 
+  /**
+   * Initialize the Field Update and subscribe on it to fire updates to the form whenever it changes
+   */
   initializeOriginalContentSource() {
     const initialContentSource = cloneDeep(this.contentSource);
     this.objectUpdatesService.initialize(this.url, [initialContentSource], new Date());
@@ -272,21 +278,41 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     }
   }
 
+  /**
+   * Fired whenever the form receives an update and makes sure the Content Source and field update is up-to-date with the changes
+   * @param event
+   */
   onChange(event) {
     this.updateContentSourceField(event.model);
     this.saveFieldUpdate();
   }
 
+  /**
+   * Submit the edited Content Source to the REST API, re-initialize the field update and display a notification
+   */
   onSubmit() {
     // TODO: Fetch field update and send to REST API
     this.initializeOriginalContentSource();
     this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
   }
 
+  /**
+   * Cancel the edit and return to the previous page
+   */
   onCancel() {
     this.location.back();
   }
 
+  /**
+   * Is the current form valid to be submitted ?
+   */
+  isValid(): boolean {
+    return !this.contentSource.enabled || this.formGroup.valid;
+  }
+
+  /**
+   * Switch the external source on or off and fire a field update
+   */
   changeExternalSource() {
     this.contentSource.enabled = !this.contentSource.enabled;
     this.updateContentSource();
@@ -303,6 +329,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     }
   }
 
+  /**
+   * Loop over all inputs and update the Content Source with their value
+   */
   updateContentSource() {
     this.formModel.forEach(
       (fieldModel: DynamicFormGroupModel | DynamicInputModel) => {
@@ -318,16 +347,26 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.saveFieldUpdate();
   }
 
+  /**
+   * Update the Content Source with the value from a DynamicInputModel
+   * @param fieldModel
+   */
   updateContentSourceField(fieldModel: DynamicInputModel) {
-    if (hasValue(fieldModel)) {
+    if (hasValue(fieldModel.value)) {
       this.contentSource[fieldModel.id] = fieldModel.value;
     }
   }
 
+  /**
+   * Save the current Content Source to the Object Updates cache
+   */
   saveFieldUpdate() {
     this.objectUpdatesService.saveAddFieldUpdate(this.url, cloneDeep(this.contentSource));
   }
 
+  /**
+   * Make sure open subscriptions are closed
+   */
   ngOnDestroy(): void {
     this.updateSub.unsubscribe();
   }
