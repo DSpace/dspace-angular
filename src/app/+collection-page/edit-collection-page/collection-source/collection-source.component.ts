@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import {
   DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService,
@@ -11,13 +11,17 @@ import { TranslateService } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FormGroup } from '@angular/forms';
-import { isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ContentSource } from '../../../core/shared/content-source.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
 import { first, map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { cloneDeep } from 'lodash';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 
 /**
  * Component for managing the content source of the collection
@@ -26,16 +30,21 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'ds-collection-source',
   templateUrl: './collection-source.component.html',
 })
-export class CollectionSourceComponent extends AbstractTrackableComponent implements OnInit {
+export class CollectionSourceComponent extends AbstractTrackableComponent implements OnInit, OnDestroy {
   /**
    * The current collection's remote data
    */
   collectionRD$: Observable<RemoteData<Collection>>;
 
   /**
-   * The current collection's content source
+   * The collection's content source
    */
   contentSource: ContentSource;
+
+  /**
+   * The current update to the content source
+   */
+  update$: Observable<FieldUpdate>;
 
   /**
    * @type {string} Key prefix used to generate form labels
@@ -80,7 +89,6 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         new DynamicSelectModel({
           id: 'format',
           name: 'format',
-          value: 'dc',
           options: [
             {
               value: 'dc',
@@ -105,7 +113,6 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         new DynamicRadioGroupModel<number>({
           id: 'harvest',
           name: 'harvest',
-          value: 3,
           options: [
             {
               value: 1,
@@ -171,16 +178,29 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   formGroup: FormGroup;
 
+  /**
+   * Subscription to update the current form
+   */
+  updateSub: Subscription;
+
   public constructor(public objectUpdatesService: ObjectUpdatesService,
                      public notificationsService: NotificationsService,
                      protected location: Location,
                      protected formService: DynamicFormService,
                      protected translate: TranslateService,
-                     protected route: ActivatedRoute) {
+                     protected route: ActivatedRoute,
+                     protected router: Router,
+                     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,) {
     super(objectUpdatesService, notificationsService, translate);
   }
 
   ngOnInit(): void {
+    this.notificationsPrefix = 'collection.edit.tabs.source.notifications.';
+    this.discardTimeOut = this.EnvConfig.collection.edit.undoTimeout;
+    this.url = this.router.url;
+    if (this.url.indexOf('?') > 0) {
+      this.url = this.url.substr(0, this.url.indexOf('?'));
+    }
     this.formGroup = this.formService.createFormGroup(this.formModel);
     this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
 
@@ -192,6 +212,33 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       .subscribe(() => {
         this.updateFieldTranslations();
       });
+
+    this.initializeOriginalContentSource();
+  }
+
+  initializeOriginalContentSource() {
+    const initialContentSource = cloneDeep(this.contentSource);
+    this.objectUpdatesService.initialize(this.url, [initialContentSource], new Date());
+    this.update$ = this.objectUpdatesService.getFieldUpdates(this.url, [initialContentSource]).pipe(
+      map((updates: FieldUpdates) => updates[initialContentSource.uuid])
+    );
+    this.updateSub = this.update$.subscribe((update: FieldUpdate) => {
+      const field = update.field as ContentSource;
+      this.formGroup.patchValue({
+        providerContainer: {
+          provider: field.provider
+        },
+        setContainer: {
+          set: field.set,
+          format: field.format
+        },
+        harvestContainer: {
+          harvest: field.harvest
+        }
+      });
+      this.contentSource = cloneDeep(field);
+      this.switchEnableForm();
+    });
   }
 
   /**
@@ -226,13 +273,14 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   }
 
   onChange(event) {
-    // TODO: Update ContentSource object and add to field update
-    console.log(event);
+    this.updateContentSourceField(event.model);
+    this.saveFieldUpdate();
   }
 
   onSubmit() {
     // TODO: Fetch field update and send to REST API
-    console.log('submit');
+    this.initializeOriginalContentSource();
+    this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
   }
 
   onCancel() {
@@ -241,10 +289,46 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
 
   changeExternalSource() {
     this.contentSource.enabled = !this.contentSource.enabled;
+    this.updateContentSource();
+  }
+
+  /**
+   * Enable or disable the form depending on the Content Source's enabled property
+   */
+  switchEnableForm() {
     if (this.contentSource.enabled) {
       this.formGroup.enable();
     } else {
       this.formGroup.disable();
     }
+  }
+
+  updateContentSource() {
+    this.formModel.forEach(
+      (fieldModel: DynamicFormGroupModel | DynamicInputModel) => {
+        if (fieldModel instanceof DynamicFormGroupModel) {
+          fieldModel.group.forEach((childModel: DynamicInputModel) => {
+            this.updateContentSourceField(childModel);
+          });
+        } else {
+          this.updateContentSourceField(fieldModel);
+        }
+      }
+    );
+    this.saveFieldUpdate();
+  }
+
+  updateContentSourceField(fieldModel: DynamicInputModel) {
+    if (hasValue(fieldModel)) {
+      this.contentSource[fieldModel.id] = fieldModel.value;
+    }
+  }
+
+  saveFieldUpdate() {
+    this.objectUpdatesService.saveAddFieldUpdate(this.url, cloneDeep(this.contentSource));
+  }
+
+  ngOnDestroy(): void {
+    this.updateSub.unsubscribe();
   }
 }

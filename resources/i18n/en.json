@@ -55,6 +55,20 @@
                 "required": "You must provide a set id of the target collection."
               }
             }
+          },
+          "notifications": {
+            "discarded": {
+              "title": "Changed discarded",
+              "content": "Your changes were discarded. To reinstate your changes click the 'Undo' button"
+            },
+            "invalid": {
+              "title": "Metadata invalid",
+              "content": "Your changes were not saved. Please make sure all fields are valid before you save."
+            },
+            "saved": {
+              "title": "Content Source saved",
+              "content": "Your changes to this collection's content source were saved."
+            }
           }
         },
         "curate": {
