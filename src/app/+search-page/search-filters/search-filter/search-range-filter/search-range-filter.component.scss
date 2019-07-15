@@ -1,14 +1,10 @@
-@import '../../../../../styles/variables.scss';
-@import '../../../../../styles/mixins.scss';
-
-
 .filters {
-     .toggle-more-filters a {
-         color: $link-color;
-         text-decoration: underline;
-         cursor: pointer;
-     }
- }
+    .toggle-more-filters a {
+        color: $link-color;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
 
 $slider-handle-width: 18px;
 ::ng-deep

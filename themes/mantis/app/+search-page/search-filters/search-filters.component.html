@@ -1,0 +1,7 @@
+<h3>{{"search.filters.head" | translate}}</h3>
+<div *ngIf="(filters | async)?.hasSucceeded">
+  <div *ngFor="let filter of (filters | async)?.payload">
+    <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch"></ds-search-filter>
+  </div>
+</div>
+<a class="btn btn-primary" [routerLink]="[getSearchLink()]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">{{"search.filters.reset" | translate}}</a>

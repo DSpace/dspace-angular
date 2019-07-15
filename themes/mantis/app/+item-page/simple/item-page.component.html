@@ -1,0 +1,9 @@
+<div *ngVar="(itemRD$ | async) as itemRD">
+  <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
+    <div *ngIf="itemRD?.payload as item">
+      <ds-item-type-switcher [object]="item" [viewMode]="viewMode"></ds-item-type-switcher>
+    </div>
+  </div>
+  <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>
+  <ds-loading *ngIf="itemRD?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
+</div>

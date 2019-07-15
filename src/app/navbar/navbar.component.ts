@@ -13,8 +13,8 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
  */
 @Component({
   selector: 'ds-navbar',
-  styleUrls: ['navbar.component.scss'],
-  templateUrl: 'navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
+  templateUrl: './navbar.component.html',
   animations: [slideMobileNav]
 })
 export class NavbarComponent extends MenuComponent implements OnInit {

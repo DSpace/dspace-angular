@@ -109,6 +109,16 @@
       "link": {
         "simple": "Simple item page",
         "full": "Full item page"
+      },
+      "journal": {
+        "search": {
+          "title": "Articles in this journal"
+        }
+      },
+      "person": {
+        "search": {
+          "title": "Articles by this author"
+        }
       }
     },
     "select": {
