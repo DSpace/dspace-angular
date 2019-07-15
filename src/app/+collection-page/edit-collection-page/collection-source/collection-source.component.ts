@@ -123,6 +123,11 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   });
 
   /**
+   * All input models in a simple array for easier iterations
+   */
+  inputModels = [this.providerModel, this.setModel, this.formatModel, this.harvestModel];
+
+  /**
    * The dynamic form fields used for editing the content source of a collection
    * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
    */
@@ -269,15 +274,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Used the update translations of errors and labels on init and on language change
    */
   private updateFieldTranslations() {
-    this.formModel.forEach(
+    this.inputModels.forEach(
       (fieldModel: DynamicFormControlModel) => {
-        if (fieldModel instanceof DynamicFormGroupModel) {
-          fieldModel.group.forEach((childModel: DynamicFormControlModel) => {
-            this.updateFieldTranslation(childModel);
-          });
-        } else {
-          this.updateFieldTranslation(fieldModel);
-        }
+        this.updateFieldTranslation(fieldModel);
       }
     );
   }
@@ -347,15 +346,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Loop over all inputs and update the Content Source with their value
    */
   updateContentSource() {
-    this.formModel.forEach(
-      (fieldModel: DynamicFormGroupModel | DynamicInputModel) => {
-        if (fieldModel instanceof DynamicFormGroupModel) {
-          fieldModel.group.forEach((childModel: DynamicInputModel) => {
-            this.updateContentSourceField(childModel);
-          });
-        } else {
-          this.updateContentSourceField(fieldModel);
-        }
+    this.inputModels.forEach(
+      (fieldModel: DynamicInputModel) => {
+        this.updateContentSourceField(fieldModel)
       }
     );
     this.saveFieldUpdate();
