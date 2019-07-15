@@ -113,6 +113,7 @@ import { NormalizedPoolTask } from './tasks/models/normalized-pool-task-object.m
 import { NormalizedRelationship } from './cache/models/items/normalized-relationship.model';
 import { NormalizedRelationshipType } from './cache/models/items/normalized-relationship-type.model';
 import { NormalizedItemType } from './cache/models/items/normalized-item-type.model';
+import { MetadatafieldParsingService } from './data/metadatafield-parsing.service';
 
 const IMPORTS = [
   CommonModule,
@@ -178,6 +179,7 @@ const PROVIDERS = [
   AuthorityService,
   IntegrationResponseParsingService,
   MetadataschemaParsingService,
+  MetadatafieldParsingService,
   UploaderService,
   UUIDService,
   NotificationsService,
