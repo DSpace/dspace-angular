@@ -1,1 +1,0 @@
-{"version":3,"file":"mock-translate.service.js","sourceRoot":"","sources":["mock-translate.service.ts"],"names":[],"mappings":"AAEA,MAAM;IACJ,OAAO,OAAO,CAAC,YAAY,CAAC,kBAAkB,EAAE;QAC9C,GAAG,EAAE,OAAO,CAAC,SAAS,CAAC,KAAK,CAAC;QAC7B,OAAO,EAAE,OAAO,CAAC,SAAS,CAAC,SAAS,CAAC;KACtC,CAAC,CAAC;AACL,CAAC"}

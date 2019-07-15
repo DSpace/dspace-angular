@@ -1,1 +1,0 @@
-{"version":3,"file":"router-link-directive-stub.js","sourceRoot":"","sources":["router-link-directive-stub.ts"],"names":[],"mappings":";AAAA,OAAO,EAAE,SAAS,EAAE,KAAK,EAAE,MAAM,eAAe,CAAC;AAEjD,2CAA2C;AAK3C;IAAA;IAEA,CAAC;IADU;QAAR,KAAK,EAAE;;+DAAiB;IADd,uBAAuB;QAJnC,SAAS,CAAC;YACT,8CAA8C;YAC9C,QAAQ,EAAE,cAAc;SACzB,CAAC;OACW,uBAAuB,CAEnC;IAAD,8BAAC;CAAA,AAFD,IAEC;SAFY,uBAAuB"}

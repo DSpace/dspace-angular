@@ -1,1 +1,0 @@
-{"version":3,"file":"logout-page.component.js","sourceRoot":"","sources":["logout-page.component.ts"],"names":[],"mappings":";AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,eAAe,CAAC;AAO1C;IAAA;IAEA,CAAC;IAFY,mBAAmB;QAL/B,SAAS,CAAC;YACT,QAAQ,EAAE,gBAAgB;YAC1B,SAAS,EAAE,CAAC,8BAA8B,CAAC;YAC3C,WAAW,EAAE,8BAA8B;SAC5C,CAAC;OACW,mBAAmB,CAE/B;IAAD,0BAAC;CAAA,AAFD,IAEC;SAFY,mBAAmB"}
