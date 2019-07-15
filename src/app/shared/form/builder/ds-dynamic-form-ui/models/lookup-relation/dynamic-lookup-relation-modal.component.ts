@@ -15,11 +15,11 @@ import { Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { SelectableListState } from '../../../../../object-list/selectable-list/selectable-list.reducer';
 
 const RELATION_TYPE_FILTER_PREFIX = 'f.entityType=';
 
-/* TODO take a look at this when the REST entities submission is finished: we will probably need to get the fixed filter from the REST instead of filtering is out from the metadata field */
-const RELATION_TYPE_METADATA_PREFIX = 'relation.isPublicationOf';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -35,25 +35,24 @@ const RELATION_TYPE_METADATA_PREFIX = 'relation.isPublicationOf';
 export class DsDynamicLookupRelationModalComponent implements OnInit {
   relationKey: string;
   fieldName: string;
+  listId: string;
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
   searchConfig: PaginatedSearchOptions;
   repeatable: boolean;
-  previousSelection: DSpaceObject[] = [];
   searchQuery;
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 10
   });
-  listId;
+  selection: Observable<ListableObject[]>;
 
   constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService) {
   }
 
   ngOnInit(): void {
     this.resetRoute();
-    this.fieldName = this.relationKey.substring(RELATION_TYPE_METADATA_PREFIX.length);
-    this.listId = 'list-' + this.fieldName;
     this.onPaginationChange(this.initialPagination);
+    this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
   }
 
   search(query: string) {
@@ -84,7 +83,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   }
 
   close() {
-    this.modal.close(this.selectableListService.getSelectableList(this.listId));
+    this.modal.close();
   }
 
   resetRoute() {

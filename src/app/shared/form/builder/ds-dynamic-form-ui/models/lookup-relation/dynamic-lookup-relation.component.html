@@ -1,6 +1,6 @@
 <script src="dynamic-lookup-relation.component.ts"></script>
 <div>
-    <div *ngIf="model.repeatable || !(model.value && model.value.length > 0)" class="form-row align-items-center">
+    <div *ngIf="model.repeatable || !((model.value | async) && (model.value | async).length > 0)" class="form-row align-items-center">
         <div class="col">
             <input class="form-control"
                    [class.is-invalid]="showErrorMessages"
@@ -18,22 +18,23 @@
                     (click)="openLookup(); $event.stopPropagation();">{{'form.lookup' | translate}}
             </button>
         </div>
-        <div class="col-auto text-center">
-            <button class="btn btn-secondary"
-                    type="button"
-                    ngbTooltip="{{'form.add-help' | translate}}"
-                    #tooltip = ngbTooltip
-                    placement="top"
-                    [disabled]="!hasResultsSelected()"
-                    (click)="add(); tooltip.close(); $event.stopPropagation();">{{'form.add' | translate}}
-            </button>
-        </div>
+        <!--<div class="col-auto text-center">-->
+            <!--<button class="btn btn-secondary"-->
+                    <!--type="button"-->
+                    <!--ngbTooltip="{{'form.add-help' | translate}}"-->
+                    <!--#tooltip = ngbTooltip-->
+                    <!--placement="top"-->
+                    <!--[disabled]="!hasResultsSelected()"-->
+                    <!--(click)="add(); tooltip.close(); $event.stopPropagation();">{{'form.add' | translate}}-->
+            <!--</button>-->
+        <!--</div>-->
     </div>
     <div class="mt-3">
         <ul class="list-unstyled">
-            <li *ngFor="let value of model.value">
+            <li *ngFor="let result of (model.value | async)">
+                <ng-container *ngVar="result.indexableObject as value">
                 <button type="button" class="close float-left" aria-label="Close button"
-                        (click)="removeSelection(value.uuid)">
+                        (click)="removeSelection(value)">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <span class="d-inline-block align-middle ml-1">{{value.name}}</span>
@@ -43,6 +44,7 @@
                            [ngModel]="value.uuid"
                            [disabled]="true"
                            [readonly]="true">
+                </ng-container>
             </li>
         </ul>
     </div>

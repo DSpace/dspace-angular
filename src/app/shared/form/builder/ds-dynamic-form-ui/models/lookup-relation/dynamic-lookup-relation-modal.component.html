@@ -117,7 +117,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <small>Selected {{selection.length}} items</small>
+    <small>Selected {{(selection | async)?.length || 0}} items</small>
     <div>
         <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel
         </button>

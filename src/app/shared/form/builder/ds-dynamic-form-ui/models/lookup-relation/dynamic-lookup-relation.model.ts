@@ -13,7 +13,7 @@ export interface DynamicLookupRelationModelConfig extends DsDynamicInputModelCon
 export class DynamicLookupRelationModel extends DsDynamicInputModel {
 
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_RELATION;
-  @serializable() value: any[];
+  @serializable() value: any;
   @serializable() repeatable: boolean;
   item: Item;
 

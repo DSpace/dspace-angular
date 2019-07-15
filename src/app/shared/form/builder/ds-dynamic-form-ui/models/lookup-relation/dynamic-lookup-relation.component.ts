@@ -6,13 +6,22 @@ import {
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
-import { isNotEmpty } from '../../../../../empty.util';
+import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import { DynamicLookupRelationModel } from './dynamic-lookup-relation.model';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { Item } from '../../../../../../core/shared/item.model';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListState } from '../../../../../object-list/selectable-list/selectable-list.reducer';
+import { Observable } from 'rxjs';
+import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { map } from 'rxjs/operators';
+import { SearchResult } from '../../../../../search/search-result.model';
+
+/* TODO take a look at this when the REST entities submission is finished: we will probably need to get the fixed filter from the REST instead of filtering is out from the metadata field */
+const RELATION_TYPE_METADATA_PREFIX = 'relation.isPublicationOf';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation',
@@ -30,50 +39,58 @@ export class DsDynamicLookupRelationComponent extends DynamicFormControlComponen
 
   modalRef: NgbModalRef;
   modalValuesString = '';
-  selectedResults: Item[];
+  fieldName: string;
+  listId: string;
 
   constructor(private modalService: NgbModal,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
-              private relationService: RelationshipService
+              private relationService: RelationshipService,
+              private selectableListService: SelectableListService
   ) {
     super(layoutService, validationService);
   }
 
   ngOnInit(): void {
+    this.fieldName = this.model.name.substring(RELATION_TYPE_METADATA_PREFIX.length);
+    this.listId = 'list-' + this.fieldName;
+    this.model.value = this.selectableListService.getSelectableList(this.listId).pipe(
+      map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
+    );
   }
 
-  public hasResultsSelected() {
-    return isNotEmpty(this.selectedResults);
+  public hasResultsSelected(): Observable<boolean> {
+    return this.model.value.pipe(map((list: SearchResult<DSpaceObject>[]) => isNotEmpty(list)));
   }
 
   openLookup() {
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
-    this.modalRef.componentInstance.repeatable = this.model.repeatable;
-    this.modalRef.componentInstance.selection = this.selectedResults || [];
-    this.modalRef.componentInstance.previousSelection = this.model.value || [];
-    this.modalRef.componentInstance.relationKey = this.model.name;
-    this.modalRef.result.then((resultList) => {
-      this.selectedResults = resultList;
-      this.modalValuesString = resultList.map((dso: DSpaceObject) => dso.name).join('; ');
+    const modalComp = this.modalRef.componentInstance;
+    modalComp.repeatable = this.model.repeatable;
+    modalComp.relationKey = this.model.name;
+    modalComp.listId = this.listId;
+    modalComp.fieldName = this.fieldName;
+
+    this.modalRef.result.then((resultString = '') => {
+      this.modalValuesString = resultString;
     });
   }
 
-  add() {
-    if (isNotEmpty(this.model.value)) {
-      this.model.value = [...this.model.value, ...this.selectedResults];
-    } else {
-      this.model.value = this.selectedResults;
-    }
+  // add() {
+  //   if (isNotEmpty(this.model.value)) {
+  //     this.model.value = [...this.model.value, ...this.selectedResults];
+  //   } else {
+  //     this.model.value = this.selectedResults;
+  //   }
+  //
+  //   this.modalValuesString = '';
+  //   this.selectedResults = [];
+  //   this.selectedResults.forEach((item: Item) => {
+  //     this.relationService.addRelationship(this.model.item, item);
+  //   })
+  // }
 
-    this.modalValuesString = '';
-    this.selectedResults = [];
-    this.selectedResults.forEach((item: Item) => {
-      this.relationService.addRelationship(this.model.item, item);
-    })
-  }
-
-  removeSelection(uuid: string) {
-    this.model.value = this.model.value.filter((dso: DSpaceObject) => dso.uuid !== uuid);
+  removeSelection(object: SearchResult<DSpaceObject>) {
+    this.selectableListService.deselectSingle(this.listId, object);
   }
 }

@@ -32,7 +32,7 @@ export class SelectableListSelectAction extends SelectableListAction {
   payload: ListableObject[];
 
   constructor(id: string, objects: ListableObject[]) {
-    super(SelectableListActionTypes.SELECT_SINGLE, id);
+    super(SelectableListActionTypes.SELECT, id);
     this.payload = objects;
   }
 }
@@ -44,7 +44,7 @@ export class SelectableListSelectSingleAction extends SelectableListAction {
   };
 
   constructor(id: string, object: ListableObject, multipleSelectionsAllowed: boolean = true) {
-    super(SelectableListActionTypes.SELECT, id);
+    super(SelectableListActionTypes.SELECT_SINGLE, id);
     this.payload = { object, multipleSelectionsAllowed };
   }
 }
