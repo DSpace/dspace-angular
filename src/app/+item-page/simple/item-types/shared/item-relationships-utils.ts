@@ -60,8 +60,8 @@ export const filterRelationsByTypeLabel = (label: string, thisId?: string) =>
             hasValue(relTypesCurrentPage[idx]) && (
               (hasNoValue(thisId) && (relTypesCurrentPage[idx].leftLabel === label ||
                 relTypesCurrentPage[idx].rightLabel === label)) ||
-              (thisId === arr[idx][0].id && relTypesCurrentPage[idx].rightLabel === label) ||
-              (thisId === arr[idx][1].id && relTypesCurrentPage[idx].leftLabel === label)
+              (thisId === arr[idx][0].id && relTypesCurrentPage[idx].leftLabel === label) ||
+              (thisId === arr[idx][1].id && relTypesCurrentPage[idx].rightLabel === label)
             )
           ))
         );
