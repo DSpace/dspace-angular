@@ -109,22 +109,30 @@ describe('CollectionSourceComponent', () => {
   });
 
   describe('on startup', () => {
+    let form;
+
+    beforeEach(() => {
+      form = fixture.debugElement.query(By.css('ds-form'));
+    });
+
     it('ContentSource should be disabled', () => {
       expect(comp.contentSource.enabled).toBe(false);
     });
 
-    it('the input-form should be disabled', () => {
-      expect(comp.formGroup.disabled).toBe(true);
+    it('the input-form should be hidden', () => {
+      expect(form).toBeNull();
     });
   });
 
   describe('when selecting the checkbox', () => {
     let input;
+    let form;
 
     beforeEach(() => {
       input = fixture.debugElement.query(By.css('#externalSourceCheck')).nativeElement;
       input.click();
       fixture.detectChanges();
+      form = fixture.debugElement.query(By.css('ds-form'));
     });
 
     it('should enable ContentSource', () => {
@@ -133,6 +141,10 @@ describe('CollectionSourceComponent', () => {
 
     it('should send a field update', () => {
       expect(objectUpdatesService.saveAddFieldUpdate).toHaveBeenCalledWith(router.url, comp.contentSource)
+    });
+
+    it('should display the form', () => {
+      expect(form).not.toBeNull();
     });
   });
 
@@ -154,5 +166,21 @@ describe('CollectionSourceComponent', () => {
       comp.contentSource.enabled = true;
       expect(comp.isValid()).toBe(true);
     });
+  });
+
+  describe('onSubmit', () => {
+    beforeEach(() => {
+      comp.onSubmit();
+    });
+
+    it('should re-initialize the field updates', () => {
+      expect(objectUpdatesService.initialize).toHaveBeenCalled();
+    });
+
+    it('should display a success notification', () => {
+      expect(notificationsService.success).toHaveBeenCalled();
+    });
+
+    // TODO: Write test for sending data to REST API on submit
   });
 });
