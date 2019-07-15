@@ -157,6 +157,6 @@ module.exports = {
     }
   },
   theme: {
-    name: 'default',
+    name: 'mantis',
   }
 };
