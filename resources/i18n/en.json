@@ -54,6 +54,18 @@
               "provider": {
                 "required": "You must provide a set id of the target collection."
               }
+            },
+            "options": {
+              "format": {
+                "dc": "Simple Dublin Core",
+                "qdc": "Qualified Dublin Core",
+                "dim": "DSpace Intermediate Metadata"
+              },
+              "harvest": {
+                "1": "Harvest metadata only",
+                "2": "Harvest metadata and references to bitstreams (requires ORE support)",
+                "3": "Harvest metadata and bitstreams (requires ORE support)"
+              }
             }
           },
           "notifications": {

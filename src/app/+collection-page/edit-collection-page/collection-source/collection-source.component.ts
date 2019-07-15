@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import {
   DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService,
-  DynamicInputModel, DynamicRadioGroupModel,
+  DynamicInputModel, DynamicOptionControlModel, DynamicRadioGroupModel,
   DynamicSelectModel,
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
@@ -56,6 +56,14 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   ERROR_KEY_PREFIX = 'collection.edit.tabs.source.form.errors.';
 
+  /**
+   * @type {string} Key prefix used to generate form option labels
+   */
+  OPTIONS_KEY_PREFIX = 'collection.edit.tabs.source.form.options.';
+
+  /**
+   * The Dynamic Input Model for the OAI Provider
+   */
   providerModel = new DynamicInputModel({
     id: 'provider',
     name: 'provider',
@@ -68,45 +76,48 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     }
   });
 
+  /**
+   * The Dynamic Input Model for the OAI Set
+   */
   setModel = new DynamicInputModel({
     id: 'set',
     name: 'set'
   });
 
+  /**
+   * The Dynamic Input Model for the Metadata Format used
+   */
   formatModel = new DynamicSelectModel({
     id: 'format',
     name: 'format',
     options: [
       {
-        value: 'dc',
-        label: 'Simple Dublin Core'
+        value: 'dc'
       },
       {
-        value: 'qdc',
-        label: 'Qualified Dublin Core'
+        value: 'qdc'
       },
       {
-        value: 'dim',
-        label: 'DSpace Intermediate Metadata'
+        value: 'dim'
       }
     ]
   });
 
+  /**
+   * The Dynamic Input Model for the type of harvesting
+   */
   harvestModel = new DynamicRadioGroupModel<number>({
     id: 'harvest',
     name: 'harvest',
     options: [
       {
-        value: 1,
-        label: 'Harvest metadata only.'
+        value: 1
       },
       {
-        value: 2,
-        label: 'Harvest metadata and references to bitstreams (requires ORE support).'
+        value: 2
       },
       {
-        value: 3,
-        label: 'Harvest metadata and bitstreams (requires ORE support).'
+        value: 3
       }
     ]
   });
@@ -282,6 +293,13 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       Object.keys(fieldModel.validators).forEach((key) => {
         fieldModel.errorMessages[key] = this.translate.instant(this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
       });
+    }
+    if (fieldModel instanceof DynamicOptionControlModel) {
+      if (isNotEmpty(fieldModel.options)) {
+        fieldModel.options.forEach((option) => {
+          option.label = this.translate.instant(this.OPTIONS_KEY_PREFIX + fieldModel.id + '.' + option.value);
+        });
+      }
     }
   }
 
