@@ -53,4 +53,6 @@ export class AuthStatus implements CacheableObject {
    * The self link of this auth status' REST object
    */
   self: string;
+
+  ssoLoginUrl: string;
 }

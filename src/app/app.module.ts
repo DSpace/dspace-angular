@@ -112,7 +112,8 @@ const DECLARATIONS = [
   FooterComponent,
   PageNotFoundComponent,
   NotificationComponent,
-  NotificationsBoardComponent
+  NotificationsBoardComponent,
+  ShibbolethComponent
 ];
 
 const EXPORTS = [
@@ -128,8 +129,7 @@ const EXPORTS = [
     ...PROVIDERS
   ],
   declarations: [
-    ...DECLARATIONS,
-    ShibbolethComponent,
+    ...DECLARATIONS
   ],
   exports: [
     ...EXPORTS
