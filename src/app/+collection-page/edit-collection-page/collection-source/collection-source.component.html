@@ -22,9 +22,9 @@
     <input type="checkbox" class="form-check-input" id="externalSourceCheck" [checked]="contentSource.enabled" (change)="changeExternalSource()">
     <label class="form-check-label" for="externalSourceCheck">{{ 'collection.edit.tabs.source.external' | translate }}</label>
   </div>
-  <h4>{{ 'collection.edit.tabs.source.form.head' | translate }}</h4>
+  <h4 *ngIf="contentSource.enabled">{{ 'collection.edit.tabs.source.form.head' | translate }}</h4>
 </div>
-<ds-form *ngIf="formGroup"
+<ds-form *ngIf="formGroup && contentSource.enabled"
          [formId]="'collection-source-form-id'"
          [formGroup]="formGroup"
          [formModel]="formModel"
@@ -33,7 +33,7 @@
          (dfChange)="onChange($event)"
          (submitForm)="onSubmit()"
          (cancel)="onCancel()"></ds-form>
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="contentSource.enabled">
   <div class="d-inline-block float-right">
     <button class=" btn btn-danger" *ngIf="!(isReinstatable() | async)"
             [disabled]="!(hasChanges() | async)"

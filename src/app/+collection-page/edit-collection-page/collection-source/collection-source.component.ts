@@ -56,6 +56,61 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   ERROR_KEY_PREFIX = 'collection.edit.tabs.source.form.errors.';
 
+  providerModel = new DynamicInputModel({
+    id: 'provider',
+    name: 'provider',
+    required: true,
+    validators: {
+      required: null
+    },
+    errorMessages: {
+      required: 'You must provide a set id of the target collection.'
+    }
+  });
+
+  setModel = new DynamicInputModel({
+    id: 'set',
+    name: 'set'
+  });
+
+  formatModel = new DynamicSelectModel({
+    id: 'format',
+    name: 'format',
+    options: [
+      {
+        value: 'dc',
+        label: 'Simple Dublin Core'
+      },
+      {
+        value: 'qdc',
+        label: 'Qualified Dublin Core'
+      },
+      {
+        value: 'dim',
+        label: 'DSpace Intermediate Metadata'
+      }
+    ]
+  });
+
+  harvestModel = new DynamicRadioGroupModel<number>({
+    id: 'harvest',
+    name: 'harvest',
+    options: [
+      {
+        value: 1,
+        label: 'Harvest metadata only.'
+      },
+      {
+        value: 2,
+        label: 'Harvest metadata and references to bitstreams (requires ORE support).'
+      },
+      {
+        value: 3,
+        label: 'Harvest metadata and bitstreams (requires ORE support).'
+      }
+    ]
+  });
+
   /**
    * The dynamic form fields used for editing the content source of a collection
    * @type {(DynamicInputModel | DynamicTextAreaModel)[]}
@@ -64,70 +119,20 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     new DynamicFormGroupModel({
       id: 'providerContainer',
       group: [
-        new DynamicInputModel({
-          id: 'provider',
-          name: 'provider',
-          required: true,
-          validators: {
-            required: null
-          },
-          errorMessages: {
-            required: 'You must provide a set id of the target collection.'
-          },
-          disabled: true
-        })
+        this.providerModel
       ]
     }),
     new DynamicFormGroupModel({
       id: 'setContainer',
       group: [
-        new DynamicInputModel({
-          id: 'set',
-          name: 'set',
-          disabled: true
-        }),
-        new DynamicSelectModel({
-          id: 'format',
-          name: 'format',
-          options: [
-            {
-              value: 'dc',
-              label: 'Simple Dublin Core'
-            },
-            {
-              value: 'qdc',
-              label: 'Qualified Dublin Core'
-            },
-            {
-              value: 'dim',
-              label: 'DSpace Intermediate Metadata'
-            }
-          ],
-          disabled: true
-        })
+        this.setModel,
+        this.formatModel
       ]
     }),
     new DynamicFormGroupModel({
       id: 'harvestContainer',
       group: [
-        new DynamicRadioGroupModel<number>({
-          id: 'harvest',
-          name: 'harvest',
-          options: [
-            {
-              value: 1,
-              label: 'Harvest metadata only.'
-            },
-            {
-              value: 2,
-              label: 'Harvest metadata and references to bitstreams (requires ORE support).'
-            },
-            {
-              value: 3,
-              label: 'Harvest metadata and bitstreams (requires ORE support).'
-            }
-          ]
-        })
+        this.harvestModel
       ]
     })
   ];
@@ -153,7 +158,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     },
     harvest: {
       grid: {
-        host: 'col-12'
+        host: 'col-12',
+        option: 'btn-outline-secondary'
       }
     },
     setContainer: {
@@ -245,7 +251,6 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         });
         this.contentSource = cloneDeep(field);
       }
-      this.switchEnableForm();
     });
   }
 
@@ -318,17 +323,6 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   changeExternalSource() {
     this.contentSource.enabled = !this.contentSource.enabled;
     this.updateContentSource();
-  }
-
-  /**
-   * Enable or disable the form depending on the Content Source's enabled property
-   */
-  switchEnableForm() {
-    if (this.contentSource.enabled) {
-      this.formGroup.enable();
-    } else {
-      this.formGroup.disable();
-    }
   }
 
   /**
