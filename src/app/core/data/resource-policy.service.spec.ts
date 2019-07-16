@@ -57,6 +57,13 @@ describe('ResourcePolicyService', () => {
   });
 
   describe('findByHref', () => {
+    it('should configure the proper GetRequest', () => {
+      scheduler.schedule(() => service.findByHref(requestURL));
+      scheduler.flush();
+
+      expect(requestService.configure).toHaveBeenCalledWith(new GetRequest(requestUUID, requestURL, null), false);
+    });
+
     it('should return a RemoteData<ResourcePolicy> for the object with the given URL', () => {
       const result = service.findByHref(requestURL);
       const expected = cold('a', {
