@@ -3,7 +3,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ResourcePolicy } from '../shared/resource-policy.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindByIDRequest } from './request.models';
+import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { ResourcePolicyService } from './resource-policy.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -18,16 +18,16 @@ describe('ResourcePolicyService', () => {
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   const testObject = {
-    id: 1
+    uuid: '664184ee-b254-45e8-970d-220e5ccc060b'
   } as ResourcePolicy;
-  const requestURL = `https://rest.api/rest/api/resourcepolicies/${testObject.id}`;
-  const requestID = 1;
+  const requestURL = `https://rest.api/rest/api/resourcepolicies/${testObject.uuid}`;
+  const requestUUID = '8b3c613a-5a4b-438b-9686-be1d5b4a1c5a';
 
   beforeEach(() => {
     scheduler = getTestScheduler();
 
     requestService = jasmine.createSpyObj('requestService', {
-      generateRequestId: requestID,
+      generateRequestId: requestUUID,
       configure: true
     });
     rdbService = jasmine.createSpyObj('rdbService', {
