@@ -52,7 +52,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   ngOnInit(): void {
     this.resetRoute();
     this.onPaginationChange(this.initialPagination);
-    this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
+    this.selection = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
   }
 
   search(query: string) {

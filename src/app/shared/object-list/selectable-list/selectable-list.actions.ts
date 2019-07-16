@@ -68,7 +68,7 @@ export class SelectableListDeselectAction extends SelectableListAction {
 }
 
 export class SelectableListSetSelectionAction extends SelectableListAction {
-  payload: ListableObject;
+  payload: ListableObject[];
 
   constructor(id: string, objects: ListableObject[]) {
     super(SelectableListActionTypes.SET_SELECTION, id);

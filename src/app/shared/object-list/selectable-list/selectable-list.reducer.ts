@@ -71,7 +71,7 @@ function select(state: SelectableListState, action: SelectableListSelectAction) 
 
 function selectSingle(state: SelectableListState, action: SelectableListSelectSingleAction) {
   let newSelection;
-  if (action.payload.multipleSelectionsAllowed && !isObjectInSelection(state.selection, action.payload)) {
+  if (action.payload.multipleSelectionsAllowed && !isObjectInSelection(state.selection, action.payload.object)) {
     newSelection = [...state.selection, action.payload.object];
   } else {
     newSelection = [action.payload.object];
@@ -80,20 +80,19 @@ function selectSingle(state: SelectableListState, action: SelectableListSelectSi
 }
 
 function deselect(state: SelectableListState, action: SelectableListDeselectAction) {
-  const newSelection = state.selection.filter((selected) => hasNoValue(action.payload.find((object) => object === selected)));
+  const newSelection = state.selection.filter((selected) => hasNoValue(action.payload.find((object) => object.uuid === selected.uuid)));
   return Object.assign({}, state, { selection: newSelection });
 }
 
 function deselectSingle(state: SelectableListState, action: SelectableListDeselectSingleAction) {
   const newSelection = state.selection.filter((selected) => {
-    return selected !== action.payload
+    return selected.uuid !== action.payload.uuid
   });
   return Object.assign({}, state, { selection: newSelection });
 }
 
 function setList(state: SelectableListState, action: SelectableListSetSelectionAction) {
-  const newSelection = [...state.selection, action.payload];
-  return Object.assign({}, state, { selection: newSelection });
+  return Object.assign({}, state, { selection: action.payload });
 }
 
 function clearSelection(id: string) {
@@ -102,5 +101,5 @@ function clearSelection(id: string) {
 
 
 function isObjectInSelection(selection: ListableObject[], object: ListableObject) {
-  return selection.findIndex((selected) => selected === object) >= 0
+  return selection.findIndex((selected) => selected.uuid === object.uuid) >= 0
 }

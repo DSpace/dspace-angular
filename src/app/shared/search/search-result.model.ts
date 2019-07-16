@@ -16,4 +16,7 @@ export class SearchResult<T extends DSpaceObject> implements ListableObject {
    */
   hitHighlights: MetadataMap;
 
+  get id(): string {
+    return this.indexableObject.id;
+  }
 }
