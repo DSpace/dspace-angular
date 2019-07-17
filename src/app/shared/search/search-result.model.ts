@@ -5,7 +5,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 /**
  * Represents a search result object of a certain (<T>) DSpaceObject
  */
-export class SearchResult<T extends DSpaceObject> implements ListableObject {
+export class SearchResult<T extends DSpaceObject> extends ListableObject {
   /**
    * The DSpaceObject that was found
    */

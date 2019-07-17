@@ -80,13 +80,13 @@ function selectSingle(state: SelectableListState, action: SelectableListSelectSi
 }
 
 function deselect(state: SelectableListState, action: SelectableListDeselectAction) {
-  const newSelection = state.selection.filter((selected) => hasNoValue(action.payload.find((object) => object.uuid === selected.uuid)));
+  const newSelection = state.selection.filter((selected) => hasNoValue(action.payload.find((object) => object.equals(selected))));
   return Object.assign({}, state, { selection: newSelection });
 }
 
 function deselectSingle(state: SelectableListState, action: SelectableListDeselectSingleAction) {
   const newSelection = state.selection.filter((selected) => {
-    return selected.uuid !== action.payload.uuid
+    return !selected.equals(action.payload);
   });
   return Object.assign({}, state, { selection: newSelection });
 }
@@ -101,5 +101,5 @@ function clearSelection(id: string) {
 
 
 function isObjectInSelection(selection: ListableObject[], object: ListableObject) {
-  return selection.findIndex((selected) => selected.uuid === object.uuid) >= 0
+  return selection.findIndex((selected) => selected.equals(object)) >= 0
 }

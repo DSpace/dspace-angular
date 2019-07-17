@@ -3,7 +3,7 @@ import { autoserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { isNotEmpty } from '../../shared/empty.util';
 
-export class MetadataField implements ListableObject {
+export class MetadataField extends ListableObject {
   @autoserialize
   id: number;
 

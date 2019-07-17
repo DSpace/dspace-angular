@@ -2,14 +2,13 @@ import { Observable } from 'rxjs';
 
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { DSpaceObject } from '../../shared/dspace-object.model';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { RemoteData } from '../../data/remote-data';
 import { Workflowitem } from '../../submission/models/workflowitem.model';
 
 /**
  * An abstract model class for a TaskObject.
  */
-export class TaskObject extends DSpaceObject implements CacheableObject, ListableObject {
+export class TaskObject extends DSpaceObject implements CacheableObject {
 
   /**
    * The task identifier

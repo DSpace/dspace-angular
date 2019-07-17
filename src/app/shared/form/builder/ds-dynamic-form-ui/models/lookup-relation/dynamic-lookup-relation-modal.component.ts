@@ -8,15 +8,14 @@ import { PaginatedSearchOptions } from '../../../../../search/paginated-search-o
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../../../empty.util';
-import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
-import { concat, map, multicast, take, takeWhile, tap } from 'rxjs/operators';
+import { hasValue } from '../../../../../empty.util';
+import { concat, map, multicast, take, takeWhile } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListState } from '../../../../../object-list/selectable-list/selectable-list.reducer';
+import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 
 const RELATION_TYPE_FILTER_PREFIX = 'f.entityType=';
 

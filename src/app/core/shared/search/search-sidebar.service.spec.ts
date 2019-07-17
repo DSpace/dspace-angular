@@ -1,10 +1,10 @@
 import { Store } from '@ngrx/store';
 import { SearchSidebarService } from './search-sidebar.service';
-import { AppState } from '../../app.reducer';
 import { async, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from '../../../shared/search/search-sidebar/search-sidebar.actions';
-import { HostWindowService } from '../../shared/host-window.service';
+import { AppState } from '../../../app.reducer';
+import { HostWindowService } from '../../../shared/host-window.service';
 
 describe('SearchSidebarService', () => {
   let service: SearchSidebarService;

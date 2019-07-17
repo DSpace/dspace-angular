@@ -1,8 +1,8 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
-import { Equatable } from '../utilities/equatable';
-import { hasValue } from '../../shared/empty.util';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 
-export class BrowseEntry implements Equatable<BrowseEntry> {
+export class BrowseEntry extends ListableObject {
   @autoserialize
   type: string;
 
@@ -18,12 +18,5 @@ export class BrowseEntry implements Equatable<BrowseEntry> {
   @excludeFromEquals
   @autoserialize
   count: number;
-
-  equals(other: BrowseEntry): boolean {
-    if (hasValue(other)) {
-      return false;
-    }
-    return false;
-  }
 
 }

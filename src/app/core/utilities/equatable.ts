@@ -12,11 +12,11 @@ function equalsByFields(object1, object2, fieldList): boolean {
     if (hasNoValue(object1[key]) || hasNoValue(object2[key])) {
       return true;
     }
-    const mapping = getFieldsForEquals(this.constructor, key);
+    const mapping = getFieldsForEquals(object1.constructor, key);
     if (hasValue(mapping)) {
       return !equalsByFields(object1[key], object2[key], mapping);
     }
-    if (this[key] instanceof EquatableObject) {
+    if (object1[key] instanceof EquatableObject) {
       return !object1[key].equals(object2[key]);
     }
     return object1[key] !== object2[key];
@@ -26,6 +26,12 @@ function equalsByFields(object1, object2, fieldList): boolean {
 
 export abstract class EquatableObject<T> {
   equals(other: T): boolean {
+    if (hasNoValue(other)) {
+      return false;
+    }
+    if (this as any === other) {
+      return true;
+    }
     const excludedKeys = getExcludedFromEqualsFor(this.constructor);
     const keys = Object.keys(this).filter((key) => excludedKeys.findIndex((excludedKey) => key === excludedKey) < 0);
     return equalsByFields(this, other, keys);

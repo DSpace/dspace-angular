@@ -2,15 +2,15 @@ import { SearchLabelsComponent } from './search-labels.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { SearchService } from '../search-service/search.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SearchServiceStub } from '../../shared/testing/search-service-stub';
 import { Observable, of as observableOf } from 'rxjs';
 import { Params } from '@angular/router';
-import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
-import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service-stub';
+import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
+import { SearchServiceStub } from '../../testing/search-service-stub';
+import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service-stub';
 
 describe('SearchLabelsComponent', () => {
   let comp: SearchLabelsComponent;

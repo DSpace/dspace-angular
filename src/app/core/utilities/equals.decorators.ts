@@ -34,6 +34,6 @@ export function fieldsForEquals(...fields: string[]): any {
 
 
 export function getFieldsForEquals(constructor: Function, field: string) {
-  const fieldMap = excludedFromEquals.get(constructor) || new Map();
+  const fieldMap = fieldsForEqualsMap.get(constructor) || new Map();
   return fieldMap.get(field);
 }

@@ -26,10 +26,12 @@ export class TypedItemSearchResultListElementComponent extends SearchResultListE
       this.object = obj as ItemSearchResult;
       this.dso = this.object.indexableObject;
     } else {
-      this.object = {
-        indexableObject: obj as Item,
-        hitHighlights: new MetadataMap()
-      };
+      this.object = Object.assign(
+        new ItemSearchResult(),
+        {
+          indexableObject: obj as Item,
+          hitHighlights: new MetadataMap()
+        });
       this.dso = obj as Item;
     }
     this.item = this.dso;

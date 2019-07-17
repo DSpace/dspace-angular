@@ -6,13 +6,16 @@ import { of as observableOf } from 'rxjs';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { SearchSwitchConfigurationComponent } from './search-switch-configuration.component';
-import { MYDSPACE_ROUTE, SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service-stub';
-import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { NavigationExtras, Router } from '@angular/router';
-import { RouterStub } from '../../shared/testing/router-stub';
-import { MyDSpaceConfigurationValueType } from '../../+my-dspace-page/my-dspace-configuration-value-type';
-import { SearchService } from '../search-service/search.service';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service-stub';
+import { RouterStub } from '../../testing/router-stub';
+import { SearchService } from '../../../core/shared/search/search.service';
+import {
+  MYDSPACE_ROUTE,
+  SEARCH_CONFIG_SERVICE
+} from '../../../+my-dspace-page/my-dspace-page.component';
+import { MyDSpaceConfigurationValueType } from '../../../+my-dspace-page/my-dspace-configuration-value-type';
+import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
 
 describe('SearchSwitchConfigurationComponent', () => {
 

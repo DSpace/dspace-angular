@@ -5,7 +5,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 /**
  * Represents a normalized version of a search result object of a certain DSpaceObject
  */
-export class NormalizedSearchResult implements ListableObject {
+export class NormalizedSearchResult extends ListableObject {
   /**
    * The UUID of the DSpaceObject that was found
    */
