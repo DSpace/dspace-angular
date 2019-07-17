@@ -114,6 +114,7 @@ import { NormalizedRelationship } from './cache/models/items/normalized-relation
 import { NormalizedRelationshipType } from './cache/models/items/normalized-relationship-type.model';
 import { NormalizedItemType } from './cache/models/items/normalized-item-type.model';
 import { MetadatafieldParsingService } from './data/metadatafield-parsing.service';
+import { NormalizedSubmissionUploadsModel } from './config/models/normalized-config-submission-uploads.model';
 
 const IMPORTS = [
   CommonModule,
@@ -233,6 +234,7 @@ export const normalizedModels =
     NormalizedSubmissionDefinitionsModel,
     NormalizedSubmissionFormsModel,
     NormalizedSubmissionSectionModel,
+    NormalizedSubmissionUploadsModel,
     NormalizedAuthStatus,
     NormalizedAuthorityValue,
     BrowseEntry,

@@ -14,5 +14,11 @@ export abstract class NormalizedObject<T extends TypedObject> implements Cacheab
   @autoserialize
   _links: {
     [name: string]: string
-  }
+  };
+
+  /**
+   * A string representing the kind of object
+   */
+  @autoserialize
+  type: string;
 }
