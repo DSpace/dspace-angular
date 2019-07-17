@@ -7,11 +7,15 @@
       <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journalissue.identifier.number']"
+      [fields]="['publicationvolume.volumeNumber']"
+      [label]="'journalvolume.page.volume'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['publicationissue.issueNumber']"
       [label]="'journalissue.page.number'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journalissue.issuedate']"
+      [fields]="['creativework.datePublished']"
       [label]="'journalissue.page.issuedate'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
@@ -19,7 +23,7 @@
       [label]="'journalissue.page.journal-title'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journal.identifier.issn']"
+      [fields]="['creativeworkseries.issn']"
       [label]="'journalissue.page.journal-issn'">
     </ds-generic-item-page-field>
   </div>
@@ -34,11 +38,11 @@
       [label]="'relationships.isPublicationOfJournalIssue' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journalissue.identifier.description']"
+      [fields]="['dc.description']"
       [label]="'journalissue.page.description'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journalissue.identifier.keyword']"
+      [fields]="['creativework.keywords']"
       [label]="'journalissue.page.keyword'">
     </ds-generic-item-page-field>
     <div>

@@ -1,0 +1,76 @@
+<div class="top-item-page">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
+                <ds-metadata-field-wrapper>
+                    <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"
+                                  [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-thumbnail>
+                </ds-metadata-field-wrapper>
+                <div>
+                    <a class="btn btn-secondary"
+                       [routerLink]="['/items/' + item.id + '/full']">
+                        {{"item.page.link.full" | translate}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-md-10">
+                <h2 class="item-page-title-field">
+                  {{'orgunit.page.titleprefix' | translate}}
+                    <ds-metadata-values
+                            [mdValues]="item?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
+                </h2>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['orgunit.identifier.city']"
+                                                    [label]="'orgunit.page.city'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['orgunit.identifier.country']"
+                                                    [label]="'orgunit.page.country'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['orgunit.identifier.id']"
+                                                    [label]="'orgunit.page.id'">
+                        </ds-generic-item-page-field>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <ds-generic-item-page-field [item]="item"
+                                                  [fields]="['orgunit.identifier.dateestablished']"
+                                                  [label]="'orgunit.page.dateestablished'">
+                      </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['orgunit.identifier.description']"
+                                                    [label]="'orgunit.page.description'">
+                        </ds-generic-item-page-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relationships-item-page" *ngIf="(people$ | async) || (projects$ | async) || (publications$ | async)">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4" *ngIf="people$ | async">
+                <ds-related-items
+                        [items]="people$ | async"
+                        [label]="'relationships.isPersonOf' | translate">
+                </ds-related-items>
+            </div>
+            <div class="col-12 col-md-4" *ngIf="projects$ | async">
+                <ds-related-items
+                        [items]="projects$ | async"
+                        [label]="'relationships.isProjectOf' | translate">
+                </ds-related-items>
+            </div>
+            <div class="col-12 col-md-4" *ngIf="publications$ | async">
+                <ds-related-items
+                        [items]="publications$ | async"
+                        [label]="'relationships.isPublicationOf' | translate">
+                </ds-related-items>
+            </div>
+        </div>
+    </div>
+</div>

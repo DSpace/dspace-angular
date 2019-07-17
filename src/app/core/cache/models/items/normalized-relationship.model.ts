@@ -19,16 +19,18 @@ export class NormalizedRelationship extends NormalizedObject<Relationship> {
   id: string;
 
   /**
-   * The identifier of the Item to the left side of this Relationship
+   * The item to the left of this relationship
    */
   @autoserialize
-  leftId: string;
+  @relationship(ResourceType.Item, false)
+  leftItem: string;
 
   /**
-   * The identifier of the Item to the right side of this Relationship
+   * The item to the right of this relationship
    */
   @autoserialize
-  rightId: string;
+  @relationship(ResourceType.Item, false)
+  rightItem: string;
 
   /**
    * The place of the Item to the left side of this Relationship

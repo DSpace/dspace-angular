@@ -12,31 +12,31 @@ import {
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: {
-    'orgunit.identifier.dateestablished': [
+    'organization.foundingDate': [
       {
         language: 'en_US',
         value: '2018'
       }
     ],
-    'orgunit.identifier.city': [
+    'organization.address.addressLocality': [
       {
         language: 'en_US',
         value: 'New York'
       }
     ],
-    'orgunit.identifier.country': [
+    'organization.adress.addressCountry': [
       {
         language: 'en_US',
         value: 'USA'
       }
     ],
-    'orgunit.identifier.id': [
+    'dc.identifier': [
       {
         language: 'en_US',
         value: '1'
       }
     ],
-    'orgunit.identifier.description': [
+    'dc.description': [
       {
         language: 'en_US',
         value: 'desc'
