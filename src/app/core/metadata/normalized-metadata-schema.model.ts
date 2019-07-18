@@ -1,14 +1,14 @@
-import { autoserialize } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { mapsTo } from '../cache/builders/build-decorators';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { ResourceType } from '../shared/resource-type';
 import { MetadataSchema } from './metadata-schema.model';
 
 /**
  * Normalized class for a DSpace MetadataSchema
  */
 @mapsTo(MetadataSchema)
+@inheritSerialization(NormalizedObject)
 export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> implements ListableObject {
   /**
    * The unique identifier for this schema

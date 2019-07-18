@@ -1,5 +1,4 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
-import { ResourceType } from './resource-type';
+import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { BrowseEntry } from './browse-entry.model';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { mapsTo } from '../cache/builders/build-decorators';
@@ -9,6 +8,7 @@ import { mapsTo } from '../cache/builders/build-decorators';
  * This class is not normalized because browse entries do not have self links
  */
 @mapsTo(BrowseEntry)
+@inheritSerialization(NormalizedObject)
 export class NormalizedBrowseEntry extends NormalizedObject<BrowseEntry> {
   /**
    * The authority string of this browse entry

@@ -1,4 +1,4 @@
-import { autoserialize, deserialize } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { mapsTo, relationship } from '../cache/builders/build-decorators';
 import { MetadataField } from './metadata-field.model';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
@@ -9,6 +9,7 @@ import { MetadataSchema } from './metadata-schema.model';
  * Class the represents a normalized metadata field
  */
 @mapsTo(MetadataField)
+@inheritSerialization(NormalizedObject)
 export class NormalizedMetadataField extends NormalizedObject<MetadataField> implements ListableObject {
 
   /**

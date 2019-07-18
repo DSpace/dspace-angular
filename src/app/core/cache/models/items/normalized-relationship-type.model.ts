@@ -5,7 +5,6 @@ import { mapsTo, relationship } from '../../builders/build-decorators';
 import { NormalizedDSpaceObject } from '../normalized-dspace-object.model';
 import { NormalizedObject } from '../normalized-object.model';
 import { IDToUUIDSerializer } from '../../id-to-uuid-serializer';
-import { NormalizedItemType } from './normalized-item-type.model';
 import { ItemType } from '../../../shared/item-relationships/item-type.model';
 
 /**

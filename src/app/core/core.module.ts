@@ -100,7 +100,6 @@ import { NormalizedSubmissionFormsModel } from './config/models/normalized-confi
 import { NormalizedSubmissionSectionModel } from './config/models/normalized-config-submission-section.model';
 import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model';
 import { NormalizedAuthorityValue } from './integration/models/normalized-authority-value.model';
-import { BrowseEntry } from './shared/browse-entry.model';
 import { RoleService } from './roles/role.service';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
@@ -115,6 +114,8 @@ import { NormalizedRelationshipType } from './cache/models/items/normalized-rela
 import { NormalizedItemType } from './cache/models/items/normalized-item-type.model';
 import { MetadatafieldParsingService } from './data/metadatafield-parsing.service';
 import { NormalizedSubmissionUploadsModel } from './config/models/normalized-config-submission-uploads.model';
+import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
+import { BrowseDefinition } from './shared/browse-definition.model';
 
 const IMPORTS = [
   CommonModule,
@@ -237,7 +238,8 @@ export const normalizedModels =
     NormalizedSubmissionUploadsModel,
     NormalizedAuthStatus,
     NormalizedAuthorityValue,
-    BrowseEntry,
+    NormalizedBrowseEntry,
+    BrowseDefinition,
     NormalizedClaimedTask,
     NormalizedTaskObject,
     NormalizedPoolTask,

@@ -1,7 +1,6 @@
 import { AuthStatus } from './auth-status.model';
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { EPerson } from '../../eperson/models/eperson.model';

@@ -4,6 +4,8 @@ import { ResourceType } from './resource-type';
 import { TypedObject } from '../cache/object-cache.reducer';
 
 export class BrowseDefinition implements TypedObject {
+  static type = new ResourceType('browse');
+
   @autoserialize
   id: string;
 

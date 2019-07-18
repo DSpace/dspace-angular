@@ -2,7 +2,6 @@ import { autoserialize, inheritSerialization } from 'cerialize';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { License } from '../../shared/license.model';
-import { ResourceType } from '../../shared/resource-type';
 
 /**
  * Normalized model class for a Collection License

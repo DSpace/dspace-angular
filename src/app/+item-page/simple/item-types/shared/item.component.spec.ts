@@ -342,7 +342,7 @@ describe('ItemComponent', () => {
         id: '123',
         leftItem: createSuccessfulRemoteDataObject$(mockItem),
         rightItem: createSuccessfulRemoteDataObject$(relatedItem),
-        relationshipType: createSuccessfulRemoteDataObject$new RelationshipType())
+        relationshipType: createSuccessfulRemoteDataObject$(new RelationshipType())
       })
     ]));
     mockItem.metadata[metadataField] = [
