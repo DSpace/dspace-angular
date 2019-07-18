@@ -37,6 +37,8 @@ import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.comp
 import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { NavbarModule } from './navbar/navbar.module';
+import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -64,6 +66,11 @@ const IMPORTS = [
   EffectsModule.forRoot(appEffects),
   StoreModule.forRoot(appReducers),
   StoreRouterConnectingModule,
+];
+
+const ENTITY_IMPORTS = [
+  JournalEntitiesModule,
+  ResearchEntitiesModule
 ];
 
 IMPORTS.push(
@@ -112,7 +119,8 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    ...IMPORTS
+    ...IMPORTS,
+    ...ENTITY_IMPORTS
   ],
   providers: [
     ...PROVIDERS

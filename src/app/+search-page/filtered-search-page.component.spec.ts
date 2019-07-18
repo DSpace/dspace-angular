@@ -18,20 +18,4 @@ describe('FilteredSearchPageComponent', () => {
     searchConfigService = (comp as any).searchConfigService;
     fixture.detectChanges();
   });
-
-  describe('when fixedFilterQuery is defined', () => {
-    const fixedFilterQuery = 'fixedFilterQuery';
-
-    beforeEach(() => {
-      spyOn(searchConfigService, 'updateFixedFilter').and.callThrough();
-      comp.fixedFilterQuery = fixedFilterQuery;
-      comp.ngOnInit();
-      fixture.detectChanges();
-    });
-
-    it('should update the paginated search options', () => {
-      expect(searchConfigService.updateFixedFilter).toHaveBeenCalledWith(fixedFilterQuery);
-    });
-  });
-
 });

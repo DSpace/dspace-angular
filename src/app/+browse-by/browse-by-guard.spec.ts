@@ -1,6 +1,7 @@
 import { first } from 'rxjs/operators';
 import { BrowseByGuard } from './browse-by-guard';
 import { of as observableOf } from 'rxjs';
+import { ENV_CONFIG } from '../../config';
 
 describe('BrowseByGuard', () => {
   describe('canActivate', () => {
@@ -11,20 +12,20 @@ describe('BrowseByGuard', () => {
     const name = 'An interesting DSO';
     const title = 'Author';
     const field = 'Author';
-    const metadata = 'author';
+    const id = 'author';
     const metadataField = 'dc.contributor';
     const scope = '1234-65487-12354-1235';
     const value = 'Filter';
 
     beforeEach(() => {
       dsoService = {
-        findById: (id: string) => observableOf({ payload: { name: name }, hasSucceeded: true })
+        findById: (dsoId: string) => observableOf({ payload: { name: name }, hasSucceeded: true })
       };
 
       translateService = {
         instant: () => field
       };
-      guard = new BrowseByGuard(dsoService, translateService);
+      guard = new BrowseByGuard(ENV_CONFIG, dsoService, translateService);
     });
 
     it('should return true, and sets up the data correctly, with a scope and value', () => {
@@ -34,7 +35,7 @@ describe('BrowseByGuard', () => {
           metadataField,
         },
         params: {
-          metadata,
+          id,
         },
         queryParams: {
           scope,
@@ -47,7 +48,7 @@ describe('BrowseByGuard', () => {
           (canActivate) => {
             const result = {
                 title,
-                metadata,
+                id,
                 metadataField,
                 collection: name,
                 field,
@@ -66,7 +67,7 @@ describe('BrowseByGuard', () => {
           metadataField,
         },
         params: {
-          metadata,
+          id,
         },
         queryParams: {
           scope
@@ -79,7 +80,7 @@ describe('BrowseByGuard', () => {
           (canActivate) => {
             const result = {
                 title,
-                metadata,
+                id,
                 metadataField,
                 collection: name,
                 field,
@@ -98,7 +99,7 @@ describe('BrowseByGuard', () => {
           metadataField,
         },
         params: {
-          metadata,
+          id,
         },
         queryParams: {
           value
@@ -110,7 +111,7 @@ describe('BrowseByGuard', () => {
           (canActivate) => {
             const result = {
                 title,
-                metadata,
+                id,
                 metadataField,
                 collection: '',
                 field,

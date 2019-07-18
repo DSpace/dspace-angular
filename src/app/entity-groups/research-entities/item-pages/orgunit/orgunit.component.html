@@ -1,0 +1,49 @@
+<h2 class="item-page-title-field">
+  {{'orgunit.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['organization.legalName'])"></ds-metadata-values>
+</h2>
+<div class="row">
+  <div class="col-xs-12 col-md-4">
+    <ds-metadata-field-wrapper>
+      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-thumbnail>
+    </ds-metadata-field-wrapper>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['organization.foundingDate']"
+      [label]="'orgunit.page.dateestablished'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['organization.address.addressLocality']"
+      [label]="'orgunit.page.city'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['organization.adress.addressCountry']"
+      [label]="'orgunit.page.country'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['dc.identifier']"
+      [label]="'orgunit.page.id'">
+    </ds-generic-item-page-field>
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ds-related-items
+      [items]="people$ | async"
+      [label]="'relationships.isPersonOf' | translate">
+    </ds-related-items>
+    <ds-related-items
+      [items]="projects$ | async"
+      [label]="'relationships.isProjectOf' | translate">
+    </ds-related-items>
+    <ds-related-items
+      [items]="publications$ | async"
+      [label]="'relationships.isPublicationOf' | translate">
+    </ds-related-items>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['dc.description']"
+      [label]="'orgunit.page.description'">
+    </ds-generic-item-page-field>
+    <div>
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">
+        {{"item.page.link.full" | translate}}
+      </a>
+    </div>
+  </div>
+</div>

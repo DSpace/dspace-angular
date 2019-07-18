@@ -13,6 +13,7 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
+import { BrowseByType, rendersBrowseBy } from '../+browse-by-switcher/browse-by-decorator';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -21,9 +22,10 @@ import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 })
 /**
  * Component for browsing items by metadata definition of type 'date'
- * A metadata definition is a short term used to describe one or multiple metadata fields.
+ * A metadata definition (a.k.a. browse id) is a short term used to describe one or multiple metadata fields.
  * An example would be 'dateissued' for 'dc.date.issued'
  */
+@rendersBrowseBy(BrowseByType.Date)
 export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
 
   /**
@@ -53,12 +55,12 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         })
         .subscribe((params) => {
           const metadataField = params.metadataField || this.defaultMetadataField;
-          this.metadata = params.metadata || this.defaultMetadata;
+          this.browseId = params.id || this.defaultBrowseId;
           this.startsWith = +params.startsWith || params.startsWith;
-          const searchOptions = browseParamsToOptions(params, Object.assign({}), this.sortConfig, this.metadata);
+          const searchOptions = browseParamsToOptions(params, Object.assign({}), this.sortConfig, this.browseId);
           this.updatePageWithItems(searchOptions, this.value);
           this.updateParent(params.scope);
-          this.updateStartsWithOptions(this.metadata, metadataField, params.scope);
+          this.updateStartsWithOptions(this.browseId, metadataField, params.scope);
         }));
   }
 
@@ -78,8 +80,9 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
         let lowerLimit = this.config.browseBy.defaultLowerLimit;
         if (hasValue(firstItemRD.payload)) {
           const date = firstItemRD.payload.firstMetadataValue(metadataField);
-          if (hasValue(date) && hasValue(+date.split('-')[0])) {
-            lowerLimit = +date.split('-')[0];
+          if (hasValue(date)) {
+            const dateObj = new Date(date);
+            lowerLimit = dateObj.getFullYear();
           }
         }
         const options = [];

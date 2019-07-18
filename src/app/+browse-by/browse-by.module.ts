@@ -8,6 +8,7 @@ import { BrowseService } from '../core/browse/browse.service';
 import { BrowseByMetadataPageComponent } from './+browse-by-metadata-page/browse-by-metadata-page.component';
 import { BrowseByDatePageComponent } from './+browse-by-date-page/browse-by-date-page.component';
 import { BrowseByGuard } from './browse-by-guard';
+import { BrowseBySwitcherComponent } from './+browse-by-switcher/browse-by-switcher.component';
 
 @NgModule({
   imports: [
@@ -18,12 +19,18 @@ import { BrowseByGuard } from './browse-by-guard';
   declarations: [
     BrowseByTitlePageComponent,
     BrowseByMetadataPageComponent,
-    BrowseByDatePageComponent
+    BrowseByDatePageComponent,
+    BrowseBySwitcherComponent
   ],
   providers: [
     ItemDataService,
     BrowseService,
     BrowseByGuard
+  ],
+  entryComponents: [
+    BrowseByTitlePageComponent,
+    BrowseByMetadataPageComponent,
+    BrowseByDatePageComponent
   ]
 })
 export class BrowseByModule {

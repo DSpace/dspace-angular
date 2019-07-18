@@ -6,7 +6,7 @@ import { SetViewMode } from '../../shared/view-mode';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 
 @Component({
@@ -22,6 +22,8 @@ import { SortOptions } from '../../core/cache/models/sort-options.model';
  * Component that represents all results from a search
  */
 export class SearchResultsComponent {
+  hasNoValue = hasNoValue;
+
   /**
    * The actual search result objects
    */
@@ -60,7 +62,7 @@ export class SearchResultsComponent {
    */
   getTitleKey() {
     if (isNotEmpty(this.fixedFilter)) {
-      return 'search.' + this.fixedFilter + '.results.head'
+      return this.fixedFilter + '.search.results.head'
     } else {
       return 'search.results.head';
     }

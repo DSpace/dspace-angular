@@ -6,7 +6,7 @@
   [objects]="searchResults"
   [hideGear]="true">
 </ds-viewable-collection></div>
-<ds-loading *ngIf="!searchResults || searchResults?.isLoading" message="{{'loading.search-results' | translate}}"></ds-loading>
+<ds-loading *ngIf="hasNoValue(searchResults) || hasNoValue(searchResults.payload) || searchResults.isLoading" message="{{'loading.search-results' | translate}}"></ds-loading>
 <ds-error *ngIf="searchResults?.hasFailed && (!searchResults?.error || searchResults?.error?.statusCode != 400)" message="{{'error.search-results' | translate}}"></ds-error>
 <div *ngIf="searchResults?.payload?.page.length == 0 || searchResults?.error?.statusCode == 400">
     {{ 'search.results.no-results' | translate }}

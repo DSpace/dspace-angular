@@ -109,6 +109,16 @@
       "link": {
         "simple": "Simple item page",
         "full": "Full item page"
+      },
+      "journal": {
+        "search": {
+          "title": "Articles in this journal"
+        }
+      },
+      "person": {
+        "search": {
+          "title": "Articles by this author"
+        }
       }
     },
     "select": {
@@ -302,6 +312,12 @@
     },
     "listelement": {
       "badge": "Person"
+    },
+    "search": {
+      "title": "DSpace Angular :: Person Search",
+      "results": {
+        "head": "Person Search Results"
+      }
     }
   },
   "project": {
@@ -342,6 +358,12 @@
     },
     "listelement": {
       "badge": "Journal"
+    },
+    "search": {
+      "title": "DSpace Angular :: Journal Search",
+      "results": {
+        "head": "Journal Search Results"
+      }
     }
   },
   "journalvolume": {
@@ -374,10 +396,19 @@
       "titleprefix": "Publication: ",
       "journal-title": "Journal Title",
       "journal-issn": "Journal ISSN",
-      "volume-title": "Volume Title"
+      "volume-title": "Volume Title",
+      "publisher": "Publisher",
+      "description": "Description"
+
     },
     "listelement": {
       "badge": "Publication"
+    },
+    "search": {
+      "title": "DSpace Angular :: Publication Search",
+      "results": {
+        "head": "Publication Search Results"
+      }
     }
   },
   "nav": {
@@ -481,24 +512,6 @@
     }
   },
   "search": {
-    "journal": {
-      "title": "DSpace Angular :: Journal Search",
-      "results": {
-        "head": "Journal Search Results"
-      }
-    },
-    "person": {
-      "title": "DSpace Angular :: Person Search",
-      "results": {
-        "head": "Person Search Results"
-      }
-    },
-    "publication": {
-      "title": "DSpace Angular :: Publication Search",
-      "results": {
-        "head": "Publication Search Results"
-      }
-    },
     "title": "DSpace Angular :: Search",
     "description": "",
     "form": {
@@ -597,6 +610,46 @@
         "objectpeople": {
           "placeholder": "People",
           "head": "People"
+        },
+        "jobTitle": {
+          "placeholder": "Job Title",
+          "head": "Job Title"
+        },
+        "knowsLanguage": {
+          "placeholder": "Known language",
+          "head": "Known language"
+        },
+        "birthDate": {
+          "placeholder": "Birth Date",
+          "head": "Birth Date"
+        },
+        "creativeWorkPublisher": {
+          "placeholder": "Publisher",
+          "head": "Publisher"
+        },
+        "creativeWorkEditor": {
+          "placeholder": "Editor",
+          "head": "Editor"
+        },
+        "creativeWorkKeywords": {
+          "placeholder": "Subject",
+          "head": "Subject"
+        },
+        "creativeDatePublished": {
+          "placeholder": "Date Published",
+          "head": "Date Published"
+        },
+        "organizationAddressCountry": {
+          "placeholder": "Country",
+          "head": "Country"
+        },
+        "organizationAddressLocality": {
+          "placeholder": "City",
+          "head": "City"
+        },
+        "organizationFoundingDate": {
+          "placeholder": "Date Founded",
+          "head": "Date Founded"
         }
       }
     }
@@ -769,7 +822,7 @@
       "control_panel": "Control Panel",
       "browse_global": "All of DSpace",
       "browse_global_communities_and_collections": "Communities & Collections",
-      "browse_global_by_issue_date": "By Issue Date",
+      "browse_global_by_dateissued": "By Issue Date",
       "browse_global_by_author": "By Author",
       "browse_global_by_title": "By Title",
       "browse_global_by_subject": "By Subject",

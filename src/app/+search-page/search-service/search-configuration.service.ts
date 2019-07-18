@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { filter, flatMap, map } from 'rxjs/operators';
+import { filter, flatMap, map, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
@@ -45,7 +45,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Default configuration parameter setting
    */
-  protected defaultConfiguration = 'default';
+  protected defaultConfiguration;
 
   /**
    * Default scope setting
@@ -100,10 +100,8 @@ export class SearchConfigurationService implements OnDestroy {
           const defs = defRD.payload;
           this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
           this.searchOptions = new BehaviorSubject<SearchOptions>(defs);
-
           this.subs.push(this.subscribeToSearchOptions(defs));
           this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
-
         }
       )
   }
@@ -207,7 +205,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   getCurrentFixedFilter(): Observable<string> {
     return this.routeService.getRouteParameterValue('filter').pipe(
-      flatMap((f) => this.fixedFilterService.getQueryByFilterName(f))
+      switchMap((f) => this.fixedFilterService.getQueryByFilterName(f))
     );
   }
 
@@ -358,21 +356,7 @@ export class SearchConfigurationService implements OnDestroy {
       isNotEmptyOperator(),
       map((fixedFilter) => {
         return { fixedFilter }
-      })
+      }),
     );
-  }
-
-  /**
-   * Update the fixed filter in paginated and non-paginated search options with a given value
-   * @param {string} fixedFilter
-   */
-  public updateFixedFilter(fixedFilter: string) {
-    const currentPaginatedValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-    const updatedPaginatedValue: PaginatedSearchOptions = Object.assign(currentPaginatedValue, { fixedFilter: fixedFilter });
-    this.paginatedSearchOptions.next(updatedPaginatedValue);
-
-    const currentValue: SearchOptions = this.searchOptions.getValue();
-    const updatedValue: SearchOptions = Object.assign(currentValue, { fixedFilter: fixedFilter });
-    this.searchOptions.next(updatedValue);
   }
 }

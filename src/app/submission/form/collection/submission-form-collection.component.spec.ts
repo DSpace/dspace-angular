@@ -36,28 +36,8 @@ import {
   createTestComponent
 } from '../../../shared/testing/utils';
 import { cold } from 'jasmine-marbles';
-
-const subcommunities = [Object.assign(new Community(), {
-  name: 'SubCommunity 1',
-  id: '123456789-1',
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'SubCommunity 1'
-    }]
-}),
-  Object.assign(new Community(), {
-    name: 'SubCommunity 1',
-    id: '123456789s-1',
-    metadata: [
-      {
-        key: 'dc.title',
-        language: 'en_US',
-        value: 'SubCommunity 1'
-      }]
-  })
-];
+import { SearchResult } from '../../../+search-page/search-result.model';
+import { SearchService } from '../../../+search-page/search-service/search.service';
 
 const mockCommunity1Collection1 = Object.assign(new Collection(), {
   name: 'Community 1-Collection 1',
@@ -103,40 +83,20 @@ const mockCommunity2Collection2 = Object.assign(new Collection(), {
     }]
 });
 
-const mockCommunity = Object.assign(new Community(), {
-  name: 'Community 1',
-  id: '123456789-1',
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'Community 1'
-    }],
-  collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [mockCommunity1Collection1, mockCommunity1Collection2])),
-  subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), subcommunities)),
-});
-
-const mockCommunity2 = Object.assign(new Community(), {
-  name: 'Community 2',
-  id: '123456789-2',
-  metadata: [
-    {
-      key: 'dc.title',
-      language: 'en_US',
-      value: 'Community 2'
-    }],
-  collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [mockCommunity2Collection1, mockCommunity2Collection2])),
-  subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-});
-
-const mockCommunityList = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [mockCommunity, mockCommunity2]));
+const collectionResults = [mockCommunity1Collection1, mockCommunity1Collection2, mockCommunity2Collection1, mockCommunity2Collection2].map((collection: Collection) => Object.assign(new SearchResult<Collection>(), { indexableObject: collection }));
+const searchService = {
+  search: () => {
+    return observableOf(new RemoteData(true, true, true,
+      undefined, new PaginatedList(new PageInfo(), collectionResults)))
+  }
+};
 
 const mockCollectionList = [
   {
     communities: [
       {
-        id: '123456789-1',
-        name: 'Community 1'
+        id: 'c0e4de93-f506-4990-a840-d406f6f2ada7',
+        name: 'Submission test'
       }
     ],
     collection: {
@@ -147,8 +107,8 @@ const mockCollectionList = [
   {
     communities: [
       {
-        id: '123456789-1',
-        name: 'Community 1'
+        id: 'c0e4de93-f506-4990-a840-d406f6f2ada7',
+        name: 'Submission test'
       }
     ],
     collection: {
@@ -159,8 +119,8 @@ const mockCollectionList = [
   {
     communities: [
       {
-        id: '123456789-2',
-        name: 'Community 2'
+        id: 'c0e4de93-f506-4990-a840-d406f6f2ada7',
+        name: 'Submission test'
       }
     ],
     collection: {
@@ -171,8 +131,8 @@ const mockCollectionList = [
   {
     communities: [
       {
-        id: '123456789-2',
-        name: 'Community 2'
+        id: 'c0e4de93-f506-4990-a840-d406f6f2ada7',
+        name: 'Submission test'
       }
     ],
     collection: {
@@ -228,6 +188,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         { provide: CommunityDataService, useValue: communityDataService },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: Store, useValue: store },
+        { provide: SearchService, useValue: searchService },
         ChangeDetectorRef,
         SubmissionFormCollectionComponent
       ],
@@ -292,14 +253,11 @@ describe('SubmissionFormCollectionComponent Component', () => {
     });
 
     it('should init collection list properly', () => {
-      communityDataService.findAll.and.returnValue(mockCommunityList);
-
       comp.ngOnChanges({
         currentCollectionId: new SimpleChange(null, collectionId, true)
       });
 
-      expect(comp.searchListCollection$).toBeObservable(cold('(ab)', {
-        a: [],
+      expect(comp.searchListCollection$).toBeObservable(cold('(b)', {
         b: mockCollectionList
       }));
 

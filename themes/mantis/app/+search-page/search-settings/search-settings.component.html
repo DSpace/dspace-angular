@@ -1,0 +1,24 @@
+<ng-container *ngVar="(searchOptions$ | async) as config">
+    <h3>{{ 'search.sidebar.settings.title' | translate}}</h3>
+    <div *ngIf="config?.sort" class="setting-option result-order-settings mb-3 px-3 py-2">
+    <h5 class="mb-0">{{ 'search.sidebar.settings.sort-by' | translate}}</h5>
+    <select class="form-control my-2" (change)="reloadOrder($event)">
+        <option *ngFor="let sortOption of searchOptionPossibilities"
+                [value]="sortOption.field + ',' + sortOption.direction.toString()"
+                [selected]="sortOption.field === config?.sort.field && sortOption.direction === (config?.sort.direction)? 'selected': null">
+            {{'sorting.' + sortOption.field + '.' + sortOption.direction | translate}}
+        </option>
+    </select>
+    </div>
+
+    <div class="setting-option page-size-settings mb-3 px-3 py-2">
+        <h5 class="mb-0">{{ 'search.sidebar.settings.rpp' | translate}}</h5>
+        <select class="form-control my-2" (change)="reloadRPP($event)">
+            <option *ngFor="let pageSizeOption of config?.pagination.pageSizeOptions"
+                    [value]="pageSizeOption"
+                    [selected]="pageSizeOption === +config?.pagination.pageSize ? 'selected': null">
+                {{pageSizeOption}}
+            </option>
+        </select>
+    </div>
+</ng-container>
