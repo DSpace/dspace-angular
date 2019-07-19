@@ -10,6 +10,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import { ParserType } from './parser-type';
 import { ParserOptions } from './parser-options';
 import { ParserFactory } from './parser-factory';
+import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -19,6 +20,7 @@ export class RowParser {
   constructor(protected rowData,
               protected scopeUUID,
               protected initFormValues: any,
+              protected wsi: Workspaceitem,
               protected submissionScope,
               protected readOnly: boolean) {
     this.authorityOptions = new IntegrationSearchOptions(scopeUUID);
@@ -49,7 +51,7 @@ export class RowParser {
       const layoutFieldClass = (fieldData.style || layoutDefaultGridClass) + layoutClass;
       const parserCo = ParserFactory.getConstructor(fieldData.input.type as ParserType);
       if (parserCo) {
-        fieldModel = new parserCo(fieldData, this.initFormValues, parserOptions).parse();
+        fieldModel = new parserCo(fieldData, this.initFormValues, parserOptions, this.wsi).parse();
       } else {
         throw new Error(`unknown form control model type "${fieldData.input.type}" defined for Input field with label "${fieldData.label}".`, );
       }
