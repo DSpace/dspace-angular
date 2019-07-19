@@ -30,6 +30,8 @@ import { GroupEpersonService } from '../../../core/eperson/group-eperson.service
 import { cold, hot } from 'jasmine-marbles';
 import { Collection } from '../../../core/shared/collection.model';
 import { ResourcePolicy } from '../../../core/shared/resource-policy.model';
+import { ResourcePolicyService } from '../../../core/data/resource-policy.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { ConfigData } from '../../../core/config/config-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Group } from '../../../core/eperson/models/group.model';
@@ -46,8 +48,7 @@ function getMockSubmissionUploadsConfigService(): SubmissionFormsConfigService {
 
 function getMockCollectionDataService(): CollectionDataService {
   return jasmine.createSpyObj('CollectionDataService', {
-    findById: jasmine.createSpy('findById'),
-    findByHref: jasmine.createSpy('findByHref')
+    findById: jasmine.createSpy('findById')
   });
 }
 
@@ -55,6 +56,12 @@ function getMockGroupEpersonService(): GroupEpersonService {
   return jasmine.createSpyObj('GroupEpersonService', {
     findById: jasmine.createSpy('findById'),
 
+  });
+}
+
+function getMockResourcePolicyService(): ResourcePolicyService {
+  return jasmine.createSpyObj('ResourcePolicyService', {
+    findByHref: jasmine.createSpy('findByHref')
   });
 }
 
@@ -79,6 +86,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
   let sectionsServiceStub: SectionsServiceStub;
   let collectionDataService: any;
   let groupService: any;
+  let resourcePolicyService: any;
   let uploadsConfigService: any;
   let bitstreamService: any;
 
@@ -119,6 +127,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       providers: [
         { provide: CollectionDataService, useValue: getMockCollectionDataService() },
         { provide: GroupEpersonService, useValue: getMockGroupEpersonService() },
+        { provide: ResourcePolicyService, useValue: getMockResourcePolicyService() },
         { provide: SubmissionUploadsConfigService, useValue: getMockSubmissionUploadsConfigService() },
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
@@ -165,6 +174,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       sectionsServiceStub = TestBed.get(SectionsService);
       collectionDataService = TestBed.get(CollectionDataService);
       groupService = TestBed.get(GroupEpersonService);
+      resourcePolicyService = TestBed.get(ResourcePolicyService);
       uploadsConfigService = TestBed.get(SubmissionUploadsConfigService);
       bitstreamService = TestBed.get(SectionUploadService);
     });
@@ -181,7 +191,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 
-      collectionDataService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
+      resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
       uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
         new ConfigData(new PageInfo(), mockUploadConfigResponse as any)
@@ -220,7 +230,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
 
-      collectionDataService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
+      resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
       uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
         new ConfigData(new PageInfo(), mockUploadConfigResponse as any)

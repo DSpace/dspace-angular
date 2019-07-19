@@ -59,6 +59,7 @@ import { HALEndpointService } from './shared/hal-endpoint.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
 import { FacetValueMapResponseParsingService } from './data/facet-value-map-response-parsing.service';
 import { FacetConfigResponseParsingService } from './data/facet-config-response-parsing.service';
+import { ResourcePolicyService } from './data/resource-policy.service';
 import { RegistryService } from './registry/registry.service';
 import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
@@ -150,6 +151,7 @@ const PROVIDERS = [
   MetadataService,
   ObjectCacheService,
   PaginationComponentOptions,
+  ResourcePolicyService,
   RegistryService,
   NormalizedObjectBuildService,
   RemoteDataBuildService,
