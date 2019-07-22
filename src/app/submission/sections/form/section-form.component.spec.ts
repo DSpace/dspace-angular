@@ -183,7 +183,7 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
-        { provide: WorkspaceitemDataService, useValue: {getById: observableOf(new RemoteData(false, false, true, null, new Workspaceitem()))}},
+        { provide: WorkspaceitemDataService, useValue: {findById: () => observableOf(new RemoteData(false, false, true, null, new Workspaceitem()))}},
         ChangeDetectorRef,
         SubmissionSectionformComponent
       ],
