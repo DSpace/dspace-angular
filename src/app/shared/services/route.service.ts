@@ -14,7 +14,7 @@ import { isEqual } from 'lodash';
 
 import { AddUrlToHistoryAction } from '../history/history.actions';
 import { historySelector } from '../history/selectors';
-import { SetParametersAction, SetQueryParametersAction } from './route.actions';
+import { AddParameterAction, SetParametersAction, SetQueryParametersAction } from './route.actions';
 import { CoreState } from '../../core/core.reducers';
 import { hasValue } from '../empty.util';
 import { coreSelector } from '../../core/core.selectors';
@@ -117,7 +117,7 @@ export class RouteService {
   }
 
   getRouteParameterValue(paramName: string): Observable<string> {
-    return this.store.pipe(select(routeParameterSelector(paramName)));
+    return this.store.pipe(select(routeParameterSelector(paramName)), tap((t) => console.log('test', t)));
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
@@ -182,5 +182,9 @@ export class RouteService {
     return this.getHistory().pipe(
       map((history: string[]) => history[history.length - 2] || '')
     );
+  }
+
+  public addParameter(key, value) {
+    this.store.dispatch(new AddParameterAction(key, value));
   }
 }

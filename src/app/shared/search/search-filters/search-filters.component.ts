@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -10,6 +10,8 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { currentPath } from '../../utils/route.utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-search-filters',
@@ -46,11 +48,13 @@ export class SearchFiltersComponent implements OnInit {
   constructor(
     private searchService: SearchService,
     private filterService: SearchFilterService,
+    private router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
 
   }
 
   ngOnInit(): void {
+    console.log(this.searchConfigService);
     this.filters = this.searchConfigService.searchOptions.pipe(
       switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData()))
     );
@@ -66,7 +70,7 @@ export class SearchFiltersComponent implements OnInit {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }

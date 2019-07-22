@@ -9,7 +9,7 @@ import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model'
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../../empty.util';
-import { concat, map, multicast, take, takeWhile } from 'rxjs/operators';
+import { concat, map, multicast, switchMap, take, takeWhile } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
@@ -44,41 +44,41 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     pageSize: 10
   });
   selection: Observable<ListableObject[]>;
-
-  constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService) {
+  fixedFilter: string;
+  constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService, private searchConfigService: SearchConfigurationService) {
   }
 
   ngOnInit(): void {
     this.resetRoute();
-    this.onPaginationChange(this.initialPagination);
+    this.fixedFilter = RELATION_TYPE_FILTER_PREFIX + this.fieldName;
     this.selection = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
+    this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
+      map((options) => {
+        return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: RELATION_TYPE_FILTER_PREFIX + this.fieldName })
+      }),
+      switchMap((options) => {
+        this.searchConfig = options;
+        return this.searchService.search(options).pipe(
+          /* Make sure to only listen to the first x results, until loading is finished */
+          /* TODO: in Rxjs 6.4.0 and up, we can replace this by takeWhile(predicate, true) - see https://stackoverflow.com/a/44644237 */
+          multicast(
+            () => new ReplaySubject(1),
+            subject => subject.pipe(
+              takeWhile((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => rd.isLoading),
+              concat(subject.pipe(take(1))
+              )
+            )
+          ) as any
+        )
+      })
+    )
+
   }
 
   search(query: string) {
     this.searchQuery = query;
     this.resetRoute();
-    this.onPaginationChange(this.initialPagination);
     this.selectableListService.deselectAll(this.listId);
-  }
-
-  onPaginationChange(pagination: PaginationComponentOptions) {
-    this.searchConfig = new PaginatedSearchOptions({
-      query: this.searchQuery,
-      pagination: pagination,
-      fixedFilter: RELATION_TYPE_FILTER_PREFIX + this.fieldName
-    });
-    this.resultsRD$ = this.searchService.search(this.searchConfig).pipe(
-      /* Make sure to only listen to the first x results, until loading is finished */
-      /* TODO: in Rxjs 6.4.0 and up, we can replace this by takeWhile(predicate, true) - see https://stackoverflow.com/a/44644237 */
-      multicast(
-        () => new ReplaySubject(1),
-        subject => subject.pipe(
-          takeWhile((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => rd.isLoading),
-          concat(subject.pipe(take(1))
-          )
-        )
-      ) as any
-    )
   }
 
   close() {

@@ -179,7 +179,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return '';
     }
     return this.searchService.getSearchLink();
   }

@@ -33,12 +33,14 @@ export function routeReducer(state = initialState, action: RouteActions): RouteS
       return initialState
     }
     case RouteActionTypes.SET_PARAMETERS: {
+      console.log('set', action);
       return setParameters(state, action as SetParametersAction, 'params');
     }
     case RouteActionTypes.SET_QUERY_PARAMETERS: {
       return setParameters(state, action as SetQueryParametersAction, 'queryParams');
     }
     case RouteActionTypes.ADD_PARAMETER: {
+      console.log('add', action);
       return addParameter(state, action as AddParameterAction, 'params');
     }
     case RouteActionTypes.ADD_QUERY_PARAMETER: {

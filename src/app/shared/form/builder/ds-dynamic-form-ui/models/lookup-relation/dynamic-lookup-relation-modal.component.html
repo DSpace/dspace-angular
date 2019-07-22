@@ -19,7 +19,8 @@
                     <button class="btn btn-outline-secondary" type="submit">Go</button>
                 </div>
             </form>
-            <ds-search-results [searchResults]="resultsRD" [sortConfig]="this.searchConfig.sort"
+            <ds-search-results [searchResults]="resultsRD"
+                               [sortConfig]="this.searchConfig?.sort"
                                [searchConfig]="this.searchConfig"
                                [selectable]="true"
                                [selectionConfig]="{ repeatable: repeatable, listId: listId }">

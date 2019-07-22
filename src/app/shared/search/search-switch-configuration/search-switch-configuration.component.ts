@@ -9,6 +9,7 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { MyDSpaceConfigurationValueType } from '../../../+my-dspace-page/my-dspace-configuration-value-type';
 import { SearchConfigurationOption } from './search-configuration-option.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { currentPath } from '../../utils/route.utils';
 
 @Component({
   selector: 'ds-search-switch-configuration',
@@ -87,7 +88,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }

@@ -12,6 +12,7 @@ import {
 } from '../../search-range-filter/search-range-filter.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../../../../empty.util';
+import { currentPath } from '../../../../../utils/route.utils';
 
 const rangeDelimiter = '-';
 
@@ -84,7 +85,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }

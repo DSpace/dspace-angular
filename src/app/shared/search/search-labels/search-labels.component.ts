@@ -1,11 +1,13 @@
 import { Component, Inject, Input } from '@angular/core';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { Observable } from 'rxjs';
-import { Params } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { currentPath } from '../../utils/route.utils';
+import { RouteService } from '../../services/route.service';
 
 @Component({
   selector: 'ds-search-labels',
@@ -32,6 +34,7 @@ export class SearchLabelsComponent {
    */
   constructor(
     private searchService: SearchService,
+    protected router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
     this.appliedFilters = this.searchConfigService.getCurrentFrontendFilters();
   }
@@ -60,7 +63,7 @@ export class SearchLabelsComponent {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }

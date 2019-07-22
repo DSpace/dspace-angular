@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 /**
  * This component renders a simple item page.
@@ -41,8 +42,9 @@ export class FilteredSearchPageComponent extends SearchPageComponent implements 
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService) {
-    super(service, sidebarService, windowService, searchConfigService, routeService);
+              protected routeService: RouteService,
+              protected router: Router) {
+    super(service, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   /**
@@ -66,7 +68,8 @@ export class FilteredSearchPageComponent extends SearchPageComponent implements 
     return this.searchConfigService.paginatedSearchOptions.pipe(
       map((options: PaginatedSearchOptions) => {
         const filter = this.fixedFilterQuery || options.fixedFilter;
-        return Object.assign(options, { fixedFilter: filter });
+
+        return this.routeService.addParameter({ fixedFilter: filter });
       })
     );
   }

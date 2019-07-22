@@ -9,6 +9,7 @@ import { SearchFilterService } from '../../../../../../core/shared/search/search
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../../../../empty.util';
 import { FilterType } from '../../../../filter-type.model';
+import { currentPath } from '../../../../../utils/route.utils';
 
 @Component({
   selector: 'ds-search-facet-option',
@@ -85,7 +86,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }

@@ -8,6 +8,7 @@ import { hasValue } from '../../../../../empty.util';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { FacetValue } from '../../../../facet-value.model';
 import { FilterType } from '../../../../filter-type.model';
+import { currentPath } from '../../../../../utils/route.utils';
 
 @Component({
   selector: 'ds-search-facet-selected-option',
@@ -71,7 +72,7 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }

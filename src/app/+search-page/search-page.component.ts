@@ -15,6 +15,8 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { RouteService } from '../shared/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
+import { currentPath } from '../shared/utils/route.utils';
+import { Router } from '@angular/router';
 
 export const SEARCH_ROUTE = '/search';
 
@@ -95,7 +97,8 @@ export class SearchPageComponent implements OnInit {
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService) {
+              protected routeService: RouteService,
+              protected router: Router) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -156,7 +159,7 @@ export class SearchPageComponent implements OnInit {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.service.getSearchLink();
   }

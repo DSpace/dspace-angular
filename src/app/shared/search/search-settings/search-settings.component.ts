@@ -6,6 +6,7 @@ import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Observable } from 'rxjs';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { currentPath } from '../../utils/route.utils';
 
 @Component({
   selector: 'ds-search-settings',
@@ -84,7 +85,7 @@ export class SearchSettingsComponent implements OnInit {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.service.getSearchLink();
   }
