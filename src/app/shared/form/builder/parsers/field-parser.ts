@@ -12,12 +12,12 @@ import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
+import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
 
 export abstract class FieldParser {
 
   protected fieldId: string;
-
-  constructor(protected configData: FormFieldModel, protected initFormValues, protected parserOptions: ParserOptions) {
+  constructor(protected configData: FormFieldModel, protected initFormValues, protected parserOptions: ParserOptions, protected workspaceItem: Workspaceitem) {
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
@@ -185,6 +185,7 @@ export abstract class FieldParser {
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly;
     controlModel.disabled = this.parserOptions.readOnly;
+    controlModel.workspaceItem = this.workspaceItem;
 
     // Set label
     this.setLabel(controlModel, label, labelEmpty);

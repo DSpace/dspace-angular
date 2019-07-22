@@ -43,6 +43,10 @@ import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-for
 import { SubmissionSectionError } from '../../objects/submission-objects.reducer';
 import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -179,6 +183,7 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: WorkspaceitemDataService, useValue: {findById: () => observableOf(new RemoteData(false, false, true, null, new Workspaceitem()))}},
         ChangeDetectorRef,
         SubmissionSectionformComponent
       ],

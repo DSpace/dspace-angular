@@ -29,6 +29,8 @@ import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { isNgbDateStruct } from '../../date.util';
+import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
+import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
@@ -198,13 +200,13 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any = {}, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
+  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any = {}, wsi: Workspaceitem, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues, submissionScope, readOnly).parse();
+        const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues, wsi, submissionScope, readOnly).parse();
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);
