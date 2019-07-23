@@ -22,19 +22,19 @@ let fixture: ComponentFixture<JournalComponent>;
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: {
-    'journal.identifier.issn': [
+    'creativeworkseries.issn': [
       {
         language: 'en_US',
         value: '1234'
       }
     ],
-    'journal.publisher': [
+    'creativework.publisher': [
       {
         language: 'en_US',
         value: 'a publisher'
       }
     ],
-    'journal.identifier.description': [
+    'dc.description': [
       {
         language: 'en_US',
         value: 'desc'

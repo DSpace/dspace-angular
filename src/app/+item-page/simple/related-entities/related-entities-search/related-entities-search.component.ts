@@ -47,7 +47,7 @@ export class RelatedEntitiesSearchComponent implements OnInit {
   @Input() sideBarWidth = 4;
 
   fixedFilter: string;
-  fixedFilter$: Observable<string>;
+  configuration$: Observable<string>;
 
   constructor(private fixedFilterService: SearchFixedFilterService) {
   }
@@ -57,7 +57,7 @@ export class RelatedEntitiesSearchComponent implements OnInit {
       this.fixedFilter = this.fixedFilterService.getFilterByRelation(this.relationType, this.item.id);
     }
     if (isNotEmpty(this.relationEntityType)) {
-      this.fixedFilter$ = of(this.relationEntityType);
+      this.configuration$ = of(this.relationEntityType);
     }
   }
 

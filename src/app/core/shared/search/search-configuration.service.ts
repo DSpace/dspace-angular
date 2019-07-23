@@ -9,17 +9,17 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { filter, flatMap, map, switchMap, tap } from 'rxjs/operators';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import { filter, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { RouteService } from '../../../shared/services/route.service';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
-import { RemoteData } from '../../data/remote-data';
-import { getSucceededRemoteData } from '../operators';
+import { RemoteData } from '../../core/data/remote-data';
+import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../../../shared/search/search-filter.model';
-import { DSpaceObjectType } from '../dspace-object-type.model';
+import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
 
 /**
@@ -109,9 +109,14 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current configuration string
    */
   getCurrentConfiguration(defaultConfiguration: string) {
-    return this.routeService.getQueryParameterValue('configuration').pipe(map((configuration) => {
-      return configuration || defaultConfiguration;
-    }));
+    return observableCombineLatest(
+      this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
+      this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined))
+    ).pipe(
+      map(([queryConfig, routeConfig]) => {
+        return queryConfig || routeConfig || defaultConfiguration;
+      })
+    );
   }
 
   /**
