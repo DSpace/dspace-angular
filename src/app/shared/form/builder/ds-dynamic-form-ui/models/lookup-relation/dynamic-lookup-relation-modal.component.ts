@@ -9,13 +9,14 @@ import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model'
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../../empty.util';
-import { concat, map, multicast, switchMap, take, takeWhile } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { concat, filter, map, multicast, switchMap, take, takeWhile } from 'rxjs/operators';
+import { NavigationEnd, Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { SelectableListState } from '../../../../../object-list/selectable-list/selectable-list.reducer';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { RouteService } from '../../../../../services/route.service';
 
 const RELATION_TYPE_FILTER_PREFIX = 'f.entityType=';
 
@@ -45,12 +46,15 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   });
   selection: Observable<ListableObject[]>;
   fixedFilter: string;
-  constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService, private searchConfigService: SearchConfigurationService) {
+  constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService, private searchConfigService: SearchConfigurationService, private routeService: RouteService) {
   }
 
   ngOnInit(): void {
     this.resetRoute();
     this.fixedFilter = RELATION_TYPE_FILTER_PREFIX + this.fieldName;
+
+    ///Throw away, this is just a hack for now
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((t) => this.routeService.setParameter('filterQuery', this.fixedFilter));
     this.selection = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       map((options) => {

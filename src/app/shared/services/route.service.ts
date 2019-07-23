@@ -14,7 +14,12 @@ import { isEqual } from 'lodash';
 
 import { AddUrlToHistoryAction } from '../history/history.actions';
 import { historySelector } from '../history/selectors';
-import { AddParameterAction, SetParametersAction, SetQueryParametersAction } from './route.actions';
+import {
+  AddParameterAction,
+  SetParameterAction,
+  SetParametersAction,
+  SetQueryParametersAction
+} from './route.actions';
 import { CoreState } from '../../core/core.reducers';
 import { hasValue } from '../empty.util';
 import { coreSelector } from '../../core/core.selectors';
@@ -117,7 +122,7 @@ export class RouteService {
   }
 
   getRouteParameterValue(paramName: string): Observable<string> {
-    return this.store.pipe(select(routeParameterSelector(paramName)), tap((t) => console.log('test', t)));
+    return this.store.pipe(select(routeParameterSelector(paramName)));
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
@@ -157,11 +162,9 @@ export class RouteService {
   }
 
   public saveRouting(): void {
-    combineLatest(this.router.events, this.getRouteParams(), this.route.queryParams)
-      .pipe(filter(([event, params, queryParams]) => event instanceof NavigationEnd))
-      .subscribe(([event, params, queryParams]: [NavigationEnd, Params, Params]) => {
-        this.store.dispatch(new SetParametersAction(params));
-        this.store.dispatch(new SetQueryParametersAction(queryParams));
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
         this.store.dispatch(new AddUrlToHistoryAction(event.urlAfterRedirects));
       });
   }
@@ -186,5 +189,20 @@ export class RouteService {
 
   public addParameter(key, value) {
     this.store.dispatch(new AddParameterAction(key, value));
+  }
+
+  public setParameter(key, value) {
+    this.store.dispatch(new SetParameterAction(key, value));
+  }
+
+
+  public setCurrentRouteInfo() {
+    combineLatest(this.getRouteParams(), this.route.queryParams)
+      .subscribe(
+        ([params, queryParams]: [Params, Params]) => {
+          this.store.dispatch(new SetParametersAction(params));
+          this.store.dispatch(new SetQueryParametersAction(queryParams));
+        }
+      )
   }
 }

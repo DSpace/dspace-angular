@@ -160,6 +160,7 @@ import { SearchFacetSelectedOptionComponent } from './search/search-filters/sear
 import { SearchFacetRangeOptionComponent } from './search/search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchSwitchConfigurationComponent } from './search/search-switch-configuration/search-switch-configuration.component';
 import { SearchAuthorityFilterComponent } from './search/search-filters/search-filter/search-authority-filter/search-authority-filter.component';
+import { ConfigurationSearchPageComponent } from '../+search-page/configuration-search-page.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -303,6 +304,7 @@ const COMPONENTS = [
   SearchFacetRangeOptionComponent,
   SearchSwitchConfigurationComponent,
   SearchAuthorityFilterComponent,
+  ConfigurationSearchPageComponent
 ];
 
 const ENTRY_COMPONENTS = [

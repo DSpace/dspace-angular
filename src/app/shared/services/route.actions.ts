@@ -10,6 +10,8 @@ export const RouteActionTypes = {
   SET_PARAMETERS: type('dspace/core/route/SET_PARAMETERS'),
   ADD_QUERY_PARAMETER: type('dspace/core/route/ADD_QUERY_PARAMETER'),
   ADD_PARAMETER: type('dspace/core/route/ADD_PARAMETER'),
+  SET_QUERY_PARAMETER: type('dspace/core/route/SET_QUERY_PARAMETER'),
+  SET_PARAMETER: type('dspace/core/route/SET_PARAMETER'),
   RESET: type('dspace/core/route/RESET'),
 };
 
@@ -97,6 +99,52 @@ export class AddParameterAction implements Action {
 }
 
 /**
+ * An ngrx action to set a query parameter
+ */
+export class SetQueryParameterAction implements Action {
+  type = RouteActionTypes.SET_QUERY_PARAMETER;
+  payload: {
+    key: string;
+    value: string;
+  };
+
+  /**
+   * Create a new SetQueryParameterAction
+   *
+   * @param key
+   *    the key to set
+   * @param value
+   *    the value of this key
+   */
+  constructor(key: string, value: string) {
+    this.payload = { key, value };
+  }
+}
+
+/**
+ * An ngrx action to set a parameter
+ */
+export class SetParameterAction implements Action {
+  type = RouteActionTypes.SET_PARAMETER;
+  payload: {
+    key: string;
+    value: string;
+  };
+
+  /**
+   * Create a new SetParameterAction
+   *
+   * @param key
+   *    the key to set
+   * @param value
+   *    the value of this key
+   */
+  constructor(key: string, value: string) {
+    this.payload = { key, value };
+  }
+}
+
+/**
  * An ngrx action to reset the route state
  */
 export class ResetRouteStateAction implements Action {
@@ -113,4 +161,5 @@ export type RouteActions =
   | SetParametersAction
   | AddQueryParameterAction
   | AddParameterAction
-  | ResetRouteStateAction;
+  | ResetRouteStateAction
+  | SetParameterAction;

@@ -10,17 +10,17 @@ import {
   Subscription
 } from 'rxjs';
 import { filter, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 import { RouteService } from '../../../shared/services/route.service';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
-import { RemoteData } from '../../core/data/remote-data';
-import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../../../shared/search/search-filter.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
+import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import { RemoteData } from '../../data/remote-data';
+import { getSucceededRemoteData } from '../operators';
+import { DSpaceObjectType } from '../dspace-object-type.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -95,7 +95,7 @@ export class SearchConfigurationService implements OnDestroy {
   protected initDefaults() {
     this.defaults
       .pipe(getSucceededRemoteData())
-      .subscribe((defRD) => {
+      .subscribe((defRD: RemoteData<PaginatedSearchOptions>) => {
           const defs = defRD.payload;
           this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
           this.searchOptions = new BehaviorSubject<SearchOptions>(defs);

@@ -98,7 +98,6 @@ import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
 import { SearchSidebarService } from './shared/search/search-sidebar.service';
 import { SearchFilterService } from './shared/search/search-filter.service';
 import { SearchFixedFilterService } from './shared/search/search-fixed-filter.service';
-import { FilteredSearchPageGuard } from '../+search-page/filtered-search-page.guard';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 
@@ -203,7 +202,6 @@ const PROVIDERS = [
   SearchSidebarService,
   SearchFilterService,
   SearchFixedFilterService,
-  FilteredSearchPageGuard,
   SearchFilterService,
   SearchConfigurationService,
   SelectableListService,

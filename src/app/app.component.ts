@@ -23,7 +23,6 @@ import { NativeWindowRef, NativeWindowService } from './shared/services/window.s
 import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { RouteService } from './shared/services/route.service';
 import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';

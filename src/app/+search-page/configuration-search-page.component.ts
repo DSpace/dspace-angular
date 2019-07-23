@@ -1,15 +1,16 @@
 import { HostWindowService } from '../shared/host-window.service';
-import { SearchService } from './search-service/search.service';
-import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { SearchPageComponent } from './search-page.component';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { RouteService } from '../shared/services/route.service';
-import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { Observable } from 'rxjs';
-import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { map } from 'rxjs/operators';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { SearchService } from '../core/shared/search/search.service';
+import { SearchSidebarService } from '../core/shared/search/search-sidebar.service';
+import { Router } from '@angular/router';
+import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -39,8 +40,9 @@ export class ConfigurationSearchPageComponent extends SearchPageComponent implem
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService) {
-    super(service, sidebarService, windowService, searchConfigService, routeService);
+              protected routeService: RouteService,
+              protected router: Router) {
+    super(service, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   /**

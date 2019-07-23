@@ -9,8 +9,9 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { Observable } from 'rxjs';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../shared/empty.util';
 
 /**
  * This component renders a simple item page.
@@ -56,21 +57,8 @@ export class FilteredSearchPageComponent extends SearchPageComponent implements 
    */
   ngOnInit(): void {
     super.ngOnInit();
-  }
-
-  /**
-   * Get the current paginated search options after updating the fixed filter using the fixedFilterQuery input
-   * This is to make sure the fixed filter is included in the paginated search options, as it is not part of any
-   * query or route parameters
-   * @returns {Observable<PaginatedSearchOptions>}
-   */
-  protected getSearchOptions(): Observable<PaginatedSearchOptions> {
-    return this.searchConfigService.paginatedSearchOptions.pipe(
-      map((options: PaginatedSearchOptions) => {
-        const filter = this.fixedFilterQuery || options.fixedFilter;
-
-        return this.routeService.addParameter({ fixedFilter: filter });
-      })
-    );
+    if (hasValue(this.fixedFilterQuery)) {
+      this.routeService.setParameter('filterQuery', this.fixedFilterQuery);
+    }
   }
 }
