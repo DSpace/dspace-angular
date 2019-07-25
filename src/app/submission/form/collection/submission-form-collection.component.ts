@@ -193,6 +193,12 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     if (hasValue(changes.currentCollectionId)
       && hasValue(changes.currentCollectionId.currentValue)) {
       this.selectedCollectionId = this.currentCollectionId;
+
+      this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
+        find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
+        map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
+      );
+
       const findOptions: FindAllOptions = {
         elementsPerPage: 100
       };
@@ -217,19 +223,6 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         }),
         reduce((acc: any, value: any) => [...acc, ...value], []),
         startWith([])
-      );
-
-      this.selectedCollectionName$ = communities$.pipe(
-        flatMap((communityData: Community) => {
-          return communityData.collections.pipe(
-            find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-            mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
-            filter((collectionData: Collection) => isNotEmpty(collectionData)),
-            filter((collectionData: Collection) => collectionData.id === this.selectedCollectionId),
-            map((collectionData: Collection) => collectionData.name)
-          );
-        }),
-        startWith('')
       );
 
       const searchTerm$ = this.searchField.valueChanges.pipe(
