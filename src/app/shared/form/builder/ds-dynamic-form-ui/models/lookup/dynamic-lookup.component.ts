@@ -159,7 +159,7 @@ export class DsDynamicLookupComponent extends DynamicFormControlComponent implem
   }
 
   public isSearchDisabled() {
-    return isEmpty(this.firstInputValue);
+    return isEmpty(this.firstInputValue) || this.editMode;
   }
 
   public onBlurEvent(event: Event) {
