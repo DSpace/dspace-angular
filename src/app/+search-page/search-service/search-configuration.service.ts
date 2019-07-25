@@ -276,7 +276,7 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Make sure to unsubscribe from all existing subscription to prevent memory leaksNormalizedRelationship
+   * Make sure to unsubscribe from all existing subscription to prevent memory leaks
    */
   ngOnDestroy(): void {
     this.subs.forEach((sub) => {

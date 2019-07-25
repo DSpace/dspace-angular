@@ -3,6 +3,9 @@ import { SubmissionSectionModel } from './config-submission-section.model';
 import { PaginatedList } from '../../data/paginated-list';
 import { ResourceType } from '../../shared/resource-type';
 
+/**
+ * Class for the configuration describing the submission
+ */
 export class SubmissionDefinitionModel extends ConfigObject {
   static type = new ResourceType('submissiondefinition');
 

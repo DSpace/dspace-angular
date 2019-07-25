@@ -10,6 +10,11 @@ const relationshipKey = Symbol('relationship');
 const relationshipMap = new Map();
 const typeMap = new Map();
 
+/**
+ * Decorator function to map a normalized class to it's not-normalized counter part class
+ * It will also maps a type to the matching class
+ * @param value The not-normalized class to map to
+ */
 export function mapsTo(value: GenericConstructor<TypedObject>) {
   return function decorator(objectConstructor: GenericConstructor<TypedObject>) {
     Reflect.defineMetadata(mapsToMetadataKey, value, objectConstructor);
@@ -17,6 +22,12 @@ export function mapsTo(value: GenericConstructor<TypedObject>) {
   }
 }
 
+
+/**
+ * Maps a type to the matching class
+ * @param value The resourse type
+ * @param objectConstructor The class to map to
+ */
 function mapsToType(value: ResourceType, objectConstructor: GenericConstructor<TypedObject>) {
   if (!objectConstructor || !value) {
     return;
@@ -24,10 +35,18 @@ function mapsToType(value: ResourceType, objectConstructor: GenericConstructor<T
   typeMap.set(value.value, objectConstructor);
 }
 
+/**
+ * Returns the mapped class for the given normalized class
+ * @param target The normalized class
+ */
 export function getMapsTo(target: any) {
   return Reflect.getOwnMetadata(mapsToMetadataKey, target);
 }
 
+/**
+ * Returns the mapped class for the given type
+ * @param type The resource type
+ */
 export function getMapsToType(type: string | ResourceType) {
   if (typeof(type) === 'object') {
     type = (type as ResourceType).value;
