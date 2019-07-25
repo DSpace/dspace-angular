@@ -56,7 +56,6 @@ export class SearchFiltersComponent implements OnInit {
   ngOnInit(): void {
     this.filters = this.searchConfigService.searchOptions.pipe(
       switchMap((options) => this.searchService.getConfig(options.scope, options.configuration).pipe(getSucceededRemoteData())),
-      obsLog('searchoptions')
     );
 
     this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(map((filters) => {

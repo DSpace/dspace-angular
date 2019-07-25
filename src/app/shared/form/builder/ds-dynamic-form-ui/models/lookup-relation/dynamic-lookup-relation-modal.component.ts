@@ -52,9 +52,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   ngOnInit(): void {
     this.resetRoute();
     this.fixedFilter = RELATION_TYPE_FILTER_PREFIX + this.fieldName;
+    this.routeService.setParameter('fixedFilterQuery', this.fixedFilter);
 
-    ///Throw away, this is just a hack for now
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((t) => this.routeService.setParameter('filterQuery', this.fixedFilter));
     this.selection = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       map((options) => {

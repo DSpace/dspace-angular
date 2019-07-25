@@ -1,14 +1,13 @@
-import {
-  ModuleWithProviders,
-  NgModule,
-  Optional,
-  SkipSelf
-} from '@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormLayoutService,
+  DynamicFormService,
+  DynamicFormValidationService
+} from '@ng-dynamic-forms/core';
 
 import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
@@ -94,10 +93,9 @@ import {
   mockResponseMap
 } from './dspace-rest-v2/mocks/mock-response-map';
 import { EndpointMockingRestService } from './dspace-rest-v2/endpoint-mocking-rest.service';
-import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
 import { SearchSidebarService } from './shared/search/search-sidebar.service';
 import { SearchFilterService } from './shared/search/search-filter.service';
-import { SearchFixedFilterService } from './shared/search/search-fixed-filter.service';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 
@@ -201,7 +199,6 @@ const PROVIDERS = [
   SearchService,
   SearchSidebarService,
   SearchFilterService,
-  SearchFixedFilterService,
   SearchFilterService,
   SearchConfigurationService,
   SelectableListService,

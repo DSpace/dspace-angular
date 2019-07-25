@@ -1,7 +1,10 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { mergeMap, map, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
 import { Injectable, InjectionToken } from '@angular/core';
-import { SearchFiltersState, SearchFilterState } from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
+import {
+  SearchFiltersState,
+  SearchFilterState
+} from '../../../shared/search/search-filters/search-filter/search-filter.reducer';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import {
   SearchFilterCollapseAction,
@@ -17,12 +20,7 @@ import { SearchFilterConfig } from '../../../shared/search/search-filter-config.
 import { RouteService } from '../../../shared/services/route.service';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../../../shared/search/search-options.model';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { Params } from '@angular/router';
-import * as postcss from 'postcss';
-import prefix = postcss.vendor.prefix;
 // const spy = create();
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
@@ -36,8 +34,7 @@ export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boole
 export class SearchFilterService {
 
   constructor(private store: Store<SearchFiltersState>,
-              private routeService: RouteService,
-              private fixedFilterService: SearchFixedFilterService) {
+              private routeService: RouteService) {
   }
 
   /**
@@ -122,8 +119,7 @@ export class SearchFilterService {
    * @returns {Observable<string>}
    */
   getCurrentFixedFilter(): Observable<string> {
-    const filter: Observable<string> = this.routeService.getRouteParameterValue('filter');
-    return filter.pipe(mergeMap((f) => this.fixedFilterService.getQueryByFilterName(f)));
+    return this.routeService.getRouteParameterValue('fixedFilterQuery');
   }
 
   /**

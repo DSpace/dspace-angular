@@ -73,6 +73,7 @@ function addParameter(state: RouteState, action: AddParameterAction | AddQueryPa
   const newSubstate = Object.assign({}, subState, { [action.payload.key]: newValues });
   return Object.assign({}, state, { [paramType]: newSubstate });
 }
+
 /**
  * Set a route or query parameter in the store
  * @param state The current state
@@ -80,7 +81,7 @@ function addParameter(state: RouteState, action: AddParameterAction | AddQueryPa
  * @param paramType The type of parameter to set: route or query parameter
  */
 function setParameters(state: RouteState, action: SetParametersAction | SetQueryParametersAction, paramType: string): RouteState {
-  return Object.assign({}, state, { [paramType]: action.payload });
+  return Object.assign({}, state, { [paramType]: { [action.payload.key]: action.payload.value } });
 }
 
 /**
@@ -91,6 +92,6 @@ function setParameters(state: RouteState, action: SetParametersAction | SetQuery
  */
 function setParameter(state: RouteState, action: SetParameterAction | SetQueryParameterAction, paramType: string): RouteState {
   const subState = state[paramType];
-  const newSubstate = Object.assign({}, subState, action.payload);
+  const newSubstate = Object.assign({}, subState, { [action.payload.key]: action.payload.value });
   return Object.assign({}, state, { [paramType]: newSubstate });
 }

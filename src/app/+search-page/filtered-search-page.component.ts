@@ -35,7 +35,7 @@ import { hasValue, isNotEmpty, isNotEmptyOperator } from '../shared/empty.util';
 export class FilteredSearchPageComponent extends SearchPageComponent implements OnInit {
   /**
    * The actual query for the fixed filter.
-   * If empty, the query will be determined by the route parameter called 'filter'
+   * If empty, the query will be determined by the route parameter called 'fixedFilterQuery'
    */
   @Input() fixedFilterQuery: string;
 
@@ -58,7 +58,7 @@ export class FilteredSearchPageComponent extends SearchPageComponent implements 
   ngOnInit(): void {
     super.ngOnInit();
     if (hasValue(this.fixedFilterQuery)) {
-      this.routeService.setParameter('filterQuery', this.fixedFilterQuery);
+      this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
     }
   }
 }

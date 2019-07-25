@@ -1,5 +1,5 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {Injectable, OnDestroy} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
 
 import {
   BehaviorSubject,
@@ -9,18 +9,17 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { filter, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SearchOptions } from '../../../shared/search/search-options.model';
-import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { RouteService } from '../../../shared/services/route.service';
-import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
-import { SearchFilter } from '../../../shared/search/search-filter.model';
-import { SearchFixedFilterService } from './search-fixed-filter.service';
-import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
-import { RemoteData } from '../../data/remote-data';
-import { getSucceededRemoteData } from '../operators';
-import { DSpaceObjectType } from '../dspace-object-type.model';
+import {filter, map, startWith, tap} from 'rxjs/operators';
+import {PaginationComponentOptions} from '../../../shared/pagination/pagination-component-options.model';
+import {SearchOptions} from '../../../shared/search/search-options.model';
+import {PaginatedSearchOptions} from '../../../shared/search/paginated-search-options.model';
+import {RouteService} from '../../../shared/services/route.service';
+import {hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator} from '../../../shared/empty.util';
+import {SearchFilter} from '../../../shared/search/search-filter.model';
+import {RemoteData} from '../../data/remote-data';
+import {getSucceededRemoteData} from '../operators';
+import {DSpaceObjectType} from '../dspace-object-type.model';
+import {SortDirection, SortOptions} from '../../cache/models/sort-options.model';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -83,7 +82,6 @@ export class SearchConfigurationService implements OnDestroy {
    * @param {ActivatedRoute} route
    */
   constructor(protected routeService: RouteService,
-              protected fixedFilterService: SearchFixedFilterService,
               protected route: ActivatedRoute) {
 
     this.initDefaults();
@@ -208,10 +206,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current fixed filter as a string
    */
   getCurrentFixedFilter(): Observable<string> {
-    return this.routeService.getRouteParameterValue('filter').pipe(
-      switchMap((f) => this.fixedFilterService.getQueryByFilterName(f)),
-      tap((t) => console.log(t))
-    );
+    return this.routeService.getRouteParameterValue('fixedFilterQuery').pipe(tap((t) => console.log(t)));
   }
 
   /**

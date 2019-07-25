@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRoute,
@@ -126,7 +126,7 @@ export class RouteService {
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
-    return this.route.data.pipe(map((data) => data[datafield]), distinctUntilChanged(),);
+    return this.route.data.pipe(map((data) => data[datafield]), distinctUntilChanged());
   }
 
   /**
@@ -198,6 +198,7 @@ export class RouteService {
 
   public setCurrentRouteInfo() {
     combineLatest(this.getRouteParams(), this.route.queryParams)
+      .pipe(take(1))
       .subscribe(
         ([params, queryParams]: [Params, Params]) => {
           this.store.dispatch(new SetParametersAction(params));

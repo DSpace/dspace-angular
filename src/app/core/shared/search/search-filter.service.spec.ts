@@ -265,7 +265,7 @@ describe('SearchFilterService', () => {
   });
 
   describe('when the getCurrentFixedFilter method is called', () => {
-    const filter = 'filter';
+    const filter = 'fixedFilterQuery';
 
     beforeEach(() => {
       spyOn(routeServiceStub, 'getRouteParameterValue').and.returnValue(observableOf(filter));

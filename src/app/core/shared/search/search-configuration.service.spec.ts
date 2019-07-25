@@ -167,8 +167,8 @@ describe('SearchConfigurationService', () => {
     beforeEach(() => {
       service.getCurrentFixedFilter();
     });
-    it('should call getRouteParameterValue on the routeService with parameter name \'filter\'', () => {
-      expect((service as any).routeService.getRouteParameterValue).toHaveBeenCalledWith('filter');
+    it('should call getRouteParameterValue on the routeService with parameter name \'fixedFilterQuery\'', () => {
+      expect((service as any).routeService.getRouteParameterValue).toHaveBeenCalledWith('fixedFilterQuery');
     });
   });
 });
