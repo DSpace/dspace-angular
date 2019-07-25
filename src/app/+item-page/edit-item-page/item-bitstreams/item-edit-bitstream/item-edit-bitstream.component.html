@@ -1,0 +1,23 @@
+<td>
+  {{ bitstream.name }}
+</td>
+<td class="w-100">
+  {{ bitstream.description }}
+</td>
+<td class="text-center">
+  {{ (format$ | async).shortDescription }}
+</td>
+<td class="text-center">
+  <div class="btn-group relationship-action-buttons">
+    <button [disabled]="!canRemove()" (click)="remove()"
+            class="btn btn-outline-danger btn-sm"
+            title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
+      <i class="fas fa-trash-alt fa-fw"></i>
+    </button>
+    <button [disabled]="!canUndo()" (click)="undo()"
+            class="btn btn-outline-warning btn-sm"
+            title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">
+      <i class="fas fa-undo-alt fa-fw"></i>
+    </button>
+  </div>
+</td>

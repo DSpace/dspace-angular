@@ -269,6 +269,24 @@
             "content": "Your changes to this item's metadata were saved."
           }
         }
+      },
+      "bitstreams": {
+        "discard-button": "Discard",
+        "reinstate-button": "Undo",
+        "save-button": "Save",
+        "headers": {
+          "name": "Name",
+          "description": "Description",
+          "format": "Format",
+          "actions": "Actions",
+          "bundle": "Bundle"
+        },
+        "edit": {
+          "buttons": {
+            "remove": "Remove",
+            "undo": "Undo changes"
+          }
+        }
       }
     }
   },
