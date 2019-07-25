@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {LangConfig} from '../../../config/lang-config.interface';
 import { ClientCookieService } from '../services/client-cookie.service';
 import { LANG_COOKIE } from '../../app.component';
+import { CookieService } from '../services/cookie.service';
 
 @Component({
   selector: 'ds-lang-switch',
@@ -26,7 +27,7 @@ export class LangSwitchComponent implements OnInit {
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
     public translate: TranslateService,
-    public clientCookie: ClientCookieService
+    public cookie: CookieService
   ) {
   }
 
@@ -55,7 +56,7 @@ export class LangSwitchComponent implements OnInit {
    */
   useLang(lang: string) {
     this.translate.use(lang);
-    this.clientCookie.set(LANG_COOKIE, lang);
+    this.cookie.set(LANG_COOKIE, lang);
   }
 
 }

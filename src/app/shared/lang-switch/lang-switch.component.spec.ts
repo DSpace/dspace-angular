@@ -6,9 +6,9 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 import { GLOBAL_CONFIG } from '../../../config';
 import {LangConfig} from '../../../config/lang-config.interface';
 import {Observable, of} from 'rxjs';
-import { ClientCookieService } from '../services/client-cookie.service';
-import { MockClientCookieService } from '../mocks/mock-client-cookie.service';
 import { By } from '@angular/platform-browser';
+import { CookieService } from '../services/cookie.service';
+import { MockCookieService } from '../mocks/mock-cookie.service';
 
 // This test is completely independent from any message catalogs or keys in the codebase
 // The translation module is instantiated with these bogus messages that we aren't using anyway.
@@ -31,12 +31,12 @@ class CustomLoader implements TranslateLoader {
 /* tslint:enable:quotemark */
 /* tslint:enable:object-literal-key-quotes */
 
-let clientCookie: ClientCookieService;
+let cookie: CookieService;
 
 describe('LangSwitchComponent', () => {
 
   beforeEach(() => {
-    clientCookie = Object.assign(new MockClientCookieService());
+    cookie = Object.assign(new MockCookieService());
   });
 
   describe('with English and Deutsch activated, English as default', () => {
@@ -73,7 +73,7 @@ describe('LangSwitchComponent', () => {
         providers: [
           TranslateService,
           { provide: GLOBAL_CONFIG, useValue: mockConfig },
-          { provide: ClientCookieService, useValue: clientCookie }
+          { provide: CookieService, useValue: cookie }
         ]
       }).compileComponents()
         .then(() => {
@@ -111,7 +111,7 @@ describe('LangSwitchComponent', () => {
     describe('when selecting a language', () => {
       beforeEach(() => {
         spyOn(translate, 'use');
-        spyOn(clientCookie, 'set');
+        spyOn(cookie, 'set');
         const langItem = fixture.debugElement.query(By.css('.dropdown-item')).nativeElement;
         langItem.click();
         fixture.detectChanges();
@@ -122,7 +122,7 @@ describe('LangSwitchComponent', () => {
       });
 
       it('should set the client\'s language cookie', () => {
-        expect(clientCookie.set).toHaveBeenCalled();
+        expect(cookie.set).toHaveBeenCalled();
       });
     });
   });
@@ -162,7 +162,7 @@ describe('LangSwitchComponent', () => {
         providers: [
           TranslateService,
           { provide: GLOBAL_CONFIG, useValue: mockConfig },
-          { provide: ClientCookieService, useValue: clientCookie }
+          { provide: CookieService, useValue: cookie }
         ]
       }).compileComponents();
       translate = TestBed.get(TranslateService);

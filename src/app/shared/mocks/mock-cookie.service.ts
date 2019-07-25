@@ -1,7 +1,7 @@
 /**
- * Mock for [[ClientCookieService]]
+ * Mock for [[CookieService]]
  */
-export class MockClientCookieService {
+export class MockCookieService {
   cookies: Map<string, string>;
 
   constructor(cookies: Map<string, string> = new Map()) {
