@@ -37,6 +37,9 @@ export class SearchFiltersComponent implements OnInit {
    */
   @Input() inPlaceSearch;
 
+  /**
+   * Link to the search page
+   */
   searchLink: string;
 
   /**

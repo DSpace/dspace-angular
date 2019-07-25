@@ -50,6 +50,9 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    */
   addQueryParams;
 
+  /**
+   * Link to the search page
+   */
   searchLink: string;
   /**
    * Subscription to unsubscribe from on destroy

@@ -49,6 +49,9 @@ export class SearchFacetSelectedOptionComponent implements OnInit, OnDestroy {
    */
   sub: Subscription;
 
+  /**
+   * Link to the search page
+   */
   searchLink: string;
 
   constructor(protected searchService: SearchService,

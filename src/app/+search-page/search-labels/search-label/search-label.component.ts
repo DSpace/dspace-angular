@@ -11,7 +11,7 @@ import { hasValue, isNotEmpty } from '../../../shared/empty.util';
 })
 
 /**
- * Component that represents the labels containing the currently active filters
+ * Component that represents the label containing the currently active filters
  */
 export class SearchLabelComponent implements OnInit {
   @Input() key: string;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { flatMap, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable, of as observableOf } from 'rxjs';
 import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { GetRequest, RestRequest } from '../../../core/data/request.models';

@@ -91,7 +91,14 @@ export class SearchPageComponent implements OnInit {
   @Input()
   fixedFilter$: Observable<string>;
 
+  /**
+   * Link to the search page
+   */
   searchLink: string;
+
+  /**
+   * Observable for whether or not the sidebar is currently collapsed
+   */
   isSidebarCollapsed$: Observable<boolean>;
 
   constructor(protected service: SearchService,
