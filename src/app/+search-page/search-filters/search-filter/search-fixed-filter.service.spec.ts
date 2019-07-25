@@ -1,17 +1,15 @@
-import { SearchFixedFilterService } from './search-fixed-filter.service';
-import { RouteService } from '../../../core/services/route.service';
-import { RequestService } from '../../../core/data/request.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { of as observableOf } from 'rxjs';
-import { RequestEntry } from '../../../core/data/request.reducer';
-import { FilteredDiscoveryQueryResponse, RestResponse } from '../../../core/cache/response.models';
+import {SearchFixedFilterService} from './search-fixed-filter.service';
+import {RequestService} from '../../../core/data/request.service';
+import {HALEndpointService} from '../../../core/shared/hal-endpoint.service';
+import {of as observableOf} from 'rxjs';
+import {RequestEntry} from '../../../core/data/request.reducer';
+import {FilteredDiscoveryQueryResponse} from '../../../core/cache/response.models';
 
 describe('SearchFixedFilterService', () => {
   let service: SearchFixedFilterService;
 
   const filterQuery = 'filter:query';
 
-  const routeServiceStub = {} as RouteService;
   const requestServiceStub = Object.assign({
     /* tslint:disable:no-empty */
     configure: () => {},
@@ -26,7 +24,7 @@ describe('SearchFixedFilterService', () => {
   });
 
   beforeEach(() => {
-    service = new SearchFixedFilterService(routeServiceStub, requestServiceStub, halServiceStub);
+    service = new SearchFixedFilterService(requestServiceStub, halServiceStub);
   });
 
   describe('when getQueryByFilterName is called with a filterName', () => {

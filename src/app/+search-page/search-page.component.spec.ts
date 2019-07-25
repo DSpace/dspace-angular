@@ -200,7 +200,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => observableOf(true);
+      (comp as any).isSidebarCollapsed$ = observableOf(true);
       fixture.detectChanges();
     });
 
@@ -215,7 +215,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => observableOf(false);
+      (comp as any).isSidebarCollapsed$ = observableOf(false);
       fixture.detectChanges();
     });
 
