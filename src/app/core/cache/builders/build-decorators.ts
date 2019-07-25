@@ -22,7 +22,6 @@ export function mapsTo(value: GenericConstructor<TypedObject>) {
   }
 }
 
-
 /**
  * Maps a type to the matching class
  * @param value The resourse type
