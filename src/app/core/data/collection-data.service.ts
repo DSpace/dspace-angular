@@ -42,10 +42,25 @@ export class CollectionDataService extends ComColDataService<Collection> {
   }
 
   /**
+   * Get all collections whom user has authorization to submit
+   *
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  getAuthorizedCollection(): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAuthorized';
+    const options = new FindAllOptions();
+    options.elementsPerPage = 1000;
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+  }
+
+  /**
    * Get all collections whom user has authorization to submit to by community
    *
-   * @return boolean
-   *    true if the user has at least one collection to submit to
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
    */
   getAuthorizedCollectionByCommunity(communityId): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunity';
