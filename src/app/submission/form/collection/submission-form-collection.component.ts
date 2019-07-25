@@ -95,6 +95,12 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   public disabled$ = new BehaviorSubject<boolean>(true);
 
   /**
+   * A boolean representing if a collection change operation is processing
+   * @type {BehaviorSubject<boolean>}
+   */
+  public processingChange$ = new BehaviorSubject<boolean>(false);
+
+  /**
    * The search form control
    * @type {FormControl}
    */
@@ -265,7 +271,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   onSelect(event) {
     this.searchField.reset();
-    this.disabled$.next(true);
+    this.processingChange$.next(true);
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
     this.subs.push(this.operationsService.jsonPatchByResourceID(
       this.submissionService.getSubmissionObjectLinkName(),
@@ -277,7 +283,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         this.selectedCollectionName$ = observableOf(event.collection.name);
         this.collectionChange.emit(submissionObject[0]);
         this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
-        this.disabled$.next(false);
+        this.processingChange$.next(false);
         this.cdr.detectChanges();
       })
     );
