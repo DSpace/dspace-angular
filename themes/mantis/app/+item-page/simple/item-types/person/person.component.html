@@ -1,0 +1,85 @@
+<div class="top-item-page">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
+                <ds-metadata-field-wrapper>
+                    <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"
+                                  [defaultImage]="'assets/images/person-placeholder.svg'"></ds-thumbnail>
+                </ds-metadata-field-wrapper>
+                <div>
+                    <a class="btn btn-secondary"
+                       [routerLink]="['/items/' + item.id + '/full']">
+                        {{"item.page.link.full" | translate}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-md-10">
+                <h2 class="item-page-title-field">
+                  {{'person.page.titleprefix' | translate}}<ds-metadata-values
+                            [mdValues]="item?.allMetadata(['dc.contributor.author'])"></ds-metadata-values>
+                </h2>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['person.identifier.email']"
+                                                    [label]="'person.page.email'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['person.identifier.orcid']"
+                                                    [label]="'person.page.orcid'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['person.identifier.birthdate']"
+                                                    [label]="'person.page.birthdate'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['person.identifier.staffid']"
+                                                    [label]="'person.page.staffid'">
+                        </ds-generic-item-page-field>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['person.identifier.jobtitle']"
+                                                    [label]="'person.page.jobtitle'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['person.identifier.lastname']"
+                                                    [label]="'person.page.lastname'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['person.identifier.firstname']"
+                                                    [label]="'person.page.firstname'">
+                        </ds-generic-item-page-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relationships-item-page" *ngIf="(projects$ | async) || (orgUnits$ | async)">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4" *ngIf="projects$ | async">
+                <ds-related-items
+                        [items]="projects$ | async"
+                        [label]="'relationships.isProjectOf' | translate">
+                </ds-related-items>
+            </div>
+            <div class="col-12 col-md-4" *ngIf="orgUnits$ | async">
+                <ds-related-items
+                        [items]="orgUnits$ | async"
+                        [label]="'relationships.isOrgUnitOf' | translate">
+                </ds-related-items>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="container search-container">
+        <h3 class="h2">{{"item.page.person.search.title" | translate}}</h3>
+    </div>
+<ds-related-entities-search [item]="item"
+                            [relationType]="'isAuthorOfPublication'">
+</ds-related-entities-search>
+</div>

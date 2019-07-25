@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { distinctUntilChanged, flatMap, map } from 'rxjs/operators';
-import { of as observableOf, zip as observableZip } from 'rxjs';
+import { of as observableOf, zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -60,27 +60,26 @@ export const filterRelationsByTypeLabel = (label: string) =>
 /**
  * Operator for turning a list of relationships into a list of the relevant items
  * @param {string} thisId           The item's id of which the relations belong to
- * @param {ItemDataService} ids     The ItemDataService to fetch items from the REST API
  * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
  */
-export const relationsToItems = (thisId: string, ids: ItemDataService) =>
+export const relationsToItems = (thisId: string) =>
   (source: Observable<Relationship[]>): Observable<Item[]> =>
     source.pipe(
       flatMap((rels: Relationship[]) =>
         observableZip(
-          ...rels.map((rel: Relationship) => {
-            let queryId = rel.leftId;
-            if (rel.leftId === thisId) {
-              queryId = rel.rightId;
-            }
-            return ids.findById(queryId);
-          })
+          ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem))
         )
       ),
-      map((arr: Array<RemoteData<Item>>) =>
+      map((arr) =>
         arr
-          .filter((d: RemoteData<Item>) => d.hasSucceeded)
-          .map((d: RemoteData<Item>) => d.payload)),
+          .filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded)
+          .map(([leftItem, rightItem]) => {
+            if (leftItem.payload.id === thisId) {
+              return rightItem.payload;
+            } else if (rightItem.payload.id === thisId) {
+              return leftItem.payload;
+            }
+          })),
       distinctUntilChanged(compareArraysUsingIds()),
     );
 
@@ -103,13 +102,15 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
                 const matchingRels = rels.filter((rel: Relationship) => ('' + rel.id) === metadatum.virtualValue);
                 if (matchingRels.length > 0) {
                   const matchingRel = matchingRels[0];
-                  let queryId = matchingRel.leftId;
-                  if (matchingRel.leftId === parentId) {
-                    queryId = matchingRel.rightId;
-                  }
-                  return ids.findById(queryId).pipe(
-                    getSucceededRemoteData(),
-                    map((d: RemoteData<Item>) => Object.assign(new ItemMetadataRepresentation(), d.payload))
+                  return observableCombineLatest(matchingRel.leftItem, matchingRel.rightItem).pipe(
+                    map(([leftItem, rightItem]) => {
+                      if (leftItem.payload.id === parentId) {
+                        return rightItem.payload;
+                      } else if (rightItem.payload.id === parentId) {
+                        return leftItem.payload;
+                      }
+                    }),
+                    map((item: Item) => Object.assign(new ItemMetadataRepresentation(), item))
                   );
                 }
               } else {

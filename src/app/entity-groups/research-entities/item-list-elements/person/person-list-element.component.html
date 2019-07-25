@@ -1,12 +1,12 @@
 <ds-truncatable [id]="item.id">
   <a
     [routerLink]="['/items/' + item.id]" class="lead"
-    [innerHTML]="firstMetadataValue('dc.contributor.author')"></a>
+    [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"></a>
   <span class="text-muted">
     <ds-truncatable-part [id]="item.id" [minLines]="1">
-            <span *ngIf="item.allMetadata(['person.identifier.jobtitle']).length > 0"
+            <span *ngIf="item.allMetadata(['person.jobTitle']).length > 0"
                   class="item-list-job-title">
-                    <span *ngFor="let value of allMetadataValues(['person.identifier.jobtitle']); let last=last;">
+                    <span *ngFor="let value of allMetadataValues(['person.jobTitle']); let last=last;">
                         <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
                     </span>
             </span>
