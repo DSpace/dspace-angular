@@ -237,6 +237,12 @@ describe('Dynamic Lookup component', () => {
 
         it('should init component properly', () => {
           expect(lookupComp.firstInputValue).toBe('');
+          const de = lookupFixture.debugElement.queryAll(By.css('button'));
+          const searchBtnEl = de[0].nativeElement;
+          const editBtnEl = de[1].nativeElement;
+          expect(searchBtnEl.disabled).toBe(true);
+          expect(editBtnEl.disabled).toBe(true);
+          expect(editBtnEl.textContent.trim()).toBe('form.edit');
         });
 
         it('should return search results', fakeAsync(() => {
@@ -297,6 +303,7 @@ describe('Dynamic Lookup component', () => {
           expect(lookupComp.model.value).not.toBeDefined();
 
         });
+
       });
 
       describe('and init model value is not empty', () => {
@@ -317,6 +324,19 @@ describe('Dynamic Lookup component', () => {
         });
         it('should init component properly', () => {
           expect(lookupComp.firstInputValue).toBe('test');
+        });
+
+        it('should have search button disabled on edit mode', () => {
+          lookupComp.editMode = true;
+          lookupFixture.detectChanges();
+
+          const de = lookupFixture.debugElement.queryAll(By.css('button'));
+          const searchBtnEl = de[0].nativeElement;
+          const saveBtnEl = de[1].nativeElement;
+          expect(searchBtnEl.disabled).toBe(true);
+          expect(saveBtnEl.disabled).toBe(false);
+          expect(saveBtnEl.textContent.trim()).toBe('form.save');
+
         });
       });
     });
@@ -340,7 +360,14 @@ describe('Dynamic Lookup component', () => {
         });
         it('should render two input element', () => {
           const de = lookupFixture.debugElement.queryAll(By.css('input.form-control'));
+          const deBtn = lookupFixture.debugElement.queryAll(By.css('button'));
+          const searchBtnEl = deBtn[0].nativeElement;
+          const editBtnEl = deBtn[1].nativeElement;
+
           expect(de.length).toBe(2);
+          expect(searchBtnEl.disabled).toBe(true);
+          expect(editBtnEl.disabled).toBe(true);
+          expect(editBtnEl.textContent.trim()).toBe('form.edit');
         });
 
       });
@@ -417,6 +444,19 @@ describe('Dynamic Lookup component', () => {
         it('should init component properly', () => {
           expect(lookupComp.firstInputValue).toBe('Name');
           expect(lookupComp.secondInputValue).toBe('Lastname');
+        });
+
+        it('should have search button disabled on edit mode', () => {
+          lookupComp.editMode = true;
+          lookupFixture.detectChanges();
+
+          const de = lookupFixture.debugElement.queryAll(By.css('button'));
+          const searchBtnEl = de[0].nativeElement;
+          const saveBtnEl = de[1].nativeElement;
+          expect(searchBtnEl.disabled).toBe(true);
+          expect(saveBtnEl.disabled).toBe(false);
+          expect(saveBtnEl.textContent.trim()).toBe('form.save');
+
         });
       });
     });
