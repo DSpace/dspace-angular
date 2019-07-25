@@ -6,10 +6,7 @@ import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.compo
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import {
-  filterRelationsByTypeLabel,
-  relationsToItems
-} from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 @rendersItemType('Person', ItemViewMode.Full)
 @Component({
@@ -57,18 +54,15 @@ export class PersonComponent extends ItemComponent {
 
     if (isNotEmpty(this.resolvedRelsAndTypes$)) {
       this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isPublicationOfAuthor'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfAuthor')
       );
 
       this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isProjectOfPerson'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPerson')
       );
 
       this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isOrgUnitOfPerson'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPerson')
       );
 
       this.fixedFilterQuery = this.fixedFilterService.getQueryByRelations('isAuthorOfPublication', this.item.id);
