@@ -5,7 +5,6 @@ import { GenericItemPageFieldComponent } from '../../field-components/specific-f
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { SearchFixedFilterService } from '../../../../core/shared/search/search-fixed-filter.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
@@ -28,12 +27,6 @@ describe('PublicationComponent', () => {
   let comp: PublicationComponent;
   let fixture: ComponentFixture<PublicationComponent>;
 
-  const searchFixedFilterServiceStub = {
-    /* tslint:disable:no-empty */
-    getQueryByRelations: () => {}
-    /* tslint:enable:no-empty */
-  };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
@@ -46,7 +39,6 @@ describe('PublicationComponent', () => {
       providers: [
         {provide: ITEM, useValue: mockItem},
         {provide: ItemDataService, useValue: {}},
-        {provide: SearchFixedFilterService, useValue: searchFixedFilterServiceStub},
         {provide: TruncatableService, useValue: {}}
       ],
 

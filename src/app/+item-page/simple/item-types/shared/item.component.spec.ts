@@ -10,7 +10,6 @@ import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angula
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { isNotEmpty } from '../../../../shared/empty.util';
-import { SearchFixedFilterService } from '../../../../core/shared/search/search-fixed-filter.service';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -39,12 +38,6 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
     let comp: any;
     let fixture: ComponentFixture<any>;
 
-    const searchFixedFilterServiceStub = {
-      /* tslint:disable:no-empty */
-      getQueryByRelations: () => {}
-      /* tslint:enable:no-empty */
-    };
-
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [TranslateModule.forRoot({
@@ -57,7 +50,6 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         providers: [
           {provide: ITEM, useValue: mockItem},
           {provide: ItemDataService, useValue: {}},
-          {provide: SearchFixedFilterService, useValue: searchFixedFilterServiceStub},
           {provide: TruncatableService, useValue: {}}
         ],
 
@@ -366,13 +358,6 @@ describe('ItemComponent', () => {
         authority: '123'
       }
     ] as MetadataValue[];
-    const mockItemDataService = Object.assign({
-      findById: (id) => {
-        if (id === relatedItem.id) {
-          return observableOf(new RemoteData(false, false, true, null, relatedItem))
-        }
-      }
-    }) as ItemDataService;
 
     let representations: Observable<MetadataRepresentation[]>;
 

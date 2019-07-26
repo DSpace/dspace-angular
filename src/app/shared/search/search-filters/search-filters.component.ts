@@ -50,7 +50,6 @@ export class SearchFiltersComponent implements OnInit {
     private filterService: SearchFilterService,
     private router: Router,
     @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService) {
-
   }
 
   ngOnInit(): void {

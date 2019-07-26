@@ -8,19 +8,23 @@ import { RemoteData } from '../data/remote-data';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { hasNoValue } from '../../shared/empty.util';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
 export class DSpaceObject extends ListableObject implements CacheableObject {
 
+  @excludeFromEquals
   private _name: string;
 
+  @excludeFromEquals
   self: string;
 
   /**
    * The human-readable identifier of this DSpaceObject
    */
+  @excludeFromEquals
   id: string;
 
   /**
@@ -31,6 +35,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
+  @excludeFromEquals
   type: ResourceType;
 
   /**
@@ -50,6 +55,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * All metadata of this DSpaceObject
    */
+  @excludeFromEquals
   metadata: MetadataMap;
 
   /**
@@ -62,11 +68,13 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
    */
+  @excludeFromEquals
   parents: Observable<RemoteData<DSpaceObject[]>>;
 
   /**
    * The DSpaceObject that owns this DSpaceObject
    */
+  @excludeFromEquals
   owner: Observable<RemoteData<DSpaceObject>>;
 
   /**

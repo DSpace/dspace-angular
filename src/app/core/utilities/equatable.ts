@@ -33,7 +33,7 @@ export abstract class EquatableObject<T> {
       return true;
     }
     const excludedKeys = getExcludedFromEqualsFor(this.constructor);
-    const keys = Object.keys(this).filter((key) => excludedKeys.findIndex((excludedKey) => key === excludedKey) < 0);
+    const keys = Object.keys(this).filter((key) => !excludedKeys.includes(key));
     return equalsByFields(this, other, keys);
   }
 }

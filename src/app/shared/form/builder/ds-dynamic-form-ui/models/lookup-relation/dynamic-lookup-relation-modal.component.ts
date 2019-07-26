@@ -8,15 +8,16 @@ import { PaginatedSearchOptions } from '../../../../../search/paginated-search-o
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue } from '../../../../../empty.util';
-import { concat, filter, map, multicast, switchMap, take, takeWhile } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
+import { hasValue, isNotEmpty } from '../../../../../empty.util';
+import { concat, map, multicast, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { SelectableListState } from '../../../../../object-list/selectable-list/selectable-list.reducer';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { RouteService } from '../../../../../services/route.service';
+import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
 
 const RELATION_TYPE_FILTER_PREFIX = 'f.entityType=';
 
@@ -40,12 +41,16 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   searchConfig: PaginatedSearchOptions;
   repeatable: boolean;
   searchQuery;
+  allSelected: boolean;
+  someSelected$: Observable<boolean>;
+  selectAllLoading: boolean;
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 10
   });
-  selection: Observable<ListableObject[]>;
+  selection$: Observable<ListableObject[]>;
   fixedFilter: string;
+
   constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService, private searchConfigService: SearchConfigurationService, private routeService: RouteService) {
   }
 
@@ -54,7 +59,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     this.fixedFilter = RELATION_TYPE_FILTER_PREFIX + this.fieldName;
     this.routeService.setParameter('fixedFilterQuery', this.fixedFilter);
 
-    this.selection = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
+    this.selection$ = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
+    this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       map((options) => {
         return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: RELATION_TYPE_FILTER_PREFIX + this.fieldName })
@@ -92,5 +98,37 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     this.router.navigate([], {
       queryParams: Object.assign({}, { page: 1, query: this.searchQuery }),
     });
+  }
+
+
+  selectPage(page: SearchResult<DSpaceObject>[]) {
+    this.selectableListService.select(this.listId, page);
+  }
+
+  deselectPage(page: SearchResult<DSpaceObject>[]) {
+    this.allSelected = false;
+    this.selectableListService.deselect(this.listId, page);
+  }
+
+  selectAll() {
+    this.allSelected = true;
+    this.selectAllLoading = true;
+    const fullPagination = Object.assign(new PaginationComponentOptions(), {
+      query: this.searchQuery,
+      currentPage: 1,
+      pageSize: Number.POSITIVE_INFINITY
+    });
+    const fullSearchConfig = Object.assign(this.searchConfig, { pagination: fullPagination });
+    const results = this.searchService.search(fullSearchConfig);
+    results.pipe(
+      getSucceededRemoteData(),
+      map((resultsRD) => resultsRD.payload.page),
+      tap(() => this.selectAllLoading = false),
+    ).subscribe((results) => this.selectableListService.select(this.listId, results));
+  }
+
+  deselectAll() {
+    this.allSelected = false;
+    this.selectableListService.deselectAll(this.listId);
   }
 }

@@ -12,15 +12,7 @@ import {
 import { FormControl } from '@angular/forms';
 
 import { BehaviorSubject, combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  find,
-  map,
-  mergeMap,
-  startWith
-} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
@@ -32,12 +24,12 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
-import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
-import { SearchResult } from '../../../+search-page/search-result.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { SearchResult } from '../../../shared/search/search-result.model';
 
 /**
  * An interface to represent a collection entry

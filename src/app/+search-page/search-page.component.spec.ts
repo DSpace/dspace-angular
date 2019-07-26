@@ -24,7 +24,6 @@ import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.compone
 import { RouteService } from '../shared/services/route.service';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
-import { SearchFixedFilterService } from '../core/shared/search/search-fixed-filter.service';
 
 let comp: SearchPageComponent;
 let fixture: ComponentFixture<SearchPageComponent>;
@@ -88,11 +87,6 @@ const routeServiceStub = {
     return observableOf('')
   }
 };
-const mockFixedFilterService: SearchFixedFilterService = {
-  getQueryByFilterName: (filter: string) => {
-    return observableOf(undefined)
-  }
-} as SearchFixedFilterService;
 
 export function configureSearchComponentTestingModule(compType) {
   TestBed.configureTestingModule({
@@ -124,10 +118,6 @@ export function configureSearchComponentTestingModule(compType) {
       {
         provide: SearchFilterService,
         useValue: {}
-      },
-      {
-        provide: SearchFixedFilterService,
-        useValue: mockFixedFilterService
       },
       {
         provide: SearchConfigurationService,
