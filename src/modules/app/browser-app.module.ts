@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateJson5HttpLoader } from '../../ngx-translate-loaders/translate-json5-http.loader';
 
 import { IdlePreload, IdlePreloadModule } from 'angular-idle-preload';
 
@@ -20,13 +20,12 @@ import { CookieService } from '../../app/shared/services/cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { ServerSubmissionService } from '../../app/submission/server-submission.service';
 import { SubmissionService } from '../../app/submission/submission.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+  return new TranslateJson5HttpLoader(http, 'assets/i18n/', '.json5');
 }
 
 export function getRequest(transferState: TransferState): any {
