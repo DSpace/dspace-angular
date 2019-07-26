@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Bitstream } from '../../../core/shared/bitstream.model';
-import { toBitstreamsArray, toBundleMap } from '../../../core/shared/item-bitstreams-utils';
+import { toBitstreamsArray } from '../../../core/shared/item-bitstreams-utils';
 import { Observable } from 'rxjs/internal/Observable';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -22,8 +22,10 @@ import { RequestService } from '../../../core/data/request.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
-
-export const ORIGINAL_BUNDLE = 'ORIGINAL';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
+import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -36,22 +38,25 @@ export const ORIGINAL_BUNDLE = 'ORIGINAL';
 export class ItemBitstreamsComponent extends AbstractItemUpdateComponent implements OnDestroy {
 
   /**
-   * A Map of the current item's bundles and respective FieldUpdates
-   * key:   Bundle Name
-   * value: FieldUpdates about the bundle's bitstreams
+   * The currently listed bitstreams
    */
-  updatesMap: Map<string, Observable<FieldUpdates>>;
+  bitstreams$: BehaviorSubject<RemoteData<PaginatedList<Bitstream>>> = new BehaviorSubject<RemoteData<PaginatedList<Bitstream>>>(null);
 
   /**
-   * A subscription keeping the updatesMap up-to-date
+   * The current paginated search options
    */
-  updatesMapSub: Subscription;
+  searchOptions$: Observable<PaginatedSearchOptions>;
 
   /**
    * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
    * This is used to update the item in cache after bitstreams are deleted
    */
   itemUpdateSubscription: Subscription;
+
+  /**
+   * A subscription keeping track of the current search options and applying them to the bitstreams$ observable
+   */
+  bitstreamsSubscription: Subscription;
 
   constructor(
     public itemService: ItemDataService,
@@ -64,7 +69,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public bitstreamService: BitstreamDataService,
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
-    public cdRef: ChangeDetectorRef
+    public cdRef: ChangeDetectorRef,
+    public searchConfig: SearchConfigurationService
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
   }
@@ -74,6 +80,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   ngOnInit(): void {
     super.ngOnInit();
+    this.searchOptions$ = this.searchConfig.paginatedSearchOptions;
+    this.initializeBitstreamsUpdate();
     this.initializeItemUpdate();
   }
 
@@ -88,35 +96,17 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Initialize the original fields for the object-updates-service
    */
   initializeOriginalFields(): void {
-    this.item.bitstreams.pipe(
-      toBitstreamsArray(),
-      take(1)
-    ).subscribe((bitstreams: Bitstream[]) => {
-      this.objectUpdatesService.initialize(this.url, bitstreams, this.item.lastModified);
-    });
+    this.objectUpdatesService.initialize(this.url, [], this.item.lastModified);
   }
 
   /**
    * Initialize field updates
    */
   initializeUpdates(): void {
-    this.updates$ = this.item.bitstreams.pipe(
+    this.updates$ = this.bitstreams$.pipe(
       toBitstreamsArray(),
-      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdates(this.url, bitstreams))
+      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, bitstreams))
     );
-    this.updatesMapSub = this.item.bitstreams.pipe(
-      toBundleMap()
-    ).subscribe((bundleMap: Map<string, Bitstream[]>) => {
-      const updatesMap = new Map();
-      bundleMap.forEach((bitstreams: Bitstream[], bundleName: string) => {
-        updatesMap.set(bundleName, this.objectUpdatesService.getFieldUpdatesExclusive(this.url, bitstreams));
-      });
-      if (updatesMap.size === 0) {
-        // Add an ORIGINAL bundle by default if the item doesn't contain any bitstreams
-        updatesMap.set(ORIGINAL_BUNDLE, undefined);
-      }
-      this.updatesMap = updatesMap;
-    });
   }
 
   /**
@@ -132,7 +122,21 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       this.item = itemRD.payload;
       this.initializeOriginalFields();
       this.initializeUpdates();
+      // Navigate back to the first page to force a reload of the bitstream page
+      this.router.navigate([this.url], { queryParamsHandling: 'merge', queryParams: { page: 0 } });
       this.cdRef.detectChanges();
+    });
+  }
+
+  /**
+   * Initialize the bitstream update subscription, which keeps track of the current search options and applies
+   * them to the bitstreams$ observable by sending out a REST request
+   */
+  initializeBitstreamsUpdate(): void {
+    this.bitstreamsSubscription = this.searchOptions$.pipe(
+      switchMap((searchOptions) => this.itemService.getBitstreams(this.item.id, searchOptions))
+    ).subscribe((bitsreams: RemoteData<PaginatedList<Bitstream>>) => {
+      this.bitstreams$.next(bitsreams);
     });
   }
 
@@ -142,7 +146,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Display notifications and reset the current item/updates
    */
   submit() {
-    const removedBitstreams$ = this.item.bitstreams.pipe(
+    const removedBitstreams$ = this.bitstreams$.pipe(
       toBitstreamsArray(),
       switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, bitstreams) as Observable<FieldUpdates>),
       map((fieldUpdates: FieldUpdates) => Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
@@ -180,7 +184,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * De-cache the current item (it should automatically reload due to itemUpdateSubscription)
    */
   reset() {
-    this.updatesMap = undefined;
     this.refreshItemCache();
     this.initializeItemUpdate();
   }
@@ -197,7 +200,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Unsubscribe from open subscriptions whenever the component gets destroyed
    */
   ngOnDestroy(): void {
-    this.updatesMapSub.unsubscribe();
     this.itemUpdateSubscription.unsubscribe();
+    this.bitstreamsSubscription.unsubscribe();
   }
 }

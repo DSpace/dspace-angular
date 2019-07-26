@@ -20,38 +20,41 @@
     </div>
   </div>
 
-  <table *ngIf="updatesMap && updatesMap.size > 0" class="table table-responsive table-striped table-bordered">
-    <tbody>
-      <tr>
-        <th>{{'item.edit.bitstreams.headers.name' | translate}}</th>
-        <th>{{'item.edit.bitstreams.headers.description' | translate}}</th>
-        <th class="text-center">{{'item.edit.bitstreams.headers.format' | translate}}</th>
-        <th class="text-center">{{'item.edit.bitstreams.headers.actions' | translate}}</th>
-      </tr>
-      <ng-container *ngFor="let updatesItem of updatesMap | keyvalue">
+  <ds-pagination *ngIf="(updates$ | async) && ((updates$ | async) | dsObjectValues).length > 0"
+                 [paginationOptions]="(searchOptions$ | async)?.pagination"
+                 [pageInfoState]="(bitstreams$ | async)?.payload"
+                 [collectionSize]="(bitstreams$ | async)?.payload?.totalElements"
+                 [sortOptions]="(searchOptions$ | async)?.sort"
+                 [hideGear]="true"
+                 [hidePagerWhenSinglePage]="true">
+    <table class="table table-responsive table-striped table-bordered">
+      <tbody>
         <tr>
-          <th>{{'item.edit.bitstreams.headers.bundle' | translate}}: {{ updatesItem.key }}</th>
-          <td class="w-100"></td>
-          <td></td>
-          <td></td>
+          <th>{{'item.edit.bitstreams.headers.name' | translate}}</th>
+          <th>{{'item.edit.bitstreams.headers.bundle' | translate}}</th>
+          <th>{{'item.edit.bitstreams.headers.description' | translate}}</th>
+          <th class="text-center">{{'item.edit.bitstreams.headers.format' | translate}}</th>
+          <th class="text-center">{{'item.edit.bitstreams.headers.actions' | translate}}</th>
         </tr>
-        <ng-container *ngIf="updatesItem.value">
-          <ng-container *ngVar="((updatesItem.value | async) | dsObjectValues) as updateValues">
-            <tr *ngFor="let updateValue of updateValues"
-                ds-item-edit-bitstream
-                [fieldUpdate]="updateValue"
-                [url]="url"
-                [ngClass]="{
-                  'table-warning': updateValue.changeType === 0,
-                  'table-danger': updateValue.changeType === 2,
-                  'table-success': updateValue.changeType === 1
-                }">
-            </tr>
-          </ng-container>
+        <ng-container *ngVar="((updates$ | async) | dsObjectValues) as updateValues">
+          <tr *ngFor="let updateValue of updateValues"
+              ds-item-edit-bitstream
+              [fieldUpdate]="updateValue"
+              [url]="url"
+              [ngClass]="{
+                    'table-warning': updateValue.changeType === 0,
+                    'table-danger': updateValue.changeType === 2,
+                    'table-success': updateValue.changeType === 1
+                  }">
+          </tr>
         </ng-container>
-      </ng-container>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </ds-pagination>
+  <div *ngIf="!(updates$ | async) || (updates$ | async) && ((updates$ | async) | dsObjectValues).length === 0" class="alert alert-info w-100 d-inline-block" role="alert">
+    {{'item.edit.bitstreams.empty' | translate}}
+  </div>
+
   <div class="button-row bottom">
     <div class="my-2 float-right">
       <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"

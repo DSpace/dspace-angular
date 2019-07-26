@@ -303,7 +303,8 @@
           "failed": {
             "title": "Error deleting bitstream"
           }
-        }
+        },
+        "empty": "This item doesn't contain any bitstreams. Click the upload button to create one."
       }
     }
   },
