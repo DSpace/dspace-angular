@@ -284,6 +284,34 @@ export abstract class DataService<T extends CacheableObject> {
    * Return an observable that emits true when the deletion was successful, false when it failed
    */
   delete(dso: T): Observable<boolean> {
+    const requestId = this.deleteAndReturnRequestId(dso);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response.isSuccessful)
+    );
+  }
+
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param dso The DSpace Object to be removed
+   * Return an observable of the completed response
+   */
+  deleteAndReturnResponse(dso: T): Observable<RestResponse> {
+    const requestId = this.deleteAndReturnRequestId(dso);
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
+  }
+
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param dso The DSpace Object to be removed
+   * Return the delete request's ID
+   */
+  deleteAndReturnRequestId(dso: T): string {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
@@ -297,10 +325,7 @@ export abstract class DataService<T extends CacheableObject> {
       })
     ).subscribe();
 
-    return this.requestService.getByUUID(requestId).pipe(
-      find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response.isSuccessful)
-    );
+    return requestId;
   }
 
   /**
