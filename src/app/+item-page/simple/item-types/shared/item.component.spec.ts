@@ -105,7 +105,9 @@ export function containsFieldInput(fields: DebugElement[], metadataKey: string):
 export function createRelationshipsObservable() {
   return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [
     Object.assign(new Relationship(), {
-      relationshipType: createSuccessfulRemoteDataObject$(new RelationshipType())
+      relationshipType: createSuccessfulRemoteDataObject$(new RelationshipType()),
+      leftItem: createSuccessfulRemoteDataObject$(new Item()),
+      rightItem: createSuccessfulRemoteDataObject$(new Item())
     })
   ]));
 }
