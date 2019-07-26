@@ -2,23 +2,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtPlugin = require('script-ext-html-webpack-plugin');
 
 const {
-  root
+  projectRoot,
+  buildRoot
 } = require('./helpers');
 
-module.exports = {
-  entry: root('./src/main.browser.ts'),
-  output: {
-    filename: 'client.js'
-  },
-  target: 'web',
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: root('./src/index.html'),
-      output: root('dist'),
-      inject: 'head'
-    }),
-    new ScriptExtPlugin({
-      defaultAttribute: 'defer'
-    })
-  ]
-};
+module.exports = (env) => {
+  return {
+    entry: buildRoot('./main.browser.ts', env),
+    output: {
+      filename: 'client.js'
+    },
+    target: 'web',
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: buildRoot('./index.html', env),
+        output: projectRoot('dist'),
+        inject: 'head'
+      }),
+      new ScriptExtPlugin({
+        defaultAttribute: 'defer'
+      })
+    ]
+  };
+}

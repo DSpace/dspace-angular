@@ -104,7 +104,9 @@ export function containsFieldInput(fields: DebugElement[], metadataKey: string):
 export function createRelationshipsObservable() {
   return observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [
     Object.assign(new Relationship(), {
-      relationshipType: observableOf(new RemoteData(false, false, true, null, new RelationshipType()))
+      relationshipType: observableOf(new RemoteData(false, false, true, null, new RelationshipType())),
+      leftItem: observableOf(new RemoteData(false, false, true, null, new Item())),
+      rightItem: observableOf(new RemoteData(false, false, true, null, new Item()))
     })
   ])));
 }

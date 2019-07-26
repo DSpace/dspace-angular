@@ -27,10 +27,10 @@ import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MenuID } from './shared/menu/initial-menus-state';
-import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { slideSidebarPadding } from './shared/animations/slide';
-import { combineLatest as combineLatestObservable } from 'rxjs';
 import { HostWindowService } from './shared/host-window.service';
+import { Theme } from '../config/theme.inferface';
 
 @Component({
   selector: 'ds-app',
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   slideSidebarOver: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
   totalSidebarWidth: Observable<string>;
+  theme: Observable<Theme> = of({} as any);
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
@@ -58,7 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
   ) {
     // Load all the languages that are defined as active from the config file
     translate.addLangs(config.languages.filter((LangConfig) => LangConfig.active === true).map((a) => a.code));
@@ -82,6 +83,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+
     const env: string = this.config.production ? 'Production' : 'Development';
     const color: string = this.config.production ? 'red' : 'green';
     console.info(`Environment: %c${env}`, `color: ${color}; font-weight: bold;`);
