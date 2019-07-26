@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindAllOptions } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
+import { RestResponse } from '../cache/response.models';
 
 @Injectable()
 export class BitstreamDataService extends DataService<Bitstream> {
@@ -36,5 +37,12 @@ export class BitstreamDataService extends DataService<Bitstream> {
 
   getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
+  }
+
+  deleteAndReturnResponse(bitstream: Bitstream): Observable<RestResponse> {
+    const response$ = super.deleteAndReturnResponse(bitstream);
+    this.objectCache.remove(bitstream.self);
+    this.requestService.removeByHrefSubstring(bitstream.self);
+    return response$;
   }
 }

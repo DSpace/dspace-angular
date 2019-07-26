@@ -315,4 +315,15 @@ export class RequestService {
     return result;
   }
 
+  /**
+   * Create an observable that emits a new value whenever the availability of the cached request changes.
+   * The value it emits is a boolean stating if the request exists in cache or not.
+   * @param href  The href of the request to observe
+   */
+  hasByHrefObservable(href: string): Observable<boolean> {
+    return this.getByHref(href).pipe(
+      map((requestEntry: RequestEntry) => this.isValid(requestEntry))
+    );
+  }
+
 }
