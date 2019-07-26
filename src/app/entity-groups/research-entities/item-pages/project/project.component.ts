@@ -5,10 +5,7 @@ import { MetadataRepresentation } from '../../../../core/shared/metadata-represe
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import {
-  filterRelationsByTypeLabel,
-  relationsToItems
-} from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 @rendersItemType('Project', ItemViewMode.Full)
 @Component({
@@ -47,18 +44,15 @@ export class ProjectComponent extends ItemComponent implements OnInit {
       this.contributors$ = this.buildRepresentations('OrgUnit', 'project.contributor.other');
 
       this.people$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isPersonOfProject'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isPersonOfProject')
       );
 
       this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isPublicationOfProject'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfProject')
       );
 
       this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isOrgUnitOfProject'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfProject')
       );
     }
   }
