@@ -206,7 +206,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       );
 
       const findOptions: FindAllOptions = {
-        elementsPerPage: 100
+        elementsPerPage: 1000
       };
 
       // Retrieve collection list only when is the first change
@@ -219,7 +219,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
 
         const listCollection$ = communities$.pipe(
           flatMap((communityData: Community) => {
-            return this.collectionDataService.getAuthorizedCollectionByCommunity(communityData.uuid).pipe(
+            return this.collectionDataService.getAuthorizedCollectionByCommunity(communityData.uuid, findOptions).pipe(
               find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
               mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
               filter((collectionData: Collection) => isNotEmpty(collectionData)),
