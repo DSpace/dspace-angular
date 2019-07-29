@@ -14,7 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
-import { isNotEmptyOperator } from '../../../shared/empty.util';
+import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
 import { zip as observableZip } from 'rxjs';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -119,12 +119,14 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       switchMap(() => this.itemService.findById(this.item.uuid)),
       getSucceededRemoteData(),
     ).subscribe((itemRD: RemoteData<Item>) => {
-      this.item = itemRD.payload;
-      this.initializeOriginalFields();
-      this.initializeUpdates();
-      // Navigate back to the first page to force a reload of the bitstream page
-      this.router.navigate([this.url], { queryParamsHandling: 'merge', queryParams: { page: 0 } });
-      this.cdRef.detectChanges();
+      if (hasValue(itemRD)) {
+        this.item = itemRD.payload;
+        this.initializeOriginalFields();
+        this.initializeUpdates();
+        // Navigate back to the first page to force a reload of the bitstream page
+        this.router.navigate([this.url], {queryParamsHandling: 'merge', queryParams: {page: 0}});
+        this.cdRef.detectChanges();
+      }
     });
   }
 
