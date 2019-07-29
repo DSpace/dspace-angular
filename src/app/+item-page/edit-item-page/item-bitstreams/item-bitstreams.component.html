@@ -1,23 +1,26 @@
 <div class="item-bitstreams">
-  <div class="float-right">
-    <div class="button-row top mb-4 mt-2">
-      <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
-              [disabled]="!(hasChanges() | async)"
-              (click)="discard()"><i
-        class="fas fa-times"></i>
-        <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
-      </button>
-      <button class="btn btn-warning" *ngIf="isReinstatable() | async"
-              (click)="reinstate()"><i
-        class="fas fa-undo-alt"></i>
-        <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
-      </button>
-      <button class="btn btn-primary" [disabled]="!(hasChanges() | async)"
-              (click)="submit()"><i
-        class="fas fa-save"></i>
-        <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
-      </button>
-    </div>
+  <div class="button-row top d-flex mt-2">
+    <button class="mr-auto btn btn-success"
+            [routerLink]="['/items/', item.id, 'bitstreams', 'new']"><i
+            class="fas fa-upload"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.upload-button" | translate}}</span>
+    </button>
+    <button class="btn btn-danger mr-1" *ngIf="!(isReinstatable() | async)"
+            [disabled]="!(hasChanges() | async)"
+            (click)="discard()"><i
+            class="fas fa-times"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
+    </button>
+    <button class="btn btn-warning mr-1" *ngIf="isReinstatable() | async"
+            (click)="reinstate()"><i
+            class="fas fa-undo-alt"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
+    </button>
+    <button class="btn btn-primary" [disabled]="!(hasChanges() | async)"
+            (click)="submit()"><i
+            class="fas fa-save"></i>
+      <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
+    </button>
   </div>
 
   <ds-pagination *ngIf="(updates$ | async) && ((updates$ | async) | dsObjectValues).length > 0"

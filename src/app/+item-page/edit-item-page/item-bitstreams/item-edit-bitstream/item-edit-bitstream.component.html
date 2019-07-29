@@ -12,6 +12,15 @@
 </td>
 <td class="text-center">
   <div class="btn-group relationship-action-buttons">
+    <a [href]="bitstream?.content"
+            class="btn btn-outline-primary btn-sm"
+            title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}">
+      <i class="fas fa-download fa-fw"></i>
+    </a>
+    <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" class="btn btn-outline-primary btn-sm"
+            title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
+      <i class="fas fa-edit fa-fw"></i>
+    </button>
     <button [disabled]="!canRemove()" (click)="remove()"
             class="btn btn-outline-danger btn-sm"
             title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">

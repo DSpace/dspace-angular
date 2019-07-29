@@ -271,6 +271,7 @@
         }
       },
       "bitstreams": {
+        "upload-button": "Upload",
         "discard-button": "Discard",
         "reinstate-button": "Undo",
         "save-button": "Save",
@@ -284,7 +285,9 @@
         "edit": {
           "buttons": {
             "remove": "Remove",
-            "undo": "Undo changes"
+            "undo": "Undo changes",
+            "download": "Download",
+            "edit": "Edit"
           }
         },
         "notifications": {
