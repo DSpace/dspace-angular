@@ -13,18 +13,37 @@ import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/s
   selector: '[ds-item-edit-bitstream]',
   templateUrl: './item-edit-bitstream.component.html',
 })
+/**
+ * Component that displays a single bitstream of an item on the edit page
+ */
 export class ItemEditBitstreamComponent implements OnChanges {
+  /**
+   * The current field, value and state of the bitstream
+   */
   @Input() fieldUpdate: FieldUpdate;
 
+  /**
+   * The current url of this page
+   */
   @Input() url: string;
 
+  /**
+   * The bitstream of this field
+   */
   bitstream: Bitstream;
 
+  /**
+   * The format of the bitstream
+   */
   format$: Observable<BitstreamFormat>;
 
   constructor(private objectUpdatesService: ObjectUpdatesService) {
   }
 
+  /**
+   * Update the current bitstream and its format on changes
+   * @param changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
     this.bitstream = cloneDeep(this.fieldUpdate.field) as Bitstream;
     this.format$ = this.bitstream.format.pipe(
