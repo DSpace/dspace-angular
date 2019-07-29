@@ -13,7 +13,7 @@ module.exports = {
     host: 'dspace7.4science.cloud',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/dspace-spring-rest/api'
+    nameSpace: '/server/api'
   },
   // Caching settings
   cache: {
@@ -180,5 +180,8 @@ module.exports = {
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
+  },
+  theme: {
+    name: 'default',
   }
 };
