@@ -37,8 +37,9 @@ export class SelectableListService {
    * Select an object in a specific list in the store
    * @param {string} id The id of the list on which the object should be selected
    * @param {ListableObject} object The object to select
+   * @param {boolean} multipleSelectionsAllowed Defines if the multiple selections are allowed for this selectable list
    */
-  selectSingle(id: string, object: ListableObject, multipleSelectionsAllowed?) {
+  selectSingle(id: string, object: ListableObject, multipleSelectionsAllowed?: boolean) {
     this.store.dispatch(new SelectableListSelectSingleAction(id, object, multipleSelectionsAllowed));
   }
 
@@ -86,7 +87,7 @@ export class SelectableListService {
   isObjectSelected(id: string, object: ListableObject): Observable<boolean> {
     return this.getSelectableList(id).pipe(
       filter((state: SelectableListState) => hasValue(state)),
-      map((state: SelectableListState) => isNotEmpty(state.selection) && hasValue(state.selection.find((selected) => selected === object))),
+      map((state: SelectableListState) => isNotEmpty(state.selection) && hasValue(state.selection.find((selected) => selected.equals(object)))),
       startWith(false),
       distinctUntilChanged()
     );

@@ -8,39 +8,24 @@
           "input": {
             "type": "lookup-relation"
           },
-          "label": "Journal Issue",
+          "label": "Author",
           "mandatory": true,
           "repeatable": true,
-          "mandatoryMessage": "Required field!",
-          "hints": "Select a journal issue for this publication.",
-          "selectableMetadata": [
+          "mandatoryMessage": "At least one author (plain text or relationship) is required",
+          "hints": "Add an author",
+          "selectableRelationships": [
             {
-              "metadata": "relation.isPublicationOfJournalIssue",
-              "label": null,
-              "authority": null,
-              "closed": null
+              "relationshipType": "isAuthorOfPublication",
+              "filter": null,
+              "searchConfiguration": "personConfiguration"
             }
           ],
-          "languageCodes": []
-        }
-      ]
-    },
-    {
-      "fields": [
-        {
-          "input": {
-            "type": "name"
-          },
-          "label": "Authors",
-          "mandatory": false,
-          "repeatable": true,
-          "hints": "Enter the names of the authors of this item.",
           "selectableMetadata": [
             {
               "metadata": "dc.contributor.author",
               "label": null,
               "authority": null,
-              "closed": null
+              "closed": false
             }
           ],
           "languageCodes": []

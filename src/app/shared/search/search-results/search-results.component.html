@@ -7,6 +7,8 @@
             [hideGear]="true"
             [selectable]="selectable"
             [selectionConfig]="selectionConfig"
+            (deselectObject)="deselectObject.emit($event)"
+            (selectObject)="selectObject.emit($event)"
             >
     </ds-viewable-collection>
 </div>

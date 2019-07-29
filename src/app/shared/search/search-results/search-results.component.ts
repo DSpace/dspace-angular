@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../animations/fade';
@@ -8,6 +8,7 @@ import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { hasNoValue, isNotEmpty } from '../../empty.util';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { ListableObject } from '../../object-collection/shared/listable-object.model';
 
 @Component({
   selector: 'ds-search-results',
@@ -58,6 +59,11 @@ export class SearchResultsComponent {
   @Input() selectable = false;
 
   @Input() selectionConfig: {repeatable: boolean, listId: string};
+
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
   /**
    * Method to change the given string by surrounding it by quotes if not already present.
    */

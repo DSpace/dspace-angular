@@ -7,6 +7,8 @@
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
                 (sortDirectionChange)="onSortDirectionChange($event)"
+                (deselectObject)="deselectObject.emit($event)"
+                (selectObject)="selectObject.emit($event)"
                 (sortFieldChange)="onSortFieldChange($event)"
                 [selectable]="selectable"
                 [selectionConfig]="selectionConfig"

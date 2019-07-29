@@ -79,8 +79,11 @@ export class ObjectListComponent {
    */
   @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter<SortDirection>();
 
-  @Output() paginationChange: EventEmitter<SortDirection> = new EventEmitter<any>();
+  @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   /**
    * An event fired when the sort field is changed.
    * Event's payload equals to the newly selected sort field.
@@ -108,66 +111,24 @@ export class ObjectListComponent {
     this.paginationChange.emit(event);
   }
 
-  // isDisabled(object: ListableObject): boolean {
-  //   return hasValue(this.previousSelection.find((selected) => selected === object));
-  // }
-
   selectCheckbox(value: boolean, object: ListableObject) {
     if (value) {
       this.selectionService.selectSingle(this.selectionConfig.listId, object);
+      this.selectObject.emit(object);
+
     } else {
       this.selectionService.deselectSingle(this.selectionConfig.listId, object);
+      this.deselectObject.emit(object);
     }
   }
 
   selectRadio(value: boolean, object: ListableObject) {
     if (value) {
       this.selectionService.selectSingle(this.selectionConfig.listId, object, false);
+      this.selectObject.emit(object);
+    } else {
+      this.selectionService.deselectSingle(this.selectionConfig.listId, object);
+      this.deselectObject.emit(object);
     }
   }
-
-  selectPage(page: SearchResult<DSpaceObject>[]) {
-    this.selectionService.select(this.selectionConfig.listId, this.objects.payload.page);
-  }
-
-  deselectPage(page: SearchResult<DSpaceObject>[]) {
-    this.selectionService.deselect(this.selectionConfig.listId, this.objects.payload.page);
-
-  }
-
-  deselectAll() {
-    this.selectionService.deselectAll(this.selectionConfig.listId);
-  }
-
-  // isAllSelected() {
-  //   return this.allSelected;
-  // }
-  //
-  // isSomeSelected() {
-  //   return isNotEmpty(this.selection);
-  // }
-  //
-  //
-  // selectAll() {
-  //   this.allSelected = true;
-  //   this.selectAllLoading = true;
-  //   const fullPagination = Object.assign(new PaginationComponentOptions(), {
-  //     query: this.searchQuery,
-  //     currentPage: 1,
-  //     pageSize: Number.POSITIVE_INFINITY
-  //   });
-  //   const fullSearchConfig = Object.assign(this.searchConfig, { pagination: fullPagination });
-  //   const results = this.searchService.search(fullSearchConfig);
-  //   results.pipe(
-  //     getSucceededRemoteData(),
-  //     map((resultsRD) => resultsRD.payload.page),
-  //     tap(() => this.selectAllLoading = false)
-  //   )
-  //     .subscribe((results) =>
-  //       this.selection = results
-  //         .map((searchResult) => searchResult.indexableObject)
-  //         .filter((dso) => hasNoValue(this.previousSelection.find((object) => object === dso)))
-  //     );
-  // }
-
 }

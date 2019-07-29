@@ -35,6 +35,8 @@ export class ObjectCollectionComponent implements OnChanges, OnInit {
   @Input() hideGear = false;
   @Input() selectable = false;
   @Input() selectionConfig: {repeatable: boolean, listId: string};
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   pageInfo: Observable<PageInfo>;
   private sub;

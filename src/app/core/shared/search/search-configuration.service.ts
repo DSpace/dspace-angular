@@ -206,7 +206,7 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current fixed filter as a string
    */
   getCurrentFixedFilter(): Observable<string> {
-    return this.routeService.getRouteParameterValue('fixedFilterQuery').pipe(tap((t) => console.log(t)));
+    return this.routeService.getRouteParameterValue('fixedFilterQuery');
   }
 
   /**

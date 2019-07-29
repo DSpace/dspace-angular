@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Choose a {{fieldName}}</h4>
+    <h4 class="modal-title" id="modal-title">{{ ('submission.sections.describe.relationship-lookup.title' | translate:{label: label}) }}</h4>
     <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
             (click)="modal.dismiss()">
         <span aria-hidden="true">&times;</span>
@@ -13,10 +13,10 @@
         <div class="col-8">
             <form class="input-group mb-3" #queryForm="ngForm"
                   (ngSubmit)="search(queryForm.value.query)">
-                <input type="text" class="form-control" name="query" placeholder="Search query"
+                <input type="text" class="form-control" name="query" [placeholder]="'submission.sections.describe.relationship-lookup.placeholder' | translate"
                        [ngModel]="searchQuery">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit">Go</button>
+                    <button class="btn btn-outline-secondary" type="submit">{{ ('submission.sections.describe.relationship-lookup.search' | translate) }}</button>
                 </div>
             </form>
             <div *ngIf="repeatable" class="position-absolute">
@@ -46,20 +46,20 @@
                                 class="btn btn-outline-secondary rounded-right">
                         <span class="spinner-border spinner-border-sm" role="status"
                               aria-hidden="true"></span>
-                            <span class="sr-only">Loading...</span>
+                            <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.loading' | translate) }}</span>
                         </button>
                         <button *ngIf="!selectAllLoading" id="resultdropdown" type="button"
                                 ngbDropdownToggle
                                 class="btn btn-outline-secondary dropdown-toggle-split"
                                 data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.toggle-dropdown' | translate) }}</span>
                         </button>
                         <div ngbDropdownMenu aria-labelledby="resultdropdown">
-                            <button class="dropdown-item" (click)="selectPage(resultsRD?.payload?.page)">Select page</button>
-                            <button class="dropdown-item" (click)="deselectPage(resultsRD?.payload?.page)">Deselect page</button>
-                            <button class="dropdown-item" (click)="selectAll()">Select all</button>
-                            <button class="dropdown-item" (click)="deselectAll()">Deselect all</button>
+                            <button class="dropdown-item" (click)="selectPage(resultsRD?.payload?.page)">{{ ('submission.sections.describe.relationship-lookup.select-page' | translate) }}</button>
+                            <button class="dropdown-item" (click)="deselectPage(resultsRD?.payload?.page)">{{ ('submission.sections.describe.relationship-lookup.deselect-page' | translate) }}</button>
+                            <button class="dropdown-item" (click)="selectAll()">{{ ('submission.sections.describe.relationship-lookup.select-all' | translate) }}</button>
+                            <button class="dropdown-item" (click)="deselectAll()">{{ ('submission.sections.describe.relationship-lookup.deselect-all' | translate) }}</button>
                         </div>
                     </div>
                 </div>
@@ -68,15 +68,16 @@
                                [sortConfig]="this.searchConfig?.sort"
                                [searchConfig]="this.searchConfig"
                                [selectable]="true"
-                               [selectionConfig]="{ repeatable: repeatable, listId: listId }">
+                               [selectionConfig]="{ repeatable: repeatable, listId: listId }"
+                               (deselectObject)="allSelected = false"
+            >
             </ds-search-results>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <small>Selected {{(selection$ | async)?.length || 0}} items</small>
+    <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate:{size: (selection$ | async)?.length || 0}) }}</small>
     <div>
-        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel</button>
-        <button type="button" class="btn btn-danger" (click)="close()">Ok</button>
+        <button type="button" class="btn btn-danger" (click)="close()">{{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
     </div>
 </div>

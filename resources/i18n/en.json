@@ -431,7 +431,6 @@
       "volume-title": "Volume Title",
       "publisher": "Publisher",
       "description": "Description"
-
     },
     "listelement": {
       "badge": "Publication"
@@ -570,7 +569,7 @@
       }
     },
     "switch-configuration": {
-      "title":"Show"
+      "title": "Show"
     },
     "view-switch": {
       "show-list": "Show as list",
@@ -1016,7 +1015,7 @@
     "no-results": "No {{ type }} found"
   },
   "submission": {
-    "general":{
+    "general": {
       "cannot_submit": "You have not the privilege to make a new submission.",
       "deposit": "Deposit",
       "discard": {
@@ -1038,10 +1037,8 @@
       "title": "Edit Submission"
     },
     "mydspace": {
-
     },
     "sections": {
-
       "general": {
         "add-more": "Add more",
         "no-sections": "No options available",
@@ -1066,7 +1063,6 @@
       "submit.progressbar.license": "Deposit license",
       "submit.progressbar.cclicense": "Creative commons license",
       "submit.progressbar.detect-duplicate": "Potential duplicates",
-
       "upload": {
         "no-entry": "No",
         "no-file-uploaded": "No file uploaded yet.",
@@ -1096,6 +1092,21 @@
             "title": "Delete bitstream",
             "info": "This operation can't be undone. Are you sure?"
           }
+        }
+      },
+      "describe": {
+        "relationship-lookup": {
+          "search": "Go",
+          "loading": "Loading...",
+          "title": "Select a {{ label }}",
+          "toggle-dropdown": "Toggle dropdown",
+          "select-page": "Select page",
+          "deselect-page": "Deselect page",
+          "select-all": "Select all",
+          "deselect-all": "Deselect all",
+          "close": "Close",
+          "selected": "Selected {{ size }} items",
+          "placeholder": "Search query"
         }
       }
     },
@@ -1132,7 +1143,6 @@
           "reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
           "return": "Return to pool",
           "return_help": "Return the task to the pool so that another user may perform the task."
-
         },
         "pool": {
           "claim": "Claim",

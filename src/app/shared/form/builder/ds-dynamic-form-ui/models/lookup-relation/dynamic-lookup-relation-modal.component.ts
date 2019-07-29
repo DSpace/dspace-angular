@@ -35,7 +35,9 @@ const RELATION_TYPE_FILTER_PREFIX = 'f.entityType=';
 })
 export class DsDynamicLookupRelationModalComponent implements OnInit {
   relationKey: string;
-  fieldName: string;
+  label: string;
+  filter: string;
+  searchConfiguration: string;
   listId: string;
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
   searchConfig: PaginatedSearchOptions;
@@ -49,21 +51,20 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     pageSize: 10
   });
   selection$: Observable<ListableObject[]>;
-  fixedFilter: string;
 
   constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService, private searchConfigService: SearchConfigurationService, private routeService: RouteService) {
   }
 
   ngOnInit(): void {
     this.resetRoute();
-    this.fixedFilter = RELATION_TYPE_FILTER_PREFIX + this.fieldName;
-    this.routeService.setParameter('fixedFilterQuery', this.fixedFilter);
+    this.routeService.setParameter('fixedFilterQuery', this.filter);
+    this.routeService.setParameter('configuration', this.searchConfiguration);
 
     this.selection$ = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
     this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       map((options) => {
-        return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: RELATION_TYPE_FILTER_PREFIX + this.fieldName })
+        return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: this.filter, configuration: this.searchConfiguration })
       }),
       switchMap((options) => {
         this.searchConfig = options;
@@ -85,9 +86,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   }
 
   search(query: string) {
+    this.allSelected = false;
     this.searchQuery = query;
     this.resetRoute();
-    this.selectableListService.deselectAll(this.listId);
   }
 
   close() {
@@ -99,7 +100,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
       queryParams: Object.assign({}, { page: 1, query: this.searchQuery }),
     });
   }
-
 
   selectPage(page: SearchResult<DSpaceObject>[]) {
     this.selectableListService.select(this.listId, page);
