@@ -23,7 +23,8 @@
     </button>
   </div>
 
-  <ds-pagination *ngIf="(updates$ | async) && ((updates$ | async) | dsObjectValues).length > 0"
+  <ds-pagination *ngIf="(bitstreams$ | async) && !(bitstreams$ | async)?.isLoading &&
+                        (updates$ | async) && ((updates$ | async) | dsObjectValues).length > 0"
                  [paginationOptions]="(searchOptions$ | async)?.pagination"
                  [pageInfoState]="(bitstreams$ | async)?.payload"
                  [collectionSize]="(bitstreams$ | async)?.payload?.totalElements"
@@ -54,9 +55,12 @@
       </tbody>
     </table>
   </ds-pagination>
-  <div *ngIf="!(updates$ | async) || (updates$ | async) && ((updates$ | async) | dsObjectValues).length === 0" class="alert alert-info w-100 d-inline-block" role="alert">
+  <div *ngIf="(bitstreams$ | async) && !(bitstreams$ | async)?.isLoading &&
+              !(updates$ | async) || (updates$ | async) && ((updates$ | async) | dsObjectValues).length === 0"
+       class="alert alert-info w-100 d-inline-block mt-4" role="alert">
     {{'item.edit.bitstreams.empty' | translate}}
   </div>
+  <ds-loading *ngIf="!(bitstreams$ | async) || (bitstreams$ | async)?.isLoading" message="{{'loading.bitstreams' | translate}}"></ds-loading>
 
   <div class="button-row bottom">
     <div class="my-2 float-right">

@@ -870,7 +870,8 @@
     "search-results": "Loading search results...",
     "mydspace-results": "Loading items...",
     "browse-by": "Loading items...",
-    "browse-by-page": "Loading page..."
+    "browse-by-page": "Loading page...",
+    "bitstreams": "Loading bitstreams..."
   },
   "error": {
     "default": "Error",
