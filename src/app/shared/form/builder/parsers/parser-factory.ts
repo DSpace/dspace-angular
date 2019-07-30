@@ -12,7 +12,7 @@ import { NameFieldParser } from './name-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
-import { LookupRelationFieldParser } from './lookup-relation-field-parser';
+import { EmptyFieldParser } from './empty-field-parser';
 
 export class ParserFactory {
   public static getConstructor(type: ParserType): GenericConstructor<FieldParser> {
@@ -35,9 +35,6 @@ export class ParserFactory {
       case ParserType.LookupName: {
         return LookupNameFieldParser
       }
-      case ParserType.LookupRelation: {
-        return LookupRelationFieldParser
-      }
       case ParserType.Onebox: {
         return OneboxFieldParser
       }
@@ -53,7 +50,9 @@ export class ParserFactory {
       case ParserType.Textarea: {
         return TextareaFieldParser
       }
-
+      case undefined: {
+        return EmptyFieldParser
+      }
       default: {
         return undefined;
       }

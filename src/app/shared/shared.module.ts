@@ -78,7 +78,6 @@ import { SortablejsModule } from 'angular-sortablejs';
 import { NumberPickerComponent } from './number-picker/number-picker.component';
 import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/date-picker/date-picker.component';
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
-import { DsDynamicLookupRelationComponent } from './form/builder/ds-dynamic-form-ui/models/lookup-relation/dynamic-lookup-relation.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { AlertComponent } from './alert/alert.component';
 import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
@@ -139,7 +138,7 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
-import { DsDynamicLookupRelationModalComponent } from './form/builder/ds-dynamic-form-ui/models/lookup-relation/dynamic-lookup-relation-modal.component';
+import { DsDynamicLookupRelationModalComponent } from './form/builder/ds-dynamic-form-ui/models/empty/dynamic-lookup-relation-modal.component';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
 import { SearchSidebarComponent } from './search/search-sidebar/search-sidebar.component';
 import { SearchSettingsComponent } from './search/search-settings/search-settings.component';
@@ -160,6 +159,7 @@ import { SearchFacetSelectedOptionComponent } from './search/search-filters/sear
 import { SearchFacetRangeOptionComponent } from './search/search-filters/search-filter/search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchSwitchConfigurationComponent } from './search/search-switch-configuration/search-switch-configuration.component';
 import { SearchAuthorityFilterComponent } from './search/search-filters/search-filter/search-authority-filter/search-authority-filter.component';
+import { DsDynamicEmptyComponent } from './form/builder/ds-dynamic-form-ui/models/empty/dynamic-empty.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -220,7 +220,7 @@ const COMPONENTS = [
   DsDynamicFormControlContainerComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,
-  DsDynamicLookupRelationComponent,
+  DsDynamicEmptyComponent,
   DsDynamicLookupRelationModalComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,
@@ -325,7 +325,7 @@ const ENTRY_COMPONENTS = [
   SearchResultGridElementComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,
-  DsDynamicLookupRelationComponent,
+  DsDynamicEmptyComponent,
   DsDynamicLookupRelationModalComponent,
   DsDynamicScrollableDropdownComponent,
   DsDynamicTagComponent,

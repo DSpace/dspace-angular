@@ -11,6 +11,8 @@ import { AuthorityOptions } from '../../../../../core/integration/models/authori
 import { hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { Workspaceitem } from '../../../../../core/submission/models/workspaceitem.model';
+import { RelationshipOptions } from './empty/model/relationship-options.model';
+import { Item } from '../../../../../core/shared/item.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   workspaceItem: Workspaceitem;
@@ -18,6 +20,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   languageCodes?: LanguageCode[];
   language?: string;
   value?: any;
+  relationship?: RelationshipOptions;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -27,12 +30,14 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
   @serializable() workspaceItem: Workspaceitem;
+  @serializable() relationship?: RelationshipOptions;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
 
     this.readOnly = config.readOnly;
     this.value = config.value;
+    this.relationship = config.relationship;
     this.workspaceItem = config.workspaceItem;
     this.language = config.language;
     if (!this.language) {

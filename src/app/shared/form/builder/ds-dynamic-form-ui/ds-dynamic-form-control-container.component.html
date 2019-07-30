@@ -41,4 +41,13 @@
 
     <ng-content></ng-content>
 
+  <div *ngIf="hasRelationLookup" class="col-auto text-center">
+    <button class="btn btn-secondary"
+            type="submit"
+            ngbTooltip="{{'form.lookup-help' | translate}}"
+            placement="top"
+            (click)="openLookup(); $event.stopPropagation();">{{'form.lookup' | translate}}
+    </button>
+  </div>
+
 </div>

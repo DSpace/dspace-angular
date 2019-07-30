@@ -27,7 +27,6 @@ export abstract class FieldParser {
       && (this.configData.input.type !== 'list')
       && (this.configData.input.type !== 'tag')
       && (this.configData.input.type !== 'group')
-      && (this.configData.input.type !== 'lookup-relation')
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
@@ -186,6 +185,7 @@ export abstract class FieldParser {
     controlModel.readOnly = this.parserOptions.readOnly;
     controlModel.disabled = this.parserOptions.readOnly;
     controlModel.workspaceItem = this.workspaceItem;
+    controlModel.relationship = this.configData.selectableRelationships;
 
     // Set label
     this.setLabel(controlModel, label, labelEmpty);

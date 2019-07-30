@@ -6,20 +6,17 @@
       "fields": [
         {
           "input": {
-            "type": "lookup-relation"
           },
           "label": "Author",
           "mandatory": true,
           "repeatable": true,
           "mandatoryMessage": "At least one author (plain text or relationship) is required",
           "hints": "Add an author",
-          "selectableRelationships": [
-            {
-              "relationshipType": "isAuthorOfPublication",
-              "filter": null,
-              "searchConfiguration": "personConfiguration"
-            }
-          ],
+          "selectableRelationship": {
+            "relationshipType": "isAuthorOfPublication",
+            "filter": null,
+            "searchConfiguration": "personConfiguration"
+          },
           "selectableMetadata": [
             {
               "metadata": "dc.contributor.author",

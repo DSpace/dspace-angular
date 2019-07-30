@@ -6,6 +6,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   QueryList,
   SimpleChanges,
@@ -55,7 +56,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/dat
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
@@ -68,8 +69,17 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_RELATION } from './models/lookup-relation/dynamic-lookup-relation.model';
-import { DsDynamicLookupRelationComponent } from './models/lookup-relation/dynamic-lookup-relation.component';
+import { map } from 'rxjs/operators';
+import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
+import { Observable } from 'rxjs';
+import { SearchResult } from '../../../search/search-result.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { RelationshipService } from '../../../../core/data/relationship.service';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { DsDynamicEmptyComponent } from './models/empty/dynamic-empty.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_EMPTY } from './models/empty/dynamic-empty.model';
+import { DsDynamicLookupRelationModalComponent } from './models/empty/dynamic-lookup-relation-modal.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -126,8 +136,8 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
     case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME:
       return DsDynamicLookupComponent;
 
-    case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_RELATION:
-      return DsDynamicLookupRelationComponent;
+    case DYNAMIC_FORM_CONTROL_TYPE_EMPTY:
+      return DsDynamicEmptyComponent;
 
     default:
       return null;
@@ -140,7 +150,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
   templateUrl: './ds-dynamic-form-control-container.component.html',
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnChanges {
+export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges {
 
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
   // tslint:disable-next-line:no-input-rename
@@ -154,6 +164,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
+
+  hasRelationLookup: boolean;
+  modalRef: NgbModalRef;
+  modalValuesString = '';
+  listId: string;
+  filter: string;
+  searchConfig: string;
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -169,16 +186,29 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     return this.layoutService.getCustomComponentType(this.model) || dsDynamicFormControlMapFn(this.model);
   }
 
-  protected test: boolean;
-
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
+    private modalService: NgbModal,
+    private relationService: RelationshipService,
+    private selectableListService: SelectableListService
   ) {
 
     super(componentFactoryResolver, layoutService, validationService);
+  }
+
+  ngOnInit(): void {
+    this.hasRelationLookup = hasValue(this.model.relationship);
+    if (this.hasRelationLookup) {
+      this.filter = this.model.relationship.filter;
+      this.searchConfig = this.model.relationship.searchConfiguration;
+      this.listId = 'list-' + this.model.relationship.relationshipType;
+      this.model.value = this.selectableListService.getSelectableList(this.listId).pipe(
+        map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
+      );
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -216,5 +246,28 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (isNotEmpty((this.model as any).value)) {
       this.onChange(event);
     }
+  }
+
+  public hasResultsSelected(): Observable<boolean> {
+    return this.model.value.pipe(map((list: SearchResult<DSpaceObject>[]) => isNotEmpty(list)));
+  }
+
+  openLookup() {
+    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
+    const modalComp = this.modalRef.componentInstance;
+    modalComp.repeatable = this.model.repeatable;
+    modalComp.relationKey = this.model.name;
+    modalComp.listId = this.listId;
+    modalComp.filter = this.filter;
+    modalComp.fieldName = this.searchConfig;
+    modalComp.label = this.model.label;
+
+    this.modalRef.result.then((resultString = '') => {
+      this.modalValuesString = resultString;
+    });
+  }
+
+  removeSelection(object: SearchResult<DSpaceObject>) {
+    this.selectableListService.deselectSingle(this.listId, object);
   }
 }
