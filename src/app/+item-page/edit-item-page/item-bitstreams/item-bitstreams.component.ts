@@ -150,7 +150,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   submit() {
     const removedBitstreams$ = this.bitstreams$.pipe(
       toBitstreamsArray(),
-      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, bitstreams) as Observable<FieldUpdates>),
+      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdates(this.url, bitstreams, true) as Observable<FieldUpdates>),
       map((fieldUpdates: FieldUpdates) => Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
       map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field)),
       isNotEmptyOperator()
