@@ -1,15 +1,15 @@
 <h2 class="item-page-title-field">
-  {{'project.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['project.identifier.name'])"></ds-metadata-values>
+  {{'project.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>
       <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/project-placeholder.svg'"></ds-thumbnail>
     </ds-metadata-field-wrapper>
-    <ds-generic-item-page-field [item]="item"
-      [fields]="['project.identifier.status']"
-      [label]="'project.page.status'">
-    </ds-generic-item-page-field>
+    <!--<ds-generic-item-page-field [item]="item"-->
+      <!--[fields]="['project.identifier.status']"-->
+      <!--[label]="'project.page.status'">-->
+    <!--</ds-generic-item-page-field>-->
     <ds-metadata-representation-list
       [label]="'project.page.contributor' | translate"
       [representations]="contributors$ | async">
@@ -19,13 +19,13 @@
       [label]="'project.page.funder'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['project.identifier.id']"
+      [fields]="['dc.identifier']"
       [label]="'project.page.id'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
-      [fields]="['project.identifier.expectedcompletion']"
-      [label]="'project.page.expectedcompletion'">
-    </ds-generic-item-page-field>
+    <!--<ds-generic-item-page-field [item]="item"-->
+      <!--[fields]="['project.identifier.expectedcompletion']"-->
+      <!--[label]="'project.page.expectedcompletion'">-->
+    <!--</ds-generic-item-page-field>-->
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
@@ -41,11 +41,11 @@
       [label]="'relationships.isOrgUnitOf' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['project.identifier.description']"
+      [fields]="['dc.description']"
       [label]="'project.page.description'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['project.identifier.keyword']"
+      [fields]="['dc.subject']"
       [label]="'project.page.keyword'">
     </ds-generic-item-page-field>
     <div>

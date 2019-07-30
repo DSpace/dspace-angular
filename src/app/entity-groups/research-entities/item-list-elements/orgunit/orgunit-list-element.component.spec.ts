@@ -20,7 +20,7 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'orgunit.identifier.description': [
+    'dc.description': [
       {
         language: 'en_US',
         value: 'A description about the OrgUnit'
