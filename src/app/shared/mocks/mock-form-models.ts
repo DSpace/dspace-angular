@@ -1,9 +1,6 @@
 import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import {
-  DynamicRowArrayModel,
-  DynamicRowArrayModelConfig
-} from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicSelectModel } from '@ng-dynamic-forms/core';
 import { FormRowModel } from '../../core/config/models/config-submission-forms.model';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
@@ -14,7 +11,6 @@ import { AuthorityValue } from '../../core/integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
-import { Item } from '../../core/shared/item.model';
 
 export const qualdropSelectConfig = {
   name: 'dc.identifier_QUALDROP_METADATA',
@@ -57,6 +53,7 @@ export const qualdropInputConfig = {
   id: 'dc_identifier_QUALDROP_VALUE',
   readOnly: false,
   disabled: false,
+  repeatable: false,
   value: 'test',
   workspaceItem: new Workspaceitem()
 };
@@ -123,6 +120,7 @@ const relationGroupConfig = {
   mandatoryField: 'false',
   relationFields: ['journal', 'issue'],
   scopeUUID: 'scope',
+  repeatable: false,
   submissionScope: SubmissionScopeType.WorkspaceItem,
   value: {
     journal: [
@@ -156,6 +154,7 @@ export const inputWithLanguageAndAuthorityConfig = {
   id: 'testWithAuthority',
   readOnly: false,
   disabled: false,
+  repeatable: false,
   value:  {
     value: 'testWithLanguageAndAuthority',
     display: 'testWithLanguageAndAuthority',
@@ -182,6 +181,7 @@ export const inputWithLanguageConfig = {
   id: 'testWithLanguage',
   readOnly: false,
   disabled: false,
+  repeatable: false,
   value: 'testWithLanguage',
   workspaceItem: new Workspaceitem()
 };
@@ -205,6 +205,7 @@ export const inputWithLanguageAndAuthorityArrayConfig = {
   id: 'testWithLanguageAndAuthorityArray',
   readOnly: false,
   disabled: false,
+  repeatable: false,
   value: [{
     value: 'testLanguageAndAuthorityArray',
     display: 'testLanguageAndAuthorityArray',
@@ -220,6 +221,7 @@ export const inputWithFormFieldValueConfig = {
   id: 'testWithFormField',
   readOnly: false,
   disabled: false,
+  repeatable: false,
   value: new FormFieldMetadataValueObject('testWithFormFieldValue'),
   workspaceItem: new Workspaceitem()
 };
@@ -231,6 +233,7 @@ export const inputWithAuthorityValueConfig = {
   id: 'testWithAuthorityField',
   readOnly: false,
   disabled: false,
+  repeatable: false,
   value: Object.assign({}, new AuthorityValue(), { value: 'testWithAuthorityValue', id: 'testWithAuthorityValue', display: 'testWithAuthorityValue' }),
   workspaceItem: new Workspaceitem()
 };
@@ -242,6 +245,7 @@ export const inputWithObjectValueConfig = {
   id: 'testWithObjectValue',
   readOnly: false,
   disabled: false,
+  repeatable: false,
   value: { value: 'testWithObjectValue', id: 'testWithObjectValue', display: 'testWithObjectValue' },
   workspaceItem: new Workspaceitem()
 };
@@ -258,6 +262,7 @@ export const fileFormEditInputConfig = {
   id: 'dc_title',
   readOnly: false,
   disabled: false,
+  repeatable: false,
   workspaceItem: new Workspaceitem()
 };
 

@@ -12,7 +12,7 @@ import { NameFieldParser } from './name-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
-import { EmptyFieldParser } from './empty-field-parser';
+import { DisabledFieldParser } from './disabled-field-parser';
 
 export class ParserFactory {
   public static getConstructor(type: ParserType): GenericConstructor<FieldParser> {
@@ -51,7 +51,7 @@ export class ParserFactory {
         return TextareaFieldParser
       }
       case undefined: {
-        return EmptyFieldParser
+        return DisabledFieldParser
       }
       default: {
         return undefined;

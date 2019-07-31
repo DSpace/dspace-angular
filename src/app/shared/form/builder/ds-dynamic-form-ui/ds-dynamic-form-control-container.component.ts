@@ -69,7 +69,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { Observable } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
@@ -77,9 +77,9 @@ import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { DsDynamicEmptyComponent } from './models/empty/dynamic-empty.component';
-import { DYNAMIC_FORM_CONTROL_TYPE_EMPTY } from './models/empty/dynamic-empty.model';
-import { DsDynamicLookupRelationModalComponent } from './models/empty/dynamic-lookup-relation-modal.component';
+import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
+import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
+import { DsDynamicLookupRelationModalComponent } from './lookup-modal/dynamic-lookup-relation-modal.component';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -136,8 +136,8 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
     case DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME:
       return DsDynamicLookupComponent;
 
-    case DYNAMIC_FORM_CONTROL_TYPE_EMPTY:
-      return DsDynamicEmptyComponent;
+    case DYNAMIC_FORM_CONTROL_TYPE_DISABLED:
+      return DsDynamicDisabledComponent;
 
     default:
       return null;
@@ -195,7 +195,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private relationService: RelationshipService,
     private selectableListService: SelectableListService
   ) {
-
     super(componentFactoryResolver, layoutService, validationService);
   }
 
@@ -207,6 +206,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.listId = 'list-' + this.model.relationship.relationshipType;
       this.model.value = this.selectableListService.getSelectableList(this.listId).pipe(
         map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
+        tap((t) => console.log(t))
       );
     }
   }
@@ -259,12 +259,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.relationKey = this.model.name;
     modalComp.listId = this.listId;
     modalComp.filter = this.filter;
-    modalComp.fieldName = this.searchConfig;
+    modalComp.searchConfiguration = this.searchConfig;
     modalComp.label = this.model.label;
-
-    this.modalRef.result.then((resultString = '') => {
-      this.modalValuesString = resultString;
-    });
   }
 
   removeSelection(object: SearchResult<DSpaceObject>) {

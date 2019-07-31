@@ -1,4 +1,4 @@
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 
 import { uniqueId } from 'lodash';
@@ -27,6 +27,7 @@ export abstract class FieldParser {
       && (this.configData.input.type !== 'list')
       && (this.configData.input.type !== 'tag')
       && (this.configData.input.type !== 'group')
+      && isEmpty(this.configData.selectableRelationship)
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
@@ -71,7 +72,7 @@ export abstract class FieldParser {
 
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
-      if (model.hasLanguages) {
+      if (model.hasLanguages || isNotEmpty(model.relationship)) {
         setLayout(model, 'grid', 'control', 'col');
       }
       return model;
@@ -185,7 +186,8 @@ export abstract class FieldParser {
     controlModel.readOnly = this.parserOptions.readOnly;
     controlModel.disabled = this.parserOptions.readOnly;
     controlModel.workspaceItem = this.workspaceItem;
-    controlModel.relationship = this.configData.selectableRelationships;
+    controlModel.relationship = this.configData.selectableRelationship;
+    controlModel.repeatable = this.configData.repeatable;
 
     // Set label
     this.setLabel(controlModel, label, labelEmpty);

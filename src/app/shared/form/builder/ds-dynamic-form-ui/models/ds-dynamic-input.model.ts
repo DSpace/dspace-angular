@@ -11,7 +11,7 @@ import { AuthorityOptions } from '../../../../../core/integration/models/authori
 import { hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { Workspaceitem } from '../../../../../core/submission/models/workspaceitem.model';
-import { RelationshipOptions } from './empty/model/relationship-options.model';
+import { RelationshipOptions } from '../../models/relationship-options.model';
 import { Item } from '../../../../../core/shared/item.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
@@ -21,6 +21,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   language?: string;
   value?: any;
   relationship?: RelationshipOptions;
+  repeatable: boolean;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -31,10 +32,11 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() languageUpdates: Subject<string>;
   @serializable() workspaceItem: Workspaceitem;
   @serializable() relationship?: RelationshipOptions;
+  @serializable() repeatable?: boolean;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
-
+    this.repeatable = config.repeatable;
     this.readOnly = config.readOnly;
     this.value = config.value;
     this.relationship = config.relationship;
