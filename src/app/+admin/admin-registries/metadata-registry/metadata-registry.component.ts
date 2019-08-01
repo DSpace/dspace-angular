@@ -3,7 +3,6 @@ import { RegistryService } from '../../../core/registry/registry.service';
 import { Observable, combineLatest as observableCombineLatest } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { map, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
@@ -12,6 +11,7 @@ import { zip } from 'rxjs/internal/observable/zip';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Route, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 
 @Component({
   selector: 'ds-metadata-registry',

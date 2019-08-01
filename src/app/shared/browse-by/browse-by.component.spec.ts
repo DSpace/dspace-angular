@@ -17,6 +17,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../testing/utils';
 
 describe('BrowseByComponent', () => {
   let comp: BrowseByComponent;
@@ -42,7 +43,7 @@ describe('BrowseByComponent', () => {
       ]
     })
   ];
-  const mockItemsRD$ = observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), mockItems)));
+  const mockItemsRD$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockItems));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

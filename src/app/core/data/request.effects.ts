@@ -17,10 +17,10 @@ import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { catchError, filter, flatMap, map, take, tap } from 'rxjs/operators';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { StoreActionTypes } from '../../store.actions';
+import { getMapsToType } from '../cache/builders/build-decorators';
 
 export const addToResponseCacheAndCompleteAction = (request: RestRequest, envConfig: GlobalConfig) =>
   (source: Observable<RestResponse>): Observable<RequestCompleteAction> =>
@@ -45,7 +45,7 @@ export class RequestEffects {
     flatMap((request: RestRequest) => {
       let body;
       if (isNotEmpty(request.body)) {
-        const serializer = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(request.body.type));
+        const serializer = new DSpaceRESTv2Serializer(getMapsToType(request.body.type));
         body = serializer.serialize(request.body);
       }
       return this.restApi.request(request.method, request.href, body, request.options).pipe(

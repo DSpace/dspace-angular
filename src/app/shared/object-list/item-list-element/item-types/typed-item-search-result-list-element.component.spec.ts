@@ -12,9 +12,10 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { createRelationshipsObservable } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '../../../testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });

@@ -5,26 +5,26 @@ import { BehaviorSubject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
-import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { ResourceType } from '../../../core/shared/resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**
- * This component represents mydspace actions related to Workspaceitem object.
+ * This component represents mydspace actions related to WorkspaceItem object.
  */
 @Component({
   selector: 'ds-workspaceitem-actions',
   styleUrls: ['./workspaceitem-actions.component.scss'],
   templateUrl: './workspaceitem-actions.component.html',
 })
-export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Workspaceitem, WorkspaceitemDataService> {
+export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<WorkspaceItem, WorkspaceitemDataService> {
 
   /**
    * The workspaceitem object
    */
-  @Input() object: Workspaceitem;
+  @Input() object: WorkspaceItem;
 
   /**
    * A boolean representing if a delete operation is pending
@@ -46,7 +46,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
               protected modalService: NgbModal,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
-    super(ResourceType.Workspaceitem, injector, router, notificationsService, translate);
+    super(WorkspaceItem.type, injector, router, notificationsService, translate);
   }
 
   /**
@@ -70,9 +70,9 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
   /**
    * Init the target object
    *
-   * @param {Workspaceitem} object
+   * @param {WorkspaceItem} object
    */
-  initObjects(object: Workspaceitem) {
+  initObjects(object: WorkspaceItem) {
     this.object = object;
   }
 
