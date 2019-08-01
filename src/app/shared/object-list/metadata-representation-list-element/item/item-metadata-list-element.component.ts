@@ -18,5 +18,5 @@ export class ItemMetadataListElementComponent extends MetadataRepresentationList
    * The view-mode we're currently on
    * @type {ElementViewMode}
    */
-  viewMode = ItemViewMode.Element;
+  viewMode = ItemViewMode.Summary;
 }

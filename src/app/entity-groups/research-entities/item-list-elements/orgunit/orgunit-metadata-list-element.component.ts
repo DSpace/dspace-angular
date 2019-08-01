@@ -3,7 +3,7 @@ import { MetadataRepresentationType } from '../../../../core/shared/metadata-rep
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 
-@rendersItemType('OrgUnit', ItemViewMode.Element, MetadataRepresentationType.Item)
+@rendersItemType('OrgUnit', ItemViewMode.Summary, MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-orgunit-metadata-list-element',
   templateUrl: './orgunit-metadata-list-element.component.html'

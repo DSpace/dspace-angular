@@ -2,13 +2,13 @@ import { hasNoValue, hasValue } from '../empty.util';
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 
 export enum ItemViewMode {
-  Element = 'element',
-  Full = 'full',
+  Summary = 'summary',
+  Detail = 'detail',
   Metadata = 'metadata'
 }
 
 export const DEFAULT_ITEM_TYPE = 'Default';
-export const DEFAULT_VIEW_MODE = ItemViewMode.Element;
+export const DEFAULT_VIEW_MODE = ItemViewMode.Summary;
 export const NO_REPRESENTATION_TYPE = MetadataRepresentationType.None;
 export const DEFAULT_REPRESENTATION_TYPE = MetadataRepresentationType.PlainText;
 

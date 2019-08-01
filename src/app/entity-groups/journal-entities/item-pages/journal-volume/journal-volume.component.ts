@@ -6,7 +6,7 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
 import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
-@rendersItemType('JournalVolume', ItemViewMode.Full)
+@rendersItemType('JournalVolume', ItemViewMode.Detail)
 @Component({
   selector: 'ds-journal-volume',
   styleUrls: ['./journal-volume.component.scss'],

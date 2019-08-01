@@ -20,6 +20,6 @@ import { ItemViewMode } from '../../../items/item-type-decorator';
 
 @renderElementsFor(ItemSearchResult, SetViewMode.List)
 export class ItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
-  viewMode = ItemViewMode.Element;
+  viewMode = ItemViewMode.Summary;
 
 }

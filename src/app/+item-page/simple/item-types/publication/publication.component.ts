@@ -9,8 +9,8 @@ import { ItemComponent } from '../shared/item.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { getRelatedItemsByTypeLabel } from '../shared/item-relationships-utils';
 
-@rendersItemType('Publication', ItemViewMode.Full)
-@rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Full)
+@rendersItemType('Publication', ItemViewMode.Detail)
+@rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Detail)
 @Component({
   selector: 'ds-publication',
   styleUrls: ['./publication.component.scss'],

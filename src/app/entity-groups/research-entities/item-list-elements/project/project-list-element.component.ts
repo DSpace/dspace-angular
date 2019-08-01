@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 
-@rendersItemType('Project', ItemViewMode.Element)
+@rendersItemType('Project', ItemViewMode.Summary)
 @Component({
   selector: 'ds-project-list-element',
   styleUrls: ['./project-list-element.component.scss'],

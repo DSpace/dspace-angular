@@ -8,7 +8,7 @@ import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/i
 import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { getQueryByRelations } from '../../../../shared/utils/relation-query.utils';
 
-@rendersItemType('Person', ItemViewMode.Full)
+@rendersItemType('Person', ItemViewMode.Detail)
 @Component({
   selector: 'ds-person',
   styleUrls: ['./person.component.scss'],

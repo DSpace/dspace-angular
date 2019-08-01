@@ -59,8 +59,7 @@
                             (click)="removeSelection(result)">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <span class="d-inline-block align-middle ml-1">{{v | dsObjectKeys}}</span>
-                    <span class="d-inline-block align-middle ml-1"><ds-item-type-switcher [object]="result" [viewMode]="ItemViewMode.Metadata"></ds-item-type-switcher></span>
+                    <span class="d-inline-block align-middle ml-1"><ds-item-type-switcher [object]="result" [viewMode]="itemViewMode.Summary"></ds-item-type-switcher></span>
                 </ng-container>
             </li>
         </ul>

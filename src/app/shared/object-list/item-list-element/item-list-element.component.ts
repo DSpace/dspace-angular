@@ -18,5 +18,5 @@ import { ItemViewMode } from '../../items/item-type-decorator';
  */
 @renderElementsFor(Item, SetViewMode.List)
 export class ItemListElementComponent extends AbstractListableElementComponent<Item> {
-  viewMode = ItemViewMode.Element;
+  viewMode = ItemViewMode.Summary;
 }

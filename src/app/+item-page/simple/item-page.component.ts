@@ -44,7 +44,7 @@ export class ItemPageComponent implements OnInit {
   /**
    * The view-mode we're currently on
    */
-  viewMode = ItemViewMode.Full;
+  viewMode = ItemViewMode.Detail;
 
   constructor(
     private route: ActivatedRoute,

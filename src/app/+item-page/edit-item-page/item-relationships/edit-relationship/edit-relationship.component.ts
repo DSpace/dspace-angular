@@ -31,7 +31,7 @@ export class EditRelationshipComponent implements OnChanges {
   /**
    * The view-mode we're currently on
    */
-  viewMode = ItemViewMode.Element;
+  viewMode = ItemViewMode.Summary;
 
   constructor(private objectUpdatesService: ObjectUpdatesService) {
   }

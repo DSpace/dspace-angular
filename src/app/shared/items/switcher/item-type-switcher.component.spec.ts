@@ -30,7 +30,7 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(), mockItem);
-let viewMode = ItemViewMode.Full;
+let viewMode = ItemViewMode.Detail;
 
 describe('ItemTypeSwitcherComponent', () => {
   let comp: ItemTypeSwitcherComponent;
@@ -53,7 +53,7 @@ describe('ItemTypeSwitcherComponent', () => {
 
   describe('when the injected object is of type Item', () => {
     beforeEach(() => {
-      viewMode = ItemViewMode.Full;
+      viewMode = ItemViewMode.Detail;
       comp.object = mockItem;
       comp.viewMode = viewMode;
     });

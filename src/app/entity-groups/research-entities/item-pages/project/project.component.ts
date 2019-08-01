@@ -7,7 +7,7 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
 import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
-@rendersItemType('Project', ItemViewMode.Full)
+@rendersItemType('Project', ItemViewMode.Detail)
 @Component({
   selector: 'ds-project',
   styleUrls: ['./project.component.scss'],

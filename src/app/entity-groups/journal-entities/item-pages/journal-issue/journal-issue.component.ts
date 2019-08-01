@@ -6,7 +6,7 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
 import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
-@rendersItemType('JournalIssue', ItemViewMode.Full)
+@rendersItemType('JournalIssue', ItemViewMode.Detail)
 @Component({
   selector: 'ds-journal-issue',
   styleUrls: ['./journal-issue.component.scss'],
