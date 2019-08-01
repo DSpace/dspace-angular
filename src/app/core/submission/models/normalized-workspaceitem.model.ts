@@ -4,7 +4,6 @@ import { WorkspaceItem } from './workspaceitem.model';
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
-import { WorkflowItem } from './workflowitem.model';
 import { Item } from '../../shared/item.model';
 import { Collection } from '../../shared/collection.model';
 import { SubmissionDefinitionModel } from '../../config/models/config-submission-definition.model';
@@ -16,7 +15,7 @@ import { EPerson } from '../../eperson/models/eperson.model';
 @mapsTo(WorkspaceItem)
 @inheritSerialization(NormalizedDSpaceObject)
 @inheritSerialization(NormalizedSubmissionObject)
-export class NormalizedWorkspaceItem extends NormalizedSubmissionObject<WorkflowItem> {
+export class NormalizedWorkspaceItem extends NormalizedSubmissionObject<WorkspaceItem> {
 
   /**
    * The collection this workspaceitem belonging to
