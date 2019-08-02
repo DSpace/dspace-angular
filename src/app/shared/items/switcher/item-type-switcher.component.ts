@@ -3,8 +3,8 @@ import { SearchResult } from '../../search/search-result.model';
 import { Item } from '../../../core/shared/item.model';
 import { hasValue } from '../../empty.util';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
-import { getComponentByItemType } from '../item-type-decorator';
-import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
+import { getComponentByItemType, ItemViewMode } from '../item-type-decorator';
+import { MetadataRepresentation, MetadataRepresentationType } from '../../../core/shared/metadata-representation/metadata-representation.model';
 
 export const ITEM: InjectionToken<string> = new InjectionToken<string>('item');
 
@@ -25,7 +25,7 @@ export class ItemTypeSwitcherComponent implements OnInit {
   /**
    * The preferred view-mode to display
    */
-  @Input() viewMode: string;
+  @Input() viewMode: ItemViewMode;
 
   /**
    * The object injector used to inject the item into the child component

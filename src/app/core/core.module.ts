@@ -99,6 +99,7 @@ import { SearchSidebarService } from './shared/search/search-sidebar.service';
 import { SearchFilterService } from './shared/search/search-filter.service';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
+import { RelationshipTypeService } from './data/relationship-type.service';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
   // if (ENV_CONFIG.production) {
@@ -204,6 +205,7 @@ const PROVIDERS = [
   SearchFilterService,
   SearchConfigurationService,
   SelectableListService,
+  RelationshipTypeService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

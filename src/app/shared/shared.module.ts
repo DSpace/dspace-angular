@@ -138,7 +138,7 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
-import { DsDynamicLookupRelationModalComponent } from './form/builder/ds-dynamic-form-ui/lookup-modal/dynamic-lookup-relation-modal.component';
+import { DsDynamicLookupRelationModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
 import { SearchSidebarComponent } from './search/search-sidebar/search-sidebar.component';
 import { SearchSettingsComponent } from './search/search-settings/search-settings.component';

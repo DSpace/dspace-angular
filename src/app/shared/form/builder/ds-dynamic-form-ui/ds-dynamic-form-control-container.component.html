@@ -53,13 +53,15 @@
 
     <div *ngIf="hasRelationLookup" class="mt-3">
         <ul class="list-unstyled">
-            <li *ngFor="let result of ( model.value | async)">
+            <li *ngFor="let result of ( model.value | async); let i = index">
                 <ng-container *ngVar="result.indexableObject as v">
                     <button type="button" class="close float-left" aria-label="Close button"
                             (click)="removeSelection(result)">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <span class="d-inline-block align-middle ml-1"><ds-item-type-switcher [object]="result" [viewMode]="itemViewMode.Summary"></ds-item-type-switcher></span>
+                    <span class="d-inline-block align-middle ml-1">
+                        <ds-item-type-switcher [object]="(modelValueMDRepresentation | async)[i]" [viewMode]="itemViewMode.Metadata"></ds-item-type-switcher>
+                    </span>
                 </ng-container>
             </li>
         </ul>

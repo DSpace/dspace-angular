@@ -79,8 +79,12 @@ import { RelationshipService } from '../../../../core/data/relationship.service'
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
-import { DsDynamicLookupRelationModalComponent } from './lookup-modal/dynamic-lookup-relation-modal.component';
+import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ItemViewMode } from '../../../items/item-type-decorator';
+import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { relationship } from '../../../../core/cache/builders/build-decorators';
+import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -168,7 +172,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   hasRelationLookup: boolean;
   modalRef: NgbModalRef;
-  modalValuesString = '';
+  modelValueMDRepresentation;
   listId: string;
   filter: string;
   searchConfig: string;
@@ -207,8 +211,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.listId = 'list-' + this.model.relationship.relationshipType;
       this.model.value = this.selectableListService.getSelectableList(this.listId).pipe(
         map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
-        tap((t) => console.log(t))
       );
+      this.modelValueMDRepresentation = this.model.value.pipe(map((result: SearchResult<DSpaceObject>[]) => result.map((element: SearchResult<DSpaceObject>) => Object.assign(new ItemMetadataRepresentation(), element.indexableObject))))
     }
   }
 
