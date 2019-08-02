@@ -42,8 +42,6 @@ export class AuthStatus implements CacheableObject {
    */
   eperson: Observable<RemoteData<EPerson>>;
 
-  ssoLoginUrl?: string;
-
   /**
    * True if the token is valid, false if there was no token or the token wasn't valid
    */
