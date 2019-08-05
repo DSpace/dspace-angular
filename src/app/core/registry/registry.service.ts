@@ -5,13 +5,13 @@ import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
 import { MetadataSchema } from '../metadata/metadataschema.model';
 import { MetadataField } from '../metadata/metadatafield.model';
-import { BitstreamFormat } from './mock-bitstream-format.model';
 import {
   CreateMetadataFieldRequest,
   CreateMetadataSchemaRequest,
   DeleteRequest,
   GetRequest,
-  RestRequest, UpdateMetadataFieldRequest,
+  RestRequest,
+  UpdateMetadataFieldRequest,
   UpdateMetadataSchemaRequest
 } from '../data/request.models';
 import { GenericConstructor } from '../shared/generic-constructor';
@@ -21,24 +21,19 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestService } from '../data/request.service';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import {
-  ErrorResponse, MetadatafieldSuccessResponse, MetadataschemaSuccessResponse,
-  RegistryBitstreamformatsSuccessResponse,
+  MetadatafieldSuccessResponse,
+  MetadataschemaSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
-  RegistryMetadataschemasSuccessResponse, RestResponse
+  RegistryMetadataschemasSuccessResponse,
+  RestResponse
 } from '../cache/response.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RegistryMetadatafieldsResponseParsingService } from '../data/registry-metadatafields-response-parsing.service';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
-import { hasValue, hasNoValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { RegistryBitstreamformatsResponseParsingService } from '../data/registry-bitstreamformats-response-parsing.service';
-import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
-import {
-  configureRequest,
-  getResponseFromEntry,
-  getSucceededRemoteData
-} from '../shared/operators';
+import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
 import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
@@ -54,7 +49,7 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { distinctUntilChanged, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, flatMap, map, take, tap } from 'rxjs/operators';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { ResourceType } from '../shared/resource-type';
@@ -76,7 +71,8 @@ export class RegistryService {
 
   private metadataSchemasPath = 'metadataschemas';
   private metadataFieldsPath = 'metadatafields';
-  private bitstreamFormatsPath = 'bitstreamformats';
+
+  // private bitstreamFormatsPath = 'bitstreamformats';
 
   constructor(protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
@@ -181,7 +177,7 @@ export class RegistryService {
    */
   public getAllMetadataFields(pagination?: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataField>>> {
     if (hasNoValue(pagination)) {
-      pagination = { currentPage: 1, pageSize: 10000 } as any;
+      pagination = {currentPage: 1, pageSize: 10000} as any;
     }
     const requestObs = this.getMetadataFieldsRequestObs(pagination);
 
@@ -209,36 +205,6 @@ export class RegistryService {
     const payloadObs = observableCombineLatest(metadatafieldsObs, pageInfoObs).pipe(
       map(([metadatafields, pageInfo]) => {
         return new PaginatedList(pageInfo, metadatafields);
-      })
-    );
-
-    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
-  }
-
-  public getBitstreamFormats(pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<BitstreamFormat>>> {
-    const requestObs = this.getBitstreamFormatsRequestObs(pagination);
-
-    const requestEntryObs = requestObs.pipe(
-      flatMap((request: RestRequest) => this.requestService.getByHref(request.href))
-    );
-
-    const rbrObs: Observable<RegistryBitstreamformatsResponse> = requestEntryObs.pipe(
-      getResponseFromEntry(),
-      map((response: RegistryBitstreamformatsSuccessResponse) => response.bitstreamformatsResponse)
-    );
-
-    const bitstreamformatsObs: Observable<BitstreamFormat[]> = rbrObs.pipe(
-      map((rbr: RegistryBitstreamformatsResponse) => rbr.bitstreamformats)
-    );
-
-    const pageInfoObs: Observable<PageInfo> = requestEntryObs.pipe(
-      getResponseFromEntry(),
-      map((response: RegistryBitstreamformatsSuccessResponse) => response.pageInfo)
-    );
-
-    const payloadObs = observableCombineLatest(bitstreamformatsObs, pageInfoObs).pipe(
-      map(([bitstreamformats, pageInfo]) => {
-        return new PaginatedList(pageInfo, bitstreamformats);
       })
     );
 
@@ -307,26 +273,6 @@ export class RegistryService {
     );
   }
 
-  private getBitstreamFormatsRequestObs(pagination: PaginationComponentOptions): Observable<RestRequest> {
-    return this.halService.getEndpoint(this.bitstreamFormatsPath).pipe(
-      map((url: string) => {
-        const args: string[] = [];
-        args.push(`size=${pagination.pageSize}`);
-        args.push(`page=${pagination.currentPage - 1}`);
-        if (isNotEmpty(args)) {
-          url = new URLCombiner(url, `?${args.join('&')}`).toString();
-        }
-        const request = new GetRequest(this.requestService.generateRequestId(), url);
-        return Object.assign(request, {
-          getResponseParser(): GenericConstructor<ResponseParsingService> {
-            return RegistryBitstreamformatsResponseParsingService;
-          }
-        });
-      }),
-      tap((request: RestRequest) => this.requestService.configure(request)),
-    );
-  }
-
   public editMetadataSchema(schema: MetadataSchema) {
     this.store.dispatch(new MetadataRegistryEditSchemaAction(schema));
   }
@@ -340,15 +286,15 @@ export class RegistryService {
   }
 
   public selectMetadataSchema(schema: MetadataSchema) {
-    this.store.dispatch(new MetadataRegistrySelectSchemaAction(schema))
+    this.store.dispatch(new MetadataRegistrySelectSchemaAction(schema));
   }
 
   public deselectMetadataSchema(schema: MetadataSchema) {
-    this.store.dispatch(new MetadataRegistryDeselectSchemaAction(schema))
+    this.store.dispatch(new MetadataRegistryDeselectSchemaAction(schema));
   }
 
   public deselectAllMetadataSchema() {
-    this.store.dispatch(new MetadataRegistryDeselectAllSchemaAction())
+    this.store.dispatch(new MetadataRegistryDeselectAllSchemaAction());
   }
 
   public getSelectedMetadataSchemas(): Observable<MetadataSchema[]> {
@@ -368,15 +314,15 @@ export class RegistryService {
   }
 
   public selectMetadataField(field: MetadataField) {
-    this.store.dispatch(new MetadataRegistrySelectFieldAction(field))
+    this.store.dispatch(new MetadataRegistrySelectFieldAction(field));
   }
 
   public deselectMetadataField(field: MetadataField) {
-    this.store.dispatch(new MetadataRegistryDeselectFieldAction(field))
+    this.store.dispatch(new MetadataRegistryDeselectFieldAction(field));
   }
 
   public deselectAllMetadataField() {
-    this.store.dispatch(new MetadataRegistryDeselectAllFieldAction())
+    this.store.dispatch(new MetadataRegistryDeselectAllFieldAction());
   }
 
   public getSelectedMetadataFields(): Observable<MetadataField[]> {
@@ -431,7 +377,7 @@ export class RegistryService {
             this.notificationsService.error('Server Error:', (response as any).errorMessage, new NotificationOptions(-1));
           }
         } else {
-          this.showNotifications(true, isUpdate, false, { prefix: schema.prefix });
+          this.showNotifications(true, isUpdate, false, {prefix: schema.prefix});
           return response;
         }
       }),
@@ -451,7 +397,7 @@ export class RegistryService {
   public clearMetadataSchemaRequests(): Observable<string> {
     return this.halService.getEndpoint(this.metadataSchemasPath).pipe(
       tap((href: string) => this.requestService.removeByHrefSubstring(href))
-    )
+    );
   }
 
   /**
@@ -501,7 +447,7 @@ export class RegistryService {
           }
         } else {
           const fieldString = `${field.schema.prefix}.${field.element}${field.qualifier ? `.${field.qualifier}` : ''}`;
-          this.showNotifications(true, isUpdate, true, { field: fieldString });
+          this.showNotifications(true, isUpdate, true, {field: fieldString});
           return response;
         }
       }),
@@ -521,7 +467,7 @@ export class RegistryService {
   public clearMetadataFieldRequests(): Observable<string> {
     return this.halService.getEndpoint(this.metadataFieldsPath).pipe(
       tap((href: string) => this.requestService.removeByHrefSubstring(href))
-    )
+    );
   }
 
   private delete(path: string, id: number): Observable<RestResponse> {
@@ -557,9 +503,9 @@ export class RegistryService {
     );
     messages.subscribe(([head, content]) => {
       if (success) {
-        this.notificationsService.success(head, content)
+        this.notificationsService.success(head, content);
       } else {
-        this.notificationsService.error(head, content)
+        this.notificationsService.error(head, content);
       }
     });
   }

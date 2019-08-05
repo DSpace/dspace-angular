@@ -87,6 +87,7 @@ import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
 
 const IMPORTS = [
   CommonModule,
@@ -126,6 +127,7 @@ const PROVIDERS = [
   ObjectCacheService,
   PaginationComponentOptions,
   RegistryService,
+  BitstreamFormatDataService,
   NormalizedObjectBuildService,
   RemoteDataBuildService,
   RequestService,

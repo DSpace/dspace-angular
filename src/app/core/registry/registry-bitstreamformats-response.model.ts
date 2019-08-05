@@ -1,10 +1,10 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
 import { PageInfo } from '../shared/page-info.model';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { NormalizedBitstreamFormat } from '../cache/models/normalized-bitstream-format.model';
 
 export class RegistryBitstreamformatsResponse {
-  @autoserializeAs(BitstreamFormat)
-  bitstreamformats: BitstreamFormat[];
+  @autoserializeAs(NormalizedBitstreamFormat)
+  bitstreamformats: NormalizedBitstreamFormat[];
 
   @autoserialize
   page: PageInfo;

@@ -721,19 +721,77 @@
         "title": "DSpace Angular :: Bitstream Format Registry",
         "head": "Bitstream Format Registry",
         "description": "This list of bitstream formats provides information about known formats and their support level.",
-        "formats": {
-          "table": {
-            "name": "Name",
-            "mimetype": "MIME Type",
-            "supportLevel": {
-              "head": "Support Level",
-              "0": "Unknown",
-              "1": "Known",
-              "2": "Support"
-            },
-            "internal": "internal"
+        "create": {
+          "new": "Add a new bitstream format",
+          "head": "Create Bitstream format",
+          "success" : {
+            "head": "Success",
+            "content": "The new bitstream format was successfully created."
           },
-          "no-items": "No bitstream formats to show."
+          "failure" : {
+            "head": "Failure",
+            "content": "An error occurred while creating the new bitstream format."
+          }
+        },
+        "table": {
+          "name": "Name",
+          "mimetype": "MIME Type",
+          "supportLevel": {
+            "head": "Support Level",
+            "UNKNOWN": "Unknown",
+            "KNOWN": "Known",
+            "SUPPORTED": "Supported"
+          },
+          "internal": "internal",
+          "delete": "Delete selected",
+          "return": "Return",
+          "deselect-all": "Deselect all"
+        },
+        "no-items": "No bitstream formats to show.",
+        "edit": {
+          "head": "Bitstream format: {{ format }}",
+          "shortDescription": {
+            "label": "Name",
+            "hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)"
+          },
+          "mimetype": {
+            "label": "MIME Type",
+            "hint": "The MIME type associated with this format, does not have to be unique."
+          },
+          "description": {
+            "label": "Description",
+            "hint": ""
+          },
+          "supportLevel": {
+            "label": "Support level",
+            "hint": "The level of support your institution pledges for this format."
+          },
+          "internal": {
+            "label": "Internal",
+            "hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes."
+          },
+          "extensions": {
+            "label": "File extensions",
+            "hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format."
+          },
+          "success" : {
+            "head": "Success",
+            "content": "The bitstream format was successfully edited."
+          },
+          "failure" : {
+            "head": "Failure",
+            "content": "An error occurred while editing the bitstream format."
+          }
+        },
+        "delete": {
+          "success":{
+            "head": "Success",
+            "amount": "The following amount of bitstream formats have been successfully deleted: {{ amount }}"
+          },
+          "failure": {
+            "head": "Failure",
+            "amount": "The following amount of bitstream formats could not be deleted: {{ amount }} "
+          }
         }
       }
     }
