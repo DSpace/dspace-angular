@@ -230,30 +230,14 @@ export class AuthService {
       map((status: AuthStatus) => {
         let authMethods: AuthMethodModel[];
         if (isNotEmpty(status.authMethods)) {
-          // url = this.parseSSOLocation(status.ssoLoginUrl);
-          // console.log('Parsed SSOLoginUrl: ', url);
-           // url = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at';
-         authMethods = status.authMethods;
+          authMethods = status.authMethods;
         }
         return authMethods;
       })
     )
   }
 
- /* private parseSSOLocation(url: string): string {
-    console.log('auth.service parseSSOLocation was called');
-    const parseUrl = decodeURIComponent(url);
-    // const urlTree: UrlTree = this.router.parseUrl(url);
-    // this.router.parseUrl(url);
-    // if (url.endsWith('/')) {
-    //   url += 'login';
-    // } else {
-    //   url = url.replace('/?target=http(.+)/g', 'https://hasselt-dspace.dev01.4science.it/dspace-spring-rest/shib.html');
-    // }
-    // console.log(url);
-    const target = `?target=${this.config.auth.target.host}${this.config.auth.target.page}`;
-    return parseUrl.replace(/\?target=http.+/g, target);
-  }*/
+
 
   /**
    * Create a new user

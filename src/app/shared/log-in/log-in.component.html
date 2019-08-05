@@ -27,11 +27,13 @@
           [disabled]="!form.valid">{{"login.form.submit" | translate}}</button>
 
   <br>
+
+<!--
   <div *ngIf="(hasSsoLoginUrl | async)">
-    <!--<div class="text-center mt-2"><span class="align-middle">{{"login.form.or-divider" | translate}}</span></div>-->
+    &lt;!&ndash;<div class="text-center mt-2"><span class="align-middle">{{"login.form.or-divider" | translate}}</span></div>&ndash;&gt;
     <a class="btn btn-lg btn-primary btn-block mt-2" [href]="(ssoLoginUrl | async)"
        role="button">{{"login.form.ssoLogin" | translate}}</a>
-  </div>
+  </div>-->
 
 
   <!--Change href to "https://dspace.hostname/Shibboleth.sso/Login?target=https://dspace.hostname/shibboleth"

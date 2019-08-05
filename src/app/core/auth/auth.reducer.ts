@@ -46,9 +46,6 @@ export interface AuthState {
   // true when refreshing token
   refreshing?: boolean;
 
-  // sso login url
-  ssoLoginUrl?: string;
-
   // the authenticated user
   user?: EPerson;
 
