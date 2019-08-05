@@ -53,8 +53,9 @@ export class AuthStatus implements CacheableObject {
    */
   self: string;
 
-  ssoLoginUrl: string;
-
+  /**
+   * All authentication methods enabled at the backend
+   */
   authMethods: AuthMethodModel[];
 
 }

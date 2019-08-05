@@ -65,16 +65,53 @@ export class AuthInterceptor implements HttpInterceptor {
     return http.url && http.url.endsWith('/authn/logout');
   }
 
-  private parseAuthMethodsfromHeaders(headers: HttpHeaders): AuthMethodModel[] {
-    console.log('parseAuthMethodsfromHeaders(): ', headers);
-    // errorHeaders
-    return [];
+  private parseShibbolethLocation(unparsedLocation: string): string {
+    let parsedLocation = '';
+    unparsedLocation = unparsedLocation.trim();
+    unparsedLocation = unparsedLocation.replace('location="', '');
+    unparsedLocation = unparsedLocation.replace('"', '');
+    let re = /%3A%2F%2F/g;
+    unparsedLocation = unparsedLocation.replace(re, '://');
+    re = /%3A/g
+    unparsedLocation = unparsedLocation.replace(re, ':')
+    parsedLocation = unparsedLocation + '/shibboleth';
+
+    return parsedLocation;
   }
 
-  private makeAuthStatusObject(authenticated: boolean,  accessToken?: string, error?: string, location?: string, httpHeaders?: HttpHeaders, ): AuthStatus {
+  private parseAuthMethodsfromHeaders(headers: HttpHeaders): AuthMethodModel[] {
+    // console.log('parseAuthMethodsfromHeaders(): ', headers);
+    const authMethodModels: AuthMethodModel[] = [];
+    const parts: string[] = headers.get('www-authenticate').split(',');
+    console.log('parts: ', parts);
+    // get the login methods names
+    // tslint:disable-next-line:forin
+    for (const i in parts) {
+      const part: string = parts[i].trim();
+      if (part.includes('realm')) {
+        const methodName = part.split(' ')[0];
+        const authMethod: AuthMethodModel = new AuthMethodModel(methodName);
+        // check if the authentication method is  shibboleth
+        // if so the next part is the shibboleth location
+        // e.g part i: shibboleth realm="DSpace REST API", part i+1:  location="/Shibboleth.sso/Login?target=https%3A%2F%2Flocalhost%3A8080"
+        if (methodName.includes('shibboleth')) {
+          console.log('Index 2: ', parts[2]);
+          const location: string = this.parseShibbolethLocation(parts[+i + 1]); // +1:  unaray + operator is necessaray because i is a string, the operator works like parseInt()
+          // console.log('shib location: ', location);
+          authMethod.location = location;
+        }
+        authMethodModels.push(authMethod);
+      }
+    }
+    console.log('Array of AuthMethodModels: ', authMethodModels);
+    return authMethodModels;
+  }
+
+  private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string, location?: string, httpHeaders?: HttpHeaders,): AuthStatus {
     const authStatus = new AuthStatus();
 
     const authMethods: AuthMethodModel[] = this.parseAuthMethodsfromHeaders(httpHeaders);
+    authStatus.authMethods = authMethods;
     authStatus.id = null;
 
     authStatus.okay = true;
@@ -193,7 +230,7 @@ export class AuthInterceptor implements HttpInterceptor {
             }
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
-              body: this.makeAuthStatusObject(false, null, error.error, location, error.headers ),
+              body: this.makeAuthStatusObject(false, null, error.error, location, error.headers),
               headers: error.headers,
               status: error.status,
               statusText: error.statusText,

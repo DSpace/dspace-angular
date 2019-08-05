@@ -24,6 +24,7 @@ import {Base64EncodeUrl} from '../../shared/utils/encode-decode.util';
 import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
 import {GlobalConfig} from '../../../config/global-config.interface';
 import {GLOBAL_CONFIG} from '../../../config';
+import {AuthMethodModel} from './models/auth-method.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -222,19 +223,19 @@ export class AuthService {
    * Retrieve authentication methods available
    * @returns {User}
    */
-  public retrieveAuthMethods(): Observable<string> {
+  public retrieveAuthMethods(): Observable<AuthMethodModel[]> {
     console.log('auth.service retrieveAuthMethods() was called');
     // return this.authRequestService.getRequest('login').pipe(
     return this.authRequestService.postToEndpoint('login', {}).pipe(
       map((status: AuthStatus) => {
-        let url = '';
-        if (isNotEmpty(status.ssoLoginUrl)) {
+        let authMethods: AuthMethodModel[];
+        if (isNotEmpty(status.authMethods)) {
           // url = this.parseSSOLocation(status.ssoLoginUrl);
           // console.log('Parsed SSOLoginUrl: ', url);
            // url = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at';
-          url = status.ssoLoginUrl;
+         authMethods = status.authMethods;
         }
-        return url;
+        return authMethods;
       })
     )
   }
