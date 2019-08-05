@@ -64,7 +64,6 @@ const initialState: AuthState = {
   authenticated: false,
   loaded: false,
   loading: false,
-  ssoLoginUrl: '',
   authMethods: new Array<AuthMethodModel>()
 };
 

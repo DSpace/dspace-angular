@@ -107,7 +107,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return authMethodModels;
   }
 
-  private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string, location?: string, httpHeaders?: HttpHeaders,): AuthStatus {
+  private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string, httpHeaders?: HttpHeaders,): AuthStatus {
     const authStatus = new AuthStatus();
 
     const authMethods: AuthMethodModel[] = this.parseAuthMethodsfromHeaders(httpHeaders);
@@ -117,7 +117,6 @@ export class AuthInterceptor implements HttpInterceptor {
     authStatus.okay = true;
     authStatus.authMethods = authMethods;
 
-    authStatus.ssoLoginUrl = location; // this line was  added while developing shibboleth login 1.0 - remove it
     if (authenticated) {
       authStatus.authenticated = true;
       authStatus.token = new AuthTokenInfo(accessToken);
@@ -221,16 +220,10 @@ export class AuthInterceptor implements HttpInterceptor {
             console.log('catchError isAuthRequest=true');
             // clean eventually refresh Requests list
             this.refreshTokenRequestUrls = [];
-            // console.log('error: ', error);
-            let location = '';
-            if (error.headers.get('www-authenticate') != null && error.headers.get('www-authenticate').includes('shibboleth realm')) {
 
-              location = this.getShibbUrlFromHeader(error.headers);
-              console.log('shibb url from header: ', location);
-            }
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
-              body: this.makeAuthStatusObject(false, null, error.error, location, error.headers),
+              body: this.makeAuthStatusObject(false, null, error.error, error.headers),
               headers: error.headers,
               status: error.status,
               statusText: error.statusText,
