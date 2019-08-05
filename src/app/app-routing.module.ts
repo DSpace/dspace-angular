@@ -47,10 +47,10 @@ export function getCommunityModulePath() {
         path: 'workspaceitems',
         loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule'
       },
-   /*   {
+      {
         path: 'workflowitems',
-        loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowitemsEditPageModule'
-      },*/
+        loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule' // WorkflowItemsEditPageModule
+      },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
     ])
   ],

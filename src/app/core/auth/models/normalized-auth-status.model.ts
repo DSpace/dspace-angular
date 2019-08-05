@@ -4,6 +4,7 @@ import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { EPerson } from '../../eperson/models/eperson.model';
+import {AuthMethodModel} from './auth-method.model';
 
 @mapsTo(AuthStatus)
 @inheritSerialization(NormalizedObject)
@@ -38,4 +39,5 @@ export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   @relationship(EPerson, false)
   @autoserialize
   eperson: string;
+
 }

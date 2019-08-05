@@ -22,6 +22,7 @@ import {RedirectWhenTokenExpiredAction, RefreshTokenAction} from './auth.actions
 import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
 import {AuthError} from './models/auth-error.model';
+import {AuthMethodModel} from './models/auth-method.model';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -30,6 +31,8 @@ export class AuthInterceptor implements HttpInterceptor {
   // so to prevent RefreshTokenAction is dispatched twice
   // we're creating a refresh token request list
   protected refreshTokenRequestUrls = [];
+
+  private
 
   constructor(private inj: Injector, private router: Router, private store: Store<AppState>) {
   }
@@ -62,11 +65,22 @@ export class AuthInterceptor implements HttpInterceptor {
     return http.url && http.url.endsWith('/authn/logout');
   }
 
-  private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string, location?: string): AuthStatus {
+  private parseAuthMethodsfromHeaders(headers: HttpHeaders): AuthMethodModel[] {
+    console.log('parseAuthMethodsfromHeaders(): ', headers);
+    // errorHeaders
+    return [];
+  }
+
+  private makeAuthStatusObject(authenticated: boolean,  accessToken?: string, error?: string, location?: string, httpHeaders?: HttpHeaders, ): AuthStatus {
     const authStatus = new AuthStatus();
+
+    const authMethods: AuthMethodModel[] = this.parseAuthMethodsfromHeaders(httpHeaders);
     authStatus.id = null;
+
     authStatus.okay = true;
-    authStatus.ssoLoginUrl = location; // this line was  added while developing shibboleth login
+    authStatus.authMethods = authMethods;
+
+    authStatus.ssoLoginUrl = location; // this line was  added while developing shibboleth login 1.0 - remove it
     if (authenticated) {
       authStatus.authenticated = true;
       authStatus.token = new AuthTokenInfo(accessToken);
@@ -179,7 +193,7 @@ export class AuthInterceptor implements HttpInterceptor {
             }
             // Create a new HttpResponse and return it, so it can be handle properly by AuthService.
             const authResponse = new HttpResponse({
-              body: this.makeAuthStatusObject(false, null, error.error, location),
+              body: this.makeAuthStatusObject(false, null, error.error, location, error.headers ),
               headers: error.headers,
               status: error.status,
               statusText: error.statusText,
