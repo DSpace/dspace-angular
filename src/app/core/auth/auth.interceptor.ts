@@ -91,7 +91,6 @@ export class AuthInterceptor implements HttpInterceptor {
         // if so the next part is the shibboleth location
         // e.g part i: shibboleth realm="DSpace REST API", part i+1:  location="/Shibboleth.sso/Login?target=https%3A%2F%2Flocalhost%3A8080"
         if (methodName.includes('shibboleth')) {
-          console.log('Index 2: ', parts[2]);
           const location: string = this.parseShibbolethLocation(parts[+i + 1]); // +1:  unaray + operator is necessaray because i is a string, the operator works like parseInt()
           // console.log('shib location: ', location);
           authMethod.location = location;
@@ -105,13 +104,15 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string, httpHeaders?: HttpHeaders,): AuthStatus {
     const authStatus = new AuthStatus();
+    // let authMethods: AuthMethodModel[];
+    if (httpHeaders) {
+      authStatus.authMethods = this.parseAuthMethodsfromHeaders(httpHeaders);
+    }
 
-    const authMethods: AuthMethodModel[] = this.parseAuthMethodsfromHeaders(httpHeaders);
-    authStatus.authMethods = authMethods;
     authStatus.id = null;
 
     authStatus.okay = true;
-    authStatus.authMethods = authMethods;
+    // authStatus.authMethods = authMethods;
 
     if (authenticated) {
       authStatus.authenticated = true;
