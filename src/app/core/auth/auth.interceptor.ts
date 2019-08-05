@@ -37,10 +37,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private inj: Injector, private router: Router, private store: Store<AppState>) {
   }
 
-  private is302Response(response: HttpResponseBase): boolean {
-    return response.status === 302;
-  }
-
   private isUnauthorized(response: HttpResponseBase): boolean {
     // invalid_token The access token provided is expired, revoked, malformed, or invalid for other reasons
     return response.status === 401;
@@ -125,29 +121,6 @@ export class AuthInterceptor implements HttpInterceptor {
       authStatus.error = isNotEmpty(error) ? ((typeof error === 'string') ? JSON.parse(error) : error) : null;
     }
     return authStatus;
-  }
-
-  private getShibbUrlFromHeader(header: HttpHeaders): string {
-    // console.log('HEADER www-authenticate: ', header.get('www-authenticate'));
-    let shibbolethUrl = '';
-
-    if (header.get('www-authenticate').startsWith('shibboleth realm')) {
-      let urlParts: string[] = header.get('www-authenticate').split(',');
-      let location = urlParts[1];
-      let re = /"/g;
-      location = location.replace(re, '').trim();
-      location = location.replace('location=', '');
-      // console.log('location: ', location);
-      urlParts = location.split('?');
-      const host = urlParts[1].replace('target=', '');
-      console.log('host: ', host);
-      shibbolethUrl = host + location + '/shibboleth';
-      re = /%3A%2F%2F/g;
-      shibbolethUrl = shibbolethUrl.replace(re, '://');
-      // console.log('shibbolethUrl: ', shibbolethUrl);
-      return shibbolethUrl;
-    }
-    return shibbolethUrl;
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
