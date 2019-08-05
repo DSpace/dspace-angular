@@ -25,6 +25,5 @@ export class DsDynamicDisabledComponent extends DynamicFormControlComponent {
               protected relationshipTypeService: RelationshipTypeService
   ) {
     super(layoutService, validationService);
-    relationshipTypeService.getRelationshipTypeByLabel('test').subscribe();
   }
 }

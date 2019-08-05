@@ -18,6 +18,13 @@ import { SelectableListState } from '../../../../object-list/selectable-list/sel
 import { ListableObject } from '../../../../object-collection/shared/listable-object.model';
 import { RouteService } from '../../../../services/route.service';
 import { getSucceededRemoteData } from '../../../../../core/shared/operators';
+import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
+import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { Item } from '../../../../../core/shared/item.model';
+import { RelationshipOptions } from '../../models/relationship-options.model';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { relationship } from '../../../../../core/cache/builders/build-decorators';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -31,12 +38,11 @@ import { getSucceededRemoteData } from '../../../../../core/shared/operators';
   ]
 })
 export class DsDynamicLookupRelationModalComponent implements OnInit {
-  relationKey: string;
   label: string;
-  filter: string;
-  searchConfiguration: string;
+  relationship: RelationshipOptions;
+  item: Observable<RemoteData<Item>>;
   listId: string;
-  resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>;
+  resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
   searchConfig: PaginatedSearchOptions;
   repeatable: boolean;
   searchQuery;
@@ -48,20 +54,32 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     pageSize: 10
   });
   selection$: Observable<ListableObject[]>;
+  relationshipType: Observable<RelationshipType>;
 
-  constructor(public modal: NgbActiveModal, private searchService: SearchService, private router: Router, private selectableListService: SelectableListService, private searchConfigService: SearchConfigurationService, private routeService: RouteService) {
+  constructor(
+    public modal: NgbActiveModal,
+    private searchService: SearchService,
+    private router: Router,
+    private selectableListService: SelectableListService,
+    private searchConfigService: SearchConfigurationService,
+    private routeService: RouteService,
+    private relationshipService: RelationshipService,
+    private relationshipTypeService: RelationshipTypeService
+  ) {
   }
 
   ngOnInit(): void {
     this.resetRoute();
-    this.routeService.setParameter('fixedFilterQuery', this.filter);
-    this.routeService.setParameter('configuration', this.searchConfiguration);
+    this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
+    this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
+
+    this.relationshipType = this.relationshipTypeService.getRelationshipTypeByLabel(this.relationship.relationshipType);
 
     this.selection$ = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
     this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       map((options) => {
-        return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: this.filter, configuration: this.searchConfiguration })
+        return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: this.relationship.filter, configuration: this.relationship.searchConfiguration })
       }),
       switchMap((options) => {
         this.searchConfig = options;
@@ -127,5 +145,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   deselectAll() {
     this.allSelected = false;
     this.selectableListService.deselectAll(this.listId);
+  }
+
+
+  select(selectableObject: SearchResult<Item>) {
+    observableCombineLatest(this.relationshipType, this.item).pipe(take(1)).subscribe(
+      ([type, itemRD]: [RelationshipType, RemoteData<Item>]) => {
+        const isSwitched = type.rightLabel === this.relationship.relationshipType;
+        if (isSwitched) {
+          this.relationshipService.addRelationship('1', selectableObject.indexableObject, itemRD.payload).pipe(getSucceededRemoteData()).subscribe();
+        } else {
+          this.relationshipService.addRelationship('1', itemRD.payload, selectableObject.indexableObject).pipe(getSucceededRemoteData()).subscribe();
+        }
+      }
+    )
   }
 }

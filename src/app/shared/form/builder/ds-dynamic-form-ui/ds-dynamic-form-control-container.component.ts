@@ -69,7 +69,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { Observable } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
@@ -85,6 +85,13 @@ import { MetadataRepresentationType } from '../../../../core/shared/metadata-rep
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { relationship } from '../../../../core/cache/builders/build-decorators';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
+import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
+import { RelationshipOptions } from '../models/relationship-options.model';
+import { DsDynamicInputModel } from './models/ds-dynamic-input.model';
+import { getSucceededRemoteData } from '../../../../core/shared/operators';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { Item } from '../../../../core/shared/item.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -174,7 +181,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   modalRef: NgbModalRef;
   modelValueMDRepresentation;
   listId: string;
-  filter: string;
   searchConfig: string;
 
   /* tslint:disable:no-output-rename */
@@ -198,7 +204,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected translateService: TranslateService,
     private modalService: NgbModal,
     private relationService: RelationshipService,
-    private selectableListService: SelectableListService
+    private selectableListService: SelectableListService,
   ) {
     super(componentFactoryResolver, layoutService, validationService);
   }
@@ -206,13 +212,20 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   ngOnInit(): void {
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
-      this.filter = this.model.relationship.filter;
-      this.searchConfig = this.model.relationship.searchConfiguration;
       this.listId = 'list-' + this.model.relationship.relationshipType;
+
+
+      this.model.workspaceItem.item.pipe(
+        getSucceededRemoteData(),
+        switchMap((itemRD: RemoteData<Item>) => this.relationService.getRelatedItemsByLabel(itemRD.payload, this.model.relationship.relationshipType)),
+        map((items: Item[]) => items.map((item) => Object.assign(new SearchResult(), { indexableObject: item })))
+      ).subscribe((relatedItems) => this.selectableListService.select(this.listId, relatedItems));
+
       this.model.value = this.selectableListService.getSelectableList(this.listId).pipe(
         map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
       );
       this.modelValueMDRepresentation = this.model.value.pipe(map((result: SearchResult<DSpaceObject>[]) => result.map((element: SearchResult<DSpaceObject>) => Object.assign(new ItemMetadataRepresentation(), element.indexableObject))))
+
     }
   }
 
@@ -261,11 +274,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
     const modalComp = this.modalRef.componentInstance;
     modalComp.repeatable = this.model.repeatable;
-    modalComp.relationKey = this.model.name;
     modalComp.listId = this.listId;
-    modalComp.filter = this.filter;
-    modalComp.searchConfiguration = this.searchConfig;
+    modalComp.relationship = this.model.relationship;
     modalComp.label = this.model.label;
+    modalComp.item = this.model.workspaceItem.item;
   }
 
   removeSelection(object: SearchResult<DSpaceObject>) {

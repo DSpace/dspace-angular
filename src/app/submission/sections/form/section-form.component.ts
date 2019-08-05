@@ -102,7 +102,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    */
   protected subs: Subscription[] = [];
 
-  protected workspaceItem;
+  protected workspaceItem: Workspaceitem;
   /**
    * The FormComponent reference
    */
@@ -154,10 +154,10 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       flatMap(() =>
         combineLatestObservable(
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id),
-          this.workspaceItemDataService.findById(this.submissionId).pipe(getSucceededRemoteData())
+          this.workspaceItemDataService.findById(this.submissionId).pipe(getSucceededRemoteData(), map((wsiRD: RemoteData<Workspaceitem>) => wsiRD.payload))
         )),
       take(1))
-      .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, RemoteData<Workspaceitem>]) => {
+      .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, Workspaceitem]) => {
         if (isUndefined(this.formModel)) {
           this.sectionData.errors = [];
           // Is the first loading so init form

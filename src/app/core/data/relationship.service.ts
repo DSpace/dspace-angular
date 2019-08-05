@@ -25,6 +25,8 @@ import {
   compareArraysUsingIds, filterRelationsByTypeLabel,
   relationsToItems
 } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HttpHeaders } from '@angular/common/http';
 
 /**
  * The service handling all relationship requests
@@ -64,11 +66,16 @@ export class RelationshipService {
     );
   }
 
-  addRelationship(item1: Item, item2: Item): Observable<RestResponse> {
+  addRelationship(typeId: string, item1: Item, item2: Item): Observable<RestResponse> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
     return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, `${item1.self} ${item2.self}`)),
+      map((endpointUrl: string) => `${endpointUrl}?relationshipType=${typeId}`),
+      map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, `${item1.self} \n ${item2.self}`, options)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry()

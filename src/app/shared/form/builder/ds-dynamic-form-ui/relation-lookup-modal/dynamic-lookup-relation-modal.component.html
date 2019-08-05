@@ -69,7 +69,8 @@
                                [searchConfig]="this.searchConfig"
                                [selectable]="true"
                                [selectionConfig]="{ repeatable: repeatable, listId: listId }"
-                               (deselectObject)="allSelected = false"
+                               (deselectObject)="deselect($event)"
+                               (selectObject)="select($event)"
             >
             </ds-search-results>
         </div>

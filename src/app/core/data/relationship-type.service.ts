@@ -10,7 +10,7 @@ import {
   getRemoteDataPayload, getResponseFromEntry,
   getSucceededRemoteData
 } from '../shared/operators';
-import { DeleteRequest, FindAllOptions, GetRequest, PostRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindAllOptions, FindAllRequest, GetRequest, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { Item } from '../shared/item.model';
@@ -50,20 +50,25 @@ export class RelationshipTypeService {
 
   getAllRelationshipTypes(options: FindAllOptions): Observable<RemoteData<PaginatedList<RelationshipType>>> {
     const link$ = this.halService.getEndpoint(this.linkPath);
-    link$
+    return link$
       .pipe(
-        // map((url) => )
-        map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
+        map((endpointURL: string) => new FindAllRequest(this.requestService.generateRequestId(), endpointURL, options)),
         configureRequest(this.requestService),
-      ).subscribe();
-    return this.rdbService.buildList(link$);
+        switchMap(() => this.rdbService.buildList(link$))
+      );
   }
 
   /**
    * Get the RelationshipType for a relationship type by label
    * @param label
    */
-  getRelationshipTypeByLabel(label: string) {
-    this.getAllRelationshipTypes
+  getRelationshipTypeByLabel(label: string): Observable<RelationshipType> {
+    return this.getAllRelationshipTypes({ currentPage: 1, elementsPerPage: Number.MAX_VALUE }).pipe(
+      map((typeListRD: RemoteData<PaginatedList<RelationshipType>>) =>
+        typeListRD.payload.page.find((type: RelationshipType) =>
+          type.leftLabel === label || type.rightLabel === label
+        )
+      ),
+    );
   }
 }
