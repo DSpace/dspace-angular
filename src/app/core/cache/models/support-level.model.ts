@@ -8,7 +8,7 @@ export enum SupportLevel {
   Unknown = 0,
 
   /**
-   * Unknown for Bitstream Formats that are known to the system, but not fully supported
+   * Known for Bitstream Formats that are known to the system, but not fully supported
    */
   Known = 1,
 

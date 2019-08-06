@@ -1,4 +1,4 @@
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { CacheableObject, TypedObject } from '../cache/object-cache.reducer';
 import { ResourceType } from './resource-type';
 import { BitstreamFormatSupportLevel } from './bitstream-format-support-level';
 
@@ -6,7 +6,9 @@ import { BitstreamFormatSupportLevel } from './bitstream-format-support-level';
  * Model class for a Bitstream Format
  */
 export class BitstreamFormat implements CacheableObject {
+  static type = new ResourceType('bitstreamformat');
 
+  bitstreamformat
   /**
    * Short description of this Bitstream Format
    */
@@ -41,11 +43,6 @@ export class BitstreamFormat implements CacheableObject {
    * The link to the rest endpoint where this Bitstream Format can be found
    */
   self: string;
-
-  /**
-   * A ResourceType representing the kind of Object of this BitstreamFormat
-   */
-  type: ResourceType;
 
   /**
    * Universally unique identifier for this Bitstream Format

@@ -6,9 +6,13 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 
 import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { DynamicCheckboxModel, DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
+import {
+  DynamicCheckboxModel,
+  DynamicFormControlEvent,
+  DynamicFormControlEventType
+} from '@ng-dynamic-forms/core';
 
-import { createTestComponent } from '../../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$, createTestComponent } from '../../../shared/testing/utils';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { SubmissionService } from '../../submission.service';
@@ -109,8 +113,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         language: 'en_US',
         value: 'Community 1-Collection 1'
       }],
-    license: observableOf(new RemoteData(false, false, true,
-      undefined, Object.assign(new License(), { text: licenseText })))
+    license: createSuccessfulRemoteDataObject$(Object.assign(new License(), { text: licenseText }))
   });
 
   beforeEach(async(() => {
@@ -193,8 +196,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     });
 
     it('should init section properly', () => {
-      collectionDataService.findById.and.returnValue(observableOf(new RemoteData(false, false, true,
-        undefined, mockCollection)));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
       spyOn(compAsAny, 'getSectionStatus');
@@ -219,8 +221,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         granted: true
       } as any;
 
-      collectionDataService.findById.and.returnValue(observableOf(new RemoteData(false, false, true,
-        undefined, mockCollection)));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
       spyOn(compAsAny, 'getSectionStatus');
@@ -239,8 +240,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
     });
 
     it('should set section errors properly', () => {
-      collectionDataService.findById.and.returnValue(observableOf(new RemoteData(false, false, true,
-        undefined, mockCollection)));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(mockLicenseParsedErrors.license));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
 
@@ -259,8 +259,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
         granted: true
       } as any;
 
-      collectionDataService.findById.and.returnValue(observableOf(new RemoteData(false, false, true,
-        undefined, mockCollection)));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(mockLicenseParsedErrors.license));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
 
@@ -272,8 +271,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 
     it('should have status true when checkbox is selected', () => {
 
-      collectionDataService.findById.and.returnValue(observableOf(new RemoteData(false, false, true,
-        undefined, mockCollection)));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
 
@@ -289,8 +287,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
 
     it('should have status false when checkbox is not selected', () => {
 
-      collectionDataService.findById.and.returnValue(observableOf(new RemoteData(false, false, true,
-        undefined, mockCollection)));
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
       sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
       sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
 

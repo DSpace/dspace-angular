@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
-import { MetadataSchema } from '../metadata/metadataschema.model';
-import { MetadataField } from '../metadata/metadatafield.model';
 import {
   CreateMetadataFieldRequest,
   CreateMetadataSchemaRequest,
@@ -51,14 +49,15 @@ import {
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { distinctUntilChanged, flatMap, map, take, tap } from 'rxjs/operators';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
-import { ResourceType } from '../shared/resource-type';
 import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { MetadataField } from '../metadata/metadata-field.model';
+import { getMapsToType } from '../cache/builders/build-decorators';
 
 const metadataRegistryStateSelector = (state: AppState) => state.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);
@@ -66,6 +65,9 @@ const selectedMetadataSchemasSelector = createSelector(metadataRegistryStateSele
 const editMetadataFieldSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editField);
 const selectedMetadataFieldsSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.selectedFields);
 
+/**
+ * Service for registry related CRUD actions such as metadata schema, metadata field and bitstream format
+ */
 @Injectable()
 export class RegistryService {
 
@@ -83,6 +85,10 @@ export class RegistryService {
 
   }
 
+  /**
+   * Retrieves all metadata schemas
+   * @param pagination The pagination info used to retrieve the schemas
+   */
   public getMetadataSchemas(pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataSchema>>> {
     const requestObs = this.getMetadataSchemasRequestObs(pagination);
 
@@ -113,6 +119,10 @@ export class RegistryService {
     return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
   }
 
+  /**
+   * Retrieves a metadata schema by its name
+   * @param schemaName The name of the schema to find
+   */
   public getMetadataSchemaByName(schemaName: string): Observable<RemoteData<MetadataSchema>> {
     // Temporary pagination to get ALL metadataschemas until there's a rest api endpoint for fetching a specific schema
     const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
@@ -138,6 +148,11 @@ export class RegistryService {
     return this.rdb.toRemoteDataObservable(requestEntryObs, metadataschemaObs);
   }
 
+  /**
+   * retrieves all metadata fields that belong to a certain metadata schema
+   * @param schema The schema to filter by
+   * @param pagination The pagination info used to retrieve the fields
+   */
   public getMetadataFieldsBySchema(schema: MetadataSchema, pagination: PaginationComponentOptions): Observable<RemoteData<PaginatedList<MetadataField>>> {
     const requestObs = this.getMetadataFieldsBySchemaRequestObs(pagination, schema);
 
@@ -277,54 +292,93 @@ export class RegistryService {
     this.store.dispatch(new MetadataRegistryEditSchemaAction(schema));
   }
 
+  /**
+   * Method to cancel editing a metadata schema, dispatches a cancel schema action
+   */
   public cancelEditMetadataSchema() {
     this.store.dispatch(new MetadataRegistryCancelSchemaAction());
   }
 
+  /**
+   * Method to retrieve the metadata schema that are currently being edited
+   */
   public getActiveMetadataSchema(): Observable<MetadataSchema> {
     return this.store.pipe(select(editMetadataSchemaSelector));
   }
 
+  /**
+   * Method to select a metadata schema, dispatches a select schema action
+   * @param schema The schema that's being selected
+   */
   public selectMetadataSchema(schema: MetadataSchema) {
     this.store.dispatch(new MetadataRegistrySelectSchemaAction(schema));
   }
 
+  /**
+   * Method to deselect a metadata schema, dispatches a deselect schema action
+   * @param schema The schema that's it being deselected
+   */
   public deselectMetadataSchema(schema: MetadataSchema) {
     this.store.dispatch(new MetadataRegistryDeselectSchemaAction(schema));
   }
 
+  /**
+   * Method to deselect all currently selected metadata schema, dispatches a deselect all schema action
+   */
   public deselectAllMetadataSchema() {
     this.store.dispatch(new MetadataRegistryDeselectAllSchemaAction());
   }
 
+  /**
+   * Method to retrieve the metadata schemas that are currently selected
+   */
   public getSelectedMetadataSchemas(): Observable<MetadataSchema[]> {
     return this.store.pipe(select(selectedMetadataSchemasSelector));
   }
-
+  /**
+   * Method to start editing a metadata field, dispatches an edit field action
+   * @param field The field that's being edited
+   */
   public editMetadataField(field: MetadataField) {
     this.store.dispatch(new MetadataRegistryEditFieldAction(field));
   }
 
+  /**
+   * Method to cancel editing a metadata field, dispatches a cancel field action
+   */
   public cancelEditMetadataField() {
     this.store.dispatch(new MetadataRegistryCancelFieldAction());
   }
-
+  /**
+   * Method to retrieve the metadata field that are currently being edited
+   */
   public getActiveMetadataField(): Observable<MetadataField> {
     return this.store.pipe(select(editMetadataFieldSelector));
   }
-
+  /**
+   * Method to select a metadata field, dispatches a select field action
+   * @param field The field that's being selected
+   */
   public selectMetadataField(field: MetadataField) {
     this.store.dispatch(new MetadataRegistrySelectFieldAction(field));
   }
-
+  /**
+   * Method to deselect a metadata field, dispatches a deselect field action
+   * @param field The field that's it being deselected
+   */
   public deselectMetadataField(field: MetadataField) {
     this.store.dispatch(new MetadataRegistryDeselectFieldAction(field));
   }
-
+  /**
+   * Method to deselect all currently selected metadata fields, dispatches a deselect all field action
+   */
   public deselectAllMetadataField() {
     this.store.dispatch(new MetadataRegistryDeselectAllFieldAction());
   }
 
+  /**
+   * Method to retrieve the metadata fields that are currently selected
+   */
   public getSelectedMetadataFields(): Observable<MetadataField[]> {
     return this.store.pipe(select(selectedMetadataFieldsSelector));
   }
@@ -346,7 +400,7 @@ export class RegistryService {
       distinctUntilChanged()
     );
 
-    const serializedSchema = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(ResourceType.MetadataSchema)).serialize(schema as NormalizedMetadataSchema);
+    const serializedSchema = new DSpaceRESTv2Serializer(getMapsToType(MetadataSchema.type)).serialize(schema as NormalizedMetadataSchema);
 
     const request$ = endpoint$.pipe(
       take(1),
@@ -390,10 +444,17 @@ export class RegistryService {
     );
   }
 
+  /**
+   * Method to delete a metadata schema
+   * @param id The id of the metadata schema to delete
+   */
   public deleteMetadataSchema(id: number): Observable<RestResponse> {
     return this.delete(this.metadataSchemasPath, id);
   }
 
+  /**
+   * Method that clears a cached metadata schema request and returns its REST url
+   */
   public clearMetadataSchemaRequests(): Observable<string> {
     return this.halService.getEndpoint(this.metadataSchemasPath).pipe(
       tap((href: string) => this.requestService.removeByHrefSubstring(href))
@@ -460,10 +521,16 @@ export class RegistryService {
     );
   }
 
+  /**
+   * Method to delete a metadata field
+   * @param id The id of the metadata field to delete
+   */
   public deleteMetadataField(id: number): Observable<RestResponse> {
     return this.delete(this.metadataFieldsPath, id);
   }
-
+  /**
+   * Method that clears a cached metadata field request and returns its REST url
+   */
   public clearMetadataFieldRequests(): Observable<string> {
     return this.halService.getEndpoint(this.metadataFieldsPath).pipe(
       tap((href: string) => this.requestService.removeByHrefSubstring(href))

@@ -32,15 +32,19 @@ export interface Patch {
   operations: Operation[];
 }
 
+export abstract class TypedObject {
+  static type: ResourceType;
+}
+
+/* tslint:disable:max-classes-per-file */
 /**
  * An interface to represent objects that can be cached
  *
  * A cacheable object should have a self link
  */
-export interface CacheableObject {
+export class CacheableObject extends TypedObject {
   uuid?: string;
   self: string;
-  type?: ResourceType;
   // isNew: boolean;
   // dirtyType: DirtyType;
   // hasDirtyAttributes: boolean;
@@ -59,6 +63,7 @@ export class ObjectCacheEntry implements CacheEntry {
   patches: Patch[] = [];
   isDirty: boolean;
 }
+/* tslint:enable:max-classes-per-file */
 
 /**
  * The ObjectCache State

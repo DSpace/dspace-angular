@@ -20,18 +20,15 @@ describe('AddBitstreamFormatComponent', () => {
   let comp: AddBitstreamFormatComponent;
   let fixture: ComponentFixture<AddBitstreamFormatComponent>;
 
-  const bitstreamFormat: BitstreamFormat = {
-    uuid: 'test-uuid',
-    id: 'test-uuid',
-    shortDescription: 'Adobe PDF',
-    description: 'Adobe Portable Document Format',
-    mimetype: 'application/pdf',
-    supportLevel: BitstreamFormatSupportLevel.Unknown,
-    internal: false,
-    extensions: ['pdf', 'also-pdf'],
-    type: ResourceType.BitstreamFormat,
-    self: 'self-link'
-  };
+  const bitstreamFormat = new BitstreamFormat();
+  bitstreamFormat.uuid = 'test-uuid-1';
+  bitstreamFormat.id = 'test-uuid-1';
+  bitstreamFormat.shortDescription = 'Unknown';
+  bitstreamFormat.description = 'Unknown data format';
+  bitstreamFormat.mimetype = 'application/octet-stream';
+  bitstreamFormat.supportLevel = BitstreamFormatSupportLevel.Unknown;
+  bitstreamFormat.internal = false;
+  bitstreamFormat.extensions = null;
 
   let router;
   let notificationService: NotificationsServiceStub;

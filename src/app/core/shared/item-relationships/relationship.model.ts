@@ -9,15 +9,12 @@ import { Item } from '../item.model';
  * Describes a Relationship between two Items
  */
 export class Relationship implements CacheableObject {
+  static type = new ResourceType('relationship');
+
   /**
    * The link to the rest endpoint where this object can be found
    */
   self: string;
-
-  /**
-   * The type of Resource this is
-   */
-  type: ResourceType;
 
   /**
    * The universally unique identifier of this Relationship

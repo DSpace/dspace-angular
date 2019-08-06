@@ -5,6 +5,8 @@
 /tsd_typings/
 npm-debug.log
 
+/build/
+
 /config/environment.dev.js
 /config/environment.prod.js
 

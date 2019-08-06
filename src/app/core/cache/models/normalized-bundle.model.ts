@@ -3,7 +3,7 @@ import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Bundle } from '../../shared/bundle.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
+import { Bitstream } from '../../shared/bitstream.model';
 
 /**
  * Normalized model class for a DSpace Bundle
@@ -15,7 +15,7 @@ export class NormalizedBundle extends NormalizedDSpaceObject<Bundle> {
    * The primary bitstream of this Bundle
    */
   @autoserialize
-  @relationship(ResourceType.Bitstream, false)
+  @relationship(Bitstream, false)
   primaryBitstream: string;
 
   /**
@@ -32,7 +32,7 @@ export class NormalizedBundle extends NormalizedDSpaceObject<Bundle> {
    * List of Bitstreams that are part of this Bundle
    */
   @autoserialize
-  @relationship(ResourceType.Bitstream, true)
+  @relationship(Bitstream, true)
   bitstreams: string[];
 
 }

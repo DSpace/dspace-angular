@@ -12,7 +12,6 @@ import { BitstreamFormatSupportLevel } from '../../shared/bitstream-format-suppo
 @mapsTo(BitstreamFormat)
 @inheritSerialization(NormalizedObject)
 export class NormalizedBitstreamFormat extends NormalizedObject<BitstreamFormat> {
-
   /**
    * Short description of this Bitstream Format
    */

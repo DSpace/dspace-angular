@@ -6,13 +6,13 @@ import { first } from 'rxjs/operators';
 
 import { SectionsService } from '../../sections/sections.service';
 import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
 import { normalizeSectionData } from '../../../core/submission/submission-response-parsing.service';
 import { SubmissionService } from '../../submission.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
 import parseSectionErrors from '../../utils/parseSectionErrors';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 
 /**
  * This component represents the drop zone that provides to add files to the submission.
@@ -119,7 +119,7 @@ export class SubmissionUploadFilesComponent implements OnChanges {
    * @param workspaceitem
    *    The submission object retrieved from REST
    */
-  public onCompleteItem(workspaceitem: Workspaceitem) {
+  public onCompleteItem(workspaceitem: WorkspaceItem) {
     // Checks if upload section is enabled so do upload
     this.subs.push(
       this.uploadEnabled

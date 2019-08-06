@@ -37,8 +37,10 @@ import {
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
-import { MetadataSchema } from '../metadata/metadataschema.model';
-import { MetadataField } from '../metadata/metadatafield.model';
+import { ResourceType } from '../shared/resource-type';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { MetadataField } from '../metadata/metadata-field.model';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 @Component({template: ''})
 class DummyComponent {
@@ -57,13 +59,15 @@ describe('RegistryService', () => {
       id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
       prefix: 'dc',
-      namespace: 'http://dublincore.org/documents/dcmi-terms/'
-    },
+      namespace: 'http://dublincore.org/documents/dcmi-terms/',
+      type: MetadataSchema.type
+},
     {
       id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
       prefix: 'mock',
-      namespace: 'http://dspace.org/mockschema'
+      namespace: 'http://dspace.org/mockschema',
+      type: MetadataSchema.type
     }
   ];
   const mockFieldsList = [
@@ -73,7 +77,8 @@ describe('RegistryService', () => {
       element: 'contributor',
       qualifier: 'advisor',
       scopeNote: null,
-      schema: mockSchemasList[0]
+      schema: mockSchemasList[0],
+      type: MetadataField.type
     },
     {
       id: 2,
@@ -81,7 +86,8 @@ describe('RegistryService', () => {
       element: 'contributor',
       qualifier: 'author',
       scopeNote: null,
-      schema: mockSchemasList[0]
+      schema: mockSchemasList[0],
+      type: MetadataField.type
     },
     {
       id: 3,
@@ -89,7 +95,8 @@ describe('RegistryService', () => {
       element: 'contributor',
       qualifier: 'editor',
       scopeNote: 'test scope note',
-      schema: mockSchemasList[1]
+      schema: mockSchemasList[1],
+      type: MetadataField.type
     },
     {
       id: 4,
@@ -97,7 +104,8 @@ describe('RegistryService', () => {
       element: 'contributor',
       qualifier: 'illustrator',
       scopeNote: null,
-      schema: mockSchemasList[1]
+      schema: mockSchemasList[1],
+      type: MetadataField.type
     }
   ];
 
@@ -122,7 +130,7 @@ describe('RegistryService', () => {
       );
     },
     aggregate: (input: Array<Observable<RemoteData<any>>>): Observable<RemoteData<any[]>> => {
-      return observableOf(new RemoteData(false, false, true, null, []));
+      return createSuccessfulRemoteDataObject$([]);
     }
   };
 

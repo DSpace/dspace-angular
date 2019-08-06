@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { FormatFormComponent } from './format-form.component';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
-import { ResourceType } from '../../../../core/shared/resource-type';
 import { DynamicCheckboxModel, DynamicFormArrayModel, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { isEmpty } from '../../../../shared/empty.util';
@@ -20,18 +19,15 @@ describe('FormatFormComponent', () => {
 
   const router = new RouterStub();
 
-  const bitstreamFormat: BitstreamFormat = {
-    uuid: 'test-uuid',
-    id: 'test-uuid',
-    shortDescription: 'Adobe PDF',
-    description: 'Adobe Portable Document Format',
-    mimetype: 'application/pdf',
-    supportLevel: BitstreamFormatSupportLevel.Unknown,
-    internal: false,
-    extensions: ['pdf', 'also-pdf'],
-    type: ResourceType.BitstreamFormat,
-    self: 'self-link'
-  };
+  const bitstreamFormat = new BitstreamFormat();
+  bitstreamFormat.uuid = 'test-uuid-1';
+  bitstreamFormat.id = 'test-uuid-1';
+  bitstreamFormat.shortDescription = 'Unknown';
+  bitstreamFormat.description = 'Unknown data format';
+  bitstreamFormat.mimetype = 'application/octet-stream';
+  bitstreamFormat.supportLevel = BitstreamFormatSupportLevel.Unknown;
+  bitstreamFormat.internal = false;
+  bitstreamFormat.extensions = [];
 
   const submittedBitstreamFormat = new BitstreamFormat();
   submittedBitstreamFormat.id = bitstreamFormat.id;

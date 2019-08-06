@@ -20,4 +20,4 @@ import { SubmissionEditComponent } from '../submission/edit/submission-edit.comp
 /**
  * This module defines the default component to load when navigating to the workflowitems edit page path.
  */
-export class WorkflowitemsEditPageRoutingModule { }
+export class WorkflowItemsEditPageRoutingModule { }

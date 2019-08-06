@@ -16,7 +16,6 @@ import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
@@ -28,54 +27,45 @@ describe('BitstreamFormatsComponent', () => {
   let scheduler: TestScheduler;
   let notificationsServiceStub;
 
-  const bitstreamFormat1: BitstreamFormat = {
-    uuid: 'test-uuid-1',
-    id: 'test-uuid-1',
-    shortDescription: 'Unknown',
-    description: 'Unknown data format',
-    mimetype: 'application/octet-stream',
-    supportLevel: BitstreamFormatSupportLevel.Unknown,
-    internal: false,
-    extensions: null,
-    type: ResourceType.BitstreamFormat,
-    self: 'self-link'
-  };
-  const bitstreamFormat2: BitstreamFormat = {
-    uuid: 'test-uuid-2',
-    id: 'test-uuid-2',
-    shortDescription: 'License',
-    description: 'Item-specific license agreed upon to submission',
-    mimetype: 'text/plain; charset=utf-8',
-    supportLevel: BitstreamFormatSupportLevel.Known,
-    internal: true,
-    extensions: null,
-    type: ResourceType.BitstreamFormat,
-    self: 'self-link'
-  };
-  const bitstreamFormat3: BitstreamFormat = {
-    uuid: 'test-uuid-3',
-    id: 'test-uuid-3',
-    shortDescription: 'CC License',
-    description: 'Item-specific Creative Commons license agreed upon to submission',
-    mimetype: 'text/html; charset=utf-8',
-    supportLevel: BitstreamFormatSupportLevel.Supported,
-    internal: true,
-    extensions: null,
-    type: ResourceType.BitstreamFormat,
-    self: 'self-link'
-  };
-  const bitstreamFormat4: BitstreamFormat = {
-    uuid: 'test-uuid-4',
-    id: 'test-uuid-4',
-    shortDescription: 'Adobe PDF',
-    description: 'Adobe Portable Document Format',
-    mimetype: 'application/pdf',
-    supportLevel: BitstreamFormatSupportLevel.Unknown,
-    internal: false,
-    extensions: null,
-    type: ResourceType.BitstreamFormat,
-    self: 'self-link'
-  };
+  const bitstreamFormat1 = new BitstreamFormat();
+  bitstreamFormat1.uuid = 'test-uuid-1';
+  bitstreamFormat1.id = 'test-uuid-1';
+  bitstreamFormat1.shortDescription = 'Unknown';
+  bitstreamFormat1.description = 'Unknown data format';
+  bitstreamFormat1.mimetype = 'application/octet-stream';
+  bitstreamFormat1.supportLevel = BitstreamFormatSupportLevel.Unknown;
+  bitstreamFormat1.internal = false;
+  bitstreamFormat1.extensions = null;
+
+  const bitstreamFormat2 = new BitstreamFormat();
+  bitstreamFormat2.uuid = 'test-uuid-2';
+  bitstreamFormat2.id = 'test-uuid-2';
+  bitstreamFormat2.shortDescription = 'License';
+  bitstreamFormat2.description = 'Item-specific license agreed upon to submission';
+  bitstreamFormat2.mimetype = 'text/plain; charset=utf-8';
+  bitstreamFormat2.supportLevel = BitstreamFormatSupportLevel.Known;
+  bitstreamFormat2.internal = true;
+  bitstreamFormat2.extensions = null;
+
+  const bitstreamFormat3 = new BitstreamFormat();
+  bitstreamFormat3.uuid = 'test-uuid-3';
+  bitstreamFormat3.id = 'test-uuid-3';
+  bitstreamFormat3.shortDescription = 'CC License';
+  bitstreamFormat3.description = 'Item-specific Creative Commons license agreed upon to submission';
+  bitstreamFormat3.mimetype = 'text/html; charset=utf-8';
+  bitstreamFormat3.supportLevel = BitstreamFormatSupportLevel.Supported;
+  bitstreamFormat3.internal = true;
+  bitstreamFormat3.extensions = null;
+
+  const bitstreamFormat4 = new BitstreamFormat();
+  bitstreamFormat4.uuid = 'test-uuid-4';
+  bitstreamFormat4.id = 'test-uuid-4';
+  bitstreamFormat4.shortDescription = 'Adobe PDF';
+  bitstreamFormat4.description = 'Adobe Portable Document Format';
+  bitstreamFormat4.mimetype = 'application/pdf';
+  bitstreamFormat4.supportLevel = BitstreamFormatSupportLevel.Unknown;
+  bitstreamFormat4.internal = false;
+  bitstreamFormat4.extensions = null;
 
   const mockFormatsList: BitstreamFormat[] = [
     bitstreamFormat1,
