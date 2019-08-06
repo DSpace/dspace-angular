@@ -277,7 +277,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.listId = this.listId;
     modalComp.relationship = this.model.relationship;
     modalComp.label = this.model.label;
-    modalComp.item = this.model.workspaceItem.item;
+    modalComp.itemRD$ = this.model.workspaceItem.item;
   }
 
   removeSelection(object: SearchResult<DSpaceObject>) {

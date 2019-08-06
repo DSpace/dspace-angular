@@ -31,7 +31,7 @@ describe('ItemPageUriFieldComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ItemPageUriFieldComponent);
     comp = fixture.componentInstance;
-    comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);
+    comp.itemRD$ = mockItemWithMetadataFieldAndValue(mockField, mockValue);
     fixture.detectChanges();
   }));
 

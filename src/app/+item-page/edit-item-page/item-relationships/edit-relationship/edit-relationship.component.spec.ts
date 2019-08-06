@@ -114,7 +114,7 @@ describe('EditRelationshipComponent', () => {
 
     comp.url = url;
     comp.fieldUpdate = fieldUpdate1;
-    comp.item = item;
+    comp.itemRD$ = item;
 
     fixture.detectChanges();
   });

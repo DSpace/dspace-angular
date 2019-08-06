@@ -2,29 +2,16 @@ import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
-import {
-  configureRequest,
-  filterSuccessfulResponses,
-  getRemoteDataPayload, getResponseFromEntry,
-  getSucceededRemoteData
-} from '../shared/operators';
-import { DeleteRequest, FindAllOptions, FindAllRequest, GetRequest, PostRequest, RestRequest } from './request.models';
+import { filter, find, map, switchMap } from 'rxjs/operators';
+import { configureRequest, getSucceededRemoteData } from '../shared/operators';
+import { FindAllOptions, FindAllRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
-import { RestResponse } from '../cache/response.models';
-import { Item } from '../shared/item.model';
-import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RemoteData } from './remote-data';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
-import { zip as observableZip } from 'rxjs';
 import { PaginatedList } from './paginated-list';
-import { ItemDataService } from './item-data.service';
-import {
-  compareArraysUsingIds, filterRelationsByTypeLabel,
-  relationsToItems
-} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
+import { ItemType } from '../shared/item-relationships/item-type.model';
+import { isNotUndefined } from '../../shared/empty.util';
 
 /**
  * The service handling all relationship requests
@@ -62,13 +49,29 @@ export class RelationshipTypeService {
    * Get the RelationshipType for a relationship type by label
    * @param label
    */
-  getRelationshipTypeByLabel(label: string): Observable<RelationshipType> {
-    return this.getAllRelationshipTypes({ currentPage: 1, elementsPerPage: Number.MAX_VALUE }).pipe(
-      map((typeListRD: RemoteData<PaginatedList<RelationshipType>>) =>
-        typeListRD.payload.page.find((type: RelationshipType) =>
-          type.leftLabel === label || type.rightLabel === label
-        )
-      ),
+  getRelationshipTypeByLabelAndTypes(label: string, firstType: string, secondType: string): Observable<RelationshipType> {
+    return this.getAllRelationshipTypes({ currentPage: 1, elementsPerPage: Number.MAX_VALUE })
+      .pipe(
+        getSucceededRemoteData(),
+        /* Flatten the page so we can treat it like an observable */
+        switchMap((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => typeListRD.payload.page),
+        switchMap((type: RelationshipType) => {
+          if (type.leftLabel === label) return this.checkType(type, firstType, secondType);
+          else if (type.rightLabel === label) return this.checkType(type, secondType, firstType);
+          else return [];
+        }),
+      );
+  }
+
+  // Check if relationship type matches the given types
+  // returns a void observable if there's not match
+  // returns an observable that emits the relationship type when there is a match
+  private checkType(type: RelationshipType, firstType: string, secondType: string): Observable<RelationshipType> {
+    const entityTypes = observableCombineLatest(type.leftType.pipe(getSucceededRemoteData()), type.rightType.pipe(getSucceededRemoteData()));
+    return entityTypes.pipe(
+      find(([leftTypeRD, rightTypeRD]: [RemoteData<ItemType>, RemoteData<ItemType>]) => leftTypeRD.payload.label === firstType && rightTypeRD.payload.label === secondType),
+      filter((types) => isNotUndefined(types)),
+      map(() => type)
     );
   }
 }

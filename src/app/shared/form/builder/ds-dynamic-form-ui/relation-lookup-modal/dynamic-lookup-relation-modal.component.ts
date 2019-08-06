@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { SearchResult } from '../../../../search/search-result.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -24,7 +24,6 @@ import { RelationshipService } from '../../../../../core/data/relationship.servi
 import { Item } from '../../../../../core/shared/item.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { relationship } from '../../../../../core/cache/builders/build-decorators';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -37,10 +36,10 @@ import { relationship } from '../../../../../core/cache/builders/build-decorator
     }
   ]
 })
-export class DsDynamicLookupRelationModalComponent implements OnInit {
+export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   label: string;
   relationship: RelationshipOptions;
-  item: Observable<RemoteData<Item>>;
+  itemRD$: Observable<RemoteData<Item>>;
   listId: string;
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
   searchConfig: PaginatedSearchOptions;
@@ -49,12 +48,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   allSelected: boolean;
   someSelected$: Observable<boolean>;
   selectAllLoading: boolean;
+  subscription;
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 10
   });
   selection$: Observable<ListableObject[]>;
-  relationshipType: Observable<RelationshipType>;
 
   constructor(
     public modal: NgbActiveModal,
@@ -72,8 +71,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
-
-    this.relationshipType = this.relationshipTypeService.getRelationshipTypeByLabel(this.relationship.relationshipType);
 
     this.selection$ = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
     this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
@@ -149,15 +146,60 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
 
 
   select(selectableObject: SearchResult<Item>) {
-    observableCombineLatest(this.relationshipType, this.item).pipe(take(1)).subscribe(
-      ([type, itemRD]: [RelationshipType, RemoteData<Item>]) => {
-        const isSwitched = type.rightLabel === this.relationship.relationshipType;
-        if (isSwitched) {
-          this.relationshipService.addRelationship('1', selectableObject.indexableObject, itemRD.payload).pipe(getSucceededRemoteData()).subscribe();
-        } else {
-          this.relationshipService.addRelationship('1', itemRD.payload, selectableObject.indexableObject).pipe(getSucceededRemoteData()).subscribe();
-        }
-      }
-    )
+    const relationshipType$: Observable<RelationshipType> = this.itemRD$.pipe(
+      getSucceededRemoteData(),
+      switchMap((itemRD: RemoteData<Item>) => {
+        const type1: string = itemRD.payload.firstMetadataValue('relationship.type');
+        const type2: string = selectableObject.indexableObject.firstMetadataValue('relationship.type');
+        return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(this.relationship.relationshipType, type1, type2);
+      }));
+
+    this.subscription = observableCombineLatest(relationshipType$, this.itemRD$)
+      .pipe(
+        take(1),
+        switchMap(([type, itemRD]: [RelationshipType, RemoteData<Item>]) => {
+          const isSwitched = type.rightLabel === this.relationship.relationshipType;
+          let result;
+          if (isSwitched) {
+            result = this.relationshipService.addRelationship(type.id, selectableObject.indexableObject, itemRD.payload);
+          } else {
+            result = this.relationshipService.addRelationship(type.id, itemRD.payload, selectableObject.indexableObject);
+          }
+          console.log(result);
+          return result;
+        })
+      )
+      .subscribe();
+  }
+
+
+  deselect(selectableObject: SearchResult<Item>) {
+    const relationshipType$: Observable<RelationshipType> = this.itemRD$.pipe(
+      getSucceededRemoteData(),
+      switchMap((itemRD: RemoteData<Item>) => {
+        const type1: string = itemRD.payload.firstMetadataValue('relationship.type');
+        const type2: string = selectableObject.indexableObject.firstMetadataValue('relationship.type');
+        return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(this.relationship.relationshipType, type1, type2);
+      }));
+
+    this.subscription = observableCombineLatest(relationshipType$, this.itemRD$)
+      .pipe(
+        take(1),
+        switchMap(([type, itemRD]: [RelationshipType, RemoteData<Item>]) => {
+          const isSwitched = type.rightLabel === this.relationship.relationshipType;
+          if (isSwitched) {
+            return this.relationshipService.addRelationship(type.id, selectableObject.indexableObject, itemRD.payload);
+          } else {
+            return this.relationshipService.addRelationship(type.id, itemRD.payload, selectableObject.indexableObject);
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    if (hasValue(this.subscription)) {
+      this.subscription.unsubscribe();
+    }
   }
 }

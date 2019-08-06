@@ -10,6 +10,8 @@ export class ItemType implements CacheableObject {
    */
   id: string;
 
+  label: string;
+
   /**
    * The link to the rest endpoint where this object can be found
    */
