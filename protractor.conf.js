@@ -5,7 +5,7 @@
 var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 exports.config = {
-  allScriptsTimeout: 11000,
+  allScriptsTimeout: 60000,
   // -----------------------------------------------------------------
   // Uncomment to run tests using a remote Selenium server
   //seleniumAddress: 'http://selenium.address:4444/wd/hub',
