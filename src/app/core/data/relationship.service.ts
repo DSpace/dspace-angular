@@ -10,7 +10,7 @@ import {
   getRemoteDataPayload, getResponseFromEntry,
   getSucceededRemoteData
 } from '../shared/operators';
-import { DeleteRequest, PostRequest, RestRequest } from './request.models';
+import { DeleteRequest, GetRequest, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { Item } from '../shared/item.model';
@@ -27,6 +27,8 @@ import {
 } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
+import { DeprecatedCurrencyPipe } from '@angular/common';
+import { deprecate } from 'util';
 
 /**
  * The service handling all relationship requests
@@ -133,6 +135,29 @@ export class RelationshipService {
       distinctUntilChanged(compareArraysUsingIds())
     );
   }
+
+
+  /**
+   * Get an item their relationships in the form of an array
+   * @param item
+   */
+  getItemRelationships(item: Item): void {
+    this.halService.getEndpoint(item.self + '/relationships')
+      .pipe(
+        map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
+        configureRequest(this.requestService),
+        switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
+        getResponseFromEntry()
+      ).subscribe(t => console.log(t));
+  }
+
+  // /**
+  //  * Get an item their relationships in the form of an array
+  //  * @param item
+  //  */
+  // getItemRelationshipsByType(item: Item, relationshipTypeLabel: string): Observable<Relationship[]> {
+  //   this.getItemRelationshipsArray(item: Item)
+  // }
 
   /**
    * Get an item their relationship types in the form of an array

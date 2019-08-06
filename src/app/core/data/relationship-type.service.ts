@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
-import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest } from 'rxjs';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { isNotUndefined } from '../../shared/empty.util';
 

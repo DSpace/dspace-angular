@@ -165,7 +165,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
           } else {
             result = this.relationshipService.addRelationship(type.id, itemRD.payload, selectableObject.indexableObject);
           }
-          console.log(result);
           return result;
         })
       )
@@ -174,27 +173,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
 
   deselect(selectableObject: SearchResult<Item>) {
-    const relationshipType$: Observable<RelationshipType> = this.itemRD$.pipe(
+    this.itemRD$.pipe(
       getSucceededRemoteData(),
-      switchMap((itemRD: RemoteData<Item>) => {
-        const type1: string = itemRD.payload.firstMetadataValue('relationship.type');
-        const type2: string = selectableObject.indexableObject.firstMetadataValue('relationship.type');
-        return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(this.relationship.relationshipType, type1, type2);
-      }));
-
-    this.subscription = observableCombineLatest(relationshipType$, this.itemRD$)
-      .pipe(
-        take(1),
-        switchMap(([type, itemRD]: [RelationshipType, RemoteData<Item>]) => {
-          const isSwitched = type.rightLabel === this.relationship.relationshipType;
-          if (isSwitched) {
-            return this.relationshipService.addRelationship(type.id, selectableObject.indexableObject, itemRD.payload);
-          } else {
-            return this.relationshipService.addRelationship(type.id, itemRD.payload, selectableObject.indexableObject);
-          }
-        })
-      )
-      .subscribe();
+      tap((t) => console.log('succeeded')),
+      map((itemRD: RemoteData<Item>) => this.relationshipService.getItemRelationships(itemRD.payload)),
+      // map((items: Item[]) => items.find((item: Item) => ))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
