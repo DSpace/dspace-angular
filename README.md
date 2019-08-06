@@ -65,7 +65,7 @@ Requirements
 ------------
 
 -	[Node.js](https://nodejs.org), [npm](https://www.npmjs.com/), and [yarn](https://yarnpkg.com)
--	Ensure you're running node >= `v8.x`, npm >= `v5.x` and yarn >= `v1.x`
+-	Ensure you're running node `v8.x` or `v10.x`, npm >= `v5.x` and yarn >= `v1.x`
 
 If you have [`nvm`](https://github.com/creationix/nvm#install-script) or [`nvm-windows`](https://github.com/coreybutler/nvm-windows) installed, which is highly recommended, you can run `nvm install --lts && nvm use` to install and start using the latest Node LTS.
 
