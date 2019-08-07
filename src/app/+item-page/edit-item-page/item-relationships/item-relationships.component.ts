@@ -65,7 +65,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.relationLabels$ = this.relationshipService.getItemRelationshipLabels(this.item);
+    this.relationLabels$ = this.relationshipService.getRelationshipTypeLabelsByItem(this.item);
     this.initializeItemUpdate();
   }
 

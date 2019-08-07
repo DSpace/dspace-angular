@@ -175,8 +175,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   deselect(selectableObject: SearchResult<Item>) {
     this.itemRD$.pipe(
       getSucceededRemoteData(),
-      tap((t) => console.log('succeeded')),
-      map((itemRD: RemoteData<Item>) => this.relationshipService.getItemRelationships(itemRD.payload)),
+      switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getItemRelationshipsByType(itemRD.payload, this.relationship.relationshipType)),
+
       // map((items: Item[]) => items.find((item: Item) => ))
     ).subscribe();
   }
