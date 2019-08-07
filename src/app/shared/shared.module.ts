@@ -47,7 +47,7 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
-import { LogInComponent } from './log-in/log-in.component';
+import { LogInComponent } from './log-in/password/log-in.component';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
@@ -138,6 +138,10 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import {DynamicTestComponent} from './log-in/DynamicTestComponent/dynamic-test.component';
+import {LogInContainerComponent} from './log-in/log-in-container/log-in-container.component';
+import {s} from '@angular/core/src/render3';
+import {DynamicShibbolethComponent} from './log-in/shibboleth/dynamic-shibboleth.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -257,7 +261,9 @@ const COMPONENTS = [
   ItemSearchResultListElementComponent,
   TypedItemSearchResultListElementComponent,
   ItemTypeSwitcherComponent,
-  BrowseByComponent
+  BrowseByComponent,
+  LogInContainerComponent,
+  DynamicShibbolethComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -300,7 +306,11 @@ const ENTRY_COMPONENTS = [
   StartsWithTextComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
-  MetadataRepresentationListElementComponent
+  MetadataRepresentationListElementComponent,
+  DynamicTestComponent,
+  LogInComponent,
+  DynamicShibbolethComponent
+
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

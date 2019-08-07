@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { LoginPageComponent } from './login-page.component';
 import { LoginPageRoutingModule } from './login-page-routing.module';
-import {ShibbolethComponent} from './shibboleth/shibboleth.component';
+
 
 @NgModule({
   imports: [
@@ -13,8 +13,9 @@ import {ShibbolethComponent} from './shibboleth/shibboleth.component';
   ],
   declarations: [
     LoginPageComponent,
-   /* ShibbolethComponent*/
-  ]
+
+  ],
+
 })
 export class LoginPageModule {
 

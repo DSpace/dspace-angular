@@ -6,13 +6,13 @@ import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
-import { authReducer } from '../../core/auth/auth.reducer';
-import { EPersonMock } from '../testing/eperson-mock';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+import { authReducer } from '../../../core/auth/auth.reducer';
+import { EPersonMock } from '../../testing/eperson-mock';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthServiceStub } from '../testing/auth-service-stub';
-import { AppState } from '../../app.reducer';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../testing/auth-service-stub';
+import { AppState } from '../../../app.reducer';
 
 describe('LogInComponent', () => {
 

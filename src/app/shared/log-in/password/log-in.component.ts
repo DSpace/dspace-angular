@@ -7,19 +7,20 @@ import {Observable} from 'rxjs';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction, GetJWTafterShibbLoginAction
-} from '../../core/auth/auth.actions';
+} from '../../../core/auth/auth.actions';
 
 import {
   getAuthenticationError,
   getAuthenticationInfo,
   isAuthenticated,
   isAuthenticationLoading,
-} from '../../core/auth/selectors';
-import {CoreState} from '../../core/core.reducers';
+} from '../../../core/auth/selectors';
+import {CoreState} from '../../../core/core.reducers';
 
-import {isNotEmpty} from '../empty.util';
-import {fadeOut} from '../animations/fade';
-import {AuthService} from '../../core/auth/auth.service';
+import {isNotEmpty} from '../../empty.util';
+import {fadeOut} from '../../animations/fade';
+import {AuthService} from '../../../core/auth/auth.service';
+import {DynamicTestComponent} from '../DynamicTestComponent/dynamic-test.component';
 
 /**
  * /users/sign-in
@@ -81,6 +82,8 @@ export class LogInComponent implements OnDestroy, OnInit {
    */
   private alive = true;
 
+  dynamicLoginMethods: any;
+
   /**
    * @constructor
    * @param {AuthService} authService
@@ -91,7 +94,6 @@ export class LogInComponent implements OnDestroy, OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private store: Store<CoreState>,
-
   ) {
   }
 
@@ -100,7 +102,14 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
-    console.log('log-in.component.ngOnInit() called');
+
+    this.dynamicLoginMethods =  this.dynamicLoginMethods =  [
+      {
+        label: 'TestComponent',
+        component: DynamicTestComponent
+      }
+    ];
+
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
