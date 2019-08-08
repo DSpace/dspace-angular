@@ -43,9 +43,7 @@ export class AuthRequestService {
   public postToEndpoint(method: string, body?: any, options?: HttpOptions): Observable<any> {
     return this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
-      tap((href: string) => console.log('This is href in postToEndpoint(): ' , href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
-      tap((href2) => {console.log('href2', href2)}),
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthPostRequest(this.requestService.generateRequestId(), endpointURL, body, options)),
       tap((request: PostRequest) => this.requestService.configure(request, true)),
@@ -57,9 +55,7 @@ export class AuthRequestService {
     console.log('auth.request getRequest() was called');
     return this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
-      tap((href) => console.log('auth-request.service getRequest()', href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
-      tap((whatsThis) => console.log('whatsThis: ', whatsThis)),
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthGetRequest(this.requestService.generateRequestId(), endpointURL, options)),
       tap((request: GetRequest) => this.requestService.configure(request, true)),

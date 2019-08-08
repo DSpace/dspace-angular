@@ -74,10 +74,8 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private parseAuthMethodsfromHeaders(headers: HttpHeaders): AuthMethodModel[] {
-    // console.log('parseAuthMethodsfromHeaders(): ', headers);
     const authMethodModels: AuthMethodModel[] = [];
     const parts: string[] = headers.get('www-authenticate').split(',');
-    console.log('parts: ', parts);
     // get the login methods names
     // tslint:disable-next-line:forin
     for (const i in parts) {
@@ -89,14 +87,15 @@ export class AuthInterceptor implements HttpInterceptor {
         // if so the next part is the shibboleth location
         // e.g part i: shibboleth realm="DSpace REST API", part i+1:  location="/Shibboleth.sso/Login?target=https://serverUrl"
         if (methodName.includes('shibboleth')) {
-          const location: string = this.parseShibbolethLocation(parts[+i + 1]); // +1:  unaray + operator is necessaray because i is a string, the operator works like parseInt()
-          // console.log('shib location: ', location);
+          // +1:  unaray + operator in the next line is necessaray because i is a string, the operator works like parseInt()
+          const location: string = this.parseShibbolethLocation(parts[+i + 1]);
           authMethod.location = location;
         }
+        // if other authentication methods deliver data needed for the method to work
+        // it would be checked here e.g. if (methodName.includes('ldap')) { }
         authMethodModels.push(authMethod);
       }
     }
-    // console.log('Array of AuthMethodModels: ', authMethodModels);
     return authMethodModels;
   }
 
@@ -183,13 +182,11 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error, caught) => {
-        console.log('catchError operator in auth.interceptor was triggered');
         // Intercept an error response
         if (error instanceof HttpErrorResponse) {
 
           // Checks if is a response from a request to an authentication endpoint
           if (this.isAuthRequest(error)) {
-            console.log('catchError isAuthRequest=true');
             // clean eventually refresh Requests list
             this.refreshTokenRequestUrls = [];
 

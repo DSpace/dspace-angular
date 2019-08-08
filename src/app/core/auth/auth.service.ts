@@ -224,8 +224,6 @@ export class AuthService {
    * @returns {User}
    */
   public retrieveAuthMethods(): Observable<AuthMethodModel[]> {
-    console.log('auth.service retrieveAuthMethods() was called');
-    // return this.authRequestService.getRequest('login').pipe(
     return this.authRequestService.postToEndpoint('login', {}).pipe(
       map((status: AuthStatus) => {
         let authMethods: AuthMethodModel[];
@@ -236,8 +234,6 @@ export class AuthService {
       })
     )
   }
-
-
 
   /**
    * Create a new user

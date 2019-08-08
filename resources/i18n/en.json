@@ -399,7 +399,6 @@
       "volume-title": "Volume Title",
       "publisher": "Publisher",
       "description": "Description"
-
     },
     "listelement": {
       "badge": "Publication"
@@ -924,14 +923,14 @@
   },
   "login": {
     "title": "Login",
+    "shibboleth": "Shibboleth",
     "form": {
       "header": "Please log in to DSpace",
       "email": "Email address",
       "forgot-password": "Have you forgotten your password?",
       "new-user": "New user? Click here to register.",
       "password": "Password",
-      "submit": "Log in",
-      "ssoLogin": "Shibboleth"
+      "submit": "Log in"
     }
   },
   "logout": {

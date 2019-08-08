@@ -3,7 +3,7 @@ import {RouterModule} from '@angular/router';
 
 import {PageNotFoundComponent} from './pagenotfound/pagenotfound.component';
 import {AuthenticatedGuard} from './core/auth/authenticated.guard';
-import {ShibbolethComponent} from './+login-page/shibboleth/shibboleth.component';
+import {ShibbolethComponent} from './+login-page/shibbolethTargetPage/shibboleth.component';
 
 const ITEM_MODULE_PATH = 'items';
 

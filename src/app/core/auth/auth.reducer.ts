@@ -12,8 +12,8 @@ import {
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
-import { EPerson } from '../eperson/models/eperson.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import {EPerson} from '../eperson/models/eperson.model';
+import {AuthTokenInfo} from './models/auth-token-info.model';
 import {AuthMethodModel} from './models/auth-method.model';
 
 /**
@@ -200,15 +200,13 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         info: undefined,
       });
 
-      // next three cases are used by shibboleth login
+    // next three cases are used by dynamic rendering of login methods
     case AuthActionTypes.RETRIEVE_AUTH_METHODS:
-      console.log('case AuthActionTypes.RETRIEVE_AUTH_METHODS');
       return Object.assign({}, state, {
         loading: true
       });
 
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS:
-      console.log('case RETRIEVE_AUTH_METHODS_SUCCESS');
       return Object.assign({}, state, {
         loading: false,
         authMethods: (action as RetrieveAuthMethodsSuccessAction).payload
