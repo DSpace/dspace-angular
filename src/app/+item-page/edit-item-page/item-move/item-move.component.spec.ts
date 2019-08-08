@@ -103,20 +103,8 @@ describe('ItemMoveComponent', () => {
     });
     it('should load suggestions', () => {
       const expected = [
-        {
-          displayValue: 'Test collection 1',
-          value: {
-            name: 'Test collection 1',
-            object: collection1,
-          }
-        },
-        {
-          displayValue: 'Test collection 2',
-          value: {
-            name: 'Test collection 2',
-            object: collection2,
-          }
-        }
+        collection1,
+        collection2
       ];
 
       comp.collectionSearchResults.subscribe((value) => {
@@ -128,20 +116,18 @@ describe('ItemMoveComponent', () => {
       expect(comp.getCurrentUrl()).toEqual('fake-url/fake-id/edit');
     });
     it('should on click select the correct collection name and id', () => {
-      const data = {
-        name: 'Test collection 1',
-        object: collection1,
-      };
+      const data = collection1;
+
       comp.onClick(data);
 
-      expect(comp.selectedCollection).toEqual('Test collection 1');
-      expect(comp.selectedCollectionObject).toEqual(collection1);
+      expect(comp.selectedCollectionName).toEqual('Test collection 1');
+      expect(comp.selectedCollection).toEqual(collection1);
     });
     describe('moveCollection', () => {
       it('should call itemDataService.moveToCollection', () => {
         comp.itemId = 'item-id';
-        comp.selectedCollection = 'selected-collection-id';
-        comp.selectedCollectionObject = collection1;
+        comp.selectedCollectionName = 'selected-collection-id';
+        comp.selectedCollection = collection1;
         comp.moveCollection();
 
         expect(mockItemDataService.moveToCollection).toHaveBeenCalledWith('item-id', collection1);

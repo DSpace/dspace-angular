@@ -1,23 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {SearchService} from '../../../+search-page/search-service/search.service';
-import {first, map} from 'rxjs/operators';
-import {DSpaceObjectType} from '../../../core/shared/dspace-object-type.model';
-import {SearchOptions} from '../../../+search-page/search-options.model';
-import {RemoteData} from '../../../core/data/remote-data';
-import {DSpaceObject} from '../../../core/shared/dspace-object.model';
-import {PaginatedList} from '../../../core/data/paginated-list';
-import {SearchResult} from '../../../+search-page/search-result.model';
-import {Item} from '../../../core/shared/item.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NotificationsService} from '../../../shared/notifications/notifications.service';
-import {TranslateService} from '@ngx-translate/core';
-import {getSucceededRemoteData} from '../../../core/shared/operators';
-import {ItemDataService} from '../../../core/data/item-data.service';
-import {getItemEditPath} from '../../item-page-routing.module';
-import {Observable} from 'rxjs';
-import {of as observableOf} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { SearchService } from '../../../+search-page/search-service/search.service';
+import { first, map } from 'rxjs/operators';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { SearchOptions } from '../../../+search-page/search-options.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { SearchResult } from '../../../+search-page/search-result.model';
+import { Item } from '../../../core/shared/item.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { getItemEditPath } from '../../item-page-routing.module';
+import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../core/cache/response.models';
 import { Collection } from '../../../core/shared/collection.model';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
   selector: 'ds-item-move',
@@ -31,13 +31,18 @@ export class ItemMoveComponent implements OnInit {
    * TODO: There is currently no backend support to change the owningCollection and inherit policies,
    * TODO: when this is added, the inherit policies option should be used.
    */
+
+  selectorType = DSpaceObjectType.COLLECTION;
+
   inheritPolicies = false;
   itemRD$: Observable<RemoteData<Item>>;
   collectionSearchResults: Observable<any[]> = observableOf([]);
-  selectedCollection: string;
-  selectedCollectionObject: Collection;
+  selectedCollectionName: string;
+  selectedCollection: Collection;
+  canSubmit = false;
 
   itemId: string;
+  processing = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -48,7 +53,7 @@ export class ItemMoveComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemRD$ = this.route.data.pipe(map((data) => data.item),getSucceededRemoteData()) as Observable<RemoteData<Item>>;
+    this.itemRD$ = this.route.data.pipe(map((data) => data.item), getSucceededRemoteData()) as Observable<RemoteData<Item>>;
     this.itemRD$.subscribe((rd) => {
         this.itemId = rd.payload.id;
       }
@@ -76,12 +81,9 @@ export class ItemMoveComponent implements OnInit {
       first(),
       map((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => {
         return rd.payload.page.map((searchResult) => {
-          return {
-            displayValue: searchResult.indexableObject.name,
-            value: {name: searchResult.indexableObject.name, object: searchResult.indexableObject}
-          };
-        });
-      })
+          return searchResult.indexableObject
+        })
+      }) ,
     );
 
   }
@@ -91,8 +93,9 @@ export class ItemMoveComponent implements OnInit {
    * @param data - obtained from the ds-input-suggestions component
    */
   onClick(data: any): void {
-    this.selectedCollection = data.name;
-    this.selectedCollectionObject = data.object;
+    this.selectedCollection = data;
+    this.selectedCollectionName = data.name;
+    this.canSubmit = true;
   }
 
   /**
@@ -106,7 +109,8 @@ export class ItemMoveComponent implements OnInit {
    * Moves the item to a new collection based on the selected collection
    */
   moveCollection() {
-    this.itemDataService.moveToCollection(this.itemId, this.selectedCollectionObject).pipe(first()).subscribe(
+    this.processing = true;
+    this.itemDataService.moveToCollection(this.itemId, this.selectedCollection).pipe(first()).subscribe(
       (response: RestResponse) => {
         this.router.navigate([getItemEditPath(this.itemId)]);
         if (response.isSuccessful) {
@@ -114,8 +118,16 @@ export class ItemMoveComponent implements OnInit {
         } else {
           this.notificationsService.error(this.translateService.get('item.edit.move.error'));
         }
+        this.processing = false;
       }
     );
+  }
 
+  /**
+   * Resets the can submit when the user changes the content of the input field
+   * @param data
+   */
+  resetCollection(data: any) {
+    this.canSubmit = false;
   }
 }

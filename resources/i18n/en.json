@@ -186,6 +186,7 @@
       },
       "move": {
         "head":"Move item: {{id}}",
+        "title":"Move item",
         "description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
         "search.placeholder": "Enter a search query to look for collections",
         "inheritpolicies": {
@@ -193,6 +194,7 @@
           "checkbox": "Inherit policies"
         },
         "move": "Move",
+        "processing": "Moving...",
         "cancel": "Cancel",
         "success": "The item has been moved succesfully",
         "error": "An error occured when attempting to move the item"
