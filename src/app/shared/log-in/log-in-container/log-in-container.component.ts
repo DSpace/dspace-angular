@@ -105,7 +105,7 @@ export class LogInContainerComponent implements OnDestroy, OnInit {
    * @method ngOnDestroy
    */
   public ngOnDestroy() {
-    console.log('ngOnDestroy() in LogInContainerComponent was called');
+    // console.log('ngOnDestroy() in LogInContainerComponent was called');
   }
 
 }
