@@ -20,8 +20,7 @@ import {DynamicIpComponent} from '../ip/dynamic-ip.component';
 })
 export class LogInContainerComponent implements OnDestroy, OnInit {
 
-  private dynamicLoginMethods: Observable<DynamicLoginMethod[]>;
-  private authInfoInjector: Injector;
+  public dynamicLoginMethods: Observable<DynamicLoginMethod[]>;
   /**
    * Injector to inject a section component with the @Input parameters
    * @type {Injector}
@@ -31,15 +30,14 @@ export class LogInContainerComponent implements OnDestroy, OnInit {
 
   /**
    * @constructor
-   * @param {AuthService} authService
-   * @param {FormBuilder} formBuilder
    * @param {Store<State>} store
+   * @param {Injector} injector
    */
   constructor(
     private store: Store<AppState>,
     private injector: Injector
-
-  ) {}
+  ) {
+  }
 
   /**
    * Lifecycle hook that is called after data-bound properties of a directive are initialized.
