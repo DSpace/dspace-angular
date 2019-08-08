@@ -3,7 +3,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, flatMap, map, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { DeleteRequest, GetRequest, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
@@ -12,8 +12,7 @@ import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RemoteData } from './remote-data';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
-import { zip as observableZip, race as observableRace } from 'rxjs';
+import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
 import { compareArraysUsingIds, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
@@ -79,7 +78,7 @@ export class RelationshipService {
    * Get an item its relationships in the form of an array
    * @param item
    */
-  getItemRelationshipsArray(item: Item): Observable<Relationship[]> {
+  getItemRelationshipsArray(item: Item, type?: string): Observable<Relationship[]> {
     return item.relationships.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -88,7 +87,6 @@ export class RelationshipService {
       distinctUntilChanged(compareArraysUsingIds())
     );
   }
-
 
   /**
    * Get an item its relationships in the form of an array
@@ -101,8 +99,8 @@ export class RelationshipService {
         configureRequest(this.requestService),
         switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
         filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
-        switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href))
-      );
+        switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href)),
+      ) as any;
   }
 
   // /**
@@ -152,13 +150,27 @@ export class RelationshipService {
     );
   }
 
+
   /**
-   * Get an item its relationship's right-side related items in the form of an array
+   * Get an item his relationship's right-side related items in the form of an array
    * @param item
    */
   getItemRightRelatedItemArray(item: Item): Observable<Item[]> {
     return this.getItemRelationshipsArray(item).pipe(
       flatMap((rels: Relationship[]) => observableZip(...rels.map((rel: Relationship) => rel.rightItem)).pipe(
+        map(([...arr]: Array<RemoteData<Item>>) => arr.map((rd: RemoteData<Item>) => rd.payload).filter((i) => hasValue(i))),
+        filter((arr) => arr.length === rels.length)
+      )),
+      distinctUntilChanged(compareArraysUsingIds())
+    );
+  }
+  /**
+   * Get an item its relationship's right-side related items in the form of an array
+   * @param item
+   */
+  getItemLeftRelatedItemArray(item: Item): Observable<Item[]> {
+    return this.getItemRelationshipsArray(item).pipe(
+      flatMap((rels: Relationship[]) => observableZip(...rels.map((rel: Relationship) => rel.leftItem)).pipe(
         map(([...arr]: Array<RemoteData<Item>>) => arr.map((rd: RemoteData<Item>) => rd.payload).filter((i) => hasValue(i))),
         filter((arr) => arr.length === rels.length)
       )),
@@ -177,14 +189,13 @@ export class RelationshipService {
       map((relationshipsListRD: RemoteData<PaginatedList<Relationship>>) => relationshipsListRD.payload.page),
       switchMap((relationships: Relationship[]) => observableCombineLatest(relationships.map((relationship: Relationship) => this.getRelationshipTypeLabelByRelationshipAndItem(relationship, item)))),
       map((labels: string[]) => Array.from(new Set(labels)))
-    )
+    );
   }
 
   private getRelationshipTypeLabelByRelationshipAndItem(relationship: Relationship, item: Item): Observable<string> {
     return relationship.leftItem.pipe(
       getSucceededRemoteData(),
       map((itemRD: RemoteData<Item>) => itemRD.payload),
-      filter((otherItem: Item) => otherItem.uuid == item.uuid),
       switchMap((otherItem: Item) => relationship.relationshipType.pipe(
         getSucceededRemoteData(),
         map((relationshipTypeRD) => relationshipTypeRD.payload),
@@ -204,9 +215,7 @@ export class RelationshipService {
    * @param item
    */
   getRelatedItems(item: Item): Observable<Item[]> {
-    return this.getItemRelationships(item).pipe(
-      getSucceededRemoteData(),
-      map((relationshipsListRD: RemoteData<PaginatedList<Relationship>>) => relationshipsListRD.payload.page),
+    return this.getItemRelationshipsArray(item).pipe(
       relationsToItems(item.uuid)
     );
   }
@@ -222,6 +231,57 @@ export class RelationshipService {
       getSucceededRemoteData(),
       map((relationshipsListRD: RemoteData<PaginatedList<Relationship>>) => relationshipsListRD.payload.page),
       relationsToItems(item.uuid)
+    );
+  }
+
+
+  /**
+   * Method for fetching an item's relationships, but filtered by related item IDs (essentially performing a reverse lookup)
+   * Only relationships where leftItem or rightItem's ID is present in the list provided will be returned
+   * @param item
+   * @param uuids
+   */
+  getRelationshipsByRelatedItemIds(item: Item, uuids: string[]): Observable<Relationship[]> {
+    return this.getItemRelationshipsArray(item).pipe(
+      switchMap((relationships: Relationship[]) => {
+        return observableCombineLatest(...relationships.map((relationship: Relationship) => {
+          const isLeftItem$ = this.isItemInUUIDArray(relationship.leftItem, uuids);
+          const isRightItem$ = this.isItemInUUIDArray(relationship.rightItem, uuids);
+          return observableCombineLatest(isLeftItem$, isRightItem$).pipe(
+            filter(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
+            map(() => relationship),
+            startWith(undefined)
+          );
+        }))
+      }),
+      map((relationships: Relationship[]) => {
+        const test = relationships.filter((relationship => hasValue(relationship))); console.log(test); return test;
+      }),
+      tap((ids) => console.log(ids))
+    )
+  }
+
+  private isItemInUUIDArray(itemRD$: Observable<RemoteData<Item>>, uuids: string[]) {
+    return itemRD$.pipe(
+      getSucceededRemoteData(),
+      map((itemRD: RemoteData<Item>) => itemRD.payload),
+      map((item: Item) => uuids.includes(item.uuid))
+    );
+  }
+
+
+
+
+  /**
+   * Get a combined observable containing an array of all the item's relationship's left- and right-side items, as well as an array of the relationships themselves
+   * This is used for easier access of the relationship and their left and right items because they exist as observables
+   * @param item
+   */
+  getItemResolvedRelatedItemsAndRelationships(item: Item): Observable<[Item[], Item[], Relationship[]]> {
+    return observableCombineLatest(
+      this.getItemLeftRelatedItemArray(item),
+      this.getItemRightRelatedItemArray(item),
+      this.getItemRelationshipsArray(item)
     );
   }
 

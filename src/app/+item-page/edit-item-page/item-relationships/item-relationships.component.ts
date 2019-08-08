@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
+import { filter, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { zip as observableZip } from 'rxjs';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -115,6 +115,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
     const removedRelationships$ = removedItemIds$.pipe(
       getRelationsByRelatedItemIds(this.item, this.relationshipService)
     );
+    // const removedRelationships$ = removedItemIds$.pipe(flatMap((uuids: string[]) => this.relationshipService.getRelationshipsByRelatedItemIds(this.item, uuids)));
     // Request a delete for every relationship found in the observable created above
     removedRelationships$.pipe(
       take(1),

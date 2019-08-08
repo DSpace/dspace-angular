@@ -7,7 +7,7 @@ import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { distinctUntilChanged, flatMap, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, flatMap, map, startWith, switchMap } from 'rxjs/operators';
 import {
   combineLatest as observableCombineLatest,
   of as observableOf,
@@ -16,6 +16,8 @@ import {
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -26,7 +28,7 @@ import { RelationshipService } from '../../../../core/data/relationship.service'
  */
 export const compareArraysUsing = <T>(mapFn: (t: T) => any) =>
   (a: T[], b: T[]): boolean => {
-    if (!Array.isArray(a) || ! Array.isArray(b)) {
+    if (!Array.isArray(a) || !Array.isArray(b)) {
       return false
     }
 
@@ -152,6 +154,7 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
         )
       )
     );
+
 
 /**
  * Operator for fetching an item's relationships, but filtered by related item IDs (essentially performing a reverse lookup)
