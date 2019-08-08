@@ -63,8 +63,8 @@ export class LogInContainerComponent implements OnDestroy, OnInit {
                 return new DynamicLoginMethod(authMethod.authMethodName, LogInComponent)
                 break;
               case AuthMethodConstants.SHIBBOLETH:
-                // this.shibbolethUrl = authMethod.location;
-                this.shibbolethUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at/shibboleth';
+                this.shibbolethUrl = authMethod.location;
+                // this.shibbolethUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at/shibboleth';
                 return new DynamicLoginMethod(authMethod.authMethodName, DynamicShibbolethComponent, authMethod.location)
                 break;
               case AuthMethodConstants.LDAP:
