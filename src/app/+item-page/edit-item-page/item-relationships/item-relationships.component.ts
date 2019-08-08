@@ -21,7 +21,6 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { getRelationsByRelatedItemIds } from '../../simple/item-types/shared/item-relationships-utils';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -113,7 +112,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
     );
     // Get all the relationships that should be removed
     const removedRelationships$ = removedItemIds$.pipe(
-      getRelationsByRelatedItemIds(this.item, this.relationshipService)
+      flatMap((uuids) => this.relationshipService.getRelationshipsByRelatedItemIds(this.item, uuids))
     );
     // const removedRelationships$ = removedItemIds$.pipe(flatMap((uuids: string[]) => this.relationshipService.getRelationshipsByRelatedItemIds(this.item, uuids)));
     // Request a delete for every relationship found in the observable created above

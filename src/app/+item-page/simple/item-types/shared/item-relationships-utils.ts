@@ -154,18 +154,3 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
         )
       )
     );
-
-
-/**
- * Operator for fetching an item's relationships, but filtered by related item IDs (essentially performing a reverse lookup)
- * Only relationships where leftItem or rightItem's ID is present in the list provided will be returned
- * @param item
- * @param relationshipService
- */
-export const getRelationsByRelatedItemIds = (item: Item, relationshipService: RelationshipService) =>
-  (source: Observable<string[]>): Observable<Relationship[]> =>
-    source.pipe(
-      flatMap((relatedItemIds: string[]) => relationshipService.getItemResolvedRelatedItemsAndRelationships(item).pipe(
-        map(([leftItems, rightItems, rels]) => rels.filter((rel: Relationship, index: number) => relatedItemIds.indexOf(leftItems[index].uuid) > -1 || relatedItemIds.indexOf(rightItems[index].uuid) > -1))
-      ))
-    );
