@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -52,7 +53,7 @@ describe('BitstreamFormatsComponent', () => {
       extensions: null
     }
   ];
-  const mockFormats = observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockFormatsList)));
+  const mockFormats = createSuccessfulRemoteDataObject$(new PaginatedList(null, mockFormatsList));
   const registryServiceStub = {
     getBitstreamFormats: () => mockFormats
   };

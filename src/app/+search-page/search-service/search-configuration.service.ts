@@ -21,6 +21,7 @@ import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SearchFixedFilterService } from '../search-filters/search-filter/search-fixed-filter.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -269,7 +270,7 @@ export class SearchConfigurationService implements OnDestroy {
         scope: this.defaultScope,
         query: this.defaultQuery
       });
-      this._defaults = observableOf(new RemoteData(false, false, true, null, options));
+      this._defaults = createSuccessfulRemoteDataObject$(options);
     }
     return this._defaults;
   }
