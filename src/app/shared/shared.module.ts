@@ -138,10 +138,12 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
-import {DynamicTestComponent} from './log-in/DynamicTestComponent/dynamic-test.component';
 import {LogInContainerComponent} from './log-in/log-in-container/log-in-container.component';
 import {s} from '@angular/core/src/render3';
 import {DynamicShibbolethComponent} from './log-in/shibboleth/dynamic-shibboleth.component';
+import {DynamicLdapComponent} from './log-in/ldap/dynamic-ldap.component';
+import {DynamicIpComponent} from './log-in/ip/dynamic-ip.component';
+import {DynamicX509Component} from './log-in/x509/dynamic-x509.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -263,7 +265,9 @@ const COMPONENTS = [
   ItemTypeSwitcherComponent,
   BrowseByComponent,
   LogInContainerComponent,
-  DynamicShibbolethComponent
+  DynamicShibbolethComponent,
+  DynamicLdapComponent,
+  DynamicIpComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -307,10 +311,11 @@ const ENTRY_COMPONENTS = [
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
-  DynamicTestComponent,
+  DynamicLdapComponent,
   LogInComponent,
-  DynamicShibbolethComponent
-
+  DynamicShibbolethComponent,
+  DynamicIpComponent,
+  DynamicX509Component
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

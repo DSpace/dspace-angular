@@ -32,8 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
   // we're creating a refresh token request list
   protected refreshTokenRequestUrls = [];
 
-  private
-
   constructor(private inj: Injector, private router: Router, private store: Store<AppState>) {
   }
 
@@ -89,7 +87,7 @@ export class AuthInterceptor implements HttpInterceptor {
         const authMethod: AuthMethodModel = new AuthMethodModel(methodName);
         // check if the authentication method is  shibboleth
         // if so the next part is the shibboleth location
-        // e.g part i: shibboleth realm="DSpace REST API", part i+1:  location="/Shibboleth.sso/Login?target=https%3A%2F%2Flocalhost%3A8080"
+        // e.g part i: shibboleth realm="DSpace REST API", part i+1:  location="/Shibboleth.sso/Login?target=https://serverUrl"
         if (methodName.includes('shibboleth')) {
           const location: string = this.parseShibbolethLocation(parts[+i + 1]); // +1:  unaray + operator is necessaray because i is a string, the operator works like parseInt()
           // console.log('shib location: ', location);
@@ -98,7 +96,7 @@ export class AuthInterceptor implements HttpInterceptor {
         authMethodModels.push(authMethod);
       }
     }
-    console.log('Array of AuthMethodModels: ', authMethodModels);
+    // console.log('Array of AuthMethodModels: ', authMethodModels);
     return authMethodModels;
   }
 

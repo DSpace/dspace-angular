@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GetJWTafterShibbLoginAction} from '../../core/auth/auth.actions';
 import {Store} from '@ngrx/store';
 import {CoreState} from '../../core/core.reducers';
@@ -22,6 +22,7 @@ export class ShibbolethComponent implements OnInit {
     this.store.dispatch(new GetJWTafterShibbLoginAction());
   }
 
-  constructor( private store: Store<CoreState>,) { }
+  constructor(private store: Store<CoreState>,) {
+  }
 
 }

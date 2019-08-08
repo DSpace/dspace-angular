@@ -1,10 +1,5 @@
-/**
- * /users/sign-in
- * @class LogInComponent
- */
+
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {InputDecorator} from '@angular/core/src/metadata/directives';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'ds-dynamic-shibboleth',

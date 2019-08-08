@@ -20,7 +20,6 @@ import {CoreState} from '../../../core/core.reducers';
 import {isNotEmpty} from '../../empty.util';
 import {fadeOut} from '../../animations/fade';
 import {AuthService} from '../../../core/auth/auth.service';
-import {DynamicTestComponent} from '../DynamicTestComponent/dynamic-test.component';
 
 /**
  * /users/sign-in
@@ -82,7 +81,7 @@ export class LogInComponent implements OnDestroy, OnInit {
    */
   private alive = true;
 
-  dynamicLoginMethods: any;
+
 
   /**
    * @constructor
@@ -102,13 +101,6 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
-
-    this.dynamicLoginMethods =  this.dynamicLoginMethods =  [
-      {
-        label: 'TestComponent',
-        component: DynamicTestComponent
-      }
-    ];
 
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));

@@ -1,21 +1,21 @@
-import {Component, Injector, OnDestroy, OnInit, ReflectiveInjector} from '@angular/core';
-import {AuthState} from '../../../core/auth/auth.reducer';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {DynamicTestComponent} from '../DynamicTestComponent/dynamic-test.component';
 import {LogInComponent} from '../password/log-in.component';
 import {DynamicShibbolethComponent} from '../shibboleth/dynamic-shibboleth.component';
 import {getAuthenticationMethods} from '../../../core/auth/selectors';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {AppState} from '../../../app.reducer';
 import {Observable} from 'rxjs';
 import {DynamicLoginMethod} from './log-in-container.model';
-import {AuthMethodConstants, AuthMethodModel} from '../../../core/auth/models/auth-method.model';
-import {ShibbolethComponent} from '../../../+login-page/shibboleth/shibboleth.component';
+import {AuthMethodConstants} from '../../../core/auth/models/auth-method.model';
+import {DynamicLdapComponent} from '../ldap/dynamic-ldap.component';
+import {DynamicX509Component} from '../x509/dynamic-x509.component';
+import {DynamicIpComponent} from '../ip/dynamic-ip.component';
 
 @Component({
   selector: 'ds-log-in-container',
   templateUrl: './log-in-container.component.html',
-  // styleUrls: ['./log-in.component.scss'],
+  styleUrls: ['./log-in-container.component.scss'],
 
 })
 export class LogInContainerComponent implements OnDestroy, OnInit {
@@ -50,8 +50,8 @@ export class LogInContainerComponent implements OnDestroy, OnInit {
     this.objectInjector = Injector.create({
       providers: [
         {provide: 'shibbolethUrlProvider', useFactory: () => (this.shibbolethUrl), deps: []},
-        // {provide: 'sectionDataProvider', useFactory: () => (this.sectionData), deps: []},
-        // {provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: []},
+        // if other authentication methods need further data to work add a provider here e.g
+        // {provide: 'otherDataProvider', useFactory: () => (this.otherData), deps: []},
       ],
       parent: this.injector
     });
@@ -66,6 +66,15 @@ export class LogInContainerComponent implements OnDestroy, OnInit {
                 // this.shibbolethUrl = authMethod.location;
                 this.shibbolethUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at/shibboleth';
                 return new DynamicLoginMethod(authMethod.authMethodName, DynamicShibbolethComponent, authMethod.location)
+                break;
+              case AuthMethodConstants.LDAP:
+                return new DynamicLoginMethod(authMethod.authMethodName, DynamicLdapComponent)
+                break;
+              case AuthMethodConstants.IP:
+                return new DynamicLoginMethod(authMethod.authMethodName, DynamicIpComponent)
+                break;
+              case AuthMethodConstants.X509:
+                return new DynamicLoginMethod(authMethod.authMethodName, DynamicX509Component)
                 break;
               default:
                 break;
@@ -82,10 +91,6 @@ export class LogInContainerComponent implements OnDestroy, OnInit {
      {
        label: 'PasswordComponent',
        component: LogInComponent
-     },
-     {
-       label: 'TestComponent',
-       component: DynamicTestComponent
      },
      {
        label: 'ShibbolethComponent',
