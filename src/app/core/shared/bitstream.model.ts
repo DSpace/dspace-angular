@@ -3,8 +3,10 @@ import { RemoteData } from '../data/remote-data';
 import { Item } from './item.model';
 import { BitstreamFormat } from './bitstream-format.model';
 import { Observable } from 'rxjs';
+import { ResourceType } from './resource-type';
 
 export class Bitstream extends DSpaceObject {
+  static type = new ResourceType('bitstream');
 
   /**
    * The size of this bitstream in bytes
@@ -40,5 +42,4 @@ export class Bitstream extends DSpaceObject {
    * The URL to retrieve this Bitstream's file
    */
   content: string;
-
 }

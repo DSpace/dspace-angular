@@ -10,6 +10,7 @@ import * as communityRouter from '../../../../+community-page/community-page-rou
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 import { Community } from '../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 describe('EditCommunitySelectorComponent', () => {
   let component: EditCommunitySelectorComponent;
@@ -20,7 +21,7 @@ describe('EditCommunitySelectorComponent', () => {
   community.uuid = '1234-1234-1234-1234';
   community.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Community title', language: undefined })] };
   const router = new RouterStub();
-  const communityRD = new RemoteData(false, false, true, undefined, community);
+  const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const editPath = 'testEditPath';
 

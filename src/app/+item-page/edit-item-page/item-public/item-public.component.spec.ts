@@ -16,6 +16,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemPublicComponent } from './item-public.component';
 import { RestResponse } from '../../../core/cache/response.models';
+import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
 
 let comp: ItemPublicComponent;
 let fixture: ComponentFixture<ItemPublicComponent>;
@@ -50,7 +51,7 @@ describe('ItemPublicComponent', () => {
 
     routeStub = {
       data: observableOf({
-        item: new RemoteData(false, false, true, null, {
+        item: createSuccessfulRemoteDataObject({
           id: 'fake-id'
         })
       })

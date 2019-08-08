@@ -6,24 +6,24 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
-import { Workspaceitem } from './models/workspaceitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions } from '../data/request.models';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { WorkspaceItem } from './models/workspaceitem.model';
 
 /**
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
 @Injectable()
-export class WorkspaceitemDataService extends DataService<Workspaceitem> {
+export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
   protected forceBypassCache = true;
 
   constructor(
-    protected comparator: DSOChangeAnalyzer<Workspaceitem>,
+    protected comparator: DSOChangeAnalyzer<WorkspaceItem>,
     protected dataBuildService: NormalizedObjectBuildService,
     protected halService: HALEndpointService,
     protected http: HttpClient,

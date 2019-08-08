@@ -9,12 +9,12 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { MetadataSchema } from '../metadata/metadataschema.model';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ChangeAnalyzer } from './change-analyzer';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetadataSchema> {

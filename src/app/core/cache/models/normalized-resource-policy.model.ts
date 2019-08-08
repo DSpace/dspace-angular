@@ -12,7 +12,6 @@ import { ActionType } from './action-type.model';
 @mapsTo(ResourcePolicy)
 @inheritSerialization(NormalizedObject)
 export class NormalizedResourcePolicy extends NormalizedObject<ResourcePolicy> {
-
   /**
    * The action that is allowed by this Resource Policy
    */

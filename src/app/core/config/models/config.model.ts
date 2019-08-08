@@ -9,11 +9,6 @@ export abstract class ConfigObject implements CacheableObject {
   public name: string;
 
   /**
-   * A string representing the kind of config object
-   */
-  public type: ResourceType;
-
-  /**
    * The links to all related resources returned by the rest api.
    */
   public _links: {

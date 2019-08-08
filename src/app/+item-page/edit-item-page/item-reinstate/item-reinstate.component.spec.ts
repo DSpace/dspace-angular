@@ -16,6 +16,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ItemReinstateComponent } from './item-reinstate.component';
 import { RestResponse } from '../../../core/cache/response.models';
+import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
 
 let comp: ItemReinstateComponent;
 let fixture: ComponentFixture<ItemReinstateComponent>;
@@ -50,7 +51,7 @@ describe('ItemReinstateComponent', () => {
 
     routeStub = {
       data: observableOf({
-        item: new RemoteData(false, false, true, null, {
+        item: createSuccessfulRemoteDataObject({
           id: 'fake-id'
         })
       })

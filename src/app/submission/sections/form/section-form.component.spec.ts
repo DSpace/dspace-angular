@@ -34,7 +34,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormFieldModel } from '../../../shared/form/builder/models/form-field.model';
-import { FormRowModel } from '../../../core/config/models/config-submission-forms.model';
 import { ConfigData } from '../../../core/config/config-data';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
@@ -43,6 +42,7 @@ import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-for
 import { SubmissionSectionError } from '../../objects/submission-objects.reducer';
 import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
