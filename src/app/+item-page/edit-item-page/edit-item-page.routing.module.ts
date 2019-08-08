@@ -111,6 +111,7 @@ export function getItemEditMovePath(id: string) {
       {
         path: ITEM_EDIT_MOVE_PATH,
         component: ItemMoveComponent,
+        data: {title: 'item.edit.move.title'},
         resolve: {
           item: ItemPageResolver
         }

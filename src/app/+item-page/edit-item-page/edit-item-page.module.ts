@@ -40,7 +40,7 @@ import { EditItemPageRoutingModule } from './edit-item-page.routing.module';
     ItemMetadataComponent,
     ItemBitstreamsComponent,
     EditInPlaceFieldComponent,
-    ItemMoveComponent
+    ItemMoveComponent,
   ]
 })
 export class EditItemPageModule {
