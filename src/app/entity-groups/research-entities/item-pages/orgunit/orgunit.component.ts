@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 @rendersItemType('OrgUnit', ItemViewMode.Detail)
 @Component({
@@ -33,18 +31,8 @@ export class OrgunitComponent extends ItemComponent implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
-
-    if (isNotEmpty(this.resolvedRelsAndTypes$)) {
-      this.people$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPersonOfOrgUnit')
-      );
-
-      this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfOrgUnit')
-      );
-
-      this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfOrgUnit')
-      );
-    }
-  }}
+    this.people$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isPersonOfOrgUnit');
+    this.projects$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isProjectOfOrgUnit');
+    this.publications$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isPublicationOfOrgUnit');
+  }
+}

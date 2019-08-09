@@ -7,7 +7,6 @@ import {
 } from '../../../../shared/items/item-type-decorator';
 import { ItemComponent } from '../shared/item.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { getRelatedItemsByTypeLabel } from '../shared/item-relationships-utils';
 
 @rendersItemType('Publication', ItemViewMode.Detail)
 @rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Detail)
@@ -41,22 +40,12 @@ export class PublicationComponent extends ItemComponent implements OnInit {
   ngOnInit(): void {
     super.ngOnInit();
 
-    if (this.resolvedRelsAndTypes$) {
+    this.authors$ = this.buildRepresentations('Person', 'dc.contributor.author');
 
-      this.authors$ = this.buildRepresentations('Person', 'dc.contributor.author');
+    this.projects$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isProjectOfPublication');
 
-      this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPublication')
-      );
+    this.orgUnits$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isOrgUnitOfPublication');
 
-      this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPublication')
-      );
-
-      this.journalIssues$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isJournalIssueOfPublication')
-      );
-
-    }
+    this.journalIssues$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isJournalIssueOfPublication');
   }
 }

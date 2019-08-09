@@ -3,10 +3,9 @@ import { Observable, of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { getQueryByRelations } from '../../../../shared/utils/relation-query.utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 @rendersItemType('Person', ItemViewMode.Detail)
 @Component({
@@ -44,28 +43,19 @@ export class PersonComponent extends ItemComponent {
   fixedFilterQuery: string;
 
   constructor(
-    @Inject(ITEM) public item: Item
+    @Inject(ITEM) public item: Item,
+    protected relationshipService: RelationshipService
   ) {
-    super(item);
+    super(item, relationshipService);
   }
+
   ngOnInit(): void {
     super.ngOnInit();
+    this.publications$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isPublicationOfAuthor');
+    this.projects$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isProjectOfPerson');
+    this.orgUnits$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isOrgUnitOfPerson');
 
-    if (isNotEmpty(this.resolvedRelsAndTypes$)) {
-      this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfAuthor')
-      );
-
-      this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPerson')
-      );
-
-      this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPerson')
-      );
-
-      this.fixedFilterQuery = getQueryByRelations('isAuthorOfPublication', this.item.id);
-      this.fixedFilter$ = observableOf('publication');
-    }
+    this.fixedFilterQuery = getQueryByRelations('isAuthorOfPublication', this.item.id);
+    this.fixedFilter$ = observableOf('publication');
   }
 }

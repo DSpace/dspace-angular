@@ -3,7 +3,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, flatMap, map, startWith, switchAll, switchMap, tap } from 'rxjs/operators';
 import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { DeleteRequest, GetRequest, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
@@ -18,7 +18,6 @@ import { ItemDataService } from './item-data.service';
 import { compareArraysUsingIds, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HttpHeaders } from '@angular/common/http';
-import { RequestEntry } from './request.reducer';
 
 /**
  * The service handling all relationship requests
@@ -88,36 +87,36 @@ export class RelationshipService {
     );
   }
 
-  /**
-   * Get an item its relationships in the form of an array
-   * @param item
-   */
-  getItemRelationships(item: Item): Observable<RemoteData<PaginatedList<Relationship>>> {
-    return this.halService.getEndpoint('items/' + item.uuid + '/relationships')
-      .pipe(
-        map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
-        configureRequest(this.requestService),
-        switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-        filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
-        switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href)),
-      ) as any;
-  }
-
-  /**
-   * Get an item its relationships in the form of an array
-   * @param item
-   */
-  getItemRelationshipsByType(item: Item, relationshipTypeLabel: string): Observable<RemoteData<PaginatedList<Relationship>>> {
-    return this.halService.getEndpoint(this.linkPath + '/search/byLabel')
-      .pipe(
-        map((endpointURL: string) => `${endpointURL}?label=${relationshipTypeLabel}&dso=${item.uuid}`),
-        map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
-        configureRequest(this.requestService),
-        switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-        filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
-        switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href))
-      );
-  }
+  // /**
+  //  * Get an item its relationships in the form of an array
+  //  * @param item
+  //  */
+  // getItemRelationships(item: Item): Observable<RemoteData<PaginatedList<Relationship>>> {
+  //   return this.halService.getEndpoint('items/' + item.uuid + '/relationships')
+  //     .pipe(
+  //       map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
+  //       configureRequest(this.requestService),
+  //       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
+  //       filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
+  //       switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href)),
+  //     ) as any;
+  // }
+  //
+  // /**
+  //  * Get an item its relationships in the form of an array
+  //  * @param item
+  //  */
+  // getItemRelationshipsByType(item: Item, relationshipTypeLabel: string): Observable<RemoteData<PaginatedList<Relationship>>> {
+  //   return this.halService.getEndpoint(this.linkPath + '/search/byLabel')
+  //     .pipe(
+  //       map((endpointURL: string) => `${endpointURL}?label=${relationshipTypeLabel}&dso=${item.uuid}`),
+  //       map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
+  //       configureRequest(this.requestService),
+  //       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
+  //       filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
+  //       switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href))
+  //     );
+  // }
 
 
   /**
@@ -142,9 +141,7 @@ export class RelationshipService {
    * @param item
    */
   getRelationshipTypeLabelsByItem(item: Item): Observable<string[]> {
-    return this.getItemRelationships(item).pipe(
-      getSucceededRemoteData(),
-      map((relationshipsListRD: RemoteData<PaginatedList<Relationship>>) => relationshipsListRD.payload.page),
+    return this.getItemRelationshipsArray(item).pipe(
       switchMap((relationships: Relationship[]) => observableCombineLatest(relationships.map((relationship: Relationship) => this.getRelationshipTypeLabelByRelationshipAndItem(relationship, item)))),
       map((labels: string[]) => Array.from(new Set(labels)))
     );
@@ -184,12 +181,39 @@ export class RelationshipService {
    * @param item
    * @param label
    */
-  //TODO THIS THING IS CAUSING ISSUES (the getbytype thingie)
   getRelatedItemsByLabel(item: Item, label: string): Observable<Item[]> {
-    return this.getItemRelationshipsByType(item, label).pipe(
-      getSucceededRemoteData(),
-      map((relationshipsListRD: RemoteData<PaginatedList<Relationship>>) => relationshipsListRD.payload.page),
-      relationsToItems(item.uuid)
+    return this.getItemRelationshipsByLabel(item, label).pipe(relationsToItems(item.uuid));
+  }
+
+
+  /**
+   * Resolve a given item's relationships into related items, filtered by a relationship label
+   * and return the items as an array
+   * @param item
+   * @param label
+   */
+  getItemRelationshipsByLabel(item: Item, label: string): Observable<Relationship[]> {
+    return this.getItemRelationshipsArray(item).pipe(
+      switchMap((relationships: Relationship[]) => {
+        return observableCombineLatest(
+          ...relationships.map((relationship: Relationship) => {
+            return relationship.relationshipType.pipe(
+              getSucceededRemoteData(),
+              getRemoteDataPayload(),
+              map((relationshipType: RelationshipType) => {
+                if (label === relationshipType.rightLabel || label === relationshipType.leftLabel) {
+                  return relationship;
+                } else {
+                  return undefined;
+                }
+              }),
+            )
+          })
+        )
+      }),
+      map((relationships: Relationship[]) =>
+        relationships.filter((relationship: Relationship) => hasValue(relationship))
+      ),
     );
   }
 
@@ -213,10 +237,7 @@ export class RelationshipService {
           );
         }))
       }),
-      map((relationships: Relationship[]) => {
-        const test = relationships.filter((relationship => hasValue(relationship))); console.log(test); return test;
-      }),
-      tap((ids) => console.log(ids))
+      map((relationships: Relationship[]) => relationships.filter((relationship => hasValue(relationship)))),
     )
   }
 

@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 @rendersItemType('Journal', ItemViewMode.Detail)
 @Component({
@@ -23,11 +21,6 @@ export class JournalComponent extends ItemComponent {
 
   ngOnInit(): void {
     super.ngOnInit();
-
-    if (isNotEmpty(this.resolvedRelsAndTypes$)) {
-      this.volumes$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isVolumeOfJournal')
-      );
-    }
+    this.volumes$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isVolumeOfJournal');
   }
 }

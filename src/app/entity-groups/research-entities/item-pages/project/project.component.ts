@@ -3,9 +3,7 @@ import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 @rendersItemType('Project', ItemViewMode.Detail)
 @Component({
@@ -39,21 +37,10 @@ export class ProjectComponent extends ItemComponent implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.contributors$ = this.buildRepresentations('OrgUnit', 'project.contributor.other');
 
-    if (isNotEmpty(this.resolvedRelsAndTypes$)) {
-      this.contributors$ = this.buildRepresentations('OrgUnit', 'project.contributor.other');
-
-      this.people$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPersonOfProject')
-      );
-
-      this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfProject')
-      );
-
-      this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfProject')
-      );
-    }
+    this.people$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isPersonOfProject');
+    this.publications$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isPublicationOfProject');
+    this.orgUnits$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isOrgUnitOfProject');
   }
 }

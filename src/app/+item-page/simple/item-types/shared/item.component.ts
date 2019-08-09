@@ -15,6 +15,7 @@ import { MetadatumRepresentation } from '../../../../core/shared/metadata-repres
 import { of } from 'rxjs/internal/observable/of';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { compareArraysUsingIds } from './item-relationships-utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 /**
  * Operator for turning a list of relationships into a list of metadatarepresentations given the original metadata
@@ -62,39 +63,12 @@ export const relationsToRepresentations = (thisId: string, itemType: string, met
  * A generic component for displaying metadata and relations of an item
  */
 export class ItemComponent implements OnInit {
-  /**
-   * Resolved relationships and types together in one observable
-   */
-  resolvedRelsAndTypes$: Observable<[Relationship[], RelationshipType[]]>;
-
   constructor(
-    @Inject(ITEM) public item: Item
+    @Inject(ITEM) public item: Item,
+    protected relationshipService: RelationshipService
   ) {}
 
   ngOnInit(): void {
-    const relationships$ = this.item.relationships;
-    if (relationships$) {
-      const relsCurrentPage$ = relationships$.pipe(
-        filter((rd: RemoteData<PaginatedList<Relationship>>) => rd.hasSucceeded),
-        getRemoteDataPayload(),
-        map((pl: PaginatedList<Relationship>) => pl.page),
-        distinctUntilChanged(compareArraysUsingIds())
-      );
-
-      const relTypesCurrentPage$ = relsCurrentPage$.pipe(
-        flatMap((rels: Relationship[]) =>
-          observableZip(...rels.map((rel: Relationship) => rel.relationshipType)).pipe(
-            map(([...arr]: Array<RemoteData<RelationshipType>>) => arr.map((d: RemoteData<RelationshipType>) => d.payload))
-          )
-        ),
-        distinctUntilChanged(compareArraysUsingIds())
-      );
-
-      this.resolvedRelsAndTypes$ = observableCombineLatest(
-        relsCurrentPage$,
-        relTypesCurrentPage$
-      );
-    }
   }
 
   /**
