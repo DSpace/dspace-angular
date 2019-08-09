@@ -3,7 +3,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, flatMap, map, startWith, switchAll, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, flatMap, map, startWith, switchAll, switchMap, tap } from 'rxjs/operators';
 import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { DeleteRequest, GetRequest, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
@@ -44,10 +44,10 @@ export class RelationshipService {
 
   /**
    * Send a delete request for a relationship by ID
-   * @param uuid
+   * @param id
    */
-  deleteRelationship(uuid: string): Observable<RestResponse> {
-    return this.getRelationshipEndpoint(uuid).pipe(
+  deleteRelationship(id: string): Observable<RestResponse> {
+    return this.getRelationshipEndpoint(id).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
@@ -117,23 +117,6 @@ export class RelationshipService {
   //       switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href))
   //     );
   // }
-
-
-  /**
-   * Get an item its relationship types in the form of an array
-   * @param item
-   */
-  getItemRelationshipTypesArray(item: Item): Observable<RelationshipType[]> {
-    return this.getItemRelationshipsArray(item).pipe(
-      flatMap((rels: Relationship[]) =>
-        observableZip(...rels.map((rel: Relationship) => rel.relationshipType)).pipe(
-          map(([...arr]: Array<RemoteData<RelationshipType>>) => arr.map((d: RemoteData<RelationshipType>) => d.payload).filter((type) => hasValue(type))),
-          filter((arr) => arr.length === rels.length)
-        )
-      ),
-      distinctUntilChanged(compareArraysUsingIds())
-    );
-  }
 
   /**
    * Get an array of the labels of an item’s unique relationship types
@@ -248,4 +231,34 @@ export class RelationshipService {
       map((item: Item) => uuids.includes(item.uuid))
     );
   }
+
+
+  getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string): Observable<Relationship> {
+    return this.getItemRelationshipsByLabel(item1, label)
+      .pipe(
+        switchMap((relationships: Relationship[]) => {
+          return observableCombineLatest(...relationships.map((relationship: Relationship) => {
+            return observableCombineLatest(
+              this.isItemMatchWithItemRD(relationship.leftItem, item2),
+              this.isItemMatchWithItemRD(relationship.rightItem, item2)
+            ).pipe(
+              filter(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
+              map(() => relationship),
+              startWith(undefined)
+            );
+          }))
+        }),
+        map((relationships: Relationship[]) => relationships.find((relationship => hasValue(relationship)))),
+      )
+  }
+
+
+  private isItemMatchWithItemRD(itemRD$: Observable<RemoteData<Item>>, itemCheck: Item): Observable<boolean> {
+    return itemRD$.pipe(
+      getSucceededRemoteData(),
+      map((itemRD: RemoteData<Item>) => itemRD.payload),
+      map((item: Item) => item.uuid === itemCheck.uuid)
+    );
+  }
+
 }
