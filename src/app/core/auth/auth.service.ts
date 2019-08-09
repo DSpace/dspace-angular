@@ -122,15 +122,15 @@ export class AuthService {
     const password = 'rest'
     const body = (`password=${Base64EncodeUrl(password)}&user=${Base64EncodeUrl(user)}`);
     const options: HttpOptions = Object.create({});*/
-    let headers = new HttpHeaders();
-    headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    // let headers = new HttpHeaders();
+    // headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
     // options.headers = headers;
     return this.authRequestService.postToEndpoint('login').pipe(
       map((status: AuthStatus) => {
         if (status.authenticated) {
           return status;
         } else {
-          throw(new Error('Invalid email or password'));
+          throw(new Error('Shibboleth login failed'));
         }
       }))
 
