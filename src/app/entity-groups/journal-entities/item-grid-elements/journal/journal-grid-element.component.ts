@@ -10,5 +10,8 @@ import { TypedItemSearchResultGridElementComponent } from '../../../../shared/ob
   templateUrl: './journal-grid-element.component.html',
   animations: [focusShadow]
 })
+/**
+ * The component for displaying a grid element for an item of the type Journal
+ */
 export class JournalGridElementComponent extends TypedItemSearchResultGridElementComponent {
 }

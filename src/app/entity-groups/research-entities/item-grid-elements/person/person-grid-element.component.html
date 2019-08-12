@@ -9,16 +9,16 @@
     <div class="card-body">
       <ds-item-type-badge [object]="object"></ds-item-type-badge>
       <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
-        <h4 class="card-title" [innerHTML]="dso.firstMetadataValue('dc.title')"></h4>
+        <h4 class="card-title" [innerHTML]="dso.firstMetadataValue('person.familyName') + ', ' + dso.firstMetadataValue('person.givenName')"></h4>
       </ds-truncatable-part>
-      <p *ngIf="dso.hasMetadata('person.identifier.email')" class="item-email card-text text-muted">
+      <p *ngIf="dso.hasMetadata('person.email')" class="item-email card-text text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">
-          <span [innerHTML]="firstMetadataValue('person.identifier.email')"></span>
+          <span [innerHTML]="firstMetadataValue('person.email')"></span>
         </ds-truncatable-part>
       </p>
-      <p *ngIf="dso.hasMetadata('person.identifier.jobtitle')" class="item-jobtitle card-text">
+      <p *ngIf="dso.hasMetadata('person.jobtitle')" class="item-jobtitle card-text">
         <ds-truncatable-part [id]="dso.id" [minLines]="3">
-          <span [innerHTML]="firstMetadataValue('person.identifier.jobtitle')"></span>
+          <span [innerHTML]="firstMetadataValue('person.jobtitle')"></span>
         </ds-truncatable-part>
       </p>
       <div class="text-center">

@@ -10,5 +10,8 @@ import { TypedItemSearchResultGridElementComponent } from '../../../../shared/ob
   templateUrl: './orgunit-grid-element.component.html',
   animations: [focusShadow]
 })
+/**
+ * The component for displaying a grid element for an item of the type Organisation Unit
+ */
 export class OrgunitGridElementComponent extends TypedItemSearchResultGridElementComponent {
 }

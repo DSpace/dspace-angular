@@ -11,5 +11,8 @@ import { focusShadow } from '../../../../animations/focus';
   templateUrl: './publication-grid-element.component.html',
   animations: [focusShadow]
 })
+/**
+ * The component for displaying a grid element for an item of the type Publication
+ */
 export class PublicationGridElementComponent extends TypedItemSearchResultGridElementComponent {
 }

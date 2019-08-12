@@ -10,5 +10,8 @@ import { focusShadow } from '../../../../shared/animations/focus';
   templateUrl: './person-grid-element.component.html',
   animations: [focusShadow]
 })
+/**
+ * The component for displaying a grid element for an item of the type Person
+ */
 export class PersonGridElementComponent extends TypedItemSearchResultGridElementComponent {
 }

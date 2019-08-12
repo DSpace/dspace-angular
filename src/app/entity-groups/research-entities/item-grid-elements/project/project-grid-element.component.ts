@@ -10,5 +10,8 @@ import { TypedItemSearchResultGridElementComponent } from '../../../../shared/ob
   templateUrl: './project-grid-element.component.html',
   animations: [focusShadow]
 })
+/**
+ * The component for displaying a grid element for an item of the type Project
+ */
 export class ProjectGridElementComponent extends TypedItemSearchResultGridElementComponent {
 }
