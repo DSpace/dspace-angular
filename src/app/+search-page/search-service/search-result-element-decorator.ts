@@ -1,6 +1,6 @@
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { isNull } from '../../shared/empty.util';
+import { hasNoValue, isNull } from '../../shared/empty.util';
 
 /**
  * Contains the mapping between a search result component and a DSpaceObject
@@ -34,7 +34,7 @@ export function searchResultFor(domainConstructor: GenericConstructor<ListableOb
  * @returns The component's constructor that matches the given DSpaceObject
  */
 export function getSearchResultFor(domainConstructor: GenericConstructor<ListableObject>, configuration: string = null) {
-  if (isNull(configuration) || configuration === 'default') {
+  if (isNull(configuration) || configuration === 'default' || hasNoValue(searchResultMap.get(configuration))) {
     return searchResultMap.get(domainConstructor);
   } else {
     return searchResultMap.get(configuration).get(domainConstructor);
