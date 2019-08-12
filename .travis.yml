@@ -11,15 +11,12 @@ language: node_js
 
 node_js:
   - "8"
-  - "9"
+  - "10"
 
 cache:
   yarn: true
 
 bundler_args: --retry 5
-
-before_install:
-  - travis_retry yarn run global
 
 install:
   - travis_retry yarn install

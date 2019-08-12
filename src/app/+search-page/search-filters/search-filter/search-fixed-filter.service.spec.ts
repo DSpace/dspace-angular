@@ -17,7 +17,7 @@ describe('SearchFixedFilterService', () => {
     configure: () => {},
     /* tslint:enable:no-empty */
     generateRequestId: () => 'fake-id',
-    getByUUID: () => observableOf(Object.assign(new RequestEntry(), {
+    getByHref: () => observableOf(Object.assign(new RequestEntry(), {
       response: new FilteredDiscoveryQueryResponse(filterQuery, 200, 'OK')
     }))
   }) as RequestService;
@@ -56,5 +56,4 @@ describe('SearchFixedFilterService', () => {
       expect(query).toContain(itemUUID);
     });
   });
-
 });

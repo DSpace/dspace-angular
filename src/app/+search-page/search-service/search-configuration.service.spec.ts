@@ -171,20 +171,4 @@ describe('SearchConfigurationService', () => {
       expect((service as any).routeService.getRouteParameterValue).toHaveBeenCalledWith('filter');
     });
   });
-
-  describe('when updateFixedFilter is called', () => {
-    const filter = 'filter';
-
-    beforeEach(() => {
-      service.updateFixedFilter(filter);
-    });
-
-    it('should update the paginated search options with the correct fixed filter', () => {
-      expect(service.paginatedSearchOptions.getValue().fixedFilter).toEqual(filter);
-    });
-
-    it('should update the search options with the correct fixed filter', () => {
-      expect(service.searchOptions.getValue().fixedFilter).toEqual(filter);
-    });
-  });
 });

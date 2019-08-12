@@ -1,28 +1,30 @@
 var nodeExternals = require('webpack-node-externals');
 
 const {
-  root
+    buildRoot
 } = require('./helpers');
 
-module.exports = {
-  getServerWebpackPartial: function (aot) {
-    const entry = aot ? root('./src/main.server.aot.ts') : root('./src/main.server.ts');
-    return {
-      entry: entry,
-      output: {
-        filename: 'server.js'
-      },
-      target: 'node',
-      externals: [nodeExternals({
-        whitelist: [
-          /@angular/,
-          /@ng/,
-		      /angular2-text-mask/,
-      	  /ng2-file-upload/,
-      	  /angular-sortablejs/,
-      	  /sortablejs/,
-          /ngx/]
-      })],
+module.exports = (env) => {
+  return {
+    getServerWebpackPartial: function (aot) {
+      const entry = aot ? buildRoot('./main.server.aot.ts', env) : buildRoot('./main.server.ts', env);
+      return {
+        entry: entry,
+        output: {
+          filename: 'server.js'
+        },
+        target: 'node',
+        externals: [nodeExternals({
+          whitelist: [
+            /@angular/,
+            /@ng/,
+            /angular2-text-mask/,
+            /ng2-file-upload/,
+            /angular-sortablejs/,
+            /sortablejs/,
+            /ngx/]
+        })],
+      }
     }
   }
 };

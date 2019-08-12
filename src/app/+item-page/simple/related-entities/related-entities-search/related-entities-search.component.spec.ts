@@ -47,9 +47,9 @@ describe('RelatedEntitiesSearchComponent', () => {
     expect(comp.fixedFilter).toEqual(mockFilter);
   });
 
-  it('should create a fixedFilter$', () => {
-    comp.fixedFilter$.subscribe((fixedFilter) => {
-      expect(fixedFilter).toEqual(mockRelationEntityType);
+  it('should create a configuration$', () => {
+    comp.configuration$.subscribe((configuration) => {
+      expect(configuration).toEqual(mockRelationEntityType);
     })
   });
 

@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { filter, flatMap, map } from 'rxjs/operators';
+import { filter, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
@@ -21,6 +21,7 @@ import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SearchFixedFilterService } from '../search-filters/search-filter/search-fixed-filter.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -44,7 +45,7 @@ export class SearchConfigurationService implements OnDestroy {
   /**
    * Default configuration parameter setting
    */
-  protected defaultConfiguration = 'default';
+  protected defaultConfiguration;
 
   /**
    * Default scope setting
@@ -99,10 +100,8 @@ export class SearchConfigurationService implements OnDestroy {
           const defs = defRD.payload;
           this.paginatedSearchOptions = new BehaviorSubject<PaginatedSearchOptions>(defs);
           this.searchOptions = new BehaviorSubject<SearchOptions>(defs);
-
           this.subs.push(this.subscribeToSearchOptions(defs));
           this.subs.push(this.subscribeToPaginatedSearchOptions(defs));
-
         }
       )
   }
@@ -111,9 +110,14 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current configuration string
    */
   getCurrentConfiguration(defaultConfiguration: string) {
-    return this.routeService.getQueryParameterValue('configuration').pipe(map((configuration) => {
-      return configuration || defaultConfiguration;
-    }));
+    return observableCombineLatest(
+      this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
+      this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined))
+    ).pipe(
+      map(([queryConfig, routeConfig]) => {
+        return queryConfig || routeConfig || defaultConfiguration;
+      })
+    );
   }
 
   /**
@@ -206,7 +210,7 @@ export class SearchConfigurationService implements OnDestroy {
    */
   getCurrentFixedFilter(): Observable<string> {
     return this.routeService.getRouteParameterValue('filter').pipe(
-      flatMap((f) => this.fixedFilterService.getQueryByFilterName(f))
+      switchMap((f) => this.fixedFilterService.getQueryByFilterName(f))
     );
   }
 
@@ -271,7 +275,7 @@ export class SearchConfigurationService implements OnDestroy {
         scope: this.defaultScope,
         query: this.defaultQuery
       });
-      this._defaults = observableOf(new RemoteData(false, false, true, null, options));
+      this._defaults = createSuccessfulRemoteDataObject$(options);
     }
     return this._defaults;
   }
@@ -357,21 +361,7 @@ export class SearchConfigurationService implements OnDestroy {
       isNotEmptyOperator(),
       map((fixedFilter) => {
         return { fixedFilter }
-      })
+      }),
     );
-  }
-
-  /**
-   * Update the fixed filter in paginated and non-paginated search options with a given value
-   * @param {string} fixedFilter
-   */
-  public updateFixedFilter(fixedFilter: string) {
-    const currentPaginatedValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-    const updatedPaginatedValue: PaginatedSearchOptions = Object.assign(currentPaginatedValue, { fixedFilter: fixedFilter });
-    this.paginatedSearchOptions.next(updatedPaginatedValue);
-
-    const currentValue: SearchOptions = this.searchOptions.getValue();
-    const updatedValue: SearchOptions = Object.assign(currentValue, { fixedFilter: fixedFilter });
-    this.searchOptions.next(updatedValue);
   }
 }

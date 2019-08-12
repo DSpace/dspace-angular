@@ -17,9 +17,13 @@ import { RemoteData } from '../../core/data/remote-data';
 import { of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
       'dc.title': [
         {
@@ -30,7 +34,7 @@ const mockItem: Item = Object.assign(new Item(), {
     }
 });
 const routeStub = Object.assign(new ActivatedRouteStub(), {
-  data: observableOf({ item: new RemoteData(false, false, true, null, mockItem) })
+  data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
 });
 const metadataServiceStub = {
   /* tslint:disable:no-empty */

@@ -21,6 +21,10 @@ import { SearchService } from '../search-service/search.service';
 export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
 
   /**
+   * True when the search component should show results on the current page
+   */
+  @Input() inPlaceSearch;
+  /**
    * The list of available configuration options
    */
   @Input() configurationList: SearchConfigurationOption[] = [];
@@ -56,7 +60,7 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
       queryParams: {configuration: this.selectedOption},
     };
 
-    this.router.navigate([this.searchService.getSearchLink()], navigationExtras);
+    this.router.navigate(this.getSearchLinkParts(), navigationExtras);
   }
 
   /**
@@ -76,5 +80,25 @@ export class SearchSwitchConfigurationComponent implements OnDestroy, OnInit {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
+  }
+
+  /**
+   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
+   */
+  public getSearchLink(): string {
+    if (this.inPlaceSearch) {
+      return './';
+    }
+    return this.searchService.getSearchLink();
+  }
+
+  /**
+   * @returns {string[]} The base path to the search page, or the current page when inPlaceSearch is true, split in separate pieces
+   */
+  public getSearchLinkParts(): string[] {
+    if (this.searchService) {
+      return [];
+    }
+    return this.getSearchLink().split('/');
   }
 }

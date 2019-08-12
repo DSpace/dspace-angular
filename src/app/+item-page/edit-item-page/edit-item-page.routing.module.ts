@@ -43,6 +43,7 @@ export function getItemEditMovePath(id: string) {
           {
             path: '',
             redirectTo: 'status',
+            pathMatch: 'full'
           },
           {
             path: 'status',

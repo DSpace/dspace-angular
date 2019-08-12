@@ -1,0 +1,16 @@
+<ds-truncatable [id]="item.id">
+  <a
+    [routerLink]="['/items/' + item.id]" class="lead"
+    [innerHTML]="firstMetadataValue('organization.legalName')"></a>
+  <span class="text-muted">
+    <ds-truncatable-part [id]="item.id" [minLines]="3">
+            <span *ngIf="item.allMetadata(['dc.description']).length > 0"
+                  class="item-list-orgunit-description">
+                <ds-truncatable-part [id]="item.id" [minLines]="3"><span
+                  [innerHTML]="firstMetadataValue('dc.description')"></span>
+                </ds-truncatable-part>
+            </span>
+        </ds-truncatable-part>
+  </span>
+</ds-truncatable>
+

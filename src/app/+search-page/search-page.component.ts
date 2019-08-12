@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
-import { Observable ,  Subscription ,  BehaviorSubject } from 'rxjs';
-import { switchMap, } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import { startWith, switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
@@ -43,7 +43,6 @@ export const SEARCH_ROUTE = '/search';
  * It renders search results depending on the current search options
  */
 export class SearchPageComponent implements OnInit {
-
   /**
    * The current search results
    */
@@ -87,10 +86,10 @@ export class SearchPageComponent implements OnInit {
   sideBarWidth = 3;
 
   /**
-   * The currently applied filter (determines title of search)
+   * The currently applied configuration (determines title of search)
    */
   @Input()
-  fixedFilter$: Observable<string>;
+  configuration$: Observable<string>;
 
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
@@ -110,15 +109,15 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
-      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData())))
+      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(observableOf(undefined)))))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
-    if (!isNotEmpty(this.fixedFilter$)) {
-      this.fixedFilter$ = this.routeService.getRouteParameterValue('filter');
+    if (!isNotEmpty(this.configuration$)) {
+      this.configuration$ = this.routeService.getRouteParameterValue('configuration');
     }
   }
 

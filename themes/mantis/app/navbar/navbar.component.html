@@ -1,0 +1,16 @@
+<nav [ngClass]="{'open': !(menuCollapsed | async)}"
+     [@slideMobileNav]="!(windowService.isXsOrSm() | async) ? 'default' : ((menuCollapsed | async) ? 'collapsed' : 'expanded')"
+     class="navbar navbar-light navbar-expand-md p-md-0 navbar-container">    <!-- TODO remove navbar-container class when https://github.com/twbs/bootstrap/issues/24726 is fixed -->
+    <div class="container">
+        <div class="reset-padding-md w-100">
+            <div id="collapsingNav">
+                <ul class="navbar-nav mr-auto shadow-none">
+                    <ng-container *ngFor="let section of (sections | async)">
+                        <ng-container
+                                *ngComponentOutlet="sectionComponents.get(section.id); injector: sectionInjectors.get(section.id);"></ng-container>
+                    </ng-container>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

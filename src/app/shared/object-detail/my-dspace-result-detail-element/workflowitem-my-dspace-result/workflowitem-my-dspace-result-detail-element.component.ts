@@ -5,7 +5,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/workflowitem-my-dspace-result.model';
-import { Workflowitem } from '../../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { Observable } from 'rxjs/internal/Observable';
@@ -24,8 +24,8 @@ import { SetViewMode } from '../../../view-mode';
 })
 
 @renderElementsFor(WorkflowitemMyDSpaceResult, SetViewMode.Detail)
-@renderElementsFor(Workflowitem, SetViewMode.Detail)
-export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkflowitemMyDSpaceResult, Workflowitem> {
+@renderElementsFor(WorkflowItem, SetViewMode.Detail)
+export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkflowitemMyDSpaceResult, WorkflowItem> {
 
   /**
    * The item object that belonging to the result object

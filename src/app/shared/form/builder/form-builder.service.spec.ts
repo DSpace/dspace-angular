@@ -39,7 +39,6 @@ import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dyn
 import { AuthorityOptions } from '../../../core/integration/models/authority-options.model';
 import { FormFieldModel } from './models/form-field.model';
 import {
-  FormRowModel,
   SubmissionFormsModel
 } from '../../../core/config/models/config-submission-forms.model';
 import { FormBuilderService } from './form-builder.service';
@@ -49,6 +48,7 @@ import { FormFieldMetadataValueObject } from './models/form-field-metadata-value
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
 
 describe('FormBuilderService test suite', () => {
 

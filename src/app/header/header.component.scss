@@ -1,5 +1,3 @@
-@import '../../styles/variables.scss';
-
 .navbar-brand img {
     height: $header-logo-height;
     @media screen and (max-width: map-get($grid-breakpoints, sm)) {

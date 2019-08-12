@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { first, map, switchMap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
@@ -40,7 +40,6 @@ import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { ResourceType } from '../../core/shared/resource-type';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RouteService } from '../../shared/services/route.service';
 
@@ -296,7 +295,7 @@ export class SearchService implements OnDestroy {
     const scopeObject: Observable<RemoteData<DSpaceObject>> = this.dspaceObjectService.findById(scopeId).pipe(getSucceededRemoteData());
     const scopeList: Observable<DSpaceObject[]> = scopeObject.pipe(
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
-          if (dsoRD.payload.type === ResourceType.Community) {
+          if ((dsoRD.payload as any).type === Community.type.value) {
             const community: Community = dsoRD.payload as Community;
             return observableCombineLatest(community.subcommunities, community.collections).pipe(
               map(([subCommunities, collections]) => {

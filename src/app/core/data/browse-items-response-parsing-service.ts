@@ -18,10 +18,6 @@ import { NormalizedDSpaceObject } from '../cache/models/normalized-dspace-object
  */
 @Injectable()
 export class BrowseItemsResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
-
-  protected objectFactory = {
-    getConstructor: () => DSpaceObject
-  };
   protected toCache = false;
 
   constructor(

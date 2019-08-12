@@ -20,6 +20,7 @@ import { RouteService } from '../../../../shared/services/route.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service-stub';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;
@@ -66,7 +67,7 @@ describe('SearchRangeFilterComponent', () => {
   let router;
   const page = observableOf(0);
 
-  const mockValues = observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), values)));
+  const mockValues = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), values));
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
