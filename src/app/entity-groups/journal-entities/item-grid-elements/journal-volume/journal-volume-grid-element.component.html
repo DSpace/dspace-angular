@@ -11,14 +11,14 @@
       <ds-truncatable-part [id]="dso.id" [minLines]="3" type="h4">
         <h4 class="card-title" [innerHTML]="dso.firstMetadataValue('dc.title')"></h4>
       </ds-truncatable-part>
-      <p *ngIf="dso.hasMetadata('journalvolume.issuedate')" class="item-date card-text text-muted">
+      <p *ngIf="dso.hasMetadata('creativework.datePublished')" class="item-date card-text text-muted">
         <ds-truncatable-part [id]="dso.id" [minLines]="1">
-          <span [innerHTML]="firstMetadataValue('journalvolume.issuedate')"></span>
+          <span [innerHTML]="firstMetadataValue('creativework.datePublished')"></span>
         </ds-truncatable-part>
       </p>
-      <p *ngIf="dso.hasMetadata('journalvolume.identifier.description')" class="item-description card-text">
+      <p *ngIf="dso.hasMetadata('dc.description')" class="item-description card-text">
         <ds-truncatable-part [id]="dso.id" [minLines]="3">
-          <span [innerHTML]="firstMetadataValue('journalvolume.identifier.description')"></span>
+          <span [innerHTML]="firstMetadataValue('dc.description')"></span>
         </ds-truncatable-part>
       </p>
       <div class="text-center">

@@ -15,7 +15,7 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'journalissue.issuedate': [
+    'creativework.datePublished': [
       {
         language: null,
         value: '2015-06-26'

@@ -15,10 +15,10 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'project.identifier.funder': [
+    'dc.description': [
       {
         language: 'en_US',
-        value: 'The project funder'
+        value: 'The project description'
       }
     ]
   }
@@ -38,4 +38,4 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
   }
 });
 
-describe('ProjectGridElementComponent', getEntityGridElementTestComponent(ProjectGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['funder']));
+describe('ProjectGridElementComponent', getEntityGridElementTestComponent(ProjectGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['description']));

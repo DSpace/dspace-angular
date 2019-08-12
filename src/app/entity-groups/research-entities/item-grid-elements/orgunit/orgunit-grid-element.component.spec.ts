@@ -15,19 +15,19 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'orgunit.identifier.dateestablished': [
+    'organization.foundingDate': [
       {
         language: null,
         value: '2015-06-26'
       }
     ],
-    'orgunit.identifier.country': [
+    'organization.address.addressCountry': [
       {
         language: 'en_US',
         value: 'Belgium'
       }
     ],
-    'orgunit.identifier.city': [
+    'organization.address.addressLocality': [
       {
         language: 'en_US',
         value: 'Brussels'

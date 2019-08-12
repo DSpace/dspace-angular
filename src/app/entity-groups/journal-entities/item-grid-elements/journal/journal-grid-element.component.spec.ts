@@ -15,19 +15,19 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'journal.contributor.editor': [
+    'creativework.editor': [
       {
         language: 'en_US',
         value: 'Smith, Donald'
       }
     ],
-    'journal.publisher': [
+    'creativework.publisher': [
       {
         language: 'en_US',
         value: 'A company'
       }
     ],
-    'journal.identifier.description': [
+    'dc.description': [
       {
         language: 'en_US',
         value: 'This is the description'

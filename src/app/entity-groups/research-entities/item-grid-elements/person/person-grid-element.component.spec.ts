@@ -15,13 +15,13 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'person.identifier.email': [
+    'person.email': [
       {
         language: 'en_US',
         value: 'Smith-Donald@gmail.com'
       }
     ],
-    'person.identifier.jobtitle': [
+    'person.jobTitle': [
       {
         language: 'en_US',
         value: 'Web Developer'
