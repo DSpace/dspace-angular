@@ -7,7 +7,11 @@ import { PageInfo } from '../shared/page-info.model';
 import { ErrorResponse, GenericSuccessResponse, RestResponse } from '../cache/response.models';
 
 @Injectable()
-export class MappingCollectionsReponseParsingService implements ResponseParsingService {
+/**
+ * A ResponseParsingService used to parse DSpaceRESTV2Response coming from the REST API to a GenericSuccessResponse
+ * containing a PaginatedList of mapped collections
+ */
+export class MappedCollectionsReponseParsingService implements ResponseParsingService {
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload;
 

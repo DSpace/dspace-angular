@@ -15,7 +15,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   DeleteRequest,
   FindAllOptions,
-  MappingCollectionsRequest,
+  MappedCollectionsRequest,
   PatchRequest,
   PostRequest,
   RestRequest
@@ -133,7 +133,7 @@ export class ItemDataService extends DataService<Item> {
     const request$ = this.getMappingCollectionsEndpoint(itemId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpointURL: string) => new MappingCollectionsRequest(this.requestService.generateRequestId(), endpointURL)),
+      map((endpointURL: string) => new MappedCollectionsRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService)
     );
 
