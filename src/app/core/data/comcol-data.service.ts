@@ -31,7 +31,7 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
       return this.halService.getEndpoint(linkPath);
     } else {
       const scopeCommunityHrefObs = this.cds.getEndpoint().pipe(
-        mergeMap((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
+        map((endpoint: string) => this.cds.getIDHref(endpoint, options.scopeID)),
         filter((href: string) => isNotEmpty(href)),
         take(1),
         tap((href: string) => {

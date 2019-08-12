@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 import { isNotEmpty } from '../../empty.util';
-import { ResourceType } from '../../../core/shared/resource-type';
+import { Community } from '../../../core/shared/community.model';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -99,7 +99,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
         ...this.dso.metadata,
         ...formMetadata
       },
-      type: ResourceType.Community
+      type: Community.type
     });
     this.submitForm.emit(updatedDSO);
   }

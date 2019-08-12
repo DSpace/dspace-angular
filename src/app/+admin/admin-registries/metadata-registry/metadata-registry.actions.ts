@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../../shared/ngrx/type';
-import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
-import { MetadataField } from '../../../core/metadata/metadatafield.model';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
 
 /**
  * For each action type in an action group, make a simple

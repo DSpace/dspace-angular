@@ -40,7 +40,6 @@ import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { ResourceType } from '../../core/shared/resource-type';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RouteService } from '../../shared/services/route.service';
 
@@ -296,7 +295,7 @@ export class SearchService implements OnDestroy {
     const scopeObject: Observable<RemoteData<DSpaceObject>> = this.dspaceObjectService.findById(scopeId).pipe(getSucceededRemoteData());
     const scopeList: Observable<DSpaceObject[]> = scopeObject.pipe(
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
-          if (dsoRD.payload.type === ResourceType.Community) {
+          if ((dsoRD.payload as any).type === Community.type.value) {
             const community: Community = dsoRD.payload as Community;
             return observableCombineLatest(community.subcommunities, community.collections).pipe(
               map(([subCommunities, collections]) => {
@@ -354,10 +353,7 @@ export class SearchService implements OnDestroy {
    * @returns {string} The base path to the search page
    */
   getSearchLink(): string {
-    const urlTree = this.router.parseUrl(this.router.url);
-    const g: UrlSegmentGroup = urlTree.root.children[PRIMARY_OUTLET];
-    const searchLink: any = '/' + g.toString();
-    return (searchLink !== '/search' && searchLink !== '/mydspace') ? '/search' : searchLink;
+    return '/search';
   }
 
   /**

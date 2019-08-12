@@ -6,8 +6,10 @@ import { Observable } from 'rxjs';
 import { License } from './license.model';
 import { ResourcePolicy } from './resource-policy.model';
 import { PaginatedList } from '../data/paginated-list';
+import { ResourceType } from './resource-type';
 
 export class Collection extends DSpaceObject {
+  static type = new ResourceType('collection');
 
   /**
    * A string representing the unique handle of this Collection
@@ -80,5 +82,4 @@ export class Collection extends DSpaceObject {
   owner: Observable<RemoteData<Collection>>;
 
   items: Observable<RemoteData<Item[]>>;
-
 }

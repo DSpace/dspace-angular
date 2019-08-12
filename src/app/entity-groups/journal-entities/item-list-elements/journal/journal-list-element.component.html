@@ -4,9 +4,9 @@
     [innerHTML]="firstMetadataValue('dc.title')"></a>
   <span class="text-muted">
     <ds-truncatable-part [id]="item.id" [minLines]="1">
-            <span *ngIf="item.allMetadata(['journal.identifier.issn']).length > 0"
+            <span *ngIf="item.allMetadata(['creativeworkseries.issn']).length > 0"
                   class="item-list-journals">
-                    <span *ngFor="let value of allMetadataValues(['journal.identifier.issn']); let last=last;">
+                    <span *ngFor="let value of allMetadataValues(['creativeworkseries.issn']); let last=last;">
                         <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
                     </span>
             </span>

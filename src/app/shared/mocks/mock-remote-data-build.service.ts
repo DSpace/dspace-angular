@@ -5,6 +5,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { RequestEntry } from '../../core/data/request.reducer';
 import { hasValue } from '../empty.util';
 import { NormalizedObject } from '../../core/cache/models/normalized-object.model';
+import { createSuccessfulRemoteDataObject$ } from '../testing/utils';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>): RemoteDataBuildService {
   return {
@@ -18,7 +19,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
         } as RemoteData<any>)))
       }
     },
-    buildSingle: (href$: string | Observable<string>) => observableOf(new RemoteData(false, false, true, undefined, {})),
+    buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
     build: (normalized: NormalizedObject<any>) => Object.create({})
   } as RemoteDataBuildService;
 

@@ -1,14 +1,18 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { SectionsType } from '../../../submission/sections/sections-type';
 import { NormalizedConfigObject } from './normalized-config.model';
-import { SubmissionFormsModel } from './config-submission-forms.model';
-import { SubmissionSectionVisibility } from './config-submission-section.model';
+import {
+  SubmissionSectionModel,
+  SubmissionSectionVisibility
+} from './config-submission-section.model';
+import { mapsTo } from '../../cache/builders/build-decorators';
 
 /**
  * Normalized class for the configuration describing the submission section
  */
+@mapsTo(SubmissionSectionModel)
 @inheritSerialization(NormalizedConfigObject)
-export class NormalizedSubmissionSectionModel extends NormalizedConfigObject<SubmissionFormsModel> {
+export class NormalizedSubmissionSectionModel extends NormalizedConfigObject<SubmissionSectionModel> {
 
   /**
    * The header for this section

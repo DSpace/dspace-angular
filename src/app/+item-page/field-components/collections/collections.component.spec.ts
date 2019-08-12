@@ -9,6 +9,10 @@ import { Item } from '../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/testing/utils';
 
 let collectionsComponent: CollectionsComponent;
 let fixture: ComponentFixture<CollectionsComponent>;
@@ -24,8 +28,8 @@ const mockCollection1: Collection = Object.assign(new Collection(), {
   }
 });
 
-const succeededMockItem: Item = Object.assign(new Item(), {owningCollection: observableOf(new RemoteData(false, false, true, null, mockCollection1))});
-const failedMockItem: Item = Object.assign(new Item(), {owningCollection: observableOf(new RemoteData(false, false, false, null, mockCollection1))});
+const succeededMockItem: Item = Object.assign(new Item(), {owningCollection: createSuccessfulRemoteDataObject$(mockCollection1)});
+const failedMockItem: Item = Object.assign(new Item(), {owningCollection: createFailedRemoteDataObject$(mockCollection1)});
 
 describe('CollectionsComponent', () => {
   beforeEach(async(() => {
