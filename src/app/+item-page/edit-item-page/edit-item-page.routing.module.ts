@@ -22,11 +22,6 @@ const ITEM_EDIT_DELETE_PATH = 'delete';
 
 const ITEM_EDIT_MOVE_PATH = 'move';
 
-export function getItemEditMovePath(id: string) {
-  return new URLCombiner(getItemEditPath(id), ITEM_EDIT_MOVE_PATH);
-
-}
-
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
  */

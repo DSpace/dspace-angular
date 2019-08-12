@@ -122,6 +122,10 @@ export class ItemDataService extends DataService<Item> {
     );
   }
 
+  /**
+   * Get the endpoint to move the item
+   * @param itemId
+   */
   public getMoveItemEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, itemId)),
@@ -129,6 +133,11 @@ export class ItemDataService extends DataService<Item> {
     );
   }
 
+  /**
+   * Move the item to a different owning collection
+   * @param itemId
+   * @param collection
+   */
   public moveToCollection(itemId: string, collection: Collection): Observable<RestResponse> {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
