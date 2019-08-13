@@ -17,6 +17,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { RestResponse } from '../../../core/cache/response.models';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -36,7 +37,7 @@ describe('MetadataRegistryComponent', () => {
       namespace: 'http://dspace.org/mockschema'
     }
   ];
-  const mockSchemas = observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(null, mockSchemasList)));
+  const mockSchemas = createSuccessfulRemoteDataObject$(new PaginatedList(null, mockSchemasList));
   /* tslint:disable:no-empty */
   const registryServiceStub = {
     getMetadataSchemas: () => mockSchemas,

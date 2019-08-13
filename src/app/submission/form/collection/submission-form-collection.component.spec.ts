@@ -27,15 +27,16 @@ import { SubmissionJsonPatchOperationsService } from '../../../core/submission/s
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service-stub';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { Community } from '../../../core/shared/community.model';
-import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
-import { createTestComponent } from '../../../shared/testing/utils';
+import {
+  createTestComponent
+} from '../../../shared/testing/utils';
 import { cold } from 'jasmine-marbles';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { SearchService } from '../../../+search-page/search-service/search.service';
+import { RemoteData } from '../../../core/data/remote-data';
 
 const mockCommunity1Collection1 = Object.assign(new Collection(), {
   name: 'Community 1-Collection 1',

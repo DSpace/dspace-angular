@@ -45,28 +45,15 @@ export class SearchResultsComponent {
   @Input() viewMode: SetViewMode;
 
   /**
-   * An optional fixed filter to filter the result on one type
+   * An optional configuration to filter the result on one type
    */
-  @Input() fixedFilter: string;
+  @Input() configuration: string;
 
   /**
    * Whether or not to hide the header of the results
    * Defaults to a visible header
    */
   @Input() disableHeader = false;
-
-  /**
-   * Get the i18n key for the title depending on the fixed filter
-   * Defaults to 'search.results.head' if there's no fixed filter found
-   * @returns {string}
-   */
-  getTitleKey() {
-    if (isNotEmpty(this.fixedFilter)) {
-      return this.fixedFilter + '.search.results.head'
-    } else {
-      return 'search.results.head';
-    }
-  }
 
   /**
    * Method to change the given string by surrounding it by quotes if not already present.

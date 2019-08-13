@@ -3,7 +3,6 @@ import { CommunityDataService } from '../../../core/data/community-data.service'
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Community } from '../../../core/shared/community.model';
 import { SharedModule } from '../../shared.module';
 import { CommonModule } from '@angular/common';
@@ -12,6 +11,10 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { EditComColPageComponent } from './edit-comcol-page.component';
 import { DataService } from '../../../core/data/data.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../testing/utils';
 
 describe('EditComColPageComponent', () => {
   let comp: EditComColPageComponent<DSpaceObject>;
@@ -43,7 +46,7 @@ describe('EditComColPageComponent', () => {
     });
 
     communityDataServiceStub = {
-      update: (com, uuid?) => observableOf(new RemoteData(false, false, true, undefined, newCommunity))
+      update: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity)
 
     };
 
@@ -97,7 +100,7 @@ describe('EditComColPageComponent', () => {
 
     it('should not navigate on failure', () => {
       spyOn(router, 'navigate');
-      spyOn(dsoDataService, 'update').and.returnValue(observableOf(new RemoteData(true, true, false, undefined, newCommunity)));
+      spyOn(dsoDataService, 'update').and.returnValue(createFailedRemoteDataObject$(newCommunity));
       comp.onSubmit(data);
       fixture.detectChanges();
       expect(router.navigate).not.toHaveBeenCalled();

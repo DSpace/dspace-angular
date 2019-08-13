@@ -1,9 +1,10 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { Relationship } from '../../../shared/item-relationships/relationship.model';
-import { ResourceType } from '../../../shared/resource-type';
 import { mapsTo, relationship } from '../../builders/build-decorators';
 import { NormalizedObject } from '../normalized-object.model';
 import { IDToUUIDSerializer } from '../../id-to-uuid-serializer';
+import { RelationshipType } from '../../../shared/item-relationships/relationship-type.model';
+import { Item } from '../../../shared/item.model';
 
 /**
  * Normalized model class for a DSpace Relationship
@@ -22,14 +23,14 @@ export class NormalizedRelationship extends NormalizedObject<Relationship> {
    * The item to the left of this relationship
    */
   @autoserialize
-  @relationship(ResourceType.Item, false)
+  @relationship(Item, false)
   leftItem: string;
 
   /**
    * The item to the right of this relationship
    */
   @autoserialize
-  @relationship(ResourceType.Item, false)
+  @relationship(Item, false)
   rightItem: string;
 
   /**
@@ -48,12 +49,12 @@ export class NormalizedRelationship extends NormalizedObject<Relationship> {
    * The type of Relationship
    */
   @autoserialize
-  @relationship(ResourceType.RelationshipType, false)
+  @relationship(RelationshipType, false)
   relationshipType: string;
 
   /**
    * The universally unique identifier of this Relationship
    */
-  @autoserializeAs(new IDToUUIDSerializer(ResourceType.Relationship), 'id')
+  @autoserializeAs(new IDToUUIDSerializer(Relationship.type.value), 'id')
   uuid: string;
 }

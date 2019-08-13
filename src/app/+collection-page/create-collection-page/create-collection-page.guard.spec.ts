@@ -1,9 +1,11 @@
 import { CreateCollectionPageGuard } from './create-collection-page.guard';
 import { MockRouter } from '../../shared/mocks/mock-router';
-import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
-import { of as observableOf } from 'rxjs';
 import { first } from 'rxjs/operators';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$
+} from '../../shared/testing/utils';
 
 describe('CreateCollectionPageGuard', () => {
   describe('canActivate', () => {
@@ -15,11 +17,11 @@ describe('CreateCollectionPageGuard', () => {
       communityDataServiceStub = {
         findById: (id: string) => {
           if (id === 'valid-id') {
-            return observableOf(new RemoteData(false, false, true, null, new Community()));
+            return createSuccessfulRemoteDataObject$(new Community());
           } else if (id === 'invalid-id') {
-            return observableOf(new RemoteData(false, false, true, null, undefined));
+            return createSuccessfulRemoteDataObject$(undefined);
           } else if (id === 'error-id') {
-            return observableOf(new RemoteData(false, false, false, null, new Community()));
+            return createFailedRemoteDataObject$(new Community());
           }
         }
       };

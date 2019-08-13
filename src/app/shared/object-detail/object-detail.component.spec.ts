@@ -8,6 +8,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createSuccessfulRemoteDataObject } from '../testing/utils';
 
 describe('ObjectDetailComponent', () => {
   let comp: ObjectDetailComponent;
@@ -27,7 +28,7 @@ describe('ObjectDetailComponent', () => {
     { ten: 10 }
   ];
   const pageInfo = Object.assign(new PageInfo(), {elementsPerPage: 1, totalElements: 10, totalPages: 10, currentPage: 1})
-  const mockRD = new RemoteData(false, false, true, null, new PaginatedList(pageInfo, testObjects));
+  const mockRD = createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, testObjects));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

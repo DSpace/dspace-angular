@@ -1,9 +1,11 @@
-import { MetadataSchema } from '../metadata/metadataschema.model';
 import { PageInfo } from '../shared/page-info.model';
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { relationship } from '../cache/builders/build-decorators';
 
 export class RegistryMetadataschemasResponse {
-  @autoserializeAs(MetadataSchema)
+  @deserialize
+  @relationship(MetadataSchema, true)
   metadataschemas: MetadataSchema[];
 
   @autoserialize

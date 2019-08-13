@@ -5,6 +5,8 @@ import { ResourceType } from '../resource-type';
  * Describes a type of Item
  */
 export class ItemType implements CacheableObject {
+  static type = new ResourceType('entitytype');
+
   /**
    * The identifier of this ItemType
    */
@@ -14,11 +16,6 @@ export class ItemType implements CacheableObject {
    * The link to the rest endpoint where this object can be found
    */
   self: string;
-
-  /**
-   * The type of Resource this is
-   */
-  type: ResourceType;
 
   /**
    * The universally unique identifier of this ItemType

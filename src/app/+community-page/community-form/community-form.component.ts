@@ -20,9 +20,9 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
   @Input() dso: Community = new Community();
 
   /**
-   * @type {ResourceType.Community} This is a community-type form
+   * @type {Community.type} This is a community-type form
    */
-  protected type = ResourceType.Community;
+  protected type = Community.type;
 
   /**
    * The dynamic form fields used for creating/editing a community

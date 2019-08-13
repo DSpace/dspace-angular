@@ -1,16 +1,12 @@
-import { autoserialize, inheritSerialization } from 'cerialize';
-import { NormalizedConfigObject } from './normalized-config.model';
-import { FormRowModel, SubmissionFormsModel } from './config-submission-forms.model';
+import { inheritSerialization } from 'cerialize';
+import { mapsTo } from '../../cache/builders/build-decorators';
+import { SubmissionFormsModel } from './config-submission-forms.model';
+import { NormalizedSubmissionFormModel } from './normalized-config-submission-form.model';
 
 /**
  * Normalized class for the configuration describing the submission form
  */
-@inheritSerialization(NormalizedConfigObject)
-export class NormalizedSubmissionFormsModel extends NormalizedConfigObject<SubmissionFormsModel> {
-
-  /**
-   * An array of [FormRowModel] that are present in this form
-   */
-  @autoserialize
-  rows: FormRowModel[];
+@mapsTo(SubmissionFormsModel)
+@inheritSerialization(NormalizedSubmissionFormModel)
+export class NormalizedSubmissionFormsModel extends NormalizedSubmissionFormModel {
 }

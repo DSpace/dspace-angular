@@ -86,10 +86,10 @@ export class SearchPageComponent implements OnInit {
   sideBarWidth = 3;
 
   /**
-   * The currently applied filter (determines title of search)
+   * The currently applied configuration (determines title of search)
    */
   @Input()
-  fixedFilter$: Observable<string>;
+  configuration$: Observable<string>;
 
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
@@ -116,8 +116,8 @@ export class SearchPageComponent implements OnInit {
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
-    if (!isNotEmpty(this.fixedFilter$)) {
-      this.fixedFilter$ = this.routeService.getRouteParameterValue('filter');
+    if (!isNotEmpty(this.configuration$)) {
+      this.configuration$ = this.routeService.getRouteParameterValue('configuration');
     }
   }
 
