@@ -103,11 +103,18 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
   search(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
-    const requestObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
+    const hrefObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
         if (hasValue(searchOptions)) {
-          url = (searchOptions as PaginatedSearchOptions).toRestUrl(url);
+          return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
+        } else {
+          return url;
         }
+      })
+    );
+
+    const requestObs = hrefObs.pipe(
+      map((url: string) => {
         const request = new this.request(this.requestService.generateRequestId(), url);
 
         const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
@@ -169,11 +176,20 @@ export class SearchService implements OnDestroy {
 
     const payloadObs = observableCombineLatest(tDomainListObs, pageInfoObs).pipe(
       map(([tDomainList, pageInfo]) => {
-        return new PaginatedList(pageInfo, tDomainList);
+        return new PaginatedList(pageInfo, tDomainList.filter((obj) => hasValue(obj)));
       })
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
+    return observableCombineLatest(hrefObs, tDomainListObs, requestEntryObs).pipe(
+      switchMap(([href, tDomainList, requestEntry]) => {
+        if (tDomainList.indexOf(undefined) > -1 && requestEntry && requestEntry.completed) {
+          this.requestService.removeByHrefSubstring(href);
+          return this.search(searchOptions)
+        } else {
+          return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
+        }
+      })
+    );
   }
 
   /**
