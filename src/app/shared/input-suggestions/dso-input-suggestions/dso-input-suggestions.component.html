@@ -4,7 +4,7 @@
       (keydown.arrowup)="shiftFocusUp($event)" (keydown.esc)="close()"
       (dsClickOutside)="close();">
     <input #inputField type="text" [(ngModel)]="value" [name]="name"
-           class="form-control suggestion_input"
+           class="form-control suggestion_input mb-2"
            [ngClass]="{'is-invalid': !valid}"
            [dsDebounce]="debounceTime" (onDebounce)="find($event)"
            [placeholder]="placeholder"

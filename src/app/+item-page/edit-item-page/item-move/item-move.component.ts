@@ -18,6 +18,8 @@ import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../core/cache/response.models';
 import { Collection } from '../../../core/shared/collection.model';
 import { tap } from 'rxjs/internal/operators/tap';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 
 @Component({
   selector: 'ds-item-move',
@@ -44,6 +46,8 @@ export class ItemMoveComponent implements OnInit {
   itemId: string;
   processing = false;
 
+  pagination = new PaginationComponentOptions();
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private notificationsService: NotificationsService,
@@ -58,6 +62,7 @@ export class ItemMoveComponent implements OnInit {
         this.itemId = rd.payload.id;
       }
     );
+    this.pagination.pageSize = 5;
     this.loadSuggestions('');
   }
 
@@ -74,7 +79,8 @@ export class ItemMoveComponent implements OnInit {
    *  TODO: When the API support it, only fetch collections where user has ADD rights to.
    */
   loadSuggestions(query): void {
-    this.collectionSearchResults = this.searchService.search(new SearchOptions({
+    this.collectionSearchResults = this.searchService.search(new PaginatedSearchOptions({
+      pagination: this.pagination,
       dsoType: DSpaceObjectType.COLLECTION,
       query: query
     })).pipe(
