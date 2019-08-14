@@ -8,7 +8,7 @@
   },
   "license": "BSD-2-Clause",
   "engines": {
-    "node": ">=8.0.0"
+    "node": "8.* || >= 10.*"
   },
   "scripts": {
     "global": "npm install -g @angular/cli marked node-gyp nodemon node-nightly npm-check-updates npm-run-all rimraf typescript ts-node typedoc webpack webpack-bundle-analyzer pm2 rollup",
@@ -51,7 +51,7 @@
     "debug:server": "node-nightly --inspect --debug-brk dist/server.js",
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js --mode development",
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js --env.aot --env.client --env.server --mode production",
-    "ci": "yarn run lint && yarn run build:aot && yarn run test:headless && npm-run-all -p -r server e2e",
+    "ci": "yarn run lint && yarn run build:aot && yarn run test:headless",
     "protractor": "node node_modules/protractor/bin/protractor",
     "pree2e": "yarn run webdriver:update",
     "e2e": "yarn run protractor",
@@ -169,7 +169,7 @@
     "codelyzer": "^4.4.4",
     "compression-webpack-plugin": "^1.1.6",
     "copy-webpack-plugin": "^4.4.1",
-    "copyfiles": "^2.1.0",
+    "copyfiles": "^2.1.1",
     "coveralls": "3.0.0",
     "css-loader": "1.0.0",
     "cssnano": "^4.1.10",
@@ -192,7 +192,7 @@
     "karma-remap-coverage": "^0.1.5",
     "karma-remap-istanbul": "0.6.0",
     "karma-sourcemap-loader": "0.3.7",
-    "karma-webdriver-launcher": "1.0.5",
+    "karma-webdriver-launcher": "^1.0.7",
     "karma-webpack": "3.0.0",
     "ncp": "^2.0.0",
     "ngrx-store-freeze": "^0.2.4",
@@ -232,7 +232,7 @@
     "webpack": "^4.17.1",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-dev-middleware": "3.2.0",
-    "webpack-dev-server": "^3.1.5",
+    "webpack-dev-server": "^3.1.11",
     "webpack-import-glob-loader": "^1.6.3",
     "webpack-merge": "4.1.4",
     "webpack-node-externals": "1.7.2"

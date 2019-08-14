@@ -1,277 +1,149 @@
 {
-  "footer": {
-    "copyright": "copyright © 2002-{{ year }}",
-    "link.dspace": "DSpace software",
-    "link.duraspace": "DuraSpace"
-  },
-  "collection": {
-    "page": {
-      "news": "Nieuws",
-      "license": "Licentie",
-      "browse": {
-        "recent": {
-          "head": "Recent toegevoegd"
-        }
-      }
-    }
-  },
-  "community": {
-    "page": {
-      "news": "Nieuws",
-      "license": "Licentie"
-    },
-    "sub-collection-list": {
-      "head": "Collecties in deze Community"
-    }
-  },
-  "item": {
-    "page": {
-      "author": "Auteur",
-      "abstract": "Abstract",
-      "date": "Datum",
-      "uri": "URI",
-      "files": "Bestanden",
-      "collections": "Collecties",
-      "filesection": {
-        "download": "Download",
-        "name": "Naam:",
-        "format": "Formaat:",
-        "size": "Grootte:",
-        "description": "Beschrijving:"
-      },
-      "link": {
-        "simple": "Eenvoudige itemweergave",
-        "full": "Volledige itemweergave"
-      }
-    }
-  },
-  "nav": {
-    "home": "Home",
-    "login": "Log In",
-    "logout": "Log Uit"
-  },
-  "pagination": {
-    "results-per-page": "Resultaten per pagina",
-    "sort-direction": "Sorteermogelijkheden",
-    "showing": {
-      "label": "Resultaten ",
-      "detail": "{{ range }} van {{ total }}"
-    }
-  },
-  "sorting": {
-    "score": {
-      "DESC": "Relevantie"
-    },
-    "dc.title": {
-      "ASC": "Oplopend op titel",
-      "DESC": "Aflopend op titel"
-    }
-  },
-  "title": "DSpace",
-  "404": {
-    "help": "De pagina die u zoekt kan niet gevonden worden. De pagina werd mogelijk verplaatst of verwijderd. U kan onderstaande knop gebruiken om terug naar de homepagina te gaan. ",
-    "page-not-found": "Pagina niet gevonden",
-    "link": {
-      "home-page": "Terug naar de homepagina"
-    }
-  },
-  "home": {
-    "title": "DSpace Angular :: Home",
-    "description": "",
-    "top-level-communities": {
-      "head": "Communities in DSpace",
-      "help": "Selecteer een community om diens collecties te verkennen."
-    }
-  },
-  "search": {
-    "title": "DSpace Angular :: Zoek",
-    "description": "",
-    "form": {
-      "search": "Zoek",
-      "search_dspace": "Zoek in DSpace"
-    },
-    "results": {
-      "head": "Zoekresultaten",
-      "no-results": "Er waren geen resultaten voor deze zoekopdracht"
-    },
-    "sidebar": {
-      "close": "Terug naar de resultaten",
-      "open": "Zoek Tools",
-      "results": "resultaten",
-      "filters": {
-        "title": "Filters"
-      },
-      "settings": {
-        "title": "Instellingen",
-        "sort-by": "Sorteer volgens",
-        "rpp": "Resultaten per pagina"
-      }
-    },
-    "view-switch": {
-      "show-list": "Toon als lijst",
-      "show-grid": "Toon in raster"
-    },
-    "filters": {
-      "head": "Filters",
-      "reset": "Filters verwijderen",
-      "applied": {
-        "f.author": "Auteur",
-        "f.dateIssued.min": "Startdatum",
-        "f.dateIssued.max": "Einddatum",
-        "f.subject": "Sleutelwoord",
-        "f.has_content_in_original_bundle": "Heeft bestanden"
-      },
-      "filter": {
-        "show-more": "Toon meer",
-        "show-less": "Inklappen",
-        "author": {
-          "placeholder": "Auteursnaam",
-          "head": "Auteur"
-        },
-        "scope": {
-          "placeholder": "Bereikfilter",
-          "head": "Bereik"
-        },
-        "subject": {
-          "placeholder": "Onderwerp",
-          "head": "Onderwerp"
-        },
-        "dateIssued": {
-          "max": {
-            "placeholder": "Vroegste Datum"
-          },
-          "min": {
-            "placeholder": "Laatste Datum"
-          },
-          "head": "Datum"
-        },
-        "has_content_in_original_bundle": {
-          "head": "Heeft bestanden"
-        }
-      }
-    }
-  },
-  "browse": {
-    "title": "Verken {{ collection }} volgens {{ field }} {{ value }}"
-  },
-  "admin": {
-    "registries": {
-      "metadata": {
-        "title": "DSpace Angular :: Metadata Register",
-        "head": "Metadata Register",
-        "description": "Het metadataregister omvat de lijst van alle metadatavelden die beschikbaar zijn in het systeem. Deze velden kunnen verspreid zijn over verschillende metadataschema's. Het qualified Dublin Core schema (dc) is een verplicht schema en kan niet worden verwijderd.",
-        "schemas": {
-          "table": {
-            "id": "ID",
-            "namespace": "Naamruimte",
-            "name": "Naam"
-          },
-          "no-items": "Er kunnen geen metadataschema's getoond worden."
-        }
-      },
-      "schema": {
-        "title": "DSpace Angular :: Metadata Schema Register",
-        "head": "Metadata Schema",
-        "description": "Dit is het metadataschema voor \"{{namespace}}\".",
-        "fields": {
-          "head": "Schema metadatavelden",
-          "table": {
-            "field": "Veld",
-            "scopenote": "Opmerking over bereik"
-          },
-          "no-items": "Er kunnen geen metadatavelden getoond worden."
-        }
-      },
-      "bitstream-formats": {
-        "title": "DSpace Angular :: Bitstream Formaat Register",
-        "head": "Bitstream Formaat Register",
-        "description": "Deze lijst van Bitstream formaten biedt informatie over de formaten die in deze repository zijn toegelaten en op welke manier ze ondersteund worden. De term Bitstream wordt in DSpace gebruikt om een bestand aan te duiden dat samen met metadata onderdeel uitmaakt van een item. De naam bitstream duidt op het feit dat het bestand achterliggend wordt opgeslaan zonder bestandsextensie.",
-        "formats": {
-          "table": {
-            "name": "Naam",
-            "mimetype": "MIME Type",
-            "supportLevel": {
-              "head": "Ondersteuning",
-              "0": "Onbekend",
-              "1": "Gekend",
-              "2": "Ondersteund"
-            },
-            "internal": "intern"
-          },
-          "no-items": "Er kunnen geen bitstreamformaten getoond worden."
-        }
-      }
-    }
-  },
-  "loading": {
-    "default": "Laden...",
-    "top-level-communities": "Inladen van de Communities op het hoogste niveau...",
-    "community": "Community wordt ingeladen...",
-    "collection": "Collectie wordt ingeladen...",
-    "sub-collections": "De sub-collecties worden ingeladen...",
-    "recent-submissions": "Recent toegevoegde items worden ingeladen...",
-    "item": "Item wordt ingeladen...",
-    "objects": "Laden...",
-    "search-results": "Zoekresultaten worden ingeladen...",
-    "browse-by": "Items worden ingeladen..."
-  },
-  "error": {
-    "default": "Fout",
-    "top-level-communities": "Fout bij het inladen van communities op het hoogste niveau",
-    "community": "Fout bij het ophalen van een community",
-    "collection": "Fout bij het ophalen van een collectie",
-    "sub-collections": "Fout bij het ophalen van sub-collecties",
-    "recent-submissions": "Fout bij het ophalen van recent toegevoegde items",
-    "item": "Fout bij het ophalen van items",
-    "objects": "Fout bij het ophalen van objecten",
-    "search-results": "Fout bij het ophalen van zoekresultaten",
-    "browse-by": "Fout bij het ophalen van items",
-    "validation": {
-      "pattern": "Deze invoer is niet toegelaten volgens dit patroon: {{ pattern }}.",
-      "license": {
-        "notgranted": "U moet de invoerlicentie goedkeuren om de invoer af te werken. Indien u deze licentie momenteel niet kan of mag goedkeuren, kan u uw werk opslaan en de invoer later afwerken. U kunt dit nieuwe item ook verwijderen indien u niet voldoet aan de vereisten van de invoerlicentie."
-      }
-    }
-  },
-  "form": {
-    "submit": "Verstuur",
-    "cancel": "Annuleer",
-    "search": "Zoek",
-    "remove": "Verwijder",
-    "first-name": "Voornaam",
-    "last-name": "Achternaam",
-    "loading": "Inladen...",
-    "no-results": "Geen resultaten gevonden",
-    "no-value": "Geen waarde ingevoerd",
-    "group-collapse": "Inklappen",
-    "group-expand": "Uitklappen",
-    "group-collapse-help": "Klik hier op in te klappen",
-    "group-expand-help": "Klik hier om uit te klappen en om meer onderdelen toe te voegen"
-  },
-  "login": {
-    "title": "Aanmelden",
-    "form": {
-      "header": "Gelieve in te loggen in DSpace",
-      "email": "Email adres",
-      "forgot-password": "Bent u uw wachtwoord vergeten?",
-      "new-user": "Nieuwe gebruiker? Gelieve u hier te registreren",
-      "password": "Wachtwoord",
-      "submit": "Aanmelden"
-    }
-  },
-  "logout": {
-    "title": "Afmelden",
-    "form": {
-      "header": "Afmelden in DSpace",
-      "submit": "Afmelden"
-    }
-  },
-  "auth": {
-    "messages": {
-      "expired": "Uw sessie is vervallen. Gelieve opnieuw aan te melden."
-    },
-    "errors": {
-      "invalid-user": "Ongeldig e-mailadres of wachtwoord."
-    }
-  }
+  "404.help": "De pagina die u zoekt kan niet gevonden worden. De pagina werd mogelijk verplaatst of verwijderd. U kan onderstaande knop gebruiken om terug naar de homepagina te gaan. ",
+  "404.link.home-page": "Terug naar de homepagina",
+  "404.page-not-found": "Pagina niet gevonden",
+  "admin.registries.bitstream-formats.description": "Deze lijst van Bitstream formaten biedt informatie over de formaten die in deze repository zijn toegelaten en op welke manier ze ondersteund worden. De term Bitstream wordt in DSpace gebruikt om een bestand aan te duiden dat samen met metadata onderdeel uitmaakt van een item. De naam bitstream duidt op het feit dat het bestand achterliggend wordt opgeslaan zonder bestandsextensie.",
+  "admin.registries.bitstream-formats.formats.no-items": "Er kunnen geen bitstreamformaten getoond worden.",
+  "admin.registries.bitstream-formats.formats.table.internal": "intern",
+  "admin.registries.bitstream-formats.formats.table.mimetype": "MIME Type",
+  "admin.registries.bitstream-formats.formats.table.name": "Naam",
+  "admin.registries.bitstream-formats.formats.table.supportLevel.0": "Onbekend",
+  "admin.registries.bitstream-formats.formats.table.supportLevel.1": "Gekend",
+  "admin.registries.bitstream-formats.formats.table.supportLevel.2": "Ondersteund",
+  "admin.registries.bitstream-formats.formats.table.supportLevel.head": "Ondersteuning",
+  "admin.registries.bitstream-formats.head": "Bitstream Formaat Register",
+  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Formaat Register",
+  "admin.registries.metadata.description": "Het metadataregister omvat de lijst van alle metadatavelden die beschikbaar zijn in het systeem. Deze velden kunnen verspreid zijn over verschillende metadataschema's. Het qualified Dublin Core schema (dc) is een verplicht schema en kan niet worden verwijderd.",
+  "admin.registries.metadata.head": "Metadata Register",
+  "admin.registries.metadata.schemas.no-items": "Er kunnen geen metadataschema's getoond worden.",
+  "admin.registries.metadata.schemas.table.id": "ID",
+  "admin.registries.metadata.schemas.table.name": "Naam",
+  "admin.registries.metadata.schemas.table.namespace": "Naamruimte",
+  "admin.registries.metadata.title": "DSpace Angular :: Metadata Register",
+  "admin.registries.schema.description": "Dit is het metadataschema voor \"{{namespace}}\".",
+  "admin.registries.schema.fields.head": "Schema metadatavelden",
+  "admin.registries.schema.fields.no-items": "Er kunnen geen metadatavelden getoond worden.",
+  "admin.registries.schema.fields.table.field": "Veld",
+  "admin.registries.schema.fields.table.scopenote": "Opmerking over bereik",
+  "admin.registries.schema.head": "Metadata Schema",
+  "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Register",
+  "auth.errors.invalid-user": "Ongeldig e-mailadres of wachtwoord.",
+  "auth.messages.expired": "Uw sessie is vervallen. Gelieve opnieuw aan te melden.",
+  "browse.title": "Verken {{ collection }} volgens {{ field }} {{ value }}",
+  "collection.page.browse.recent.head": "Recent toegevoegd",
+  "collection.page.license": "Licentie",
+  "collection.page.news": "Nieuws",
+  "community.page.license": "Licentie",
+  "community.page.news": "Nieuws",
+  "community.sub-collection-list.head": "Collecties in deze Community",
+  "error.browse-by": "Fout bij het ophalen van items",
+  "error.collection": "Fout bij het ophalen van een collectie",
+  "error.community": "Fout bij het ophalen van een community",
+  "error.default": "Fout",
+  "error.item": "Fout bij het ophalen van items",
+  "error.objects": "Fout bij het ophalen van objecten",
+  "error.recent-submissions": "Fout bij het ophalen van recent toegevoegde items",
+  "error.search-results": "Fout bij het ophalen van zoekresultaten",
+  "error.sub-collections": "Fout bij het ophalen van sub-collecties",
+  "error.top-level-communities": "Fout bij het inladen van communities op het hoogste niveau",
+  "error.validation.license.notgranted": "U moet de invoerlicentie goedkeuren om de invoer af te werken. Indien u deze licentie momenteel niet kan of mag goedkeuren, kan u uw werk opslaan en de invoer later afwerken. U kunt dit nieuwe item ook verwijderen indien u niet voldoet aan de vereisten van de invoerlicentie.",
+  "error.validation.pattern": "Deze invoer is niet toegelaten volgens dit patroon: {{ pattern }}.",
+  "footer.copyright": "copyright © 2002-{{ year }}",
+  "footer.link.dspace": "DSpace software",
+  "footer.link.duraspace": "DuraSpace",
+  "form.cancel": "Annuleer",
+  "form.first-name": "Voornaam",
+  "form.group-collapse": "Inklappen",
+  "form.group-collapse-help": "Klik hier op in te klappen",
+  "form.group-expand": "Uitklappen",
+  "form.group-expand-help": "Klik hier om uit te klappen en om meer onderdelen toe te voegen",
+  "form.last-name": "Achternaam",
+  "form.loading": "Inladen...",
+  "form.no-results": "Geen resultaten gevonden",
+  "form.no-value": "Geen waarde ingevoerd",
+  "form.remove": "Verwijder",
+  "form.search": "Zoek",
+  "form.submit": "Verstuur",
+  "home.description": "",
+  "home.title": "DSpace Angular :: Home",
+  "home.top-level-communities.head": "Communities in DSpace",
+  "home.top-level-communities.help": "Selecteer een community om diens collecties te verkennen.",
+  "item.page.abstract": "Abstract",
+  "item.page.author": "Auteur",
+  "item.page.collections": "Collecties",
+  "item.page.date": "Datum",
+  "item.page.files": "Bestanden",
+  "item.page.filesection.description": "Beschrijving:",
+  "item.page.filesection.download": "Download",
+  "item.page.filesection.format": "Formaat:",
+  "item.page.filesection.name": "Naam:",
+  "item.page.filesection.size": "Grootte:",
+  "item.page.link.full": "Volledige itemweergave",
+  "item.page.link.simple": "Eenvoudige itemweergave",
+  "item.page.uri": "URI",
+  "loading.browse-by": "Items worden ingeladen...",
+  "loading.collection": "Collectie wordt ingeladen...",
+  "loading.community": "Community wordt ingeladen...",
+  "loading.default": "Laden...",
+  "loading.item": "Item wordt ingeladen...",
+  "loading.objects": "Laden...",
+  "loading.recent-submissions": "Recent toegevoegde items worden ingeladen...",
+  "loading.search-results": "Zoekresultaten worden ingeladen...",
+  "loading.sub-collections": "De sub-collecties worden ingeladen...",
+  "loading.top-level-communities": "Inladen van de Communities op het hoogste niveau...",
+  "login.form.email": "Email adres",
+  "login.form.forgot-password": "Bent u uw wachtwoord vergeten?",
+  "login.form.header": "Gelieve in te loggen in DSpace",
+  "login.form.new-user": "Nieuwe gebruiker? Gelieve u hier te registreren",
+  "login.form.password": "Wachtwoord",
+  "login.form.submit": "Aanmelden",
+  "login.title": "Aanmelden",
+  "logout.form.header": "Afmelden in DSpace",
+  "logout.form.submit": "Afmelden",
+  "logout.title": "Afmelden",
+  "nav.home": "Home",
+  "nav.login": "Log In",
+  "nav.logout": "Log Uit",
+  "pagination.results-per-page": "Resultaten per pagina",
+  "pagination.showing.detail": "{{ range }} van {{ total }}",
+  "pagination.showing.label": "Resultaten ",
+  "pagination.sort-direction": "Sorteermogelijkheden",
+  "search.description": "",
+  "search.filters.applied.f.author": "Auteur",
+  "search.filters.applied.f.dateIssued.max": "Einddatum",
+  "search.filters.applied.f.dateIssued.min": "Startdatum",
+  "search.filters.applied.f.has_content_in_original_bundle": "Heeft bestanden",
+  "search.filters.applied.f.subject": "Sleutelwoord",
+  "search.filters.filter.author.head": "Auteur",
+  "search.filters.filter.author.placeholder": "Auteursnaam",
+  "search.filters.filter.dateIssued.head": "Datum",
+  "search.filters.filter.dateIssued.max.placeholder": "Vroegste Datum",
+  "search.filters.filter.dateIssued.min.placeholder": "Laatste Datum",
+  "search.filters.filter.has_content_in_original_bundle.head": "Heeft bestanden",
+  "search.filters.filter.scope.head": "Bereik",
+  "search.filters.filter.scope.placeholder": "Bereikfilter",
+  "search.filters.filter.show-less": "Inklappen",
+  "search.filters.filter.show-more": "Toon meer",
+  "search.filters.filter.subject.head": "Onderwerp",
+  "search.filters.filter.subject.placeholder": "Onderwerp",
+  "search.filters.head": "Filters",
+  "search.filters.reset": "Filters verwijderen",
+  "search.form.search": "Zoek",
+  "search.form.search_dspace": "Zoek in DSpace",
+  "search.results.head": "Zoekresultaten",
+  "search.results.no-results": "Er waren geen resultaten voor deze zoekopdracht",
+  "search.sidebar.close": "Terug naar de resultaten",
+  "search.sidebar.filters.title": "Filters",
+  "search.sidebar.open": "Zoek Tools",
+  "search.sidebar.results": "resultaten",
+  "search.sidebar.settings.rpp": "Resultaten per pagina",
+  "search.sidebar.settings.sort-by": "Sorteer volgens",
+  "search.sidebar.settings.title": "Instellingen",
+  "search.title": "DSpace Angular :: Zoek",
+  "search.view-switch.show-grid": "Toon in raster",
+  "search.view-switch.show-list": "Toon als lijst",
+  "sorting.dc.title.ASC": "Oplopend op titel",
+  "sorting.dc.title.DESC": "Aflopend op titel",
+  "sorting.score.DESC": "Relevantie",
+  "title": "DSpace"
 }
