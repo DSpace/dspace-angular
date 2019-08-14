@@ -175,6 +175,8 @@
   "home.title": "DSpace Angular :: Home",
   "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.help": "Select a community to browse its collections.",
+  "item.bitstreams.upload.bundle-name": "Bundle Name",
+  "item.bitstreams.upload.drop-message": "Drop a file to upload",
   "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.confirm": "Delete",
   "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",

@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="form-row col-12">
+      <ng-container *ngVar="(bundleName$ | async) as bundleName">
+        <label for="bundleName">{{"item.bitstreams.upload.bundle-name" | translate}}</label>
+        <input  id="bundleName"
+                [value]="bundleName ? bundleName : 'ORIGINAL'"
+                type="text"
+                class="form-control" />
+      </ng-container>
+      <ds-uploader [dropMsg]="'item.bitstreams.upload.drop-message' | translate"></ds-uploader>
+    </div>
+  </div>
+</div>

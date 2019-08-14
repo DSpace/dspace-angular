@@ -7,6 +7,7 @@ import { ItemPageResolver } from './item-page.resolver';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getItemModulePath } from '../app-routing.module';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
+import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 
 export function getItemPageRoute(itemId: string) {
   return new URLCombiner(getItemModulePath(), itemId).toString();
@@ -16,6 +17,7 @@ export function getItemEditPath(id: string) {
 }
 
 const ITEM_EDIT_PATH = ':id/edit';
+const UPLOAD_BITSTREAM_PATH = ':id/bitstreams/new';
 
 @NgModule({
   imports: [
@@ -40,6 +42,14 @@ const ITEM_EDIT_PATH = ':id/edit';
         loadChildren: './edit-item-page/edit-item-page.module#EditItemPageModule',
         canActivate: [AuthenticatedGuard]
       },
+      {
+        path: UPLOAD_BITSTREAM_PATH,
+        component: UploadBitstreamComponent,
+        resolve: {
+          item: ItemPageResolver
+        },
+        canActivate: [AuthenticatedGuard]
+      }
     ])
   ],
   providers: [
