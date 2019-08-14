@@ -3,33 +3,52 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, find, flatMap, map, startWith, switchAll, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
-import { DeleteRequest, GetRequest, PostRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindAllOptions, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RemoteData } from './remote-data';
-import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
+import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
 import { compareArraysUsingIds, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../core.reducers';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { DataService } from './data.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
 /**
  * The service handling all relationship requests
  */
 @Injectable()
-export class RelationshipService {
+export class RelationshipService extends DataService<Relationship> {
   protected linkPath = 'relationships';
+  protected forceBypassCache = false;
 
-  constructor(protected requestService: RequestService,
-              protected halService: HALEndpointService,
+  constructor(protected itemService: ItemDataService,
+              protected requestService: RequestService,
               protected rdbService: RemoteDataBuildService,
-              protected itemService: ItemDataService) {
+              protected dataBuildService: NormalizedObjectBuildService,
+              protected store: Store<CoreState>,
+              protected halService: HALEndpointService,
+              protected objectCache: ObjectCacheService,
+              protected notificationsService: NotificationsService,
+              protected http: HttpClient,
+              protected comparator: DefaultChangeAnalyzer<Relationship>) {
+    super();
+  }
+
+  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+    return this.halService.getEndpoint(linkPath);
   }
 
   /**
@@ -37,7 +56,7 @@ export class RelationshipService {
    * @param uuid
    */
   getRelationshipEndpoint(uuid: string) {
-    return this.halService.getEndpoint(this.linkPath).pipe(
+    return this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${uuid}`)
     );
   }
@@ -53,7 +72,8 @@ export class RelationshipService {
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-      getResponseFromEntry()
+      getResponseFromEntry(),
+      tap(() => this.removeRelationshipItemsFromCacheByRelationship(id))
     );
   }
 
@@ -69,8 +89,31 @@ export class RelationshipService {
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, `${item1.self} \n ${item2.self}`, options)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-      getResponseFromEntry()
+      getResponseFromEntry(),
+      tap(() => this.removeRelationshipItemsFromCache(item1)),
+      tap(() => this.removeRelationshipItemsFromCache(item2)),
     );
+  }
+
+  private removeRelationshipItemsFromCacheByRelationship(relationshipId: string) {
+    this.findById(relationshipId).pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((relationship: Relationship) => combineLatest(
+        relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
+        relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
+        )
+      ),
+      take(1)
+    ).subscribe(([item1, item2]) => {
+      this.removeRelationshipItemsFromCache(item1);
+      this.removeRelationshipItemsFromCache(item2);
+    })
+  }
+
+  private removeRelationshipItemsFromCache(item) {
+    this.objectCache.remove(item.self);
+    this.requestService.removeByHrefSubstring(item.self);
   }
 
   /**
@@ -86,37 +129,6 @@ export class RelationshipService {
       distinctUntilChanged(compareArraysUsingIds())
     );
   }
-
-  // /**
-  //  * Get an item its relationships in the form of an array
-  //  * @param item
-  //  */
-  // getItemRelationships(item: Item): Observable<RemoteData<PaginatedList<Relationship>>> {
-  //   return this.halService.getEndpoint('items/' + item.uuid + '/relationships')
-  //     .pipe(
-  //       map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
-  //       configureRequest(this.requestService),
-  //       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-  //       filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
-  //       switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href)),
-  //     ) as any;
-  // }
-  //
-  // /**
-  //  * Get an item its relationships in the form of an array
-  //  * @param item
-  //  */
-  // getItemRelationshipsByType(item: Item, relationshipTypeLabel: string): Observable<RemoteData<PaginatedList<Relationship>>> {
-  //   return this.halService.getEndpoint(this.linkPath + '/search/byLabel')
-  //     .pipe(
-  //       map((endpointURL: string) => `${endpointURL}?label=${relationshipTypeLabel}&dso=${item.uuid}`),
-  //       map((endpointURL: string) => new GetRequest(this.requestService.generateRequestId(), endpointURL)),
-  //       configureRequest(this.requestService),
-  //       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-  //       filter((entry: RequestEntry) => hasValue(entry) && hasValue(entry.response)),
-  //       switchMap((entry: RequestEntry) => this.rdbService.buildList(entry.request.href))
-  //     );
-  // }
 
   /**
    * Get an array of the labels of an item’s unique relationship types

@@ -24,6 +24,7 @@ import { RelationshipService } from '../../../../../core/data/relationship.servi
 import { Item } from '../../../../../core/shared/item.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -63,7 +64,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private searchConfigService: SearchConfigurationService,
     private routeService: RouteService,
     private relationshipService: RelationshipService,
-    private relationshipTypeService: RelationshipTypeService
+    private relationshipTypeService: RelationshipTypeService,
+    private itemService: ItemDataService
   ) {
   }
 
@@ -149,24 +151,24 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.subscription = this.itemRD$
       .pipe(
         getSucceededRemoteData(),
-        take(1),
         switchMap((itemRD: RemoteData<Item>) => {
           const type1: string = itemRD.payload.firstMetadataValue('relationship.type');
           const type2: string = selectableObject.indexableObject.firstMetadataValue('relationship.type');
           return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(this.relationship.relationshipType, type1, type2).pipe(
             switchMap((type: RelationshipType) => {
-              const isSwitched = type.rightLabel === this.relationship.relationshipType;
-              let result;
-              if (isSwitched) {
-                result = this.relationshipService.addRelationship(type.id, selectableObject.indexableObject, itemRD.payload);
-              } else {
-                result = this.relationshipService.addRelationship(type.id, itemRD.payload, selectableObject.indexableObject);
+                const isSwitched = type.rightLabel === this.relationship.relationshipType;
+                if (isSwitched) {
+                  return this.relationshipService.addRelationship(type.id, selectableObject.indexableObject, itemRD.payload);
+                } else {
+                  return this.relationshipService.addRelationship(type.id, itemRD.payload, selectableObject.indexableObject);
+                }
               }
-              return result;
-            })
+            ),
+            tap(() => this.itemRD$ = this.itemService.findById(itemRD.payload.uuid))
           );
 
-        })
+        }),
+        take(1)
       )
       .subscribe();
   }
@@ -177,6 +179,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       getSucceededRemoteData(),
       switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, selectableObject.indexableObject, this.relationship.relationshipType)),
       switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
+      take(1)
     ).subscribe();
   }
 
