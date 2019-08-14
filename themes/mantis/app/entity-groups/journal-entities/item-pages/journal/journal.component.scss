@@ -1,4 +1,4 @@
-@import 'src/app/+item-page/simple/item-types/journal-issue/journal-issue.component.scss';
+@import 'src/app/entity-groups/journal-entities/item-pages/journal/journal.component.scss';
 
 :host {
     > * {
@@ -25,6 +25,14 @@
         ds-thumbnail {
             display: block;
             max-width: $thumbnail-max-width;
+        }
+    }
+
+    .search-container {
+        margin-bottom: $spacer;
+        @media screen and (max-width: map-get($grid-breakpoints, lg)) {
+            width: 100%;
+            max-width: none;
         }
     }
 }
