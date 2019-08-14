@@ -31,7 +31,6 @@ describe('RelationshipService', () => {
   }) as ObjectCacheService;
 
   const relationshipType = Object.assign(new RelationshipType(), {
-    type: ResourceType.RelationshipType,
     id: '1',
     uuid: '1',
     leftLabel: 'isAuthorOfPublication',

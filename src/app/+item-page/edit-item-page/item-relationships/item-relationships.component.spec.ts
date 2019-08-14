@@ -66,7 +66,6 @@ describe('ItemRelationshipsComponent', () => {
     const date = new Date();
 
     relationshipType = Object.assign(new RelationshipType(), {
-      type: ResourceType.RelationshipType,
       id: '1',
       uuid: '1',
       leftLabel: 'isAuthorOfPublication',
