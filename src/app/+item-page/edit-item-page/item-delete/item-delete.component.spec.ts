@@ -17,6 +17,7 @@ import { By } from '@angular/platform-browser';
 import { ItemDeleteComponent } from './item-delete.component';
 import { getItemEditPath } from '../../item-page-routing.module';
 import { RestResponse } from '../../../core/cache/response.models';
+import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
 
 let comp: ItemDeleteComponent;
 let fixture: ComponentFixture<ItemDeleteComponent>;
@@ -49,7 +50,7 @@ describe('ItemDeleteComponent', () => {
 
     routeStub = {
       data: observableOf({
-        item: new RemoteData(false, false, true, null, mockItem)
+        item: createSuccessfulRemoteDataObject(mockItem)
       })
     };
 

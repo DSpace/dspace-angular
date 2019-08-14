@@ -11,7 +11,7 @@ import { Item } from '../../../core/shared/item.model';
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
 
 describe('ItemStatusComponent', () => {
   let comp: ItemStatusComponent;
@@ -27,7 +27,7 @@ describe('ItemStatusComponent', () => {
 
   const routeStub = {
       parent: {
-        data: observableOf({ item: new RemoteData(false, false, true, null, mockItem) })
+        data: observableOf({ item: createSuccessfulRemoteDataObject(mockItem) })
       }
     };
 

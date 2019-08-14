@@ -1,7 +1,7 @@
 import { DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
-import { FormRowModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-input.model';
 import { isEmpty, isNull } from '../../../../../empty.util';
+import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP = 'RELATION';
 export const PLACEHOLDER_PARENT_METADATA = '#PLACEHOLDER_PARENT_METADATA_VALUE#';

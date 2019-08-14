@@ -1,16 +1,22 @@
 import { AuthStatus } from './auth-status.model';
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
+import { EPerson } from '../../eperson/models/eperson.model';
 
 @mapsTo(AuthStatus)
 @inheritSerialization(NormalizedObject)
 export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
+  /**
+   * The unique identifier of this auth status
+   */
   @autoserialize
   id: string;
 
+  /**
+   * The unique generated uuid of this auth status
+   */
   @autoserializeAs(new IDToUUIDSerializer('auth-status'), 'id')
   uuid: string;
 
@@ -26,7 +32,10 @@ export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   @autoserialize
   authenticated: boolean;
 
-  @relationship(ResourceType.EPerson, false)
+  /**
+   * The self link to the eperson of this auth status
+   */
+  @relationship(EPerson, false)
   @autoserialize
   eperson: string;
 }

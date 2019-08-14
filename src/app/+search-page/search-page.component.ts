@@ -86,10 +86,10 @@ export class SearchPageComponent implements OnInit {
   sideBarWidth = 3;
 
   /**
-   * The currently applied filter (determines title of search)
+   * The currently applied configuration (determines title of search)
    */
   @Input()
-  fixedFilter$: Observable<string>;
+  configuration$: Observable<string>;
 
   /**
    * Link to the search page
@@ -131,6 +131,9 @@ export class SearchPageComponent implements OnInit {
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
+    if (!isNotEmpty(this.configuration$)) {
+      this.configuration$ = this.routeService.getRouteParameterValue('configuration');
+    }
   }
 
   /**

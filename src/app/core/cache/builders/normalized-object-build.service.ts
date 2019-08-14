@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NormalizedObject } from '../models/normalized-object.model';
-import { CacheableObject } from '../object-cache.reducer';
-import { getRelationships } from './build-decorators';
-import { NormalizedObjectFactory } from '../models/normalized-object-factory';
+import { getMapsToType, getRelationships } from './build-decorators';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { TypedObject } from '../object-cache.reducer';
 
 /**
  * Return true if halObj has a value for `_links.self`
@@ -35,8 +34,8 @@ export class NormalizedObjectBuildService {
    *
    * @param {TDomain} domainModel a domain model
    */
-  normalize<T extends CacheableObject>(domainModel: T): NormalizedObject<T> {
-    const normalizedConstructor = NormalizedObjectFactory.getConstructor(domainModel.type);
+  normalize<T extends TypedObject>(domainModel: T): NormalizedObject<T> {
+    const normalizedConstructor = getMapsToType((domainModel as any).type);
     const relationships = getRelationships(normalizedConstructor) || [];
 
     const normalizedModel = Object.assign({}, domainModel) as any;

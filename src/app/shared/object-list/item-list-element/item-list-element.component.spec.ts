@@ -8,9 +8,10 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from '../../../+item-page/simple/item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from '../../testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });

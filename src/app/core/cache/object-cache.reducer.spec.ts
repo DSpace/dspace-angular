@@ -9,6 +9,7 @@ import {
   ResetObjectCacheTimestampsAction
 } from './object-cache.actions';
 import { Operation } from 'fast-json-patch';
+import { Item } from '../shared/item.model';
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;
@@ -28,6 +29,7 @@ describe('objectCacheReducer', () => {
   const testState = {
     [selfLink1]: {
       data: {
+        type: Item.type,
         self: selfLink1,
         foo: 'bar'
       },
@@ -39,6 +41,7 @@ describe('objectCacheReducer', () => {
     },
     [selfLink2]: {
       data: {
+        type: Item.type,
         self: requestUUID2,
         foo: 'baz'
       },
@@ -67,7 +70,7 @@ describe('objectCacheReducer', () => {
 
   it('should add the payload to the cache in response to an ADD action', () => {
     const state = Object.create(null);
-    const objectToCache = { self: selfLink1 };
+    const objectToCache = { self: selfLink1, type: Item.type };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const requestUUID = requestUUID1;
@@ -80,7 +83,12 @@ describe('objectCacheReducer', () => {
   });
 
   it('should overwrite an object in the cache in response to an ADD action if it already exists', () => {
-    const objectToCache = { self: selfLink1, foo: 'baz', somethingElse: true };
+    const objectToCache = {
+      self: selfLink1,
+      foo: 'baz',
+      somethingElse: true,
+      type: Item.type
+    };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const requestUUID = requestUUID1;
@@ -95,7 +103,7 @@ describe('objectCacheReducer', () => {
 
   it('should perform the ADD action without affecting the previous state', () => {
     const state = Object.create(null);
-    const objectToCache = { self: selfLink1 };
+    const objectToCache = { self: selfLink1, type: Item.type };
     const timeAdded = new Date().getTime();
     const msToLive = 900000;
     const requestUUID = requestUUID1;

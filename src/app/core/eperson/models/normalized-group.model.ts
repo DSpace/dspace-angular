@@ -5,7 +5,6 @@ import { ListableObject } from '../../../shared/object-collection/shared/listabl
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
 import { Group } from './group.model';
-import { ResourceType } from '../../shared/resource-type';
 
 @mapsTo(Group)
 @inheritSerialization(NormalizedDSpaceObject)
@@ -15,7 +14,7 @@ export class NormalizedGroup extends NormalizedDSpaceObject<Group> implements Ca
    * List of Groups that this Group belong to
    */
   @deserialize
-  @relationship(ResourceType.Group, true)
+  @relationship(Group, true)
   groups: string[];
 
   /**

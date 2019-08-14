@@ -10,13 +10,13 @@ import {
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
 import { CoreState } from '../core.reducers';
-import { ResourceType } from '../shared/resource-type';
 import { NormalizedItem } from './models/normalized-item.model';
 import { first } from 'rxjs/operators';
 import { Operation } from 'fast-json-patch';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { Patch } from './object-cache.reducer';
+import { Item } from '../shared/item.model';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
@@ -28,7 +28,7 @@ describe('ObjectCacheService', () => {
   const msToLive = 900000;
   let objectToCache = {
     self: selfLink,
-    type: ResourceType.Item
+    type: Item.type
   };
   let cacheEntry;
   let invalidCacheEntry;
@@ -37,7 +37,7 @@ describe('ObjectCacheService', () => {
   function init() {
     objectToCache = {
       self: selfLink,
-      type: ResourceType.Item
+      type: Item.type
     };
     cacheEntry = {
       data: objectToCache,
