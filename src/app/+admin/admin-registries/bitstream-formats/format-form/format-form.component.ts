@@ -4,7 +4,7 @@ import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-f
 import {
   DynamicCheckboxModel,
   DynamicFormArrayModel,
-  DynamicFormControlLayout,
+  DynamicFormControlLayout, DynamicFormControlLayoutConfig,
   DynamicFormControlModel,
   DynamicFormService,
   DynamicInputModel,
@@ -49,7 +49,7 @@ export class FormatFormComponent implements OnInit {
   arrayElementLayout: DynamicFormControlLayout = {
     grid: {
       group: 'form-row',
-    }
+    },
   };
 
   /**
@@ -114,6 +114,7 @@ export class FormatFormComponent implements OnInit {
       groupFactory: () => [
         new DynamicInputModel({
           id: 'extension',
+          placeholder: 'admin.registries.bitstream-formats.edit.extensions.placeholder',
         }, this.arrayInputElementLayout)
       ]
     }, this.arrayElementLayout),

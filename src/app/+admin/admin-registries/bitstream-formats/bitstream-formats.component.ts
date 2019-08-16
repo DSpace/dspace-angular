@@ -36,7 +36,7 @@ export class BitstreamFormatsComponent implements OnInit {
    * Currently simply renders all bitstream formats
    */
   config: FindAllOptions = Object.assign(new FindAllOptions(), {
-    elementsPerPage: 10000
+    elementsPerPage: 20
   });
 
   /**
@@ -45,7 +45,7 @@ export class BitstreamFormatsComponent implements OnInit {
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'registry-bitstreamformats-pagination',
-    pageSize: 10000
+    pageSize: 20
   });
 
   constructor(private notificationsService: NotificationsService,
@@ -142,9 +142,11 @@ export class BitstreamFormatsComponent implements OnInit {
    * @param event The page change event
    */
   onPageChange(event) {
-    this.config.currentPage = event;
+    this.config = Object.assign(new FindAllOptions(), this.config, {
+      currentPage: event,
+    });
     this.pageConfig.currentPage = event;
-    this.updateFormats();
+    this.pageState.next('pageChange');
   }
 
   ngOnInit(): void {

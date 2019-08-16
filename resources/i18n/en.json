@@ -17,6 +17,7 @@
   "admin.registries.bitstream-formats.edit.description.label": "Description",
   "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
   "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
   "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
   "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
