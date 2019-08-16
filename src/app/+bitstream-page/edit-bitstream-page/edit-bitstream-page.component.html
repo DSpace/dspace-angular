@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h2>{{'bitstream.edit.title' | translate}}</h2>
+      <ng-container *ngVar="(bitstreamRD$ | async)?.payload as bitstream">
+        <div *ngIf="bitstream">
+          <span class="font-weight-bold">{{'bitstream.edit.bitstream' | translate}}</span>
+          <span>{{bitstream.name}}</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -118,4 +118,14 @@ export class ItemDataService extends DataService<Item> {
       map((requestEntry: RequestEntry) => requestEntry.response)
     );
   }
+
+  /**
+   * Get the endpoint for an item's bitstreams
+   * @param itemId
+   */
+  public getBitstreamsEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((url: string) => `${url}/${itemId}/bitstreams`)
+    );
+  }
 }

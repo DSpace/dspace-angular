@@ -1,14 +1,28 @@
 <div class="container">
   <div class="row">
-    <div class="form-row col-12">
-      <ng-container *ngVar="(bundleName$ | async) as bundleName">
-        <label for="bundleName">{{"item.bitstreams.upload.bundle-name" | translate}}</label>
-        <input  id="bundleName"
-                [value]="bundleName ? bundleName : 'ORIGINAL'"
-                type="text"
-                class="form-control" />
+    <div class="col-12 mb-4">
+      <h2>{{'item.bitstreams.upload.title' | translate}}</h2>
+      <ng-container *ngVar="(itemRD$ | async)?.payload as item">
+        <div *ngIf="item">
+          <span class="font-weight-bold">{{'item.bitstreams.upload.item' | translate}}</span>
+          <span>{{item.name}}</span>
+        </div>
       </ng-container>
-      <ds-uploader [dropMsg]="'item.bitstreams.upload.drop-message' | translate"></ds-uploader>
+    </div>
+    <div class="col-12">
+      <label for="bundleName" class="font-weight-bold">{{'item.bitstreams.upload.bundle-name' | translate}}</label>
+      <input  id="bundleName"
+              [(ngModel)]="uploadProperties.bundleName"
+              type="text"
+              class="form-control" />
+      <ds-uploader  class="w-100"
+                    [dropMsg]="'item.bitstreams.upload.drop-message'"
+                    [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
+                    [enableDragOverDocument]="true"
+                    [uploadFilesOptions]="uploadFilesOptions"
+                    [uploadProperties]="uploadProperties"
+                    (onCompleteItem)="onCompleteItem($event)"
+                    (onUploadError)="onUploadError()"></ds-uploader>
     </div>
   </div>
 </div>
