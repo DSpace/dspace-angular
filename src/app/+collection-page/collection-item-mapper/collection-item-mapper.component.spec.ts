@@ -93,7 +93,7 @@ describe('CollectionItemMapperComponent', () => {
   const collectionDataServiceStub = {
     getMappedItems: () => of(emptyList),
     /* tslint:disable:no-empty */
-    clearMappingItemsRequests: () => {}
+    clearMappedItemsRequests: () => {}
     /* tslint:enable:no-empty */
   };
   const routeServiceStub = {

@@ -64,7 +64,7 @@ export class CollectionItemMapperComponent implements OnInit {
    * List of items to show under the "Map" tab
    * Items outside the collection
    */
-  mappingItemsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>;
+  mappedItemsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>;
 
   /**
    * Sort on title ASC by default
@@ -96,7 +96,7 @@ export class CollectionItemMapperComponent implements OnInit {
 
   /**
    * Load collectionItemsRD$ with a fixed scope to only obtain the items this collection owns
-   * Load mappingItemsRD$ to only obtain items this collection doesn't own
+   * Load mappedItemsRD$ to only obtain items this collection doesn't own
    */
   loadItemLists() {
     this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
@@ -114,7 +114,7 @@ export class CollectionItemMapperComponent implements OnInit {
         }
       })
     );
-    this.mappingItemsRD$ = collectionAndOptions$.pipe(
+    this.mappedItemsRD$ = collectionAndOptions$.pipe(
       switchMap(([collectionRD, options, shouldUpdate]) => {
           if (shouldUpdate) {
             return this.searchService.search(Object.assign(new PaginatedSearchOptions(options), {
@@ -190,7 +190,7 @@ export class CollectionItemMapperComponent implements OnInit {
    */
   private clearRequestCache() {
     this.collectionRD$.pipe(take(1)).subscribe((collectionRD: RemoteData<Collection>) => {
-      this.collectionDataService.clearMappingItemsRequests(collectionRD.payload.id);
+      this.collectionDataService.clearMappedItemsRequests(collectionRD.payload.id);
       this.searchService.clearDiscoveryRequests();
     });
   }

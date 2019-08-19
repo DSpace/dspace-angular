@@ -54,7 +54,7 @@ export class ItemCollectionMapperComponent implements OnInit {
    * List of collections to show under the "Map" tab
    * Collections that are not mapped to the item
    */
-  mappingCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
+  mappedCollectionsRD$: Observable<RemoteData<PaginatedList<Collection>>>;
 
   /**
    * Firing this observable (shouldUpdate$.next(true)) forces the two lists to reload themselves
@@ -79,7 +79,7 @@ export class ItemCollectionMapperComponent implements OnInit {
 
   /**
    * Load itemCollectionsRD$ with a fixed scope to only obtain the collections that own this item
-   * Load mappingCollectionsRD$ to only obtain collections that don't own this item
+   * Load mappedCollectionsRD$ to only obtain collections that don't own this item
    */
   loadCollectionLists() {
     this.shouldUpdate$ = new BehaviorSubject<boolean>(true);
@@ -96,7 +96,7 @@ export class ItemCollectionMapperComponent implements OnInit {
       this.itemCollectionsRD$,
       this.searchOptions$
     );
-    this.mappingCollectionsRD$ = itemCollectionsAndOptions$.pipe(
+    this.mappedCollectionsRD$ = itemCollectionsAndOptions$.pipe(
       switchMap(([itemCollectionsRD, searchOptions]) => {
         return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
           query: this.buildQuery(itemCollectionsRD.payload.page, searchOptions.query),

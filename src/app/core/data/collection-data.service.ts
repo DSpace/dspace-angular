@@ -69,10 +69,10 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Fetches the endpoint used for mapping items to a collection
    * @param collectionId   The id of the collection to map items to
    */
-  getMappingItemsEndpoint(collectionId): Observable<string> {
+  getMappedItemsEndpoint(collectionId): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, collectionId)),
-      map((endpoint: string) => `${endpoint}/mappingItems`)
+      map((endpoint: string) => `${endpoint}/mappedItems`)
     );
   }
 
@@ -84,7 +84,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
   getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
     const requestUuid = this.requestService.generateRequestId();
 
-    const href$ = this.getMappingItemsEndpoint(collectionId).pipe(
+    const href$ = this.getMappedItemsEndpoint(collectionId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpoint: string) => hasValue(searchOptions) ? searchOptions.toRestUrl(endpoint) : endpoint)
@@ -106,11 +106,11 @@ export class CollectionDataService extends ComColDataService<Collection> {
   }
 
   /**
-   * Clears all requests (from cache) connected to the mappingItems endpoint
+   * Clears all requests (from cache) connected to the mappedItems endpoint
    * @param collectionId
    */
-  clearMappingItemsRequests(collectionId: string) {
-    this.getMappingItemsEndpoint(collectionId).pipe(take(1)).subscribe((href: string) => {
+  clearMappedItemsRequests(collectionId: string) {
+    this.getMappedItemsEndpoint(collectionId).pipe(take(1)).subscribe((href: string) => {
       this.requestService.removeByHrefSubstring(href);
     });
   }

@@ -18,18 +18,18 @@ export class MappedCollectionsReponseParsingService implements ResponseParsingSe
     if (payload._embedded && payload._embedded.mappedCollections) {
       const mappedCollections = payload._embedded.mappedCollections;
       // TODO: When the API supports it, change this to fetch a paginated list, instead of creating static one
-      // Reason: Pagination is currently not supported on the mappingCollections endpoint
-      const paginatedMappingCollections = new PaginatedList(Object.assign(new PageInfo(), {
+      // Reason: Pagination is currently not supported on the mappedCollections endpoint
+      const paginatedMappedCollections = new PaginatedList(Object.assign(new PageInfo(), {
         elementsPerPage: mappedCollections.length,
         totalElements: mappedCollections.length,
         totalPages: 1,
         currentPage: 1
       }), mappedCollections);
-      return new GenericSuccessResponse(paginatedMappingCollections, data.statusCode, data.statusText);
+      return new GenericSuccessResponse(paginatedMappedCollections, data.statusCode, data.statusText);
     } else {
       return new ErrorResponse(
         Object.assign(
-          new Error('Unexpected response from mappingCollections endpoint'), data
+          new Error('Unexpected response from mappedCollections endpoint'), data
         )
       );
     }

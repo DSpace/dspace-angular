@@ -34,7 +34,7 @@
             <div>
               <ds-item-select class="mt-2"
                 [key]="'map'"
-                [dsoRD$]="mappingItemsRD$"
+                [dsoRD$]="mappedItemsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
                 [confirmButton]="'collection.item-mapper.confirm'"
                 (confirm)="mapItems($event)"></ds-item-select>

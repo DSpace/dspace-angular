@@ -80,7 +80,7 @@ export class ItemDataService extends DataService<Item> {
    * @param itemId        The item's id
    * @param collectionId  The collection's id (optional)
    */
-  public getMappingCollectionsEndpoint(itemId: string, collectionId?: string): Observable<string> {
+  public getMappedCollectionsEndpoint(itemId: string, collectionId?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, itemId)),
       map((endpoint: string) => `${endpoint}/mappedCollections${collectionId ? `/${collectionId}` : ''}`)
@@ -93,7 +93,7 @@ export class ItemDataService extends DataService<Item> {
    * @param collectionId  The collection's id
    */
   public removeMappingFromCollection(itemId: string, collectionId: string): Observable<RestResponse> {
-    return this.getMappingCollectionsEndpoint(itemId, collectionId).pipe(
+    return this.getMappedCollectionsEndpoint(itemId, collectionId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
@@ -109,7 +109,7 @@ export class ItemDataService extends DataService<Item> {
    * @param collectionHref  The collection's self link
    */
   public mapToCollection(itemId: string, collectionHref: string): Observable<RestResponse> {
-    return this.getMappingCollectionsEndpoint(itemId).pipe(
+    return this.getMappedCollectionsEndpoint(itemId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => {
@@ -130,7 +130,7 @@ export class ItemDataService extends DataService<Item> {
    * @param itemId    The item's id
    */
   public getMappedCollections(itemId: string): Observable<RemoteData<PaginatedList<Collection>>> {
-    const request$ = this.getMappingCollectionsEndpoint(itemId).pipe(
+    const request$ = this.getMappedCollectionsEndpoint(itemId).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) => new MappedCollectionsRequest(this.requestService.generateRequestId(), endpointURL)),
@@ -149,11 +149,11 @@ export class ItemDataService extends DataService<Item> {
   }
 
   /**
-   * Clears all requests (from cache) connected to the mappingCollections endpoint
+   * Clears all requests (from cache) connected to the mappedCollections endpoint
    * @param itemId
    */
   public clearMappedCollectionsRequests(itemId: string) {
-    this.getMappingCollectionsEndpoint(itemId).pipe(take(1)).subscribe((href: string) => {
+    this.getMappedCollectionsEndpoint(itemId).pipe(take(1)).subscribe((href: string) => {
       this.requestService.removeByHrefSubstring(href);
     });
   }

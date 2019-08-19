@@ -32,8 +32,9 @@
             <div>
               <ds-collection-select class="mt-2"
                 [key]="'map'"
-                [dsoRD$]="mappingCollectionsRD$"
+                [dsoRD$]="mappedCollectionsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
+                [sortOptions]="(searchOptions$ | async)?.sort"
                 [confirmButton]="'item.edit.item-mapper.buttons.add'"
                 (confirm)="mapCollections($event)"></ds-collection-select>
             </div>

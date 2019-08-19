@@ -5,6 +5,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { ObjectSelectService } from '../object-select.service';
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
 
 /**
  * An abstract component used to select DSpaceObjects from a specific list and returning the UUIDs of the selected DSpaceObjects
@@ -25,6 +26,12 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
    */
   @Input()
   paginationOptions: PaginationComponentOptions;
+
+  /**
+   * The sorting options used to display the DSpaceObjects
+   */
+  @Input()
+  sortOptions: SortOptions;
 
   /**
    * The message key used for the confirm button
