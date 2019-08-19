@@ -9,7 +9,7 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { filter, flatMap, map, switchMap, tap } from 'rxjs/operators';
+import { filter, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
@@ -110,9 +110,14 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current configuration string
    */
   getCurrentConfiguration(defaultConfiguration: string) {
-    return this.routeService.getQueryParameterValue('configuration').pipe(map((configuration) => {
-      return configuration || defaultConfiguration;
-    }));
+    return observableCombineLatest(
+      this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
+      this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined))
+    ).pipe(
+      map(([queryConfig, routeConfig]) => {
+        return queryConfig || routeConfig || defaultConfiguration;
+      })
+    );
   }
 
   /**

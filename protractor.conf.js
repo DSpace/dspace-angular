@@ -5,7 +5,7 @@
 var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 exports.config = {
-  allScriptsTimeout: 600000,
+  allScriptsTimeout: 11000,
   // -----------------------------------------------------------------
   // Uncomment to run tests using a remote Selenium server
   //seleniumAddress: 'http://selenium.address:4444/wd/hub',
@@ -73,7 +73,7 @@ exports.config = {
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 600000,
+    defaultTimeoutInterval: 30000,
     print: function () {}
   },
   useAllAngular2AppRoots: true,

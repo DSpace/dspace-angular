@@ -51,7 +51,7 @@
     "debug:server": "node-nightly --inspect --debug-brk dist/server.js",
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js --mode development",
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js --env.aot --env.client --env.server --mode production",
-    "ci": "yarn run lint && yarn run build:aot && yarn run test:headless && npm-run-all -p -r server e2e",
+    "ci": "yarn run lint && yarn run build:aot && yarn run test:headless",
     "protractor": "node node_modules/protractor/bin/protractor",
     "pree2e": "yarn run webdriver:update",
     "e2e": "yarn run protractor",
