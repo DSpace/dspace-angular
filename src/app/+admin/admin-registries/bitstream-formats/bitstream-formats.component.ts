@@ -78,8 +78,11 @@ export class BitstreamFormatsComponent implements OnInit {
           }
 
           this.deselectAll();
-          this.pageState.next('update-on-delete');
-        });
+
+          this.router.navigate([], {
+            queryParams: Object.assign({}, { page: 1 }),
+            queryParamsHandling: 'merge'
+          });        });
       }
     );
   }
