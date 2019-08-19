@@ -250,9 +250,10 @@ export class RelationshipService extends DataService<Relationship> {
       .pipe(
         switchMap((relationships: Relationship[]) => {
           return observableCombineLatest(...relationships.map((relationship: Relationship) => {
+            console.log('relationship: ', relationship.uuid);
             return observableCombineLatest(
-              this.isItemMatchWithItemRD(relationship.leftItem, item2),
-              this.isItemMatchWithItemRD(relationship.rightItem, item2)
+              this.isItemMatchWithItemRD(relationship.leftItem, item2, 'left'),
+              this.isItemMatchWithItemRD(relationship.rightItem, item2, 'right')
             ).pipe(
               filter(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
               map(() => relationship),
@@ -265,10 +266,11 @@ export class RelationshipService extends DataService<Relationship> {
   }
 
 
-  private isItemMatchWithItemRD(itemRD$: Observable<RemoteData<Item>>, itemCheck: Item): Observable<boolean> {
+  private isItemMatchWithItemRD(itemRD$: Observable<RemoteData<Item>>, itemCheck: Item, side: string): Observable<boolean> {
     return itemRD$.pipe(
       getSucceededRemoteData(),
       map((itemRD: RemoteData<Item>) => itemRD.payload),
+      tap((item) => console.log(side, ': ', item.uuid)),
       map((item: Item) => item.uuid === itemCheck.uuid)
     );
   }

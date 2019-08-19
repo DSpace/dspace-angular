@@ -25,6 +25,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -40,7 +41,6 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   label: string;
   relationship: RelationshipOptions;
-  itemRD$: Observable<RemoteData<Item>>;
   listId: string;
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
   searchConfig: PaginatedSearchOptions;
@@ -55,6 +55,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     pageSize: 10
   });
   selection$: Observable<ListableObject[]>;
+  uuid;
 
   constructor(
     public modal: NgbActiveModal,
@@ -65,12 +66,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private routeService: RouteService,
     private relationshipService: RelationshipService,
     private relationshipTypeService: RelationshipTypeService,
-    private itemService: ItemDataService
+    private itemService: ItemDataService,
+    private objectCache: ObjectCacheService,
   ) {
   }
 
   ngOnInit(): void {
-    this.itemRD$.subscribe(t => console.log('subscription', t));
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
@@ -96,7 +97,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
           ) as any
         )
       })
-    )
+    );
 
   }
 
@@ -149,9 +150,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
 
   select(selectableObject: SearchResult<Item>) {
-    this.itemRD$
+    this.itemService.findById(this.uuid)
       .pipe(
-        tap((t) => console.log('tap',t)),
         getSucceededRemoteData(),
         mergeMap((itemRD: RemoteData<Item>) => {
           const type1: string = itemRD.payload.firstMetadataValue('relationship.type');
@@ -165,8 +165,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
                   return this.relationshipService.addRelationship(type.id, itemRD.payload, selectableObject.indexableObject);
                 }
               }
-            ),
-            tap(() => this.itemRD$ = this.itemService.findById(itemRD.payload.uuid))
+            )
           );
 
         }),
@@ -177,7 +176,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
 
   deselect(selectableObject: SearchResult<Item>) {
-    const subscription = this.itemRD$.pipe(
+    this.itemService.findById(this.uuid).pipe(
       getSucceededRemoteData(),
       switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, selectableObject.indexableObject, this.relationship.relationshipType)),
       switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),

@@ -69,7 +69,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { Observable } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
@@ -92,6 +92,8 @@ import { DsDynamicInputModel } from './models/ds-dynamic-input.model';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -182,7 +184,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   modelValueMDRepresentation;
   listId: string;
   searchConfig: string;
-
+  uuid;
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -205,6 +207,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private modalService: NgbModal,
     private relationService: RelationshipService,
     private selectableListService: SelectableListService,
+    private itemService: ItemDataService,
+    private relationshipService: RelationshipService,
   ) {
     super(componentFactoryResolver, layoutService, validationService);
   }
@@ -215,8 +219,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.listId = 'list-' + this.model.relationship.relationshipType;
       this.model.workspaceItem.item.pipe(
         getSucceededRemoteData(),
+        tap((itemRD: RemoteData<Item>) => this.uuid = itemRD.payload.uuid),
         switchMap((itemRD: RemoteData<Item>) => this.relationService.getRelatedItemsByLabel(itemRD.payload, this.model.relationship.relationshipType)),
-        map((items: Item[]) => items.map((item) => Object.assign(new SearchResult(), { indexableObject: item })))
+        map((items: Item[]) => items.map((item) => Object.assign(new SearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems) => this.selectableListService.select(this.listId, relatedItems));
 
       this.model.value = this.selectableListService.getSelectableList(this.listId).pipe(
@@ -275,10 +280,17 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.listId = this.listId;
     modalComp.relationship = this.model.relationship;
     modalComp.label = this.model.label;
-    modalComp.itemRD$ = this.model.workspaceItem.item;
+    modalComp.uuid = this.uuid;
   }
 
-  removeSelection(object: SearchResult<DSpaceObject>) {
+  removeSelection(object: SearchResult<Item>) {
     this.selectableListService.deselectSingle(this.listId, object);
+    setTimeout(() => this.itemService.findById(this.uuid).pipe(
+      getSucceededRemoteData(),
+      switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, object.indexableObject, this.model.relationship.relationshipType)),
+      tap(t => console.log(t)),
+      switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
+      take(1)
+    ).subscribe(), 0);
   }
 }
