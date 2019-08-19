@@ -213,8 +213,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
       this.listId = 'list-' + this.model.relationship.relationshipType;
-
-
       this.model.workspaceItem.item.pipe(
         getSucceededRemoteData(),
         switchMap((itemRD: RemoteData<Item>) => this.relationService.getRelatedItemsByLabel(itemRD.payload, this.model.relationship.relationshipType)),

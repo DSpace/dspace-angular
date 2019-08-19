@@ -9,7 +9,7 @@ import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
-import { concat, map, multicast, switchMap, take, takeWhile, tap } from 'rxjs/operators';
+import { concat, map, mergeMap, multicast, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
@@ -70,6 +70,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnInit(): void {
+    this.itemRD$.subscribe(t => console.log('subscription', t));
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
@@ -148,14 +149,15 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
 
   select(selectableObject: SearchResult<Item>) {
-    this.subscription = this.itemRD$
+    this.itemRD$
       .pipe(
+        tap((t) => console.log('tap',t)),
         getSucceededRemoteData(),
-        switchMap((itemRD: RemoteData<Item>) => {
+        mergeMap((itemRD: RemoteData<Item>) => {
           const type1: string = itemRD.payload.firstMetadataValue('relationship.type');
           const type2: string = selectableObject.indexableObject.firstMetadataValue('relationship.type');
           return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(this.relationship.relationshipType, type1, type2).pipe(
-            switchMap((type: RelationshipType) => {
+            mergeMap((type: RelationshipType) => {
                 const isSwitched = type.rightLabel === this.relationship.relationshipType;
                 if (isSwitched) {
                   return this.relationshipService.addRelationship(type.id, selectableObject.indexableObject, itemRD.payload);
