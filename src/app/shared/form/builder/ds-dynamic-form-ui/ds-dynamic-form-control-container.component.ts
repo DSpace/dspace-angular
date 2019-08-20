@@ -184,7 +184,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   modelValueMDRepresentation;
   listId: string;
   searchConfig: string;
-  uuid;
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
   @Output('dfChange') change: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -219,7 +218,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.listId = 'list-' + this.model.relationship.relationshipType;
       this.model.workspaceItem.item.pipe(
         getSucceededRemoteData(),
-        tap((itemRD: RemoteData<Item>) => this.uuid = itemRD.payload.uuid),
         switchMap((itemRD: RemoteData<Item>) => this.relationService.getRelatedItemsByLabel(itemRD.payload, this.model.relationship.relationshipType)),
         map((items: Item[]) => items.map((item) => Object.assign(new SearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems) => this.selectableListService.select(this.listId, relatedItems));
@@ -280,12 +278,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.listId = this.listId;
     modalComp.relationship = this.model.relationship;
     modalComp.label = this.model.label;
-    modalComp.uuid = this.uuid;
+    modalComp.itemRD$ = this.model.workspaceItem.item;
   }
 
   removeSelection(object: SearchResult<Item>) {
     this.selectableListService.deselectSingle(this.listId, object);
-    setTimeout(() => this.itemService.findById(this.uuid).pipe(
+    setTimeout(() => this.model.workspaceItem.item.pipe(
       getSucceededRemoteData(),
       switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, object.indexableObject, this.model.relationship.relationshipType)),
       tap(t => console.log(t)),

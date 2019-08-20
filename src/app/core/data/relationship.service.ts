@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, map, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { hasNoValue, hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
+import { distinctUntilChanged, filter, map, mergeMap, skip, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { DeleteRequest, FindAllOptions, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
@@ -91,7 +91,7 @@ export class RelationshipService extends DataService<Relationship> {
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry(),
       tap(() => this.removeRelationshipItemsFromCache(item1)),
-      tap(() => this.removeRelationshipItemsFromCache(item2)),
+      tap(() => this.removeRelationshipItemsFromCache(item2))
     );
   }
 
@@ -114,6 +114,11 @@ export class RelationshipService extends DataService<Relationship> {
   private removeRelationshipItemsFromCache(item) {
     this.objectCache.remove(item.self);
     this.requestService.removeByHrefSubstring(item.self);
+    this.objectCache.hasBySelfLinkObservable(item.self).pipe(
+      filter((exists) => !exists),
+      take(1),
+      switchMap(() => this.itemService.findByHref(item.self).pipe(take(1)))
+    ).subscribe();
   }
 
   /**
@@ -246,9 +251,14 @@ export class RelationshipService extends DataService<Relationship> {
 
 
   getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string): Observable<Relationship> {
+    console.log('item 1: ', this.objectCache.hasByUUID(item1.uuid));
+    console.log('item 1 uuid: ', item1.uuid);
+    console.log('item 2: ', this.objectCache.hasByUUID(item2.uuid));
+    console.log('item 2 uuid: ', item2.uuid);
+
     return this.getItemRelationshipsByLabel(item1, label)
       .pipe(
-        switchMap((relationships: Relationship[]) => {
+        mergeMap((relationships: Relationship[]) => {
           return observableCombineLatest(...relationships.map((relationship: Relationship) => {
             console.log('relationship: ', relationship.uuid);
             return observableCombineLatest(
@@ -261,6 +271,7 @@ export class RelationshipService extends DataService<Relationship> {
             );
           }))
         }),
+        skip(1),
         map((relationships: Relationship[]) => relationships.find((relationship => hasValue(relationship)))),
       )
   }
