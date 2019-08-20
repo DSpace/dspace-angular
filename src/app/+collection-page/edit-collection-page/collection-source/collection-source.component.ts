@@ -331,9 +331,16 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Submit the edited Content Source to the REST API, re-initialize the field update and display a notification
    */
   onSubmit() {
-    // TODO: Fetch field update and send to REST API
-    this.initializeOriginalContentSource();
-    this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+    this.collectionRD$.pipe(
+      getSucceededRemoteData(),
+      map((col) => col.payload.uuid),
+      switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
+      take(1)
+    ).subscribe((contentSource: ContentSource) => {
+      this.contentSource = contentSource;
+      this.initializeOriginalContentSource();
+      this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+    });
   }
 
   /**

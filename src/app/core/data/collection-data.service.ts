@@ -12,21 +12,33 @@ import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { ContentSourceRequest, FindAllOptions, RestRequest } from './request.models';
+import { ContentSourceRequest, FindAllOptions, RestRequest, UpdateContentSourceRequest } from './request.models';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { ContentSource } from '../shared/content-source.model';
-import { configureRequest, filterSuccessfulResponses, getRequestFromRequestHref } from '../shared/operators';
-import { ContentSourceSuccessResponse } from '../cache/response.models';
+import {
+  configureRequest,
+  filterSuccessfulResponses,
+  getRequestFromRequestHref,
+  getResponseFromEntry
+} from '../shared/operators';
+import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
   protected forceBypassCache = false;
+  protected errorTitle = 'collection.source.update.notifications.error.title';
+  protected contentSourceError = 'collection.source.update.notifications.error.content';
 
   constructor(
     protected requestService: RequestService,
@@ -38,7 +50,8 @@ export class CollectionDataService extends ComColDataService<Collection> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<Collection>
+    protected comparator: DSOChangeAnalyzer<Collection>,
+    protected translate: TranslateService
   ) {
     super();
   }
@@ -75,6 +88,50 @@ export class CollectionDataService extends ComColDataService<Collection> {
       getRequestFromRequestHref(this.requestService),
       filterSuccessfulResponses(),
       map((response: ContentSourceSuccessResponse) => response.contentsource)
+    );
+  }
+
+  updateContentSource(collectionId: string, contentSource: ContentSource): Observable<ContentSource> {
+    const requestId = this.requestService.generateRequestId();
+    const serializedContentSource = new DSpaceRESTv2Serializer(ContentSource).serialize(contentSource);
+    const request$ = this.getHarvesterEndpoint(collectionId).pipe(
+      take(1),
+      map((href: string) => {
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'application/json');
+        options.headers = headers;
+        return new UpdateContentSourceRequest(requestId, href, JSON.stringify(serializedContentSource), options);
+      })
+    );
+
+    // Execute the post/put request
+    request$.pipe(
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    // Return updated ContentSource
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry(),
+      map((response: RestResponse) => {
+        if (!response.isSuccessful) {
+          if (hasValue((response as any).errorMessage)) {
+            if (response.statusCode === 422) {
+              this.notificationsService.error(this.translate.instant(this.errorTitle), this.translate.instant(this.contentSourceError), new NotificationOptions(-1));
+            } else {
+              this.notificationsService.error(this.translate.instant(this.errorTitle), (response as any).errorMessage, new NotificationOptions(-1));
+            }
+          }
+        } else {
+          return response;
+        }
+      }),
+      isNotEmptyOperator(),
+      map((response: ContentSourceSuccessResponse) => {
+        if (isNotEmpty(response.contentsource)) {
+          return response.contentsource;
+        }
+      })
     );
   }
 }

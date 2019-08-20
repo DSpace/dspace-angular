@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, deserializeAs, deserialize } from 'cerialize';
 
 export enum ContentSourceHarvestType {
   None = 'NONE',
@@ -15,7 +15,7 @@ export class ContentSource {
    * Unique identifier, this is necessary to store the ContentSource in FieldUpdates
    * Because the ContentSource coming from the REST API doesn't have a UUID, we're using the selflink
    */
-  @autoserializeAs('self')
+  @deserializeAs('self')
   uuid: string;
 
   /**
@@ -46,6 +46,6 @@ export class ContentSource {
   /**
    * The REST link to itself
    */
-  @autoserialize
+  @deserialize
   self: string;
 }

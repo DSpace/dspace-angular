@@ -131,6 +131,8 @@
   "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.license": "License",
   "collection.page.news": "News",
+  "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
+  "collection.source.update.notifications.error.title": "Server Error",
   "community.create.head": "Create a Community",
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
   "community.delete.cancel": "Cancel",

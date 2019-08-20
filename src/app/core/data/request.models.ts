@@ -369,6 +369,16 @@ export class ContentSourceRequest extends GetRequest {
   }
 }
 
+export class UpdateContentSourceRequest extends PutRequest {
+  constructor(uuid: string, href: string, public body?: any, public options?: HttpOptions) {
+    super(uuid, href, body, options);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ContentSourceResponseParsingService;
+  }
+}
+
 /**
  * Request to delete an object based on its identifier
  */
