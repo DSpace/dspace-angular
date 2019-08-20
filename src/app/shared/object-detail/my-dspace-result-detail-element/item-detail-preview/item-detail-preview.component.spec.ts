@@ -12,6 +12,16 @@ import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { VarDirective } from '../../../utils/var.directive';
+import { FileService } from '../../../../core/shared/file.service';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service-stub';
+
+function getMockFileService(): FileService {
+  return jasmine.createSpyObj('FileService', {
+    downloadFile: jasmine.createSpy('downloadFile'),
+    getFileNameFromResponseContentDisposition: jasmine.createSpy('getFileNameFromResponseContentDisposition')
+  });
+}
 
 let component: ItemDetailPreviewComponent;
 let fixture: ComponentFixture<ItemDetailPreviewComponent>;
@@ -59,6 +69,10 @@ describe('ItemDetailPreviewComponent', () => {
         }),
       ],
       declarations: [ItemDetailPreviewComponent, ItemDetailPreviewFieldComponent, TruncatePipe, FileSizePipe, VarDirective],
+      providers: [
+        { provide: FileService, useValue: getMockFileService() },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemDetailPreviewComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
