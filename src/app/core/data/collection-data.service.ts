@@ -74,12 +74,20 @@ export class CollectionDataService extends ComColDataService<Collection> {
     );
   }
 
+  /**
+   * Get the endpoint for the collection's content harvester
+   * @param collectionId
+   */
   getHarvesterEndpoint(collectionId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((href: string) => `${href}/${collectionId}/harvester`)
     );
   }
 
+  /**
+   * Get the collection's content harvester
+   * @param collectionId
+   */
   getContentSource(collectionId: string): Observable<ContentSource> {
     return this.getHarvesterEndpoint(collectionId).pipe(
       map((href: string) => new ContentSourceRequest(this.requestService.generateRequestId(), href)),
@@ -91,6 +99,11 @@ export class CollectionDataService extends ComColDataService<Collection> {
     );
   }
 
+  /**
+   * Update the settings of the collection's content harvester
+   * @param collectionId
+   * @param contentSource
+   */
   updateContentSource(collectionId: string, contentSource: ContentSource): Observable<ContentSource> {
     const requestId = this.requestService.generateRequestId();
     const serializedContentSource = new DSpaceRESTv2Serializer(ContentSource).serialize(contentSource);

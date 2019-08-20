@@ -213,6 +213,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   updateSub: Subscription;
 
+  /**
+   * The content harvesting type used when harvesting is disabled
+   */
   harvestTypeNone = ContentSourceHarvestType.None;
 
   public constructor(public objectUpdatesService: ObjectUpdatesService,
@@ -371,6 +374,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
 
   /**
    * Loop over all inputs and update the Content Source with their value
+   * @param updateHarvestType   When set to false, the harvestType of the contentSource will be ignored in the update
    */
   updateContentSource(updateHarvestType: boolean) {
     this.inputModels.forEach(
@@ -383,7 +387,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
 
   /**
    * Update the Content Source with the value from a DynamicInputModel
-   * @param fieldModel
+   * @param fieldModel          The fieldModel to fetch the value from and update the contentSource with
+   * @param updateHarvestType   When set to false, the harvestType of the contentSource will be ignored in the update
    */
   updateContentSourceField(fieldModel: DynamicInputModel, updateHarvestType: boolean) {
     if (hasValue(fieldModel.value) && !(fieldModel.id === this.harvestTypeModel.id && !updateHarvestType)) {

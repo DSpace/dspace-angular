@@ -1,5 +1,9 @@
 import { autoserialize, autoserializeAs, deserializeAs, deserialize } from 'cerialize';
+import { MetadataConfig } from './metadata-config.model';
 
+/**
+ * The type of content harvesting used
+ */
 export enum ContentSourceHarvestType {
   None = 'NONE',
   Metadata = 'METADATA_ONLY',
@@ -42,6 +46,11 @@ export class ContentSource {
    */
   @autoserializeAs('harvest_type')
   harvestType = ContentSourceHarvestType.None;
+
+  /**
+   * The available metadata configurations
+   */
+  metadataConfigs: MetadataConfig[];
 
   /**
    * The REST link to itself
