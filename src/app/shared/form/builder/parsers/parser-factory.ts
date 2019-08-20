@@ -12,7 +12,11 @@ import { NameFieldParser } from './name-field-parser';
 import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
+import { NumberFieldParser } from './number-field-parser';
 
+/**
+ * A factory for form's field parser.
+ */
 export class ParserFactory {
   public static getConstructor(type: ParserType): GenericConstructor<FieldParser> {
     switch (type) {
@@ -39,6 +43,9 @@ export class ParserFactory {
       }
       case ParserType.Name: {
         return NameFieldParser
+      }
+      case ParserType.Number: {
+        return NumberFieldParser
       }
       case ParserType.Series: {
         return SeriesFieldParser
