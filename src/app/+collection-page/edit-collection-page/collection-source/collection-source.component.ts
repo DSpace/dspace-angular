@@ -1,8 +1,13 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import {
-  DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService,
-  DynamicInputModel, DynamicOptionControlModel, DynamicRadioGroupModel,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayout,
+  DynamicFormService,
+  DynamicInputModel,
+  DynamicOptionControlModel,
+  DynamicRadioGroupModel,
   DynamicSelectModel,
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
@@ -12,16 +17,18 @@ import { ObjectUpdatesService } from '../../../core/data/object-updates/object-u
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FormGroup } from '@angular/forms';
 import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { ContentSource } from '../../../core/shared/content-source.model';
+import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
-import { first, map } from 'rxjs/operators';
+import { first, map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { cloneDeep } from 'lodash';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { getSucceededRemoteData } from '../../../core/shared/operators';
 
 /**
  * Component for managing the content source of the collection
@@ -64,9 +71,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   /**
    * The Dynamic Input Model for the OAI Provider
    */
-  providerModel = new DynamicInputModel({
-    id: 'provider',
-    name: 'provider',
+  oaiSourceModel = new DynamicInputModel({
+    id: 'oaiSource',
+    name: 'oaiSource',
     required: true,
     validators: {
       required: null
@@ -79,17 +86,17 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   /**
    * The Dynamic Input Model for the OAI Set
    */
-  setModel = new DynamicInputModel({
-    id: 'set',
-    name: 'set'
+  oaiSetIdModel = new DynamicInputModel({
+    id: 'oaiSetId',
+    name: 'oaiSetId'
   });
 
   /**
    * The Dynamic Input Model for the Metadata Format used
    */
-  formatModel = new DynamicSelectModel({
-    id: 'format',
-    name: 'format',
+  metadataConfigIdModel = new DynamicSelectModel({
+    id: 'metadataConfigId',
+    name: 'metadataConfigId',
     options: [
       {
         value: 'dc'
@@ -100,24 +107,25 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       {
         value: 'dim'
       }
-    ]
+    ],
+    value: 'dc'
   });
 
   /**
    * The Dynamic Input Model for the type of harvesting
    */
-  harvestModel = new DynamicRadioGroupModel<number>({
-    id: 'harvest',
-    name: 'harvest',
+  harvestTypeModel = new DynamicRadioGroupModel<string>({
+    id: 'harvestType',
+    name: 'harvestType',
     options: [
       {
-        value: 1
+        value: ContentSourceHarvestType.Metadata
       },
       {
-        value: 2
+        value: ContentSourceHarvestType.MetadataAndRef
       },
       {
-        value: 3
+        value: ContentSourceHarvestType.MetadataAndBitstreams
       }
     ]
   });
@@ -125,7 +133,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.providerModel, this.setModel, this.formatModel, this.harvestModel];
+  inputModels = [this.oaiSourceModel, this.oaiSetIdModel, this.metadataConfigIdModel, this.harvestTypeModel];
 
   /**
    * The dynamic form fields used for editing the content source of a collection
@@ -133,22 +141,22 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   formModel: DynamicFormControlModel[] = [
     new DynamicFormGroupModel({
-      id: 'providerContainer',
+      id: 'oaiSourceContainer',
       group: [
-        this.providerModel
+        this.oaiSourceModel
       ]
     }),
     new DynamicFormGroupModel({
-      id: 'setContainer',
+      id: 'oaiSetContainer',
       group: [
-        this.setModel,
-        this.formatModel
+        this.oaiSetIdModel,
+        this.metadataConfigIdModel
       ]
     }),
     new DynamicFormGroupModel({
-      id: 'harvestContainer',
+      id: 'harvestTypeContainer',
       group: [
-        this.harvestModel
+        this.harvestTypeModel
       ]
     })
   ];
@@ -157,38 +165,38 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Layout used for structuring the form inputs
    */
   formLayout: DynamicFormLayout = {
-    provider: {
+    oaiSource: {
       grid: {
         host: 'col-12 d-inline-block'
       }
     },
-    set: {
+    oaiSetId: {
       grid: {
         host: 'col col-sm-6 d-inline-block'
       }
     },
-    format: {
+    metadataConfigId: {
       grid: {
         host: 'col col-sm-6 d-inline-block'
       }
     },
-    harvest: {
+    harvestType: {
       grid: {
         host: 'col-12',
         option: 'btn-outline-secondary'
       }
     },
-    setContainer: {
+    oaiSetContainer: {
       grid: {
         host: 'row'
       }
     },
-    providerContainer: {
+    oaiSourceContainer: {
       grid: {
         host: 'row'
       }
     },
-    harvestContainer: {
+    harvestTypeContainer: {
       grid: {
         host: 'row'
       }
@@ -205,6 +213,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   updateSub: Subscription;
 
+  harvestTypeNone = ContentSourceHarvestType.None;
+
   public constructor(public objectUpdatesService: ObjectUpdatesService,
                      public notificationsService: NotificationsService,
                      protected location: Location,
@@ -212,7 +222,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
                      protected translate: TranslateService,
                      protected route: ActivatedRoute,
                      protected router: Router,
-                     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,) {
+                     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
+                     protected collectionService: CollectionDataService) {
     super(objectUpdatesService, notificationsService, translate);
   }
 
@@ -229,16 +240,21 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.formGroup = this.formService.createFormGroup(this.formModel);
     this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.dso));
 
-    /* Create a new ContentSource object - TODO: Update to be fetched from the collection */
-    this.contentSource = new ContentSource();
+    this.collectionRD$.pipe(
+      getSucceededRemoteData(),
+      map((col) => col.payload.uuid),
+      switchMap((uuid) => this.collectionService.getContentSource(uuid)),
+      take(1)
+    ).subscribe((contentSource: ContentSource) => {
+      this.contentSource = contentSource;
+      this.initializeOriginalContentSource();
+    });
 
     this.updateFieldTranslations();
     this.translate.onLangChange
       .subscribe(() => {
         this.updateFieldTranslations();
       });
-
-    this.initializeOriginalContentSource();
   }
 
   /**
@@ -254,15 +270,15 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       if (update) {
         const field = update.field as ContentSource;
         this.formGroup.patchValue({
-          providerContainer: {
-            provider: field.provider
+          oaiSourceContainer: {
+            oaiSource: field.oaiSource
           },
-          setContainer: {
-            set: field.set,
-            format: field.format
+          oaiSetContainer: {
+            oaiSetId: field.oaiSetId,
+            metadataConfigId: field.metadataConfigId
           },
-          harvestContainer: {
-            harvest: field.harvest
+          harvestTypeContainer: {
+            harvestType: field.harvestType
           }
         });
         this.contentSource = cloneDeep(field);
@@ -307,7 +323,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * @param event
    */
   onChange(event) {
-    this.updateContentSourceField(event.model);
+    this.updateContentSourceField(event.model, true);
     this.saveFieldUpdate();
   }
 
@@ -331,24 +347,28 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Is the current form valid to be submitted ?
    */
   isValid(): boolean {
-    return !this.contentSource.enabled || this.formGroup.valid;
+    return (this.contentSource.harvestType === ContentSourceHarvestType.None) || this.formGroup.valid;
   }
 
   /**
    * Switch the external source on or off and fire a field update
    */
   changeExternalSource() {
-    this.contentSource.enabled = !this.contentSource.enabled;
-    this.updateContentSource();
+    if (this.contentSource.harvestType === ContentSourceHarvestType.None) {
+      this.contentSource.harvestType = ContentSourceHarvestType.Metadata;
+    } else {
+      this.contentSource.harvestType = ContentSourceHarvestType.None;
+    }
+    this.updateContentSource(false);
   }
 
   /**
    * Loop over all inputs and update the Content Source with their value
    */
-  updateContentSource() {
+  updateContentSource(updateHarvestType: boolean) {
     this.inputModels.forEach(
       (fieldModel: DynamicInputModel) => {
-        this.updateContentSourceField(fieldModel)
+        this.updateContentSourceField(fieldModel, updateHarvestType)
       }
     );
     this.saveFieldUpdate();
@@ -358,8 +378,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Update the Content Source with the value from a DynamicInputModel
    * @param fieldModel
    */
-  updateContentSourceField(fieldModel: DynamicInputModel) {
-    if (hasValue(fieldModel.value)) {
+  updateContentSourceField(fieldModel: DynamicInputModel, updateHarvestType: boolean) {
+    if (hasValue(fieldModel.value) && !(fieldModel.id === this.harvestTypeModel.id && !updateHarvestType)) {
       this.contentSource[fieldModel.id] = fieldModel.value;
     }
   }

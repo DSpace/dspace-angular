@@ -1,41 +1,51 @@
-import { v4 as uuid } from 'uuid';
+import { autoserialize, autoserializeAs } from 'cerialize';
+
+export enum ContentSourceHarvestType {
+  None = 'NONE',
+  Metadata = 'METADATA_ONLY',
+  MetadataAndRef = 'METADATA_AND_REF',
+  MetadataAndBitstreams = 'METADATA_AND_BITSTREAMS'
+}
 
 /**
  * A model class that holds information about the Content Source of a Collection
  */
 export class ContentSource {
   /**
-   * Unique identifier
+   * Unique identifier, this is necessary to store the ContentSource in FieldUpdates
+   * Because the ContentSource coming from the REST API doesn't have a UUID, we're using the selflink
    */
+  @autoserializeAs('self')
   uuid: string;
 
   /**
-   * Does this collection harvest its content from an external source ?
+   * OAI Provider / Source
    */
-  enabled = false;
-
-  /**
-   * OAI Provider
-   */
-  provider: string;
+  @autoserializeAs('oai_source')
+  oaiSource: string;
 
   /**
    * OAI Specific set ID
    */
-  set: string;
+  @autoserializeAs('oai_set_id')
+  oaiSetId: string;
 
   /**
-   * Metadata Format
+   * The ID of the metadata format used
    */
-  format = 'dc';
+  @autoserializeAs('metadata_config_id')
+  metadataConfigId = 'dc';
 
   /**
    * Type of content being harvested
+   * Defaults to 'NONE', meaning the collection doesn't harvest its content from an external source
    */
-  harvest = 3;
+  @autoserializeAs('harvest_type')
+  harvestType = ContentSourceHarvestType.None;
 
-  constructor() {
-    // TODO: Remove this once the Content Source is fetched from the REST API and a custom generated UUID is not necessary anymore
-    this.uuid = uuid();
-  }
+  /**
+   * The REST link to itself
+   */
+  @autoserialize
+  self: string;
 }

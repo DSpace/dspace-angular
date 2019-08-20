@@ -18,6 +18,7 @@ import { MetadataschemaParsingService } from './metadataschema-parsing.service';
 import { MetadatafieldParsingService } from './metadatafield-parsing.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
+import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -355,6 +356,16 @@ export class CreateRequest extends PostRequest {
 
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return DSOResponseParsingService;
+  }
+}
+
+export class ContentSourceRequest extends GetRequest {
+  constructor(uuid: string, href: string) {
+    super(uuid, href);
+  }
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return ContentSourceResponseParsingService;
   }
 }
 

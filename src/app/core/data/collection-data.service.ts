@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -16,9 +16,12 @@ import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { FindAllOptions } from './request.models';
+import { ContentSourceRequest, FindAllOptions, RestRequest } from './request.models';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
+import { ContentSource } from '../shared/content-source.model';
+import { configureRequest, filterSuccessfulResponses, getRequestFromRequestHref } from '../shared/operators';
+import { ContentSourceSuccessResponse } from '../cache/response.models';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
@@ -55,6 +58,23 @@ export class CollectionDataService extends ComColDataService<Collection> {
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending),
       take(1),
       map((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.totalElements > 0)
+    );
+  }
+
+  getHarvesterEndpoint(collectionId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((href: string) => `${href}/${collectionId}/harvester`)
+    );
+  }
+
+  getContentSource(collectionId: string): Observable<ContentSource> {
+    return this.getHarvesterEndpoint(collectionId).pipe(
+      map((href: string) => new ContentSourceRequest(this.requestService.generateRequestId(), href)),
+      configureRequest(this.requestService),
+      map((request: RestRequest) => request.href),
+      getRequestFromRequestHref(this.requestService),
+      filterSuccessfulResponses(),
+      map((response: ContentSourceSuccessResponse) => response.contentsource)
     );
   }
 }
