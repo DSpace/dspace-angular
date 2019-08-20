@@ -10,18 +10,18 @@
 
       <div  *ngFor="let item of columnItems" class="custom-control custom-checkbox">
 
-          <input type="checkbox" class="custom-control-input"
-                 [attr.tabindex]="item.index"
-                 [checked]="item.value"
-                 [id]="item.id"
-                 [dynamicId]="item.id"
-                 [formControlName]="item.id"
-                 [name]="model.name"
-                 [required]="model.required"
-                 [value]="item.value"
-                 (blur)="onBlur($event)"
-                 (change)="onChange($event)"
-                 (focus)="onFocus($event)"/>
+        <input type="checkbox" class="custom-control-input"
+               [attr.tabindex]="item.index"
+               [checked]="item.value"
+               [id]="item.id"
+               [dynamicId]="item.id"
+               [formControlName]="item.id"
+               [name]="model.name"
+               [required]="model.required"
+               [value]="item.value"
+               (blur)="onBlur($event)"
+               (change)="onChange($event)"
+               (focus)="onFocus($event)"/>
         <label class="custom-control-label"
                [class.disabled]="model.disabled"
                [ngClass]="model.layout.element?.control"
@@ -43,19 +43,20 @@
        (change)="onChange($event)">
 
     <div *ngFor="let columnItems of items" class="col-sm ml-3">
-
       <div  *ngFor="let item of columnItems" class="custom-control custom-radio">
+
+        <input type="radio" class="custom-control-input"
+               [checked]="item.value"
+               [dynamicId]="item.id"
+               [name]="model.id"
+               [required]="model.required"
+               [value]="item.index"
+               (blur)="onBlur($event)"
+               (focus)="onFocus($event)"/>
         <label class="custom-control-label"
+               [for]="item.id"
                [class.disabled]="model.disabled"
                [ngClass]="model.layout.element?.control">
-          <input type="radio" class="custom-control-input"
-                 [checked]="item.value"
-                 [dynamicId]="item.id"
-                 [name]="model.id"
-                 [required]="model.required"
-                 [value]="item.index"
-                 (blur)="onBlur($event)"
-                 (focus)="onFocus($event)"/>
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
