@@ -7,7 +7,7 @@ import {
 } from '../../../../shared/items/item-type-decorator';
 import { ItemComponent } from '../shared/item.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { filterRelationsByTypeLabel, relationsToItems } from '../shared/item-relationships-utils';
+import { getRelatedItemsByTypeLabel } from '../shared/item-relationships-utils';
 
 @rendersItemType('Publication', ItemViewMode.Full)
 @rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Full)
@@ -46,18 +46,15 @@ export class PublicationComponent extends ItemComponent implements OnInit {
       this.authors$ = this.buildRepresentations('Person', 'dc.contributor.author');
 
       this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isProjectOfPublication'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPublication')
       );
 
       this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isOrgUnitOfPublication'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPublication')
       );
 
       this.journalIssues$ = this.resolvedRelsAndTypes$.pipe(
-        filterRelationsByTypeLabel('isJournalIssueOfPublication'),
-        relationsToItems(this.item.id)
+        getRelatedItemsByTypeLabel(this.item.id, 'isJournalIssueOfPublication')
       );
 
     }

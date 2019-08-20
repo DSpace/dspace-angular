@@ -28,6 +28,7 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { map } from 'rxjs/operators';
 import { RouteService } from '../../shared/services/route.service';
 import { routeServiceStub } from '../../shared/testing/route-service-stub';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 @Component({ template: '' })
 class DummyComponent {
@@ -91,7 +92,7 @@ describe('SearchService', () => {
         );
       },
       aggregate: (input: Array<Observable<RemoteData<any>>>): Observable<RemoteData<any[]>> => {
-        return observableOf(new RemoteData(false, false, true, null, []));
+        return createSuccessfulRemoteDataObject$([]);
       }
     };
 

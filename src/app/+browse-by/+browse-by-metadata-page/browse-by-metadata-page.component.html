@@ -1,7 +1,7 @@
 <div class="container">
   <div class="browse-by-metadata w-100">
     <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
-      title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + metadata | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
+      title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + browseId | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
       [objects$]="(items$ !== undefined)? items$ : browseEntries$"
       [paginationConfig]="paginationConfig"
       [sortConfig]="sortConfig"

@@ -8,8 +8,8 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { PaginatedList } from '../data/paginated-list';
 import { PageInfo } from '../shared/page-info.model';
-import { NormalizedSubmissionDefinitionsModel } from './models/normalized-config-submission-definitions.model';
 import { NormalizedSubmissionSectionModel } from './models/normalized-config-submission-section.model';
+import { NormalizedSubmissionDefinitionModel } from './models/normalized-config-submission-definition.model';
 
 describe('ConfigResponseParsingService', () => {
   let service: ConfigResponseParsingService;
@@ -173,7 +173,7 @@ describe('ConfigResponseParsingService', () => {
       self: 'https://rest.api/config/submissiondefinitions/traditional/sections'
     });
     const definitions =
-      Object.assign(new NormalizedSubmissionDefinitionsModel(), {
+      Object.assign(new NormalizedSubmissionDefinitionModel(), {
         isDefault: true,
         name: 'traditional',
         type: 'submissiondefinition',

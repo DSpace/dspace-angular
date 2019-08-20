@@ -17,6 +17,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { MockRouter } from '../../shared/mocks/mock-router';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
@@ -52,7 +53,7 @@ describe('BrowseByTitlePageComponent', () => {
   };
 
   const mockDsoService = {
-    findById: () => observableOf(new RemoteData(false, false, true, null, mockCommunity))
+    findById: () => createSuccessfulRemoteDataObject$(mockCommunity)
   };
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {

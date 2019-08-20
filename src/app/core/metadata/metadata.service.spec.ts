@@ -38,6 +38,7 @@ import { EmptyError } from 'rxjs/internal-compatibility';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { MetadataValue } from '../shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 /* tslint:disable:max-classes-per-file */
 @Component({
@@ -206,13 +207,7 @@ describe('MetadataService', () => {
   });
 
   const mockRemoteData = (mockItem: Item): Observable<RemoteData<Item>> => {
-    return observableOf(new RemoteData<Item>(
-      false,
-      false,
-      true,
-      undefined,
-      MockItem
-    ));
+    return createSuccessfulRemoteDataObject$(MockItem);
   };
 
   const mockType = (mockItem: Item, type: string): Item => {

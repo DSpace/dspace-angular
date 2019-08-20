@@ -9,6 +9,7 @@ import {LangConfig} from './lang-config.interface';
 import { BrowseByConfig } from './browse-by-config.interface';
 import { ItemPageConfig } from './item-page-config.interface';
 import { CollectionPageConfig } from './collection-page-config.interface';
+import { Theme } from './theme.inferface';
 
 export interface GlobalConfig extends Config {
   ui: ServerConfig;
@@ -27,4 +28,5 @@ export interface GlobalConfig extends Config {
   browseBy: BrowseByConfig;
   item: ItemPageConfig;
   collection: CollectionPageConfig;
+  themes: Theme[];
 }

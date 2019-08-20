@@ -1,0 +1,67 @@
+<div class="top-item-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
+                <ds-metadata-field-wrapper>
+                    <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
+                </ds-metadata-field-wrapper>
+                <div>
+                    <a class="btn btn-secondary"
+                       [routerLink]="['/items/' + item.id + '/full']">
+                        {{"item.page.link.full" | translate}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-md-10">
+                <h2 class="item-page-title-field">
+                  {{'journal.page.titleprefix' | translate}}
+                  <ds-metadata-values
+                            [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+                </h2>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+
+                        <ds-generic-item-page-field class="item-page-fields" [item]="item"
+                                                    [fields]="['journal.identifier.issn']"
+                                                    [label]="'journal.page.issn'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field class="item-page-fields" [item]="item"
+                                                    [fields]="['journal.publisher']"
+                                                    [label]="'journal.page.publisher'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="item"
+                                                    [fields]="['journal.contributor.editor']"
+                                                    [label]="'journal.page.editor'">
+                        </ds-generic-item-page-field>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <ds-generic-item-page-field class="item-page-fields" [item]="item"
+                                                    [fields]="['journal.identifier.description']"
+                                                    [label]="'journal.page.description'">
+                        </ds-generic-item-page-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relationships-item-page" *ngIf="volumes$ | async">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4" *ngIf="volumes$ | async">
+                <ds-related-items
+                        [items]="volumes$ | async"
+                        [label]="'relationships.isVolumeOf' | translate">
+                </ds-related-items>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="container search-container">
+        <h3 class="h2">{{"item.page.journal.search.title" | translate}}</h3>
+    </div>
+    <ds-related-entities-search [item]="item"
+                                [relationType]="'isJournalOfPublication'">
+    </ds-related-entities-search>
+</div>

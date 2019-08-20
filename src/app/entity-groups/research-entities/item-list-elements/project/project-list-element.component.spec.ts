@@ -20,12 +20,12 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'project.identifier.status': [
-      {
-        language: 'en_US',
-        value: 'A status about the project'
-      }
-    ]
+    // 'project.identifier.status': [
+    //   {
+    //     language: 'en_US',
+    //     value: 'A status about the project'
+    //   }
+    // ]
   }
 });
 const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
@@ -61,27 +61,27 @@ describe('ProjectListElementComponent', () => {
 
   }));
 
-  describe('When the item has a status', () => {
-    beforeEach(() => {
-      projectListElementComponent.item = mockItemWithMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should show the status span', () => {
-      const statusField = fixture.debugElement.query(By.css('span.item-list-status'));
-      expect(statusField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no status', () => {
-    beforeEach(() => {
-      projectListElementComponent.item = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the status span', () => {
-      const statusField = fixture.debugElement.query(By.css('span.item-list-status'));
-      expect(statusField).toBeNull();
-    });
-  });
+  // describe('When the item has a status', () => {
+  //   beforeEach(() => {
+  //     projectListElementComponent.item = mockItemWithMetadata;
+  //     fixture.detectChanges();
+  //   });
+  //
+  //   it('should show the status span', () => {
+  //     const statusField = fixture.debugElement.query(By.css('span.item-list-status'));
+  //     expect(statusField).not.toBeNull();
+  //   });
+  // });
+  //
+  // describe('When the item has no status', () => {
+  //   beforeEach(() => {
+  //     projectListElementComponent.item = mockItemWithoutMetadata;
+  //     fixture.detectChanges();
+  //   });
+  //
+  //   it('should not show the status span', () => {
+  //     const statusField = fixture.debugElement.query(By.css('span.item-list-status'));
+  //     expect(statusField).toBeNull();
+  //   });
+  // });
 });

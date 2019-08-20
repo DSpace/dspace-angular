@@ -7,11 +7,11 @@
       <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journalvolume.identifier.volume']"
+      [fields]="['publicationvolume.volumeNumber']"
       [label]="'journalvolume.page.volume'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journalvolume.issuedate']"
+      [fields]="['creativework.datePublished']"
       [label]="'journalvolume.page.issuedate'">
     </ds-generic-item-page-field>
   </div>
@@ -25,7 +25,7 @@
       [label]="'relationships.isIssueOf' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journalvolume.identifier.description']"
+      [fields]="['dc.description']"
       [label]="'journalvolume.page.description'">
     </ds-generic-item-page-field>
     <div>

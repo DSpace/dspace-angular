@@ -11,6 +11,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Injector, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MenuService } from '../shared/menu/menu.service';
 import { MenuServiceStub } from '../shared/testing/menu-service-stub';
+import { ENV_CONFIG, GLOBAL_CONFIG } from '../../config';
 
 let comp: NavbarComponent;
 let fixture: ComponentFixture<NavbarComponent>;
@@ -30,6 +31,7 @@ describe('NavbarComponent', () => {
         { provide: Injector, useValue: {} },
         { provide: MenuService, useValue: menuService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

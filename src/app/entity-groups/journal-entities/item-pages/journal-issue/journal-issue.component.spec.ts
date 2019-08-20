@@ -8,29 +8,30 @@ import {
   createRelationshipsObservable,
   getItemPageFieldsTest
 } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
-    'journalissue.identifier.number': [
+    'publicationissue.issueNumber': [
       {
         language: 'en_US',
         value: '1234'
       }
     ],
-    'journalissue.issuedate': [
+    'creativework.datePublished': [
       {
         language: 'en_US',
         value: '2018'
       }
     ],
-    'journalissue.identifier.description': [
+    'dc.description': [
       {
         language: 'en_US',
         value: 'desc'
       }
     ],
-    'journalissue.identifier.keyword': [
+    'creativework.keywords': [
       {
         language: 'en_US',
         value: 'keyword'
