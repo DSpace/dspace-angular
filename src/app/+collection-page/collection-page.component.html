@@ -3,42 +3,49 @@
          *ngVar="(collectionRD$ | async) as collectionRD">
         <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
             <div *ngIf="collectionRD?.payload as collection">
+            <header>
               <!-- Collection logo -->
               <ds-comcol-page-logo *ngIf="logoRD$"
                         [logo]="(logoRD$ | async)?.payload"
                         [alternateText]="'Collection Logo'">
               </ds-comcol-page-logo>
               
-                <!-- Collection Name -->
-                <ds-comcol-page-header
-                        [name]="collection.name">
-                </ds-comcol-page-header>
-                <!-- Browse-By Links -->
-                <ds-comcol-page-browse-by [id]="collection.id"></ds-comcol-page-browse-by>
-          
-                <!-- Introductionary text -->
-                <ds-comcol-page-content
-                        [content]="collection.introductoryText"
-                        [hasInnerHtml]="true">
-                </ds-comcol-page-content>
-                <!-- News -->
-                <ds-comcol-page-content
-                        [content]="collection.sidebarText"
-                        [hasInnerHtml]="true"
-                        [title]="'community.page.news'">
-                </ds-comcol-page-content>
-                <!-- Copyright -->
+              <!-- Collection Name -->
+              <ds-comcol-page-header
+                      [name]="collection.name">
+              </ds-comcol-page-header>
+            
+              <!-- Introductory text -->
+              <ds-comcol-page-content
+                      [content]="collection.introductoryText"
+                      [hasInnerHtml]="true">
+              </ds-comcol-page-content>
+              
+              <!-- News -->
+              <ds-comcol-page-content
+                      [content]="collection.sidebarText"
+                      [hasInnerHtml]="true"
+                      [title]="'community.page.news'">
+              </ds-comcol-page-content>
+              
+              <!-- Browse-By Links -->
+              <ds-comcol-page-browse-by [id]="collection.id"></ds-comcol-page-browse-by>
+            </header>
+        
+            <footer>
+                <!-- Copyright --> 
                 <ds-comcol-page-content
                         [content]="collection.copyrightText"
                         [hasInnerHtml]="true">
                 </ds-comcol-page-content>
-                <!-- Licence -->
+                <!-- License -->
                 <ds-comcol-page-content
                         [content]="collection.dcLicense"
                         [title]="'collection.page.license'">
                 </ds-comcol-page-content>
+            </footer>
             </div>
-            <br>
+      
             <ng-container *ngVar="(itemRD$ | async) as itemRD">
                 <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
                     <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
