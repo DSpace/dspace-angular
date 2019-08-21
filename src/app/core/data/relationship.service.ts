@@ -106,6 +106,7 @@ export class RelationshipService extends DataService<Relationship> {
       ),
       take(1)
     ).subscribe(([item1, item2]) => {
+      console.log(item1, item2);
       this.removeRelationshipItemsFromCache(item1);
       this.removeRelationshipItemsFromCache(item2);
     })
@@ -115,8 +116,10 @@ export class RelationshipService extends DataService<Relationship> {
     this.objectCache.remove(item.self);
     this.requestService.removeByHrefSubstring(item.self);
     this.objectCache.hasBySelfLinkObservable(item.self).pipe(
+      tap((exists) => console.log('exists: ', exists, 'uuid', item.uuid)),
       filter((exists) => !exists),
       take(1),
+      tap((exists) => console.log('still exists: ', exists, 'uuid', item.uuid)),
       switchMap(() => this.itemService.findByHref(item.self).pipe(take(1)))
     ).subscribe();
   }
@@ -260,28 +263,24 @@ export class RelationshipService extends DataService<Relationship> {
       .pipe(
         mergeMap((relationships: Relationship[]) => {
           return observableCombineLatest(...relationships.map((relationship: Relationship) => {
-            console.log('relationship: ', relationship.uuid);
             return observableCombineLatest(
-              this.isItemMatchWithItemRD(relationship.leftItem, item2, 'left'),
-              this.isItemMatchWithItemRD(relationship.rightItem, item2, 'right')
+              this.isItemMatchWithItemRD(relationship.leftItem, item2),
+              this.isItemMatchWithItemRD(relationship.rightItem, item2)
             ).pipe(
-              filter(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
-              map(() => relationship),
-              startWith(undefined)
+              map(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
+              map((isMatch) => isMatch ? relationship : undefined)
             );
           }))
         }),
-        skip(1),
         map((relationships: Relationship[]) => relationships.find((relationship => hasValue(relationship)))),
+        tap((relationships) => console.log(relationships)),
       )
   }
 
-
-  private isItemMatchWithItemRD(itemRD$: Observable<RemoteData<Item>>, itemCheck: Item, side: string): Observable<boolean> {
+  private isItemMatchWithItemRD(itemRD$: Observable<RemoteData<Item>>, itemCheck: Item): Observable<boolean> {
     return itemRD$.pipe(
       getSucceededRemoteData(),
       map((itemRD: RemoteData<Item>) => itemRD.payload),
-      tap((item) => console.log(side, ': ', item.uuid)),
       map((item: Item) => item.uuid === itemCheck.uuid)
     );
   }

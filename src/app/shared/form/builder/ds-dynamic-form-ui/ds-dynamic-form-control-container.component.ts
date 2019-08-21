@@ -286,7 +286,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     setTimeout(() => this.model.workspaceItem.item.pipe(
       getSucceededRemoteData(),
       switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, object.indexableObject, this.model.relationship.relationshipType)),
-      tap(t => console.log(t)),
       switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
       take(1)
     ).subscribe(), 0);

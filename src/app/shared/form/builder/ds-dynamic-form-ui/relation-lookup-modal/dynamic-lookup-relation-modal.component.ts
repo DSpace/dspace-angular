@@ -152,7 +152,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
 
   select(selectableObject: SearchResult<Item>) {
-    this.itemRD$
+    setTimeout(() => this.itemRD$
       .pipe(
         getSucceededRemoteData(),
         mergeMap((itemRD: RemoteData<Item>) => {
@@ -173,16 +173,17 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         }),
         take(1)
       )
-      .subscribe();
+      .subscribe(), 0);
   }
 
 
   deselect(selectableObject: SearchResult<Item>) {
-    this.itemRD$.pipe(
+    setTimeout(() => this.itemRD$.pipe(
       getSucceededRemoteData(),
       switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, selectableObject.indexableObject, this.relationship.relationshipType)),
-      take(1)
-    ).subscribe();
+      switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
+      take(1),
+    ).subscribe(), 0);
   }
 
   ngOnDestroy(): void {
