@@ -6,6 +6,8 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
 import { FindListOptions, FindByIDRequest } from './request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getResponseFromEntry } from '../shared/operators';
@@ -56,5 +58,9 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
 
       return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged(), share());
     }
+  }
+
+  public findByParentCommunity(parentUUID: string): Observable<RemoteData<PaginatedList<T>>> {
+    this.halService.getEndpoint(`communities/${parentUUID}/collections`)
   }
 }
