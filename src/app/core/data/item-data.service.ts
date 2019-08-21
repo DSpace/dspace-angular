@@ -139,8 +139,7 @@ export class ItemDataService extends DataService<Item> {
    * @param searchOptions   The search options to use
    */
   public getBitstreams(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    const hrefObs = this.getItemWithdrawEndpoint(itemId).pipe(
-      map((href) => `${href}/bitstreams`),
+    const hrefObs = this.getBitstreamsEndpoint(itemId).pipe(
       map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );
     hrefObs.pipe(
