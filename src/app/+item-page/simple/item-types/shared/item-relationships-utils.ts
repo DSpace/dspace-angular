@@ -58,10 +58,10 @@ export const filterRelationsByTypeLabel = (label: string, thisId?: string) =>
         return relatedItems$.pipe(
           map((arr) => relsCurrentPage.filter((rel: Relationship, idx: number) =>
             hasValue(relTypesCurrentPage[idx]) && (
-              (hasNoValue(thisId) && (relTypesCurrentPage[idx].leftLabel === label ||
-                relTypesCurrentPage[idx].rightLabel === label)) ||
-              (thisId === arr[idx][0].id && relTypesCurrentPage[idx].leftLabel === label) ||
-              (thisId === arr[idx][1].id && relTypesCurrentPage[idx].rightLabel === label)
+              (hasNoValue(thisId) && (relTypesCurrentPage[idx].leftwardType === label ||
+                relTypesCurrentPage[idx].rightwardType === label)) ||
+              (thisId === arr[idx][0].id && relTypesCurrentPage[idx].leftwardType === label) ||
+              (thisId === arr[idx][1].id && relTypesCurrentPage[idx].rightwardType === label)
             )
           ))
         );
