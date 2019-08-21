@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -125,7 +125,7 @@ export class ItemDataService extends DataService<Item> {
    */
   public getBitstreamsEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((url: string) => `${url}/${itemId}/bitstreams`)
+      switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
     );
   }
 }
