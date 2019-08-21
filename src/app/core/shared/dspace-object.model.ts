@@ -1,18 +1,26 @@
 import { Observable } from 'rxjs';
 
-import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel
+} from './metadata.models';
 import { Metadata } from './metadata.utils';
-import { isUndefined } from '../../shared/empty.util';
+import { hasNoValue, isUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
-import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { hasNoValue } from '../../shared/empty.util';
+import { ResourceType } from './resource-type';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
 export class DSpaceObject implements CacheableObject, ListableObject {
+  /**
+   * A string representing the kind of DSpaceObject, e.g. community, item, …
+   */
+  static type = new ResourceType('dspaceobject');
 
   private _name: string;
 
@@ -27,11 +35,6 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    * The universally unique identifier of this DSpaceObject
    */
   uuid: string;
-
-  /**
-   * A string representing the kind of DSpaceObject, e.g. community, item, …
-   */
-  type: ResourceType;
 
   /**
    * The name for this DSpaceObject

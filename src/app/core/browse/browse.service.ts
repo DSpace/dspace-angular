@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 import {
-  ensureArrayHasValue, hasValue,
+  ensureArrayHasValue,
+  hasValue,
   hasValueOperator,
   isEmpty,
   isNotEmpty,
@@ -23,7 +24,9 @@ import { BrowseEntry } from '../shared/browse-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   configureRequest,
-  filterSuccessfulResponses, getBrowseDefinitionLinks, getFirstOccurrence,
+  filterSuccessfulResponses,
+  getBrowseDefinitionLinks,
+  getFirstOccurrence,
   getRemoteDataPayload,
   getRequestFromRequestHref
 } from '../shared/operators';
@@ -32,7 +35,6 @@ import { Item } from '../shared/item.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 import { GenericSuccessResponse } from '../cache/response.models';
-import { RequestEntry } from '../data/request.reducer';
 
 /**
  * The service handling all browse requests

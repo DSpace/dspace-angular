@@ -17,6 +17,10 @@ import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
 import { getItemEditPath } from '../../item-page-routing.module';
 import { RestResponse } from '../../../core/cache/response.models';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/testing/utils';
 
 /**
  * Test component that implements the AbstractSimpleItemActionComponent used to test the
@@ -65,12 +69,12 @@ describe('AbstractSimpleItemActionComponent', () => {
     });
 
     mockItemDataService = jasmine.createSpyObj({
-      findById: observableOf(new RemoteData(false, false, true, undefined, mockItem))
+      findById: createSuccessfulRemoteDataObject$(mockItem)
     });
 
     routeStub = {
       data: observableOf({
-        item: new RemoteData(false, false, true, null, {
+        item: createSuccessfulRemoteDataObject({
           id: 'fake-id'
         })
       })

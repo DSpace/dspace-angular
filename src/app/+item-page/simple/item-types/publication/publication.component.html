@@ -21,6 +21,10 @@
       [fields]="['journalvolume.identifier.name']"
       [label]="'publication.page.volume-title'">
     </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['dc.publisher']"
+      [label]="'publication.page.publisher'">
+    </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-metadata-representation-list
@@ -40,6 +44,11 @@
       [label]="'relationships.isJournalIssueOf' | translate">
     </ds-related-items>
     <ds-item-page-abstract-field [item]="item"></ds-item-page-abstract-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['dc.description']"
+      [label]="'publication.page.description'">
+    </ds-generic-item-page-field>
+
     <ds-generic-item-page-field [item]="item"
       [fields]="['dc.subject']"
       [separator]="','"

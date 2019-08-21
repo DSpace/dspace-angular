@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DsDynamicRelationGroupComponent } from './dynamic-relation-group.components';
 import { DynamicRelationGroupModel, DynamicRelationGroupModelConfig } from './dynamic-relation-group.model';
-import { FormRowModel, SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
+import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
 import { FormFieldModel } from '../../../models/form-field.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormService } from '../../../../form.service';
@@ -25,6 +25,7 @@ import { AuthorityServiceStub } from '../../../../../testing/authority-service-s
 import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore } from '../../../../../testing/mock-store';
+import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 

@@ -15,6 +15,7 @@ import { SearchService } from '../../+search-page/search-service/search.service'
 @Component({
   selector: 'ds-search-form',
   styleUrls: ['./search-form.component.scss'],
+  // templateUrl: './search-form.component.html',
   templateUrl: './search-form.component.html'
 })
 
@@ -44,6 +45,16 @@ export class SearchFormComponent {
    * The available scopes
    */
   @Input() scopes: DSpaceObject[];
+
+  /**
+   * Whether or not the search button should be displayed large
+   */
+  @Input() large = false;
+
+  /**
+   * The brand color of the search button
+   */
+  @Input() brandColor = 'primary';
 
   constructor(private router: Router, private searchService: SearchService) {
   }

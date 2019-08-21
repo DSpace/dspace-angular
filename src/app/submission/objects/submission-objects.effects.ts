@@ -33,9 +33,9 @@ import {
 } from './submission-objects.actions';
 import { SectionsService } from '../sections/sections.service';
 import { isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
-import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { SubmissionService } from '../submission.service';
-import { Workflowitem } from '../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
 import { TranslateService } from '@ngx-translate/core';
@@ -280,7 +280,7 @@ export class SubmissionObjectEffects {
     let canDeposit = true;
 
     if (isNotEmpty(response)) {
-      response.forEach((item: Workspaceitem | Workflowitem) => {
+      response.forEach((item: WorkspaceItem | WorkflowItem) => {
         const {errors} = item;
 
         if (errors && !isEmpty(errors)) {
@@ -318,7 +318,7 @@ export class SubmissionObjectEffects {
         this.notificationsService.success(null, this.translate.get('submission.sections.general.save_success_notice'));
       }
 
-      response.forEach((item: Workspaceitem | Workflowitem) => {
+      response.forEach((item: WorkspaceItem | WorkflowItem) => {
 
         let errorsList = Object.create({});
         const {errors} = item;

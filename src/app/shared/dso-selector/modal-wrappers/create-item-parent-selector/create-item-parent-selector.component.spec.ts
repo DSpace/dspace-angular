@@ -9,6 +9,7 @@ import { RouterStub } from '../../../testing/router-stub';
 import { Collection } from '../../../../core/shared/collection.model';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 describe('CreateItemParentSelectorComponent', () => {
   let component: CreateItemParentSelectorComponent;
@@ -19,7 +20,7 @@ describe('CreateItemParentSelectorComponent', () => {
   collection.uuid = '1234-1234-1234-1234';
   collection.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Collection title', language: undefined })] };
   const router = new RouterStub();
-  const collectionRD = new RemoteData(false, false, true, undefined, collection);
+  const collectionRD = createSuccessfulRemoteDataObject(collection);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const createPath = 'testCreatePath';
 

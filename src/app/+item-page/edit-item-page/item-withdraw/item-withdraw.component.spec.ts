@@ -16,6 +16,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ItemWithdrawComponent } from './item-withdraw.component';
 import { By } from '@angular/platform-browser';
 import { RestResponse } from '../../../core/cache/response.models';
+import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
 
 let comp: ItemWithdrawComponent;
 let fixture: ComponentFixture<ItemWithdrawComponent>;
@@ -50,7 +51,7 @@ describe('ItemWithdrawComponent', () => {
 
     routeStub = {
       data: observableOf({
-        item: new RemoteData(false, false, true, null, {
+        item: createSuccessfulRemoteDataObject({
           id: 'fake-id'
         })
       })
