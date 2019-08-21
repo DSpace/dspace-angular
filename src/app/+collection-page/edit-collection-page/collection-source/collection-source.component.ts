@@ -16,7 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FormGroup } from '@angular/forms';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -29,6 +29,7 @@ import { cloneDeep } from 'lodash';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { MetadataConfig } from '../../../core/shared/metadata-config.model';
 
 /**
  * Component for managing the content source of the collection
@@ -96,19 +97,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   metadataConfigIdModel = new DynamicSelectModel({
     id: 'metadataConfigId',
-    name: 'metadataConfigId',
-    options: [
-      {
-        value: 'dc'
-      },
-      {
-        value: 'qdc'
-      },
-      {
-        value: 'dim'
-      }
-    ],
-    value: 'dc'
+    name: 'metadataConfigId'
   });
 
   /**
@@ -249,8 +238,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       switchMap((uuid) => this.collectionService.getContentSource(uuid)),
       take(1)
     ).subscribe((contentSource: ContentSource) => {
-      this.contentSource = contentSource;
-      this.initializeOriginalContentSource();
+      this.initializeOriginalContentSource(contentSource);
     });
 
     this.updateFieldTranslations();
@@ -263,7 +251,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   /**
    * Initialize the Field Update and subscribe on it to fire updates to the form whenever it changes
    */
-  initializeOriginalContentSource() {
+  initializeOriginalContentSource(contentSource: ContentSource) {
+    this.contentSource = contentSource;
+    this.initializeMetadataConfigs();
     const initialContentSource = cloneDeep(this.contentSource);
     this.objectUpdatesService.initialize(this.url, [initialContentSource], new Date());
     this.update$ = this.objectUpdatesService.getFieldUpdates(this.url, [initialContentSource]).pipe(
@@ -287,6 +277,17 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         this.contentSource = cloneDeep(field);
       }
     });
+  }
+
+  /**
+   * Fill the metadataConfigIdModel's options using the contentSource's metadataConfigs property
+   */
+  initializeMetadataConfigs() {
+    this.metadataConfigIdModel.options = this.contentSource.metadataConfigs
+      .map((metadataConfig: MetadataConfig) => Object.assign({ value: metadataConfig.id, label: metadataConfig.label }));
+    if (this.metadataConfigIdModel.options.length > 0) {
+      this.metadataConfigIdModel.value = this.metadataConfigIdModel.options[0].value;
+    }
   }
 
   /**
@@ -315,7 +316,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     if (fieldModel instanceof DynamicOptionControlModel) {
       if (isNotEmpty(fieldModel.options)) {
         fieldModel.options.forEach((option) => {
-          option.label = this.translate.instant(this.OPTIONS_KEY_PREFIX + fieldModel.id + '.' + option.value);
+          if (hasNoValue(option.label)) {
+            option.label = this.translate.instant(this.OPTIONS_KEY_PREFIX + fieldModel.id + '.' + option.value);
+          }
         });
       }
     }
@@ -340,8 +343,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
       take(1)
     ).subscribe((contentSource: ContentSource) => {
-      this.contentSource = contentSource;
-      this.initializeOriginalContentSource();
+      this.initializeOriginalContentSource(contentSource);
       this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
     });
   }
