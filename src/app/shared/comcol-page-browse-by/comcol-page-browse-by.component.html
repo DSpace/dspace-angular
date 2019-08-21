@@ -1,6 +1,4 @@
 <div class="comcol-browse-label">{{'browse.comcol.head' | translate}}</div>
-<ul>
-  <li *ngFor="let config of types">
-    <a [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}">{{'browse.comcol.by.' + config.id | translate}}</a>
-  </li>
-</ul>
+<div class="list-group list-group-horizontal">
+  <a  *ngFor="let config of types"  class="list-group-item"  [routerLink]="['/browse/' + config.id]"  [queryParams]="{scope: id}" routerLinkActive="active">{{'browse.comcol.by.' + config.id | translate}}</a>
+</div>
