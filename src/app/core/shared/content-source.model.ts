@@ -38,7 +38,7 @@ export class ContentSource {
    * The ID of the metadata format used
    */
   @autoserializeAs('metadata_config_id')
-  metadataConfigId = 'dc';
+  metadataConfigId: string;
 
   /**
    * Type of content being harvested

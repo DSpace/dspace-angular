@@ -207,6 +207,13 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   harvestTypeNone = ContentSourceHarvestType.None;
 
+  /**
+   * The previously selected harvesting type
+   * Used for switching between ContentSourceHarvestType.None and the previously selected value when enabling / disabling harvesting
+   * Defaults to ContentSourceHarvestType.Metadata
+   */
+  previouslySelectedHarvestType = ContentSourceHarvestType.Metadata;
+
   public constructor(public objectUpdatesService: ObjectUpdatesService,
                      public notificationsService: NotificationsService,
                      protected location: Location,
@@ -286,7 +293,11 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.metadataConfigIdModel.options = this.contentSource.metadataConfigs
       .map((metadataConfig: MetadataConfig) => Object.assign({ value: metadataConfig.id, label: metadataConfig.label }));
     if (this.metadataConfigIdModel.options.length > 0) {
-      this.metadataConfigIdModel.value = this.metadataConfigIdModel.options[0].value;
+      this.formGroup.patchValue({
+        oaiSetContainer: {
+          metadataConfigId: this.metadataConfigIdModel.options[0].value
+        }
+      });
     }
   }
 
@@ -367,8 +378,9 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   changeExternalSource() {
     if (this.contentSource.harvestType === ContentSourceHarvestType.None) {
-      this.contentSource.harvestType = ContentSourceHarvestType.Metadata;
+      this.contentSource.harvestType = this.previouslySelectedHarvestType;
     } else {
+      this.previouslySelectedHarvestType = this.contentSource.harvestType;
       this.contentSource.harvestType = ContentSourceHarvestType.None;
     }
     this.updateContentSource(false);
