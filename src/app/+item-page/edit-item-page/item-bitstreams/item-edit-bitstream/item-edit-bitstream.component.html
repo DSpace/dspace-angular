@@ -1,0 +1,35 @@
+<td class="w-100">
+  {{ bitstream.name }}
+</td>
+<td>
+  {{ bitstream.bundleName }}
+</td>
+<td>
+  {{ bitstream.description }}
+</td>
+<td class="text-center">
+  {{ (format$ | async).shortDescription }}
+</td>
+<td class="text-center">
+  <div class="btn-group relationship-action-buttons">
+    <a [href]="bitstream?.content"
+            class="btn btn-outline-primary btn-sm"
+            title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}">
+      <i class="fas fa-download fa-fw"></i>
+    </a>
+    <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" class="btn btn-outline-primary btn-sm"
+            title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
+      <i class="fas fa-edit fa-fw"></i>
+    </button>
+    <button [disabled]="!canRemove()" (click)="remove()"
+            class="btn btn-outline-danger btn-sm"
+            title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
+      <i class="fas fa-trash-alt fa-fw"></i>
+    </button>
+    <button [disabled]="!canUndo()" (click)="undo()"
+            class="btn btn-outline-warning btn-sm"
+            title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">
+      <i class="fas fa-undo-alt fa-fw"></i>
+    </button>
+  </div>
+</td>

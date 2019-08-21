@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, PatchRequest, RestRequest } from './request.models';
+import { FindAllOptions, GetRequest, PatchRequest, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
@@ -20,6 +20,10 @@ import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { configureRequest, getRequestFromRequestHref } from '../shared/operators';
 import { RequestEntry } from './request.reducer';
+import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
+import { RemoteData } from './remote-data';
+import { PaginatedList } from './paginated-list';
+import { Bitstream } from '../shared/bitstream.model';
 
 @Injectable()
 export class ItemDataService extends DataService<Item> {
@@ -128,4 +132,25 @@ export class ItemDataService extends DataService<Item> {
       switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
     );
   }
+
+  /**
+   * Get an item's bitstreams using paginated search options
+   * @param itemId          The item's ID
+   * @param searchOptions   The search options to use
+   */
+  public getBitstreams(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    const hrefObs = this.getItemWithdrawEndpoint(itemId).pipe(
+      map((href) => `${href}/bitstreams`),
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+    );
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.configure(request);
+    });
+
+    return this.rdbService.buildList<Bitstream>(hrefObs);
+  }
+
 }

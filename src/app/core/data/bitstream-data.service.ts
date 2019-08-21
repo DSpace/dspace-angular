@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindAllOptions } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
+import { RestResponse } from '../cache/response.models';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bitstreams endpoint
@@ -45,5 +46,18 @@ export class BitstreamDataService extends DataService<Bitstream> {
    */
   getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
+  }
+
+  /**
+   * Delete an existing DSpace Object on the server
+   * @param bitstream The Bitstream to be removed
+   * De-cache the removed bitstream from Object and Request cache
+   * Return an observable of the completed response
+   */
+  deleteAndReturnResponse(bitstream: Bitstream): Observable<RestResponse> {
+    const response$ = super.deleteAndReturnResponse(bitstream);
+    this.objectCache.remove(bitstream.self);
+    this.requestService.removeByHrefSubstring(bitstream.self);
+    return response$;
   }
 }
