@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionSourceComponent } from './collection-source.component';
-import { ContentSource } from '../../../core/shared/content-source.model';
+import { ContentSource, ContentSourceHarvestType } from '../../../core/shared/content-source.model';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
@@ -17,6 +17,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { RouterStub } from '../../../shared/testing/router-stub';
 import { GLOBAL_CONFIG } from '../../../../config';
 import { By } from '@angular/platform-browser';
+import { Collection } from '../../../core/shared/collection.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -31,6 +34,8 @@ let notificationsService: NotificationsService;
 let location: Location;
 let formService: DynamicFormService;
 let router: Router;
+let collection: Collection;
+let collectionService: CollectionDataService;
 
 describe('CollectionSourceComponent', () => {
   let comp: CollectionSourceComponent;
@@ -39,7 +44,24 @@ describe('CollectionSourceComponent', () => {
   beforeEach(async(() => {
     date = new Date();
     contentSource = Object.assign(new ContentSource(), {
-      uuid: uuid
+      uuid: uuid,
+      metadataConfigs: [
+        {
+          id: 'dc',
+          label: 'Simple Dublin Core',
+          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/'
+        },
+        {
+          id: 'qdc',
+          label: 'Qualified Dublin Core',
+          nameSpace: 'http://purl.org/dc/terms/'
+        },
+        {
+          id: 'dim',
+          label: 'DSpace Intermediate Metadata',
+          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim'
+        }
+      ]
     });
     fieldUpdate = {
       field: contentSource,
@@ -84,6 +106,13 @@ describe('CollectionSourceComponent', () => {
     router = Object.assign(new RouterStub(), {
       url: 'http://test-url.com/test-url'
     });
+    collection = Object.assign(new Collection(), {
+      uuid: 'fake-collection-id'
+    });
+    collectionService = jasmine.createSpyObj('collectionService', {
+      getContentSource: observableOf(contentSource),
+      updateContentSource: observableOf(contentSource)
+    });
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
@@ -93,9 +122,10 @@ describe('CollectionSourceComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: Location, useValue: location },
         { provide: DynamicFormService, useValue: formService },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: { payload: {} } }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: new RemoteData(false, false, true, null, collection) }) } } },
         { provide: Router, useValue: router },
         { provide: GLOBAL_CONFIG, useValue: { collection: { edit: { undoTimeout: 10 } } } as any },
+        { provide: CollectionDataService, useValue: collectionService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -104,7 +134,6 @@ describe('CollectionSourceComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CollectionSourceComponent);
     comp = fixture.componentInstance;
-    comp.contentSource = contentSource;
     fixture.detectChanges();
   });
 
@@ -116,7 +145,7 @@ describe('CollectionSourceComponent', () => {
     });
 
     it('ContentSource should be disabled', () => {
-      expect(comp.contentSource.enabled).toBe(false);
+      expect(comp.contentSource.harvestType).toEqual(ContentSourceHarvestType.None);
     });
 
     it('the input-form should be hidden', () => {
@@ -136,7 +165,7 @@ describe('CollectionSourceComponent', () => {
     });
 
     it('should enable ContentSource', () => {
-      expect(comp.contentSource.enabled).toBe(true);
+      expect(comp.contentSource.harvestType).not.toEqual(ContentSourceHarvestType.None);
     });
 
     it('should send a field update', () => {
@@ -151,19 +180,19 @@ describe('CollectionSourceComponent', () => {
   describe('isValid', () => {
     it('should return true when ContentSource is disabled but the form invalid', () => {
       spyOnProperty(comp.formGroup, 'valid').and.returnValue(false);
-      comp.contentSource.enabled = false;
+      comp.contentSource.harvestType = ContentSourceHarvestType.None;
       expect(comp.isValid()).toBe(true);
     });
 
     it('should return false when ContentSource is enabled but the form is invalid', () => {
       spyOnProperty(comp.formGroup, 'valid').and.returnValue(false);
-      comp.contentSource.enabled = true;
+      comp.contentSource.harvestType = ContentSourceHarvestType.Metadata;
       expect(comp.isValid()).toBe(false);
     });
 
     it('should return true when ContentSource is enabled and the form is valid', () => {
       spyOnProperty(comp.formGroup, 'valid').and.returnValue(true);
-      comp.contentSource.enabled = true;
+      comp.contentSource.harvestType = ContentSourceHarvestType.Metadata;
       expect(comp.isValid()).toBe(true);
     });
   });
@@ -181,6 +210,8 @@ describe('CollectionSourceComponent', () => {
       expect(notificationsService.success).toHaveBeenCalled();
     });
 
-    // TODO: Write test for sending data to REST API on submit
+    it('should call updateContentSource on the collectionService', () => {
+      expect(collectionService.updateContentSource).toHaveBeenCalled();
+    });
   });
 });
