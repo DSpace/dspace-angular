@@ -8,6 +8,7 @@ import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interf
  */
 @Component({
   selector: 'ds-comcol-page-browse-by',
+  styleUrls: ['./comcol-page-browse-by.component.scss'],
   templateUrl: './comcol-page-browse-by.component.html',
 })
 export class ComcolPageBrowseByComponent implements OnInit {
