@@ -16,6 +16,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
    * The ID of the Community or Collection
    */
   @Input() id: string;
+  @Input() url: string;
 
   /**
    * List of currently active browse configurations
