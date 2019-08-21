@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
-import { isNotEmpty, isNotUndefined } from '../../empty.util';
+import { isNotEmpty } from '../../empty.util';
 import { first, map } from 'rxjs/operators';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
-import { DataService } from '../../../core/data/data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 
 /**
@@ -19,7 +17,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
   /**
    * The type of DSpaceObject (used to create i18n messages)
    */
-  protected type: string;
+  public type: string;
 
   /**
    * The current page outlet string

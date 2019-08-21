@@ -33,7 +33,7 @@ let objectUpdatesService: ObjectUpdatesService;
 let notificationsService: NotificationsService;
 let location: Location;
 let formService: DynamicFormService;
-let router: Router;
+let router: any;
 let collection: Collection;
 let collectionService: CollectionDataService;
 
