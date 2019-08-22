@@ -1,7 +1,7 @@
 <div role="navigation" class="comcol-browse">
   <div class="comcol-browse-label">{{'browse.comcol.head' | translate}}</div>
   <div class="list-group list-group-horizontal">
-    <a href="{{url}}" class="list-group-item" routerLinkActive="active">{{url}} Submission date</a>
+    <a [href]="thisurl | dsSafeUrl" class="list-group-item" routerLinkActive="active" >Submission date</a>
     <a *ngFor="let config of types" class="list-group-item" [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}" routerLinkActive="active">{{'browse.comcol.by.' + config.id | translate}}</a>
   </div>
 </div>

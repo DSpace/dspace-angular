@@ -41,6 +41,8 @@ export class CollectionPageComponent implements OnInit {
   logoRD$: Observable<RemoteData<Bitstream>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
+  thisurl = "http://localhost:3000/collections/07a39181-b4bf-43cf-9975-5a1a01de7ac8";
+  
   private paginationChanges$: Subject<{
     paginationConfig: PaginationComponentOptions,
     sortConfig: SortOptions
