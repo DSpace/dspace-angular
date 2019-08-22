@@ -161,6 +161,7 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
+    console.log('perform request for:', href)
     this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options), this.forceBypassCache);
     return this.rdbService.buildSingle<T>(href);
   }

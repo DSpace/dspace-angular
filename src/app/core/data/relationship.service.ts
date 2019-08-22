@@ -106,7 +106,6 @@ export class RelationshipService extends DataService<Relationship> {
       ),
       take(1)
     ).subscribe(([item1, item2]) => {
-      console.log(item1, item2);
       this.removeRelationshipItemsFromCache(item1);
       this.removeRelationshipItemsFromCache(item2);
     })
@@ -115,11 +114,12 @@ export class RelationshipService extends DataService<Relationship> {
   private removeRelationshipItemsFromCache(item) {
     this.objectCache.remove(item.self);
     this.requestService.removeByHrefSubstring(item.self);
-    this.objectCache.hasBySelfLinkObservable(item.self).pipe(
-      tap((exists) => console.log('exists: ', exists, 'uuid', item.uuid)),
-      filter((exists) => !exists),
+    combineLatest(
+      this.objectCache.hasBySelfLinkObservable(item.self),
+      this.requestService.hasByHrefObservable(item.self)
+    ).pipe(
+      filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
       take(1),
-      tap((exists) => console.log('still exists: ', exists, 'uuid', item.uuid)),
       switchMap(() => this.itemService.findByHref(item.self).pipe(take(1)))
     ).subscribe();
   }
@@ -254,11 +254,6 @@ export class RelationshipService extends DataService<Relationship> {
 
 
   getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string): Observable<Relationship> {
-    console.log('item 1: ', this.objectCache.hasByUUID(item1.uuid));
-    console.log('item 1 uuid: ', item1.uuid);
-    console.log('item 2: ', this.objectCache.hasByUUID(item2.uuid));
-    console.log('item 2 uuid: ', item2.uuid);
-
     return this.getItemRelationshipsByLabel(item1, label)
       .pipe(
         mergeMap((relationships: Relationship[]) => {
@@ -273,7 +268,6 @@ export class RelationshipService extends DataService<Relationship> {
           }))
         }),
         map((relationships: Relationship[]) => relationships.find((relationship => hasValue(relationship)))),
-        tap((relationships) => console.log(relationships)),
       )
   }
 
