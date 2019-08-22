@@ -103,7 +103,7 @@ describe('ComColFormComponent', () => {
               ...randomMD,
               ...abstractMD
             },
-            type: ResourceType.Community
+            type: Community.type
           },
         )
       );

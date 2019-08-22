@@ -1,7 +1,11 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
 import { SortOption } from './sort-option.model';
+import { ResourceType } from './resource-type';
+import { TypedObject } from '../cache/object-cache.reducer';
 
-export class BrowseDefinition {
+export class BrowseDefinition implements TypedObject {
+  static type = new ResourceType('browse');
+
   @autoserialize
   id: string;
 
@@ -13,9 +17,6 @@ export class BrowseDefinition {
 
   @autoserializeAs('order')
   defaultSortOrder: string;
-
-  @autoserialize
-  type: string;
 
   @autoserializeAs('metadata')
   metadataKeys: string[];

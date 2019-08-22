@@ -3,12 +3,12 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { FormFieldModel } from '../models/form-field.model';
 
 import { isNotEmpty } from '../../../empty.util';
-import { FormRowModel } from '../../../../core/config/models/config-submission-forms.model';
 import {
   DynamicRelationGroupModel,
   DynamicRelationGroupModelConfig,
   PLACEHOLDER_PARENT_METADATA
 } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
 
 export class RelationGroupFieldParser extends FieldParser {
 

@@ -4,6 +4,7 @@ import { PaginatedList } from '../../data/paginated-list';
 import { PageInfo } from '../../shared/page-info.model';
 import { RemoteData } from '../../data/remote-data';
 import { of as observableOf } from 'rxjs';
+import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
 
 const pageInfo = new PageInfo();
 const array = [
@@ -29,8 +30,8 @@ const array = [
   })
 ];
 const paginatedList = new PaginatedList(pageInfo, array);
-const arrayRD = new RemoteData(false, false, true, undefined, array);
-const paginatedListRD = new RemoteData(false, false, true, undefined, paginatedList);
+const arrayRD = createSuccessfulRemoteDataObject(array);
+const paginatedListRD = createSuccessfulRemoteDataObject(paginatedList);
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;

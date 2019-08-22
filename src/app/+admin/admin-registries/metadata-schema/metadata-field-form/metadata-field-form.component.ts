@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 import {
   DynamicFormControlModel,
   DynamicFormLayout,
@@ -8,10 +7,11 @@ import {
 import { FormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
-import { MetadataField } from '../../../../core/metadata/metadatafield.model';
 import { take } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { MetadataField } from '../../../../core/metadata/metadata-field.model';
 
 @Component({
   selector: 'ds-metadata-field-form',
