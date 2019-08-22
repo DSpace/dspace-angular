@@ -68,7 +68,7 @@ export class RelationshipService extends DataService<Relationship> {
   deleteRelationship(id: string): Observable<RestResponse> {
     return this.getRelationshipEndpoint(id).pipe(
       isNotEmptyOperator(),
-      distinctUntilChanged(),
+      take(1),
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
@@ -84,7 +84,7 @@ export class RelationshipService extends DataService<Relationship> {
     options.headers = headers;
     return this.halService.getEndpoint(this.linkPath).pipe(
       isNotEmptyOperator(),
-      distinctUntilChanged(),
+      take(1),
       map((endpointUrl: string) => `${endpointUrl}?relationshipType=${typeId}`),
       map((endpointURL: string) => new PostRequest(this.requestService.generateRequestId(), endpointURL, `${item1.self} \n ${item2.self}`, options)),
       configureRequest(this.requestService),
@@ -267,7 +267,7 @@ export class RelationshipService extends DataService<Relationship> {
             );
           }))
         }),
-        map((relationships: Relationship[]) => relationships.find((relationship => hasValue(relationship)))),
+        map((relationships: Relationship[]) => relationships.find((relationship => hasValue(relationship))))
       )
   }
 

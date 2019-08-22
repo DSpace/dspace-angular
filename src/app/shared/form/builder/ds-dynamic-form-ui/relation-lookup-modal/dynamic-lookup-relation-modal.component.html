@@ -44,15 +44,16 @@
                     <div ngbDropdown class="input-group-append">
                         <button *ngIf="selectAllLoading" type="button"
                                 class="btn btn-outline-secondary rounded-right">
-                        <span class="spinner-border spinner-border-sm" role="status"
+                            <span class="spinner-border spinner-border-sm" role="status"
                               aria-hidden="true"></span>
                             <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.loading' | translate) }}</span>
                         </button>
-                        <button *ngIf="!selectAllLoading" id="resultdropdown" type="button"
+                        <button id="resultdropdown" type="button"
                                 ngbDropdownToggle
                                 class="btn btn-outline-secondary dropdown-toggle-split"
                                 data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
+                                aria-expanded="false"
+                                [hidden]="selectAllLoading">
                             <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.toggle-dropdown' | translate) }}</span>
                         </button>
                         <div ngbDropdownMenu aria-labelledby="resultdropdown">

@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { SearchResult } from '../../../../search/search-result.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
-import { Observable, ReplaySubject } from 'rxjs';
+import { from, Observable, ReplaySubject } from 'rxjs';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../../../../search/paginated-search-options.model';
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue, isNotEmpty } from '../../../../empty.util';
+import { hasValue, hasValueOperator, isNotEmpty } from '../../../../empty.util';
 import { concat, map, mergeMap, multicast, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
@@ -117,12 +117,24 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     });
   }
 
-  selectPage(page: SearchResult<DSpaceObject>[]) {
+  selectPage(page: SearchResult<Item>[]) {
+    this.selection$
+      .pipe(take(1))
+      .subscribe((selection: SearchResult<Item>[]) => {
+        const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0)
+        this.select(...filteredPage);
+      });
     this.selectableListService.select(this.listId, page);
   }
 
-  deselectPage(page: SearchResult<DSpaceObject>[]) {
+  deselectPage(page: SearchResult<Item>[]) {
     this.allSelected = false;
+    this.selection$
+      .pipe(take(1))
+      .subscribe((selection: SearchResult<Item>[]) => {
+        const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) >= 0)
+        this.deselect(...filteredPage);
+      });
     this.selectableListService.deselect(this.listId, page);
   }
 
@@ -132,62 +144,84 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     const fullPagination = Object.assign(new PaginationComponentOptions(), {
       query: this.searchQuery,
       currentPage: 1,
-      pageSize: Number.POSITIVE_INFINITY
+      pageSize: 9999
     });
     const fullSearchConfig = Object.assign(this.searchConfig, { pagination: fullPagination });
-    const results = this.searchService.search(fullSearchConfig);
-    results.pipe(
+    const results$ = this.searchService.search(fullSearchConfig) as Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
+    results$.pipe(
       getSucceededRemoteData(),
       map((resultsRD) => resultsRD.payload.page),
       tap(() => this.selectAllLoading = false),
-    ).subscribe((results) =>
-      this.selectableListService.select(this.listId, results)
+    ).subscribe((results) => {
+        this.selection$
+          .pipe(take(1))
+          .subscribe((selection: SearchResult<Item>[]) => {
+            const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
+            this.select(...filteredResults);
+          });
+        this.selectableListService.select(this.listId, results);
+      }
     );
   }
 
   deselectAll() {
     this.allSelected = false;
+    this.selection$
+      .pipe(take(1))
+      .subscribe((selection: SearchResult<Item>[]) => this.deselect(...selection));
     this.selectableListService.deselectAll(this.listId);
   }
 
 
-  select(selectableObject: SearchResult<Item>) {
+  select(...selectableObjects: SearchResult<Item>[]) {
     setTimeout(() => this.itemRD$
       .pipe(
         getSucceededRemoteData(),
-        mergeMap((itemRD: RemoteData<Item>) => {
+        switchMap((itemRD: RemoteData<Item>) => {
           const type1: string = itemRD.payload.firstMetadataValue('relationship.type');
-          const type2: string = selectableObject.indexableObject.firstMetadataValue('relationship.type');
-          return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(this.relationship.relationshipType, type1, type2)
-            .pipe(
-              mergeMap((type: RelationshipType) => {
-                  const isSwitched = type.rightLabel === this.relationship.relationshipType;
-                  if (isSwitched) {
-                    return this.relationshipService.addRelationship(type.id, selectableObject.indexableObject, itemRD.payload);
-                  } else {
-                    return this.relationshipService.addRelationship(type.id, itemRD.payload, selectableObject.indexableObject);
-                  }
-                }
-              )
-            );
+          return from(selectableObjects).pipe(
+            mergeMap((object) => {
+              const type2: string = object.indexableObject.firstMetadataValue('relationship.type');
+              return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(this.relationship.relationshipType, type1, type2)
+                .pipe(
+                  mergeMap((type: RelationshipType) => {
+                      const isSwitched = type.rightLabel === this.relationship.relationshipType;
+                      if (isSwitched) {
+                        return this.relationshipService.addRelationship(type.id, object.indexableObject, itemRD.payload);
+                      } else {
+                        return this.relationshipService.addRelationship(type.id, itemRD.payload, object.indexableObject);
+                      }
+                    }
+                  )
+                ).pipe(take(1));
+            }));
         }),
-        take(1)
-      )
-      .subscribe(), 0);
+      ).subscribe(), 0
+    );
   }
 
 
-  deselect(selectableObject: SearchResult<Item>) {
+  deselect(...selectableObjects: SearchResult<Item>[]) {
     setTimeout(() => this.itemRD$.pipe(
       getSucceededRemoteData(),
-      switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, selectableObject.indexableObject, this.relationship.relationshipType)),
-      switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
+      switchMap((itemRD: RemoteData<Item>) => {
+        return from(selectableObjects).pipe(
+          tap(t => console.log(itemRD)),
+          mergeMap((object) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, object.indexableObject, this.relationship.relationshipType)),
+          take(1),
+          hasValueOperator(),
+          mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id))
+        )
+      }),
       take(1),
     ).subscribe(), 0);
   }
 
-  ngOnDestroy(): void {
-    if (hasValue(this.subscription)) {
+  ngOnDestroy()
+    :
+    void {
+    if (hasValue(this.subscription)
+    ) {
       this.subscription.unsubscribe();
     }
   }

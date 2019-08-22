@@ -308,6 +308,7 @@ export class RequestService {
    */
   hasByHref(href: string): boolean {
     let result = false;
+    /* NB: that this is only a solution because the select method is synchronous, see: https://github.com/ngrx/store/issues/296#issuecomment-269032571*/
     this.getByHref(href).pipe(
       take(1)
     ).subscribe((requestEntry: RequestEntry) => result = this.isValid(requestEntry));
