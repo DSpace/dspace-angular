@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { SearchResult } from '../../../../search/search-result.model';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -24,8 +24,9 @@ import { RelationshipService } from '../../../../../core/data/relationship.servi
 import { Item } from '../../../../../core/shared/item.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { ItemDataService } from '../../../../../core/data/item-data.service';
-import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../../app.reducer';
+import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -38,6 +39,7 @@ import { ObjectCacheService } from '../../../../../core/cache/object-cache.servi
     }
   ]
 })
+
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   label: string;
   relationship: RelationshipOptions;
@@ -66,8 +68,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private routeService: RouteService,
     private relationshipService: RelationshipService,
     private relationshipTypeService: RelationshipTypeService,
-    private itemService: ItemDataService,
-    private objectCache: ObjectCacheService,
+    private zone: NgZone,
+    private store: Store<AppState>
   ) {
   }
 
@@ -174,52 +176,33 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
 
   select(...selectableObjects: SearchResult<Item>[]) {
-    setTimeout(() => this.itemRD$
-      .pipe(
-        getSucceededRemoteData(),
-        switchMap((itemRD: RemoteData<Item>) => {
-          const type1: string = itemRD.payload.firstMetadataValue('relationship.type');
-          return from(selectableObjects).pipe(
-            mergeMap((object) => {
-              const type2: string = object.indexableObject.firstMetadataValue('relationship.type');
-              return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(this.relationship.relationshipType, type1, type2)
-                .pipe(
-                  mergeMap((type: RelationshipType) => {
-                      const isSwitched = type.rightLabel === this.relationship.relationshipType;
-                      if (isSwitched) {
-                        return this.relationshipService.addRelationship(type.id, object.indexableObject, itemRD.payload);
-                      } else {
-                        return this.relationshipService.addRelationship(type.id, itemRD.payload, object.indexableObject);
-                      }
-                    }
-                  )
-                ).pipe(take(1));
-            }));
-        }),
-      ).subscribe(), 0
-    );
+    this.zone.runOutsideAngular(
+      () => this.itemRD$
+        .pipe(
+          getSucceededRemoteData(),
+          tap((itemRD: RemoteData<Item>) => {
+            return selectableObjects.forEach((object) =>
+              this.store.dispatch(new AddRelationshipAction(itemRD.payload, object.indexableObject, this.relationship.relationshipType))
+            );
+          })
+        ).subscribe());
   }
 
 
   deselect(...selectableObjects: SearchResult<Item>[]) {
-    setTimeout(() => this.itemRD$.pipe(
-      getSucceededRemoteData(),
-      switchMap((itemRD: RemoteData<Item>) => {
-        return from(selectableObjects).pipe(
-          tap(t => console.log(itemRD)),
-          mergeMap((object) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, object.indexableObject, this.relationship.relationshipType)),
-          take(1),
-          hasValueOperator(),
-          mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id))
-        )
-      }),
-      take(1),
-    ).subscribe(), 0);
+    this.zone.runOutsideAngular(
+      () => this.itemRD$.pipe(
+        getSucceededRemoteData(),
+        tap((itemRD: RemoteData<Item>) => {
+          return selectableObjects.forEach((object) =>
+            this.store.dispatch(new RemoveRelationshipAction(itemRD.payload, object.indexableObject, this.relationship.relationshipType))
+          );
+        })
+      ).subscribe()
+    );
   }
 
-  ngOnDestroy()
-    :
-    void {
+  ngOnDestroy(): void {
     if (hasValue(this.subscription)
     ) {
       this.subscription.unsubscribe();

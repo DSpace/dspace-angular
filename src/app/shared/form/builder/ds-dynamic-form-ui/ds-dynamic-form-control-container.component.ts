@@ -4,7 +4,7 @@ import {
   ComponentFactoryResolver,
   ContentChildren,
   EventEmitter,
-  Input,
+  Input, NgZone,
   OnChanges,
   OnInit,
   Output,
@@ -208,6 +208,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private selectableListService: SelectableListService,
     private itemService: ItemDataService,
     private relationshipService: RelationshipService,
+    private zone: NgZone
   ) {
     super(componentFactoryResolver, layoutService, validationService);
   }
@@ -283,11 +284,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   removeSelection(object: SearchResult<Item>) {
     this.selectableListService.deselectSingle(this.listId, object);
-    setTimeout(() => this.model.workspaceItem.item.pipe(
-      getSucceededRemoteData(),
-      switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, object.indexableObject, this.model.relationship.relationshipType)),
-      switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
-      take(1)
-    ).subscribe(), 0);
+    this.zone.runOutsideAngular(
+      this.model.workspaceItem.item.pipe(
+        getSucceededRemoteData(),
+        switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, object.indexableObject, this.model.relationship.relationshipType)),
+        switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
+        take(1)
+      ).subscribe());
   }
 }
