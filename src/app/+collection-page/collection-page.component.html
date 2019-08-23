@@ -16,8 +16,8 @@
           <ds-comcol-page-content [content]="collection.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
           </ds-comcol-page-content>
           <!-- Browse-By Links -->
-  
-          <ds-comcol-page-browse-by [id]="collection.id" [thisurl]="thisurl"></ds-comcol-page-browse-by>
+
+          <ds-comcol-page-browse-by [id]="collection.id" [contentType]="collection.type"></ds-comcol-page-browse-by>
         </header>
         <ng-container *ngVar="(itemRD$ | async) as itemRD">
           <div *ngIf="itemRD?.hasSucceeded" @fadeIn>

@@ -18,19 +18,6 @@ export class ComcolPageBrowseByComponent implements OnInit {
   @Input() id: string;
   @Input() contentType: string;
   
-  /**
-   * getPathfromType
-   */
-  getPathfromType(t) {
-    if (t === "collection") {
-      t = "/collections/";
-    } else if (t === "community") {
-      t = "/communities/";
-    } else {
-      t = "/";
-    }
-    return t;
-  }
   
   /**
    * List of currently active browse configurations
@@ -42,7 +29,6 @@ export class ComcolPageBrowseByComponent implements OnInit {
 
   ngOnInit(): void {
     this.types = this.config.browseBy.types;
-    this.contentTypePath = this.getPathfromType(this.contentType) ;
   }
 
 }

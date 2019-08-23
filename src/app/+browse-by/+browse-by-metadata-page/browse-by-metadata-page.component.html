@@ -13,9 +13,13 @@
                  [content]="parentContext.introductoryText"
                  [hasInnerHtml]="true">
          </ds-comcol-page-content>
-                
+         
+         <!-- News -->
+         <ds-comcol-page-content [content]="parentContext.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
+         </ds-comcol-page-content>
+         
          <!-- Browse-By Links -->
-         <ds-comcol-page-browse-by [id]="parentContext.id"></ds-comcol-page-browse-by>
+         <ds-comcol-page-browse-by [id]="parentContext.id"  [contentType]="parentContext.type"></ds-comcol-page-browse-by>
       </header>
     </div>
   </div>
