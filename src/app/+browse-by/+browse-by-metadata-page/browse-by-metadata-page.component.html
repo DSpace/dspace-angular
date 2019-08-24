@@ -2,14 +2,17 @@
   <div *ngVar="(parent$ | async) as parent">
     <div *ngIf="parent?.payload as parentContext">
       <header>
-        <!-- Collection Name -->
+        <!-- Parent Name -->
         <ds-comcol-page-header [name]="parentContext.name">
         </ds-comcol-page-header>
-        <!-- Introductionary text -->
+        <!-- Introductory text -->
         <ds-comcol-page-content [content]="parentContext.introductoryText" [hasInnerHtml]="true">
         </ds-comcol-page-content>
         <!-- News -->
         <ds-comcol-page-content [content]="parentContext.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
+        </ds-comcol-page-content>
+        <!-- Handle -->
+        <ds-comcol-page-content [content]="parentContext.handle" [hasInnerHtml]="true" [title]="'Handle'" >
         </ds-comcol-page-content>
         <!-- Browse-By Links -->
         <ds-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-comcol-page-browse-by>
@@ -24,4 +27,12 @@
     </ds-browse-by>
     <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
   </div>
+  <footer *ngVar="(parent$ | async) as parent">
+    <div *ngIf="parent?.payload as parentContext">
+
+      <!-- Copyright -->
+      <ds-comcol-page-content [content]="parentContext.copyrightText" [hasInnerHtml]="true">
+      </ds-comcol-page-content>
+    </div>
+  </footer>
 </div>

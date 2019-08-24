@@ -15,8 +15,10 @@
           <!-- News -->
           <ds-comcol-page-content [content]="collection.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
           </ds-comcol-page-content>
+          <!-- Handle -->
+          <ds-comcol-page-content [content]="collection.handle" [hasInnerHtml]="true" [title]="'Handle'" >
+          </ds-comcol-page-content>
           <!-- Browse-By Links -->
-
           <ds-comcol-page-browse-by [id]="collection.id" [contentType]="collection.type"></ds-comcol-page-browse-by>
         </header>
         <ng-container *ngVar="(itemRD$ | async) as itemRD">
@@ -35,7 +37,6 @@
           <!-- Copyright -->
           <ds-comcol-page-content [content]="collection.copyrightText" [hasInnerHtml]="true">
           </ds-comcol-page-content>
-      
         </footer>
       </div>
     </div>
