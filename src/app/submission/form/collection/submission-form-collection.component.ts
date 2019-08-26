@@ -197,7 +197,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         new PaginatedSearchOptions({
           dsoType: DSpaceObjectType.COLLECTION,
           pagination: new PaginationComponentOptions(),
-          scope: 'c0e4de93-f506-4990-a840-d406f6f2ada7'
+          // scope: 'c0e4de93-f506-4990-a840-d406f6f2ada7'
         })
       ).pipe(
         getSucceededRemoteData(),

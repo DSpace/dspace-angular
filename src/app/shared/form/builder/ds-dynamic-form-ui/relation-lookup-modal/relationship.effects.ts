@@ -25,6 +25,11 @@ export class RelationshipEffects {
     [identifier: string]: BehaviorSubject<boolean>
   } = {};
 
+  private initialStateMap: {
+    [identifier: string]: boolean
+  } = {};
+
+
   /**
    * Effect that makes sure all last fired ObjectUpdatesActions are stored in the map of this service, with the url as their key
    */
@@ -35,9 +40,19 @@ export class RelationshipEffects {
           const { item1, item2, relationshipType } = action.payload;
           const identifier: string = this.createIdentifier(item1, item2, relationshipType);
           if (hasNoValue(this.debounceMap[identifier])) {
+            this.initialStateMap[identifier] = !action.exists;
             this.debounceMap[identifier] = new BehaviorSubject<boolean>(action.exists);
-            this.debounceMap[identifier].pipe(debounceTime(DEBOUNCE_TIME)).subscribe(
-              (exists) => exists ? this.addRelationship(item1, item2, relationshipType) : this.removeRelationship(item1, item2, relationshipType)
+            this.debounceMap[identifier].pipe(
+              debounceTime(DEBOUNCE_TIME),
+              take(1)
+            ).subscribe(
+              (exists) => {
+                if (this.initialStateMap[identifier] !== exists) {
+                  exists ? this.addRelationship(item1, item2, relationshipType) : this.removeRelationship(item1, item2, relationshipType);
+                }
+                delete this.debounceMap[identifier];
+                delete this.initialStateMap[identifier];
+              }
             )
           } else {
             this.debounceMap[identifier].next(action.exists);
@@ -59,7 +74,6 @@ export class RelationshipEffects {
 
 
   private addRelationship(item1: Item, item2: Item, relationshipType: string) {
-    console.log('add', item2.uuid);
     const type1: string = item1.firstMetadataValue('relationship.type');
     const type2: string = item2.firstMetadataValue('relationship.type');
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
@@ -78,9 +92,7 @@ export class RelationshipEffects {
   }
 
   private removeRelationship(item1: Item, item2: Item, relationshipType: string) {
-    console.log('remove', item2.uuid);
     this.relationshipService.getRelationshipByItemsAndLabel(item1, item2, relationshipType).pipe(
-      tap(t => console.log(t)),
       take(1),
       hasValueOperator(),
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
