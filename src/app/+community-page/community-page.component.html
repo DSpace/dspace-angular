@@ -3,8 +3,6 @@
     <div *ngIf="communityRD?.payload; let communityPayload">
       <!-- Community name -->
       <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
-      <!-- Browse-By Links -->
-      <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type"></ds-comcol-page-browse-by>
       <!-- Community logo -->
       <ds-comcol-page-logo *ngIf="logoRD$"
                            [logo]="(logoRD$ | async)?.payload"
@@ -26,6 +24,12 @@
         [content]="communityPayload.copyrightText"
         [hasInnerHtml]="true">
       </ds-comcol-page-content>
+      <!-- Handle -->
+      <ds-comcol-page-content [content]="communityPayload.handle" [hasInnerHtml]="true" [title]="'Handle'" >
+      </ds-comcol-page-content>
+      <!-- Browse-By Links -->
+      <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type"></ds-comcol-page-browse-by>
+
       <ds-community-page-sub-community-list [community]="communityPayload"></ds-community-page-sub-community-list>
       <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
     </div>
