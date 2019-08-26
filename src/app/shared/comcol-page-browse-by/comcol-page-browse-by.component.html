@@ -4,7 +4,7 @@
     <a *ngIf="contentType=='collection'" [routerLink]="['/collections/' + id ]" class="list-group-item" routerLinkActive="active">
 Submission date</a>
     <a *ngIf="contentType=='community'" [routerLink]="['/communities/' + id ]" class="list-group-item" routerLinkActive="active">
-Subcommunties and collections</a>
+Subcommunities and collections</a>
     <a *ngFor="let config of types" class="list-group-item" [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}" routerLinkActive="active">{{'browse.comcol.by.' + config.id | translate}}</a>
   </div>
 </div>
