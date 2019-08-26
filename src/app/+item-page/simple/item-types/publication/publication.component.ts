@@ -8,6 +8,8 @@ import {
 import { ItemComponent } from '../shared/item.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { getRelatedItemsByTypeLabel } from '../shared/item-relationships-utils';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 @rendersItemType('Publication', ItemViewMode.Full)
 @rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Full)
@@ -26,17 +28,17 @@ export class PublicationComponent extends ItemComponent implements OnInit {
   /**
    * The projects related to this publication
    */
-  projects$: Observable<Item[]>;
+  projects$: Observable<RemoteData<PaginatedList<Item>>>;
 
   /**
    * The organisation units related to this publication
    */
-  orgUnits$: Observable<Item[]>;
+  orgUnits$: Observable<RemoteData<PaginatedList<Item>>>;
 
   /**
    * The journal issues related to this publication
    */
-  journalIssues$: Observable<Item[]>;
+  journalIssues$: Observable<RemoteData<PaginatedList<Item>>>;
 
   ngOnInit(): void {
     super.ngOnInit();
@@ -45,17 +47,9 @@ export class PublicationComponent extends ItemComponent implements OnInit {
 
       this.authors$ = this.buildRepresentations('Person', 'dc.contributor.author');
 
-      this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPublication')
-      );
-
-      this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPublication')
-      );
-
-      this.journalIssues$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isJournalIssueOfPublication')
-      );
+      this.projects$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isProjectOfPublication');
+      this.orgUnits$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isOrgUnitOfPublication');
+      this.journalIssues$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isJournalIssueOfPublication');
 
     }
   }

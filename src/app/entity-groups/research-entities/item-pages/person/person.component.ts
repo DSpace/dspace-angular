@@ -7,6 +7,7 @@ import { SearchFixedFilterService } from '../../../../+search-page/search-filter
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
 import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 @rendersItemType('Person', ItemViewMode.Full)
 @Component({
@@ -45,9 +46,10 @@ export class PersonComponent extends ItemComponent {
 
   constructor(
     @Inject(ITEM) public item: Item,
+    public relationshipService: RelationshipService,
     private fixedFilterService: SearchFixedFilterService
   ) {
-    super(item);
+    super(item, relationshipService);
   }
   ngOnInit(): void {
     super.ngOnInit();

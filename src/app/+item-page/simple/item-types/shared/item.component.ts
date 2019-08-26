@@ -15,6 +15,7 @@ import { MetadatumRepresentation } from '../../../../core/shared/metadata-repres
 import { of } from 'rxjs/internal/observable/of';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { compareArraysUsingIds } from './item-relationships-utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 /**
  * Operator for turning a list of relationships into a list of metadatarepresentations given the original metadata
@@ -68,7 +69,8 @@ export class ItemComponent implements OnInit {
   resolvedRelsAndTypes$: Observable<[Relationship[], RelationshipType[]]>;
 
   constructor(
-    @Inject(ITEM) public item: Item
+    @Inject(ITEM) public item: Item,
+    public relationshipService: RelationshipService
   ) {}
 
   ngOnInit(): void {

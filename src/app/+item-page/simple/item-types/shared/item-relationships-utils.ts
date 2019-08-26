@@ -13,6 +13,7 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RelationshipService } from '../../../../core/data/relationship.service';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -97,6 +98,34 @@ export const relationsToItems = (thisId: string) =>
           .filter((item: Item) => hasValue(item))
       ),
       distinctUntilChanged(compareArraysUsingIds()),
+    );
+
+export const paginatedRelationsToItems = (thisId: string) =>
+  (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
+    source.pipe(
+      getSucceededRemoteData(),
+      switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
+        return observableZip(
+          ...relationshipsRD.payload.page.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem))
+        ).pipe(
+          map((arr) =>
+            arr
+              .filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded)
+              .map(([leftItem, rightItem]) => {
+                if (leftItem.payload.id === thisId) {
+                  return rightItem.payload;
+                } else if (rightItem.payload.id === thisId) {
+                  return leftItem.payload;
+                }
+              })
+              .filter((item: Item) => hasValue(item))
+          ),
+          distinctUntilChanged(compareArraysUsingIds()),
+          map((relatedItems: Item[]) =>
+            Object.assign(relationshipsRD, { payload: { page: relatedItems } })
+          )
+        )
+      })
     );
 
 /**
