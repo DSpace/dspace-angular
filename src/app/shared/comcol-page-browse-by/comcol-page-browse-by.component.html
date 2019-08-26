@@ -1,4 +1,4 @@
-<div role="navigation" class="comcol-browse">
+<nav class="comcol-browse" aria-label="Browse Community or Collection" >
   <div class="comcol-browse-label">{{'browse.comcol.head' | translate}}</div>
   <div class="list-group list-group-horizontal">
     <a *ngIf="contentType=='collection'" [routerLink]="['/collections/' + id ]" class="list-group-item" routerLinkActive="active">
@@ -7,4 +7,4 @@ Submission date</a>
 Subcommunities and collections</a>
     <a *ngFor="let config of types" class="list-group-item" [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}" routerLinkActive="active">{{'browse.comcol.by.' + config.id | translate}}</a>
   </div>
-</div>
+</nav>
