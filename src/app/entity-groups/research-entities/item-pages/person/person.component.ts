@@ -1,13 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { Observable ,  of as observableOf } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
-import { RelationshipService } from '../../../../core/data/relationship.service';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 @rendersItemType('Person', ItemViewMode.Full)
 @Component({
@@ -22,53 +19,21 @@ export class PersonComponent extends ItemComponent {
   /**
    * The publications related to this person
    */
-  publications$: Observable<Item[]>;
+  publications$: Observable<RemoteData<PaginatedList<Item>>>;
 
   /**
    * The projects related to this person
    */
-  projects$: Observable<Item[]>;
+  projects$: Observable<RemoteData<PaginatedList<Item>>>;
 
   /**
    * The organisation units related to this person
    */
-  orgUnits$: Observable<Item[]>;
+  orgUnits$: Observable<RemoteData<PaginatedList<Item>>>;
 
-  /**
-   * The applied fixed filter
-   */
-  fixedFilter$: Observable<string>;
-
-  /**
-   * The query used for applying the fixed filter
-   */
-  fixedFilterQuery: string;
-
-  constructor(
-    @Inject(ITEM) public item: Item,
-    public relationshipService: RelationshipService,
-    private fixedFilterService: SearchFixedFilterService
-  ) {
-    super(item, relationshipService);
-  }
   ngOnInit(): void {
-    super.ngOnInit();
-
-    if (isNotEmpty(this.resolvedRelsAndTypes$)) {
-      this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfAuthor')
-      );
-
-      this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPerson')
-      );
-
-      this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPerson')
-      );
-
-      this.fixedFilterQuery = this.fixedFilterService.getQueryByRelations('isAuthorOfPublication', this.item.id);
-      this.fixedFilter$ = observableOf('publication');
-    }
+    this.publications$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isPublicationOfAuthor');
+    this.projects$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isProjectOfPerson');
+    this.orgUnits$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isOrgUnitOfPerson');
   }
 }

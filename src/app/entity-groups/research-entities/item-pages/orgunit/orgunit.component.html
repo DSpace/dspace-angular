@@ -25,15 +25,15 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
-      [items]="people$ | async"
+      [items]="(people$ | async)?.payload?.page"
       [label]="'relationships.isPersonOf' | translate">
     </ds-related-items>
     <ds-related-items
-      [items]="projects$ | async"
+      [items]="(projects$ | async)?.payload?.page"
       [label]="'relationships.isProjectOf' | translate">
     </ds-related-items>
     <ds-related-items
-      [items]="publications$ | async"
+      [items]="(publications$ | async)?.payload?.page"
       [label]="'relationships.isPublicationOf' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"

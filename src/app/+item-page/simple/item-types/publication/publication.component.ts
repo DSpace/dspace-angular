@@ -7,7 +7,6 @@ import {
 } from '../../../../shared/items/item-type-decorator';
 import { ItemComponent } from '../shared/item.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { getRelatedItemsByTypeLabel } from '../shared/item-relationships-utils';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 
@@ -23,7 +22,7 @@ export class PublicationComponent extends ItemComponent implements OnInit {
   /**
    * The authors related to this publication
    */
-  authors$: Observable<MetadataRepresentation[]>;
+  authors$: Observable<RemoteData<PaginatedList<MetadataRepresentation>>>;
 
   /**
    * The projects related to this publication
@@ -41,16 +40,10 @@ export class PublicationComponent extends ItemComponent implements OnInit {
   journalIssues$: Observable<RemoteData<PaginatedList<Item>>>;
 
   ngOnInit(): void {
-    super.ngOnInit();
+    this.authors$ = this.buildRepresentations('Person', 'dc.contributor.author', 'isAuthorOfPublication');
 
-    if (this.resolvedRelsAndTypes$) {
-
-      this.authors$ = this.buildRepresentations('Person', 'dc.contributor.author');
-
-      this.projects$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isProjectOfPublication');
-      this.orgUnits$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isOrgUnitOfPublication');
-      this.journalIssues$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isJournalIssueOfPublication');
-
-    }
+    this.projects$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isProjectOfPublication');
+    this.orgUnits$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isOrgUnitOfPublication');
+    this.journalIssues$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isJournalIssueOfPublication');
   }
 }

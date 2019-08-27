@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
-import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
-import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 @rendersItemType('JournalVolume', ItemViewMode.Full)
 @Component({
@@ -19,23 +19,15 @@ export class JournalVolumeComponent extends ItemComponent {
   /**
    * The journals related to this journal volume
    */
-  journals$: Observable<Item[]>;
+  journals$: Observable<RemoteData<PaginatedList<Item>>>;
 
   /**
    * The journal issues related to this journal volume
    */
-  issues$: Observable<Item[]>;
+  issues$: Observable<RemoteData<PaginatedList<Item>>>;
 
   ngOnInit(): void {
-    super.ngOnInit();
-
-    if (isNotEmpty(this.resolvedRelsAndTypes$)) {
-      this.journals$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isJournalOfVolume')
-      );
-      this.issues$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isIssueOfJournalVolume')
-      );
-    }
+    this.journals$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isJournalOfVolume');
+    this.issues$ = this.relationshipService.getRelatedItemsByLabel(this.item, 'isIssueOfJournalVolume');
   }
 }

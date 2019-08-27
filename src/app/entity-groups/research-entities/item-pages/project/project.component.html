@@ -12,7 +12,7 @@
     <!--</ds-generic-item-page-field>-->
     <ds-metadata-representation-list
       [label]="'project.page.contributor' | translate"
-      [representations]="contributors$ | async">
+      [representations]="(contributors$ | async)?.payload?.page">
     </ds-metadata-representation-list>
     <ds-generic-item-page-field [item]="item"
       [fields]="['project.identifier.funder']"
@@ -29,15 +29,15 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
-      [items]="people$ | async"
+      [items]="(people$ | async)?.payload?.page"
       [label]="'relationships.isPersonOf' | translate">
     </ds-related-items>
     <ds-related-items
-      [items]="publications$ | async"
+      [items]="(publications$ | async)?.payload?.page"
       [label]="'relationships.isPublicationOf' | translate">
     </ds-related-items>
     <ds-related-items
-      [items]="orgUnits$ | async"
+      [items]="(orgUnits$ | async)?.payload?.page"
       [label]="'relationships.isOrgUnitOf' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"

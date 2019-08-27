@@ -29,7 +29,7 @@
   <div class="col-xs-12 col-md-6">
     <ds-metadata-representation-list
       [label]="'relationships.isAuthorOf' | translate"
-      [representations]="authors$ | async">
+      [representations]="(authors$ | async)?.payload?.page">
     </ds-metadata-representation-list>
     <ds-related-items
       [items]="(projects$ | async)?.payload?.page"

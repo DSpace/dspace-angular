@@ -17,11 +17,11 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
-      [items]="journals$ | async"
+      [items]="(journals$ | async)?.payload?.page"
       [label]="'relationships.isSingleJournalOf' | translate">
     </ds-related-items>
     <ds-related-items
-      [items]="issues$ | async"
+      [items]="(issues$ | async)?.payload?.page"
       [label]="'relationships.isIssueOf' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="item"
