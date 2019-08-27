@@ -7,13 +7,13 @@ import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { distinctUntilChanged, filter, flatMap, map, switchMap, tap } from 'rxjs/operators';
-import { of as observableOf, zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
-import { ItemDataService } from '../../../../core/data/item-data.service';
+import { distinctUntilChanged, filter, flatMap, map, switchMap } from 'rxjs/operators';
+import { zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
+import { of } from 'rxjs/internal/observable/of';
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -100,6 +100,12 @@ export const relationsToItems = (thisId: string) =>
       distinctUntilChanged(compareArraysUsingIds()),
     );
 
+/**
+ * Operator for turning a paginated list of relationships into a paginated list of the relevant items
+ * The result is wrapped in the original RemoteData and PaginatedList
+ * @param {string} thisId       The item's id of which the relations belong to
+ * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
+ */
 export const paginatedRelationsToItems = (thisId: string) =>
   (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
     source.pipe(
@@ -129,38 +135,26 @@ export const paginatedRelationsToItems = (thisId: string) =>
     );
 
 /**
- * Operator for turning a list of relationships and their relationship-types into a list of relevant items by relationship label
- * @param thisId  The item's id of which the relations belong to
- * @param label   The label of the relationship-type to filter on
- * @param side    Filter only on one side of the relationship (for example: child-parent relationships)
- */
-export const getRelatedItemsByTypeLabel = (thisId: string, label: string) =>
-  (source: Observable<[Relationship[], RelationshipType[]]>): Observable<Item[]> =>
-    source.pipe(
-      filterRelationsByTypeLabel(label, thisId),
-      relationsToItems(thisId)
-    );
-
-/**
  * Operator for turning a list of relationships into a list of metadatarepresentations given the original metadata
+ * The result is wrapped in the original RemoteData and PaginatedList
  * @param parentId    The id of the parent item
  * @param itemType    The type of relation this list resembles (for creating representations)
  * @param metadata    The list of original Metadatum objects
- * @param ids         The ItemDataService to use for fetching Items from the Rest API
  */
-export const relationsToRepresentations = (parentId: string, itemType: string, metadata: MetadataValue[], ids: ItemDataService) =>
-  (source: Observable<Relationship[]>): Observable<MetadataRepresentation[]> =>
+export const relationsToRepresentations = (parentId: string, itemType: string, metadata: MetadataValue[]) =>
+  (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<MetadataRepresentation>>> =>
     source.pipe(
-      flatMap((rels: Relationship[]) =>
+      flatMap((relRD: RemoteData<PaginatedList<Relationship>>) =>
         observableZip(
           ...metadata
             .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
             .map((metadatum: MetadataValue) => {
               if (metadatum.isVirtual) {
-                const matchingRels = rels.filter((rel: Relationship) => ('' + rel.id) === metadatum.virtualValue);
+                const matchingRels = relRD.payload.page.filter((rel: Relationship) => ('' + rel.id) === metadatum.virtualValue);
                 if (matchingRels.length > 0) {
                   const matchingRel = matchingRels[0];
                   return observableCombineLatest(matchingRel.leftItem, matchingRel.rightItem).pipe(
+                    filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded),
                     map(([leftItem, rightItem]) => {
                       if (leftItem.payload.id === parentId) {
                         return rightItem.payload;
@@ -172,9 +166,12 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
                   );
                 }
               } else {
-                return observableOf(Object.assign(new MetadatumRepresentation(itemType), metadatum));
+                return of(Object.assign(new MetadatumRepresentation(itemType), metadatum));
               }
             })
+        ).pipe(
+          distinctUntilChanged(compareArraysUsingIds()),
+          map((representations: MetadataRepresentation[]) => Object.assign(relRD, { payload: { page: representations } }))
         )
       )
     );
