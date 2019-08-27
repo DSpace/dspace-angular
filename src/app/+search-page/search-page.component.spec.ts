@@ -19,10 +19,10 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchSidebarService } from '../core/shared/search/search-sidebar.service';
 import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { RemoteData } from '../core/data/remote-data';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { RouteService } from '../shared/services/route.service';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
+import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 
 let comp: SearchPageComponent;
@@ -40,7 +40,7 @@ pagination.id = 'search-results-pagination';
 pagination.currentPage = 1;
 pagination.pageSize = 10;
 const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-const mockResults = observableOf(new RemoteData(false, false, true, null, ['test', 'data']));
+const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
 const searchServiceStub = jasmine.createSpyObj('SearchService', {
   search: mockResults,
   getSearchLink: '/search',

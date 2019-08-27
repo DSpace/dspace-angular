@@ -10,7 +10,7 @@ import { EnumKeysPipe } from '../../../../shared/utils/enum-keys-pipe';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 
 describe('MetadataSchemaFormComponent', () => {
   let component: MetadataSchemaFormComponent;

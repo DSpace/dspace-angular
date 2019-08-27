@@ -3,11 +3,13 @@ import { isNotEmpty } from '../../../shared/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { OtherInformation } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { MetadataValueInterface } from '../../shared/metadata.models';
+import { ResourceType } from '../../shared/resource-type';
 
 /**
  * Class representing an authority object
  */
 export class AuthorityValue extends IntegrationModel implements MetadataValueInterface {
+  static type = new ResourceType('authority');
 
   /**
    * The identifier of this authority

@@ -8,12 +8,12 @@ import { IntegrationModel } from '../integration/models/integration.model';
 import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
 import { RegistryBitstreamformatsResponse } from '../registry/registry-bitstreamformats-response.model';
-import { MetadataSchema } from '../metadata/metadataschema.model';
-import { MetadataField } from '../metadata/metadatafield.model';
 import { PaginatedList } from '../data/paginated-list';
 import { SubmissionObject } from '../submission/models/submission-object.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { NormalizedAuthStatus } from '../auth/models/normalized-auth-status.model';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { MetadataField } from '../metadata/metadata-field.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {

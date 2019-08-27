@@ -1,12 +1,13 @@
-import { autoserialize } from 'cerialize';
+import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { mapsTo } from '../cache/builders/build-decorators';
-import { MetadataSchema } from './metadataschema.model';
+import { MetadataSchema } from './metadata-schema.model';
 
 /**
  * Normalized class for a DSpace MetadataSchema
  */
 @mapsTo(MetadataSchema)
+@inheritSerialization(NormalizedObject)
 export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> {
   /**
    * The unique identifier for this schema

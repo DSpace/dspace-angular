@@ -9,9 +9,9 @@ import { FormGroup } from '@angular/forms';
 import { RegistryService } from '../../../../core/registry/registry.service';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { take } from 'rxjs/operators';
-import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 
 @Component({
   selector: 'ds-metadata-schema-form',

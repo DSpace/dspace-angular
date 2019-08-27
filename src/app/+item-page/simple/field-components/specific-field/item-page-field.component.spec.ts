@@ -11,6 +11,7 @@ import { ItemPageFieldComponent } from './item-page-field.component';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { of as observableOf } from 'rxjs';
 import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 let comp: ItemPageFieldComponent;
 let fixture: ComponentFixture<ItemPageFieldComponent>;
@@ -52,7 +53,7 @@ describe('ItemPageFieldComponent', () => {
 
 export function mockItemWithMetadataFieldAndValue(field: string, value: string): Item {
   const item = Object.assign(new Item(), {
-    bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+    bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
     metadata: new MetadataMap()
   });
   item.metadata[field] = [{

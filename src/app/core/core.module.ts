@@ -64,7 +64,7 @@ import { RegistryService } from './registry/registry.service';
 import { RegistryMetadataschemasResponseParsingService } from './data/registry-metadataschemas-response-parsing.service';
 import { RegistryMetadatafieldsResponseParsingService } from './data/registry-metadatafields-response-parsing.service';
 import { RegistryBitstreamformatsResponseParsingService } from './data/registry-bitstreamformats-response-parsing.service';
-import { WorkflowitemDataService } from './submission/workflowitem-data.service';
+import { WorkflowItemDataService } from './submission/workflowitem-data.service';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { UploaderService } from '../shared/uploader/uploader.service';
 import { FileService } from './shared/file.service';
@@ -82,19 +82,50 @@ import { ObjectUpdatesService } from './data/object-updates/object-updates.servi
 import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
 import { SearchService } from './shared/search/search.service';
 import { RelationshipService } from './data/relationship.service';
+import { NormalizedCollection } from './cache/models/normalized-collection.model';
+import { NormalizedCommunity } from './cache/models/normalized-community.model';
+import { NormalizedDSpaceObject } from './cache/models/normalized-dspace-object.model';
+import { NormalizedBitstream } from './cache/models/normalized-bitstream.model';
+import { NormalizedBundle } from './cache/models/normalized-bundle.model';
+import { NormalizedBitstreamFormat } from './cache/models/normalized-bitstream-format.model';
+import { NormalizedItem } from './cache/models/normalized-item.model';
+import { NormalizedEPerson } from './eperson/models/normalized-eperson.model';
+import { NormalizedGroup } from './eperson/models/normalized-group.model';
+import { NormalizedResourcePolicy } from './cache/models/normalized-resource-policy.model';
+import { NormalizedMetadataSchema } from './metadata/normalized-metadata-schema.model';
+import { NormalizedMetadataField } from './metadata/normalized-metadata-field.model';
+import { NormalizedLicense } from './cache/models/normalized-license.model';
+import { NormalizedWorkflowItem } from './submission/models/normalized-workflowitem.model';
+import { NormalizedWorkspaceItem } from './submission/models/normalized-workspaceitem.model';
+import { NormalizedSubmissionDefinitionsModel } from './config/models/normalized-config-submission-definitions.model';
+import { NormalizedSubmissionFormsModel } from './config/models/normalized-config-submission-forms.model';
+import { NormalizedSubmissionSectionModel } from './config/models/normalized-config-submission-section.model';
+import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model';
+import { NormalizedAuthorityValue } from './integration/models/normalized-authority-value.model';
 import { RoleService } from './roles/role.service';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { NormalizedClaimedTask } from './tasks/models/normalized-claimed-task-object.model';
+import { NormalizedTaskObject } from './tasks/models/normalized-task-object.model';
+import { NormalizedPoolTask } from './tasks/models/normalized-pool-task-object.model';
+import { NormalizedRelationship } from './cache/models/items/normalized-relationship.model';
+import { NormalizedRelationshipType } from './cache/models/items/normalized-relationship-type.model';
+import { NormalizedItemType } from './cache/models/items/normalized-item-type.model';
+import { MetadatafieldParsingService } from './data/metadatafield-parsing.service';
+import { NormalizedSubmissionUploadsModel } from './config/models/normalized-config-submission-uploads.model';
+import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
+import { BrowseDefinition } from './shared/browse-definition.model';
+
 import {
   MOCK_RESPONSE_MAP,
   MockResponseMap,
   mockResponseMap
 } from './dspace-rest-v2/mocks/mock-response-map';
 import { EndpointMockingRestService } from './dspace-rest-v2/endpoint-mocking-rest.service';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../config';
+import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
 import { SearchSidebarService } from './shared/search/search-sidebar.service';
 import { SearchFilterService } from './shared/search/search-filter.service';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
@@ -102,11 +133,11 @@ import { SelectableListService } from '../shared/object-list/selectable-list/sel
 import { RelationshipTypeService } from './data/relationship-type.service';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
-  // if (ENV_CONFIG.production) {
-  //   return new DSpaceRESTv2Service(http);
-  // } else {
+  if (ENV_CONFIG.production) {
+    return new DSpaceRESTv2Service(http);
+  } else {
     return new EndpointMockingRestService(cfg, mocks, http);
-  // }
+  }
 };
 
 const IMPORTS = [
@@ -115,13 +146,9 @@ const IMPORTS = [
   EffectsModule.forFeature(coreEffects)
 ];
 
-const DECLARATIONS = [
+const DECLARATIONS = [];
 
-];
-
-const EXPORTS = [
-
-];
+const EXPORTS = [];
 
 const PROVIDERS = [
   ApiService,
@@ -179,11 +206,12 @@ const PROVIDERS = [
   AuthorityService,
   IntegrationResponseParsingService,
   MetadataschemaParsingService,
+  MetadatafieldParsingService,
   UploaderService,
   UUIDService,
   NotificationsService,
   WorkspaceitemDataService,
-  WorkflowitemDataService,
+  WorkflowItemDataService,
   UploaderService,
   FileService,
   DSpaceObjectDataService,
@@ -217,6 +245,42 @@ const PROVIDERS = [
   { provide: NativeWindowService, useFactory: NativeWindowFactory }
 ];
 
+/**
+ * Declaration needed to make sure all decorator functions are called in time
+ */
+export const normalizedModels =
+  [
+    NormalizedDSpaceObject,
+    NormalizedBundle,
+    NormalizedBitstream,
+    NormalizedBitstreamFormat,
+    NormalizedItem,
+    NormalizedCollection,
+    NormalizedCommunity,
+    NormalizedEPerson,
+    NormalizedGroup,
+    NormalizedResourcePolicy,
+    NormalizedMetadataSchema,
+    NormalizedMetadataField,
+    NormalizedLicense,
+    NormalizedWorkflowItem,
+    NormalizedWorkspaceItem,
+    NormalizedSubmissionDefinitionsModel,
+    NormalizedSubmissionFormsModel,
+    NormalizedSubmissionSectionModel,
+    NormalizedSubmissionUploadsModel,
+    NormalizedAuthStatus,
+    NormalizedAuthorityValue,
+    NormalizedBrowseEntry,
+    BrowseDefinition,
+    NormalizedClaimedTask,
+    NormalizedTaskObject,
+    NormalizedPoolTask,
+    NormalizedRelationship,
+    NormalizedRelationshipType,
+    NormalizedItemType
+  ];
+
 @NgModule({
   imports: [
     ...IMPORTS
@@ -231,8 +295,8 @@ const PROVIDERS = [
     ...PROVIDERS
   ]
 })
-export class CoreModule {
 
+export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: CoreModule,
@@ -242,10 +306,9 @@ export class CoreModule {
     };
   }
 
-  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
     if (isNotEmpty(parentModule)) {
       throw new Error('CoreModule is already loaded. Import it in the AppModule only');
     }
   }
-
 }

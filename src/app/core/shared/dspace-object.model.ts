@@ -1,19 +1,27 @@
 import { Observable } from 'rxjs';
 
-import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
+import {
+  MetadataMap,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel
+} from './metadata.models';
 import { Metadata } from './metadata.utils';
-import { isUndefined } from '../../shared/empty.util';
+import { hasNoValue, isUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
-import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { hasNoValue } from '../../shared/empty.util';
 import { excludeFromEquals } from '../utilities/equals.decorators';
+import { ResourceType } from './resource-type';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
 export class DSpaceObject extends ListableObject implements CacheableObject {
+  /**
+   * A string representing the kind of DSpaceObject, e.g. community, item, …
+   */
+  static type = new ResourceType('dspaceobject');
 
   @excludeFromEquals
   private _name: string;

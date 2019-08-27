@@ -31,7 +31,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
-import { createTestComponent } from '../../../shared/testing/utils';
+import {
+  createTestComponent
+} from '../../../shared/testing/utils';
 import { cold } from 'jasmine-marbles';
 import { SearchResult } from '../../../shared/search/search-result.model';
 import { SearchService } from '../../../core/shared/search/search.service';

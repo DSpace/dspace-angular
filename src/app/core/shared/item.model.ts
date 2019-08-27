@@ -8,9 +8,11 @@ import { Bitstream } from './bitstream.model';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedList } from '../data/paginated-list';
 import { Relationship } from './item-relationships/relationship.model';
+import { ResourceType } from './resource-type';
 import { getSucceededRemoteData } from './operators';
 
 export class Item extends DSpaceObject {
+  static type = new ResourceType('item');
 
   /**
    * A string representing the unique handle of this Item

@@ -12,7 +12,6 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 
 @Injectable()
 export class FacetValueResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
-  objectFactory = {};
   toCache = false;
   constructor(
     @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,

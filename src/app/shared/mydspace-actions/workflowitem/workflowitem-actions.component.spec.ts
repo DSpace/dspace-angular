@@ -9,16 +9,17 @@ import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
 import { RouterStub } from '../../testing/router-stub';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
-import { WorkflowitemDataService } from '../../../core/submission/workflowitem-data.service';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 
 let component: WorkflowitemActionsComponent;
 let fixture: ComponentFixture<WorkflowitemActionsComponent>;
 
-let mockObject: Workflowitem;
+let mockObject: WorkflowItem;
 
 const mockDataService = {};
 
@@ -51,8 +52,8 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rd = new RemoteData(false, false, true, null, item);
-mockObject = Object.assign(new Workflowitem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
+const rd = createSuccessfulRemoteDataObject(item);
+mockObject = Object.assign(new WorkflowItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
 
 describe('WorkflowitemActionsComponent', () => {
   beforeEach(async(() => {
@@ -69,7 +70,7 @@ describe('WorkflowitemActionsComponent', () => {
       providers: [
         { provide: Injector, useValue: {} },
         { provide: Router, useValue: new RouterStub() },
-        { provide: WorkflowitemDataService, useValue: mockDataService },
+        { provide: WorkflowItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA]

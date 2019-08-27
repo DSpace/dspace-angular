@@ -1,25 +1,19 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import { Injectable, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
-import {
-  BehaviorSubject,
-  combineLatest as observableCombineLatest,
-  merge as observableMerge,
-  Observable,
-  of as observableOf,
-  Subscription
-} from 'rxjs';
-import {filter, map, startWith, tap} from 'rxjs/operators';
-import {PaginationComponentOptions} from '../../../shared/pagination/pagination-component-options.model';
-import {SearchOptions} from '../../../shared/search/search-options.model';
-import {PaginatedSearchOptions} from '../../../shared/search/paginated-search-options.model';
-import {RouteService} from '../../../shared/services/route.service';
-import {hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator} from '../../../shared/empty.util';
-import {SearchFilter} from '../../../shared/search/search-filter.model';
-import {RemoteData} from '../../data/remote-data';
-import {getSucceededRemoteData} from '../operators';
-import {DSpaceObjectType} from '../dspace-object-type.model';
-import {SortDirection, SortOptions} from '../../cache/models/sort-options.model';
+import { BehaviorSubject, combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
+import { filter, map, startWith } from 'rxjs/operators';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { SearchOptions } from '../../../shared/search/search-options.model';
+import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { RouteService } from '../../../shared/services/route.service';
+import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import { SearchFilter } from '../../../shared/search/search-filter.model';
+import { RemoteData } from '../../data/remote-data';
+import { getSucceededRemoteData } from '../operators';
+import { DSpaceObjectType } from '../dspace-object-type.model';
+import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -270,7 +264,7 @@ export class SearchConfigurationService implements OnDestroy {
         scope: this.defaultScope,
         query: this.defaultQuery
       });
-      this._defaults = observableOf(new RemoteData(false, false, true, null, options));
+      this._defaults = createSuccessfulRemoteDataObject$(options);
     }
     return this._defaults;
   }

@@ -14,6 +14,7 @@ import { By } from '@angular/platform-browser';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import { MockComponent } from 'ng-mocks';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 
 describe('DSOSelectorModalWrapperComponent', () => {
   let component: DSOSelectorModalWrapperComponent;
@@ -29,7 +30,7 @@ describe('DSOSelectorModalWrapperComponent', () => {
     })]
   };
 
-  const itemRD = new RemoteData(false, false, true, undefined, item);
+  const itemRD = createSuccessfulRemoteDataObject(item);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
 
   beforeEach(async(() => {

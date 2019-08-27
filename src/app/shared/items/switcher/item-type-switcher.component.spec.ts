@@ -10,10 +10,11 @@ import * as decorator from '../item-type-decorator';
 import { getComponentByItemType, ItemViewMode } from '../item-type-decorator';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import createSpy = jasmine.createSpy;
+import { createSuccessfulRemoteDataObject$ } from '../../testing/utils';
 
 const relationType = 'type';
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {

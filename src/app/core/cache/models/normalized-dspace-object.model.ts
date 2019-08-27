@@ -1,15 +1,15 @@
-import { autoserializeAs, deserializeAs } from 'cerialize';
+import { autoserializeAs, deserializeAs, autoserialize } from 'cerialize';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models';
-import { ResourceType } from '../../shared/resource-type';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
+import { TypedObject } from '../object-cache.reducer';
 
 /**
  * An model class for a DSpaceObject.
  */
 @mapsTo(DSpaceObject)
-export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedObject<T> {
+export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedObject<T> implements TypedObject {
 
   /**
    * The link to the rest endpoint where this object can be found
@@ -38,8 +38,8 @@ export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedOb
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  @autoserializeAs(String)
-  type: ResourceType;
+  @autoserialize
+  type: string;
 
   /**
    * All metadata of this DSpaceObject

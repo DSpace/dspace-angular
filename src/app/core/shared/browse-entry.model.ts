@@ -1,22 +1,33 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { TypedObject } from '../cache/object-cache.reducer';
+import { ResourceType } from './resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 
-export class BrowseEntry extends ListableObject {
-  @autoserialize
-  type: string;
+/**
+ * Class object representing a browse entry
+ * This class is not normalized because browse entries do not have self links
+ */
+export class BrowseEntry extends ListableObject implements TypedObject {
+  static type = new ResourceType('browseEntry');
 
-  @autoserialize
+  /**
+   * The authority string of this browse entry
+   */
   authority: string;
 
-  @autoserialize
+  /**
+   * The value of this browse entry
+   */
   value: string;
 
-  @autoserializeAs('valueLang')
+  /**
+   * The language of the value of this browse entry
+   */
   language: string;
 
+  /**
+   * The count of this browse entry
+   */
   @excludeFromEquals
-  @autoserialize
   count: number;
-
 }

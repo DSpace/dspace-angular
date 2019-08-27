@@ -11,6 +11,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {By} from '@angular/platform-browser';
 import {of as observableOf,  Observable } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('SubCommunityList Component', () => {
   let comp: CommunityPageSubCommunityListComponent;
@@ -40,8 +41,7 @@ describe('SubCommunityList Component', () => {
         { language: 'en_US', value: 'Test title' }
       ]
     },
-    subcommunities: observableOf(new RemoteData(true, true, true,
-      undefined, new PaginatedList(new PageInfo(), [])))
+    subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []))
   });
 
   const mockCommunity = Object.assign(new Community(), {
@@ -50,8 +50,7 @@ describe('SubCommunityList Component', () => {
           { language: 'en_US', value: 'Test title' }
         ]
       },
-      subcommunities: observableOf(new RemoteData(true, true, true,
-        undefined, new PaginatedList(new PageInfo(), subcommunities)))
+      subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), subcommunities))
     })
   ;
 

@@ -47,10 +47,10 @@ export class DeleteComColPageComponent<TDomain extends DSpaceObject> implements 
       .pipe(first())
       .subscribe((success: boolean) => {
         if (success) {
-          const successMessage = this.translate.instant(dso.type + '.delete.notification.success');
+          const successMessage = this.translate.instant((dso as any).type + '.delete.notification.success');
           this.notifications.success(successMessage)
         } else {
-          const errorMessage = this.translate.instant(dso.type + '.delete.notification.fail');
+          const errorMessage = this.translate.instant((dso as any).type + '.delete.notification.fail');
           this.notifications.error(errorMessage)
         }
         this.router.navigate(['/']);

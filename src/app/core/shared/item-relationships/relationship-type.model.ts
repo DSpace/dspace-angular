@@ -8,15 +8,12 @@ import { ItemType } from './item-type.model';
  * Describes a type of Relationship between multiple possible Items
  */
 export class RelationshipType implements CacheableObject {
+  static type = new ResourceType('relationshiptype');
+
   /**
    * The link to the rest endpoint where this object can be found
    */
   self: string;
-
-  /**
-   * The type of Resource this is
-   */
-  type: ResourceType;
 
   /**
    * The label that describes this RelationshipType

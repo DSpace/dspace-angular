@@ -6,17 +6,18 @@ import { ObjectUpdatesService } from '../../../../core/data/object-updates/objec
 import { of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
-import { MetadataField } from '../../../../core/metadata/metadatafield.model';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { getTestScheduler } from 'jasmine-marbles';
 import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { TestScheduler } from 'rxjs/testing';
-import { MetadataSchema } from '../../../../core/metadata/metadataschema.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { TranslateModule } from '@ngx-translate/core';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
+import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
+import { MetadataField } from '../../../../core/metadata/metadata-field.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 let comp: EditInPlaceFieldComponent;
 let fixture: ComponentFixture<EditInPlaceFieldComponent>;
@@ -59,7 +60,7 @@ describe('EditInPlaceFieldComponent', () => {
     paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
 
     metadataFieldService = jasmine.createSpyObj({
-      queryMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields)),
+      queryMetadataFields: createSuccessfulRemoteDataObject$(paginatedMetadataFields),
     });
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
