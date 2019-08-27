@@ -10,7 +10,7 @@ import { AuthorityValue } from '../../core/integration/models/authority.value';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormRowModel } from '../../core/config/models/config-submission-form.model';
-import { Workspaceitem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 
 export const qualdropSelectConfig = {
   name: 'dc.identifier_QUALDROP_METADATA',
@@ -55,7 +55,7 @@ export const qualdropInputConfig = {
   disabled: false,
   repeatable: false,
   value: 'test',
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const mockQualdropSelectModel = new DynamicSelectModel(qualdropSelectConfig);
@@ -132,7 +132,7 @@ const relationGroupConfig = {
       'issue test 2'
     ],
   },
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const MockRelationModel: DynamicRelationGroupModel = new DynamicRelationGroupModel(relationGroupConfig);
@@ -160,7 +160,7 @@ export const inputWithLanguageAndAuthorityConfig = {
     display: 'testWithLanguageAndAuthority',
     id: 'testWithLanguageAndAuthority',
   },
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const mockInputWithLanguageAndAuthorityModel = new DsDynamicInputModel(inputWithLanguageAndAuthorityConfig);
@@ -183,7 +183,7 @@ export const inputWithLanguageConfig = {
   disabled: false,
   repeatable: false,
   value: 'testWithLanguage',
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const mockInputWithLanguageModel = new DsDynamicInputModel(inputWithLanguageConfig);
@@ -211,7 +211,7 @@ export const inputWithLanguageAndAuthorityArrayConfig = {
     display: 'testLanguageAndAuthorityArray',
     id: 'testLanguageAndAuthorityArray',
   }],
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const mockInputWithLanguageAndAuthorityArrayModel = new DsDynamicInputModel(inputWithLanguageAndAuthorityArrayConfig);
@@ -223,7 +223,7 @@ export const inputWithFormFieldValueConfig = {
   disabled: false,
   repeatable: false,
   value: new FormFieldMetadataValueObject('testWithFormFieldValue'),
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const mockInputWithFormFieldValueModel = new DsDynamicInputModel(inputWithFormFieldValueConfig);
@@ -235,7 +235,7 @@ export const inputWithAuthorityValueConfig = {
   disabled: false,
   repeatable: false,
   value: Object.assign({}, new AuthorityValue(), { value: 'testWithAuthorityValue', id: 'testWithAuthorityValue', display: 'testWithAuthorityValue' }),
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const mockInputWithAuthorityValueModel = new DsDynamicInputModel(inputWithAuthorityValueConfig);
@@ -247,7 +247,7 @@ export const inputWithObjectValueConfig = {
   disabled: false,
   repeatable: false,
   value: { value: 'testWithObjectValue', id: 'testWithObjectValue', display: 'testWithObjectValue' },
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const mockInputWithObjectValueModel = new DsDynamicInputModel(inputWithObjectValueConfig);
@@ -263,7 +263,7 @@ export const fileFormEditInputConfig = {
   readOnly: false,
   disabled: false,
   repeatable: false,
-  workspaceItem: new Workspaceitem()
+  workspaceItem: new WorkspaceItem()
 };
 
 export const mockFileFormEditInputModel = new DsDynamicInputModel(fileFormEditInputConfig);

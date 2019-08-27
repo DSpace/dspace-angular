@@ -6,7 +6,7 @@ import { ResourceType } from '../shared/resource-type';
 /**
  * Class the represents a metadata field
  */
-export class MetadataField implements ListableObject {
+export class MetadataField extends ListableObject {
   static type = new ResourceType('metadatafield');
 
   /**

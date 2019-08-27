@@ -1,6 +1,4 @@
 import { FormFieldModel } from '../models/form-field.model';
-import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { SeriesFieldParser } from './series-field-parser';
 import { DateFieldParser } from './date-field-parser';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';

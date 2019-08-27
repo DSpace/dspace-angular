@@ -10,7 +10,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import { ParserType } from './parser-type';
 import { ParserOptions } from './parser-options';
 import { ParserFactory } from './parser-factory';
-import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 export const ROW_ID_PREFIX = 'df-row-group-config-';
 
@@ -20,7 +20,7 @@ export class RowParser {
   constructor(protected rowData,
               protected scopeUUID,
               protected initFormValues: any,
-              protected wsi: Workspaceitem,
+              protected wsi: WorkspaceItem,
               protected submissionScope,
               protected readOnly: boolean) {
     this.authorityOptions = new IntegrationSearchOptions(scopeUUID);

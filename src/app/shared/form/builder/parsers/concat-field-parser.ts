@@ -15,7 +15,7 @@ import {
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { isNotEmpty } from '../../../empty.util';
 import { ParserOptions } from './parser-options';
-import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 export class ConcatFieldParser extends FieldParser {
 
@@ -23,7 +23,7 @@ export class ConcatFieldParser extends FieldParser {
               protected initFormValues,
               protected parserOptions: ParserOptions,
               protected separator: string,
-              protected workspaceItem: Workspaceitem,
+              protected workspaceItem: WorkspaceItem,
               protected firstPlaceholder: string = null,
               protected secondPlaceholder: string = null) {
     super(configData, initFormValues, parserOptions, workspaceItem);

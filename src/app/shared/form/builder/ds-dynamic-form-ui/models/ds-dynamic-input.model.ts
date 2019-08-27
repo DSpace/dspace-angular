@@ -10,12 +10,11 @@ import { LanguageCode } from '../../models/form-field-language-value.model';
 import { AuthorityOptions } from '../../../../../core/integration/models/authority-options.model';
 import { hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
-import { Workspaceitem } from '../../../../../core/submission/models/workspaceitem.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { Item } from '../../../../../core/shared/item.model';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
-  workspaceItem: Workspaceitem;
+  workspaceItem: WorkspaceItem;
   authorityOptions?: AuthorityOptions;
   languageCodes?: LanguageCode[];
   language?: string;
@@ -30,7 +29,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
-  @serializable() workspaceItem: Workspaceitem;
+  @serializable() workspaceItem: WorkspaceItem;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
 

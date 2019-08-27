@@ -31,7 +31,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { SectionsService } from '../sections.service';
 import { difference } from '../../../shared/object.util';
 import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
-import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { combineLatest as combineLatestObservable } from 'rxjs';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
@@ -102,7 +102,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    */
   protected subs: Subscription[] = [];
 
-  protected workspaceItem: Workspaceitem;
+  protected workspaceItem: WorkspaceItem;
   /**
    * The FormComponent reference
    */
@@ -154,10 +154,10 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       flatMap(() =>
         combineLatestObservable(
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id),
-          this.workspaceItemDataService.findById(this.submissionId).pipe(getSucceededRemoteData(), map((wsiRD: RemoteData<Workspaceitem>) => wsiRD.payload))
+          this.workspaceItemDataService.findById(this.submissionId).pipe(getSucceededRemoteData(), map((wsiRD: RemoteData<WorkspaceItem>) => wsiRD.payload))
         )),
       take(1))
-      .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, Workspaceitem]) => {
+      .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
         if (isUndefined(this.formModel)) {
           this.sectionData.errors = [];
           // Is the first loading so init form
