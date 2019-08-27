@@ -196,8 +196,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       const listCollection$: Observable<CollectionListEntry[]> = this.searchService.search(
         new PaginatedSearchOptions({
           dsoType: DSpaceObjectType.COLLECTION,
-          pagination: new PaginationComponentOptions(),
-          // scope: 'c0e4de93-f506-4990-a840-d406f6f2ada7'
+          pagination: new PaginationComponentOptions()
         })
       ).pipe(
         getSucceededRemoteData(),
@@ -210,7 +209,10 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
                 id: 'c0e4de93-f506-4990-a840-d406f6f2ada7',
                 name: 'Submission test'
               }],
-              collection: { id: collection.indexableObject.id, name: collection.indexableObject.name }
+              collection: {
+                id: collection.indexableObject.id,
+                name: collection.indexableObject.name
+              }
             }
           })
         })
@@ -237,7 +239,8 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
           } else {
             return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
           }
-        }));
+        })
+      );
     }
   }
 

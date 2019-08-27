@@ -54,7 +54,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   subscription;
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
-    pageSize: 10
+    pageSize: 5
   });
   selection$: Observable<ListableObject[]>;
   itemRD$;
@@ -115,7 +115,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   resetRoute() {
     this.router.navigate([], {
-      queryParams: Object.assign({}, { page: 1, query: this.searchQuery }),
+      queryParams: Object.assign({}, { page: 1, query: this.searchQuery, pageSize: this.initialPagination.pageSize }),
     });
   }
 

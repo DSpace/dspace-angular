@@ -165,7 +165,7 @@ export abstract class FieldParser {
         return ids;
       }
     } else {
-      return null;
+      return [this.configData.selectableRelationship.relationshipType];
     }
   }
 
@@ -261,7 +261,7 @@ export abstract class FieldParser {
   }
 
   public setAuthorityOptions(controlModel, authorityUuid) {
-    if (isNotEmpty(this.configData.selectableMetadata[0].authority)) {
+    if (isNotEmpty(this.configData.selectableMetadata) && isNotEmpty(this.configData.selectableMetadata[0].authority)) {
       controlModel.authorityOptions = new AuthorityOptions(
         this.configData.selectableMetadata[0].authority,
         this.configData.selectableMetadata[0].metadata,

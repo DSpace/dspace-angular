@@ -5,26 +5,16 @@
     {
       "fields": [
         {
-          "input": {
-          },
-          "label": "Author",
-          "mandatory": true,
-          "repeatable": true,
-          "mandatoryMessage": "At least one author (plain text or relationship) is required",
-          "hints": "Add an author",
+          "input": {},
+          "label": "Journal",
+          "mandatory": false,
+          "repeatable": false,
+          "hints": "Select the journal related to this volume.",
           "selectableRelationship": {
-            "relationshipType": "isAuthorOfPublication",
-            "filter": null,
-            "searchConfiguration": "personConfiguration"
+            "relationshipType": "isVolumeOfJournal",
+            "filter": "creativework.publisher:somepublishername",
+            "searchConfiguration": "periodicalConfiguration"
           },
-          "selectableMetadata": [
-            {
-              "metadata": "dc.contributor.author",
-              "label": null,
-              "authority": null,
-              "closed": false
-            }
-          ],
           "languageCodes": []
         }
       ]

@@ -1,5 +1,4 @@
 import { InjectionToken } from '@angular/core';
-import mockSubmissionResponse from '../mocks/mock-submission-response.json';
 
 export class MockResponseMap extends Map<string, any> {};
 
