@@ -11,8 +11,10 @@
       <!--[label]="'project.page.status'">-->
     <!--</ds-generic-item-page-field>-->
     <ds-metadata-representation-list
-      [label]="'project.page.contributor' | translate"
-      [representations]="(contributors$ | async)?.payload?.page">
+      [parentItem]="item"
+      [itemType]="'OrgUnit'"
+      [metadataField]="'project.contributor.other'"
+      [label]="'project.page.contributor' | translate">
     </ds-metadata-representation-list>
     <ds-generic-item-page-field [item]="item"
       [fields]="['project.identifier.funder']"

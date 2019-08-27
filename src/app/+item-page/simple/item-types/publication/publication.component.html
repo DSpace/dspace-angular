@@ -28,8 +28,10 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-metadata-representation-list
-      [label]="'relationships.isAuthorOf' | translate"
-      [representations]="(authors$ | async)?.payload?.page">
+      [parentItem]="item"
+      [itemType]="'Person'"
+      [metadataField]="'dc.contributor.author'"
+      [label]="'relationships.isAuthorOf' | translate">
     </ds-metadata-representation-list>
     <ds-related-items
       [parentItem]="item"
