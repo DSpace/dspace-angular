@@ -290,6 +290,8 @@
   "item.page.link.full": "Full item page",
   "item.page.link.simple": "Simple item page",
   "item.page.person.search.title": "Articles by this author",
+  "item.page.related-items.view-more": "View more",
+  "item.page.related-items.view-less": "View less",
   "item.page.subject": "Keywords",
   "item.page.uri": "URI",
   "item.select.confirm": "Confirm selected",

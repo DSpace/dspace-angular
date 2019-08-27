@@ -21,7 +21,8 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
-      [items]="(volumes$ | async)?.payload?.page"
+      [parentItem]="item"
+      [relationType]="'isVolumeOfJournal'"
       [label]="'relationships.isVolumeOf' | translate">
     </ds-related-items>
     <ds-generic-item-page-field class="item-page-fields" [item]="item"

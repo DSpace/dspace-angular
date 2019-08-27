@@ -226,9 +226,10 @@ export class RelationshipService extends DataService<Relationship> {
    * and return the items as an array
    * @param item
    * @param label
+   * @param options
    */
-  getRelatedItemsByLabel(item: Item, label: string): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.getItemRelationshipsByLabel(item, label).pipe(paginatedRelationsToItems(item.uuid));
+  getRelatedItemsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.getItemRelationshipsByLabel(item, label, options).pipe(paginatedRelationsToItems(item.uuid));
   }
 
   /**
@@ -236,11 +237,15 @@ export class RelationshipService extends DataService<Relationship> {
    * and return the items as an array
    * @param item
    * @param label
+   * @param options
    */
-  getItemRelationshipsByLabel(item: Item, label: string): Observable<RemoteData<PaginatedList<Relationship>>> {
-    const options = new FindAllOptions();
-    options.searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
-    return this.searchBy('byLabel', options);
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
+    let findAllOptions = new FindAllOptions();
+    if (options) {
+      findAllOptions = Object.assign(new FindAllOptions(), options);
+    }
+    findAllOptions.searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
+    return this.searchBy('byLabel', findAllOptions);
   }
 
   /**
