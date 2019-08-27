@@ -3,41 +3,31 @@ dist: trusty
 
 env:
   COMPOSE_VERSION: 1.24.1
+  DSPACE_REST_HOST: localhost
+  DSPACE_REST_PORT: 8080
+  DSPACE_REST_NAMESPACE: '/server/api'
+  DSPACE_REST_SSL: false
 
 before_install:
   # Docker Compose Install
   - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  # Download and install Docker libs
-  - curl -L https://github.com/Ortus-Solutions/docker-buildfiles/archive/master.zip > docker.zip
-  - unzip docker.zip -d workbench
-  - mv workbench/docker-buildfiles-master workbench/docker
-  # CommandBox Keys
-  - sudo apt-key adv --keyserver keys.gnupg.net --recv 6DA70622
-  - sudo echo "deb http://downloads.ortussolutions.com/debs/noarch /" | sudo tee -a
-    /etc/apt/sources.list.d/commandbox.list
-  - curl -L https://github.com/DSpace-Labs/DSpace-Docker-Images/archive/master.zip > master.zip
-  - unzip master.zip
+  - git clone https://github.com/DSpace-Labs/DSpace-Docker-Images.git
 
 install:
-  # Core testing install
-  - sudo apt-get update && sudo apt-get --assume-yes install commandbox
-  - box install
-  - box server start
-  # Docker CFML Server Tests
-  - export ANGULAR_SRC=$(pwd)
-  - cd DSpace-Docker-Images/docker-compose-files/dspace-compose
-  - docker-compose -f docker-compose.yml -f d7.override.yml -f agn-src-override.yml build
-  - docker-compose -f docker-compose.yml -f d7.override.yml -f agn-src-override.yml -f load.entities.yml up -d
+  - docker-compose version
+  - docker-compose -f DSpace-Docker-Images/docker-compose-files/dspace-compose/d7.travis.yml up -d
+  - travis_retry yarn install
+  # allow starup time
+  #- sleep 60
 
 before_script:
   # Startup the app
-  - curl http://localhost:8080/
-  - curl http://localhost:3000/
+  #- curl http://localhost:8080/
 
 after_script:
-  - docker-compose -f docker-compose.yml -f d7.override.yml -f agn-src-override.yml down
+  - docker-compose -f DSpace-Docker-Images/docker-compose-files/dspace-compose/d7.travis.yml down
 
 addons:
   apt:
@@ -56,9 +46,6 @@ cache:
   yarn: true
 
 bundler_args: --retry 5
-
-install:
-  - travis_retry yarn install
 
 script:
   # Use Chromium instead of Chrome.
