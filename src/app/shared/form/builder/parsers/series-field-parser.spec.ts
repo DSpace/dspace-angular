@@ -3,6 +3,7 @@ import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-conc
 import { SeriesFieldParser } from './series-field-parser';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 describe('SeriesFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -32,13 +33,13 @@ describe('SeriesFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new SeriesFieldParser(field, initFormValues, parserOptions);
+    const parser = new SeriesFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     expect(parser instanceof SeriesFieldParser).toBe(true);
   });
 
   it('should return a DynamicConcatModel object when repeatable option is false', () => {
-    const parser = new SeriesFieldParser(field, initFormValues, parserOptions);
+    const parser = new SeriesFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 
@@ -46,7 +47,7 @@ describe('SeriesFieldParser test suite', () => {
   });
 
   it('should return a DynamicConcatModel object with the correct separator', () => {
-    const parser = new SeriesFieldParser(field, initFormValues, parserOptions);
+    const parser = new SeriesFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 
@@ -59,7 +60,7 @@ describe('SeriesFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test; series');
 
-    const parser = new SeriesFieldParser(field, initFormValues, parserOptions);
+    const parser = new SeriesFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 

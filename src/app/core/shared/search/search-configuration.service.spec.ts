@@ -30,14 +30,10 @@ describe('SearchConfigurationService', () => {
     getRouteParameterValue: observableOf('')
   });
 
-  const fixedFilterService = jasmine.createSpyObj('SearchFixedFilterService', {
-    getQueryByFilterName: observableOf(''),
-  });
-
   const activatedRoute: any = new ActivatedRouteStub();
 
   beforeEach(() => {
-    service = new SearchConfigurationService(routeService, fixedFilterService, activatedRoute);
+    service = new SearchConfigurationService(routeService, activatedRoute);
   });
   describe('when the scope is called', () => {
     beforeEach(() => {

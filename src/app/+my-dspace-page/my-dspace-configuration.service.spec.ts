@@ -38,12 +38,8 @@ describe('MyDSpaceConfigurationService', () => {
 
   const roleService: any = new MockRoleService();
 
-  const fixedFilterService = jasmine.createSpyObj('SearchFixedFilterService', {
-    getQueryByFilterName: observableOf(''),
-  });
-
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, fixedFilterService, spy, activatedRoute);
+    service = new MyDSpaceConfigurationService(roleService, spy, activatedRoute);
   });
 
   describe('when the scope is called', () => {

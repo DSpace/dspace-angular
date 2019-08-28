@@ -8,15 +8,14 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
-import { of as observableOf } from 'rxjs';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -40,7 +39,8 @@ describe('PublicationComponent', () => {
       providers: [
         {provide: ITEM, useValue: mockItem},
         {provide: ItemDataService, useValue: {}},
-        {provide: TruncatableService, useValue: {}}
+        {provide: TruncatableService, useValue: {}},
+        {provide: RelationshipService, useValue: {}}
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

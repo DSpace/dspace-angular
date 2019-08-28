@@ -16,6 +16,7 @@ import { JournalComponent } from './journal.component';
 import { of as observableOf } from 'rxjs';
 import { GenericItemPageFieldComponent } from '../../../../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
@@ -57,7 +58,8 @@ describe('JournalComponent', () => {
       providers: [
         {provide: ITEM, useValue: mockItem},
         {provide: ItemDataService, useValue: {}},
-        {provide: TruncatableService, useValue: {}}
+        {provide: TruncatableService, useValue: {}},
+        {provide: RelationshipService, useValue: {}}
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

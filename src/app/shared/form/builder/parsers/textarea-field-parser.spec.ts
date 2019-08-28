@@ -3,6 +3,7 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { TextareaFieldParser } from './textarea-field-parser';
 import { DsDynamicTextAreaModel } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 import { ParserOptions } from './parser-options';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 describe('TextareaFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -34,13 +35,13 @@ describe('TextareaFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     expect(parser instanceof TextareaFieldParser).toBe(true);
   });
 
   it('should return a DsDynamicTextAreaModel object when repeatable option is false', () => {
-    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 
@@ -55,7 +56,7 @@ describe('TextareaFieldParser test suite', () => {
     };
     const expectedValue ='test description';
 
-    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 

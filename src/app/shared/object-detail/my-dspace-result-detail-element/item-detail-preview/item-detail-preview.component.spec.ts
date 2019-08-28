@@ -72,7 +72,7 @@ describe('ItemDetailPreviewComponent', () => {
     fixture = TestBed.createComponent(ItemDetailPreviewComponent);
     component = fixture.componentInstance;
     component.object = { hitHighlights: {} } as any;
-    component.itemRD$ = mockItem;
+    component.item = mockItem;
     component.separator = ', ';
     spyOn(component.item, 'getFiles').and.returnValue(mockItem.bitstreams);
     fixture.detectChanges();

@@ -26,6 +26,7 @@ import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-rep
 import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
 import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -51,7 +52,8 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         providers: [
           {provide: ITEM, useValue: mockItem},
           {provide: ItemDataService, useValue: {}},
-          {provide: TruncatableService, useValue: {}}
+          {provide: TruncatableService, useValue: {}},
+          {provide: RelationshipService, useValue: {}}
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
@@ -379,7 +381,8 @@ describe('ItemComponent', () => {
         }), BrowserAnimationsModule],
         declarations: [ItemComponent, VarDirective],
         providers: [
-          {provide: ITEM, useValue: mockItem}
+          {provide: ITEM, useValue: mockItem},
+          {provide: RelationshipService, useValue: {}}
         ],
 
         schemas: [NO_ERRORS_SCHEMA]

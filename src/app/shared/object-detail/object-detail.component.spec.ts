@@ -9,6 +9,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createSuccessfulRemoteDataObject } from '../testing/utils';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 describe('ObjectDetailComponent', () => {
   let comp: ObjectDetailComponent;
@@ -16,16 +17,16 @@ describe('ObjectDetailComponent', () => {
   const testEvent = {test: 'test'};
 
   const testObjects = [
-    { one: 1 },
-    { two: 2 },
-    { three: 3 },
-    { four: 4 },
-    { five: 5 },
-    { six: 6 },
-    { seven: 7 },
-    { eight: 8 },
-    { nine: 9 },
-    { ten: 10 }
+    { one: 1 } as any,
+    { two: 2 } as any,
+    { three: 3 } as any,
+    { four: 4 } as any,
+    { five: 5 } as any,
+    { six: 6 } as any,
+    { seven: 7 } as any,
+    { eight: 8 } as any,
+    { nine: 9 } as any,
+    { ten: 10 } as any
   ];
   const pageInfo = Object.assign(new PageInfo(), {elementsPerPage: 1, totalElements: 10, totalPages: 10, currentPage: 1})
   const mockRD = createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, testObjects));

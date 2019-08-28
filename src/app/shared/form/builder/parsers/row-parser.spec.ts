@@ -3,6 +3,7 @@ import { RowParser } from './row-parser';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 describe('RowParser test suite', () => {
 
@@ -328,49 +329,49 @@ describe('RowParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    let parser = new RowParser(row1, scopeUUID, initFormValues, submissionScope, readOnly);
+    let parser = new RowParser(row1, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row2, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row2, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row3, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row3, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row4, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row4, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row5, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row5, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row6, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row6, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row7, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row7, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row8, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row8, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row9, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row9, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
 
-    parser = new RowParser(row10, scopeUUID, initFormValues, submissionScope, readOnly);
+    parser = new RowParser(row10, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     expect(parser instanceof RowParser).toBe(true);
   });
 
   it('should return a DynamicRowGroupModel object', () => {
-    const parser = new RowParser(row1, scopeUUID, initFormValues, submissionScope, readOnly);
+    const parser = new RowParser(row1, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     const rowModel = parser.parse();
 
@@ -378,7 +379,7 @@ describe('RowParser test suite', () => {
   });
 
   it('should return a row with three fields', () => {
-    const parser = new RowParser(row1, scopeUUID, initFormValues, submissionScope, readOnly);
+    const parser = new RowParser(row1, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     const rowModel = parser.parse();
 
@@ -386,7 +387,7 @@ describe('RowParser test suite', () => {
   });
 
   it('should return a DynamicRowArrayModel object', () => {
-    const parser = new RowParser(row2, scopeUUID, initFormValues, submissionScope, readOnly);
+    const parser = new RowParser(row2, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     const rowModel = parser.parse();
 
@@ -394,7 +395,7 @@ describe('RowParser test suite', () => {
   });
 
   it('should return a row that contains only scoped fields', () => {
-    const parser = new RowParser(row3, scopeUUID, initFormValues, submissionScope, readOnly);
+    const parser = new RowParser(row3, scopeUUID, initFormValues, new WorkspaceItem(), submissionScope, readOnly);
 
     const rowModel = parser.parse();
 

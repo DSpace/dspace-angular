@@ -65,6 +65,10 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { RelationshipService } from '../../../../core/data/relationship.service';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -95,12 +99,14 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicSwitchModel({ id: 'switch' }),
     new DynamicTextAreaModel({ id: 'textarea' }),
     new DynamicTimePickerModel({ id: 'timepicker' }),
-    new DynamicTypeaheadModel({ id: 'typeahead' }),
+    new DynamicTypeaheadModel({ id: 'typeahead', workspaceItem: new WorkspaceItem(), repeatable: false }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
-      authorityOptions: authorityOptions
+      authorityOptions: authorityOptions,
+      workspaceItem: new WorkspaceItem(),
+      repeatable: false
     }),
-    new DynamicTagModel({ id: 'tag' }),
+    new DynamicTagModel({ id: 'tag', workspaceItem: new WorkspaceItem(), repeatable: false}),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
       authorityOptions: authorityOptions,
@@ -118,11 +124,13 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       name: 'relationGroup',
       relationFields: [],
       scopeUUID: '',
-      submissionScope: ''
+      submissionScope: '',
+      workspaceItem: new WorkspaceItem(),
+      repeatable: false
     }),
-    new DynamicDsDatePickerModel({ id: 'datepicker' }),
-    new DynamicLookupModel({ id: 'lookup' }),
-    new DynamicLookupNameModel({ id: 'lookupName' }),
+    new DynamicDsDatePickerModel({ id: 'datepicker'}),
+    new DynamicLookupModel({ id: 'lookup', workspaceItem: new WorkspaceItem(), repeatable: false }),
+    new DynamicLookupNameModel({ id: 'lookupName', workspaceItem: new WorkspaceItem(), repeatable: false }),
     new DynamicQualdropModel({ id: 'combobox', readOnly: false })
   ];
   const testModel = formModel[8];
@@ -152,7 +160,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         TranslateModule.forRoot(),
         TextMaskModule
       ],
-      providers: [DsDynamicFormControlContainerComponent, DynamicFormService],
+      providers: [
+        DsDynamicFormControlContainerComponent,
+        DynamicFormService,
+        { provide: RelationshipService, useValue: {} },
+        { provide: SelectableListService, useValue: {} }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {
 

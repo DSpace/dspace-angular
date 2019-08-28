@@ -29,7 +29,7 @@ class Owner extends EquatableObject<Owner> {
 
 }
 
-fdescribe('equatable', () => {
+describe('equatable', () => {
   let dogRoger: Dog;
   let dogMissy: Dog;
 

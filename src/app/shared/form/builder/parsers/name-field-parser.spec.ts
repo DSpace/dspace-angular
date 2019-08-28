@@ -3,6 +3,7 @@ import { NameFieldParser } from './name-field-parser';
 import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 describe('NameFieldParser test suite', () => {
   let field1: FormFieldModel;
@@ -69,13 +70,13 @@ describe('NameFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new NameFieldParser(field1, initFormValues, parserOptions);
+    const parser = new NameFieldParser(field1, initFormValues, parserOptions, new WorkspaceItem());
 
     expect(parser instanceof NameFieldParser).toBe(true);
   });
 
   it('should return a DynamicConcatModel object when repeatable option is false', () => {
-    const parser = new NameFieldParser(field2, initFormValues, parserOptions);
+    const parser = new NameFieldParser(field2, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 
@@ -83,7 +84,7 @@ describe('NameFieldParser test suite', () => {
   });
 
   it('should return a DynamicConcatModel object with the correct separator', () => {
-    const parser = new NameFieldParser(field2, initFormValues, parserOptions);
+    const parser = new NameFieldParser(field2, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 
@@ -96,7 +97,7 @@ describe('NameFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test, name');
 
-    const parser = new NameFieldParser(field1, initFormValues, parserOptions);
+    const parser = new NameFieldParser(field1, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 

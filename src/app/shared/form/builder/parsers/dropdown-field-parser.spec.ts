@@ -2,6 +2,7 @@ import { FormFieldModel } from '../models/form-field.model';
 import { DropdownFieldParser } from './dropdown-field-parser';
 import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { ParserOptions } from './parser-options';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 describe('DropdownFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -35,13 +36,13 @@ describe('DropdownFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new DropdownFieldParser(field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     expect(parser instanceof DropdownFieldParser).toBe(true);
   });
 
   it('should return a DynamicScrollableDropdownModel object when repeatable option is false', () => {
-    const parser = new DropdownFieldParser(field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 
@@ -50,7 +51,7 @@ describe('DropdownFieldParser test suite', () => {
 
   it('should throw when authority is not passed', () => {
     field.selectableMetadata[0].authority = null;
-    const parser = new DropdownFieldParser(field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     expect(() => parser.parse())
       .toThrow();

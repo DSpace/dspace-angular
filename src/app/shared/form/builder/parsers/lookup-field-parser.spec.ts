@@ -3,6 +3,7 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { LookupFieldParser } from './lookup-field-parser';
 import { DynamicLookupModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { ParserOptions } from './parser-options';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 describe('LookupFieldParser test suite', () => {
   let field: FormFieldModel;
@@ -36,13 +37,13 @@ describe('LookupFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new LookupFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     expect(parser instanceof LookupFieldParser).toBe(true);
   });
 
   it('should return a DynamicLookupModel object when repeatable option is false', () => {
-    const parser = new LookupFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 
@@ -55,7 +56,7 @@ describe('LookupFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test journal');
 
-    const parser = new LookupFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
 
     const fieldModel = parser.parse();
 
