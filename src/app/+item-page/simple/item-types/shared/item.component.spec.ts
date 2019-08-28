@@ -12,18 +12,8 @@ import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { ItemComponent } from './item.component';
-import { of as observableOf } from 'rxjs';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VarDirective } from '../../../../shared/utils/var.directive';
-import { Observable } from 'rxjs/internal/Observable';
-import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
 import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { RelationshipService } from '../../../../core/data/relationship.service';
@@ -310,117 +300,5 @@ describe('ItemComponent', () => {
       expect(compare(arr1 as any, arrWithOneMore as any)).toBeFalsy();
     });
   });
-
-  describe('when calling buildRepresentations', () => {
-    let comp: ItemComponent;
-    let fixture: ComponentFixture<ItemComponent>;
-
-    const metadataField = 'dc.contributor.author';
-    const relatedItem = Object.assign(new Item(), {
-      id: '2',
-      metadata: Object.assign(new MetadataMap(), {
-        'dc.title': [
-          {
-            language: 'en_US',
-            value: 'related item'
-          }
-        ]
-      })
-    });
-    const mockItem = Object.assign(new Item(), {
-      id: '1',
-      uuid: '1',
-      metadata: new MetadataMap()
-    });
-    mockItem.relationships = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [
-      Object.assign(new Relationship(), {
-        uuid: '123',
-        id: '123',
-        leftItem: createSuccessfulRemoteDataObject$(mockItem),
-        rightItem: createSuccessfulRemoteDataObject$(relatedItem),
-        relationshipType: createSuccessfulRemoteDataObject$(new RelationshipType())
-      })
-    ]));
-    mockItem.metadata[metadataField] = [
-      {
-        value: 'Second value',
-        place: 1
-      },
-      {
-        value: 'Third value',
-        place: 2,
-        authority: 'virtual::123'
-      },
-      {
-        value: 'First value',
-        place: 0
-      },
-      {
-        value: 'Fourth value',
-        place: 3,
-        authority: '123'
-      }
-    ] as MetadataValue[];
-    const mockItemDataService = Object.assign({
-      findById: (id) => {
-        if (id === relatedItem.id) {
-          return createSuccessfulRemoteDataObject$(relatedItem)
-        }
-      }
-    }) as ItemDataService;
-
-    let representations: Observable<MetadataRepresentation[]>;
-
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: MockTranslateLoader
-          }
-        }), BrowserAnimationsModule],
-        declarations: [ItemComponent, VarDirective],
-        providers: [
-          {provide: ITEM, useValue: mockItem},
-          {provide: RelationshipService, useValue: {}}
-        ],
-
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(ItemComponent, {
-        set: {changeDetection: ChangeDetectionStrategy.Default}
-      }).compileComponents();
-    }));
-
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ItemComponent);
-      comp = fixture.componentInstance;
-      fixture.detectChanges();
-      representations = comp.buildRepresentations('bogus', metadataField);
-    }));
-
-    it('should contain exactly 4 metadata-representations', () => {
-      representations.subscribe((reps: MetadataRepresentation[]) => {
-        expect(reps.length).toEqual(4);
-      });
-    });
-
-    it('should have all the representations in the correct order', () => {
-      representations.subscribe((reps: MetadataRepresentation[]) => {
-        expect(reps[0].getValue()).toEqual('First value');
-        expect(reps[1].getValue()).toEqual('Second value');
-        expect(reps[2].getValue()).toEqual('related item');
-        expect(reps[3].getValue()).toEqual('Fourth value');
-      });
-    });
-
-    it('should have created the correct MetadatumRepresentation and ItemMetadataRepresentation objects for the correct Metadata', () => {
-      representations.subscribe((reps: MetadataRepresentation[]) => {
-        expect(reps[0] instanceof MetadatumRepresentation).toEqual(true);
-        expect(reps[1] instanceof MetadatumRepresentation).toEqual(true);
-        expect(reps[2] instanceof ItemMetadataRepresentation).toEqual(true);
-        expect(reps[3] instanceof MetadatumRepresentation).toEqual(true);
-      });
-    });
-  })
 
 });

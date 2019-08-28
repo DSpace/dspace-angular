@@ -13,6 +13,8 @@ import { Item } from '../shared/item.model';
 import { PaginatedList } from './paginated-list';
 import { PageInfo } from '../shared/page-info.model';
 import { DeleteRequest } from './request.models';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;
@@ -22,33 +24,33 @@ describe('RelationshipService', () => {
   const relationshipsEndpointURL = `${restEndpointURL}/relationships`;
   const halService: any = new HALEndpointServiceStub(restEndpointURL);
   const rdbService = getMockRemoteDataBuildService();
+  const objectCache = Object.assign({
+    /* tslint:disable:no-empty */
+    remove: () => {}
+    /* tslint:enable:no-empty */
+  }) as ObjectCacheService;
 
   const relationshipType = Object.assign(new RelationshipType(), {
-    type: ResourceType.RelationshipType,
     id: '1',
     uuid: '1',
     leftLabel: 'isAuthorOfPublication',
     rightLabel: 'isPublicationOfAuthor'
   });
 
-  const relationships = [
-    Object.assign(new Relationship(), {
-      self: relationshipsEndpointURL + '/2',
-      id: '2',
-      uuid: '2',
-      leftId: 'author1',
-      rightId: 'publication',
-      relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
-    }),
-    Object.assign(new Relationship(), {
-      self: relationshipsEndpointURL + '/3',
-      id: '3',
-      uuid: '3',
-      leftId: 'author2',
-      rightId: 'publication',
-      relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
-    })
-  ];
+  const relationship1 = Object.assign(new Relationship(), {
+    self: relationshipsEndpointURL + '/2',
+    id: '2',
+    uuid: '2',
+    relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+  });
+  const relationship2 = Object.assign(new Relationship(), {
+    self: relationshipsEndpointURL + '/3',
+    id: '3',
+    uuid: '3',
+    relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+  });
+
+  const relationships = [ relationship1, relationship2 ];
 
   const item = Object.assign(new Item(), {
     self: 'fake-item-url/publication',
@@ -65,6 +67,10 @@ describe('RelationshipService', () => {
     id: 'author2',
     uuid: 'author2'
   });
+  relationship1.leftItem = getRemotedataObservable(relatedItem1);
+  relationship1.rightItem = getRemotedataObservable(item);
+  relationship2.leftItem = getRemotedataObservable(relatedItem2);
+  relationship2.rightItem = getRemotedataObservable(item);
   const relatedItems = [relatedItem1, relatedItem2];
 
   const itemService = jasmine.createSpyObj('itemService', {
@@ -73,10 +79,16 @@ describe('RelationshipService', () => {
 
   function initTestService() {
     return new RelationshipService(
+      itemService,
       requestService,
-      halService,
       rdbService,
-      itemService
+      null,
+      null,
+      halService,
+      objectCache,
+      null,
+      null,
+      null
     );
   }
 
@@ -93,12 +105,21 @@ describe('RelationshipService', () => {
 
   describe('deleteRelationship', () => {
     beforeEach(() => {
+      spyOn(service, 'findById').and.returnValue(getRemotedataObservable(relationship1));
+      spyOn(objectCache, 'remove');
       service.deleteRelationship(relationships[0].uuid).subscribe();
     });
 
     it('should send a DeleteRequest', () => {
-      const expected = new DeleteRequest(requestService.generateRequestId(), relationshipsEndpointURL + '/' + relationships[0].uuid);
+      const expected = new DeleteRequest(requestService.generateRequestId(), relationshipsEndpointURL + '/' + relationship1.uuid);
       expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
+    });
+
+    it('should clear the related items their cache', () => {
+      expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1.self);
+      expect(objectCache.remove).toHaveBeenCalledWith(item.self);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.self);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
     });
   });
 
@@ -126,12 +147,8 @@ describe('RelationshipService', () => {
     });
   });
 
-  describe('getRelatedItemsByLabel', () => {
-    it('should return the related items by label', () => {
-      service.getRelatedItemsByLabel(item, relationshipType.rightLabel).subscribe((result) => {
-        expect(result).toEqual(relatedItems);
-      });
-    });
-  })
-
 });
+
+function getRemotedataObservable(obj: any): Observable<RemoteData<any>> {
+  return observableOf(new RemoteData(false, false, true, undefined, obj));
+}

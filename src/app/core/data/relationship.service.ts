@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { hasNoValue, hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, map, mergeMap, skip, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { DeleteRequest, FindAllOptions, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
@@ -15,16 +15,17 @@ import { RemoteData } from './remote-data';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
-import { compareArraysUsingIds, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { DataService } from './data.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { DataService } from './data.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { SearchParam } from '../cache/models/search-param.model';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 
 /**
  * The service handling all relationship requests
@@ -59,6 +60,15 @@ export class RelationshipService extends DataService<Relationship> {
     return this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${uuid}`)
     );
+  }
+
+  /**
+   * Find a relationship by its UUID
+   * @param uuid
+   */
+  findById(uuid: string): Observable<RemoteData<Relationship>> {
+    const href$ = this.getRelationshipEndpoint(uuid);
+    return this.rdbService.buildSingle<Relationship>(href$);
   }
 
   /**
@@ -183,41 +193,31 @@ export class RelationshipService extends DataService<Relationship> {
    * and return the items as an array
    * @param item
    * @param label
+   * @param options
    */
-  getRelatedItemsByLabel(item: Item, label: string): Observable<Item[]> {
-    return this.getItemRelationshipsByLabel(item, label).pipe(relationsToItems(item.uuid));
+  getRelatedItemsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.getItemRelationshipsByLabel(item, label, options).pipe(paginatedRelationsToItems(item.uuid));
   }
-
 
   /**
    * Resolve a given item's relationships into related items, filtered by a relationship label
    * and return the items as an array
    * @param item
    * @param label
+   * @param options
    */
-  getItemRelationshipsByLabel(item: Item, label: string): Observable<Relationship[]> {
-    return this.getItemRelationshipsArray(item).pipe(
-      switchMap((relationships: Relationship[]) => {
-        return observableCombineLatest(
-          ...relationships.map((relationship: Relationship) => {
-            return relationship.relationshipType.pipe(
-              getSucceededRemoteData(),
-              getRemoteDataPayload(),
-              map((relationshipType: RelationshipType) => {
-                if (label === relationshipType.rightLabel || label === relationshipType.leftLabel) {
-                  return relationship;
-                } else {
-                  return undefined;
-                }
-              }),
-            )
-          })
-        )
-      }),
-      map((relationships: Relationship[]) =>
-        relationships.filter((relationship: Relationship) => hasValue(relationship))
-      ),
-    );
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
+    let findAllOptions = new FindAllOptions();
+    if (options) {
+      findAllOptions = Object.assign(new FindAllOptions(), options);
+    }
+    const searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
+    if (findAllOptions.searchParams) {
+      findAllOptions.searchParams = [...findAllOptions.searchParams, ...searchParams];
+    } else {
+      findAllOptions.searchParams = searchParams;
+    }
+    return this.searchBy('byLabel', findAllOptions);
   }
 
 

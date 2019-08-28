@@ -17,8 +17,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
 
 @Component({
   selector: 'ds-item-metadata',

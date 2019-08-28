@@ -32,7 +32,6 @@ let el;
 describe('EditRelationshipComponent', () => {
   beforeEach(async(() => {
     relationshipType = Object.assign(new RelationshipType(), {
-      type: ResourceType.RelationshipType,
       id: '1',
       uuid: '1',
       leftLabel: 'isAuthorOfPublication',
