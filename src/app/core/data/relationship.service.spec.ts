@@ -79,11 +79,16 @@ describe('RelationshipService', () => {
 
   function initTestService() {
     return new RelationshipService(
-      requestService,
-      halService,
-      rdbService,
       itemService,
-      objectCache
+      requestService,
+      rdbService,
+      null,
+      null,
+      halService,
+      objectCache,
+      null,
+      null,
+      null
     );
   }
 
@@ -141,14 +146,6 @@ describe('RelationshipService', () => {
       });
     });
   });
-
-  describe('getRelatedItemsByLabel', () => {
-    it('should return the related items by label', () => {
-      service.getRelatedItemsByLabel(item, relationshipType.rightLabel).subscribe((result) => {
-        expect(result).toEqual(relatedItems);
-      });
-    });
-  })
 
 });
 
