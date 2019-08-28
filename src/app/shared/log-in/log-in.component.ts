@@ -20,6 +20,7 @@ import { CoreState } from '../../core/core.reducers';
 import { isNotEmpty } from '../empty.util';
 import { fadeOut } from '../animations/fade';
 import { AuthService } from '../../core/auth/auth.service';
+import {Router} from '@angular/router';
 
 /**
  * /users/sign-in
@@ -90,6 +91,7 @@ export class LogInComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
+    private router: Router,
     private store: Store<CoreState>
   ) {
   }
@@ -181,6 +183,9 @@ export class LogInComponent implements OnDestroy, OnInit {
     // trim values
     email.trim();
     password.trim();
+
+    // add the current url to store for later redirect.
+    this.authService.setRedirectUrl(this.router.url);
 
     // dispatch AuthenticationAction
     this.store.dispatch(new AuthenticateAction(email, password));
