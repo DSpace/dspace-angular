@@ -244,7 +244,12 @@ export class RelationshipService extends DataService<Relationship> {
     if (options) {
       findAllOptions = Object.assign(new FindAllOptions(), options);
     }
-    findAllOptions.searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
+    const searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
+    if (findAllOptions.searchParams) {
+      findAllOptions.searchParams = [...findAllOptions.searchParams, ...searchParams];
+    } else {
+      findAllOptions.searchParams = searchParams;
+    }
     return this.searchBy('byLabel', findAllOptions);
   }
 

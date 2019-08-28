@@ -29,7 +29,7 @@ const mockItems = [mockItem1, mockItem2];
 const relationType = 'isItemOfItem';
 let relationshipService: RelationshipService;
 
-fdescribe('RelatedItemsComponent', () => {
+describe('RelatedItemsComponent', () => {
   let comp: RelatedItemsComponent;
   let fixture: ComponentFixture<RelatedItemsComponent>;
 
@@ -73,6 +73,10 @@ fdescribe('RelatedItemsComponent', () => {
     it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments', () => {
       expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, comp.allOptions);
     });
+
+    it('should set showingAll to true', () => {
+      expect(comp.showingAll).toEqual(true);
+    });
   });
 
   describe('when viewLess is called', () => {
@@ -82,6 +86,10 @@ fdescribe('RelatedItemsComponent', () => {
 
     it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments', () => {
       expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, comp.options);
+    });
+
+    it('should set showingAll to false', () => {
+      expect(comp.showingAll).toEqual(false);
     });
   });
 
