@@ -40,7 +40,7 @@ describe('ItemPageFieldComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ItemPageFieldComponent);
     comp = fixture.componentInstance;
-    comp.itemRD$ = mockItemWithMetadataFieldAndValue(mockField, mockValue);
+    comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);
     comp.fields = mockFields;
     comp.label = mockLabel;
     fixture.detectChanges();

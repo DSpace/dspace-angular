@@ -63,15 +63,6 @@ export class RelationshipService extends DataService<Relationship> {
   }
 
   /**
-   * Find a relationship by its UUID
-   * @param uuid
-   */
-  findById(uuid: string): Observable<RemoteData<Relationship>> {
-    const href$ = this.getRelationshipEndpoint(uuid);
-    return this.rdbService.buildSingle<Relationship>(href$);
-  }
-
-  /**
    * Send a delete request for a relationship by ID
    * @param id
    */

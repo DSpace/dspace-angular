@@ -151,6 +151,7 @@ describe('SearchPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchPageComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
+    comp.inPlaceSearch = false;
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;
     searchConfigurationServiceObject = (comp as any).searchConfigService;

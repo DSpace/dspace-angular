@@ -39,10 +39,7 @@ import {
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
-} from './ds-dynamic-form-control-container.component';
+import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './ds-dynamic-form-control-container.component';
 import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
@@ -65,10 +62,10 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -164,7 +161,8 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
         { provide: RelationshipService, useValue: {} },
-        { provide: SelectableListService, useValue: {} }
+        { provide: SelectableListService, useValue: {} },
+        { provide: ItemDataService, useValue: {} }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {

@@ -11,6 +11,7 @@ import { SearchServiceStub } from '../../testing/search-service-stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service-stub';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SearchLabelsComponent', () => {
   let comp: SearchLabelsComponent;
@@ -35,7 +36,7 @@ describe('SearchLabelsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, RouterTestingModule],
       declarations: [SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },

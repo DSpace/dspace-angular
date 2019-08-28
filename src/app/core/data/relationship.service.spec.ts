@@ -5,7 +5,6 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-da
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RequestEntry } from './request.reducer';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { ResourceType } from '../shared/resource-type';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RemoteData } from './remote-data';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
@@ -15,6 +14,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { DeleteRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;
@@ -26,7 +26,8 @@ describe('RelationshipService', () => {
   const rdbService = getMockRemoteDataBuildService();
   const objectCache = Object.assign({
     /* tslint:disable:no-empty */
-    remove: () => {}
+    remove: () => {},
+    hasBySelfLinkObservable: () => observableOf(false)
     /* tslint:enable:no-empty */
   }) as ObjectCacheService;
 
@@ -74,7 +75,8 @@ describe('RelationshipService', () => {
   const relatedItems = [relatedItem1, relatedItem2];
 
   const itemService = jasmine.createSpyObj('itemService', {
-    findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.filter((relatedItem) => relatedItem.id === uuid)[0])
+    findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.find((relatedItem) => relatedItem.id === uuid)),
+    findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
   });
 
   function initTestService() {
@@ -131,14 +133,6 @@ describe('RelationshipService', () => {
     });
   });
 
-  describe('getItemRelationshipLabels', () => {
-    it('should return the correct labels', () => {
-      service.getItemRelationshipLabels(item).subscribe((result) => {
-        expect(result).toEqual([relationshipType.rightLabel]);
-      });
-    });
-  });
-
   describe('getRelatedItems', () => {
     it('should return the related items', () => {
       service.getRelatedItems(item).subscribe((result) => {
@@ -146,7 +140,6 @@ describe('RelationshipService', () => {
       });
     });
   });
-
 });
 
 function getRemotedataObservable(obj: any): Observable<RemoteData<any>> {

@@ -29,7 +29,7 @@ describe('RelatedEntitiesSearchComponent', () => {
     fixture = TestBed.createComponent(RelatedEntitiesSearchComponent);
     comp = fixture.componentInstance;
     comp.relationType = mockRelationType;
-    comp.itemRD$ = mockItem;
+    comp.item = mockItem;
     comp.relationEntityType = mockRelationEntityType;
     fixture.detectChanges();
   });
