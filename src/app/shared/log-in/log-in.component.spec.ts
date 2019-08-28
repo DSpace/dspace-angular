@@ -3,7 +3,7 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { By } from '@angular/platform-browser';
-import { Store, StoreModule } from '@ngrx/store';
+import { Store, StoreModule, select } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
 import { authReducer } from '../../core/auth/auth.reducer';
@@ -13,6 +13,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthServiceStub } from '../testing/auth-service-stub';
 import { AppState } from '../../app.reducer';
+import {AppRoutingModule} from '../../app-routing.module';
+import {PageNotFoundComponent} from '../../pagenotfound/pagenotfound.component';
+import {APP_BASE_HREF} from '@angular/common';
 
 describe('LogInComponent', () => {
 
@@ -38,13 +41,16 @@ describe('LogInComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
+        AppRoutingModule,
         TranslateModule.forRoot()
       ],
       declarations: [
-        LogInComponent
+        LogInComponent,
+        PageNotFoundComponent
       ],
       providers: [
-        {provide: AuthService, useClass: AuthServiceStub}
+        {provide: AuthService, useClass: AuthServiceStub},
+        {provide: APP_BASE_HREF, useValue: '/'}
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -95,6 +101,23 @@ describe('LogInComponent', () => {
     // verify Store.dispatch() is invoked
     expect(page.navigateSpy.calls.any()).toBe(true, 'Store.dispatch not invoked');
   });
+
+  it('should set the redirect url',  () => {
+    fixture.detectChanges();
+
+    // set FormControl values
+    component.form.controls.email.setValue('user');
+    component.form.controls.password.setValue('password');
+
+    const authService: AuthService = TestBed.get(AuthService);
+    spyOn(authService, 'setRedirectUrl');
+
+    component.submit();
+
+    // the redirect url should be set upon submit
+    expect(authService.setRedirectUrl).toHaveBeenCalled();
+  });
+
 });
 
 /**
