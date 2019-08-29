@@ -7,6 +7,7 @@ import {type} from '../../shared/ngrx/type';
 // import models
 import {EPerson} from '../eperson/models/eperson.model';
 import {AuthTokenInfo} from './models/auth-token-info.model';
+import {AuthMethodModel} from './models/auth-method.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
@@ -336,16 +337,16 @@ export class RetrieveAuthMethodsAction implements Action {
 }
 
 /**
- * Check if token is already present upon initial load.
- * @class CheckAuthenticationTokenAction
+ * Get Authentication methods enabled at the backend
+ * @class RetrieveAuthMethodsSuccessAction
  * @implements {Action}
  */
 export class RetrieveAuthMethodsSuccessAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS;
-  payload: string;
+  payload: AuthMethodModel[];
 
-  constructor(location: string) {
-    this.payload = location;
+  constructor(authMethods: AuthMethodModel[] ) {
+    this.payload = authMethods;
   }
 }
 
