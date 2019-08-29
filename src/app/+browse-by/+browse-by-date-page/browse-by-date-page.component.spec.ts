@@ -11,7 +11,6 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { MockRouter } from '../../shared/mocks/mock-router';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RemoteData } from '../../core/data/remote-data';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';

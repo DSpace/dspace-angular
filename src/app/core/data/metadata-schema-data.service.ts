@@ -19,7 +19,6 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetadataSchema> {
   protected linkPath = 'metadataschemas';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

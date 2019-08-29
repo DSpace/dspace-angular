@@ -28,11 +28,6 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
   protected linkPath = 'claimedtasks';
 
   /**
-   * When true, a new request is always dispatched
-   */
-  protected forceBypassCache = true;
-
-  /**
    * Initialize instance variables
    *
    * @param {RequestService} requestService

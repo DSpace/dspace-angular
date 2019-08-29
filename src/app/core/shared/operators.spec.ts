@@ -148,7 +148,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(configureRequest(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(testRequest, undefined);
+      expect(requestService.configure).toHaveBeenCalledWith(testRequest);
     });
   });
 
