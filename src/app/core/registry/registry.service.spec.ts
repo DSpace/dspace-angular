@@ -57,23 +57,24 @@ describe('RegistryService', () => {
   });
 
   const mockSchemasList = [
-    {
+
+    Object.assign(new MetadataSchema(), {
       id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
       prefix: 'dc',
       namespace: 'http://dublincore.org/documents/dcmi-terms/',
       type: MetadataSchema.type
-},
-    {
+    }),
+    Object.assign(new MetadataSchema(), {
       id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
       prefix: 'mock',
       namespace: 'http://dspace.org/mockschema',
       type: MetadataSchema.type
-    }
+    })
   ];
   const mockFieldsList = [
-    {
+    Object.assign(new MetadataField(), {
       id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8',
       element: 'contributor',
@@ -81,8 +82,8 @@ describe('RegistryService', () => {
       scopeNote: null,
       schema: mockSchemasList[0],
       type: MetadataField.type
-    },
-    {
+    }),
+    Object.assign(new MetadataField(), {
       id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9',
       element: 'contributor',
@@ -90,8 +91,8 @@ describe('RegistryService', () => {
       scopeNote: null,
       schema: mockSchemasList[0],
       type: MetadataField.type
-    },
-    {
+    }),
+    Object.assign(new MetadataField(), {
       id: 3,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10',
       element: 'contributor',
@@ -99,8 +100,8 @@ describe('RegistryService', () => {
       scopeNote: 'test scope note',
       schema: mockSchemasList[1],
       type: MetadataField.type
-    },
-    {
+    }),
+    Object.assign(new MetadataField(), {
       id: 4,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11',
       element: 'contributor',
@@ -108,7 +109,7 @@ describe('RegistryService', () => {
       scopeNote: null,
       schema: mockSchemasList[1],
       type: MetadataField.type
-    }
+    })
   ];
 
   const pageInfo = new PageInfo();
