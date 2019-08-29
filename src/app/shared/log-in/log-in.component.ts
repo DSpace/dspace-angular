@@ -1,4 +1,4 @@
-import { filter, map, takeWhile } from 'rxjs/operators';
+import {filter, map, take, takeWhile, tap} from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -17,7 +17,7 @@ import {
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
 
-import { isNotEmpty } from '../empty.util';
+import {isEmpty, isNotEmpty} from '../empty.util';
 import { fadeOut } from '../animations/fade';
 import { AuthService } from '../../core/auth/auth.service';
 import {Router} from '@angular/router';
@@ -185,13 +185,17 @@ export class LogInComponent implements OnDestroy, OnInit {
     email.trim();
     password.trim();
 
-    // add the current url to store for later redirect.
-    this.authService.setRedirectUrl(this.router.url);
-
-    // dispatch AuthenticationAction
-    this.store.dispatch(new AuthenticateAction(email, password));
-
-    // clear form
-    this.form.reset();
+    this.authService.getRedirectUrl().pipe(
+      take(1)).
+      subscribe((r) => {
+        // Set the redirect url if none exists.
+        if (isEmpty(r)) {
+          this.authService.setRedirectUrl(this.router.url)
+        }
+        // dispatch AuthenticationAction
+        this.store.dispatch(new AuthenticateAction(email, password));
+        // clear form
+        this.form.reset();
+      });
   }
 }

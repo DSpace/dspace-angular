@@ -118,6 +118,23 @@ describe('LogInComponent', () => {
     expect(authService.setRedirectUrl).toHaveBeenCalled();
   });
 
+  it('should not set the redirect url because one already exists',  () => {
+    fixture.detectChanges();
+
+    const authService: AuthService = TestBed.get(AuthService);
+    authService.setRedirectUrl('/submit')
+
+    // set FormControl values
+    component.form.controls.email.setValue('user');
+    component.form.controls.password.setValue('password');
+
+    spyOn(authService, 'setRedirectUrl');
+
+    component.submit();
+
+    expect(authService.setRedirectUrl).not.toHaveBeenCalled();
+  });
+
 });
 
 /**
