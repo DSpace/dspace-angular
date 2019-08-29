@@ -264,19 +264,7 @@ describe('SearchFilterService', () => {
     });
   });
 
-  describe('when the getCurrentFixedFilter method is called', () => {
-    const filter = 'filter';
 
-    beforeEach(() => {
-      spyOn(routeServiceStub, 'getRouteParameterValue').and.returnValue(observableOf(filter));
-      spyOn(mockFixedFilterService, 'getQueryByFilterName').and.returnValue(observableOf(filter));
-      service.getCurrentFixedFilter().subscribe();
-    });
-
-    it('should call getQueryByFilterName on the fixed-filter service with the correct filter', () => {
-      expect(mockFixedFilterService.getQueryByFilterName).toHaveBeenCalledWith(filter);
-    });
-  });
 
   describe('when the getCurrentView method is called', () => {
     beforeEach(() => {
