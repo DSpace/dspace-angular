@@ -141,9 +141,8 @@ import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-resul
 import {LogInContainerComponent} from './log-in/log-in-container/log-in-container.component';
 import {s} from '@angular/core/src/render3';
 import {DynamicShibbolethComponent} from './log-in/shibboleth/dynamic-shibboleth.component';
-import {DynamicLdapComponent} from './log-in/ldap/dynamic-ldap.component';
-import {DynamicIpComponent} from './log-in/ip/dynamic-ip.component';
-import {DynamicX509Component} from './log-in/x509/dynamic-x509.component';
+
+
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -265,9 +264,7 @@ const COMPONENTS = [
   ItemTypeSwitcherComponent,
   BrowseByComponent,
   LogInContainerComponent,
-  DynamicShibbolethComponent,
-  DynamicLdapComponent,
-  DynamicIpComponent
+  DynamicShibbolethComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -311,11 +308,8 @@ const ENTRY_COMPONENTS = [
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
-  DynamicLdapComponent,
   LogInComponent,
-  DynamicShibbolethComponent,
-  DynamicIpComponent,
-  DynamicX509Component
+  DynamicShibbolethComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

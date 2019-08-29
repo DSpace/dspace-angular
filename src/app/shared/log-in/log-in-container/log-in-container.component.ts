@@ -8,9 +8,7 @@ import {AppState} from '../../../app.reducer';
 import {Observable} from 'rxjs';
 import {DynamicLoginMethod} from './log-in-container.model';
 import {AuthMethodConstants} from '../../../core/auth/models/auth-method.model';
-import {DynamicLdapComponent} from '../ldap/dynamic-ldap.component';
-import {DynamicX509Component} from '../x509/dynamic-x509.component';
-import {DynamicIpComponent} from '../ip/dynamic-ip.component';
+
 
 @Component({
   selector: 'ds-log-in-container',
@@ -64,15 +62,6 @@ export class LogInContainerComponent implements OnDestroy, OnInit {
                 this.shibbolethUrl = authMethod.location;
                 // this.shibbolethUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at/shibboleth';
                 return new DynamicLoginMethod(authMethod.authMethodName, DynamicShibbolethComponent, authMethod.location)
-                break;
-              case AuthMethodConstants.LDAP:
-                return new DynamicLoginMethod(authMethod.authMethodName, DynamicLdapComponent)
-                break;
-              case AuthMethodConstants.IP:
-                return new DynamicLoginMethod(authMethod.authMethodName, DynamicIpComponent)
-                break;
-              case AuthMethodConstants.X509:
-                return new DynamicLoginMethod(authMethod.authMethodName, DynamicX509Component)
                 break;
               default:
                 break;
