@@ -1,5 +1,7 @@
-
 import {Component, Inject, Input, OnInit} from '@angular/core';
+import { renderAuthMethodFor } from '../../authMethods-decorator';
+import { AuthMethodType } from '../../authMethods-type';
+import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
 
 @Component({
   selector: 'ds-dynamic-shibboleth',
@@ -7,11 +9,17 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
   styleUrls: ['./dynamic-shibboleth.component.scss'],
 
 })
-export class DynamicShibbolethComponent {
+@renderAuthMethodFor(AuthMethodType.Shibboleth)
+export class DynamicShibbolethComponent implements OnInit {
 
   /**
    * @constructor
    */
-  constructor(@Inject('shibbolethUrlProvider') public injectedShibbolethUrl: string) {
+  constructor(@Inject('authMethodProvider') public injectedObject: AuthMethodModel) {
   }
+
+  ngOnInit(): void {
+    console.log('injectedObject', this.injectedObject)
+  }
+
 }

@@ -20,6 +20,8 @@ import {CoreState} from '../../../../core/core.reducers';
 import {isNotEmpty} from '../../../empty.util';
 import {fadeOut} from '../../../animations/fade';
 import {AuthService} from '../../../../core/auth/auth.service';
+import { AuthMethodType } from '../../authMethods-type';
+import { renderAuthMethodFor } from '../../authMethods-decorator';
 
 /**
  * /users/sign-in
@@ -31,6 +33,7 @@ import {AuthService} from '../../../../core/auth/auth.service';
   styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut]
 })
+@renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnDestroy, OnInit {
 
   /**

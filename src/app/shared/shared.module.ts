@@ -138,8 +138,9 @@ import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import {DynamicShibbolethComponent} from './log-in/methods/shibboleth/dynamic-shibboleth.component';
-import {LogInComponent} from './log-in/log-in.component';
+// import {LogInComponent} from './log-in/log-in.component';
 import {LogInPasswordComponent} from './log-in/methods/password/log-in-password.component';
+import { LoginContainerComponent } from './log-in/container/login-container.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -212,7 +213,7 @@ const COMPONENTS = [
   FormComponent,
   LangSwitchComponent,
   LoadingComponent,
-  LogInComponent,
+  // LogInComponent,
   LogOutComponent,
   NumberPickerComponent,
   ObjectListComponent,
@@ -260,9 +261,10 @@ const COMPONENTS = [
   TypedItemSearchResultListElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent,
-  LogInComponent,
+  // LogInComponent,
   DynamicShibbolethComponent,
-  LogInPasswordComponent
+  LogInPasswordComponent,
+  LoginContainerComponent
 ];
 
 const ENTRY_COMPONENTS = [

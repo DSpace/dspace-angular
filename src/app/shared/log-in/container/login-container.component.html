@@ -1,0 +1,3 @@
+<div *ngFor="let authMethod of authMethodData | async">
+          <ng-container *ngComponentOutlet="getAuthMethodContent(authMethod.authMethodType); injector: objectInjector;"></ng-container>
+</div>
