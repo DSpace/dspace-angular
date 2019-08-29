@@ -147,12 +147,12 @@ export class RequestService {
    * @param {RestRequest} request The request to send out
    * @param {boolean} forceBypassCache When true, a new request is always dispatched
    */
-  configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
+  configure<T extends CacheableObject>(request: RestRequest): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    if (forceBypassCache) {
-      this.clearRequestsOnTheirWayToTheStore(request);
-    }
-    if (!isGetRequest || (forceBypassCache && !this.isPending(request)) || !this.isCachedOrPending(request)) {
+    // if (forceBypassCache) {
+    //   this.clearRequestsOnTheirWayToTheStore(request);
+    // }
+    if (!isGetRequest || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request);
       if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);

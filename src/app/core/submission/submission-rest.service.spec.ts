@@ -62,7 +62,7 @@ describe('SubmissionRestService test suite', () => {
       scheduler.schedule(() => service.getDataById(resourceEndpoint, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected, true);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
   });
 

@@ -31,7 +31,6 @@ import { SearchParam } from '../cache/models/search-param.model';
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

@@ -28,11 +28,6 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
   protected linkPath = 'pooltasks';
 
   /**
-   * When true, a new request is always dispatched
-   */
-  protected forceBypassCache = true;
-
-  /**
    * Initialize instance variables
    *
    * @param {RequestService} requestService

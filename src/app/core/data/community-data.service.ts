@@ -24,7 +24,6 @@ export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
   protected topLinkPath = 'communities/search/top';
   protected cds = this;
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

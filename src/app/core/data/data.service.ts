@@ -45,7 +45,6 @@ export abstract class DataService<T extends CacheableObject> {
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
-  protected abstract forceBypassCache = false;
   protected abstract objectCache: ObjectCacheService;
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
@@ -131,7 +130,7 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request, this.forceBypassCache);
+        this.requestService.configure(request);
       });
 
     return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
@@ -154,14 +153,14 @@ export abstract class DataService<T extends CacheableObject> {
       find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
-        this.requestService.configure(request, this.forceBypassCache);
+        this.requestService.configure(request);
       });
 
     return this.rdbService.buildSingle<T>(hrefObs);
   }
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
-    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options), this.forceBypassCache);
+    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options));
     return this.rdbService.buildSingle<T>(href);
   }
 
@@ -192,7 +191,7 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request, true);
+        this.requestService.configure(request);
       });
 
     return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
