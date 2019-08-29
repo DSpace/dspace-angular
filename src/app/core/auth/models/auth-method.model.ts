@@ -1,30 +1,30 @@
 export class AuthMethodModel {
   authMethodName: string;
   location?: string;
-  authMethodConstant: AuthMethodConstants
+  authMethodConstant: AuthMethodType
 
   constructor(authMethodName: string, location?: string) {
     this.authMethodName = authMethodName;
     this.location = location;
     switch (authMethodName) {
       case 'ip': {
-        this.authMethodConstant = AuthMethodConstants.IP;
+        this.authMethodConstant = AuthMethodType.Ip;
         break;
       }
       case 'ldap': {
-        this.authMethodConstant = AuthMethodConstants.LDAP;
+        this.authMethodConstant = AuthMethodType.Ldap;
         break;
       }
       case 'shibboleth': {
-        this.authMethodConstant = AuthMethodConstants.SHIBBOLETH;
+        this.authMethodConstant = AuthMethodType.Shibboleth;
         break;
       }
       case 'x509': {
-        this.authMethodConstant = AuthMethodConstants.X509;
+        this.authMethodConstant = AuthMethodType.X509;
         break;
       }
       case 'password': {
-        this.authMethodConstant = AuthMethodConstants.PASSWORD;
+        this.authMethodConstant = AuthMethodType.Password;
         break;
       }
 
@@ -35,10 +35,10 @@ export class AuthMethodModel {
   }
 }
 
-export enum AuthMethodConstants {
-  IP,
-  LDAP,
-  SHIBBOLETH,
-  X509,
-  PASSWORD,
+export enum AuthMethodType {
+  Password = 'password',
+  Shibboleth = 'shibboleth',
+  Ldap = 'ldap',
+  Ip = 'ip',
+  X509 = 'x509'
 }

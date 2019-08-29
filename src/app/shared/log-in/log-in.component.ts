@@ -5,7 +5,7 @@ import {getAuthenticationMethods} from '../../core/auth/selectors';
 import {map} from 'rxjs/operators';
 import {AppState} from '../../app.reducer';
 import {Observable} from 'rxjs';
-import {AuthMethodConstants} from '../../core/auth/models/auth-method.model';
+import {AuthMethodType} from '../../core/auth/models/auth-method.model';
 import {DynamicLoginMethod} from './log-in.model';
 import {LogInPasswordComponent} from './methods/password/log-in-password.component';
 
@@ -54,10 +54,10 @@ export class LogInComponent implements OnDestroy, OnInit {
     this.dynamicLoginMethods = this.store.select(getAuthenticationMethods).pipe(
       map(((authMethods) => authMethods.map((authMethod) => {
             switch (authMethod.authMethodConstant) {
-              case AuthMethodConstants.PASSWORD:
+              case AuthMethodType.Password:
                 return new DynamicLoginMethod(authMethod.authMethodName, LogInPasswordComponent)
                 break;
-              case AuthMethodConstants.SHIBBOLETH:
+              case AuthMethodType.Shibboleth:
                 this.shibbolethUrl = authMethod.location;
                 // this.shibbolethUrl = 'https://fis.tiss.tuwien.ac.at/Shibboleth.sso/Login?target=https://fis.tiss.tuwien.ac.at/shibboleth';
                 return new DynamicLoginMethod(authMethod.authMethodName, DynamicShibbolethComponent, authMethod.location)
@@ -72,19 +72,6 @@ export class LogInComponent implements OnDestroy, OnInit {
     );
 
   }
-
-  /* this.dynamicLoginMethods = this.dynamicLoginMethods = [
-     {
-       label: 'PasswordComponent',
-       component: LogInComponent
-     },
-     {
-       label: 'ShibbolethComponent',
-       component: DynamicShibbolethComponent
-     },
-
-   ];
- }*/
 
   /**
    *  Lifecycle hook that is called when a directive, pipe or service is destroyed.
