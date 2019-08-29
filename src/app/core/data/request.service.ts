@@ -145,13 +145,9 @@ export class RequestService {
    * Configure a certain request
    * Used to make sure a request is in the cache
    * @param {RestRequest} request The request to send out
-   * @param {boolean} forceBypassCache When true, a new request is always dispatched
    */
   configure<T extends CacheableObject>(request: RestRequest): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    // if (forceBypassCache) {
-    //   this.clearRequestsOnTheirWayToTheStore(request);
-    // }
     if (!isGetRequest || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request);
       if (isGetRequest) {
