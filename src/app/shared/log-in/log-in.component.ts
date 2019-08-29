@@ -1,22 +1,21 @@
 import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {LogInComponent} from '../password/log-in.component';
-import {DynamicShibbolethComponent} from '../shibboleth/dynamic-shibboleth.component';
-import {getAuthenticationMethods} from '../../../core/auth/selectors';
+import {DynamicShibbolethComponent} from './methods/shibboleth/dynamic-shibboleth.component';
+import {getAuthenticationMethods} from '../../core/auth/selectors';
 import {map} from 'rxjs/operators';
-import {AppState} from '../../../app.reducer';
+import {AppState} from '../../app.reducer';
 import {Observable} from 'rxjs';
-import {DynamicLoginMethod} from './log-in-container.model';
-import {AuthMethodConstants} from '../../../core/auth/models/auth-method.model';
-
+import {AuthMethodConstants} from '../../core/auth/models/auth-method.model';
+import {DynamicLoginMethod} from './log-in.model';
+import {LogInPasswordComponent} from './methods/password/log-in-password.component';
 
 @Component({
-  selector: 'ds-log-in-container',
-  templateUrl: './log-in-container.component.html',
-  styleUrls: ['./log-in-container.component.scss'],
+  selector: 'ds-log-in',
+  templateUrl: './log-in.component.html',
+  styleUrls: ['./log-in.component.scss'],
 
 })
-export class LogInContainerComponent implements OnDestroy, OnInit {
+export class LogInComponent implements OnDestroy, OnInit {
 
   public dynamicLoginMethods: Observable<DynamicLoginMethod[]>;
   /**
@@ -56,7 +55,7 @@ export class LogInContainerComponent implements OnDestroy, OnInit {
       map(((authMethods) => authMethods.map((authMethod) => {
             switch (authMethod.authMethodConstant) {
               case AuthMethodConstants.PASSWORD:
-                return new DynamicLoginMethod(authMethod.authMethodName, LogInComponent)
+                return new DynamicLoginMethod(authMethod.authMethodName, LogInPasswordComponent)
                 break;
               case AuthMethodConstants.SHIBBOLETH:
                 this.shibbolethUrl = authMethod.location;

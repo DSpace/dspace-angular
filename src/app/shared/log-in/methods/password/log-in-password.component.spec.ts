@@ -5,19 +5,19 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 
-import { LogInComponent } from './log-in.component';
-import { authReducer } from '../../../core/auth/auth.reducer';
-import { EPersonMock } from '../../testing/eperson-mock';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { LogInPasswordComponent } from './log-in.component';
+import { authReducer } from '../../../../core/auth/auth.reducer';
+import { EPersonMock } from '../../../testing/eperson-mock';
+import { EPerson } from '../../../../core/eperson/models/eperson.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../testing/auth-service-stub';
-import { AppState } from '../../../app.reducer';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { AuthServiceStub } from '../../../testing/auth-service-stub';
+import { AppState } from '../../../../app.reducer';
 
 describe('LogInComponent', () => {
 
-  let component: LogInComponent;
-  let fixture: ComponentFixture<LogInComponent>;
+  let component: LogInPasswordComponent;
+  let fixture: ComponentFixture<LogInPasswordComponent>;
   let page: Page;
   let user: EPerson;
 
@@ -41,7 +41,7 @@ describe('LogInComponent', () => {
         TranslateModule.forRoot()
       ],
       declarations: [
-        LogInComponent
+        LogInPasswordComponent
       ],
       providers: [
         {provide: AuthService, useClass: AuthServiceStub}
@@ -62,7 +62,7 @@ describe('LogInComponent', () => {
       });
 
     // create component and test fixture
-    fixture = TestBed.createComponent(LogInComponent);
+    fixture = TestBed.createComponent(LogInPasswordComponent);
 
     // get test component from the fixture
     component = fixture.componentInstance;
@@ -108,7 +108,7 @@ class Page {
   public navigateSpy: jasmine.Spy;
   public passwordInput: HTMLInputElement;
 
-  constructor(private component: LogInComponent, private fixture: ComponentFixture<LogInComponent>) {
+  constructor(private component: LogInPasswordComponent, private fixture: ComponentFixture<LogInPasswordComponent>) {
     // use injector to get services
     const injector = fixture.debugElement.injector;
     const store = injector.get(Store);

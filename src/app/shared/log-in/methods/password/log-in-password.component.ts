@@ -7,31 +7,31 @@ import {Observable} from 'rxjs';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction, GetJWTafterShibbLoginAction
-} from '../../../core/auth/auth.actions';
+} from '../../../../core/auth/auth.actions';
 
 import {
   getAuthenticationError,
   getAuthenticationInfo,
   isAuthenticated,
   isAuthenticationLoading,
-} from '../../../core/auth/selectors';
-import {CoreState} from '../../../core/core.reducers';
+} from '../../../../core/auth/selectors';
+import {CoreState} from '../../../../core/core.reducers';
 
-import {isNotEmpty} from '../../empty.util';
-import {fadeOut} from '../../animations/fade';
-import {AuthService} from '../../../core/auth/auth.service';
+import {isNotEmpty} from '../../../empty.util';
+import {fadeOut} from '../../../animations/fade';
+import {AuthService} from '../../../../core/auth/auth.service';
 
 /**
  * /users/sign-in
- * @class LogInComponent
+ * @class LogInPasswordComponent
  */
 @Component({
-  selector: 'ds-log-in',
-  templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.scss'],
+  selector: 'ds-log-in-password',
+  templateUrl: './log-in-password.component.html',
+  styleUrls: ['./log-in-password.component.scss'],
   animations: [fadeOut]
 })
-export class LogInComponent implements OnDestroy, OnInit {
+export class LogInPasswordComponent implements OnDestroy, OnInit {
 
   /**
    * The error if authentication fails.
