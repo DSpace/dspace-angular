@@ -70,13 +70,9 @@ function select(state: SelectableListState, action: SelectableListSelectAction) 
 }
 
 function selectSingle(state: SelectableListState, action: SelectableListSelectSingleAction) {
-  let newSelection;
+  let newSelection = state.selection;
   if (!isObjectInSelection(state.selection, action.payload.object)) {
-    if (action.payload.multipleSelectionsAllowed) {
-      newSelection = [...state.selection, action.payload.object];
-    } else {
-      newSelection = [action.payload.object];
-    }
+    newSelection = [...state.selection, action.payload.object];
   }
   return Object.assign({}, state, { selection: newSelection });
 }

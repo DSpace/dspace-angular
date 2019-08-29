@@ -6,7 +6,7 @@ import { Action } from '@ngrx/store';
 import { Item } from '../../../../../core/shared/item.model';
 
 export const RelationshipActionTypes = {
-  ADD_RELATIONSHIP: type('dspace/ relationship/ADD_RELATIONSHIP'),
+  ADD_RELATIONSHIP: type('dspace/relationship/ADD_RELATIONSHIP'),
   REMOVE_RELATIONSHIP: type('dspace/relationship/REMOVE_RELATIONSHIP'),
 };
 

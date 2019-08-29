@@ -132,7 +132,13 @@ import { SearchConfigurationService } from './shared/search/search-configuration
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
 
-
+export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
+  if (ENV_CONFIG.production) {
+    return new DSpaceRESTv2Service(http);
+  } else {
+    return new EndpointMockingRestService(cfg, mocks, http);
+  }
+};
 
 const IMPORTS = [
   CommonModule,
@@ -152,7 +158,8 @@ const PROVIDERS = [
   CommunityDataService,
   CollectionDataService,
   DSOResponseParsingService,
-  DSpaceRESTv2Service,
+  { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
+  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]},
   DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,

@@ -15,6 +15,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchResult } from '../search/search-result.model';
 import { SelectableListService } from './selectable-list/selectable-list.service';
+import { map, take, tap } from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -123,12 +124,22 @@ export class ObjectListComponent {
   }
 
   selectRadio(value: boolean, object: ListableObject) {
-    if (value) {
-      this.selectionService.selectSingle(this.selectionConfig.listId, object, false);
-      this.selectObject.emit(object);
-    } else {
-      this.selectionService.deselectSingle(this.selectionConfig.listId, object);
-      this.deselectObject.emit(object);
-    }
+    const selected$ = this.selectionService.getSelectableList(this.selectionConfig.listId);
+    selected$.pipe(
+      take(1),
+      map((selected) => selected ? selected.selection : [])
+    ).subscribe((selection) => {
+      // First deselect any existing selections, this is a radio button
+      selection.forEach((selectedObject) => {
+        this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
+        this.deselectObject.emit(selectedObject);
+      });
+      if (value) {
+        this.selectionService.selectSingle(this.selectionConfig.listId, object);
+        this.selectObject.emit(object);
+      }
+    });
+
+
   }
 }

@@ -40,12 +40,11 @@ export class SelectableListSelectAction extends SelectableListAction {
 export class SelectableListSelectSingleAction extends SelectableListAction {
   payload: {
     object: ListableObject,
-    multipleSelectionsAllowed: boolean
   };
 
-  constructor(id: string, object: ListableObject, multipleSelectionsAllowed: boolean = true) {
+  constructor(id: string, object: ListableObject) {
     super(SelectableListActionTypes.SELECT_SINGLE, id);
-    this.payload = { object, multipleSelectionsAllowed };
+    this.payload = { object };
   }
 }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { filter, find, map, switchMap } from 'rxjs/operators';
+import { filter, find, map, switchMap, tap } from 'rxjs/operators';
 import { configureRequest, getSucceededRemoteData } from '../shared/operators';
 import { FindAllOptions, FindAllRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
@@ -60,6 +60,7 @@ export class RelationshipTypeService {
           else if (type.rightLabel === label) return this.checkType(type, secondType, firstType);
           else return [];
         }),
+        tap((t) => console.log(t))
       );
   }
 

@@ -12,16 +12,18 @@
   (paginationChange)="onPaginationChange($event)">
   <ul *ngIf="objects?.hasSucceeded" class="list-unstyled">
       <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4" [class.border-bottom]="hasBorder && !last">
+          <ng-container *ngVar="selectionService.isObjectSelected(selectionConfig.listId, object) | async as checked">
           <input *ngIf="selectable && selectionConfig.repeatable" class="form-check-input" type="checkbox"
                  [name]="'checkbox' + i"
                  [id]="'object'+i"
-                 [checked]="selectionService.isObjectSelected(selectionConfig.listId, object) | async"
-                 (change)="selectCheckbox($event.currentTarget.checked, object)">
+                 [checked]="checked"
+                 (change)="selectCheckbox(!checked, object)">
           <input *ngIf="selectable && !selectionConfig.repeatable" class="form-check-input" type="radio"
                  [name]="'radio' + i"
                  [id]="'object'+i"
-                 [checked]="selectionService.isObjectSelected(selectionConfig.listId, object) | async"
-                 (change)="selectRadio($event.currentTarget.checked, object)">
+                 [checked]="checked"
+                 (click)="selectRadio(!checked, object)">
+          </ng-container>
         <ds-wrapper-list-element [object]="object" [index]="i"></ds-wrapper-list-element>
       </li>
   </ul>

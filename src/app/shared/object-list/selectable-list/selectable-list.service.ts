@@ -37,10 +37,9 @@ export class SelectableListService {
    * Select an object in a specific list in the store
    * @param {string} id The id of the list on which the object should be selected
    * @param {ListableObject} object The object to select
-   * @param {boolean} multipleSelectionsAllowed Defines if the multiple selections are allowed for this selectable list
    */
-  selectSingle(id: string, object: ListableObject, multipleSelectionsAllowed?: boolean) {
-    this.store.dispatch(new SelectableListSelectSingleAction(id, object, multipleSelectionsAllowed));
+  selectSingle(id: string, object: ListableObject) {
+    this.store.dispatch(new SelectableListSelectSingleAction(id, object));
   }
 
   /**

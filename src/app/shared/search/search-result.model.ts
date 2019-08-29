@@ -18,9 +18,4 @@ export class SearchResult<T extends DSpaceObject> extends ListableObject {
    */
   @excludeFromEquals
   hitHighlights: MetadataMap;
-
-  @excludeFromEquals
-  _links: {};
-
-
 }
