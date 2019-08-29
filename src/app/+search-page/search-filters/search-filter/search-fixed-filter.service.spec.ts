@@ -1,9 +1,9 @@
-import {SearchFixedFilterService} from './search-fixed-filter.service';
-import {RequestService} from '../../../core/data/request.service';
-import {HALEndpointService} from '../../../core/shared/hal-endpoint.service';
-import {of as observableOf} from 'rxjs';
-import {RequestEntry} from '../../../core/data/request.reducer';
-import {FilteredDiscoveryQueryResponse} from '../../../core/cache/response.models';
+import { SearchFixedFilterService } from './search-fixed-filter.service';
+import { RequestService } from '../../../core/data/request.service';
+import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { of as observableOf } from 'rxjs';
+import { RequestEntry } from '../../../core/data/request.reducer';
+import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response.models';
 
 describe('SearchFixedFilterService', () => {
   let service: SearchFixedFilterService;
@@ -12,7 +12,8 @@ describe('SearchFixedFilterService', () => {
 
   const requestServiceStub = Object.assign({
     /* tslint:disable:no-empty */
-    configure: () => {},
+    configure: () => {
+    },
     /* tslint:enable:no-empty */
     generateRequestId: () => 'fake-id',
     getByHref: () => observableOf(Object.assign(new RequestEntry(), {

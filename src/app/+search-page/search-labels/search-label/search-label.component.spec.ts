@@ -5,12 +5,12 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, of as observableOf } from 'rxjs';
 import { Params } from '@angular/router';
-import {SearchLabelComponent} from './search-label.component';
-import {ObjectKeysPipe} from '../../../shared/utils/object-keys-pipe';
-import {SearchService} from '../../search-service/search.service';
-import {SEARCH_CONFIG_SERVICE} from '../../../+my-dspace-page/my-dspace-page.component';
-import {SearchServiceStub} from '../../../shared/testing/search-service-stub';
-import {SearchConfigurationServiceStub} from '../../../shared/testing/search-configuration-service-stub';
+import { SearchLabelComponent } from './search-label.component';
+import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
+import { SearchService } from '../../search-service/search.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
+import { SearchServiceStub } from '../../../shared/testing/search-service-stub';
+import { SearchConfigurationServiceStub } from '../../../shared/testing/search-configuration-service-stub';
 
 describe('SearchLabelComponent', () => {
   let comp: SearchLabelComponent;

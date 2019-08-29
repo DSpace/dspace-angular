@@ -1,14 +1,14 @@
-import {SearchLabelsComponent} from './search-labels.component';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {TranslateModule} from '@ngx-translate/core';
-import {SearchService} from '../search-service/search.service';
-import {ChangeDetectionStrategy, NO_ERRORS_SCHEMA} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {SearchServiceStub} from '../../shared/testing/search-service-stub';
-import {of as observableOf} from 'rxjs';
-import {ObjectKeysPipe} from '../../shared/utils/object-keys-pipe';
-import {SEARCH_CONFIG_SERVICE} from '../../+my-dspace-page/my-dspace-page.component';
+import { SearchLabelsComponent } from './search-labels.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
+import { SearchService } from '../search-service/search.service';
+import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SearchServiceStub } from '../../shared/testing/search-service-stub';
+import { of as observableOf } from 'rxjs';
+import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
+import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
 
 describe('SearchLabelsComponent', () => {
   let comp: SearchLabelsComponent;
@@ -34,7 +34,7 @@ describe('SearchLabelsComponent', () => {
       declarations: [SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: {getCurrentFrontendFilters : () =>  observableOf(mockFilters)} }
+        { provide: SEARCH_CONFIG_SERVICE, useValue: { getCurrentFrontendFilters: () => observableOf(mockFilters) } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchLabelsComponent, {

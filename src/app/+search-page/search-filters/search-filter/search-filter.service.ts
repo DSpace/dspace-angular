@@ -19,7 +19,7 @@ import { SortDirection, SortOptions } from '../../../core/cache/models/sort-opti
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { Params } from '@angular/router';
-// const spy = create();
+
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
 
 export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
