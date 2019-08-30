@@ -160,6 +160,7 @@ import { SearchFacetRangeOptionComponent } from './search/search-filters/search-
 import { SearchSwitchConfigurationComponent } from './search/search-switch-configuration/search-switch-configuration.component';
 import { SearchAuthorityFilterComponent } from './search/search-filters/search-filter/search-authority-filter/search-authority-filter.component';
 import { DsDynamicDisabledComponent } from './form/builder/ds-dynamic-form-ui/models/disabled/dynamic-disabled.component';
+import { DsDynamicLookupRelationSearchTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -360,7 +361,8 @@ const ENTRY_COMPONENTS = [
   SearchFacetOptionComponent,
   SearchFacetSelectedOptionComponent,
   SearchFacetRangeOptionComponent,
-  SearchAuthorityFilterComponent
+  SearchAuthorityFilterComponent,
+  DsDynamicLookupRelationSearchTabComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

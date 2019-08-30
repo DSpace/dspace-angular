@@ -4,7 +4,8 @@ import {
   ComponentFactoryResolver,
   ContentChildren,
   EventEmitter,
-  Input, NgZone,
+  Input,
+  NgZone,
   OnChanges,
   OnInit,
   Output,
@@ -69,7 +70,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { Observable } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
@@ -81,14 +82,7 @@ import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.c
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ItemViewMode } from '../../../items/item-type-decorator';
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { relationship } from '../../../../core/cache/builders/build-decorators';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { RelationshipTypeService } from '../../../../core/data/relationship-type.service';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { RelationshipOptions } from '../models/relationship-options.model';
-import { DsDynamicInputModel } from './models/ds-dynamic-input.model';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';

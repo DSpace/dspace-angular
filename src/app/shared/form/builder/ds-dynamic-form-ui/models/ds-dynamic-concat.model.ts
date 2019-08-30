@@ -2,6 +2,8 @@ import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelC
 import { isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
 export const CONCAT_FIRST_INPUT_SUFFIX = '_CONCAT_FIRST_INPUT';
@@ -9,12 +11,19 @@ export const CONCAT_SECOND_INPUT_SUFFIX = '_CONCAT_SECOND_INPUT';
 
 export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   separator: string;
+  value?: any;
+  workspaceItem: WorkspaceItem;
+  relationship?: RelationshipOptions;
+  repeatable: boolean;
 }
 
 export class DynamicConcatModel extends DynamicFormGroupModel {
 
   @serializable() separator: string;
   @serializable() hasLanguages = false;
+  @serializable() workspaceItem: WorkspaceItem;
+  @serializable() relationship?: RelationshipOptions;
+  @serializable() repeatable?: boolean;
   isCustomGroup = true;
 
   constructor(config: DynamicConcatModelConfig, layout?: DynamicFormControlLayout) {
@@ -22,6 +31,9 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     super(config, layout);
 
     this.separator = config.separator + ' ';
+    this.relationship = config.relationship;
+    this.workspaceItem = config.workspaceItem;
+    this.repeatable = config.repeatable;
   }
 
   get value() {

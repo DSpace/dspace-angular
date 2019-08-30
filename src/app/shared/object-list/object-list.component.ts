@@ -116,7 +116,6 @@ export class ObjectListComponent {
     if (value) {
       this.selectionService.selectSingle(this.selectionConfig.listId, object);
       this.selectObject.emit(object);
-
     } else {
       this.selectionService.deselectSingle(this.selectionConfig.listId, object);
       this.deselectObject.emit(object);
@@ -139,7 +138,5 @@ export class ObjectListComponent {
         this.selectObject.emit(object);
       }
     });
-
-
   }
 }

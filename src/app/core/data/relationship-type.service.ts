@@ -56,11 +56,10 @@ export class RelationshipTypeService {
         /* Flatten the page so we can treat it like an observable */
         switchMap((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => typeListRD.payload.page),
         switchMap((type: RelationshipType) => {
-          if (type.leftLabel === label) return this.checkType(type, firstType, secondType);
-          else if (type.rightLabel === label) return this.checkType(type, secondType, firstType);
+          if (type.rightLabel === label) return this.checkType(type, firstType, secondType);
+          else if (type.leftLabel === label) return this.checkType(type, secondType, firstType);
           else return [];
         }),
-        tap((t) => console.log(t))
       );
   }
 

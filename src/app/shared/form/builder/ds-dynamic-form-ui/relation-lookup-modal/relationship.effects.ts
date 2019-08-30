@@ -69,21 +69,22 @@ export class RelationshipEffects {
 
 
   private createIdentifier(item1: Item, item2: Item, relationshipType: string): string {
-    return `${item1.uuid}-${item2.uuid}-${relationshipType}$`;
+    return `${item1.uuid}-${item2.uuid}-${relationshipType}`;
   }
 
 
   private addRelationship(item1: Item, item2: Item, relationshipType: string) {
-    const type1: string = item1.firstMetadataValue('relationship.type');
+    // const type1: string = item1.firstMetadataValue('relationship.type');
+    const type1: string = 'JournalVolume';
     const type2: string = item2.firstMetadataValue('relationship.type');
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
       .pipe(
         mergeMap((type: RelationshipType) => {
-            const isSwitched = type.rightLabel === relationshipType;
+            const isSwitched = type.leftLabel === relationshipType;
             if (isSwitched) {
-              return this.relationshipService.addRelationship(type.id, cloneDeep(item2), cloneDeep(item1));
+              return this.relationshipService.addRelationship(type.id, item2, item1);
             } else {
-              return this.relationshipService.addRelationship(type.id, cloneDeep(item1), cloneDeep(item2));
+              return this.relationshipService.addRelationship(type.id, item1, item2);
             }
           }
         )
