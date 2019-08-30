@@ -60,7 +60,7 @@ describe('DsoInputSuggestionsComponent', () => {
     const clickedIndex = 0;
     beforeEach(() => {
       spyOn(comp, 'onClickSuggestion');
-      const clickedLink = de.query(By.css('.dropdown-list > div:nth-child(' + (clickedIndex + 1) + ') a'));
+      const clickedLink = de.query(By.css('.dropdown-list > div:nth-child(' + (clickedIndex + 1) + ') button'));
       clickedLink.triggerEventHandler('click', {});
       fixture.detectChanges();
     });

@@ -13,9 +13,11 @@
     <div class="autocomplete dropdown-menu" [ngClass]="{'show': (show | async) && isNotEmpty(suggestions)}">
         <div class="dropdown-list">
             <div *ngFor="let suggestionOption of suggestions">
-                <a href="#" class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
+                <button class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
+                    <div class="click-blocker">
+                    </div>
                     <ds-wrapper-list-element [object]="suggestionOption"></ds-wrapper-list-element>
-                </a>
+                </button>
             </div>
         </div>
     </div>
