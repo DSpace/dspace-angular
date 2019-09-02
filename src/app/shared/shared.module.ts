@@ -141,6 +141,7 @@ import {DynamicShibbolethComponent} from './log-in/methods/shibboleth/dynamic-sh
 // import {LogInComponent} from './log-in/log-in.component';
 import {LogInPasswordComponent} from './log-in/methods/password/log-in-password.component';
 import { LoginContainerComponent } from './log-in/container/login-container.component';
+import { AuthMethodsComponent } from './log-in/authMethods.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -264,7 +265,8 @@ const COMPONENTS = [
   // LogInComponent,
   DynamicShibbolethComponent,
   LogInPasswordComponent,
-  LoginContainerComponent
+  LoginContainerComponent,
+  AuthMethodsComponent
 ];
 
 const ENTRY_COMPONENTS = [

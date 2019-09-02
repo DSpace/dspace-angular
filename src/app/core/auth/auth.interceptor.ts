@@ -1,7 +1,7 @@
-import {Observable, of as observableOf, throwError as observableThrowError} from 'rxjs';
+import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 
-import {catchError, filter, map, tap} from 'rxjs/operators';
-import {Injectable, Injector} from '@angular/core';
+import { catchError, filter, map, tap } from 'rxjs/operators';
+import { Injectable, Injector } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -11,18 +11,18 @@ import {
   HttpResponse,
   HttpResponseBase
 } from '@angular/common/http';
-import {find} from 'lodash';
+import { find } from 'lodash';
 
-import {AppState} from '../../app.reducer';
-import {AuthService} from './auth.service';
-import {AuthStatus} from './models/auth-status.model';
-import {AuthTokenInfo} from './models/auth-token-info.model';
-import {isNotEmpty, isUndefined, isNotNull} from '../../shared/empty.util';
-import {RedirectWhenTokenExpiredAction, RefreshTokenAction} from './auth.actions';
-import {Store} from '@ngrx/store';
-import {Router} from '@angular/router';
-import {AuthError} from './models/auth-error.model';
-import {AuthMethodModel} from './models/auth-method.model';
+import { AppState } from '../../app.reducer';
+import { AuthService } from './auth.service';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import { isNotEmpty, isUndefined, isNotNull } from '../../shared/empty.util';
+import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+import { AuthError } from './models/auth-error.model';
+import { AuthMethodModel } from './models/auth-method.model';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -59,8 +59,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return http.url && http.url.endsWith('/authn/logout');
   }
 
-  private parseShibbolethLocation(unparsedLocation: string): string {
-    let parsedLocation = '';
+  private parseLocation(unparsedLocation: string): string {
     unparsedLocation = unparsedLocation.trim();
     unparsedLocation = unparsedLocation.replace('location="', '');
     unparsedLocation = unparsedLocation.replace('"', '');
@@ -68,7 +67,7 @@ export class AuthInterceptor implements HttpInterceptor {
     unparsedLocation = unparsedLocation.replace(re, '://');
     re = /%3A/g
     unparsedLocation = unparsedLocation.replace(re, ':')
-    parsedLocation = unparsedLocation + '/shibboleth';
+    const parsedLocation = unparsedLocation.trim(); // + '/shibboleth';
 
     return parsedLocation;
   }
@@ -76,24 +75,32 @@ export class AuthInterceptor implements HttpInterceptor {
   private parseAuthMethodsfromHeaders(headers: HttpHeaders): AuthMethodModel[] {
     const authMethodModels: AuthMethodModel[] = [];
     const parts: string[] = headers.get('www-authenticate').split(',');
-    // get the login methods names
+    // get the realms from the header -  a realm is a single auth method
+    const completeWWWauthenticateHeader = headers.get('www-authenticate');
+    const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
+    const realms = completeWWWauthenticateHeader.match(regex);
+    console.log('realms: ', realms)
+
     // tslint:disable-next-line:forin
-    for (const i in parts) {
-      const part: string = parts[i].trim();
-      if (part.includes('realm')) {
-        const methodName = part.split(' ')[0];
-        const authMethod: AuthMethodModel = new AuthMethodModel(methodName);
-        // check if the authentication method is  shibboleth
-        // if so the next part is the shibboleth location
-        // e.g part i: shibboleth realm="DSpace REST API", part i+1:  location="/Shibboleth.sso/Login?target=https://serverUrl"
-        if (methodName.includes('shibboleth')) {
-          // +1:  unaray + operator in the next line is necessaray because i is a string, the operator works like parseInt()
-          const location: string = this.parseShibbolethLocation(parts[+i + 1]);
-          authMethod.location = location;
-        }
-        // if other authentication methods deliver data needed for the method to work
-        // it would be checked here e.g. if (methodName.includes('ldap')) { }
-        authMethodModels.push(authMethod);
+    for (const j in realms) {
+      console.log('realm:', realms[j]);
+
+      const splittedRealm = realms[j].split(', ');
+      const methodName = splittedRealm[0].split(' ')[0].trim();
+      console.log('methodName: ', methodName);
+
+      console.log('splittedRealm: ', splittedRealm);
+      let authMethodModel: AuthMethodModel;
+      if (splittedRealm.length === 1) {
+        authMethodModel = new AuthMethodModel(methodName);
+        authMethodModels.push(authMethodModel);
+      } else if (splittedRealm.length > 1) {
+        authMethodModel = new AuthMethodModel(methodName);
+        let location = splittedRealm[1];
+        location = this.parseLocation(location)
+        authMethodModel.location = location;
+        console.log('location: ', location);
+        authMethodModels.push(authMethodModel);
       }
     }
     return authMethodModels;

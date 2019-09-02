@@ -17,11 +17,7 @@ import { AuthMethodType } from '../authMethods-type';
 })
 export class LoginContainerComponent implements OnInit {
 
-  /**
-   * The section data
-   * @type {SectionDataObject}
-   */
-  @Input() authMethodData: Observable<AuthMethodModel[]>;
+  @Input() authMethodModel: AuthMethodModel;
 
   /**
    * Injector to inject a section component with the @Input parameters
@@ -34,7 +30,7 @@ export class LoginContainerComponent implements OnInit {
    *
    * @param {Injector} injector
    */
-  constructor(private injector: Injector, private store: Store<AppState>) {
+  constructor(private injector: Injector) {
   }
 
   /**
@@ -43,18 +39,17 @@ export class LoginContainerComponent implements OnInit {
   ngOnInit() {
     this.objectInjector = Injector.create({
       providers: [
-        {provide: 'authMethodProvider', useFactory: () => (this.authMethodData), deps: []},
+        {provide: 'authMethodModelProvider', useFactory: () => (this.authMethodModel), deps: []},
       ],
       parent: this.injector
     });
 
-    this.authMethodData = this.store.select(getAuthenticationMethods);
-  }
+     }
 
   /**
    * Find the correct component based on the authMethod's type
    */
-  getAuthMethodContent(authMethodType: AuthMethodType): string {
-    return rendersAuthMethodType(authMethodType)
+  getAuthMethodContent(): string {
+    return rendersAuthMethodType(this.authMethodModel.authMethodType)
   }
 }

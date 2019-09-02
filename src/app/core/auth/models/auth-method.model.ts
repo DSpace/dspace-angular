@@ -1,12 +1,10 @@
 import {AuthMethodType} from '../../../shared/log-in/authMethods-type';
 
 export class AuthMethodModel {
-  authMethodName: string;
+  authMethodType: AuthMethodType;
   location?: string;
-  authMethodType: AuthMethodType
 
   constructor(authMethodName: string, location?: string) {
-    this.authMethodName = authMethodName;
     this.location = location;
     switch (authMethodName) {
       case 'ip': {

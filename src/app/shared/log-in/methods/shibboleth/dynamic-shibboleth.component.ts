@@ -12,14 +12,17 @@ import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model'
 @renderAuthMethodFor(AuthMethodType.Shibboleth)
 export class DynamicShibbolethComponent implements OnInit {
 
+  @Input()authMethodModel: AuthMethodModel;
+
   /**
    * @constructor
    */
-  constructor(@Inject('authMethodProvider') public injectedObject: AuthMethodModel) {
+  constructor(@Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel) {
+    this.authMethodModel = injectedAuthMethodModel;
   }
 
   ngOnInit(): void {
-    console.log('injectedObject', this.injectedObject)
-  }
+    console.log('injectedAuthMethodModel', this.injectedAuthMethodModel);
+    }
 
 }
