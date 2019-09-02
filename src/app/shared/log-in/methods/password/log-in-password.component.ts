@@ -1,9 +1,9 @@
-import {filter, map, takeWhile, tap} from 'rxjs/operators';
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { filter, map, takeWhile } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction, GetJWTafterShibbLoginAction
@@ -15,11 +15,11 @@ import {
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../../../core/auth/selectors';
-import {CoreState} from '../../../../core/core.reducers';
+import { CoreState } from '../../../../core/core.reducers';
 
-import {isNotEmpty} from '../../../empty.util';
-import {fadeOut} from '../../../animations/fade';
-import {AuthService} from '../../../../core/auth/auth.service';
+import { isNotEmpty } from '../../../empty.util';
+import { fadeOut } from '../../../animations/fade';
+import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethodType } from '../../authMethods-type';
 import { renderAuthMethodFor } from '../../authMethods-decorator';
 
@@ -83,8 +83,6 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    * @type {boolean}
    */
   private alive = true;
-
-
 
   /**
    * @constructor
