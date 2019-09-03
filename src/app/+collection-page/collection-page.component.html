@@ -53,7 +53,7 @@
                 <ds-loading *ngIf="!itemRD || itemRD.isLoading"
                             message="{{'loading.recent-submissions' | translate}}"></ds-loading>
                 <div *ngIf="!itemRD?.isLoading && itemRD?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
-                  {{'browse.empty' | translate}}
+                        {{'collection.page.browse.recent.empty' | translate}}
                 </div>
             </ng-container>
         </div>
