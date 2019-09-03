@@ -1,7 +1,7 @@
 <div class="row" *ngVar="(resultsRD$ | async) as resultsRD">
     <ds-search-sidebar class="col-4" id="search-sidebar"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
-                       [inPlaceSearch]="true"></ds-search-sidebar>
+                       [inPlaceSearch]="true" [showViewModes]="false"></ds-search-sidebar>
     <div class="col-8">
         <form class="input-group mb-3" #queryForm="ngForm"
               (ngSubmit)="search(queryForm.value.query)">

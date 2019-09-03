@@ -77,7 +77,8 @@ const rowArrayQualdropConfig = {
   notRepeatable: true,
   groupFactory: () => {
     return [MockQualdropModel];
-  }
+  },
+  required: false
 } as DynamicRowArrayModelConfig;
 
 export const MockRowArrayQualdropModel: DynamicRowArrayModel = new DynamicRowArrayModel(rowArrayQualdropConfig);

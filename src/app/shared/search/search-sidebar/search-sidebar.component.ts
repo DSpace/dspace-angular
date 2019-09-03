@@ -35,6 +35,11 @@ export class SearchSidebarComponent {
   @Input() viewModeList;
 
   /**
+   * Whether to show the view mode switch
+   */
+  @Input() showViewModes = true;
+
+  /**
    * True when the search component should show results on the current page
    */
   @Input() inPlaceSearch;

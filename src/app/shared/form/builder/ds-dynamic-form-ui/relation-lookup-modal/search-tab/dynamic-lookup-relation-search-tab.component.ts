@@ -44,7 +44,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Input() itemRD$;
   @Input() repeatable: boolean;
   @Input() selection$: Observable<ListableObject[]>;
-
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
   searchConfig: PaginatedSearchOptions;
   searchQuery;

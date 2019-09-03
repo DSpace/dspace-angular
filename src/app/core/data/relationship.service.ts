@@ -247,6 +247,8 @@ export class RelationshipService extends DataService<Relationship> {
   getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string): Observable<Relationship> {
     return this.getItemRelationshipsByLabel(item1, label)
       .pipe(
+        getSucceededRemoteData(),
+        map((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
         mergeMap((relationships: Relationship[]) => {
           return observableCombineLatest(...relationships.map((relationship: Relationship) => {
             return observableCombineLatest(

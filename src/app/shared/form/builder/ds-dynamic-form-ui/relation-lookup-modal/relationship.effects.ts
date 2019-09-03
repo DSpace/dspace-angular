@@ -9,7 +9,6 @@ import { hasNoValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
-import { cloneDeep } from 'lodash';
 
 const DEBOUNCE_TIME = 5000;
 
@@ -74,13 +73,13 @@ export class RelationshipEffects {
 
 
   private addRelationship(item1: Item, item2: Item, relationshipType: string) {
-    // const type1: string = item1.firstMetadataValue('relationship.type');
-    const type1: string = 'JournalVolume';
+    const type1: string = item1.firstMetadataValue('relationship.type');
+    // const type1: string = 'JournalVolume';
     const type2: string = item2.firstMetadataValue('relationship.type');
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
       .pipe(
         mergeMap((type: RelationshipType) => {
-            const isSwitched = type.leftLabel === relationshipType;
+            const isSwitched = type.rightLabel === relationshipType;
             if (isSwitched) {
               return this.relationshipService.addRelationship(type.id, item2, item1);
             } else {
