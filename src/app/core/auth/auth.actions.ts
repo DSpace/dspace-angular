@@ -1,13 +1,13 @@
 // import @ngrx
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 
 // import type function
-import {type} from '../../shared/ngrx/type';
+import { type } from '../../shared/ngrx/type';
 
 // import models
-import {EPerson} from '../eperson/models/eperson.model';
-import {AuthTokenInfo} from './models/auth-token-info.model';
-import {AuthMethodModel} from './models/auth-method.model';
+import { EPerson } from '../eperson/models/eperson.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AuthMethodModel } from './models/auth-method.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),

@@ -12,9 +12,9 @@ import {
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
-import {EPerson} from '../eperson/models/eperson.model';
-import {AuthTokenInfo} from './models/auth-token-info.model';
-import {AuthMethodModel} from './models/auth-method.model';
+import { EPerson } from '../eperson/models/eperson.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AuthMethodModel } from './models/auth-method.model';
 
 /**
  * The auth state.

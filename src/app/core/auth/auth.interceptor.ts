@@ -1,6 +1,6 @@
 import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
 
-import { catchError, filter, map, tap } from 'rxjs/operators';
+import { catchError, filter, map } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
 import {
   HttpErrorResponse,

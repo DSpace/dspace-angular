@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {GetJWTafterShibbLoginAction} from '../../core/auth/auth.actions';
-import {Store} from '@ngrx/store';
-import {CoreState} from '../../core/core.reducers';
-import {Observable, of} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { GetJWTafterShibbLoginAction } from '../../core/auth/auth.actions';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../../core/core.reducers';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'ds-shibboleth-page',
