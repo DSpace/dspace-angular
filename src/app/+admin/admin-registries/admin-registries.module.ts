@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
 import { MetadataSchemaComponent } from './metadata-schema/metadata-schema.component';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BitstreamFormatsComponent } from './bitstream-formats/bitstream-formats.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MetadataSchemaFormComponent } from './metadata-registry/metadata-schema-form/metadata-schema-form.component';
-import {MetadataFieldFormComponent} from './metadata-schema/metadata-field-form/metadata-field-form.component';
+import { MetadataFieldFormComponent } from './metadata-schema/metadata-field-form/metadata-field-form.component';
+import { BitstreamFormatsModule } from './bitstream-formats/bitstream-formats.module';
 
 @NgModule({
   imports: [
@@ -16,12 +16,12 @@ import {MetadataFieldFormComponent} from './metadata-schema/metadata-field-form/
     SharedModule,
     RouterModule,
     TranslateModule,
+    BitstreamFormatsModule,
     AdminRegistriesRoutingModule
   ],
   declarations: [
     MetadataRegistryComponent,
     MetadataSchemaComponent,
-    BitstreamFormatsComponent,
     MetadataSchemaFormComponent,
     MetadataFieldFormComponent
   ],
