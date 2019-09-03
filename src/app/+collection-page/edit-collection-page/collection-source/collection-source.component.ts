@@ -269,19 +269,21 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.updateSub = this.update$.subscribe((update: FieldUpdate) => {
       if (update) {
         const field = update.field as ContentSource;
+        const defaultConfigId = this.contentSource.metadataConfigs[0].id;
         this.formGroup.patchValue({
           oaiSourceContainer: {
             oaiSource: field.oaiSource
           },
           oaiSetContainer: {
             oaiSetId: field.oaiSetId,
-            metadataConfigId: field.metadataConfigId
+            metadataConfigId: field.metadataConfigId || defaultConfigId
           },
           harvestTypeContainer: {
             harvestType: field.harvestType
           }
         });
         this.contentSource = cloneDeep(field);
+        this.contentSource.metadataConfigId = defaultConfigId;
       }
     });
   }
