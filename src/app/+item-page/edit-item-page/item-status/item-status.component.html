@@ -12,7 +12,7 @@
     {{'item.edit.tabs.status.labels.itemPage' | translate}}:
   </div>
   <div class="col-9 float-left status-data" id="status-itemPage">
-    <a href="{{getItemPage((itemRD$ | async)?.payload)}}">{{getItemPage((itemRD$ | async)?.payload)}}</a>
+    <a [routerLink]="getItemPage((itemRD$ | async)?.payload)">{{getItemPage((itemRD$ | async)?.payload)}}</a>
   </div>
 
   <div *ngFor="let operation of operations" class="w-100 pt-3">

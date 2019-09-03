@@ -1,4 +1,3 @@
-@import '../styles/variables.scss';
 @import '../styles/helpers/font_awesome_imports.scss';
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/nouislider/distribute/nouislider.min';
@@ -48,4 +47,3 @@ ds-admin-sidebar {
   position: fixed;
   z-index: $sidebar-z-index;
 }
-

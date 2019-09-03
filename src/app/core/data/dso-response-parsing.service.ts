@@ -4,8 +4,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { ResourceType } from '../shared/resource-type';
-import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { RestResponse, DSOSuccessResponse } from '../cache/response.models';
 import { RestRequest } from './request.models';
@@ -17,8 +15,6 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 
 @Injectable()
 export class DSOResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
-
-  protected objectFactory = NormalizedObjectFactory;
   protected toCache = true;
 
   constructor(
@@ -34,7 +30,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
       processRequestDTO = { page: [] };
     } else {
-      processRequestDTO = this.process<NormalizedObject<DSpaceObject>, ResourceType>(data.payload, request.uuid);
+      processRequestDTO = this.process<NormalizedObject<DSpaceObject>>(data.payload, request.uuid);
     }
     let objectList = processRequestDTO;
 

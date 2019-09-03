@@ -15,26 +15,27 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { JournalComponent } from './journal.component';
 import { of as observableOf } from 'rxjs';
 import { GenericItemPageFieldComponent } from '../../../../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 let comp: JournalComponent;
 let fixture: ComponentFixture<JournalComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
-    'journal.identifier.issn': [
+    'creativeworkseries.issn': [
       {
         language: 'en_US',
         value: '1234'
       }
     ],
-    'journal.publisher': [
+    'creativework.publisher': [
       {
         language: 'en_US',
         value: 'a publisher'
       }
     ],
-    'journal.identifier.description': [
+    'dc.description': [
       {
         language: 'en_US',
         value: 'desc'

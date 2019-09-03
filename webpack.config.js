@@ -1,46 +1,45 @@
 const webpackMerge = require('webpack-merge');
-const commonPartial = require('./webpack/webpack.common');
-const clientPartial = require('./webpack/webpack.client');
-const { getServerWebpackPartial } = require('./webpack/webpack.server');
+
 const prodPartial = require('./webpack/webpack.prod');
 
-const {
-  getAotPlugin
-} = require('./webpack/webpack.aot');
-
-module.exports = function(env, options) {
+module.exports = function (env, options) {
     env = env || {};
-  if (env.aot) {
-    console.log(`Running build for ${env.client ? 'client' : 'server'} with AoT Compilation`)
-  }
+    const commonPartial = require('./webpack/webpack.common')(env);
+    const clientPartial = require('./webpack/webpack.client')(env);
+    const {getAotPlugin} = require('./webpack/webpack.aot')(env);
+    const {getServerWebpackPartial} = require('./webpack/webpack.server')(env);
 
-  let serverPartial = getServerWebpackPartial(env.aot);
+    if (env.aot) {
+        console.log(`Running build for ${env.client ? 'client' : 'server'} with AoT Compilation`)
+    }
 
-  let serverConfig = webpackMerge({}, commonPartial, serverPartial, {
-    plugins: [
-      getAotPlugin('server', !!env.aot)
-    ]
-  });
+    let serverPartial = getServerWebpackPartial(env.aot);
 
-  let clientConfig = webpackMerge({}, commonPartial, clientPartial, {
-    plugins: [
-      getAotPlugin('client', !!env.aot)
-    ]
-  });
-  if (options.mode === 'production') {
-    serverConfig = webpackMerge({}, serverConfig, prodPartial);
-    clientConfig = webpackMerge({}, clientConfig, prodPartial);
-  }
+    let serverConfig = webpackMerge({}, commonPartial, serverPartial, {
+        plugins: [
+            getAotPlugin('server', !!env.aot)
+        ]
+    });
 
-  const configs = [];
+    let clientConfig = webpackMerge({}, commonPartial, clientPartial, {
+        plugins: [
+            getAotPlugin('client', !!env.aot)
+        ]
+    });
+    if (options.mode === 'production') {
+        serverConfig = webpackMerge({}, serverConfig, prodPartial);
+        clientConfig = webpackMerge({}, clientConfig, prodPartial);
+    }
 
-  if (!env.aot) {
-    configs.push(clientConfig, serverConfig);
-  } else if (env.client) {
-    configs.push(clientConfig);
-  } else if (env.server) {
-    configs.push(serverConfig);
-  }
+    const configs = [];
 
-  return configs;
+    if (!env.aot) {
+        configs.push(clientConfig, serverConfig);
+    } else if (env.client) {
+        configs.push(clientConfig);
+    } else if (env.server) {
+        configs.push(serverConfig);
+    }
+
+    return configs;
 };

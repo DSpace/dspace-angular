@@ -20,13 +20,16 @@ import { RouterStub } from '../../../shared/testing/router-stub';
 import { GLOBAL_CONFIG } from '../../../../config';
 import { Item } from '../../../core/shared/item.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
-import { RemoteData } from '../../../core/data/remote-data';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { RegistryService } from '../../../core/registry/registry.service';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
-import { MetadataField } from '../../../core/metadata/metadatafield.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/testing/utils';
 
 let comp: ItemMetadataComponent;
 let fixture: ComponentFixture<ItemMetadataComponent>;
@@ -116,18 +119,18 @@ describe('ItemMetadataComponent', () => {
       )
       ;
       itemService = jasmine.createSpyObj('itemService', {
-        update: observableOf(new RemoteData(false, false, true, undefined, item)),
+        update: createSuccessfulRemoteDataObject$(item),
         commitUpdates: {}
       });
       routeStub = {
         parent: {
-          data: observableOf({ item: new RemoteData(false, false, true, null, item) })
+          data: observableOf({ item: createSuccessfulRemoteDataObject(item) })
         }
       };
       paginatedMetadataFields = new PaginatedList(undefined, [mdField1, mdField2, mdField3]);
 
       metadataFieldService = jasmine.createSpyObj({
-        getAllMetadataFields: observableOf(new RemoteData(false, false, true, undefined, paginatedMetadataFields))
+        getAllMetadataFields:createSuccessfulRemoteDataObject$(paginatedMetadataFields)
       });
       scheduler = getTestScheduler();
       objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',

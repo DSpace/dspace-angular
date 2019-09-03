@@ -7,15 +7,15 @@
       <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <ds-generic-item-page-field class="item-page-fields" [item]="item"
-      [fields]="['journal.identifier.issn']"
+      [fields]="['creativeworkseries.issn']"
       [label]="'journal.page.issn'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field class="item-page-fields" [item]="item"
-      [fields]="['journal.publisher']"
+      [fields]="['creativework.publisher']"
       [label]="'journal.page.publisher'">
     </ds-generic-item-page-field>
     <ds-generic-item-page-field [item]="item"
-      [fields]="['journal.contributor.editor']"
+      [fields]="['creativework.editor']"
       [label]="'journal.page.editor'">
     </ds-generic-item-page-field>
   </div>
@@ -25,7 +25,7 @@
       [label]="'relationships.isVolumeOf' | translate">
     </ds-related-items>
     <ds-generic-item-page-field class="item-page-fields" [item]="item"
-      [fields]="['journal.identifier.description']"
+      [fields]="['dc.description']"
       [label]="'journal.page.description'">
     </ds-generic-item-page-field>
     <div>

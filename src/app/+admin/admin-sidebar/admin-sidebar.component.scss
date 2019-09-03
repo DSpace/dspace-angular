@@ -1,5 +1,3 @@
-@import '../../../styles/variables.scss';
-@import '../../../styles/mixins.scss';
 $icon-z-index: 10;
 
 :host {
@@ -8,6 +6,7 @@ $icon-z-index: 10;
     height: 100vh;
     flex: 1 1 auto;
     nav {
+        background-color: $admin-sidebar-bg;
         height: 100%;
         flex-direction: column;
         > div {
@@ -44,7 +43,7 @@ $icon-z-index: 10;
                 .sidebar-section {
                     display: flex;
                     align-content: stretch;
-                    background-color: $dark;
+                    background-color: $admin-sidebar-bg;
                     .nav-item {
                         padding-top: $spacer;
                         padding-bottom: $spacer;

@@ -1,7 +1,9 @@
-import { Workspaceitem } from './workspaceitem.model';
+import { WorkspaceItem } from './workspaceitem.model';
+import { ResourceType } from '../../shared/resource-type';
 
 /**
- * A model class for a Workflowitem.
+ * A model class for a WorkflowItem.
  */
-export class Workflowitem extends Workspaceitem {
+export class WorkflowItem extends WorkspaceItem {
+  static type = new ResourceType('workflowitem');
 }

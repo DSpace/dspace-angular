@@ -7,8 +7,8 @@ import {
   MetadataRegistrySelectSchemaAction
 } from './metadata-registry.actions';
 import { metadataRegistryReducer, MetadataRegistryState } from './metadata-registry.reducers';
-import { MetadataSchema } from '../../../core/metadata/metadataschema.model';
-import { MetadataField } from '../../../core/metadata/metadatafield.model';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
 
 class NullAction extends MetadataRegistryEditSchemaAction {
   type = null;

@@ -26,6 +26,7 @@ import { MetadatumRepresentation } from '../../../../core/shared/metadata-repres
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
 import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 /**
  * Create a generic test for an item-page-fields component using a mockItem and the type of component
@@ -102,11 +103,13 @@ export function containsFieldInput(fields: DebugElement[], metadataKey: string):
 }
 
 export function createRelationshipsObservable() {
-  return observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [
+  return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [
     Object.assign(new Relationship(), {
-      relationshipType: observableOf(new RemoteData(false, false, true, null, new RelationshipType()))
+      relationshipType: createSuccessfulRemoteDataObject$(new RelationshipType()),
+      leftItem: createSuccessfulRemoteDataObject$(new Item()),
+      rightItem: createSuccessfulRemoteDataObject$(new Item())
     })
-  ])));
+  ]));
 }
 describe('ItemComponent', () => {
   const arr1 = [
@@ -319,20 +322,31 @@ describe('ItemComponent', () => {
     let fixture: ComponentFixture<ItemComponent>;
 
     const metadataField = 'dc.contributor.author';
+    const relatedItem = Object.assign(new Item(), {
+      id: '2',
+      metadata: Object.assign(new MetadataMap(), {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'related item'
+          }
+        ]
+      })
+    });
     const mockItem = Object.assign(new Item(), {
       id: '1',
       uuid: '1',
-      metadata: new MetadataMap(),
-      relationships: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [
-        Object.assign(new Relationship(), {
-          uuid: '123',
-          id: '123',
-          leftId: '1',
-          rightId: '2',
-          relationshipType: observableOf(new RemoteData(false, false, true, null, new RelationshipType()))
-        })
-      ])))
+      metadata: new MetadataMap()
     });
+    mockItem.relationships = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [
+      Object.assign(new Relationship(), {
+        uuid: '123',
+        id: '123',
+        leftItem: createSuccessfulRemoteDataObject$(mockItem),
+        rightItem: createSuccessfulRemoteDataObject$(relatedItem),
+        relationshipType: createSuccessfulRemoteDataObject$(new RelationshipType())
+      })
+    ]));
     mockItem.metadata[metadataField] = [
       {
         value: 'Second value',
@@ -353,21 +367,10 @@ describe('ItemComponent', () => {
         authority: '123'
       }
     ] as MetadataValue[];
-    const relatedItem = Object.assign(new Item(), {
-      id: '2',
-      metadata: Object.assign(new MetadataMap(), {
-        'dc.title': [
-          {
-            language: 'en_US',
-            value: 'related item'
-          }
-        ]
-      })
-    });
     const mockItemDataService = Object.assign({
       findById: (id) => {
         if (id === relatedItem.id) {
-          return observableOf(new RemoteData(false, false, true, null, relatedItem))
+          return createSuccessfulRemoteDataObject$(relatedItem)
         }
       }
     }) as ItemDataService;
@@ -397,7 +400,7 @@ describe('ItemComponent', () => {
       fixture = TestBed.createComponent(ItemComponent);
       comp = fixture.componentInstance;
       fixture.detectChanges();
-      representations = comp.buildRepresentations('bogus', metadataField, mockItemDataService);
+      representations = comp.buildRepresentations('bogus', metadataField);
     }));
 
     it('should contain exactly 4 metadata-representations', () => {

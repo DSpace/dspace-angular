@@ -13,7 +13,7 @@ module.exports = {
     host: 'dspace7.4science.cloud',
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
-    nameSpace: '/dspace-spring-rest/api'
+    nameSpace: '/server/api'
   },
   // Caching settings
   cache: {
@@ -149,11 +149,39 @@ module.exports = {
     // Limit for years to display using jumps of five years (current year - fiveYearLimit)
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
-    defaultLowerLimit: 1900
+    defaultLowerLimit: 1900,
+    // List of all the active Browse-By types
+    // Adding a type will activate their Browse-By page and add them to the global navigation menu, as well as community and collection pages
+    // Allowed fields and their purpose:
+    //    id:             The browse id to use for fetching info from the rest api
+    //    type:           The type of Browse-By page to display
+    //    metadataField:  The metadata-field used to create starts-with options (only necessary when the type is set to 'date')
+    types: [
+      {
+        id: 'title',
+        type: 'title'
+      },
+      {
+        id: 'dateissued',
+        type: 'date',
+        metadataField: 'dc.date.issued'
+      },
+      {
+        id: 'author',
+        type: 'metadata'
+      },
+      {
+        id: 'subject',
+        type: 'metadata'
+      }
+    ]
   },
   item: {
     edit: {
       undoTimeout: 10000 // 10 seconds
     }
+  },
+  theme: {
+    name: 'default',
   }
 };

@@ -7,9 +7,10 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceitemMyDSpaceResultDetailElementComponent } from './workspaceitem-my-dspace-result-detail-element.component';
 import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
-import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 let component: WorkspaceitemMyDSpaceResultDetailElementComponent;
 let fixture: ComponentFixture<WorkspaceitemMyDSpaceResultDetailElementComponent>;
@@ -48,8 +49,8 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rd = new RemoteData(false, false, true, null, item);
-mockResultObject.indexableObject = Object.assign(new Workspaceitem(), { item: observableOf(rd) });
+const rd = createSuccessfulRemoteDataObject(item);
+mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd) });
 
 describe('WorkspaceitemMyDSpaceResultDetailElementComponent', () => {
   beforeEach(async(() => {

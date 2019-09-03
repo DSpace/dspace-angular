@@ -18,7 +18,10 @@ import { MockActivatedRoute } from '../shared/mocks/mock-active-router';
 import { GLOBAL_CONFIG } from '../../config';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import { mockSubmissionDefinition, mockSubmissionRestResponse } from '../shared/mocks/mock-submission';
+import {
+  mockSubmissionDefinition,
+  mockSubmissionRestResponse
+} from '../shared/mocks/mock-submission';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
 import { MOCK_SUBMISSION_CONFIG } from '../shared/testing/mock-submission-config';
@@ -37,6 +40,11 @@ import {
 import { RemoteData } from '../core/data/remote-data';
 import { RemoteDataError } from '../core/data/remote-data-error';
 import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../shared/testing/utils';
 
 describe('SubmissionService test suite', () => {
   const config = MOCK_SUBMISSION_CONFIG;
@@ -344,7 +352,7 @@ describe('SubmissionService test suite', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({submissionReducers} as any),
+        StoreModule.forRoot({ submissionReducers } as any),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -353,10 +361,10 @@ describe('SubmissionService test suite', () => {
         })
       ],
       providers: [
-        {provide: GLOBAL_CONFIG, useValue: config},
-        {provide: Router, useValue: router},
-        {provide: SubmissionRestService, useValue: restService},
-        {provide: ActivatedRoute, useValue: new MockActivatedRoute()},
+        { provide: GLOBAL_CONFIG, useValue: config },
+        { provide: Router, useValue: router },
+        { provide: SubmissionRestService, useValue: restService },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         NotificationsService,
         RouteService,
         SubmissionService,
@@ -482,7 +490,7 @@ describe('SubmissionService test suite', () => {
       }));
 
       const result = service.getSubmissionObject('826');
-      const expected = cold('b', {b: subState.objects[826]});
+      const expected = cold('b', { b: subState.objects[826] });
 
       expect(result).toBeObservable(expected);
     });
@@ -495,7 +503,7 @@ describe('SubmissionService test suite', () => {
       }));
 
       const result = service.getActiveSectionId('826');
-      const expected = cold('b', {b: 'keyinformation'});
+      const expected = cold('b', { b: 'keyinformation' });
 
       expect(result).toBeObservable(expected);
 
@@ -747,7 +755,7 @@ describe('SubmissionService test suite', () => {
 
   describe('isSubmissionLoading', () => {
     it('should return true/false when section is loading/not loading', () => {
-      const spy = spyOn(service, 'getSubmissionObject').and.returnValue(observableOf({isLoading: true}));
+      const spy = spyOn(service, 'getSubmissionObject').and.returnValue(observableOf({ isLoading: true }));
 
       let expected = cold('(b|)', {
         b: true
@@ -755,7 +763,7 @@ describe('SubmissionService test suite', () => {
 
       expect(service.isSubmissionLoading(submissionId)).toBeObservable(expected);
 
-      spy.and.returnValue(observableOf({isLoading: false}));
+      spy.and.returnValue(observableOf({ isLoading: false }));
 
       expected = cold('(b|)', {
         b: false
@@ -841,11 +849,7 @@ describe('SubmissionService test suite', () => {
 
       const result = service.retrieveSubmission('826');
       const expected = cold('(b|)', {
-        b: new RemoteData(
-          false,
-          false,
-          true,
-          null,
+        b: createSuccessfulRemoteDataObject(
           mockSubmissionRestResponse[0])
       });
 
@@ -862,12 +866,8 @@ describe('SubmissionService test suite', () => {
       );
 
       service.retrieveSubmission('826').subscribe((r) => {
-        expect(r).toEqual(new RemoteData(
-          false,
-          false,
-          false,
-          new RemoteDataError(500, 'Internal Server Error', 'Error message'),
-          null
+        expect(r).toEqual(createFailedRemoteDataObject(null,
+          new RemoteDataError(500, 'Internal Server Error', 'Error message')
         ))
       });
     });

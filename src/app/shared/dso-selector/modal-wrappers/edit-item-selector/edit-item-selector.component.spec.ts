@@ -10,6 +10,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router-stub';
 import * as itemRouter from '../../../../+item-page/item-page-routing.module';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 describe('EditItemSelectorComponent', () => {
   let component: EditItemSelectorComponent;
@@ -20,7 +21,7 @@ describe('EditItemSelectorComponent', () => {
   item.uuid = '1234-1234-1234-1234';
   item.metadata = { 'dc.title': [Object.assign(new MetadataValue(), { value: 'Item title', language: undefined })] };
   const router = new RouterStub();
-  const itemRD = new RemoteData(false, false, true, undefined, item);
+  const itemRD = createSuccessfulRemoteDataObject(item);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const editPath = 'testEditPath';
 
