@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { filter, map, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -80,7 +80,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    */
   getHarvesterEndpoint(collectionId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      map((href: string) => `${href}/${collectionId}/harvester`)
+      switchMap((href: string) => this.halService.getEndpoint('harvester', `${href}/${collectionId}`))
     );
   }
 

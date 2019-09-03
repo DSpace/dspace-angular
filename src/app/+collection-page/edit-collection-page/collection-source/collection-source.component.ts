@@ -421,6 +421,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Make sure open subscriptions are closed
    */
   ngOnDestroy(): void {
-    this.updateSub.unsubscribe();
+    if (this.updateSub) {
+      this.updateSub.unsubscribe();
+    }
   }
 }
