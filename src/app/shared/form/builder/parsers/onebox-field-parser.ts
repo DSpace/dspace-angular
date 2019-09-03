@@ -54,18 +54,20 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.id = newId.replace(/\./g, '_') + QUALDROP_GROUP_SUFFIX;
       inputSelectGroup.group = [];
       inputSelectGroup.legend = this.configData.label;
+      this.setLabel(inputSelectGroup, label);
+      inputSelectGroup.required = isNotEmpty(this.configData.mandatory);
 
-      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(newId + QUALDROP_METADATA_SUFFIX, label);
+      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(newId + QUALDROP_METADATA_SUFFIX, false);
       this.setOptions(selectModelConfig);
       if (isNotEmpty(fieldValue)) {
         selectModelConfig.value = fieldValue.metadata;
       }
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
-      const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + QUALDROP_VALUE_SUFFIX, label, true);
+      const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + QUALDROP_VALUE_SUFFIX, false);
       this.setValues(inputModelConfig, fieldValue);
-
       inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
+
       inputSelectGroup.group.push(new DsDynamicInputModel(inputModelConfig, clsInput));
 
       return new DynamicQualdropModel(inputSelectGroup, clsGroup);

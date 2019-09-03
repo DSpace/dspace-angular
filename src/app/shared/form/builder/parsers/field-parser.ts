@@ -31,12 +31,12 @@ export abstract class FieldParser {
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
-
       const config = {
         id: uniqueId() + '_array',
-        label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
         notRepeatable: !this.configData.repeatable,
+        label: this.configData.label,
+        required: isNotEmpty(this.configData.mandatory),
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {
@@ -169,7 +169,7 @@ export abstract class FieldParser {
     }
   }
 
-  protected initModel(id?: string, label = true, labelEmpty = false, setErrors = true) {
+  protected initModel(id?: string, label = true, setErrors = true) {
 
     const controlModel = Object.create(null);
 
@@ -190,7 +190,7 @@ export abstract class FieldParser {
     controlModel.repeatable = this.configData.repeatable;
 
     // Set label
-    this.setLabel(controlModel, label, labelEmpty);
+    this.setLabel(controlModel, label);
 
     controlModel.placeholder = this.configData.label;
 
@@ -243,7 +243,7 @@ export abstract class FieldParser {
 
   protected setLabel(controlModel, label = true, labelEmpty = false) {
     if (label) {
-      controlModel.label = (labelEmpty) ? '&nbsp;' : this.configData.label;
+      controlModel.label = this.configData.label;
     }
   }
 

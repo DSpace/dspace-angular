@@ -65,7 +65,8 @@ export const qualdropConfig = {
   id: 'dc_identifier_QUALDROP_GROUP',
   legend: 'Identifiers',
   readOnly: false,
-  group: [mockQualdropSelectModel, mockQualdropInputModel]
+  group: [mockQualdropSelectModel, mockQualdropInputModel],
+  required: false
 };
 
 export const MockQualdropModel = new DynamicQualdropModel(qualdropConfig);

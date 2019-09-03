@@ -70,7 +70,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { Observable } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
@@ -172,7 +172,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
-
+  relationships$: Observable<SearchResult<Item>[]>;
   hasRelationLookup: boolean;
   modalRef: NgbModalRef;
   modelValueMDRepresentation;
@@ -217,10 +217,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         map((items: Item[]) => items.map((item) => Object.assign(new SearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems) => this.selectableListService.select(this.listId, relatedItems));
 
-      this.model.value = this.selectableListService.getSelectableList(this.listId).pipe(
+      this.relationships$ = this.selectableListService.getSelectableList(this.listId).pipe(
         map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
-      );
-      this.modelValueMDRepresentation = this.model.value.pipe(map((result: SearchResult<DSpaceObject>[]) => result.map((element: SearchResult<DSpaceObject>) => Object.assign(new ItemMetadataRepresentation(), element.indexableObject))))
+      ) as Observable<SearchResult<Item>[]>;
+      this.modelValueMDRepresentation = this.relationships$.pipe(map((result: SearchResult<DSpaceObject>[]) => result.map((element: SearchResult<DSpaceObject>) => Object.assign(new ItemMetadataRepresentation(), element.indexableObject))));
 
     }
   }

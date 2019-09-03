@@ -15,6 +15,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   workspaceItem: WorkspaceItem;
   relationship?: RelationshipOptions;
   repeatable: boolean;
+  required: boolean;
 }
 
 export class DynamicConcatModel extends DynamicFormGroupModel {
@@ -24,6 +25,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() workspaceItem: WorkspaceItem;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
+  @serializable() required?: boolean;
   isCustomGroup = true;
 
   constructor(config: DynamicConcatModelConfig, layout?: DynamicFormControlLayout) {
@@ -34,6 +36,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.relationship = config.relationship;
     this.workspaceItem = config.workspaceItem;
     this.repeatable = config.repeatable;
+    this.required = config.required;
   }
 
   get value() {
