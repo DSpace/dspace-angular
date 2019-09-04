@@ -1,46 +1,77 @@
 <div class="container">
-  <div class="collection-page" *ngVar="(collectionRD$ | async) as collectionRD">
-    <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
-      <div *ngIf="collectionRD?.payload as collection">
-        <header>
-          <!-- Collection logo -->
-          <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Collection Logo'">
-          </ds-comcol-page-logo>
-          <!-- Collection Name -->
-          <ds-comcol-page-header [name]="collection.name">
-          </ds-comcol-page-header>
-          <!-- Introductory text -->
-          <ds-comcol-page-content [content]="collection.introductoryText" [hasInnerHtml]="true">
-          </ds-comcol-page-content>
-          <!-- News -->
-          <ds-comcol-page-content [content]="collection.sidebarText" [hasInnerHtml]="true" [title]="'collection.page.news'">
-          </ds-comcol-page-content>
-          <!-- Handle -->
-          <ds-comcol-page-content [content]="collection.handle" [hasInnerHtml]="true" [title]="'collection.page.handle'" >
-          </ds-comcol-page-content>
-          <!-- Browse-By Links -->
-          <ds-comcol-page-browse-by [id]="collection.id" [contentType]="collection.type"></ds-comcol-page-browse-by>
-        </header>
-        <ng-container *ngVar="(itemRD$ | async) as itemRD">
-          <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
-            <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
-            <ds-viewable-collection [config]="paginationConfig" [sortConfig]="sortConfig" [objects]="itemRD" [hideGear]="true" (paginationChange)="onPaginationChange($event)">
-            </ds-viewable-collection>
-          </div>
-          <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.recent-submissions' | translate}}"></ds-error>
-          <ds-loading *ngIf="!itemRD || itemRD.isLoading" message="{{'loading.recent-submissions' | translate}}"></ds-loading>
-          <div *ngIf="!itemRD?.isLoading && itemRD?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
-            {{'collection.page.browse.recent.empty' | translate}}
-          </div>
-        </ng-container>
+    <div class="collection-page"
+         *ngVar="(collectionRD$ | async) as collectionRD">
+        <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
+            <div *ngIf="collectionRD?.payload as collection">
+                <header>
+                    <!-- Collection logo -->
+                    <ds-comcol-page-logo *ngIf="logoRD$" 
+                        [logo]="(logoRD$ | async)?.payload" [alternateText]="'Collection Logo'">
+                    </ds-comcol-page-logo>
+                <!-- Collection Name -->
+                <ds-comcol-page-header
+                        [name]="collection.name">
+                </ds-comcol-page-header>
+                    <!-- Introductory text -->
+                <ds-comcol-page-content
+                        [content]="collection.introductoryText"
+                        [hasInnerHtml]="true">
+                </ds-comcol-page-content>
+                <!-- News -->
+                <ds-comcol-page-content
+                        [content]="collection.sidebarText"
+                        [hasInnerHtml]="true"
+                        [title]="'collection.page.news'">
+                </ds-comcol-page-content>
+                <!-- Handle -->
+                <ds-comcol-page-content
+                        [content]="collection.handle"
+                        [hasInnerHtml]="true"
+                        [title]="'collection.page.handle'" >
+                </ds-comcol-page-content>
+                    <!-- Browse-By Links -->
+                <ds-comcol-page-browse-by
+                        [id]="collection.id"
+                        [contentType]="collection.type">
+                </ds-comcol-page-browse-by>
+              </header>
+            <ng-container *ngVar="(itemRD$ | async) as itemRD">
+                <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
+                    <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
+                    <ds-viewable-collection
+                            [config]="paginationConfig"
+                            [sortConfig]="sortConfig"
+                            [objects]="itemRD"
+                            [hideGear]="true"
+                            (paginationChange)="onPaginationChange($event)">
+                    </ds-viewable-collection>
+                </div>
+                <ds-error *ngIf="itemRD?.hasFailed"
+                          message="{{'error.recent-submissions' | translate}}"></ds-error>
+                <ds-loading *ngIf="!itemRD || itemRD.isLoading"
+                            message="{{'loading.recent-submissions' | translate}}"></ds-loading>
+                <div *ngIf="!itemRD?.isLoading && itemRD?.payload?.page.length === 0" class="alert alert-info w-100" role="alert">
+                        {{'collection.page.browse.recent.empty' | translate}}
+                </div>
+            </ng-container>
         <footer>
+          <!-- Licence -->
+              <ds-comcol-page-content
+                      [content]="collection.dcLicense"
+                      [title]="'collection.page.license'">
+              </ds-comcol-page-content>
+
           <!-- Copyright -->
-          <ds-comcol-page-content [content]="collection.copyrightText" [hasInnerHtml]="true">
+          <ds-comcol-page-content 
+                      [content]="collection.copyrightText" 
+                      [hasInnerHtml]="true">
           </ds-comcol-page-content>
         </footer>
       </div>
     </div>
-    <ds-error *ngIf="collectionRD?.hasFailed" message="{{'error.collection' | translate}}"></ds-error>
-    <ds-loading *ngIf="collectionRD?.isLoading" message="{{'loading.collection' | translate}}"></ds-loading>
+        <ds-error *ngIf="collectionRD?.hasFailed" 
+            message="{{'error.collection' | translate}}"></ds-error>
+        <ds-loading *ngIf="collectionRD?.isLoading" 
+            message="{{'loading.collection' | translate}}"></ds-loading>
   </div>
 </div>

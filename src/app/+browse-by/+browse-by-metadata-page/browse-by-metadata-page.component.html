@@ -21,9 +21,17 @@
   </div>
   <div class="browse-by-metadata w-100">
     <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
-        title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + browseId | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
-        [objects$]="(items$ !== undefined)? items$ : browseEntries$" [paginationConfig]="paginationConfig" [sortConfig]="sortConfig" [type]="startsWithType" [startsWithOptions]="startsWithOptions" [enableArrows]="true" (prev)="goPrev()"
-        (next)="goNext()" (pageSizeChange)="pageSizeChange($event)" (sortDirectionChange)="sortDirectionChange($event)">
+      title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + browseId | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
+      [objects$]="(items$ !== undefined)? items$ : browseEntries$"
+      [paginationConfig]="paginationConfig"
+      [sortConfig]="sortConfig"
+      [type]="startsWithType"
+      [startsWithOptions]="startsWithOptions"
+      [enableArrows]="true"
+      (prev)="goPrev()"
+      (next)="goNext()"
+      (pageSizeChange)="pageSizeChange($event)"
+      (sortDirectionChange)="sortDirectionChange($event)">
     </ds-browse-by>
     <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
   </div>
