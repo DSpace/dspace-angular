@@ -7,28 +7,28 @@
 </div>
 <div class="modal-body">
     <ngb-tabset>
-        <ngb-tab title="Search">
+        <ngb-tab [title]="'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + label | translate">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-search-tab
-                        [label]="label"
-                        [itemRD$]="itemRD$"
                         [selection$]="selection$"
                         [listId]="listId"
                         [relationship]="relationship"
                         [repeatable]="repeatable"
+                        (selectObject)="select($event)"
+                        (deselectObject)="deselect($event)"
                         class="d-block pt-3">
                 </ds-dynamic-lookup-relation-search-tab>
             </ng-template>
         </ngb-tab>
-        <ngb-tab title="Selection">
+        <ngb-tab [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-selection-tab
-                        [label]="label"
-                        [itemRD$]="itemRD$"
                         [selection$]="selection$"
                         [listId]="listId"
-                        [relationship]="relationship"
+                        [label]="label"
                         [repeatable]="repeatable"
+                        (selectObject)="select($event)"
+                        (deselectObject)="deselect($event)"
                         class="d-block pt-3">
                 </ds-dynamic-lookup-relation-selection-tab>
             </ng-template>

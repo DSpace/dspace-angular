@@ -11,7 +11,11 @@
                             [scopes]="(scopeListRD$ | async)"
                             [inPlaceSearch]="inPlaceSearch">
             </ds-search-form>
-            <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
+            <div class="row mb-3 mb-md-1">
+                <div class="labels col-sm-9 offset-sm-3">
+                    <ds-search-labels *ngIf="searchEnabled" [inPlaceSearch]="inPlaceSearch"></ds-search-labels>
+                </div>
+            </div>
             <div class="row">
                 <div id="search-body"
                      class="row-offcanvas row-offcanvas-left"
@@ -28,7 +32,7 @@
                             <button (click)="openSidebar()" aria-controls="#search-body"
                                     class="btn btn-outline-primary float-right open-sidebar"><i
                                     class="fas fa-sliders"></i> {{"search.sidebar.open"
-                                | translate}}
+                                    | translate}}
                             </button>
                         </div>
                         <ds-search-results [searchResults]="resultsRD$ | async"

@@ -1,13 +1,9 @@
-<div class="row mb-3 mb-md-1">
-    <div class="labels col-sm-9 offset-sm-3">
-        <ng-container *ngFor="let key of ((appliedFilters | async) | dsObjectKeys)"><!--Do not remove this to prevent uneven spacing
+<ng-container *ngFor="let key of ((appliedFilters | async) | dsObjectKeys)"><!--Do not remove this to prevent uneven spacing
         --><a *ngFor="let values of (appliedFilters | async)[key]"
               class="badge badge-primary mr-1 mb-1 text-capitalize"
               [routerLink]="getSearchLink()"
               [queryParams]="(getRemoveParams(key, values) | async)" queryParamsHandling="merge">
-          {{('search.filters.applied.' + key) | translate}}: {{normalizeFilterValue(values)}}
-          <span> ×</span>
-        </a><!--Do not remove this to prevent uneven spacing
+    {{('search.filters.applied.' + key) | translate}}: {{normalizeFilterValue(values)}}
+    <span> ×</span>
+</a><!--Do not remove this to prevent uneven spacing
         --></ng-container>
-    </div>
-</div>

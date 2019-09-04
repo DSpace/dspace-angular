@@ -5,12 +5,15 @@
     <div class="col-8">
         <form class="input-group mb-3" #queryForm="ngForm"
               (ngSubmit)="search(queryForm.value.query)">
-            <input type="text" class="form-control" name="query" [placeholder]="'submission.sections.describe.relationship-lookup.placeholder' | translate"
+            <input type="text" class="form-control" name="query" [placeholder]="'submission.sections.describe.relationship-lookup.search-tab.placeholder' | translate"
                    [ngModel]="searchQuery">
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit">{{ ('submission.sections.describe.relationship-lookup.search' | translate) }}</button>
+                <button class="btn btn-outline-secondary" type="submit">{{ ('submission.sections.describe.relationship-lookup.search-tab.search' | translate) }}</button>
             </div>
         </form>
+
+        <ds-search-labels [inPlaceSearch]="true"></ds-search-labels>
+
         <div *ngIf="repeatable" class="position-absolute">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -38,7 +41,7 @@
                             class="btn btn-outline-secondary rounded-right">
                             <span class="spinner-border spinner-border-sm" role="status"
                                   aria-hidden="true"></span>
-                        <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.loading' | translate) }}</span>
+                        <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.search-tab.loading' | translate) }}</span>
                     </button>
                     <button id="resultdropdown" type="button"
                             ngbDropdownToggle
@@ -49,10 +52,12 @@
                         <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.toggle-dropdown' | translate) }}</span>
                     </button>
                     <div ngbDropdownMenu aria-labelledby="resultdropdown">
-                        <button class="dropdown-item" (click)="selectPage(resultsRD?.payload?.page)">{{ ('submission.sections.describe.relationship-lookup.select-page' | translate) }}</button>
-                        <button class="dropdown-item" (click)="deselectPage(resultsRD?.payload?.page)">{{ ('submission.sections.describe.relationship-lookup.deselect-page' | translate) }}</button>
-                        <button class="dropdown-item" (click)="selectAll()">{{ ('submission.sections.describe.relationship-lookup.select-all' | translate) }}</button>
-                        <button class="dropdown-item" (click)="deselectAll()">{{ ('submission.sections.describe.relationship-lookup.deselect-all' | translate) }}</button>
+                        <button class="dropdown-item"
+                                (click)="selectPage(resultsRD?.payload?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.select-page' | translate) }}</button>
+                        <button class="dropdown-item"
+                                (click)="deselectPage(resultsRD?.payload?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.deselect-page' | translate) }}</button>
+                        <button class="dropdown-item" (click)="selectAll()">{{ ('submission.sections.describe.relationship-lookup.search-tab.select-all' | translate) }}</button>
+                        <button class="dropdown-item" (click)="deselectAll()">{{ ('submission.sections.describe.relationship-lookup.search-tab.deselect-all' | translate) }}</button>
                     </div>
                 </div>
             </div>
@@ -62,9 +67,8 @@
                            [searchConfig]="this.searchConfig"
                            [selectable]="true"
                            [selectionConfig]="{ repeatable: repeatable, listId: listId }"
-                           (deselectObject)="deselect($event)"
-                           (selectObject)="select($event)"
-        >
+                           (deselectObject)="deselectObject.emit($event)"
+                           (selectObject)="selectObject.emit($event)">
         </ds-search-results>
     </div>
 </div>

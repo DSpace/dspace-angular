@@ -88,6 +88,9 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { RemoveRelationshipAction } from './relation-lookup-modal/relationship.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../app.reducer';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -202,7 +205,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private selectableListService: SelectableListService,
     private itemService: ItemDataService,
     private relationshipService: RelationshipService,
-    private zone: NgZone
+    private zone: NgZone,
+    private store: Store<AppState>
   ) {
     super(componentFactoryResolver, layoutService, validationService);
   }
@@ -279,11 +283,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   removeSelection(object: SearchResult<Item>) {
     this.selectableListService.deselectSingle(this.listId, object);
     this.zone.runOutsideAngular(
-      this.model.workspaceItem.item.pipe(
+      () => this.model.workspaceItem.item.pipe(
         getSucceededRemoteData(),
-        switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getRelationshipByItemsAndLabel(itemRD.payload, object.indexableObject, this.model.relationship.relationshipType)),
-        switchMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
-        take(1)
-      ).subscribe());
+        tap((itemRD: RemoteData<Item>) => this.store.dispatch(new RemoveRelationshipAction(itemRD.payload, object.indexableObject, this.model.relationship.relationshipType)))
+      ).subscribe()
+    );
   }
 }

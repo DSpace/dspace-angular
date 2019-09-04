@@ -162,6 +162,7 @@ import { SearchAuthorityFilterComponent } from './search/search-filters/search-f
 import { DsDynamicDisabledComponent } from './form/builder/ds-dynamic-form-ui/models/disabled/dynamic-disabled.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/selection-tab/dynamic-lookup-relation-selection-tab.component';
+import { PageSizeSelectorComponent } from './page-size-selector/page-size-selector.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -305,6 +306,7 @@ const COMPONENTS = [
   SearchFacetRangeOptionComponent,
   SearchSwitchConfigurationComponent,
   SearchAuthorityFilterComponent,
+  PageSizeSelectorComponent
 ];
 
 const ENTRY_COMPONENTS = [

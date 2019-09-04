@@ -1,14 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Observable } from 'rxjs';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
-import { map, take } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { createSuccessfulRemoteDataObject } from '../../../../../testing/utils';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
+import { Router } from '@angular/router';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { RouteService } from '../../../../../services/route.service';
+import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
+import { size } from 'memory-cache';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',
@@ -24,24 +30,54 @@ import { PaginatedList } from '../../../../../../core/data/paginated-list';
 
 export class DsDynamicLookupRelationSelectionTabComponent {
   @Input() label: string;
-  @Input() relationship: RelationshipOptions;
   @Input() listId: string;
-  @Input() itemRD$;
   @Input() repeatable: boolean;
   @Input() selection$: Observable<ListableObject[]>;
   @Input() selectionRD$: Observable<RemoteData<PaginatedList<ListableObject>>>;
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 5
   });
 
-  constructor() {
+  constructor(private router: Router,
+              private searchConfigService: SearchConfigurationService) {
   }
 
   ngOnInit() {
-    this.selectionRD$ = this.selection$.pipe(
-      take(1),
-      map((selection) => createSuccessfulRemoteDataObject(new PaginatedList({} as any, selection)))
-    );
+    this.resetRoute();
+    this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
+      .pipe(
+        map((options: PaginatedSearchOptions) => options.pagination),
+        switchMap((pagination: PaginationComponentOptions) => {
+          return this.selection$.pipe(
+            take(1),
+            map((selected) => {
+              const offset = (pagination.currentPage - 1) * pagination.pageSize;
+              const end = (offset + pagination.pageSize) > selected.length ? selected.length : offset + pagination.pageSize;
+              const selection = selected.slice(offset, end);
+              const pageInfo = new PageInfo(
+                {
+                  elementsPerPage: pagination.pageSize,
+                  totalElements: selected.length,
+                  currentPage: pagination.currentPage,
+                  totalPages: Math.ceil(selected.length / pagination.pageSize)
+                });
+              return createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, selection))
+            })
+          );
+        })
+      )
+
+  }
+
+
+
+  resetRoute() {
+    this.router.navigate([], {
+      queryParams: Object.assign({}, { page: 1, pageSize: this.initialPagination.pageSize }),
+    });
   }
 }
