@@ -19,9 +19,9 @@ import {APP_BASE_HREF} from '@angular/common';
 import {HostWindowService} from '../host-window.service';
 import {HostWindowServiceStub} from '../testing/host-window-service-stub';
 import {RouterStub} from '../testing/router-stub';
-import {NavigationEnd, Router} from '@angular/router';
-import {Observable, of as observableOf} from 'rxjs';
-import {RouterEventsStub} from '../testing/router-events-stub';
+import {Router} from '@angular/router';
+import {RouteService} from '../services/route.service';
+import {routeServiceStub} from '../testing/route-service-stub';
 
 describe('LogInComponent', () => {
 
@@ -58,6 +58,7 @@ describe('LogInComponent', () => {
         {provide: AuthService, useClass: AuthServiceStub},
         {provide: APP_BASE_HREF, useValue: '/'},
         {provide: Router, useClass: RouterStub},
+        {provide: RouteService, useValue: routeServiceStub },
         {provide: HostWindowService, useValue: new HostWindowServiceStub(900) }
       ],
       schemas: [
@@ -164,11 +165,6 @@ describe('LogInComponent on small screen', () => {
   let page: Page;
   let user: EPerson;
 
-  const navEvents = observableOf(
-    new NavigationEnd(0, 'http://localhost:3000/home', 'http://localhost:3000/home'),
-    new NavigationEnd(1, 'http://localhost:3000/login', 'http://localhost:3000/login')
-  );
-
   const authState = {
     authenticated: false,
     loaded: false,
@@ -196,7 +192,8 @@ describe('LogInComponent on small screen', () => {
       providers: [
         {provide: AuthService, useClass: AuthServiceStub},
         {provide: APP_BASE_HREF, useValue: '/'},
-        {provide: Router, useValue: new RouterEventsStub(navEvents)},
+        {provide: Router, useClass: RouterStub},
+        {provide: RouteService, useValue: routeServiceStub },
         {provide: HostWindowService, useValue: new HostWindowServiceStub(300) }
       ],
       schemas: [
@@ -231,12 +228,13 @@ describe('LogInComponent on small screen', () => {
   }));
 
   it('should set the redirect url on init',  () => {
-
     const authService: AuthService = TestBed.get(AuthService);
     spyOn(authService, 'setRedirectUrl');
-
     fixture.detectChanges();
-    expect(authService.setRedirectUrl).toHaveBeenCalledWith('http://localhost:3000/home');
+    // set FormControl values
+    component.form.controls.email.setValue('user');
+    component.form.controls.password.setValue('password');
+    expect(authService.setRedirectUrl).toHaveBeenCalledWith('collection/123');
 
   });
 

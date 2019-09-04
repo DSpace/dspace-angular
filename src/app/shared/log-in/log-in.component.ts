@@ -1,9 +1,9 @@
-import {filter, map, pairwise, take, takeWhile, tap} from 'rxjs/operators';
+import {filter, map, pairwise, take, takeUntil, takeWhile, tap} from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction
@@ -17,11 +17,12 @@ import {
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
 
-import {isEmpty, isNotEmpty} from '../empty.util';
+import {isNotEmpty} from '../empty.util';
 import { fadeOut } from '../animations/fade';
 import {AuthService, LOGIN_ROUTE} from '../../core/auth/auth.service';
-import {NavigationEnd, Router, RoutesRecognized} from '@angular/router';
+import {Router} from '@angular/router';
 import {HostWindowService} from '../host-window.service';
+import {RouteService} from '../services/route.service';
 
 /**
  * /users/sign-in
@@ -89,6 +90,7 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @constructor
    * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
+   * @param {RouteService} routeService
    * @param {Router} router
    * @param {HostWindowService} windowService
    * @param {Store<State>} store
@@ -96,6 +98,7 @@ export class LogInComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
+    private routeService: RouteService,
     private router: Router,
     private windowService: HostWindowService,
     private store: Store<CoreState>
@@ -106,18 +109,19 @@ export class LogInComponent implements OnDestroy, OnInit {
    * Lifecycle hook that is called after data-bound properties of a directive are initialized.
    * @method ngOnInit
    */
-  public ngOnInit() {    // set isAuthenticated
+  public ngOnInit() {
+    // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
     // for mobile login, set the redirect url to the previous route
     this.windowService.isXs().pipe(take(1))
       .subscribe((isMobile) => {
         if (isMobile) {
-          this.router.events.pipe(
-            filter((e: any) => e instanceof NavigationEnd),
-            pairwise()
-          ).subscribe((e: any) => {
-            this.setRedirectUrl(e[0].urlAfterRedirects);
+          this.routeService.getHistory().pipe(
+            take(1)
+          ).subscribe((history) => {
+            const previousIndex = history.length - 2;
+            this.setRedirectUrl(history[previousIndex]);
           });
         }
       });
@@ -211,7 +215,7 @@ export class LogInComponent implements OnDestroy, OnInit {
   }
 
   /**
-   * Sets the redirect url if not LOGIN_ROUTE
+   * Sets the redirect url if not equal to LOGIN_ROUTE
    * @param url
    */
   private setRedirectUrl(url: string) {
