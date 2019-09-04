@@ -1,5 +1,5 @@
 import {filter, map, pairwise, take, takeUntil, takeWhile, tap} from 'rxjs/operators';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
@@ -86,13 +86,14 @@ export class LogInComponent implements OnDestroy, OnInit {
 
   private redirectUrl = LOGIN_ROUTE;
 
+  @Input() isStandalonePage: boolean;
+
   /**
    * @constructor
    * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
    * @param {RouteService} routeService
    * @param {Router} router
-   * @param {HostWindowService} windowService
    * @param {Store<State>} store
    */
   constructor(
@@ -100,7 +101,6 @@ export class LogInComponent implements OnDestroy, OnInit {
     private formBuilder: FormBuilder,
     private routeService: RouteService,
     private router: Router,
-    private windowService: HostWindowService,
     private store: Store<CoreState>
   ) {
   }
@@ -114,17 +114,14 @@ export class LogInComponent implements OnDestroy, OnInit {
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
     // for mobile login, set the redirect url to the previous route
-    this.windowService.isXs().pipe(take(1))
-      .subscribe((isMobile) => {
-        if (isMobile) {
-          this.routeService.getHistory().pipe(
-            take(1)
-          ).subscribe((history) => {
-            const previousIndex = history.length - 2;
-            this.setRedirectUrl(history[previousIndex]);
-          });
-        }
+    if (this.isStandalonePage) {
+      this.routeService.getHistory().pipe(
+        take(1)
+      ).subscribe((history) => {
+        const previousIndex = history.length - 2;
+        this.setRedirectUrl(history[previousIndex]);
       });
+    }
 
     // set formGroup
     this.form = this.formBuilder.group({

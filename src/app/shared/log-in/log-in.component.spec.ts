@@ -58,8 +58,7 @@ describe('LogInComponent', () => {
         {provide: AuthService, useClass: AuthServiceStub},
         {provide: APP_BASE_HREF, useValue: '/'},
         {provide: Router, useClass: RouterStub},
-        {provide: RouteService, useValue: routeServiceStub },
-        {provide: HostWindowService, useValue: new HostWindowServiceStub(900) }
+        {provide: RouteService, useValue: routeServiceStub }
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -151,6 +150,8 @@ describe('LogInComponent', () => {
     const authService: AuthService = TestBed.get(AuthService);
     spyOn(authService, 'setRedirectUrl');
 
+    component.isStandalonePage = false;
+
     fixture.detectChanges();
     expect(authService.setRedirectUrl).not.toHaveBeenCalledWith();
 
@@ -193,8 +194,7 @@ describe('LogInComponent on small screen', () => {
         {provide: AuthService, useClass: AuthServiceStub},
         {provide: APP_BASE_HREF, useValue: '/'},
         {provide: Router, useClass: RouterStub},
-        {provide: RouteService, useValue: routeServiceStub },
-        {provide: HostWindowService, useValue: new HostWindowServiceStub(300) }
+        {provide: RouteService, useValue: routeServiceStub }
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -230,6 +230,7 @@ describe('LogInComponent on small screen', () => {
   it('should set the redirect url on init',  () => {
     const authService: AuthService = TestBed.get(AuthService);
     spyOn(authService, 'setRedirectUrl');
+    component.isStandalonePage = true;
     fixture.detectChanges();
     // set FormControl values
     component.form.controls.email.setValue('user');
