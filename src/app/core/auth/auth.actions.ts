@@ -11,6 +11,7 @@ import { AuthMethodModel } from './models/auth-method.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
+  START_SHIBBOLETH_AUTHENTICATION: type('dspace/auth/START_SHIBBOLETH_AUTHENTICATION'),
   GET_JWT_AFTER_SHIBB_LOGIN: type('dspace/auth/GET_JWT_AFTER_SHIBB_LOGIN'),
   AUTHENTICATE_ERROR: type('dspace/auth/AUTHENTICATE_ERROR'),
   AUTHENTICATE_SUCCESS: type('dspace/auth/AUTHENTICATE_SUCCESS'),
@@ -54,6 +55,20 @@ export class AuthenticateAction implements Action {
 
   constructor(email: string, password: string) {
     this.payload = {email, password};
+  }
+}
+
+/**
+ * Authenticate.
+ * @class StartShibbolethAuthenticationAction
+ * @implements {Action}
+ */
+export class StartShibbolethAuthenticationAction implements Action {
+  public type: string = AuthActionTypes.START_SHIBBOLETH_AUTHENTICATION;
+  payload: AuthMethodModel;
+
+  constructor(authMethodModel: AuthMethodModel) {
+    this.payload = authMethodModel;
   }
 }
 

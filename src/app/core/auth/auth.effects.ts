@@ -30,7 +30,7 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  GetJWTafterShibbLoginAction
+  GetJWTafterShibbLoginAction, StartShibbolethAuthenticationAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -48,15 +48,31 @@ export class AuthEffects {
    */
   @Effect()
   public authenticate$: Observable<Action> = this.actions$.pipe(
-      ofType(AuthActionTypes.AUTHENTICATE),
-      switchMap((action: AuthenticateAction) => {
-        return this.authService.authenticate(action.payload.email, action.payload.password).pipe(
-          take(1),
-          map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
-          catchError((error) => observableOf(new AuthenticationErrorAction(error)))
-        );
-      })
-    );
+    ofType(AuthActionTypes.AUTHENTICATE),
+    switchMap((action: AuthenticateAction) => {
+      return this.authService.authenticate(action.payload.email, action.payload.password).pipe(
+        take(1),
+        map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
+        catchError((error) => observableOf(new AuthenticationErrorAction(error)))
+      );
+    })
+  );
+
+  /**
+   * Authenticate user.
+   * @method authenticate
+   */
+/*  @Effect()
+  public shibbolethAuthenticate$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActionTypes.START_SHIBBOLETH_AUTHENTICATION),
+    switchMap((action: StartShibbolethAuthenticationAction) => {
+      return this.authService.authenticate(action.payload.location).pipe(
+        take(1),
+        map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
+        catchError((error) => observableOf(new AuthenticationErrorAction(error)))
+      );
+    })
+  );*/
 
   /**
    * Shib Login.

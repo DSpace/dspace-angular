@@ -1,11 +1,13 @@
-import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ContentChild, Injector, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { rendersAuthMethodType } from '../authMethods-decorator';
 import { AuthMethodModel } from '../../../core/auth/models/auth-method.model';
-import { getAuthenticationMethods } from '../../../core/auth/selectors';
-import { Store } from '@ngrx/store';
+import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } from '../../../core/auth/selectors';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '../../../app.reducer';
 import { Observable } from 'rxjs';
 import { AuthMethodType } from '../authMethods-type';
+import { CoreState } from '../../../core/core.reducers';
+import { ShibbolethComponent } from '../../../+login-page/shibbolethTargetPage/shibboleth.component';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -30,7 +32,7 @@ export class LoginContainerComponent implements OnInit {
    *
    * @param {Injector} injector
    */
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, private store: Store<CoreState>) {
   }
 
   /**
@@ -44,12 +46,20 @@ export class LoginContainerComponent implements OnInit {
       parent: this.injector
     });
 
-     }
+
+
+  }
 
   /**
-   * Find the correct component based on the authMethod's type
+   * Find the correct component based on the AuthMethod's type
    */
   getAuthMethodContent(): string {
     return rendersAuthMethodType(this.authMethodModel.authMethodType)
   }
+
+  startShibbolethAuthentication($event) {
+    console.log('startShibbolethAuthentication() was called with event: ', $event);
+    // this.store.dispatch(new ShibbolethAuthenticateAction());
+  }
+
 }

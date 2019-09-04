@@ -1,3 +1,4 @@
+<ds-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-loading>
 <ng-container *ngFor="let authMethodModel of (authMethodData | async)">
   <ds-login-container [authMethodModel]="authMethodModel"></ds-login-container>
 </ng-container>
