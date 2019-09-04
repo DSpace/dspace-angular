@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TypedItemSearchResultListElementComponent } from './typed-item-search-result-list-element.component';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -12,10 +11,10 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { createRelationshipsObservable } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject$ } from '../../../testing/utils';
+import { TypedItemSearchResultGridElementComponent } from './typed-item-search-result-grid-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
@@ -24,27 +23,27 @@ const mockSearchResult = {
   hitHighlights: new MetadataMap()
 } as ItemSearchResult;
 
-describe('TypedItemSearchResultListElementComponent', () => {
-  let comp: TypedItemSearchResultListElementComponent;
-  let fixture: ComponentFixture<TypedItemSearchResultListElementComponent>;
+describe('TypedItemSearchResultGridElementComponent', () => {
+  let comp: TypedItemSearchResultGridElementComponent;
+  let fixture: ComponentFixture<TypedItemSearchResultGridElementComponent>;
 
   describe('when injecting an Item', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        declarations: [TypedItemSearchResultListElementComponent, TruncatePipe],
+        declarations: [TypedItemSearchResultGridElementComponent, TruncatePipe],
         providers: [
           {provide: TruncatableService, useValue: {}},
           {provide: ITEM, useValue: mockItem}
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(TypedItemSearchResultListElementComponent, {
+      }).overrideComponent(TypedItemSearchResultGridElementComponent, {
         set: {changeDetection: ChangeDetectionStrategy.Default}
       }).compileComponents();
     }));
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TypedItemSearchResultListElementComponent);
+      fixture = TestBed.createComponent(TypedItemSearchResultGridElementComponent);
       comp = fixture.componentInstance;
     }));
 
@@ -58,20 +57,20 @@ describe('TypedItemSearchResultListElementComponent', () => {
   describe('when injecting an ItemSearchResult', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        declarations: [TypedItemSearchResultListElementComponent, TruncatePipe],
+        declarations: [TypedItemSearchResultGridElementComponent, TruncatePipe],
         providers: [
           {provide: TruncatableService, useValue: {}},
           {provide: ITEM, useValue: mockSearchResult}
         ],
 
         schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(TypedItemSearchResultListElementComponent, {
+      }).overrideComponent(TypedItemSearchResultGridElementComponent, {
         set: {changeDetection: ChangeDetectionStrategy.Default}
       }).compileComponents();
     }));
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(TypedItemSearchResultListElementComponent);
+      fixture = TestBed.createComponent(TypedItemSearchResultGridElementComponent);
       comp = fixture.componentInstance;
     }));
 
