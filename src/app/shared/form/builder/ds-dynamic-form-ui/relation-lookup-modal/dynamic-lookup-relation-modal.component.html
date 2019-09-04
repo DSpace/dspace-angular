@@ -20,6 +20,19 @@
                 </ds-dynamic-lookup-relation-search-tab>
             </ng-template>
         </ngb-tab>
+        <ngb-tab title="Selection">
+            <ng-template ngbTabContent>
+                <ds-dynamic-lookup-relation-selection-tab
+                        [label]="label"
+                        [itemRD$]="itemRD$"
+                        [selection$]="selection$"
+                        [listId]="listId"
+                        [relationship]="relationship"
+                        [repeatable]="repeatable"
+                        class="d-block pt-3">
+                </ds-dynamic-lookup-relation-selection-tab>
+            </ng-template>
+        </ngb-tab>
     </ngb-tabset>
 
 </div>

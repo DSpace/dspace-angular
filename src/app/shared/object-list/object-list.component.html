@@ -10,7 +10,7 @@
         (sortDirectionChange)="onSortDirectionChange($event)"
         (sortFieldChange)="onSortFieldChange($event)"
         (paginationChange)="onPaginationChange($event)">
-    <ul *ngIf="objects?.hasSucceeded" class="list-unstyled">
+    <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
         <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4" [class.border-bottom]="hasBorder && !last">
           <span *ngIf="selectable">
                 <ng-container *ngVar="selectionService?.isObjectSelected(selectionConfig?.listId, object) | async as checked">

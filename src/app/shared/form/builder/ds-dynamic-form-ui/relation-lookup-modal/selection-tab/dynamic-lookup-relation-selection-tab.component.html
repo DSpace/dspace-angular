@@ -1,4 +1,10 @@
-<ds-search-results [searchResults]="selection$ | async"
+<ds-search-sidebar class="col-4" id="search-sidebar"
+                   [resultCount]=""
+                   [inPlaceSearch]="true" [showViewModes]="false"></ds-search-sidebar>
+<div class="col-8">
+<ds-viewable-collection [objects]="selectionRD$ | async"
                    [selectable]="true"
                    [selectionConfig]="{ repeatable: repeatable, listId: listId }"
-                   ></ds-search-results>
+                        [config]="initialPagination"
+                   ></ds-viewable-collection>
+</div>
