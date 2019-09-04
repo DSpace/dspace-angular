@@ -1,4 +1,4 @@
-import {filter, map, take, takeWhile, tap} from 'rxjs/operators';
+import {filter, map, pairwise, take, takeWhile, tap} from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -19,8 +19,9 @@ import { CoreState } from '../../core/core.reducers';
 
 import {isEmpty, isNotEmpty} from '../empty.util';
 import { fadeOut } from '../animations/fade';
-import { AuthService } from '../../core/auth/auth.service';
-import {Router} from '@angular/router';
+import {AuthService, LOGIN_ROUTE} from '../../core/auth/auth.service';
+import {NavigationEnd, Router, RoutesRecognized} from '@angular/router';
+import {HostWindowService} from '../host-window.service';
 
 /**
  * /users/sign-in
@@ -82,17 +83,21 @@ export class LogInComponent implements OnDestroy, OnInit {
    */
   private alive = true;
 
+  private redirectUrl = LOGIN_ROUTE;
+
   /**
    * @constructor
    * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
    * @param {Router} router
+   * @param {HostWindowService} windowService
    * @param {Store<State>} store
    */
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private windowService: HostWindowService,
     private store: Store<CoreState>
   ) {
   }
@@ -101,9 +106,21 @@ export class LogInComponent implements OnDestroy, OnInit {
    * Lifecycle hook that is called after data-bound properties of a directive are initialized.
    * @method ngOnInit
    */
-  public ngOnInit() {
-    // set isAuthenticated
+  public ngOnInit() {    // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
+
+    // for mobile login, set the redirect url to the previous route
+    this.windowService.isXs().pipe(take(1))
+      .subscribe((isMobile) => {
+        if (isMobile) {
+          this.router.events.pipe(
+            filter((e: any) => e instanceof NavigationEnd),
+            pairwise()
+          ).subscribe((e: any) => {
+            this.setRedirectUrl(e[0].urlAfterRedirects);
+          });
+        }
+      });
 
     // set formGroup
     this.form = this.formBuilder.group({
@@ -185,17 +202,21 @@ export class LogInComponent implements OnDestroy, OnInit {
     email.trim();
     password.trim();
 
-    this.authService.getRedirectUrl().pipe(
-      take(1)).
-      subscribe((r) => {
-        // Set the redirect url if none exists.
-        if (isEmpty(r)) {
-          this.authService.setRedirectUrl(this.router.url)
-        }
-        // dispatch AuthenticationAction
-        this.store.dispatch(new AuthenticateAction(email, password));
-        // clear form
-        this.form.reset();
-      });
+    this.setRedirectUrl(this.router.url);
+    // dispatch AuthenticationAction
+    this.store.dispatch(new AuthenticateAction(email, password));
+    // clear form
+    this.form.reset();
+
+  }
+
+  /**
+   * Sets the redirect url if not LOGIN_ROUTE
+   * @param url
+   */
+  private setRedirectUrl(url: string) {
+    if (url !== this.redirectUrl) {
+      this.authService.setRedirectUrl(url)
+    }
   }
 }

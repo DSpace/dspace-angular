@@ -16,6 +16,12 @@ import { AppState } from '../../app.reducer';
 import {AppRoutingModule} from '../../app-routing.module';
 import {PageNotFoundComponent} from '../../pagenotfound/pagenotfound.component';
 import {APP_BASE_HREF} from '@angular/common';
+import {HostWindowService} from '../host-window.service';
+import {HostWindowServiceStub} from '../testing/host-window-service-stub';
+import {RouterStub} from '../testing/router-stub';
+import {NavigationEnd, Router} from '@angular/router';
+import {Observable, of as observableOf} from 'rxjs';
+import {RouterEventsStub} from '../testing/router-events-stub';
 
 describe('LogInComponent', () => {
 
@@ -50,7 +56,9 @@ describe('LogInComponent', () => {
       ],
       providers: [
         {provide: AuthService, useClass: AuthServiceStub},
-        {provide: APP_BASE_HREF, useValue: '/'}
+        {provide: APP_BASE_HREF, useValue: '/'},
+        {provide: Router, useClass: RouterStub},
+        {provide: HostWindowService, useValue: new HostWindowServiceStub(900) }
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -118,11 +126,13 @@ describe('LogInComponent', () => {
     expect(authService.setRedirectUrl).toHaveBeenCalled();
   });
 
-  it('should not set the redirect url because one already exists',  () => {
+  it('should not set the redirect url to /login',  () => {
     fixture.detectChanges();
 
+    const router: Router = TestBed.get(Router);
+    router.navigateByUrl('/login')
+
     const authService: AuthService = TestBed.get(AuthService);
-    authService.setRedirectUrl('/submit')
 
     // set FormControl values
     component.form.controls.email.setValue('user');
@@ -133,6 +143,101 @@ describe('LogInComponent', () => {
     component.submit();
 
     expect(authService.setRedirectUrl).not.toHaveBeenCalled();
+  });
+
+  it('should not set the redirect url on init',  () => {
+
+    const authService: AuthService = TestBed.get(AuthService);
+    spyOn(authService, 'setRedirectUrl');
+
+    fixture.detectChanges();
+    expect(authService.setRedirectUrl).not.toHaveBeenCalledWith();
+
+  });
+
+});
+
+describe('LogInComponent on small screen', () => {
+
+  let component: LogInComponent;
+  let fixture: ComponentFixture<LogInComponent>;
+  let page: Page;
+  let user: EPerson;
+
+  const navEvents = observableOf(
+    new NavigationEnd(0, 'http://localhost:3000/home', 'http://localhost:3000/home'),
+    new NavigationEnd(1, 'http://localhost:3000/login', 'http://localhost:3000/login')
+  );
+
+  const authState = {
+    authenticated: false,
+    loaded: false,
+    loading: false,
+  };
+
+  beforeEach(() => {
+    user = EPersonMock;
+  });
+
+  beforeEach(async(() => {
+    // refine the test module by declaring the test component
+    TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        StoreModule.forRoot(authReducer),
+        AppRoutingModule,
+        TranslateModule.forRoot()
+      ],
+      declarations: [
+        LogInComponent,
+        PageNotFoundComponent
+      ],
+      providers: [
+        {provide: AuthService, useClass: AuthServiceStub},
+        {provide: APP_BASE_HREF, useValue: '/'},
+        {provide: Router, useValue: new RouterEventsStub(navEvents)},
+        {provide: HostWindowService, useValue: new HostWindowServiceStub(300) }
+      ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
+    })
+      .compileComponents();
+
+  }));
+
+  beforeEach(inject([Store], (store: Store<AppState>) => {
+    store
+      .subscribe((state) => {
+        (state as any).core = Object.create({});
+        (state as any).core.auth = authState;
+      });
+
+    // create component and test fixture
+    fixture = TestBed.createComponent(LogInComponent);
+
+    // get test component from the fixture
+    component = fixture.componentInstance;
+
+    // create page
+    page = new Page(component, fixture);
+
+    // verify the fixture is stable (no pending tasks)
+    fixture.whenStable().then(() => {
+      page.addPageElements();
+    });
+
+  }));
+
+  it('should set the redirect url on init',  () => {
+
+    const authService: AuthService = TestBed.get(AuthService);
+    spyOn(authService, 'setRedirectUrl');
+
+    fixture.detectChanges();
+    expect(authService.setRedirectUrl).toHaveBeenCalledWith('http://localhost:3000/home');
+
   });
 
 });
