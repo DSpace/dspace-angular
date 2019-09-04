@@ -49,7 +49,7 @@ export class DynamicShibbolethComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('injectedAuthMethodModel', this.injectedAuthMethodModel);
+    // console.log('injectedAuthMethodModel', this.injectedAuthMethodModel);
     // set formGroup
     this.shibbForm = this.formBuilder.group({
       shibbButton: [''],

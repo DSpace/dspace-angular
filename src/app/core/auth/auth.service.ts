@@ -115,6 +115,19 @@ export class AuthService {
 
   }
 
+  shibbolethAuthenticate(location: string) {
+    // implement a call to the backend here
+    console.log('location: ', location);
+    return this.authRequestService.postToEndpoint('login').pipe(
+      map((status: AuthStatus) => {
+        if (status.authenticated) {
+          return status;
+        } else {
+          throw(new Error('Shibboleth login failed'));
+        }
+      }))
+  }
+
   public startShibbAuth():  Observable<AuthStatus> {
     console.log('startShibAuth() was called');
     // Attempt authenticating the user after the shibboleth/saml response reached the backend

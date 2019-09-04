@@ -62,17 +62,17 @@ export class AuthEffects {
    * Authenticate user.
    * @method authenticate
    */
-/*  @Effect()
+  @Effect()
   public shibbolethAuthenticate$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.START_SHIBBOLETH_AUTHENTICATION),
     switchMap((action: StartShibbolethAuthenticationAction) => {
-      return this.authService.authenticate(action.payload.location).pipe(
+      return this.authService.shibbolethAuthenticate(action.payload.location).pipe(
         take(1),
         map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
         catchError((error) => observableOf(new AuthenticationErrorAction(error)))
       );
     })
-  );*/
+  );
 
   /**
    * Shib Login.

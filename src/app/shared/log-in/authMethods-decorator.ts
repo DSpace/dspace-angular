@@ -1,6 +1,7 @@
 import { AuthMethodType } from './authMethods-type';
 
 const authMethodsMap = new Map();
+
 export function renderAuthMethodFor(authMethodType: AuthMethodType) {
   return function decorator(objectElement: any) {
     if (!objectElement) {
