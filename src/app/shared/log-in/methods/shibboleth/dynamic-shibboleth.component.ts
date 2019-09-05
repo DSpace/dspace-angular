@@ -8,6 +8,7 @@ import { CoreState } from '../../../../core/core.reducers';
 import { StartShibbolethAuthenticationAction } from '../../../../core/auth/auth.actions';
 import { Observable } from 'rxjs';
 import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'ds-dynamic-shibboleth',
@@ -30,7 +31,7 @@ export class DynamicShibbolethComponent implements OnInit {
    * Whether user is authenticated.
    * @type {Observable<string>}
    */
-  public isAuthenticated: Observable<boolean> ;
+  public isAuthenticated: Observable<boolean>;
 
   /**
    * The authentication form.
@@ -45,7 +46,6 @@ export class DynamicShibbolethComponent implements OnInit {
               private formBuilder: FormBuilder,
               private store: Store<CoreState>) {
     this.authMethodModel = injectedAuthMethodModel;
-    // this.buttonHref = ('https://fis.tiss.tuwien.ac.at' + this.authMethodModel.location + '/shibboleth')
   }
 
   ngOnInit(): void {

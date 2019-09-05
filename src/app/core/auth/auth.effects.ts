@@ -62,6 +62,7 @@ export class AuthEffects {
    * Authenticate user.
    * @method authenticate
    */
+/*
   @Effect()
   public shibbolethAuthenticate$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.START_SHIBBOLETH_AUTHENTICATION),
@@ -73,6 +74,7 @@ export class AuthEffects {
       );
     })
   );
+*/
 
   /**
    * Shib Login.

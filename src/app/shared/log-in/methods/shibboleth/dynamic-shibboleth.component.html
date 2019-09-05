@@ -1,7 +1,10 @@
-<form *ngIf="!(loading | async) && !(isAuthenticated | async)"class="form-login px-4 py-3" (ngSubmit)="submit()"
+<form *ngIf="!(loading | async) && !(isAuthenticated | async)" class="form-login px-4 py-3" (ngSubmit)="submit()"
       [formGroup]="shibbForm" novalidate>
   <button class="btn btn-lg btn-primary btn-block mt-3" type="submit"
-          [disabled]="!shibbForm.valid">{{"login.shibbForm.submit" | translate}}</button>
+          [disabled]="!shibbForm.valid"
+  >{{"login.shibbForm.submit" | translate}}</button>
+
+
 </form>
 
 
