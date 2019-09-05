@@ -22,7 +22,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
     super(listableObject);
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
-    this.isCollapsed$ = this.isCollapsed();
+      this.isCollapsed$ = this.isCollapsed();
     }
   }
 
