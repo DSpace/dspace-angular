@@ -61,27 +61,24 @@
 <div class="relationships-item-page">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-4">
-              <ds-related-items
-                [parentItem]="item"
-                [relationType]="'isProjectOfPublication'"
-                [label]="'relationships.isProjectOf' | translate">
-              </ds-related-items>
-            </div>
-            <div class="col-12 col-md-4">
-              <ds-related-items
-                [parentItem]="item"
-                [relationType]="'isOrgUnitOfPublication'"
-                [label]="'relationships.isOrgUnitOf' | translate">
-              </ds-related-items>
-            </div>
-            <div class="col-12 col-md-4">
-              <ds-related-items
-                [parentItem]="item"
-                [relationType]="'isJournalIssueOfPublication'"
-                [label]="'relationships.isJournalIssueOf' | translate">
-              </ds-related-items>
-            </div>
+            <ds-related-items
+              class="col-12 col-md-4"
+              [parentItem]="item"
+              [relationType]="'isProjectOfPublication'"
+              [label]="'relationships.isProjectOf' | translate">
+            </ds-related-items>
+            <ds-related-items
+              class="col-12 col-md-4"
+              [parentItem]="item"
+              [relationType]="'isOrgUnitOfPublication'"
+              [label]="'relationships.isOrgUnitOf' | translate">
+            </ds-related-items>
+            <ds-related-items
+              class="col-12 col-md-4"
+              [parentItem]="item"
+              [relationType]="'isJournalIssueOfPublication'"
+              [label]="'relationships.isJournalIssueOf' | translate">
+            </ds-related-items>
         </div>
     </div>
 </div>

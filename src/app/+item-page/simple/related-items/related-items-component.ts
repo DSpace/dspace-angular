@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ItemViewMode } from '../../../shared/items/item-type-decorator';
 import { Observable } from 'rxjs/internal/Observable';
@@ -6,6 +6,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { FindAllOptions } from '../../../core/data/request.models';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { hasNoValue, hasValueOperator } from '../../../shared/empty.util';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'ds-related-items',
@@ -16,7 +19,7 @@ import { FindAllOptions } from '../../../core/data/request.models';
  * This component is used for displaying relations between items
  * It expects a parent item and relationship type, as well as a label to display on top
  */
-export class RelatedItemsComponent implements OnInit {
+export class RelatedItemsComponent implements OnInit, OnDestroy {
   /**
    * The parent of the list of related items to display
    */
@@ -40,6 +43,11 @@ export class RelatedItemsComponent implements OnInit {
   @Input() label: string;
 
   /**
+   * Completely hide the component until there's at least one item visible
+   */
+  @HostBinding('class.d-none') hidden = true;
+
+  /**
    * The list of related items
    */
   items$: Observable<RemoteData<PaginatedList<Item>>>;
@@ -60,11 +68,19 @@ export class RelatedItemsComponent implements OnInit {
    */
   showingAll = false;
 
+  /**
+   * Subscription on items used to update the "hidden" property of this component
+   */
+  itemSub: Subscription;
+
   constructor(public relationshipService: RelationshipService) {
   }
 
   ngOnInit(): void {
     this.items$ = this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, this.options);
+    this.itemSub = this.items$.subscribe((itemsRD: RemoteData<PaginatedList<Item>>) => {
+      this.hidden = !(itemsRD.hasSucceeded && itemsRD.payload && itemsRD.payload.page.length > 0);
+    });
   }
 
   /**
@@ -81,5 +97,14 @@ export class RelatedItemsComponent implements OnInit {
   viewLess() {
     this.items$ = this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, this.options);
     this.showingAll = false;
+  }
+
+  /**
+   * Unsubscribe from the item subscription
+   */
+  ngOnDestroy(): void {
+    if (this.itemSub) {
+      this.itemSub.unsubscribe();
+    }
   }
 }
