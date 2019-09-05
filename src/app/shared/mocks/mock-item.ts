@@ -1,6 +1,9 @@
 import {of as observableOf,  Observable } from 'rxjs';
 
 import { Item } from '../../core/shared/item.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 /* tslint:disable:no-shadowed-variable */
 export const MockItem: Item = Object.assign(new Item(), {
@@ -9,12 +12,19 @@ export const MockItem: Item = Object.assign(new Item(), {
   isArchived: true,
   isDiscoverable: true,
   isWithdrawn: false,
-  bitstreams: observableOf({
+  bitstreams: observableOf(Object.assign({
     self: 'dspace-angular://aggregated/object/1507836003548',
     requestPending: false,
     responsePending: false,
     isSuccessful: true,
     errorMessage: '',
+    state: '',
+    error: undefined,
+    isRequestPending: false,
+    isResponsePending: false,
+    isLoading: false,
+    hasFailed: false,
+    hasSucceeded: true,
     statusCode: '202',
     pageInfo: {},
     payload: {
@@ -97,7 +107,7 @@ export const MockItem: Item = Object.assign(new Item(), {
         }
       ]
     }
-  }),
+  }) as RemoteData<PaginatedList<Bitstream>>),
   self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   id: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   uuid: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
