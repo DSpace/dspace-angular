@@ -23,6 +23,10 @@ import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 import { menusReducer, MenusState } from './shared/menu/menu.reducer';
 import { historyReducer, HistoryState } from './shared/history/history.reducer';
+import {
+  bitstreamFormatReducer,
+  BitstreamFormatRegistryState
+} from './+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { ObjectSelectionListState, objectSelectionReducer } from './shared/object-select/object-select.reducer';
 
 export interface AppState {
@@ -31,6 +35,7 @@ export interface AppState {
   hostWindow: HostWindowState;
   forms: FormState;
   metadataRegistry: MetadataRegistryState;
+  bitstreamFormats: BitstreamFormatRegistryState;
   notifications: NotificationsState;
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
@@ -46,6 +51,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   hostWindow: hostWindowReducer,
   forms: formReducer,
   metadataRegistry: metadataRegistryReducer,
+  bitstreamFormats: bitstreamFormatReducer,
   notifications: notificationsReducer,
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,

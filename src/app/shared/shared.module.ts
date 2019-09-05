@@ -140,6 +140,9 @@ import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/clai
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import { ItemSelectComponent } from './object-select/item-select/item-select.component';
 import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
+import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
+import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
+import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -258,8 +261,10 @@ const COMPONENTS = [
   CollectionSearchResultListElementComponent,
   ItemSearchResultListElementComponent,
   TypedItemSearchResultListElementComponent,
+  TypedItemSearchResultGridElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent,
+  ItemTypeBadgeComponent,
   ItemSelectComponent,
   CollectionSelectComponent
 ];
@@ -279,6 +284,7 @@ const ENTRY_COMPONENTS = [
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
   PublicationListElementComponent,
+  PublicationGridElementComponent,
   BrowseEntryListElementComponent,
   MyDSpaceResultDetailElementComponent,
   SearchResultGridElementComponent,
