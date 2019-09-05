@@ -8,6 +8,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
+import { ItemViewMode } from '../../../items/item-type-decorator';
 
 let itemSearchResultGridElementComponent: ItemSearchResultGridElementComponent;
 let fixture: ComponentFixture<ItemSearchResultGridElementComponent>;
@@ -16,41 +17,17 @@ const truncatableServiceStub: any = {
   isCollapsed: (id: number) => observableOf(true),
 };
 
-const mockItemWithAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-mockItemWithAuthorAndDate.hitHighlights = {};
-mockItemWithAuthorAndDate.indexableObject = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.contributor.author': [
-      {
-        language: 'en_US',
-        value: 'Smith, Donald'
-      }
-    ],
-    'dc.date.issued': [
-      {
-        language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
-});
+const type = 'authorOfPublication';
 
-const mockItemWithoutAuthorAndDate: ItemSearchResult = new ItemSearchResult();
-mockItemWithoutAuthorAndDate.hitHighlights = {};
-mockItemWithoutAuthorAndDate.indexableObject = Object.assign(new Item(), {
+const mockItemWithRelationshipType: ItemSearchResult = new ItemSearchResult();
+mockItemWithRelationshipType.hitHighlights = {};
+mockItemWithRelationshipType.indexableObject = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
-    'dc.title': [
+    'relationship.type': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
-    ],
-    'dc.type': [
-      {
-        language: null,
-        value: 'Article'
+        value: type
       }
     ]
   }
@@ -63,7 +40,7 @@ describe('ItemSearchResultGridElementComponent', () => {
       declarations: [ItemSearchResultGridElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
-        { provide: 'objectElementProvider', useValue: (mockItemWithoutAuthorAndDate) }
+        { provide: 'objectElementProvider', useValue: (mockItemWithRelationshipType) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultGridElementComponent, {
@@ -76,51 +53,9 @@ describe('ItemSearchResultGridElementComponent', () => {
     itemSearchResultGridElementComponent = fixture.componentInstance;
   }));
 
-  describe('When the item has an author', () => {
-    beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.indexableObject;
-      fixture.detectChanges();
-    });
-
-    it('should show the author paragraph', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('p.item-authors'));
-      expect(itemAuthorField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no author', () => {
-    beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.indexableObject;
-      fixture.detectChanges();
-    });
-
-    it('should not show the author paragraph', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('p.item-authors'));
-      expect(itemAuthorField).toBeNull();
-    });
-  });
-
-  describe('When the item has an issuedate', () => {
-    beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithAuthorAndDate.indexableObject;
-      fixture.detectChanges();
-    });
-
-    it('should show the issuedate span', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('span.item-date'));
-      expect(itemAuthorField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no issuedate', () => {
-    beforeEach(() => {
-      itemSearchResultGridElementComponent.dso = mockItemWithoutAuthorAndDate.indexableObject;
-      fixture.detectChanges();
-    });
-
-    it('should not show the issuedate span', () => {
-      const dateField = fixture.debugElement.query(By.css('span.item-date'));
-      expect(dateField).toBeNull();
-    });
+  it('should show send the object to item-type-switcher using viewMode "Card"', () => {
+    const itemTypeSwitcherComp = fixture.debugElement.query(By.css('ds-item-type-switcher')).componentInstance;
+    expect(itemTypeSwitcherComp.object).toBe(mockItemWithRelationshipType);
+    expect(itemTypeSwitcherComp.viewMode).toEqual(ItemViewMode.Card);
   });
 });

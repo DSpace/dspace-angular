@@ -7,6 +7,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Observable } from 'rxjs';
 import { Metadata } from '../../../core/shared/metadata.utils';
+import { hasValue } from '../../empty.util';
 
 @Component({
   selector: 'ds-search-result-grid-element',
@@ -17,10 +18,12 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   dso: K;
   isCollapsed$: Observable<boolean>;
 
-  public constructor(@Inject('objectElementProvider') public listableObject: ListableObject, private truncatableService: TruncatableService) {
+  public constructor(@Inject('objectElementProvider') public listableObject: ListableObject, protected truncatableService: TruncatableService) {
     super(listableObject);
-    this.dso = this.object.indexableObject;
+    if (hasValue(this.object)) {
+      this.dso = this.object.indexableObject;
     this.isCollapsed$ = this.isCollapsed();
+    }
   }
 
   /**

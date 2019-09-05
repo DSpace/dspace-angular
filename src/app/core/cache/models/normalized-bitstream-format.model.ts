@@ -4,7 +4,7 @@ import { BitstreamFormat } from '../../shared/bitstream-format.model';
 import { mapsTo } from '../builders/build-decorators';
 import { IDToUUIDSerializer } from '../id-to-uuid-serializer';
 import { NormalizedObject } from './normalized-object.model';
-import { SupportLevel } from './support-level.model';
+import { BitstreamFormatSupportLevel } from '../../shared/bitstream-format-support-level';
 
 /**
  * Normalized model class for a Bitstream Format
@@ -34,7 +34,7 @@ export class NormalizedBitstreamFormat extends NormalizedObject<BitstreamFormat>
    * The level of support the system offers for this Bitstream Format
    */
   @autoserialize
-  supportLevel: SupportLevel;
+  supportLevel: BitstreamFormatSupportLevel;
 
   /**
    * True if the Bitstream Format is used to store system information, rather than the content of items in the system
@@ -46,7 +46,7 @@ export class NormalizedBitstreamFormat extends NormalizedObject<BitstreamFormat>
    * String representing this Bitstream Format's file extension
    */
   @autoserialize
-  extensions: string;
+  extensions: string[];
 
   /**
    * Identifier for this Bitstream Format
