@@ -1,4 +1,3 @@
 <div class="thumbnail">
-  <img *ngIf="thumbnail && thumbnail.content" [src]="thumbnail.content" (error)="errorHandler($event)"/>
-  <img *ngIf="!(thumbnail && thumbnail.content)" [src]="holderSource | dsSafeUrl"/>
+  <img [src]="src | dsSafeUrl" (error)="errorHandler($event)"/>
 </div>

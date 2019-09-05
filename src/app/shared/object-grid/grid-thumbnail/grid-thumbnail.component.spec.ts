@@ -6,7 +6,7 @@ import { GridThumbnailComponent } from './grid-thumbnail.component';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { SafeUrlPipe } from '../../utils/safe-url-pipe';
 
-describe('ThumbnailComponent', () => {
+describe('GridThumbnailComponent', () => {
   let comp: GridThumbnailComponent;
   let fixture: ComponentFixture<GridThumbnailComponent>;
   let de: DebugElement;
@@ -36,7 +36,7 @@ describe('ThumbnailComponent', () => {
   it('should display placeholder', () => {
     fixture.detectChanges();
     const image: HTMLElement = de.query(By.css('img')).nativeElement;
-    expect(image.getAttribute('src')).toBe(comp.holderSource);
+    expect(image.getAttribute('src')).toBe(comp.defaultImage);
   });
 
 });
