@@ -15,6 +15,9 @@ import { VarDirective } from '../../../utils/var.directive';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../../../testing/hal-endpoint-service-stub';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
@@ -27,7 +30,7 @@ let component: ItemDetailPreviewComponent;
 let fixture: ComponentFixture<ItemDetailPreviewComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf([]),
+  bitstreams: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), []))),
   metadata: {
     'dc.contributor.author': [
       {

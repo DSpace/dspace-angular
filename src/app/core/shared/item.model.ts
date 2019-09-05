@@ -5,10 +5,11 @@ import { DSpaceObject } from './dspace-object.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedList } from '../data/paginated-list';
 import { Relationship } from './item-relationships/relationship.model';
 import { ResourceType } from './resource-type';
+import { getSucceededRemoteData } from './operators';
 
 export class Item extends DSpaceObject {
   static type = new ResourceType('item');
@@ -97,7 +98,7 @@ export class Item extends DSpaceObject {
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
     return this.bitstreams.pipe(
-      filter((rd: RemoteData<PaginatedList<Bitstream>>) => !rd.isResponsePending && isNotUndefined(rd.payload)),
+      getSucceededRemoteData(),
       map((rd: RemoteData<PaginatedList<Bitstream>>) => rd.payload.page),
       filter((bitstreams: Bitstream[]) => hasValue(bitstreams)),
       take(1),
