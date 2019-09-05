@@ -138,6 +138,9 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
+import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
+import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -256,8 +259,10 @@ const COMPONENTS = [
   CollectionSearchResultListElementComponent,
   ItemSearchResultListElementComponent,
   TypedItemSearchResultListElementComponent,
+  TypedItemSearchResultGridElementComponent,
   ItemTypeSwitcherComponent,
-  BrowseByComponent
+  BrowseByComponent,
+  ItemTypeBadgeComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -275,6 +280,7 @@ const ENTRY_COMPONENTS = [
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
   PublicationListElementComponent,
+  PublicationGridElementComponent,
   BrowseEntryListElementComponent,
   MyDSpaceResultDetailElementComponent,
   SearchResultGridElementComponent,

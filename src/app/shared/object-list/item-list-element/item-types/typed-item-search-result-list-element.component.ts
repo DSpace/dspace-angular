@@ -11,7 +11,7 @@ import { MetadataMap } from '../../../../core/shared/metadata.models';
  * A generic component for displaying item list elements
  */
 @Component({
-  selector: 'ds-item-search-result',
+  selector: 'ds-item-search-result-list-element',
   template: ''
 })
 export class TypedItemSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {

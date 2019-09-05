@@ -33,20 +33,6 @@ mockItemWithRelationshipType.indexableObject = Object.assign(new Item(), {
   }
 });
 
-const mockItemWithoutRelationshipType: ItemSearchResult = new ItemSearchResult();
-mockItemWithoutRelationshipType.hitHighlights = {};
-mockItemWithoutRelationshipType.indexableObject = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
-
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -54,7 +40,7 @@ describe('ItemSearchResultListElementComponent', () => {
       declarations: [ItemSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
-        { provide: 'objectElementProvider', useValue: (mockItemWithoutRelationshipType) }
+        { provide: 'objectElementProvider', useValue: (mockItemWithRelationshipType) }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultListElementComponent, {
@@ -67,27 +53,8 @@ describe('ItemSearchResultListElementComponent', () => {
     itemSearchResultListElementComponent = fixture.componentInstance;
   }));
 
-  describe('When the item has a relationship type', () => {
-    beforeEach(() => {
-      itemSearchResultListElementComponent.object = mockItemWithRelationshipType;
-      fixture.detectChanges();
-    });
-
-    it('should show the relationship type badge', () => {
-      const badge = fixture.debugElement.query(By.css('span.badge'));
-      expect(badge.nativeElement.textContent).toContain(type.toLowerCase());
-    });
-  });
-
-  describe('When the item has no relationship type', () => {
-    beforeEach(() => {
-      itemSearchResultListElementComponent.object = mockItemWithoutRelationshipType;
-      fixture.detectChanges();
-    });
-
-    it('should not show a badge', () => {
-      const badge = fixture.debugElement.query(By.css('span.badge'));
-      expect(badge).toBeNull();
-    });
+  it('should show a badge on top of the list element', () => {
+    const badge = fixture.debugElement.query(By.css('ds-item-type-badge')).componentInstance;
+    expect(badge.object).toBe(mockItemWithRelationshipType);
   });
 });
