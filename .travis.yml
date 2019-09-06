@@ -5,7 +5,7 @@ env:
   # Install the latest docker-compose version for ci testing.
   # The default installation in travis is not compatible with the latest docker-compose file version.
   COMPOSE_VERSION: 1.24.1
-  # The ci step will test the dpsace-angular code against DSpace REST.
+  # The ci step will test the dspace-angular code against DSpace REST.
   # Direct that step to utilize a DSpace REST service that has been started in docker.
   DSPACE_REST_HOST: localhost
   DSPACE_REST_PORT: 8080
@@ -25,7 +25,7 @@ install:
   - travis_retry yarn install
 
 before_script:
-  # The following line could be enabled to verify that the rest server is repsonding.
+  # The following line could be enabled to verify that the rest server is responding.
   # Currently, "yarn run build" takes enough time to run to allow the service to be available
   #- curl http://localhost:8080/
 
