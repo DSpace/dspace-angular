@@ -44,6 +44,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from './shared/services/route.service';
 import { MockActivatedRoute } from './shared/mocks/mock-active-router';
 import { MockRouter } from './shared/mocks/mock-router';
+import { CookieService } from './shared/services/cookie.service';
+import { MockCookieService } from './shared/mocks/mock-cookie.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -78,6 +80,7 @@ describe('App component', () => {
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: CookieService, useValue: new MockCookieService()},
         AppComponent,
         RouteService
       ],
