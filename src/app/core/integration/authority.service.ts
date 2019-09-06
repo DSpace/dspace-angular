@@ -7,7 +7,7 @@ import { RequestService } from '../data/request.service';
 import { IntegrationService } from './integration.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { AuthorityValue } from './models/authority.value';
+import { AuthorityEntry } from './models/authority-entry.model';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -22,7 +22,7 @@ import { IntegrationData } from './integration-data';
  * A service that provides methods to make REST requests with authorities endpoint.
  */
 @Injectable()
-export class AuthorityService extends IntegrationService<AuthorityValue> {
+export class AuthorityService extends IntegrationService<AuthorityEntry> {
   protected forceBypassCache = false;
   protected linkPath = 'authorities';
   protected entriesEndpoint = 'entries';
@@ -37,7 +37,7 @@ export class AuthorityService extends IntegrationService<AuthorityValue> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<AuthorityValue>
+    protected comparator: DefaultChangeAnalyzer<AuthorityEntry>
   ) {
     super();
   }

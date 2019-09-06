@@ -9,7 +9,7 @@ import { SubmissionScopeType } from '../../core/submission/submission-scope-type
 import { DynamicRelationGroupModel } from '../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormFieldModel } from '../form/builder/models/form-field.model';
 import { AuthorityOptions } from '../../core/integration/models/authority-options.model';
-import { AuthorityValue } from '../../core/integration/models/authority.value';
+import { AuthorityEntry } from '../../core/integration/models/authority-entry.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormRowModel } from '../../core/config/models/config-submission-form.model';
@@ -223,7 +223,7 @@ export const inputWithAuthorityValueConfig = {
   id: 'testWithAuthorityField',
   readOnly: false,
   disabled: false,
-  value: Object.assign({}, new AuthorityValue(), { value: 'testWithAuthorityValue', id: 'testWithAuthorityValue', display: 'testWithAuthorityValue' })
+  value: Object.assign({}, new AuthorityEntry(), { value: 'testWithAuthorityValue', id: 'testWithAuthorityValue', display: 'testWithAuthorityValue' })
 };
 
 export const mockInputWithAuthorityValueModel = new DsDynamicInputModel(inputWithAuthorityValueConfig);

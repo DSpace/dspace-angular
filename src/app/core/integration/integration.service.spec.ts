@@ -10,7 +10,7 @@ import { IntegrationService } from './integration.service';
 import { IntegrationSearchOptions } from './models/integration-options.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
-import { AuthorityValue } from './models/authority.value';
+import { AuthorityEntry } from './models/authority-entry.model';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
@@ -24,7 +24,7 @@ const LINK_NAME = 'authorities';
 const ENTRIES = 'entries';
 const ENTRY_VALUE = 'entryValue';
 
-class TestService extends IntegrationService<AuthorityValue> {
+class TestService extends IntegrationService<AuthorityEntry> {
   protected forceBypassCache = false;
   protected linkPath = LINK_NAME;
   protected entriesEndpoint = ENTRIES;
@@ -39,7 +39,7 @@ class TestService extends IntegrationService<AuthorityValue> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<AuthorityValue>) {
+    protected comparator: ChangeAnalyzer<AuthorityEntry>) {
     super();
   }
 

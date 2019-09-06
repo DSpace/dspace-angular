@@ -8,26 +8,26 @@ import { ResourceType } from '../../shared/resource-type';
 /**
  * Class representing an authority object
  */
-export class AuthorityValue extends IntegrationModel implements MetadataValueInterface {
-  static type = new ResourceType('authority');
+export class AuthorityEntry extends IntegrationModel implements MetadataValueInterface {
+  static type = new ResourceType('authorityEntry');
 
   /**
-   * The identifier of this authority
+   * The identifier of this authority entry
    */
   id: string;
 
   /**
-   * The display value of this authority
+   * The display value of this authority entry
    */
   display: string;
 
   /**
-   * The value of this authority
+   * The value of this authority entry
    */
   value: string;
 
   /**
-   * An object containing additional information related to this authority
+   * An object containing additional information related to this authority entry
    */
   otherInformation: OtherInformation;
 
@@ -35,6 +35,11 @@ export class AuthorityValue extends IntegrationModel implements MetadataValueInt
    * The language code of this authority value
    */
   language: string;
+
+  /**
+   * True if the Authority entry is selectable
+   */
+  selectable: boolean;
 
   /**
    * This method checks if authority has an identifier value

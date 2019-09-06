@@ -12,7 +12,7 @@ import {
   DynamicFormControlComponent, DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { AuthorityEntry } from '../../../../../../core/integration/models/authority-entry.model';
 import { DynamicListRadioGroupModel } from './dynamic-list-radio-group.model';
 import { IntegrationData } from '../../../../../../core/integration/integration-data';
 
@@ -39,7 +39,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
 
   public items: ListItem[][] = [];
-  protected optionsList: AuthorityValue[];
+  protected optionsList: AuthorityEntry[];
   protected searchOptions: IntegrationSearchOptions;
 
   constructor(private authorityService: AuthorityService,
@@ -77,7 +77,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
     const target = event.target as any;
     if (this.model.repeatable) {
       // Target tabindex coincide with the array index of the value into the authority list
-      const authorityValue: AuthorityValue = this.optionsList[target.tabIndex];
+      const authorityValue: AuthorityEntry = this.optionsList[target.tabIndex];
       if (target.checked) {
         this.model.valueUpdates.next(authorityValue);
       } else {
@@ -100,9 +100,9 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
         let groupCounter = 0;
         let itemsPerGroup = 0;
         let tempList: ListItem[] = [];
-        this.optionsList = authorities.payload as AuthorityValue[];
+        this.optionsList = authorities.payload as AuthorityEntry[];
         // Make a list of available options (checkbox/radio) and split in groups of 'model.groupLength'
-        (authorities.payload as AuthorityValue[]).forEach((option, key) => {
+        (authorities.payload as AuthorityEntry[]).forEach((option, key) => {
           const value = option.id || option.value;
           const checked: boolean = isNotEmpty(findKey(
             this.model.value,

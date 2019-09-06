@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { IntegrationResponseParsingService } from './integration-response-parsing.service';
 import { IntegrationRequest } from '../data/request.models';
-import { AuthorityValue } from './models/authority.value';
+import { AuthorityEntry } from './models/authority-entry.model';
 import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from '../data/paginated-list';
 
@@ -35,36 +35,36 @@ describe('IntegrationResponseParsingService', () => {
   function initVars() {
     pageInfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1, self: 'https://rest.api/integration/authorities/type/entries'});
     definitions = new PaginatedList(pageInfo,[
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'One',
         id: 'One',
         otherInformation: undefined,
         value: 'One'
       }),
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'Two',
         id: 'Two',
         otherInformation: undefined,
         value: 'Two'
       }),
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'Three',
         id: 'Three',
         otherInformation: undefined,
         value: 'Three'
       }),
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'Four',
         id: 'Four',
         otherInformation: undefined,
         value: 'Four'
       }),
-      Object.assign(new AuthorityValue(), {
-        type: 'authority',
+      Object.assign(new AuthorityEntry(), {
+        type: 'authorityEntry',
         display: 'Five',
         id: 'Five',
         otherInformation: undefined,
@@ -87,35 +87,35 @@ describe('IntegrationResponseParsingService', () => {
               display: 'One',
               id: 'One',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'One'
             },
             {
               display: 'Two',
               id: 'Two',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Two'
             },
             {
               display: 'Three',
               id: 'Three',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Three'
             },
             {
               display: 'Four',
               id: 'Four',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Four'
             },
             {
               display: 'Five',
               id: 'Five',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Five'
             },
           ],
@@ -149,35 +149,35 @@ describe('IntegrationResponseParsingService', () => {
               display: 'One',
               id: 'One',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'One'
             },
             {
               display: 'Two',
               id: 'Two',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Two'
             },
             {
               display: 'Three',
               id: 'Three',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Three'
             },
             {
               display: 'Four',
               id: 'Four',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Four'
             },
             {
               display: 'Five',
               id: 'Five',
               otherInformation: {},
-              type: 'authority',
+              type: 'authorityEntry',
               value: 'Five'
             },
           ],

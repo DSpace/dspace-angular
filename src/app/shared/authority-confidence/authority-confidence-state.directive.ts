@@ -12,7 +12,7 @@ import {
 
 import { findIndex } from 'lodash';
 
-import { AuthorityValue } from '../../core/integration/models/authority.value';
+import { AuthorityEntry } from '../../core/integration/models/authority-entry.model';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../core/integration/models/confidence-type';
 import { isNotEmpty, isNull } from '../empty.util';
@@ -30,7 +30,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
   /**
    * The metadata value
    */
-  @Input() authorityValue: AuthorityValue | FormFieldMetadataValueObject | string;
+  @Input() authorityValue: AuthorityEntry | FormFieldMetadataValueObject | string;
 
   /**
    * A boolean representing if to show html icon if authority value is empty
@@ -114,7 +114,7 @@ export class AuthorityConfidenceStateDirective implements OnChanges {
   private getConfidenceByValue(value: any): ConfidenceType {
     let confidence: ConfidenceType = ConfidenceType.CF_UNSET;
 
-    if (isNotEmpty(value) && value instanceof AuthorityValue && value.hasAuthority()) {
+    if (isNotEmpty(value) && value instanceof AuthorityEntry && value.hasAuthority()) {
       confidence = ConfidenceType.CF_ACCEPTED;
     }
 

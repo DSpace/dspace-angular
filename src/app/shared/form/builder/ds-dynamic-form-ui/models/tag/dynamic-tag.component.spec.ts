@@ -21,7 +21,7 @@ import { GlobalConfig } from '../../../../../../../config/global-config.interfac
 import { GLOBAL_CONFIG } from '../../../../../../../config';
 import { Chips } from '../../../../../chips/models/chips.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
+import { AuthorityEntry } from '../../../../../../core/integration/models/authority-entry.model';
 import { createTestComponent } from '../../../../../testing/utils';
 import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-config';
 
@@ -161,10 +161,10 @@ describe('DsDynamicTagComponent test suite', () => {
 
       it('should select a results entry properly', fakeAsync(() => {
         modelValue = [
-          Object.assign(new AuthorityValue(), { id: 1, display: 'Name, Lastname', value: 1 })
+          Object.assign(new AuthorityEntry(), { id: 1, display: 'Name, Lastname', value: 1 })
         ];
         const event: NgbTypeaheadSelectItemEvent = {
-          item: Object.assign(new AuthorityValue(), {
+          item: Object.assign(new AuthorityEntry(), {
             id: 1,
             display: 'Name, Lastname',
             value: 1

@@ -10,7 +10,7 @@ import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { IntegrationModel } from './models/integration.model';
-import { AuthorityValue } from './models/authority.value';
+import { AuthorityEntry } from './models/authority-entry.model';
 import { PaginatedList } from '../data/paginated-list';
 
 @Injectable()
@@ -42,8 +42,8 @@ export class IntegrationResponseParsingService extends BaseResponseParsingServic
   protected processResponse(data: PaginatedList<IntegrationModel>): any {
     const returnList = Array.of();
     data.page.forEach((item, index) => {
-      if (item.type === AuthorityValue.type.value) {
-        data.page[index] = Object.assign(new AuthorityValue(), item);
+      if (item.type === AuthorityEntry.type.value) {
+        data.page[index] = Object.assign(new AuthorityEntry(), item);
       }
     });
 
