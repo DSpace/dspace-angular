@@ -4,4 +4,4 @@
         <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch"></ds-search-filter>
     </div>
 </div>
-<a class="btn btn-primary" [routerLink]="[getSearchLink()]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">{{"search.filters.reset" | translate}}</a>
+<a class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">{{"search.filters.reset" | translate}}</a>
