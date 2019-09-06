@@ -13,13 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthServiceStub } from '../testing/auth-service-stub';
 import { AppState } from '../../app.reducer';
-import {AppRoutingModule} from '../../app-routing.module';
-import {PageNotFoundComponent} from '../../pagenotfound/pagenotfound.component';
-import {APP_BASE_HREF} from '@angular/common';
-import {RouterStub} from '../testing/router-stub';
-import {Router} from '@angular/router';
-import {RouteService} from '../services/route.service';
-import {routeServiceStub} from '../testing/route-service-stub';
 
 describe('LogInComponent', () => {
 
@@ -45,18 +38,13 @@ describe('LogInComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot(authReducer),
-        AppRoutingModule,
         TranslateModule.forRoot()
       ],
       declarations: [
-        LogInComponent,
-        PageNotFoundComponent
+        LogInComponent
       ],
       providers: [
-        {provide: AuthService, useClass: AuthServiceStub},
-        {provide: APP_BASE_HREF, useValue: '/'},
-        {provide: Router, useClass: RouterStub},
-        {provide: RouteService, useValue: routeServiceStub }
+        {provide: AuthService, useClass: AuthServiceStub}
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA

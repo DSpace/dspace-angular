@@ -88,7 +88,6 @@ export class LogInComponent implements OnDestroy, OnInit {
    * @constructor
    * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
-   * @param {RouteService} routeService
    * @param {Router} router
    * @param {Store<State>} store
    */
