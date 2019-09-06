@@ -20,7 +20,7 @@ import { Item } from '../shared/item.model';
 const endpoint = 'https://rest.api/core';
 
 // tslint:disable:max-classes-per-file
-class NormalizedTestObject extends NormalizedObject<Item> {
+export class NormalizedTestObject extends NormalizedObject<Item> {
 }
 
 class TestService extends DataService<any> {
@@ -46,7 +46,7 @@ class TestService extends DataService<any> {
   }
 }
 
-class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
+export class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
   diff(object1: NormalizedTestObject, object2: NormalizedTestObject): Operation[] {
     return compare((object1 as any).metadata, (object2 as any).metadata);
   }
@@ -139,7 +139,7 @@ describe('DataService', () => {
     });
 
     it('should include all provided options in href', () => {
-      const sortOptions = new SortOptions('field1', SortDirection.DESC)
+      const sortOptions = new SortOptions('field1', SortDirection.DESC);
       options = {
         currentPage: 6,
         elementsPerPage: 10,
