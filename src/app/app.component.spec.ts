@@ -44,8 +44,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouteService } from './core/services/route.service';
 import { MockActivatedRoute } from './shared/mocks/mock-active-router';
 import { MockRouter } from './shared/mocks/mock-router';
-import { CookieService } from './shared/services/cookie.service';
 import { MockCookieService } from './shared/mocks/mock-cookie.service';
+import { CookieService } from './core/services/cookie.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;

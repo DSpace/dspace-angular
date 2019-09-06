@@ -32,9 +32,8 @@ import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
 import { slideSidebarPadding } from './shared/animations/slide';
 import { HostWindowService } from './shared/host-window.service';
 import { Theme } from '../config/theme.inferface';
-import { ClientCookieService } from './shared/services/client-cookie.service';
 import { isNotEmpty } from './shared/empty.util';
-import { CookieService } from './shared/services/cookie.service';
+import { CookieService } from './core/services/cookie.service';
 
 export const LANG_COOKIE = 'language_cookie';
 

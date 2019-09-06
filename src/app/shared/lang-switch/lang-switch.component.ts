@@ -2,9 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import {TranslateService} from '@ngx-translate/core';
 import {LangConfig} from '../../../config/lang-config.interface';
-import { ClientCookieService } from '../services/client-cookie.service';
 import { LANG_COOKIE } from '../../app.component';
-import { CookieService } from '../services/cookie.service';
+import { CookieService } from '../../core/services/cookie.service';
 
 @Component({
   selector: 'ds-lang-switch',
