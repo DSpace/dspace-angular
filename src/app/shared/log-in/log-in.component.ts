@@ -1,9 +1,9 @@
-import {filter, map, pairwise, take, takeUntil, takeWhile, tap} from 'rxjs/operators';
+import {filter, map, takeWhile } from 'rxjs/operators';
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction
@@ -19,10 +19,8 @@ import { CoreState } from '../../core/core.reducers';
 
 import {isNotEmpty} from '../empty.util';
 import { fadeOut } from '../animations/fade';
-import {AuthService, LOGIN_ROUTE} from '../../core/auth/auth.service';
+import {AuthService} from '../../core/auth/auth.service';
 import {Router} from '@angular/router';
-import {HostWindowService} from '../host-window.service';
-import {RouteService} from '../services/route.service';
 
 /**
  * /users/sign-in
@@ -84,8 +82,6 @@ export class LogInComponent implements OnDestroy, OnInit {
    */
   private alive = true;
 
-  private redirectUrl = LOGIN_ROUTE;
-
   @Input() isStandalonePage: boolean;
 
   /**
@@ -99,7 +95,6 @@ export class LogInComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private routeService: RouteService,
     private router: Router,
     private store: Store<CoreState>
   ) {
@@ -112,16 +107,6 @@ export class LogInComponent implements OnDestroy, OnInit {
   public ngOnInit() {
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
-
-    // for mobile login, set the redirect url to the previous route
-    if (this.isStandalonePage) {
-      this.routeService.getHistory().pipe(
-        take(1)
-      ).subscribe((history) => {
-        const previousIndex = history.length - 2;
-        this.setRedirectUrl(history[previousIndex]);
-      });
-    }
 
     // set formGroup
     this.form = this.formBuilder.group({
@@ -156,7 +141,7 @@ export class LogInComponent implements OnDestroy, OnInit {
       takeWhile(() => this.alive),
       filter((authenticated) => authenticated))
       .subscribe(() => {
-          this.authService.redirectToPreviousUrl();
+          this.authService.redirectToPreviousUrl(this.isStandalonePage);
         }
       );
   }
@@ -203,21 +188,11 @@ export class LogInComponent implements OnDestroy, OnInit {
     email.trim();
     password.trim();
 
-    this.setRedirectUrl(this.router.url);
     // dispatch AuthenticationAction
     this.store.dispatch(new AuthenticateAction(email, password));
+
     // clear form
     this.form.reset();
-
   }
 
-  /**
-   * Sets the redirect url if not equal to LOGIN_ROUTE
-   * @param url
-   */
-  private setRedirectUrl(url: string) {
-    if (url !== this.redirectUrl) {
-      this.authService.setRedirectUrl(url)
-    }
-  }
 }

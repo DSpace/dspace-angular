@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, StoreModule } from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { of as observableOf } from 'rxjs';
+import {of, of as observableOf} from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
@@ -23,11 +23,14 @@ import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
+import {routeServiceStub} from '../../shared/testing/route-service-stub';
+import {RouteService} from '../services/route.service';
 
 describe('AuthService test', () => {
 
   let mockStore: Store<AuthState>;
   let authService: AuthService;
+  let routeServiceMock: RouteService;
   let authRequest;
   let window;
   let routerStub;
@@ -74,6 +77,7 @@ describe('AuthService test', () => {
           { provide: NativeWindowService, useValue: window },
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
+          { provide: RouteService, useValue: routeServiceStub },
           { provide: ActivatedRoute, useValue: routeStub },
           { provide: Store, useValue: mockStore },
           { provide: RemoteDataBuildService, useValue: rdbService },
@@ -82,6 +86,8 @@ describe('AuthService test', () => {
         ],
       });
       authService = TestBed.get(AuthService);
+      routeServiceMock = TestBed.get(RouteService);
+      spyOn(authService, 'setRedirectUrl');
     });
 
     it('should return the authentication status object when user credentials are correct', () => {
@@ -124,6 +130,31 @@ describe('AuthService test', () => {
       expect(authService.logout.bind(null)).toThrow();
     });
 
+    it ('should dispatch authentication', () => {
+      authService.doAuthentication(true, '', '');
+      expect(mockStore.dispatch).toHaveBeenCalled();
+    });
+
+    it ('should set redirect url to previous page', () => {
+      spyOn(routeServiceMock, 'getHistory').and.callThrough();
+      authService.doAuthentication(true, '', '');
+      expect(routeServiceMock.getHistory).toHaveBeenCalled();
+      expect(authService.setRedirectUrl).toHaveBeenCalledWith('/collection/123');
+    });
+
+    it ('should set redirect url to current page', () => {
+      spyOn(routeServiceMock, 'getHistory').and.callThrough();
+      authService.doAuthentication(false, '', '');
+      expect(routeServiceMock.getHistory).toHaveBeenCalled();
+      expect(authService.setRedirectUrl).toHaveBeenCalledWith('/home');
+    });
+
+    it ('should not set redirect url to /login', () => {
+      spyOn(routeServiceMock, 'getHistory').and.returnValue(of(['/login', '/login']));
+      authService.doAuthentication(true, '', '');
+      expect(routeServiceMock.getHistory).toHaveBeenCalled();
+      expect(authService.setRedirectUrl).not.toHaveBeenCalled();
+    });
   });
 
   describe('', () => {
@@ -138,6 +169,7 @@ describe('AuthService test', () => {
           { provide: AuthRequestService, useValue: authRequest },
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
+          { provide: RouteService, useValue: routeServiceStub },
           { provide: RemoteDataBuildService, useValue: rdbService },
           CookieService,
           AuthService
@@ -145,13 +177,13 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([CookieService, AuthRequestService, Store, Router], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router) => {
+    beforeEach(inject([CookieService, AuthRequestService, Store, Router, RouteService], (cookieService: CookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService) => {
       store
         .subscribe((state) => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, router, cookieService, store, rdbService);
+      authService = new AuthService({}, window, undefined, authReqService, router, routeService, cookieService, store, rdbService);
     }));
 
     it('should return true when user is logged in', () => {
@@ -189,6 +221,7 @@ describe('AuthService test', () => {
           { provide: AuthRequestService, useValue: authRequest },
           { provide: REQUEST, useValue: {} },
           { provide: Router, useValue: routerStub },
+          { provide: RouteService, useValue: routeServiceStub },
           { provide: RemoteDataBuildService, useValue: rdbService },
           ClientCookieService,
           CookieService,
@@ -197,7 +230,7 @@ describe('AuthService test', () => {
       }).compileComponents();
     }));
 
-    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router) => {
+    beforeEach(inject([ClientCookieService, AuthRequestService, Store, Router, RouteService], (cookieService: ClientCookieService, authReqService: AuthRequestService, store: Store<AppState>, router: Router, routeService: RouteService) => {
       const expiredToken: AuthTokenInfo = new AuthTokenInfo('test_token');
       expiredToken.expires = Date.now() - (1000 * 60 * 60);
       authenticatedState = {
@@ -212,7 +245,7 @@ describe('AuthService test', () => {
           (state as any).core = Object.create({});
           (state as any).core.auth = authenticatedState;
         });
-      authService = new AuthService({}, window, undefined, authReqService, router, cookieService, store, rdbService);
+      authService = new AuthService({}, window, undefined, authReqService, router, routeService, cookieService, store, rdbService);
       storage = (authService as any).storage;
       spyOn(storage, 'get');
       spyOn(storage, 'remove');

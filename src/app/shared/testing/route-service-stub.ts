@@ -29,7 +29,7 @@ export const routeServiceStub: any = {
     return observableOf({})
   },
   getHistory: () => {
-    return observableOf(['/home','collection/123','/login'])
+    return observableOf(['/home','/collection/123','/home'])
   }
   /* tslint:enable:no-empty */
 };
