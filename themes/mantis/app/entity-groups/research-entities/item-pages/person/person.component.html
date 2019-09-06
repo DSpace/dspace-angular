@@ -4,7 +4,7 @@
 
             <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
                 <ds-metadata-field-wrapper>
-                    <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"
+                    <ds-thumbnail [thumbnail]="item.getThumbnail() | async"
                                   [defaultImage]="'assets/images/person-placeholder.svg'"></ds-thumbnail>
                 </ds-metadata-field-wrapper>
                 <div>
@@ -25,10 +25,18 @@
                                                     [fields]="['person.email']"
                                                     [label]="'person.page.email'">
                         </ds-generic-item-page-field>
+<!--                        <ds-generic-item-page-field [item]="item"-->
+<!--                                                    [fields]="['person.identifier.orcid']"-->
+<!--                                                    [label]="'person.page.orcid'">-->
+<!--                        </ds-generic-item-page-field>-->
                         <ds-generic-item-page-field [item]="item"
                                                     [fields]="['person.birthDate']"
                                                     [label]="'person.page.birthdate'">
                         </ds-generic-item-page-field>
+<!--                        <ds-generic-item-page-field [item]="item"-->
+<!--                                                    [fields]="['person.identifier.staffid']"-->
+<!--                                                    [label]="'person.page.staffid'">-->
+<!--                        </ds-generic-item-page-field>-->
                     </div>
                     <div class="col-12 col-md-6">
                         <ds-generic-item-page-field [item]="item"
