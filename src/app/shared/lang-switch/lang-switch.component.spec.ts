@@ -7,8 +7,8 @@ import { GLOBAL_CONFIG } from '../../../config';
 import {LangConfig} from '../../../config/lang-config.interface';
 import {Observable, of} from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { CookieService } from '../services/cookie.service';
 import { MockCookieService } from '../mocks/mock-cookie.service';
+import { CookieService } from '../../core/services/cookie.service';
 
 // This test is completely independent from any message catalogs or keys in the codebase
 // The translation module is instantiated with these bogus messages that we aren't using anyway.

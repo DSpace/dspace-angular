@@ -6,11 +6,9 @@ import { SearchService } from '../search-service/search.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SearchServiceStub } from '../../shared/testing/search-service-stub';
-import { Observable, of as observableOf } from 'rxjs';
-import { Params } from '@angular/router';
+import { of as observableOf } from 'rxjs';
 import { ObjectKeysPipe } from '../../shared/utils/object-keys-pipe';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationServiceStub } from '../../shared/testing/search-configuration-service-stub';
 
 describe('SearchLabelsComponent', () => {
   let comp: SearchLabelsComponent;
@@ -22,10 +20,7 @@ describe('SearchLabelsComponent', () => {
   const field1 = 'author';
   const field2 = 'subject';
   const value1 = 'Test, Author';
-  const normValue1 = 'Test, Author';
   const value2 = 'TestSubject';
-  const value3 = 'Test, Authority,authority';
-  const normValue3 = 'Test, Authority';
   const filter1 = [field1, value1];
   const filter2 = [field2, value2];
   const mockFilters = [
@@ -39,8 +34,7 @@ describe('SearchLabelsComponent', () => {
       declarations: [SearchLabelsComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }
-        // { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
+        { provide: SEARCH_CONFIG_SERVICE, useValue: { getCurrentFrontendFilters: () => observableOf(mockFilters) } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchLabelsComponent, {
@@ -56,30 +50,11 @@ describe('SearchLabelsComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('when getRemoveParams is called', () => {
-    let obs: Observable<Params>;
-
-    beforeEach(() => {
-      obs = comp.getRemoveParams(filter1[0], filter1[1]);
-    });
-
+  describe('when the component has been initialized', () => {
     it('should return all params but the provided filter', () => {
-      obs.subscribe((params) => {
-        // Should contain only filter2 and page: length == 2
-        expect(Object.keys(params).length).toBe(2);
+      comp.appliedFilters.subscribe((filters) => {
+        expect(filters).toBe(mockFilters);
       });
-    })
-  });
-
-  describe('when normalizeFilterValue is called', () => {
-    it('should return properly filter value', () => {
-      let result: string;
-
-      result = comp.normalizeFilterValue(value1);
-      expect(result).toBe(normValue1);
-
-      result = comp.normalizeFilterValue(value3);
-      expect(result).toBe(normValue3);
     })
   });
 });

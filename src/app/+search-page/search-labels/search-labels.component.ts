@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { SearchService } from '../search-service/search.service';
 import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
@@ -31,50 +31,7 @@ export class SearchLabelsComponent {
    * Initialize the instance variable
    */
   constructor(
-    private searchService: SearchService,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService) {
     this.appliedFilters = this.searchConfigService.getCurrentFrontendFilters();
-  }
-
-  /**
-   * Calculates the parameters that should change if a given value for the given filter would be removed from the active filters
-   * @param {string} filterField The filter field parameter name from which the value should be removed
-   * @param {string} filterValue The value that is removed for this given filter field
-   * @returns {Observable<Params>} The changed filter parameters
-   */
-  getRemoveParams(filterField: string, filterValue: string): Observable<Params> {
-    return this.appliedFilters.pipe(
-      map((filters) => {
-        const field: string = Object.keys(filters).find((f) => f === filterField);
-        const newValues = hasValue(filters[field]) ? filters[field].filter((v) => v !== filterValue) : null;
-        return {
-          [field]: isNotEmpty(newValues) ? newValues : null,
-          page: 1
-        };
-      })
-    )
-  }
-
-  /**
-   * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
-   */
-  public getSearchLink(): string {
-    if (this.inPlaceSearch) {
-      return './';
-    }
-    return this.searchService.getSearchLink();
-  }
-
-  /**
-   * TODO to review after https://github.com/DSpace/dspace-angular/issues/368 is resolved
-   * Strips authority operator from filter value
-   * e.g. 'test ,authority' => 'test'
-   *
-   * @param value
-   */
-  normalizeFilterValue(value: string) {
-    // const pattern = /,[^,]*$/g;
-    const pattern = /,authority*$/g;
-    return value.replace(pattern, '');
   }
 }
