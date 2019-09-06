@@ -109,7 +109,7 @@ export class SearchPageComponent implements OnInit {
   ngOnInit(): void {
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
-      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(observableOf(undefined)))))
+      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(undefined))))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });

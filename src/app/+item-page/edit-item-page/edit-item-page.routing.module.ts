@@ -11,6 +11,7 @@ import { ItemStatusComponent } from './item-status/item-status.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
+import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 
 const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
@@ -50,6 +51,11 @@ const ITEM_EDIT_DELETE_PATH = 'delete';
             path: 'metadata',
             component: ItemMetadataComponent,
             data: { title: 'item.edit.tabs.metadata.title' }
+          },
+          {
+            path: 'relationships',
+            component: ItemRelationshipsComponent,
+            data: { title: 'item.edit.tabs.relationships.title' }
           },
           {
             path: 'view',

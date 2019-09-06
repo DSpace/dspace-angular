@@ -1,0 +1,22 @@
+@import '../../../../styles/variables.scss';
+
+.button-row {
+  .btn {
+    margin-right: 0.5 * $spacer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @media screen and (min-width: map-get($grid-breakpoints, sm)) {
+      min-width: $edit-item-button-min-width;
+    }
+  }
+
+  &.top .btn {
+    margin-top: $spacer/2;
+    margin-bottom: $spacer/2;
+  }
+
+
+}

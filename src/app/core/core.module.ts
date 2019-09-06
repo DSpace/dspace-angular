@@ -101,6 +101,7 @@ import { NormalizedSubmissionFormsModel } from './config/models/normalized-confi
 import { NormalizedSubmissionSectionModel } from './config/models/normalized-config-submission-section.model';
 import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model';
 import { NormalizedAuthorityValue } from './integration/models/normalized-authority-value.model';
+import { RelationshipService } from './data/relationship.service';
 import { RoleService } from './roles/role.service';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
@@ -204,6 +205,7 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
+  RelationshipService,
   MyDSpaceGuard,
   RoleService,
   TaskResponseParsingService,

@@ -17,6 +17,9 @@ import { EditInPlaceFieldComponent } from './item-metadata/edit-in-place-field/e
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { SearchPageModule } from '../../+search-page/search-page.module';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
+import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
+import { EditRelationshipComponent } from './item-relationships/edit-relationship/edit-relationship.component';
+import { EditRelationshipListComponent } from './item-relationships/edit-relationship-list/edit-relationship-list.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -40,8 +43,11 @@ import { ItemCollectionMapperComponent } from './item-collection-mapper/item-col
     ItemDeleteComponent,
     ItemStatusComponent,
     ItemMetadataComponent,
+    ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     EditInPlaceFieldComponent,
+    EditRelationshipComponent,
+    EditRelationshipListComponent,
     ItemCollectionMapperComponent
   ]
 })
