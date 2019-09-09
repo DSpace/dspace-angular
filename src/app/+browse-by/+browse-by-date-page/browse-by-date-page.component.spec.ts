@@ -19,6 +19,7 @@ import { ENV_CONFIG, GLOBAL_CONFIG } from '../../../config';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { toRemoteData } from '../+browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -69,7 +70,7 @@ describe('BrowseByDatePageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [BrowseByDatePageComponent, EnumKeysPipe],
+      declarations: [BrowseByDatePageComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
