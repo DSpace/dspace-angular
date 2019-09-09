@@ -3,7 +3,7 @@ import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing'
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { By } from '@angular/platform-browser';
-import { Store, StoreModule, select } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 
 import { LogInComponent } from './log-in.component';
 import { authReducer } from '../../core/auth/auth.reducer';

@@ -96,9 +96,6 @@ export class AuthServiceStub {
     return observableOf(this.redirectUrl);
   }
 
-  public doAuthentication(isStandalonePage, email, password) {
-    return;
-  }
   public storeToken(token: AuthTokenInfo) {
     return;
   }
