@@ -94,7 +94,6 @@ export class LogInComponent implements OnDestroy, OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router,
     private store: Store<CoreState>
   ) {
   }
