@@ -13,7 +13,7 @@ import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../core/shared/operators';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 
 export const SEARCH_ROUTE = '/search';
@@ -91,6 +91,16 @@ export class SearchPageComponent implements OnInit {
   @Input()
   configuration$: Observable<string>;
 
+  /**
+   * Link to the search page
+   */
+  searchLink: string;
+
+  /**
+   * Observable for whether or not the sidebar is currently collapsed
+   */
+  isSidebarCollapsed$: Observable<boolean>;
+
   constructor(protected service: SearchService,
               protected sidebarService: SearchSidebarService,
               protected windowService: HostWindowService,
@@ -107,9 +117,11 @@ export class SearchPageComponent implements OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    this.isSidebarCollapsed$ = this.isSidebarCollapsed();
+    this.searchLink = this.getSearchLink();
     this.searchOptions$ = this.getSearchOptions();
     this.sub = this.searchOptions$.pipe(
-      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(observableOf(undefined)))))
+      switchMap((options) => this.service.search(options).pipe(getSucceededRemoteData(), startWith(undefined))))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
@@ -147,14 +159,14 @@ export class SearchPageComponent implements OnInit {
    * Check if the sidebar is collapsed
    * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
    */
-  public isSidebarCollapsed(): Observable<boolean> {
+  private isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  public getSearchLink(): string {
+  private getSearchLink(): string {
     if (this.inPlaceSearch) {
       return './';
     }

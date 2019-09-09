@@ -13,6 +13,7 @@ export class WrapperListElementComponent implements OnInit {
   @Input() object: ListableObject;
   @Input() index: number;
   objectInjector: Injector;
+  listElement: any;
 
   constructor(private injector: Injector) {}
 
@@ -24,9 +25,10 @@ export class WrapperListElementComponent implements OnInit {
         ],
         parent: this.injector
     });
+    this.listElement = this.getListElement();
   }
 
-  getListElement(): string {
+  private getListElement(): string {
     const f: GenericConstructor<ListableObject> = this.object.constructor as GenericConstructor<ListableObject>;
     return rendersDSOType(f, SetViewMode.List);
   }

@@ -17,7 +17,7 @@
     </div>
     <ds-input-suggestions [suggestions]="(filterSearchResults | async)"
                           [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"
-                          [action]="getCurrentUrl()"
+                          [action]="currentUrl"
                           [name]="filterConfig.paramName"
                           [(ngModel)]="filter"
                           (submitSuggestion)="onSubmit($event)"

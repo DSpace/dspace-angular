@@ -32,6 +32,8 @@ export class ItemTypeSwitcherComponent implements OnInit {
    */
   objectInjector: Injector;
 
+  component: any;
+
   constructor(private injector: Injector) {
   }
 
@@ -40,14 +42,14 @@ export class ItemTypeSwitcherComponent implements OnInit {
       providers: [{ provide: ITEM, useFactory: () => this.object, deps:[] }],
       parent: this.injector
     });
-
+    this.component = this.getComponent();
   }
 
   /**
    * Fetch the component depending on the item's relationship type
    * @returns {string}
    */
-  getComponent(): string {
+  private getComponent(): string {
     if (hasValue((this.object as any).representationType)) {
       const metadataRepresentation = this.object as MetadataRepresentation;
       return getComponentByItemType(metadataRepresentation.itemType, this.viewMode, metadataRepresentation.representationType);

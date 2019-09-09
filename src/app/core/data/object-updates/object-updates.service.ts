@@ -106,6 +106,27 @@ export class ObjectUpdatesService {
   }
 
   /**
+   * Method that combines the state's updates (excluding updates that aren't part of the initialFields) with
+   * the initial values (when there's no update) to create a FieldUpdates object
+   * @param url The URL of the page for which the FieldUpdates should be requested
+   * @param initialFields The initial values of the fields
+   */
+  getFieldUpdatesExclusive(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
+    const objectUpdates = this.getObjectEntry(url);
+    return objectUpdates.pipe(map((objectEntry) => {
+      const fieldUpdates: FieldUpdates = {};
+      for (const object of initialFields) {
+        let fieldUpdate = objectEntry.fieldUpdates[object.uuid];
+        if (isEmpty(fieldUpdate)) {
+          fieldUpdate = { field: object, changeType: undefined };
+        }
+        fieldUpdates[object.uuid] = fieldUpdate;
+      }
+      return fieldUpdates;
+    }))
+  }
+
+  /**
    * Method to check if a specific field is currently editable in the store
    * @param url The URL of the page on which the field resides
    * @param uuid The UUID of the field

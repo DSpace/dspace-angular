@@ -26,6 +26,8 @@ export class WrapperDetailElementComponent implements OnInit {
    */
   objectInjector: Injector;
 
+  detailElement: any;
+
   /**
    * Initialize instance variables
    *
@@ -42,13 +44,13 @@ export class WrapperDetailElementComponent implements OnInit {
       providers: [{ provide: 'objectElementProvider', useFactory: () => (this.object), deps:[] }],
       parent: this.injector
     });
-
+    this.detailElement = this.getDetailElement();
   }
 
   /**
    * Return class name for the object to inject
    */
-  getDetailElement(): string {
+  private getDetailElement(): string {
     const f: GenericConstructor<ListableObject> = this.object.constructor as GenericConstructor<ListableObject>;
     return rendersDSOType(f, SetViewMode.Detail);
   }

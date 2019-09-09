@@ -80,6 +80,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   searchOptions$: Observable<SearchOptions>;
 
+  /**
+   * The current URL
+   */
+  currentUrl: string;
+
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected rdbs: RemoteDataBuildService,
@@ -93,6 +98,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
+    this.currentUrl = this.router.url;
     this.filterValues$ = new BehaviorSubject(new RemoteData(true, false, undefined, undefined, undefined));
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
 
@@ -213,13 +219,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   getCurrentPage(): Observable<number> {
     return this.filterService.getPage(this.filterConfig.name);
-  }
-
-  /**
-   * @returns {string} the current URL
-   */
-  getCurrentUrl() {
-    return this.router.url;
   }
 
   /**

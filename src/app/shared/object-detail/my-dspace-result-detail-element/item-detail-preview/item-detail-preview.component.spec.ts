@@ -12,12 +12,15 @@ import { MockTranslateLoader } from '../../../mocks/mock-translate-loader';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field/item-detail-preview-field.component';
 import { FileSizePipe } from '../../../utils/file-size-pipe';
 import { VarDirective } from '../../../utils/var.directive';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list';
+import { PageInfo } from '../../../../core/shared/page-info.model';
 
 let component: ItemDetailPreviewComponent;
 let fixture: ComponentFixture<ItemDetailPreviewComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf([]),
+  bitstreams: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), []))),
   metadata: {
     'dc.contributor.author': [
       {
