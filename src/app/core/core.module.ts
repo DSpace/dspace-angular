@@ -101,12 +101,14 @@ import { NormalizedSubmissionFormsModel } from './config/models/normalized-confi
 import { NormalizedSubmissionSectionModel } from './config/models/normalized-config-submission-section.model';
 import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model';
 import { NormalizedAuthorityValue } from './integration/models/normalized-authority-value.model';
+import { RelationshipService } from './data/relationship.service';
 import { RoleService } from './roles/role.service';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';
 import { TaskResponseParsingService } from './tasks/task-response-parsing.service';
+import { BitstreamFormatDataService } from './data/bitstream-format-data.service';
 import { NormalizedClaimedTask } from './tasks/models/normalized-claimed-task-object.model';
 import { NormalizedTaskObject } from './tasks/models/normalized-task-object.model';
 import { NormalizedPoolTask } from './tasks/models/normalized-pool-task-object.model';
@@ -153,6 +155,7 @@ const PROVIDERS = [
   PaginationComponentOptions,
   ResourcePolicyService,
   RegistryService,
+  BitstreamFormatDataService,
   NormalizedObjectBuildService,
   RemoteDataBuildService,
   RequestService,
@@ -198,6 +201,7 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
+  RelationshipService,
   MyDSpaceGuard,
   RoleService,
   TaskResponseParsingService,

@@ -11,15 +11,13 @@ import { ItemStatusComponent } from './item-status/item-status.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { getItemEditPath } from '../item-page-routing.module';
+import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 
 const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
 const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
 const ITEM_EDIT_PRIVATE_PATH = 'private';
 const ITEM_EDIT_PUBLIC_PATH = 'public';
 const ITEM_EDIT_DELETE_PATH = 'delete';
-
 const ITEM_EDIT_MOVE_PATH = 'move';
 
 /**
@@ -43,29 +41,34 @@ const ITEM_EDIT_MOVE_PATH = 'move';
           {
             path: 'status',
             component: ItemStatusComponent,
-            data: {title: 'item.edit.tabs.status.title'}
+            data: { title: 'item.edit.tabs.status.title' }
           },
           {
             path: 'bitstreams',
             component: ItemBitstreamsComponent,
-            data: {title: 'item.edit.tabs.bitstreams.title'}
+            data: { title: 'item.edit.tabs.bitstreams.title' }
           },
           {
             path: 'metadata',
             component: ItemMetadataComponent,
-            data: {title: 'item.edit.tabs.metadata.title'}
+            data: { title: 'item.edit.tabs.metadata.title' }
+          },
+          {
+            path: 'relationships',
+            component: ItemRelationshipsComponent,
+            data: { title: 'item.edit.tabs.relationships.title' }
           },
           {
             path: 'view',
             /* TODO - change when view page exists */
             component: ItemBitstreamsComponent,
-            data: {title: 'item.edit.tabs.view.title'}
+            data: { title: 'item.edit.tabs.view.title' }
           },
           {
             path: 'curate',
             /* TODO - change when curate page exists */
             component: ItemBitstreamsComponent,
-            data: {title: 'item.edit.tabs.curate.title'}
+            data: { title: 'item.edit.tabs.curate.title' }
           },
         ]
       },
@@ -107,7 +110,7 @@ const ITEM_EDIT_MOVE_PATH = 'move';
       {
         path: ITEM_EDIT_MOVE_PATH,
         component: ItemMoveComponent,
-        data: {title: 'item.edit.move.title'},
+        data: { title: 'item.edit.move.title' },
         resolve: {
           item: ItemPageResolver
         }

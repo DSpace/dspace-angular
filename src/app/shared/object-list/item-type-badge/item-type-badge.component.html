@@ -1,0 +1,3 @@
+<div *ngIf="object && object.indexableObject && object.indexableObject.firstMetadataValue('relationship.type') as type">
+  <span class="badge badge-light">{{ type.toLowerCase() + '.listelement.badge' | translate }}</span>
+</div>
