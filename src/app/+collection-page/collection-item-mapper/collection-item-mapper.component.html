@@ -5,8 +5,8 @@
       <p [innerHTML]="'collection.item-mapper.collection' | translate:{ name: (collectionRD$ | async)?.payload?.name }" id="collection-name"></p>
       <p>{{'collection.item-mapper.description' | translate}}</p>
 
-      <ngb-tabset (tabChange)="tabChange($event)" [destroyOnHide]="true">
-        <ngb-tab title="{{'collection.item-mapper.tabs.browse' | translate}}">
+      <ngb-tabset (tabChange)="tabChange($event)" [destroyOnHide]="true" #tabs="ngbTabset">
+        <ngb-tab title="{{'collection.item-mapper.tabs.browse' | translate}}" id="browseTab">
           <ng-template ngbTabContent>
             <div class="mt-2">
               <ds-item-select class="mt-2"
@@ -19,7 +19,7 @@
             </div>
           </ng-template>
         </ngb-tab>
-        <ngb-tab title="{{'collection.item-mapper.tabs.map' | translate}}">
+        <ngb-tab title="{{'collection.item-mapper.tabs.map' | translate}}" id="mapTab">
           <ng-template ngbTabContent>
             <div class="row mt-2">
               <div class="col-12 col-lg-6">

@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
@@ -43,6 +43,12 @@ import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.comp
  * Component used to map items to a collection
  */
 export class CollectionItemMapperComponent implements OnInit {
+
+  /**
+   * A view on the tabset element
+   * Used to switch tabs programmatically
+   */
+  @ViewChild('tabs') tabs;
 
   /**
    * The collection to map items to
@@ -180,8 +186,9 @@ export class CollectionItemMapperComponent implements OnInit {
           this.notificationsService.error(head, content);
         });
       }
-      // Force an update on all lists
+      // Force an update on all lists and switch back to the first tab
       this.shouldUpdate$.next(true);
+      this.switchToFirstTab();
     });
   }
 
@@ -226,6 +233,13 @@ export class CollectionItemMapperComponent implements OnInit {
     } else {
       return excludeColQuery;
     }
+  }
+
+  /**
+   * Switch the view to focus on the first tab
+   */
+  switchToFirstTab() {
+    this.tabs.select('browseTab');
   }
 
 }

@@ -1,6 +1,6 @@
 <ng-container *ngVar="(dsoRD$ | async) as collectionsRD">
   <ds-pagination
-    *ngIf="collectionsRD?.payload?.totalElements > 0"
+    *ngIf="collectionsRD?.payload?.totalElements > 0 || collectionsRD?.payload?.page?.length > 0"
     [paginationOptions]="paginationOptions"
     [sortOptions]="sortOptions"
     [pageInfoState]="collectionsRD?.payload"

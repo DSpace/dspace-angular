@@ -1,6 +1,6 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
 import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -34,6 +34,13 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
  * Component for mapping collections to an item
  */
 export class ItemCollectionMapperComponent implements OnInit {
+
+  /**
+   * A view on the tabset element
+   * Used to switch tabs programmatically
+   */
+  @ViewChild('tabs') tabs;
+
   /**
    * The item to map to collections
    */
@@ -92,14 +99,18 @@ export class ItemCollectionMapperComponent implements OnInit {
       switchMap((item: Item) => this.itemDataService.getMappedCollections(item.id))
     );
 
+    const owningCollectionRD$ = this.itemRD$.pipe(
+      switchMap((itemRD: RemoteData<Item>) => itemRD.payload.owningCollection)
+    );
     const itemCollectionsAndOptions$ = observableCombineLatest(
       this.itemCollectionsRD$,
+      owningCollectionRD$,
       this.searchOptions$
     );
     this.mappedCollectionsRD$ = itemCollectionsAndOptions$.pipe(
-      switchMap(([itemCollectionsRD, searchOptions]) => {
+      switchMap(([itemCollectionsRD, owningCollectionRD, searchOptions]) => {
         return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
-          query: this.buildQuery(itemCollectionsRD.payload.page, searchOptions.query),
+          query: this.buildQuery([...itemCollectionsRD.payload.page, owningCollectionRD.payload], searchOptions.query),
           dsoType: DSpaceObjectType.COLLECTION
         }));
       }),
@@ -190,8 +201,9 @@ export class ItemCollectionMapperComponent implements OnInit {
           this.notificationsService.error(head, content);
         });
       }
-      // Force an update on all lists
+      // Force an update on all lists and switch back to the first tab
       this.shouldUpdate$.next(true);
+      this.switchToFirstTab();
     });
   }
 
@@ -249,6 +261,13 @@ export class ItemCollectionMapperComponent implements OnInit {
     } else {
       return excludeQuery;
     }
+  }
+
+  /**
+   * Switch the view to focus on the first tab
+   */
+  switchToFirstTab() {
+    this.tabs.select('browseTab');
   }
 
 }
