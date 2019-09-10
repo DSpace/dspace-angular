@@ -8,7 +8,7 @@ import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-
 import { RoleService } from '../core/roles/role.service';
 import { SearchConfigurationOption } from '../+search-page/search-switch-configuration/search-configuration-option.model';
 import { SearchConfigurationService } from '../+search-page/search-service/search-configuration.service';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
 import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
