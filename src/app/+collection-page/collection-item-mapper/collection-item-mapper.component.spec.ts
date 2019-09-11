@@ -39,8 +39,8 @@ import { VarDirective } from '../../shared/utils/var.directive';
 import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf, of } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../../core/cache/response.models';
-import { RouteService } from '../../shared/services/route.service';
 import { SearchFixedFilterService } from '../../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { RouteService } from '../../core/services/route.service';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
