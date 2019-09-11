@@ -6,9 +6,9 @@ import { Store } from '@ngrx/store';
 import { getTestScheduler, hot } from 'jasmine-marbles';
 
 import { RouteService } from './route.service';
-import { MockRouter } from '../mocks/mock-router';
+import { MockRouter } from '../../shared/mocks/mock-router';
 import { TestScheduler } from 'rxjs/testing';
-import { AddUrlToHistoryAction } from '../history/history.actions';
+import { AddUrlToHistoryAction } from '../../shared/history/history.actions';
 
 describe('RouteService', () => {
   let scheduler: TestScheduler;

@@ -12,12 +12,12 @@ import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { isEqual } from 'lodash';
 
-import { AddUrlToHistoryAction } from '../history/history.actions';
-import { historySelector } from '../history/selectors';
+import { AddUrlToHistoryAction } from '../../shared/history/history.actions';
+import { historySelector } from '../../shared/history/selectors';
 import { SetParametersAction, SetQueryParametersAction } from './route.actions';
-import { CoreState } from '../../core/core.reducers';
-import { hasValue } from '../empty.util';
-import { coreSelector } from '../../core/core.selectors';
+import { CoreState } from '../core.reducers';
+import { hasValue } from '../../shared/empty.util';
+import { coreSelector } from '../core.selectors';
 
 /**
  * Selector to select all route parameters from the store

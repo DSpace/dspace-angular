@@ -26,7 +26,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { map } from 'rxjs/operators';
-import { RouteService } from '../../shared/services/route.service';
+import { RouteService } from '../../core/services/route.service';
 import { routeServiceStub } from '../../shared/testing/route-service-stub';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 

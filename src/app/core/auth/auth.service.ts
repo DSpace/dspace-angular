@@ -15,11 +15,11 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
-import { CookieService } from '../../shared/services/cookie.service';
+import { CookieService } from '../services/cookie.service';
 import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
-import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
+import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 

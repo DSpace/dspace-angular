@@ -41,7 +41,7 @@ import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RouteService } from '../../shared/services/route.service';
+import { RouteService } from '../../core/services/route.service';
 
 /**
  * Service that performs all general actions that have to do with the search page

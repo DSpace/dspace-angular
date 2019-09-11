@@ -16,11 +16,13 @@ import { hasValue } from '../../empty.util';
 
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
+  isCollapsed$: Observable<boolean>;
 
   public constructor(@Inject('objectElementProvider') public listableObject: ListableObject, protected truncatableService: TruncatableService) {
     super(listableObject);
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
+      this.isCollapsed$ = this.isCollapsed();
     }
   }
 
@@ -44,7 +46,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
     return Metadata.firstValue([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
 
-  isCollapsed(): Observable<boolean> {
+  private isCollapsed(): Observable<boolean> {
     return this.truncatableService.isCollapsed(this.dso.id);
   }
 
