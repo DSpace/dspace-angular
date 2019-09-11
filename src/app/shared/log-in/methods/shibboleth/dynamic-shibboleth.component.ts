@@ -9,6 +9,7 @@ import { StartShibbolethAuthenticationAction } from '../../../../core/auth/auth.
 import { Observable } from 'rxjs';
 import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
 import { HttpClient } from '@angular/common/http';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../../../config';
 
 @Component({
   selector: 'ds-dynamic-shibboleth',
@@ -39,16 +40,23 @@ export class DynamicShibbolethComponent implements OnInit {
    */
   public shibbForm: FormGroup;
 
+  private host: string;
+
   /**
    * @constructor
    */
   constructor(@Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
+              @Inject(GLOBAL_CONFIG) private envConfig: GlobalConfig,
               private formBuilder: FormBuilder,
               private store: Store<CoreState>) {
     this.authMethodModel = injectedAuthMethodModel;
   }
 
   ngOnInit(): void {
+    console.log('conf: ',this.envConfig.rest.host);
+
+    this.host = this.envConfig.rest.host;
+
     // console.log('injectedAuthMethodModel', this.injectedAuthMethodModel);
     // set formGroup
     this.shibbForm = this.formBuilder.group({
@@ -65,6 +73,9 @@ export class DynamicShibbolethComponent implements OnInit {
 
   submit() {
     console.log('submit() was called');
-    this.store.dispatch(new StartShibbolethAuthenticationAction(this.authMethodModel))
+    this.store.dispatch(new StartShibbolethAuthenticationAction(this.authMethodModel));
+    this.host = 'fis.tiss.tuwien.ac.at';
+    // https://dspace.hostname/Shibboleth.sso/Login?target=https://dspace.hostname/shibboleth
+    window.location.href = 'https://' + this.host + '/Shibboleth.sso/Login?target=https://' + this.host + '/shibboleth';
   }
 }
