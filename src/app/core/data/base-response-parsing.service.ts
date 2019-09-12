@@ -7,8 +7,8 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
 import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
-import { ResourceType } from '../shared/resource-type';
 import { getMapsToType } from '../cache/builders/build-decorators';
+
 /* tslint:disable:max-classes-per-file */
 
 export abstract class BaseResponseParsingService {
@@ -118,7 +118,7 @@ export abstract class BaseResponseParsingService {
   }
 
   processPageInfo(payload: any): PageInfo {
-    if (hasValue(payload.page)) {
+    if (hasValue(payload) && hasValue(payload.page)) {
       const pageObj = Object.assign({}, payload.page, { _links: payload._links });
       const pageInfoObject = new DSpaceRESTv2Serializer(PageInfo).deserialize(pageObj);
       if (pageInfoObject.currentPage >= 0) {

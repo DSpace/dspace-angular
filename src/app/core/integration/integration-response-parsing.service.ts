@@ -26,7 +26,7 @@ export class IntegrationResponseParsingService extends BaseResponseParsingServic
   }
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
-    if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)) {
+    if (this.isSuccessStatus(data.statusCode)) {
       const dataDefinition = this.process<IntegrationModel>(data.payload, request.uuid);
       return new IntegrationSuccessResponse(this.processResponse(dataDefinition), data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
@@ -40,12 +40,13 @@ export class IntegrationResponseParsingService extends BaseResponseParsingServic
   }
 
   protected processResponse(data: PaginatedList<IntegrationModel>): any {
-    const returnList = Array.of();
-    data.page.forEach((item, index) => {
-      if (item.type === AuthorityEntry.type.value) {
-        data.page[index] = Object.assign(new AuthorityEntry(), item);
-      }
-    });
+    if (isNotEmpty(data)) {
+      data.page.forEach((item, index) => {
+        if (item.type === AuthorityEntry.type.value) {
+          data.page[index] = Object.assign(new AuthorityEntry(), item);
+        }
+      });
+    }
 
     return data;
   }
