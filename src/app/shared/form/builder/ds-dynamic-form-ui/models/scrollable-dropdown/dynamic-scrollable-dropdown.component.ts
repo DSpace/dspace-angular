@@ -118,14 +118,6 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
     this.setCurrentValue(event);
   }
 
-  onToggle(sdRef: NgbDropdown) {
-    if (sdRef.isOpen()) {
-      this.focus.emit(event);
-    } else {
-      this.blur.emit(event);
-    }
-  }
-
   setCurrentValue(value): void {
     let result: string;
     if (isUndefined(value) || isNull(value)) {
