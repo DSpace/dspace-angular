@@ -49,6 +49,7 @@ export abstract class DataService<T extends CacheableObject> {
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
   protected abstract comparator: ChangeAnalyzer<T>;
+  protected resetMsToLive = false;
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
@@ -130,6 +131,9 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+        if (this.resetMsToLive) {
+          request.responseMsToLive = 0;
+        }
         this.requestService.configure(request);
       });
 
@@ -153,6 +157,9 @@ export abstract class DataService<T extends CacheableObject> {
       find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
+        if (this.resetMsToLive) {
+          request.responseMsToLive = 0;
+        }
         this.requestService.configure(request);
       });
 
@@ -160,7 +167,11 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
-    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options));
+    const request = new GetRequest(this.requestService.generateRequestId(), href, null, options);
+    if (this.resetMsToLive) {
+      request.responseMsToLive = 0;
+    }
+    this.requestService.configure(request);
     return this.rdbService.buildSingle<T>(href);
   }
 
@@ -191,6 +202,7 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+        request.responseMsToLive = 0;
         this.requestService.configure(request);
       });
 

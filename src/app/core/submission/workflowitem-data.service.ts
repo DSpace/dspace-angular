@@ -20,6 +20,7 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 @Injectable()
 export class WorkflowItemDataService extends DataService<WorkflowItem> {
   protected linkPath = 'workflowitems';
+  protected resetMsToLive = true;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkflowItem>,
