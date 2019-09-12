@@ -109,7 +109,10 @@ export class SubmissionRestService {
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),
-      map ((request: RestRequest) => request.responseMsToLive = 0),
+      map ((request: RestRequest) => {
+        request.responseMsToLive = 0;
+        return request;
+      }),
       tap((request: RestRequest) => this.requestService.configure(request)),
       flatMap(() => this.fetchRequest(requestId)),
       distinctUntilChanged());
