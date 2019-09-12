@@ -142,6 +142,7 @@ import { AbstractTrackableComponent } from './trackable/abstract-trackable.compo
 import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
 import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
 import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
+import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -265,7 +266,8 @@ const COMPONENTS = [
   BrowseByComponent,
   ItemTypeBadgeComponent,
   BrowseByComponent,
-  AbstractTrackableComponent
+  AbstractTrackableComponent,
+  CustomSwitchComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -309,7 +311,8 @@ const ENTRY_COMPONENTS = [
   StartsWithTextComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
-  MetadataRepresentationListElementComponent
+  MetadataRepresentationListElementComponent,
+  CustomSwitchComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

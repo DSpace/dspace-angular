@@ -1,13 +1,22 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 mb-4">
-      <h2>{{'bitstream.edit.title' | translate}}</h2>
-      <ng-container *ngVar="(bitstreamRD$ | async)?.payload as bitstream">
-        <div *ngIf="bitstream">
-          <span class="font-weight-bold">{{'bitstream.edit.bitstream' | translate}}</span>
-          <span>{{bitstream.name}}</span>
+    <div class="col-md-2">
+      <ds-thumbnail [thumbnail]="bitstream"></ds-thumbnail>
+    </div>
+    <div class="col-md-10">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h3>{{bitstream?.name}} <span class="text-muted">({{bitstream?.sizeBytes | dsFileSize}})</span></h3>
+          </div>
         </div>
-      </ng-container>
+      </div>
+      <ds-form  *ngIf="bitstream"
+                [formId]="'edit-bitstream-form-id'"
+                [formGroup]="formGroup"
+                [formModel]="formModel"
+                [formLayout]="formLayout"
+                (submitForm)="onSubmit()"></ds-form>
     </div>
   </div>
 </div>
