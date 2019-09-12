@@ -1,7 +1,7 @@
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, zip as observableZip } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { first, map, switchMap } from 'rxjs/operators';
+import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
+import { first, map, switchMap, tap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -23,7 +23,7 @@ import {
   getSucceededRemoteData
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -41,7 +41,7 @@ import { Community } from '../../core/shared/community.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RouteService } from '../../shared/services/route.service';
+import { RouteService } from '../../core/services/route.service';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -103,11 +103,18 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
   search(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
-    const requestObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
+    const hrefObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
         if (hasValue(searchOptions)) {
-          url = (searchOptions as PaginatedSearchOptions).toRestUrl(url);
+          return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
+        } else {
+          return url;
         }
+      })
+    );
+
+    const requestObs = hrefObs.pipe(
+      map((url: string) => {
         const request = new this.request(this.requestService.generateRequestId(), url);
 
         const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
@@ -136,10 +143,11 @@ export class SearchService implements OnDestroy {
       map((sqr: SearchQueryResponse) => {
         return sqr.objects
           .filter((nsr: NormalizedSearchResult) => isNotUndefined(nsr.indexableObject))
-          .map((nsr: NormalizedSearchResult) => {
-          return this.rdb.buildSingle(nsr.indexableObject);
-        })
+          .map((nsr: NormalizedSearchResult) => new GetRequest(this.requestService.generateRequestId(), nsr.indexableObject))
       }),
+      // Send a request for each item to ensure fresh cache
+      tap((reqs: RestRequest[]) => reqs.forEach((req: RestRequest) => this.requestService.configure(req))),
+      map((reqs: RestRequest[]) => reqs.map((req: RestRequest) => this.rdb.buildSingle(req.href))),
       switchMap((input: Array<Observable<RemoteData<DSpaceObject>>>) => this.rdb.aggregate(input)),
     );
 
@@ -168,11 +176,20 @@ export class SearchService implements OnDestroy {
 
     const payloadObs = observableCombineLatest(tDomainListObs, pageInfoObs).pipe(
       map(([tDomainList, pageInfo]) => {
-        return new PaginatedList(pageInfo, tDomainList);
+        return new PaginatedList(pageInfo, tDomainList.filter((obj) => hasValue(obj)));
       })
     );
 
-    return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
+    return observableCombineLatest(hrefObs, tDomainListObs, requestEntryObs).pipe(
+      switchMap(([href, tDomainList, requestEntry]) => {
+        if (tDomainList.indexOf(undefined) > -1 && requestEntry && requestEntry.completed) {
+          this.requestService.removeByHrefSubstring(href);
+          return this.search(searchOptions)
+        } else {
+          return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
+        }
+      })
+    );
   }
 
   /**

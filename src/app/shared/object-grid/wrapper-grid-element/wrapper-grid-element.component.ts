@@ -12,6 +12,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 export class WrapperGridElementComponent implements OnInit {
   @Input() object: ListableObject;
   objectInjector: Injector;
+  gridElement: any;
 
   constructor(private injector: Injector) {
   }
@@ -21,7 +22,7 @@ export class WrapperGridElementComponent implements OnInit {
       providers: [{ provide: 'objectElementProvider', useFactory: () => (this.object), deps:[] }],
       parent: this.injector
     });
-
+    this.gridElement = this.getGridElement();
   }
 
   getGridElement(): string {

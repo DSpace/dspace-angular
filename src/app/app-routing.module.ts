@@ -16,6 +16,12 @@ const COMMUNITY_MODULE_PATH = 'communities';
 export function getCommunityModulePath() {
   return `/${COMMUNITY_MODULE_PATH}`;
 }
+
+const  ADMIN_MODULE_PATH = 'admin';
+export function getAdminModulePath() {
+  return `/${ADMIN_MODULE_PATH}`;
+}
+
 @NgModule({
   imports: [
     RouterModule.forRoot([
@@ -27,7 +33,7 @@ export function getCommunityModulePath() {
       { path: 'mydspace', loadChildren: './+my-dspace-page/my-dspace-page.module#MyDSpacePageModule', canActivate: [AuthenticatedGuard] },
       { path: 'search', loadChildren: './+search-page/search-page.module#SearchPageModule' },
       { path: 'browse', loadChildren: './+browse-by/browse-by.module#BrowseByModule' },
-      { path: 'admin', loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
+      { path: ADMIN_MODULE_PATH, loadChildren: './+admin/admin.module#AdminModule', canActivate: [AuthenticatedGuard] },
       { path: 'login', loadChildren: './+login-page/login-page.module#LoginPageModule' },
       { path: 'logout', loadChildren: './+logout-page/logout-page.module#LogoutPageModule' },
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },

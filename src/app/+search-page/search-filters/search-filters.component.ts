@@ -38,6 +38,11 @@ export class SearchFiltersComponent implements OnInit {
   @Input() inPlaceSearch;
 
   /**
+   * Link to the search page
+   */
+  searchLink: string;
+
+  /**
    * Initialize instance variables
    * @param {SearchService} searchService
    * @param {SearchConfigurationService} searchConfigService
@@ -60,12 +65,13 @@ export class SearchFiltersComponent implements OnInit {
       Object.keys(filters).forEach((f) => filters[f] = null);
       return filters;
     }));
+    this.searchLink = this.getSearchLink();
   }
 
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  public getSearchLink(): string {
+  private getSearchLink(): string {
     if (this.inPlaceSearch) {
       return './';
     }

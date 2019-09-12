@@ -8,7 +8,7 @@
                 (pageSizeChange)="onPageSizeChange($event)"
                 (sortDirectionChange)="onSortDirectionChange($event)"
                 (sortFieldChange)="onSortFieldChange($event)"
-                *ngIf="getViewMode()===viewModeEnum.List">
+                *ngIf="(currentMode$ | async) === viewModeEnum.List">
 </ds-object-list>
 
 <ds-object-grid [config]="config"
@@ -20,14 +20,14 @@
                 (pageSizeChange)="onPageSizeChange($event)"
                 (sortDirectionChange)="onSortDirectionChange($event)"
                 (sortFieldChange)="onSortFieldChange($event)"
-                *ngIf="getViewMode()===viewModeEnum.Grid">
+                *ngIf="(currentMode$ | async) === viewModeEnum.Grid">
 </ds-object-grid>
 
 <ds-object-detail [config]="config"
                   [sortConfig]="sortConfig"
                   [objects]="objects"
                   [hideGear]="hideGear"
-                  *ngIf="getViewMode()===viewModeEnum.Detail">
+                  *ngIf="(currentMode$ | async) === viewModeEnum.Detail">
 </ds-object-detail>
 
 
