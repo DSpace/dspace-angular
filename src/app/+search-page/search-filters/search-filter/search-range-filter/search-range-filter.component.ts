@@ -14,7 +14,7 @@ import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../search-f
 import { SearchService } from '../../../search-service/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { RouteService } from '../../../../shared/services/route.service';
+import { RouteService } from '../../../../core/services/route.service';
 import { hasValue } from '../../../../shared/empty.util';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';

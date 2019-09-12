@@ -7,12 +7,12 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { of as observableOf } from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
-import { NativeWindowRef, NativeWindowService } from '../../shared/services/window.service';
+import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { AuthService } from './auth.service';
 import { RouterStub } from '../../shared/testing/router-stub';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 
-import { CookieService } from '../../shared/services/cookie.service';
+import { CookieService } from '../services/cookie.service';
 import { AuthRequestServiceStub } from '../../shared/testing/auth-request-service-stub';
 import { AuthRequestService } from './auth-request.service';
 import { AuthStatus } from './models/auth-status.model';
@@ -20,7 +20,7 @@ import { AuthTokenInfo } from './models/auth-token-info.model';
 import { EPerson } from '../eperson/models/eperson.model';
 import { EPersonMock } from '../../shared/testing/eperson-mock';
 import { AppState } from '../../app.reducer';
-import { ClientCookieService } from '../../shared/services/client-cookie.service';
+import { ClientCookieService } from '../services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 

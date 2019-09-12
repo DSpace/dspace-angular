@@ -92,7 +92,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   public submit() {
     this.isValid().pipe(first()).subscribe((isValid) => {
       if (isValid) {
-        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.item.metadataAsList) as Observable<MetadatumViewModel[]>;
+        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.getMetadataAsListExcludingRelationships()) as Observable<MetadatumViewModel[]>;
         metadata$.pipe(
           first(),
           switchMap((metadata: MetadatumViewModel[]) => {
@@ -105,7 +105,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
           (rd: RemoteData<Item>) => {
             this.item = rd.payload;
             this.initializeOriginalFields();
-            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.item.metadataAsList);
+            this.updates$ = this.objectUpdatesService.getFieldUpdates(this.url, this.getMetadataAsListExcludingRelationships());
             this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
           }
         )
@@ -123,5 +123,9 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
       getSucceededRemoteData(),
       take(1),
       map((remoteData$) => remoteData$.payload.page.map((field: MetadataField) => field.toString())));
+  }
+
+  getMetadataAsListExcludingRelationships(): MetadatumViewModel[] {
+    return this.item.metadataAsList.filter((metadata: MetadatumViewModel) => !metadata.key.startsWith('relation.') && !metadata.key.startsWith('relationship.'));
   }
 }

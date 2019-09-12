@@ -26,7 +26,7 @@ import { HostWindowResizeAction } from './shared/host-window.actions';
 import { MetadataService } from './core/metadata/metadata.service';
 
 import { GLOBAL_CONFIG, ENV_CONFIG } from '../config';
-import { NativeWindowRef, NativeWindowService } from './shared/services/window.service';
+import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 
 import { MockTranslateLoader } from './shared/mocks/mock-translate-loader';
 import { MockMetadataService } from './shared/mocks/mock-metadata-service';
@@ -41,9 +41,11 @@ import { MenuServiceStub } from './shared/testing/menu-service-stub';
 import { HostWindowService } from './shared/host-window.service';
 import { HostWindowServiceStub } from './shared/testing/host-window-service-stub';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouteService } from './shared/services/route.service';
+import { RouteService } from './core/services/route.service';
 import { MockActivatedRoute } from './shared/mocks/mock-active-router';
 import { MockRouter } from './shared/mocks/mock-router';
+import { MockCookieService } from './shared/mocks/mock-cookie.service';
+import { CookieService } from './core/services/cookie.service';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -78,6 +80,7 @@ describe('App component', () => {
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: CookieService, useValue: new MockCookieService()},
         AppComponent,
         RouteService
       ],

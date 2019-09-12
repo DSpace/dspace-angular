@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouteService } from '../../shared/services/route.service';
+import { RouteService } from '../../core/services/route.service';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { of as observableOf } from 'rxjs';

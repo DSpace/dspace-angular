@@ -64,7 +64,8 @@ import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.c
     GenericItemPageFieldComponent,
     RelatedEntitiesSearchComponent,
     RelatedItemsComponent,
-    MetadataRepresentationListComponent
+    MetadataRepresentationListComponent,
+    ItemPageTitleFieldComponent
   ],
   entryComponents: [
     PublicationComponent

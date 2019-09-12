@@ -65,8 +65,7 @@ const uuidsFromHrefSubstringSelector =
 const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] => {
   let result = [];
   if (isNotEmpty(state)) {
-    result = Object.values(state)
-      .filter((value: string) => value.startsWith(href));
+    result = Object.keys(state).filter((key) => key.startsWith(href)).map((key) => state[key]);
   }
   return result;
 };
