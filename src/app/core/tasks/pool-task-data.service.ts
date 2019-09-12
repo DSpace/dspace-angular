@@ -28,10 +28,15 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
   protected linkPath = 'pooltasks';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   protected responseMsToLive = 0;
 
 =======
 >>>>>>> Refactored to remove forceBypassCache param from requestService and from data service classes.
+=======
+  protected resetMsToLive = true;
+
+>>>>>>> Setting cache period to zero for all instances where forceBypassCache was previously true.
   /**
    * Initialize instance variables
    *
