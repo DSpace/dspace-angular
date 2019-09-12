@@ -109,14 +109,10 @@ export class SubmissionRestService {
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),
-<<<<<<< HEAD
       map ((request: RestRequest) => {
         request.responseMsToLive = 0;
         return request;
       }),
-=======
-      map ((request: RestRequest) => request.responseMsToLive = 0),
->>>>>>> Setting cache period to zero for all instances where forceBypassCache was previously true.
       tap((request: RestRequest) => this.requestService.configure(request)),
       flatMap(() => this.fetchRequest(requestId)),
       distinctUntilChanged());
