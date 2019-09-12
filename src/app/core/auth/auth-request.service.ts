@@ -44,6 +44,7 @@ export class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthPostRequest(this.requestService.generateRequestId(), endpointURL, body, options)),
+      map ((request: PostRequest) => request.responseMsToLive = 0),
       tap((request: PostRequest) => this.requestService.configure(request)),
       mergeMap((request: PostRequest) => this.fetchRequest(request)),
       distinctUntilChanged());
@@ -55,6 +56,7 @@ export class AuthRequestService {
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthGetRequest(this.requestService.generateRequestId(), endpointURL, options)),
+      map ((request: GetRequest) => request.responseMsToLive = 0),
       tap((request: GetRequest) => this.requestService.configure(request)),
       mergeMap((request: GetRequest) => this.fetchRequest(request)),
       distinctUntilChanged());

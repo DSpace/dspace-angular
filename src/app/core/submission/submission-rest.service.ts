@@ -6,7 +6,7 @@ import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/
 import { RequestService } from '../data/request.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import {
-  DeleteRequest,
+  DeleteRequest, GetRequest,
   PostRequest,
   RestRequest,
   SubmissionDeleteRequest,
@@ -109,6 +109,7 @@ export class SubmissionRestService {
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),
+      map ((request: RestRequest) => request.responseMsToLive = 0),
       tap((request: RestRequest) => this.requestService.configure(request)),
       flatMap(() => this.fetchRequest(requestId)),
       distinctUntilChanged());
