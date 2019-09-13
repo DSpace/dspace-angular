@@ -13,4 +13,5 @@ import { ConfigurationSearchPageComponent } from './configuration-search-page.co
     ])
   ]
 })
-export class SearchPageRoutingModule { }
+export class SearchPageRoutingModule {
+}

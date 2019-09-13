@@ -43,7 +43,7 @@ import { SubmissionRestService } from '../core/submission/submission-rest.servic
 import { SectionDataObject } from './sections/models/section-data.model';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { SectionsType } from './sections/sections-type';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
