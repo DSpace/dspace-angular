@@ -1,11 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute } from '@angular/router';
-import { map, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
-  DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService,
+  DynamicFormControlModel,
+  DynamicFormGroupModel,
+  DynamicFormLayout,
+  DynamicFormService,
   DynamicInputModel,
+  DynamicSelectModel,
   DynamicTextAreaModel
 } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
@@ -13,9 +18,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { cloneDeep } from 'lodash';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { getSucceededRemoteData } from '../../core/shared/operators';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
 import { RemoteData } from '../../core/data/remote-data';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
+import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -52,6 +60,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * @type {string} Key prefix used to generate notification messages
    */
   NOTIFICATIONS_PREFIX = 'bitstream.edit.notifications.';
+
+  /**
+   * Options for fetching all bitstream formats
+   */
+  findAllOptions = { elementsPerPage: 9999 };
+
+  /**
+   * List of IDs of unknown formats
+   */
+  unknownFormatIDs: string[] = [];
 
   /**
    * The Dynamic Input Model for the file's name
@@ -94,9 +112,25 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   });
 
   /**
+   * The Dynamic Input Model for the selected format
+   */
+  selectedFormatModel = new DynamicSelectModel({
+    id: 'selectedFormat',
+    name: 'selectedFormat'
+  });
+
+  /**
+   * The Dynamic Input Model for supplying more format information
+   */
+  otherFormatModel = new DynamicInputModel({
+    id: 'otherFormat',
+    name: 'otherFormat'
+  });
+
+  /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.embargoModel];
+  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.embargoModel, this.selectedFormatModel, this.otherFormatModel];
 
   /**
    * The dynamic form fields used for editing the information of a bitstream
@@ -121,8 +155,20 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       group: [
         this.embargoModel
       ]
+    }),
+    new DynamicFormGroupModel({
+      id: 'formatContainer',
+      group: [
+        this.selectedFormatModel,
+        this.otherFormatModel
+      ]
     })
   ];
+
+  /**
+   * The base layout of the "Other Format" input
+   */
+  otherFormatBaseLayout = 'col col-sm-6';
 
   /**
    * Layout used for structuring the form inputs
@@ -148,6 +194,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         host: 'col-12 d-inline-block'
       }
     },
+    selectedFormat: {
+      grid: {
+        host: 'col col-sm-6 d-inline-block'
+      }
+    },
+    otherFormat: {
+      grid: {
+        host: this.otherFormatBaseLayout + ' d-none'
+      }
+    },
     fileNamePrimaryContainer: {
       grid: {
         host: 'row position-relative'
@@ -159,6 +215,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       }
     },
     embargoContainer: {
+      grid: {
+        host: 'row'
+      }
+    },
+    formatContainer: {
       grid: {
         host: 'row'
       }
@@ -179,7 +240,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private formService: DynamicFormService,
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private bitstreamFormatService: BitstreamFormatDataService) {
   }
 
   /**
@@ -190,8 +252,22 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.formGroup = this.formService.createFormGroup(this.formModel);
-    this.sub = this.route.data.pipe(map((data) => data.bitstream)).subscribe((bitstreamRD) => {
-      this.bitstream = bitstreamRD.payload;
+
+    const bitstream$ = this.route.data.pipe(map((data) => data.bitstream)).pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload()
+    );
+    const allFormats$ = this.bitstreamFormatService.findAll(this.findAllOptions).pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload()
+    );
+
+    this.sub = observableCombineLatest(
+      bitstream$,
+      allFormats$
+    ).subscribe(([bitstream, allFormats]) => {
+      this.bitstream = bitstream as Bitstream;
+      this.updateFormatModel(allFormats.page);
       this.updateForm(this.bitstream);
     });
 
@@ -205,6 +281,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * Update the current form values with bitstream properties
    * @param bitstream
+   * @param bitstreamFormat
    */
   updateForm(bitstream: Bitstream) {
     this.formGroup.patchValue({
@@ -216,6 +293,53 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         description: bitstream.description
       }
     });
+    this.bitstream.format.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      take(1)
+    ).subscribe((format: BitstreamFormat) => {
+      this.formGroup.patchValue({
+        formatContainer: {
+          selectedFormat: format.id
+        }
+      });
+      this.updateOtherFormatLayout(format.id);
+    });
+  }
+
+  /**
+   * Create the list of unknown format IDs an add options to the selectedFormatModel
+   * @param formats
+   */
+  updateFormatModel(formats: BitstreamFormat[]) {
+    this.unknownFormatIDs = formats
+      .filter((format: BitstreamFormat) => format.supportLevel === BitstreamFormatSupportLevel.Unknown)
+      .map((format: BitstreamFormat) => format.id);
+    this.selectedFormatModel.options = formats.map((format: BitstreamFormat) =>
+      Object.assign({
+        value: format.id,
+        label: this.isUnknownFormat(format.id) ? this.translate.instant(this.KEY_PREFIX + 'selectedFormat.unknown') : format.shortDescription
+      }));
+  }
+
+  /**
+   * Update the layout of the "Other Format" input depending on the selected format
+   * @param selectedId
+   */
+  updateOtherFormatLayout(selectedId: string) {
+    if (this.isUnknownFormat(selectedId)) {
+      this.formLayout.otherFormat.grid.host = this.otherFormatBaseLayout + ' d-inline-block';
+    } else {
+      this.formLayout.otherFormat.grid.host = this.otherFormatBaseLayout + ' d-none';
+    }
+  }
+
+  /**
+   * Is the provided format (id) part of the list of unknown formats?
+   * @param id
+   */
+  isUnknownFormat(id: string): boolean {
+    return this.unknownFormatIDs.indexOf(id) > -1;
   }
 
   /**
@@ -237,6 +361,13 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     fieldModel.label = this.translate.instant(this.KEY_PREFIX + fieldModel.id + this.LABEL_KEY_SUFFIX);
     if (fieldModel.id !== this.primaryBitstreamModel.id) {
       fieldModel.hint = this.translate.instant(this.KEY_PREFIX + fieldModel.id + this.HINT_KEY_SUFFIX);
+    }
+  }
+
+  onChange(event) {
+    const model = event.model;
+    if (model.id === this.selectedFormatModel.id) {
+      this.updateOtherFormatLayout(model.value);
     }
   }
 
