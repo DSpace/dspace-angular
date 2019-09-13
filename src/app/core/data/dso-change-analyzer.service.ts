@@ -22,6 +22,9 @@ export class DSOChangeAnalyzer<T extends DSpaceObject> implements ChangeAnalyzer
    *    The second object to compare
    */
   diff(object1: T | NormalizedDSpaceObject<T>, object2: T | NormalizedDSpaceObject<T>): Operation[] {
-    return compare(object1.metadata, object2.metadata).map((operation: Operation) => Object.assign({}, operation, { path: '/metadata' + operation.path }));
+    return compare(object1.metadata, object2.metadata)
+      // Filter out operations on UUIDs, as they should never change
+      .filter((operation: Operation) => !operation.path.endsWith('/uuid'))
+      .map((operation: Operation) => Object.assign({}, operation, { path: '/metadata' + operation.path }));
   }
 }

@@ -91,6 +91,8 @@
   "bitstream.edit.form.fileName.label": "Filename",
   "bitstream.edit.form.fileName.hint": "Change the filename for the bitstream. Note that this will change the display bitstream URL, but old links will still resolve as long as the sequence ID does not change.",
   "bitstream.edit.form.primaryBitstream.label": "Primary bitstream",
+  "bitstream.edit.notifications.saved.content": "Your changes to this bitstream were saved.",
+  "bitstream.edit.notifications.saved.title": "Bitstream saved",
   "browse.comcol.by.author": "By Author",
   "browse.comcol.by.dateissued": "By Issue Date",
   "browse.comcol.by.subject": "By Subject",

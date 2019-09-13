@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
   DynamicFormControlModel, DynamicFormGroupModel, DynamicFormLayout, DynamicFormService,
@@ -11,6 +11,11 @@ import {
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+import { cloneDeep } from 'lodash';
+import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { getSucceededRemoteData } from '../../core/shared/operators';
+import { RemoteData } from '../../core/data/remote-data';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -42,6 +47,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * @type {string} Key suffix used to generate form labels
    */
   HINT_KEY_SUFFIX = '.hint';
+
+  /**
+   * @type {string} Key prefix used to generate notification messages
+   */
+  NOTIFICATIONS_PREFIX = 'bitstream.edit.notifications.';
 
   /**
    * The Dynamic Input Model for the file's name
@@ -167,7 +177,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private formService: DynamicFormService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private bitstreamService: BitstreamDataService,
+              private notificationsService: NotificationsService) {
   }
 
   /**
@@ -232,8 +244,32 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Check for changes against the bitstream and send update requests to the REST API
    */
   onSubmit() {
-    // TODO: Check for changes against the bitstream and send requests to the REST API accordingly
-    console.log(this.formGroup.getRawValue());
+    const updatedValues = this.formGroup.getRawValue();
+    const newBitstream = this.formToBitstream(updatedValues);
+    this.bitstreamService.update(newBitstream).pipe(
+      tap(() => this.bitstreamService.commitUpdates()),
+      getSucceededRemoteData()
+    ).subscribe((bitstreamRD: RemoteData<Bitstream>) => {
+      this.bitstream = bitstreamRD.payload;
+      this.updateForm(this.bitstream);
+      this.notificationsService.success(
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
+      );
+    });
+  }
+
+  /**
+   * Parse form data to an updated bitstream object
+   * @param rawForm   Raw form data
+   */
+  formToBitstream(rawForm): Bitstream {
+    const newBitstream = cloneDeep(this.bitstream);
+    // TODO: Set bitstream to primary when supported
+    const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
+    newBitstream.name = rawForm.fileNamePrimaryContainer.fileName;
+    newBitstream.description = rawForm.descriptionContainer.description;
+    return newBitstream;
   }
 
   /**

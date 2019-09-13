@@ -4,9 +4,12 @@ import { Item } from './item.model';
 import { BitstreamFormat } from './bitstream-format.model';
 import { Observable } from 'rxjs';
 import { ResourceType } from './resource-type';
+import { hasValue, isUndefined } from '../../shared/empty.util';
 
 export class Bitstream extends DSpaceObject {
   static type = new ResourceType('bitstream');
+
+  private _description: string;
 
   /**
    * The size of this bitstream in bytes
@@ -14,9 +17,21 @@ export class Bitstream extends DSpaceObject {
   sizeBytes: number;
 
   /**
-   * The description of this Bitstream
+   * Get the description of this Bitstream
    */
-  description: string;
+  get description(): string {
+    return (isUndefined(this._description)) ? this.firstMetadataValue('dc.description') : this._description;
+  }
+
+  /**
+   * Set the description of this Bitstream
+   */
+  set description(description) {
+    if (hasValue(this.firstMetadata('dc.description'))) {
+      this.firstMetadata('dc.description').value = description;
+    }
+    this._description = description;
+  }
 
   /**
    * The name of the Bundle this Bitstream is part of

@@ -7,7 +7,7 @@ import {
   MetadatumViewModel
 } from './metadata.models';
 import { Metadata } from './metadata.utils';
-import { hasNoValue, isUndefined } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
@@ -47,6 +47,9 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    * The name for this DSpaceObject
    */
   set name(name) {
+    if (hasValue(this.firstMetadata('dc.title'))) {
+      this.firstMetadata('dc.title').value = name;
+    }
     this._name = name;
   }
 

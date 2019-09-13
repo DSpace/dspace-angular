@@ -94,7 +94,6 @@ export class ObjectUpdatesService {
     const objectUpdates = this.getObjectEntry(url);
     return objectUpdates.pipe(map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
-      console.log(objectEntry);
       Object.keys(ignoreStates ? objectEntry.fieldUpdates : objectEntry.fieldStates).forEach((uuid) => {
         let fieldUpdate = objectEntry.fieldUpdates[uuid];
         if (isEmpty(fieldUpdate)) {
