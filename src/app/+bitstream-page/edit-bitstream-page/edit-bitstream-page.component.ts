@@ -19,11 +19,12 @@ import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-f
 import { cloneDeep } from 'lodash';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
+import { RestResponse } from '../../core/cache/response.models';
+import { hasValue } from '../../shared/empty.util';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -42,9 +43,14 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   bitstream: Bitstream;
 
   /**
-   * The ID of the originally selected format
+   * The originally selected format
    */
-  originalFormatID: string;
+  originalFormat: BitstreamFormat;
+
+  /**
+   * A list of all available bitstream formats
+   */
+  formats: BitstreamFormat[];
 
   /**
    * @type {string} Key prefix used to generate form messages
@@ -70,11 +76,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Options for fetching all bitstream formats
    */
   findAllOptions = { elementsPerPage: 9999 };
-
-  /**
-   * List of IDs of unknown formats
-   */
-  unknownFormatIDs: string[] = [];
 
   /**
    * The Dynamic Input Model for the file's name
@@ -272,7 +273,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       allFormats$
     ).subscribe(([bitstream, allFormats]) => {
       this.bitstream = bitstream as Bitstream;
-      this.updateFormatModel(allFormats.page);
+      this.formats = allFormats.page;
+      this.updateFormatModel();
       this.updateForm(this.bitstream);
     });
 
@@ -286,7 +288,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * Update the current form values with bitstream properties
    * @param bitstream
-   * @param bitstreamFormat
    */
   updateForm(bitstream: Bitstream) {
     this.formGroup.patchValue({
@@ -303,7 +304,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
       take(1)
     ).subscribe((format: BitstreamFormat) => {
-      this.originalFormatID = format.id;
+      this.originalFormat = format;
       this.formGroup.patchValue({
         formatContainer: {
           selectedFormat: format.id
@@ -315,13 +316,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
 
   /**
    * Create the list of unknown format IDs an add options to the selectedFormatModel
-   * @param formats
    */
-  updateFormatModel(formats: BitstreamFormat[]) {
-    this.unknownFormatIDs = formats
-      .filter((format: BitstreamFormat) => format.supportLevel === BitstreamFormatSupportLevel.Unknown)
-      .map((format: BitstreamFormat) => format.id);
-    this.selectedFormatModel.options = formats.map((format: BitstreamFormat) =>
+  updateFormatModel() {
+    this.selectedFormatModel.options = this.formats.map((format: BitstreamFormat) =>
       Object.assign({
         value: format.id,
         label: this.isUnknownFormat(format.id) ? this.translate.instant(this.KEY_PREFIX + 'selectedFormat.unknown') : format.shortDescription
@@ -345,7 +342,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * @param id
    */
   isUnknownFormat(id: string): boolean {
-    return this.unknownFormatIDs.indexOf(id) > -1;
+    const format = this.formats.find((f: BitstreamFormat) => f.id === id);
+    return hasValue(format) && format.supportLevel === BitstreamFormatSupportLevel.Unknown;
   }
 
   /**
@@ -387,23 +385,40 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   onSubmit() {
     const updatedValues = this.formGroup.getRawValue();
     const newBitstream = this.formToBitstream(updatedValues);
-    const selectedFormat = updatedValues.formatContainer.selectedFormat;
+    const selectedFormat = this.formats.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
+    const isNewFormat = selectedFormat.id !== this.originalFormat.id;
 
-    const updatedBitstream$ = this.bitstreamService.update(newBitstream).pipe(
+    const extraOperations = [];
+    if (isNewFormat) {
+      const operation = Object.assign({op: 'replace', path: '/format', value: selectedFormat.self});
+      extraOperations.push(operation);
+    }
+
+    const updatedBitstream$ = this.bitstreamService.update(newBitstream, extraOperations).pipe(
       tap(() => this.bitstreamService.commitUpdates()),
-      getSucceededRemoteData()
+      getSucceededRemoteData(),
+      getRemoteDataPayload()
     );
-    const updatedFormatResponse$ = this.bitstreamService.updateFormat(newBitstream, selectedFormat);
 
-    observableCombineLatest(updatedBitstream$, updatedFormatResponse$).subscribe(([bitstreamRD, formatResponse]) => {
-      console.log(formatResponse);
-      this.bitstream = bitstreamRD.payload;
-      this.updateForm(this.bitstream);
-      this.notificationsService.success(
-        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
-        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
-      );
-    });
+    if (isNewFormat) {
+      const updatedFormatResponse$ = this.bitstreamService.updateFormat(newBitstream, selectedFormat);
+      observableCombineLatest(updatedBitstream$, updatedFormatResponse$).subscribe(([bitstream, formatResponse]) => {
+        this.onSuccess(bitstream, formatResponse);
+      });
+    } else {
+      updatedBitstream$.subscribe((bitstream: Bitstream) => {
+        this.onSuccess(bitstream);
+      });
+    }
+  }
+
+  onSuccess(bitstream: Bitstream, formatResponse?: RestResponse) {
+    this.bitstream = bitstream;
+    this.updateForm(this.bitstream);
+    this.notificationsService.success(
+      this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
+      this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
+    );
   }
 
   /**

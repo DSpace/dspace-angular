@@ -104,7 +104,10 @@ export class ServerSyncBufferEffects {
       map((entry: ObjectCacheEntry) => {
         if (isNotEmpty(entry.patches)) {
           const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
-          this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
+          const metadataPatch = flatPatch.filter((op: Operation) => op.path.startsWith('/metadata'));
+          if (isNotEmpty(metadataPatch)) {
+            this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, metadataPatch));
+          }
           return new ApplyPatchObjectCacheAction(href);
         }
       })

@@ -16,10 +16,17 @@ import { FindAllOptions, PutRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { map, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import {
+  configureRequest,
+  getRemoteDataPayload,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../shared/operators';
+import { RemoteData } from './remote-data';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bitstreams endpoint
@@ -68,18 +75,18 @@ export class BitstreamDataService extends DataService<Bitstream> {
   }
 
   /**
-   * Set the format of a bitstream by ID
+   * Set the format of a bitstream
    * @param bitstream
-   * @param formatId
+   * @param format
    */
-  updateFormat(bitstream: Bitstream, formatId: string): Observable<RestResponse> {
+  updateFormat(bitstream: Bitstream, format: BitstreamFormat): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
     const bitstreamHref$ = this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${bitstream.id}`),
       switchMap((href: string) => this.halService.getEndpoint('format', href))
     );
     const formatHref$ = this.bitstreamFormatService.getBrowseEndpoint().pipe(
-      map((href: string) => `${href}/${formatId}`)
+      map((href: string) => `${href}/${format.id}`)
     );
     observableCombineLatest(bitstreamHref$, formatHref$).pipe(
       map(([bitstreamHref, formatHref]) => {
