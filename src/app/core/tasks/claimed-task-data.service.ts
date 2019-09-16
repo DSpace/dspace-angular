@@ -22,7 +22,7 @@ import { ProcessTaskResponse } from './models/process-task-response';
 @Injectable()
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
-  protected resetMsToLive = true;
+  protected resetMsToLive = 0;
 
   /**
    * The endpoint link name
