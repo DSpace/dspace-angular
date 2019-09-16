@@ -83,7 +83,7 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
   }
 
   onScroll() {
-    if (!this.loading && this.pageInfo.currentPage <= this.pageInfo.totalPages) {
+    if (!this.loading && this.pageInfo.currentPage < this.pageInfo.totalPages) {
       this.loading = true;
       this.searchOptions.currentPage++;
       this.authorityService.getEntriesByName(this.searchOptions).pipe(
