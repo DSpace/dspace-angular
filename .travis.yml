@@ -37,6 +37,7 @@ addons:
     sources:
       - google-chrome
     packages:
+      - dpkg
       - google-chrome-stable
 
 language: node_js

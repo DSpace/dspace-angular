@@ -79,6 +79,7 @@ export class ItemStatusComponent implements OnInit {
         this.operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public'));
       }
       this.operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete'));
+      this.operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move'));
     });
 
   }
