@@ -15,7 +15,7 @@
                 | translate}}</a>
         </div>
     </div>
-    <ds-input-suggestions [suggestions]="(filterSearchResults | async)"
+    <ds-filter-input-suggestions [suggestions]="(filterSearchResults | async)"
                           [placeholder]="'search.filters.filter.' + filterConfig.name + '.placeholder'| translate"
                           [action]="currentUrl"
                           [name]="filterConfig.paramName"
@@ -24,5 +24,5 @@
                           (clickSuggestion)="onClick($event)"
                           (findSuggestions)="findSuggestions($event)"
                           ngDefaultControl
-    ></ds-input-suggestions>
+    ></ds-filter-input-suggestions>
 </div>
