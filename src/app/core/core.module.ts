@@ -118,6 +118,7 @@ import { NormalizedSubmissionUploadsModel } from './config/models/normalized-con
 import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
 import { BrowseDefinition } from './shared/browse-definition.model';
 import { NormalizedAuthority } from './integration/models/normalized-authority.model';
+import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
 
 const IMPORTS = [
   CommonModule,
@@ -212,7 +213,8 @@ const PROVIDERS = [
   },
   NotificationsService,
   FilteredDiscoveryPageResponseParsingService,
-  { provide: NativeWindowService, useFactory: NativeWindowFactory }
+  { provide: NativeWindowService, useFactory: NativeWindowFactory },
+  AuthorityTreeviewService
 ];
 
 /**

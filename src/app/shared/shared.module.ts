@@ -138,6 +138,8 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { AuthorityTreeviewComponent } from './authority-treeview/authority-treeview.component';
+import { MaterialModule } from './material/material.module';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -159,7 +161,8 @@ const MODULES = [
   NouisliderModule,
   MomentModule,
   TextMaskModule,
-  MenuModule
+  MenuModule,
+  MaterialModule
 ];
 
 const ROOT_MODULES = [
@@ -257,7 +260,8 @@ const COMPONENTS = [
   ItemSearchResultListElementComponent,
   TypedItemSearchResultListElementComponent,
   ItemTypeSwitcherComponent,
-  BrowseByComponent
+  BrowseByComponent,
+  AuthorityTreeviewComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -300,7 +304,8 @@ const ENTRY_COMPONENTS = [
   StartsWithTextComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
-  MetadataRepresentationListElementComponent
+  MetadataRepresentationListElementComponent,
+  AuthorityTreeviewComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

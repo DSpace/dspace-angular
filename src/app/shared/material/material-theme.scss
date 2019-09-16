@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+@import '../../../styles/variables.scss';
+
+$custom-typography: mat-typography-config(
+  $font-family: $font-family-base,
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include mat-core($custom-typography);
+
+$custom-theme-primary: mat-palette($mat-blue-gray);
+$custom-theme-accent: mat-palette($mat-orange, A200, A100, A400);
+$custom-theme-warn: mat-palette($mat-red);
+
+$custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+@include angular-material-theme($custom-theme);
+
+button.mat-icon-button:focus, button.mat-raised-button:focus {
+  outline: none;
+}
+
+mat-slider.progress {
+  overflow: unset;
+  background-color: unset;
+  box-shadow: none;
+}
