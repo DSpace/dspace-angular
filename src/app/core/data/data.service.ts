@@ -49,7 +49,10 @@ export abstract class DataService<T extends CacheableObject> {
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
   protected abstract comparator: ChangeAnalyzer<T>;
-  protected resetMsToLive = false;
+  /**
+   * Allows subclasses to reset the response cache time.
+   */
+  protected resetMsToLive: number;
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
@@ -132,7 +135,7 @@ export abstract class DataService<T extends CacheableObject> {
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         if (this.resetMsToLive) {
-          request.responseMsToLive = 0;
+          request.responseMsToLive = this.resetMsToLive;
         }
         this.requestService.configure(request);
       });
@@ -158,7 +161,7 @@ export abstract class DataService<T extends CacheableObject> {
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
         if (this.resetMsToLive) {
-          request.responseMsToLive = 0;
+          request.responseMsToLive = this.resetMsToLive;
         }
         this.requestService.configure(request);
       });
@@ -169,7 +172,7 @@ export abstract class DataService<T extends CacheableObject> {
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
     const request = new GetRequest(this.requestService.generateRequestId(), href, null, options);
     if (this.resetMsToLive) {
-      request.responseMsToLive = 0;
+      request.responseMsToLive = this.resetMsToLive;
     }
     this.requestService.configure(request);
     return this.rdbService.buildSingle<T>(href);
