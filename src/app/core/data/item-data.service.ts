@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -17,7 +17,7 @@ import {
   FindAllOptions,
   MappedCollectionsRequest,
   PatchRequest,
-  PostRequest,
+  PostRequest, PutRequest,
   RestRequest
 } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
