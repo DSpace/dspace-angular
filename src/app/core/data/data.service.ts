@@ -134,7 +134,7 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        if (this.resetMsToLive) {
+        if (this.resetMsToLive !== undefined) {
           request.responseMsToLive = this.resetMsToLive;
         }
         this.requestService.configure(request);
@@ -160,7 +160,7 @@ export abstract class DataService<T extends CacheableObject> {
       find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
-        if (this.resetMsToLive) {
+        if (this.resetMsToLive !== undefined) {
           request.responseMsToLive = this.resetMsToLive;
         }
         this.requestService.configure(request);
@@ -171,7 +171,7 @@ export abstract class DataService<T extends CacheableObject> {
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
     const request = new GetRequest(this.requestService.generateRequestId(), href, null, options);
-    if (this.resetMsToLive) {
+    if (this.resetMsToLive !== undefined) {
       request.responseMsToLive = this.resetMsToLive;
     }
     this.requestService.configure(request);
