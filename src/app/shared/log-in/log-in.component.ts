@@ -1,9 +1,9 @@
-import {filter, map, takeWhile } from 'rxjs/operators';
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { filter, map, takeWhile } from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction
@@ -17,10 +17,10 @@ import {
 } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
 
-import {isNotEmpty} from '../empty.util';
+import { isNotEmpty } from '../empty.util';
 import { fadeOut } from '../animations/fade';
-import {AuthService} from '../../core/auth/auth.service';
-import {Router} from '@angular/router';
+import { AuthService } from '../../core/auth/auth.service';
+import { Router } from '@angular/router';
 
 /**
  * /users/sign-in
@@ -139,7 +139,7 @@ export class LogInComponent implements OnDestroy, OnInit {
       takeWhile(() => this.alive),
       filter((authenticated) => authenticated))
       .subscribe(() => {
-          this.authService.redirectToPreviousUrl(this.isStandalonePage);
+          this.authService.redirectAfterLoginSuccess(this.isStandalonePage);
         }
       );
   }

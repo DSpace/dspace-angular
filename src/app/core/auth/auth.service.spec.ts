@@ -249,28 +249,28 @@ describe('AuthService test', () => {
 
     it ('should set redirect url to previous page', () => {
       spyOn(routeServiceMock, 'getHistory').and.callThrough();
-      authService.redirectToPreviousUrl(true);
+      authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
       expect(routerStub.navigate).toHaveBeenCalledWith(['/collection/123']);
     });
 
     it ('should set redirect url to current page', () => {
       spyOn(routeServiceMock, 'getHistory').and.callThrough();
-      authService.redirectToPreviousUrl(false);
+      authService.redirectAfterLoginSuccess(false);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
       expect(routerStub.navigate).toHaveBeenCalledWith(['/home']);
     });
 
     it ('should redirect to / and not to /login', () => {
       spyOn(routeServiceMock, 'getHistory').and.returnValue(of(['/login', '/login']));
-      authService.redirectToPreviousUrl(true);
+      authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
       expect(routerStub.navigate).toHaveBeenCalledWith(['/']);
     });
 
     it ('should redirect to / when no redirect url is found', () => {
       spyOn(routeServiceMock, 'getHistory').and.returnValue(of(['']));
-      authService.redirectToPreviousUrl(true);
+      authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
       expect(routerStub.navigate).toHaveBeenCalledWith(['/']);
     });

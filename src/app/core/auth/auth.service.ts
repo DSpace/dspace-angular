@@ -339,7 +339,7 @@ export class AuthService {
   /**
    * Redirect to the route navigated before the login
    */
-  public redirectToPreviousUrl(isStandalonePage: boolean) {
+  public redirectAfterLoginSuccess(isStandalonePage: boolean) {
     this.getRedirectUrl().pipe(
       take(1))
       .subscribe((redirectUrl) => {
