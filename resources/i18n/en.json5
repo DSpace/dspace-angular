@@ -2,6 +2,7 @@
   "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.link.home-page": "Take me to the home page",
   "404.page-not-found": "page not found",
+
   "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
   "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
@@ -44,6 +45,7 @@
   "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
   "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
+
   "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   "admin.registries.metadata.form.create": "Create metadata schema",
   "admin.registries.metadata.form.edit": "Edit metadata schema",
@@ -56,6 +58,7 @@
   "admin.registries.metadata.schemas.table.name": "Name",
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
   "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
+
   "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   "admin.registries.schema.fields.head": "Schema metadata fields",
   "admin.registries.schema.fields.no-items": "No metadata fields to show.",
@@ -80,8 +83,10 @@
   "admin.registries.schema.notification.success": "Success",
   "admin.registries.schema.return": "Return",
   "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
+
   "auth.errors.invalid-user": "Invalid email address or password.",
   "auth.messages.expired": "Your session has expired. Please log in again.",
+
   "browse.comcol.by.author": "By Author",
   "browse.comcol.by.dateissued": "By Issue Date",
   "browse.comcol.by.subject": "By Subject",
@@ -112,7 +117,9 @@
   "browse.startsWith.type_date": "Or type in a date (year-month):",
   "browse.startsWith.type_text": "Or enter first few letters:",
   "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
+
   "chips.remove": "Remove chip",
+
   "collection.create.head": "Create a Collection",
   "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
   "collection.delete.cancel": "Cancel",
@@ -135,6 +142,7 @@
   "collection.page.browse.recent.empty": "No items to show",
   "collection.page.license": "License",
   "collection.page.news": "News",
+
   "community.create.head": "Create a Community",
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
   "community.delete.cancel": "Cancel",
@@ -155,6 +163,7 @@
   "community.page.news": "News",
   "community.sub-collection-list.head": "Collections of this Community",
   "community.sub-community-list.head": "Communities of this Community",
+
   "dso-selector.create.collection.head": "New collection",
   "dso-selector.create.community.head": "New community",
   "dso-selector.create.community.sub-level": "Create a new community in",
@@ -165,6 +174,7 @@
   "dso-selector.edit.item.head": "Edit item",
   "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.placeholder": "Search for a {{ type }}",
+
   "error.browse-by": "Error fetching items",
   "error.collection": "Error fetching collection",
   "error.community": "Error fetching community",
@@ -179,9 +189,11 @@
   "error.top-level-communities": "Error fetching top-level communities",
   "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
+
   "footer.copyright": "copyright © 2002-{{ year }}",
   "footer.link.dspace": "DSpace software",
   "footer.link.duraspace": "DuraSpace",
+
   "form.cancel": "Cancel",
   "form.clear": "Clear",
   "form.clear-help": "Click here to remove the selected value",
@@ -203,10 +215,12 @@
   "form.search": "Search",
   "form.search-help": "Click here to looking for an existing correspondence",
   "form.submit": "Submit",
+
   "home.description": "",
   "home.title": "DSpace Angular :: Home",
   "home.top-level-communities.head": "Communities in DSpace",
   "home.top-level-communities.help": "Select a community to browse its collections.",
+
   "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.confirm": "Delete",
   "item.edit.delete.description": "Are you sure this item should be completely deleted? Caution: At present, no tombstone would be left.",
@@ -214,6 +228,7 @@
   "item.edit.delete.header": "Delete item: {{ id }}",
   "item.edit.delete.success": "The item has been deleted",
   "item.edit.head": "Edit Item",
+
   "item.edit.metadata.add-button": "Add",
   "item.edit.metadata.discard-button": "Discard",
   "item.edit.metadata.edit.buttons.edit": "Edit",
@@ -235,9 +250,11 @@
   "item.edit.metadata.notifications.saved.title": "Metadata saved",
   "item.edit.metadata.reinstate-button": "Undo",
   "item.edit.metadata.save-button": "Save",
+
   "item.edit.modify.overview.field": "Field",
   "item.edit.modify.overview.language": "Language",
   "item.edit.modify.overview.value": "Value",
+
   "item.edit.move.cancel": "Cancel",
   "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
   "item.edit.move.error": "An error occured when attempting to move the item",
@@ -249,24 +266,28 @@
   "item.edit.move.search.placeholder": "Enter a search query to look for collections",
   "item.edit.move.success": "The item has been moved succesfully",
   "item.edit.move.title": "Move item",
+
   "item.edit.private.cancel": "Cancel",
   "item.edit.private.confirm": "Make it Private",
   "item.edit.private.description": "Are you sure this item should be made private in the archive?",
   "item.edit.private.error": "An error occurred while making the item private",
   "item.edit.private.header": "Make item private: {{ id }}",
   "item.edit.private.success": "The item is now private",
+
   "item.edit.public.cancel": "Cancel",
   "item.edit.public.confirm": "Make it Public",
   "item.edit.public.description": "Are you sure this item should be made public in the archive?",
   "item.edit.public.error": "An error occurred while making the item public",
   "item.edit.public.header": "Make item public: {{ id }}",
   "item.edit.public.success": "The item is now public",
+
   "item.edit.reinstate.cancel": "Cancel",
   "item.edit.reinstate.confirm": "Reinstate",
   "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
   "item.edit.reinstate.error": "An error occurred while reinstating the item",
   "item.edit.reinstate.header": "Reinstate item: {{ id }}",
   "item.edit.reinstate.success": "The item was reinstated successfully",
+
   "item.edit.relationships.discard-button": "Discard",
   "item.edit.relationships.edit.buttons.remove": "Remove",
   "item.edit.relationships.edit.buttons.undo": "Undo changes",
@@ -279,6 +300,7 @@
   "item.edit.relationships.notifications.saved.title": "Relationships saved",
   "item.edit.relationships.reinstate-button": "Undo",
   "item.edit.relationships.save-button": "Save",
+
   "item.edit.tabs.bitstreams.head": "Item Bitstreams",
   "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
   "item.edit.tabs.curate.head": "Curate",
@@ -312,12 +334,14 @@
   "item.edit.tabs.status.title": "Item Edit -  Status",
   "item.edit.tabs.view.head": "View Item",
   "item.edit.tabs.view.title": "Item Edit -  View",
+
   "item.edit.withdraw.cancel": "Cancel",
   "item.edit.withdraw.confirm": "Withdraw",
   "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
   "item.edit.withdraw.error": "An error occurred while withdrawing the item",
   "item.edit.withdraw.header": "Withdraw item: {{ id }}",
   "item.edit.withdraw.success": "The item was withdrawn successfully",
+
   "item.page.abstract": "Abstract",
   "item.page.author": "Authors",
   "item.page.citation": "Citation",
@@ -335,10 +359,12 @@
   "item.page.person.search.title": "Articles by this author",
   "item.page.subject": "Keywords",
   "item.page.uri": "URI",
+
   "item.select.confirm": "Confirm selected",
   "item.select.table.author": "Author",
   "item.select.table.collection": "Collection",
   "item.select.table.title": "Title",
+
   "journal.listelement.badge": "Journal",
   "journal.page.description": "Description",
   "journal.page.editor": "Editor-in-Chief",
@@ -347,6 +373,7 @@
   "journal.page.titleprefix": "Journal: ",
   "journal.search.results.head": "Journal Search Results",
   "journal.search.title": "DSpace Angular :: Journal Search",
+
   "journalissue.listelement.badge": "Journal Issue",
   "journalissue.page.description": "Description",
   "journalissue.page.issuedate": "Issue Date",
@@ -355,11 +382,13 @@
   "journalissue.page.keyword": "Keywords",
   "journalissue.page.number": "Number",
   "journalissue.page.titleprefix": "Journal Issue: ",
+
   "journalvolume.listelement.badge": "Journal Volume",
   "journalvolume.page.description": "Description",
   "journalvolume.page.issuedate": "Issue Date",
   "journalvolume.page.titleprefix": "Journal Volume: ",
   "journalvolume.page.volume": "Volume",
+
   "loading.browse-by": "Loading items...",
   "loading.browse-by-page": "Loading page...",
   "loading.collection": "Loading collection...",
@@ -373,6 +402,7 @@
   "loading.sub-collections": "Loading sub-collections...",
   "loading.sub-communities": "Loading sub-communities...",
   "loading.top-level-communities": "Loading top-level communities...",
+
   "login.form.email": "Email address",
   "login.form.forgot-password": "Have you forgotten your password?",
   "login.form.header": "Please log in to DSpace",
@@ -380,15 +410,19 @@
   "login.form.password": "Password",
   "login.form.submit": "Log in",
   "login.title": "Login",
+
   "logout.form.header": "Log out from DSpace",
   "logout.form.submit": "Log out",
   "logout.title": "Logout",
+
   "menu.header.admin": "Admin",
   "menu.header.image.logo": "Repository logo",
+
   "menu.section.access_control": "Access Control",
   "menu.section.access_control_authorizations": "Authorizations",
   "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_people": "People",
+
   "menu.section.browse_community": "This Community",
   "menu.section.browse_community_by_author": "By Author",
   "menu.section.browse_community_by_issue_date": "By Issue Date",
@@ -399,21 +433,26 @@
   "menu.section.browse_global_by_subject": "By Subject",
   "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+
   "menu.section.control_panel": "Control Panel",
   "menu.section.curation_task": "Curation Task",
+
   "menu.section.edit": "Edit",
   "menu.section.edit_collection": "Collection",
   "menu.section.edit_community": "Community",
   "menu.section.edit_item": "Item",
+
   "menu.section.export": "Export",
   "menu.section.export_collection": "Collection",
   "menu.section.export_community": "Community",
   "menu.section.export_item": "Item",
   "menu.section.export_metadata": "Metadata",
+
   "menu.section.find": "Find",
   "menu.section.find_items": "Items",
   "menu.section.find_private_items": "Private Items",
   "menu.section.find_withdrawn_items": "Withdrawn Items",
+
   "menu.section.icon.access_control": "Access Control menu section",
   "menu.section.icon.control_panel": "Control Panel menu section",
   "menu.section.icon.curation_task": "Curation Task menu section",
@@ -426,20 +465,27 @@
   "menu.section.icon.registries": "Registries menu section",
   "menu.section.icon.statistics_task": "Statistics Task menu section",
   "menu.section.icon.unpin": "Unpin sidebar",
+
   "menu.section.import": "Import",
   "menu.section.import_batch": "Batch Import (ZIP)",
   "menu.section.import_metadata": "Metadata",
+
   "menu.section.new": "New",
   "menu.section.new_collection": "Collection",
   "menu.section.new_community": "Community",
   "menu.section.new_item": "Item",
   "menu.section.new_item_version": "Item Version",
+
   "menu.section.pin": "Pin sidebar",
+  "menu.section.unpin": "Unpin sidebar",
+
   "menu.section.registries": "Registries",
   "menu.section.registries_format": "Format",
   "menu.section.registries_metadata": "Metadata",
+
   "menu.section.statistics": "Statistics",
   "menu.section.statistics_task": "Statistics Task",
+
   "menu.section.toggle.access_control": "Toggle Access Control section",
   "menu.section.toggle.control_panel": "Toggle Control Panel section",
   "menu.section.toggle.curation_task": "Toggle Curation Task section",
@@ -450,7 +496,7 @@
   "menu.section.toggle.new": "Toggle New section",
   "menu.section.toggle.registries": "Toggle Registries section",
   "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
-  "menu.section.unpin": "Unpin sidebar",
+
   "mydspace.description": "",
   "mydspace.general.text-here": "HERE",
   "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
@@ -488,6 +534,7 @@
   "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
   "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
   "mydspace.view-btn": "View",
+
   "nav.browse.header": "All of DSpace",
   "nav.community-browse.header": "By Community",
   "nav.language": "Language switch",
@@ -496,6 +543,7 @@
   "nav.mydspace": "MyDSpace",
   "nav.search": "Search",
   "nav.statistics.header": "Statistics",
+
   "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.page.city": "City",
   "orgunit.page.country": "Country",
@@ -503,10 +551,12 @@
   "orgunit.page.description": "Description",
   "orgunit.page.id": "ID",
   "orgunit.page.titleprefix": "Organizational Unit: ",
+
   "pagination.results-per-page": "Results Per Page",
   "pagination.showing.detail": "{{ range }} of {{ total }}",
   "pagination.showing.label": "Now showing ",
   "pagination.sort-direction": "Sort Options",
+
   "person.listelement.badge": "Person",
   "person.page.birthdate": "Birth Date",
   "person.page.email": "Email Address",
@@ -519,6 +569,7 @@
   "person.page.titleprefix": "Person: ",
   "person.search.results.head": "Person Search Results",
   "person.search.title": "DSpace Angular :: Person Search",
+
   "project.listelement.badge": "Research Project",
   "project.page.contributor": "Contributors",
   "project.page.description": "Description",
@@ -528,6 +579,7 @@
   "project.page.keyword": "Keywords",
   "project.page.status": "Status",
   "project.page.titleprefix": "Research Project: ",
+
   "publication.listelement.badge": "Publication",
   "publication.page.description": "Description",
   "publication.page.journal-issn": "Journal ISSN",
@@ -537,6 +589,7 @@
   "publication.page.volume-title": "Volume Title",
   "publication.search.results.head": "Publication Search Results",
   "publication.search.title": "DSpace Angular :: Publication Search",
+
   "relationships.isAuthorOf": "Authors",
   "relationships.isIssueOf": "Journal Issues",
   "relationships.isJournalIssueOf": "Journal Issue",
@@ -549,7 +602,11 @@
   "relationships.isSingleJournalOf": "Journal",
   "relationships.isSingleVolumeOf": "Journal Volume",
   "relationships.isVolumeOf": "Journal Volumes",
+
   "search.description": "",
+  "search.switch-configuration.title": "Show",
+  "search.title": "DSpace Angular :: Search",
+
   "search.filters.applied.f.author": "Author",
   "search.filters.applied.f.dateIssued.max": "End date",
   "search.filters.applied.f.dateIssued.min": "Start date",
@@ -560,6 +617,7 @@
   "search.filters.applied.f.namedresourcetype": "Status",
   "search.filters.applied.f.subject": "Subject",
   "search.filters.applied.f.submitter": "Submitter",
+
   "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.placeholder": "Author name",
   "search.filters.filter.birthDate.head": "Birth Date",
@@ -604,14 +662,18 @@
   "search.filters.filter.subject.placeholder": "Subject",
   "search.filters.filter.submitter.head": "Submitter",
   "search.filters.filter.submitter.placeholder": "Submitter",
+
   "search.filters.head": "Filters",
   "search.filters.reset": "Reset filters",
+
   "search.form.search": "Search",
   "search.form.search_dspace": "Search DSpace",
   "search.form.search_mydspace": "Search MyDSpace",
+
   "search.results.head": "Search Results",
   "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
   "search.results.no-results-link": "quotes around it",
+
   "search.sidebar.close": "Back to results",
   "search.sidebar.filters.title": "Filters",
   "search.sidebar.open": "Search Tools",
@@ -619,14 +681,15 @@
   "search.sidebar.settings.rpp": "Results per page",
   "search.sidebar.settings.sort-by": "Sort By",
   "search.sidebar.settings.title": "Settings",
-  "search.switch-configuration.title": "Show",
-  "search.title": "DSpace Angular :: Search",
+
   "search.view-switch.show-detail": "Show detail",
   "search.view-switch.show-grid": "Show as grid",
   "search.view-switch.show-list": "Show as list",
+
   "sorting.dc.title.ASC": "Title Ascending",
   "sorting.dc.title.DESC": "Title Descending",
   "sorting.score.DESC": "Relevance",
+
   "submission.edit.title": "Edit Submission",
   "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
   "submission.general.deposit": "Deposit",
@@ -637,7 +700,7 @@
   "submission.general.discard.submit": "Discard",
   "submission.general.save": "Save",
   "submission.general.save-later": "Save for later",
-  "submission.mydspace": {},
+
   "submission.sections.general.add-more": "Add more",
   "submission.sections.general.collection": "Collection",
   "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
@@ -652,6 +715,7 @@
   "submission.sections.general.save_success_notice": "Submission saved successfully.",
   "submission.sections.general.search-collection": "Search for a collection",
   "submission.sections.general.sections_not_valid": "There are incomplete sections.",
+
   "submission.sections.submit.progressbar.cclicense": "Creative commons license",
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
   "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
@@ -660,6 +724,7 @@
   "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.upload": "Upload files",
+
   "submission.sections.upload.delete.confirm.cancel": "Cancel",
   "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
   "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
@@ -683,13 +748,16 @@
   "submission.sections.upload.undo": "Cancel",
   "submission.sections.upload.upload-failed": "Upload failed",
   "submission.sections.upload.upload-successful": "Upload successful",
+
   "submission.submit.title": "Submission",
+
   "submission.workflow.generic.delete": "Delete",
   "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
   "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
   "submission.workflow.generic.view": "View",
   "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+
   "submission.workflow.tasks.claimed.approve": "Approve",
   "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
   "submission.workflow.tasks.claimed.edit": "Edit",
@@ -702,18 +770,22 @@
   "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
   "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+
   "submission.workflow.tasks.generic.error": "Error occurred during operation...",
   "submission.workflow.tasks.generic.processing": "Processing...",
   "submission.workflow.tasks.generic.submitter": "Submitter",
   "submission.workflow.tasks.generic.success": "Operation successful",
+
   "submission.workflow.tasks.pool.claim": "Claim",
   "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
   "submission.workflow.tasks.pool.hide-detail": "Hide detail",
   "submission.workflow.tasks.pool.show-detail": "Show detail",
+
   "title": "DSpace",
+
   "uploader.browse": "browse",
   "uploader.drag-message": "Drag & Drop your files here",
   "uploader.or": ", or",
   "uploader.processing": "Processing",
-  "uploader.queue-lenght": "Queue length"
+  "uploader.queue-length": "Queue length",
 }
