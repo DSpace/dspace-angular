@@ -42,6 +42,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   bitstream: Bitstream;
 
   /**
+   * The ID of the originally selected format
+   */
+  originalFormatID: string;
+
+  /**
    * @type {string} Key prefix used to generate form messages
    */
   KEY_PREFIX = 'bitstream.edit.form.';
@@ -298,6 +303,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
       take(1)
     ).subscribe((format: BitstreamFormat) => {
+      this.originalFormatID = format.id;
       this.formGroup.patchValue({
         formatContainer: {
           selectedFormat: format.id
@@ -364,6 +370,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Fired whenever the form receives an update and changes the layout of the "Other Format" input, depending on the selected format
+   * @param event
+   */
   onChange(event) {
     const model = event.model;
     if (model.id === this.selectedFormatModel.id) {
@@ -377,10 +387,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   onSubmit() {
     const updatedValues = this.formGroup.getRawValue();
     const newBitstream = this.formToBitstream(updatedValues);
-    this.bitstreamService.update(newBitstream).pipe(
+    const selectedFormat = updatedValues.formatContainer.selectedFormat;
+
+    const updatedBitstream$ = this.bitstreamService.update(newBitstream).pipe(
       tap(() => this.bitstreamService.commitUpdates()),
       getSucceededRemoteData()
-    ).subscribe((bitstreamRD: RemoteData<Bitstream>) => {
+    );
+    const updatedFormatResponse$ = this.bitstreamService.updateFormat(newBitstream, selectedFormat);
+
+    observableCombineLatest(updatedBitstream$, updatedFormatResponse$).subscribe(([bitstreamRD, formatResponse]) => {
+      console.log(formatResponse);
       this.bitstream = bitstreamRD.payload;
       this.updateForm(this.bitstream);
       this.notificationsService.success(

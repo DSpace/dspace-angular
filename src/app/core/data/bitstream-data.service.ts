@@ -10,11 +10,16 @@ import { BrowseService } from '../browse/browse.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindAllOptions } from './request.models';
+import { FindAllOptions, PutRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
+import { BitstreamFormatDataService } from './bitstream-format-data.service';
+import { map, switchMap } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { configureRequest, getResponseFromEntry } from '../shared/operators';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bitstreams endpoint
@@ -34,7 +39,8 @@ export class BitstreamDataService extends DataService<Bitstream> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<Bitstream>) {
+    protected comparator: DSOChangeAnalyzer<Bitstream>,
+    protected bitstreamFormatService: BitstreamFormatDataService) {
     super();
   }
 
@@ -59,5 +65,35 @@ export class BitstreamDataService extends DataService<Bitstream> {
     this.objectCache.remove(bitstream.self);
     this.requestService.removeByHrefSubstring(bitstream.self);
     return response$;
+  }
+
+  /**
+   * Set the format of a bitstream by ID
+   * @param bitstream
+   * @param formatId
+   */
+  updateFormat(bitstream: Bitstream, formatId: string): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+    const bitstreamHref$ = this.getBrowseEndpoint().pipe(
+      map((href: string) => `${href}/${bitstream.id}`),
+      switchMap((href: string) => this.halService.getEndpoint('format', href))
+    );
+    const formatHref$ = this.bitstreamFormatService.getBrowseEndpoint().pipe(
+      map((href: string) => `${href}/${formatId}`)
+    );
+    observableCombineLatest(bitstreamHref$, formatHref$).pipe(
+      map(([bitstreamHref, formatHref]) => {
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'text/uri-list');
+        options.headers = headers;
+        return new PutRequest(requestId, bitstreamHref, formatHref, options);
+      }),
+      configureRequest(this.requestService)
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      getResponseFromEntry()
+    );
   }
 }

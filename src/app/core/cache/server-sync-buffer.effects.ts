@@ -107,7 +107,6 @@ export class ServerSyncBufferEffects {
           this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, flatPatch));
           return new ApplyPatchObjectCacheAction(href);
         }
-        // this.requestService.configure(new PutRequest(this.requestService.generateRequestId(), href, serializedObject));
       })
     )
   }
