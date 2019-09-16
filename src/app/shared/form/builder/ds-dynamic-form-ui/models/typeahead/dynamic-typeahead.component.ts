@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import {
@@ -6,23 +16,40 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
-import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, switchMap, tap } from 'rxjs/operators';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  find,
+  map,
+  merge,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 import { Observable, of as observableOf, Subject } from 'rxjs';
-import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
+import { RemoteData } from '../../../../../../core/data/remote-data';
+import { Authority } from '../../../../../../core/integration/models/authority.model';
+import { AuthorityTreeviewComponent } from '../../../../../authority-treeview/authority-treeview.component';
+import { AuthorityEntry } from '../../../../../../core/integration/models/authority-entry.model';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
   styleUrls: ['./dynamic-typeahead.component.scss'],
-  templateUrl: './dynamic-typeahead.component.html'
+  templateUrl: './dynamic-typeahead.component.html',
+  encapsulation: ViewEncapsulation.None
 })
-export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent implements OnInit {
+export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent implements OnInit, OnDestroy {
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() model: DynamicTypeaheadModel;
@@ -40,6 +67,11 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   click$ = new Subject<string>();
   currentValue: any;
   inputValue: any;
+  authority$: Observable<Authority>;
+  isHierarchical$: Observable<boolean>;
+  preloadLevel: number;
+
+  private subs: Subscription[] = [];
 
   formatter = (x: { display: string }) => {
     return (typeof x === 'object') ? x.display : x
@@ -53,7 +85,7 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({list: []});
+          return observableOf({ list: [] });
         } else {
           this.searchOptions.query = term;
           return this.authorityService.getEntriesByName(this.searchOptions).pipe(
@@ -67,7 +99,7 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf({list: []});
+              return observableOf({ list: [] });
             }));
         }
       }),
@@ -79,6 +111,7 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
 
   constructor(private authorityService: AuthorityService,
               private cdr: ChangeDetectorRef,
+              private modalService: NgbModal,
               protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService
   ) {
@@ -91,6 +124,17 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
       this.model.authorityOptions.scope,
       this.model.authorityOptions.name,
       this.model.authorityOptions.metadata);
+
+    this.authority$ = this.authorityService.findById(this.model.authorityOptions.name).pipe(
+      find((result: RemoteData<Authority>) => result.hasSucceeded && !result.isResponsePending),
+      map((result: RemoteData<Authority>) => result.payload)
+    );
+
+    this.isHierarchical$ = this.authority$.pipe(
+      map((result: Authority) => result.hierarchical)
+    );
+
+    this.isHierarchical$.subscribe();
     this.group.get(this.model.id).valueChanges.pipe(
       filter((value) => this.currentValue !== value))
       .subscribe((value) => {
@@ -147,10 +191,39 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
     this.change.emit(event.item);
   }
 
+  openTree(event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    this.subs.push(this.authority$.pipe(
+      map((authority: Authority) => authority.preloadLevel),
+      take(1)
+    ).subscribe((preloadLevel) => {
+      const modalRef: NgbModalRef = this.modalService.open(AuthorityTreeviewComponent, { size: 'lg', windowClass: 'treeview' });
+      modalRef.componentInstance.searchOptions = this.searchOptions;
+      modalRef.componentInstance.preloadLevel = preloadLevel;
+      modalRef.componentInstance.selectedItem = this.currentValue ? this.currentValue : '';
+      modalRef.result.then((result: AuthorityEntry) => {
+        if (result) {
+          this.currentValue = result;
+          this.model.valueUpdates.next(result as any);
+          this.change.emit(result);
+        }
+      }, () => {
+        return;
+      });
+    }))
+  }
+
   public whenClickOnConfidenceNotAccepted(confidence: ConfidenceType) {
     if (!this.model.readOnly) {
       this.click$.next(this.formatter(this.currentValue));
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 
 }

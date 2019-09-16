@@ -20,7 +20,7 @@
   </ul>
 </ng-template>
 
-<div class="position-relative right-addon">
+<div *ngIf="!(isHierarchical$ | async)" class="position-relative right-addon">
   <i *ngIf="searching" class="fas fa-circle-notch fa-spin fa-2x fa-fw text-primary position-absolute mt-1 p-0" aria-hidden="true"></i>
   <i *ngIf="!searching"
      dsAuthorityConfidenceState
@@ -46,6 +46,22 @@
          (change)="onChange($event)"
          (input)="onInput($event)"
          (selectItem)="onSelectItem($event)">
-
   <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
 </div>
+
+<input *ngIf="(isHierarchical$ | async)"
+       class="form-control custom-select"
+       [attr.autoComplete]="model.autoComplete"
+       [class.is-invalid]="showErrorMessages"
+       [dynamicId]="bindId && model.id"
+       [name]="model.name"
+       [placeholder]="model.placeholder"
+       [readonly]="model.readOnly"
+       [type]="model.inputType"
+       [value]="currentValue?.display"
+       (focus)="onFocus($event)"
+       (change)="onChange($event)"
+       (click)="openTree($event)"
+       (keydown)="$event.preventDefault()"
+       (keypress)="$event.preventDefault()"
+       (keyup)="$event.preventDefault()">
