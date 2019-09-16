@@ -10,6 +10,7 @@ import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemStatusComponent } from './item-status/item-status.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
+import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 
 const ITEM_EDIT_WITHDRAW_PATH = 'withdraw';
@@ -17,6 +18,7 @@ const ITEM_EDIT_REINSTATE_PATH = 'reinstate';
 const ITEM_EDIT_PRIVATE_PATH = 'private';
 const ITEM_EDIT_PUBLIC_PATH = 'public';
 const ITEM_EDIT_DELETE_PATH = 'delete';
+const ITEM_EDIT_MOVE_PATH = 'move';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -101,6 +103,14 @@ const ITEM_EDIT_DELETE_PATH = 'delete';
       {
         path: ITEM_EDIT_DELETE_PATH,
         component: ItemDeleteComponent,
+        resolve: {
+          item: ItemPageResolver
+        }
+      },
+      {
+        path: ITEM_EDIT_MOVE_PATH,
+        component: ItemMoveComponent,
+        data: { title: 'item.edit.move.title' },
         resolve: {
           item: ItemPageResolver
         }
