@@ -1,6 +1,5 @@
 import { SearchFixedFilterService } from './search-fixed-filter.service';
 import { RequestService } from '../../../core/data/request.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { of as observableOf } from 'rxjs';
 import { RequestEntry } from '../../../core/data/request.reducer';
 import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response.models';
@@ -20,28 +19,9 @@ describe('SearchFixedFilterService', () => {
       response: new FilteredDiscoveryQueryResponse(filterQuery, 200, 'OK')
     }))
   }) as RequestService;
-  const halServiceStub = Object.assign(new HALEndpointService(requestServiceStub, undefined), {
-    getEndpoint: () => observableOf('fake-url')
-  });
 
   beforeEach(() => {
-    service = new SearchFixedFilterService(requestServiceStub, halServiceStub);
-  });
-
-  describe('when getQueryByFilterName is called with a filterName', () => {
-    it('should return the filter query', () => {
-      service.getQueryByFilterName('filter').subscribe((query) => {
-        expect(query).toBe(filterQuery);
-      });
-    });
-  });
-
-  describe('when getQueryByFilterName is called without a filterName', () => {
-    it('should return undefined', () => {
-      service.getQueryByFilterName(undefined).subscribe((query) => {
-        expect(query).toBeUndefined();
-      });
-    });
+    service = new SearchFixedFilterService();
   });
 
   describe('when getQueryByRelations is called', () => {
