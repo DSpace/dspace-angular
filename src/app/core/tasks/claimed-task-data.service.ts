@@ -23,10 +23,14 @@ import { ProcessTaskResponse } from './models/process-task-response';
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   protected responseMsToLive = 0;
 =======
   protected resetMsToLive = true;
 >>>>>>> Setting cache period to zero for all instances where forceBypassCache was previously true.
+=======
+  protected resetMsToLive = 0;
+>>>>>>> Sets responseMsToLive to zero in some dataService methods and adds ability to reset the responseMsToLive value in subclasses.
 
   /**
    * The endpoint link name

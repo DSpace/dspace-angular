@@ -20,11 +20,7 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 @Injectable()
 export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
-<<<<<<< HEAD
   protected responseMsToLive = 0;
-=======
-  protected resetMsToLive = true;
->>>>>>> Setting cache period to zero for all instances where forceBypassCache was previously true.
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,

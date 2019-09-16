@@ -20,11 +20,7 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 @Injectable()
 export class WorkflowItemDataService extends DataService<WorkflowItem> {
   protected linkPath = 'workflowitems';
-<<<<<<< HEAD
   protected responseMsToLive = 0;
-=======
-  protected resetMsToLive = true;
->>>>>>> Setting cache period to zero for all instances where forceBypassCache was previously true.
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkflowItem>,
