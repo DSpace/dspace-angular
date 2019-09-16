@@ -114,15 +114,6 @@ export class SearchFilterService {
   }
 
   /**
-   * Fetch the current active fixed filter from the route parameters and return the query by filter name
-   * @returns {Observable<string>}
-   */
-  getCurrentFixedFilter(): Observable<string> {
-    const filter: Observable<string> = this.routeService.getRouteParameterValue('filter');
-    return filter.pipe(mergeMap((f) => this.fixedFilterService.getQueryByFilterName(f)));
-  }
-
-  /**
    * Fetch the current view from the query parameters
    * @returns {Observable<string>}
    */

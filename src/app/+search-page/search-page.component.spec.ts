@@ -89,11 +89,7 @@ const routeServiceStub = {
     return observableOf('')
   }
 };
-const mockFixedFilterService: SearchFixedFilterService = {
-  getQueryByFilterName: (filter: string) => {
-    return observableOf(undefined)
-  }
-} as SearchFixedFilterService;
+const mockFixedFilterService: SearchFixedFilterService = {} as SearchFixedFilterService;
 
 export function configureSearchComponentTestingModule(compType) {
   TestBed.configureTestingModule({
