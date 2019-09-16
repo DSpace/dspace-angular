@@ -29,11 +29,11 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
 
 @NgModule({
   imports: [
-    ItemPageRoutingModule,
     CommonModule,
     SharedModule,
-    SearchPageModule,
-    EditItemPageModule
+    EditItemPageModule,
+    ItemPageRoutingModule,
+    SearchPageModule
   ],
   declarations: [
     ItemPageComponent,

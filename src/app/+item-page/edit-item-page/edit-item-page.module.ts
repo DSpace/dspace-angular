@@ -20,6 +20,7 @@ import { ItemCollectionMapperComponent } from './item-collection-mapper/item-col
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 import { EditRelationshipComponent } from './item-relationships/edit-relationship/edit-relationship.component';
 import { EditRelationshipListComponent } from './item-relationships/edit-relationship-list/edit-relationship-list.component';
+import { ItemMoveComponent } from './item-move/item-move.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -48,7 +49,8 @@ import { EditRelationshipListComponent } from './item-relationships/edit-relatio
     EditInPlaceFieldComponent,
     EditRelationshipComponent,
     EditRelationshipListComponent,
-    ItemCollectionMapperComponent
+    ItemCollectionMapperComponent,
+    ItemMoveComponent,
   ]
 })
 export class EditItemPageModule {

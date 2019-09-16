@@ -21,9 +21,9 @@ import { SearchService } from '../../../search-service/search.service';
 import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
-import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { SearchOptions } from '../../../search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 
 @Component({
   selector: 'ds-search-facet-filter',
