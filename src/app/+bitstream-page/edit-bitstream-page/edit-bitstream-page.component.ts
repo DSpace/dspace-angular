@@ -24,7 +24,8 @@ import { BitstreamFormatDataService } from '../../core/data/bitstream-format-dat
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { RestResponse } from '../../core/cache/response.models';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { MetadataValue } from '../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -297,6 +298,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       },
       descriptionContainer: {
         description: bitstream.description
+      },
+      formatContainer: {
+        otherFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined
       }
     });
     this.bitstream.format.pipe(
@@ -412,6 +416,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Display notifications and update the form upon success
+   * @param bitstream
+   * @param formatResponse
+   */
   onSuccess(bitstream: Bitstream, formatResponse?: RestResponse) {
     this.bitstream = bitstream;
     this.updateForm(this.bitstream);
@@ -431,6 +440,17 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     newBitstream.name = rawForm.fileNamePrimaryContainer.fileName;
     newBitstream.description = rawForm.descriptionContainer.description;
+
+    const otherFormat = rawForm.formatContainer.otherFormat;
+    if (isNotEmpty(otherFormat)) {
+      const currentOtherFormat = newBitstream.firstMetadata('dc.format');
+      if (hasValue(currentOtherFormat)) {
+        currentOtherFormat.value = otherFormat;
+      } else {
+        newBitstream.metadata['dc.format'] = [Object.assign(new MetadataValue(), { value: otherFormat })];
+      }
+    }
+
     return newBitstream;
   }
 
