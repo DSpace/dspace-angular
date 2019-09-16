@@ -15,7 +15,7 @@
   "admin.registries.bitstream-formats.head": "Registr formátů souborů",
   "admin.registries.bitstream-formats.title": "DSpace Angular :: Registr formátů souborů",
 
-  "admin.registries.metadata.description": "Registr metadat je seznam všech metadatových polí dostupných v repozitáři. Tyto pole mohou být rozdělena do více schémat. DSpace však vyžaduje použití schématu kvalifikový Dublin Core.",
+  "admin.registries.metadata.description": "Registr metadat je seznam všech metadatových polí dostupných v repozitáři. Tyto pole mohou být rozdělena do více schémat. DSpace však vyžaduje použití schématu Kvalifikovaný Dublin Core.",
   "admin.registries.metadata.head": "Registr metadat",
   "admin.registries.metadata.schemas.no-items": "Žádná schémata metadat.",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -28,7 +28,7 @@
   "admin.registries.schema.fields.no-items": "Žádná metadatová pole.",
   "admin.registries.schema.fields.table.field": "Pole",
   "admin.registries.schema.fields.table.scopenote": "Poznámka o rozsahu",
-  "admin.registries.schema.head": "Metadata Schema",
+  "admin.registries.schema.head": "Schéma metadat",
   "admin.registries.schema.title": "DSpace Angular :: Registr schémat metadat",
 
   "auth.errors.invalid-user": "Neplatná e-mailová adresa nebo heslo.",
@@ -80,7 +80,7 @@
   "home.top-level-communities.head": "Komunity v DSpace",
   "home.top-level-communities.help": "Vybráním komunity můžete prohlížet její kolekce.",
 
-  "item.page.abstract": "Abstract",
+  "item.page.abstract": "Abstrakt",
   "item.page.author": "Autor",
   "item.page.collections": "Kolekce",
   "item.page.date": "Datum",
