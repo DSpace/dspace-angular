@@ -175,7 +175,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The base layout of the "Other Format" input
    */
-  otherFormatBaseLayout = 'col col-sm-6';
+  otherFormatBaseLayout = 'col col-sm-6 d-inline-block';
 
   /**
    * Layout used for structuring the form inputs
@@ -208,7 +208,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     },
     otherFormat: {
       grid: {
-        host: this.otherFormatBaseLayout + ' d-none'
+        host: this.otherFormatBaseLayout + ' invisible'
       }
     },
     fileNamePrimaryContainer: {
@@ -335,9 +335,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   updateOtherFormatLayout(selectedId: string) {
     if (this.isUnknownFormat(selectedId)) {
-      this.formLayout.otherFormat.grid.host = this.otherFormatBaseLayout + ' d-inline-block';
+      this.formLayout.otherFormat.grid.host = this.otherFormatBaseLayout;
     } else {
-      this.formLayout.otherFormat.grid.host = this.otherFormatBaseLayout + ' d-none';
+      this.formLayout.otherFormat.grid.host = this.otherFormatBaseLayout + ' invisible';
     }
   }
 
