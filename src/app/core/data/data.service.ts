@@ -52,11 +52,7 @@ export abstract class DataService<T extends CacheableObject> {
   /**
    * Allows subclasses to reset the response cache time.
    */
-<<<<<<< HEAD
   protected responseMsToLive: number;
-=======
-  protected resetMsToLive: number;
->>>>>>> Sets responseMsToLive to zero in some dataService methods and adds ability to reset the responseMsToLive value in subclasses.
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
@@ -138,13 +134,8 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-<<<<<<< HEAD
         if (hasValue(this.responseMsToLive)) {
           request.responseMsToLive = this.responseMsToLive;
-=======
-        if (this.resetMsToLive) {
-          request.responseMsToLive = this.resetMsToLive;
->>>>>>> Sets responseMsToLive to zero in some dataService methods and adds ability to reset the responseMsToLive value in subclasses.
         }
         this.requestService.configure(request);
       });
@@ -169,13 +160,8 @@ export abstract class DataService<T extends CacheableObject> {
       find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
-<<<<<<< HEAD
         if (hasValue(this.responseMsToLive)) {
           request.responseMsToLive = this.responseMsToLive;
-=======
-        if (this.resetMsToLive) {
-          request.responseMsToLive = this.resetMsToLive;
->>>>>>> Sets responseMsToLive to zero in some dataService methods and adds ability to reset the responseMsToLive value in subclasses.
         }
         this.requestService.configure(request);
       });
@@ -185,13 +171,9 @@ export abstract class DataService<T extends CacheableObject> {
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
     const request = new GetRequest(this.requestService.generateRequestId(), href, null, options);
-<<<<<<< HEAD
+
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
-=======
-    if (this.resetMsToLive) {
-      request.responseMsToLive = this.resetMsToLive;
->>>>>>> Sets responseMsToLive to zero in some dataService methods and adds ability to reset the responseMsToLive value in subclasses.
     }
     this.requestService.configure(request);
     return this.rdbService.buildSingle<T>(href);
