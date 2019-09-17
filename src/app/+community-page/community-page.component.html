@@ -26,6 +26,14 @@
         [content]="communityPayload.copyrightText"
         [hasInnerHtml]="true">
       </ds-comcol-page-content>
+      <!-- Handle -->
+      <ds-comcol-page-handle
+        [content]="communityPayload.handle"
+        [title]="'community.page.handle'" >
+      </ds-comcol-page-handle>
+      <!-- Browse-By Links -->
+      <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type"></ds-comcol-page-browse-by>
+
       <ds-community-page-sub-community-list [community]="communityPayload"></ds-community-page-sub-community-list>
       <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
     </div>

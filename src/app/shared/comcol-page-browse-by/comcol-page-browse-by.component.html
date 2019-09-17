@@ -1,6 +1,8 @@
-<h3>{{'browse.comcol.head' | translate}}</h3>
-<ul>
-  <li *ngFor="let config of types">
-    <a [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}">{{'browse.comcol.by.' + config.id | translate}}</a>
-  </li>
-</ul>
+<h2 class="comcol-browse-label">{{'browse.comcol.head' | translate}}</h2>
+<nav class="comcol-browse" aria-label="Browse Community or Collection" >
+  <div class="list-group list-group-horizontal">
+    <a *ngIf="contentType=='collection'" [routerLink]="['/collections/' + id ]" class="list-group-item" routerLinkActive="active">{{'collection.landing.head' | translate}}</a>
+    <a *ngIf="contentType=='community'" [routerLink]="['/communities/' + id ]" class="list-group-item" routerLinkActive="active" >{{'community.landing.head' | translate}}</a>
+    <a *ngFor="let config of types" class="list-group-item" [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}" routerLinkActive="active">{{'browse.comcol.by.' + config.id | translate}}</a>
+  </div>
+</nav>
