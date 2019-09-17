@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnInit } from '@angular/core';
+import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
 import { Item } from '../../../core/shared/item.model';
@@ -12,11 +12,14 @@ import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 
-@Injectable()
+@Component({
+  selector: 'ds-abstract-item-update',
+  template: ''
+})
 /**
  * Abstract component for managing object updates of an item
  */
-export abstract class AbstractItemUpdateComponent extends AbstractTrackableComponent implements OnInit {
+export class AbstractItemUpdateComponent extends AbstractTrackableComponent implements OnInit {
   /**
    * The item to display the edit page for
    */
@@ -70,18 +73,35 @@ export abstract class AbstractItemUpdateComponent extends AbstractTrackableCompo
 
   /**
    * Initialize the values and updates of the current item's fields
+   * Abstract method: Should be overwritten in the sub class
    */
-  abstract initializeUpdates(): void;
+  initializeUpdates(): void {
+    // Overwrite in subclasses
+  }
 
   /**
    * Initialize the prefix for notification messages
+   * Abstract method: Should be overwritten in the sub class
    */
-  abstract initializeNotificationsPrefix(): void;
+  initializeNotificationsPrefix(): void {
+    // Overwrite in subclasses
+  }
 
   /**
    * Sends all initial values of this item to the object updates service
+   * Abstract method: Should be overwritten in the sub class
    */
-  abstract initializeOriginalFields(): void;
+  initializeOriginalFields(): void {
+    // Overwrite in subclasses
+  }
+
+  /**
+   * Submit the current changes
+   * Abstract method: Should be overwritten in the sub class
+   */
+  submit(): void {
+    // Overwrite in subclasses
+  }
 
   /**
    * Prevent unnecessary rerendering so fields don't lose focus
@@ -112,9 +132,4 @@ export abstract class AbstractItemUpdateComponent extends AbstractTrackableCompo
       }
     );
   }
-
-  /**
-   * Submit the current changes
-   */
-  abstract submit(): void;
 }

@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DynamicFormControlModel, DynamicFormService } from '@ng-dynamic-forms/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
@@ -111,7 +111,8 @@ describe('EditBitstreamPageComponent', () => {
         { provide: DynamicFormService, useValue: formService },
         { provide: ActivatedRoute, useValue: { data: observableOf({ bitstream: new RemoteData(false, false, true, null, bitstream) }) } },
         { provide: BitstreamDataService, useValue: bitstreamService },
-        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService }
+        { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
+        ChangeDetectorRef
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

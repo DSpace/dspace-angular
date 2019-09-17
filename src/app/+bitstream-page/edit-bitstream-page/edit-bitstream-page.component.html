@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="bitstream">
     <div class="col-md-2">
       <ds-thumbnail [thumbnail]="bitstream"></ds-thumbnail>
     </div>
@@ -20,4 +20,5 @@
                 (dfChange)="onChange($event)"></ds-form>
     </div>
   </div>
+  <ds-loading *ngIf="!bitstream" message="{{'loading.bitstream' | translate}}"></ds-loading>
 </div>

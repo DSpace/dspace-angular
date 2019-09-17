@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute } from '@angular/router';
 import { map, take, tap } from 'rxjs/operators';
@@ -248,7 +248,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
               private notificationsService: NotificationsService,
-              private bitstreamFormatService: BitstreamFormatDataService) {
+              private bitstreamFormatService: BitstreamFormatDataService,
+              private changeDetectorRef: ChangeDetectorRef) {
   }
 
   /**
@@ -278,6 +279,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       this.formats = allFormats.page;
       this.updateFormatModel();
       this.updateForm(this.bitstream);
+      this.changeDetectorRef.detectChanges();
     });
 
     this.updateFieldTranslations();
@@ -285,6 +287,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.updateFieldTranslations();
       });
+    this.changeDetectorRef.detectChanges();
   }
 
   /**
@@ -429,6 +432,12 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
       this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
     );
+    if (hasValue(formatResponse) && !formatResponse.isSuccessful) {
+      this.notificationsService.error(
+        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.format.title'),
+        formatResponse.statusText
+      );
+    }
   }
 
   /**

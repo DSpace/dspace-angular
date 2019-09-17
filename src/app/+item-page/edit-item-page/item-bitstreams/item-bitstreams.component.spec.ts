@@ -50,7 +50,7 @@ const url = 'thisUrl';
 let item: Item;
 let itemService: ItemDataService;
 let objectUpdatesService: ObjectUpdatesService;
-let router: Router;
+let router: any;
 let route: ActivatedRoute;
 let notificationsService: NotificationsService;
 let bitstreamService: BitstreamDataService;

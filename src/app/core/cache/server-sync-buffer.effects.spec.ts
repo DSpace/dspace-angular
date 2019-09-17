@@ -18,7 +18,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 
-fdescribe('ServerSyncBufferEffects', () => {
+describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;
   let actions: Observable<any>;
   const testConfig = {
