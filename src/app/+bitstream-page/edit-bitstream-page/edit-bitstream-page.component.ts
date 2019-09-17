@@ -25,7 +25,8 @@ import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { RestResponse } from '../../core/cache/response.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { MetadataValue } from '../../core/shared/metadata.models';
+import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
+import { Metadata } from '../../core/shared/metadata.utils';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -388,7 +389,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   onSubmit() {
     const updatedValues = this.formGroup.getRawValue();
-    const newBitstream = this.formToBitstream(updatedValues);
+    this.formToBitstream(updatedValues);
     const selectedFormat = this.formats.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
     const isNewFormat = selectedFormat.id !== this.originalFormat.id;
 
@@ -398,14 +399,14 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       extraOperations.push(operation);
     }
 
-    const updatedBitstream$ = this.bitstreamService.update(newBitstream, extraOperations).pipe(
+    const updatedBitstream$ = this.bitstreamService.update(this.bitstream, extraOperations).pipe(
       tap(() => this.bitstreamService.commitUpdates()),
       getSucceededRemoteData(),
       getRemoteDataPayload()
     );
 
     if (isNewFormat) {
-      const updatedFormatResponse$ = this.bitstreamService.updateFormat(newBitstream, selectedFormat);
+      const updatedFormatResponse$ = this.bitstreamService.updateFormat(this.bitstream, selectedFormat);
       observableCombineLatest(updatedBitstream$, updatedFormatResponse$).subscribe(([bitstream, formatResponse]) => {
         this.onSuccess(bitstream, formatResponse);
       });
@@ -434,24 +435,16 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Parse form data to an updated bitstream object
    * @param rawForm   Raw form data
    */
-  formToBitstream(rawForm): Bitstream {
-    const newBitstream = cloneDeep(this.bitstream);
+  formToBitstream(rawForm) {
+    const newMetadata = cloneDeep(this.bitstream.metadata);
     // TODO: Set bitstream to primary when supported
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
-    newBitstream.name = rawForm.fileNamePrimaryContainer.fileName;
-    newBitstream.description = rawForm.descriptionContainer.description;
-
-    const otherFormat = rawForm.formatContainer.otherFormat;
-    if (isNotEmpty(otherFormat)) {
-      const currentOtherFormat = newBitstream.firstMetadata('dc.format');
-      if (hasValue(currentOtherFormat)) {
-        currentOtherFormat.value = otherFormat;
-      } else {
-        newBitstream.metadata['dc.format'] = [Object.assign(new MetadataValue(), { value: otherFormat })];
-      }
+    Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
+    Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
+    if (isNotEmpty(rawForm.formatContainer.otherFormat)) {
+      Metadata.setFirstValue(newMetadata, 'dc.format', rawForm.formatContainer.otherFormat);
     }
-
-    return newBitstream;
+    this.bitstream.metadata = newMetadata;
   }
 
   /**
