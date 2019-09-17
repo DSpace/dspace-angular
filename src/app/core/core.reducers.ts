@@ -13,7 +13,7 @@ import {
   objectUpdatesReducer,
   ObjectUpdatesState
 } from './data/object-updates/object-updates.reducer';
-import { routeReducer, RouteState } from '../shared/services/route.reducer';
+import { routeReducer, RouteState } from './services/route.reducer';
 
 export interface CoreState {
   'cache/object': ObjectCacheState,

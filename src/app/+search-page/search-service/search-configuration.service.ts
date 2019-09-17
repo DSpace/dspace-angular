@@ -14,7 +14,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { RouteService } from '../../shared/services/route.service';
+import { RouteService } from '../../core/services/route.service';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import { getSucceededRemoteData } from '../../core/shared/operators';

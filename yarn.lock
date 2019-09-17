@@ -35,6 +35,13 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/cdk@6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.4.7.tgz#1549b304dd412e82bd854cc55a7d5c6772ee0411"
+  integrity sha512-18x0U66fLD5kGQWZ9n3nb75xQouXlWs7kUDaTd8HTrHpT1s2QIAqlLd1KxfrYiVhsEC2jPQaoiae7VnBlcvkBg==
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@^6.1.5":
   version "6.1.5"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-6.1.5.tgz#312c062631285ff06fd07ecde8afe22cdef5a0e1"
@@ -95,6 +102,15 @@
   integrity sha512-V4qF68tUSsc3cKvQERJmpfXgZSKgxhb67I2jAfmwU9mEH66wh9FNfZ0b0GPV9hXoCulw3POz4ZUwZZ1E6mLy4A==
   dependencies:
     tslib "^1.9.0"
+
+"@angular/material@6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-6.4.7.tgz#3c8f2d6a6a7904d97be29e06a84ffb62a8da6c16"
+  integrity sha512-SdNx7Xovi24Kw9eU6lkLhY/7f2M7L9F+/uh6XuPr4jbGgCUVVpeeVI5ztZhsZRbj1sN+/r1p5w8u62apWWl5Ww==
+  dependencies:
+    tslib "^1.7.1"
+  optionalDependencies:
+    parse5 "^5.0.0"
 
 "@angular/platform-browser-dynamic@^6.1.4":
   version "6.1.6"
@@ -160,7 +176,7 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@ng-bootstrap/ng-bootstrap@^2.0.0":
+"@ng-bootstrap/ng-bootstrap@2.2.2":
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-2.2.2.tgz#07c64badd48b563140eb5a6327b5516bf2226834"
   integrity sha512-uqngK1urcevQeF+zgoGW1XDnasjoob4QrwhynNUFpDnnplP1wa+BEUjpSccxU+L2dHLfrOb2sPGEGp8cE2X3Iw==
@@ -7750,6 +7766,11 @@ parse-passwd@^1.0.0:
   resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
   integrity sha1-bVuTSkVpk7I9N/QKOC1vFmao5cY=
 
+parse5@^5.0.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.0.tgz#c59341c9723f414c452975564c7c00a68d58acd2"
+  integrity sha512-fxNG2sQjHvlVAYmzBZS9YlDp6PTSSDwa98vkD4QgVDDCAo84z5X1t5XyJQ62ImdLXx5NdIIfihey6xpum9/gRQ==
+
 parseqs@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/parseqs/-/parseqs-0.0.5.tgz#d5208a3738e46766e291ba2ea173684921a8b89d"
@@ -10821,6 +10842,11 @@ tsickle@^0.32.1:
     mkdirp "^0.5.1"
     source-map "^0.6.0"
     source-map-support "^0.5.0"
+
+tslib@^1.7.1:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
+  integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
 tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.3"

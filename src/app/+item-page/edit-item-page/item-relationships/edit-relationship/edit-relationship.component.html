@@ -1,0 +1,19 @@
+<div class="row" *ngIf="item">
+  <div class="col-10 relationship">
+    <ds-item-type-switcher [object]="item" [viewMode]="viewMode"></ds-item-type-switcher>
+  </div>
+  <div class="col-2">
+    <div class="btn-group relationship-action-buttons">
+      <button [disabled]="!canRemove()" (click)="remove()"
+              class="btn btn-outline-danger btn-sm"
+              title="{{'item.edit.metadata.edit.buttons.remove' | translate}}">
+        <i class="fas fa-trash-alt fa-fw"></i>
+      </button>
+      <button [disabled]="!canUndo()" (click)="undo()"
+              class="btn btn-outline-warning btn-sm"
+              title="{{'item.edit.metadata.edit.buttons.undo' | translate}}">
+        <i class="fas fa-undo-alt fa-fw"></i>
+      </button>
+    </div>
+  </div>
+</div>

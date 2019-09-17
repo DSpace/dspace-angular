@@ -1,4 +1,2 @@
-<div *ngIf="object && object.indexableObject && object.indexableObject.firstMetadataValue('relationship.type') as type">
-  <span class="badge badge-light">{{ type.toLowerCase() + '.listelement.badge' | translate }}</span>
-</div>
+<ds-item-type-badge [object]="object"></ds-item-type-badge>
 <ds-item-type-switcher [object]="object" [viewMode]="viewMode"></ds-item-type-switcher>

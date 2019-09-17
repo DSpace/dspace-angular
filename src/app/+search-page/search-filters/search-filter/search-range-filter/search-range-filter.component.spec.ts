@@ -16,7 +16,7 @@ import { RouterStub } from '../../../../shared/testing/router-stub';
 import { Router } from '@angular/router';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
-import { RouteService } from '../../../../shared/services/route.service';
+import { RouteService } from '../../../../core/services/route.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../shared/testing/search-configuration-service-stub';

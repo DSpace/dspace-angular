@@ -5,7 +5,7 @@ import { AuthEffects } from './auth/auth.effects';
 import { JsonPatchOperationsEffects } from './json-patch/json-patch-operations.effects';
 import { ServerSyncBufferEffects } from './cache/server-sync-buffer.effects';
 import { ObjectUpdatesEffects } from './data/object-updates/object-updates.effects';
-import { RouteEffects } from '../shared/services/route.effects';
+import { RouteEffects } from './services/route.effects';
 
 export const coreEffects = [
   RequestEffects,

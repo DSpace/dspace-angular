@@ -31,7 +31,7 @@ import {
   createSuccessfulRemoteDataObject$
 } from '../../../shared/testing/utils';
 
-let comp: ItemMetadataComponent;
+let comp: any;
 let fixture: ComponentFixture<ItemMetadataComponent>;
 let de: DebugElement;
 let el: HTMLElement;

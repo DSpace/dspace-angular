@@ -1,10 +1,43 @@
 sudo: required
 dist: trusty
+
+env:
+  # Install the latest docker-compose version for ci testing.
+  # The default installation in travis is not compatible with the latest docker-compose file version.
+  COMPOSE_VERSION: 1.24.1
+  # The ci step will test the dspace-angular code against DSpace REST.
+  # Direct that step to utilize a DSpace REST service that has been started in docker.
+  DSPACE_REST_HOST: localhost
+  DSPACE_REST_PORT: 8080
+  DSPACE_REST_NAMESPACE: '/server/api'
+  DSPACE_REST_SSL: false
+
+before_install:
+  # Docker Compose Install
+  - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - git clone https://github.com/DSpace-Labs/DSpace-Docker-Images.git
+
+install:
+  - docker-compose version
+  - docker-compose -f DSpace-Docker-Images/docker-compose-files/dspace-compose/d7.travis.yml up -d
+  - travis_retry yarn install
+
+before_script:
+  # The following line could be enabled to verify that the rest server is responding.
+  # Currently, "yarn run build" takes enough time to run to allow the service to be available
+  #- curl http://localhost:8080/
+
+after_script:
+  - docker-compose -f DSpace-Docker-Images/docker-compose-files/dspace-compose/d7.travis.yml down
+
 addons:
   apt:
     sources:
       - google-chrome
     packages:
+      - dpkg
       - google-chrome-stable
 
 language: node_js
@@ -17,9 +50,6 @@ cache:
   yarn: true
 
 bundler_args: --retry 5
-
-install:
-  - travis_retry yarn install
 
 script:
   # Use Chromium instead of Chrome.

@@ -4,7 +4,7 @@
   </a>
   <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownLang">
     <li class="dropdown-item" #langSelect *ngFor="let lang of translate.getLangs()"
-            (click)="translate.use(lang)"
+            (click)="useLang(lang)"
             [class.active]="lang === translate.currentLang">
                 {{ langLabel(lang) }}
     </li>

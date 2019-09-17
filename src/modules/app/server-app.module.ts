@@ -13,8 +13,8 @@ import { DSpaceServerTransferStateModule } from '../transfer-state/dspace-server
 import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 
 import { TranslateUniversalLoader } from '../translate-universal-loader';
-import { CookieService } from '../../app/shared/services/cookie.service';
-import { ServerCookieService } from '../../app/shared/services/server-cookie.service';
+import { CookieService } from '../../app/core/services/cookie.service';
+import { ServerCookieService } from '../../app/core/services/server-cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { ServerAuthService } from '../../app/core/auth/server-auth.service';
 

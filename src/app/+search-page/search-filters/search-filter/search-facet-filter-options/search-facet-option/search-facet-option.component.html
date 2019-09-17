@@ -1,5 +1,5 @@
 <a *ngIf="isVisible | async" class="d-flex flex-row"
-   [routerLink]="[getSearchLink()]"
+   [routerLink]="[searchLink]"
    [queryParams]="addQueryParams" queryParamsHandling="merge">
   <input type="checkbox" [checked]="false" class="my-1 align-self-stretch"/>
   <span class="filter-value px-1">{{filterValue.value}}</span>

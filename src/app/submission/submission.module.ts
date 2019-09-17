@@ -31,7 +31,7 @@ import { SubmissionSubmitComponent } from './submit/submission-submit.component'
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule,
+    CoreModule.forRoot(),
     SharedModule,
     StoreModule.forFeature('submission', submissionReducers, {}),
     EffectsModule.forFeature(submissionEffects),
