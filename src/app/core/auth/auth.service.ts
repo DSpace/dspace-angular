@@ -368,7 +368,7 @@ export class AuthService {
 
   }
 
-  private navigateToRedirectUrl(url: string) {
+  protected navigateToRedirectUrl(url: string) {
     // in case the user navigates directly to /login (via bookmark, etc), or the route history is not found.
     if (isEmpty(url) || url.startsWith(LOGIN_ROUTE)) {
       this.router.navigate(['/']);
