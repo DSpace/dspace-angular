@@ -10,6 +10,9 @@
   "engines": {
     "node": "8.* || >= 10.*"
   },
+  "resolutions": {
+    "set-value": ">= 2.0.1"
+  },
   "scripts": {
     "global": "npm install -g @angular/cli marked node-gyp nodemon node-nightly npm-check-updates npm-run-all rimraf typescript ts-node typedoc webpack webpack-bundle-analyzer pm2 rollup",
     "clean:coverage": "rimraf coverage",
