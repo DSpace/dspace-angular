@@ -82,9 +82,6 @@ describe('MyDSpacePageComponent', () => {
     expand: () => this.isCollapsed = observableOf(false)
   };
   const mockFixedFilterService: SearchFixedFilterService = {
-    getQueryByFilterName: (filter: string) => {
-      return observableOf(undefined)
-    }
   } as SearchFixedFilterService;
 
   beforeEach(async(() => {
