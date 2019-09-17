@@ -25,7 +25,6 @@ import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { RestResponse } from '../../core/cache/response.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
 import { Metadata } from '../../core/shared/metadata.utils';
 
 @Component({
@@ -261,7 +260,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formGroup = this.formService.createFormGroup(this.formModel);
 
-    const bitstream$ = this.route.data.pipe(map((data) => data.bitstream)).pipe(
+    const bitstream$ = this.route.data.pipe(
+      map((data) => data.bitstream),
       getSucceededRemoteData(),
       getRemoteDataPayload()
     );

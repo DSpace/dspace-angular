@@ -108,8 +108,8 @@ export class ServerSyncBufferEffects {
           if (isNotEmpty(metadataPatch)) {
             this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, metadataPatch));
           }
-          return new ApplyPatchObjectCacheAction(href);
         }
+        return new ApplyPatchObjectCacheAction(href);
       })
     )
   }

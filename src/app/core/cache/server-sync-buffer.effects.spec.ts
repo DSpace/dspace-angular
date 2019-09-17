@@ -18,7 +18,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 
-describe('ServerSyncBufferEffects', () => {
+fdescribe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;
   let actions: Observable<any>;
   const testConfig = {
@@ -47,6 +47,11 @@ describe('ServerSyncBufferEffects', () => {
         {
           provide: ObjectCacheService, useValue: {
             getObjectBySelfLink: (link) => {
+              const object = new DSpaceObject();
+              object.self = link;
+              return observableOf(object);
+            },
+            getBySelfLink: (link) => {
               const object = new DSpaceObject();
               object.self = link;
               return observableOf(object);

@@ -7,16 +7,29 @@ import { RestResponse } from '../cache/response.models';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { BitstreamFormatDataService } from './bitstream-format-data.service';
+import { of as observableOf } from 'rxjs/internal/observable/of';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';
+import { PutRequest } from './request.models';
 
 describe('BitstreamDataService', () => {
   let service: BitstreamDataService;
   let objectCache: ObjectCacheService;
   let requestService: RequestService;
   let halService: HALEndpointService;
+  let bitstreamFormatService: BitstreamFormatDataService;
+  const bitstreamFormatHref = 'rest-api/bitstreamformats';
 
   const bitstream = Object.assign(new Bitstream(), {
     uuid: 'fake-bitstream',
     self: 'fake-bitstream-self'
+  });
+  const format = Object.assign(new BitstreamFormat(), {
+    id: '2',
+    shortDescription: 'PNG',
+    description: 'Portable Network Graphics',
+    supportLevel: BitstreamFormatSupportLevel.Known
   });
   const url = 'fake-bitstream-url';
 
@@ -26,8 +39,11 @@ describe('BitstreamDataService', () => {
     });
     requestService = getMockRequestService();
     halService = Object.assign(new HALEndpointServiceStub(url));
+    bitstreamFormatService = jasmine.createSpyObj('bistreamFormatService', {
+      getBrowseEndpoint: observableOf(bitstreamFormatHref)
+    });
 
-    service = new BitstreamDataService(requestService, null, null, null, null, objectCache, halService, null, null, null);
+    service = new BitstreamDataService(requestService, null, null, null, null, objectCache, halService, null, null, null, bitstreamFormatService);
   });
 
   describe('when deleting a bitstream', () => {
@@ -43,6 +59,16 @@ describe('BitstreamDataService', () => {
 
     it('should de-cache the bitstream\'s request cache', () => {
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(bitstream.self);
+    });
+  });
+
+  describe('when updating the bitstream\'s format', () => {
+    beforeEach(() => {
+      service.updateFormat(bitstream, format);
+    });
+
+    it('should configure a put request', () => {
+      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest), undefined);
     });
   });
 });
