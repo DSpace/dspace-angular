@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, StoreModule } from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import {of, of as observableOf} from 'rxjs';
+import { of, of as observableOf } from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
@@ -23,8 +23,8 @@ import { AppState } from '../../app.reducer';
 import { ClientCookieService } from '../services/client-cookie.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
-import {routeServiceStub} from '../../shared/testing/route-service-stub';
-import {RouteService} from '../services/route.service';
+import { routeServiceStub } from '../../shared/testing/route-service-stub';
+import { RouteService } from '../services/route.service';
 
 describe('AuthService test', () => {
 
