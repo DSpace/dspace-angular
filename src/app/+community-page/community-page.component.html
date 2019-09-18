@@ -3,13 +3,13 @@
     <div *ngIf="communityRD?.payload; let communityPayload">
       <!-- Community logo -->
       <ds-comcol-page-logo *ngIf="logoRD$"
-      [logo]="(logoRD$ | async)?.payload"
-      [alternateText]="'Community Logo'">
+        [logo]="(logoRD$ | async)?.payload"
+        [alternateText]="'Community Logo'">
+      </ds-comcol-page-logo>
 
       <!-- Community name -->
       <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
 
-      </ds-comcol-page-logo>
       <!-- Introductory text -->
       <ds-comcol-page-content
         [content]="communityPayload.introductoryText"
