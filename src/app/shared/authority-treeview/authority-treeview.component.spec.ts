@@ -15,12 +15,19 @@ import { CoreState } from '../../core/core.reducers';
 import { AuthorityEntry } from '../../core/integration/models/authority-entry.model';
 import { TreeviewFlatNode } from './authority-treeview-node.model';
 
-fdescribe('AuthorityTreeviewComponent test suite', () => {
+describe('AuthorityTreeviewComponent test suite', () => {
 
   let comp: AuthorityTreeviewComponent;
   let compAsAny: any;
   let fixture: ComponentFixture<AuthorityTreeviewComponent>;
 
+  const item = new AuthorityEntry();
+  item.id = 'node1';
+  const item2 = new AuthorityEntry();
+  item2.id = 'node2';
+  const emptyNodeMap = new Map<string, TreeviewFlatNode>();
+  const storedNodeMap = new Map<string, TreeviewFlatNode>().set('test', new TreeviewFlatNode(item2));
+  const nodeMap = new Map<string, TreeviewFlatNode>().set('test', new TreeviewFlatNode(item));
   const searchOptions = new IntegrationSearchOptions('123456', 'authorityTest', 'metadata.test');
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const authorityTreeviewServiceStub = jasmine.createSpyObj('authorityTreeviewServiceStub', {
@@ -84,13 +91,14 @@ fdescribe('AuthorityTreeviewComponent test suite', () => {
     }));
   });
 
-  fdescribe('', () => {
+  describe('', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(AuthorityTreeviewComponent);
       comp = fixture.componentInstance;
       compAsAny = comp;
       authorityTreeviewServiceStub.getData.and.returnValue(observableOf([]));
       authorityTreeviewServiceStub.isSearching.and.returnValue(observableOf(false));
+      comp.searchOptions = searchOptions;
     });
 
     afterEach(() => {
@@ -106,14 +114,12 @@ fdescribe('AuthorityTreeviewComponent test suite', () => {
     });
 
     it('should call loadMore function', () => {
-      const item = new AuthorityEntry();
       comp.loadMore(item);
       fixture.detectChanges();
       expect(authorityTreeviewServiceStub.loadMore).toHaveBeenCalledWith(item);
     });
 
     it('should call loadMoreRoot function', () => {
-      const item = new AuthorityEntry();
       const node = new TreeviewFlatNode(item);
       comp.loadMoreRoot(node);
       fixture.detectChanges();
@@ -121,7 +127,6 @@ fdescribe('AuthorityTreeviewComponent test suite', () => {
     });
 
     it('should call loadChildren function', () => {
-      const item = new AuthorityEntry();
       const node = new TreeviewFlatNode(item);
       comp.loadChildren(node);
       fixture.detectChanges();
@@ -130,10 +135,54 @@ fdescribe('AuthorityTreeviewComponent test suite', () => {
 
     it('should emit select event', () => {
       spyOn(comp, 'onSelect');
-      const item = new AuthorityEntry();
       comp.onSelect(item);
 
       expect(comp.onSelect).toHaveBeenCalledWith(item);
+    });
+
+    it('should call searchBy function and set storedNodeMap properly', () => {
+      comp.searchText = 'test search';
+      searchOptions.query = 'test search';
+      comp.nodeMap.set('test', new TreeviewFlatNode(item));
+      comp.search();
+      fixture.detectChanges();
+      expect(authorityTreeviewServiceStub.searchBy).toHaveBeenCalledWith(searchOptions);
+      expect(comp.storedNodeMap).toEqual(nodeMap);
+      expect(comp.nodeMap).toEqual(emptyNodeMap);
+    });
+
+    it('should call searchBy function and not set storedNodeMap', () => {
+      comp.searchText = 'test search';
+      searchOptions.query = 'test search';
+      comp.nodeMap.set('test', new TreeviewFlatNode(item));
+      comp.storedNodeMap.set('test', new TreeviewFlatNode(item2));
+      comp.search();
+      fixture.detectChanges();
+      expect(authorityTreeviewServiceStub.searchBy).toHaveBeenCalledWith(searchOptions);
+      expect(comp.storedNodeMap).toEqual(storedNodeMap);
+      expect(comp.nodeMap).toEqual(emptyNodeMap);
+    });
+
+    it('should call restoreNodes function and restore nodeMap properly', () => {
+      comp.nodeMap.set('test', new TreeviewFlatNode(item));
+      comp.storedNodeMap.set('test', new TreeviewFlatNode(item2));
+      comp.reset();
+      fixture.detectChanges();
+      expect(authorityTreeviewServiceStub.restoreNodes).toHaveBeenCalled();
+      expect(comp.storedNodeMap).toEqual(emptyNodeMap);
+      expect(comp.nodeMap).toEqual(storedNodeMap);
+      expect(comp.searchText).toEqual('');
+      expect(comp.searchOptions.query).toEqual('');
+    });
+
+    it('should clear search string', () => {
+      comp.nodeMap.set('test', new TreeviewFlatNode(item));
+      comp.reset();
+      fixture.detectChanges();
+      expect(comp.storedNodeMap).toEqual(emptyNodeMap);
+      expect(comp.nodeMap).toEqual(nodeMap);
+      expect(comp.searchText).toEqual('');
+      expect(comp.searchOptions.query).toEqual('');
     });
   });
 });
