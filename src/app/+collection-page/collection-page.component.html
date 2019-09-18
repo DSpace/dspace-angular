@@ -3,7 +3,7 @@
          *ngVar="(collectionRD$ | async) as collectionRD">
         <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
             <div *ngIf="collectionRD?.payload as collection">
-                <header class="comcol-header">
+                <header class="comcol-header border-bottom mb-4 pb-4">
                     <!-- Collection logo -->
                     <ds-comcol-page-logo *ngIf="logoRD$"
                         [logo]="(logoRD$ | async)?.payload" [alternateText]="'Collection Logo'">
@@ -13,6 +13,11 @@
                 <ds-comcol-page-header
                         [name]="collection.name">
                 </ds-comcol-page-header>
+                 <!-- Handle -->
+                <ds-comcol-page-handle
+                        [content]="collection.handle"
+                        [title]="'collection.page.handle'" >
+                </ds-comcol-page-handle>
                 <!-- Introductory text -->
                 <ds-comcol-page-content
                         [content]="collection.introductoryText"
@@ -24,11 +29,7 @@
                         [hasInnerHtml]="true"
                         [title]="'collection.page.news'">
                 </ds-comcol-page-content>
-               <!-- Handle -->
-               <ds-comcol-page-handle
-                        [content]="collection.handle"
-                        [title]="'collection.page.handle'" >
-                </ds-comcol-page-handle>
+
               </header>
               <section class="comcol-page-browse-section">
               <!-- Browse-By Links -->
@@ -38,7 +39,7 @@
               </ds-comcol-page-browse-by>
 
             <ng-container *ngVar="(itemRD$ | async) as itemRD">
-                <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
+                <div class="mt-4" *ngIf="itemRD?.hasSucceeded" @fadeIn>
                     <h3 class="sr-only">{{'collection.page.browse.recent.head' | translate}}</h3>
                     <ds-viewable-collection
                             [config]="paginationConfig"
@@ -57,7 +58,7 @@
                 </div>
             </ng-container>
             </section>
-        <footer>
+            <footer *ngIf="collection.copyrightText" class="border-top my-5 pt-4">
           <!-- Copyright -->
           <ds-comcol-page-content
                       [content]="collection.copyrightText"
