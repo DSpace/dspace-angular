@@ -1,6 +1,6 @@
 <div class="container">
-  <div *ngVar="(parent$ | async) as parent">
-    <div *ngIf="parent?.payload as parentContext">
+  <ng-container *ngVar="(parent$ | async) as parent">
+    <ng-container *ngIf="parent?.payload as parentContext">
       <header>
         <!-- Parent Name -->
         <ds-comcol-page-header [name]="parentContext.name">
@@ -16,11 +16,11 @@
             [content]="parentContext.handle"
             [title]="parentContext.type+'.page.handle'" >
         </ds-comcol-page-handle>
+      </header>
         <!-- Browse-By Links -->
         <ds-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-comcol-page-browse-by>
-      </header>
-    </div>
-  </div>
+    </ng-container>
+  </ng-container>
   <div class="browse-by-metadata w-100">
     <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
       title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + browseId | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
