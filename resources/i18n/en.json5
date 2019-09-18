@@ -143,7 +143,6 @@
   "collection.page.handle": "Collection Handle",
   "collection.page.license": "License",
   "collection.page.news": "News",
-  "collection.landing.head": "Submission date",
 
   "community.create.head": "Create a Community",
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -164,7 +163,7 @@
   "community.page.handle": "Community Handle",
   "community.page.license": "License",
   "community.page.news": "News",
-  "community.landing.head": "Subcommunities and Collections",
+  "community.all-lists.head": "Subcommunities and Collections",
   "community.sub-collection-list.head": "Collections of this Community",
   "community.sub-community-list.head": "Communities of this Community",
 
