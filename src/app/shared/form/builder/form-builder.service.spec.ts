@@ -251,7 +251,7 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicLookupNameModel({id: 'testLookupName', workspaceItem: new WorkspaceItem(), repeatable: false}),
 
-      new DynamicQualdropModel({id: 'testCombobox', readOnly: false}),
+      new DynamicQualdropModel({id: 'testCombobox', readOnly: false, required: false}),
 
       new DynamicRowArrayModel(
         {
@@ -263,6 +263,7 @@ describe('FormBuilderService test suite', () => {
               new DynamicInputModel({id: 'testFormRowArrayGroupInput'})
             ];
           },
+          required: false
         }
       ),
     ];

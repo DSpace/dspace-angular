@@ -95,7 +95,6 @@ describe('SearchSettingsComponent', () => {
     // SearchPageComponent test instance
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;
-    spyOn(comp, 'reloadRPP');
     spyOn(comp, 'reloadOrder');
     spyOn(searchServiceObject, 'search').and.callThrough();
 

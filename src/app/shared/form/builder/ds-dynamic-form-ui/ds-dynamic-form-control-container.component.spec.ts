@@ -128,7 +128,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicDsDatePickerModel({ id: 'datepicker'}),
     new DynamicLookupModel({ id: 'lookup', workspaceItem: new WorkspaceItem(), repeatable: false }),
     new DynamicLookupNameModel({ id: 'lookupName', workspaceItem: new WorkspaceItem(), repeatable: false }),
-    new DynamicQualdropModel({ id: 'combobox', readOnly: false })
+    new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
   ];
   const testModel = formModel[8];
   let formGroup: FormGroup;
