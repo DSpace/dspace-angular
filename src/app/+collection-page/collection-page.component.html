@@ -5,7 +5,7 @@
             <div *ngIf="collectionRD?.payload as collection">
                 <header>
                     <!-- Collection logo -->
-                    <ds-comcol-page-logo *ngIf="logoRD$" 
+                    <ds-comcol-page-logo *ngIf="logoRD$"
                         [logo]="(logoRD$ | async)?.payload" [alternateText]="'Collection Logo'">
                         [alternateText]="'Collection Logo'">
                     </ds-comcol-page-logo>
@@ -37,7 +37,7 @@
               </header>
             <ng-container *ngVar="(itemRD$ | async) as itemRD">
                 <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
-                    <h2>{{'collection.page.browse.recent.head' | translate}}</h2>
+                    <h3 class="sr-only">{{'collection.page.browse.recent.head' | translate}}</h3>
                     <ds-viewable-collection
                             [config]="paginationConfig"
                             [sortConfig]="sortConfig"
