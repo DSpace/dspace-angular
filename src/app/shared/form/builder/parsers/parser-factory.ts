@@ -13,6 +13,7 @@ import { SeriesFieldParser } from './series-field-parser';
 import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
 import { NumberFieldParser } from './number-field-parser';
+import { CalendarFieldParser } from './calendar-field-parser';
 
 /**
  * A factory for form's field parser.
@@ -20,6 +21,9 @@ import { NumberFieldParser } from './number-field-parser';
 export class ParserFactory {
   public static getConstructor(type: ParserType): GenericConstructor<FieldParser> {
     switch (type) {
+      case ParserType.Calendar: {
+        return CalendarFieldParser
+      }
       case ParserType.Date: {
         return DateFieldParser
       }
