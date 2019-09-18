@@ -1,7 +1,7 @@
 <div class="container">
   <ng-container *ngVar="(parent$ | async) as parent">
     <ng-container *ngIf="parent?.payload as parentContext">
-      <header>
+        <header class="comcol-header">
         <!-- Parent Name -->
         <ds-comcol-page-header [name]="parentContext.name">
         </ds-comcol-page-header>
@@ -17,6 +17,7 @@
             [title]="parentContext.type+'.page.handle'" >
         </ds-comcol-page-handle>
       </header>
+      <section class="comcol-page-browse-section">
         <!-- Browse-By Links -->
         <ds-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-comcol-page-browse-by>
     </ng-container>
@@ -37,6 +38,7 @@
     </ds-browse-by>
     <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
   </div>
+</section>
   <footer *ngVar="(parent$ | async) as parent">
     <div *ngIf="parent?.payload as parentContext">
 
