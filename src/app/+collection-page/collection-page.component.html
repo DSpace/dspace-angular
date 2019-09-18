@@ -29,12 +29,13 @@
                         [content]="collection.handle"
                         [title]="'collection.page.handle'" >
                 </ds-comcol-page-handle>
-                <!-- Browse-By Links -->
-                <ds-comcol-page-browse-by
-                        [id]="collection.id"
-                        [contentType]="collection.type">
-                </ds-comcol-page-browse-by>
               </header>
+              <!-- Browse-By Links -->
+              <ds-comcol-page-browse-by
+                      [id]="collection.id"
+                      [contentType]="collection.type">
+              </ds-comcol-page-browse-by>
+
             <ng-container *ngVar="(itemRD$ | async) as itemRD">
                 <div *ngIf="itemRD?.hasSucceeded" @fadeIn>
                     <h3 class="sr-only">{{'collection.page.browse.recent.head' | translate}}</h3>
