@@ -140,9 +140,10 @@
   "collection.form.title": "Name",
   "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.empty": "No items to show",
-  "collection.page.handle": "Handle",
+  "collection.page.handle": "Collection Handle",
   "collection.page.license": "License",
   "collection.page.news": "News",
+  "collection.landing.head": "Submission date",
 
   "community.create.head": "Create a Community",
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -160,9 +161,10 @@
   "community.form.rights": "Copyright text (HTML)",
   "community.form.tableofcontents": "News (HTML)",
   "community.form.title": "Name",
-  "community.page.handle": "Handle",
+  "community.page.handle": "Community Handle",
   "community.page.license": "License",
   "community.page.news": "News",
+  "community.landing.head": "Subcommunities and Collections",
   "community.sub-collection-list.head": "Collections of this Community",
   "community.sub-community-list.head": "Communities of this Community",
 

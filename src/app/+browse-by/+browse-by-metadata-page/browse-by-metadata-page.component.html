@@ -12,8 +12,10 @@
         <ds-comcol-page-content [content]="parentContext.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
         </ds-comcol-page-content>
         <!-- Handle -->
-        <ds-comcol-page-content [content]="parentContext.handle" [hasInnerHtml]="true" [title]="'Handle'" >
-        </ds-comcol-page-content>
+        <ds-comcol-page-handle
+            [content]="parentContext.handle"
+            [title]="parentContext.type+'.page.handle'" >
+        </ds-comcol-page-handle>
         <!-- Browse-By Links -->
         <ds-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-comcol-page-browse-by>
       </header>

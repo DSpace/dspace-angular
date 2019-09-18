@@ -1,12 +1,14 @@
 <div class="container" *ngVar="(communityRD$ | async) as communityRD">
   <div class="community-page" *ngIf="communityRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="communityRD?.payload; let communityPayload">
-      <!-- Community name -->
-      <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
       <!-- Community logo -->
       <ds-comcol-page-logo *ngIf="logoRD$"
-                           [logo]="(logoRD$ | async)?.payload"
-                           [alternateText]="'Community Logo'">
+      [logo]="(logoRD$ | async)?.payload"
+      [alternateText]="'Community Logo'">
+
+      <!-- Community name -->
+      <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
+
       </ds-comcol-page-logo>
       <!-- Introductory text -->
       <ds-comcol-page-content
@@ -25,8 +27,10 @@
         [hasInnerHtml]="true">
       </ds-comcol-page-content>
       <!-- Handle -->
-      <ds-comcol-page-content [content]="communityPayload.handle" [hasInnerHtml]="true" [title]="'community.page.handle'" >
-      </ds-comcol-page-content>
+      <ds-comcol-page-handle
+        [content]="communityPayload.handle"
+        [title]="'community.page.handle'" >
+      </ds-comcol-page-handle>
       <!-- Browse-By Links -->
       <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type"></ds-comcol-page-browse-by>
 

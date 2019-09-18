@@ -7,12 +7,13 @@
                     <!-- Collection logo -->
                     <ds-comcol-page-logo *ngIf="logoRD$" 
                         [logo]="(logoRD$ | async)?.payload" [alternateText]="'Collection Logo'">
+                        [alternateText]="'Collection Logo'">
                     </ds-comcol-page-logo>
                 <!-- Collection Name -->
                 <ds-comcol-page-header
                         [name]="collection.name">
                 </ds-comcol-page-header>
-                    <!-- Introductory text -->
+                <!-- Introductory text -->
                 <ds-comcol-page-content
                         [content]="collection.introductoryText"
                         [hasInnerHtml]="true">
@@ -23,13 +24,12 @@
                         [hasInnerHtml]="true"
                         [title]="'collection.page.news'">
                 </ds-comcol-page-content>
-                <!-- Handle -->
-                <ds-comcol-page-content
+               <!-- Handle -->
+               <ds-comcol-page-handle
                         [content]="collection.handle"
-                        [hasInnerHtml]="true"
                         [title]="'collection.page.handle'" >
-                </ds-comcol-page-content>
-                    <!-- Browse-By Links -->
+                </ds-comcol-page-handle>
+                <!-- Browse-By Links -->
                 <ds-comcol-page-browse-by
                         [id]="collection.id"
                         [contentType]="collection.type">
@@ -55,23 +55,23 @@
                 </div>
             </ng-container>
         <footer>
-          <!-- Licence -->
+          <!-- License -->
               <ds-comcol-page-content
                       [content]="collection.dcLicense"
                       [title]="'collection.page.license'">
               </ds-comcol-page-content>
 
           <!-- Copyright -->
-          <ds-comcol-page-content 
-                      [content]="collection.copyrightText" 
+          <ds-comcol-page-content
+                      [content]="collection.copyrightText"
                       [hasInnerHtml]="true">
           </ds-comcol-page-content>
         </footer>
       </div>
     </div>
-        <ds-error *ngIf="collectionRD?.hasFailed" 
+        <ds-error *ngIf="collectionRD?.hasFailed"
             message="{{'error.collection' | translate}}"></ds-error>
-        <ds-loading *ngIf="collectionRD?.isLoading" 
+        <ds-loading *ngIf="collectionRD?.isLoading"
             message="{{'loading.collection' | translate}}"></ds-loading>
   </div>
 </div>
