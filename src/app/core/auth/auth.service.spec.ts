@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Store, StoreModule } from '@ngrx/store';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { of, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { authReducer, AuthState } from './auth.reducer';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
@@ -262,14 +262,14 @@ describe('AuthService test', () => {
     });
 
     it ('should redirect to / and not to /login', () => {
-      spyOn(routeServiceMock, 'getHistory').and.returnValue(of(['/login', '/login']));
+      spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['/login', '/login']));
       authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
       expect(routerStub.navigate).toHaveBeenCalledWith(['/']);
     });
 
     it ('should redirect to / when no redirect url is found', () => {
-      spyOn(routeServiceMock, 'getHistory').and.returnValue(of(['']));
+      spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['']));
       authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
       expect(routerStub.navigate).toHaveBeenCalledWith(['/']);
