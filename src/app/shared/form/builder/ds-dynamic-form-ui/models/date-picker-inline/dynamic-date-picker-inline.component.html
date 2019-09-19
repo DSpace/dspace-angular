@@ -1,6 +1,6 @@
 <div [formGroup]="group" class="input-group">
 
-    <input ngbDatepicker class="form-control" #datepicker="ngbDatepicker"
+    <input ngbDatepicker class="form-control date-input" #datepicker="ngbDatepicker"
            [class.is-invalid]="showErrorMessages"
            [displayMonths]="model.getAdditional('displayMonths', config['displayMonths'])"
            [dynamicId]="bindId && model.id"

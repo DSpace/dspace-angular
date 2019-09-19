@@ -11,6 +11,7 @@ import {
 
 @Component({
   selector: 'ds-dynamic-date-picker-inline',
+  styleUrls: ['./dynamic-date-picker-inline.component.scss'],
   templateUrl: './dynamic-date-picker-inline.component.html'
 })
 export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
