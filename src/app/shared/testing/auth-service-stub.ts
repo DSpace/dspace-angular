@@ -10,6 +10,7 @@ export class AuthServiceStub {
 
   token: AuthTokenInfo = new AuthTokenInfo('token_test');
   private _tokenExpired = false;
+  private redirectUrl;
 
   constructor() {
     this.token.expires = Date.now() + (1000 * 60 * 60);
@@ -88,7 +89,11 @@ export class AuthServiceStub {
   }
 
   setRedirectUrl(url: string) {
-    return;
+    this.redirectUrl = url;
+  }
+
+  getRedirectUrl() {
+    return observableOf(this.redirectUrl);
   }
 
   public storeToken(token: AuthTokenInfo) {
