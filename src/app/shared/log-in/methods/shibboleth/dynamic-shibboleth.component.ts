@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { renderAuthMethodFor } from '../../authMethods-decorator';
-import { AuthMethodType } from '../../authMethods-type';
+import { renderAuthMethodFor } from '../authMethods-decorator';
+import { AuthMethodType } from '../authMethods-type';
 import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { CoreState } from '../../../../core/core.reducers';
 import { StartShibbolethAuthenticationAction } from '../../../../core/auth/auth.actions';
@@ -42,6 +42,8 @@ export class DynamicShibbolethComponent implements OnInit {
 
   private host: string;
 
+  // public shibbButton: FormControl;
+
   /**
    * @constructor
    */
@@ -62,6 +64,8 @@ export class DynamicShibbolethComponent implements OnInit {
     this.shibbForm = this.formBuilder.group({
       shibbButton: [''],
     });
+
+    // this.shibbButton = new FormControl('');
 
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));

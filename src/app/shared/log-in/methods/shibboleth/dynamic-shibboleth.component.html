@@ -3,9 +3,17 @@
   <button class="btn btn-lg btn-primary btn-block mt-3" type="submit"
           [disabled]="!shibbForm.valid"
   >{{"login.shibbForm.submit" | translate}}</button>
-
-
 </form>
+
+<!--
+<div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="form-login px-4 py-3">
+  <button class="btn btn-lg btn-primary btn-block mt-3"
+          type="submit"
+          [formControl]="shibbButton"
+          (click)="submit()"
+  >{{"login.shibbForm.submit" | translate}}</button>
+</div>
+-->
 
 
 

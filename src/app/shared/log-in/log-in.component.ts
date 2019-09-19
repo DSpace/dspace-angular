@@ -7,10 +7,10 @@ import { CoreState } from '../../core/core.reducers';
 
 @Component({
   selector: 'ds-auth-methods',
-  templateUrl: './authMethods.component.html',
-  styleUrls: ['./authMethods.component.scss']
+  templateUrl: './log-in.component.html',
+  styleUrls: ['./log-in.component.scss']
 })
-export class AuthMethodsComponent implements OnInit {
+export class LogInComponent implements OnInit {
   /**
    * The authentication methods data
    * @type {AuthMethodModel[]}
@@ -33,7 +33,7 @@ export class AuthMethodsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authMethodData =  this.authMethodData = this.store.select(getAuthenticationMethods);
+    this.authMethodData = this.store.pipe(select(getAuthenticationMethods));
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));

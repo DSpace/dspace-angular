@@ -1,5 +1,5 @@
 import { Component, ContentChild, Injector, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { rendersAuthMethodType } from '../authMethods-decorator';
+import { rendersAuthMethodType } from '../methods/authMethods-decorator';
 import { AuthMethodModel } from '../../../core/auth/models/auth-method.model';
 import { select, Store } from '@ngrx/store';
 import { CoreState } from '../../../core/core.reducers';

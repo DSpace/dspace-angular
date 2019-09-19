@@ -20,8 +20,8 @@ import { CoreState } from '../../../../core/core.reducers';
 import { isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
 import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethodType } from '../../authMethods-type';
-import { renderAuthMethodFor } from '../../authMethods-decorator';
+import { AuthMethodType } from '../authMethods-type';
+import { renderAuthMethodFor } from '../authMethods-decorator';
 
 /**
  * /users/sign-in
