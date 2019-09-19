@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, concat as observableConcat } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
   DynamicFormControlModel,
@@ -27,7 +27,6 @@ import { RestResponse } from '../../core/cache/response.models';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
-import { Operation } from 'fast-json-patch';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -407,15 +406,25 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     }
 
     const updatedBitstream$ = this.bitstreamService.update(this.bitstream, extraOperations).pipe(
-      tap(() => this.bitstreamService.commitUpdates()),
       getSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
+      tap(() => this.bitstreamService.commitUpdates())
     );
 
     if (isNewFormat) {
-      const updatedFormatResponse$ = this.bitstreamService.updateFormat(this.bitstream, selectedFormat);
-      observableCombineLatest(updatedBitstream$, updatedFormatResponse$).subscribe(([bitstream, formatResponse]) => {
-        this.onSuccess(bitstream, formatResponse);
+      this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
+        switchMap((formatResponse: RestResponse) => {
+          if (hasValue(formatResponse) && !formatResponse.isSuccessful) {
+            this.notificationsService.error(
+              this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.format.title'),
+              formatResponse.statusText
+            );
+          } else {
+            return updatedBitstream$;
+          }
+        })
+      ).subscribe((bitstream: Bitstream) => {
+        this.onSuccess(bitstream);
       });
     } else {
       updatedBitstream$.subscribe((bitstream: Bitstream) => {
@@ -427,21 +436,14 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * Display notifications and update the form upon success
    * @param bitstream
-   * @param formatResponse
    */
-  onSuccess(bitstream: Bitstream, formatResponse?: RestResponse) {
+  onSuccess(bitstream: Bitstream) {
     this.bitstream = bitstream;
     this.updateForm(this.bitstream);
     this.notificationsService.success(
       this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
       this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
     );
-    if (hasValue(formatResponse) && !formatResponse.isSuccessful) {
-      this.notificationsService.error(
-        this.translate.instant(this.NOTIFICATIONS_PREFIX + 'error.format.title'),
-        formatResponse.statusText
-      );
-    }
   }
 
   /**
