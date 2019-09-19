@@ -224,7 +224,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFixedFilterPart()
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
-      const updatedValue: SearchOptions = Object.assign(currentValue, update);
+      const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
       this.searchOptions.next(updatedValue);
     });
   }
@@ -246,7 +246,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getFixedFilterPart()
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
-      const updatedValue: PaginatedSearchOptions = Object.assign(currentValue, update);
+      const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
       this.paginatedSearchOptions.next(updatedValue);
     });
   }

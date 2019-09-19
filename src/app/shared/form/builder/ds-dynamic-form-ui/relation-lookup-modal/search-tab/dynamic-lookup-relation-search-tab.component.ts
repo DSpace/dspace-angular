@@ -41,7 +41,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
   searchConfig: PaginatedSearchOptions;
-  searchQuery;
   allSelected: boolean;
   someSelected$: Observable<boolean>;
   selectAllLoading: boolean;
@@ -71,7 +70,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
         return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: this.relationship.filter, configuration: this.relationship.searchConfiguration })
       }),
       switchMap((options) => {
-        this.searchQuery = options.query;
         this.searchConfig = options;
         return this.searchService.search(options).pipe(
           /* Make sure to only listen to the first x results, until loading is finished */
@@ -87,19 +85,11 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
         )
       })
     );
-    this.resultsRD$.subscribe((t) => console.log(t));
-
-  }
-
-  search(query: string) {
-    this.allSelected = false;
-    this.searchQuery = query;
-    this.resetRoute();
   }
 
   resetRoute() {
     this.router.navigate([], {
-      queryParams: Object.assign({}, { page: 1, query: this.searchQuery, pageSize: this.initialPagination.pageSize }),
+      queryParams: Object.assign({}, { page: 1, pageSize: this.initialPagination.pageSize }),
     });
   }
 
@@ -128,7 +118,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.allSelected = true;
     this.selectAllLoading = true;
     const fullPagination = Object.assign(new PaginationComponentOptions(), {
-      query: this.searchQuery,
       currentPage: 1,
       pageSize: 9999
     });

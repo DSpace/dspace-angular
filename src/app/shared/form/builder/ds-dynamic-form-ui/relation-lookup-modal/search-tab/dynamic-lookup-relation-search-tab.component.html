@@ -1,16 +1,9 @@
-<div class="row" *ngVar="(resultsRD$ | async) as resultsRD">
+<div class="row">
     <ds-search-sidebar class="col-4" id="search-sidebar"
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [inPlaceSearch]="true" [showViewModes]="false"></ds-search-sidebar>
     <div class="col-8">
-        <form class="input-group mb-3" #queryForm="ngForm"
-              (ngSubmit)="search(queryForm.value.query)">
-            <input type="text" class="form-control" name="query" [placeholder]="'submission.sections.describe.relationship-lookup.search-tab.placeholder' | translate"
-                   [ngModel]="searchQuery">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit">{{ ('submission.sections.describe.relationship-lookup.search-tab.search' | translate) }}</button>
-            </div>
-        </form>
+        <ds-search-form [inPlaceSearch]="true"></ds-search-form>
 
         <ds-search-labels [inPlaceSearch]="true"></ds-search-labels>
 
@@ -51,7 +44,7 @@
                             [hidden]="selectAllLoading">
                         <span class="sr-only">{{ ('submission.sections.describe.relationship-lookup.toggle-dropdown' | translate) }}</span>
                     </button>
-                    <div ngbDropdownMenu aria-labelledby="resultdropdown">
+                    <div ngbDropdownMenu aria-labelledby="resultdropdown" *ngVar="(resultsRD$ | async) as resultsRD">
                         <button class="dropdown-item"
                                 (click)="selectPage(resultsRD?.payload?.page)">{{ ('submission.sections.describe.relationship-lookup.search-tab.select-page' | translate) }}</button>
                         <button class="dropdown-item"
@@ -62,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <ds-search-results [searchResults]="resultsRD"
+        <ds-search-results [searchResults]="(resultsRD$ | async)"
                            [sortConfig]="this.searchConfig?.sort"
                            [searchConfig]="this.searchConfig"
                            [selectable]="true"
