@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute } from '@angular/router';
-import { map, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
@@ -24,8 +24,10 @@ import { BitstreamFormatDataService } from '../../core/data/bitstream-format-dat
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { RestResponse } from '../../core/cache/response.models';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
+import { Location } from '@angular/common';
+import { Operation } from 'fast-json-patch';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -106,7 +108,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   descriptionModel = new DynamicTextAreaModel({
     id: 'description',
-    name: 'description'
+    name: 'description',
+    rows: 10
   });
 
   /**
@@ -129,15 +132,15 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The Dynamic Input Model for supplying more format information
    */
-  otherFormatModel = new DynamicInputModel({
-    id: 'otherFormat',
-    name: 'otherFormat'
+  newFormatModel = new DynamicInputModel({
+    id: 'newFormat',
+    name: 'newFormat'
   });
 
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.embargoModel, this.selectedFormatModel, this.otherFormatModel];
+  inputModels = [this.fileNameModel, this.primaryBitstreamModel, this.descriptionModel, this.embargoModel, this.selectedFormatModel, this.newFormatModel];
 
   /**
    * The dynamic form fields used for editing the information of a bitstream
@@ -167,7 +170,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       id: 'formatContainer',
       group: [
         this.selectedFormatModel,
-        this.otherFormatModel
+        this.newFormatModel
       ]
     })
   ];
@@ -175,7 +178,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * The base layout of the "Other Format" input
    */
-  otherFormatBaseLayout = 'col col-sm-6 d-inline-block';
+  newFormatBaseLayout = 'col col-sm-6 d-inline-block';
 
   /**
    * Layout used for structuring the form inputs
@@ -206,9 +209,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         host: 'col col-sm-6 d-inline-block'
       }
     },
-    otherFormat: {
+    newFormat: {
       grid: {
-        host: this.otherFormatBaseLayout + ' invisible'
+        host: this.newFormatBaseLayout + ' invisible'
       }
     },
     fileNamePrimaryContainer: {
@@ -244,6 +247,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   sub: Subscription;
 
   constructor(private route: ActivatedRoute,
+              private location: Location,
               private formService: DynamicFormService,
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
@@ -304,7 +308,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         description: bitstream.description
       },
       formatContainer: {
-        otherFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined
+        newFormat: hasValue(bitstream.firstMetadata('dc.format')) ? bitstream.firstMetadata('dc.format').value : undefined
       }
     });
     this.bitstream.format.pipe(
@@ -339,9 +343,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   updateOtherFormatLayout(selectedId: string) {
     if (this.isUnknownFormat(selectedId)) {
-      this.formLayout.otherFormat.grid.host = this.otherFormatBaseLayout;
+      this.formLayout.newFormat.grid.host = this.newFormatBaseLayout;
     } else {
-      this.formLayout.otherFormat.grid.host = this.otherFormatBaseLayout + ' invisible';
+      this.formLayout.newFormat.grid.host = this.newFormatBaseLayout + ' invisible';
     }
   }
 
@@ -450,8 +454,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const primary = rawForm.fileNamePrimaryContainer.primaryBitstream;
     Metadata.setFirstValue(newMetadata, 'dc.title', rawForm.fileNamePrimaryContainer.fileName);
     Metadata.setFirstValue(newMetadata, 'dc.description', rawForm.descriptionContainer.description);
-    if (isNotEmpty(rawForm.formatContainer.otherFormat)) {
-      Metadata.setFirstValue(newMetadata, 'dc.format', rawForm.formatContainer.otherFormat);
+    if (isNotEmpty(rawForm.formatContainer.newFormat)) {
+      Metadata.setFirstValue(newMetadata, 'dc.format', rawForm.formatContainer.newFormat);
     }
     this.bitstream.metadata = newMetadata;
   }

@@ -16,7 +16,9 @@
                 [formGroup]="formGroup"
                 [formModel]="formModel"
                 [formLayout]="formLayout"
+                [submitLabel]="'form.save'"
                 (submitForm)="onSubmit()"
+                (cancel)="onCancel()"
                 (dfChange)="onChange($event)"></ds-form>
     </div>
   </div>
