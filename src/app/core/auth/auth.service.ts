@@ -129,15 +129,7 @@ export class AuthService {
   }
 
   public startShibbAuth():  Observable<AuthStatus> {
-    console.log('startShibAuth() was called');
-    // Attempt authenticating the user after the shibboleth/saml response reached the backend
- /*   const user = 'test@test.at';
-    const password = 'rest'
-    const body = (`password=${Base64EncodeUrl(password)}&user=${Base64EncodeUrl(user)}`);
-    const options: HttpOptions = Object.create({});*/
-    // let headers = new HttpHeaders();
-    // headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    // options.headers = headers;
+
     return this.authRequestService.postToEndpoint('login').pipe(
       map((status: AuthStatus) => {
         if (status.authenticated) {
