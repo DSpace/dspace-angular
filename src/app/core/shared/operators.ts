@@ -126,3 +126,15 @@ export const getFirstOccurrence = () =>
     source.pipe(
       map((rd) => Object.assign(rd, { payload: rd.payload.page.length > 0 ? rd.payload.page[0] : undefined }))
     );
+
+/**
+ * Get the first succeeded RemoteData's payload
+ */
+export const getFirstSucceededRemoteDataPayload = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<T> =>
+    source.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      hasValueOperator(),
+      take(1)
+    );

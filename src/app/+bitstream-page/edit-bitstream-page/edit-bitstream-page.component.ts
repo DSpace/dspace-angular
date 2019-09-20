@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, concat as observableConcat } from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
   DynamicFormControlModel,
@@ -18,13 +18,17 @@ import { TranslateService } from '@ngx-translate/core';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { cloneDeep } from 'lodash';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../core/shared/operators';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  getSucceededRemoteData
+} from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { RestResponse } from '../../core/cache/response.models';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 
@@ -311,9 +315,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       }
     });
     this.bitstream.format.pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      take(1)
+      getFirstSucceededRemoteDataPayload()
     ).subscribe((format: BitstreamFormat) => {
       this.originalFormat = format;
       this.formGroup.patchValue({
@@ -399,20 +401,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const selectedFormat = this.formats.find((f: BitstreamFormat) => f.id === updatedValues.formatContainer.selectedFormat);
     const isNewFormat = selectedFormat.id !== this.originalFormat.id;
 
-    const extraOperations = [];
-    if (isNewFormat) {
-      const operation = Object.assign({op: 'replace', path: '/format', value: selectedFormat.self});
-      extraOperations.push(operation);
-    }
-
-    const updatedBitstream$ = this.bitstreamService.update(this.bitstream, extraOperations).pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      tap(() => this.bitstreamService.commitUpdates())
-    );
+    let bitstream$;
 
     if (isNewFormat) {
-      this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
+      bitstream$ = this.bitstreamService.updateFormat(this.bitstream, selectedFormat).pipe(
         switchMap((formatResponse: RestResponse) => {
           if (hasValue(formatResponse) && !formatResponse.isSuccessful) {
             this.notificationsService.error(
@@ -420,17 +412,37 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               formatResponse.statusText
             );
           } else {
-            return updatedBitstream$;
+            return this.bitstreamService.findById(this.bitstream.id).pipe(
+              getFirstSucceededRemoteDataPayload()
+            );
           }
         })
-      ).subscribe((bitstream: Bitstream) => {
-        this.onSuccess(bitstream);
-      });
+      )
     } else {
-      updatedBitstream$.subscribe((bitstream: Bitstream) => {
-        this.onSuccess(bitstream);
-      });
+      bitstream$ = observableOf(this.bitstream);
     }
+
+    bitstream$.pipe(
+      switchMap(() => {
+        if (isNewFormat) {
+          const operation = Object.assign({op: 'replace', path: '/format', value: selectedFormat.self});
+          this.bitstreamService.patch(this.bitstream.self, [operation]);
+        }
+
+        return this.bitstreamService.update(this.bitstream).pipe(
+          getFirstSucceededRemoteDataPayload(),
+          switchMap(() => {
+            this.bitstreamService.commitUpdates();
+            return this.bitstreamService.findById(this.bitstream.id).pipe(
+              getFirstSucceededRemoteDataPayload()
+            );
+          })
+        );
+      })
+    ).subscribe((bitstream: Bitstream) => {
+      this.onSuccess(bitstream);
+    });
+
   }
 
   /**

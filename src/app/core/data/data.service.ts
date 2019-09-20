@@ -211,18 +211,13 @@ export abstract class DataService<T extends CacheableObject> {
    * Add a new patch to the object cache
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} object The given object
-   * @param extraOperations
    */
-  update(object: T, extraOperations?: Operation[]): Observable<RemoteData<T>> {
+  update(object: T): Observable<RemoteData<T>> {
     const oldVersion$ = this.objectCache.getObjectBySelfLink(object.self);
     return oldVersion$.pipe(take(1), mergeMap((oldVersion: T) => {
         const operations = this.comparator.diff(oldVersion, object);
-        let combinedOperations = operations || extraOperations;
-        if (isNotEmpty(extraOperations)) {
-          combinedOperations = [...operations, ...extraOperations];
-        }
-        if (isNotEmpty(combinedOperations)) {
-          this.objectCache.addPatch(object.self, combinedOperations);
+        if (isNotEmpty(operations)) {
+          this.objectCache.addPatch(object.self, operations);
         }
         return this.findById(object.uuid);
       }
@@ -316,7 +311,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @param dso The DSpace Object to be removed
    * Return the delete request's ID
    */
-  deleteAndReturnRequestId(dso: T): string {
+  private deleteAndReturnRequestId(dso: T): string {
     const requestId = this.requestService.generateRequestId();
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
