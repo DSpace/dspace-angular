@@ -6,10 +6,10 @@ import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'ds-shibboleth-page',
-  templateUrl: './shibboleth.component.html',
-  styleUrls: ['./shibboleth.component.scss']
+  templateUrl: './shibboleth-target-page.component.html',
+  styleUrls: ['./shibboleth-target-page.component.scss']
 })
-export class ShibbolethComponent implements OnInit {
+export class ShibbolethTargetPageComponent implements OnInit {
 
   /**
    * True if the shibboleth authentication is loading.

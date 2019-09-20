@@ -97,6 +97,7 @@
   "login.form.new-user": "Sind Sie neu hier? Klicken Sie hier, um sich zu registrieren.",
   "login.form.password": "Passwort",
   "login.form.submit": "Einloggen",
+  "login.form.ssoLogin": "Shibboleth",
   "login.title": "Einloggen",
   "logout.form.header": "Ausloggen aus DSpace",
   "logout.form.submit": "Ausloggen",

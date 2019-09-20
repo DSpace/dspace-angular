@@ -5,7 +5,8 @@ import { Injectable, Injector } from '@angular/core';
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler, HttpHeaders,
+  HttpHandler,
+  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
@@ -17,12 +18,12 @@ import { AppState } from '../../app.reducer';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { isNotEmpty, isUndefined, isNotNull } from '../../shared/empty.util';
+import { isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { AuthError } from './models/auth-error.model';
 import { AuthMethodModel } from './models/auth-method.model';
+import { AuthMethodType } from '../../shared/log-in/methods/authMethods-type';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -72,14 +73,31 @@ export class AuthInterceptor implements HttpInterceptor {
     return parsedLocation;
   }
 
+  private sortAuthMethods(authMethodModels: AuthMethodModel[]): AuthMethodModel[] {
+    const sortedAuthMethodModels: AuthMethodModel[] = new Array<AuthMethodModel>();
+    authMethodModels.forEach((method) => {
+      if (method.authMethodType === AuthMethodType.Password) {
+        sortedAuthMethodModels.push(method);
+      }
+    });
+
+    authMethodModels.forEach((method) => {
+      if (method.authMethodType !== AuthMethodType.Password) {
+        sortedAuthMethodModels.push(method);
+      }
+    });
+
+    return sortedAuthMethodModels;
+  }
+
   private parseAuthMethodsfromHeaders(headers: HttpHeaders): AuthMethodModel[] {
-    const authMethodModels: AuthMethodModel[] = [];
+    let authMethodModels: AuthMethodModel[] = [];
     const parts: string[] = headers.get('www-authenticate').split(',');
     // get the realms from the header -  a realm is a single auth method
     const completeWWWauthenticateHeader = headers.get('www-authenticate');
     const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
     const realms = completeWWWauthenticateHeader.match(regex);
-    console.log('realms: ', realms)
+    // console.log('realms: ', realms)
 
     // tslint:disable-next-line:forin
     for (const j in realms) {
@@ -87,26 +105,28 @@ export class AuthInterceptor implements HttpInterceptor {
 
       const splittedRealm = realms[j].split(', ');
       const methodName = splittedRealm[0].split(' ')[0].trim();
-      console.log('methodName: ', methodName);
+      // console.log('methodName: ', methodName);
 
-      console.log('splittedRealm: ', splittedRealm);
+      // console.log('splittedRealm: ', splittedRealm);
       let authMethodModel: AuthMethodModel;
       if (splittedRealm.length === 1) {
         authMethodModel = new AuthMethodModel(methodName);
         authMethodModels.push(authMethodModel);
       } else if (splittedRealm.length > 1) {
-        authMethodModel = new AuthMethodModel(methodName);
         let location = splittedRealm[1];
-        location = this.parseLocation(location)
-        authMethodModel.location = location;
-        console.log('location: ', location);
+        location = this.parseLocation(location);
+        authMethodModel = new AuthMethodModel(methodName, location);
+        // console.log('location: ', location);
         authMethodModels.push(authMethodModel);
       }
     }
+
+    // make sure the email + password login component gets rendered first
+    authMethodModels = this.sortAuthMethods(authMethodModels);
     return authMethodModels;
   }
 
-  private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string, httpHeaders?: HttpHeaders): AuthStatus {
+  private makeAuthStatusObject(authenticated: boolean, accessToken ?: string, error ?: string, httpHeaders ?: HttpHeaders): AuthStatus {
     const authStatus = new AuthStatus();
     // let authMethods: AuthMethodModel[];
     if (httpHeaders) {
@@ -135,7 +155,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = authService.getToken();
     let newReq;
 
-    // console.log('intercept() request: ', req);
+// console.log('intercept() request: ', req);
 
     if (authService.isTokenExpired()) {
       authService.setRedirectUrl(this.router.url);
@@ -163,7 +183,7 @@ export class AuthInterceptor implements HttpInterceptor {
       newReq = req;
     }
 
-    // Pass on the new request instead of the original request.
+// Pass on the new request instead of the original request.
     return next.handle(newReq).pipe(
       // tap((response) => console.log('next.handle: ', response)),
       map((response) => {

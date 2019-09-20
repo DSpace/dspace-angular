@@ -3,7 +3,8 @@ import { RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import { ShibbolethComponent } from './+login-page/shibbolethTargetPage/shibboleth.component';
+import { ShibbolethTargetPageComponent } from './+login-page/shibbolethTargetPage/shibboleth-target-page.component';
+import { ShibbConstants } from './+login-page/shibbolethTargetPage/const/shibbConstants';
 
 const ITEM_MODULE_PATH = 'items';
 export function getItemModulePath() {
@@ -40,7 +41,7 @@ export function getAdminModulePath() {
       { path: 'submit', loadChildren: './+submit-page/submit-page.module#SubmitPageModule' },
       { path: 'workspaceitems', loadChildren: './+workspaceitems-edit-page/workspaceitems-edit-page.module#WorkspaceitemsEditPageModule' },
       { path: 'workflowitems', loadChildren: './+workflowitems-edit-page/workflowitems-edit-page.module#WorkflowItemsEditPageModule' },
-      { path: 'shibboleth', pathMatch: 'full', component: ShibbolethComponent },
+      { path: ShibbConstants.SHIBBOLETH_REDIRECT_ROUTE, pathMatch: 'full', component: ShibbolethTargetPageComponent },
       { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
     ])
   ],

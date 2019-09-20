@@ -1,12 +1,12 @@
 import {AuthMethodType} from '../../../shared/log-in/methods/authMethods-type';
+import { ShibbConstants } from '../../../+login-page/shibbolethTargetPage/const/shibbConstants';
 
 export class AuthMethodModel {
   authMethodType: AuthMethodType;
   location?: string;
 
   constructor(authMethodName: string, location?: string) {
-    this.location = location;
-    switch (authMethodName) {
+      switch (authMethodName) {
       case 'ip': {
         this.authMethodType = AuthMethodType.Ip;
         break;
@@ -17,6 +17,12 @@ export class AuthMethodModel {
       }
       case 'shibboleth': {
         this.authMethodType = AuthMethodType.Shibboleth;
+        const strings: string[] = location.split('target=');
+        const target = strings[1];
+
+        console.log('strings', strings);
+
+        this.location = target + location + '/' + ShibbConstants.SHIBBOLETH_REDIRECT_ROUTE;
         break;
       }
       case 'x509': {

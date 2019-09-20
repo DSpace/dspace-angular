@@ -137,7 +137,7 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
-import {DynamicShibbolethComponent} from './log-in/methods/shibboleth/dynamic-shibboleth.component';
+import {LogInShibbolethComponent} from './log-in/methods/shibboleth/log-in-shibboleth.component';
 // import {LogInComponent} from './log-in/log-in.component';
 import {LogInPasswordComponent} from './log-in/methods/password/log-in-password.component';
 import { LoginContainerComponent } from './log-in/container/login-container.component';
@@ -263,7 +263,7 @@ const COMPONENTS = [
   ItemTypeSwitcherComponent,
   BrowseByComponent,
   // LogInComponent,
-  DynamicShibbolethComponent,
+  LogInShibbolethComponent,
   LogInPasswordComponent,
   LoginContainerComponent,
   LogInComponent
@@ -311,7 +311,7 @@ const ENTRY_COMPONENTS = [
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
   LogInPasswordComponent,
-  DynamicShibbolethComponent
+  LogInShibbolethComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

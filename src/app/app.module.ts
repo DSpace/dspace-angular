@@ -39,7 +39,7 @@ import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/e
 import { NavbarModule } from './navbar/navbar.module';
 import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
-import { ShibbolethComponent } from './+login-page/shibbolethTargetPage/shibboleth.component';
+import { ShibbolethTargetPageComponent } from './+login-page/shibbolethTargetPage/shibboleth-target-page.component';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -113,7 +113,7 @@ const DECLARATIONS = [
   PageNotFoundComponent,
   NotificationComponent,
   NotificationsBoardComponent,
-  ShibbolethComponent
+  ShibbolethTargetPageComponent
 ];
 
 const EXPORTS = [

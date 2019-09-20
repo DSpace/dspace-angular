@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   AuthenticateAction,
-  ResetAuthenticationMessagesAction, GetJWTafterShibbLoginAction
+  ResetAuthenticationMessagesAction
 } from '../../../../core/auth/auth.actions';
 
 import {

@@ -1,0 +1,9 @@
+<div class="form-login px-4 py-3 shibb" *ngIf="!(loading | async) && !(isAuthenticated | async)">
+  <a class="btn btn-lg btn-primary btn-block mt-3"
+     (click)="submit()"
+     role="button"
+  >{{"login.form.ssoLogin" | translate}}</a>
+</div>
+
+
+

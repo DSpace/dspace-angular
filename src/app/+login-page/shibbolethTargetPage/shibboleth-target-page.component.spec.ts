@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShibbolethComponent } from './shibboleth.component';
+import { ShibbolethTargetPageComponent } from './shibboleth-target-page.component';
 
 describe('ShibbolethComponent', () => {
-  let component: ShibbolethComponent;
-  let fixture: ComponentFixture<ShibbolethComponent>;
+  let component: ShibbolethTargetPageComponent;
+  let fixture: ComponentFixture<ShibbolethTargetPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShibbolethComponent ]
+      declarations: [ ShibbolethTargetPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShibbolethComponent);
+    fixture = TestBed.createComponent(ShibbolethTargetPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

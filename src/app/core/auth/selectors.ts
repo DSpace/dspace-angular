@@ -107,7 +107,6 @@ const _getRegistrationError = (state: AuthState) => state.error;
  */
 const _getRedirectUrl = (state: AuthState) => state.redirectUrl;
 
-// @Art: these two  are the ones i added:
 const _getAuthenticationMethods = (state: AuthState) => state.authMethods;
 
 /**
