@@ -97,17 +97,13 @@ export class AuthInterceptor implements HttpInterceptor {
     const completeWWWauthenticateHeader = headers.get('www-authenticate');
     const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
     const realms = completeWWWauthenticateHeader.match(regex);
-    // console.log('realms: ', realms)
 
     // tslint:disable-next-line:forin
     for (const j in realms) {
-      console.log('realm:', realms[j]);
 
       const splittedRealm = realms[j].split(', ');
       const methodName = splittedRealm[0].split(' ')[0].trim();
-      // console.log('methodName: ', methodName);
 
-      // console.log('splittedRealm: ', splittedRealm);
       let authMethodModel: AuthMethodModel;
       if (splittedRealm.length === 1) {
         authMethodModel = new AuthMethodModel(methodName);
@@ -154,8 +150,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const token = authService.getToken();
     let newReq;
-
-// console.log('intercept() request: ', req);
 
     if (authService.isTokenExpired()) {
       authService.setRedirectUrl(this.router.url);
