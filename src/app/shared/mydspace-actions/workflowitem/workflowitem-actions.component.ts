@@ -4,25 +4,24 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
-import { Workflowitem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowitemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ResourceType } from '../../../core/shared/resource-type';
+import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**
- * This component represents mydspace actions related to Workflowitem object.
+ * This component represents mydspace actions related to WorkflowItem object.
  */
 @Component({
   selector: 'ds-workflowitem-actions',
   styleUrls: ['./workflowitem-actions.component.scss'],
   templateUrl: './workflowitem-actions.component.html',
 })
-export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<Workflowitem, WorkflowitemDataService> {
+export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<WorkflowItem, WorkflowItemDataService> {
 
   /**
-   * The Workflowitem object
+   * The WorkflowItem object
    */
-  @Input() object: Workflowitem;
+  @Input() object: WorkflowItem;
 
   /**
    * Initialize instance variables
@@ -36,15 +35,15 @@ export class WorkflowitemActionsComponent extends MyDSpaceActionsComponent<Workf
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
-    super(ResourceType.Workflowitem, injector, router, notificationsService, translate);
+    super(WorkflowItem.type, injector, router, notificationsService, translate);
   }
 
   /**
    * Init the target object
    *
-   * @param {Workflowitem} object
+   * @param {WorkflowItem} object
    */
-  initObjects(object: Workflowitem) {
+  initObjects(object: WorkflowItem) {
     this.object = object;
   }
 

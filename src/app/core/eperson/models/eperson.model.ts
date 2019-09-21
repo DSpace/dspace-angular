@@ -4,8 +4,10 @@ import { DSpaceObject } from '../../shared/dspace-object.model';
 import { Group } from './group.model';
 import { RemoteData } from '../../data/remote-data';
 import { PaginatedList } from '../../data/paginated-list';
+import { ResourceType } from '../../shared/resource-type';
 
 export class EPerson extends DSpaceObject {
+  static type = new ResourceType('eperson');
 
   /**
    * A string representing the unique handle of this Collection

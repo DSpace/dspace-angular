@@ -4,13 +4,12 @@ import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
-import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { selfLinkFromUuidSelector } from '../index/index.selectors';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { NormalizedObjectFactory } from './models/normalized-object-factory';
 import { NormalizedObject } from './models/normalized-object.model';
 import {
   AddPatchObjectCacheAction,
@@ -21,6 +20,7 @@ import {
 
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
+import { getMapsToType } from './builders/build-decorators';
 
 /**
  * The base selector function to select the object cache in the store
@@ -68,8 +68,8 @@ export class ObjectCacheService {
    * @param href
    *    The unique href of the object to be removed
    */
-  remove(uuid: string): void {
-    this.store.dispatch(new RemoveFromObjectCacheAction(uuid));
+  remove(href: string): void {
+    this.store.dispatch(new RemoveFromObjectCacheAction(href));
   }
 
   /**
@@ -109,7 +109,7 @@ export class ObjectCacheService {
         }
       ),
       map((entry: ObjectCacheEntry) => {
-        const type: GenericConstructor<NormalizedObject<T>> = NormalizedObjectFactory.getConstructor(entry.data.type);
+        const type: GenericConstructor<NormalizedObject<T>> = getMapsToType((entry.data as any).type);
         return Object.assign(new type(), entry.data) as NormalizedObject<T>
       })
     );
@@ -222,6 +222,18 @@ export class ObjectCacheService {
     ).subscribe((entry: ObjectCacheEntry) => result = this.isValid(entry));
 
     return result;
+  }
+
+  /**
+   * Create an observable that emits a new value whenever the availability of the cached object changes.
+   * The value it emits is a boolean stating if the object exists in cache or not.
+   * @param selfLink  The self link of the object to observe
+   */
+  hasBySelfLinkObservable(selfLink: string): Observable<boolean> {
+    return this.store.pipe(
+      select(entryFromSelfLinkSelector(selfLink)),
+      map((entry: ObjectCacheEntry) => this.isValid(entry))
+    );
   }
 
   /**

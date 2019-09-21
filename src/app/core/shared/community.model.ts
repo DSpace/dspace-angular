@@ -4,8 +4,10 @@ import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
 import { PaginatedList } from '../data/paginated-list';
+import { ResourceType } from './resource-type';
 
 export class Community extends DSpaceObject {
+  static type = new ResourceType('community');
 
   /**
    * A string representing the unique handle of this Community

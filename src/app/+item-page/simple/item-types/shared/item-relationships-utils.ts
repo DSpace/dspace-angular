@@ -2,16 +2,17 @@ import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-rep
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import { getSucceededRemoteData } from '../../../../core/shared/operators';
-import { hasValue } from '../../../../shared/empty.util';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { hasNoValue, hasValue } from '../../../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { distinctUntilChanged, flatMap, map } from 'rxjs/operators';
-import { of as observableOf, zip as observableZip } from 'rxjs';
+import { distinctUntilChanged, filter, flatMap, map, switchMap, tap } from 'rxjs/operators';
+import { of as observableOf, zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 /**
  * Operator for comparing arrays using a mapping function
@@ -43,45 +44,72 @@ export const compareArraysUsingIds = <T extends { id: string }>() =>
 /**
  * Fetch the relationships which match the type label given
  * @param {string} label      Type label
+ * @param thisId              The item's id of which the relations belong to
  * @returns {(source: Observable<[Relationship[] , RelationshipType[]]>) => Observable<Relationship[]>}
  */
-export const filterRelationsByTypeLabel = (label: string) =>
+export const filterRelationsByTypeLabel = (label: string, thisId?: string) =>
   (source: Observable<[Relationship[], RelationshipType[]]>): Observable<Relationship[]> =>
     source.pipe(
-      map(([relsCurrentPage, relTypesCurrentPage]) =>
-        relsCurrentPage.filter((rel: Relationship, idx: number) =>
-          hasValue(relTypesCurrentPage[idx]) && (relTypesCurrentPage[idx].leftLabel === label ||
-          relTypesCurrentPage[idx].rightLabel === label)
-        )
-      ),
+      switchMap(([relsCurrentPage, relTypesCurrentPage]) => {
+        const relatedItems$ = observableZip(...relsCurrentPage.map((rel: Relationship) =>
+            observableCombineLatest(
+              rel.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
+              rel.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()))
+          )
+        );
+        return relatedItems$.pipe(
+          map((arr) => relsCurrentPage.filter((rel: Relationship, idx: number) =>
+            hasValue(relTypesCurrentPage[idx]) && (
+              (hasNoValue(thisId) && (relTypesCurrentPage[idx].leftLabel === label ||
+                relTypesCurrentPage[idx].rightLabel === label)) ||
+              (thisId === arr[idx][0].id && relTypesCurrentPage[idx].leftLabel === label) ||
+              (thisId === arr[idx][1].id && relTypesCurrentPage[idx].rightLabel === label)
+            )
+          ))
+        );
+      }),
       distinctUntilChanged(compareArraysUsingIds())
     );
 
 /**
  * Operator for turning a list of relationships into a list of the relevant items
- * @param {string} thisId           The item's id of which the relations belong to
- * @param {ItemDataService} ids     The ItemDataService to fetch items from the REST API
+ * @param {string} thisId       The item's id of which the relations belong to
  * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
  */
-export const relationsToItems = (thisId: string, ids: ItemDataService) =>
+export const relationsToItems = (thisId: string) =>
   (source: Observable<Relationship[]>): Observable<Item[]> =>
     source.pipe(
       flatMap((rels: Relationship[]) =>
         observableZip(
-          ...rels.map((rel: Relationship) => {
-            let queryId = rel.leftId;
-            if (rel.leftId === thisId) {
-              queryId = rel.rightId;
-            }
-            return ids.findById(queryId);
-          })
+          ...rels.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem))
         )
       ),
-      map((arr: Array<RemoteData<Item>>) =>
+      map((arr) =>
         arr
-          .filter((d: RemoteData<Item>) => d.hasSucceeded)
-          .map((d: RemoteData<Item>) => d.payload)),
+          .filter(([leftItem, rightItem]) => leftItem.hasSucceeded && rightItem.hasSucceeded)
+          .map(([leftItem, rightItem]) => {
+            if (leftItem.payload.id === thisId) {
+              return rightItem.payload;
+            } else if (rightItem.payload.id === thisId) {
+              return leftItem.payload;
+            }
+          })
+          .filter((item: Item) => hasValue(item))
+      ),
       distinctUntilChanged(compareArraysUsingIds()),
+    );
+
+/**
+ * Operator for turning a list of relationships and their relationship-types into a list of relevant items by relationship label
+ * @param thisId  The item's id of which the relations belong to
+ * @param label   The label of the relationship-type to filter on
+ * @param side    Filter only on one side of the relationship (for example: child-parent relationships)
+ */
+export const getRelatedItemsByTypeLabel = (thisId: string, label: string) =>
+  (source: Observable<[Relationship[], RelationshipType[]]>): Observable<Item[]> =>
+    source.pipe(
+      filterRelationsByTypeLabel(label, thisId),
+      relationsToItems(thisId)
     );
 
 /**
@@ -103,13 +131,15 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
                 const matchingRels = rels.filter((rel: Relationship) => ('' + rel.id) === metadatum.virtualValue);
                 if (matchingRels.length > 0) {
                   const matchingRel = matchingRels[0];
-                  let queryId = matchingRel.leftId;
-                  if (matchingRel.leftId === parentId) {
-                    queryId = matchingRel.rightId;
-                  }
-                  return ids.findById(queryId).pipe(
-                    getSucceededRemoteData(),
-                    map((d: RemoteData<Item>) => Object.assign(new ItemMetadataRepresentation(), d.payload))
+                  return observableCombineLatest(matchingRel.leftItem, matchingRel.rightItem).pipe(
+                    map(([leftItem, rightItem]) => {
+                      if (leftItem.payload.id === parentId) {
+                        return rightItem.payload;
+                      } else if (rightItem.payload.id === parentId) {
+                        return leftItem.payload;
+                      }
+                    }),
+                    map((item: Item) => Object.assign(new ItemMetadataRepresentation(), item))
                   );
                 }
               } else {
@@ -118,4 +148,18 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
             })
         )
       )
+    );
+
+/**
+ * Operator for fetching an item's relationships, but filtered by related item IDs (essentially performing a reverse lookup)
+ * Only relationships where leftItem or rightItem's ID is present in the list provided will be returned
+ * @param item
+ * @param relationshipService
+ */
+export const getRelationsByRelatedItemIds = (item: Item, relationshipService: RelationshipService) =>
+  (source: Observable<string[]>): Observable<Relationship[]> =>
+    source.pipe(
+      flatMap((relatedItemIds: string[]) => relationshipService.getItemResolvedRelatedItemsAndRelationships(item).pipe(
+        map(([leftItems, rightItems, rels]) => rels.filter((rel: Relationship, index: number) => relatedItemIds.indexOf(leftItems[index].uuid) > -1 || relatedItemIds.indexOf(rightItems[index].uuid) > -1))
+      ))
     );

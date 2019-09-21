@@ -1,0 +1,13 @@
+<ng-template #descTemplate>
+  <span class="text-muted">
+      <span *ngIf="item.allMetadata(['dc.description']).length > 0"
+            class="item-list-job-title">
+        <span [innerHTML]="firstMetadataValue(['dc.description'])"></span>
+      </span>
+  </span>
+</ng-template>
+<ds-truncatable [id]="item.id">
+  <a [routerLink]="['/items/' + item.id]"
+     [innerHTML]="firstMetadataValue('organization.legalName')"
+     [tooltip]="descTemplate"></a>
+</ds-truncatable>

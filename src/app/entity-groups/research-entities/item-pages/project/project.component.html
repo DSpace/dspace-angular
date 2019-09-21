@@ -1,0 +1,57 @@
+<h2 class="item-page-title-field">
+  {{'project.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+</h2>
+<div class="row">
+  <div class="col-xs-12 col-md-4">
+    <ds-metadata-field-wrapper>
+      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/project-placeholder.svg'"></ds-thumbnail>
+    </ds-metadata-field-wrapper>
+    <!--<ds-generic-item-page-field [item]="item"-->
+      <!--[fields]="['project.identifier.status']"-->
+      <!--[label]="'project.page.status'">-->
+    <!--</ds-generic-item-page-field>-->
+    <ds-metadata-representation-list
+      [label]="'project.page.contributor' | translate"
+      [representations]="contributors$ | async">
+    </ds-metadata-representation-list>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['project.identifier.funder']"
+      [label]="'project.page.funder'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['dc.identifier']"
+      [label]="'project.page.id'">
+    </ds-generic-item-page-field>
+    <!--<ds-generic-item-page-field [item]="item"-->
+      <!--[fields]="['project.identifier.expectedcompletion']"-->
+      <!--[label]="'project.page.expectedcompletion'">-->
+    <!--</ds-generic-item-page-field>-->
+  </div>
+  <div class="col-xs-12 col-md-6">
+    <ds-related-items
+      [items]="people$ | async"
+      [label]="'relationships.isPersonOf' | translate">
+    </ds-related-items>
+    <ds-related-items
+      [items]="publications$ | async"
+      [label]="'relationships.isPublicationOf' | translate">
+    </ds-related-items>
+    <ds-related-items
+      [items]="orgUnits$ | async"
+      [label]="'relationships.isOrgUnitOf' | translate">
+    </ds-related-items>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['dc.description']"
+      [label]="'project.page.description'">
+    </ds-generic-item-page-field>
+    <ds-generic-item-page-field [item]="item"
+      [fields]="['dc.subject']"
+      [label]="'project.page.keyword'">
+    </ds-generic-item-page-field>
+    <div>
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">
+        {{"item.page.link.full" | translate}}
+      </a>
+    </div>
+  </div>
+</div>

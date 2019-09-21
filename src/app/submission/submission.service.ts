@@ -3,7 +3,15 @@ import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
-import { catchError, distinctUntilChanged, filter, find, first, map, startWith } from 'rxjs/operators';
+import {
+  catchError,
+  distinctUntilChanged,
+  filter,
+  find,
+  first,
+  map,
+  startWith
+} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -35,7 +43,7 @@ import { SubmissionRestService } from '../core/submission/submission-rest.servic
 import { SectionDataObject } from './sections/models/section-data.model';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
 import { SubmissionObject } from '../core/submission/models/submission-object.model';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { SectionsType } from './sections/sections-type';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
@@ -43,6 +51,11 @@ import { WorkspaceitemSectionsObject } from '../core/submission/models/workspace
 import { RemoteData } from '../core/data/remote-data';
 import { ErrorResponse } from '../core/cache/response.models';
 import { RemoteDataError } from '../core/data/remote-data-error';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../shared/testing/utils';
 
 /**
  * A service that provides methods used in submission process.
@@ -495,20 +508,12 @@ export class SubmissionService {
   retrieveSubmission(submissionId): Observable<RemoteData<SubmissionObject>> {
     return this.restService.getDataById(this.getSubmissionObjectLinkName(), submissionId).pipe(
       find((submissionObjects: SubmissionObject[]) => isNotUndefined(submissionObjects)),
-      map((submissionObjects: SubmissionObject[]) => new RemoteData(
-        false,
-        false,
-        true,
-        null,
+      map((submissionObjects: SubmissionObject[]) => createSuccessfulRemoteDataObject(
         submissionObjects[0])),
       catchError((errorResponse: ErrorResponse) => {
-        return observableOf(new RemoteData(
-          false,
-          false,
-          false,
-          new RemoteDataError(errorResponse.statusCode, errorResponse.statusText, errorResponse.errorMessage),
-          null
-        ))
+        return createFailedRemoteDataObject$(null,
+          new RemoteDataError(errorResponse.statusCode, errorResponse.statusText, errorResponse.errorMessage)
+        )
       })
     );
   }

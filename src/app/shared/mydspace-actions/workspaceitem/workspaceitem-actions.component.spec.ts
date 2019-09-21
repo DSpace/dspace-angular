@@ -13,14 +13,15 @@ import { NotificationsServiceStub } from '../../testing/notifications-service-st
 import { RouterStub } from '../../testing/router-stub';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { Workspaceitem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 
 let component: WorkspaceitemActionsComponent;
 let fixture: ComponentFixture<WorkspaceitemActionsComponent>;
 
-let mockObject: Workspaceitem;
+let mockObject: WorkspaceItem;
 let notificationsServiceStub: NotificationsServiceStub;
 
 const mockDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
@@ -56,8 +57,8 @@ const item = Object.assign(new Item(), {
     ]
   }
 });
-const rd = new RemoteData(false, false, true, null, item);
-mockObject = Object.assign(new Workspaceitem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
+const rd = createSuccessfulRemoteDataObject(item);
+mockObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
 
 describe('WorkspaceitemActionsComponent', () => {
   beforeEach(async(() => {

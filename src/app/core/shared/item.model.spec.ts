@@ -1,10 +1,10 @@
 import { Observable, of as observableOf } from 'rxjs';
 
 import { Item } from './item.model';
-import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
 import { isEmpty } from '../../shared/empty.util';
 import { first, map } from 'rxjs/operators';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('Item', () => {
 
@@ -32,12 +32,11 @@ describe('Item', () => {
       content: bitstream2Path
     }];
 
-    remoteDataThumbnail = createRemoteDataObject(thumbnail);
-    remoteDataFiles = createRemoteDataObject(bitstreams);
-    remoteDataAll = createRemoteDataObject([...bitstreams, thumbnail]);
+    remoteDataThumbnail = createSuccessfulRemoteDataObject$(thumbnail);
+    remoteDataFiles = createSuccessfulRemoteDataObject$(bitstreams);
+    remoteDataAll = createSuccessfulRemoteDataObject$([...bitstreams, thumbnail]);
 
     // Create Bundles
-
     const bundles =
       [
         {
@@ -51,7 +50,6 @@ describe('Item', () => {
         }];
 
     item = Object.assign(new Item(), { bitstreams: remoteDataAll });
-
   });
 
   it('should return the bitstreams related to this item with the specified bundle name', () => {
@@ -99,16 +97,4 @@ describe('Item', () => {
     });
 
   });
-
 });
-
-function createRemoteDataObject(object: any) {
-  return observableOf(new RemoteData(
-    false,
-    false,
-    true,
-    undefined,
-    object
-  ));
-
-}

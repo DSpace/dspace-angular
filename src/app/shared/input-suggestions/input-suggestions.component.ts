@@ -13,22 +13,11 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { hasValue, isNotEmpty } from '../empty.util';
-import { InputSuggestion } from './input-suggestions.model';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'ds-input-suggestions',
-  styleUrls: ['./input-suggestions.component.scss'],
   templateUrl: './input-suggestions.component.html',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      // Usage of forwardRef necessary https://github.com/angular/angular.io/issues/1151
-      // tslint:disable-next-line:no-forward-ref
-      useExisting: forwardRef(() => InputSuggestionsComponent),
-      multi: true
-    }
-  ]
 })
 
 /**
@@ -38,7 +27,7 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   /**
    * The suggestions that should be shown
    */
-  @Input() suggestions: InputSuggestion[] = [];
+  @Input() suggestions: any[] = [];
 
   /**
    * The time waited to detect if any other input will follow before requesting the suggestions
@@ -189,22 +178,30 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
   }
 
   /**
+   * Changes the show variable so the suggestion dropdown opens
+   */
+  open() {
+    if (!this.blockReopen) {
+      this.show.next(true);
+    }
+  }
+
+  /**
    * For usage of the isNotEmpty function in the template
    */
   isNotEmpty(data) {
     return isNotEmpty(data);
   }
 
+  onSubmit(data: any) {
+    // sub class should decide how to handle the date
+  }
+
   /**
    * Make sure that if a suggestion is clicked, the suggestions dropdown closes, does not reopen and the focus moves to the input field
    */
-  onClickSuggestion(data) {
-    this.value = data;
-    this.clickSuggestion.emit(data);
-    this.close();
-    this.blockReopen = true;
-    this.queryInput.nativeElement.focus();
-    return false;
+  onClickSuggestion(data: any) {
+    // sub class should decide how to handle the date
   }
 
   /**
@@ -217,11 +214,6 @@ export class InputSuggestionsComponent implements ControlValueAccessor, OnChange
       this.typeSuggestion.emit(data);
     }
     this.blockReopen = false;
-  }
-
-  onSubmit(data) {
-    this.value = data;
-    this.submitSuggestion.emit(data);
   }
 
   /* START - Method's needed to add ngModel (ControlValueAccessor) to a component */

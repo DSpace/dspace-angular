@@ -9,19 +9,42 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindAllOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { MetadataSchema } from '../metadata/metadataschema.model';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { ChangeAnalyzer } from './change-analyzer';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+
+/* tslint:disable:max-classes-per-file */
+class DataServiceImpl extends DataService<MetadataSchema> {
+  protected linkPath = 'metadataschemas';
+  protected forceBypassCache = false;
+
+  constructor(
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
+    protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: ChangeAnalyzer<MetadataSchema>) {
+    super();
+  }
+
+  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+    return this.halService.getEndpoint(linkPath);
+  }
+}
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
 @Injectable()
-export class MetadataSchemaDataService extends DataService<MetadataSchema> {
-  protected linkPath = 'metadataschemas';
-  protected forceBypassCache = false;
+export class MetadataSchemaDataService {
+  private dataService: DataServiceImpl;
 
   constructor(
     protected requestService: RequestService,
@@ -33,17 +56,6 @@ export class MetadataSchemaDataService extends DataService<MetadataSchema> {
     protected dataBuildService: NormalizedObjectBuildService,
     protected http: HttpClient,
     protected notificationsService: NotificationsService) {
-    super();
+    this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
   }
-
-  /**
-   * Get the endpoint for browsing metadataschemas
-   * @param {FindAllOptions} options
-   * @returns {Observable<string>}
-   */
-  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-
-    return null;
-  }
-
 }

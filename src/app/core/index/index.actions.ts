@@ -14,7 +14,7 @@ export const IndexActionTypes = {
 
 /* tslint:disable:max-classes-per-file */
 /**
- * An ngrx action to add an value to the index
+ * An ngrx action to add a value to the index
  */
 export class AddToIndexAction implements Action {
   type = IndexActionTypes.ADD;
@@ -40,7 +40,7 @@ export class AddToIndexAction implements Action {
 }
 
 /**
- * An ngrx action to remove an value from the index
+ * An ngrx action to remove a value from the index
  */
 export class RemoveFromIndexByValueAction implements Action {
   type = IndexActionTypes.REMOVE_BY_VALUE;

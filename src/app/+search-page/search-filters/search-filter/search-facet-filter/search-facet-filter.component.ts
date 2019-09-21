@@ -1,12 +1,12 @@
 import {
-  combineLatest as observableCombineLatest,
-  of as observableOf,
   BehaviorSubject,
+  combineLatest as observableCombineLatest,
   Observable,
+  of as observableOf,
   Subject,
   Subscription
 } from 'rxjs';
-import { switchMap, distinctUntilChanged, map, take, flatMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, take, tap } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -21,9 +21,9 @@ import { SearchService } from '../../../search-service/search.service';
 import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../search-filter.service';
 import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
-import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { SearchOptions } from '../../../search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
+import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 
 @Component({
   selector: 'ds-search-facet-filter',
@@ -80,6 +80,11 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   searchOptions$: Observable<SearchOptions>;
 
+  /**
+   * The current URL
+   */
+  currentUrl: string;
+
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected rdbs: RemoteDataBuildService,
@@ -93,6 +98,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
+    this.currentUrl = this.router.url;
     this.filterValues$ = new BehaviorSubject(new RemoteData(true, false, undefined, undefined, undefined));
     this.currentPage = this.getCurrentPage().pipe(distinctUntilChanged());
 
@@ -137,7 +143,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
           this.selectedValues$ = this.filterService.getSelectedValuesForFilter(this.filterConfig).pipe(
             map((selectedValues) => {
               return selectedValues.map((value: string) => {
-                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => facetValue.value === value);
+                const fValue = [].concat(...rd.payload.map((page) => page.page)).find((facetValue: FacetValue) => this.getFacetValue(facetValue) === value);
                 if (hasValue(fValue)) {
                   return fValue;
                 }
@@ -213,13 +219,6 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    */
   getCurrentPage(): Observable<number> {
     return this.filterService.getPage(this.filterConfig.name);
-  }
-
-  /**
-   * @returns {string} the current URL
-   */
-  getCurrentUrl() {
-    return this.router.url;
   }
 
   /**

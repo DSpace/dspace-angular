@@ -1,9 +1,9 @@
 <div *ngIf="currentPageState == undefined || currentPageState == currentPage">
   <div  class="pagination-masked clearfix top">
     <div class="row">
-      <div *ngIf="!hidePaginationDetail" class="col-auto pagination-info">
-        <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>
-        <span class="align-middle" *ngIf="collectionSize">{{ 'pagination.showing.detail' | translate:getShowingDetails(collectionSize)}}</span>
+      <div *ngIf="!hidePaginationDetail && collectionSize > 0" class="col-auto pagination-info">
+          <span class="align-middle hidden-xs-down">{{ 'pagination.showing.label' | translate }}</span>
+          <span class="align-middle">{{ 'pagination.showing.detail' | translate:getShowingDetails(collectionSize)}}</span>
       </div>
       <div class="col">
         <div *ngIf="!hideGear" ngbDropdown #paginationControls="ngbDropdown" placement="bottom-right" class="d-inline-block float-right">

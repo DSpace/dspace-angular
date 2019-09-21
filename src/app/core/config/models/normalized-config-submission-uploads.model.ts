@@ -3,10 +3,12 @@ import { AccessConditionOption } from './config-access-condition-option.model';
 import { SubmissionFormsModel } from './config-submission-forms.model';
 import { NormalizedConfigObject } from './normalized-config.model';
 import { SubmissionUploadsModel } from './config-submission-uploads.model';
+import { mapsTo } from '../../cache/builders/build-decorators';
 
 /**
  * Normalized class for the configuration describing the submission upload section
  */
+@mapsTo(SubmissionUploadsModel)
 @inheritSerialization(NormalizedConfigObject)
 export class NormalizedSubmissionUploadsModel extends NormalizedConfigObject<SubmissionUploadsModel> {
 

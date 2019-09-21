@@ -37,6 +37,9 @@ import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.comp
 import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { NavbarModule } from './navbar/navbar.module';
+import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
+import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
+import { ClientCookieService } from './core/services/client-cookie.service';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -66,6 +69,11 @@ const IMPORTS = [
   StoreRouterConnectingModule,
 ];
 
+const ENTITY_IMPORTS = [
+  JournalEntitiesModule,
+  ResearchEntitiesModule
+];
+
 IMPORTS.push(
   StoreDevtoolsModule.instrument({
     maxAge: 100,
@@ -90,7 +98,8 @@ const PROVIDERS = [
   {
     provide: RouterStateSerializer,
     useClass: DSpaceRouterStateSerializer
-  }
+  },
+  ClientCookieService
 ];
 
 const DECLARATIONS = [
@@ -112,7 +121,8 @@ const EXPORTS = [
 
 @NgModule({
   imports: [
-    ...IMPORTS
+    ...IMPORTS,
+    ...ENTITY_IMPORTS
   ],
   providers: [
     ...PROVIDERS

@@ -4,11 +4,13 @@ import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPersonMock } from './eperson-mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { RemoteData } from '../../core/data/remote-data';
+import { createSuccessfulRemoteDataObject$ } from './utils';
 
 export class AuthServiceStub {
 
   token: AuthTokenInfo = new AuthTokenInfo('token_test');
   private _tokenExpired = false;
+  private redirectUrl;
 
   constructor() {
     this.token.expires = Date.now() + (1000 * 60 * 60);
@@ -20,7 +22,7 @@ export class AuthServiceStub {
       authStatus.okay = true;
       authStatus.authenticated = true;
       authStatus.token = this.token;
-      authStatus.eperson = observableOf(new RemoteData<EPerson>(false, false, true, undefined, EPersonMock));
+      authStatus.eperson = createSuccessfulRemoteDataObject$(EPersonMock);
       return observableOf(authStatus);
     } else {
       console.log('error');
@@ -87,7 +89,11 @@ export class AuthServiceStub {
   }
 
   setRedirectUrl(url: string) {
-    return;
+    this.redirectUrl = url;
+  }
+
+  getRedirectUrl() {
+    return observableOf(this.redirectUrl);
   }
 
   public storeToken(token: AuthTokenInfo) {

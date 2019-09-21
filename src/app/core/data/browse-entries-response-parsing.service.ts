@@ -3,24 +3,17 @@ import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import {
-  ErrorResponse,
-  GenericSuccessResponse,
-  RestResponse
-} from '../cache/response.models';
+import { ErrorResponse, GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { BrowseEntry } from '../shared/browse-entry.model';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
+import { NormalizedBrowseEntry } from '../shared/normalized-browse-entry.model';
 
 @Injectable()
 export class BrowseEntriesResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
-  protected objectFactory = {
-    getConstructor: () => BrowseEntry
-  };
   protected toCache = false;
 
   constructor(
@@ -33,7 +26,7 @@ export class BrowseEntriesResponseParsingService extends BaseResponseParsingServ
     if (isNotEmpty(data.payload)) {
       let browseEntries = [];
       if (isNotEmpty(data.payload._embedded) && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {
-        const serializer = new DSpaceRESTv2Serializer(BrowseEntry);
+        const serializer = new DSpaceRESTv2Serializer(NormalizedBrowseEntry);
         browseEntries = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
       }
       return new GenericSuccessResponse(browseEntries, data.statusCode, data.statusText, this.processPageInfo(data.payload));

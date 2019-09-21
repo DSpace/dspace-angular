@@ -31,12 +31,12 @@ import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RequestEntry } from './request.reducer';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { ChangeAnalyzer } from './change-analyzer';
 import { RestRequestMethod } from './rest-request-method';
+import { getMapsToType } from '../cache/builders/build-decorators';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -243,7 +243,7 @@ export abstract class DataService<T extends CacheableObject> {
     );
 
     const normalizedObject: NormalizedObject<T> = this.dataBuildService.normalize<T>(dso);
-    const serializedDso = new DSpaceRESTv2Serializer(NormalizedObjectFactory.getConstructor(dso.type)).serialize(normalizedObject);
+    const serializedDso = new DSpaceRESTv2Serializer(getMapsToType((dso as any).type)).serialize(normalizedObject);
 
     const request$ = endpoint$.pipe(
       take(1),

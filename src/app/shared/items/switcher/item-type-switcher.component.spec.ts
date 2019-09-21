@@ -1,19 +1,18 @@
 import { ItemTypeSwitcherComponent } from './item-type-switcher.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { RemoteData } from '../../../core/data/remote-data';
 import * as decorator from '../item-type-decorator';
 import { getComponentByItemType, ItemViewMode } from '../item-type-decorator';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { createSuccessfulRemoteDataObject$ } from '../../testing/utils';
 import createSpy = jasmine.createSpy;
 
 const relationType = 'type';
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {
@@ -60,7 +59,7 @@ describe('ItemTypeSwitcherComponent', () => {
 
     describe('when calling getComponent', () => {
       beforeEach(() => {
-        comp.getComponent();
+        (comp as any).getComponent();
       });
 
       it('should call getComponentByItemType with parameters type and viewMode', () => {
@@ -78,7 +77,7 @@ describe('ItemTypeSwitcherComponent', () => {
 
     describe('when calling getComponent', () => {
       beforeEach(() => {
-        comp.getComponent();
+        (comp as any).getComponent();
       });
 
       it('should call getComponentByItemType with parameters type, viewMode and representationType', () => {
