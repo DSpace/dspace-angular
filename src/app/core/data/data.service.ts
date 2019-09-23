@@ -52,7 +52,7 @@ export abstract class DataService<T extends CacheableObject> {
   /**
    * Allows subclasses to reset the response cache time.
    */
-  protected resetMsToLive: number;
+  protected responseMsToLive: number;
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
@@ -134,8 +134,8 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        if (this.resetMsToLive !== undefined) {
-          request.responseMsToLive = this.resetMsToLive;
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
         }
         this.requestService.configure(request);
       });
@@ -160,8 +160,8 @@ export abstract class DataService<T extends CacheableObject> {
       find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
-        if (this.resetMsToLive !== undefined) {
-          request.responseMsToLive = this.resetMsToLive;
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
         }
         this.requestService.configure(request);
       });
@@ -171,8 +171,8 @@ export abstract class DataService<T extends CacheableObject> {
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
     const request = new GetRequest(this.requestService.generateRequestId(), href, null, options);
-    if (this.resetMsToLive !== undefined) {
-      request.responseMsToLive = this.resetMsToLive;
+    if (hasValue(this.responseMsToLive)) {
+      request.responseMsToLive = this.responseMsToLive;
     }
     this.requestService.configure(request);
     return this.rdbService.buildSingle<T>(href);
