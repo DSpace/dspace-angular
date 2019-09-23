@@ -171,7 +171,6 @@ export abstract class DataService<T extends CacheableObject> {
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
     const request = new GetRequest(this.requestService.generateRequestId(), href, null, options);
-
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
     }

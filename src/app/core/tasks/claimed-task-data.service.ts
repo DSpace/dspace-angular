@@ -24,6 +24,7 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   protected responseMsToLive = 0;
 =======
   protected resetMsToLive = true;
@@ -31,6 +32,9 @@ export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 =======
   protected resetMsToLive = 0;
 >>>>>>> Sets responseMsToLive to zero in some dataService methods and adds ability to reset the responseMsToLive value in subclasses.
+=======
+  protected responseMsToLive = 0;
+>>>>>>> Renamed cache property and replaced conditional with hasValue.
 
   /**
    * The endpoint link name

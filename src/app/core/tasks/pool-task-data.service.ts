@@ -30,6 +30,7 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   protected responseMsToLive = 0;
 
 =======
@@ -39,6 +40,9 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
 =======
   protected resetMsToLive = 0;
 >>>>>>> Sets responseMsToLive to zero in some dataService methods and adds ability to reset the responseMsToLive value in subclasses.
+=======
+  protected responseMsToLive = 0;
+>>>>>>> Renamed cache property and replaced conditional with hasValue.
 
 >>>>>>> Setting cache period to zero for all instances where forceBypassCache was previously true.
   /**
