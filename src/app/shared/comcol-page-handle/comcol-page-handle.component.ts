@@ -1,8 +1,7 @@
 import { Component, Input, Inject, Injectable } from '@angular/core';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
-import { RESTURLCombiner } from '../../core/url-combiner/rest-url-combiner';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { UIURLCombiner } from '../../core/url-combiner/ui-url-combiner';
 /**
  * This component builds a URL from the value of "handle"
  */
@@ -24,11 +23,7 @@ export class ComcolPageHandleComponent {
 
   constructor(@Inject(GLOBAL_CONFIG) private EnvConfig: GlobalConfig) {
   }
-  protected getRootHref(): string {
-    return new RESTURLCombiner(this.EnvConfig, '/').toString();
+  public getHandle(): string {
+    return new UIURLCombiner(this.EnvConfig, '/handle/', this.content).toString();
   }
-  public getHandle(content: string): string {
-    return new URLCombiner(this.getRootHref(), '/handle/', this.content).toString();
-  }
-
 }
