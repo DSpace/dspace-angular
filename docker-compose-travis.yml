@@ -15,7 +15,7 @@ services:
     tty: true
     volumes:
     - assetstore:/dspace/assetstore
-    - ./to_be_determined:/dspace/config/local.cfg
+    - ./to_be_determined/local.cfg:/dspace/config/local.cfg
   dspacedb:
     container_name: dspacedb
     environment:
