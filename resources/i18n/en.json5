@@ -193,6 +193,7 @@
   "dso-selector.no-results": "No {{ type }} found",
   "dso-selector.placeholder": "Search for a {{ type }}",
 
+  "error.bitstream": "Error fetching bitstream",
   "error.browse-by": "Error fetching items",
   "error.collection": "Error fetching collection",
   "error.community": "Error fetching community",

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
@@ -29,9 +29,12 @@ import { BitstreamFormatDataService } from '../../core/data/bitstream-format-dat
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { RestResponse } from '../../core/cache/response.models';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs/internal/Observable';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginatedList } from '../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
@@ -43,6 +46,18 @@ import { Location } from '@angular/common';
  * Page component for editing a bitstream
  */
 export class EditBitstreamPageComponent implements OnInit, OnDestroy {
+
+  /**
+   * The bitstream's remote data observable
+   * Tracks changes and updates the view
+   */
+  bitstreamRD$: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * The formats their remote data observable
+   * Tracks changes and updates the view
+   */
+  bitstreamFormatsRD$: Observable<RemoteData<PaginatedList<BitstreamFormat>>>;
 
   /**
    * The bitstream to edit
@@ -274,8 +289,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.formGroup = this.formService.createFormGroup(this.formModel);
 
-    const bitstream$ = this.route.data.pipe(
-      map((data) => data.bitstream),
+    this.bitstreamRD$ = this.route.data.pipe(map((data) => data.bitstream));
+    this.bitstreamFormatsRD$ = this.bitstreamFormatService.findAll(this.findAllOptions);
+
+    const bitstream$ = this.bitstreamRD$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       switchMap((bitstream: Bitstream) => this.bitstreamService.findById(bitstream.id).pipe(
@@ -285,7 +302,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       )
     );
 
-    const allFormats$ = this.bitstreamFormatService.findAll(this.findAllOptions).pipe(
+    const allFormats$ = this.bitstreamFormatsRD$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload()
     );
