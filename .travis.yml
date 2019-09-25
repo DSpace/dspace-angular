@@ -22,7 +22,7 @@ install:
   # Start up DSpace 7 using the entities database dump
   - docker-compose -f docker-compose-travis.yml up -d
   # Use the dspace-cli image to populate the assetstore.  Trigger a discovery and oai update
-  - docker-compose -f to_be_determined/cli.yml -f to_be_determined/cli.assetstore.yml run --rm dspace-cli
+  - docker-compose -f ./to_be_determined/cli.yml -f ./to_be_determined/cli.assetstore.yml run --rm dspace-cli
   - travis_retry yarn install
 
 before_script:
