@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import {
@@ -19,6 +19,7 @@ import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-f
 import { cloneDeep } from 'lodash';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
 import {
+  getAllSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   getSucceededRemoteData
@@ -28,7 +29,7 @@ import { BitstreamFormatDataService } from '../../core/data/bitstream-format-dat
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
 import { RestResponse } from '../../core/cache/response.models';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { Metadata } from '../../core/shared/metadata.utils';
 import { Location } from '@angular/common';
 
@@ -245,9 +246,15 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
 
   /**
-   * The subscription on the bitstream
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
    */
-  sub: Subscription;
+  protected subs: Subscription[] = [];
+
+  /**
+   * Denotes whether or not we're awaiting the server's response after a save
+   */
+  private _saveResponsePending: boolean;
 
   constructor(private route: ActivatedRoute,
               private location: Location,
@@ -255,8 +262,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
               private translate: TranslateService,
               private bitstreamService: BitstreamDataService,
               private notificationsService: NotificationsService,
-              private bitstreamFormatService: BitstreamFormatDataService,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private bitstreamFormatService: BitstreamFormatDataService) {
   }
 
   /**
@@ -271,31 +277,47 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     const bitstream$ = this.route.data.pipe(
       map((data) => data.bitstream),
       getSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
+      switchMap((bitstream: Bitstream) => this.bitstreamService.findById(bitstream.id).pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload(),
+        filter((bs: Bitstream) => hasValue(bs)))
+      )
     );
+
     const allFormats$ = this.bitstreamFormatService.findAll(this.findAllOptions).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload()
     );
 
-    this.sub = observableCombineLatest(
-      bitstream$,
-      allFormats$
-    ).subscribe(([bitstream, allFormats]) => {
-      this.bitstream = bitstream as Bitstream;
-      this.formats = allFormats.page;
-      this.updateFormatModel();
-      this.updateForm(this.bitstream);
-      this.changeDetectorRef.detectChanges();
-    });
+    this.subs.push(
+      observableCombineLatest(
+        bitstream$,
+        allFormats$
+      ).subscribe(([bitstream, allFormats]) => {
+        this.bitstream = bitstream as Bitstream;
+        this.formats = allFormats.page;
+        this.updateFormatModel();
+        this.updateForm(this.bitstream);
+        if (this._saveResponsePending) {
+          this.notificationsService.success(
+            this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
+            this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
+          );
+          this._saveResponsePending = false;
+        }
+      })
+    );
 
     this.updateFieldTranslations();
-    this.translate.onLangChange
-      .subscribe(() => {
+
+    this.subs.push(
+      this.translate.onLangChange
+        .subscribe(() => {
         this.updateFieldTranslations();
-      });
-    this.changeDetectorRef.detectChanges();
-  }
+      })
+    );
+  };
 
   /**
    * Update the current form values with bitstream properties
@@ -417,7 +439,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
             );
           }
         })
-      )
+      );
     } else {
       bitstream$ = observableOf(this.bitstream);
     }
@@ -430,32 +452,13 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
         }
 
         return this.bitstreamService.update(this.bitstream).pipe(
-          getFirstSucceededRemoteDataPayload(),
-          switchMap(() => {
-            this.bitstreamService.commitUpdates();
-            return this.bitstreamService.findById(this.bitstream.id).pipe(
-              getFirstSucceededRemoteDataPayload()
-            );
-          })
+          getFirstSucceededRemoteDataPayload()
         );
       })
-    ).subscribe((bitstream: Bitstream) => {
-      this.onSuccess(bitstream);
+    ).subscribe(() => {
+      this.bitstreamService.commitUpdates();
+      this._saveResponsePending = true;
     });
-
-  }
-
-  /**
-   * Display notifications and update the form upon success
-   * @param bitstream
-   */
-  onSuccess(bitstream: Bitstream) {
-    this.bitstream = bitstream;
-    this.updateForm(this.bitstream);
-    this.notificationsService.success(
-      this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.title'),
-      this.translate.instant(this.NOTIFICATIONS_PREFIX + 'saved.content')
-    );
   }
 
   /**
@@ -478,9 +481,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Unsubscribe from open subscriptions
    */
   ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 
 }
