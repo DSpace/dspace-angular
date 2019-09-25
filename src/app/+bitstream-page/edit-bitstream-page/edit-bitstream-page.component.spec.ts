@@ -21,6 +21,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { RestResponse } from '../../core/cache/response.models';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -95,9 +96,11 @@ describe('EditBitstreamPageComponent', () => {
       format: observableOf(new RemoteData(false, false, true, null, selectedFormat))
     });
     bitstreamService = jasmine.createSpyObj('bitstreamService', {
+      findById: observableOf(new RemoteData(false, false, true, null, bitstream)),
       update: observableOf(new RemoteData(false, false, true, null, bitstream)),
       updateFormat: observableOf(new RestResponse(true, 200, 'OK')),
-      commitUpdates: {}
+      commitUpdates: {},
+      patch: {}
     });
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
       findAll: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), allFormats)))
@@ -105,7 +108,7 @@ describe('EditBitstreamPageComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [EditBitstreamPageComponent, FileSizePipe],
+      declarations: [EditBitstreamPageComponent, FileSizePipe, VarDirective],
       providers: [
         { provide: NotificationsService, useValue: notificationsService },
         { provide: DynamicFormService, useValue: formService },
@@ -144,18 +147,18 @@ describe('EditBitstreamPageComponent', () => {
       expect(rawForm.formatContainer.selectedFormat).toEqual(selectedFormat.id);
     });
 
-    it('should put the \"Other Format\" input on invisible', () => {
-      expect(comp.formLayout.otherFormat.grid.host).toContain('invisible');
+    it('should put the \"New Format\" input on invisible', () => {
+      expect(comp.formLayout.newFormat.grid.host).toContain('invisible');
     });
   });
 
   describe('when an unknown format is selected', () => {
     beforeEach(() => {
-      comp.updateOtherFormatLayout(allFormats[0].id);
+      comp.updateNewFormatLayout(allFormats[0].id);
     });
 
-    it('should remove the invisible class from the \"Other Format\" input', () => {
-      expect(comp.formLayout.otherFormat.grid.host).not.toContain('invisible');
+    it('should remove the invisible class from the \"New Format\" input', () => {
+      expect(comp.formLayout.newFormat.grid.host).not.toContain('invisible');
     });
   });
 
@@ -171,10 +174,6 @@ describe('EditBitstreamPageComponent', () => {
 
       it('should commit the updates', () => {
         expect(bitstreamService.commitUpdates).toHaveBeenCalled();
-      });
-
-      it('should display a success notification', () => {
-        expect(notificationsService.success).toHaveBeenCalled();
       });
     });
 
@@ -199,10 +198,6 @@ describe('EditBitstreamPageComponent', () => {
 
       it('should commit the updates', () => {
         expect(bitstreamService.commitUpdates).toHaveBeenCalled();
-      });
-
-      it('should display a success notification', () => {
-        expect(notificationsService.success).toHaveBeenCalled();
       });
     });
   });

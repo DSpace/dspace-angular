@@ -362,7 +362,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
           selectedFormat: format.id
         }
       });
-      this.updateOtherFormatLayout(format.id);
+      this.updateNewFormatLayout(format.id);
     });
   }
 
@@ -381,7 +381,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    * Update the layout of the "Other Format" input depending on the selected format
    * @param selectedId
    */
-  updateOtherFormatLayout(selectedId: string) {
+  updateNewFormatLayout(selectedId: string) {
     if (this.isUnknownFormat(selectedId)) {
       this.formLayout.newFormat.grid.host = this.newFormatBaseLayout;
     } else {
@@ -427,7 +427,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   onChange(event) {
     const model = event.model;
     if (model.id === this.selectedFormatModel.id) {
-      this.updateOtherFormatLayout(model.value);
+      this.updateNewFormatLayout(model.value);
     }
   }
 
