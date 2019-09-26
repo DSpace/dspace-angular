@@ -65,6 +65,12 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   public isLoading = true;
 
   /**
+   * A map representing all field on their way to be removed
+   * @type {Map}
+   */
+  protected fieldsOnTheirWayToBeRemoved: Map<string, number[]> = new Map();
+
+  /**
    * The form config
    * @type {SubmissionFormsModel}
    */
@@ -295,6 +301,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         }),
         distinctUntilChanged())
         .subscribe((sectionState: SubmissionSectionObject) => {
+          this.fieldsOnTheirWayToBeRemoved = new Map();
           this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errors);
         })
     )
@@ -348,11 +355,24 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    *    the [[DynamicFormControlEvent]] emitted
    */
   onRemove(event: DynamicFormControlEvent): void {
+    const fieldId = this.formBuilderService.getId(event.model);
+    const fieldIndex = this.formOperationsService.getArrayIndexFromEvent(event);
+
+    // Keep track that this field will be removed
+    if (this.fieldsOnTheirWayToBeRemoved.has(fieldId)) {
+      const indexes = this.fieldsOnTheirWayToBeRemoved.get(fieldId);
+      indexes.push(fieldIndex);
+      this.fieldsOnTheirWayToBeRemoved.set(fieldId, indexes);
+    } else {
+      this.fieldsOnTheirWayToBeRemoved.set(fieldId, [fieldIndex]);
+    }
+
     this.formOperationsService.dispatchOperationsFromEvent(
       this.pathCombiner,
       event,
       this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+      this.hasStoredValue(fieldId, fieldIndex));
+
   }
 
   /**
@@ -365,9 +385,23 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    */
   hasStoredValue(fieldId, index): boolean {
     if (isNotEmpty(this.sectionData.data)) {
-      return this.sectionData.data.hasOwnProperty(fieldId) && isNotEmpty(this.sectionData.data[fieldId][index]);
+      return this.sectionData.data.hasOwnProperty(fieldId) &&
+        isNotEmpty(this.sectionData.data[fieldId][index]) &&
+        !this.isFieldToRemove(fieldId, index);
     } else {
       return false;
     }
+  }
+
+  /**
+   * Check if the specified field is on the way to be removed
+   *
+   * @param fieldId
+   *    the section data retrieved from the serverù
+   * @param index
+   *    the section data retrieved from the server
+   */
+  isFieldToRemove(fieldId, index) {
+    return this.fieldsOnTheirWayToBeRemoved.has(fieldId) && this.fieldsOnTheirWayToBeRemoved.get(fieldId).includes(index);
   }
 }
