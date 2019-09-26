@@ -37,6 +37,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { ChangeAnalyzer } from './change-analyzer';
 import { RestRequestMethod } from './rest-request-method';
 import { getMapsToType } from '../cache/builders/build-decorators';
+import { IdentifierType } from '../index/index.reducer';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -146,14 +147,21 @@ export abstract class DataService<T extends CacheableObject> {
     return `${endpoint}/${resourceID}`;
   }
 
-  findById(id: string): Observable<RemoteData<T>> {
-    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, id)));
-
+  findById(id: string, identifierType: IdentifierType = IdentifierType.UUID): Observable<RemoteData<T>> {
+    let hrefObs;
+    if (identifierType === IdentifierType.UUID) {
+      hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+        map((endpoint: string) => this.getIDHref(endpoint, id)));
+    } else if (identifierType === IdentifierType.HANDLE) {
+      hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+        map((endpoint: string) => {
+          return this.getIDHref(endpoint, encodeURIComponent(id));
+        }));
+    }
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
-        const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
+        const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id, identifierType);
         this.requestService.configure(request, this.forceBypassCache);
       });
 

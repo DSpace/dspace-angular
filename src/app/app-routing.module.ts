@@ -27,6 +27,8 @@ export function getAdminModulePath() {
     RouterModule.forRoot([
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', loadChildren: './+home-page/home-page.module#HomePageModule' },
+      { path: 'id', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
+      { path: 'handle', loadChildren: './+lookup-by-id/lookup-by-id.module#LookupIdModule' },
       { path: COMMUNITY_MODULE_PATH, loadChildren: './+community-page/community-page.module#CommunityPageModule' },
       { path: COLLECTION_MODULE_PATH, loadChildren: './+collection-page/collection-page.module#CollectionPageModule' },
       { path: ITEM_MODULE_PATH, loadChildren: './+item-page/item-page.module#ItemPageModule' },

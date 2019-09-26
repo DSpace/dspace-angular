@@ -11,7 +11,7 @@ import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
-import { IndexName, IndexState, MetaIndexState } from '../index/index.reducer';
+import { IdentifierType, IndexState, MetaIndexState, REQUEST, UUID_MAPPING } from '../index/index.reducer';
 import {
   originalRequestUUIDFromRequestUUIDSelector,
   requestIndexSelector,
@@ -19,7 +19,7 @@ import {
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
-import { GetRequest, RestRequest } from './request.models';
+import { FindByIDRequest, GetRequest, RestRequest } from './request.models';
 import { RequestEntry, RequestState } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
@@ -162,7 +162,7 @@ export class RequestService {
         filter((entry) => hasValue(entry)),
         take(1)
       ).subscribe((entry) => {
-          return this.store.dispatch(new AddToIndexAction(IndexName.UUID_MAPPING, request.uuid, entry.request.uuid))
+          return this.store.dispatch(new AddToIndexAction(UUID_MAPPING, request.uuid, entry.request.uuid))
         }
       )
     }
@@ -206,7 +206,7 @@ export class RequestService {
       }
     });
     this.requestsOnTheirWayToTheStore = this.requestsOnTheirWayToTheStore.filter((reqHref: string) => reqHref.indexOf(href) < 0);
-    this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(IndexName.REQUEST, href));
+    this.indexStore.dispatch(new RemoveFromIndexBySubstringAction(REQUEST, href));
   }
 
   /**
@@ -225,8 +225,14 @@ export class RequestService {
   private isCachedOrPending(request: GetRequest): boolean {
     const inReqCache = this.hasByHref(request.href);
     const inObjCache = this.objectCache.hasBySelfLink(request.href);
-    const isCached = inReqCache || inObjCache;
-
+    let inObjIdCache = false;
+    if (request instanceof FindByIDRequest) {
+      const req = request as FindByIDRequest;
+      if (hasValue(req.identifierType && hasValue(req.resourceID))) {
+        inObjIdCache = this.objectCache.hasById(req.resourceID, req.identifierType)
+      }
+    }
+    const isCached = inReqCache || inObjCache || inObjIdCache;
     const isPending = this.isPending(request);
     return isCached || isPending;
   }

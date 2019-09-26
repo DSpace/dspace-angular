@@ -3,7 +3,14 @@ import { AppState } from '../../app.reducer';
 import { hasValue } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
-import { IndexName, IndexState, MetaIndexState } from './index.reducer';
+import {
+  getIdentiferByIndexName,
+  IdentifierType,
+  IndexState,
+  MetaIndexState,
+  REQUEST,
+  UUID_MAPPING
+} from './index.reducer';
 
 /**
  * Return the MetaIndexState based on the CoreSate
@@ -20,13 +27,17 @@ export const metaIndexSelector: MemoizedSelector<AppState, MetaIndexState> = cre
  * Return the object index based on the MetaIndexState
  * It contains all objects in the object cache indexed by UUID
  *
+ * @param identifierType the type of index, used to select index from state
+ *
  * @returns
  *    a MemoizedSelector to select the object index
  */
-export const objectIndexSelector: MemoizedSelector<AppState, IndexState> = createSelector(
-  metaIndexSelector,
-  (state: MetaIndexState) => state[IndexName.OBJECT]
-);
+export const objectIndexSelector = (identifierType: IdentifierType = IdentifierType.UUID): MemoizedSelector<AppState, IndexState> => {
+  return createSelector(
+    metaIndexSelector,
+    (state: MetaIndexState) => state[getIdentiferByIndexName(identifierType)]
+  );
+}
 
 /**
  * Return the request index based on the MetaIndexState
@@ -36,7 +47,7 @@ export const objectIndexSelector: MemoizedSelector<AppState, IndexState> = creat
  */
 export const requestIndexSelector: MemoizedSelector<AppState, IndexState> = createSelector(
   metaIndexSelector,
-  (state: MetaIndexState) => state[IndexName.REQUEST]
+  (state: MetaIndexState) => state[REQUEST]
 );
 
 /**
@@ -47,21 +58,22 @@ export const requestIndexSelector: MemoizedSelector<AppState, IndexState> = crea
  */
 export const requestUUIDIndexSelector: MemoizedSelector<AppState, IndexState> = createSelector(
   metaIndexSelector,
-  (state: MetaIndexState) => state[IndexName.UUID_MAPPING]
+  (state: MetaIndexState) => state[UUID_MAPPING]
 );
 
 /**
  * Return the self link of an object in the object-cache based on its UUID
  *
- * @param uuid
+ * @param id
  *    the UUID for which you want to find the matching self link
+ * @param identifierType the type of index, used to select index from state
  * @returns
  *    a MemoizedSelector to select the self link
  */
 export const selfLinkFromUuidSelector =
-  (uuid: string): MemoizedSelector<AppState, string> => createSelector(
-    objectIndexSelector,
-    (state: IndexState) => hasValue(state) ? state[uuid] : undefined
+  (id: string, identifierType: IdentifierType = IdentifierType.UUID): MemoizedSelector<AppState, string> => createSelector(
+    objectIndexSelector(identifierType),
+    (state: IndexState) => hasValue(state) ? state[id] : undefined
   );
 
 /**
