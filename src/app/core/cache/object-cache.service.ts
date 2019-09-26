@@ -4,7 +4,7 @@ import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
@@ -21,6 +21,7 @@ import {
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { getMapsToType } from './builders/build-decorators';
+import { IdentifierType } from '../index/index.reducer';
 
 /**
  * The base selector function to select the object cache in the store
@@ -75,14 +76,15 @@ export class ObjectCacheService {
   /**
    * Get an observable of the object with the specified UUID
    *
-   * @param uuid
+   * @param id
    *    The UUID of the object to get
    * @return Observable<NormalizedObject<T>>
    *    An observable of the requested object in normalized form
    */
-  getObjectByUUID<T extends CacheableObject>(uuid: string): Observable<NormalizedObject<T>> {
+  getObjectByID<T extends CacheableObject>(id: string, identifierType: IdentifierType = IdentifierType.UUID):
+    Observable<NormalizedObject<T>> {
     return this.store.pipe(
-      select(selfLinkFromUuidSelector(uuid)),
+      select(selfLinkFromUuidSelector(id, identifierType)),
       mergeMap((selfLink: string) => this.getObjectBySelfLink(selfLink)
       )
     )
@@ -188,17 +190,17 @@ export class ObjectCacheService {
   /**
    * Check whether the object with the specified UUID is cached
    *
-   * @param uuid
+   * @param id
    *    The UUID of the object to check
    * @return boolean
    *    true if the object with the specified UUID is cached,
    *    false otherwise
    */
-  hasByUUID(uuid: string): boolean {
+  hasById(id: string, identifierType: IdentifierType = IdentifierType.UUID): boolean {
     let result: boolean;
 
     this.store.pipe(
-      select(selfLinkFromUuidSelector(uuid)),
+      select(selfLinkFromUuidSelector(id, identifierType)),
       take(1)
     ).subscribe((selfLink: string) => result = this.hasBySelfLink(selfLink));
 

@@ -10,33 +10,57 @@ import {
 import { RequestActionTypes, RequestConfigureAction } from '../data/request.actions';
 import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
 import { hasValue } from '../../shared/empty.util';
-import { IndexName } from './index.reducer';
+import { getIdentiferByIndexName, IdentifierType, REQUEST } from './index.reducer';
 import { RestRequestMethod } from '../data/rest-request-method';
 
 @Injectable()
-export class UUIDIndexEffects {
+export class IdentifierIndexEffects {
 
-  @Effect() addObject$ = this.actions$
+  @Effect() addObjectByUUID$ = this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.uuid)),
       map((action: AddToObjectCacheAction) => {
         return new AddToIndexAction(
-          IndexName.OBJECT,
+          getIdentiferByIndexName(IdentifierType.UUID),
           action.payload.objectToCache.uuid,
           action.payload.objectToCache.self
         );
       })
     );
 
-  @Effect() removeObject$ = this.actions$
+  @Effect() addObjectByHandle$ = this.actions$
+    .pipe(
+      ofType(ObjectCacheActionTypes.ADD),
+      filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.handle)),
+      map((action: AddToObjectCacheAction) => {
+        return new AddToIndexAction(
+          getIdentiferByIndexName(IdentifierType.HANDLE),
+          action.payload.objectToCache.handle,
+          action.payload.objectToCache.self
+        );
+      })
+    );
+
+  @Effect() removeObjectByUUID$ = this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.REMOVE),
       map((action: RemoveFromObjectCacheAction) => {
         return new RemoveFromIndexByValueAction(
-          IndexName.OBJECT,
+          getIdentiferByIndexName(IdentifierType.UUID),
           action.payload
         );
+      })
+    );
+
+  @Effect() removeObjectByHandle$ = this.actions$
+    .pipe(
+      ofType(ObjectCacheActionTypes.REMOVE),
+      map((action: RemoveFromObjectCacheAction) => {
+        return new RemoveFromIndexByValueAction(
+          getIdentiferByIndexName(IdentifierType.HANDLE),
+            action.payload
+          );
       })
     );
 
@@ -46,7 +70,7 @@ export class UUIDIndexEffects {
       filter((action: RequestConfigureAction) => action.payload.method === RestRequestMethod.GET),
       map((action: RequestConfigureAction) => {
         return new AddToIndexAction(
-          IndexName.REQUEST,
+          REQUEST,
           action.payload.href,
           action.payload.uuid
         );

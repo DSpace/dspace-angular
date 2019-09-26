@@ -1,6 +1,6 @@
 import * as deepFreeze from 'deep-freeze';
 
-import { IndexName, indexReducer, MetaIndexState } from './index.reducer';
+import { getIdentiferByIndexName, IdentifierType, indexReducer, MetaIndexState, REQUEST, } from './index.reducer';
 import { AddToIndexAction, RemoveFromIndexBySubstringAction, RemoveFromIndexByValueAction } from './index.actions';
 
 class NullAction extends AddToIndexAction {
@@ -15,14 +15,19 @@ class NullAction extends AddToIndexAction {
 describe('requestReducer', () => {
   const key1 = '567a639f-f5ff-4126-807c-b7d0910808c8';
   const key2 = '1911e8a4-6939-490c-b58b-a5d70f8d91fb';
+  const key3 = '123456789/22';
   const val1 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/567a639f-f5ff-4126-807c-b7d0910808c8';
   const val2 = 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/1911e8a4-6939-490c-b58b-a5d70f8d91fb';
+  const uuidIndex = getIdentiferByIndexName(IdentifierType.UUID);
+  const handleIndex = getIdentiferByIndexName(IdentifierType.HANDLE);
   const testState: MetaIndexState = {
-    [IndexName.OBJECT]: {
+    'object/uuid-to-self-link/uuid': {
       [key1]: val1
-    },[IndexName.REQUEST]: {
+    },'object/uuid-to-self-link/handle': {
+      [key3]: val1
+    },'get-request/href-to-uuid': {
       [key1]: val1
-    },[IndexName.UUID_MAPPING]: {
+    },'get-request/configured-to-cache-uuid': {
       [key1]: val1
     }
   };
@@ -45,27 +50,38 @@ describe('requestReducer', () => {
   it('should add the \'key\' with the corresponding \'value\' to the correct substate, in response to an ADD action', () => {
     const state = testState;
 
-    const action = new AddToIndexAction(IndexName.REQUEST, key2, val2);
+    const action = new AddToIndexAction(REQUEST, key2, val2);
     const newState = indexReducer(state, action);
 
-    expect(newState[IndexName.REQUEST][key2]).toEqual(val2);
+    expect(newState[REQUEST][key2]).toEqual(val2);
   });
 
   it('should remove the given \'value\' from its corresponding \'key\' in the correct substate, in response to a REMOVE_BY_VALUE action', () => {
     const state = testState;
 
-    const action = new RemoveFromIndexByValueAction(IndexName.OBJECT, val1);
-    const newState = indexReducer(state, action);
+    let action = new RemoveFromIndexByValueAction(uuidIndex, val1);
+    let newState = indexReducer(state, action);
 
-    expect(newState[IndexName.OBJECT][key1]).toBeUndefined();
+    expect(newState[uuidIndex][key1]).toBeUndefined();
+
+    action =  new RemoveFromIndexByValueAction(handleIndex, val1);
+    newState = indexReducer(state, action);
+
+    expect(newState[handleIndex][key3]).toBeUndefined();
+
   });
 
   it('should remove the given \'value\' from its corresponding \'key\' in the correct substate, in response to a REMOVE_BY_SUBSTRING action', () => {
     const state = testState;
 
-    const action = new RemoveFromIndexBySubstringAction(IndexName.OBJECT, key1);
-    const newState = indexReducer(state, action);
+    let action = new RemoveFromIndexBySubstringAction(uuidIndex, key1);
+    let newState = indexReducer(state, action);
 
-    expect(newState[IndexName.OBJECT][key1]).toBeUndefined();
+    expect(newState[uuidIndex][key1]).toBeUndefined();
+
+    action = new RemoveFromIndexBySubstringAction(handleIndex, key3);
+    newState = indexReducer(state, action);
+
+    expect(newState[uuidIndex][key3]).toBeUndefined();
   });
 });
