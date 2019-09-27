@@ -9,7 +9,7 @@ import { SearchConfigurationService } from '../../+search-page/search-service/se
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
+import { getRemoteDataPayload, getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
@@ -240,6 +240,19 @@ export class CollectionItemMapperComponent implements OnInit {
    */
   switchToFirstTab() {
     this.tabs.select('browseTab');
+  }
+
+  /**
+   * When a cancel event is fired, return to the collection page
+   */
+  onCancel() {
+    this.collectionRD$.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      take(1)
+    ).subscribe((collection: Collection) => {
+      this.router.navigate(['/collections/', collection.id])
+    });
   }
 
 }

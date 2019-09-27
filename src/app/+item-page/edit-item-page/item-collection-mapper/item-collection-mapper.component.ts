@@ -7,7 +7,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
-import { getSucceededRemoteData, toDSpaceObjectListRD } from '../../../core/shared/operators';
+import { getRemoteDataPayload, getSucceededRemoteData, toDSpaceObjectListRD } from '../../../core/shared/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
@@ -268,6 +268,19 @@ export class ItemCollectionMapperComponent implements OnInit {
    */
   switchToFirstTab() {
     this.tabs.select('browseTab');
+  }
+
+  /**
+   * When a cancel event is fired, return to the item page
+   */
+  onCancel() {
+    this.itemRD$.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      take(1)
+    ).subscribe((item: Item) => {
+      this.router.navigate(['/items/', item.id])
+    });
   }
 
 }

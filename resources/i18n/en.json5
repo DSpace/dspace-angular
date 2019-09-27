@@ -139,6 +139,7 @@
   "collection.form.tableofcontents": "News (HTML)",
   "collection.form.title": "Name",
 
+  "collection.item-mapper.cancel": "Cancel",
   "collection.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
   "collection.item-mapper.confirm": "Map selected items",
   "collection.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
@@ -152,7 +153,6 @@
   "collection.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
   "collection.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
   "collection.item-mapper.remove": "Remove selected item mappings",
-  "collection.item-mapper.return": "Return",
   "collection.item-mapper.tabs.browse": "Browse",
   "collection.item-mapper.tabs.map": "Map",
 
@@ -252,6 +252,7 @@
 
   "item.edit.item-mapper.buttons.add": "Map item to selected collections",
   "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
+  "item.edit.item-mapper.cancel": "Cancel",
   "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
   "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
   "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
@@ -263,7 +264,6 @@
   "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
   "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
   "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
-  "item.edit.item-mapper.return": "Return",
   "item.edit.item-mapper.tabs.browse": "Browse",
   "item.edit.item-mapper.tabs.map": "Map",
 

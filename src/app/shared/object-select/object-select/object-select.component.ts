@@ -12,6 +12,9 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
  */
 export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestroy {
 
+  /**
+   * A unique key used for the object select service
+   */
   @Input()
   key: string;
 
@@ -40,8 +43,18 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
   @Input()
   confirmButton: string;
 
+  /**
+   * The message key used for the cancel button
+   * @type {string}
+   */
   @Input()
-  hideCollection = false;
+  cancelButton: string;
+
+  /**
+   * An event fired when the cancel button is clicked
+   */
+  @Output()
+  cancel = new EventEmitter<any>();
 
   /**
    * EventEmitter to return the selected UUIDs when the confirm button is pressed
@@ -49,6 +62,13 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
    */
   @Output()
   confirm: EventEmitter<string[]> = new EventEmitter<string[]>();
+
+  /**
+   * Whether or not to render the confirm button as danger (for example if confirm deletes objects)
+   * Defaults to false
+   */
+  @Input()
+  dangerConfirm = false;
 
   /**
    * The list of selected UUIDs
@@ -94,6 +114,13 @@ export abstract class ObjectSelectComponent<TDomain> implements OnInit, OnDestro
       this.confirm.emit(ids);
       this.objectSelectService.reset(this.key);
     });
+  }
+
+  /**
+   * Fire a cancel event
+   */
+  onCancel() {
+    this.cancel.emit();
   }
 
 }

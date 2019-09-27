@@ -24,5 +24,9 @@
       </table>
     </div>
   </ds-pagination>
-  <button class="btn btn-outline-secondary collection-confirm" (click)="confirmSelected()">{{confirmButton | translate}}</button>
+  <div>
+    <button class="btn btn-outline-secondary collection-cancel float-left" (click)="onCancel()">{{cancelButton | translate}}</button>
+    <button *ngIf="dangerConfirm" class="btn btn-danger collection-confirm float-right" (click)="confirmSelected()">{{confirmButton | translate}}</button>
+    <button *ngIf="!dangerConfirm" class="btn btn-primary collection-confirm float-right" (click)="confirmSelected()">{{confirmButton | translate}}</button>
+  </div>
 </ng-container>

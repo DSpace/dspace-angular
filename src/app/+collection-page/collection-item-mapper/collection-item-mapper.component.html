@@ -14,8 +14,11 @@
                 [dsoRD$]="collectionItemsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
                 [confirmButton]="'collection.item-mapper.remove'"
+                [cancelButton]="'collection.item-mapper.cancel'"
+                [dangerConfirm]="true"
                 [hideCollection]="true"
-                (confirm)="mapItems($event, true)"></ds-item-select>
+                (confirm)="mapItems($event, true)"
+                (cancel)="onCancel()"></ds-item-select>
             </div>
           </ng-template>
         </ngb-tab>
@@ -26,7 +29,8 @@
                 <ds-search-form id="search-form"
                                 [query]="(searchOptions$ | async)?.query"
                                 [scope]="(searchOptions$ | async)?.scope"
-                                [currentUrl]="getCurrentUrl()">
+                                [currentUrl]="'./'"
+                                [inPlaceSearch]="true">
                 </ds-search-form>
               </div>
             </div>
@@ -37,13 +41,13 @@
                 [dsoRD$]="mappedItemsRD$"
                 [paginationOptions]="(searchOptions$ | async)?.pagination"
                 [confirmButton]="'collection.item-mapper.confirm'"
-                (confirm)="mapItems($event)"></ds-item-select>
+                [cancelButton]="'collection.item-mapper.cancel'"
+                (confirm)="mapItems($event)"
+                (cancel)="onCancel()"></ds-item-select>
             </div>
           </ng-template>
         </ngb-tab>
       </ngb-tabset>
-
-      <button [routerLink]="['/collections/', (collectionRD$ | async)?.payload?.id]" class="btn btn-outline-secondary">{{'collection.item-mapper.return' | translate}}</button>
     </div>
   </div>
 </div>
