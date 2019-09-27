@@ -3,6 +3,7 @@
  */
 
 export enum Context {
+  Undefined = 'undefined',
   SearchList = 'searchList',
   SearchGrid = 'searchGrid',
   Submission = 'submission',

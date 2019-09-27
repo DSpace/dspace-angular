@@ -20,7 +20,7 @@ export class ItemTypeSwitcherComponent implements OnInit {
   /**
    * The item or metadata to determine the component for
    */
-  @Input() object: Item | SearchResult<Item> | MetadataRepresentation;
+  @Input() object: Item | SearchResult<Item>;
 
   /**
    * The preferred view-mode to display
@@ -50,11 +50,6 @@ export class ItemTypeSwitcherComponent implements OnInit {
    * @returns {string}
    */
   private getComponent(): string {
-    if (hasValue((this.object as any).representationType)) {
-      const metadataRepresentation = this.object as MetadataRepresentation;
-      return getComponentByItemType(metadataRepresentation.itemType, this.viewMode, metadataRepresentation.representationType);
-    }
-
     let item: Item;
     if (hasValue((this.object as any).indexableObject)) {
       const searchResult = this.object as ItemSearchResult;
