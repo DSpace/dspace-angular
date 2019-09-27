@@ -8,3 +8,14 @@
     background-image: none !important;
     line-height: 1.5;
 }
+
+.navbar ::ng-deep {
+  a {
+    color: $header-icon-color;
+
+    &:hover, &focus {
+      color: darken($header-icon-color, 15%);
+    }
+  }
+}
+
