@@ -26,6 +26,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
+import { SearchParam } from '../cache/models/search-param.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
@@ -45,6 +46,36 @@ export class CollectionDataService extends ComColDataService<Collection> {
     protected comparator: DSOChangeAnalyzer<Collection>
   ) {
     super();
+  }
+
+  /**
+   * Get all collections the user is authorized to submit to
+   *
+   * @param options The [[FindAllOptions]] object
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  getAuthorizedCollection(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAuthorized';
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+  }
+
+  /**
+   * Get all collections the user is authorized to submit to, by community
+   *
+   * @param communityId The community id
+   * @param options The [[FindAllOptions]] object
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  getAuthorizedCollectionByCommunity(communityId: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAuthorizedByCommunity';
+    options.searchParams = [new SearchParam('uuid', communityId)];
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
   /**

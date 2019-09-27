@@ -1,12 +1,15 @@
 import { Component, Input } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { fadeInOut } from '../../../animations/fade';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { MyDSpaceResult } from '../../../../+my-dspace-page/my-dspace-result.model';
+import { FileService } from '../../../../core/shared/file.service';
+import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 
 /**
  * This component show metadata for the given item object in the detail view.
@@ -55,6 +58,16 @@ export class ItemDetailPreviewComponent {
   public thumbnail$: Observable<Bitstream>;
 
   /**
+   * Initialize instance variables
+   *
+   * @param {FileService} fileService
+   * @param {HALEndpointService} halService
+   */
+  constructor(private fileService: FileService,
+              private halService: HALEndpointService) {
+  }
+
+  /**
    * Initialize all instance variables
    */
   ngOnInit() {
@@ -62,4 +75,15 @@ export class ItemDetailPreviewComponent {
     this.bitstreams$ = this.item.getFiles();
   }
 
+  /**
+   * Perform bitstream download
+   */
+  public downloadBitstreamFile(uuid: string) {
+    this.halService.getEndpoint('bitstreams').pipe(
+      first())
+      .subscribe((url) => {
+        const fileUrl = `${url}/${uuid}/content`;
+        this.fileService.downloadFile(fileUrl);
+      });
+  }
 }

@@ -64,7 +64,7 @@ export function createTranslateLoader() {
     {
       provide: SubmissionService,
       useClass: ServerSubmissionService
-    },
+    }
   ]
 })
 export class ServerAppModule {

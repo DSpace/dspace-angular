@@ -3,7 +3,8 @@
     <div ngbDropdown placement="bottom-right" class="d-inline-block" @fadeInOut>
       <a href="#" id="dropdownLogin" (click)="$event.preventDefault()" ngbDropdownToggle class="px-1">{{ 'nav.login' | translate }}</a>
       <div id="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu aria-labelledby="dropdownLogin">
-        <ds-log-in></ds-log-in>
+        <ds-log-in
+        [isStandalonePage]="false"></ds-log-in>
       </div>
     </div>
   </li>

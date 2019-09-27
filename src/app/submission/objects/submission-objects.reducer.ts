@@ -361,7 +361,7 @@ const addError = (state: SubmissionObjectState, action: InertSectionErrorsAction
  * @param state
  *    the current state
  * @param action
- *    an RemoveSectionErrorsAction
+ *    a RemoveSectionErrorsAction
  * @return SubmissionObjectState
  *    the new state, with the section's errors updated.
  */
@@ -416,7 +416,7 @@ function initSubmission(state: SubmissionObjectState, action: InitSubmissionForm
  * @param state
  *    the current state
  * @param action
- *    an ResetSubmissionFormAction
+ *    a ResetSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
@@ -439,7 +439,7 @@ function resetSubmission(state: SubmissionObjectState, action: ResetSubmissionFo
  * @param state
  *    the current state
  * @param action
- *    an CompleteInitSubmissionFormAction
+ *    a CompleteInitSubmissionFormAction
  * @return SubmissionObjectState
  *    the new state, with the section removed.
  */
@@ -461,7 +461,7 @@ function completeInit(state: SubmissionObjectState, action: CompleteInitSubmissi
  * @param state
  *    the current state
  * @param action
- *    an SaveSubmissionFormAction | SaveSubmissionSectionFormAction
+ *    a SaveSubmissionFormAction | SaveSubmissionSectionFormAction
  *    | SaveForLaterSubmissionFormAction | SaveAndDepositSubmissionAction
  * @return SubmissionObjectState
  *    the new state, with the flag set to true.
@@ -491,7 +491,7 @@ function saveSubmission(state: SubmissionObjectState,
  * @param state
  *    the current state
  * @param action
- *    an SaveSubmissionFormSuccessAction | SaveForLaterSubmissionFormSuccessAction
+ *    a SaveSubmissionFormSuccessAction | SaveForLaterSubmissionFormSuccessAction
  *    | SaveSubmissionSectionFormSuccessAction | SaveSubmissionFormErrorAction
  *    | SaveForLaterSubmissionFormErrorAction | SaveSubmissionSectionFormErrorAction
  * @return SubmissionObjectState
@@ -521,7 +521,7 @@ function completeSave(state: SubmissionObjectState,
  * @param state
  *    the current state
  * @param action
- *    an DepositSubmissionAction
+ *    a DepositSubmissionAction
  * @return SubmissionObjectState
  *    the new state, with the deposit flag changed.
  */
@@ -544,7 +544,7 @@ function startDeposit(state: SubmissionObjectState, action: DepositSubmissionAct
  * @param state
  *    the current state
  * @param action
- *    an DepositSubmissionSuccessAction or DepositSubmissionErrorAction
+ *    a DepositSubmissionSuccessAction or a DepositSubmissionErrorAction
  * @return SubmissionObjectState
  *    the new state, with the deposit flag changed.
  */
@@ -586,7 +586,7 @@ function changeCollection(state: SubmissionObjectState, action: ChangeSubmission
  * @param state
  *    the current state
  * @param action
- *    an SetActiveSectionAction
+ *    a SetActiveSectionAction
  * @return SubmissionObjectState
  *    the new state, with the active section.
  */
@@ -676,7 +676,7 @@ function updateSectionData(state: SubmissionObjectState, action: UpdateSectionDa
  * @param state
  *    the current state
  * @param action
- *    an DisableSectionAction
+ *    a DisableSectionAction
  * @param enabled
  *    enabled or disabled section.
  * @return SubmissionObjectState
@@ -705,7 +705,7 @@ function changeSectionState(state: SubmissionObjectState, action: EnableSectionA
  * @param state
  *    the current state
  * @param action
- *    an SectionStatusChangeAction
+ *    a SectionStatusChangeAction
  * @return SubmissionObjectState
  *    the new state, with the section new validity status.
  */
@@ -769,7 +769,7 @@ function newFile(state: SubmissionObjectState, action: NewUploadedFileAction): S
  * @param state
  *    the current state
  * @param action
- *    a EditFileDataAction action
+ *    an EditFileDataAction action
  * @return SubmissionObjectState
  *    the new state, with the edited file.
  */
