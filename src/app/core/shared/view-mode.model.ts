@@ -5,5 +5,7 @@
 export enum ViewMode {
   ListElement = 'listElement',
   GridElement = 'gridElement',
-  DetailedListElement = 'detailedListElement'
+  DetailedListElement = 'detailedListElement',
+  StandalonePage = 'standalonePage',
+  MetadataField = 'metadataField'
 }

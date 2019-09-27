@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
+import { rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
-@rendersItemType('OrgUnit', ItemViewMode.Element)
+@rendersItemType('OrgUnit', ViewMode.ListElement)
 @Component({
   selector: 'ds-orgunit-list-element',
   styleUrls: ['./orgunit-list-element.component.scss'],

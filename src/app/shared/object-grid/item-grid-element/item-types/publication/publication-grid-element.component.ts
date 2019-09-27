@@ -1,10 +1,11 @@
 import { TypedItemSearchResultGridElementComponent } from '../typed-item-search-result-grid-element.component';
-import { DEFAULT_ITEM_TYPE, ItemViewMode, rendersItemType } from '../../../../items/item-type-decorator';
+import { DEFAULT_ITEM_TYPE, rendersItemType } from '../../../../items/item-type-decorator';
 import { Component } from '@angular/core';
 import { focusShadow } from '../../../../animations/focus';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
 
-@rendersItemType('Publication', ItemViewMode.Card)
-@rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Card)
+@rendersItemType('Publication', ViewMode.GridElement)
+@rendersItemType(DEFAULT_ITEM_TYPE, ViewMode.GridElement)
 @Component({
   selector: 'ds-publication-grid-element',
   styleUrls: ['./publication-grid-element.component.scss'],

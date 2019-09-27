@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
+import { rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
-@rendersItemType('Journal', ItemViewMode.Element)
+@rendersItemType('Journal', ViewMode.ListElement)
 @Component({
   selector: 'ds-journal-list-element',
   styleUrls: ['./journal-list-element.component.scss'],

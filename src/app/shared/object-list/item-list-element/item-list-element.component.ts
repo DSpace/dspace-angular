@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ItemViewMode } from '../../items/item-type-decorator';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
@@ -18,5 +17,5 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
  */
 @renderElementsFor(Item, ViewMode.ListElement)
 export class ItemListElementComponent extends AbstractListableElementComponent<Item> {
-  viewMode = ItemViewMode.Element;
+  viewMode = ViewMode.ListElement;
 }

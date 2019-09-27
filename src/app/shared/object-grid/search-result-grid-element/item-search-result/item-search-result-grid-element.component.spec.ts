@@ -8,7 +8,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { ItemViewMode } from '../../../items/item-type-decorator';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 let itemSearchResultGridElementComponent: ItemSearchResultGridElementComponent;
 let fixture: ComponentFixture<ItemSearchResultGridElementComponent>;
@@ -56,6 +56,6 @@ describe('ItemSearchResultGridElementComponent', () => {
   it('should show send the object to item-type-switcher using viewMode "Card"', () => {
     const itemTypeSwitcherComp = fixture.debugElement.query(By.css('ds-item-type-switcher')).componentInstance;
     expect(itemTypeSwitcherComp.object).toBe(mockItemWithRelationshipType);
-    expect(itemTypeSwitcherComp.viewMode).toEqual(ItemViewMode.Card);
+    expect(itemTypeSwitcherComp.viewMode).toEqual(ViewMode.GridElement);
   });
 });

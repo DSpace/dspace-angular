@@ -5,10 +5,11 @@ import { PageInfo } from '../../../core/shared/page-info.model';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import * as decorator from '../item-type-decorator';
-import { getComponentByItemType, ItemViewMode } from '../item-type-decorator';
+import { getComponentByItemType} from '../item-type-decorator';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { createSuccessfulRemoteDataObject$ } from '../../testing/utils';
 import createSpy = jasmine.createSpy;
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 const relationType = 'type';
 const mockItem: Item = Object.assign(new Item(), {
@@ -29,7 +30,7 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(), mockItem);
-let viewMode = ItemViewMode.Full;
+let viewMode = ViewMode.StandalonePage;
 
 describe('ItemTypeSwitcherComponent', () => {
   let comp: ItemTypeSwitcherComponent;
@@ -52,7 +53,7 @@ describe('ItemTypeSwitcherComponent', () => {
 
   describe('when the injected object is of type Item', () => {
     beforeEach(() => {
-      viewMode = ItemViewMode.Full;
+      viewMode = ViewMode.StandalonePage;
       comp.object = mockItem;
       comp.viewMode = viewMode;
     });
@@ -70,7 +71,7 @@ describe('ItemTypeSwitcherComponent', () => {
 
   describe('when the injected object is of type MetadataRepresentation', () => {
     beforeEach(() => {
-      viewMode = ItemViewMode.Metadata;
+      viewMode = ViewMode.MetadataField;
       comp.object = mockItemMetadataRepresentation;
       comp.viewMode = viewMode;
     });

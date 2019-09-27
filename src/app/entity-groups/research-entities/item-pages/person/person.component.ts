@@ -1,14 +1,15 @@
 import { Component, Inject } from '@angular/core';
 import { Observable ,  of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
-import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
+import { rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
 import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
-@rendersItemType('Person', ItemViewMode.Full)
+@rendersItemType('Person', ViewMode.StandalonePage)
 @Component({
   selector: 'ds-person',
   styleUrls: ['./person.component.scss'],

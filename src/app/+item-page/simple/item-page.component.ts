@@ -15,7 +15,7 @@ import { MetadataService } from '../../core/metadata/metadata.service';
 import { fadeInOut } from '../../shared/animations/fade';
 import { hasValue } from '../../shared/empty.util';
 import { redirectToPageNotFoundOn404 } from '../../core/shared/operators';
-import { ItemViewMode } from '../../shared/items/item-type-decorator';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 /**
  * This component renders a simple item page.
@@ -44,7 +44,7 @@ export class ItemPageComponent implements OnInit {
   /**
    * The view-mode we're currently on
    */
-  viewMode = ItemViewMode.Full;
+  viewMode = ViewMode.StandalonePage;
 
   constructor(
     private route: ActivatedRoute,

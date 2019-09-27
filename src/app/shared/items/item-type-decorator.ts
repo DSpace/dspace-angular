@@ -1,15 +1,9 @@
 import { hasNoValue, hasValue } from '../empty.util';
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
-
-export enum ItemViewMode {
-  Element = 'element',
-  Card = 'card',
-  Full = 'full',
-  Metadata = 'metadata'
-}
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 export const DEFAULT_ITEM_TYPE = 'Default';
-export const DEFAULT_VIEW_MODE = ItemViewMode.Element;
+export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 export const NO_REPRESENTATION_TYPE = MetadataRepresentationType.None;
 export const DEFAULT_REPRESENTATION_TYPE = MetadataRepresentationType.PlainText;
 

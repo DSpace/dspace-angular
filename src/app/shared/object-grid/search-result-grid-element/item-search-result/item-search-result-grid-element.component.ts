@@ -5,7 +5,6 @@ import { SearchResultGridElementComponent } from '../search-result-grid-element.
 import { Item } from '../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { focusShadow } from '../../../animations/focus';
-import { ItemViewMode } from '../../../items/item-type-decorator';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 @Component({
@@ -17,5 +16,5 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 @renderElementsFor(ItemSearchResult, ViewMode.GridElement)
 export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
-  viewMode = ItemViewMode.Card;
+  viewMode = ViewMode.GridElement;
 }

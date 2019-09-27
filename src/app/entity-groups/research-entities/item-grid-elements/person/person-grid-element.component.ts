@@ -1,9 +1,10 @@
-import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
+import { rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { Component } from '@angular/core';
 import { TypedItemSearchResultGridElementComponent } from '../../../../shared/object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
 import { focusShadow } from '../../../../shared/animations/focus';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
-@rendersItemType('Person', ItemViewMode.Card)
+@rendersItemType('Person', ViewMode.GridElement)
 @Component({
   selector: 'ds-person-grid-element',
   styleUrls: ['./person-grid-element.component.scss'],
