@@ -22,7 +22,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
    */
   @Input() inPlaceSearch;
 
-  currentMode: ViewMode = ViewMode.List;
+  currentMode: ViewMode = ViewMode.ListElement;
   viewModeEnum = ViewMode;
   private sub: Subscription;
 
@@ -31,7 +31,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isEmpty(this.viewModeList)) {
-      this.viewModeList = [ViewMode.List, ViewMode.Grid];
+      this.viewModeList = [ViewMode.ListElement, ViewMode.GridElement];
     }
 
     this.sub = this.searchService.getViewMode().subscribe((viewMode: ViewMode) => {

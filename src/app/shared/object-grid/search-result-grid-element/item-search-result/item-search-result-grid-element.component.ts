@@ -4,9 +4,9 @@ import { renderElementsFor } from '../../../object-collection/shared/dso-element
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { SetViewMode } from '../../../view-mode';
-import { focusShadow } from '../../../../shared/animations/focus';
+import { focusShadow } from '../../../animations/focus';
 import { ItemViewMode } from '../../../items/item-type-decorator';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-item-search-result-grid-element',
@@ -15,7 +15,7 @@ import { ItemViewMode } from '../../../items/item-type-decorator';
   animations: [focusShadow],
 })
 
-@renderElementsFor(ItemSearchResult, SetViewMode.Grid)
+@renderElementsFor(ItemSearchResult, ViewMode.GridElement)
 export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
   viewMode = ItemViewMode.Card;
 }

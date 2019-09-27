@@ -18,8 +18,8 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { ListableObject } from './shared/listable-object.model';
-import { SetViewMode } from '../view-mode';
 import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-viewable-collection',
@@ -60,8 +60,8 @@ export class ObjectCollectionComponent implements OnInit {
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
   data: any = {};
-  currentMode$: Observable<SetViewMode>;
-  viewModeEnum = SetViewMode;
+  currentMode$: Observable<ViewMode>;
+  viewModeEnum = ViewMode;
 
   ngOnInit(): void {
     this.currentMode$ = this.route
@@ -69,7 +69,7 @@ export class ObjectCollectionComponent implements OnInit {
       .pipe(
         filter((params) => isNotEmpty(params.view)),
         map((params) => params.view),
-        startWith(SetViewMode.List)
+        startWith(ViewMode.ListElement)
       );
   }
 

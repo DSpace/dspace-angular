@@ -93,7 +93,7 @@ export class MyDSpacePageComponent implements OnInit {
   /**
    * List of available view mode
    */
-  viewModeList = [ViewMode.List, ViewMode.Detail];
+  viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
 
   constructor(private service: SearchService,
               private sidebarService: SearchSidebarService,

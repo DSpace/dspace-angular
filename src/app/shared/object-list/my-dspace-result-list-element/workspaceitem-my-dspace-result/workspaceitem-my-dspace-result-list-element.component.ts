@@ -12,7 +12,6 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { isNotUndefined } from '../../../empty.util';
 import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { SetViewMode } from '../../../view-mode';
 
 /**
  * This component renders workspaceitem object for the mydspace result in the list view.
@@ -23,7 +22,7 @@ import { SetViewMode } from '../../../view-mode';
   templateUrl: './workspaceitem-my-dspace-result-list-element.component.html',
 })
 
-@renderElementsFor(WorkspaceitemMyDSpaceResult, SetViewMode.List)
+@renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.ListElement)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, WorkspaceItem> {
 
   /**

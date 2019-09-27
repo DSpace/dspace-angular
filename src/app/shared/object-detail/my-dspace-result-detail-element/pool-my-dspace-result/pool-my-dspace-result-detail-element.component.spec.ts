@@ -5,10 +5,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
-import { PoolMyDSpaceResultDetailElementComponent } from './pool-my-dspace-result-detail-lement.component';
+import { PoolMyDSpaceResultDetailElementComponent } from './pool-my-dspace-result-detail-element.component';
 import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';

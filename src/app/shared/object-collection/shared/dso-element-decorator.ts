@@ -1,9 +1,9 @@
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ListableObject } from './listable-object.model';
-import { SetViewMode } from '../../view-mode';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 const dsoElementMap = new Map();
-export function renderElementsFor(listable: GenericConstructor<ListableObject>, viewMode: SetViewMode) {
+export function renderElementsFor(listable: GenericConstructor<ListableObject>, viewMode: ViewMode) {
   return function decorator(objectElement: any) {
     if (!objectElement) {
       return;
@@ -15,6 +15,6 @@ export function renderElementsFor(listable: GenericConstructor<ListableObject>, 
   };
 }
 
-export function rendersDSOType(listable: GenericConstructor<ListableObject>, viewMode: SetViewMode) {
+export function rendersDSOType(listable: GenericConstructor<ListableObject>, viewMode: ViewMode) {
   return dsoElementMap.get(viewMode).get(listable);
 }

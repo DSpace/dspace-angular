@@ -17,7 +17,7 @@ import { ItemMyDSpaceResultDetailElementComponent } from '../shared/object-detai
 import { WorkspaceitemMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workspaceitem-my-dspace-result/workspaceitem-my-dspace-result-detail-element.component';
 import { WorkflowitemMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workflowitem-my-dspace-result/workflowitem-my-dspace-result-detail-element.component';
 import { ClaimedMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/claimed-my-dspace-result/claimed-my-dspace-result-detail-element.component';
-import { PoolMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-my-dspace-result/pool-my-dspace-result-detail-lement.component';
+import { PoolMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-my-dspace-result/pool-my-dspace-result-detail-element.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 

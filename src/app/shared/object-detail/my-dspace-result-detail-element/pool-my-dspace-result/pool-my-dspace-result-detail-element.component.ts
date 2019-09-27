@@ -10,8 +10,8 @@ import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { SetViewMode } from '../../../view-mode';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 /**
  * This component renders pool task object for the mydspace result in the detail view.
@@ -22,8 +22,8 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
   templateUrl: './pool-my-dspace-result-detail-element.component.html',
 })
 
-@renderElementsFor(PoolTaskMyDSpaceResult, SetViewMode.Detail)
-@renderElementsFor(PoolTask, SetViewMode.Detail)
+@renderElementsFor(PoolTaskMyDSpaceResult, ViewMode.DetailedListElement)
+@renderElementsFor(PoolTask, ViewMode.DetailedListElement)
 export class PoolMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
 
   /**

@@ -12,7 +12,6 @@ import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/wo
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { SetViewMode } from '../../../view-mode';
 
 /**
  * This component renders workflowitem object for the mydspace result in the list view.
@@ -23,8 +22,8 @@ import { SetViewMode } from '../../../view-mode';
   templateUrl: './workflowitem-my-dspace-result-list-element.component.html',
 })
 
-@renderElementsFor(WorkflowitemMyDSpaceResult, SetViewMode.List)
-@renderElementsFor(WorkflowItem, SetViewMode.List)
+@renderElementsFor(WorkflowitemMyDSpaceResult, ViewMode.ListElement)
+@renderElementsFor(WorkflowItem, ViewMode.ListElement)
 export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkflowitemMyDSpaceResult, WorkflowItem> {
 
   /**

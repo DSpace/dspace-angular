@@ -3,7 +3,7 @@ import { Component, Input, Inject } from '@angular/core';
 import { Community } from '../../../core/shared/community.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
-import { SetViewMode } from '../../view-mode';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-community-list-element',
@@ -11,5 +11,5 @@ import { SetViewMode } from '../../view-mode';
   templateUrl: './community-list-element.component.html'
 })
 
-@renderElementsFor(Community, SetViewMode.List)
+@renderElementsFor(Community, ViewMode.ListElement)
 export class CommunityListElementComponent extends AbstractListableElementComponent<Community> {}

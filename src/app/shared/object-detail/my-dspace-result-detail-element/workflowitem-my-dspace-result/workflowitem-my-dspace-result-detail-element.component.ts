@@ -12,7 +12,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { find } from 'rxjs/operators';
 import { isNotUndefined } from '../../../empty.util';
-import { SetViewMode } from '../../../view-mode';
 
 /**
  * This component renders workflowitem object for the mydspace result in the detail view.
@@ -23,8 +22,8 @@ import { SetViewMode } from '../../../view-mode';
   templateUrl: './workflowitem-my-dspace-result-detail-element.component.html',
 })
 
-@renderElementsFor(WorkflowitemMyDSpaceResult, SetViewMode.Detail)
-@renderElementsFor(WorkflowItem, SetViewMode.Detail)
+@renderElementsFor(WorkflowitemMyDSpaceResult, ViewMode.DetailedListElement)
+@renderElementsFor(WorkflowItem, ViewMode.DetailedListElement)
 export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkflowitemMyDSpaceResult, WorkflowItem> {
 
   /**

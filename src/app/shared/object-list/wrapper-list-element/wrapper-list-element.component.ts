@@ -1,8 +1,8 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
-import { SetViewMode } from '../../view-mode';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { rendersDSOType } from '../../object-collection/shared/dso-element-decorator'
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-wrapper-list-element',
@@ -30,6 +30,6 @@ export class WrapperListElementComponent implements OnInit {
 
   private getListElement(): string {
     const f: GenericConstructor<ListableObject> = this.object.constructor as GenericConstructor<ListableObject>;
-    return rendersDSOType(f, SetViewMode.List);
+    return rendersDSOType(f, ViewMode.ListElement);
   }
 }

@@ -3,7 +3,7 @@
  */
 
 export enum ViewMode {
-  List = 'list',
-  Grid = 'grid',
-  Detail = 'detail'
+  ListElement = 'listElement',
+  GridElement = 'gridElement',
+  DetailedListElement = 'detailedListElement'
 }
