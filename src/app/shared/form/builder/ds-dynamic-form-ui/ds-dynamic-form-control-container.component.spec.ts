@@ -65,6 +65,14 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
+
+function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
+  return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
+    getRelatedFormModel: jasmine.createSpy('getRelatedFormModel'),
+    isFormControlToBeHidden: jasmine.createSpy('isFormControlToBeHidden')
+  });
+}
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -152,7 +160,11 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         TranslateModule.forRoot(),
         TextMaskModule
       ],
-      providers: [DsDynamicFormControlContainerComponent, DynamicFormService],
+      providers: [
+        DsDynamicFormControlContainerComponent,
+        DynamicFormService,
+        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {
 

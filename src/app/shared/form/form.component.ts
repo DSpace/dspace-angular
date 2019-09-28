@@ -1,13 +1,5 @@
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output, ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 import {
@@ -182,7 +174,6 @@ export class FormComponent implements OnDestroy, OnInit {
               if (field) {
                 const model: DynamicFormControlModel = this.formBuilderService.findById(fieldId, formModel);
                 this.formService.addErrorToField(field, model, error.message);
-                // this.formService.validateAllFormFields(formGroup);
                 this.changeDetectorRef.detectChanges();
 
               }

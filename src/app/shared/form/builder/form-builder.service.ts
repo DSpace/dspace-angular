@@ -33,6 +33,16 @@ import { isNgbDateStruct } from '../../date.util';
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
 
+  private typeBindModel: DynamicFormControlModel;
+
+  getTypeBindModel() {
+    return this.typeBindModel
+  }
+
+  setTypeBindModel(model: DynamicFormControlModel) {
+    this.typeBindModel = model;
+  }
+
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
 
     let result = null;
@@ -215,6 +225,10 @@ export class FormBuilderService extends DynamicFormService {
       });
     }
 
+    const typeBindModel = this.findById('dc_type', rows);
+    if (typeBindModel !== null) {
+      this.setTypeBindModel(typeBindModel);
+    }
     return rows;
   }
 

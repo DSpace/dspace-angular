@@ -31,10 +31,12 @@ import {
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
   DynamicFormControlModel,
+  DynamicFormControlRelationGroup,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
+  RelationUtils,
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -68,6 +70,8 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -143,6 +147,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
 
   @Input() formId: string;
+  @Input() formGroup: FormGroup;
+  @Input() formModel: DynamicFormControlModel[];
   @Input() asBootstrapFormGroup = true;
   @Input() bindId = true;
   @Input() context: any | null = null;
@@ -170,7 +176,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
+    protected typeBindRelationService: DsDynamicTypeBindRelationService,
   ) {
 
     super(componentFactoryResolver, layoutService, validationService);
@@ -181,6 +188,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       super.ngOnChanges(changes);
       if (this.model && this.model.placeholder) {
         this.model.placeholder = this.translateService.instant(this.model.placeholder);
+      }
+
+      if (this.model.typeBind && this.model.typeBind.length > 0) {
+        this.setControlTypeBindRelations();
       }
     }
   }
@@ -194,6 +205,70 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   ngAfterViewInit() {
     this.showErrorMessagesPreviousStage = this.showErrorMessages;
+  }
+
+  protected setControlTypeBindRelations(): void {
+
+    const typeBindRelActivation = RelationUtils.findActivationRelation(this.model.typeBind);
+
+    if (typeBindRelActivation !== null) {
+
+      const rel = typeBindRelActivation as DynamicFormControlRelationGroup;
+
+      this.updateModelHidden(rel);
+
+      this.typeBindRelationService.getRelatedFormModel(this.model)
+        .forEach((model: any) => {
+
+          this.subscriptions.push(
+            model.valueUpdates.pipe(
+              distinctUntilChanged()
+            ).subscribe(() => {
+              this.updateModelHidden(typeBindRelActivation);
+            })
+          );
+        });
+    }
+  }
+
+  updateModelHidden(relation: DynamicFormControlRelationGroup): void {
+    this.model.disabledUpdates.next(this.typeBindRelationService.isFormControlToBeHidden(relation));
+    this.model.hiddenUpdates.next(this.typeBindRelationService.isFormControlToBeHidden(relation));
+  }
+
+  protected createFormControlComponent(): void {
+
+    const componentType = this.componentType;
+
+    if (componentType !== null) {
+
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+
+      this.componentViewContainerRef.clear();
+      this.componentRef = this.componentViewContainerRef.createComponent(componentFactory);
+
+      const instance = this.componentRef.instance;
+
+      instance.bindId = this.bindId;
+      instance.group = this.group;
+      instance.layout = this.layout;
+      instance.model = this.model as any;
+      (instance as any).formModel = this.formModel;
+      (instance as any).formGroup = this.formGroup;
+
+      if (this.templates) {
+        instance.templates = this.templates;
+      }
+
+      this.componentSubscriptions.push(instance.blur.subscribe(($event: any) => this.onBlur($event)));
+      this.componentSubscriptions.push(instance.change.subscribe(($event: any) => this.onChange($event)));
+      this.componentSubscriptions.push(instance.focus.subscribe(($event: any) => this.onFocus($event)));
+
+      if (instance.customEvent !== undefined) {
+        this.componentSubscriptions.push(
+          instance.customEvent.subscribe(($event: any) => this.onCustomEvent($event)));
+      }
+    }
   }
 
   /**

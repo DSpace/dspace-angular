@@ -2,6 +2,7 @@
 
     <div [dynamicId]="bindId && model.id"
          [formArrayName]="model.id"
+         [class.d-none]="model.hidden"
          [ngClass]="getClass('element', 'control')">
 
         <div *ngFor="let groupModel of model.groups; let idx = index" role="group"
@@ -11,6 +12,8 @@
 
             <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"
                                                [bindId]="false"
+                                               [formGroup]="group"
+                                               [formModel]="formModel"
                                                [context]="groupModel"
                                                [group]="control.at(idx)"
                                                [hidden]="_model.hidden"

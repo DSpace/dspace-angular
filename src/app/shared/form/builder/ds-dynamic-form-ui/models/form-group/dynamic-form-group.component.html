@@ -2,12 +2,15 @@
 
   <div role="group"
        [dynamicId]="bindId && model.id"
+       [class.d-none]="model.hidden"
        [formGroupName]="model.id"
        [ngClass]="getClass('element','control')">
 
     <ds-dynamic-form-control-container *ngFor="let _model of model.group"
                                        [asBootstrapFormGroup]="true"
                                        [formId]="formId"
+                                       [formGroup]="group"
+                                       [formModel]="formModel"
                                        [group]="control"
                                        [hasErrorMessaging]="model.hasErrorMessages"
                                        [hidden]="_model.hidden"

@@ -121,6 +121,7 @@ import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
 import { BrowseDefinition } from './shared/browse-definition.model';
 import { NormalizedAuthority } from './integration/models/normalized-authority.model';
 import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
+import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 
 const IMPORTS = [
   CommonModule,
@@ -209,6 +210,7 @@ const PROVIDERS = [
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  DsDynamicTypeBindRelationService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

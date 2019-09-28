@@ -204,14 +204,21 @@ export abstract class FieldParser {
     if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
       (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
-/*    (controlModel as DsDynamicInputModel).languageCodes = [{
-        display: 'English',
-        code: 'en_US'
-      },
-      {
-        display: 'Italian',
-        code: 'it_IT'
-      }];*/
+
+    if (isNotEmpty(this.configData.typeBind)) {
+      const bindValues = [];
+      this.configData.typeBind.forEach((value) => {
+        bindValues.push({
+          id: 'dc_type',
+          value: value
+        })
+      });
+      (controlModel as DsDynamicInputModel).typeBind = [{
+        action: 'ENABLE',
+        connective: 'OR',
+        when: bindValues
+      }];
+    }
 
     return controlModel;
   }

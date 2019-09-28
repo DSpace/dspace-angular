@@ -1,14 +1,17 @@
 import {
   DynamicFormControlLayout,
+  DynamicFormControlModel,
+  DynamicFormControlRelationGroup,
   DynamicInputModel,
   DynamicInputModelConfig,
   serializable
 } from '@ng-dynamic-forms/core';
-import { Subject } from 'rxjs';
+
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { AuthorityOptions } from '../../../../../core/integration/models/authority-options.model';
-import { hasValue } from '../../../../empty.util';
+import { hasValue, isEmpty, isNotUndefined } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
@@ -16,6 +19,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   languageCodes?: LanguageCode[];
   language?: string;
   value?: any;
+  typeBind?: DynamicFormControlRelationGroup[];
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -24,6 +28,9 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
+  @serializable() hiddenUpdates: Subject<boolean>;
+  @serializable() typeBind: DynamicFormControlRelationGroup[];
+  @serializable() typeBindHidden = false;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -50,6 +57,15 @@ export class DsDynamicInputModel extends DynamicInputModel {
       this.language = lang;
     });
 
+    this.typeBind = config.typeBind ? config.typeBind : [];
+    this.hiddenUpdates = new BehaviorSubject<boolean>(this.hidden);
+    this.hiddenUpdates.subscribe((hidden: boolean) => {
+      this.hidden = hidden;
+      const parentModel = this.getRootParent(this);
+      if (parentModel && isNotUndefined(parentModel.hidden)) {
+        parentModel.hidden = hidden;
+      }
+    });
     this.authorityOptions = config.authorityOptions;
   }
 
@@ -80,4 +96,11 @@ export class DsDynamicInputModel extends DynamicInputModel {
     }
   }
 
+  private getRootParent(model: any): DynamicFormControlModel {
+    if (isEmpty(model) || isEmpty(model.parent)) {
+      return model;
+    } else {
+      return this.getRootParent(model.parent);
+    }
+  }
 }
