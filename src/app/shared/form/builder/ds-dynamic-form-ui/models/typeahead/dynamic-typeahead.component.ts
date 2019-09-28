@@ -16,6 +16,7 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService
 } from '@ng-dynamic-forms/core';
+import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -28,7 +29,6 @@ import {
   take,
   tap
 } from 'rxjs/operators';
-import { Observable, of as observableOf, Subject } from 'rxjs';
 import { NgbModal, NgbModalRef, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
@@ -41,7 +41,6 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Authority } from '../../../../../../core/integration/models/authority.model';
 import { AuthorityTreeviewComponent } from '../../../../../authority-treeview/authority-treeview.component';
 import { AuthorityEntry } from '../../../../../../core/integration/models/authority-entry.model';
-import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'ds-dynamic-typeahead',
@@ -85,7 +84,7 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
       tap(() => this.changeSearchingStatus(true)),
       switchMap((term) => {
         if (term === '' || term.length < this.model.minChars) {
-          return observableOf({ list: [] });
+          return observableOf({list: []});
         } else {
           this.searchOptions.query = term;
           return this.authorityService.getEntriesByName(this.searchOptions).pipe(
@@ -99,7 +98,7 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
             tap(() => this.searchFailed = false),
             catchError(() => {
               this.searchFailed = true;
-              return observableOf({ list: [] });
+              return observableOf({list: []});
             }));
         }
       }),

@@ -12,7 +12,7 @@ import { AppModule } from '../../app/app.module';
 import { DSpaceServerTransferStateModule } from '../transfer-state/dspace-server-transfer-state.module';
 import { DSpaceTransferState } from '../transfer-state/dspace-transfer-state.service';
 
-import { TranslateUniversalLoader } from '../translate-universal-loader';
+import { TranslateJson5UniversalLoader } from '../../ngx-translate-loaders/translate-json5-universal.loader';
 import { CookieService } from '../../app/core/services/cookie.service';
 import { ServerCookieService } from '../../app/core/services/server-cookie.service';
 import { AuthService } from '../../app/core/auth/auth.service';
@@ -24,7 +24,7 @@ import { SubmissionService } from '../../app/submission/submission.service';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
 
 export function createTranslateLoader() {
-  return new TranslateUniversalLoader('dist/assets/i18n/', '.json');
+  return new TranslateJson5UniversalLoader('dist/assets/i18n/', '.json5');
 }
 
 @NgModule({
@@ -64,7 +64,7 @@ export function createTranslateLoader() {
     {
       provide: SubmissionService,
       useClass: ServerSubmissionService
-    },
+    }
   ]
 })
 export class ServerAppModule {

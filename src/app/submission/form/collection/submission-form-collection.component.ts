@@ -95,6 +95,12 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   public disabled$ = new BehaviorSubject<boolean>(true);
 
   /**
+   * A boolean representing if a collection change operation is processing
+   * @type {BehaviorSubject<boolean>}
+   */
+  public processingChange$ = new BehaviorSubject<boolean>(false);
+
+  /**
    * The search form control
    * @type {FormControl}
    */
@@ -193,60 +199,56 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
     if (hasValue(changes.currentCollectionId)
       && hasValue(changes.currentCollectionId.currentValue)) {
       this.selectedCollectionId = this.currentCollectionId;
+
+      this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
+        find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
+        map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
+      );
+
       const findOptions: FindAllOptions = {
-        elementsPerPage: 100
+        elementsPerPage: 1000
       };
 
-      // @TODO replace with search/top browse endpoint
-      // @TODO implement community/subcommunity hierarchy
-      const communities$ = this.communityDataService.findAll(findOptions).pipe(
-        find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
-        mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
+      // Retrieve collection list only when is the first change
+      if (changes.currentCollectionId.isFirstChange()) {
+        // @TODO replace with search/top browse endpoint
+        // @TODO implement community/subcommunity hierarchy
+        const communities$ = this.communityDataService.findAll(findOptions).pipe(
+          find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
+          mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
 
-      const listCollection$ = communities$.pipe(
-        flatMap((communityData: Community) => {
-          return this.collectionDataService.getAuthorizedCollectionByCommunity(communityData.uuid).pipe(
-            find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-            mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
-            filter((collectionData: Collection) => isNotEmpty(collectionData)),
-            map((collectionData: Collection) => ({
-              communities: [{ id: communityData.id, name: communityData.name }],
-              collection: { id: collectionData.id, name: collectionData.name }
-            }))
-          );
-        }),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
-        startWith([])
-      );
+        const listCollection$ = communities$.pipe(
+          flatMap((communityData: Community) => {
+            return this.collectionDataService.getAuthorizedCollectionByCommunity(communityData.uuid, findOptions).pipe(
+              find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
+              mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
+              filter((collectionData: Collection) => isNotEmpty(collectionData)),
+              map((collectionData: Collection) => ({
+                communities: [{ id: communityData.id, name: communityData.name }],
+                collection: { id: collectionData.id, name: collectionData.name }
+              }))
+            );
+          }),
+          reduce((acc: any, value: any) => [...acc, ...value], []),
+          startWith([])
+        );
 
-      this.selectedCollectionName$ = communities$.pipe(
-        flatMap((communityData: Community) => {
-          return communityData.collections.pipe(
-            find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-            mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
-            filter((collectionData: Collection) => isNotEmpty(collectionData)),
-            filter((collectionData: Collection) => collectionData.id === this.selectedCollectionId),
-            map((collectionData: Collection) => collectionData.name)
-          );
-        }),
-        startWith('')
-      );
+        const searchTerm$ = this.searchField.valueChanges.pipe(
+          debounceTime(200),
+          distinctUntilChanged(),
+          startWith('')
+        );
 
-      const searchTerm$ = this.searchField.valueChanges.pipe(
-        debounceTime(200),
-        distinctUntilChanged(),
-        startWith('')
-      );
-
-      this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
-        map(([searchTerm, listCollection]) => {
-          this.disabled$.next(isEmpty(listCollection));
-          if (isEmpty(searchTerm)) {
-            return listCollection;
-          } else {
-            return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
-          }
-        }));
+        this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
+          map(([searchTerm, listCollection]) => {
+            this.disabled$.next(isEmpty(listCollection));
+            if (isEmpty(searchTerm)) {
+              return listCollection;
+            } else {
+              return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
+            }
+          }));
+      }
     }
   }
 
@@ -272,7 +274,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   onSelect(event) {
     this.searchField.reset();
-    this.disabled$.next(true);
+    this.processingChange$.next(true);
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
     this.subs.push(this.operationsService.jsonPatchByResourceID(
       this.submissionService.getSubmissionObjectLinkName(),
@@ -284,7 +286,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         this.selectedCollectionName$ = observableOf(event.collection.name);
         this.collectionChange.emit(submissionObject[0]);
         this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
-        this.disabled$.next(false);
+        this.processingChange$.next(false);
         this.cdr.detectChanges();
       })
     );

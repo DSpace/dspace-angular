@@ -289,7 +289,7 @@ describe('Dynamic Lookup component', () => {
           lookupComp.firstInputValue = 'test';
           lookupFixture.detectChanges();
 
-          lookupComp.onInput(new Event('input'));
+          lookupComp.onChange(new Event('change'));
           expect(lookupComp.model.value).toEqual(new FormFieldMetadataValueObject('test'))
 
         }));
@@ -299,7 +299,7 @@ describe('Dynamic Lookup component', () => {
           lookupComp.firstInputValue = 'test';
           lookupFixture.detectChanges();
 
-          lookupComp.onInput(new Event('input'));
+          lookupComp.onChange(new Event('change'));
           expect(lookupComp.model.value).not.toBeDefined();
 
         });
