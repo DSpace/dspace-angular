@@ -65,9 +65,10 @@ export class CollectionDataService extends ComColDataService<Collection> {
    */
   getAuthorizedCollectionByCommunity(communityId: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunity';
-    options.searchParams = [new SearchParam('uuid', communityId)];
+    const newOptions = new FindAllOptions();
+    newOptions.searchParams = [new SearchParam('uuid', communityId)];
 
-    return this.searchBy(searchHref, options).pipe(
+    return this.searchBy(searchHref, newOptions).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
