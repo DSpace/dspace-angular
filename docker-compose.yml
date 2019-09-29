@@ -4,8 +4,6 @@ networks:
 services:
   dspace-angular:
     container_name: dspace-angular
-    depends_on:
-    - dspace
     environment:
       DSPACE_HOST: dspace-angular
       DSPACE_NAMESPACE: /
@@ -30,4 +28,3 @@ services:
     tty: true
     volumes:
     - ./to_be_determined/environment.dev.js:/app/config/environment.dev.js
-volumes:
