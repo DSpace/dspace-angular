@@ -1,7 +1,12 @@
 version: "3.7"
 
+networks:
+  dspacenet:
+
 services:
   dspace-cli:
+    networks:
+      dspacenet: {}
     environment:
       - LOADASSETS=https://www.dropbox.com/s/zv7lj8j2lp3egjs/assetstore.tar.gz?dl=1
     entrypoint:
