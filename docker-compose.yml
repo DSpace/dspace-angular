@@ -2,21 +2,6 @@ version: '3.7'
 networks:
   dspacenet:
 services:
-  dspace:
-    container_name: dspace
-    image: "${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-dspace-7_x-jdk8-test}"
-    depends_on:
-    - dspacedb
-    networks:
-      dspacenet:
-    ports:
-    - published: 8080
-      target: 8080
-    stdin_open: true
-    tty: true
-    volumes:
-    - assetstore:/dspace/assetstore
-    - ./to_be_determined/local.cfg:/dspace/config/local.cfg
   dspace-angular:
     container_name: dspace-angular
     depends_on:
@@ -45,36 +30,4 @@ services:
     tty: true
     volumes:
     - ./to_be_determined/environment.dev.js:/app/config/environment.dev.js
-  dspacedb:
-    container_name: dspacedb
-    environment:
-      PGDATA: /pgdata
-    image: dspace/dspace-postgres-pgcrypto
-    networks:
-      dspacenet:
-    stdin_open: true
-    tty: true
-    volumes:
-    - pgdata:/pgdata
-  dspacesolr:
-    container_name: dspacesolr
-    image: dspace/dspace-solr
-    networks:
-      dspacenet:
-    ports:
-    - published: 8983
-      target: 8983
-    stdin_open: true
-    tty: true
-    volumes:
-    - solr_authority:/opt/solr/server/solr/authority/data
-    - solr_oai:/opt/solr/server/solr/oai/data
-    - solr_search:/opt/solr/server/solr/search/data
-    - solr_statistics:/opt/solr/server/solr/statistics/data
 volumes:
-  assetstore:
-  pgdata:
-  solr_authority:
-  solr_oai:
-  solr_search:
-  solr_statistics:
