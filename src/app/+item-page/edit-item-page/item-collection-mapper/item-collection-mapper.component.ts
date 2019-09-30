@@ -11,7 +11,7 @@ import { getRemoteDataPayload, getSucceededRemoteData, toDSpaceObjectListRD } fr
 import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../../+search-page/search-service/search.service';
 import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -112,9 +112,11 @@ export class ItemCollectionMapperComponent implements OnInit {
         return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
           query: this.buildQuery([...itemCollectionsRD.payload.page, owningCollectionRD.payload], searchOptions.query),
           dsoType: DSpaceObjectType.COLLECTION
-        }));
-      }),
-      toDSpaceObjectListRD()
+        })).pipe(
+          toDSpaceObjectListRD(),
+          startWith(undefined)
+        );
+      })
     ) as Observable<RemoteData<PaginatedList<Collection>>>;
   }
 

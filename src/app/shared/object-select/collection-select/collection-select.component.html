@@ -24,6 +24,8 @@
       </table>
     </div>
   </ds-pagination>
+  <ds-error *ngIf="collectionsRD?.hasFailed" message="{{'error.collections' | translate}}"></ds-error>
+  <ds-loading *ngIf="!collectionsRD || collectionsRD?.isLoading" message="{{'loading.collections' | translate}}"></ds-loading>
   <div>
     <button class="btn btn-outline-secondary collection-cancel float-left" (click)="onCancel()">{{cancelButton | translate}}</button>
     <button *ngIf="dangerConfirm" class="btn btn-danger collection-confirm float-right" (click)="confirmSelected()">{{confirmButton | translate}}</button>

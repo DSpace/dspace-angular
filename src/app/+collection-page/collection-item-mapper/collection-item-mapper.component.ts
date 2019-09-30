@@ -8,7 +8,7 @@ import { Collection } from '../../core/shared/collection.model';
 import { SearchConfigurationService } from '../../+search-page/search-service/search-configuration.service';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { getRemoteDataPayload, getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
 import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
@@ -128,10 +128,12 @@ export class CollectionItemMapperComponent implements OnInit {
               scope: undefined,
               dsoType: DSpaceObjectType.ITEM,
               sort: this.defaultSortOptions
-            }));
+            })).pipe(
+              toDSpaceObjectListRD(),
+              startWith(undefined)
+            );
           }
-      }),
-      toDSpaceObjectListRD()
+      })
     );
   }
 
