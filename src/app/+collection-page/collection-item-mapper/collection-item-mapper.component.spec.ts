@@ -41,6 +41,8 @@ import { of as observableOf, of } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../../core/cache/response.models';
 import { SearchFixedFilterService } from '../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { RouteService } from '../../core/services/route.service';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -120,7 +122,7 @@ describe('CollectionItemMapperComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective],
+      declarations: [CollectionItemMapperComponent, ItemSelectComponent, SearchFormComponent, PaginationComponent, EnumKeysPipe, VarDirective, ErrorComponent, LoadingComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: Router, useValue: routerStub },
