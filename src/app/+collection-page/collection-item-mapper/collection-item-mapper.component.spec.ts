@@ -67,8 +67,12 @@ describe('CollectionItemMapperComponent', () => {
     sort: new SortOptions('dc.title', SortDirection.ASC),
     scope: mockCollection.id
   }));
+  const url = 'http://test.url';
+  const urlWithParam = url + '?param=value';
   const routerStub = Object.assign(new RouterStub(), {
-    url: 'http://test.url'
+    url: urlWithParam,
+    navigateByUrl: {},
+    navigate: {}
   });
   const searchConfigServiceStub = {
     paginatedSearchOptions: mockSearchOptions
@@ -165,6 +169,43 @@ describe('CollectionItemMapperComponent', () => {
       comp.mapItems(ids);
       expect(notificationsService.success).not.toHaveBeenCalled();
       expect(notificationsService.error).toHaveBeenCalled();
+    });
+  });
+
+  describe('tabChange', () => {
+    beforeEach(() => {
+      spyOn(routerStub, 'navigateByUrl');
+      comp.tabChange({});
+    });
+
+    it('should navigate to the same page to remove parameters', () => {
+      expect(router.navigateByUrl).toHaveBeenCalledWith(url);
+    });
+  });
+
+  describe('buildQuery', () => {
+    const query = 'query';
+    const expected = `-location.coll:\"${mockCollection.id}\" AND ${query}`;
+
+    let result;
+
+    beforeEach(() => {
+      result = comp.buildQuery(mockCollection.id, query);
+    });
+
+    it('should build a solr query to exclude the provided collection', () => {
+      expect(result).toEqual(expected);
+    })
+  });
+
+  describe('onCancel', () => {
+    beforeEach(() => {
+      spyOn(routerStub, 'navigate');
+      comp.onCancel();
+    });
+
+    it('should navigate to the collection page', () => {
+      expect(router.navigate).toHaveBeenCalledWith(['/collections/', mockCollection.id]);
     });
   });
 

@@ -123,4 +123,18 @@ describe('ItemSelectComponent', () => {
       expect(comp.confirm.emit).toHaveBeenCalled();
     });
   });
+
+  describe('when cancel is clicked', () => {
+    let cancelButton: HTMLButtonElement;
+
+    beforeEach(() => {
+      cancelButton = fixture.debugElement.query(By.css('button.item-cancel')).nativeElement;
+      spyOn(comp.cancel, 'emit').and.callThrough();
+    });
+
+    it('should emit a cancel event',() => {
+      cancelButton.click();
+      expect(comp.cancel.emit).toHaveBeenCalled();
+    });
+  });
 });
