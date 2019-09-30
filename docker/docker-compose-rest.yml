@@ -15,13 +15,10 @@ services:
     tty: true
     volumes:
     - assetstore:/dspace/assetstore
-    - ./to_be_determined/local.cfg:/dspace/config/local.cfg
+    - ./local.cfg:/dspace/config/local.cfg
   dspacedb:
     container_name: dspacedb
-    environment:
-      LOADSQL: https://www.dropbox.com/s/xh3ack0vg0922p2/configurable-entities-2019-05-08.sql?dl=1
-      PGDATA: /pgdata
-    image: dspace/dspace-postgres-pgcrypto:loadsql
+    image: dspace/dspace-postgres-pgcrypto
     networks:
       dspacenet: {}
     stdin_open: true

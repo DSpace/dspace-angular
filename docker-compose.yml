@@ -27,4 +27,4 @@ services:
     stdin_open: true
     tty: true
     volumes:
-    - ./to_be_determined/environment.dev.js:/app/config/environment.dev.js
+    - ./docker/environment.dev.js:/app/config/environment.dev.js
