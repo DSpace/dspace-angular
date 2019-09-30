@@ -9,14 +9,14 @@ import { RequestService } from './request.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { FindAllOptions, FindByIDRequest } from './request.models';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IdentifierType } from '../index/index.reducer';
 import { RemoteData } from './remote-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
-import { getFinishedRemoteData, getSucceededRemoteData } from '../shared/operators';
+import { getFinishedRemoteData } from '../shared/operators';
 import { Router } from '@angular/router';
 
 @Injectable()
