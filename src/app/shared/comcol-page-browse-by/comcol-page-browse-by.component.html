@@ -1,8 +1,45 @@
 <h2 class="comcol-browse-label h5">{{'browse.comcol.head' | translate}}</h2>
 <nav class="comcol-browse mb-4" aria-label="Browse Community or Collection" >
-  <div class="list-group list-group-horizontal">
-    <a *ngIf="contentType=='collection'" [routerLink]="['/collections/' + id ]" class="list-group-item" routerLinkActive="active">{{'collection.page.browse.recent.head' | translate}}</a>
-    <a *ngIf="contentType=='community'" [routerLink]="['/communities/' + id ]" class="list-group-item" routerLinkActive="active" >{{'community.all-lists.head' | translate}}</a>
-    <a *ngFor="let config of types" class="list-group-item" [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}" routerLinkActive="active">{{'browse.comcol.by.' + config.id | translate}}</a>
+  <div class="d-none d-sm-block">
+
+    <div class="list-group list-group-horizontal">
+      <a *ngIf="contentType=='collection'" [routerLink]="['/collections/' + id ]" class="list-group-item" routerLinkActive="active">{{'collection.page.browse.recent.head' | translate}}</a>
+      <a *ngIf="contentType=='community'" [routerLink]="['/communities/' + id ]" class="list-group-item" routerLinkActive="active" >{{'community.all-lists.head' | translate}}</a>
+      <a *ngFor="let config of types" class="list-group-item" [routerLink]="['/browse/' + config.id]" [queryParams]="{scope: id}" routerLinkActive="active">{{'browse.comcol.by.' + config.id | translate}}</a>
+    </div>
+  </div>
+  <div class="d-block d-sm-none">
+
+    <select name="browse-type" class="form-control" aria-label="Browse Community or Collection" (change)="onSelectChange(($event.target))">
+
+      <option *ngIf="contentType=='collection'"
+        [value]="['/collections/' + id ]"
+        [routerLink]="['/collections/' + id ]"
+        routerLinkActive="active"
+        #rla="routerLinkActive"
+        [attr.selected]="rla.isActive === true ? 'selected' : null "  >
+        {{'collection.page.browse.recent.head' | translate}}
+      </option>
+
+      <option *ngIf="contentType=='community'"
+        [value]="['/communities/' + id ]"
+        [routerLink]="['/communities/' + id ]"
+        routerLinkActive="active"
+        #rla="routerLinkActive"
+        [attr.selected]="rla.isActive === true ? 'selected' : null "  >
+        {{'community.all-lists.head' | translate}}
+      </option>
+
+      <option *ngFor="let config of types"
+        [value]="['/browse/' + config.id]"
+        [routerLink]="['/browse/' + config.id]"
+        [queryParams]="{scope: id}"
+        [attr.data-params]="[id]"
+        routerLinkActive="active"
+        #rla="routerLinkActive"
+        [attr.selected]="rla.isActive === true ? 'selected' : null ">
+        {{'browse.comcol.by.' + config.id | translate}}
+      </option>
+    </select>
   </div>
 </nav>

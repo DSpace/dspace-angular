@@ -1,5 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
 
 /**
@@ -22,11 +23,23 @@ export class ComcolPageBrowseByComponent implements OnInit {
    */
   types: BrowseByTypeConfig[];
 
-  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig) {
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig, private router: Router) {
   }
 
   ngOnInit(): void {
     this.types = this.config.browseBy.types;
   }
-
+  onSelectChange(target) {
+    const optionIndex = target.selectedIndex;
+    const selectedOptionElement = target.options[optionIndex];
+    const paramsAttribute = selectedOptionElement.getAttribute('data-params');
+    console.log('change value ' + target.value + ' paramsAttribute ' + paramsAttribute);
+    if (paramsAttribute) {
+       /* console.log('Yes paramsAttribute ' + paramsAttribute);*/
+      this.router.navigate([target.value], { queryParams: { scope: paramsAttribute } });
+    } else {
+      /*  console.log('No paramsAttribute ');*/
+      this.router.navigate([target.value]);
+    }
+  }
 }
