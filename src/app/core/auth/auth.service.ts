@@ -377,7 +377,7 @@ export class AuthService {
     } else {
       /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
       // this._window.nativeWindow.location.href = url;
-      this.router.navigate([url]);
+      this.router.navigateByUrl(url);
     }
   }
 
