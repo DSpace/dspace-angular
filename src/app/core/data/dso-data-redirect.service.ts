@@ -53,8 +53,7 @@ export class DsoDataRedirectService extends DataService<any> {
       tap((response) => {
         if (response.hasSucceeded) {
           const uuid = response.payload.uuid;
-          // Is there an existing method somewhere that converts dso type to endpoint?
-          // This will not work for all endpoints!
+          // Is there an existing method somewhere that converts dso type route?
           const dsoType = this.getEndpointFromDSOType(response.payload.type);
           if (hasValue(uuid) && hasValue(dsoType)) {
             this.router.navigate([dsoType + '/' + uuid]);
@@ -65,6 +64,7 @@ export class DsoDataRedirectService extends DataService<any> {
   }
 
   getEndpointFromDSOType(dsoType: string): string {
+    // Are there other routes to consider?
     if (dsoType.startsWith('item')) {
       return 'items'
     } else if (dsoType.startsWith('community')) {
