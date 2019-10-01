@@ -77,13 +77,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
    * The uploader configuration options
    * @type {UploaderOptions}
    */
-  public uploadFilesOptions: UploaderOptions = {
-    url: '',
-    authToken: null,
-    disableMultipart: false,
-    itemAlias: null,
-    autoUpload: true
-  };
+  public uploadFilesOptions: UploaderOptions = new UploaderOptions();
 
   /**
    * A boolean representing if component is active

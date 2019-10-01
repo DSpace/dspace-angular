@@ -30,13 +30,7 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
   /**
    * The UploaderOptions object
    */
-  public uploadFilesOptions: UploaderOptions = {
-    url: '',
-    authToken: null,
-    disableMultipart: false,
-    itemAlias: null,
-    autoUpload: true
-  };
+  public uploadFilesOptions: UploaderOptions = new UploaderOptions();
 
   /**
    * Subscription to unsubscribe from

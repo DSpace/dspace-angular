@@ -95,7 +95,8 @@ export class UploaderComponent {
       disableMultipart: this.uploadFilesOptions.disableMultipart,
       itemAlias: this.uploadFilesOptions.itemAlias,
       removeAfterUpload: true,
-      autoUpload: this.uploadFilesOptions.autoUpload
+      autoUpload: this.uploadFilesOptions.autoUpload,
+      method: this.uploadFilesOptions.method
     });
 
     if (isUndefined(this.enableDragOverDocument)) {

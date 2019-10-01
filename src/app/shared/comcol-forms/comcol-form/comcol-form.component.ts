@@ -1,16 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import {
-  DynamicFormService,
-  DynamicInputModel
-} from '@ng-dynamic-forms/core';
+import { DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { TranslateService } from '@ngx-translate/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
+import { hasValue, isNotEmpty } from '../../empty.util';
 import { UploaderOptions } from '../../uploader/uploader-options.model';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
@@ -22,6 +19,10 @@ import { UploaderComponent } from '../../uploader/uploader.component';
 import { FileUploader } from 'ng2-file-upload';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -72,13 +73,10 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * The uploader configuration options
    * @type {UploaderOptions}
    */
-  uploadFilesOptions: UploaderOptions = {
-    url: '',
-    authToken: null,
+  uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
     disableMultipart: true,
-    itemAlias: null,
     autoUpload: false
-  };
+  });
 
   /**
    * Emits DSO and Uploader when the form is submitted
@@ -133,9 +131,16 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
 
     if (hasValue(this.dso.id)) {
       this.subs.push(
-        this.dsoService.getLogoEndpoint(this.dso.id).subscribe((href: string) => {
+        observableCombineLatest(
+          this.dsoService.getLogoEndpoint(this.dso.id),
+          (this.dso as any).logo
+        ).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
           this.uploadFilesOptions.url = href;
           this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+          // If the object already contains a logo, send out a PUT request instead of POST for setting a new logo
+          if (hasValue(logoRD.payload)) {
+            this.uploadFilesOptions.method = RestRequestMethod.PUT;
+          }
           this.initializedUploaderOptions.next(true);
         })
       );
@@ -232,6 +237,9 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
     this.finishUpload.emit();
   }
 
+  /**
+   * Cancel the form and return to the previous page
+   */
   onCancel() {
     this.location.back();
   }
