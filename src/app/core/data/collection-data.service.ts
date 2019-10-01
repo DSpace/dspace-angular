@@ -19,6 +19,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { FindAllOptions } from './request.models';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
+import { SearchParam } from '../cache/models/search-param.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
@@ -38,6 +39,36 @@ export class CollectionDataService extends ComColDataService<Collection> {
     protected comparator: DSOChangeAnalyzer<Collection>
   ) {
     super();
+  }
+
+  /**
+   * Get all collections the user is authorized to submit to
+   *
+   * @param options The [[FindAllOptions]] object
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  getAuthorizedCollection(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAuthorized';
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
+  }
+
+  /**
+   * Get all collections the user is authorized to submit to, by community
+   *
+   * @param communityId The community id
+   * @param options The [[FindAllOptions]] object
+   * @return Observable<RemoteData<PaginatedList<Collection>>>
+   *    collection list
+   */
+  getAuthorizedCollectionByCommunity(communityId: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+    const searchHref = 'findAuthorizedByCommunity';
+    options.searchParams = [new SearchParam('uuid', communityId)];
+
+    return this.searchBy(searchHref, options).pipe(
+      filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 
   /**

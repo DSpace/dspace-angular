@@ -156,7 +156,7 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
         inputElement.value = 'test value';
         inputElement.dispatchEvent(new Event('input'));
 
-        expect((typeaheadComp.model as any).value).toEqual(new FormFieldMetadataValueObject('test value'))
+        expect(typeaheadComp.inputValue).toEqual(new FormFieldMetadataValueObject('test value'))
 
       });
 
@@ -173,19 +173,56 @@ describe('DsDynamicTypeaheadComponent test suite', () => {
 
       });
 
-      it('should emit blur Event onBlur', () => {
+      it('should emit blur Event onBlur when popup is closed', () => {
         spyOn(typeaheadComp.blur, 'emit');
+        spyOn(typeaheadComp.instance, 'isPopupOpen').and.returnValue(false);
         typeaheadComp.onBlur(new Event('blur'));
         expect(typeaheadComp.blur.emit).toHaveBeenCalled();
       });
 
-      it('should emit change Event onBlur when AuthorityOptions.closed is false', () => {
+      it('should not emit blur Event onBlur when popup is opened', () => {
+        spyOn(typeaheadComp.blur, 'emit');
+        spyOn(typeaheadComp.instance, 'isPopupOpen').and.returnValue(true);
+        const input = typeaheadFixture.debugElement.query(By.css('input'));
+
+        input.nativeElement.blur();
+        expect(typeaheadComp.blur.emit).not.toHaveBeenCalled();
+      });
+
+      it('should emit change Event onBlur when AuthorityOptions.closed is false and inputValue is changed', () => {
         typeaheadComp.inputValue = 'test value';
         typeaheadFixture.detectChanges();
         spyOn(typeaheadComp.blur, 'emit');
         spyOn(typeaheadComp.change, 'emit');
-        typeaheadComp.onBlur(new Event('blur'));
-        // expect(typeaheadComp.change.emit).toHaveBeenCalled();
+        spyOn(typeaheadComp.instance, 'isPopupOpen').and.returnValue(false);
+        typeaheadComp.onBlur(new Event('blur', ));
+        expect(typeaheadComp.change.emit).toHaveBeenCalled();
+        expect(typeaheadComp.blur.emit).toHaveBeenCalled();
+      });
+
+      it('should not emit change Event onBlur when AuthorityOptions.closed is false and inputValue is not changed', () => {
+        typeaheadComp.inputValue = 'test value';
+        typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
+        (typeaheadComp.model as any).value = 'test value';
+        typeaheadFixture.detectChanges();
+        spyOn(typeaheadComp.blur, 'emit');
+        spyOn(typeaheadComp.change, 'emit');
+        spyOn(typeaheadComp.instance, 'isPopupOpen').and.returnValue(false);
+        typeaheadComp.onBlur(new Event('blur', ));
+        expect(typeaheadComp.change.emit).not.toHaveBeenCalled();
+        expect(typeaheadComp.blur.emit).toHaveBeenCalled();
+      });
+
+      it('should not emit change Event onBlur when AuthorityOptions.closed is false and inputValue is null', () => {
+        typeaheadComp.inputValue = null;
+        typeaheadComp.model = new DynamicTypeaheadModel(TYPEAHEAD_TEST_MODEL_CONFIG);
+        (typeaheadComp.model as any).value = 'test value';
+        typeaheadFixture.detectChanges();
+        spyOn(typeaheadComp.blur, 'emit');
+        spyOn(typeaheadComp.change, 'emit');
+        spyOn(typeaheadComp.instance, 'isPopupOpen').and.returnValue(false);
+        typeaheadComp.onBlur(new Event('blur', ));
+        expect(typeaheadComp.change.emit).not.toHaveBeenCalled();
         expect(typeaheadComp.blur.emit).toHaveBeenCalled();
       });
 

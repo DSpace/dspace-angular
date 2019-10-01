@@ -28,7 +28,8 @@
      aria-hidden="true"
      [authorityValue]="currentValue"
      (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
-  <input class="form-control"
+  <input #instance="ngbTypeahead"
+         class="form-control"
          [attr.autoComplete]="model.autoComplete"
          [class.is-invalid]="showErrorMessages"
          [dynamicId]="bindId && model.id"
