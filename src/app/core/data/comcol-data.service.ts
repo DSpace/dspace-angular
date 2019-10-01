@@ -6,10 +6,11 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { FindAllOptions, FindByIDRequest } from './request.models';
+import { DeleteRequest, FindAllOptions, FindByIDRequest, RestRequest } from './request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getResponseFromEntry } from '../shared/operators';
+import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
+import { RestResponse } from '../cache/response.models';
 
 export abstract class ComColDataService<T extends CacheableObject> extends DataService<T> {
   protected abstract cds: CommunityDataService;
@@ -66,5 +67,18 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
     return this.halService.getEndpoint(this.linkPath).pipe(
       switchMap((href: string) => this.halService.getEndpoint('logo', `${href}/${id}`))
     )
+  }
+
+  /**
+   * Delete the logo from the community or collection
+   * @param id  The community or collection's ID
+   */
+  public deleteLogo(id: string): Observable<RestResponse> {
+    return this.getLogoEndpoint(id).pipe(
+      map((href: string) =>  new DeleteRequest(this.requestService.generateRequestId(), href)),
+      configureRequest(this.requestService),
+      switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
+      getResponseFromEntry()
+    );
   }
 }

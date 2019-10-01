@@ -1,7 +1,14 @@
 <div class="container-fluid">
   <label>{{type.value + '.edit.logo.label' | translate}}</label>
-  <ds-comcol-page-logo [logo]="(dso?.logo | async)?.payload"></ds-comcol-page-logo>
-  <ds-uploader  *ngIf="uploadFilesOptions.url"
+  <ng-container *ngVar="(dso?.logo | async)?.payload as logo">
+    <ds-comcol-page-logo [logo]="logo"></ds-comcol-page-logo>
+    <div *ngIf="logo" class="btn-group btn-group-sm float-right" role="group">
+      <button type="button" class="btn btn-danger" (click)="deleteLogo()">
+        <i class="fas fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+  </ng-container>
+  <ds-uploader  *ngIf="initializedUploaderOptions | async"
                 [dropMsg]="type.value + '.edit.logo.upload'"
                 [dropOverDocumentMsg]="type.value + '.edit.logo.upload'"
                 [enableDragOverDocument]="true"

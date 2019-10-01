@@ -20,6 +20,8 @@ import { Community } from '../../../core/shared/community.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { UploaderComponent } from '../../uploader/uploader.component';
 import { FileUploader } from 'ng2-file-upload';
+import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -92,6 +94,12 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   @Output() finishUpload: EventEmitter<any> = new EventEmitter();
 
   /**
+   * Observable keeping track whether or not the uploader has finished initializing
+   * Used to start rendering the uploader component
+   */
+  private initializedUploaderOptions = new BehaviorSubject(false);
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -128,12 +136,14 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
         this.dsoService.getLogoEndpoint(this.dso.id).subscribe((href: string) => {
           this.uploadFilesOptions.url = href;
           this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+          this.initializedUploaderOptions.next(true);
         })
       );
     } else {
       // Set a placeholder URL to not break the uploader component. This will be replaced once the object is created.
       this.uploadFilesOptions.url = 'placeholder';
       this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+      this.initializedUploaderOptions.next(true);
     }
   }
 
@@ -185,10 +195,32 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   }
 
   /**
+   * Send out a delete request to remove the logo from the community/collection and display notifications
+   */
+  deleteLogo() {
+    if (hasValue(this.dso.id)) {
+      this.dsoService.deleteLogo(this.dso.id).subscribe((response: RestResponse) => {
+        if (response.isSuccessful) {
+          this.notificationsService.success(
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
+          );
+        } else {
+          const errorResponse = response as ErrorResponse;
+          this.notificationsService.error(
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
+            errorResponse.errorMessage
+          );
+        }
+      });
+    }
+  }
+
+  /**
    * The request was successful, display a success notification
    */
   public onCompleteItem() {
-    this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.success'));
+    this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
     this.finishUpload.emit();
   }
 
@@ -196,7 +228,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * The request was unsuccessful, display an error notification
    */
   public onUploadError() {
-    this.notificationsService.error(null, this.translate.get(this.type.value + '.edit.logo.notifications.error'));
+    this.notificationsService.error(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.error'));
     this.finishUpload.emit();
   }
 
