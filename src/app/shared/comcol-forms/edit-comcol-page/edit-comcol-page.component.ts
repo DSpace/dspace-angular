@@ -3,10 +3,11 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
 import { isNotUndefined } from '../../empty.util';
-import { first, map } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { DataService } from '../../../core/data/data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
 
 /**
  * Component representing the edit page for communities and collections
@@ -26,7 +27,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
   public constructor(
-    protected dsoDataService: DataService<TDomain>,
+    protected dsoDataService: ComColDataService<TDomain>,
     protected router: Router,
     protected route: ActivatedRoute
   ) {
@@ -37,17 +38,39 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
   }
 
   /**
-   * @param {TDomain} dso The updated version of the DSO
    * Updates an existing DSO based on the submitted user data and navigates to the edited object's home page
+   * @param event   The event returned by the community/collection form. Contains the new dso and logo uploader
    */
-  onSubmit(dso: TDomain) {
+  onSubmit(event) {
+    const dso = event.dso;
+    const uploader = event.uploader;
+
     this.dsoDataService.update(dso)
       .pipe(getSucceededRemoteData())
       .subscribe((dsoRD: RemoteData<TDomain>) => {
         if (isNotUndefined(dsoRD)) {
           const newUUID = dsoRD.payload.uuid;
-          this.router.navigate([this.frontendURL + newUUID]);
+          if (uploader.queue.length > 0) {
+            this.dsoDataService.getLogoEndpoint(newUUID).pipe(take(1)).subscribe((href: string) => {
+              uploader.options.url = href;
+              uploader.uploadAll();
+            });
+          } else {
+            this.router.navigate([this.frontendURL + newUUID]);
+          }
         }
       });
+  }
+
+  /**
+   * Navigate to the home page of the object
+   */
+  navigateToHomePage() {
+    this.dsoRD$.pipe(
+      getSucceededRemoteData(),
+      take(1)
+    ).subscribe((dsoRD: RemoteData<TDomain>) => {
+      this.router.navigate([this.frontendURL + dsoRD.payload.id]);
+    });
   }
 }

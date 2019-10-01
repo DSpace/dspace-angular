@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, map, mergeMap, share, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, share, switchMap, take, tap } from 'rxjs/operators';
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
@@ -56,5 +56,15 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
 
       return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged(), share());
     }
+  }
+
+  /**
+   * Get the endpoint for the community or collection's logo
+   * @param id  The community or collection's ID
+   */
+  public getLogoEndpoint(id: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((href: string) => this.halService.getEndpoint('logo', `${href}/${id}`))
+    )
   }
 }

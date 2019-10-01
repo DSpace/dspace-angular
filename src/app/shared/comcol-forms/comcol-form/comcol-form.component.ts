@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import {
   DynamicFormService,
@@ -10,8 +10,16 @@ import { TranslateService } from '@ngx-translate/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { isNotEmpty } from '../../empty.util';
+import { hasValue, isNotEmpty, isUndefined } from '../../empty.util';
+import { UploaderOptions } from '../../uploader/uploader-options.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { AuthService } from '../../../core/auth/auth.service';
 import { Community } from '../../../core/shared/community.model';
+import { Collection } from '../../../core/shared/collection.model';
+import { UploaderComponent } from '../../uploader/uploader.component';
+import { FileUploader } from 'ng2-file-upload';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -21,11 +29,37 @@ import { Community } from '../../../core/shared/community.model';
   styleUrls: ['./comcol-form.component.scss'],
   templateUrl: './comcol-form.component.html'
 })
-export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
+export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDestroy {
+
+  /**
+   * The logo uploader component
+   */
+  @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
+
   /**
    * DSpaceObject that the form represents
    */
   @Input() dso: T;
+
+  /**
+   * i18n key for the logo's label
+   */
+  protected logoLabelMsg: string;
+
+  /**
+   * i18n key for the logo's drop message
+   */
+  protected logoDropMsg: string;
+
+  /**
+   * i18n key for the logo's upload success message
+   */
+  protected logoSuccessMsg: string;
+
+  /**
+   * i18n key for the logo's upload error message
+   */
+  protected logoErrorMsg: string;
 
   /**
    * Type of DSpaceObject that the form represents
@@ -53,14 +87,46 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   formGroup: FormGroup;
 
   /**
-   * Emits DSO when the form is submitted
-   * @type {EventEmitter<any>}
+   * The uploader configuration options
+   * @type {UploaderOptions}
    */
-  @Output() submitForm: EventEmitter<any> = new EventEmitter();
+  uploadFilesOptions: UploaderOptions = {
+    url: '',
+    authToken: null,
+    disableMultipart: true,
+    itemAlias: null,
+    autoUpload: false
+  };
 
-  public constructor(private location: Location,
-                     private formService: DynamicFormService,
-                     private translate: TranslateService) {
+  /**
+   * Emits DSO and Uploader when the form is submitted
+   */
+  @Output() submitForm: EventEmitter<{
+    dso: T,
+    uploader: FileUploader
+  }> = new EventEmitter();
+
+  /**
+   * Fires an event when the logo has finished uploading (with or without errors)
+   */
+  @Output() finishUpload: EventEmitter<any> = new EventEmitter();
+
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  protected subs: Subscription[] = [];
+
+  /**
+   * The service used to fetch from or send data to
+   */
+  protected dsoService: ComColDataService<Community | Collection>;
+
+  public constructor(protected location: Location,
+                     protected formService: DynamicFormService,
+                     protected translate: TranslateService,
+                     protected notificationsService: NotificationsService,
+                     protected authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -76,6 +142,19 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
       .subscribe(() => {
         this.updateFieldTranslations();
       });
+
+    if (hasValue(this.dso.id)) {
+      this.subs.push(
+        this.dsoService.getLogoEndpoint(this.dso.id).subscribe((href: string) => {
+          this.uploadFilesOptions.url = href;
+          this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+        })
+      );
+    } else {
+      // Set a placeholder URL to not break the uploader component. This will be replaced once the object is created.
+      this.uploadFilesOptions.url = 'placeholder';
+      this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+    }
   }
 
   /**
@@ -102,7 +181,10 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
       },
       type: Community.type
     });
-    this.submitForm.emit(updatedDSO);
+    this.submitForm.emit({
+      dso: updatedDSO,
+      uploader: this.uploaderComponent.uploader
+    });
   }
 
   /**
@@ -122,7 +204,32 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
     );
   }
 
+  /**
+   * The request was successful, display a success notification
+   */
+  public onCompleteItem() {
+    this.notificationsService.success(null, this.translate.get(this.logoSuccessMsg));
+    this.finishUpload.emit();
+  }
+
+  /**
+   * The request was unsuccessful, display an error notification
+   */
+  public onUploadError() {
+    this.notificationsService.error(null, this.translate.get(this.logoErrorMsg));
+    this.finishUpload.emit();
+  }
+
   onCancel() {
     this.location.back();
+  }
+
+  /**
+   * Unsubscribe from open subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 }

@@ -1,9 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
+import { DynamicFormService, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { Community } from '../../core/shared/community.model';
 import { ResourceType } from '../../core/shared/resource-type';
 import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
+import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 /**
  * Form used for creating and editing communities
@@ -18,6 +23,26 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
    * @type {Community} A new community when a community is being created, an existing Input community when a community is being edited
    */
   @Input() dso: Community = new Community();
+
+  /**
+   * i18n key for the logo's label
+   */
+  protected logoLabelMsg = 'community.edit.logo.label';
+
+  /**
+   * i18n key for the logo's drop message
+   */
+  protected logoDropMsg = 'community.edit.logo.upload';
+
+  /**
+   * i18n key for the logo's upload success message
+   */
+  protected logoSuccessMsg = 'community.edit.logo.notifications.success';
+
+  /**
+   * i18n key for the logo's upload error message
+   */
+  protected logoErrorMsg = 'community.edit.logo.notifications.error';
 
   /**
    * @type {Community.type} This is a community-type form
@@ -57,4 +82,13 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
       name: 'dc.description.tableofcontents',
     }),
   ];
+
+  public constructor(protected location: Location,
+                     protected formService: DynamicFormService,
+                     protected translate: TranslateService,
+                     protected notificationsService: NotificationsService,
+                     protected authService: AuthService,
+                     protected dsoService: CommunityDataService) {
+    super(location, formService, translate, notificationsService, authService);
+  }
 }

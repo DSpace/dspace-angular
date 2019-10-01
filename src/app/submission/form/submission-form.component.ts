@@ -81,7 +81,8 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
     url: '',
     authToken: null,
     disableMultipart: false,
-    itemAlias: null
+    itemAlias: null,
+    autoUpload: true
   };
 
   /**

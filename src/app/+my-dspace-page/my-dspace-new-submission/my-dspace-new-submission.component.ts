@@ -34,7 +34,8 @@ export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
     url: '',
     authToken: null,
     disableMultipart: false,
-    itemAlias: null
+    itemAlias: null,
+    autoUpload: true
   };
 
   /**

@@ -10,4 +10,6 @@ export class UploaderOptions {
   disableMultipart = false;
 
   itemAlias: string;
+
+  autoUpload = true;
 }
