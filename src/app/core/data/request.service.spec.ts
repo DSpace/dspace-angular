@@ -11,6 +11,7 @@ import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction } from './request.actions';
 import {
   DeleteRequest,
+  FindByIDRequest,
   GetRequest,
   HeadRequest,
   OptionsRequest,
@@ -21,6 +22,7 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { TestScheduler } from 'rxjs/testing';
+import { IdentifierType } from '../index/index.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -38,6 +40,7 @@ describe('RequestService', () => {
   const testDeleteRequest = new DeleteRequest(testUUID, testHref);
   const testOptionsRequest = new OptionsRequest(testUUID, testHref);
   const testHeadRequest = new HeadRequest(testUUID, testHref);
+  const testFindByIdRequest = new FindByIDRequest(testUUID, testHref, testUUID, IdentifierType.UUID);
   const testPatchRequest = new PatchRequest(testUUID, testHref);
   let selectSpy;
 
@@ -298,11 +301,20 @@ describe('RequestService', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
           (objectCache.hasBySelfLink as any).and.returnValue(true);
+          (objectCache.hasById as any).and.returnValue(true);
           spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
         });
 
-        it('should return true', () => {
+        it('should return true for GetRequest', () => {
           const result = serviceAsAny.isCachedOrPending(testGetRequest);
+          const expected = true;
+
+          expect(result).toEqual(expected);
+        });
+        it('should return true for instance of FindByIdRequest', () => {
+          (objectCache.hasBySelfLink as any).and.returnValue(false);
+          const result = serviceAsAny.isCachedOrPending(testFindByIdRequest);
+          expect(objectCache.hasById).toHaveBeenCalledWith(testUUID, IdentifierType.UUID);
           const expected = true;
 
           expect(result).toEqual(expected);
