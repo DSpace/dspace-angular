@@ -19,34 +19,37 @@
   - Environment file for running the DSpace 7 REST API in Docker.
 
 
-  ## To start DSpace from your branch using a published images for DSpace REST and DSpace Angular.
-  ```
-  docker-compose -p d7 -f docker-compose.yml -f docker/docker-compose-rest.yml up -d
-  ```
+## To refresh / pull DSpace images from Dockerhub
+```
+docker-compose pull
+```
 
-  ## To build DSpace Angular from your branch using a published image for DSpace REST.
-  ```
-  docker-compose -p d7 -f docker-compose.yml -f docker/docker-compose-rest.yml up --build -d
-  ```
+## To build DSpace images using code in your branch
+```
+docker-compose build
+```
 
-  ## To build DSpace REST and DSpace Angular.
-  _The system will be started in 2 steps. Each step shares the same docker network._
+## To start DSpace (REST and Angular) from your branch
+```
+docker-compose -p d7 -f docker-compose.yml -f docker/docker-compose-rest.yml up -d
+```
 
-  From DSpace/DSpace
-  ```
-  docker-compose -p d7 up --build -d
-  ```
+## To build DSpace REST and DSpace Angular.
+_The system will be started in 2 steps. Each step shares the same docker network._
 
+From DSpace/DSpace
+```
+docker-compose -p d7 up --build -d
+```
 
-  From DSpace/DSpace-angular
-  ```
-  docker-compose -p d7 up --build -d
-  ```
+From DSpace/DSpace-angular
+```
+docker-compose -p d7 up --build -d
+```
 
-  ## End to end testing of the rest api (runs in travis).
-  _In this instance, only the REST api runs in Docker.  Travis will perform CI testing of Angular using Node to drive the tests._
+## End to end testing of the rest api (runs in travis).
+_In this instance, only the REST api runs in Docker.  Travis will perform CI testing of Angular using Node to drive the tests._
 
-
-  ```
-  docker-compose -p d7ci -f docker/docker-compose-travis.yml up -d
-  ```
+```
+docker-compose -p d7ci -f docker/docker-compose-travis.yml up -d
+```
