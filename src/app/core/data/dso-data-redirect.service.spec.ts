@@ -19,7 +19,6 @@ describe('DsoDataRedirectService', () => {
   let halService: HALEndpointService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
-  let objectCache: ObjectCacheService;
   let router;
   let remoteData;
   const dsoUUID = '9b4f22f4-164a-49db-8817-3316b6ee5746';
@@ -29,7 +28,13 @@ describe('DsoDataRedirectService', () => {
   const requestHandleURL = `https://rest.api/rest/api/pid/find?id=${encodedHandle}`;
   const requestUUIDURL = `https://rest.api/rest/api/pid/find?id=${dsoUUID}`;
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
-
+  const store = {} as Store<CoreState>;
+  const notificationsService = {} as NotificationsService;
+  const http = {} as HttpClient;
+  const comparator = {} as any;
+  const dataBuildService = {} as NormalizedObjectBuildService;
+  const objectCache = {} as ObjectCacheService;
+  let setup;
   beforeEach(() => {
     scheduler = getTestScheduler();
 
@@ -40,14 +45,10 @@ describe('DsoDataRedirectService', () => {
       generateRequestId: requestUUID,
       configure: true
     });
-    rdbService = jasmine.createSpyObj('rdbService', {
-      buildSingle: cold('a', {
-        a: remoteData
-      })
-    });
     router = {
       navigate: jasmine.createSpy('navigate')
     };
+
     remoteData = {
       isSuccessful: true,
       error: undefined,
@@ -58,29 +59,31 @@ describe('DsoDataRedirectService', () => {
         uuid: '123456789'
       }
     };
-    objectCache = {} as ObjectCacheService;
-    const store = {} as Store<CoreState>;
-    const notificationsService = {} as NotificationsService;
-    const http = {} as HttpClient;
-    const comparator = {} as any;
-    const dataBuildService = {} as NormalizedObjectBuildService;
 
-    service = new DsoDataRedirectService(
-      requestService,
-      rdbService,
-      dataBuildService,
-      store,
-      objectCache,
-      halService,
-      notificationsService,
-      http,
-      comparator,
-      router
-    );
+    setup = () => {
+      rdbService = jasmine.createSpyObj('rdbService', {
+        buildSingle: cold('a', {
+          a: remoteData
+        })
+      });
+      service = new DsoDataRedirectService(
+        requestService,
+        rdbService,
+        dataBuildService,
+        store,
+        objectCache,
+        halService,
+        notificationsService,
+        http,
+        comparator,
+        router
+      );
+    }
   });
 
   describe('findById', () => {
     it('should call HALEndpointService with the path to the pid endpoint', () => {
+      setup();
       scheduler.schedule(() => service.findById(dsoUUID));
       scheduler.flush();
 
@@ -88,6 +91,7 @@ describe('DsoDataRedirectService', () => {
     });
 
     it('should configure the proper FindByIDRequest for uuid', () => {
+      setup();
       scheduler.schedule(() => service.findById(dsoUUID, IdentifierType.UUID));
       scheduler.flush();
 
@@ -95,13 +99,16 @@ describe('DsoDataRedirectService', () => {
     });
 
     it('should configure the proper FindByIDRequest for handle', () => {
+      setup();
       scheduler.schedule(() => service.findById(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
       expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestHandleURL, dsoHandle, IdentifierType.HANDLE), false);
     });
 
-    it('should navigate to dso route', () => {
+    it('should navigate to item route', () => {
+      remoteData.payload.type = 'item';
+      setup();
       const redir = service.findById(dsoHandle, IdentifierType.HANDLE);
       // The framework would normally subscribe but do it here so we can test navigation.
       redir.subscribe();
@@ -109,5 +116,27 @@ describe('DsoDataRedirectService', () => {
       scheduler.flush();
       expect(router.navigate).toHaveBeenCalledWith([remoteData.payload.type + 's/' + remoteData.payload.uuid]);
     });
+
+    it('should navigate to collections route', () => {
+      remoteData.payload.type = 'collection';
+      setup();
+      const redir = service.findById(dsoHandle, IdentifierType.HANDLE);
+      redir.subscribe();
+      scheduler.schedule(() => redir);
+      scheduler.flush();
+      expect(router.navigate).toHaveBeenCalledWith([remoteData.payload.type + 's/' + remoteData.payload.uuid]);
+    });
+
+    it('should navigate to communities route', () => {
+      remoteData.payload.type = 'community';
+      setup();
+      const redir = service.findById(dsoHandle, IdentifierType.HANDLE);
+      redir.subscribe();
+      scheduler.schedule(() => redir);
+      scheduler.flush();
+      expect(router.navigate).toHaveBeenCalledWith(['communities/' + remoteData.payload.uuid]);
+    });
   })
 });
+
+

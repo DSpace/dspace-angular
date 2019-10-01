@@ -14,7 +14,7 @@ interface LookupParams {
 
 @Injectable()
 export class LookupGuard implements CanActivate {
-  constructor(private dsoService: DsoDataRedirectService, private router: Router) {
+  constructor(private dsoService: DsoDataRedirectService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state:RouterStateSnapshot): Observable<boolean>  {
