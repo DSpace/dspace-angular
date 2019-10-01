@@ -42,26 +42,6 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   @Input() dso: T;
 
   /**
-   * i18n key for the logo's label
-   */
-  protected logoLabelMsg: string;
-
-  /**
-   * i18n key for the logo's drop message
-   */
-  protected logoDropMsg: string;
-
-  /**
-   * i18n key for the logo's upload success message
-   */
-  protected logoSuccessMsg: string;
-
-  /**
-   * i18n key for the logo's upload error message
-   */
-  protected logoErrorMsg: string;
-
-  /**
    * Type of DSpaceObject that the form represents
    */
   protected type: ResourceType;
@@ -208,7 +188,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * The request was successful, display a success notification
    */
   public onCompleteItem() {
-    this.notificationsService.success(null, this.translate.get(this.logoSuccessMsg));
+    this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.success'));
     this.finishUpload.emit();
   }
 
@@ -216,7 +196,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * The request was unsuccessful, display an error notification
    */
   public onUploadError() {
-    this.notificationsService.error(null, this.translate.get(this.logoErrorMsg));
+    this.notificationsService.error(null, this.translate.get(this.type.value + '.edit.logo.notifications.error'));
     this.finishUpload.emit();
   }
 

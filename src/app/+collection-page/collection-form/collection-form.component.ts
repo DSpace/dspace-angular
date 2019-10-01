@@ -25,26 +25,6 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
   @Input() dso: Collection = new Collection();
 
   /**
-   * i18n key for the logo's label
-   */
-  protected logoLabelMsg = 'collection.edit.logo.label';
-
-  /**
-   * i18n key for the logo's drop message
-   */
-  protected logoDropMsg = 'collection.edit.logo.upload';
-
-  /**
-   * i18n key for the logo's upload success message
-   */
-  protected logoSuccessMsg = 'collection.edit.logo.notifications.success';
-
-  /**
-   * i18n key for the logo's upload error message
-   */
-  protected logoErrorMsg = 'collection.edit.logo.notifications.error';
-
-  /**
    * @type {Collection.type} This is a collection-type form
    */
   protected type = Collection.type;

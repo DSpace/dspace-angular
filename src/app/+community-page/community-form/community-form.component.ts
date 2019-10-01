@@ -25,26 +25,6 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
   @Input() dso: Community = new Community();
 
   /**
-   * i18n key for the logo's label
-   */
-  protected logoLabelMsg = 'community.edit.logo.label';
-
-  /**
-   * i18n key for the logo's drop message
-   */
-  protected logoDropMsg = 'community.edit.logo.upload';
-
-  /**
-   * i18n key for the logo's upload success message
-   */
-  protected logoSuccessMsg = 'community.edit.logo.notifications.success';
-
-  /**
-   * i18n key for the logo's upload error message
-   */
-  protected logoErrorMsg = 'community.edit.logo.notifications.error';
-
-  /**
    * @type {Community.type} This is a community-type form
    */
   protected type = Community.type;

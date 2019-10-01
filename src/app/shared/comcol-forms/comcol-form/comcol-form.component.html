@@ -1,9 +1,9 @@
 <div class="container-fluid">
-  <label>{{logoLabelMsg | translate}}</label>
+  <label>{{type.value + '.edit.logo.label' | translate}}</label>
   <ds-comcol-page-logo [logo]="(dso?.logo | async)?.payload"></ds-comcol-page-logo>
   <ds-uploader  *ngIf="uploadFilesOptions.url"
-                [dropMsg]="logoDropMsg"
-                [dropOverDocumentMsg]="logoDropMsg"
+                [dropMsg]="type.value + '.edit.logo.upload'"
+                [dropOverDocumentMsg]="type.value + '.edit.logo.upload'"
                 [enableDragOverDocument]="true"
                 [uploadFilesOptions]="uploadFilesOptions"
                 (onCompleteItem)="onCompleteItem()"
