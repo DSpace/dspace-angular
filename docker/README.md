@@ -43,7 +43,7 @@ docker-compose -p d7 up -d
 
 From DSpace/DSpace-angular
 ```
-docker-compose -p d7 up -d
+docker-compose -p d7 -f docker/docker-compose.yml up -d
 ```
 
 ## Ingest test data from AIPDIR
