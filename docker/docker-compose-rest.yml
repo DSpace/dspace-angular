@@ -26,6 +26,8 @@ services:
   dspacedb:
     container_name: dspacedb
     image: dspace/dspace-postgres-pgcrypto
+    environment:
+      PGDATA: /pgdata
     networks:
       dspacenet:
     stdin_open: true

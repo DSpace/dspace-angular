@@ -11,10 +11,10 @@ services:
       DSPACE_SSL: "false"
     image: dspace/dspace-angular:latest
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
     networks:
-      dspacenet: 
+      dspacenet:
     ports:
     - published: 3000
       target: 3000
@@ -23,4 +23,4 @@ services:
     stdin_open: true
     tty: true
     volumes:
-    - ./docker/environment.dev.js:/app/config/environment.dev.js
+    - ./environment.dev.js:/app/config/environment.dev.js

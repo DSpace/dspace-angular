@@ -1,10 +1,8 @@
 # Docker Compose files
 
-## root directory
+## docker directory
 - docker-compose.yml
   - Starts DSpace Angular with Docker Compose from the current branch.  This file assumes that a DSpace 7 REST instance will also be started in Docker.
-
-## docker directory
 - docker-compose-rest.yml
   - Runs a published instance of the DSpace 7 REST API - persists data in Docker volumes
 - docker-compose-travis.yml
@@ -21,18 +19,18 @@
 
 ## To refresh / pull DSpace images from Dockerhub
 ```
-docker-compose pull
+docker-compose -f docker/docker-compose.yml pull
 ```
 
 ## To build DSpace images using code in your branch
 ```
-docker-compose build
+docker-compose-f docker/docker-compose.yml build
 ```
 
 ## To start DSpace (REST and Angular) from your branch
 
 ```
-docker-compose -p d7 -f docker/docker-compose-rest.yml -f docker-compose.yml  up -d
+docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml up -d
 ```
 
 ## Run DSpace REST and DSpace Angular from local branches.
@@ -58,6 +56,12 @@ docker-compose -p d7 -f docker/cli.yml run --rm dspace-cli create-administrator 
 Load content from AIP files
 ```
 docker-compose -p d7 -f docker/cli.yml -f ./docker/cli.ingest.yml run --rm dspace-cli
+```
+
+## Alternative Ingest - Use Entities dataset
+_Delete your docker volumes or use a unique project (-p) name_
+```
+docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/db.entities.yml up -d
 ```
 
 
