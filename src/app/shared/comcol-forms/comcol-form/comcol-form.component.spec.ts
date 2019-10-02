@@ -7,10 +7,14 @@ import { DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { Community } from '../../../core/shared/community.model';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { ComColFormComponent } from './comcol-form.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { hasValue } from '../../empty.util';
+import { VarDirective } from '../../utils/var.directive';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthServiceMock } from '../../mocks/mock-auth.service';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<DSpaceObject>;
@@ -56,10 +60,12 @@ describe('ComColFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [ComColFormComponent],
+      declarations: [ComColFormComponent, VarDirective],
       providers: [
         { provide: Location, useValue: locationStub },
-        { provide: DynamicFormService, useValue: formServiceStub }
+        { provide: DynamicFormService, useValue: formServiceStub },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: AuthService, useValue: new AuthServiceMock() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -70,6 +76,10 @@ describe('ComColFormComponent', () => {
     comp = fixture.componentInstance;
     comp.formModel = [];
     comp.dso = new Community();
+    (comp as any).type = Community.type;
+    comp.uploaderComponent = Object.assign({
+      uploader: {}
+    });
     fixture.detectChanges();
     location = (comp as any).location;
   });
@@ -94,18 +104,21 @@ describe('ComColFormComponent', () => {
       comp.onSubmit();
 
       expect(comp.submitForm.emit).toHaveBeenCalledWith(
-        Object.assign(
-          {},
-          new Community(),
-          {
-            metadata: {
-              ...newTitleMD,
-              ...randomMD,
-              ...abstractMD
+        {
+          dso: Object.assign(
+            {},
+            new Community(),
+            {
+              metadata: {
+                ...newTitleMD,
+                ...randomMD,
+                ...abstractMD
+              },
+              type: Community.type
             },
-            type: Community.type
-          },
-        )
+          ),
+          uploader: {}
+        }
       );
     })
   });

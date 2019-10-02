@@ -16,6 +16,7 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$
 } from '../../testing/utils';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
 
 describe('CreateComColPageComponent', () => {
   let comp: CreateComColPageComponent<DSpaceObject>;
@@ -74,7 +75,7 @@ describe('CreateComColPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       providers: [
-        { provide: DataService, useValue: communityDataServiceStub },
+        { provide: ComColDataService, useValue: communityDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
@@ -96,12 +97,21 @@ describe('CreateComColPageComponent', () => {
   describe('onSubmit', () => {
     let data;
     beforeEach(() => {
-      data = Object.assign(new Community(), {
-        metadata: [{
-          key: 'dc.title',
-          value: 'test'
-        }]
-      });
+      data = {
+        dso: Object.assign(new Community(), {
+          metadata: [{
+            key: 'dc.title',
+            value: 'test'
+          }]
+        }),
+        uploader: {
+          options: {
+            url: ''
+          },
+          queue: [],
+          uploadAll: {}
+        }
+      };
     });
     it('should navigate when successful', () => {
       spyOn(router, 'navigate');
