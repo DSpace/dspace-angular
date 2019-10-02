@@ -106,7 +106,7 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
           const value = option.id || option.value;
           const checked: boolean = isNotEmpty(findKey(
             this.model.value,
-            (v) => v.value === option.value));
+            (v) => isNotEmpty(v) && v.value === option.value));
 
           const item: ListItem = {
             id: value,
