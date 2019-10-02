@@ -60,10 +60,16 @@ docker-compose -p d7 -f docker/cli.yml -f ./docker/cli.ingest.yml run --rm dspac
 
 ## Alternative Ingest - Use Entities dataset
 _Delete your docker volumes or use a unique project (-p) name_
+
+Start DSpace with Database Content from a database dump
 ```
 docker-compose -p d7 -f docker/docker-compose.yml -f docker/docker-compose-rest.yml -f docker/db.entities.yml up -d
 ```
 
+Load assetstore content and trigger a re-index of the repository
+```
+docker-compose -p d7 -f docker/cli.yml -f docker/cli.assetstore.yml run --rm dspace-cli
+```
 
 ## End to end testing of the rest api (runs in travis).
 _In this instance, only the REST api runs in Docker.  Travis will perform CI testing of Angular using Node to drive the tests._
