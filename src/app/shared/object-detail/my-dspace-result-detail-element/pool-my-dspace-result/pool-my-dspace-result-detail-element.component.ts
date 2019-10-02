@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { isNotUndefined } from '../../../empty.util';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
@@ -12,6 +11,7 @@ import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * This component renders pool task object for the mydspace result in the detail view.
@@ -22,8 +22,8 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
   templateUrl: './pool-my-dspace-result-detail-element.component.html',
 })
 
-@renderElementsFor(PoolTaskMyDSpaceResult, ViewMode.DetailedListElement)
-@renderElementsFor(PoolTask, ViewMode.DetailedListElement)
+@listableObjectComponent(PoolTaskMyDSpaceResult, ViewMode.DetailedListElement)
+@listableObjectComponent(PoolTask, ViewMode.DetailedListElement)
 export class PoolMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
 
   /**

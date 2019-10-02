@@ -1,10 +1,10 @@
-import { rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { Component } from '@angular/core';
 import { focusShadow } from '../../../../shared/animations/focus';
 import { TypedItemSearchResultGridElementComponent } from '../../../../shared/object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 
-@rendersItemType('OrgUnit', ViewMode.GridElement)
+@listableObjectComponent('OrgUnit', ViewMode.GridElement)
 @Component({
   selector: 'ds-orgunit-grid-element',
   styleUrls: ['./orgunit-grid-element.component.scss'],

@@ -5,7 +5,7 @@ import { ProjectListElementComponent } from './project-list-element.component';
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 
 let projectListElementComponent: ProjectListElementComponent;

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { hasValue } from '../../../empty.util';
-import { ITEM } from '../../../items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../items/switcher/listable-object-component-loader.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';

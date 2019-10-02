@@ -3,7 +3,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { SearchResultGridElementComponent } from '../../search-result-grid-element/search-result-grid-element.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { Component, Inject } from '@angular/core';
-import { ITEM } from '../../../items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../items/switcher/listable-object-component-loader.component';
 import { hasValue } from '../../../empty.util';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
 

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { DEFAULT_ITEM_TYPE, rendersItemType } from '../../../../items/item-type-decorator';
 import { TypedItemSearchResultListElementComponent } from '../typed-item-search-result-list-element.component';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 
-@rendersItemType('Publication', ViewMode.ListElement)
-@rendersItemType(DEFAULT_ITEM_TYPE, ViewMode.ListElement)
+@listableObjectComponent('Publication', ViewMode.ListElement)
+@listableObjectComponent(DEFAULT_ITEM_TYPE, ViewMode.ListElement)
 @Component({
   selector: 'ds-publication-list-element',
   styleUrls: ['./publication-list-element.component.scss'],

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { Community } from '../../../core/shared/community.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 
 @Component({
   selector: 'ds-community-grid-element',
@@ -11,5 +11,5 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
   templateUrl: './community-grid-element.component.html'
 })
 
-@renderElementsFor(Community, ViewMode.GridElement)
+@listableObjectComponent(Community, ViewMode.GridElement)
 export class CommunityGridElementComponent extends AbstractListableElementComponent<Community> {}

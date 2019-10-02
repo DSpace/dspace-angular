@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -12,6 +11,7 @@ import { WorkflowitemMyDSpaceResult } from '../../../object-collection/shared/wo
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * This component renders workflowitem object for the mydspace result in the list view.
@@ -22,8 +22,8 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
   templateUrl: './workflowitem-my-dspace-result-list-element.component.html',
 })
 
-@renderElementsFor(WorkflowitemMyDSpaceResult, ViewMode.ListElement)
-@renderElementsFor(WorkflowItem, ViewMode.ListElement)
+@listableObjectComponent(WorkflowitemMyDSpaceResult, ViewMode.ListElement)
+@listableObjectComponent(WorkflowItem, ViewMode.ListElement)
 export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkflowitemMyDSpaceResult, WorkflowItem> {
 
   /**

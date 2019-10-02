@@ -9,7 +9,7 @@ import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule
 import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ItemTypeSwitcherComponent } from './items/switcher/item-type-switcher.component';
+import { ListableObjectComponentLoaderComponent } from './items/switcher/listable-object-component-loader.component';
 import { TypedItemSearchResultListElementComponent } from './object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
@@ -143,6 +143,8 @@ import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-sugg
 import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
 import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
 import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
+import { MetadataRepresentationLoaderComponent } from './metadata-representation/metadata-representation-loader.component';
+import { MetadataRepresentationDirective } from './metadata-representation/metadata-representation.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -264,9 +266,10 @@ const COMPONENTS = [
   ItemSearchResultListElementComponent,
   TypedItemSearchResultListElementComponent,
   TypedItemSearchResultGridElementComponent,
-  ItemTypeSwitcherComponent,
+  ListableObjectComponentLoaderComponent,
   BrowseByComponent,
-  ItemTypeBadgeComponent
+  ItemTypeBadgeComponent,
+  MetadataRepresentationLoaderComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -335,7 +338,8 @@ const DIRECTIVES = [
   AuthorityConfidenceStateDirective,
   InListValidator,
   AutoFocusDirective,
-  RoleDirective
+  RoleDirective,
+  MetadataRepresentationDirective
 ];
 
 @NgModule({

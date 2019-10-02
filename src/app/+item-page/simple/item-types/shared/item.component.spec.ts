@@ -7,7 +7,7 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';

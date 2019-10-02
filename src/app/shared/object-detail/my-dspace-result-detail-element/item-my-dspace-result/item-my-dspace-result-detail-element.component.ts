@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemMyDSpaceResult } from '../../../object-collection/shared/item-my-dspace-result.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * This component renders item object for the mydspace result in the detail view.
@@ -16,7 +16,7 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
   templateUrl: './item-my-dspace-result-detail-element.component.html'
 })
 
-@renderElementsFor(ItemMyDSpaceResult, ViewMode.DetailedListElement)
+@listableObjectComponent(ItemMyDSpaceResult, ViewMode.DetailedListElement)
 export class ItemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ItemMyDSpaceResult, Item> {
 
   /**

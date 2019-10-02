@@ -5,7 +5,7 @@ import { JournalVolumeListElementComponent } from './journal-volume-list-element
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 
 let journalVolumeListElementComponent: JournalVolumeListElementComponent;

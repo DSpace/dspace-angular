@@ -7,7 +7,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { ITEM } from '../../../items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../items/switcher/listable-object-component-loader.component';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { createRelationshipsObservable } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
 import { of as observableOf } from 'rxjs';

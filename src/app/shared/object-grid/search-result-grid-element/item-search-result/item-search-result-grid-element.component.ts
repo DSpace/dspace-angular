@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { SearchResultGridElementComponent } from '../search-result-grid-element.component';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { focusShadow } from '../../../animations/focus';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 @Component({
   selector: 'ds-item-search-result-grid-element',
@@ -14,7 +14,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
   animations: [focusShadow],
 })
 
-@renderElementsFor(ItemSearchResult, ViewMode.GridElement)
+@listableObjectComponent(ItemSearchResult, ViewMode.GridElement)
 export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
   viewMode = ViewMode.GridElement;
 }

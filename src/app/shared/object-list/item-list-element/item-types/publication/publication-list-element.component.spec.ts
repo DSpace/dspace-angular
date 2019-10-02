@@ -5,7 +5,7 @@ import { PublicationListElementComponent } from './publication-list-element.comp
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { ITEM } from '../../../../items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../../items/switcher/listable-object-component-loader.component';
 import { of as observableOf } from 'rxjs';
 
 let publicationListElementComponent: PublicationListElementComponent;

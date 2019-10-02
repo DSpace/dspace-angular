@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { Item } from '../../../../core/shared/item.model';

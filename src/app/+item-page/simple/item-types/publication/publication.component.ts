@@ -1,16 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
-import {
-  DEFAULT_ITEM_TYPE, rendersItemType
-} from '../../../../shared/items/item-type-decorator';
 import { ItemComponent } from '../shared/item.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { getRelatedItemsByTypeLabel } from '../shared/item-relationships-utils';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 
-@rendersItemType('Publication', ViewMode.StandalonePage)
-@rendersItemType(DEFAULT_ITEM_TYPE, ViewMode.StandalonePage)
+@listableObjectComponent('Publication', ViewMode.StandalonePage)
+@listableObjectComponent(DEFAULT_ITEM_TYPE, ViewMode.StandalonePage)
 @Component({
   selector: 'ds-publication',
   styleUrls: ['./publication.component.scss'],

@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ListableObject } from '../../../object-collection/shared/listable-object.model';
@@ -12,6 +11,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { find } from 'rxjs/operators';
 import { isNotUndefined } from '../../../empty.util';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * This component renders workflowitem object for the mydspace result in the detail view.
@@ -22,8 +22,8 @@ import { isNotUndefined } from '../../../empty.util';
   templateUrl: './workflowitem-my-dspace-result-detail-element.component.html',
 })
 
-@renderElementsFor(WorkflowitemMyDSpaceResult, ViewMode.DetailedListElement)
-@renderElementsFor(WorkflowItem, ViewMode.DetailedListElement)
+@listableObjectComponent(WorkflowitemMyDSpaceResult, ViewMode.DetailedListElement)
+@listableObjectComponent(WorkflowItem, ViewMode.DetailedListElement)
 export class WorkflowitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkflowitemMyDSpaceResult, WorkflowItem> {
 
   /**

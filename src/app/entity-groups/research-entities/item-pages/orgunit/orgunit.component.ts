@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
-import { rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
 import { getRelatedItemsByTypeLabel } from '../../../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 
-@rendersItemType('OrgUnit', ViewMode.StandalonePage)
+@listableObjectComponent('OrgUnit', ViewMode.StandalonePage)
 @Component({
   selector: 'ds-orgunit',
   styleUrls: ['./orgunit.component.scss'],

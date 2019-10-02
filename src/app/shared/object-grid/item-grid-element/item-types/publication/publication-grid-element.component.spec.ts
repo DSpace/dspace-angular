@@ -8,7 +8,7 @@ import { PublicationGridElementComponent } from './publication-grid-element.comp
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { ITEM } from '../../../../items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../../items/switcher/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../../core/shared/page-info.model';

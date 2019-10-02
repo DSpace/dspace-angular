@@ -1,9 +1,9 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Item } from '../../../core/shared/item.model';
-import { renderElementsFor} from '../../object-collection/shared/dso-element-decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 
 @Component({
   selector: 'ds-item-grid-element',
@@ -11,5 +11,5 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
   templateUrl: './item-grid-element.component.html'
 })
 
-@renderElementsFor(Item, ViewMode.GridElement)
+@listableObjectComponent(Item, ViewMode.GridElement)
 export class ItemGridElementComponent extends AbstractListableElementComponent<Item> {}

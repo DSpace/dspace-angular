@@ -3,7 +3,6 @@ import { Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import {
   WorkspaceItem
 } from '../../../../core/submission/models/workspaceitem.model';
@@ -15,6 +14,7 @@ import { ListableObject } from '../../../object-collection/shared/listable-objec
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * This component renders workspaceitem object for the mydspace result in the detail view.
@@ -25,8 +25,8 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
   templateUrl: './workspaceitem-my-dspace-result-detail-element.component.html',
 })
 
-@renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.DetailedListElement)
-@renderElementsFor(WorkspaceItem, ViewMode.DetailedListElement)
+@listableObjectComponent(WorkspaceitemMyDSpaceResult, ViewMode.DetailedListElement)
+@listableObjectComponent(WorkspaceItem, ViewMode.DetailedListElement)
 export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkspaceitemMyDSpaceResult, WorkspaceItem> {
 
   /**

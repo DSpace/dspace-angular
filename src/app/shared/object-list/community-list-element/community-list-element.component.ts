@@ -2,8 +2,8 @@ import { Component, Input, Inject } from '@angular/core';
 
 import { Community } from '../../../core/shared/community.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { renderElementsFor } from '../../object-collection/shared/dso-element-decorator';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 
 @Component({
   selector: 'ds-community-list-element',
@@ -11,5 +11,5 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
   templateUrl: './community-list-element.component.html'
 })
 
-@renderElementsFor(Community, ViewMode.ListElement)
+@listableObjectComponent(Community, ViewMode.ListElement)
 export class CommunityListElementComponent extends AbstractListableElementComponent<Community> {}

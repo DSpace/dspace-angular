@@ -1,7 +1,7 @@
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { hasNoValue, hasValue } from '../empty.util';
 import { Context } from '../../core/shared/context.model';
-import { DEFAULT_ITEM_TYPE } from '../items/item-type-decorator';
+import { DEFAULT_ITEM_TYPE } from '../object-collection/shared/listable-object/listable-object.decorator';
 
 const map = new Map();
 
@@ -26,19 +26,18 @@ export function metadataRepresentationComponent(entityType: string, mdRepresenta
 }
 
 export function getMetadataRepresentationComponent(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context = DEFAULT_CONTEXT) {
-  if (hasNoValue(entityType) || hasNoValue(map.get(entityType))) {
-    entityType = DEFAULT_ITEM_TYPE;
+  const mapForEntity = map.get(entityType);
+  if (hasValue(mapForEntity)) {
+    const entityAndMDRepMap = mapForEntity.get(mdRepresentationType);
+    if (hasValue(entityAndMDRepMap)) {
+      if (hasValue(entityAndMDRepMap.get(context))) {
+        return entityAndMDRepMap.get(context);
+      }
+      if (hasValue(entityAndMDRepMap.get(DEFAULT_CONTEXT))) {
+        return entityAndMDRepMap.get(DEFAULT_CONTEXT);
+      }
+    }
+    return mapForEntity.get(DEFAULT_REPRESENTATION_TYPE).get(DEFAULT_CONTEXT);
   }
-
-  if (hasNoValue(map.get(entityType).get(mdRepresentationType))) {
-    mdRepresentationType = DEFAULT_REPRESENTATION_TYPE;
-  }
-
-  let representationComponent = map.get(entityType).get(mdRepresentationType).get(context);
-
-  if (hasNoValue(representationComponent)) {
-    representationComponent = map.get(entityType).get(mdRepresentationType).get(DEFAULT_REPRESENTATION_TYPE);
-  }
-
-  return representationComponent;
+  return map.get(DEFAULT_ITEM_TYPE).get(DEFAULT_REPRESENTATION_TYPE).get(DEFAULT_CONTEXT);
 }

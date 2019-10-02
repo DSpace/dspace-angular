@@ -4,9 +4,9 @@
 
 export enum Context {
   Undefined = 'undefined',
-  SearchList = 'searchList',
-  SearchGrid = 'searchGrid',
+  ItemPage = 'itemPage',
+  Search = 'search',
   Submission = 'submission',
-  AdminMenuList = 'adminMenuList',
+  AdminMenu = 'adminMenu',
   SubmissionModal = 'submissionModal',
 }

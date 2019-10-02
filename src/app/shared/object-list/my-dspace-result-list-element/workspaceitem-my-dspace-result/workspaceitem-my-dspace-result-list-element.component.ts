@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
@@ -12,6 +11,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { isNotUndefined } from '../../../empty.util';
 import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * This component renders workspaceitem object for the mydspace result in the list view.
@@ -22,7 +22,7 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
   templateUrl: './workspaceitem-my-dspace-result-list-element.component.html',
 })
 
-@renderElementsFor(WorkspaceitemMyDSpaceResult, ViewMode.ListElement)
+@listableObjectComponent(WorkspaceitemMyDSpaceResult, ViewMode.ListElement)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, WorkspaceItem> {
 
   /**

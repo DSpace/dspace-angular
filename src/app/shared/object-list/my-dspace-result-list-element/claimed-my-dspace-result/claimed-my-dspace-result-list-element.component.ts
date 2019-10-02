@@ -4,7 +4,6 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { MyDSpaceResultListElementComponent, } from '../my-dspace-result-list-element.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -13,6 +12,7 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * This component renders claimed task object for the mydspace result in the list view.
@@ -24,8 +24,8 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
   providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
 
-@renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.ListElement)
-@renderElementsFor(ClaimedTask, ViewMode.ListElement)
+@listableObjectComponent(ClaimedTaskMyDSpaceResult, ViewMode.ListElement)
+@listableObjectComponent(ClaimedTask, ViewMode.ListElement)
 export class ClaimedMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
 
   /**

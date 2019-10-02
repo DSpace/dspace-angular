@@ -1,10 +1,11 @@
 import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { Component } from '@angular/core';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
-import { DEFAULT_ITEM_TYPE, rendersItemType } from '../../../items/item-type-decorator';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
+import { DEFAULT_ITEM_TYPE } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
-@rendersItemType(DEFAULT_ITEM_TYPE, ViewMode.MetadataField, MetadataRepresentationType.Item)
+@metadataRepresentationComponent(DEFAULT_ITEM_TYPE, MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-item-metadata-list-element',
   templateUrl: './item-metadata-list-element.component.html'

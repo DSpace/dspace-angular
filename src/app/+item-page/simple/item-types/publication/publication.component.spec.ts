@@ -3,7 +3,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';

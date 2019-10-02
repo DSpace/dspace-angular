@@ -3,7 +3,6 @@ import { Component, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
-import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { isNotUndefined } from '../../../empty.util';
@@ -13,6 +12,7 @@ import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.m
 import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
+import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 
 /**
  * This component renders claimed task object for the mydspace result in the detail view.
@@ -23,8 +23,8 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
   templateUrl: './claimed-my-dspace-result-detail-element.component.html'
 })
 
-@renderElementsFor(ClaimedTaskMyDSpaceResult, ViewMode.DetailedListElement)
-@renderElementsFor(ClaimedTask, ViewMode.DetailedListElement)
+@listableObjectComponent(ClaimedTaskMyDSpaceResult, ViewMode.DetailedListElement)
+@listableObjectComponent(ClaimedTask, ViewMode.DetailedListElement)
 export class ClaimedMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
 
   /**

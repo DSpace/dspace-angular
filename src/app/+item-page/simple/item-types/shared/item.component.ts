@@ -8,7 +8,7 @@ import { RelationshipType } from '../../../../core/shared/item-relationships/rel
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
+import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';

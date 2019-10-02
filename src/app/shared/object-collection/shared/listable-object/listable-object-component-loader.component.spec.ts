@@ -1,4 +1,4 @@
-import { ItemTypeSwitcherComponent } from './item-type-switcher.component';
+import { ListableObjectComponentLoaderComponent } from './listable-object-component-loader.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -33,18 +33,18 @@ const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentat
 let viewMode = ViewMode.StandalonePage;
 
 describe('ItemTypeSwitcherComponent', () => {
-  let comp: ItemTypeSwitcherComponent;
-  let fixture: ComponentFixture<ItemTypeSwitcherComponent>;
+  let comp: ListableObjectComponentLoaderComponent;
+  let fixture: ComponentFixture<ListableObjectComponentLoaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemTypeSwitcherComponent ],
+      declarations: [ ListableObjectComponentLoaderComponent ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();  // compile template and css
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(ItemTypeSwitcherComponent);
+    fixture = TestBed.createComponent(ListableObjectComponentLoaderComponent);
     comp = fixture.componentInstance;
     comp.object = mockItem;
     comp.viewMode = viewMode;
