@@ -16,6 +16,8 @@ import {
 } from '../../testing/utils';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 
 describe('EditComColPageComponent', () => {
   let comp: EditComColPageComponent<DSpaceObject>;
@@ -73,6 +75,7 @@ describe('EditComColPageComponent', () => {
         { provide: ComColDataService, useValue: communityDataServiceStub },
         { provide: Router, useValue: routerStub },
         { provide: ActivatedRoute, useValue: routeStub },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -81,6 +84,7 @@ describe('EditComColPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EditComColPageComponent);
     comp = fixture.componentInstance;
+    (comp as any).type = Community.type;
     fixture.detectChanges();
     dsoDataService = (comp as any).dsoDataService;
     router = (comp as any).router;

@@ -121,6 +121,7 @@
   "chips.remove": "Remove chip",
 
   "collection.create.head": "Create a Collection",
+  "collection.create.notifications.success": "Successfully created the Collection",
   "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
   "collection.delete.cancel": "Cancel",
   "collection.delete.confirm": "Confirm",
@@ -137,6 +138,7 @@
   "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
   "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  "collection.edit.notifications.success": "Successfully edited the Collection",
   "collection.form.abstract": "Short Description",
   "collection.form.description": "Introductory text (HTML)",
   "collection.form.errors.title.required": "Please enter a collection name",
@@ -151,6 +153,7 @@
   "collection.page.news": "News",
 
   "community.create.head": "Create a Community",
+  "community.create.notifications.success": "Successfully created the Community",
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
   "community.delete.cancel": "Cancel",
   "community.delete.confirm": "Confirm",
@@ -167,6 +170,7 @@
   "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
   "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "community.edit.logo.upload": "Drop a Community Logo to upload",
+  "community.edit.notifications.success": "Successfully edited the Community",
   "community.form.abstract": "Short Description",
   "community.form.description": "Introductory text (HTML)",
   "community.form.errors.title.required": "Please enter a community name",

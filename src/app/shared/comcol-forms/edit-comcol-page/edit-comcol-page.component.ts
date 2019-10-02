@@ -8,6 +8,9 @@ import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { DataService } from '../../../core/data/data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ComColDataService } from '../../../core/data/comcol-data.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ResourceType } from '../../../core/shared/resource-type';
 
 /**
  * Component representing the edit page for communities and collections
@@ -26,10 +29,17 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
    */
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
+  /**
+   * The type of the dso
+   */
+  protected type: ResourceType;
+
   public constructor(
     protected dsoDataService: ComColDataService<TDomain>,
     protected router: Router,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService
   ) {
   }
 
@@ -58,6 +68,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
           } else {
             this.router.navigate([this.frontendURL + newUUID]);
           }
+          this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.notifications.success'));
         }
       });
   }

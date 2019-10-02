@@ -8,6 +8,8 @@ import { EditCollectionPageComponent } from './edit-collection-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { of as observableOf } from 'rxjs';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 
 describe('EditCollectionPageComponent', () => {
   let comp: EditCollectionPageComponent;
@@ -20,6 +22,7 @@ describe('EditCollectionPageComponent', () => {
       providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
