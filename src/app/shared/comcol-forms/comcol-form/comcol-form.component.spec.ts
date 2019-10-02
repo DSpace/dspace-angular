@@ -15,6 +15,11 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceMock } from '../../mocks/mock-auth.service';
+import { of as observableOf } from 'rxjs';
+import { RemoteData } from '../../../core/data/remote-data';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
+import { RequestError } from '../../../core/data/request.models';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<DSpaceObject>;
@@ -53,6 +58,13 @@ describe('ComColFormComponent', () => {
     })
   ];
 
+  const logoEndpoint = 'rest/api/logo/endpoint';
+  const dsoService = Object.assign({
+    getLogoEndpoint: () => observableOf(logoEndpoint),
+    deleteLogo: () => observableOf({})
+  });
+  const notificationsService = new NotificationsServiceStub();
+
   /* tslint:disable:no-empty */
   const locationStub = jasmine.createSpyObj('location', ['back']);
   /* tslint:enable:no-empty */
@@ -64,69 +76,174 @@ describe('ComColFormComponent', () => {
       providers: [
         { provide: Location, useValue: locationStub },
         { provide: DynamicFormService, useValue: formServiceStub },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: NotificationsService, useValue: notificationsService },
         { provide: AuthService, useValue: new AuthServiceMock() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  describe('when the dso doesn\'t contain an ID (newly created)', () => {
+    beforeEach(() => {
+      initComponent(new Community());
+    });
+
+    it('should initialize the uploadFilesOptions with a placeholder url', () => {
+      expect(comp.uploadFilesOptions.url.length).toBeGreaterThan(0);
+    });
+
+    describe('onSubmit', () => {
+      beforeEach(() => {
+        spyOn(comp.submitForm, 'emit');
+        comp.formModel = formModel;
+      });
+
+      it('should emit the new version of the community', () => {
+        comp.dso = Object.assign(
+          new Community(),
+          {
+            metadata: {
+              ...titleMD,
+              ...randomMD
+            }
+          }
+        );
+
+        comp.onSubmit();
+
+        expect(comp.submitForm.emit).toHaveBeenCalledWith(
+          {
+            dso: Object.assign(
+              {},
+              new Community(),
+              {
+                metadata: {
+                  ...newTitleMD,
+                  ...randomMD,
+                  ...abstractMD
+                },
+                type: Community.type
+              },
+            ),
+            uploader: {}
+          }
+        );
+      })
+    });
+
+    describe('onCancel', () => {
+      it('should call the back method on the Location service', () => {
+        comp.onCancel();
+        expect(locationStub.back).toHaveBeenCalled();
+      });
+    });
+
+    describe('onCompleteItem', () => {
+      beforeEach(() => {
+        spyOn(comp.finishUpload, 'emit');
+        comp.onCompleteItem();
+      });
+
+      it('should show a success notification', () => {
+        expect(notificationsService.success).toHaveBeenCalled();
+      });
+
+      it('should emit finishUpload', () => {
+        expect(comp.finishUpload.emit).toHaveBeenCalled();
+      });
+    });
+
+    describe('onUploadError', () => {
+      beforeEach(() => {
+        spyOn(comp.finishUpload, 'emit');
+        comp.onUploadError();
+      });
+
+      it('should show an error notification', () => {
+        expect(notificationsService.error).toHaveBeenCalled();
+      });
+
+      it('should emit finishUpload', () => {
+        expect(comp.finishUpload.emit).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('when the dso contains an ID (being edited)', () => {
+    describe('and the dso doesn\'t contain a logo', () => {
+      beforeEach(() => {
+        initComponent(Object.assign(new Community(), {
+          id: 'community-id',
+          logo: observableOf(new RemoteData(false, false, true, null, undefined))
+        }));
+      });
+
+      it('should initialize the uploadFilesOptions with the logo\'s endpoint url', () => {
+        expect(comp.uploadFilesOptions.url).toEqual(logoEndpoint);
+      });
+
+      it('should initialize the uploadFilesOptions with a POST method', () => {
+        expect(comp.uploadFilesOptions.method).toEqual(RestRequestMethod.POST);
+      });
+    });
+
+    describe('and the dso contains a logo', () => {
+      beforeEach(() => {
+        initComponent(Object.assign(new Community(), {
+          id: 'community-id',
+          logo: observableOf(new RemoteData(false, false, true, null, {}))
+        }));
+      });
+
+      it('should initialize the uploadFilesOptions with the logo\'s endpoint url', () => {
+        expect(comp.uploadFilesOptions.url).toEqual(logoEndpoint);
+      });
+
+      it('should initialize the uploadFilesOptions with a PUT method', () => {
+        expect(comp.uploadFilesOptions.method).toEqual(RestRequestMethod.PUT);
+      });
+
+      describe('deleteLogo', () => {
+        describe('when dsoService.deleteLogo returns a successful response', () => {
+          const response = new RestResponse(true, 200, 'OK');
+
+          beforeEach(() => {
+            spyOn(dsoService, 'deleteLogo').and.returnValue(observableOf(response));
+            comp.deleteLogo();
+          });
+
+          it('should display a success notification', () => {
+            expect(notificationsService.success).toHaveBeenCalled();
+          });
+        });
+
+        describe('when dsoService.deleteLogo returns an error response', () => {
+          const response = new ErrorResponse(new RequestError('errorMessage'));
+
+          beforeEach(() => {
+            spyOn(dsoService, 'deleteLogo').and.returnValue(observableOf(response));
+            comp.deleteLogo();
+          });
+
+          it('should display an error notification', () => {
+            expect(notificationsService.error).toHaveBeenCalled();
+          });
+        });
+      });
+    });
+  });
+
+  function initComponent(dso: Community) {
     fixture = TestBed.createComponent(ComColFormComponent);
     comp = fixture.componentInstance;
     comp.formModel = [];
-    comp.dso = new Community();
+    comp.dso = dso;
     (comp as any).type = Community.type;
     comp.uploaderComponent = Object.assign({
       uploader: {}
     });
+    (comp as any).dsoService = dsoService;
     fixture.detectChanges();
     location = (comp as any).location;
-  });
-
-  describe('onSubmit', () => {
-    beforeEach(() => {
-      spyOn(comp.submitForm, 'emit');
-      comp.formModel = formModel;
-    });
-
-    it('should emit the new version of the community', () => {
-      comp.dso = Object.assign(
-        new Community(),
-        {
-          metadata: {
-            ...titleMD,
-            ...randomMD
-          }
-        }
-      );
-
-      comp.onSubmit();
-
-      expect(comp.submitForm.emit).toHaveBeenCalledWith(
-        {
-          dso: Object.assign(
-            {},
-            new Community(),
-            {
-              metadata: {
-                ...newTitleMD,
-                ...randomMD,
-                ...abstractMD
-              },
-              type: Community.type
-            },
-          ),
-          uploader: {}
-        }
-      );
-    })
-  });
-
-  describe('onCancel', () => {
-    it('should call the back method on the Location service', () => {
-        comp.onCancel();
-        expect(locationStub.back).toHaveBeenCalled();
-    });
-  });
+  }
 });

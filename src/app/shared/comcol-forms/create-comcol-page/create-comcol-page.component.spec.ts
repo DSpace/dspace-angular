@@ -11,7 +11,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { CreateComColPageComponent } from './create-comcol-page.component';
-import { DataService } from '../../../core/data/data.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$
@@ -31,6 +30,8 @@ describe('CreateComColPageComponent', () => {
   let communityDataServiceStub;
   let routeServiceStub;
   let routerStub;
+
+  const logoEndpoint = 'rest/api/logo/endpoint';
 
   function initializeVars() {
     community = Object.assign(new Community(), {
@@ -57,8 +58,8 @@ describe('CreateComColPageComponent', () => {
           value: community.name
         }]
       })),
-      create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity)
-
+      create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
+      getLogoEndpoint: () => observableOf(logoEndpoint)
     };
 
     routeServiceStub = {
@@ -96,36 +97,86 @@ describe('CreateComColPageComponent', () => {
 
   describe('onSubmit', () => {
     let data;
-    beforeEach(() => {
-      data = {
-        dso: Object.assign(new Community(), {
-          metadata: [{
-            key: 'dc.title',
-            value: 'test'
-          }]
-        }),
-        uploader: {
-          options: {
-            url: ''
-          },
-          queue: [],
-          uploadAll: {}
-        }
-      };
-    });
-    it('should navigate when successful', () => {
-      spyOn(router, 'navigate');
-      comp.onSubmit(data);
-      fixture.detectChanges();
-      expect(router.navigate).toHaveBeenCalled();
+
+    describe('with an empty queue in the uploader', () => {
+      beforeEach(() => {
+        data = {
+          dso: Object.assign(new Community(), {
+            metadata: [{
+              key: 'dc.title',
+              value: 'test'
+            }]
+          }),
+          uploader: {
+            options: {
+              url: ''
+            },
+            queue: [],
+            /* tslint:disable:no-empty */
+            uploadAll: () => {}
+            /* tslint:enable:no-empty */
+          }
+        };
+      });
+
+      it('should navigate when successful', () => {
+        spyOn(router, 'navigate');
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(router.navigate).toHaveBeenCalled();
+      });
+
+      it('should not navigate on failure', () => {
+        spyOn(router, 'navigate');
+        spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(router.navigate).not.toHaveBeenCalled();
+      });
     });
 
-    it('should not navigate on failure', () => {
-      spyOn(router, 'navigate');
-      spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
-      comp.onSubmit(data);
-      fixture.detectChanges();
-      expect(router.navigate).not.toHaveBeenCalled();
+    describe('with at least one item in the uploader\'s queue', () => {
+      beforeEach(() => {
+        data = {
+          dso: Object.assign(new Community(), {
+            metadata: [{
+              key: 'dc.title',
+              value: 'test'
+            }]
+          }),
+          uploader: {
+            options: {
+              url: ''
+            },
+            queue: [
+              {}
+            ],
+            /* tslint:disable:no-empty */
+            uploadAll: () => {}
+            /* tslint:enable:no-empty */
+          }
+        };
+      });
+
+      it('should not navigate', () => {
+        spyOn(router, 'navigate');
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(router.navigate).not.toHaveBeenCalled();
+      });
+
+      it('should set the uploader\'s url to the logo\'s endpoint', () => {
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(data.uploader.options.url).toEqual(logoEndpoint);
+      });
+
+      it('should call the uploader\'s uploadAll', () => {
+        spyOn(data.uploader, 'uploadAll');
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(data.uploader.uploadAll).toHaveBeenCalled();
+      });
     });
   });
 });
