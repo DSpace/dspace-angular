@@ -30,22 +30,36 @@ docker-compose build
 ```
 
 ## To start DSpace (REST and Angular) from your branch
+
 ```
-docker-compose -p d7 -f docker-compose.yml -f docker/docker-compose-rest.yml up -d
+docker-compose -p d7 -f docker/docker-compose-rest.yml -f docker-compose.yml  up -d
 ```
 
-## To build DSpace REST and DSpace Angular.
+## Run DSpace REST and DSpace Angular from local branches.
 _The system will be started in 2 steps. Each step shares the same docker network._
 
-From DSpace/DSpace
+From DSpace/DSpace (build as needed)
 ```
-docker-compose -p d7 up --build -d
+docker-compose -p d7 up -d
 ```
 
 From DSpace/DSpace-angular
 ```
-docker-compose -p d7 up --build -d
+docker-compose -p d7 up -d
 ```
+
+## Ingest test data from AIPDIR
+
+Create an administrator
+```
+docker-compose -p d7 -f docker/cli.yml run --rm dspace-cli create-administrator -e test@test.edu -f admin -l user -p admin -c en
+```
+
+Load content from AIP files
+```
+docker-compose -p d7 -f docker/cli.yml -f ./docker/cli.ingest.yml run --rm dspace-cli
+```
+
 
 ## End to end testing of the rest api (runs in travis).
 _In this instance, only the REST api runs in Docker.  Travis will perform CI testing of Angular using Node to drive the tests._

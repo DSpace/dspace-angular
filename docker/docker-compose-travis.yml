@@ -1,5 +1,5 @@
 networks:
-  dspacenet: {}
+  dspacenet:
 services:
   dspace:
     container_name: dspace
@@ -7,7 +7,7 @@ services:
     - dspacedb
     image: dspace/dspace:dspace-7_x-jdk8-test
     networks:
-      dspacenet: {}
+      dspacenet:
     ports:
     - published: 8080
       target: 8080
@@ -15,7 +15,7 @@ services:
     tty: true
     volumes:
     - assetstore:/dspace/assetstore
-    - ./local.cfg:/dspace/config/local.cfg
+    - "./local.cfg:/dspace/config/local.cfg"
   dspacedb:
     container_name: dspacedb
     environment:
@@ -23,7 +23,7 @@ services:
       PGDATA: /pgdata
     image: dspace/dspace-postgres-pgcrypto:loadsql
     networks:
-      dspacenet: {}
+      dspacenet:
     stdin_open: true
     tty: true
     volumes:
@@ -32,7 +32,7 @@ services:
     container_name: dspacesolr
     image: dspace/dspace-solr
     networks:
-      dspacenet: {}
+      dspacenet:
     ports:
     - published: 8983
       target: 8983
@@ -45,9 +45,9 @@ services:
     - solr_statistics:/opt/solr/server/solr/statistics/data
 version: '3.7'
 volumes:
-  assetstore: {}
-  pgdata: {}
-  solr_authority: {}
-  solr_oai: {}
-  solr_search: {}
-  solr_statistics: {}
+  assetstore:
+  pgdata:
+  solr_authority:
+  solr_oai:
+  solr_search:
+  solr_statistics:
