@@ -84,6 +84,7 @@ export class DsDynamicScrollableDropdownComponent extends DynamicFormControlComp
 
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
+      this.group.markAsUntouched();
       sdRef.open();
     }
   }
