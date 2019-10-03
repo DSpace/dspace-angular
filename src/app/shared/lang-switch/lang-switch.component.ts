@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import {TranslateService} from '@ngx-translate/core';
 import {LangConfig} from '../../../config/lang-config.interface';
+import { LANG_COOKIE } from '../../app.component';
+import { CookieService } from '../../core/services/cookie.service';
 
 @Component({
   selector: 'ds-lang-switch',
@@ -23,7 +25,8 @@ export class LangSwitchComponent implements OnInit {
 
   constructor(
     @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public cookie: CookieService
   ) {
   }
 
@@ -44,6 +47,15 @@ export class LangSwitchComponent implements OnInit {
    */
   langLabel(langcode: string): string {
     return this.activeLangs.find((MyLangConfig) => MyLangConfig.code === langcode).label;
+  }
+
+  /**
+   * Switch to a language and store it in a cookie
+   * @param lang    The language to switch to
+   */
+  useLang(lang: string) {
+    this.translate.use(lang);
+    this.cookie.set(LANG_COOKIE, lang);
   }
 
 }

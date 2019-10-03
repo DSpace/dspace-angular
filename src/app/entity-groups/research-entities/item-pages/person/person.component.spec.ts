@@ -8,47 +8,48 @@ import {
   createRelationshipsObservable,
   getItemPageFieldsTest
 } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), []))),
+  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
-    'person.identifier.email': [
+    'person.email': [
       {
         language: 'en_US',
         value: 'fake@email.com'
       }
     ],
-    'person.identifier.orcid': [
-      {
-        language: 'en_US',
-        value: 'ORCID-1'
-      }
-    ],
-    'person.identifier.birthdate': [
+    // 'person.identifier.orcid': [
+    //   {
+    //     language: 'en_US',
+    //     value: 'ORCID-1'
+    //   }
+    // ],
+    'person.birthDate': [
       {
         language: 'en_US',
         value: '1993'
       }
     ],
-    'person.identifier.staffid': [
-      {
-        language: 'en_US',
-        value: '1'
-      }
-    ],
-    'person.identifier.jobtitle': [
+    // 'person.identifier.staffid': [
+    //   {
+    //     language: 'en_US',
+    //     value: '1'
+    //   }
+    // ],
+    'person.jobTitle': [
       {
         language: 'en_US',
         value: 'Developer'
       }
     ],
-    'person.identifier.lastname': [
+    'person.familyName': [
       {
         language: 'en_US',
         value: 'Doe'
       }
     ],
-    'person.identifier.firstname': [
+    'person.givenName': [
       {
         language: 'en_US',
         value: 'John'

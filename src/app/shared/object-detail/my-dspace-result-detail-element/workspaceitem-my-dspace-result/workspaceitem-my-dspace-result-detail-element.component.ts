@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
 
 import { renderElementsFor } from '../../../object-collection/shared/dso-element-decorator';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { Workspaceitem } from '../../../../core/submission/models/workspaceitem.model';
+import {
+  WorkspaceItem
+} from '../../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -25,8 +26,8 @@ import { SetViewMode } from '../../../view-mode';
 })
 
 @renderElementsFor(WorkspaceitemMyDSpaceResult, SetViewMode.Detail)
-@renderElementsFor(Workspaceitem, SetViewMode.Detail)
-export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkspaceitemMyDSpaceResult, Workspaceitem> {
+@renderElementsFor(WorkspaceItem, SetViewMode.Detail)
+export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkspaceitemMyDSpaceResult, WorkspaceItem> {
 
   /**
    * The item object that belonging to the result object

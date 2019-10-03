@@ -51,6 +51,10 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
   addQueryParams;
 
   /**
+   * Link to the search page
+   */
+  searchLink: string;
+  /**
    * Subscription to unsubscribe from on destroy
    */
   sub: Subscription;
@@ -66,6 +70,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
+    this.searchLink = this.getSearchLink();
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
     this.sub = observableCombineLatest(this.selectedValues$, this.searchConfigService.searchOptions)
       .subscribe(([selectedValues, searchOptions]) => {
@@ -83,7 +88,7 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  public getSearchLink(): string {
+  private getSearchLink(): string {
     if (this.inPlaceSearch) {
       return './';
     }

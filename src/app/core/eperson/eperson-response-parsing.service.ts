@@ -9,8 +9,6 @@ import { BaseResponseParsingService } from '../data/base-response-parsing.servic
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
-import { ResourceType } from '../shared/resource-type';
 import { DSpaceObject } from '../shared/dspace-object.model';
 
 /**
@@ -19,7 +17,6 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 @Injectable()
 export class EpersonResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
-  protected objectFactory = NormalizedObjectFactory;
   protected toCache = false;
 
   constructor(
@@ -31,7 +28,7 @@ export class EpersonResponseParsingService extends BaseResponseParsingService im
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (isNotEmpty(data.payload) && isNotEmpty(data.payload._links)) {
-      const epersonDefinition = this.process<DSpaceObject,ResourceType>(data.payload, request.href);
+      const epersonDefinition = this.process<DSpaceObject>(data.payload, request.href);
       return new EpersonSuccessResponse(epersonDefinition[Object.keys(epersonDefinition)[0]], data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(

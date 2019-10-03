@@ -20,13 +20,13 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'journalvolume.identifier.volume': [
+    'publicationvolume.volumeNumber': [
       {
         language: 'en_US',
         value: '1234'
       }
     ],
-    'journalissue.identifier.number': [
+    'publicationissue.issueNumber': [
       {
         language: 'en_US',
         value: '5678'

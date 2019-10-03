@@ -1,6 +1,5 @@
 @import '../../node_modules/bootstrap/scss/functions.scss';
 @import '../../node_modules/bootstrap/scss/mixins.scss';
-@import 'variables.scss';
 
 @mixin word-wrap() {
     overflow-wrap: break-word;
@@ -39,5 +38,4 @@
     &::-webkit-resizer {
         background-color: $dark-scrollbar-background;
     }
-
 }

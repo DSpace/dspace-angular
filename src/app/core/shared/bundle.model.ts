@@ -3,8 +3,11 @@ import { Bitstream } from './bitstream.model';
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
+import { ResourceType } from './resource-type';
 
 export class Bundle extends DSpaceObject {
+  static type = new ResourceType('bundle');
+
   /**
    * The primary bitstream of this Bundle
    */

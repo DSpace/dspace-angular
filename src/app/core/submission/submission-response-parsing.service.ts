@@ -10,12 +10,10 @@ import { BaseResponseParsingService } from '../data/base-response-parsing.servic
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { SubmissionResourceType } from './submission-resource-type';
 import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { SubmissionObject } from './models/submission-object.model';
-import { NormalizedObjectFactory } from '../cache/models/normalized-object-factory';
 
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject
@@ -75,7 +73,6 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
 @Injectable()
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
-  protected objectFactory = NormalizedObjectFactory;
   protected toCache = false;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
@@ -94,7 +91,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
       && this.isSuccessStatus(data.statusCode)) {
-      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject, SubmissionResourceType>(data.payload, request.href);
+      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject>(data.payload, request.href);
       return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else if (isEmpty(data.payload) && this.isSuccessStatus(data.statusCode)) {
       return new SubmissionSuccessResponse(null, data.statusCode, data.statusText);
@@ -115,8 +112,8 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
    * @param {string} requestHref
    * @returns {any[]}
    */
-  protected processResponse<ObjectDomain, ObjectType>(data: any, requestHref: string): any[] {
-    const dataDefinition = this.process<ObjectDomain, ObjectType>(data, requestHref);
+  protected processResponse<ObjectDomain>(data: any, requestHref: string): any[] {
+    const dataDefinition = this.process<ObjectDomain>(data, requestHref);
     const normalizedDefinition = Array.of();
     const processedList = Array.isArray(dataDefinition) ? dataDefinition : Array.of(dataDefinition);
 
@@ -131,7 +128,10 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
           // Iterate over all workspaceitem's sections
           Object.keys(item.sections)
             .forEach((sectionId) => {
-              if (typeof item.sections[sectionId] === 'object' && isNotEmpty(item.sections[sectionId])) {
+              if (typeof item.sections[sectionId] === 'object' && (isNotEmpty(item.sections[sectionId]) &&
+                // When Upload section is disabled, add to submission only if there are files
+                (!item.sections[sectionId].hasOwnProperty('files') || isNotEmpty((item.sections[sectionId] as any).files)))) {
+
                 const normalizedSectionData = Object.create({});
                 // Iterate over all sections property
                 Object.keys(item.sections[sectionId])

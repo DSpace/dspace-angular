@@ -1,4 +1,4 @@
-<h2 *ngIf="!disableHeader">{{ getTitleKey() | translate }}</h2>
+<h2 *ngIf="!disableHeader">{{ (configuration ? configuration + '.search.results.head' : 'search.results.head') | translate }}</h2>
 <div *ngIf="searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0" @fadeIn>
 <ds-viewable-collection
   [config]="searchConfig.pagination"

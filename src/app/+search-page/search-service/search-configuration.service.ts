@@ -9,18 +9,19 @@ import {
   of as observableOf,
   Subscription
 } from 'rxjs';
-import { filter, flatMap, map, switchMap, tap } from 'rxjs/operators';
+import { filter, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../search-options.model';
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { RouteService } from '../../shared/services/route.service';
+import { RouteService } from '../../core/services/route.service';
 import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteData } from '../../core/data/remote-data';
 import { getSucceededRemoteData } from '../../core/shared/operators';
 import { SearchFilter } from '../search-filter.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SearchFixedFilterService } from '../search-filters/search-filter/search-fixed-filter.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -109,9 +110,14 @@ export class SearchConfigurationService implements OnDestroy {
    * @returns {Observable<string>} Emits the current configuration string
    */
   getCurrentConfiguration(defaultConfiguration: string) {
-    return this.routeService.getQueryParameterValue('configuration').pipe(map((configuration) => {
-      return configuration || defaultConfiguration;
-    }));
+    return observableCombineLatest(
+      this.routeService.getQueryParameterValue('configuration').pipe(startWith(undefined)),
+      this.routeService.getRouteParameterValue('configuration').pipe(startWith(undefined))
+    ).pipe(
+      map(([queryConfig, routeConfig]) => {
+        return queryConfig || routeConfig || defaultConfiguration;
+      })
+    );
   }
 
   /**
@@ -200,15 +206,6 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * @returns {Observable<string>} Emits the current fixed filter as a string
-   */
-  getCurrentFixedFilter(): Observable<string> {
-    return this.routeService.getRouteParameterValue('filter').pipe(
-      switchMap((f) => this.fixedFilterService.getQueryByFilterName(f))
-    );
-  }
-
-  /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are displayed in the frontend URL
    */
   getCurrentFrontendFilters(): Observable<Params> {
@@ -227,7 +224,6 @@ export class SearchConfigurationService implements OnDestroy {
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
       this.getFiltersPart(),
-      this.getFixedFilterPart()
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(currentValue, update);
@@ -249,7 +245,6 @@ export class SearchConfigurationService implements OnDestroy {
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
       this.getFiltersPart(),
-      this.getFixedFilterPart()
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(currentValue, update);
@@ -269,7 +264,7 @@ export class SearchConfigurationService implements OnDestroy {
         scope: this.defaultScope,
         query: this.defaultQuery
       });
-      this._defaults = observableOf(new RemoteData(false, false, true, null, options));
+      this._defaults = createSuccessfulRemoteDataObject$(options);
     }
     return this._defaults;
   }
@@ -345,17 +340,5 @@ export class SearchConfigurationService implements OnDestroy {
     return this.getCurrentFilters().pipe(map((filters) => {
       return { filters }
     }));
-  }
-
-  /**
-   * @returns {Observable<string>} Emits the current fixed filter as a partial SearchOptions object
-   */
-  private getFixedFilterPart(): Observable<any> {
-    return this.getCurrentFixedFilter().pipe(
-      isNotEmptyOperator(),
-      map((fixedFilter) => {
-        return { fixedFilter }
-      }),
-    );
   }
 }

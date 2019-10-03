@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Item } from '../../../core/shared/item.model';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**
@@ -37,7 +36,7 @@ export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDat
               protected router: Router,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
-    super(ResourceType.Item, injector, router, notificationsService, translate);
+    super(Item.type, injector, router, notificationsService, translate);
   }
 
   /**

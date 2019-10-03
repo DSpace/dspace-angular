@@ -8,6 +8,7 @@ import { filter } from 'rxjs/operators';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
+import { cold } from 'jasmine-marbles';
 
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service-stub';
 import { mockSubmissionId, mockSubmissionRestResponse } from '../../../shared/mocks/mock-submission';
@@ -24,7 +25,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { createTestComponent } from '../../../shared/testing/utils';
-import { cold } from 'jasmine-marbles';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
 
 const subcommunities = [Object.assign(new Community(), {
   name: 'SubCommunity 1',
@@ -122,8 +123,17 @@ const mockCommunity2 = Object.assign(new Community(), {
     undefined, new PaginatedList(new PageInfo(), []))),
 });
 
+const mockCommunity1Collection1Rd = observableOf(new RemoteData(true, true, true,
+  undefined, mockCommunity1Collection1));
+
 const mockCommunityList = observableOf(new RemoteData(true, true, true,
   undefined, new PaginatedList(new PageInfo(), [mockCommunity, mockCommunity2])));
+
+const mockCommunityCollectionList = observableOf(new RemoteData(true, true, true,
+  undefined, new PaginatedList(new PageInfo(), [mockCommunity1Collection1, mockCommunity1Collection2])));
+
+const mockCommunity2CollectionList = observableOf(new RemoteData(true, true, true,
+  undefined, new PaginatedList(new PageInfo(), [mockCommunity2Collection1, mockCommunity2Collection2])));
 
 const mockCollectionList = [
   {
@@ -193,6 +203,12 @@ describe('SubmissionFormCollectionComponent Component', () => {
   const communityDataService: any = jasmine.createSpyObj('communityDataService', {
     findAll: jasmine.createSpy('findAll')
   });
+
+  const collectionDataService: any = jasmine.createSpyObj('collectionDataService', {
+    findById: jasmine.createSpy('findById'),
+    getAuthorizedCollectionByCommunity: jasmine.createSpy('getAuthorizedCollectionByCommunity')
+  });
+
   const store: any = jasmine.createSpyObj('store', {
     dispatch: jasmine.createSpy('dispatch'),
     select: jasmine.createSpy('select')
@@ -214,6 +230,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
         TestComponent
       ],
       providers: [
+        { provide: CollectionDataService, useValue: collectionDataService },
         { provide: SubmissionJsonPatchOperationsService, useClass: SubmissionJsonPatchOperationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: CommunityDataService, useValue: communityDataService },
@@ -284,6 +301,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
 
     it('should init collection list properly', () => {
       communityDataService.findAll.and.returnValue(mockCommunityList);
+      collectionDataService.findById.and.returnValue(mockCommunity1Collection1Rd);
+      collectionDataService.getAuthorizedCollectionByCommunity.and.returnValues(mockCommunityCollectionList, mockCommunity2CollectionList);
 
       comp.ngOnChanges({
         currentCollectionId: new SimpleChange(null, collectionId, true)
@@ -294,9 +313,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
         b: mockCollectionList
       }));
 
-      expect(comp.selectedCollectionName$).toBeObservable(cold('(ab|)', {
-        a: '',
-        b: 'Community 1-Collection 1'
+      expect(comp.selectedCollectionName$).toBeObservable(cold('(a|)', {
+        a: 'Community 1-Collection 1'
       }));
     });
 

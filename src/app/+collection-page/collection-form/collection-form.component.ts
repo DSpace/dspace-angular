@@ -1,12 +1,9 @@
 import { Component, Input } from '@angular/core';
-import {
-  DynamicInputModel,
-  DynamicTextAreaModel
-} from '@ng-dynamic-forms/core';
+import { DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
-import { ResourceType } from '../../core/shared/resource-type';
 import { Collection } from '../../core/shared/collection.model';
 import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
+import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 
 /**
  * Form used for creating and editing collections
@@ -23,9 +20,9 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
   @Input() dso: Collection = new Collection();
 
   /**
-   * @type {ResourceType.Collection} This is a collection-type form
+   * @type {Collection.type} This is a collection-type form
    */
-  protected type = ResourceType.Collection;
+  protected type = Collection.type;
 
   /**
    * The dynamic form fields used for creating/editing a collection

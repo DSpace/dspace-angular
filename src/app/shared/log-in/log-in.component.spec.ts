@@ -95,6 +95,7 @@ describe('LogInComponent', () => {
     // verify Store.dispatch() is invoked
     expect(page.navigateSpy.calls.any()).toBe(true, 'Store.dispatch not invoked');
   });
+
 });
 
 /**

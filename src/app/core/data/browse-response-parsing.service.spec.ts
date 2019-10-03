@@ -113,7 +113,6 @@ describe('BrowseResponseParsingService', () => {
             }
           ],
           defaultSortOrder: 'ASC',
-          type: 'browse',
           metadataKeys: [
             'dc.date.issued'
           ],
@@ -139,7 +138,6 @@ describe('BrowseResponseParsingService', () => {
             }
           ],
           defaultSortOrder: 'ASC',
-          type: 'browse',
           metadataKeys: [
             'dc.contributor.*',
             'dc.creator'
@@ -173,6 +171,5 @@ describe('BrowseResponseParsingService', () => {
       const response = service.parse(validRequest, validResponse);
       expect((response as GenericSuccessResponse<BrowseDefinition[]>).payload).toEqual(definitions);
     });
-
   });
 });

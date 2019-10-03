@@ -35,6 +35,8 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { FindAllOptions } from '../../../core/data/request.models';
 
 /**
  * An interface to represent a collection entry
@@ -93,6 +95,12 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
   public disabled$ = new BehaviorSubject<boolean>(true);
 
   /**
+   * A boolean representing if a collection change operation is processing
+   * @type {BehaviorSubject<boolean>}
+   */
+  public processingChange$ = new BehaviorSubject<boolean>(false);
+
+  /**
    * The search form control
    * @type {FormControl}
    */
@@ -145,12 +153,14 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    *
    * @param {ChangeDetectorRef} cdr
    * @param {CommunityDataService} communityDataService
+   * @param {CollectionDataService} collectionDataService
    * @param {JsonPatchOperationsBuilder} operationsBuilder
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SubmissionService} submissionService
    */
   constructor(protected cdr: ChangeDetectorRef,
               private communityDataService: CommunityDataService,
+              private collectionDataService: CollectionDataService,
               private operationsBuilder: JsonPatchOperationsBuilder,
               private operationsService: SubmissionJsonPatchOperationsService,
               private submissionService: SubmissionService) {
@@ -190,56 +200,55 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
       && hasValue(changes.currentCollectionId.currentValue)) {
       this.selectedCollectionId = this.currentCollectionId;
 
-      // @TODO replace with search/top browse endpoint
-      // @TODO implement community/subcommunity hierarchy
-      const communities$ = this.communityDataService.findAll().pipe(
-        find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
-        mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
-
-      const listCollection$ = communities$.pipe(
-        flatMap((communityData: Community) => {
-          return communityData.collections.pipe(
-            find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-            mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
-            filter((collectionData: Collection) => isNotEmpty(collectionData)),
-            map((collectionData: Collection) => ({
-              communities: [{ id: communityData.id, name: communityData.name }],
-              collection: { id: collectionData.id, name: collectionData.name }
-            }))
-          );
-        }),
-        reduce((acc: any, value: any) => [...acc, ...value], []),
-        startWith([])
+      this.selectedCollectionName$ = this.collectionDataService.findById(this.currentCollectionId).pipe(
+        find((collectionRD: RemoteData<Collection>) => isNotEmpty(collectionRD.payload)),
+        map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
       );
 
-      this.selectedCollectionName$ = communities$.pipe(
-        flatMap((communityData: Community) => {
-          return communityData.collections.pipe(
-            find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
-            mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
-            filter((collectionData: Collection) => isNotEmpty(collectionData)),
-            filter((collectionData: Collection) => collectionData.id === this.selectedCollectionId),
-            map((collectionData: Collection) => collectionData.name)
-          );
-        }),
-        startWith('')
-      );
+      const findOptions: FindAllOptions = {
+        elementsPerPage: 1000
+      };
 
-      const searchTerm$ = this.searchField.valueChanges.pipe(
-        debounceTime(200),
-        distinctUntilChanged(),
-        startWith('')
-      );
+      // Retrieve collection list only when is the first change
+      if (changes.currentCollectionId.isFirstChange()) {
+        // @TODO replace with search/top browse endpoint
+        // @TODO implement community/subcommunity hierarchy
+        const communities$ = this.communityDataService.findAll(findOptions).pipe(
+          find((communities: RemoteData<PaginatedList<Community>>) => isNotEmpty(communities.payload)),
+          mergeMap((communities: RemoteData<PaginatedList<Community>>) => communities.payload.page));
 
-      this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
-        map(([searchTerm, listCollection]) => {
-          this.disabled$.next(isEmpty(listCollection));
-          if (isEmpty(searchTerm)) {
-            return listCollection;
-          } else {
-            return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
-          }
-        }));
+        const listCollection$ = communities$.pipe(
+          flatMap((communityData: Community) => {
+            return this.collectionDataService.getAuthorizedCollectionByCommunity(communityData.uuid, findOptions).pipe(
+              find((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending && collections.hasSucceeded),
+              mergeMap((collections: RemoteData<PaginatedList<Collection>>) => collections.payload.page),
+              filter((collectionData: Collection) => isNotEmpty(collectionData)),
+              map((collectionData: Collection) => ({
+                communities: [{ id: communityData.id, name: communityData.name }],
+                collection: { id: collectionData.id, name: collectionData.name }
+              }))
+            );
+          }),
+          reduce((acc: any, value: any) => [...acc, ...value], []),
+          startWith([])
+        );
+
+        const searchTerm$ = this.searchField.valueChanges.pipe(
+          debounceTime(200),
+          distinctUntilChanged(),
+          startWith('')
+        );
+
+        this.searchListCollection$ = combineLatest(searchTerm$, listCollection$).pipe(
+          map(([searchTerm, listCollection]) => {
+            this.disabled$.next(isEmpty(listCollection));
+            if (isEmpty(searchTerm)) {
+              return listCollection;
+            } else {
+              return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
+            }
+          }));
+      }
     }
   }
 
@@ -265,7 +274,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
    */
   onSelect(event) {
     this.searchField.reset();
-    this.disabled$.next(true);
+    this.processingChange$.next(true);
     this.operationsBuilder.replace(this.pathCombiner.getPath(), event.collection.id, true);
     this.subs.push(this.operationsService.jsonPatchByResourceID(
       this.submissionService.getSubmissionObjectLinkName(),
@@ -277,7 +286,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         this.selectedCollectionName$ = observableOf(event.collection.name);
         this.collectionChange.emit(submissionObject[0]);
         this.submissionService.changeSubmissionCollection(this.submissionId, event.collection.id);
-        this.disabled$.next(false);
+        this.processingChange$.next(false);
         this.cdr.detectChanges();
       })
     );

@@ -1,34 +1,39 @@
-$content-spacing: $spacer * 1.5;
+@import '_themed_custom_variables.scss';
 
-$button-height: $input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2);
+$content-spacing: $spacer * 1.5 !default;
 
-$card-height-percentage:98%;
-$card-thumbnail-height:240px;
-$dropdown-menu-max-height: 200px;
-$drop-zone-area-height: 44px;
-$drop-zone-area-z-index: 1025;
-$drop-zone-area-inner-z-index: 1021;
-$login-logo-height:72px;
-$login-logo-width:72px;
-$submission-header-z-index: 1001;
-$submission-footer-z-index: 1000;
+$button-height: $input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2) !default;
 
-$main-z-index: 0;
-$nav-z-index: 10;
-$sidebar-z-index: 20;
+$card-height-percentage:98% !default;
+$card-thumbnail-height:240px !default;
+$dropdown-menu-max-height: 200px !default;
+$drop-zone-area-height: 44px !default;
+$drop-zone-area-z-index: 1025 !default;
+$drop-zone-area-inner-z-index: 1021 !default;
+$login-logo-height:72px !default;
+$login-logo-width:72px !default;
+$submission-header-z-index: 1001 !default;
+$submission-footer-z-index: 999 !default;
 
-$header-logo-height: 80px;
-$header-logo-height-xs: 50px;
+$main-z-index: 0 !default;
+$nav-z-index: 10 !default;
+$sidebar-z-index: 20 !default;
 
-$admin-sidebar-bg: $dark;
-$admin-sidebar-active-bg: darken($dark, 3%);
-$admin-sidebar-header-bg: darken($dark, 7%);
+$header-logo-height: 80px !default;
+$header-logo-height-xs: 50px !default;
+$header-icon-color: $link-color !default;
 
-$dark-scrollbar-background: $admin-sidebar-active-bg;
-$dark-scrollbar-foreground: #47495d;
+$admin-sidebar-bg: darken(#2B4E72, 17%) !default;
+$admin-sidebar-active-bg: darken($admin-sidebar-bg, 3%) !default;
+$admin-sidebar-header-bg: darken($admin-sidebar-bg, 7%) !default;
+
+$dark-scrollbar-background: $admin-sidebar-active-bg !default;
+$dark-scrollbar-foreground: #47495d !default;
 
 $submission-sections-margin-bottom: .5rem !default;
 
-$edit-item-button-min-width: 100px;
-$edit-item-metadata-field-width: 190px;
-$edit-item-language-field-width: 43px;
+$edit-item-button-min-width: 100px !default;
+$edit-item-metadata-field-width: 190px !default;
+$edit-item-language-field-width: 43px !default;
+
+$thumbnail-max-width: 175px !default;

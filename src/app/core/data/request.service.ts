@@ -3,7 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, find, map, mergeMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { cloneDeep, remove } from 'lodash';
 
 import { AppState } from '../../app.reducer';
@@ -65,8 +65,7 @@ const uuidsFromHrefSubstringSelector =
 const getUuidsFromHrefSubstring = (state: IndexState, href: string): string[] => {
   let result = [];
   if (isNotEmpty(state)) {
-    result = Object.values(state)
-      .filter((value: string) => value.startsWith(href));
+    result = Object.keys(state).filter((key) => key.startsWith(href)).map((key) => state[key]);
   }
   return result;
 };
@@ -263,12 +262,13 @@ export class RequestService {
    */
   private clearRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.getByHref(request.href).pipe(
-      find((re: RequestEntry) => hasValue(re)))
-      .subscribe((re: RequestEntry) => {
-        if (!re.responsePending) {
-          remove(this.requestsOnTheirWayToTheStore, (item) => item === request.href);
-        }
-      });
+      filter((re: RequestEntry) => hasValue(re)),
+      take(1)
+    ).subscribe((re: RequestEntry) => {
+      if (!re.responsePending) {
+        remove(this.requestsOnTheirWayToTheStore, (item) => item === request.href);
+      }
+    });
   }
 
   /**
@@ -313,6 +313,17 @@ export class RequestService {
       take(1)
     ).subscribe((requestEntry: RequestEntry) => result = this.isValid(requestEntry));
     return result;
+  }
+
+  /**
+   * Create an observable that emits a new value whenever the availability of the cached request changes.
+   * The value it emits is a boolean stating if the request exists in cache or not.
+   * @param href  The href of the request to observe
+   */
+  hasByHrefObservable(href: string): Observable<boolean> {
+    return this.getByHref(href).pipe(
+      map((requestEntry: RequestEntry) => this.isValid(requestEntry))
+    );
   }
 
 }

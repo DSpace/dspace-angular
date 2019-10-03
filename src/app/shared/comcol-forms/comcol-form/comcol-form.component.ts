@@ -9,8 +9,9 @@ import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynami
 import { TranslateService } from '@ngx-translate/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
-import { isNotEmpty } from '../../empty.util';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { isNotEmpty } from '../../empty.util';
+import { Community } from '../../../core/shared/community.model';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -29,7 +30,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   /**
    * Type of DSpaceObject that the form represents
    */
-  protected type;
+  protected type: ResourceType;
 
   /**
    * @type {string} Key prefix used to generate form labels
@@ -99,7 +100,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
         ...this.dso.metadata,
         ...formMetadata
       },
-      type: ResourceType.Community
+      type: Community.type
     });
     this.submitForm.emit(updatedDSO);
   }
@@ -110,11 +111,11 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   private updateFieldTranslations() {
     this.formModel.forEach(
       (fieldModel: DynamicInputModel) => {
-        fieldModel.label = this.translate.instant(this.type + this.LABEL_KEY_PREFIX + fieldModel.id);
+        fieldModel.label = this.translate.instant(this.type.value + this.LABEL_KEY_PREFIX + fieldModel.id);
         if (isNotEmpty(fieldModel.validators)) {
           fieldModel.errorMessages = {};
           Object.keys(fieldModel.validators).forEach((key) => {
-            fieldModel.errorMessages[key] = this.translate.instant(this.type + this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
+            fieldModel.errorMessages[key] = this.translate.instant(this.type.value + this.ERROR_KEY_PREFIX + fieldModel.id + '.' + key);
           });
         }
       }

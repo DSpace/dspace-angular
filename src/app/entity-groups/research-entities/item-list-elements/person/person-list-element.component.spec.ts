@@ -20,7 +20,7 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
         value: 'This is just another title'
       }
     ],
-    'person.identifier.jobtitle': [
+    'person.jobTitle': [
       {
         language: 'en_US',
         value: 'Developer'

@@ -1,5 +1,3 @@
-@import "../../../styles/_variables.scss";
-
 .ds-form-input-addon {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
@@ -43,4 +41,9 @@
 
 .right-addon input {
   padding-right: $spacer * 2.25;
+}
+
+.ds-form-qualdrop-hint {
+  top: -$spacer;
+  position: relative;
 }

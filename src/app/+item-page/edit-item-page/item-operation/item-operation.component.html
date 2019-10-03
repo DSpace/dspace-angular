@@ -4,7 +4,7 @@
       </span>
 </div>
 <div *ngIf="!operation.disabled" class="col-9 float-left action-button">
-  <a class="btn btn-outline-secondary" href="{{operation.operationUrl}}">
+  <a class="btn btn-outline-secondary" [routerLink]="operation.operationUrl">
     {{'item.edit.tabs.status.buttons.' + operation.operationKey + '.button' | translate}}
   </a>
 </div>

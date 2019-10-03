@@ -2,6 +2,7 @@ import { isObject, uniqueId } from 'lodash';
 import { hasValue, isNotEmpty } from '../../empty.util';
 import { FormFieldMetadataValueObject } from '../../form/builder/models/form-field-metadata-value.model';
 import { ConfidenceType } from '../../../core/integration/models/confidence-type';
+import { PLACEHOLDER_PARENT_METADATA } from '../../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 
 export interface ChipsItemIcon {
   metadata: string;
@@ -62,7 +63,7 @@ export class ChipsItem {
         if (this._item.hasOwnProperty(icon.metadata)
           && (((typeof this._item[icon.metadata] === 'string') && hasValue(this._item[icon.metadata]))
             || (this._item[icon.metadata] as FormFieldMetadataValueObject).hasValue())
-          && !(this._item[icon.metadata] as FormFieldMetadataValueObject).hasPlaceholder()) {
+          && !this.hasPlaceholder(this._item[icon.metadata])) {
           if ((icon.visibleWhenAuthorityEmpty
             || (this._item[icon.metadata] as FormFieldMetadataValueObject).confidence !== ConfidenceType.CF_UNSET)
             && isNotEmpty(icon.style)) {
@@ -108,5 +109,10 @@ export class ChipsItem {
     }
 
     this.display = value;
+  }
+
+  private hasPlaceholder(value: any) {
+    return (typeof value === 'string') ? (value === PLACEHOLDER_PARENT_METADATA) :
+      (value as FormFieldMetadataValueObject).hasPlaceholder()
   }
 }

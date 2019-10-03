@@ -17,7 +17,7 @@ import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { RemoteData } from '../core/data/remote-data';
 import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from './my-dspace-page.component';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { routeServiceStub } from '../shared/testing/route-service-stub';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
 import { SearchService } from '../+search-page/search-service/search.service';
@@ -29,6 +29,7 @@ import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
 import { MockRoleService } from '../shared/mocks/mock-role-service';
 import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -46,7 +47,7 @@ describe('MyDSpacePageComponent', () => {
   pagination.currentPage = 1;
   pagination.pageSize = 10;
   const sort: SortOptions = new SortOptions('score', SortDirection.DESC);
-  const mockResults = observableOf(new RemoteData(false, false, true, null, ['test', 'data']));
+  const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,
     getSearchLink: '/mydspace',
@@ -81,9 +82,6 @@ describe('MyDSpacePageComponent', () => {
     expand: () => this.isCollapsed = observableOf(false)
   };
   const mockFixedFilterService: SearchFixedFilterService = {
-    getQueryByFilterName: (filter: string) => {
-      return observableOf(undefined)
-    }
   } as SearchFixedFilterService;
 
   beforeEach(async(() => {

@@ -140,6 +140,11 @@ import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/clai
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import { AbstractTrackableComponent } from './trackable/abstract-trackable.component';
 import { ComcolMetadataComponent } from './comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
+import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
+import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
+import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
+import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -161,7 +166,7 @@ const MODULES = [
   NouisliderModule,
   MomentModule,
   TextMaskModule,
-  MenuModule
+  MenuModule,
 ];
 
 const ROOT_MODULES = [
@@ -247,6 +252,8 @@ const COMPONENTS = [
   TruncatablePartComponent,
   BrowseByComponent,
   InputSuggestionsComponent,
+  FilterInputSuggestionsComponent,
+  DsoInputSuggestionsComponent,
   DSOSelectorComponent,
   CreateCommunityParentSelectorComponent,
   CreateCollectionParentSelectorComponent,
@@ -258,10 +265,12 @@ const COMPONENTS = [
   CollectionSearchResultListElementComponent,
   ItemSearchResultListElementComponent,
   TypedItemSearchResultListElementComponent,
+  TypedItemSearchResultGridElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent,
   AbstractTrackableComponent,
-  ComcolMetadataComponent
+  ComcolMetadataComponent,
+  ItemTypeBadgeComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -279,6 +288,7 @@ const ENTRY_COMPONENTS = [
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
   PublicationListElementComponent,
+  PublicationGridElementComponent,
   BrowseEntryListElementComponent,
   MyDSpaceResultDetailElementComponent,
   SearchResultGridElementComponent,
