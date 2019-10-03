@@ -18,8 +18,8 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   dso: K;
   isCollapsed$: Observable<boolean>;
 
-  public constructor(@Inject('objectElementProvider') public listableObject: ListableObject, protected truncatableService: TruncatableService) {
-    super(listableObject);
+  public constructor(protected truncatableService: TruncatableService) {
+    super();
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
       this.isCollapsed$ = this.isCollapsed();

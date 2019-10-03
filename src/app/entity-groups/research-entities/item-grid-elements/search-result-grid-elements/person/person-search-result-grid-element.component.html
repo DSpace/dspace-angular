@@ -1,0 +1,32 @@
+<ng-container *ngVar="object.indexableObject as item">
+    <ds-truncatable [id]="item.id">
+        <div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
+            <a [routerLink]="['/items/' + item.id]" class="card-img-top full-width">
+                <div>
+                    <ds-grid-thumbnail [thumbnail]="this.item.getThumbnail() | async">
+                    </ds-grid-thumbnail>
+                </div>
+            </a>
+            <div class="card-body">
+                <ds-item-type-badge [object]="object"></ds-item-type-badge>
+                <ds-truncatable-part [id]="item.id" [minLines]="3" type="h4">
+                    <h4 class="card-title" [innerHTML]="item.firstMetadataValue('person.familyName') + ', ' + item.firstMetadataValue('person.givenName')"></h4>
+                </ds-truncatable-part>
+                <p *ngIf="item.hasMetadata('person.email')" class="item-email card-text text-muted">
+                    <ds-truncatable-part [id]="item.id" [minLines]="1">
+                        <span [innerHTML]="firstMetadataValue('person.email')"></span>
+                    </ds-truncatable-part>
+                </p>
+                <p *ngIf="item.hasMetadata('person.jobTitle')" class="item-jobtitle card-text">
+                    <ds-truncatable-part [id]="item.id" [minLines]="3">
+                        <span [innerHTML]="firstMetadataValue('person.jobTitle')"></span>
+                    </ds-truncatable-part>
+                </p>
+                <div class="text-center">
+                    <a [routerLink]="['/items/' + item.id]"
+                       class="lead btn btn-primary viewButton">View</a>
+                </div>
+            </div>
+        </div>
+    </ds-truncatable>
+</ng-container>

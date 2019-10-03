@@ -39,10 +39,6 @@ export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceR
    */
   status = MyDspaceItemStatusType.WORKSPACE;
 
-  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
-    super(listable);
-  }
-
   /**
    * Initialize all instance variables
    */

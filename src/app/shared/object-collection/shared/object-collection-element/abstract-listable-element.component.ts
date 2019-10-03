@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { ListableObject } from '../listable-object.model';
 
 @Component({
@@ -6,8 +6,5 @@ import { ListableObject } from '../listable-object.model';
   template: ``,
 })
 export class AbstractListableElementComponent <T extends ListableObject> {
-  object: T;
-  public constructor(@Inject('objectElementProvider') public listableObject: ListableObject) {
-    this.object = listableObject as T;
-  }
+  @Input() object: T;
 }

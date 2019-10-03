@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 import { metadataRepresentationComponent } from '../../../../shared/metadata-representation/metadata-representation.decorator';
 import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { AbstractListableElementComponent } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { Item } from '../../../../core/shared/item.model';
 
 @metadataRepresentationComponent('Project', MetadataRepresentationType.PlainText)
 @Component({
@@ -12,5 +13,5 @@ import { MetadataRepresentationType } from '../../../../core/shared/metadata-rep
 /**
  * The component for displaying a list element for an item of the type Project
  */
-export class ProjectListElementComponent extends TypedItemSearchResultListElementComponent {
+export class ProjectListElementComponent extends AbstractListableElementComponent<Item> {
 }

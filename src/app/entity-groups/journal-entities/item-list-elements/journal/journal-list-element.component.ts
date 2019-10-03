@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { AbstractListableElementComponent } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { Item } from '../../../../core/shared/item.model';
 
 @listableObjectComponent('Journal', ViewMode.ListElement)
 @Component({
@@ -12,5 +13,5 @@ import { listableObjectComponent } from '../../../../shared/object-collection/sh
 /**
  * The component for displaying a list element for an item of the type Journal
  */
-export class JournalListElementComponent extends TypedItemSearchResultListElementComponent {
+export class JournalListElementComponent extends AbstractListableElementComponent<Item> {
 }

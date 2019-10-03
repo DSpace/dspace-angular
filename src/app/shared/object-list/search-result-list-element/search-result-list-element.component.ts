@@ -19,8 +19,8 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   dso: K;
   metadata: MetadataMap;
 
-  public constructor(@Inject('objectElementProvider') public listable: ListableObject, protected truncatableService: TruncatableService) {
-    super(listable);
+  public constructor(protected truncatableService: TruncatableService) {
+    super();
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
     }

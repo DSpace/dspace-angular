@@ -32,10 +32,10 @@ export class JournalIssueComponent extends ItemComponent {
 
     if (isNotEmpty(this.resolvedRelsAndTypes$)) {
       this.volumes$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isJournalVolumeOfIssue')
+        getRelatedItemsByTypeLabel(this.object.id, 'isJournalVolumeOfIssue')
       );
       this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfJournalIssue')
+        getRelatedItemsByTypeLabel(this.object.id, 'isPublicationOfJournalIssue')
       );
     }
   }

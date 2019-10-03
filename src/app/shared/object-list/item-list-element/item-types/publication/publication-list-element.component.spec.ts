@@ -5,7 +5,6 @@ import { PublicationListElementComponent } from './publication-list-element.comp
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { ITEM } from '../../../../items/switcher/listable-object-component-loader.component';
 import { of as observableOf } from 'rxjs';
 
 let publicationListElementComponent: PublicationListElementComponent;
@@ -63,7 +62,6 @@ describe('PublicationListElementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PublicationListElementComponent , TruncatePipe],
       providers: [
-        { provide: ITEM, useValue: mockItemWithMetadata},
         { provide: TruncatableService, useValue: {} }
       ],
 
@@ -81,7 +79,7 @@ describe('PublicationListElementComponent', () => {
 
   describe('When the item has an author', () => {
     beforeEach(() => {
-      publicationListElementComponent.item = mockItemWithMetadata;
+      publicationListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -93,7 +91,7 @@ describe('PublicationListElementComponent', () => {
 
   describe('When the item has no author', () => {
     beforeEach(() => {
-      publicationListElementComponent.item = mockItemWithoutMetadata;
+      publicationListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 
@@ -105,7 +103,7 @@ describe('PublicationListElementComponent', () => {
 
   describe('When the item has a publisher', () => {
     beforeEach(() => {
-      publicationListElementComponent.item = mockItemWithMetadata;
+      publicationListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -117,7 +115,7 @@ describe('PublicationListElementComponent', () => {
 
   describe('When the item has no publisher', () => {
     beforeEach(() => {
-      publicationListElementComponent.item = mockItemWithoutMetadata;
+      publicationListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 
@@ -129,7 +127,7 @@ describe('PublicationListElementComponent', () => {
 
   describe('When the item has an issuedate', () => {
     beforeEach(() => {
-      publicationListElementComponent.item = mockItemWithMetadata;
+      publicationListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -141,7 +139,7 @@ describe('PublicationListElementComponent', () => {
 
   describe('When the item has no issuedate', () => {
     beforeEach(() => {
-      publicationListElementComponent.item = mockItemWithoutMetadata;
+      publicationListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 
@@ -153,7 +151,7 @@ describe('PublicationListElementComponent', () => {
 
   describe('When the item has an abstract', () => {
     beforeEach(() => {
-      publicationListElementComponent.item = mockItemWithMetadata;
+      publicationListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -165,7 +163,7 @@ describe('PublicationListElementComponent', () => {
 
   describe('When the item has no abstract', () => {
     beforeEach(() => {
-      publicationListElementComponent.item = mockItemWithoutMetadata;
+      publicationListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 

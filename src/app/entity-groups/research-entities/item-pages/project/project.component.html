@@ -1,10 +1,10 @@
 <h2 class="item-page-title-field">
-  {{'project.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+  {{'project.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>
-      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/project-placeholder.svg'"></ds-thumbnail>
+      <ds-thumbnail [thumbnail]="this.object.getThumbnail() | async" [defaultImage]="'assets/images/project-placeholder.svg'"></ds-thumbnail>
     </ds-metadata-field-wrapper>
     <!--<ds-generic-item-page-field [item]="item"-->
       <!--[fields]="['project.identifier.status']"-->
@@ -14,11 +14,11 @@
       [label]="'project.page.contributor' | translate"
       [representations]="contributors$ | async">
     </ds-metadata-representation-list>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['project.identifier.funder']"
       [label]="'project.page.funder'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['dc.identifier']"
       [label]="'project.page.id'">
     </ds-generic-item-page-field>
@@ -40,16 +40,16 @@
       [items]="orgUnits$ | async"
       [label]="'relationships.isOrgUnitOf' | translate">
     </ds-related-items>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"
       [label]="'project.page.description'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['dc.subject']"
       [label]="'project.page.keyword'">
     </ds-generic-item-page-field>
     <div>
-      <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + object.id + '/full']">
         {{"item.page.link.full" | translate}}
       </a>
     </div>

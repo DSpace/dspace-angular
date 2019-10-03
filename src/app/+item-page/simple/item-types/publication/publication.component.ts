@@ -44,15 +44,15 @@ export class PublicationComponent extends ItemComponent implements OnInit {
       this.authors$ = this.buildRepresentations('Person', 'dc.contributor.author');
 
       this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPublication')
+        getRelatedItemsByTypeLabel(this.object.id, 'isProjectOfPublication')
       );
 
       this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPublication')
+        getRelatedItemsByTypeLabel(this.object.id, 'isOrgUnitOfPublication')
       );
 
       this.journalIssues$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isJournalIssueOfPublication')
+        getRelatedItemsByTypeLabel(this.object.id, 'isJournalIssueOfPublication')
       );
 
     }

@@ -42,10 +42,6 @@ export class ClaimedMyDSpaceResultDetailElementComponent extends MyDSpaceResultD
    */
   public workflowitem: WorkflowItem;
 
-  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
-    super(listable);
-  }
-
   /**
    * Initialize all instance variables
    */

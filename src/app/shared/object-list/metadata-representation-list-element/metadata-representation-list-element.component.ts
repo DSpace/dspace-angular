@@ -1,6 +1,5 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { ITEM } from '../../items/switcher/listable-object-component-loader.component';
 
 @Component({
   selector: 'ds-metadata-representation-list-element',

@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Observable ,  of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
-import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
@@ -45,28 +44,28 @@ export class PersonComponent extends ItemComponent {
   fixedFilterQuery: string;
 
   constructor(
-    @Inject(ITEM) public item: Item,
     private fixedFilterService: SearchFixedFilterService
   ) {
-    super(item);
+    super();
   }
+
   ngOnInit(): void {
     super.ngOnInit();
 
     if (isNotEmpty(this.resolvedRelsAndTypes$)) {
       this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfAuthor')
+        getRelatedItemsByTypeLabel(this.object.id, 'isPublicationOfAuthor')
       );
 
       this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPerson')
+        getRelatedItemsByTypeLabel(this.object.id, 'isProjectOfPerson')
       );
 
       this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPerson')
+        getRelatedItemsByTypeLabel(this.object.id, 'isOrgUnitOfPerson')
       );
 
-      this.fixedFilterQuery = this.fixedFilterService.getQueryByRelations('isAuthorOfPublication', this.item.id);
+      this.fixedFilterQuery = this.fixedFilterService.getQueryByRelations('isAuthorOfPublication', this.object.id);
       this.fixedFilter$ = observableOf('publication');
     }
   }

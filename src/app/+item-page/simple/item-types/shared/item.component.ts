@@ -1,14 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Observable ,  zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
 import { distinctUntilChanged, filter, flatMap, map } from 'rxjs/operators';
-import { ItemDataService } from '../../../../core/data/item-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { Item } from '../../../../core/shared/item.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
-import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
@@ -66,13 +64,13 @@ export class ItemComponent implements OnInit {
    * Resolved relationships and types together in one observable
    */
   resolvedRelsAndTypes$: Observable<[Relationship[], RelationshipType[]]>;
+  @Input() object: Item;
 
   constructor(
-    @Inject(ITEM) public item: Item
   ) {}
 
   ngOnInit(): void {
-    const relationships$ = this.item.relationships;
+    const relationships$ = this.object.relationships;
     if (relationships$) {
       const relsCurrentPage$ = relationships$.pipe(
         filter((rd: RemoteData<PaginatedList<Relationship>>) => rd.hasSucceeded),
@@ -104,8 +102,8 @@ export class ItemComponent implements OnInit {
    * @param metadataField     The metadata field that resembles the item type.
    */
   buildRepresentations(itemType: string, metadataField: string): Observable<MetadataRepresentation[]> {
-    const metadata = this.item.findMetadataSortedByPlace(metadataField);
-    const relsCurrentPage$ = this.item.relationships.pipe(
+    const metadata = this.object.findMetadataSortedByPlace(metadataField);
+    const relsCurrentPage$ = this.object.relationships.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       map((pl: PaginatedList<Relationship>) => pl.page),
@@ -113,7 +111,7 @@ export class ItemComponent implements OnInit {
     );
 
     return relsCurrentPage$.pipe(
-      relationsToRepresentations(this.item.id, itemType, metadata)
+      relationsToRepresentations(this.object.id, itemType, metadata)
     );
   }
 

@@ -63,7 +63,7 @@ describe('OrgUnitListElementComponent', () => {
 
   describe('When the item has an orgunit description', () => {
     beforeEach(() => {
-      orgUnitListElementComponent.item = mockItemWithMetadata;
+      orgUnitListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -75,7 +75,7 @@ describe('OrgUnitListElementComponent', () => {
 
   describe('When the item has no orgunit description', () => {
     beforeEach(() => {
-      orgUnitListElementComponent.item = mockItemWithoutMetadata;
+      orgUnitListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 

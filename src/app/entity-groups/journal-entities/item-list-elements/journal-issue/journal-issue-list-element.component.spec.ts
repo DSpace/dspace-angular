@@ -69,7 +69,7 @@ describe('JournalIssueListElementComponent', () => {
 
   describe('When the item has a journal identifier', () => {
     beforeEach(() => {
-      journalIssueListElementComponent.item = mockItemWithMetadata;
+      journalIssueListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -81,7 +81,7 @@ describe('JournalIssueListElementComponent', () => {
 
   describe('When the item has no journal identifier', () => {
     beforeEach(() => {
-      journalIssueListElementComponent.item = mockItemWithoutMetadata;
+      journalIssueListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 
@@ -93,7 +93,7 @@ describe('JournalIssueListElementComponent', () => {
 
   describe('When the item has a journal number', () => {
     beforeEach(() => {
-      journalIssueListElementComponent.item = mockItemWithMetadata;
+      journalIssueListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -105,7 +105,7 @@ describe('JournalIssueListElementComponent', () => {
 
   describe('When the item has no journal number', () => {
     beforeEach(() => {
-      journalIssueListElementComponent.item = mockItemWithoutMetadata;
+      journalIssueListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 

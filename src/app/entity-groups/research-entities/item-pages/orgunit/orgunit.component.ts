@@ -37,15 +37,15 @@ export class OrgunitComponent extends ItemComponent implements OnInit {
 
     if (isNotEmpty(this.resolvedRelsAndTypes$)) {
       this.people$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPersonOfOrgUnit')
+        getRelatedItemsByTypeLabel(this.object.id, 'isPersonOfOrgUnit')
       );
 
       this.projects$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfOrgUnit')
+        getRelatedItemsByTypeLabel(this.object.id, 'isProjectOfOrgUnit')
       );
 
       this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfOrgUnit')
+        getRelatedItemsByTypeLabel(this.object.id, 'isPublicationOfOrgUnit')
       );
     }
   }}

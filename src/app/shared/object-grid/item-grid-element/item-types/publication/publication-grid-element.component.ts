@@ -1,8 +1,9 @@
-import { TypedItemSearchResultGridElementComponent } from '../typed-item-search-result-grid-element.component';
 import { Component } from '@angular/core';
 import { focusShadow } from '../../../../animations/focus';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { AbstractListableElementComponent } from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { Item } from '../../../../../core/shared/item.model';
 
 @listableObjectComponent('Publication', ViewMode.GridElement)
 @listableObjectComponent(DEFAULT_ITEM_TYPE, ViewMode.GridElement)
@@ -15,5 +16,5 @@ import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../object-c
 /**
  * The component for displaying a grid element for an item of the type Publication
  */
-export class PublicationGridElementComponent extends TypedItemSearchResultGridElementComponent {
+export class PublicationGridElementComponent extends AbstractListableElementComponent<Item> {
 }

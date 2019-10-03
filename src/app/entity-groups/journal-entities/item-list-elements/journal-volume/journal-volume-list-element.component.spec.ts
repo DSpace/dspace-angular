@@ -69,7 +69,7 @@ describe('JournalVolumeListElementComponent', () => {
 
   describe('When the item has a journal title', () => {
     beforeEach(() => {
-      journalVolumeListElementComponent.item = mockItemWithMetadata;
+      journalVolumeListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -81,7 +81,7 @@ describe('JournalVolumeListElementComponent', () => {
 
   describe('When the item has no journal title', () => {
     beforeEach(() => {
-      journalVolumeListElementComponent.item = mockItemWithoutMetadata;
+      journalVolumeListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 
@@ -93,7 +93,7 @@ describe('JournalVolumeListElementComponent', () => {
 
   describe('When the item has a journal identifier', () => {
     beforeEach(() => {
-      journalVolumeListElementComponent.item = mockItemWithMetadata;
+      journalVolumeListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -105,7 +105,7 @@ describe('JournalVolumeListElementComponent', () => {
 
   describe('When the item has no journal identifier', () => {
     beforeEach(() => {
-      journalVolumeListElementComponent.item = mockItemWithoutMetadata;
+      journalVolumeListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 

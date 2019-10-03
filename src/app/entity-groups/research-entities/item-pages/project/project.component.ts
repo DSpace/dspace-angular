@@ -45,15 +45,15 @@ export class ProjectComponent extends ItemComponent implements OnInit {
       this.contributors$ = this.buildRepresentations('OrgUnit', 'project.contributor.other');
 
       this.people$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPersonOfProject')
+        getRelatedItemsByTypeLabel(this.object.id, 'isPersonOfProject')
       );
 
       this.publications$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isPublicationOfProject')
+        getRelatedItemsByTypeLabel(this.object.id, 'isPublicationOfProject')
       );
 
       this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfProject')
+        getRelatedItemsByTypeLabel(this.object.id, 'isOrgUnitOfProject')
       );
     }
   }

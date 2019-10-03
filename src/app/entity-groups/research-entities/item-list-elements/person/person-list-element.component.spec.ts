@@ -5,7 +5,6 @@ import { PersonListElementComponent } from './person-list-element.component';
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 
 let personListElementComponent: PersonListElementComponent;
@@ -45,7 +44,6 @@ describe('PersonListElementComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ PersonListElementComponent , TruncatePipe],
       providers: [
-        { provide: ITEM, useValue: mockItemWithMetadata},
         { provide: TruncatableService, useValue: {} }
       ],
 
@@ -63,7 +61,7 @@ describe('PersonListElementComponent', () => {
 
   describe('When the item has a job title', () => {
     beforeEach(() => {
-      personListElementComponent.item = mockItemWithMetadata;
+      personListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -75,7 +73,7 @@ describe('PersonListElementComponent', () => {
 
   describe('When the item has no job title', () => {
     beforeEach(() => {
-      personListElementComponent.item = mockItemWithoutMetadata;
+      personListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 

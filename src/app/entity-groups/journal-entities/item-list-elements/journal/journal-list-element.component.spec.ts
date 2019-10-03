@@ -63,7 +63,7 @@ describe('JournalListElementComponent', () => {
 
   describe('When the item has an issn', () => {
     beforeEach(() => {
-      journalListElementComponent.item = mockItemWithMetadata;
+      journalListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
@@ -75,7 +75,7 @@ describe('JournalListElementComponent', () => {
 
   describe('When the item has no issn', () => {
     beforeEach(() => {
-      journalListElementComponent.item = mockItemWithoutMetadata;
+      journalListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 

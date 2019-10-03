@@ -1,0 +1,37 @@
+<ng-container *ngVar="object.indexableObject as item">
+    <ds-truncatable [id]="item.id">
+        <div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
+            <a [routerLink]="['/items/' + item.id]" class="card-img-top full-width">
+                <div>
+                    <ds-grid-thumbnail [thumbnail]="item.getThumbnail() | async">
+                    </ds-grid-thumbnail>
+                </div>
+            </a>
+            <div class="card-body">
+                <ds-item-type-badge [object]="object"></ds-item-type-badge>
+                <ds-truncatable-part [id]="item.id" [minLines]="3" type="h4">
+                    <h4 class="card-title" [innerHTML]="item.firstMetadataValue('organization.legalName')"></h4>
+                </ds-truncatable-part>
+                <p *ngIf="item.hasMetadata('organization.foundingDate')" class="item-date card-text text-muted">
+                    <ds-truncatable-part [id]="item.id" [minLines]="1">
+                        <span [innerHTML]="firstMetadataValue('organization.foundingDate')"></span>
+                    </ds-truncatable-part>
+                </p>
+                <p *ngIf="item.hasMetadata('organization.address.addressCountry')"
+                   class="item-location card-text">
+                    <ds-truncatable-part [id]="item.id" [minLines]="3">
+                        <span class="item-country">{{item.firstMetadataValue('organization.address.addressCountry')}}</span>
+                        <span *ngIf="item.hasMetadata('organization.address.addressLocality')" class="item-city">
+            <span>, </span>
+                            {{item.firstMetadataValue('organization.address.addressLocality')}}
+          </span>
+                    </ds-truncatable-part>
+                </p>
+                <div class="text-center">
+                    <a [routerLink]="['/items/' + item.id]"
+                       class="lead btn btn-primary viewButton">View</a>
+                </div>
+            </div>
+        </div>
+    </ds-truncatable>
+</ng-container>

@@ -41,8 +41,8 @@ export class PoolMyDSpaceResultDetailElementComponent extends MyDSpaceResultDeta
    */
   public workflowitem: WorkflowItem;
 
-  constructor(@Inject('objectElementProvider') public listable: ListableObject) {
-    super(listable);
+  constructor() {
+    super();
   }
 
   /**

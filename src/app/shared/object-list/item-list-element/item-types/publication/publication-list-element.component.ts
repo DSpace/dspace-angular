@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { TypedItemSearchResultListElementComponent } from '../typed-item-search-result-list-element.component';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { AbstractListableElementComponent } from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { Item } from '../../../../../core/shared/item.model';
 
 @listableObjectComponent('Publication', ViewMode.ListElement)
 @listableObjectComponent(DEFAULT_ITEM_TYPE, ViewMode.ListElement)
@@ -13,5 +14,5 @@ import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../object-c
 /**
  * The component for displaying a list element for an item of the type Publication
  */
-export class PublicationListElementComponent extends TypedItemSearchResultListElementComponent {
+export class PublicationListElementComponent extends AbstractListableElementComponent<Item> {
 }
