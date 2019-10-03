@@ -143,7 +143,7 @@ describe('RelationshipService', () => {
 
   describe('getRelatedItemsByLabel', () => {
     it('should return the related items by label', () => {
-      service.getRelatedItemsByLabel(item, relationshipType.rightLabel).subscribe((result) => {
+      service.getRelatedItemsByLabel(item, relationshipType.rightwardType).subscribe((result) => {
         expect(result).toEqual(relatedItems);
       });
     });
