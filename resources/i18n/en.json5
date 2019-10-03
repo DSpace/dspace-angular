@@ -139,6 +139,7 @@
   "collection.edit.tabs.roles.title": "Collection Edit - Roles",
   "collection.edit.tabs.source.head": "Content Source",
   "collection.edit.tabs.source.title": "Collection Edit - Content Source",
+  "collection.edit.template.label": "Item template",
   "collection.form.abstract": "Short Description",
   "collection.form.description": "Introductory text (HTML)",
   "collection.form.errors.title.required": "Please enter a collection name",
