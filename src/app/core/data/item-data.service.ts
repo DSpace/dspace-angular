@@ -34,7 +34,7 @@ export class ItemDataService extends DataService<Item> {
     protected rdbService: RemoteDataBuildService,
     protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
-    private bs: BrowseService,
+    protected bs: BrowseService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,

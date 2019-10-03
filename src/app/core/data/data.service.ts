@@ -37,8 +37,9 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { ChangeAnalyzer } from './change-analyzer';
 import { RestRequestMethod } from './rest-request-method';
 import { getMapsToType } from '../cache/builders/build-decorators';
+import { UpdateDataService } from './update-data.service';
 
-export abstract class DataService<T extends CacheableObject> {
+export abstract class DataService<T extends CacheableObject> implements UpdateDataService<T> {
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract dataBuildService: NormalizedObjectBuildService;
@@ -52,6 +53,13 @@ export abstract class DataService<T extends CacheableObject> {
   protected abstract comparator: ChangeAnalyzer<T>;
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
+
+  /**
+   * Get the base endpoint for all requests
+   */
+  protected getEndpoint(): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath);
+  }
 
   /**
    * Create the HREF with given options object
@@ -146,9 +154,17 @@ export abstract class DataService<T extends CacheableObject> {
     return `${endpoint}/${resourceID}`;
   }
 
+  /**
+   * Create an observable for the HREF of a specific object based on its identifier
+   * @param resourceID The identifier for the object
+   */
+  getIDHrefObs(resourceID: string): Observable<string> {
+    return this.getEndpoint().pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, resourceID)));
+  }
+
   findById(id: string): Observable<RemoteData<T>> {
-    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, id)));
+    const hrefObs = this.getIDHrefObs(id);
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
@@ -234,9 +250,9 @@ export abstract class DataService<T extends CacheableObject> {
    * @param {string} parentUUID
    *    The UUID of the parent to create the new object under
    */
-  create(dso: T, parentUUID: string): Observable<RemoteData<T>> {
+  create(dso: T, parentUUID?: string): Observable<RemoteData<T>> {
     const requestId = this.requestService.generateRequestId();
-    const endpoint$ = this.halService.getEndpoint(this.linkPath).pipe(
+    const endpoint$ = this.getEndpoint().pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
@@ -286,8 +302,7 @@ export abstract class DataService<T extends CacheableObject> {
   delete(dso: T): Observable<boolean> {
     const requestId = this.requestService.generateRequestId();
 
-    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+    const hrefObs = this.getIDHrefObs(dso.uuid);
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
