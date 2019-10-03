@@ -36,12 +36,19 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
    */
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
+  /**
+   * Hide the default return button?
+   */
+  public hideReturnButton: boolean;
+
   public constructor(
     protected router: Router,
     protected route: ActivatedRoute
   ) {
     this.router.events.subscribe(() => {
       this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
+      this.hideReturnButton = this.route.routeConfig.children
+        .find((child: any) => child.path === this.currentPage).data.hideReturnButton;
     });
   }
 
