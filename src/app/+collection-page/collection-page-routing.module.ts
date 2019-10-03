@@ -9,6 +9,8 @@ import { CreateCollectionPageGuard } from './create-collection-page/create-colle
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getCollectionModulePath } from '../app-routing.module';
+import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
+import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -26,6 +28,7 @@ export function getCollectionCreatePath() {
 
 const COLLECTION_CREATE_PATH = 'create';
 const COLLECTION_EDIT_PATH = ':id/edit';
+const ITEMTEMPLATE_PATH = ':id/itemtemplate';
 
 @NgModule({
   imports: [
@@ -50,6 +53,15 @@ const COLLECTION_EDIT_PATH = ':id/edit';
         }
       },
       {
+        path: ITEMTEMPLATE_PATH,
+        component: EditItemTemplatePageComponent,
+        canActivate: [AuthenticatedGuard],
+        resolve: {
+          collection: CollectionPageResolver,
+          item: ItemTemplatePageResolver
+        }
+      },
+      {
         path: ':id',
         component: CollectionPageComponent,
         pathMatch: 'full',
@@ -61,7 +73,8 @@ const COLLECTION_EDIT_PATH = ':id/edit';
   ],
   providers: [
     CollectionPageResolver,
-    CreateCollectionPageGuard
+    CreateCollectionPageGuard,
+    ItemTemplatePageResolver
   ]
 })
 export class CollectionPageRoutingModule {

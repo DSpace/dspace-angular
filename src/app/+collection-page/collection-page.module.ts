@@ -9,6 +9,7 @@ import { CreateCollectionPageComponent } from './create-collection-page/create-c
 import { CollectionFormComponent } from './collection-form/collection-form.component';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { SearchService } from '../+search-page/search-service/search.service';
+import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { SearchService } from '../+search-page/search-service/search.service';
     CollectionPageComponent,
     CreateCollectionPageComponent,
     DeleteCollectionPageComponent,
-    CollectionFormComponent
+    CollectionFormComponent,
+    EditItemTemplatePageComponent
   ],
   exports: [
     CollectionFormComponent
