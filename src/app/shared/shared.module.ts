@@ -138,6 +138,8 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { AbstractTrackableComponent } from './trackable/abstract-trackable.component';
+import { ComcolMetadataComponent } from './comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
@@ -266,6 +268,8 @@ const COMPONENTS = [
   TypedItemSearchResultGridElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent,
+  AbstractTrackableComponent,
+  ComcolMetadataComponent,
   ItemTypeBadgeComponent
 ];
 
@@ -321,6 +325,7 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
 const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
+  AbstractTrackableComponent,
   {
     provide: DYNAMIC_FORM_CONTROL_MAP_FN,
     useValue: dsDynamicFormControlMapFn

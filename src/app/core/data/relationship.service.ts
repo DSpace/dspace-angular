@@ -182,9 +182,9 @@ export class RelationshipService {
       map(([leftItems, rightItems, relTypesCurrentPage]) => {
         return relTypesCurrentPage.map((type, index) => {
           if (leftItems[index].uuid === item.uuid) {
-            return type.leftLabel;
+            return type.leftwardType;
           } else {
-            return type.rightLabel;
+            return type.rightwardType;
           }
         });
       }),
