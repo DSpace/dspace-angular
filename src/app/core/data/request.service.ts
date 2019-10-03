@@ -19,7 +19,7 @@ import {
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
-import { GetRequest, RestRequest } from './request.models';
+import { GetRequest, RestRequest, SubmissionRequest } from './request.models';
 import { RequestEntry, RequestState } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
@@ -148,7 +148,8 @@ export class RequestService {
    */
   configure<T extends CacheableObject>(request: RestRequest): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    if (!isGetRequest || !this.isCachedOrPending(request)) {
+    const isSubmission =  request instanceof SubmissionRequest;
+    if (!isGetRequest || !this.isCachedOrPending(request) || isSubmission) {
       this.dispatchRequest(request);
       if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);
@@ -222,7 +223,6 @@ export class RequestService {
     const inReqCache = this.hasByHref(request.href);
     const inObjCache = this.objectCache.hasBySelfLink(request.href);
     const isCached = inReqCache || inObjCache;
-
     const isPending = this.isPending(request);
     return isCached || isPending;
   }
