@@ -8,5 +8,5 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
   templateUrl: './item-type-badge.component.html'
 })
 export class ItemTypeBadgeComponent {
-  @Input() object: SearchResult<DSpaceObject>;
+  @Input() object: DSpaceObject;
 }

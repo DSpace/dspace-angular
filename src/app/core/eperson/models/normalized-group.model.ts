@@ -8,7 +8,7 @@ import { Group } from './group.model';
 
 @mapsTo(Group)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedGroup extends NormalizedDSpaceObject<Group> implements CacheableObject, ListableObject {
+export class NormalizedGroup extends NormalizedDSpaceObject<Group> implements CacheableObject {
 
   /**
    * List of Groups that this Group belong to

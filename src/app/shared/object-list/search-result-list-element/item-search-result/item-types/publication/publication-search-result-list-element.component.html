@@ -1,12 +1,14 @@
 <ng-container *ngVar="object.indexableObject as item">
-<ds-truncatable [id]="item.id" *ngIf="object !== undefined && object !== null">
-  <a
-          [routerLink]="['/items/' + item.id]" class="lead"
-          [innerHTML]="firstMetadataValue('dc.title')"></a>
-  <span class="text-muted">
+    <ds-item-type-badge [object]="item"></ds-item-type-badge>
+
+    <ds-truncatable [id]="item.id" *ngIf="object !== undefined && object !== null">
+        <a
+                [routerLink]="['/items/' + item.id]" class="lead"
+                [innerHTML]="firstMetadataValue('dc.title')"></a>
+        <span class="text-muted">
     <ds-truncatable-part [id]="item.id" [minLines]="1">
             <ng-container *ngIf="item.firstMetadataValue('dc.publisher') || item.firstMetadataValue('dc.date.issued')">(<span class="item-list-publisher"
-                                                                                                                                  [innerHTML]="firstMetadataValue('dc.publisher')">, </span><span
+                                                                                                                              [innerHTML]="firstMetadataValue('dc.publisher')">, </span><span
                     *ngIf="item.firstMetadataValue('dc.date.issued')" class="item-list-date"
                     [innerHTML]="firstMetadataValue('dc.date.issued')"></span>)</ng-container>
             <span *ngIf="item.allMetadata(['dc.contributor.author', 'dc.creator', 'dc.contributor.*']).length > 0"
@@ -18,10 +20,10 @@
             </span>
         </ds-truncatable-part>
   </span>
-  <div *ngIf="item.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">
-    <ds-truncatable-part [id]="item.id" [minLines]="3"><span
-      [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
-    </ds-truncatable-part>
-  </div>
-</ds-truncatable>
+        <div *ngIf="item.firstMetadataValue('dc.description.abstract')" class="item-list-abstract">
+            <ds-truncatable-part [id]="item.id" [minLines]="3"><span
+                    [innerHTML]="firstMetadataValue('dc.description.abstract')"></span>
+            </ds-truncatable-part>
+        </div>
+    </ds-truncatable>
 </ng-container>

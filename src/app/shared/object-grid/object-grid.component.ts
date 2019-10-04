@@ -20,6 +20,7 @@ import { HostWindowService, WidthCategory } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -31,6 +32,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 })
 
 export class ObjectGridComponent implements OnInit {
+  viewMode = ViewMode.ListElement;
 
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;

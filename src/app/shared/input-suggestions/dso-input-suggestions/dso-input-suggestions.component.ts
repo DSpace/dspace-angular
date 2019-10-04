@@ -2,6 +2,7 @@ import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-dso-input-suggestions',
@@ -22,6 +23,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
  * Component representing a form with a autocomplete functionality for DSpaceObjects
  */
 export class DsoInputSuggestionsComponent extends InputSuggestionsComponent {
+  viewMode = ViewMode.ListElement;
   /**
    * The suggestions that should be shown
    */

@@ -6,6 +6,7 @@ import { ItemMyDSpaceResult } from '../../../object-collection/shared/item-my-ds
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { Context } from '../../../../core/shared/context.model';
 
 /**
  * This component renders item object for the mydspace result in the list view.
@@ -16,7 +17,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: './item-my-dspace-result-list-element.component.html'
 })
 
-@listableObjectComponent(ItemMyDSpaceResult, ViewMode.ListElement)
+@listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.Submission)
 export class ItemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ItemMyDSpaceResult, Item> {
 
   /**

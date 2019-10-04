@@ -6,7 +6,7 @@ import { ResourceType } from './resource-type';
  * Class object representing a browse entry
  * This class is not normalized because browse entries do not have self links
  */
-export class BrowseEntry implements ListableObject, TypedObject {
+export class BrowseEntry implements ListableObject {
   static type = new ResourceType('browseEntry');
 
   /**
@@ -28,4 +28,8 @@ export class BrowseEntry implements ListableObject, TypedObject {
    * The count of this browse entry
    */
   count: number;
+
+  getRenderType(): string {
+    return (this as any).type.value;
+  }
 }

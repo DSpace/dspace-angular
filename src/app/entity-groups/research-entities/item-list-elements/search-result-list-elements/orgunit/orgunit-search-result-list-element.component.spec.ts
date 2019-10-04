@@ -1,51 +1,58 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { OrgunitSearchResultListElementComponent } from './orgunit-list-element.component';
 import { of as observableOf } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
-import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { OrgunitSearchResultListElementComponent } from './orgunit-search-result-list-element.component';
+import { Item } from '../../../../../core/shared/item.model';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 
 let orgUnitListElementComponent: OrgunitSearchResultListElementComponent;
 let fixture: ComponentFixture<OrgunitSearchResultListElementComponent>;
 
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
+const mockItemWithMetadata: ItemSearchResult = Object.assign(
+  new ItemSearchResult(),
+  {
+    indexableObject: Object.assign(new Item(), {
+      bitstreams: observableOf({}),
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ],
+        'dc.description': [
+          {
+            language: 'en_US',
+            value: 'A description about the OrgUnit'
+          }
+        ]
       }
-    ],
-    'dc.description': [
-      {
-        language: 'en_US',
-        value: 'A description about the OrgUnit'
+    })
+  });
+const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
+  new ItemSearchResult(),
+  {
+    indexableObject: Object.assign(new Item(), {
+      bitstreams: observableOf({}),
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ]
       }
-    ]
-  }
-});
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
+    })
+  });
 
 describe('OrgUnitListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ OrgunitSearchResultListElementComponent , TruncatePipe],
       providers: [
-        { provide: ITEM, useValue: mockItemWithMetadata},
         { provide: TruncatableService, useValue: {} }
       ],
 

@@ -1,53 +1,62 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { PersonSearchResultListElementComponent } from './person-list-element.component';
 import { of as observableOf } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { PersonSearchResultListElementComponent } from './person-search-result-list-element.component';
+import { Item } from '../../../../../core/shared/item.model';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 
 let personListElementComponent: PersonSearchResultListElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListElementComponent>;
 
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
+const mockItemWithMetadata: ItemSearchResult = Object.assign(
+  new ItemSearchResult(),
+  {
+    indexableObject: Object.assign(new Item(), {
+      bitstreams: observableOf({}),
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ],
+        'person.jobTitle': [
+          {
+            language: 'en_US',
+            value: 'Developer'
+          }
+        ]
       }
-    ],
-    'person.jobTitle': [
-      {
-        language: 'en_US',
-        value: 'Developer'
+    })
+  });
+const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
+  new ItemSearchResult(),
+  {
+    indexableObject: Object.assign(new Item(), {
+      bitstreams: observableOf({}),
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ]
       }
-    ]
-  }
-});
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
+    })
+  });
 
 describe('PersonListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonSearchResultListElementComponent , TruncatePipe],
+      declarations: [PersonSearchResultListElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} }
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PersonSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();

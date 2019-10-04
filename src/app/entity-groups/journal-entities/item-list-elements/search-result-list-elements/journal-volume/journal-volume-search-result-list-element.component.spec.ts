@@ -1,61 +1,68 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { JournalVolumeSearchResultListElementComponent } from './journal-volume-list-element.component';
 import { of as observableOf } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
-import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { JournalVolumeSearchResultListElementComponent } from './journal-volume-search-result-list-element.component';
+import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 
 let journalVolumeListElementComponent: JournalVolumeSearchResultListElementComponent;
 let fixture: ComponentFixture<JournalVolumeSearchResultListElementComponent>;
 
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
+const mockItemWithMetadata: ItemSearchResult = Object.assign(
+  new ItemSearchResult(),
+  {
+    indexableObject: Object.assign(new Item(), {
+      bitstreams: observableOf({}),
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ],
+        'journal.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another journal title'
+          }
+        ],
+        'publicationvolume.volumeNumber': [
+          {
+            language: 'en_US',
+            value: '1234'
+          }
+        ]
       }
-    ],
-    'journal.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another journal title'
+    })
+  });
+const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
+  new ItemSearchResult(),
+  {
+    indexableObject: Object.assign(new Item(), {
+      bitstreams: observableOf({}),
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ]
       }
-    ],
-    'publicationvolume.volumeNumber': [
-      {
-        language: 'en_US',
-        value: '1234'
-      }
-    ]
-  }
-});
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
+    })
+  });
 
 describe('JournalVolumeListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JournalVolumeSearchResultListElementComponent , TruncatePipe],
+      declarations: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
       providers: [
-        { provide: ITEM, useValue: mockItemWithMetadata},
         { provide: TruncatableService, useValue: {} }
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();

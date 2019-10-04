@@ -10,7 +10,6 @@ import { WorkspaceitemMyDSpaceResult } from '../../../object-collection/shared/w
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { isNotUndefined } from '../../../empty.util';
-import { ListableObject } from '../../../object-collection/shared/listable-object.model';
 import { MyDSpaceResultDetailElementComponent } from '../my-dspace-result-detail-element.component';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
@@ -25,8 +24,8 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: './workspaceitem-my-dspace-result-detail-element.component.html',
 })
 
-@listableObjectComponent(WorkspaceitemMyDSpaceResult, ViewMode.DetailedListElement)
-@listableObjectComponent(WorkspaceItem, ViewMode.DetailedListElement)
+@listableObjectComponent(WorkspaceitemMyDSpaceResult.name, ViewMode.DetailedListElement)
+@listableObjectComponent(WorkspaceItem.name, ViewMode.DetailedListElement)
 export class WorkspaceitemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<WorkspaceitemMyDSpaceResult, WorkspaceItem> {
 
   /**

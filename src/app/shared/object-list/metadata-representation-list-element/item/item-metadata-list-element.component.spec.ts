@@ -31,7 +31,7 @@ describe('ItemMetadataListElementComponent', () => {
   }));
 
   it('should call an item-type-switcher component and pass the item-metadata-representation', () => {
-    const itemTypeSwitcher = fixture.debugElement.query(By.css('ds-item-type-switcher')).nativeElement;
+    const itemTypeSwitcher = fixture.debugElement.query(By.css('ds-listable-object-component-loader')).nativeElement;
     expect(itemTypeSwitcher.object).toBe(mockItemMetadataRepresentation);
   });
 

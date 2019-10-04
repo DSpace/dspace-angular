@@ -110,4 +110,11 @@ export class Item extends DSpaceObject {
       }));
   }
 
+  getRenderType(): string {
+    const entityType = this.firstMetadataValue('relationship.type');
+    if (isNotEmpty(entityType)) {
+      return entityType;
+    }
+    return 'Publication';
+  }
 }

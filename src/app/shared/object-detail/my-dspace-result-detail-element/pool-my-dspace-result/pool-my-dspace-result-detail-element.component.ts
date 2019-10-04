@@ -22,8 +22,8 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: './pool-my-dspace-result-detail-element.component.html',
 })
 
-@listableObjectComponent(PoolTaskMyDSpaceResult, ViewMode.DetailedListElement)
-@listableObjectComponent(PoolTask, ViewMode.DetailedListElement)
+@listableObjectComponent(PoolTaskMyDSpaceResult.name, ViewMode.DetailedListElement)
+@listableObjectComponent(PoolTask.name, ViewMode.DetailedListElement)
 export class PoolMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<PoolTaskMyDSpaceResult, PoolTask> {
 
   /**

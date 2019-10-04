@@ -14,7 +14,7 @@
     <div class="row mt-2" *ngIf="objects?.hasSucceeded" @fadeIn>
       <div class="col"
            *ngFor="let object of objects?.payload?.page">
-        <ds-wrapper-detail-element [object]="object"></ds-wrapper-detail-element>
+        <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode"></ds-listable-object-component-loader>
       </div>
     </div>
   <ds-error *ngIf="objects.hasFailed | async" message="{{'error.objects' | translate}}"></ds-error>

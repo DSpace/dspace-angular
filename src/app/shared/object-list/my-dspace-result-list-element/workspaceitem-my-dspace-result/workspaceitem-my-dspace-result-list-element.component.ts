@@ -22,7 +22,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: './workspaceitem-my-dspace-result-list-element.component.html',
 })
 
-@listableObjectComponent(WorkspaceitemMyDSpaceResult, ViewMode.ListElement)
+@listableObjectComponent(WorkspaceitemMyDSpaceResult.name, ViewMode.ListElement)
 export class WorkspaceitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkspaceitemMyDSpaceResult, WorkspaceItem> {
 
   /**

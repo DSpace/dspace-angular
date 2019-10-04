@@ -4,14 +4,13 @@ import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { PublicationSearchResultGridElementComponent } from './publication-grid-element.component';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { ITEM } from '../../../../items/switcher/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { PublicationSearchResultGridElementComponent } from './publication-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -85,7 +84,6 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         declarations: [component, TruncatePipe],
         providers: [
           { provide: TruncatableService, useValue: truncatableServiceStub },
-          {provide: ITEM, useValue: searchResultWithoutMetadata}
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).overrideComponent(component, {

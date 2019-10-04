@@ -16,7 +16,7 @@
                 <button class="d-block dropdown-item"  (click)="onClickSuggestion(suggestionOption)" #suggestion>
                     <div class="click-blocker">
                     </div>
-                    <ds-wrapper-list-element [object]="suggestionOption"></ds-wrapper-list-element>
+                    <ds-listable-object-component-loader [object]="suggestionOption" [viewMode]="viewMode"></ds-listable-object-component-loader>
                 </button>
             </div>
         </div>

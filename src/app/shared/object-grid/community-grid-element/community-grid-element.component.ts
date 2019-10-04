@@ -11,5 +11,5 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
   templateUrl: './community-grid-element.component.html'
 })
 
-@listableObjectComponent(Community, ViewMode.GridElement)
+@listableObjectComponent(Community.name, ViewMode.GridElement)
 export class CommunityGridElementComponent extends AbstractListableElementComponent<Community> {}

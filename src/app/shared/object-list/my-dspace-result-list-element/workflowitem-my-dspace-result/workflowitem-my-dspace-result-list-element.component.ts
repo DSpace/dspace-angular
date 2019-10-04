@@ -22,8 +22,8 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: './workflowitem-my-dspace-result-list-element.component.html',
 })
 
-@listableObjectComponent(WorkflowitemMyDSpaceResult, ViewMode.ListElement)
-@listableObjectComponent(WorkflowItem, ViewMode.ListElement)
+@listableObjectComponent(WorkflowitemMyDSpaceResult.name, ViewMode.ListElement)
+@listableObjectComponent(WorkflowItem.name, ViewMode.ListElement)
 export class WorkflowitemMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<WorkflowitemMyDSpaceResult, WorkflowItem> {
 
   /**

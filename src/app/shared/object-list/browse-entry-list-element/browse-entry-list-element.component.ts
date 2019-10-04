@@ -14,5 +14,5 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
 /**
  * This component is automatically used to create a list view for BrowseEntry objects when used in ObjectCollectionComponent
  */
-@listableObjectComponent(BrowseEntry, ViewMode.ListElement)
+@listableObjectComponent(BrowseEntry.name, ViewMode.ListElement)
 export class BrowseEntryListElementComponent extends AbstractListableElementComponent<BrowseEntry> {}

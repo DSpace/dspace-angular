@@ -12,6 +12,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -22,7 +23,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   animations: [fadeIn]
 })
 export class ObjectListComponent {
-
+  viewMode = ViewMode.ListElement;
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
   @Input() hasBorder = false;

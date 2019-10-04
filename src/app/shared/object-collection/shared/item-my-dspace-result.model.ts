@@ -8,4 +8,7 @@ import { MyDSpaceConfigurationValueType } from '../../../+my-dspace-page/my-dspa
  */
 @searchResultFor(Item, MyDSpaceConfigurationValueType.Workspace)
 export class ItemMyDSpaceResult extends SearchResult<Item> {
+  getRenderType(): string {
+    return ItemMyDSpaceResult.name;
+  }
 }

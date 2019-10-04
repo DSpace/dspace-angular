@@ -6,6 +6,7 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { BrowseEntry } from '../../../../core/shared/browse-entry.model';
 
 @Component({
   selector: 'ds-collection-search-result-list-element',
@@ -13,5 +14,5 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: 'collection-search-result-list-element.component.html'
 })
 
-@listableObjectComponent(CollectionSearchResult, ViewMode.ListElement)
+@listableObjectComponent(CollectionSearchResult.name, ViewMode.ListElement)
 export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {}

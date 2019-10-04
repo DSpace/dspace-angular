@@ -1,4 +1,5 @@
 <ng-container *ngVar="object.indexableObject as item">
+    <ds-item-type-badge [object]="item"></ds-item-type-badge>
     <ds-truncatable [id]="item.id">
         <a
                 [routerLink]="['/items/' + item.id]" class="lead"

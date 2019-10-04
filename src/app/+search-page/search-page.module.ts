@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { SearchPageRoutingModule } from './search-page-routing.module';
 import { SearchPageComponent } from './search-page.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
-import { ItemSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/item-search-result/item-search-result-grid-element.component';
 import { CommunitySearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component'
 import { CollectionSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
@@ -44,7 +43,6 @@ const components = [
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
-  ItemSearchResultGridElementComponent,
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
   SearchFiltersComponent,
@@ -85,7 +83,6 @@ const components = [
     SearchConfigurationService
   ],
   entryComponents: [
-    ItemSearchResultGridElementComponent,
     CollectionSearchResultGridElementComponent,
     CommunitySearchResultGridElementComponent,
     SearchFacetFilterComponent,

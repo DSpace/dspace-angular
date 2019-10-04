@@ -1,16 +1,18 @@
-<ds-truncatable [id]="object.id">
-  <a
-          [routerLink]="['/items/' + object.id]" class="lead"
-          [innerHTML]="firstMetadataValue('dc.title')"></a>
-  <!--<span class="text-muted">-->
-    <!--<ds-truncatable-part [id]="item.id" [minLines]="1">-->
-            <!--<span *ngIf="item.allMetadata(['project.identifier.status']).length > 0"-->
-                  <!--class="item-list-status">-->
-                    <!--<span *ngFor="let value of allMetadataValues(['project.identifier.status']); let last=last;">-->
-                        <!--<span [innerHTML]="value"><span [innerHTML]="value"></span></span>-->
-                    <!--</span>-->
-            <!--</span>-->
+<ng-container *ngVar="object.indexableObject as item">
+    <ds-truncatable [id]="item.id">
+        <ds-item-type-badge [object]="item"></ds-item-type-badge>
+        <a
+                [routerLink]="['/items/' + item.id]" class="lead"
+                [innerHTML]="firstMetadataValue('dc.title')"></a>
+        <!--<span class="text-muted">-->
+        <!--<ds-truncatable-part [id]="item.id" [minLines]="1">-->
+        <!--<span *ngIf="item.allMetadata(['project.identifier.status']).length > 0"-->
+        <!--class="item-list-status">-->
+        <!--<span *ngFor="let value of allMetadataValues(['project.identifier.status']); let last=last;">-->
+        <!--<span [innerHTML]="value"><span [innerHTML]="value"></span></span>-->
+        <!--</span>-->
+        <!--</span>-->
         <!--</ds-truncatable-part>-->
-  <!--</span>-->
-</ds-truncatable>
-
+        <!--</span>-->
+    </ds-truncatable>
+</ng-container>

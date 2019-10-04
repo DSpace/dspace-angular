@@ -24,8 +24,8 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
 
-@listableObjectComponent(ClaimedTaskMyDSpaceResult, ViewMode.ListElement)
-@listableObjectComponent(ClaimedTask, ViewMode.ListElement)
+@listableObjectComponent(ClaimedTaskMyDSpaceResult.name, ViewMode.ListElement)
+@listableObjectComponent(ClaimedTask.name, ViewMode.ListElement)
 export class ClaimedMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<ClaimedTaskMyDSpaceResult, ClaimedTask> {
 
   /**

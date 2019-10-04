@@ -16,7 +16,7 @@ const listElementMap = new Map();
  * @param type
  * @param viewMode
  */
-export function listableObjectComponent(objectType: GenericConstructor<ListableObject> | string, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
+export function listableObjectComponent(objectType: string, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
   return function decorator(component: any) {
     if (hasNoValue(objectType)) {
       return;

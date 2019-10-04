@@ -16,7 +16,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: './item-my-dspace-result-detail-element.component.html'
 })
 
-@listableObjectComponent(ItemMyDSpaceResult, ViewMode.DetailedListElement)
+@listableObjectComponent(ItemMyDSpaceResult.name, ViewMode.DetailedListElement)
 export class ItemMyDSpaceResultDetailElementComponent extends MyDSpaceResultDetailElementComponent<ItemMyDSpaceResult, Item> {
 
   /**

@@ -5,24 +5,23 @@ import { Context } from '../../../../core/shared/context.model';
 import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
-import { hasValue, isNotEmpty } from '../../../empty.util';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
-  styleUrls: ['./listable-object-component-loader.component.scss'],
+  // styleUrls: ['./listable-object-component-loader.component.scss'],
   templateUrl: './listable-object-component-loader.component.html'
 })
 /**
  * Component for determining what component to use depending on the item's relationship type (relationship.type)
  */
 export class ListableObjectComponentLoaderComponent implements OnInit {
-
-  @Input() type?: string;
   /**
    * The item or metadata to determine the component for
    */
   @Input() object: ListableObject;
 
+  //TODO DO SOMETHING WITH THIS
+  @Input() index: number;
   /**
    * The preferred view-mode to display
    */
@@ -49,9 +48,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    * @returns {string}
    */
   private getComponent(): GenericConstructor<Component> {
-    if (isNotEmpty(this.type)) {
-      return getListableObjectComponent(this.type, this.viewMode)
-    }
-    return getListableObjectComponent(this.object.constructor as GenericConstructor<ListableObject>, this.viewMode);
+    return getListableObjectComponent(this.object.getRenderType(), this.viewMode)
   }
 }

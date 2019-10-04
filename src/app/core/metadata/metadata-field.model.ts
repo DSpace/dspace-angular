@@ -50,4 +50,8 @@ export class MetadataField implements ListableObject {
     }
     return key;
   }
+
+  getRenderType(): string {
+    return this.constructor.name;
+  }
 }

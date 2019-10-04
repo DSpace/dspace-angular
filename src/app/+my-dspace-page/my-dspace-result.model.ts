@@ -16,4 +16,7 @@ export class MyDSpaceResult<T extends DSpaceObject> implements ListableObject {
    */
   hitHighlights: MetadataMap;
 
+  getRenderType(): string {
+    return this.indexableObject.getRenderType() + 'MyDSpaceResult';
+  }
 }

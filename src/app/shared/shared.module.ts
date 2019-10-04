@@ -22,12 +22,10 @@ import { ConsolePipe } from './utils/console.pipe';
 
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
-import { ItemListElementComponent } from './object-list/item-list-element/item-list-element.component';
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
 import { CollectionGridElementComponent } from './object-grid/collection-grid-element/collection-grid-element.component';
 import { CommunityGridElementComponent } from './object-grid/community-grid-element/community-grid-element.component';
-import { ItemGridElementComponent } from './object-grid/item-grid-element/item-grid-element.component';
 import { AbstractListableElementComponent } from './object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
@@ -122,7 +120,6 @@ import { CreateItemParentSelectorComponent } from './dso-selector/modal-wrappers
 import { CreateCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import { CommunitySearchResultListElementComponent } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { CollectionSearchResultListElementComponent } from './object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
-import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
 import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
@@ -142,6 +139,7 @@ import { MetadataRepresentationDirective } from './metadata-representation/metad
 import { ListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PublicationSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-types/publication/publication-search-result-list-element.component';
 import { PublicationSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/publication/publication-search-result-grid-element.component';
+import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -256,7 +254,6 @@ const COMPONENTS = [
   EditItemSelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
-  ItemSearchResultListElementComponent,
   ListableObjectComponentLoaderComponent,
   BrowseByComponent,
   ItemTypeBadgeComponent,
@@ -265,15 +262,12 @@ const COMPONENTS = [
 
 const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
-  ItemListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
   MyDSpaceResultListElementComponent,
   SearchResultListElementComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
-  ItemSearchResultListElementComponent,
-  ItemGridElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
@@ -332,7 +326,8 @@ const DIRECTIVES = [
   InListValidator,
   AutoFocusDirective,
   RoleDirective,
-  MetadataRepresentationDirective
+  MetadataRepresentationDirective,
+  ListableObjectDirective
 ];
 
 @NgModule({

@@ -146,4 +146,7 @@ export class DSpaceObject implements CacheableObject, ListableObject {
     });
   }
 
+  getRenderType(): string {
+    return this.constructor.name;
+  }
 }

@@ -15,6 +15,7 @@ import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 /**
  * This component renders a paginated set of results in the detail view.
@@ -28,6 +29,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   animations: [fadeIn]
 })
 export class ObjectDetailComponent {
+  viewMode = ViewMode.DetailedListElement;
 
   /**
    * Pagination options object

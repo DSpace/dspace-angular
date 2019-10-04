@@ -13,6 +13,7 @@ import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { PoolTaskMyDSpaceResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
+import { ClaimedTaskMyDSpaceResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 
 /**
  * This component renders pool task object for the mydspace result in the list view.
@@ -23,8 +24,8 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: './pool-my-dspace-result-list-element.component.html',
 })
 
-@listableObjectComponent(PoolTaskMyDSpaceResult, ViewMode.ListElement)
-@listableObjectComponent(PoolTask, ViewMode.ListElement)
+@listableObjectComponent(PoolTaskMyDSpaceResult.name, ViewMode.ListElement)
+@listableObjectComponent(PoolTask.name, ViewMode.ListElement)
 export class PoolMyDSpaceResultListElementComponent extends MyDSpaceResultListElementComponent<PoolTaskMyDSpaceResult, PoolTask> implements OnInit {
 
   /**

@@ -1,5 +1,5 @@
 <ds-metadata-field-wrapper *ngIf="items && items.length > 0" [label]="label">
-  <ds-item-type-switcher *ngFor="let item of items"
+  <ds-listable-object-component-loader *ngFor="let item of items"
                            [object]="item" [viewMode]="viewMode">
-  </ds-item-type-switcher>
+  </ds-listable-object-component-loader>
 </ds-metadata-field-wrapper>
