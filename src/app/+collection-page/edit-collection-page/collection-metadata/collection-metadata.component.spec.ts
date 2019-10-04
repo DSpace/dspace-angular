@@ -8,10 +8,20 @@ import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionMetadataComponent } from './collection-metadata.component';
+import { Item } from '../../../core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
 describe('CollectionMetadataComponent', () => {
   let comp: CollectionMetadataComponent;
   let fixture: ComponentFixture<CollectionMetadataComponent>;
+
+  const template = new Item();
+
+  const itemTemplateService = Object.assign({
+    findByCollectionID: () => createSuccessfulRemoteDataObject$(template)
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,7 +29,9 @@ describe('CollectionMetadataComponent', () => {
       declarations: [CollectionMetadataComponent],
       providers: [
         { provide: CollectionDataService, useValue: {} },
+        { provide: ItemTemplateDataService, useValue: itemTemplateService },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: { payload: {} } }) } } },
+        { provide: NotificationsService, useValue: {} }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
