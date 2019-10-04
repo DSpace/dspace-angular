@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -19,6 +19,8 @@ import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
+import { UpdateDataService } from '../../../core/data/update-data.service';
+import { hasNoValue } from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -29,6 +31,12 @@ import { MetadataField } from '../../../core/metadata/metadata-field.model';
  * Component for displaying an item's metadata edit page
  */
 export class ItemMetadataComponent extends AbstractItemUpdateComponent {
+
+  /**
+   * A custom update service to use for adding and committing patches
+   * This will default to the ItemDataService
+   */
+  @Input() updateService: UpdateDataService<Item>;
 
   /**
    * Observable with a list of strings with all existing metadata field keys
@@ -54,6 +62,9 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   ngOnInit(): void {
     super.ngOnInit();
     this.metadataFields$ = this.findMetadataFields();
+    if (hasNoValue(this.updateService)) {
+      this.updateService = this.itemService;
+    }
   }
 
   /**
@@ -97,9 +108,9 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
           first(),
           switchMap((metadata: MetadatumViewModel[]) => {
             const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata: Metadata.toMetadataMap(metadata) });
-            return this.itemService.update(updatedItem);
+            return this.updateService.update(updatedItem);
           }),
-          tap(() => this.itemService.commitUpdates()),
+          tap(() => this.updateService.commitUpdates()),
           getSucceededRemoteData()
         ).subscribe(
           (rd: RemoteData<Item>) => {

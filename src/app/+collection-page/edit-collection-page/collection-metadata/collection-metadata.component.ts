@@ -11,6 +11,7 @@ import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shar
 import { switchMap, take } from 'rxjs/operators';
 import { combineLatest as combineLatestObservable } from 'rxjs';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component for editing a collection's metadata
@@ -32,7 +33,8 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     protected itemTemplateService: ItemTemplateDataService,
     protected router: Router,
     protected route: ActivatedRoute,
-    protected notificationsService: NotificationsService
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService
   ) {
     super(collectionDataService, router, route);
   }
@@ -85,10 +87,9 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
       switchMap(([collection, template]) => this.itemTemplateService.deleteByCollectionID(template, collection.uuid))
     ).subscribe((success: boolean) => {
       if (success) {
-        this.notificationsService.success(null, 'collections.edit.template.notifications.delete.success');
-        this.initTemplateItem();
+        this.notificationsService.success(null, this.translate.get('collection.edit.template.notifications.delete.success'));
       } else {
-        this.notificationsService.error(null, 'collections.edit.template.notifications.delete.error');
+        this.notificationsService.error(null, this.translate.get('collection.edit.template.notifications.delete.error'));
       }
     });
   }

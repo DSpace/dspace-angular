@@ -21,7 +21,6 @@ import { switchMap } from 'rxjs/operators';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends ItemDataService {
-  protected linkPath = 'itemtemplate';
 
   private collectionID: string;
 
@@ -40,19 +39,9 @@ class DataServiceImpl extends ItemDataService {
     super(requestService, rdbService, dataBuildService, store, bs, objectCache, halService, notificationsService, http, comparator);
   }
 
-  protected getEndpoint(): Observable<string> {
-    return this.collectionService.getIDHrefObs(this.collectionID).pipe(
-      switchMap((href: string) => this.halService.getEndpoint(this.linkPath, href))
-    );
-  }
-
-  getIDHrefObs(resourceID: string): Observable<string> {
-    return this.getEndpoint();
-  }
-
   findByCollectionID(collectionID: string): Observable<RemoteData<Item>> {
     this.collectionID = collectionID;
-    return super.findById(collectionID);
+    return super.findById('961e137c-d815-4ade-aff1-0bb12f1fe965');
   }
 
   create(item: Item, collectionID: string): Observable<RemoteData<Item>> {

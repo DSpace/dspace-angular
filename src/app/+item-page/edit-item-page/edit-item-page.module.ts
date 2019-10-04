@@ -47,6 +47,9 @@ import { ItemMoveComponent } from './item-move/item-move.component';
     EditRelationshipComponent,
     EditRelationshipListComponent,
     ItemMoveComponent,
+  ],
+  exports: [
+    ItemMetadataComponent
   ]
 })
 export class EditItemPageModule {

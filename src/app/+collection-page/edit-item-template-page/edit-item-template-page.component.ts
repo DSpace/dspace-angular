@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import { Item } from '../../core/shared/item.model';
 import { ActivatedRoute } from '@angular/router';
 import { first, map } from 'rxjs/operators';
+import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
+import { getCollectionEditPath } from '../collection-page-routing.module';
 
 @Component({
   selector: 'ds-edit-item-template-page',
@@ -12,14 +13,17 @@ import { first, map } from 'rxjs/operators';
 })
 export class EditItemTemplatePageComponent implements OnInit {
   collectionRD$: Observable<RemoteData<Collection>>;
-  itemRD$: Observable<RemoteData<Item>>;
 
-  constructor(protected route: ActivatedRoute) {
+  constructor(protected route: ActivatedRoute,
+              protected itemTemplateService: ItemTemplateDataService) {
   }
 
   ngOnInit(): void {
-    this.collectionRD$ = this.route.parent.data.pipe(first(), map((data) => data.collection));
-    this.itemRD$ = this.route.parent.data.pipe(first(), map((data) => data.item));
+    this.collectionRD$ = this.route.data.pipe(first(), map((data) => data.collection));
+  }
+
+  getCollectionEditUrl(collection: Collection): string {
+    return getCollectionEditPath(collection.uuid);
   }
 
 }

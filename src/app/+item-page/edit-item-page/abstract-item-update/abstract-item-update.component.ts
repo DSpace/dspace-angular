@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { first, map } from 'rxjs/operators';
 import { RemoteData } from '../../../core/data/remote-data';
+import { combineLatest as observableCombineLatest } from 'rxjs';
 
 @Injectable()
 /**
@@ -55,11 +56,12 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
    * Initialize common properties between item-update components
    */
   ngOnInit(): void {
-    this.route.parent.data.pipe(map((data) => data.item))
-      .pipe(
-        first(),
-        map((data: RemoteData<Item>) => data.payload)
-      ).subscribe((item: Item) => {
+    observableCombineLatest(this.route.data, this.route.parent.data).pipe(
+      map(([data, parentData]) => Object.assign(data, parentData)),
+      map((data) => data.item),
+      first(),
+      map((data: RemoteData<Item>) => data.payload)
+    ).subscribe((item: Item) => {
       this.item = item;
     });
 

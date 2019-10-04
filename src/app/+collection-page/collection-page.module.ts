@@ -10,11 +10,13 @@ import { CollectionFormComponent } from './collection-form/collection-form.compo
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { SearchService } from '../+search-page/search-service/search.service';
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
+import { EditItemPageModule } from '../+item-page/edit-item-page/edit-item-page.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    EditItemPageModule,
     CollectionPageRoutingModule
   ],
   declarations: [
