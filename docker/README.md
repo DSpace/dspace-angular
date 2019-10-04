@@ -24,7 +24,7 @@ docker-compose -f docker/docker-compose.yml pull
 
 ## To build DSpace images using code in your branch
 ```
-docker-compose-f docker/docker-compose.yml build
+docker-compose -f docker/docker-compose.yml build
 ```
 
 ## To start DSpace (REST and Angular) from your branch
@@ -72,7 +72,7 @@ docker-compose -p d7 -f docker/cli.yml -f docker/cli.assetstore.yml run --rm dsp
 ```
 
 ## End to end testing of the rest api (runs in travis).
-_In this instance, only the REST api runs in Docker.  Travis will perform CI testing of Angular using Node to drive the tests._
+_In this instance, only the REST api runs in Docker using the Entities dataset. Travis will perform CI testing of Angular using Node to drive the tests._
 
 ```
 docker-compose -p d7ci -f docker/docker-compose-travis.yml up -d
