@@ -24,7 +24,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
   protected frontendURL = '/collections/';
 
   /**
-   * The collection's template item
+   * The collection's item template
    */
   itemTemplateRD$: Observable<RemoteData<Item>>;
 
@@ -44,6 +44,9 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     this.initTemplateItem();
   }
 
+  /**
+   * Initialize the collection's item template
+   */
   initTemplateItem() {
     this.itemTemplateRD$ = this.dsoRD$.pipe(
       getSucceededRemoteData(),
@@ -52,6 +55,9 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     );
   }
 
+  /**
+   * Add a new item template to the collection and redirect to the item template edit page
+   */
   addItemTemplate() {
     const collection$ = this.dsoRD$.pipe(
       getSucceededRemoteData(),
@@ -70,6 +76,9 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     });
   }
 
+  /**
+   * Delete the item template from the collection
+   */
   deleteItemTemplate() {
     const collection$ = this.dsoRD$.pipe(
       getSucceededRemoteData(),

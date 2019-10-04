@@ -7,16 +7,19 @@ import { Observable } from 'rxjs/internal/Observable';
 import { find } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 
+/**
+ * This class represents a resolver that requests a specific collection's item template before the route is activated
+ */
 @Injectable()
 export class ItemTemplatePageResolver implements Resolve<RemoteData<Item>> {
   constructor(private itemTemplateService: ItemTemplateDataService) {
   }
 
   /**
-   * Method for resolving a collection's template item based on the parameters in the current route
+   * Method for resolving a collection's item template based on the parameters in the current route
    * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
    * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns Observable<<RemoteData<Collection>> Emits the found template item based on the parameters in the current route,
+   * @returns Observable<<RemoteData<Collection>> Emits the found item template based on the parameters in the current route,
    * or an error if something went wrong
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RemoteData<Item>> {

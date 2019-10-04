@@ -11,7 +11,14 @@ import { getCollectionEditPath } from '../collection-page-routing.module';
   selector: 'ds-edit-item-template-page',
   templateUrl: './edit-item-template-page.component.html',
 })
+/**
+ * Component for editing the item template of a collection
+ */
 export class EditItemTemplatePageComponent implements OnInit {
+
+  /**
+   * The collection to edit the item template for
+   */
   collectionRD$: Observable<RemoteData<Collection>>;
 
   constructor(protected route: ActivatedRoute,
@@ -22,6 +29,10 @@ export class EditItemTemplatePageComponent implements OnInit {
     this.collectionRD$ = this.route.data.pipe(first(), map((data) => data.collection));
   }
 
+  /**
+   * Get the URL to the collection's edit page
+   * @param collection
+   */
   getCollectionEditUrl(collection: Collection): string {
     return getCollectionEditPath(collection.uuid);
   }
