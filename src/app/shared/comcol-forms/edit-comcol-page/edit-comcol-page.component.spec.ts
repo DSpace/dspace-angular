@@ -39,7 +39,14 @@ describe('EditComColPageComponent', () => {
         dso: community
       }),
       routeConfig: {
-        children: []
+        children: [
+          {
+            path: 'mockUrl',
+            data: {
+              hideReturnButton: false
+            }
+          }
+        ]
       },
       snapshot: {
         firstChild: {
