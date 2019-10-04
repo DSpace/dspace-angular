@@ -34,7 +34,11 @@ export class EditItemTemplatePageComponent implements OnInit {
    * @param collection
    */
   getCollectionEditUrl(collection: Collection): string {
-    return getCollectionEditPath(collection.uuid);
+    if (collection) {
+      return getCollectionEditPath(collection.uuid);
+    } else {
+      return '';
+    }
   }
 
 }
