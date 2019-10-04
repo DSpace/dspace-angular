@@ -57,7 +57,7 @@ export abstract class AbstractItemUpdateComponent implements OnInit {
    */
   ngOnInit(): void {
     observableCombineLatest(this.route.data, this.route.parent.data).pipe(
-      map(([data, parentData]) => Object.assign(data, parentData)),
+      map(([data, parentData]) => Object.assign({}, data, parentData)),
       map((data) => data.item),
       first(),
       map((data: RemoteData<Item>) => data.payload)
