@@ -205,7 +205,7 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        request.responseMsToLive = 0;
+        request.responseMsToLive = 10 * 1000;
         this.requestService.configure(request);
       });
 

@@ -110,7 +110,7 @@ export class SubmissionRestService {
       distinctUntilChanged(),
       map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),
       map ((request: RestRequest) => {
-        request.responseMsToLive = 0;
+        request.responseMsToLive = 10 * 1000;
         return request;
       }),
       tap((request: RestRequest) => this.requestService.configure(request)),

@@ -45,7 +45,7 @@ export class AuthRequestService {
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthPostRequest(this.requestService.generateRequestId(), endpointURL, body, options)),
       map ((request: PostRequest) => {
-        request.responseMsToLive = 0;
+        request.responseMsToLive = 10 * 1000;
         return request;
       }),
       tap((request: PostRequest) => this.requestService.configure(request)),
@@ -60,7 +60,7 @@ export class AuthRequestService {
       distinctUntilChanged(),
       map((endpointURL: string) => new AuthGetRequest(this.requestService.generateRequestId(), endpointURL, options)),
       map ((request: GetRequest) => {
-        request.responseMsToLive = 0;
+        request.responseMsToLive = 10 * 1000;
         return request;
       }),
       tap((request: GetRequest) => this.requestService.configure(request)),

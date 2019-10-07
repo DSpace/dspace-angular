@@ -60,7 +60,7 @@ describe('SubmissionRestService test suite', () => {
     it('should configure a new SubmissionRequest', () => {
       const expected = new SubmissionRequest(requestService.generateRequestId(), resourceHref);
       // set cache time to zero
-      expected.responseMsToLive = 0;
+      expected.responseMsToLive = 10 * 1000;
       scheduler.schedule(() => service.getDataById(resourceEndpoint, resourceScope).subscribe());
       scheduler.flush();
 

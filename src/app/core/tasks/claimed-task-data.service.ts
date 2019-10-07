@@ -21,20 +21,7 @@ import { ProcessTaskResponse } from './models/process-task-response';
  */
 @Injectable()
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  protected responseMsToLive = 0;
-=======
-  protected resetMsToLive = true;
->>>>>>> Setting cache period to zero for all instances where forceBypassCache was previously true.
-=======
-  protected resetMsToLive = 0;
->>>>>>> Sets responseMsToLive to zero in some dataService methods and adds ability to reset the responseMsToLive value in subclasses.
-=======
-  protected responseMsToLive = 0;
->>>>>>> Renamed cache property and replaced conditional with hasValue.
+  protected responseMsToLive = 10 * 1000;
 
   /**
    * The endpoint link name
