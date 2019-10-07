@@ -27,7 +27,7 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
   /**
    * @type {Community.type} This is a community-type form
    */
-  protected type = Community.type;
+  type = Community.type;
 
   /**
    * The dynamic form fields used for creating/editing a community

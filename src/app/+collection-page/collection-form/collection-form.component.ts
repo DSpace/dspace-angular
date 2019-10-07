@@ -3,7 +3,6 @@ import { DynamicFormService, DynamicInputModel, DynamicTextAreaModel } from '@ng
 import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { Collection } from '../../core/shared/collection.model';
 import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
-import { NormalizedCollection } from '../../core/cache/models/normalized-collection.model';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -27,7 +26,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
   /**
    * @type {Collection.type} This is a collection-type form
    */
-  protected type = Collection.type;
+  type = Collection.type;
 
   /**
    * The dynamic form fields used for creating/editing a collection

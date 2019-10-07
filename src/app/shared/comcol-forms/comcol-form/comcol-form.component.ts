@@ -47,7 +47,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   /**
    * Type of DSpaceObject that the form represents
    */
-  protected type: ResourceType;
+  type: ResourceType;
 
   /**
    * @type {string} Key prefix used to generate form labels
@@ -95,7 +95,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * Observable keeping track whether or not the uploader has finished initializing
    * Used to start rendering the uploader component
    */
-  private initializedUploaderOptions = new BehaviorSubject(false);
+  initializedUploaderOptions = new BehaviorSubject(false);
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
