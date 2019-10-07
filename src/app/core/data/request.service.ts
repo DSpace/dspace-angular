@@ -148,8 +148,7 @@ export class RequestService {
    */
   configure<T extends CacheableObject>(request: RestRequest): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    const isSubmission =  request instanceof SubmissionRequest;
-    if (!isGetRequest || !this.isCachedOrPending(request) || isSubmission) {
+    if (!isGetRequest || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request);
       if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);
