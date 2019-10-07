@@ -8,12 +8,26 @@ import { SharedModule } from '../../shared/shared.module';
 import { of as observableOf } from 'rxjs';
 import { EditCommunityPageComponent } from './edit-community-page.component';
 import { CommunityDataService } from '../../core/data/community-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 
 describe('EditCommunityPageComponent', () => {
   let comp: EditCommunityPageComponent;
   let fixture: ComponentFixture<EditCommunityPageComponent>;
+
+  const routeStub = {
+    data: observableOf({
+      dso: { payload: {} }
+    }),
+    routeConfig: {
+      children: []
+    },
+    snapshot: {
+      firstChild: {
+        routeConfig: {
+          path: 'mockUrl'
+        }
+      }
+    }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,8 +35,7 @@ describe('EditCommunityPageComponent', () => {
       declarations: [EditCommunityPageComponent],
       providers: [
         { provide: CommunityDataService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -34,9 +47,9 @@ describe('EditCommunityPageComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('frontendURL', () => {
-    it('should have the right frontendURL set', () => {
-      expect((comp as any).frontendURL).toEqual('/communities/');
+  describe('type', () => {
+    it('should have the right type set', () => {
+      expect((comp as any).type).toEqual('community');
     })
   });
 });

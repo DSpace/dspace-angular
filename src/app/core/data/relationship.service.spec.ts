@@ -5,7 +5,6 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-da
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RequestEntry } from './request.reducer';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { ResourceType } from '../shared/resource-type';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RemoteData } from './remote-data';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
@@ -33,8 +32,8 @@ describe('RelationshipService', () => {
   const relationshipType = Object.assign(new RelationshipType(), {
     id: '1',
     uuid: '1',
-    leftLabel: 'isAuthorOfPublication',
-    rightLabel: 'isPublicationOfAuthor'
+    leftwardType: 'isAuthorOfPublication',
+    rightwardType: 'isPublicationOfAuthor'
   });
 
   const relationship1 = Object.assign(new Relationship(), {
@@ -129,7 +128,7 @@ describe('RelationshipService', () => {
   describe('getItemRelationshipLabels', () => {
     it('should return the correct labels', () => {
       service.getItemRelationshipLabels(item).subscribe((result) => {
-        expect(result).toEqual([relationshipType.rightLabel]);
+        expect(result).toEqual([relationshipType.rightwardType]);
       });
     });
   });
@@ -144,7 +143,7 @@ describe('RelationshipService', () => {
 
   describe('getRelatedItemsByLabel', () => {
     it('should return the related items by label', () => {
-      service.getRelatedItemsByLabel(item, relationshipType.rightLabel).subscribe((result) => {
+      service.getRelatedItemsByLabel(item, relationshipType.rightwardType).subscribe((result) => {
         expect(result).toEqual(relatedItems);
       });
     });

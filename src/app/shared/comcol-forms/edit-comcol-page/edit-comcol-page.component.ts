@@ -2,15 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../core/data/remote-data';
-import { isNotUndefined } from '../../empty.util';
-import { first, map, take } from 'rxjs/operators';
+import { isNotEmpty, isNotUndefined } from '../../empty.util';
+import { first, map } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { DataService } from '../../../core/data/data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ComColDataService } from '../../../core/data/comcol-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ResourceType } from '../../../core/shared/resource-type';
 
 /**
  * Component representing the edit page for communities and collections
@@ -21,67 +17,54 @@ import { ResourceType } from '../../../core/shared/resource-type';
 })
 export class EditComColPageComponent<TDomain extends DSpaceObject> implements OnInit {
   /**
-   * Frontend endpoint for this type of DSO
+   * The type of DSpaceObject (used to create i18n messages)
    */
-  protected frontendURL: string;
+  protected type: string;
+
   /**
-   * The initial DSO object
+   * The current page outlet string
+   */
+  public currentPage: string;
+
+  /**
+   * All possible page outlet strings
+   */
+  public pages: string[];
+
+  /**
+   * The DSO to render the edit page for
    */
   public dsoRD$: Observable<RemoteData<TDomain>>;
 
   /**
-   * The type of the dso
+   * Hide the default return button?
    */
-  protected type: ResourceType;
+  public hideReturnButton: boolean;
 
   public constructor(
-    protected dsoDataService: ComColDataService<TDomain>,
     protected router: Router,
-    protected route: ActivatedRoute,
-    protected notificationsService: NotificationsService,
-    protected translate: TranslateService
+    protected route: ActivatedRoute
   ) {
+    this.router.events.subscribe(() => {
+      this.currentPage = this.route.snapshot.firstChild.routeConfig.path;
+      this.hideReturnButton = this.route.routeConfig.children
+        .find((child: any) => child.path === this.currentPage).data.hideReturnButton;
+    });
   }
 
   ngOnInit(): void {
+    this.pages = this.route.routeConfig.children
+      .map((child: any) => child.path)
+      .filter((path: string) => isNotEmpty(path)); // ignore reroutes
     this.dsoRD$ = this.route.data.pipe(first(), map((data) => data.dso));
   }
 
   /**
-   * Updates an existing DSO based on the submitted user data and navigates to the edited object's home page
-   * @param event   The event returned by the community/collection form. Contains the new dso and logo uploader
+   * Get the dso's page url
+   * This method is expected to be overridden in the edit community/collection page components
+   * @param dso The DSpaceObject for which the url is requested
    */
-  onSubmit(event) {
-    const dso = event.dso;
-    const uploader = event.uploader;
-
-    this.dsoDataService.update(dso)
-      .pipe(getSucceededRemoteData())
-      .subscribe((dsoRD: RemoteData<TDomain>) => {
-        if (isNotUndefined(dsoRD)) {
-          const newUUID = dsoRD.payload.uuid;
-          if (uploader.queue.length > 0) {
-            this.dsoDataService.getLogoEndpoint(newUUID).pipe(take(1)).subscribe((href: string) => {
-              uploader.options.url = href;
-              uploader.uploadAll();
-            });
-          } else {
-            this.router.navigate([this.frontendURL + newUUID]);
-          }
-          this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.notifications.success'));
-        }
-      });
-  }
-
-  /**
-   * Navigate to the home page of the object
-   */
-  navigateToHomePage() {
-    this.dsoRD$.pipe(
-      getSucceededRemoteData(),
-      take(1)
-    ).subscribe((dsoRD: RemoteData<TDomain>) => {
-      this.router.navigate([this.frontendURL + dsoRD.payload.id]);
-    });
+  getPageUrl(dso: TDomain): string {
+    return this.router.url;
   }
 }

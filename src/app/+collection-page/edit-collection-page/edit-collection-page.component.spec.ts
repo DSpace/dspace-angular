@@ -8,12 +8,26 @@ import { EditCollectionPageComponent } from './edit-collection-page.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CollectionDataService } from '../../core/data/collection-data.service';
 import { of as observableOf } from 'rxjs';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 
 describe('EditCollectionPageComponent', () => {
   let comp: EditCollectionPageComponent;
   let fixture: ComponentFixture<EditCollectionPageComponent>;
+
+  const routeStub = {
+    data: observableOf({
+      dso: { payload: {} }
+    }),
+    routeConfig: {
+      children: []
+    },
+    snapshot: {
+      firstChild: {
+        routeConfig: {
+          path: 'mockUrl'
+        }
+      }
+    }
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -21,8 +35,7 @@ describe('EditCollectionPageComponent', () => {
       declarations: [EditCollectionPageComponent],
       providers: [
         { provide: CollectionDataService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -34,9 +47,9 @@ describe('EditCollectionPageComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('frontendURL', () => {
-    it('should have the right frontendURL set', () => {
-      expect((comp as any).frontendURL).toEqual('/collections/');
+  describe('type', () => {
+    it('should have the right type set', () => {
+      expect((comp as any).type).toEqual('collection');
     })
   });
 });
