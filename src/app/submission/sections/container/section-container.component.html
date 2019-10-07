@@ -33,6 +33,9 @@
         </div>
       </ng-template>
       <ng-template ngbPanelContent>
+        <ds-alert *ngIf="hasInfoMessage | async"
+                  [content]="'submission.sections.'+sectionData.header+'.info'"
+                  [type]="AlertTypeEnum.Info"></ds-alert>
         <div id="sectionGenericError_{{sectionData.id}}" *ngIf="sectionRef.hasGenericErrors()">
           <ds-alert *ngFor="let error of sectionRef.getErrors(); let i = index"
                     [content]="error"

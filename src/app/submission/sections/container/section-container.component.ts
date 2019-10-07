@@ -1,12 +1,16 @@
 import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
 
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
 import { SectionsDirective } from '../sections.directive';
 import { SectionDataObject } from '../models/section-data.model';
 import { rendersSectionType } from '../sections-decorator';
 import { AlertType } from '../../../shared/alert/aletr-type';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { isNotEmpty } from '../../../shared/empty.util';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -43,6 +47,12 @@ export class SubmissionSectionContainerComponent implements OnInit {
   public AlertTypeEnum = AlertType;
 
   /**
+   * A boolean representing if a section has a info message to display
+   * @type {Observable<boolean>}
+   */
+  public hasInfoMessage: Observable<boolean>;
+
+  /**
    * A boolean representing if a section delete operation is pending
    * @type {BehaviorSubject<boolean>}
    */
@@ -70,8 +80,12 @@ export class SubmissionSectionContainerComponent implements OnInit {
    *
    * @param {Injector} injector
    * @param {JsonPatchOperationsBuilder} operationsBuilder
+   * @param {TranslateService} translate
    */
-  constructor(private injector: Injector, private operationsBuilder: JsonPatchOperationsBuilder) {
+  constructor(
+    private injector: Injector,
+    private operationsBuilder: JsonPatchOperationsBuilder,
+    private translate: TranslateService) {
   }
 
   /**
@@ -87,6 +101,9 @@ export class SubmissionSectionContainerComponent implements OnInit {
       parent: this.injector
     });
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
+    this.hasInfoMessage = this.translate.get('submission.sections.' + this.sectionData.header + '.info').pipe(
+      map((message: string) => isNotEmpty(message))
+    );
   }
 
   /**
