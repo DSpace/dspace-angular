@@ -27,7 +27,7 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
    */
   protected linkPath = 'pooltasks';
 
-  protected responseMsToLive = 0;
+  protected responseMsToLive = 10 * 1000;
 
   /**
    * Initialize instance variables

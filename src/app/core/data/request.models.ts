@@ -22,7 +22,7 @@ import { TaskResponseParsingService } from '../tasks/task-response-parsing.servi
 /* tslint:disable:max-classes-per-file */
 
 export abstract class RestRequest {
-  public responseMsToLive = 0;
+  public responseMsToLive = 10 * 1000;
   constructor(
     public uuid: string,
     public href: string,
@@ -392,7 +392,7 @@ export class TaskDeleteRequest extends DeleteRequest {
 }
 
 export class MyDSpaceRequest extends GetRequest {
-  public responseMsToLive = 0;
+  public responseMsToLive = 10 * 1000;
 }
 
 export class RequestError extends Error {
