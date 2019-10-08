@@ -341,10 +341,10 @@ export class ResetAuthenticationMessagesAction implements Action {
   public type: string = AuthActionTypes.RESET_MESSAGES;
 }
 
-// Next three Actions are used by shibboleth login
+// // Next three Actions are used by dynamic login methods
 /**
- * Check if token is already present upon initial load.
- * @class CheckAuthenticationTokenAction
+ * Action that triggers an effect fetching the authentication methods enabled ant the backend
+ * @class  RetrieveAuthMethodsAction
  * @implements {Action}
  */
 export class RetrieveAuthMethodsAction implements Action {

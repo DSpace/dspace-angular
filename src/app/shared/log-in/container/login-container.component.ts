@@ -3,6 +3,7 @@ import { rendersAuthMethodType } from '../methods/authMethods-decorator';
 import { AuthMethodModel } from '../../../core/auth/models/auth-method.model';
 import { select, Store } from '@ngrx/store';
 import { CoreState } from '../../../core/core.reducers';
+import { InjectedAuthMethodModel } from '../injectedAuthMethodModel/injectedAuthMethodModel';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -14,7 +15,7 @@ import { CoreState } from '../../../core/core.reducers';
 })
 export class LoginContainerComponent implements OnInit {
 
-  @Input() authMethodModel: AuthMethodModel;
+  @Input() authMethodModel: InjectedAuthMethodModel;
 
   /**
    * Injector to inject a section component with the @Input parameters

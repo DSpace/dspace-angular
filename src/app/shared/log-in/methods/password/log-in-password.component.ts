@@ -1,5 +1,5 @@
 import { filter, map, takeWhile } from 'rxjs/operators';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
@@ -22,6 +22,7 @@ import { fadeOut } from '../../../animations/fade';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethodType } from '../authMethods-type';
 import { renderAuthMethodFor } from '../authMethods-decorator';
+import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
 
 /**
  * /users/sign-in
@@ -84,6 +85,8 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    */
   private alive = true;
 
+  @Input() authMethodModel: AuthMethodModel;
+
   /**
    * @constructor
    * @param {AuthService} authService
@@ -91,10 +94,12 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    * @param {Store<State>} store
    */
   constructor(
+    @Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private store: Store<CoreState>,
+    private store: Store<CoreState>
   ) {
+    this.authMethodModel = injectedAuthMethodModel;
   }
 
   /**
@@ -102,7 +107,6 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
-
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
 
@@ -139,7 +143,7 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
       takeWhile(() => this.alive),
       filter((authenticated) => authenticated))
       .subscribe(() => {
-          this.authService.redirectAfterLoginSuccess(true); // HARDCODED FOR DEV _ CHANGE IT
+          this.authService.redirectAfterLoginSuccess(this.authMethodModel.isStandalonePage);
         }
       );
 
