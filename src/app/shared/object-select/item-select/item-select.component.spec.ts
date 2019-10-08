@@ -65,7 +65,7 @@ describe('ItemSelectComponent', () => {
       imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
       declarations: [],
       providers: [
-        { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
+        { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
       ],
       schemas: [NO_ERRORS_SCHEMA]

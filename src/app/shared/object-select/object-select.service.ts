@@ -51,7 +51,13 @@ export class ObjectSelectService {
    */
   getAllSelected(key: string): Observable<string[]> {
     return this.appStore.select(objectSelectionListStateSelector).pipe(
-      map((state: ObjectSelectionListState) => Object.keys(state[key]).filter((id) => state[key][id].checked))
+      map((state: ObjectSelectionListState) => {
+        if (hasValue(state[key])) {
+          return Object.keys(state[key]).filter((id) => state[key][id].checked);
+        } else {
+          return [];
+        }
+      })
     );
   }
 

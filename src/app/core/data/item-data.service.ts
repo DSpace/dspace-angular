@@ -149,16 +149,6 @@ export class ItemDataService extends DataService<Item> {
   }
 
   /**
-   * Clears all requests (from cache) connected to the mappedCollections endpoint
-   * @param itemId
-   */
-  public clearMappedCollectionsRequests(itemId: string) {
-    this.getMappedCollectionsEndpoint(itemId).pipe(take(1)).subscribe((href: string) => {
-      this.requestService.removeByHrefSubstring(href);
-    });
-  }
-
-  /**
    * Get the endpoint for item withdrawal and reinstatement
    * @param itemId
    */

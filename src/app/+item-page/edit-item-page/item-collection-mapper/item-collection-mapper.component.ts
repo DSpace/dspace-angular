@@ -69,6 +69,12 @@ export class ItemCollectionMapperComponent implements OnInit {
    */
   shouldUpdate$: BehaviorSubject<boolean>;
 
+  /**
+   * Track whether at least one search has been performed or not
+   * As soon as at least one search has been performed, we display the search results
+   */
+  performedSearch = false;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private searchConfigService: SearchConfigurationService,
@@ -112,7 +118,7 @@ export class ItemCollectionMapperComponent implements OnInit {
         return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
           query: this.buildQuery([...itemCollectionsRD.payload.page, owningCollectionRD.payload], searchOptions.query),
           dsoType: DSpaceObjectType.COLLECTION
-        })).pipe(
+        }), 1000).pipe(
           toDSpaceObjectListRD(),
           startWith(undefined)
         );
@@ -146,7 +152,6 @@ export class ItemCollectionMapperComponent implements OnInit {
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.add');
-    this.clearRequestCache();
   }
 
   /**
@@ -161,7 +166,6 @@ export class ItemCollectionMapperComponent implements OnInit {
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.remove');
-    this.clearRequestCache();
   }
 
   /**
@@ -210,20 +214,11 @@ export class ItemCollectionMapperComponent implements OnInit {
   }
 
   /**
-   * Clear all previous requests from cache in preparation of refreshing all lists
-   */
-  private clearRequestCache() {
-    this.itemRD$.pipe(take(1)).subscribe((itemRD: RemoteData<Item>) => {
-      this.itemDataService.clearMappedCollectionsRequests(itemRD.payload.id);
-      this.searchService.clearDiscoveryRequests();
-    });
-  }
-
-  /**
    * Clear url parameters on tab change (temporary fix until pagination is improved)
    * @param event
    */
   tabChange(event) {
+    this.performedSearch = false;
     this.router.navigateByUrl(this.getCurrentUrl());
   }
 

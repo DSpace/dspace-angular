@@ -41,14 +41,4 @@ describe('CollectionDataService', () => {
     });
   });
 
-  describe('clearMappedItemsRequests', () => {
-    beforeEach(() => {
-      service.clearMappedItemsRequests('collection-id');
-    });
-
-    it('should remote request cache', () => {
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalled();
-    });
-  });
-
 });

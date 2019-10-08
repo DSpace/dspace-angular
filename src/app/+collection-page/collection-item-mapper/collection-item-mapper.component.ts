@@ -84,6 +84,12 @@ export class CollectionItemMapperComponent implements OnInit {
    */
   shouldUpdate$: BehaviorSubject<boolean>;
 
+  /**
+   * Track whether at least one search has been performed or not
+   * As soon as at least one search has been performed, we display the search results
+   */
+  performedSearch = false;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               @Inject(SEARCH_CONFIG_SERVICE) private searchConfigService: SearchConfigurationService,
@@ -128,7 +134,7 @@ export class CollectionItemMapperComponent implements OnInit {
               scope: undefined,
               dsoType: DSpaceObjectType.ITEM,
               sort: this.defaultSortOptions
-            })).pipe(
+            }), 1000).pipe(
               toDSpaceObjectListRD(),
               startWith(undefined)
             );
@@ -154,7 +160,6 @@ export class CollectionItemMapperComponent implements OnInit {
     );
 
     this.showNotifications(responses$, remove);
-    this.clearRequestCache();
   }
 
   /**
@@ -170,8 +175,8 @@ export class CollectionItemMapperComponent implements OnInit {
       const unsuccessful = responses.filter((response: RestResponse) => !response.isSuccessful);
       if (successful.length > 0) {
         const successMessages = observableCombineLatest(
-          this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.success.head`),
-          this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.success.content`, { amount: successful.length })
+          this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.success.head`),
+          this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.success.content`, { amount: successful.length })
         );
 
         successMessages.subscribe(([head, content]) => {
@@ -180,8 +185,8 @@ export class CollectionItemMapperComponent implements OnInit {
       }
       if (unsuccessful.length > 0) {
         const unsuccessMessages = observableCombineLatest(
-          this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.error.head`),
-          this.translateService.get(`collection.item-mapper.notifications.${messageInsertion}.error.content`, { amount: unsuccessful.length })
+          this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.error.head`),
+          this.translateService.get(`collection.edit.item-mapper.notifications.${messageInsertion}.error.content`, { amount: unsuccessful.length })
         );
 
         unsuccessMessages.subscribe(([head, content]) => {
@@ -195,20 +200,11 @@ export class CollectionItemMapperComponent implements OnInit {
   }
 
   /**
-   * Clear all previous requests from cache in preparation of refreshing all lists
-   */
-  private clearRequestCache() {
-    this.collectionRD$.pipe(take(1)).subscribe((collectionRD: RemoteData<Collection>) => {
-      this.collectionDataService.clearMappedItemsRequests(collectionRD.payload.id);
-      this.searchService.clearDiscoveryRequests();
-    });
-  }
-
-  /**
    * Clear url parameters on tab change (temporary fix until pagination is improved)
    * @param event
    */
   tabChange(event) {
+    this.performedSearch = false;
     this.router.navigateByUrl(this.getCurrentUrl());
   }
 

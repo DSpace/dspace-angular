@@ -16,7 +16,7 @@ import { CollectionSelectComponent } from './collection-select.component';
 import { Collection } from '../../../core/shared/collection.model';
 import { of } from 'rxjs/internal/observable/of';
 
-describe('ItemSelectComponent', () => {
+describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;
   let fixture: ComponentFixture<CollectionSelectComponent>;
   let objectSelectService: ObjectSelectService;
@@ -43,7 +43,7 @@ describe('ItemSelectComponent', () => {
       imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
       declarations: [],
       providers: [
-        { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
+        { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
       ],
       schemas: [NO_ERRORS_SCHEMA]

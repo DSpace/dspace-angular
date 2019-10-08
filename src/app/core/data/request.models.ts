@@ -190,6 +190,8 @@ export class BrowseItemsRequest extends GetRequest {
  * Request to fetch the mapped collections of an item
  */
 export class MappedCollectionsRequest extends GetRequest {
+  public responseMsToLive = 0;
+
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return MappedCollectionsReponseParsingService;
   }

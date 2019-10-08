@@ -125,6 +125,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       map((endpoint: string) => {
         const request = new GetRequest(requestUuid, endpoint);
         return Object.assign(request, {
+          responseMsToLive: 0,
           getResponseParser(): GenericConstructor<ResponseParsingService> {
             return DSOResponseParsingService;
           }
@@ -134,16 +135,6 @@ export class CollectionDataService extends ComColDataService<Collection> {
     ).subscribe();
 
     return this.rdbService.buildList(href$);
-  }
-
-  /**
-   * Clears all requests (from cache) connected to the mappedItems endpoint
-   * @param collectionId
-   */
-  clearMappedItemsRequests(collectionId: string) {
-    this.getMappedItemsEndpoint(collectionId).pipe(take(1)).subscribe((href: string) => {
-      this.requestService.removeByHrefSubstring(href);
-    });
   }
 
 }

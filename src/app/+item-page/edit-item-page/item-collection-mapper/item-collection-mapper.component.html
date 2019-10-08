@@ -28,12 +28,13 @@
                 <ds-search-form id="search-form"
                                 [query]="(searchOptions$ | async)?.query"
                                 [currentUrl]="'./'"
-                                [inPlaceSearch]="true">
+                                [inPlaceSearch]="true"
+                                (submitSearch)="performedSearch = true">
                 </ds-search-form>
               </div>
             </div>
 
-            <div>
+            <div *ngIf="performedSearch">
               <ds-collection-select class="mt-2"
                 [key]="'map'"
                 [dsoRD$]="mappedCollectionsRD$"
@@ -43,6 +44,9 @@
                 [cancelButton]="'item.edit.item-mapper.cancel'"
                 (confirm)="mapCollections($event)"
                 (cancel)="onCancel()"></ds-collection-select>
+            </div>
+            <div *ngIf="!performedSearch" class="alert alert-info w-100" role="alert">
+              {{'item.edit.item-mapper.no-search' | translate}}
             </div>
           </ng-template>
         </ngb-tab>

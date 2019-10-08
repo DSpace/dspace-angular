@@ -64,7 +64,7 @@ const COLLECTION_EDIT_PATH = ':id/edit';
         }
       },
       {
-        path: ':id/mapper',
+        path: ':id/edit/mapper',
         component: CollectionItemMapperComponent,
         pathMatch: 'full',
         resolve: {
