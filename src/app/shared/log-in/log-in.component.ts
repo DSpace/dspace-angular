@@ -6,7 +6,7 @@ import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } fr
 import { CoreState } from '../../core/core.reducers';
 
 @Component({
-  selector: 'ds-auth-methods',
+  selector: 'ds-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss']
 })

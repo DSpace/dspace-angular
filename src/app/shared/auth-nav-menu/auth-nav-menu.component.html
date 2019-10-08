@@ -6,10 +6,8 @@
          class="px-1">{{ 'nav.login' | translate }}</a>
       <div id="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu
            aria-labelledby="dropdownLogin">
-      <!--  <ds-log-in
-          [isStandalonePage]="false"></ds-log-in>-->
-        <ds-auth-methods
-          [isStandalonePage]="false"></ds-auth-methods>
+        <ds-log-in
+          [isStandalonePage]="false"></ds-log-in>
       </div>
     </div>
   </li>
