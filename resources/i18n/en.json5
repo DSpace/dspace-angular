@@ -409,6 +409,7 @@
   "login.form.new-user": "New user? Click here to register.",
   "login.form.password": "Password",
   "login.form.submit": "Log in",
+  "login.form.shibboleth": "Shibboleth",
   "login.title": "Login",
 
   "logout.form.header": "Log out from DSpace",
