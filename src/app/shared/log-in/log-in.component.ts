@@ -20,7 +20,7 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   private authMethods: AuthMethodModel[];
 
-  private injectedAuthMethods: InjectedAuthMethodModel[];
+  public injectedAuthMethods: InjectedAuthMethodModel[];
 
   @Input() isStandalonePage: boolean;
 
