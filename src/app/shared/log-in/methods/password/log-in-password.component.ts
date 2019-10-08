@@ -23,6 +23,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethodType } from '../authMethods-type';
 import { renderAuthMethodFor } from '../authMethods-decorator';
 import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
+import { InjectedAuthMethodModel } from '../../injectedAuthMethodModel/injectedAuthMethodModel';
 
 /**
  * /users/sign-in
@@ -85,7 +86,7 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    */
   private alive = true;
 
-  @Input() authMethodModel: AuthMethodModel;
+  @Input() authMethodModel: InjectedAuthMethodModel;
 
   /**
    * @constructor
@@ -94,7 +95,7 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    * @param {Store<State>} store
    */
   constructor(
-    @Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
+    @Inject('authMethodModelProvider') public injectedAuthMethodModel: InjectedAuthMethodModel,
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private store: Store<CoreState>
