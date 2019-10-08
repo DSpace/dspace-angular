@@ -1,10 +1,13 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { filter, map, startWith, tap } from 'rxjs/operators';
 import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing.module';
 import { getCommunityPageRoute } from '../../+community-page/community-page-routing.module';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule, UrlSegment } from '@angular/router';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
+import { hasValue } from '../empty.util';
 
 export interface ComColPageNavOption {
   id: string;
@@ -34,7 +37,9 @@ export class ComcolPageBrowseByComponent implements OnInit {
 
   allOptions: ComColPageNavOption[];
 
-  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig, private router: Router) {
+  currentOptionId$: Observable<string>;
+
+  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,  private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -59,7 +64,10 @@ export class ComcolPageBrowseByComponent implements OnInit {
           routerLink: getCommunityPageRoute(this.id)
         }, ...this.allOptions ];
     }
-
+    this.currentOptionId$ = this.route.url.pipe(
+      filter((urlSegments: UrlSegment[]) => hasValue(urlSegments)),
+      map((urlSegments: UrlSegment[]) => urlSegments[urlSegments.length - 1].path)
+    );
   }
   onSelectChange(target) {
     const optionIndex = target.selectedIndex;
