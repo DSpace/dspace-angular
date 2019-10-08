@@ -10,9 +10,14 @@
   </div>
   <div class="d-block d-sm-none">
 
-    <select name="browse-type" class="form-control" aria-label="Browse Community or Collection" (change)="onSelectChange(($event.target))">
-
-      <option *ngFor="let option of allOptions" >{{ option.label | translate }}</option>
+    <select name="browse-type"
+            class="form-control"
+            aria-label="Browse Community or Collection"
+            (ngModelChange)="onSelectChange($event)"
+            [ngModel]="currentOptionId$ | async">
+      <option *ngFor="let option of allOptions"
+            [ngValue]="option.id"
+            [attr.selected]="(currentOptionId$ | async) === option.id ? 'selected' : null">{{ option.label | translate }}</option>
     </select>
   </div>
 </nav>
