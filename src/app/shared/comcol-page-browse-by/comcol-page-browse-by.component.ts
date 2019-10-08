@@ -69,17 +69,9 @@ export class ComcolPageBrowseByComponent implements OnInit {
       map((urlSegments: UrlSegment[]) => urlSegments[urlSegments.length - 1].path)
     );
   }
-  onSelectChange(target) {
-    const optionIndex = target.selectedIndex;
-    const selectedOptionElement = target.options[optionIndex];
-    const paramsAttribute = selectedOptionElement.getAttribute('data-params');
-    console.log('change value ' + target.value + ' paramsAttribute ' + paramsAttribute);
-    if (paramsAttribute) {
-       /* console.log('Yes paramsAttribute ' + paramsAttribute);*/
-      this.router.navigate([target.value], { queryParams: { scope: paramsAttribute } });
-    } else {
-      /*  console.log('No paramsAttribute ');*/
-      this.router.navigate([target.value]);
-    }
+  onSelectChange(newId: string) {
+      const selectedOption = this.allOptions
+        .find((option: ComColPageNavOption) => option.id === newId);
+      this.router.navigate([selectedOption.routerLink], { queryParams: selectedOption.params });
   }
 }
