@@ -17,6 +17,8 @@ export class LogInComponent implements OnInit {
    */
   @Input() authMethodData: Observable<AuthMethodModel[]>;
 
+  @Input() isStandalonePage: boolean;
+
   /**
    * Whether user is authenticated.
    * @type {Observable<string>}

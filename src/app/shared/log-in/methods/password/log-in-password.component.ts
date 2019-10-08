@@ -139,7 +139,7 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
       takeWhile(() => this.alive),
       filter((authenticated) => authenticated))
       .subscribe(() => {
-          this.authService.redirectToPreviousUrl();
+          this.authService.redirectAfterLoginSuccess(true); // HARDCODED FOR DEV _ CHANGE IT
         }
       );
 
