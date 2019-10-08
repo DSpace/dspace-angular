@@ -20,11 +20,10 @@
              [disabled]="isInputDisabled()"
              [placeholder]="model.placeholder | translate"
              [readonly]="model.readOnly"
-             (change)="$event.preventDefault()"
+             (change)="onChange($event)"
              (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
              (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-             (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();"
-             (input)="onInput($event)">
+             (click)="$event.stopPropagation(); $event.stopPropagation(); sdRef.close();">
     </div>
 
     <!--Lookup-name, second field-->
@@ -40,11 +39,10 @@
               [disabled]="firstInputValue.length === 0 || isInputDisabled()"
               [placeholder]="model.secondPlaceholder | translate"
               [readonly]="model.readOnly"
-              (change)="$event.preventDefault()"
+              (change)="onChange($event)"
               (blur)="onBlurEvent($event); $event.stopPropagation(); sdRef.close();"
               (focus)="onFocusEvent($event); $event.stopPropagation(); sdRef.close();"
-              (click)="$event.stopPropagation(); sdRef.close();"
-              (input)="onInput($event)">
+              (click)="$event.stopPropagation(); sdRef.close();">
     </div>
     <div class="col-auto text-center">
       <button ngbDropdownAnchor

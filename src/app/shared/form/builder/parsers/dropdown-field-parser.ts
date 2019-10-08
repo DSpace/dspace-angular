@@ -29,7 +29,7 @@ export class DropdownFieldParser extends FieldParser {
       const dropdownModel = new DynamicScrollableDropdownModel(dropdownModelConfig, layout);
       return dropdownModel;
     } else {
-      throw  Error(`Authority name is not available. Please checks form configuration file.`);
+      throw  Error(`Authority name is not available. Please check the form configuration file.`);
     }
   }
 }

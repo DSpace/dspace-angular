@@ -10,10 +10,10 @@
             class="btn btn-outline-primary"
             (blur)="onClose()"
             (click)="onClose()"
-            [disabled]="(disabled$ | async)"
+            [disabled]="(disabled$ | async) || (processingChange$ | async)"
             ngbDropdownToggle>
-      <span *ngIf="(disabled$ | async)"><i class='fas fa-circle-notch fa-spin'></i></span>
-      <span *ngIf="!(disabled$ | async)">{{ selectedCollectionName$ | async }}</span>
+      <span *ngIf="(processingChange$ | async)"><i class='fas fa-circle-notch fa-spin'></i></span>
+      <span *ngIf="!(processingChange$ | async)">{{ selectedCollectionName$ | async }}</span>
     </button>
 
     <div ngbDropdownMenu
