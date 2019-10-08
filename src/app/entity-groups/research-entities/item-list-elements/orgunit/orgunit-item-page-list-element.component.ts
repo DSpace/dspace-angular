@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { Context } from '../../../../core/shared/context.model';
 import { AbstractListableElementComponent } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { Item } from '../../../../core/shared/item.model';
+import { metadataRepresentationComponent } from '../../../../shared/metadata-representation/metadata-representation.decorator';
+import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 
-@listableObjectComponent('OrgUnit', ViewMode.ListElement, Context.ItemPage)
+@metadataRepresentationComponent('OrgUnit', MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-orgunit-item-page-list-element',
   templateUrl: './orgunit-item-page-list-element.component.html'

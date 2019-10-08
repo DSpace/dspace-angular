@@ -158,7 +158,7 @@ export class SearchService implements OnDestroy {
           let co = DSpaceObject;
           if (dsos.payload[index]) {
             const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-            co = getSearchResultFor(constructor, searchOptions.configuration);
+            co = getSearchResultFor(constructor);
             return Object.assign(new co(), object, {
               indexableObject: dsos.payload[index]
             });

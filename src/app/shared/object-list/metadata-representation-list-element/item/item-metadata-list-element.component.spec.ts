@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ITEM } from '../../../items/switcher/listable-object-component-loader.component';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ItemMetadataListElementComponent } from './item-metadata-list-element.component';
 import { By } from '@angular/platform-browser';
@@ -15,9 +14,6 @@ describe('ItemMetadataListElementComponent', () => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [ItemMetadataListElementComponent],
-      providers: [
-        { provide: ITEM, useValue: mockItemMetadataRepresentation }
-      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemMetadataListElementComponent, {
       set: {changeDetection: ChangeDetectionStrategy.Default}

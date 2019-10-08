@@ -74,8 +74,7 @@ import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { AlertComponent } from './alert/alert.component';
-import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
-import { MyDSpaceResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/my-dspace-result-detail-element.component';
+import { SearchResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
 import { PoolTaskActionsComponent } from './mydspace-actions/pool-task/pool-task-actions.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
@@ -264,7 +263,6 @@ const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
   CollectionListElementComponent,
   CommunityListElementComponent,
-  MyDSpaceResultListElementComponent,
   SearchResultListElementComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
@@ -276,7 +274,7 @@ const ENTRY_COMPONENTS = [
   PublicationSearchResultListElementComponent,
   PublicationSearchResultGridElementComponent,
   BrowseEntryListElementComponent,
-  MyDSpaceResultDetailElementComponent,
+  SearchResultDetailElementComponent,
   SearchResultGridElementComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,

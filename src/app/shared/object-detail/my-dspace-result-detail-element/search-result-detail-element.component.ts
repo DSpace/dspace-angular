@@ -1,26 +1,21 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
-import { SearchResult } from '../../../+search-page/search-result.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { TruncatableService } from '../../truncatable/truncatable.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { MetadataMap } from '../../../core/shared/metadata.models';
+import { SearchResult } from '../../../+search-page/search-result.model';
+import { hasValue } from '../../empty.util';
 
 @Component({
-  selector: 'ds-search-result-list-element',
+  selector: 'ds-search-result-detail-element',
   template: ``
 })
+export class SearchResultDetailElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
 
-export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
+  /**
+   * The result element object
+   */
   dso: K;
-  metadata: MetadataMap;
-
-  public constructor(protected truncatableService: TruncatableService) {
-    super();
-  }
 
   ngOnInit(): void {
     if (hasValue(this.object)) {
@@ -47,9 +42,4 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   firstMetadataValue(keyOrKeys: string | string[]): string {
     return Metadata.firstValue([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
-
-  isCollapsed(): Observable<boolean> {
-    return this.truncatableService.isCollapsed(this.dso.id);
-  }
-
 }

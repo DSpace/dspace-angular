@@ -20,7 +20,6 @@ import { SearchService } from '../+search-page/search-service/search.service';
 import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
 import { hasValue } from '../shared/empty.util';
 import { getSucceededRemoteData } from '../core/shared/operators';
-import { MyDSpaceResult } from './my-dspace-result.model';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { SearchConfigurationOption } from '../+search-page/search-switch-configuration/search-configuration-option.model';
 import { RoleType } from '../core/roles/role-types';
@@ -28,6 +27,7 @@ import { SearchConfigurationService } from '../+search-page/search-service/searc
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
+import { SearchResult } from '../+search-page/search-result.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -63,7 +63,7 @@ export class MyDSpacePageComponent implements OnInit {
   /**
    * The current search results
    */
-  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<MyDSpaceResult<DSpaceObject>>>> = new BehaviorSubject(null);
+  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
 
   /**
    * The current paginated search options

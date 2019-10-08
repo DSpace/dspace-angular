@@ -41,6 +41,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (<Component>componentRef.instance as any).object = this.object;
+    (<Component>componentRef.instance as any).index = this.index;
   }
 
   /**

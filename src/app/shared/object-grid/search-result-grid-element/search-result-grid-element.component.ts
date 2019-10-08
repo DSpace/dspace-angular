@@ -1,9 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Observable } from 'rxjs';
 import { Metadata } from '../../../core/shared/metadata.utils';
@@ -14,15 +13,20 @@ import { hasValue } from '../../empty.util';
   template: ``
 })
 
-export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
+export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
   dso: K;
   isCollapsed$: Observable<boolean>;
 
   public constructor(protected truncatableService: TruncatableService) {
     super();
     if (hasValue(this.object)) {
-      this.dso = this.object.indexableObject;
       this.isCollapsed$ = this.isCollapsed();
+    }
+  }
+
+  ngOnInit(): void {
+    if (hasValue(this.object)) {
+      this.dso = this.object.indexableObject;
     }
   }
 
@@ -49,5 +53,4 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   private isCollapsed(): Observable<boolean> {
     return this.truncatableService.isCollapsed(this.dso.id);
   }
-
 }

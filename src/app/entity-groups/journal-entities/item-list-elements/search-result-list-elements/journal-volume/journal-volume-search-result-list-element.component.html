@@ -1,18 +1,17 @@
-<ng-container *ngVar="object.indexableObject as item">
-    <ds-item-type-badge [object]="item"></ds-item-type-badge>
-    <ds-truncatable [id]="item.id">
-        <a
-                [routerLink]="['/items/' + item.id]" class="lead"
-                [innerHTML]="firstMetadataValue('dc.title')"></a>
-        <span class="text-muted">
-    <ds-truncatable-part [id]="item.id" [minLines]="1">
-            <span *ngIf="item.allMetadata(['journal.title']).length > 0"
+<ds-item-type-badge [object]="dso"></ds-item-type-badge>
+<ds-truncatable [id]="dso.id">
+    <a
+            [routerLink]="['/items/' + dso.id]" class="lead"
+            [innerHTML]="firstMetadataValue('dc.title')"></a>
+    <span class="text-muted">
+    <ds-truncatable-part [id]="dso.id" [minLines]="1">
+            <span *ngIf="dso.allMetadata(['journal.title']).length > 0"
                   class="item-list-journal-volumes">
                     <span *ngFor="let value of allMetadataValues(['journal.title']); let last=last;">
                         <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
                     </span>
             </span>
-            <span *ngIf="item.allMetadata(['publicationvolume.volumeNumber']).length > 0"
+            <span *ngIf="dso.allMetadata(['publicationvolume.volumeNumber']).length > 0"
                   class="item-list-journal-volume-identifiers">
                     <span *ngFor="let value of allMetadataValues(['publicationvolume.volumeNumber']); let last=last;">
                         <span> (</span><span [innerHTML]="value"><span [innerHTML]="value"></span></span><span>)</span>
@@ -20,5 +19,4 @@
             </span>
         </ds-truncatable-part>
   </span>
-    </ds-truncatable>
-</ng-container>
+</ds-truncatable>
