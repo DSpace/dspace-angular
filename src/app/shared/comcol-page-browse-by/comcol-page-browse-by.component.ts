@@ -1,8 +1,17 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
+import { filter, map, startWith, tap } from 'rxjs/operators';
+import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing.module';
+import { getCommunityPageRoute } from '../../+community-page/community-page-routing.module';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';
 
+export interface ComColPageNavOption {
+  id: string;
+  label: string,
+  routerLink: string
+  params?: any;
+};
 /**
  * A component to display the "Browse By" section of a Community or Collection page
  * It expects the ID of the Community or Collection as input to be passed on as a scope
@@ -23,11 +32,34 @@ export class ComcolPageBrowseByComponent implements OnInit {
    */
   types: BrowseByTypeConfig[];
 
+  allOptions: ComColPageNavOption[];
+
   constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.types = this.config.browseBy.types;
+    this.allOptions = this.config.browseBy.types
+    .map((config: BrowseByTypeConfig) => ({
+      id: config.id,
+      label: `browse.comcol.by.${config.id}`,
+      routerLink: `/browse/${config.id}`,
+      params: { scope: this.id }
+    }));
+
+    if (this.contentType === 'collection') {
+      this.allOptions = [ {
+        id: this.id,
+        label: 'collection.page.browse.recent.head',
+        routerLink: getCollectionPageRoute(this.id)
+      }, ...this.allOptions ];
+    } else if (this.contentType === 'community') {
+      this.allOptions = [{
+          id: this.id,
+          label: 'community.all-lists.head',
+          routerLink: getCommunityPageRoute(this.id)
+        }, ...this.allOptions ];
+    }
+
   }
   onSelectChange(target) {
     const optionIndex = target.selectedIndex;
