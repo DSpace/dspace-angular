@@ -14,7 +14,7 @@ import { coreReducers } from './core.reducers';
 
 import { isNotEmpty } from '../shared/empty.util';
 
-import { ApiService } from '../shared/services/api.service';
+import { ApiService } from './services/api.service';
 import { BrowseEntriesResponseParsingService } from './data/browse-entries-response-parsing.service';
 import { CollectionDataService } from './data/collection-data.service';
 import { CommunityDataService } from './data/community-data.service';
@@ -34,12 +34,12 @@ import { PaginationComponentOptions } from '../shared/pagination/pagination-comp
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { RequestService } from './data/request.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
-import { ServerResponseService } from '../shared/services/server-response.service';
-import { NativeWindowFactory, NativeWindowService } from '../shared/services/window.service';
+import { ServerResponseService } from './services/server-response.service';
+import { NativeWindowFactory, NativeWindowService } from './services/window.service';
 import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config/config-response-parsing.service';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from './services/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
@@ -101,6 +101,7 @@ import { NormalizedSubmissionFormsModel } from './config/models/normalized-confi
 import { NormalizedSubmissionSectionModel } from './config/models/normalized-config-submission-section.model';
 import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model';
 import { NormalizedAuthorityValue } from './integration/models/normalized-authority-value.model';
+import { RelationshipService } from './data/relationship.service';
 import { RoleService } from './roles/role.service';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
@@ -200,6 +201,7 @@ const PROVIDERS = [
   MenuService,
   ObjectUpdatesService,
   SearchService,
+  RelationshipService,
   MyDSpaceGuard,
   RoleService,
   TaskResponseParsingService,

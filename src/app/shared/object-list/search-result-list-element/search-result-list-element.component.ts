@@ -8,6 +8,7 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Metadata } from '../../../core/shared/metadata.utils';
+import { MetadataMap } from '../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-search-result-list-element',
@@ -16,6 +17,7 @@ import { Metadata } from '../../../core/shared/metadata.utils';
 
 export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
   dso: K;
+  metadata: MetadataMap;
 
   public constructor(@Inject('objectElementProvider') public listable: ListableObject, protected truncatableService: TruncatableService) {
     super(listable);

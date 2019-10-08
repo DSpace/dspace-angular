@@ -3,6 +3,7 @@ import { MetadataRepresentationType } from '../../core/shared/metadata-represent
 
 export enum ItemViewMode {
   Element = 'element',
+  Card = 'card',
   Full = 'full',
   Metadata = 'metadata'
 }

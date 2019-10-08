@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import {
@@ -8,14 +8,13 @@ import {
 } from '@ng-dynamic-forms/core';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, merge, switchMap, tap } from 'rxjs/operators';
 import { Observable, of as observableOf, Subject } from 'rxjs';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthorityService } from '../../../../../../core/integration/authority.service';
 import { DynamicTypeaheadModel } from './dynamic-typeahead.model';
 import { IntegrationSearchOptions } from '../../../../../../core/integration/models/integration-options.model';
-import { isEmpty, isNotEmpty } from '../../../../../empty.util';
+import { isEmpty, isNotEmpty, isNotNull } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-
 import { ConfidenceType } from '../../../../../../core/integration/models/confidence-type';
 
 @Component({
@@ -31,6 +30,8 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @Output() focus: EventEmitter<any> = new EventEmitter<any>();
+
+  @ViewChild('instance') instance: NgbTypeahead;
 
   searching = false;
   searchOptions: IntegrationSearchOptions;
@@ -105,16 +106,26 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
   onInput(event) {
     if (!this.model.authorityOptions.closed && isNotEmpty(event.target.value)) {
       this.inputValue = new FormFieldMetadataValueObject(event.target.value);
-      this.model.valueUpdates.next(this.inputValue);
     }
   }
 
   onBlur(event: Event) {
-    if (!this.model.authorityOptions.closed && isNotEmpty(this.inputValue)) {
-      this.change.emit(this.inputValue);
-      this.inputValue = null;
+    if (!this.instance.isPopupOpen()) {
+      if (!this.model.authorityOptions.closed && isNotEmpty(this.inputValue)) {
+        if (isNotNull(this.inputValue) && this.model.value !== this.inputValue) {
+          this.model.valueUpdates.next(this.inputValue);
+          this.change.emit(this.inputValue);
+        }
+        this.inputValue = null;
+      }
+      this.blur.emit(event);
+    } else {
+      // prevent on blur propagation if typeahed suggestions are showed
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      // set focus on input again, this is to avoid to lose changes when no suggestion is selected
+      (event.target as HTMLInputElement).focus();
     }
-    this.blur.emit(event);
   }
 
   onChange(event: Event) {
@@ -141,4 +152,5 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
       this.click$.next(this.formatter(this.currentValue));
     }
   }
+
 }

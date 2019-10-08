@@ -39,6 +39,7 @@ import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/e
 import { NavbarModule } from './navbar/navbar.module';
 import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
+import { ClientCookieService } from './core/services/client-cookie.service';
 import { ShibbolethTargetPageComponent } from './+login-page/shibbolethTargetPage/shibboleth-target-page.component';
 
 export function getConfig() {
@@ -77,7 +78,6 @@ const ENTITY_IMPORTS = [
 IMPORTS.push(
   StoreDevtoolsModule.instrument({
     maxAge: 100,
-    // logOnly: false,
     logOnly: ENV_CONFIG.production,
   })
 );
@@ -99,7 +99,8 @@ const PROVIDERS = [
   {
     provide: RouterStateSerializer,
     useClass: DSpaceRouterStateSerializer
-  }
+  },
+  ClientCookieService
 ];
 
 const DECLARATIONS = [

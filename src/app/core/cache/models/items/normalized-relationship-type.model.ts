@@ -23,7 +23,7 @@ export class NormalizedRelationshipType extends NormalizedObject<RelationshipTyp
    * The label that describes the Relation to the left of this RelationshipType
    */
   @autoserialize
-  leftLabel: string;
+  leftwardType: string;
 
   /**
    * The maximum amount of Relationships allowed to the left of this RelationshipType
@@ -41,7 +41,7 @@ export class NormalizedRelationshipType extends NormalizedObject<RelationshipTyp
    * The label that describes the Relation to the right of this RelationshipType
    */
   @autoserialize
-  rightLabel: string;
+  rightwardType: string;
 
   /**
    * The maximum amount of Relationships allowed to the right of this RelationshipType

@@ -17,7 +17,7 @@ import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { RemoteData } from '../core/data/remote-data';
 import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from './my-dspace-page.component';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { routeServiceStub } from '../shared/testing/route-service-stub';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
 import { SearchService } from '../+search-page/search-service/search.service';
@@ -82,9 +82,6 @@ describe('MyDSpacePageComponent', () => {
     expand: () => this.isCollapsed = observableOf(false)
   };
   const mockFixedFilterService: SearchFixedFilterService = {
-    getQueryByFilterName: (filter: string) => {
-      return observableOf(undefined)
-    }
   } as SearchFixedFilterService;
 
   beforeEach(async(() => {

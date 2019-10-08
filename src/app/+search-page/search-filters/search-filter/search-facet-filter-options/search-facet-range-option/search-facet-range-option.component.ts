@@ -56,6 +56,11 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    */
   sub: Subscription;
 
+  /**
+   * Link to the search page
+   */
+  searchLink: string;
+
   constructor(protected searchService: SearchService,
               protected filterService: SearchFilterService,
               protected searchConfigService: SearchConfigurationService,
@@ -67,6 +72,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
    * Initializes all observable instance variables and starts listening to them
    */
   ngOnInit(): void {
+    this.searchLink = this.getSearchLink();
     this.isVisible = this.isChecked().pipe(map((checked: boolean) => !checked));
     this.sub = this.searchConfigService.searchOptions.subscribe(() => {
       this.updateChangeParams()
@@ -83,7 +89,7 @@ export class SearchFacetRangeOptionComponent implements OnInit, OnDestroy {
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  public getSearchLink(): string {
+  private getSearchLink(): string {
     if (this.inPlaceSearch) {
       return './';
     }

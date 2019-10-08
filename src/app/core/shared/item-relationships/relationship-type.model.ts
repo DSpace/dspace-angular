@@ -33,7 +33,7 @@ export class RelationshipType implements CacheableObject {
   /**
    * The label that describes the Relation to the left of this RelationshipType
    */
-  leftLabel: string;
+  leftwardType: string;
 
   /**
    * The maximum amount of Relationships allowed to the left of this RelationshipType
@@ -48,7 +48,7 @@ export class RelationshipType implements CacheableObject {
   /**
    * The label that describes the Relation to the right of this RelationshipType
    */
-  rightLabel: string;
+  rightwardType: string;
 
   /**
    * The maximum amount of Relationships allowed to the right of this RelationshipType

@@ -47,6 +47,7 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
+import { LogInComponent } from './log-in/log-in.component';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
@@ -137,6 +138,11 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
+import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
+import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
+import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
+import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
 import {LogInShibbolethComponent} from './log-in/methods/shibboleth/log-in-shibboleth.component';
 // import {LogInComponent} from './log-in/log-in.component';
 import {LogInPasswordComponent} from './log-in/methods/password/log-in-password.component';
@@ -214,7 +220,7 @@ const COMPONENTS = [
   FormComponent,
   LangSwitchComponent,
   LoadingComponent,
-  // LogInComponent,
+  LogInComponent,
   LogOutComponent,
   NumberPickerComponent,
   ObjectListComponent,
@@ -249,6 +255,8 @@ const COMPONENTS = [
   TruncatablePartComponent,
   BrowseByComponent,
   InputSuggestionsComponent,
+  FilterInputSuggestionsComponent,
+  DsoInputSuggestionsComponent,
   DSOSelectorComponent,
   CreateCommunityParentSelectorComponent,
   CreateCollectionParentSelectorComponent,
@@ -260,13 +268,16 @@ const COMPONENTS = [
   CollectionSearchResultListElementComponent,
   ItemSearchResultListElementComponent,
   TypedItemSearchResultListElementComponent,
+  TypedItemSearchResultGridElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent,
   // LogInComponent,
   LogInShibbolethComponent,
   LogInPasswordComponent,
   LoginContainerComponent,
-  LogInComponent
+  LogInComponent,
+
+  ItemTypeBadgeComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -284,6 +295,7 @@ const ENTRY_COMPONENTS = [
   CommunityGridElementComponent,
   SearchResultGridElementComponent,
   PublicationListElementComponent,
+  PublicationGridElementComponent,
   BrowseEntryListElementComponent,
   MyDSpaceResultDetailElementComponent,
   SearchResultGridElementComponent,
@@ -349,8 +361,7 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS,
-
+    ...SHARED_ITEM_PAGE_COMPONENTS
   ],
   providers: [
     ...PROVIDERS

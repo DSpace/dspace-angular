@@ -1,12 +1,12 @@
-import { map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
-import { isNotEmpty } from '../../shared/empty.util';
-import { AuthService } from './auth.service';
+import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { AuthService, LOGIN_ROUTE } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { CheckAuthenticationTokenAction } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
@@ -54,7 +54,7 @@ export class ServerAuthService extends AuthService {
   /**
    * Redirect to the route navigated before the login
    */
-  public redirectToPreviousUrl() {
+  public redirectAfterLoginSuccess(isStandalonePage: boolean) {
     this.getRedirectUrl().pipe(
       take(1))
       .subscribe((redirectUrl) => {
@@ -67,10 +67,15 @@ export class ServerAuthService extends AuthService {
           const url = decodeURIComponent(redirectUrl);
           this.router.navigateByUrl(url);
         } else {
-          this.router.navigate(['/']);
+          // If redirectUrl is empty use history. For ssr the history array should contain the requested url.
+          this.routeService.getHistory().pipe(
+            filter((history) => history.length > 0),
+            take(1)
+          ).subscribe((history) => {
+            this.navigateToRedirectUrl(history[history.length - 1] || '');
+          });
         }
       })
-
   }
 
 }
