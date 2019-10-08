@@ -1,4 +1,11 @@
-import { Component, Inject, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input, NgZone,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { filter, map, startWith, tap } from 'rxjs/operators';
@@ -15,6 +22,7 @@ export interface ComColPageNavOption {
   routerLink: string
   params?: any;
 };
+
 /**
  * A component to display the "Browse By" section of a Community or Collection page
  * It expects the ID of the Community or Collection as input to be passed on as a scope
@@ -22,7 +30,7 @@ export interface ComColPageNavOption {
 @Component({
   selector: 'ds-comcol-page-browse-by',
   styleUrls: ['./comcol-page-browse-by.component.scss'],
-  templateUrl: './comcol-page-browse-by.component.html',
+  templateUrl: './comcol-page-browse-by.component.html'
 })
 export class ComcolPageBrowseByComponent implements OnInit {
   /**
@@ -39,17 +47,20 @@ export class ComcolPageBrowseByComponent implements OnInit {
 
   currentOptionId$: Observable<string>;
 
-  constructor(@Inject(GLOBAL_CONFIG) public config: GlobalConfig,  private route: ActivatedRoute, private router: Router) {
+  constructor(
+    @Inject(GLOBAL_CONFIG) public config: GlobalConfig,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit(): void {
     this.allOptions = this.config.browseBy.types
-    .map((config: BrowseByTypeConfig) => ({
-      id: config.id,
-      label: `browse.comcol.by.${config.id}`,
-      routerLink: `/browse/${config.id}`,
-      params: { scope: this.id }
-    }));
+      .map((config: BrowseByTypeConfig) => ({
+        id: config.id,
+        label: `browse.comcol.by.${config.id}`,
+        routerLink: `/browse/${config.id}`,
+        params: { scope: this.id }
+      }));
 
     if (this.contentType === 'collection') {
       this.allOptions = [ {
@@ -64,14 +75,17 @@ export class ComcolPageBrowseByComponent implements OnInit {
           routerLink: getCommunityPageRoute(this.id)
         }, ...this.allOptions ];
     }
+
     this.currentOptionId$ = this.route.url.pipe(
       filter((urlSegments: UrlSegment[]) => hasValue(urlSegments)),
       map((urlSegments: UrlSegment[]) => urlSegments[urlSegments.length - 1].path)
     );
   }
+
   onSelectChange(newId: string) {
-      const selectedOption = this.allOptions
-        .find((option: ComColPageNavOption) => option.id === newId);
-      this.router.navigate([selectedOption.routerLink], { queryParams: selectedOption.params });
+    const selectedOption = this.allOptions
+      .find((option: ComColPageNavOption) => option.id === newId);
+
+    this.router.navigate([selectedOption.routerLink], { queryParams: selectedOption.params });
   }
 }
