@@ -31,7 +31,7 @@ export class PublicationComponent extends ItemComponent implements OnInit {
   /**
    * The organisation units related to this publication
    */
-  orgUnits$: Observable<Item[]>;
+  orgUnits$: Observable<MetadataRepresentation[]>;
 
   /**
    * The journal issues related to this publication
@@ -49,9 +49,7 @@ export class PublicationComponent extends ItemComponent implements OnInit {
         getRelatedItemsByTypeLabel(this.item.id, 'isProjectOfPublication')
       );
 
-      this.orgUnits$ = this.resolvedRelsAndTypes$.pipe(
-        getRelatedItemsByTypeLabel(this.item.id, 'isOrgUnitOfPublication')
-      );
+      this.orgUnits$ = this.buildRepresentations('OrgUnit', 'dc.contributor.other');
 
       this.journalIssues$ = this.resolvedRelsAndTypes$.pipe(
         getRelatedItemsByTypeLabel(this.item.id, 'isJournalIssueOfPublication')

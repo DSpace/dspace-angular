@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
-import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
+import { ItemMetadataRepresentationListElementComponent } from '../../../../shared/object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 
 @rendersItemType('OrgUnit', ItemViewMode.Element, MetadataRepresentationType.Item)
 @Component({
@@ -11,5 +11,5 @@ import { TypedItemSearchResultListElementComponent } from '../../../../shared/ob
 /**
  * The component for displaying a list element for an item of the type OrgUnit
  */
-export class OrgUnitMetadataListElementComponent extends TypedItemSearchResultListElementComponent {
+export class OrgUnitMetadataListElementComponent extends ItemMetadataRepresentationListElementComponent {
 }

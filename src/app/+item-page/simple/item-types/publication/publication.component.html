@@ -35,10 +35,10 @@
       [items]="projects$ | async"
       [label]="'relationships.isProjectOf' | translate">
     </ds-related-items>
-    <ds-related-items
-      [items]="orgUnits$ | async"
-      [label]="'relationships.isOrgUnitOf' | translate">
-    </ds-related-items>
+    <ds-metadata-representation-list
+      [label]="'relationships.isOrgUnitOf' | translate"
+      [representations]="orgUnits$ | async">
+    </ds-metadata-representation-list>
     <ds-related-items
       [items]="journalIssues$ | async"
       [label]="'relationships.isJournalIssueOf' | translate">
