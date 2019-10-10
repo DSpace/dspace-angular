@@ -148,7 +148,7 @@ export class RequestService {
    */
   configure<T extends CacheableObject>(request: RestRequest): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    if (!isGetRequest || !this.isCachedOrPending(request)) {
+    if (!isGetRequest || request.forceBypassCache || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request);
       if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);

@@ -24,6 +24,7 @@ import { MappedCollectionsReponseParsingService } from './mapped-collections-rep
 
 export abstract class RestRequest {
   public responseMsToLive = 10 * 1000;
+  public forceBypassCache = false;
   constructor(
     public uuid: string,
     public href: string,
@@ -293,6 +294,7 @@ export class UpdateMetadataFieldRequest extends PutRequest {
  * Class representing a submission HTTP GET request object
  */
 export class SubmissionRequest extends GetRequest {
+  forceBypassCache = true;
   constructor(uuid: string, href: string) {
     super(uuid, href);
   }
