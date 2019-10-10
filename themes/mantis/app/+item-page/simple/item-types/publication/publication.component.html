@@ -67,10 +67,10 @@
                 </ds-related-items>
             </div>
             <div class="col-12 col-md-4" *ngIf="orgUnits$ | async">
-                <ds-metadata-representation-list
-                        [label]="'relationships.isOrgUnitOf' | translate"
-                        [representations]="orgUnits$ | async">
-                </ds-metadata-representation-list>
+                <ds-related-items
+                        [items]="orgUnits$ | async"
+                        [label]="'relationships.isOrgUnitOf' | translate">
+                </ds-related-items>
             </div>
             <div class="col-12 col-md-4" *ngIf="journalIssues$ | async">
                 <ds-related-items
