@@ -1,24 +1,41 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-
-export interface CommunityForList {
-    name: string;
-    subcoms?: CommunityForList[];
-    collections?: string[];
-    parent?: string;
-}
+import {CommunityDataService} from '../core/data/community-data.service';
+import {PaginationComponentOptions} from '../shared/pagination/pagination-component-options.model';
+import {SortDirection, SortOptions} from '../core/cache/models/sort-options.model';
+import {take} from 'rxjs/operators';
+import {Community} from '../core/shared/community.model';
 
 @Injectable()
 export class CommunityListService {
 
-    private comList: CommunityForList[] = [
-        {name: 'com1', subcoms: [{name: 'subcom1', subcoms: [{name: 'subsubcom1'}], collections: null, parent: 'com1'}], collections: ['col1', 'col2'], parent: null},
-        {name: 'com2', subcoms: [{name: 'subcom2', subcoms: null, collections: null, parent: 'com2'}, {name: 'subcom3', subcoms: null, collections: null, parent: 'com2'}], collections: ['col3', 'col4'], parent: null},
-        {name: 'com3', subcoms: [{name: 'subcom4', subcoms: null, collections: null, parent: 'com3'}], collections: ['col5'], parent: null},
-    ];
+    communities: Community[];
 
-    public getCommunityList(): Observable<CommunityForList[]> {
-        return of(this.comList);
+    config: PaginationComponentOptions;
+    sortConfig: SortOptions;
+
+    constructor(private cds: CommunityDataService) {
+        this.config = new PaginationComponentOptions();
+        this.config.id = 'top-level-pagination';
+        this.config.pageSize = 100;
+        this.config.currentPage = 1;
+        this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+        this.initTopCommunityList()
+    }
+
+    private initTopCommunityList(): void {
+        this.cds.findTop({
+            currentPage: this.config.currentPage,
+            elementsPerPage: this.config.pageSize,
+            sort: { field: this.sortConfig.field, direction: this.sortConfig.direction }
+        }).pipe(take(1)).subscribe((results) => {
+            this.communities = results.payload.page;
+            console.log('ping', this.communities);
+        });
+    }
+
+    public getCommunityList(): Observable<Community[]> {
+        return of(this.communities);
     }
 
 }

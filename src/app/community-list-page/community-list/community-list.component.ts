@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommunityListService} from '../CommunityListService';
-import {CommunityFlatNode, CommunityListDataSource} from '../CommunityListDataSource';
+import {FlatNode, CommunityListDataSource} from '../CommunityListDataSource';
 import {FlatTreeControl} from '@angular/cdk/tree';
 
 @Component({
@@ -10,9 +10,9 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 })
 export class CommunityListComponent implements OnInit {
 
-  private expandedNodes: CommunityFlatNode[] = [];
+  private expandedNodes: FlatNode[] = [];
 
-  treeControl = new FlatTreeControl<CommunityFlatNode>(
+  treeControl = new FlatTreeControl<FlatNode>(
       (node) => node.level, (node) => node.expandable
   );
 
@@ -25,14 +25,14 @@ export class CommunityListComponent implements OnInit {
     this.dataSource.loadCommunities(null);
   }
 
-  hasChild = (_: number, node: CommunityFlatNode) => node.expandable;
+  hasChild = (_: number, node: FlatNode) => node.expandable;
 
-  shouldRender(node: CommunityFlatNode) {
+  shouldRender(node: FlatNode) {
     const parent = node.parent;
     return !parent || parent.isExpanded;
   }
 
-  toggleExpanded(node: CommunityFlatNode) {
+  toggleExpanded(node: FlatNode) {
     if (node.isExpanded) {
       this.expandedNodes = this.expandedNodes.filter((node2) => node2.name !== node.name);
       node.isExpanded = false;
@@ -41,7 +41,6 @@ export class CommunityListComponent implements OnInit {
       node.isExpanded = true;
     }
     this.dataSource.loadCommunities(this.expandedNodes);
-    console.log('Nr of expanded nodes' + this.expandedNodes.length);
   }
 
 }
