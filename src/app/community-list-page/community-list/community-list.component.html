@@ -14,7 +14,7 @@
     <div class="btn-group">
       <button type="button" class="btn btn-default" cdkTreeNodeToggle
               [attr.aria-label]="'toggle ' + node.name"
-              (click)="node.isExpanded = !node.isExpanded"
+              (click)="toggleExpanded(node)"
               [style.visibility]="node.expandable ? 'visible' : 'hidden'">
       <span class="{{treeControl.isExpanded(node) ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}" aria-hidden="true">
       </span>

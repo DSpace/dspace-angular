@@ -1,7 +1,7 @@
 import {CommunityForList, CommunityListService} from './CommunityListService';
 import {CollectionViewer, DataSource} from '@angular/cdk/typings/collections';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {catchError, finalize, map} from 'rxjs/operators';
+import {catchError, finalize, map, take} from 'rxjs/operators';
 
 export interface CommunityFlatNode {
     expandable: boolean;
@@ -30,17 +30,18 @@ export class CommunityListDataSource implements DataSource<CommunityFlatNode> {
         this.loadingSubject.complete();
     }
 
-    loadCommunities() {
+    loadCommunities(expandedNodes: CommunityFlatNode[]) {
         this.loadingSubject.next(true);
 
         this.communityListService.getCommunityList()
             .pipe(
+                take(1),
                 catchError(() => of([])),
                 finalize(() => this.loadingSubject.next(false)),
                 map((result: CommunityForList[]) => {
                     const communityFlatNodes: CommunityFlatNode[] = [];
                     const level = 0;
-                    return this.transformListOfCommunities(result, level, communityFlatNodes, null);
+                    return this.transformListOfCommunities(result, level, communityFlatNodes, null, expandedNodes);
                 })
             )
             .subscribe((communityFlatNode) => {
@@ -51,21 +52,28 @@ export class CommunityListDataSource implements DataSource<CommunityFlatNode> {
     transformListOfCommunities(listOfCommunities: CommunityForList[],
                                level: number,
                                communityFlatNodes: CommunityFlatNode[],
-                               parent: CommunityFlatNode): CommunityFlatNode[] {
+                               parent: CommunityFlatNode,
+                               expandedNodes: CommunityFlatNode[]): CommunityFlatNode[] {
         level++;
         for (const community of listOfCommunities) {
             const hasSubComs = ((!!community.subcoms && community.subcoms.length > 0));
+            let expanded = false;
+            if (expandedNodes != null) {
+                const expandedNodesFound = expandedNodes.filter((node) => (node.name === community.name));
+                expanded = (expandedNodesFound.length > 0);
+            }
+            console.log(community.name + 'is expanded: ' + expanded);
             const communityFlatNode: CommunityFlatNode = {
                 expandable: hasSubComs,
                 name: community.name,
                 level: level,
-                isExpanded: false,
+                isExpanded: expanded,
                 community: community,
                 parent: parent
             }
             communityFlatNodes.push(communityFlatNode);
-            if (hasSubComs) {
-                this.transformListOfCommunities(community.subcoms, level, communityFlatNodes, communityFlatNode);
+            if (hasSubComs && communityFlatNode.isExpanded) {
+                this.transformListOfCommunities(community.subcoms, level, communityFlatNodes, communityFlatNode, expandedNodes);
             }
         }
         return communityFlatNodes;

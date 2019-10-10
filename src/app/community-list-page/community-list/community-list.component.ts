@@ -10,6 +10,8 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 })
 export class CommunityListComponent implements OnInit {
 
+  private expandedNodes: CommunityFlatNode[] = [];
+
   treeControl = new FlatTreeControl<CommunityFlatNode>(
       (node) => node.level, (node) => node.expandable
   );
@@ -20,7 +22,7 @@ export class CommunityListComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new CommunityListDataSource(this.communityListService);
-    this.dataSource.loadCommunities();
+    this.dataSource.loadCommunities(null);
   }
 
   hasChild = (_: number, node: CommunityFlatNode) => node.expandable;
@@ -30,8 +32,16 @@ export class CommunityListComponent implements OnInit {
     return !parent || parent.isExpanded;
   }
 
-  numberReturn(length){
-    return new Array(length);
+  toggleExpanded(node: CommunityFlatNode) {
+    if (node.isExpanded) {
+      this.expandedNodes = this.expandedNodes.filter((node2) => node2.name !== node.name);
+      node.isExpanded = false;
+    } else {
+      this.expandedNodes.push(node);
+      node.isExpanded = true;
+    }
+    this.dataSource.loadCommunities(this.expandedNodes);
+    console.log('Nr of expanded nodes' + this.expandedNodes.length);
   }
 
 }
