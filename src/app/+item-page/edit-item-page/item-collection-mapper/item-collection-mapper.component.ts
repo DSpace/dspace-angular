@@ -118,7 +118,7 @@ export class ItemCollectionMapperComponent implements OnInit {
         return this.searchService.search(Object.assign(new PaginatedSearchOptions(searchOptions), {
           query: this.buildQuery([...itemCollectionsRD.payload.page, owningCollectionRD.payload], searchOptions.query),
           dsoType: DSpaceObjectType.COLLECTION
-        }), 1000).pipe(
+        }), 10000).pipe(
           toDSpaceObjectListRD(),
           startWith(undefined)
         );

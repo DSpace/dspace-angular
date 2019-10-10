@@ -134,7 +134,7 @@ export class CollectionItemMapperComponent implements OnInit {
               scope: undefined,
               dsoType: DSpaceObjectType.ITEM,
               sort: this.defaultSortOptions
-            }), 1000).pipe(
+            }), 10000).pipe(
               toDSpaceObjectListRD(),
               startWith(undefined)
             );
