@@ -16,7 +16,7 @@ export class SearchResult<T extends DSpaceObject> implements ListableObject {
    */
   hitHighlights: MetadataMap;
 
-  getRenderType(): string {
-    return this.indexableObject.getRenderType() + 'SearchResult';
+  getRenderTypes(): string[] {
+    return this.indexableObject.getRenderTypes().map((type) => type +'SearchResult');
   }
 }

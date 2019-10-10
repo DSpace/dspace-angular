@@ -5,7 +5,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { PaginatedList } from '../data/paginated-list';
 import { Relationship } from './item-relationships/relationship.model';
 import { ResourceType } from './resource-type';
@@ -110,11 +110,11 @@ export class Item extends DSpaceObject {
       }));
   }
 
-  getRenderType(): string {
-    const entityType = this.firstMetadataValue('relationship.type');
-    if (isNotEmpty(entityType)) {
-      return entityType;
+  getRenderTypes(): string[] {
+    let entityType = this.firstMetadataValue('relationship.type');
+    if (isEmpty(entityType)) {
+      entityType = 'Publication';
     }
-    return 'Publication';
+    return [entityType, ...super.getRenderTypes()];
   }
 }

@@ -1,7 +1,7 @@
 import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import { hasNoValue, hasValue } from '../empty.util';
 import { Context } from '../../core/shared/context.model';
-import { DEFAULT_ITEM_TYPE } from '../object-collection/shared/listable-object/listable-object.decorator';
+import { Item } from '../../core/shared/item.model';
 
 const map = new Map();
 
@@ -39,5 +39,5 @@ export function getMetadataRepresentationComponent(entityType: string, mdReprese
     }
     return mapForEntity.get(DEFAULT_REPRESENTATION_TYPE).get(DEFAULT_CONTEXT);
   }
-  return map.get(DEFAULT_ITEM_TYPE).get(DEFAULT_REPRESENTATION_TYPE).get(DEFAULT_CONTEXT);
+  return map.get(Item.name).get(DEFAULT_REPRESENTATION_TYPE).get(DEFAULT_CONTEXT);
 }

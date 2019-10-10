@@ -58,7 +58,8 @@ import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/
     WorkspaceItemSearchResultDetailElementComponent,
     WorkflowItemSearchResultDetailElementComponent,
     ClaimedTaskSearchResultDetailElementComponent,
-    PoolSearchResultDetailElementComponent
+    PoolSearchResultDetailElementComponent,
+    ItemSearchResultListElementSubmissionComponent
   ]
 })
 

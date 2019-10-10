@@ -24,6 +24,7 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() sortConfig: SortOptions;
   @Input() hasBorder = false;
   @Input() hideGear = false;
+  @Input() context: string;
   pageInfo: Observable<PageInfo>;
   /**
    * An event fired when the page is changed.

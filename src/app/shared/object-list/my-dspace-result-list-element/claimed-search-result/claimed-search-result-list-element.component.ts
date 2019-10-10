@@ -46,6 +46,7 @@ export class ClaimedSearchResultListElementComponent extends SearchResultListEle
    * Initialize all instance variables
    */
   ngOnInit() {
+    super.ngOnInit();
     this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>);
   }
 

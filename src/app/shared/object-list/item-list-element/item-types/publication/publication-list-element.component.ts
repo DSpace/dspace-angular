@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
+import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 
 @listableObjectComponent('Publication', ViewMode.ListElement)
-@listableObjectComponent(DEFAULT_ITEM_TYPE, ViewMode.ListElement)
+@listableObjectComponent(Item.name, ViewMode.ListElement)
 @Component({
   selector: 'ds-publication-list-element',
   styleUrls: ['./publication-list-element.component.scss'],

@@ -21,6 +21,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { Context } from '../../core/shared/context.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -32,12 +33,13 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 })
 
 export class ObjectGridComponent implements OnInit {
-  viewMode = ViewMode.ListElement;
+  viewMode = ViewMode.GridElement;
 
   @Input() config: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
+  @Input() context: Context;
   private _objects$: BehaviorSubject<RemoteData<PaginatedList<ListableObject>>>;
 
   @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {

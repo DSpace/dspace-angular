@@ -1,5 +1,5 @@
 <ds-metadata-field-wrapper *ngIf="representations && representations.length > 0" [label]="label">
-  <ds-listable-object-component-loader *ngFor="let rep of representations"
-                           [object]="rep" [viewMode]="viewMode">
-  </ds-listable-object-component-loader>
+    <ds-metadata-representation-loader *ngFor="let rep of representations"
+                                       [mdRepresentation]="rep">
+    </ds-metadata-representation-loader>
 </ds-metadata-field-wrapper>

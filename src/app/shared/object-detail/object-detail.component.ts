@@ -16,6 +16,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { Context } from '../../core/shared/context.model';
 
 /**
  * This component renders a paginated set of results in the detail view.
@@ -50,6 +51,7 @@ export class ObjectDetailComponent {
    * A boolean representing if to hide pagination when there is only a page
    */
   @Input() hidePagerWhenSinglePage = true;
+  @Input() context: Context;
 
   /**
    * The list of objects to paginate

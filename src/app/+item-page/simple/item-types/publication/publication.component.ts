@@ -5,10 +5,10 @@ import { ItemComponent } from '../shared/item.component';
 import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { getRelatedItemsByTypeLabel } from '../shared/item-relationships-utils';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { DEFAULT_ITEM_TYPE, listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent('Publication', ViewMode.StandalonePage)
-@listableObjectComponent(DEFAULT_ITEM_TYPE, ViewMode.StandalonePage)
+@listableObjectComponent(Item.name, ViewMode.StandalonePage)
 @Component({
   selector: 'ds-publication',
   styleUrls: ['./publication.component.scss'],

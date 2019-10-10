@@ -7,6 +7,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../../shared/empty.util';
 import { SearchResult } from '../../+search-page/search-result.model';
+import { Context } from '../../core/shared/context.model';
 
 /**
  * Component that represents all results for mydspace page
@@ -36,6 +37,7 @@ export class MyDSpaceResultsComponent {
    */
   @Input() viewMode: ViewMode;
 
+  context = Context.Submission;
   /**
    * A boolean representing if search results entry are separated by a line
    */

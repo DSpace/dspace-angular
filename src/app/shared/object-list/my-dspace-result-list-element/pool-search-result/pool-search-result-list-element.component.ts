@@ -51,6 +51,7 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
    * Initialize all instance variables
    */
   ngOnInit() {
+    super.ngOnInit();
     this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>);
   }
 

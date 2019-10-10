@@ -39,6 +39,7 @@ export class WorkspaceItemSearchResultListElementComponent extends SearchResultL
    * Initialize all instance variables
    */
   ngOnInit() {
+    super.ngOnInit();
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 

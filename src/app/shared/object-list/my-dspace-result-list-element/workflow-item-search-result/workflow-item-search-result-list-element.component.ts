@@ -39,6 +39,7 @@ export class WorkflowItemSearchResultListElementComponent extends SearchResultLi
    * Initialize all instance variables
    */
   ngOnInit() {
+    super.ngOnInit();
     this.initItem(this.dso.item as Observable<RemoteData<Item>> );
   }
 

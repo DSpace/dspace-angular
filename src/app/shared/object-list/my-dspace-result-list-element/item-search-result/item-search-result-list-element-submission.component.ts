@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
@@ -17,12 +17,14 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   templateUrl: './item-search-result-list-element-submission.component.html'
 })
 
-@listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.Submission)
-export class ItemSearchResultListElementSubmissionComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+@listableObjectComponent(ItemSearchResult.name, ViewMode.ListElement, Context.Submission)
+export class ItemSearchResultListElementSubmissionComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
+  ngOnInit() {
+    super.ngOnInit();
+  }
 
   /**
    * Represent item's status
    */
   public status = MyDspaceItemStatusType.ARCHIVED;
-
 }

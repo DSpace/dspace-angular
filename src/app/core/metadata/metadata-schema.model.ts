@@ -27,7 +27,7 @@ export class MetadataSchema implements ListableObject {
    */
   namespace: string;
 
-  getRenderType(): string {
-    return this.constructor.name;
+  getRenderTypes(): string[] {
+    return [this.constructor.name];
   }
 }

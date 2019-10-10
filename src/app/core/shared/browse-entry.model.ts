@@ -29,7 +29,7 @@ export class BrowseEntry implements ListableObject {
    */
   count: number;
 
-  getRenderType(): string {
-    return (this as any).type.value;
+  getRenderTypes(): string[] {
+    return [this.constructor.name];
   }
 }

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { metadataRepresentationComponent } from '../../../../../shared/metadata-representation/metadata-representation.decorator';
-import { MetadataRepresentationType } from '../../../../../core/shared/metadata-representation/metadata-representation.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ViewMode } from '../../../../../core/shared/view-mode.model';
 
-@metadataRepresentationComponent('ProjectSearchResult', MetadataRepresentationType.PlainText)
+@listableObjectComponent('ProjectSearchResult', ViewMode.ListElement)
 @Component({
   selector: 'ds-project-search-result-list-element',
   styleUrls: ['./project-search-result-list-element.component.scss'],

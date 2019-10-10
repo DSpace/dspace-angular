@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { metadataRepresentationComponent } from '../../../../shared/metadata-representation/metadata-representation.decorator';
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { AbstractListableElementComponent } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { Item } from '../../../../core/shared/item.model';
+import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
-@metadataRepresentationComponent('Project', MetadataRepresentationType.PlainText)
+@listableObjectComponent('Project', ViewMode.ListElement)
 @Component({
   selector: 'ds-project-list-element',
   styleUrls: ['./project-list-element.component.scss'],

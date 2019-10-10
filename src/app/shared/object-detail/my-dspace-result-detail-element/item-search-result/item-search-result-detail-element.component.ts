@@ -17,6 +17,12 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 })
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.DetailedListElement)
+@listableObjectComponent('OrgUnitSearchResult', ViewMode.DetailedListElement)
+@listableObjectComponent('PersonSearchResult', ViewMode.DetailedListElement)
+@listableObjectComponent('JournalSearchResult', ViewMode.DetailedListElement)
+@listableObjectComponent('JournalIssueSearchResult', ViewMode.DetailedListElement)
+@listableObjectComponent('JournalVolumeSearchResult', ViewMode.DetailedListElement)
+@listableObjectComponent('ProjectSearchResult', ViewMode.DetailedListElement)
 export class ItemSearchResultDetailElementComponent extends SearchResultDetailElementComponent<ItemSearchResult, Item> {
 
   /**

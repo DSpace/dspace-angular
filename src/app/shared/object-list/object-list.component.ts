@@ -13,6 +13,7 @@ import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { Context } from '../../core/shared/context.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -29,6 +30,7 @@ export class ObjectListComponent {
   @Input() hasBorder = false;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
+  @Input() context: Context;
   private _objects: RemoteData<PaginatedList<ListableObject>>;
   @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
     this._objects = objects;

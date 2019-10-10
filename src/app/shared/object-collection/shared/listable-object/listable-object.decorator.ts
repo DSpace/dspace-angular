@@ -1,15 +1,12 @@
 import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ListableObject } from '../listable-object.model';
 import { Context } from '../../../../core/shared/context.model';
 import { hasNoValue, hasValue } from '../../../empty.util';
 import { DEFAULT_CONTEXT } from '../../../metadata-representation/metadata-representation.decorator';
 
-export const DEFAULT_ITEM_TYPE = 'Default';
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 
 
-const listElementMap = new Map();
+const map = new Map();
 
 /**
  * Decorator used for rendering simple item pages by type and viewMode (and optionally a representationType)
@@ -21,30 +18,40 @@ export function listableObjectComponent(objectType: string, viewMode: ViewMode, 
     if (hasNoValue(objectType)) {
       return;
     }
-    if (hasNoValue(listElementMap.get(objectType))) {
-      listElementMap.set(objectType, new Map());
+    if (hasNoValue(map.get(objectType))) {
+      map.set(objectType, new Map());
     }
-    if (hasNoValue(listElementMap.get(objectType).get(viewMode))) {
-      listElementMap.get(objectType).set(viewMode, new Map());
+    if (hasNoValue(map.get(objectType).get(viewMode))) {
+      map.get(objectType).set(viewMode, new Map());
     }
-    listElementMap.get(objectType).get(viewMode).set(context, component);
+    map.get(objectType).get(viewMode).set(context, component);
   };
 }
 
 
-export function getListableObjectComponent(entityType: GenericConstructor<ListableObject> | string, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
-  const mapForType = listElementMap.get(entityType);
-  if (hasValue(mapForType)) {
-    const typeAndMDRepMap = mapForType.get(viewMode);
-    if (hasValue(typeAndMDRepMap)) {
-      if (hasValue(typeAndMDRepMap.get(context))) {
-        return typeAndMDRepMap.get(context);
+export function getListableObjectComponent(types: string[], viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
+  let bestMatch = undefined;
+  let bestMatchValue = 0;
+  for (let i = 0; i < types.length; i++) {
+    const typeMap = map.get(types[i]);
+    if (hasValue(typeMap)) {
+      const typeModeMap = typeMap.get(viewMode);
+      if (hasValue(typeModeMap)) {
+        if (hasValue(typeModeMap.get(context))) {
+          console.log(typeModeMap.get(context));
+          return typeModeMap.get(context);
+        }
+        if (bestMatchValue < 2 && hasValue(typeModeMap.get(DEFAULT_CONTEXT))) {
+          bestMatchValue = 2;
+          bestMatch = typeModeMap.get(DEFAULT_CONTEXT);
+        }
       }
-      if (hasValue(typeAndMDRepMap.get(DEFAULT_CONTEXT))) {
-        return typeAndMDRepMap.get(DEFAULT_CONTEXT);
+      if (bestMatchValue < 1 && hasValue(typeMap.get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT))) {
+        bestMatchValue = 1;
+        bestMatch = typeMap.get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT);
       }
     }
-    return mapForType.get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT);
   }
-  return listElementMap.get(DEFAULT_ITEM_TYPE).get(DEFAULT_VIEW_MODE).get(DEFAULT_CONTEXT);
+  console.log(bestMatch);
+  return bestMatch;
 }
