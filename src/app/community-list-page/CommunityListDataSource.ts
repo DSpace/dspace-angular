@@ -1,118 +1,131 @@
-import {CommunityListService} from './CommunityListService';
-import {CollectionViewer, DataSource} from '@angular/cdk/typings/collections';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {catchError, filter, finalize, map, take, tap} from 'rxjs/operators';
-import {Community} from '../core/shared/community.model';
-import {Collection} from '../core/shared/collection.model';
-import {hasValue, isEmpty} from '../shared/empty.util';
-import {RemoteData} from '../core/data/remote-data';
-import {PaginatedList} from '../core/data/paginated-list';
+import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
+import { PaginatedList } from '../core/data/paginated-list';
+import { RemoteData } from '../core/data/remote-data';
+import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { CommunityListService } from './CommunityListService';
+import { CollectionViewer, DataSource } from '@angular/cdk/typings/collections';
+import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import {
+  catchError,
+  filter,
+  finalize,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+import { Community } from '../core/shared/community.model';
+import { Collection } from '../core/shared/collection.model';
 
 export interface FlatNode {
-    expandable: boolean;
-    name: string;
-    handle: string;
-    level: number;
-    isExpanded?: boolean;
-    parent?: FlatNode;
-    community: Community;
+  isExpandable: boolean;
+  name: string;
+  id: string;
+  level: number;
+  isExpanded?: boolean;
+  parent?: FlatNode;
+  payload: Community | Collection;
 }
+
+const combineAndFlatten = (obsList: Array<Observable<FlatNode[]>>) =>
+  observableCombineLatest(...obsList).pipe(
+    map((matrix: FlatNode[][]) =>
+      matrix.reduce((combinedList, currentList: FlatNode[]) => [...combinedList, ...currentList]))
+  );
+
+const toFlatNode = (
+  c: Community | Collection,
+  level: number,
+  isExpanded: boolean,
+  parent?: FlatNode
+): FlatNode => ({
+  isExpandable: c instanceof Community,
+  name: c.name,
+  id: c.id,
+  level: level,
+  isExpanded,
+  parent,
+  payload: c,
+});
 
 export class CommunityListDataSource implements DataSource<FlatNode> {
 
-    private communityListSubject = new BehaviorSubject<FlatNode[]>([]);
-    private loadingSubject = new BehaviorSubject<boolean>(false);
+  private communityList$ = new BehaviorSubject<FlatNode[]>([]);
+  private loading$ = new BehaviorSubject<boolean>(false);
 
-    public loading$ = this.loadingSubject.asObservable();
+  constructor(private communityListService: CommunityListService) {
+  }
 
-    constructor(private communityListService: CommunityListService) {
+  connect(collectionViewer: CollectionViewer): Observable<FlatNode[]> {
+    return this.communityList$.asObservable();
+  }
+
+  disconnect(collectionViewer: CollectionViewer): void {
+    this.communityList$.complete();
+    this.loading$.complete();
+  }
+
+  loadCommunities(expandedNodes: FlatNode[]): void {
+    this.loading$.next(true);
+
+    this.communityListService.communities$
+      .pipe(
+        take(1),
+        switchMap((result: Community[]) => {
+          return this.transformListOfCommunities(result, 0, null, expandedNodes);
+        }),
+        catchError(() => observableOf([])),
+        finalize(() => this.loading$.next(false)),
+      ).subscribe((flatNodes: FlatNode[]) => this.communityList$.next(flatNodes));
+  };
+
+  private transformListOfCommunities(listOfCommunities: Community[],
+                                     level: number,
+                                     parent: FlatNode,
+                                     expandedNodes: FlatNode[]): Observable<FlatNode[]> {
+    if (isNotEmpty(listOfCommunities)) {
+      const obsList = listOfCommunities
+        .map((community: Community) =>
+          this.transformCommunity(community, level, parent, expandedNodes));
+
+      return combineAndFlatten(obsList);
+    } else {
+      return observableOf([]);
+    }
+  }
+
+  private transformCommunity(community: Community, level: number, parent: FlatNode, expandedNodes: FlatNode[]): Observable<FlatNode[]> {
+    let isExpanded = false;
+    if (isNotEmpty(expandedNodes)) {
+      isExpanded = hasValue(expandedNodes.find((node) => (node.id === community.id)));
     }
 
-    connect(collectionViewer: CollectionViewer): Observable<FlatNode[]> {
-        return this.communityListSubject.asObservable();
+    const communityFlatNode = toFlatNode(community, level, isExpanded, parent);
+
+    let obsList = [observableOf([communityFlatNode])];
+
+    if (isExpanded) {
+      const subCommunityNodes$ = community.subcommunities.pipe(
+        filter((rd: RemoteData<PaginatedList<Community>>) => rd.hasSucceeded),
+        take(1),
+        switchMap((rd: RemoteData<PaginatedList<Community>>) =>
+          this.transformListOfCommunities(rd.payload.page, level + 1, communityFlatNode, expandedNodes))
+      );
+
+      obsList = [...obsList, subCommunityNodes$];
+
+      const collectionNodes$ = community.collections.pipe(
+        filter((rd: RemoteData<PaginatedList<Collection>>) => rd.hasSucceeded),
+        take(1),
+        map((rd: RemoteData<PaginatedList<Collection>>) =>
+          rd.payload.page
+            .map((collection: Collection) => toFlatNode(collection, level + 1, false, parent))
+        )
+      );
+
+      obsList = [...obsList, collectionNodes$];
     }
 
-    disconnect(collectionViewer: CollectionViewer): void {
-        this.communityListSubject.complete();
-        this.loadingSubject.complete();
-    }
-
-    loadCommunities(expandedNodes: FlatNode[]) {
-        this.loadingSubject.next(true);
-
-        this.communityListService.getCommunityList()
-            .pipe(
-                filter((rd: RemoteData<PaginatedList<Community>>) => rd.hasSucceeded),
-                take(1),
-                finalize(() => this.loadingSubject.next(false)),
-            )
-            .subscribe((result) => {
-                const communities = result.payload.page;
-                const flatNodes = this.transformListOfCommunities(communities, -1, [], null, expandedNodes);
-                this.communityListSubject.next(flatNodes)
-            });
-    };
-
-    transformListOfCommunities(listOfCommunities: Community[],
-                               level: number,
-                               flatNodes: FlatNode[],
-                               parent: FlatNode,
-                               expandedNodes: FlatNode[]): FlatNode[] {
-        level++;
-        if (hasValue(listOfCommunities)) {
-            for (const community of listOfCommunities) {
-                let expanded = false;
-                if (hasValue(expandedNodes)) {
-                    const expandedNodesFound = expandedNodes.filter((node) => (node.handle === community.handle));
-                    expanded = (expandedNodesFound.length > 0);
-                }
-                const communityFlatNode: FlatNode = {
-                    expandable: true,
-                    name: community.name,
-                    handle: community.handle,
-                    level: level,
-                    isExpanded: expanded,
-                    parent: parent,
-                    community: community,
-                }
-                flatNodes.push(communityFlatNode);
-                if (expanded) {
-                    let subcoms: Community[] = [];
-                    community.subcommunities.pipe(
-                        tap((v) => console.log('subcom tap', v)),
-                        filter((rd: RemoteData<PaginatedList<Community>>) => rd.hasSucceeded),
-                        take(1),)
-                        .subscribe((results) => {
-                            subcoms = results.payload.page;
-                            if (!isEmpty(subcoms)) {
-                                this.transformListOfCommunities(subcoms, level, flatNodes, communityFlatNode, expandedNodes);
-                            }
-                    });
-                    let coll: Collection[] = [];
-                    community.collections.pipe(
-                        tap((v) => console.log('col tap ' ,v)),
-                        filter((rd: RemoteData<PaginatedList<Collection>>) => rd.hasSucceeded),
-                        take(1),
-                        )
-                        .subscribe((results) => {
-                        coll = results.payload.page;
-                        for (const collection of coll) {
-                            const collectionFlatNode: FlatNode = {
-                                expandable: false,
-                                name: collection.name,
-                                handle: collection.handle,
-                                level: level,
-                                isExpanded: false,
-                                parent: parent,
-                                community: community,
-                            }
-                            flatNodes.push(collectionFlatNode);
-                        }
-                    });
-                }
-            }
-        }
-        return flatNodes;
-    }
+    return combineAndFlatten(obsList);
+  }
 
 }
