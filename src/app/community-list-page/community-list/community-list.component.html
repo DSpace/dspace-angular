@@ -6,7 +6,7 @@
         <!-- use a disabled button to provide padding for tree leaf -->
         <button type="button" class="btn btn-default" [style.visibility]="'hidden'"></button>
         <h6 class="align-middle">
-            <a [routerLink]="['/collections/' + node.payload.id]" class="lead">
+            <a [routerLink]="getCollectionRoute(node)" class="lead">
                 {{node.name}}
             </a>
         </h6>
@@ -26,7 +26,7 @@
                       aria-hidden="true"></span>
             </button>
             <h5 class="align-middle pt-2">
-                <a [routerLink]="['/communities/' + node.payload.id]" class="lead">
+                <a [routerLink]="getCommunityRoute(node)" class="lead">
                     {{node.name}}
                 </a>
             </h5>
