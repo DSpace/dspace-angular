@@ -1,9 +1,12 @@
 import {CommunityListService} from './CommunityListService';
 import {CollectionViewer, DataSource} from '@angular/cdk/typings/collections';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {catchError, finalize, map, take, tap} from 'rxjs/operators';
+import {catchError, filter, finalize, map, take, tap} from 'rxjs/operators';
 import {Community} from '../core/shared/community.model';
 import {Collection} from '../core/shared/collection.model';
+import {hasValue, isEmpty} from '../shared/empty.util';
+import {RemoteData} from '../core/data/remote-data';
+import {PaginatedList} from '../core/data/paginated-list';
 
 export interface FlatNode {
     expandable: boolean;
@@ -39,15 +42,13 @@ export class CommunityListDataSource implements DataSource<FlatNode> {
 
         this.communityListService.getCommunityList()
             .pipe(
+                filter((rd: RemoteData<PaginatedList<Community>>) => rd.hasSucceeded),
                 take(1),
-                catchError(() => of([])),
                 finalize(() => this.loadingSubject.next(false)),
-                map((result: Community[]) => {
-                    const flatNodes = this.transformListOfCommunities(result, 0, [], null, expandedNodes);
-                    return flatNodes;
-                })
             )
-            .subscribe((flatNodes) => {
+            .subscribe((result) => {
+                const communities = result.payload.page;
+                const flatNodes = this.transformListOfCommunities(communities, -1, [], null, expandedNodes);
                 this.communityListSubject.next(flatNodes)
             });
     };
@@ -58,10 +59,10 @@ export class CommunityListDataSource implements DataSource<FlatNode> {
                                parent: FlatNode,
                                expandedNodes: FlatNode[]): FlatNode[] {
         level++;
-        if (undefined !== listOfCommunities) {
+        if (hasValue(listOfCommunities)) {
             for (const community of listOfCommunities) {
                 let expanded = false;
-                if (expandedNodes != null) {
+                if (hasValue(expandedNodes)) {
                     const expandedNodesFound = expandedNodes.filter((node) => (node.handle === community.handle));
                     expanded = (expandedNodesFound.length > 0);
                 }
@@ -76,19 +77,21 @@ export class CommunityListDataSource implements DataSource<FlatNode> {
                 }
                 flatNodes.push(communityFlatNode);
                 if (expanded) {
-                    // TODO FIX: Retrieves last subcom or coll as undefined
                     let subcoms: Community[] = [];
                     community.subcommunities.pipe(
                         tap((v) => console.log('subcom tap', v)),
-                        take(1)).subscribe((results) => {
-                        subcoms = results.payload.page;
-                        if (subcoms.length > 0) {
-                            this.transformListOfCommunities(subcoms, level, flatNodes, communityFlatNode, expandedNodes);
-                        }
+                        filter((rd: RemoteData<PaginatedList<Community>>) => rd.hasSucceeded),
+                        take(1),)
+                        .subscribe((results) => {
+                            subcoms = results.payload.page;
+                            if (!isEmpty(subcoms)) {
+                                this.transformListOfCommunities(subcoms, level, flatNodes, communityFlatNode, expandedNodes);
+                            }
                     });
                     let coll: Collection[] = [];
                     community.collections.pipe(
                         tap((v) => console.log('col tap ' ,v)),
+                        filter((rd: RemoteData<PaginatedList<Collection>>) => rd.hasSucceeded),
                         take(1),
                         )
                         .subscribe((results) => {
