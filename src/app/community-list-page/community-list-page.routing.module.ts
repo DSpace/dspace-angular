@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import {CdkTreeModule} from '@angular/cdk/tree';
 
 import {CommunityListPageComponent} from './community-list-page.component';
-import {CommunityListService} from './CommunityListService';
+import {CommunityListAdapter} from './community-list-adapter';
 
 @NgModule({
     imports: [
@@ -12,6 +12,6 @@ import {CommunityListService} from './CommunityListService';
         ]),
         CdkTreeModule,
     ],
-    providers: [CommunityListService]
+    providers: [CommunityListAdapter]
 })
 export class CommunityListPageRoutingModule { }

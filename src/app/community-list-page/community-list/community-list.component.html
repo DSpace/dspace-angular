@@ -1,25 +1,38 @@
 <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
-  <!-- This is the tree node template for leaf nodes -->
-  <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding
-                 [style.display]="shouldRender(node) ? 'flex' : 'none'"
-                 class="example-tree-node">
-    <!-- use a disabled button to provide padding for tree leaf -->
-    <button type="button" class="btn btn-default" [style.visibility]="'hidden'"></button>
-    <h5 class="align-middle">{{node.name}}</h5>
-  </cdk-tree-node>
-  <!-- This is the tree node template for expandable nodes -->
-  <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
-                 [style.display]="shouldRender(node) ? 'flex' : 'none'"
-                 class="example-tree-node">
-    <div class="btn-group">
-      <button type="button" class="btn btn-default" cdkTreeNodeToggle
-              [attr.aria-label]="'toggle ' + node.name"
-              (click)="toggleExpanded(node)"
-              [style.visibility]="node.isExpandable ? 'visible' : 'hidden'">
-      <span class="{{treeControl.isExpanded(node) ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}" aria-hidden="true">
-      </span>
-      </button>
-      <h5 class="align-middle pt-2">{{node.name}}</h5>
-    </div>
-  </cdk-tree-node>
+    <!-- This is the tree node template for leaf nodes -->
+    <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding
+                   [style.display]="shouldRender(node) ? 'flex' : 'none'"
+                   class="example-tree-node">
+        <!-- use a disabled button to provide padding for tree leaf -->
+        <button type="button" class="btn btn-default" [style.visibility]="'hidden'"></button>
+        <h6 class="align-middle">
+            <a [routerLink]="['/collections/' + node.payload.id]" class="lead">
+                {{node.name}}
+            </a>
+        </h6>
+        <div class="text-muted">
+            {{node.payload.shortDescription}}
+        </div>
+    </cdk-tree-node>
+    <!-- This is the tree node template for expandable nodes -->
+    <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
+                   class="example-tree-node">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" cdkTreeNodeToggle
+                    [attr.aria-label]="'toggle ' + node.name"
+                    (click)="toggleExpanded(node)"
+                    [style.visibility]="node.isExpandable ? 'visible' : 'hidden'">
+                <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
+                      aria-hidden="true"></span>
+            </button>
+            <h5 class="align-middle pt-2">
+                <a [routerLink]="['/communities/' + node.payload.id]" class="lead">
+                    {{node.name}}
+                </a>
+            </h5>
+        </div>
+        <div class="text-muted pl-4">
+            {{node.payload.shortDescription}}
+        </div>
+    </cdk-tree-node>
 </cdk-tree>
