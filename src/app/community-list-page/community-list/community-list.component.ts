@@ -6,7 +6,6 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 @Component({
   selector: 'ds-community-list',
   templateUrl: './community-list.component.html',
-  styleUrls: ['./community-list.component.css']
 })
 export class CommunityListComponent implements OnInit {
 
