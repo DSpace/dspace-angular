@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CommunityListAdapter, FlatNode} from '../community-list-adapter';
 import {CommunityListDatasource} from '../community-list-datasource';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {getCollectionPageRoute} from "../../+collection-page/collection-page-routing.module";
-import {getCommunityPageRoute} from "../../+community-page/community-page-routing.module";
+import {getCollectionPageRoute} from '../../+collection-page/collection-page-routing.module';
+import {getCommunityPageRoute} from '../../+community-page/community-page-routing.module';
 
 @Component({
     selector: 'ds-community-list',
