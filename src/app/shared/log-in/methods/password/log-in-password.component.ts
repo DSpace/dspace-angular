@@ -36,7 +36,7 @@ import { InjectedAuthMethodModel } from '../../injectedAuthMethodModel/injectedA
   animations: [fadeOut]
 })
 @renderAuthMethodFor(AuthMethodType.Password)
-export class LogInPasswordComponent implements OnDestroy, OnInit {
+export class LogInPasswordComponent implements OnInit {
 
   /**
    * The error if authentication fails.
@@ -66,13 +66,15 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    * Whether user is authenticated.
    * @type {Observable<string>}
    */
-  public isAuthenticated: Observable<boolean>;
+/*  public isAuthenticated: Observable<boolean>;*/
 
   /**
    * True if the authentication is loading.
    * @type {boolean}
    */
+/*
   public loading: Observable<boolean>;
+*/
 
   /**
    * The authentication form.
@@ -80,11 +82,11 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    */
   public form: FormGroup;
 
-  /**
+/*  /!**
    * Component state.
    * @type {boolean}
-   */
-  private alive = true;
+   *!/
+  private alive = true;*/
 
   @Input() authMethodModel: InjectedAuthMethodModel;
 
@@ -96,7 +98,7 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    */
   constructor(
     @Inject('authMethodModelProvider') public injectedAuthMethodModel: InjectedAuthMethodModel,
-    private authService: AuthService,
+   /* private authService: AuthService,*/
     private formBuilder: FormBuilder,
     private store: Store<CoreState>
   ) {
@@ -109,7 +111,7 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    */
   public ngOnInit() {
     // set isAuthenticated
-    this.isAuthenticated = this.store.pipe(select(isAuthenticated));
+/*    this.isAuthenticated = this.store.pipe(select(isAuthenticated));*/
 
     // set formGroup
     this.form = this.formBuilder.group({
@@ -135,7 +137,7 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
       })
     );
 
-    // set loading
+/*    // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
 
     // subscribe to success
@@ -146,7 +148,7 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
       .subscribe(() => {
           this.authService.redirectAfterLoginSuccess(this.authMethodModel.isStandalonePage);
         }
-      );
+      );*/
 
   }
 
@@ -154,9 +156,9 @@ export class LogInPasswordComponent implements OnDestroy, OnInit {
    *  Lifecycle hook that is called when a directive, pipe or service is destroyed.
    * @method ngOnDestroy
    */
-  public ngOnDestroy() {
+/*  public ngOnDestroy() {
     this.alive = false;
-  }
+  }*/
 
   /**
    * Reset error or message.

@@ -5,6 +5,8 @@ import { select, Store } from '@ngrx/store';
 import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
 import { InjectedAuthMethodModel } from './injectedAuthMethodModel/injectedAuthMethodModel';
+import { filter, takeWhile } from 'rxjs/operators';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'ds-log-in',
@@ -35,9 +37,17 @@ export class LogInComponent implements OnInit, OnDestroy {
    * @type {boolean}
    */
   public loading: Observable<boolean>;
+
+  /**
+   * Component state.
+   * @type {boolean}
+   */
+  private alive = true;
+
   private subscription: Subscription;
 
-  constructor(private store: Store<CoreState>) {
+  constructor(private store: Store<CoreState>,
+              private authService: AuthService,) {
   }
 
   ngOnInit(): void {
@@ -56,10 +66,22 @@ export class LogInComponent implements OnInit, OnDestroy {
 
     // set isAuthenticated
     this.isAuthenticated = this.store.pipe(select(isAuthenticated));
+
+    // subscribe to success
+    this.store.pipe(
+      select(isAuthenticated),
+      takeWhile(() => this.alive),
+      filter((authenticated) => authenticated))
+      .subscribe(() => {
+          this.authService.redirectAfterLoginSuccess(this.isStandalonePage);
+        }
+      );
+
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.alive = false;
   }
 
 }
