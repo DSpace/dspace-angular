@@ -10,7 +10,7 @@ let itemGridElementComponent: ItemGridElementComponent;
 let fixture: ComponentFixture<ItemGridElementComponent>;
 
 const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.contributor.author': [
       {
@@ -27,7 +27,7 @@ const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
   }
 });
 const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
