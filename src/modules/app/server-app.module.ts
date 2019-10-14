@@ -22,6 +22,8 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AngularticsMock } from '../../app/shared/mocks/mock-angulartics.service';
 import { SubmissionService } from '../../app/submission/submission.service';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
+import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
+import { Angulartics2Module } from 'angulartics2';
 
 export function createTranslateLoader() {
   return new TranslateJson5UniversalLoader('dist/assets/i18n/', '.json5');
@@ -45,12 +47,17 @@ export function createTranslateLoader() {
         deps: []
       }
     }),
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics, Angulartics2DSpace]),
     ServerModule,
     AppModule
   ],
   providers: [
     {
       provide: Angulartics2GoogleAnalytics,
+      useClass: AngularticsMock
+    },
+    {
+      provide: Angulartics2DSpace,
       useClass: AngularticsMock
     },
     {

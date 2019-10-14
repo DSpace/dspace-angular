@@ -10,7 +10,7 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SearchPageComponent } from './search-page.component';
+import { SearchComponent } from './search.component';
 import { SearchService } from './search-service/search.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
@@ -27,11 +27,11 @@ import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchFixedFilterService } from './search-filters/search-filter/search-fixed-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 
-let comp: SearchPageComponent;
-let fixture: ComponentFixture<SearchPageComponent>;
+let comp: SearchComponent;
+let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
-const store: Store<SearchPageComponent> = jasmine.createSpyObj('store', {
+const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* tslint:disable:no-empty */
   dispatch: {},
   /* tslint:enable:no-empty */
@@ -152,11 +152,11 @@ export function configureSearchComponentTestingModule(compType) {
 
 describe('SearchPageComponent', () => {
   beforeEach(async(() => {
-    configureSearchComponentTestingModule(SearchPageComponent);
+    configureSearchComponentTestingModule(SearchComponent);
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchPageComponent);
+    fixture = TestBed.createComponent(SearchComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;

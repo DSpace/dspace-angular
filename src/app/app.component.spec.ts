@@ -46,6 +46,7 @@ import { MockActivatedRoute } from './shared/mocks/mock-active-router';
 import { MockRouter } from './shared/mocks/mock-router';
 import { MockCookieService } from './shared/mocks/mock-cookie.service';
 import { CookieService } from './core/services/cookie.service';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 
 let comp: AppComponent;
 let fixture: ComponentFixture<AppComponent>;
@@ -74,6 +75,7 @@ describe('App component', () => {
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: MetadataService, useValue: new MockMetadataService() },
         { provide: Angulartics2GoogleAnalytics, useValue: new AngularticsMock() },
+        { provide: Angulartics2DSpace, useValue: new AngularticsMock() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: Router, useValue: new MockRouter() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },

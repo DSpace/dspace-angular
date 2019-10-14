@@ -6,12 +6,14 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 
 import { HomePageComponent } from './home-page.component';
 import { TopLevelCommunityListComponent } from './top-level-community-list/top-level-community-list.component';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    StatisticsModule.forRoot()
   ],
   declarations: [
     HomePageComponent,
