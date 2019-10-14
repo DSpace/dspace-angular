@@ -386,11 +386,14 @@ export class AuthService {
           this.routeService.getHistory().pipe(
             take(1)
           ).subscribe((history) => {
+            console.log('HISTORY: ', history);
             let redirUrl;
             if (isStandalonePage) {
               // For standalone login pages, use the previous route.
               redirUrl = history[history.length - 2] || '';
             } else {
+              console.log('isStandAlonePage: ', isStandalonePage);
+              console.log( 'history[history.length - 1; ', history[history.length - 1]);
               redirUrl = history[history.length - 1] || '';
             }
             this.navigateToRedirectUrl(redirUrl);
