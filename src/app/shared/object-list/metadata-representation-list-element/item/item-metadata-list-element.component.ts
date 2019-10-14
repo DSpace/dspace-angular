@@ -3,9 +3,8 @@ import { Component } from '@angular/core';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
-import { Item } from '../../../../core/shared/item.model';
 
-@metadataRepresentationComponent(Item.name, MetadataRepresentationType.Item)
+@metadataRepresentationComponent('Publication', MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-item-metadata-list-element',
   templateUrl: './item-metadata-list-element.component.html'

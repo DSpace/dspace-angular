@@ -5,12 +5,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
-import { PoolSearchResultDetailElementComponent } from './pool-my-dspace-result-detail-element.component';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { PoolSearchResultDetailElementComponent } from './pool-search-result-detail-element.component';
+import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 
 let component: PoolSearchResultDetailElementComponent;
 let fixture: ComponentFixture<PoolSearchResultDetailElementComponent>;
@@ -54,7 +54,7 @@ const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdIt
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
 
-describe('PoolMyDSpaceResultDetailElementComponent', () => {
+describe('PoolSearchResultDetailElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],

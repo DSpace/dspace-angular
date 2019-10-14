@@ -5,6 +5,7 @@ import { Context } from '../../../../core/shared/context.model';
 import { getListableObjectComponent } from './listable-object.decorator';
 import { GenericConstructor } from '../../../../core/shared/generic-constructor';
 import { ListableObjectDirective } from './listable-object.directive';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
@@ -28,6 +29,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
   @Input() viewMode: ViewMode;
 
   @Input() context: Context;
+  @Input() linkType: CollectionElementLinkType;
   @ViewChild(ListableObjectDirective) listableObjectDirective: ListableObjectDirective;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
@@ -42,6 +44,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (<Component>componentRef.instance as any).object = this.object;
     (<Component>componentRef.instance as any).index = this.index;
+    (<Component>componentRef.instance as any).linkType = this.linkType;
   }
 
   /**

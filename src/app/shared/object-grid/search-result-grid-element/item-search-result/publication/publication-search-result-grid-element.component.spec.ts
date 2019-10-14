@@ -99,7 +99,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     fieldsToCheck.forEach((field) => {
       describe(`when the item has "${field}" metadata`, () => {
         beforeEach(() => {
-          comp.dso = searchResultWithMetadata.indexableObject;
+          comp.object = searchResultWithMetadata;
           fixture.detectChanges();
         });
 
@@ -111,7 +111,7 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
 
       describe(`when the item has no "${field}" metadata`, () => {
         beforeEach(() => {
-          comp.dso = searchResultWithoutMetadata.indexableObject;
+          comp.object = searchResultWithoutMetadata;
           fixture.detectChanges();
         });
 

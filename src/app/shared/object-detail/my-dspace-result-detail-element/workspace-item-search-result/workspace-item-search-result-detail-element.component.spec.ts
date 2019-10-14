@@ -6,11 +6,10 @@ import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItemSearchResultDetailElementComponent } from './workspace-item-search-result-detail-element.component';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workspaceitem-my-dspace-result.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflowitem-search-result.model';
 
 let component: WorkspaceItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkspaceItemSearchResultDetailElementComponent>;
@@ -52,7 +51,7 @@ const item = Object.assign(new Item(), {
 const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd) });
 
-describe('WorkspaceitemMyDSpaceResultDetailElementComponent', () => {
+describe('WorkspaceItemSearchResultDetailElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],

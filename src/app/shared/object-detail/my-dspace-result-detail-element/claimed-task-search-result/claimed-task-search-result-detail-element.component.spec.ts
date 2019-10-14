@@ -6,12 +6,11 @@ import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { ClaimedTaskSearchResultDetailElementComponent } from './claimed-task-search-result-detail-element.component';
-import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 
 let component: ClaimedTaskSearchResultDetailElementComponent;
 let fixture: ComponentFixture<ClaimedTaskSearchResultDetailElementComponent>;
@@ -55,15 +54,11 @@ const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdIt
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
 
-describe('ClaimedMyDSpaceResultDetailElementComponent', () => {
+describe('ClaimedTaskSearchResultDetailElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [ClaimedTaskSearchResultDetailElementComponent],
-      providers: [
-        { provide: 'objectElementProvider', useValue: (mockResultObject) },
-        { provide: 'indexElementProvider', useValue: (compIndex) }
-      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedTaskSearchResultDetailElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }

@@ -1,8 +1,11 @@
 <ds-item-type-badge [object]="dso"></ds-item-type-badge>
 <ds-truncatable [id]="dso.id">
-    <a
-            [routerLink]="['/items/' + dso.id]" class="lead"
-            [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"></a>
+    <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"
+       [routerLink]="['/items/' + dso.id]" class="lead"
+       [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"></a>
+    <span *ngIf="linkType == linkTypes.None"
+          class="lead"
+          [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"></span>
     <span class="text-muted">
     <ds-truncatable-part [id]="dso.id" [minLines]="1">
             <span *ngIf="dso.allMetadata(['person.jobTitle']).length > 0"

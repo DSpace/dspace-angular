@@ -3,6 +3,8 @@ import { AbstractListableElementComponent } from '../../../../shared/object-coll
 import { Item } from '../../../../core/shared/item.model';
 import { metadataRepresentationComponent } from '../../../../shared/metadata-representation/metadata-representation.decorator';
 import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadataRepresentationListElementComponent } from '../../../../shared/object-list/metadata-representation-list-element/metadata-representation-list-element.component';
+import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 
 @metadataRepresentationComponent('Person', MetadataRepresentationType.Item)
 @Component({
@@ -12,5 +14,6 @@ import { MetadataRepresentationType } from '../../../../core/shared/metadata-rep
 /**
  * The component for displaying a list element for an item of the type Person
  */
-export class PersonItemPageListElementComponent extends AbstractListableElementComponent<Item> {
+export class PersonItemPageListElementComponent {
+  metadataRepresentation: ItemMetadataRepresentation;
 }

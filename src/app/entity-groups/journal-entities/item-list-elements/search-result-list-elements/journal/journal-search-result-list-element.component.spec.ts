@@ -50,7 +50,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   }
 );
 
-describe('JournalListElementComponent', () => {
+describe('JournalSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [JournalSearchResultListElementComponent, TruncatePipe],

@@ -6,12 +6,12 @@ import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { PoolSearchResultListElementComponent } from './pool-search-result-list-element.component';
-import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-my-dspace-result.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 let component: PoolSearchResultListElementComponent;
 let fixture: ComponentFixture<PoolSearchResultListElementComponent>;
@@ -55,14 +55,13 @@ const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdIt
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
 
-describe('PoolMyDSpaceResultListElementComponent', () => {
+describe('PoolSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [PoolSearchResultListElementComponent],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockResultObject) },
-        { provide: 'indexElementProvider', useValue: (compIndex) }
+        { provide: TruncatableService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolSearchResultListElementComponent, {

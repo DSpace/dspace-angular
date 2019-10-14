@@ -1,73 +1,78 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { PublicationSearchResultListElementComponent } from './publication-list-element.component';
-import { Item } from '../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { TruncatableService } from '../../../../truncatable/truncatable.service';
-import { ITEM } from '../../../../items/switcher/listable-object-component-loader.component';
 import { of as observableOf } from 'rxjs';
+import { PublicationSearchResultListElementComponent } from './publication-search-result-list-element.component';
+import { Item } from '../../../../../../core/shared/item.model';
+import { TruncatePipe } from '../../../../../utils/truncate.pipe';
+import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 
 let publicationListElementComponent: PublicationSearchResultListElementComponent;
 let fixture: ComponentFixture<PublicationSearchResultListElementComponent>;
 
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
+const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
+  indexableObject:
+    Object.assign(new Item(), {
+      bitstreams: observableOf({}),
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ],
+        'dc.contributor.author': [
+          {
+            language: 'en_US',
+            value: 'Smith, Donald'
+          }
+        ],
+        'dc.publisher': [
+          {
+            language: 'en_US',
+            value: 'a publisher'
+          }
+        ],
+        'dc.date.issued': [
+          {
+            language: 'en_US',
+            value: '2015-06-26'
+          }
+        ],
+        'dc.description.abstract': [
+          {
+            language: 'en_US',
+            value: 'This is the abstract'
+          }
+        ]
       }
-    ],
-    'dc.contributor.author': [
-      {
-        language: 'en_US',
-        value: 'Smith, Donald'
-      }
-    ],
-    'dc.publisher': [
-      {
-        language: 'en_US',
-        value: 'a publisher'
-      }
-    ],
-    'dc.date.issued': [
-      {
-        language: 'en_US',
-        value: '2015-06-26'
-      }
-    ],
-    'dc.description.abstract': [
-      {
-        language: 'en_US',
-        value: 'This is the abstract'
-      }
-    ]
-  }
+    })
 });
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
+const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
+  indexableObject:
+    Object.assign(new Item(), {
+      bitstreams: observableOf({}),
+      metadata: {
+        'dc.title': [
+          {
+            language: 'en_US',
+            value: 'This is just another title'
+          }
+        ]
       }
-    ]
-  }
+    })
 });
 
 describe('PublicationListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PublicationSearchResultListElementComponent , TruncatePipe],
+      declarations: [PublicationSearchResultListElementComponent, TruncatePipe],
       providers: [
-        { provide: ITEM, useValue: mockItemWithMetadata},
         { provide: TruncatableService, useValue: {} }
       ],
 
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PublicationSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();

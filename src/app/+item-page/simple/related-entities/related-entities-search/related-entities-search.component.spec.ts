@@ -38,7 +38,7 @@ describe('RelatedEntitiesSearchComponent', () => {
     comp = fixture.componentInstance;
     fixedFilterService = (comp as any).fixedFilterService;
     comp.relationType = mockRelationType;
-    comp.object = mockItem;
+    comp.item = mockItem;
     comp.relationEntityType = mockRelationEntityType;
     fixture.detectChanges();
   });

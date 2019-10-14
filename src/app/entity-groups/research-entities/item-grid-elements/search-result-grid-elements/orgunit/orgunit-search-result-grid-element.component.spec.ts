@@ -52,4 +52,4 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
   }
 });
 
-describe('OrgunitGridElementComponent', getEntityGridElementTestComponent(OrgunitSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['date', 'country', 'city']));
+describe('OrgunitSearchResultGridElementComponent', getEntityGridElementTestComponent(OrgunitSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['date', 'country', 'city']));

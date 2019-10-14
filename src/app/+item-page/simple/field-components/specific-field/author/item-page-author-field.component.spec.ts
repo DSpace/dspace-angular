@@ -32,7 +32,7 @@ describe('ItemPageAuthorFieldComponent', () => {
     beforeEach(async(() => {
       fixture = TestBed.createComponent(ItemPageAuthorFieldComponent);
       comp = fixture.componentInstance;
-      comp.object = mockItemWithMetadataFieldAndValue(field, mockValue);
+      comp.item = mockItemWithMetadataFieldAndValue(field, mockValue);
       fixture.detectChanges();
     }));
 

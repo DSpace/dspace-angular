@@ -12,7 +12,7 @@ import { ClaimedSearchResultListElementComponent } from '../shared/object-list/m
 import { PoolSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/pool-search-result/pool-search-result-list-element.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { ItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-search-result/item-search-result-detail-element.component';
-import { WorkspaceItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workspace-item-my-dspace-result/workspace-item-search-result-detail-element.component';
+import { WorkspaceItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workspace-item-search-result/workspace-item-search-result-detail-element.component';
 import { WorkflowItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workflow-item-search-result/workflow-item-search-result-detail-element.component';
 import { ClaimedTaskSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/claimed-task-search-result/claimed-task-search-result-detail-element.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
@@ -20,7 +20,7 @@ import { MyDSpaceConfigurationService } from './my-dspace-configuration.service'
 import { SearchResultListElementComponent } from '../shared/object-list/search-result-list-element/search-result-list-element.component';
 import { ItemSearchResultListElementSubmissionComponent } from '../shared/object-list/my-dspace-result-list-element/item-search-result/item-search-result-list-element-submission.component';
 import { WorkflowItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workflow-item-search-result/workflow-item-search-result-list-element.component';
-import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-my-dspace-result/pool-search-result-detail-element.component';
+import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 
 @NgModule({
   imports: [

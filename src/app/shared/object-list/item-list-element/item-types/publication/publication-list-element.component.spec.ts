@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { PublicationListElementComponent } from './publication-list-element.component';
@@ -7,10 +7,7 @@ import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { of as observableOf } from 'rxjs';
 
-let publicationListElementComponent: PublicationListElementComponent;
-let fixture: ComponentFixture<PublicationListElementComponent>;
-
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
+const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
     'dc.title': [
@@ -45,131 +42,43 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
     ]
   }
 });
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
 
-describe('PublicationListElementComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PublicationListElementComponent , TruncatePipe],
-      providers: [
-        { provide: TruncatableService, useValue: {} }
-      ],
+describe('PublicationListElementComponent',
+  () => {
+    let comp;
+    let fixture;
 
-      schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(PublicationListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
-  }));
+    const truncatableServiceStub: any = {
+      isCollapsed: (id: number) => observableOf(true),
+    };
 
-  beforeEach(async(() => {
-    fixture = TestBed.createComponent(PublicationListElementComponent);
-    publicationListElementComponent = fixture.componentInstance;
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [PublicationListElementComponent, TruncatePipe],
+        providers: [
+          { provide: TruncatableService, useValue: truncatableServiceStub },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).overrideComponent(PublicationListElementComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default }
+      }).compileComponents();
+    }));
 
-  }));
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(PublicationListElementComponent);
+      comp = fixture.componentInstance;
+    }));
 
-  describe('When the item has an author', () => {
-    beforeEach(() => {
-      publicationListElementComponent.object = mockItemWithMetadata;
-      fixture.detectChanges();
+    describe(`when the publication is rendered`, () => {
+      beforeEach(() => {
+        comp.object = mockItem;
+        fixture.detectChanges();
+      });
+
+      it(`should contain a PublicationListElementComponent`, () => {
+        const publicationListElement = fixture.debugElement.query(By.css(`ds-publication-search-result-list-element`));
+        expect(publicationListElement).not.toBeNull();
+      });
     });
 
-    it('should show the author paragraph', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
-      expect(itemAuthorField).not.toBeNull();
-    });
   });
-
-  describe('When the item has no author', () => {
-    beforeEach(() => {
-      publicationListElementComponent.object = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the author paragraph', () => {
-      const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
-      expect(itemAuthorField).toBeNull();
-    });
-  });
-
-  describe('When the item has a publisher', () => {
-    beforeEach(() => {
-      publicationListElementComponent.object = mockItemWithMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should show the publisher span', () => {
-      const publisherField = fixture.debugElement.query(By.css('span.item-list-publisher'));
-      expect(publisherField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no publisher', () => {
-    beforeEach(() => {
-      publicationListElementComponent.object = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the publisher span', () => {
-      const publisherField = fixture.debugElement.query(By.css('span.item-list-publisher'));
-      expect(publisherField).toBeNull();
-    });
-  });
-
-  describe('When the item has an issuedate', () => {
-    beforeEach(() => {
-      publicationListElementComponent.object = mockItemWithMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should show the issuedate span', () => {
-      const dateField = fixture.debugElement.query(By.css('span.item-list-date'));
-      expect(dateField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no issuedate', () => {
-    beforeEach(() => {
-      publicationListElementComponent.object = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the issuedate span', () => {
-      const dateField = fixture.debugElement.query(By.css('span.item-list-date'));
-      expect(dateField).toBeNull();
-    });
-  });
-
-  describe('When the item has an abstract', () => {
-    beforeEach(() => {
-      publicationListElementComponent.object = mockItemWithMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should show the abstract span', () => {
-      const abstractField = fixture.debugElement.query(By.css('div.item-list-abstract'));
-      expect(abstractField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no abstract', () => {
-    beforeEach(() => {
-      publicationListElementComponent.object = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the abstract span', () => {
-      const abstractField = fixture.debugElement.query(By.css('div.item-list-abstract'));
-      expect(abstractField).toBeNull();
-    });
-  });
-});

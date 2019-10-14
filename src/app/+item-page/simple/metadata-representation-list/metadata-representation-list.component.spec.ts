@@ -33,7 +33,7 @@ describe('MetadataRepresentationListComponent', () => {
   }));
 
   it(`should load ${representations.length} item-type-switcher components`, () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-listable-object-component-loader'));
+    const fields = fixture.debugElement.queryAll(By.css('ds-metadata-representation-loader'));
     expect(fields.length).toBe(representations.length);
   });
 

@@ -25,6 +25,7 @@ describe('PlainTextMetadataListElementComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(PlainTextMetadataListElementComponent);
     comp = fixture.componentInstance;
+    comp.metadataRepresentation = mockMetadataRepresentation;
     fixture.detectChanges();
   }));
 

@@ -3,6 +3,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 
 @Component({
   selector: 'ds-dso-input-suggestions',
@@ -24,6 +25,7 @@ import { ViewMode } from '../../../core/shared/view-mode.model';
  */
 export class DsoInputSuggestionsComponent extends InputSuggestionsComponent {
   viewMode = ViewMode.ListElement;
+  linkTypes = CollectionElementLinkType;
   /**
    * The suggestions that should be shown
    */

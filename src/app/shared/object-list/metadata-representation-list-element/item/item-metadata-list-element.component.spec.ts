@@ -23,6 +23,7 @@ describe('ItemMetadataListElementComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ItemMetadataListElementComponent);
     comp = fixture.componentInstance;
+    comp.metadataRepresentation = mockItemMetadataRepresentation;
     fixture.detectChanges();
   }));
 

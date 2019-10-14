@@ -31,7 +31,7 @@ describe('ItemPageDateFieldComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ItemPageDateFieldComponent);
     comp = fixture.componentInstance;
-    comp.object = mockItemWithMetadataFieldAndValue(mockField, mockValue);
+    comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);
     fixture.detectChanges();
   }));
 

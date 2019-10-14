@@ -1,17 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OrgUnitListElementComponent } from './orgunit-list-element.component';
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/listable-object-component-loader.component';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 
-let orgUnitListElementComponent: OrgUnitListElementComponent;
-let fixture: ComponentFixture<OrgUnitListElementComponent>;
-
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
+const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
     'dc.title': [
@@ -28,60 +24,43 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
     ]
   }
 });
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
 
-describe('OrgUnitListElementComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ OrgUnitListElementComponent , TruncatePipe],
-      providers: [
-        { provide: ITEM, useValue: mockItemWithMetadata},
-        { provide: TruncatableService, useValue: {} }
-      ],
+describe('OrgunitListElementComponent',
+  () => {
+    let comp;
+    let fixture;
 
-      schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(OrgUnitListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
-  }));
+    const truncatableServiceStub: any = {
+      isCollapsed: (id: number) => observableOf(true),
+    };
 
-  beforeEach(async(() => {
-    fixture = TestBed.createComponent(OrgUnitListElementComponent);
-    orgUnitListElementComponent = fixture.componentInstance;
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [OrgUnitListElementComponent, TruncatePipe],
+        providers: [
+          { provide: TruncatableService, useValue: truncatableServiceStub },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).overrideComponent(OrgUnitListElementComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default }
+      }).compileComponents();
+    }));
 
-  }));
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(OrgUnitListElementComponent);
+      comp = fixture.componentInstance;
+    }));
 
-  describe('When the item has an orgunit description', () => {
-    beforeEach(() => {
-      orgUnitListElementComponent.object = mockItemWithMetadata;
-      fixture.detectChanges();
+    describe(`when the orgunit is rendered`, () => {
+      beforeEach(() => {
+        comp.object = mockItem;
+        fixture.detectChanges();
+      });
+
+      it(`should contain a OrgUnitListElementComponent`, () => {
+        const orgunitListElement = fixture.debugElement.query(By.css(`ds-orgunit-search-result-list-element`));
+        expect(orgunitListElement).not.toBeNull();
+      });
     });
 
-    it('should show the description span', () => {
-      const orgunitDescriptionField = fixture.debugElement.query(By.css('span.item-list-orgunit-description'));
-      expect(orgunitDescriptionField).not.toBeNull();
-    });
   });
-
-  describe('When the item has no orgunit description', () => {
-    beforeEach(() => {
-      orgUnitListElementComponent.object = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the description span', () => {
-      const orgunitDescriptionField = fixture.debugElement.query(By.css('span.item-list-orgunit-description'));
-      expect(orgunitDescriptionField).toBeNull();
-    });
-  });
-});

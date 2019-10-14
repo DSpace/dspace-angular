@@ -48,7 +48,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
     })
   });
 
-describe('PersonListElementComponent', () => {
+describe('PersonSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PersonSearchResultListElementComponent, TruncatePipe],

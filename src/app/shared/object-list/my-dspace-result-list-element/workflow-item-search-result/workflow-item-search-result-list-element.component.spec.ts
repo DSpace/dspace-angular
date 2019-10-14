@@ -5,12 +5,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItemSearchResultListElementComponent } from './workflow-item-my-search-result-list-element.component';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflowitem-my-dspace-result.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
+import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflowitem-search-result.model';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 let component: WorkflowItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultListElementComponent>;
@@ -52,14 +52,13 @@ const item = Object.assign(new Item(), {
 const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: observableOf(rd) });
 
-describe('WorkflowitemMyDSpaceResultListElementComponent', () => {
+describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [WorkflowItemSearchResultListElementComponent],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockResultObject) },
-        { provide: 'indexElementProvider', useValue: (compIndex) }
+        { provide: TruncatableService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkflowItemSearchResultListElementComponent, {

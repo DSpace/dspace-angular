@@ -4,12 +4,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Item } from '../../../../core/shared/item.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
-import { Observable } from 'rxjs';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { ItemPageFieldComponent } from './item-page-field.component';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
-import { of as observableOf } from 'rxjs';
 import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
@@ -40,7 +37,7 @@ describe('ItemPageFieldComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ItemPageFieldComponent);
     comp = fixture.componentInstance;
-    comp.object = mockItemWithMetadataFieldAndValue(mockField, mockValue);
+    comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);
     comp.fields = mockFields;
     comp.label = mockLabel;
     fixture.detectChanges();

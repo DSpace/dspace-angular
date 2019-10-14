@@ -14,6 +14,7 @@ import { ListableObject } from '../object-collection/shared/listable-object.mode
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -30,6 +31,7 @@ export class ObjectListComponent {
   @Input() hasBorder = false;
   @Input() hideGear = false;
   @Input() hidePagerWhenSinglePage = true;
+  @Input() linkType: CollectionElementLinkType;
   @Input() context: Context;
   private _objects: RemoteData<PaginatedList<ListableObject>>;
   @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {

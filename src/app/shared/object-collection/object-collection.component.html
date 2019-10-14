@@ -3,6 +3,7 @@
                 [objects]="objects"
                 [hasBorder]="hasBorder"
                 [hideGear]="hideGear"
+                [linkType]="linkType"
                 [context]="context"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
@@ -16,6 +17,7 @@
                 [sortConfig]="sortConfig"
                 [objects]="objects"
                 [hideGear]="hideGear"
+                [linkType]="linkType"
                 [context]="context"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
@@ -29,6 +31,7 @@
                   [sortConfig]="sortConfig"
                   [objects]="objects"
                   [hideGear]="hideGear"
+                  [linkType]="linkType"
                   [context]="context"
                   *ngIf="(currentMode$ | async) === viewModeEnum.DetailedListElement">
 </ds-object-detail>

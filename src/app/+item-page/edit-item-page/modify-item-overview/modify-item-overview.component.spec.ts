@@ -32,7 +32,7 @@ describe('ModifyItemOverviewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ModifyItemOverviewComponent);
     comp = fixture.componentInstance;
-    comp.object = mockItem;
+    comp.item = mockItem;
 
     fixture.detectChanges();
   });

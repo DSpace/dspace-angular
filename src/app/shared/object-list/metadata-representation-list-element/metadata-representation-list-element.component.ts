@@ -10,7 +10,4 @@ import { MetadataRepresentation } from '../../../core/shared/metadata-representa
  */
 export class MetadataRepresentationListElementComponent {
   metadataRepresentation: MetadataRepresentation;
-
-  constructor() {
-  }
 }

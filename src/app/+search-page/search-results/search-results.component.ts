@@ -8,6 +8,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../../shared/object-collection/collection-element-link.type';
 
 @Component({
   selector: 'ds-search-results',
@@ -23,6 +24,8 @@ import { ViewMode } from '../../core/shared/view-mode.model';
  */
 export class SearchResultsComponent {
   hasNoValue = hasNoValue;
+
+  @Input() linkType: CollectionElementLinkType;
 
   /**
    * The actual search result objects

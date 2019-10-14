@@ -47,15 +47,11 @@ mockResultObject.indexableObject = Object.assign(new Item(), {
   }
 });
 
-describe('ItemMyDSpaceResultDetailElementComponent', () => {
+describe('ItemSearchResultDetailElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [ItemSearchResultDetailElementComponent],
-      providers: [
-        { provide: 'objectElementProvider', useValue: (mockResultObject) },
-        { provide: 'indexElementProvider', useValue: (compIndex) }
-      ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemSearchResultDetailElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }

@@ -11,6 +11,9 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { ListableObject } from './shared/listable-object.model';
 import { isNotEmpty } from '../empty.util';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from './collection-element-link.type';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { Context } from '../../core/shared/context.model';
 
 @Component({
   selector: 'ds-viewable-collection',
@@ -19,12 +22,13 @@ import { ViewMode } from '../../core/shared/view-mode.model';
 })
 export class ObjectCollectionComponent implements OnInit {
 
-  @Input() objects: RemoteData<ListableObject[]>;
+  @Input() objects: RemoteData<PaginatedList<ListableObject>>;
   @Input() config?: PaginationComponentOptions;
   @Input() sortConfig: SortOptions;
   @Input() hasBorder = false;
   @Input() hideGear = false;
-  @Input() context: string;
+  @Input() linkType: CollectionElementLinkType;
+  @Input() context: Context;
   pageInfo: Observable<PageInfo>;
   /**
    * An event fired when the page is changed.

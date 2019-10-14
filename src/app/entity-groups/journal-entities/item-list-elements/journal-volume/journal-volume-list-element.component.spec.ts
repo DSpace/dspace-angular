@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { JournalVolumeListElementComponent } from './journal-volume-list-element.component';
@@ -7,10 +7,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 
-let journalVolumeListElementComponent: JournalVolumeListElementComponent;
-let fixture: ComponentFixture<JournalVolumeListElementComponent>;
-
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
+const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
     'dc.title': [
@@ -33,83 +30,42 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
     ]
   }
 });
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
+describe('JournalVolumeListElementComponent',
+  () => {
+    let comp;
+    let fixture;
 
-describe('JournalVolumeListElementComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ JournalVolumeListElementComponent , TruncatePipe],
-      providers: [
-        { provide: TruncatableService, useValue: {} }
-      ],
+    const truncatableServiceStub: any = {
+      isCollapsed: (id: number) => observableOf(true),
+    };
 
-      schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(JournalVolumeListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
-  }));
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [JournalVolumeListElementComponent, TruncatePipe],
+        providers: [
+          { provide: TruncatableService, useValue: truncatableServiceStub },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).overrideComponent(JournalVolumeListElementComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default }
+      }).compileComponents();
+    }));
 
-  beforeEach(async(() => {
-    fixture = TestBed.createComponent(JournalVolumeListElementComponent);
-    journalVolumeListElementComponent = fixture.componentInstance;
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(JournalVolumeListElementComponent);
+      comp = fixture.componentInstance;
+    }));
 
-  }));
+    describe(`when the journal volume is rendered`, () => {
+      beforeEach(() => {
+        comp.object = mockItem;
+        fixture.detectChanges();
+      });
 
-  describe('When the item has a journal title', () => {
-    beforeEach(() => {
-      journalVolumeListElementComponent.object = mockItemWithMetadata;
-      fixture.detectChanges();
+      it(`should contain a JournalVolumeListElementComponent`, () => {
+        const journalVolumeListElement = fixture.debugElement.query(By.css(`ds-journal-volume-search-result-list-element`));
+        expect(journalVolumeListElement).not.toBeNull();
+      });
     });
 
-    it('should show the journal title span', () => {
-      const journalTitleField = fixture.debugElement.query(By.css('span.item-list-journal-volumes'));
-      expect(journalTitleField).not.toBeNull();
-    });
   });
-
-  describe('When the item has no journal title', () => {
-    beforeEach(() => {
-      journalVolumeListElementComponent.object = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the journal title span', () => {
-      const journalTitleField = fixture.debugElement.query(By.css('span.item-list-journal-volumes'));
-      expect(journalTitleField).toBeNull();
-    });
-  });
-
-  describe('When the item has a journal identifier', () => {
-    beforeEach(() => {
-      journalVolumeListElementComponent.object = mockItemWithMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should show the journal identifiers span', () => {
-      const journalIdentifierField = fixture.debugElement.query(By.css('span.item-list-journal-volume-identifiers'));
-      expect(journalIdentifierField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no journal identifier', () => {
-    beforeEach(() => {
-      journalVolumeListElementComponent.object = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the journal identifiers span', () => {
-      const journalIdentifierField = fixture.debugElement.query(By.css('span.item-list-journal-volume-identifiers'));
-      expect(journalIdentifierField).toBeNull();
-    });
-  });
-});

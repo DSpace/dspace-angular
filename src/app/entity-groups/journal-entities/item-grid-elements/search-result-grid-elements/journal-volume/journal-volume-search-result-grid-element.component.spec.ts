@@ -46,4 +46,4 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
   }
 });
 
-describe('JournalVolumeGridElementComponent', getEntityGridElementTestComponent(JournalVolumeSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['date', 'description']));
+describe('JournalVolumeSearchResultGridElementComponent', getEntityGridElementTestComponent(JournalVolumeSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['date', 'description']));

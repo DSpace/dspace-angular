@@ -6,11 +6,9 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { OrgUnitListElementComponent } from '../orgunit/orgunit-list-element.component';
 
-let personListElementComponent: PersonListElementComponent;
-let fixture: ComponentFixture<PersonListElementComponent>;
-
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
+const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
   metadata: {
     'dc.title': [
@@ -27,59 +25,43 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
     ]
   }
 });
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
 
-describe('PersonListElementComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PersonListElementComponent , TruncatePipe],
-      providers: [
-        { provide: TruncatableService, useValue: {} }
-      ],
+describe('PersonListElementComponent',
+  () => {
+    let comp;
+    let fixture;
 
-      schemas: [ NO_ERRORS_SCHEMA ]
-    }).overrideComponent(PersonListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
-    }).compileComponents();
-  }));
+    const truncatableServiceStub: any = {
+      isCollapsed: (id: number) => observableOf(true),
+    };
 
-  beforeEach(async(() => {
-    fixture = TestBed.createComponent(PersonListElementComponent);
-    personListElementComponent = fixture.componentInstance;
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [PersonListElementComponent, TruncatePipe],
+        providers: [
+          { provide: TruncatableService, useValue: truncatableServiceStub },
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).overrideComponent(PersonListElementComponent, {
+        set: { changeDetection: ChangeDetectionStrategy.Default }
+      }).compileComponents();
+    }));
 
-  }));
+    beforeEach(async(() => {
+      fixture = TestBed.createComponent(PersonListElementComponent);
+      comp = fixture.componentInstance;
+    }));
 
-  describe('When the item has a job title', () => {
-    beforeEach(() => {
-      personListElementComponent.object = mockItemWithMetadata;
-      fixture.detectChanges();
+    describe(`when the person is rendered`, () => {
+      beforeEach(() => {
+        comp.object = mockItem;
+        fixture.detectChanges();
+      });
+
+      it(`should contain a PersonListElementComponent`, () => {
+        const personListElement = fixture.debugElement.query(By.css(`ds-person-search-result-list-element`));
+        expect(personListElement).not.toBeNull();
+      });
     });
 
-    it('should show the job title span', () => {
-      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-job-title'));
-      expect(jobTitleField).not.toBeNull();
-    });
   });
-
-  describe('When the item has no job title', () => {
-    beforeEach(() => {
-      personListElementComponent.object = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the job title span', () => {
-      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-job-title'));
-      expect(jobTitleField).toBeNull();
-    });
-  });
-});

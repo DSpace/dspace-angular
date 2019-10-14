@@ -6,12 +6,13 @@ import { of as observableOf } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { ClaimedSearchResultListElementComponent } from './claimed-search-result-list-element.component';
-import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-my-dspace-result.model';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
+import { TruncatableAction } from '../../../truncatable/truncatable.actions';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 let component: ClaimedSearchResultListElementComponent;
 let fixture: ComponentFixture<ClaimedSearchResultListElementComponent>;
@@ -55,14 +56,13 @@ const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdIt
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
 mockResultObject.indexableObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem) });
 
-describe('ClaimedMyDSpaceResultListElementComponent', () => {
+describe('ClaimedSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [ClaimedSearchResultListElementComponent],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockResultObject) },
-        { provide: 'indexElementProvider', useValue: (compIndex) }
+        { provide: TruncatableService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedSearchResultListElementComponent, {

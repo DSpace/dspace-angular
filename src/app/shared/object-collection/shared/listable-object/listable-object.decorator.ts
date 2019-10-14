@@ -38,7 +38,6 @@ export function getListableObjectComponent(types: string[], viewMode: ViewMode, 
       const typeModeMap = typeMap.get(viewMode);
       if (hasValue(typeModeMap)) {
         if (hasValue(typeModeMap.get(context))) {
-          console.log(typeModeMap.get(context));
           return typeModeMap.get(context);
         }
         if (bestMatchValue < 2 && hasValue(typeModeMap.get(DEFAULT_CONTEXT))) {
@@ -52,6 +51,5 @@ export function getListableObjectComponent(types: string[], viewMode: ViewMode, 
       }
     }
   }
-  console.log(bestMatch);
   return bestMatch;
 }

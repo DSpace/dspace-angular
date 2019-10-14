@@ -8,14 +8,12 @@ import { PublicationGridElementComponent } from './publication-grid-element.comp
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { ITEM } from '../../../../items/switcher/listable-object-component-loader.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
+import { JournalGridElementComponent } from '../../../../../entity-groups/journal-entities/item-grid-elements/journal/journal-grid-element.component';
 
-const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
-mockItemWithMetadata.hitHighlights = {};
-mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
+const mockItem = Object.assign(new Item(), {
   bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
@@ -45,33 +43,8 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
   }
 });
 
-const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
-mockItemWithoutMetadata.hitHighlights = {};
-mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
-
-describe('PublicationGridElementComponent', getEntityGridElementTestComponent(PublicationGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['authors', 'date', 'abstract']));
-
-/**
- * Create test cases for a grid component of an entity.
- * @param component                     The component's class
- * @param searchResultWithMetadata      An ItemSearchResult containing an item with metadata that should be displayed in the grid element
- * @param searchResultWithoutMetadata   An ItemSearchResult containing an item that's missing the metadata that should be displayed in the grid element
- * @param fieldsToCheck                 A list of fields to check. The tests expect to find html elements with class ".item-${field}", so make sure they exist in the html template of the grid element.
- *                                      For example: If one of the fields to check is labeled "authors", the html template should contain at least one element with class ".item-authors" that's
- *                                      present when the author metadata is available.
- */
-export function getEntityGridElementTestComponent(component, searchResultWithMetadata: ItemSearchResult, searchResultWithoutMetadata: ItemSearchResult, fieldsToCheck: string[]) {
-  return () => {
+describe('PublicationGridElementComponent',
+  () => {
     let comp;
     let fixture;
 
@@ -82,46 +55,31 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [NoopAnimationsModule],
-        declarations: [component, TruncatePipe],
+        declarations: [PublicationGridElementComponent, TruncatePipe],
         providers: [
           { provide: TruncatableService, useValue: truncatableServiceStub },
-          {provide: ITEM, useValue: searchResultWithoutMetadata}
         ],
         schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(component, {
+      }).overrideComponent(PublicationGridElementComponent, {
         set: { changeDetection: ChangeDetectionStrategy.Default }
       }).compileComponents();
     }));
 
     beforeEach(async(() => {
-      fixture = TestBed.createComponent(component);
+      fixture = TestBed.createComponent(PublicationGridElementComponent);
       comp = fixture.componentInstance;
     }));
 
-    fieldsToCheck.forEach((field) => {
-      describe(`when the item has "${field}" metadata`, () => {
-        beforeEach(() => {
-          comp.dso = searchResultWithMetadata.indexableObject;
-          fixture.detectChanges();
-        });
-
-        it(`should show the "${field}" field`, () => {
-          const itemAuthorField = fixture.debugElement.query(By.css(`.item-${field}`));
-          expect(itemAuthorField).not.toBeNull();
-        });
+    describe(`when the publication is rendered`, () => {
+      beforeEach(() => {
+        comp.object = mockItem;
+        fixture.detectChanges();
       });
 
-      describe(`when the item has no "${field}" metadata`, () => {
-        beforeEach(() => {
-          comp.dso = searchResultWithoutMetadata.indexableObject;
-          fixture.detectChanges();
-        });
-
-        it(`should not show the "${field}" field`, () => {
-          const itemAuthorField = fixture.debugElement.query(By.css(`.item-${field}`));
-          expect(itemAuthorField).toBeNull();
-        });
+      it(`should contain a PublicationGridElementComponent`, () => {
+        const publicationGridElement = fixture.debugElement.query(By.css(`ds-publication-search-result-grid-element`));
+        expect(publicationGridElement).not.toBeNull();
       });
     });
-  }
-}
+
+  });
