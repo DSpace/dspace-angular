@@ -25,12 +25,18 @@ import { switchMap } from 'rxjs/operators';
  * Makes sure to change the endpoint before sending out CRUD requests for the item template
  */
 class DataServiceImpl extends ItemDataService {
-  protected linkPath = 'itemtemplate';
+  protected collectionLinkPath = 'itemtemplate';
+  protected linkPath = 'itemtemplates';
 
   /**
-   * The ID of the collection we're currently sending requests for
+   * Endpoint dynamically changing depending on what request we're sending
    */
-  private collectionID: string;
+  private endpoint$: Observable<string>;
+
+  /**
+   * Is the current endpoint based on a collection?
+   */
+  private collectionEndpoint = false;
 
   constructor(
     protected requestService: RequestService,
@@ -48,21 +54,43 @@ class DataServiceImpl extends ItemDataService {
   }
 
   /**
-   * Get the base endpoint for all requests
-   * Uses the current collectionID to assemble a request endpoint for the collection's item template
+   * Set the endpoint to be based on a collection
+   * @param collectionID  The ID of the collection to base the endpoint on
    */
-  protected getEndpoint(): Observable<string> {
-    return this.collectionService.getIDHrefObs(this.collectionID).pipe(
-      switchMap((href: string) => this.halService.getEndpoint(this.linkPath, href))
+  private setCollectionEndpoint(collectionID: string) {
+    this.collectionEndpoint = true;
+    this.endpoint$ = this.collectionService.getIDHrefObs(collectionID).pipe(
+      switchMap((href: string) => this.halService.getEndpoint(this.collectionLinkPath, href))
     );
   }
 
   /**
-   * Since the collection ID is included in the base endpoint, simply return the base endpoint
+   * Set the endpoint to the regular linkPath
+   */
+  private setRegularEndpoint() {
+    this.collectionEndpoint = false;
+    this.endpoint$ = this.halService.getEndpoint(this.linkPath);
+  }
+
+  /**
+   * Get the base endpoint for all requests
+   * Uses the current collectionID to assemble a request endpoint for the collection's item template
+   */
+  protected getEndpoint(): Observable<string> {
+    return this.endpoint$;
+  }
+
+  /**
+   * If the current endpoint is based on a collection, simply return the collection's template endpoint, otherwise
+   * create a regular template endpoint
    * @param resourceID
    */
   getIDHrefObs(resourceID: string): Observable<string> {
-    return this.getEndpoint();
+    if (this.collectionEndpoint) {
+      return this.getEndpoint();
+    } else {
+      return super.getIDHrefObs(resourceID);
+    }
   }
 
   /**
@@ -70,7 +98,7 @@ class DataServiceImpl extends ItemDataService {
    * @param collectionID
    */
   findByCollectionID(collectionID: string): Observable<RemoteData<Item>> {
-    this.collectionID = collectionID;
+    this.setCollectionEndpoint(collectionID);
     return super.findById(collectionID);
   }
 
@@ -80,7 +108,7 @@ class DataServiceImpl extends ItemDataService {
    * @param collectionID
    */
   create(item: Item, collectionID: string): Observable<RemoteData<Item>> {
-    this.collectionID = collectionID;
+    this.setCollectionEndpoint(collectionID);
     return super.create(item);
   }
 
@@ -90,13 +118,13 @@ class DataServiceImpl extends ItemDataService {
    * @param collectionID
    */
   deleteByCollectionID(item: Item, collectionID: string): Observable<boolean> {
-    this.collectionID = collectionID;
+    this.setRegularEndpoint();
     return super.delete(item);
   }
 }
 
 /**
- * A service responsible for fetching/sending data from/to the REST API on a collection's itemtemplate endpoint
+ * A service responsible for fetching/sending data from/to the REST API on a collection's itemtemplates endpoint
  */
 @Injectable()
 export class ItemTemplateDataService implements UpdateDataService<Item> {
