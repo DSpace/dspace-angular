@@ -12,12 +12,14 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
 import { SearchService } from '../+search-page/search-service/search.service';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    CollectionPageRoutingModule
+    CollectionPageRoutingModule,
+    StatisticsModule.forRoot()
   ],
   declarations: [
     CollectionPageComponent,

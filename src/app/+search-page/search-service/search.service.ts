@@ -1,4 +1,4 @@
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, zip as observableZip } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
 import { first, map, switchMap, take, tap } from 'rxjs/operators';
@@ -23,7 +23,7 @@ import {
   getSucceededRemoteData
 } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { NormalizedSearchResult } from '../normalized-search-result.model';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
@@ -42,6 +42,7 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RouteService } from '../../core/services/route.service';
+import { RequestEntry } from '../../core/data/request.reducer';
 
 /**
  * Service that performs all general actions that have to do with the search page
@@ -104,8 +105,19 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
   search(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    return this.getPaginatedResults(this.searchEntries(searchOptions));
+  }
+
+  /**
+   * Method to retrieve request entries for search results from the server
+   * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
+   * @param responseMsToLive The amount of milliseconds for the response to live in cache
+   * @returns {Observable<RequestEntry>} Emits an observable with the request entries
+   */
+  searchEntries(searchOptions?: PaginatedSearchOptions, responseMsToLive?:number)
+    :Observable<{searchOptions:PaginatedSearchOptions, requestEntry:RequestEntry}> {
     const hrefObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
-      map((url: string) => {
+      map((url:string) => {
         if (hasValue(searchOptions)) {
           return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
         } else {
@@ -115,28 +127,45 @@ export class SearchService implements OnDestroy {
     );
 
     const requestObs = hrefObs.pipe(
-      map((url: string) => {
+      map((url:string) => {
         const request = new this.request(this.requestService.generateRequestId(), url);
 
-        const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
+        const getResponseParserFn:() => GenericConstructor<ResponseParsingService> = () => {
           return this.parser;
         };
 
         return Object.assign(request, {
           responseMsToLive: hasValue(responseMsToLive) ? responseMsToLive : request.responseMsToLive,
-          getResponseParser: getResponseParserFn
+          getResponseParser: getResponseParserFn,
+          searchOptions: searchOptions
         });
       }),
       configureRequest(this.requestService),
     );
-    const requestEntryObs = requestObs.pipe(
-      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    return requestObs.pipe(
+      switchMap((request:RestRequest) => this.requestService.getByHref(request.href)),
+      map(((requestEntry:RequestEntry) => ({
+        searchOptions: searchOptions,
+        requestEntry: requestEntry
+      })))
+    );
+  }
+
+  /**
+   * Method to convert the parsed responses into a paginated list of search results
+   * @param searchEntries: The request entries from the search method
+   * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
+   */
+  getPaginatedResults(searchEntries:Observable<{ searchOptions:PaginatedSearchOptions, requestEntry:RequestEntry }>)
+    :Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    const requestEntryObs:Observable<RequestEntry> = searchEntries.pipe(
+      map((entry) => entry.requestEntry),
     );
 
     // get search results from response cache
-    const sqrObs: Observable<SearchQueryResponse> = requestEntryObs.pipe(
+    const sqrObs:Observable<SearchQueryResponse> = requestEntryObs.pipe(
       filterSuccessfulResponses(),
-      map((response: SearchSuccessResponse) => response.results)
+      map((response:SearchSuccessResponse) => response.results),
     );
 
     // turn dspace href from search results to effective list of DSpaceObjects
@@ -160,7 +189,7 @@ export class SearchService implements OnDestroy {
           let co = DSpaceObject;
           if (dsos.payload[index]) {
             const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-            co = getSearchResultFor(constructor, searchOptions.configuration);
+            co = getSearchResultFor(constructor, sqr.configuration);
             return Object.assign(new co(), object, {
               indexableObject: dsos.payload[index]
             });
@@ -182,11 +211,12 @@ export class SearchService implements OnDestroy {
       })
     );
 
-    return observableCombineLatest(hrefObs, tDomainListObs, requestEntryObs).pipe(
-      switchMap(([href, tDomainList, requestEntry]) => {
+    return observableCombineLatest(tDomainListObs, searchEntries).pipe(
+      switchMap(([tDomainList, searchEntry]) => {
+        const requestEntry = searchEntry.requestEntry;
         if (tDomainList.indexOf(undefined) > -1 && requestEntry && requestEntry.completed) {
-          this.requestService.removeByHrefSubstring(href);
-          return this.search(searchOptions)
+          this.requestService.removeByHrefSubstring(requestEntry.request.href);
+          return this.search(searchEntry.searchOptions)
         } else {
           return this.rdb.toRemoteDataObservable(requestEntryObs, payloadObs);
         }
