@@ -11,7 +11,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: 'community-search-result-grid-element.component.html'
 })
 
-@listableObjectComponent(CommunitySearchResult.name, ViewMode.GridElement)
+@listableObjectComponent(CommunitySearchResult, ViewMode.GridElement)
 export class CommunitySearchResultGridElementComponent extends SearchResultGridElementComponent<CommunitySearchResult, Community> {
 
 }

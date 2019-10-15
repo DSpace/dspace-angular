@@ -4,12 +4,12 @@
 
             <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
                 <ds-metadata-field-wrapper>
-                    <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"
+                    <ds-thumbnail [thumbnail]="object.getThumbnail() | async"
                                   [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-thumbnail>
                 </ds-metadata-field-wrapper>
                 <div>
                     <a class="btn btn-secondary"
-                       [routerLink]="['/items/' + item.id + '/full']">
+                       [routerLink]="['/items/' + object.id + '/full']">
                         {{"item.page.link.full" | translate}}
                     </a>
                 </div>
@@ -18,29 +18,29 @@
                 <h2 class="item-page-title-field">
                   {{'orgunit.page.titleprefix' | translate}}
                     <ds-metadata-values
-                            [mdValues]="item?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
+                            [mdValues]="object?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
                 </h2>
                 <div class="row">
                     <div class="col-12 col-md-6">
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['orgunit.identifier.city']"
                                                     [label]="'orgunit.page.city'">
                         </ds-generic-item-page-field>
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['orgunit.identifier.country']"
                                                     [label]="'orgunit.page.country'">
                         </ds-generic-item-page-field>
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['orgunit.identifier.id']"
                                                     [label]="'orgunit.page.id'">
                         </ds-generic-item-page-field>
                     </div>
                     <div class="col-12 col-md-6">
-                      <ds-generic-item-page-field [item]="item"
+                      <ds-generic-item-page-field [item]="object"
                                                   [fields]="['orgunit.identifier.dateestablished']"
                                                   [label]="'orgunit.page.dateestablished'">
                       </ds-generic-item-page-field>
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['orgunit.identifier.description']"
                                                     [label]="'orgunit.page.description'">
                         </ds-generic-item-page-field>

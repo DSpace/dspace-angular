@@ -30,42 +30,41 @@ const mockItem: Item = Object.assign(new Item(), {
     ]
   }
 });
-describe('JournalVolumeListElementComponent',
-  () => {
-    let comp;
-    let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+describe('JournalVolumeListElementComponent', () => {
+  let comp;
+  let fixture;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        declarations: [JournalVolumeListElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(JournalVolumeListElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(JournalVolumeListElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [JournalVolumeListElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(JournalVolumeListElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    describe(`when the journal volume is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(JournalVolumeListElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-      it(`should contain a JournalVolumeListElementComponent`, () => {
-        const journalVolumeListElement = fixture.debugElement.query(By.css(`ds-journal-volume-search-result-list-element`));
-        expect(journalVolumeListElement).not.toBeNull();
-      });
+  describe(`when the journal volume is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a JournalVolumeListElementComponent`, () => {
+      const journalVolumeListElement = fixture.debugElement.query(By.css(`ds-journal-volume-search-result-list-element`));
+      expect(journalVolumeListElement).not.toBeNull();
+    });
   });
+});

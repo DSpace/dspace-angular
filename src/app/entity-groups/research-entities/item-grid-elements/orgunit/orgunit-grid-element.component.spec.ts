@@ -41,43 +41,41 @@ const mockItem = Object.assign(new Item(), {
   }
 });
 
-describe('OrgunitGridElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('OrgunitGridElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [OrgunitGridElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(OrgunitGridElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
+      declarations: [OrgunitGridElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(OrgunitGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(OrgunitGridElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(OrgunitGridElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    describe(`when the org unit is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a OrgunitGridElementComponent`, () => {
-        const orgunitGridElement = fixture.debugElement.query(By.css(`ds-orgunit-search-result-grid-element`));
-        expect(orgunitGridElement).not.toBeNull();
-      });
+  describe(`when the org unit is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a OrgunitGridElementComponent`, () => {
+      const orgunitGridElement = fixture.debugElement.query(By.css(`ds-orgunit-search-result-grid-element`));
+      expect(orgunitGridElement).not.toBeNull();
+    });
   });
+});

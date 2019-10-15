@@ -17,14 +17,14 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   templateUrl: './item-search-result-list-element-submission.component.html'
 })
 
-@listableObjectComponent(ItemSearchResult.name, ViewMode.ListElement, Context.Submission)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Submission)
 export class ItemSearchResultListElementSubmissionComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
-  ngOnInit() {
-    super.ngOnInit();
-  }
-
   /**
    * Represent item's status
    */
   public status = MyDspaceItemStatusType.ARCHIVED;
+
+  ngOnInit() {
+    super.ngOnInit();
+  }
 }

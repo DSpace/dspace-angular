@@ -10,6 +10,9 @@ import { PaginatedList } from '../data/paginated-list';
 import { Relationship } from './item-relationships/relationship.model';
 import { ResourceType } from './resource-type';
 import { getSucceededRemoteData } from './operators';
+import { GenericConstructor } from './generic-constructor';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 
 export class Item extends DSpaceObject {
   static type = new ResourceType('item');
@@ -110,10 +113,10 @@ export class Item extends DSpaceObject {
       }));
   }
 
-  getRenderTypes(): string[] {
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
     let entityType = this.firstMetadataValue('relationship.type');
     if (isEmpty(entityType)) {
-      entityType = 'Publication';
+      entityType = DEFAULT_ENTITY_TYPE;
     }
     return [entityType, ...super.getRenderTypes()];
   }

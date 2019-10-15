@@ -20,10 +20,4 @@ export class MetadataRepresentationListComponent {
    * An i18n label to use as a title for the list
    */
   @Input() label: string;
-
-  /**
-   * The view-mode we're currently on
-   * @type {ElementViewMode}
-   */
-  viewMode = ViewMode.MetadataField;
 }

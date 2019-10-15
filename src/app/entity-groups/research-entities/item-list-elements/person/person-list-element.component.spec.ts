@@ -6,7 +6,6 @@ import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
-import { OrgUnitListElementComponent } from '../orgunit/orgunit-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
@@ -26,42 +25,40 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 
-describe('PersonListElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('PersonListElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        declarations: [PersonListElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(PersonListElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [PersonListElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PersonListElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(PersonListElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(PersonListElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    describe(`when the person is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a PersonListElementComponent`, () => {
-        const personListElement = fixture.debugElement.query(By.css(`ds-person-search-result-list-element`));
-        expect(personListElement).not.toBeNull();
-      });
+  describe(`when the person is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a PersonListElementComponent`, () => {
+      const personListElement = fixture.debugElement.query(By.css(`ds-person-search-result-list-element`));
+      expect(personListElement).not.toBeNull();
+    });
   });
+});

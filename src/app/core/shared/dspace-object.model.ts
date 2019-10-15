@@ -12,6 +12,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { ResourceType } from './resource-type';
+import { GenericConstructor } from './generic-constructor';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -146,7 +147,7 @@ export class DSpaceObject implements CacheableObject, ListableObject {
     });
   }
 
-  getRenderTypes(): string[] {
-    return [this.constructor.name];
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
   }
 }

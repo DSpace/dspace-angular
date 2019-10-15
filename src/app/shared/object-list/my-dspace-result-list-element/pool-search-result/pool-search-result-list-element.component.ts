@@ -13,6 +13,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { Item } from '../../../../core/shared/item.model';
 
 /**
  * This component renders pool task object for the mydspace result in the list view.
@@ -23,7 +24,7 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
   templateUrl: './pool-search-result-list-element.component.html',
 })
 
-@listableObjectComponent(PoolTaskSearchResult.name, ViewMode.ListElement)
+@listableObjectComponent(PoolTaskSearchResult, ViewMode.ListElement)
 export class PoolSearchResultListElementComponent extends SearchResultListElementComponent<PoolTaskSearchResult, PoolTask> implements OnInit {
 
   /**

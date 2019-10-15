@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-
-
 import { SearchResultListElementComponent } from '../search-result-list-element.component';
 import { Collection } from '../../../../core/shared/collection.model';
 import { CollectionSearchResult } from '../../../object-collection/shared/collection-search-result.model';
@@ -13,5 +11,5 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   templateUrl: 'collection-search-result-list-element.component.html'
 })
 
-@listableObjectComponent(CollectionSearchResult.name, ViewMode.ListElement)
+@listableObjectComponent(CollectionSearchResult, ViewMode.ListElement)
 export class CollectionSearchResultListElementComponent extends SearchResultListElementComponent<CollectionSearchResult, Collection> {}

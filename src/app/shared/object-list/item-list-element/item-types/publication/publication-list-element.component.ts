@@ -5,7 +5,7 @@ import { AbstractListableElementComponent } from '../../../../object-collection/
 import { Item } from '../../../../../core/shared/item.model';
 
 @listableObjectComponent('Publication', ViewMode.ListElement)
-@listableObjectComponent(Item.name, ViewMode.ListElement)
+@listableObjectComponent(Item, ViewMode.ListElement)
 @Component({
   selector: 'ds-publication-list-element',
   styleUrls: ['./publication-list-element.component.scss'],

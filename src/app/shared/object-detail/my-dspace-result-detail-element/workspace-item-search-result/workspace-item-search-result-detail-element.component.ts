@@ -22,7 +22,7 @@ import { WorkspaceItemSearchResult } from '../../../object-collection/shared/wor
   templateUrl: './workspace-item-search-result-detail-element.component.html',
 })
 
-@listableObjectComponent(WorkspaceItemSearchResult.name, ViewMode.DetailedListElement)
+@listableObjectComponent(WorkspaceItemSearchResult, ViewMode.DetailedListElement)
 export class WorkspaceItemSearchResultDetailElementComponent extends SearchResultDetailElementComponent<WorkspaceItemSearchResult, WorkspaceItem> {
 
   /**

@@ -1,6 +1,7 @@
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { TypedObject } from '../cache/object-cache.reducer';
 import { ResourceType } from './resource-type';
+import { GenericConstructor } from './generic-constructor';
 
 /**
  * Class object representing a browse entry
@@ -29,7 +30,7 @@ export class BrowseEntry implements ListableObject {
    */
   count: number;
 
-  getRenderTypes(): string[] {
-    return [this.constructor.name];
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
   }
 }

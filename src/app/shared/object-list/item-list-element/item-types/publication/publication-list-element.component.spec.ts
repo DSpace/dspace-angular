@@ -43,42 +43,40 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 
-describe('PublicationListElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('PublicationListElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        declarations: [PublicationListElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(PublicationListElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [PublicationListElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PublicationListElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(PublicationListElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(PublicationListElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    describe(`when the publication is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a PublicationListElementComponent`, () => {
-        const publicationListElement = fixture.debugElement.query(By.css(`ds-publication-search-result-list-element`));
-        expect(publicationListElement).not.toBeNull();
-      });
+  describe(`when the publication is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a PublicationListElementComponent`, () => {
+      const publicationListElement = fixture.debugElement.query(By.css(`ds-publication-search-result-list-element`));
+      expect(publicationListElement).not.toBeNull();
+    });
   });
+});

@@ -1,4 +1,3 @@
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { Item } from '../../../../core/shared/item.model';
 import { JournalVolumeGridElementComponent } from './journal-volume-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
@@ -7,7 +6,6 @@ import { PageInfo } from '../../../../core/shared/page-info.model';
 import { of as observableOf } from 'rxjs';
 import { async, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { JournalIssueGridElementComponent } from '../journal-issue/journal-issue-grid-element.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -37,43 +35,41 @@ const mockItem = Object.assign(new Item(), {
   }
 });
 
-describe('JournalVolumeGridElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('JournalVolumeGridElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [JournalVolumeGridElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(JournalVolumeGridElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
+      declarations: [JournalVolumeGridElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(JournalVolumeGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(JournalVolumeGridElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(JournalVolumeGridElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    describe(`when the journal volume is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a JournalVolumeSearchResultGridElementComponent`, () => {
-        const journalVolumeGridElement = fixture.debugElement.query(By.css(`ds-journal-volume-search-result-grid-element`));
-        expect(journalVolumeGridElement).not.toBeNull();
-      });
+  describe(`when the journal volume is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a JournalVolumeSearchResultGridElementComponent`, () => {
+      const journalVolumeGridElement = fixture.debugElement.query(By.css(`ds-journal-volume-search-result-grid-element`));
+      expect(journalVolumeGridElement).not.toBeNull();
+    });
   });
+});

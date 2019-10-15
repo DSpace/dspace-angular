@@ -2,9 +2,10 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
 import { hasNoValue, hasValue } from '../../../empty.util';
 import { DEFAULT_CONTEXT } from '../../../metadata-representation/metadata-representation.decorator';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ListableObject } from '../listable-object.model';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
-
 
 const map = new Map();
 
@@ -13,7 +14,7 @@ const map = new Map();
  * @param type
  * @param viewMode
  */
-export function listableObjectComponent(objectType: string, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
+export function listableObjectComponent(objectType: string | GenericConstructor<ListableObject>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
   return function decorator(component: any) {
     if (hasNoValue(objectType)) {
       return;
@@ -28,12 +29,11 @@ export function listableObjectComponent(objectType: string, viewMode: ViewMode, 
   };
 }
 
-
-export function getListableObjectComponent(types: string[], viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
-  let bestMatch = undefined;
+export function getListableObjectComponent(types: Array<string | GenericConstructor<ListableObject>>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
+  let bestMatch;
   let bestMatchValue = 0;
-  for (let i = 0; i < types.length; i++) {
-    const typeMap = map.get(types[i]);
+  for (const type of types) {
+    const typeMap = map.get(type);
     if (hasValue(typeMap)) {
       const typeModeMap = typeMap.get(viewMode);
       if (hasValue(typeModeMap)) {

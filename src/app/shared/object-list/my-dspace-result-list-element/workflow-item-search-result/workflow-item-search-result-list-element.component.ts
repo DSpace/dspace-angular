@@ -22,9 +22,9 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   templateUrl: './workflow-item-search-result-list-element.component.html',
 })
 
-@listableObjectComponent(WorkflowItemSearchResult.name, ViewMode.ListElement)
+@listableObjectComponent(WorkflowItemSearchResult, ViewMode.ListElement)
 export class WorkflowItemSearchResultListElementComponent extends SearchResultListElementComponent<WorkflowItemSearchResult, WorkflowItem> {
- 
+
   /**
    * The item object that belonging to the result object
    */

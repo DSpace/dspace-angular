@@ -9,6 +9,7 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createSuccessfulRemoteDataObject } from '../testing/utils';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 
 describe('ObjectDetailComponent', () => {
   let comp: ObjectDetailComponent;
@@ -16,16 +17,16 @@ describe('ObjectDetailComponent', () => {
   const testEvent = {test: 'test'};
 
   const testObjects = [
-    { one: 1 },
-    { two: 2 },
-    { three: 3 },
-    { four: 4 },
-    { five: 5 },
-    { six: 6 },
-    { seven: 7 },
-    { eight: 8 },
-    { nine: 9 },
-    { ten: 10 }
+    Object.assign (new DSpaceObject(), { one: 1 }),
+    Object.assign (new DSpaceObject(), { two: 2 }),
+    Object.assign (new DSpaceObject(), { three: 3 }),
+    Object.assign (new DSpaceObject(), { four: 4 }),
+    Object.assign (new DSpaceObject(), { five: 5 }),
+    Object.assign (new DSpaceObject(), { six: 6 }),
+    Object.assign (new DSpaceObject(), { seven: 7 }),
+    Object.assign (new DSpaceObject(), { eight: 8 }),
+    Object.assign (new DSpaceObject(), { nine: 9 }),
+    Object.assign (new DSpaceObject(), { ten: 10 }),
   ];
   const pageInfo = Object.assign(new PageInfo(), {elementsPerPage: 1, totalElements: 10, totalPages: 10, currentPage: 1})
   const mockRD = createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, testObjects));

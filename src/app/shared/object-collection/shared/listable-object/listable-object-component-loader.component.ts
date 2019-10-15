@@ -21,7 +21,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    */
   @Input() object: ListableObject;
 
-  //TODO DO SOMETHING WITH THIS
+  // TODO DO SOMETHING WITH THIS
   @Input() index: number;
   /**
    * The preferred view-mode to display
@@ -42,9 +42,9 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (<Component>componentRef.instance as any).object = this.object;
-    (<Component>componentRef.instance as any).index = this.index;
-    (<Component>componentRef.instance as any).linkType = this.linkType;
+    (componentRef.instance as any).object = this.object;
+    (componentRef.instance as any).index = this.index;
+    (componentRef.instance as any).linkType = this.linkType;
   }
 
   /**

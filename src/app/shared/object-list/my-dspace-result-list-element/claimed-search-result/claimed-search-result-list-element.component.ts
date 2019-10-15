@@ -13,6 +13,7 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
+import { Item } from '../../../../core/shared/item.model';
 
 /**
  * This component renders claimed task object for the mydspace result in the list view.
@@ -24,7 +25,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })
 
-@listableObjectComponent(ClaimedTaskSearchResult.name, ViewMode.ListElement)
+@listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> {
 
   /**

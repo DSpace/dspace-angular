@@ -6,7 +6,7 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
 import { Item } from '../../../../../../core/shared/item.model';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
-@listableObjectComponent(ItemSearchResult.name, ViewMode.ListElement)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
 @Component({
   selector: 'ds-publication-search-result-list-element',
   styleUrls: ['./publication-search-result-list-element.component.scss'],

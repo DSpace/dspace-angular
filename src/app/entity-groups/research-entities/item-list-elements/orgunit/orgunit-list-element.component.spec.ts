@@ -25,42 +25,40 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 
-describe('OrgunitListElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('OrgunitListElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        declarations: [OrgUnitListElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(OrgUnitListElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [OrgUnitListElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(OrgUnitListElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(OrgUnitListElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(OrgUnitListElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    describe(`when the orgunit is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a OrgUnitListElementComponent`, () => {
-        const orgunitListElement = fixture.debugElement.query(By.css(`ds-orgunit-search-result-list-element`));
-        expect(orgunitListElement).not.toBeNull();
-      });
+  describe(`when the orgunit is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a OrgUnitListElementComponent`, () => {
+      const orgunitListElement = fixture.debugElement.query(By.css(`ds-orgunit-search-result-list-element`));
+      expect(orgunitListElement).not.toBeNull();
+    });
   });
+});

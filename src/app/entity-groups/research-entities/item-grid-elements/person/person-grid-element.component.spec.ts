@@ -35,43 +35,41 @@ const mockItem = Object.assign(new Item(), {
   }
 });
 
-describe('PersonGridElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('PersonGridElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [PersonGridElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(PersonGridElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
+      declarations: [PersonGridElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(PersonGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(PersonGridElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(PersonGridElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    describe(`when the person is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a PersonGridElementComponent`, () => {
-        const personGridElement = fixture.debugElement.query(By.css(`ds-person-search-result-grid-element`));
-        expect(personGridElement).not.toBeNull();
-      });
+  describe(`when the person is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a PersonGridElementComponent`, () => {
+      const personGridElement = fixture.debugElement.query(By.css(`ds-person-search-result-grid-element`));
+      expect(personGridElement).not.toBeNull();
+    });
   });
+});

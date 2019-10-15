@@ -11,6 +11,7 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
+import { Item } from '../../../../core/shared/item.model';
 
 /**
  * This component renders pool task object for the mydspace result in the detail view.
@@ -21,7 +22,7 @@ import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-tas
   templateUrl: './pool-search-result-detail-element.component.html',
 })
 
-@listableObjectComponent(PoolTaskSearchResult.name, ViewMode.DetailedListElement)
+@listableObjectComponent(PoolTaskSearchResult, ViewMode.DetailedListElement)
 export class PoolSearchResultDetailElementComponent extends SearchResultDetailElementComponent<PoolTaskSearchResult, PoolTask> {
 
   /**

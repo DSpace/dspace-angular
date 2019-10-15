@@ -22,7 +22,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   templateUrl: './workspace-item-search-result-list-element.component.html',
 })
 
-@listableObjectComponent(WorkspaceItemSearchResult.name, ViewMode.ListElement)
+@listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement)
 export class WorkspaceItemSearchResultListElementComponent extends SearchResultListElementComponent<WorkspaceItemSearchResult, WorkspaceItem> {
 
   /**

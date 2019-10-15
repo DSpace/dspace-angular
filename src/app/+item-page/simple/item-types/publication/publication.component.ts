@@ -8,7 +8,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 
 @listableObjectComponent('Publication', ViewMode.StandalonePage)
-@listableObjectComponent(Item.name, ViewMode.StandalonePage)
+@listableObjectComponent(Item, ViewMode.StandalonePage)
 @Component({
   selector: 'ds-publication',
   styleUrls: ['./publication.component.scss'],

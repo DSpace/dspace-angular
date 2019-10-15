@@ -4,11 +4,11 @@
 
             <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
                 <ds-metadata-field-wrapper>
-                    <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
+                    <ds-thumbnail [thumbnail]="object.getThumbnail() | async"></ds-thumbnail>
                 </ds-metadata-field-wrapper>
                 <div>
                     <a class="btn btn-secondary"
-                       [routerLink]="['/items/' + item.id + '/full']">
+                       [routerLink]="['/items/' + object.id + '/full']">
                         {{"item.page.link.full" | translate}}
                     </a>
                 </div>
@@ -17,22 +17,22 @@
                 <h2 class="item-page-title-field">
                   {{'journalvolume.page.titleprefix' | translate}}
                   <ds-metadata-values
-                            [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+                            [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
                 </h2>
                 <div class="row">
                     <div class="col-12 col-md-6">
 
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['journalvolume.identifier.volume']"
                                                     [label]="'journalvolume.page.volume'">
                         </ds-generic-item-page-field>
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['journalvolume.issuedate']"
                                                     [label]="'journalvolume.page.issuedate'">
                         </ds-generic-item-page-field>
                     </div>
                     <div class="col-12 col-md-6">
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['journalvolume.identifier.description']"
                                                     [label]="'journalvolume.page.description'">
                         </ds-generic-item-page-field>

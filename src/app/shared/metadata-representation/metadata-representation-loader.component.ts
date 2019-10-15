@@ -32,7 +32,7 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (<MetadataRepresentationListElementComponent>componentRef.instance).metadataRepresentation = this.mdRepresentation;
+    (componentRef.instance as MetadataRepresentationListElementComponent).metadataRepresentation = this.mdRepresentation;
   }
 
   /**

@@ -4,6 +4,7 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { BrowseEntry } from '../../../core/shared/browse-entry.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
+import { Collection } from '../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-browse-entry-list-element',
@@ -14,5 +15,5 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
 /**
  * This component is automatically used to create a list view for BrowseEntry objects when used in ObjectCollectionComponent
  */
-@listableObjectComponent(BrowseEntry.name, ViewMode.ListElement)
+@listableObjectComponent(BrowseEntry, ViewMode.ListElement)
 export class BrowseEntryListElementComponent extends AbstractListableElementComponent<BrowseEntry> {}

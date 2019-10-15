@@ -21,7 +21,7 @@ import { WorkflowItemSearchResult } from '../../../object-collection/shared/work
   templateUrl: './workflow-item-search-result-detail-element.component.html',
 })
 
-@listableObjectComponent(WorkflowItemSearchResult.name, ViewMode.DetailedListElement)
+@listableObjectComponent(WorkflowItemSearchResult, ViewMode.DetailedListElement)
 export class WorkflowItemSearchResultDetailElementComponent extends SearchResultDetailElementComponent<WorkflowItemSearchResult, WorkflowItem> {
 
   /**

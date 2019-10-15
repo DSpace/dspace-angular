@@ -1,4 +1,3 @@
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { Item } from '../../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { JournalGridElementComponent } from './journal-grid-element.component';
@@ -42,43 +41,41 @@ const mockItem = Object.assign(new Item(), {
   }
 });
 
-describe('JournalGridElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('JournalGridElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [JournalGridElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(JournalGridElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
+      declarations: [JournalGridElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(JournalGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(JournalGridElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(JournalGridElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    describe(`when the journal is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a JournalGridElementComponent`, () => {
-        const journalGridElement = fixture.debugElement.query(By.css(`ds-journal-search-result-grid-element`));
-        expect(journalGridElement).not.toBeNull();
-      });
+  describe(`when the journal is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a JournalGridElementComponent`, () => {
+      const journalGridElement = fixture.debugElement.query(By.css(`ds-journal-search-result-grid-element`));
+      expect(journalGridElement).not.toBeNull();
+    });
   });
+});

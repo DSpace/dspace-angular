@@ -1,14 +1,11 @@
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { Item } from '../../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { getEntityGridElementTestComponent } from '../../../../shared/object-grid/item-grid-element/item-types/publication/publication-grid-element.component.spec';
 import { ProjectGridElementComponent } from './project-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { async, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { PersonGridElementComponent } from '../person/person-grid-element.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -32,43 +29,41 @@ const mockItem = Object.assign(new Item(), {
   }
 });
 
-describe('ProjectGridElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('ProjectGridElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [ProjectGridElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(ProjectGridElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
+      declarations: [ProjectGridElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(ProjectGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(ProjectGridElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(ProjectGridElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    describe(`when the project is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a ProjectGridElementComponent`, () => {
-        const projectGridElement = fixture.debugElement.query(By.css(`ds-project-search-result-grid-element`));
-        expect(projectGridElement).not.toBeNull();
-      });
+  describe(`when the project is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a ProjectGridElementComponent`, () => {
+      const projectGridElement = fixture.debugElement.query(By.css(`ds-project-search-result-grid-element`));
+      expect(projectGridElement).not.toBeNull();
+    });
   });
+});

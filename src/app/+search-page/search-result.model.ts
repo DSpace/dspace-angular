@@ -1,6 +1,7 @@
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { MetadataMap } from '../core/shared/metadata.models';
 import { ListableObject } from '../shared/object-collection/shared/listable-object.model';
+import { GenericConstructor } from '../core/shared/generic-constructor';
 
 /**
  * Represents a search result object of a certain (<T>) DSpaceObject
@@ -16,7 +17,7 @@ export class SearchResult<T extends DSpaceObject> implements ListableObject {
    */
   hitHighlights: MetadataMap;
 
-  getRenderTypes(): string[] {
-    return this.indexableObject.getRenderTypes().map((type) => type +'SearchResult');
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
   }
 }

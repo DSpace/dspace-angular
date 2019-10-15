@@ -11,5 +11,5 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
   templateUrl: './collection-list-element.component.html'
 })
 
-@listableObjectComponent(Collection.name, ViewMode.ListElement)
+@listableObjectComponent(Collection, ViewMode.ListElement)
 export class CollectionListElementComponent extends AbstractListableElementComponent<Collection> {}

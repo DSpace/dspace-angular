@@ -117,7 +117,7 @@ describe('EditRelationshipListComponent', () => {
     fixture = TestBed.createComponent(EditRelationshipListComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;
-    comp.object = item;
+    comp.item = item;
     comp.url = url;
     comp.relationshipLabel = relationshipType.leftLabel;
     fixture.detectChanges();

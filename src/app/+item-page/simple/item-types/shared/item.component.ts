@@ -66,9 +66,6 @@ export class ItemComponent implements OnInit {
   resolvedRelsAndTypes$: Observable<[Relationship[], RelationshipType[]]>;
   @Input() object: Item;
 
-  constructor(
-  ) {}
-
   ngOnInit(): void {
     const relationships$ = this.object.relationships;
     if (relationships$) {

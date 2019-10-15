@@ -25,43 +25,40 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 
+describe('JournalListElementComponent', () => {
+  let comp;
+  let fixture;
 
-describe('JournalListElementComponent',
-  () => {
-    let comp;
-    let fixture;
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [JournalListElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(JournalListElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        declarations: [JournalListElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(JournalListElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(JournalListElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(JournalListElementComponent);
-      comp = fixture.componentInstance;
-    }));
-
-    describe(`when the journal is rendered`, () => {
-      beforeEach(() => {
-        comp.object = mockItem;
-        fixture.detectChanges();
-      });
-
-      it(`should contain a JournalListElementComponent`, () => {
-        const journalListElement = fixture.debugElement.query(By.css(`ds-journal-search-result-list-element`));
-        expect(journalListElement).not.toBeNull();
-      });
+  describe(`when the journal is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
     });
 
+    it(`should contain a JournalListElementComponent`, () => {
+      const journalListElement = fixture.debugElement.query(By.css(`ds-journal-search-result-list-element`));
+      expect(journalListElement).not.toBeNull();
+    });
   });
+});

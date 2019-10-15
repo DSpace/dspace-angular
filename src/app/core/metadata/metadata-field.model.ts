@@ -2,6 +2,7 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 import { isNotEmpty } from '../../shared/empty.util';
 import { MetadataSchema } from './metadata-schema.model';
 import { ResourceType } from '../shared/resource-type';
+import { GenericConstructor } from '../shared/generic-constructor';
 
 /**
  * Class the represents a metadata field
@@ -51,7 +52,7 @@ export class MetadataField implements ListableObject {
     return key;
   }
 
-  getRenderTypes(): string[] {
-    return [this.constructor.name];
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
   }
 }

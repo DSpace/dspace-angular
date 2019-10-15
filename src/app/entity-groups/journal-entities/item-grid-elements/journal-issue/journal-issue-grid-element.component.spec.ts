@@ -1,6 +1,4 @@
-import { ItemSearchResult } from '../../../../shared/object-collection/shared/item-search-result.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getEntityGridElementTestComponent } from '../../../../shared/object-grid/item-grid-element/item-types/publication/publication-grid-element.component.spec';
 import { JournalIssueGridElementComponent } from './journal-issue-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { PaginatedList } from '../../../../core/data/paginated-list';
@@ -37,43 +35,41 @@ const mockItem = Object.assign(new Item(), {
   }
 });
 
-describe('JournalIssueGridElementComponent',
-  () => {
-    let comp;
-    let fixture;
+describe('JournalIssueGridElementComponent', () => {
+  let comp;
+  let fixture;
 
-    const truncatableServiceStub: any = {
-      isCollapsed: (id: number) => observableOf(true),
-    };
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [JournalIssueGridElementComponent, TruncatePipe],
-        providers: [
-          { provide: TruncatableService, useValue: truncatableServiceStub },
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).overrideComponent(JournalIssueGridElementComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
-      }).compileComponents();
-    }));
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule],
+      declarations: [JournalIssueGridElementComponent, TruncatePipe],
+      providers: [
+        { provide: TruncatableService, useValue: truncatableServiceStub },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).overrideComponent(JournalIssueGridElementComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
+    }).compileComponents();
+  }));
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(JournalIssueGridElementComponent);
-      comp = fixture.componentInstance;
-    }));
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(JournalIssueGridElementComponent);
+    comp = fixture.componentInstance;
+  }));
 
-      describe(`when the journal issue is rendered`, () => {
-        beforeEach(() => {
-          comp.object = mockItem;
-          fixture.detectChanges();
-        });
+  describe(`when the journal issue is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
+    });
 
-        it(`should contain a JournalIssueSearchResultGridElementComponent`, () => {
-          const journalIssueGridElement = fixture.debugElement.query(By.css(`ds-journal-issue-search-result-grid-element`));
-          expect(journalIssueGridElement).not.toBeNull();
-        });
-      });
-
+    it(`should contain a JournalIssueSearchResultGridElementComponent`, () => {
+      const journalIssueGridElement = fixture.debugElement.query(By.css(`ds-journal-issue-search-result-grid-element`));
+      expect(journalIssueGridElement).not.toBeNull();
+    });
   });
+});

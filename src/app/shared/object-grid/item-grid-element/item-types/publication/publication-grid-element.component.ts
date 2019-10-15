@@ -6,7 +6,7 @@ import { AbstractListableElementComponent } from '../../../../object-collection/
 import { Item } from '../../../../../core/shared/item.model';
 
 @listableObjectComponent('Publication', ViewMode.GridElement)
-@listableObjectComponent(Item.name, ViewMode.GridElement)
+@listableObjectComponent(Item, ViewMode.GridElement)
 @Component({
   selector: 'ds-publication-grid-element',
   styleUrls: ['./publication-grid-element.component.scss'],
