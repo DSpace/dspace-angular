@@ -10,6 +10,8 @@ import {Collection} from '../core/shared/collection.model';
 import {hasValue, isNotEmpty} from '../shared/empty.util';
 import {RemoteData} from '../core/data/remote-data';
 import {PaginatedList} from '../core/data/paginated-list';
+import {getCommunityPageRoute} from "../+community-page/community-page-routing.module";
+import {getCollectionPageRoute} from "../+collection-page/collection-page-routing.module";
 
 export interface FlatNode {
     isExpandable: boolean;
@@ -20,6 +22,7 @@ export interface FlatNode {
     parent?: FlatNode;
     payload: Community | Collection;
     isShowMoreNode: boolean;
+    route?: string;
 }
 
 export const combineAndFlatten = (obsList: Array<Observable<FlatNode[]>>): Observable<FlatNode[]> =>
@@ -42,6 +45,7 @@ export const toFlatNode = (
     parent,
     payload: c,
     isShowMoreNode: false,
+    route: c instanceof Community ? getCommunityPageRoute(c.id) : getCollectionPageRoute(c.id),
 });
 
 export const showMoreFlatNode = (
@@ -70,7 +74,7 @@ export class CommunityListAdapter {
     constructor(private cds: CommunityDataService) {
         this.config = new PaginationComponentOptions();
         this.config.id = 'top-level-pagination';
-        this.config.pageSize = 5;
+        this.config.pageSize = 10;
         this.config.currentPage = 1;
         this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
         this.initTopCommunityList()
