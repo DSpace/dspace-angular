@@ -30,9 +30,10 @@
                 </a>
             </h6>
         </div>
-        <div class="text-muted d-flex" cdkTreeNodePadding>
-            <div *ngIf="node.payload.shortDescription">
-                <button type="button" class="btn btn-default invisible"></button>
+        <div class="text-muted" cdkTreeNodePadding>
+            <div class="d-flex" *ngIf="node.payload.shortDescription" >
+                <button type="button" class="btn btn-default invisible">
+                </button>
                 <span>{{node.payload.shortDescription}}</span>
             </div>
         </div>
@@ -54,8 +55,8 @@
                 </a>
             </h5>
         </div>
-        <div class="text-muted d-flex" cdkTreeNodePadding>
-            <div *ngIf="node.payload.shortDescription">
+        <div class="text-muted" cdkTreeNodePadding>
+            <div class="d-flex" *ngIf="node.payload.shortDescription" >
                 <button type="button" class="btn btn-default invisible">
                 </button>
                 <span>{{node.payload.shortDescription}}</span>
