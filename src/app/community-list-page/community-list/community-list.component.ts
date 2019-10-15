@@ -19,11 +19,11 @@ export class CommunityListComponent implements OnInit {
 
     dataSource: CommunityListDatasource;
 
-    constructor(private communityListService: CommunityListAdapter) {
+    constructor(private communityListAdapter: CommunityListAdapter) {
     }
 
     ngOnInit() {
-        this.dataSource = new CommunityListDatasource(this.communityListService);
+        this.dataSource = new CommunityListDatasource(this.communityListAdapter);
         this.dataSource.loadCommunities(null);
     }
 
@@ -47,8 +47,8 @@ export class CommunityListComponent implements OnInit {
     }
 
     getNextPage(): void {
-        console.log('go to next page');
-        // TODO
+        this.communityListAdapter.getNextPageTopCommunities();
+        this.dataSource.loadCommunities(this.expandedNodes);
     }
 
 }
