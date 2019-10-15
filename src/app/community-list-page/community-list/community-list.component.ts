@@ -28,7 +28,13 @@ export class CommunityListComponent implements OnInit {
         this.dataSource.loadCommunities(null);
     }
 
-    hasChild = (_: number, node: FlatNode) => node.isExpandable;
+    hasChild(_: number, node: FlatNode) {
+        return node.isExpandable;
+    }
+
+    isShowMore(_: number, node: FlatNode) {
+        return node.isShowMoreNode;
+    }
 
     shouldRender(node: FlatNode) {
         const parent = node.parent;
@@ -52,6 +58,11 @@ export class CommunityListComponent implements OnInit {
 
     getCommunityRoute(node: FlatNode): string {
         return getCommunityPageRoute(node.id);
+    }
+
+    getNextPage(): void {
+        console.log('go to next page');
+        // TODO
     }
 
 }

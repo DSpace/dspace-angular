@@ -1,6 +1,23 @@
 <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+    <!-- This is the tree node template for show more node -->
+    <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding
+                   class="example-tree-node">
+        <div class="btn-group"
+             (click)="getNextPage()">
+            <button type="button" class="btn btn-default" cdkTreeNodeToggle
+                    [attr.aria-label]="'toggle ' + node.name"
+                    (click)="getNextPage()">
+                <span class="fa fa-plus"
+                      aria-hidden="true"></span>
+            </button>
+            <h5 class="align-middle pt-2">
+                {{ 'communityList.showMore' | translate }}
+            </h5>
+        </div>
+    </cdk-tree-node>
     <!-- This is the tree node template for leaf nodes -->
-    <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding
+    <cdk-tree-node *cdkTreeNodeDef="let node; when: !(hasChild && isShowMore)" cdkTreeNodePadding
                    [style.display]="shouldRender(node) ? 'flex' : 'none'"
                    class="example-tree-node">
         <!-- use a disabled button to provide padding for tree leaf -->
