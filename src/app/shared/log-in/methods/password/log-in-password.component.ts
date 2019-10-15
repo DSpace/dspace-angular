@@ -63,30 +63,10 @@ export class LogInPasswordComponent implements OnInit {
   public hasMessage = false;
 
   /**
-   * Whether user is authenticated.
-   * @type {Observable<string>}
-   */
-/*  public isAuthenticated: Observable<boolean>;*/
-
-  /**
-   * True if the authentication is loading.
-   * @type {boolean}
-   */
-/*
-  public loading: Observable<boolean>;
-*/
-
-  /**
    * The authentication form.
    * @type {FormGroup}
    */
   public form: FormGroup;
-
-/*  /!**
-   * Component state.
-   * @type {boolean}
-   *!/
-  private alive = true;*/
 
   @Input() authMethodModel: InjectedAuthMethodModel;
 
@@ -110,8 +90,6 @@ export class LogInPasswordComponent implements OnInit {
    * @method ngOnInit
    */
   public ngOnInit() {
-    // set isAuthenticated
-/*    this.isAuthenticated = this.store.pipe(select(isAuthenticated));*/
 
     // set formGroup
     this.form = this.formBuilder.group({
@@ -137,28 +115,7 @@ export class LogInPasswordComponent implements OnInit {
       })
     );
 
-/*    // set loading
-    this.loading = this.store.pipe(select(isAuthenticationLoading));
-
-    // subscribe to success
-    this.store.pipe(
-      select(isAuthenticated),
-      takeWhile(() => this.alive),
-      filter((authenticated) => authenticated))
-      .subscribe(() => {
-          this.authService.redirectAfterLoginSuccess(this.authMethodModel.isStandalonePage);
-        }
-      );*/
-
   }
-
-  /**
-   *  Lifecycle hook that is called when a directive, pipe or service is destroyed.
-   * @method ngOnDestroy
-   */
-/*  public ngOnDestroy() {
-    this.alive = false;
-  }*/
 
   /**
    * Reset error or message.
