@@ -27,6 +27,7 @@ import {
   bitstreamFormatReducer,
   BitstreamFormatRegistryState
 } from './+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { ObjectSelectionListState, objectSelectionReducer } from './shared/object-select/object-select.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -41,6 +42,7 @@ export interface AppState {
   truncatable: TruncatablesState;
   cssVariables: CSSVariablesState;
   menus: MenusState;
+  objectSelection: ObjectSelectionListState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -56,6 +58,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   truncatable: truncatableReducer,
   cssVariables: cssVariablesReducer,
   menus: menusReducer,
+  objectSelection: objectSelectionReducer
 };
 
 export const routerStateSelector = (state: AppState) => state.router;
