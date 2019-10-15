@@ -1,7 +1,7 @@
 <div class="container">
     <ng-container *ngVar="(parent$ | async) as parent">
-        <ng-container *ngIf="parent?.payload as parentContext">
-        <header class="comcol-header border-bottom mb-4 pb-4">
+    <ng-container *ngIf="parent?.payload as parentContext">
+    <header class="comcol-header border-bottom mb-4 pb-4">
         <!-- Parent Name -->
         <ds-comcol-page-header [name]="parentContext.name">
         </ds-comcol-page-header>
@@ -16,14 +16,13 @@
         <!-- News -->
         <ds-comcol-page-content [content]="parentContext.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
         </ds-comcol-page-content>
-
       </header>
-      <section class="comcol-page-browse-section">
-        <!-- Browse-By Links -->
-        <ds-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-comcol-page-browse-by>
+      <!-- Browse-By Links -->
+      <ds-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-comcol-page-browse-by>
+      </ng-container></ng-container>
 
-
-  <div class="browse-by-metadata w-100">
+    <section class="comcol-page-browse-section">
+    <div class="browse-by-metadata w-100">
     <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
       title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + browseId | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
       [objects$]="(items$ !== undefined)? items$ : browseEntries$"
@@ -40,6 +39,8 @@
     <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
   </div>
   </section>
+  <ng-container *ngVar="(parent$ | async) as parent">
+    <ng-container *ngIf="parent?.payload as parentContext">
   <footer *ngIf="parentContext.copyrightText" class="border-top my-5 pt-4">
     <div >
 
