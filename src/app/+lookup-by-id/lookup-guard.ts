@@ -34,7 +34,7 @@ export class LookupGuard implements CanActivate {
       type = IdentifierType.HANDLE;
       const prefix = route.params.idType;
       const handleId = route.params.id;
-      id = `${prefix}%2F${handleId}`;
+      id = `${prefix}/${handleId}`;
 
     } else if (route.params.idType === IdentifierType.HANDLE) {
       type = IdentifierType.HANDLE;
