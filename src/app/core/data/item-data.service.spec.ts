@@ -2,14 +2,13 @@ import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { BrowseService } from '../browse/browse.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   DeleteRequest,
-  FindAllOptions,
+  FindListOptions,
   GetRequest,
   MappedCollectionsRequest,
   PostRequest,
@@ -58,7 +57,7 @@ describe('ItemDataService', () => {
   } as HALEndpointService;
 
   const scopeID = '4af28e99-6a9c-4036-a199-e1b587046d39';
-  const options = Object.assign(new FindAllOptions(), {
+  const options = Object.assign(new FindListOptions(), {
     scopeID: scopeID,
     sort: {
       field: '',

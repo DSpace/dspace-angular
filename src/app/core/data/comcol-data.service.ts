@@ -6,7 +6,7 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { FindAllOptions, FindByIDRequest } from './request.models';
+import { FindListOptions, FindByIDRequest } from './request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getResponseFromEntry } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -26,7 +26,7 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
    * @return { Observable<string> }
    *    an Observable<string> containing the scoped URL
    */
-  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     if (isEmpty(options.scopeID)) {
       return this.halService.getEndpoint(linkPath);
     } else {

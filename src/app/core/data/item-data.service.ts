@@ -14,7 +14,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   DeleteRequest,
-  FindAllOptions,
+  FindListOptions,
   MappedCollectionsRequest,
   PatchRequest,
   PostRequest, PutRequest,
@@ -59,10 +59,10 @@ export class ItemDataService extends DataService<Item> {
   /**
    * Get the endpoint for browsing items
    *  (When options.sort.field is empty, the default field to browse by will be 'dc.date.issued')
-   * @param {FindAllOptions} options
+   * @param {FindListOptions} options
    * @returns {Observable<string>}
    */
-  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     let field = 'dc.date.issued';
     if (options.sort && options.sort.field) {
       field = options.sort.field;

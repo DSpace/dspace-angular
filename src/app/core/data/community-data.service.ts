@@ -9,7 +9,7 @@ import { Community } from '../shared/community.model';
 import { ComColDataService } from './comcol-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, FindAllRequest } from './request.models';
+import { FindListOptions, FindAllRequest } from './request.models';
 import { RemoteData } from './remote-data';
 import { hasValue } from '../../shared/empty.util';
 import { Observable } from 'rxjs';
@@ -44,7 +44,7 @@ export class CommunityDataService extends ComColDataService<Community> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
-  findTop(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
+  findTop(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
     const hrefObs = this.getFindAllHref(options, this.topLinkPath);
     hrefObs.pipe(
       filter((href: string) => hasValue(href)),
@@ -57,7 +57,7 @@ export class CommunityDataService extends ComColDataService<Community> {
     return this.rdbService.buildList<Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
   }
 
-  findSubCommunitiesPerParentCommunity(parentCommunityUUID: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
+  findSubCommunitiesPerParentCommunity(parentCommunityUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
     const hrefObs = this.getFindAllHref(options, this.subcommunitiesLinkPath + '?parent=' + parentCommunityUUID);
     console.log('subcomurl', hrefObs.pipe(take(1)).subscribe((val) => console.log('subcomurl', val)));
 
