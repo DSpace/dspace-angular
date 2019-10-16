@@ -60,6 +60,7 @@ export class LogInComponent implements OnInit, OnDestroy {
       const injectedAuthMethod = new InjectedAuthMethodModel(this.authMethods[index].authMethodType, this.authMethods[index].location, this.isStandalonePage);
       this.injectedAuthMethods.push(injectedAuthMethod);
     }
+    console.log('injectedAuthMethods in ngOnInit(): ', this.injectedAuthMethods);
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
