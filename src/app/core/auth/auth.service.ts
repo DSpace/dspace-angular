@@ -372,6 +372,7 @@ export class AuthService {
    * Redirect to the route navigated before the login
    */
   public redirectAfterLoginSuccess(isStandalonePage: boolean) {
+    console.log('isStandAlonePage: ', isStandalonePage);
     this.getRedirectUrl().pipe(
       take(1))
       .subscribe((redirectUrl) => {
@@ -392,7 +393,7 @@ export class AuthService {
               // For standalone login pages, use the previous route.
               redirUrl = history[history.length - 2] || '';
             } else {
-              console.log('isStandAlonePage: ', isStandalonePage);
+              // console.log('isStandAlonePage: ', isStandalonePage);
               console.log( 'history[history.length - 1; ', history[history.length - 1]);
               redirUrl = history[history.length - 1] || '';
             }
