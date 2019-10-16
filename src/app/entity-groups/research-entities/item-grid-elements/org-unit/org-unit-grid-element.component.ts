@@ -6,12 +6,12 @@ import { Item } from '../../../../core/shared/item.model';
 
 @listableObjectComponent('OrgUnit', ViewMode.GridElement)
 @Component({
-  selector: 'ds-orgunit-grid-element',
-  styleUrls: ['./orgunit-grid-element.component.scss'],
-  templateUrl: './orgunit-grid-element.component.html',
+  selector: 'ds-org-unit-grid-element',
+  styleUrls: ['./org-unit-grid-element.component.scss'],
+  templateUrl: './org-unit-grid-element.component.html',
 })
 /**
  * The component for displaying a grid element for an item of the type Organisation Unit
  */
-export class OrgunitGridElementComponent extends AbstractListableElementComponent<Item> {
+export class OrgUnitGridElementComponent extends AbstractListableElementComponent<Item> {
 }

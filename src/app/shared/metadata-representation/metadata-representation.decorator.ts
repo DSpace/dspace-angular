@@ -8,7 +8,6 @@ export const DEFAULT_ENTITY_TYPE = 'Publication';
 export const DEFAULT_REPRESENTATION_TYPE = MetadataRepresentationType.PlainText;
 export const DEFAULT_CONTEXT = Context.Undefined;
 
-
 /**
  * Decorator function to store metadata representation mapping
  * @param entityType The entity type the component represents

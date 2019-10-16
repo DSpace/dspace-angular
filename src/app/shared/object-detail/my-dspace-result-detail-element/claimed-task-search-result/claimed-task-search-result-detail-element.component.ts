@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
@@ -12,7 +12,6 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import { Item } from '../../../../core/shared/item.model';
 
 /**
  * This component renders claimed task object for the search result in the detail view.
@@ -45,11 +44,12 @@ export class ClaimedTaskSearchResultDetailElementComponent extends SearchResultD
    * Initialize all instance variables
    */
   ngOnInit() {
+    super.ngOnInit();
     this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>);
   }
 
   /**
-   * Retrieve workflowitem from result object
+   * Retrieve workflow item from result object
    */
   initWorkflowItem(wfi$: Observable<RemoteData<WorkflowItem>>) {
     wfi$.pipe(

@@ -70,7 +70,6 @@ export class ObjectListComponent {
    */
   private _objects: RemoteData<PaginatedList<ListableObject>>;
 
-
   /**
    * Setter for the objects
    * @param objects The new objects

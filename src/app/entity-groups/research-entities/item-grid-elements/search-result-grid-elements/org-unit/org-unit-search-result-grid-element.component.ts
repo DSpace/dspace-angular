@@ -8,13 +8,13 @@ import { Item } from '../../../../../core/shared/item.model';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.GridElement)
 @Component({
-  selector: 'ds-orgunit-search-result-grid-element',
-  styleUrls: ['./orgunit-search-result-grid-element.component.scss'],
-  templateUrl: './orgunit-search-result-grid-element.component.html',
+  selector: 'ds-org-unit-search-result-grid-element',
+  styleUrls: ['./org-unit-search-result-grid-element.component.scss'],
+  templateUrl: './org-unit-search-result-grid-element.component.html',
   animations: [focusShadow]
 })
 /**
  * The component for displaying a grid element for an item search result of the type Organisation Unit
  */
-export class OrgunitSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
+export class OrgUnitSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
 }

@@ -19,7 +19,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
  */
 @Component({
   selector: 'ds-claimed-search-result-list-element',
-  styleUrls: ['../my-dspace-result-list-element.component.scss'],
+  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-search-result-list-element.component.html',
   providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }]
 })

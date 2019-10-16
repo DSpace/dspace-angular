@@ -1,7 +1,7 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { OrgUnitListElementComponent } from './orgunit-list-element.component';
+import { OrgUnitListElementComponent } from './org-unit-list-element.component';
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
@@ -25,7 +25,7 @@ const mockItem: Item = Object.assign(new Item(), {
   }
 });
 
-describe('OrgunitListElementComponent', () => {
+describe('OrgUnitListElementComponent', () => {
   let comp;
   let fixture;
 
@@ -50,15 +50,15 @@ describe('OrgunitListElementComponent', () => {
     comp = fixture.componentInstance;
   }));
 
-  describe(`when the orgunit is rendered`, () => {
+  describe(`when the org unit is rendered`, () => {
     beforeEach(() => {
       comp.object = mockItem;
       fixture.detectChanges();
     });
 
     it(`should contain a OrgUnitListElementComponent`, () => {
-      const orgunitListElement = fixture.debugElement.query(By.css(`ds-orgunit-search-result-list-element`));
-      expect(orgunitListElement).not.toBeNull();
+      const orgUnitListElement = fixture.debugElement.query(By.css(`ds-org-unit-search-result-list-element`));
+      expect(orgUnitListElement).not.toBeNull();
     });
   });
 });

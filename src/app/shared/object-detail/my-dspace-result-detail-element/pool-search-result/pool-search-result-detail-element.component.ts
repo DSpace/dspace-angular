@@ -13,7 +13,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 
 /**
- * This component renders pool task object for the mydspace result in the detail view.
+ * This component renders pool task object for the search result in the detail view.
  */
 @Component({
   selector: 'ds-pool-search-result-detail-element',
@@ -43,6 +43,7 @@ export class PoolSearchResultDetailElementComponent extends SearchResultDetailEl
    * Initialize all instance variables
    */
   ngOnInit() {
+    super.ngOnInit();
     this.initWorkflowItem(this.dso.workflowitem as Observable<RemoteData<WorkflowItem>>);
   }
 

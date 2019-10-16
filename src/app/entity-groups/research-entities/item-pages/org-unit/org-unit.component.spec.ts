@@ -2,7 +2,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
-import { OrgunitComponent } from './orgunit.component';
+import { OrgUnitComponent } from './org-unit.component';
 import { of as observableOf } from 'rxjs';
 import {
   createRelationshipsObservable,
@@ -47,4 +47,4 @@ const mockItem: Item = Object.assign(new Item(), {
   relationships: createRelationshipsObservable()
 });
 
-describe('OrgUnitComponent', getItemPageFieldsTest(mockItem, OrgunitComponent));
+describe('OrgUnitComponent', getItemPageFieldsTest(mockItem, OrgUnitComponent));

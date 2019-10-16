@@ -7,12 +7,12 @@ import { Item } from '../../../../../core/shared/item.model';
 
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement)
 @Component({
-  selector: 'ds-orgunit-search-result-list-element',
-  styleUrls: ['./orgunit-search-result-list-element.component.scss'],
-  templateUrl: './orgunit-search-result-list-element.component.html'
+  selector: 'ds-org-unit-search-result-list-element',
+  styleUrls: ['./org-unit-search-result-list-element.component.scss'],
+  templateUrl: './org-unit-search-result-list-element.component.html'
 })
 /**
  * The component for displaying a list element for an item search result of the type Organisation Unit
  */
-export class OrgunitSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
+export class OrgUnitSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }

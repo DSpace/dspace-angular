@@ -5,12 +5,12 @@ import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-rep
 
 @metadataRepresentationComponent('OrgUnit', MetadataRepresentationType.Item)
 @Component({
-  selector: 'ds-orgunit-item-page-list-element',
-  templateUrl: './orgunit-item-page-list-element.component.html'
+  selector: 'ds-org-unit-item-metadata-list-element',
+  templateUrl: './org-unit-item-metadata-list-element.component.html'
 })
 /**
  * The component for displaying an item of the type OrgUnit as a metadata field
  */
-export class OrgunitItemPageListElementComponent {
+export class OrgUnitItemMetadataListElementComponent {
   metadataRepresentation: ItemMetadataRepresentation;
 }

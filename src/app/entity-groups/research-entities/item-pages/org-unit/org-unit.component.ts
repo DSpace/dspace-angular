@@ -9,14 +9,14 @@ import { listableObjectComponent } from '../../../../shared/object-collection/sh
 
 @listableObjectComponent('OrgUnit', ViewMode.StandalonePage)
 @Component({
-  selector: 'ds-orgunit',
-  styleUrls: ['./orgunit.component.scss'],
-  templateUrl: './orgunit.component.html'
+  selector: 'ds-org-unit',
+  styleUrls: ['./org-unit.component.scss'],
+  templateUrl: './org-unit.component.html'
 })
 /**
  * The component for displaying metadata and relations of an item of the type Organisation Unit
  */
-export class OrgunitComponent extends ItemComponent implements OnInit {
+export class OrgUnitComponent extends ItemComponent implements OnInit {
   /**
    * The people related to this organisation unit
    */

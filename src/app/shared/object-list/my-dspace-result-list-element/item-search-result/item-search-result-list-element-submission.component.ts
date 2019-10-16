@@ -13,7 +13,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
  */
 @Component({
   selector: 'ds-item-search-result-list-element-submission',
-  styleUrls: ['../my-dspace-result-list-element.component.scss', './item-search-result-list-element-submission.component.scss'],
+  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss', './item-search-result-list-element-submission.component.scss'],
   templateUrl: './item-search-result-list-element-submission.component.html'
 })
 

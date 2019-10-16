@@ -9,7 +9,7 @@ import { WorkflowItemSearchResultDetailElementComponent } from './workflow-item-
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflowitem-search-result.model';
+import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 
 let component: WorkflowItemSearchResultDetailElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultDetailElementComponent>;

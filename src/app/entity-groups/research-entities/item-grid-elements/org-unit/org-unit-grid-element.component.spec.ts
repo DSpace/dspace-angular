@@ -1,6 +1,6 @@
 import { Item } from '../../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { OrgunitGridElementComponent } from './orgunit-grid-element.component';
+import { OrgUnitGridElementComponent } from './org-unit-grid-element.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
@@ -41,7 +41,7 @@ const mockItem = Object.assign(new Item(), {
   }
 });
 
-describe('OrgunitGridElementComponent', () => {
+describe('OrgUnitGridElementComponent', () => {
   let comp;
   let fixture;
 
@@ -52,18 +52,18 @@ describe('OrgunitGridElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
-      declarations: [OrgunitGridElementComponent, TruncatePipe],
+      declarations: [OrgUnitGridElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(OrgunitGridElementComponent, {
+    }).overrideComponent(OrgUnitGridElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(OrgunitGridElementComponent);
+    fixture = TestBed.createComponent(OrgUnitGridElementComponent);
     comp = fixture.componentInstance;
   }));
 
@@ -73,9 +73,9 @@ describe('OrgunitGridElementComponent', () => {
       fixture.detectChanges();
     });
 
-    it(`should contain a OrgunitGridElementComponent`, () => {
-      const orgunitGridElement = fixture.debugElement.query(By.css(`ds-orgunit-search-result-grid-element`));
-      expect(orgunitGridElement).not.toBeNull();
+    it(`should contain a OrgUnitGridElementComponent`, () => {
+      const orgUnitGridElement = fixture.debugElement.query(By.css(`ds-org-unit-search-result-grid-element`));
+      expect(orgUnitGridElement).not.toBeNull();
     });
   });
 });

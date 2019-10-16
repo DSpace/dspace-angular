@@ -10,7 +10,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { find } from 'rxjs/operators';
 import { isNotUndefined } from '../../../empty.util';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflowitem-search-result.model';
+import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 
 /**
  * This component renders workflowitem object for the search result in the detail view.
@@ -38,6 +38,7 @@ export class WorkflowItemSearchResultDetailElementComponent extends SearchResult
    * Initialize all instance variables
    */
   ngOnInit() {
+    super.ngOnInit();
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 

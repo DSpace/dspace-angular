@@ -27,9 +27,9 @@ describe('ItemMetadataListElementComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should call an item-type-switcher component and pass the item-metadata-representation', () => {
-    const itemTypeSwitcher = fixture.debugElement.query(By.css('ds-listable-object-component-loader')).nativeElement;
-    expect(itemTypeSwitcher.object).toBe(mockItemMetadataRepresentation);
+  it('should call a listable-object-component-loader component and pass the item-metadata-representation', () => {
+    const objectLoader = fixture.debugElement.query(By.css('ds-listable-object-component-loader')).nativeElement;
+    expect(objectLoader.object).toBe(mockItemMetadataRepresentation);
   });
 
 });

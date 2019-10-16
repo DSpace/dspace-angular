@@ -11,7 +11,7 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
-import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspaceitem-search-result.model';
+import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspace-item-search-result.model';
 
 /**
  * This component renders workspace item object for the search result in the detail view.
@@ -39,6 +39,7 @@ export class WorkspaceItemSearchResultDetailElementComponent extends SearchResul
    * Initialize all instance variables
    */
   ngOnInit() {
+    super.ngOnInit();
     this.initItem(this.dso.item as Observable<RemoteData<Item>>);
   }
 

@@ -121,3 +121,14 @@ export function createPendingRemoteDataObject<T>(object?: T): RemoteData<T> {
 export function createPendingRemoteDataObject$<T>(object?: T): Observable<RemoteData<T>> {
   return observableOf(createPendingRemoteDataObject(object));
 }
+
+/**
+ * Creates a jasmine spy for an exported function
+ * @param target The object to spy on
+ * @param prop The property/function to spy on
+ */
+export function spyOnExported<T>(target: T, prop: keyof T): jasmine.Spy {
+  const spy = jasmine.createSpy(`${prop}Spy`);
+  spyOnProperty(target, prop).and.returnValue(spy);
+  return spy;
+}

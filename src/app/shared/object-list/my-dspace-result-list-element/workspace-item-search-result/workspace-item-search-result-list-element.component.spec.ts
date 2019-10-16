@@ -9,7 +9,7 @@ import { WorkspaceItemSearchResultListElementComponent } from './workspace-item-
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
-import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflowitem-search-result.model';
+import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 let component: WorkspaceItemSearchResultListElementComponent;

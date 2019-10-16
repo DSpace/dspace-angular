@@ -19,7 +19,7 @@ import { TruncatableService } from '../../../truncatable/truncatable.service';
  */
 @Component({
   selector: 'ds-pool-search-result-list-element',
-  styleUrls: ['../my-dspace-result-list-element.component.scss'],
+  styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './pool-search-result-list-element.component.html',
 })
 

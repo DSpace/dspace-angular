@@ -3,7 +3,7 @@ import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { OrgunitSearchResultGridElementComponent } from './orgunit-search-result-grid-element.component';
+import { OrgUnitSearchResultGridElementComponent } from './org-unit-search-result-grid-element.component';
 import { getEntityGridElementTestComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/publication/publication-search-result-grid-element.component.spec';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
@@ -52,4 +52,4 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
   }
 });
 
-describe('OrgunitSearchResultGridElementComponent', getEntityGridElementTestComponent(OrgunitSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['date', 'country', 'city']));
+describe('OrgUnitSearchResultGridElementComponent', getEntityGridElementTestComponent(OrgUnitSearchResultGridElementComponent, mockItemWithMetadata, mockItemWithoutMetadata, ['date', 'country', 'city']));
