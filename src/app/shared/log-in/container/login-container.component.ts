@@ -47,6 +47,7 @@ export class LoginContainerComponent implements OnInit {
    * Find the correct component based on the AuthMethod's type
    */
   getAuthMethodContent(): string {
+    console.log('Trying to render login component for type: ', this.authMethodModel.authMethodType);
     return rendersAuthMethodType(this.authMethodModel.authMethodType)
   }
 
