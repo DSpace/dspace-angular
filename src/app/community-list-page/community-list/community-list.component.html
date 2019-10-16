@@ -4,10 +4,10 @@
     <cdk-tree-node *cdkTreeNodeDef="let node; when: isShowMore" cdkTreeNodePadding
                    class="example-tree-node">
         <div class="btn-group"
-             (click)="getNextPage()">
+             (click)="getNextPage(node)">
             <button type="button" class="btn btn-default" cdkTreeNodeToggle
                     [attr.aria-label]="'toggle ' + node.name"
-                    (click)="getNextPage()">
+                    (click)="getNextPage(node)">
                 <span class="fa fa-plus"
                       aria-hidden="true"></span>
             </button>
@@ -26,7 +26,7 @@
             </button>
             <h6 class="align-middle pt-2">
                 <a [routerLink]="node.route" class="lead">
-                    {{node.name}}
+                    {{node.name}} {{node.id}}
                 </a>
             </h6>
         </div>
@@ -51,7 +51,7 @@
             </button>
             <h5 class="align-middle pt-2">
                 <a [routerLink]="node.route" class="lead">
-                    {{node.name}}
+                    {{node.name}} {{node.id}}
                 </a>
             </h5>
         </div>

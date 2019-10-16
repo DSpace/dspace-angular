@@ -4,14 +4,15 @@ import {merge, Observable, of, of as observableOf} from 'rxjs';
 import {CommunityDataService} from '../core/data/community-data.service';
 import {PaginationComponentOptions} from '../shared/pagination/pagination-component-options.model';
 import {SortDirection, SortOptions} from '../core/cache/models/sort-options.model';
-import {catchError, filter, map, switchMap, take, tap} from 'rxjs/operators';
+import {catchError, defaultIfEmpty, filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {Community} from '../core/shared/community.model';
 import {Collection} from '../core/shared/collection.model';
-import {hasValue, isNotEmpty} from '../shared/empty.util';
+import {hasValue, isEmpty, isNotEmpty} from '../shared/empty.util';
 import {RemoteData} from '../core/data/remote-data';
 import {PaginatedList} from '../core/data/paginated-list';
 import {getCommunityPageRoute} from '../+community-page/community-page-routing.module';
 import {getCollectionPageRoute} from '../+collection-page/collection-page-routing.module';
+import {CollectionDataService} from '../core/data/collection-data.service';
 
 export interface FlatNode {
     isExpandable: boolean;
@@ -23,6 +24,8 @@ export interface FlatNode {
     payload: Community | Collection;
     isShowMoreNode: boolean;
     route?: string;
+    currentCommunityPage?: number;
+    currentCollectionPage?: number;
 }
 
 export const combineAndFlatten = (obsList: Array<Observable<FlatNode[]>>): Observable<FlatNode[]> =>
@@ -66,37 +69,42 @@ export const showMoreFlatNode = (
 @Injectable()
 export class CommunityListAdapter {
 
-    payload$: Array<Observable<PaginatedList<Community>>>;
+    payloads$: Array<Observable<PaginatedList<Community>>>;
 
-    config: PaginationComponentOptions;
-    sortConfig: SortOptions;
+    topCommunitiesConfig: PaginationComponentOptions;
+    topCommunitiesSortConfig: SortOptions;
 
-    constructor(private cds: CommunityDataService) {
-        this.config = new PaginationComponentOptions();
-        this.config.id = 'top-level-pagination';
-        this.config.pageSize = 5;
-        this.config.currentPage = 1;
-        this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    maxSubCommunitiesPerPage: number;
+
+    constructor(private communityDataService: CommunityDataService, private collectionDataService: CollectionDataService) {
+        this.topCommunitiesConfig = new PaginationComponentOptions();
+        this.topCommunitiesConfig.id = 'top-level-pagination';
+        this.topCommunitiesConfig.pageSize = 10;
+        this.topCommunitiesConfig.currentPage = 1;
+        this.topCommunitiesSortConfig = new SortOptions('dc.title', SortDirection.ASC);
         this.initTopCommunityList()
+
+        this.maxSubCommunitiesPerPage = 3;
     }
 
     private initTopCommunityList(): void {
-        this.payload$ = [this.cds.findTop({
-            currentPage: this.config.currentPage,
-            elementsPerPage: this.config.pageSize,
-            sort: {field: this.sortConfig.field, direction: this.sortConfig.direction}
+        this.payloads$ = [this.communityDataService.findTop({
+            currentPage: this.topCommunitiesConfig.currentPage,
+            elementsPerPage: this.topCommunitiesConfig.pageSize,
+            sort: {field: this.topCommunitiesSortConfig.field, direction: this.topCommunitiesSortConfig.direction}
         }).pipe(
             take(1),
             map((results) => results.payload),
         )];
+
     }
 
     getNextPageTopCommunities(): void {
-        this.config.currentPage = this.config.currentPage + 1;
-        this.payload$ = [...this.payload$, this.cds.findTop({
-                currentPage: this.config.currentPage,
-                elementsPerPage: this.config.pageSize,
-                sort: {field: this.sortConfig.field, direction: this.sortConfig.direction}
+        this.topCommunitiesConfig.currentPage = this.topCommunitiesConfig.currentPage + 1;
+        this.payloads$ = [...this.payloads$, this.communityDataService.findTop({
+                currentPage: this.topCommunitiesConfig.currentPage,
+                elementsPerPage: this.topCommunitiesConfig.pageSize,
+                sort: {field: this.topCommunitiesSortConfig.field, direction: this.topCommunitiesSortConfig.direction}
             }).pipe(
                 take(1),
                 map((results) => results.payload),
@@ -104,7 +112,7 @@ export class CommunityListAdapter {
     }
 
     loadCommunities(expandedNodes: FlatNode[]): Observable<FlatNode[]> {
-        const res = this.payload$.map((payload) => {
+        const res = this.payloads$.map((payload) => {
             return payload.pipe(
                 take(1),
                 switchMap((result: PaginatedList<Community>) => {
@@ -121,12 +129,16 @@ export class CommunityListAdapter {
                                        parent: FlatNode,
                                        expandedNodes: FlatNode[]): Observable<FlatNode[]> {
         if (isNotEmpty(listOfPaginatedCommunities.page)) {
-            const isNotAllCommunities = (listOfPaginatedCommunities.totalElements > (listOfPaginatedCommunities.elementsPerPage * this.config.currentPage));
+            let currentPage = this.topCommunitiesConfig.currentPage;
+            if (isNotEmpty(parent)) {
+                currentPage = expandedNodes.find((node: FlatNode) => node.id === parent.id).currentCommunityPage;
+            }
+            const isNotAllCommunities = (listOfPaginatedCommunities.totalElements > (listOfPaginatedCommunities.elementsPerPage * currentPage));
             let obsList = listOfPaginatedCommunities.page
-                .map((community: Community) =>
-                    this.transformCommunity(community, level, parent, expandedNodes));
-
-            if (isNotAllCommunities && listOfPaginatedCommunities.currentPage > this.config.currentPage) {
+                .map((community: Community) => {
+                    return this.transformCommunity(community, level, parent, expandedNodes)
+                });
+            if (isNotAllCommunities && listOfPaginatedCommunities.currentPage > currentPage) {
                 obsList = [...obsList, this.addPossibleShowMoreComunityFlatNode(level, parent)];
             }
 
@@ -147,14 +159,25 @@ export class CommunityListAdapter {
         let obsList = [observableOf([communityFlatNode])];
 
         if (isExpanded) {
-            const subCommunityNodes$ = community.subcommunities.pipe(
-                filter((rd: RemoteData<PaginatedList<Community>>) => rd.hasSucceeded),
-                take(1),
-                switchMap((rd: RemoteData<PaginatedList<Community>>) =>
-                    this.transformListOfCommunities(rd.payload, level + 1, communityFlatNode, expandedNodes))
-            );
+            const currentPage = expandedNodes.find((node: FlatNode) => node.id === community.id).currentCommunityPage;
+            let subcoms$ = [];
+            for (let i = 1; i <= currentPage ; i++) {
+                const p = this.communityDataService.findSubCommunitiesPerParentCommunity(community.uuid,{elementsPerPage: this.maxSubCommunitiesPerPage, currentPage: i})
+                    .pipe(
+                        filter((rd: RemoteData<PaginatedList<Community>>) => rd.hasSucceeded),
+                    take(1),
+                        switchMap((rd: RemoteData<PaginatedList<Community>>) =>
+                            this.transformListOfCommunities(rd.payload, level + 1, communityFlatNode, expandedNodes))
 
-            obsList = [...obsList, subCommunityNodes$];
+                    );
+                subcoms$ = [...subcoms$, p];
+            }
+
+            obsList = [...obsList, combineAndFlatten(subcoms$)];
+
+            // need to be authorized (logged in) to receive collections this way
+            // const cols = this.collectionDataService.getAuthorizedCollectionByCommunity(community.uuid,{elementsPerPage: 2});
+            // cols.pipe(take(1)).subscribe((val) => console.log('cols:', val));
 
             const collectionNodes$ = community.collections.pipe(
                 filter((rd: RemoteData<PaginatedList<Collection>>) => rd.hasSucceeded),

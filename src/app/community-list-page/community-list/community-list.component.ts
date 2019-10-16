@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {CommunityListAdapter, FlatNode} from '../community-list-adapter';
 import {CommunityListDatasource} from '../community-list-datasource';
 import {FlatTreeControl} from '@angular/cdk/tree';
+import {Collection} from '../../core/shared/collection.model';
+import {Community} from '../../core/shared/community.model';
+import {isEmpty} from "../../shared/empty.util";
 
 @Component({
     selector: 'ds-community-list',
@@ -42,13 +45,33 @@ export class CommunityListComponent implements OnInit {
         } else {
             this.expandedNodes.push(node);
             node.isExpanded = true;
+            if (isEmpty(node.currentCollectionPage)) {
+                node.currentCollectionPage = 1;
+            }
+            if (isEmpty(node.currentCommunityPage)) {
+                node.currentCommunityPage = 1;
+            }
         }
         this.dataSource.loadCommunities(this.expandedNodes);
     }
 
-    getNextPage(): void {
-        this.communityListAdapter.getNextPageTopCommunities();
-        this.dataSource.loadCommunities(this.expandedNodes);
+    getNextPage(node: FlatNode): void {
+        if (node.parent != null) {
+            if (node.parent.isExpandable) {
+                if (node.payload instanceof Collection) {
+                    const parentNodeInExpandedNodes = this.expandedNodes.find((node2:FlatNode) => node.parent.id === node2.id);
+                    parentNodeInExpandedNodes.currentCollectionPage++;
+                }
+                if (node.payload instanceof Community) {
+                    const parentNodeInExpandedNodes = this.expandedNodes.find((node2:FlatNode) => node.parent.id === node2.id);
+                    parentNodeInExpandedNodes.currentCommunityPage++;
+                }
+            }
+            this.dataSource.loadCommunities(this.expandedNodes);
+        } else {
+            this.communityListAdapter.getNextPageTopCommunities();
+            this.dataSource.loadCommunities(this.expandedNodes);
+        }
     }
 
 }
