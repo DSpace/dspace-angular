@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
 import { InjectedAuthMethodModel } from './injectedAuthMethodModel/injectedAuthMethodModel';
-import { filter, takeWhile } from 'rxjs/operators';
+import { filter, takeWhile, tap } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
@@ -51,16 +51,29 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.authMethodData = this.store.pipe(select(getAuthenticationMethods));
+    /*    this.store.pipe(
+          select(getAuthenticationMethods),
+          tap((authMethods) => console.log('authMethods: ', authMethods))
+        ).subscribe(
+          (authMethods) => this.authMethodData = authMethods
+        );*/
 
-    this.subscription = this.authMethodData.subscribe((methods) => this.authMethods = methods);
-    this.injectedAuthMethods = new Array<InjectedAuthMethodModel>();
-    // tslint:disable-next-line:forin
-    for (const index in this.authMethods) {
-      const injectedAuthMethod = new InjectedAuthMethodModel(this.authMethods[index].authMethodType, this.authMethods[index].location, this.isStandalonePage);
-      this.injectedAuthMethods.push(injectedAuthMethod);
-    }
-    console.log('injectedAuthMethods in ngOnInit(): ', this.injectedAuthMethods);
+    this.authMethodData = this.store.pipe(
+      select(getAuthenticationMethods),
+/*      tap((authMethods) => authMethods.forEach((method) => {
+        method.isStandalonePage = this.isStandalonePage;
+      }))*/
+    );
+    /*
+        this.subscription = this.authMethodData.subscribe((methods) => this.authMethods = methods);
+        this.injectedAuthMethods = new Array<InjectedAuthMethodModel>();
+        // tslint:disable-next-line:forin
+        for (const index in this.authMethods) {
+          const injectedAuthMethod = new InjectedAuthMethodModel(this.authMethods[index].authMethodType, this.authMethods[index].location, this.isStandalonePage);
+          this.injectedAuthMethods.push(injectedAuthMethod);
+        }
+        console.log('injectedAuthMethods in ngOnInit(): ', this.injectedAuthMethods);
+    */
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
@@ -81,7 +94,7 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
     this.alive = false;
   }
 

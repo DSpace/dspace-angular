@@ -1,6 +1,6 @@
 <ds-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-loading>
 <div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="form-login px-4 py-3">
-<ng-container *ngFor="let authMethodModel of injectedAuthMethods">
+<ng-container *ngFor="let authMethodModel of (authMethodData | async)">
   <ds-login-container
     [authMethodModel]="authMethodModel"></ds-login-container>
 </ng-container>
