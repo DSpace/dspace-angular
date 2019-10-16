@@ -77,7 +77,6 @@ const components = [
     SearchFilterService,
     SearchFixedFilterService,
     ConfigurationSearchPageGuard,
-    SearchFilterService,
     SearchConfigurationService
   ],
   entryComponents: [

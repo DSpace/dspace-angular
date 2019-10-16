@@ -1,7 +1,7 @@
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, zip as observableZip } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationExtras, PRIMARY_OUTLET, Router, UrlSegmentGroup } from '@angular/router';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { first, map, switchMap, take, tap } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import {
   FacetConfigSuccessResponse,
@@ -100,9 +100,10 @@ export class SearchService implements OnDestroy {
   /**
    * Method to retrieve a paginated list of search results from the server
    * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
+   * @param responseMsToLive The amount of milliseconds for the response to live in cache
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
-  search(searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+  search(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
     const hrefObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
         if (hasValue(searchOptions)) {
@@ -122,6 +123,7 @@ export class SearchService implements OnDestroy {
         };
 
         return Object.assign(request, {
+          responseMsToLive: hasValue(responseMsToLive) ? responseMsToLive : request.responseMsToLive,
           getResponseParser: getResponseParserFn
         });
       }),

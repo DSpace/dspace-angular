@@ -2,7 +2,7 @@
   <a [class.disabled]="!(object.workflowitem | async)?.hasSucceeded"
      class="btn btn-primary mt-1 mb-3"
      ngbTooltip="{{'submission.workflow.tasks.claimed.edit_help' | translate}}"
-     [routerLink]="['/workflowitems/' + (object.workflowitem | async)?.payload.id + '/' + object.id + '/edit']"
+     [routerLink]="['/workflowitems/' + (object.workflowitem | async)?.payload.id + '/edit']"
      role="button">
     <i class="fa fa-edit"></i> {{'submission.workflow.tasks.claimed.edit' | translate}}
   </a>

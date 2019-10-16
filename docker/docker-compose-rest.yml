@@ -1,0 +1,59 @@
+networks:
+  dspacenet:
+services:
+  dspace:
+    container_name: dspace
+    depends_on:
+    - dspacedb
+    image: dspace/dspace:dspace-7_x-jdk8-test
+    networks:
+      dspacenet:
+    ports:
+    - published: 8080
+      target: 8080
+    stdin_open: true
+    tty: true
+    volumes:
+    - assetstore:/dspace/assetstore
+    - "./local.cfg:/dspace/config/local.cfg"
+    # Ensure that the database is ready before starting tomcat
+    entrypoint:
+    - /bin/bash
+    - '-c'
+    - |
+      /dspace/bin/dspace database migrate
+      catalina.sh run
+  dspacedb:
+    container_name: dspacedb
+    image: dspace/dspace-postgres-pgcrypto
+    environment:
+      PGDATA: /pgdata
+    networks:
+      dspacenet:
+    stdin_open: true
+    tty: true
+    volumes:
+    - pgdata:/pgdata
+  dspacesolr:
+    container_name: dspacesolr
+    image: dspace/dspace-solr
+    networks:
+      dspacenet:
+    ports:
+    - published: 8983
+      target: 8983
+    stdin_open: true
+    tty: true
+    volumes:
+    - solr_authority:/opt/solr/server/solr/authority/data
+    - solr_oai:/opt/solr/server/solr/oai/data
+    - solr_search:/opt/solr/server/solr/search/data
+    - solr_statistics:/opt/solr/server/solr/statistics/data
+version: '3.7'
+volumes:
+  assetstore:
+  pgdata:
+  solr_authority:
+  solr_oai:
+  solr_search:
+  solr_statistics:
