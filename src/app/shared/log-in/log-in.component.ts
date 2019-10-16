@@ -20,9 +20,9 @@ export class LogInComponent implements OnInit, OnDestroy {
    */
   @Input() authMethodData: Observable<AuthMethodModel[]>;
 
-  private authMethods: AuthMethodModel[];
+  // private authMethods: AuthMethodModel[];
 
-  public injectedAuthMethods: InjectedAuthMethodModel[];
+  // public injectedAuthMethods: InjectedAuthMethodModel[];
 
   @Input() isStandalonePage: boolean;
 
@@ -51,18 +51,8 @@ export class LogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    /*    this.store.pipe(
-          select(getAuthenticationMethods),
-          tap((authMethods) => console.log('authMethods: ', authMethods))
-        ).subscribe(
-          (authMethods) => this.authMethodData = authMethods
-        );*/
-
     this.authMethodData = this.store.pipe(
-      select(getAuthenticationMethods),
-/*      tap((authMethods) => authMethods.forEach((method) => {
-        method.isStandalonePage = this.isStandalonePage;
-      }))*/
+      select(getAuthenticationMethods)
     );
     /*
         this.subscription = this.authMethodData.subscribe((methods) => this.authMethods = methods);
