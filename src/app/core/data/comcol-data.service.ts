@@ -1,6 +1,15 @@
-import { distinctUntilChanged, filter, map, mergeMap, share, take, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter, first,
+  map,
+  mergeMap,
+  share,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
@@ -60,7 +69,11 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
     }
   }
 
-  public findByParentCommunity(parentUUID: string): Observable<RemoteData<PaginatedList<T>>> {
-    this.halService.getEndpoint(`communities/${parentUUID}/collections`)
+  protected abstract getFindByParentHref(parentUUID: string): Observable<string>;
+
+  public findByParent(parentUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+    const href$ = this.buildHrefFromFindOptions(this.getFindByParentHref(parentUUID), [], options);
+    return this.findList(href$, options);
   }
+
 }

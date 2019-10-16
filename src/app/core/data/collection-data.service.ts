@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -136,4 +136,10 @@ export class CollectionDataService extends ComColDataService<Collection> {
     return this.rdbService.buildList(href$);
   }
 
+  protected getFindByParentHref(parentUUID: string): Observable<string> {
+    return this.halService.getEndpoint('communities').pipe(
+      switchMap((communityEndpointHref: string) =>
+        this.halService.getEndpoint('collections', `${communityEndpointHref}/${parentUUID}`)),
+    );
+  }
 }

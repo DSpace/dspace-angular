@@ -147,7 +147,7 @@ export class FindListOptions {
   startsWith?: string;
 }
 
-export class FindAllRequest extends GetRequest {
+export class FindListRequest extends GetRequest {
   constructor(
     uuid: string,
     href: string,

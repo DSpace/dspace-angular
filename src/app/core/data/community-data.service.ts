@@ -1,4 +1,4 @@
-import { filter, take } from 'rxjs/operators';
+import { filter, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { Community } from '../shared/community.model';
 import { ComColDataService } from './comcol-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindListOptions, FindAllRequest } from './request.models';
+import { FindListOptions, FindListRequest } from './request.models';
 import { RemoteData } from './remote-data';
 import { hasValue } from '../../shared/empty.util';
 import { Observable } from 'rxjs';
@@ -50,7 +50,7 @@ export class CommunityDataService extends ComColDataService<Community> {
       filter((href: string) => hasValue(href)),
       take(1))
       .subscribe((href: string) => {
-        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+        const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);
       });
 
@@ -64,10 +64,18 @@ export class CommunityDataService extends ComColDataService<Community> {
         filter((href: string) => hasValue(href)),
         take(1))
         .subscribe((href: string) => {
-          const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+          const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
           this.requestService.configure(request);
         });
 
     return this.rdbService.buildList<Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
   }
+
+  protected getFindByParentHref(parentUUID: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((communityEndpointHref: string) =>
+        this.halService.getEndpoint('subcommunities', `${communityEndpointHref}/${parentUUID}`))
+    );
+  }
+
 }

@@ -15,7 +15,7 @@ import {
   CreateRequest,
   DeleteByIDRequest,
   FindListOptions,
-  FindAllRequest,
+  FindListRequest,
   FindByIDRequest,
   GetRequest
 } from './request.models';
@@ -133,7 +133,7 @@ export abstract class DataService<T extends CacheableObject> {
     hrefObs.pipe(
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
-        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+        const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
         if (hasValue(this.responseMsToLive)) {
           request.responseMsToLive = this.responseMsToLive;
         }
@@ -191,7 +191,7 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
-   * Make a new FindAllRequest with given search method
+   * Make a new FindListRequest with given search method
    *
    * @param searchMethod The search method for the object
    * @param options The [[FindListOptions]] object
@@ -205,7 +205,7 @@ export abstract class DataService<T extends CacheableObject> {
     hrefObs.pipe(
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
-        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+        const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
         request.responseMsToLive = 10 * 1000;
         this.requestService.configure(request);
       });
