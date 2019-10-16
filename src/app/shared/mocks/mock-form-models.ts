@@ -74,6 +74,7 @@ const rowArrayQualdropConfig = {
   id: 'row_QUALDROP_GROUP',
   initialCount: 1,
   notRepeatable: true,
+  showButtons: true,
   groupFactory: () => {
     return [MockQualdropModel];
   }
@@ -117,6 +118,7 @@ const mockFormRowModel = {
 const relationGroupConfig = {
   id: 'relationGroup',
   formConfiguration: [mockFormRowModel],
+  isInlineGroup: false,
   mandatoryField: 'false',
   relationFields: ['journal', 'issue'],
   scopeUUID: 'scope',

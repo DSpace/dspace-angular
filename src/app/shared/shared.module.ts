@@ -145,6 +145,7 @@ import { PublicationGridElementComponent } from './object-grid/item-grid-element
 import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
 import { AuthorityTreeviewComponent } from './authority-treeview/authority-treeview.component';
 import { MaterialModule } from './material/material.module';
+import { DsDynamicRelationInlineGroupComponent } from './form/builder/ds-dynamic-form-ui/models/relation-inline-group/dynamic-relation-inline-group.components';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -210,6 +211,7 @@ const COMPONENTS = [
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,
   DsDynamicRelationGroupComponent,
+  DsDynamicRelationInlineGroupComponent,
   DsDatePickerComponent,
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,
@@ -298,6 +300,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicTagComponent,
   DsDynamicTypeaheadComponent,
   DsDynamicRelationGroupComponent,
+  DsDynamicRelationInlineGroupComponent,
   DsDatePickerComponent,
   DsDynamicFormGroupComponent,
   DsDynamicFormArrayComponent,

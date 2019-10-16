@@ -1,0 +1,51 @@
+<div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}">
+    <ds-form #formRef="formComponent" *ngIf="formModel" @shrinkInOut
+             [formId]="formId"
+             [formModel]="formModel"
+             [displaySubmit]="false"
+             [emitChange]="false"
+             [arrayButtonsStyle]="'inline-btn-group'"
+             (dfBlur)="onBlur($event)"
+             (dfFocus)="onFocus($event)"
+             (removeArrayItem)="remove($event)"></ds-form>
+</div>
+
+
+<!--
+<div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}">
+&lt;!&ndash;  <ds-form #formRef="formComponent" *ngIf="formModel" @shrinkInOut
+           [formId]="formId"
+           [formModel]="formModel"
+           [displaySubmit]="false"
+           [emitChange]="false"
+           (dfBlur)="onBlur($event)"
+           (dfFocus)="onFocus($event)"
+           (removeArrayItem)="remove($event)"></ds-form>&ndash;&gt;
+  <div class="pl-2 row"  @shrinkInOut>
+    <ds-form #formRef="formComponent"
+             class="col-sm-12 col-md-8 col-lg-9 col-xl-10 pl-0"
+             [formId]="formId"
+             [formModel]="formModel"
+             [displaySubmit]="false"
+             [emitChange]="false"
+             (dfBlur)="onBlur($event)"
+             (dfFocus)="onFocus($event)"></ds-form>
+
+
+    <div class="col p-0 m-0 d-flex">
+
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary">
+          <i class="fas fa-plus" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-secondary"
+                (click)="remove()">
+          <i class="fas fa-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+-->

@@ -68,10 +68,14 @@ import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.compone
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
+import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  DynamicRelationGroupModel
+} from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -118,7 +122,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
       return DsDynamicTagComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP:
-      return DsDynamicRelationGroupComponent;
+      return (model as DynamicRelationGroupModel).isInlineGroup ? DsDynamicRelationInlineGroupComponent : DsDynamicRelationGroupComponent;
 
     case DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER:
       return DsDatePickerComponent;

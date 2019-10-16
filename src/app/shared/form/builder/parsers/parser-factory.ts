@@ -30,7 +30,8 @@ export class ParserFactory {
       case ParserType.Dropdown: {
         return DropdownFieldParser
       }
-      case ParserType.RelationGroup: {
+      case ParserType.RelationGroup:
+      case ParserType.InlineGroup: {
         return RelationGroupFieldParser
       }
       case ParserType.List: {

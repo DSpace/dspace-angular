@@ -11,6 +11,7 @@ export const PLACEHOLDER_PARENT_METADATA = '#PLACEHOLDER_PARENT_METADATA_VALUE#'
  */
 export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConfig {
   formConfiguration: FormRowModel[],
+  isInlineGroup: boolean,
   mandatoryField: string,
   relationFields: string[],
   scopeUUID: string,
@@ -22,6 +23,7 @@ export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConf
  */
 export class DynamicRelationGroupModel extends DsDynamicInputModel {
   @serializable() formConfiguration: FormRowModel[];
+  @serializable() isInlineGroup: boolean;
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
   @serializable() scopeUUID: string;
@@ -37,6 +39,7 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
     this.relationFields = config.relationFields;
     this.scopeUUID = config.scopeUUID;
     this.submissionScope = config.submissionScope;
+    this.isInlineGroup = config.isInlineGroup;
     const value = config.value || [];
     this.valueUpdates.next(value);
   }

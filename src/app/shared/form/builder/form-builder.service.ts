@@ -209,6 +209,7 @@ export class FormBuilderService extends DynamicFormService {
   }
 
   modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any = {}, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
+    console.log('modelFromConfiguration', initFormValues);
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;
 

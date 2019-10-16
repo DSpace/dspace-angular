@@ -14,8 +14,9 @@
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
 
         <!--Array with repeteable items-->
-        <div *ngIf="!context.notRepeatable"
-             class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
+        <div *ngIf="(!context.notRepeatable) && context.showButtons"
+             class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
+             [class]="arrayButtonsStyle">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
                     [disabled]="isItemReadOnly(context, index)"
@@ -31,8 +32,9 @@
         </div>
 
         <!--Array with non repeteable items - Only delete button-->
-        <div *ngIf="context.notRepeatable && group.context.groups.length > 1"
-             class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
+        <div *ngIf="context.notRepeatable && context.showButtons && group.context.groups.length > 1"
+             class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
+             [class]="arrayButtonsStyle">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary"
                     (click)="removeItem($event, context, index)"

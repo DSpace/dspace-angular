@@ -12,6 +12,7 @@ import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
+import { ParserType } from './parser-type';
 
 export abstract class FieldParser {
 
@@ -24,9 +25,10 @@ export abstract class FieldParser {
 
   public parse() {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
-      && (this.configData.input.type !== 'list')
-      && (this.configData.input.type !== 'tag')
-      && (this.configData.input.type !== 'group')
+      && (this.configData.input.type !== ParserType.List)
+      && (this.configData.input.type !== ParserType.Tag)
+      && (this.configData.input.type !== ParserType.RelationGroup)
+      && (this.configData.input.type !== ParserType.InlineGroup)
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
