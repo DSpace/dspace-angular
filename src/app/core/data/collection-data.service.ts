@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { FindListOptions, GetRequest } from './request.models';
+import {FindListOptions, FindListRequest, GetRequest} from './request.models';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { configureRequest } from '../shared/operators';

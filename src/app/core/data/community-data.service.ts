@@ -23,7 +23,6 @@ import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
   protected topLinkPath = 'communities/search/top';
-  protected subcommunitiesLinkPath = 'communities/search/subCommunities';
   protected cds = this;
 
   constructor(
@@ -53,20 +52,6 @@ export class CommunityDataService extends ComColDataService<Community> {
         const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request);
       });
-
-    return this.rdbService.buildList<Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
-  }
-
-  findSubCommunitiesPerParentCommunity(parentCommunityUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
-    const hrefObs = this.getFindAllHref(options, this.subcommunitiesLinkPath + '?parent=' + parentCommunityUUID);
-
-    hrefObs.pipe(
-        filter((href: string) => hasValue(href)),
-        take(1))
-        .subscribe((href: string) => {
-          const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
-          this.requestService.configure(request);
-        });
 
     return this.rdbService.buildList<Community>(hrefObs) as Observable<RemoteData<PaginatedList<Community>>>;
   }

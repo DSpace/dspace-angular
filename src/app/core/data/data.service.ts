@@ -128,9 +128,11 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   findAll(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
-    const hrefObs = this.getFindAllHref(options);
+    return this.findList(this.getFindAllHref(options), options);
+  }
 
-    hrefObs.pipe(
+  protected findList(href$, options: FindListOptions) {
+    href$.pipe(
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
@@ -140,7 +142,7 @@ export abstract class DataService<T extends CacheableObject> {
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
+    return this.rdbService.buildList<T>(href$) as Observable<RemoteData<PaginatedList<T>>>;
   }
 
   /**

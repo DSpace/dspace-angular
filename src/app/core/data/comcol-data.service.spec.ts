@@ -13,7 +13,7 @@ import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from './request.reducer';
-import { of as observableOf } from 'rxjs';
+import {Observable, of as observableOf} from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
@@ -44,6 +44,11 @@ class TestService extends ComColDataService<any> {
     protected linkPath: string
   ) {
     super();
+  }
+
+  protected getFindByParentHref(parentUUID: string): Observable<string> {
+    // implementation in subclasses for communities/collections
+    return undefined;
   }
 }
 
