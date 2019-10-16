@@ -9,7 +9,7 @@ import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-rep
   templateUrl: './orgunit-item-page-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an item of the type OrgUnit
+ * The component for displaying an item of the type OrgUnit as a metadata field
  */
 export class OrgunitItemPageListElementComponent {
   metadataRepresentation: ItemMetadataRepresentation;

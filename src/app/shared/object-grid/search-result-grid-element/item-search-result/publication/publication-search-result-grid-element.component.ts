@@ -14,7 +14,7 @@ import { ItemSearchResult } from '../../../../object-collection/shared/item-sear
   animations: [focusShadow]
 })
 /**
- * The component for displaying a grid element for an item of the type Publication
+ * The component for displaying a grid element for an item search result of the type Publication
  */
 export class PublicationSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
 }

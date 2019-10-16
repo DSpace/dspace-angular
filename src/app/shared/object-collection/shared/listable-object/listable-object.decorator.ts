@@ -10,9 +10,10 @@ export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 const map = new Map();
 
 /**
- * Decorator used for rendering simple item pages by type and viewMode (and optionally a representationType)
- * @param type
- * @param viewMode
+ * Decorator used for rendering a listable object
+ * @param type The object type or entity type the component represents
+ * @param viewMode The view mode the component represents
+ * @param context The optional context the component represents
  */
 export function listableObjectComponent(objectType: string | GenericConstructor<ListableObject>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
   return function decorator(component: any) {
@@ -29,6 +30,12 @@ export function listableObjectComponent(objectType: string | GenericConstructor<
   };
 }
 
+/**
+ * Getter to retrieve the matching listable object component
+ * @param types The types of which one should match the listable component
+ * @param viewMode The view mode that should match the components
+ * @param context The context that should match the components
+ */
 export function getListableObjectComponent(types: Array<string | GenericConstructor<ListableObject>>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
   let bestMatch;
   let bestMatchValue = 0;

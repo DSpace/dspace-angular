@@ -12,7 +12,7 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
   templateUrl: './journal-search-result-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an item of the type Journal
+ * The component for displaying a list element for an item search result of the type Journal
  */
 export class JournalSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }

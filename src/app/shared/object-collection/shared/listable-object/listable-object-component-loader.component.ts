@@ -21,20 +21,37 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
    */
   @Input() object: ListableObject;
 
-  // TODO DO SOMETHING WITH THIS
+  /**
+   * The index of the object in the list
+   */
   @Input() index: number;
+
   /**
    * The preferred view-mode to display
    */
   @Input() viewMode: ViewMode;
 
+  /**
+   * The context of listable object
+   */
   @Input() context: Context;
+
+  /**
+   * The type of link used to render the links inside the listable object
+   */
   @Input() linkType: CollectionElementLinkType;
+
+  /**
+   * Directive hook used to place the dynamic child component
+   */
   @ViewChild(ListableObjectDirective) listableObjectDirective: ListableObjectDirective;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
   }
 
+  /**
+   * Setup the dynamic child component
+   */
   ngOnInit(): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
 
@@ -48,8 +65,8 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
   }
 
   /**
-   * Fetch the component depending on the item's relationship type
-   * @returns {string}
+   * Fetch the component depending on the item's relationship type, view mode and context
+   * @returns {GenericConstructor<Component>}
    */
   private getComponent(): GenericConstructor<Component> {
     return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context)

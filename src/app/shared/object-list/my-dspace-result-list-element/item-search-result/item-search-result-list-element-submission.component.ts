@@ -9,7 +9,7 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**
- * This component renders item object for the mydspace result in the list view.
+ * This component renders item object for the search result in the list view for submission.
  */
 @Component({
   selector: 'ds-item-search-result-list-element-submission',

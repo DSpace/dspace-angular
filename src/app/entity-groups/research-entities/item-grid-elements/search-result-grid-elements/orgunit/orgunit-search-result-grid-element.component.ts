@@ -14,7 +14,7 @@ import { Item } from '../../../../../core/shared/item.model';
   animations: [focusShadow]
 })
 /**
- * The component for displaying a grid element for an item of the type Organisation Unit
+ * The component for displaying a grid element for an item search result of the type Organisation Unit
  */
 export class OrgunitSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
 }

@@ -13,7 +13,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflowitem-search-result.model';
 
 /**
- * This component renders workflowitem object for the mydspace result in the detail view.
+ * This component renders workflowitem object for the search result in the detail view.
  */
 @Component({
   selector: 'ds-workflow-item-search-result-detail-element',

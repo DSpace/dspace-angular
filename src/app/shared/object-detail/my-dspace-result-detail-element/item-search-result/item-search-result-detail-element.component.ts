@@ -8,7 +8,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 
 /**
- * This component renders item object for the mydspace result in the detail view.
+ * This component renders item object for the search result in the detail view.
  */
 @Component({
   selector: 'ds-item-search-result-detail-element',
@@ -16,13 +16,7 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
   templateUrl: './item-search-result-detail-element.component.html'
 })
 
-@listableObjectComponent('PublicationSearchResult', ViewMode.DetailedListElement)
-@listableObjectComponent('OrgUnitSearchResult', ViewMode.DetailedListElement)
-@listableObjectComponent('PersonSearchResult', ViewMode.DetailedListElement)
-@listableObjectComponent('JournalSearchResult', ViewMode.DetailedListElement)
-@listableObjectComponent('JournalIssueSearchResult', ViewMode.DetailedListElement)
-@listableObjectComponent('JournalVolumeSearchResult', ViewMode.DetailedListElement)
-@listableObjectComponent('ProjectSearchResult', ViewMode.DetailedListElement)
+@listableObjectComponent(Item, ViewMode.DetailedListElement)
 export class ItemSearchResultDetailElementComponent extends SearchResultDetailElementComponent<ItemSearchResult, Item> {
 
   /**

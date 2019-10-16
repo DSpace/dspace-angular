@@ -25,6 +25,9 @@ import { SearchResult } from '../../+search-page/search-result.model';
   templateUrl: './my-dspace-new-submission.component.html'
 })
 export class MyDSpaceNewSubmissionComponent implements OnDestroy, OnInit {
+  /**
+   * Output that emits the workspace item when the upload has completed
+   */
   @Output() uploadEnd = new EventEmitter<Array<SearchResult<DSpaceObject>>>();
 
   /**

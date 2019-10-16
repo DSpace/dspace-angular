@@ -5,6 +5,9 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 
+/**
+ * Component representing a grid element for collection
+ */
 @Component({
   selector: 'ds-collection-grid-element',
   styleUrls: ['./collection-grid-element.component.scss'],

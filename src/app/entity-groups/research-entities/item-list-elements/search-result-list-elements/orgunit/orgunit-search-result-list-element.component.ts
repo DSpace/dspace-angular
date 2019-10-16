@@ -12,7 +12,7 @@ import { Item } from '../../../../../core/shared/item.model';
   templateUrl: './orgunit-search-result-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an item of the type Organisation Unit
+ * The component for displaying a list element for an item search result of the type Organisation Unit
  */
 export class OrgunitSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-metadata-representation-list',

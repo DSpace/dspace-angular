@@ -13,7 +13,7 @@ import { Item } from '../../../../../../core/shared/item.model';
   templateUrl: './publication-search-result-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an item of the type Publication
+ * The component for displaying a list element for an item search result of the type Publication
  */
 export class PublicationSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }

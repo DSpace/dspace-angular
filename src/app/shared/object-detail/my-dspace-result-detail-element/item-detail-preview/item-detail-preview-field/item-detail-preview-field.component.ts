@@ -19,7 +19,7 @@ export class ItemDetailPreviewFieldComponent {
   @Input() item: Item;
 
   /**
-   * The mydspace result object
+   * The search result object
    */
   @Input() object: SearchResult<any>;
 

@@ -14,7 +14,7 @@ import { Item } from '../../../../../core/shared/item.model';
   animations: [focusShadow]
 })
 /**
- * The component for displaying a grid element for an item of the type Journal
+ * The component for displaying a grid element for an item search result of the type Journal
  */
 export class JournalSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
 }

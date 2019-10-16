@@ -12,7 +12,7 @@ import { Item } from '../../../../../core/shared/item.model';
   templateUrl: './journal-issue-search-result-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an item of the type Journal Issue
+ * The component for displaying a list element for an item search result of the type Journal Issue
  */
 export class JournalIssueSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }

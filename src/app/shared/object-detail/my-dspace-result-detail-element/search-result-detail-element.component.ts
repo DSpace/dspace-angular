@@ -6,6 +6,9 @@ import { Metadata } from '../../../core/shared/metadata.utils';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { hasValue } from '../../empty.util';
 
+/**
+ * Component representing Search Results with ViewMode.DetailedElement
+ */
 @Component({
   selector: 'ds-search-result-detail-element',
   template: ``
@@ -17,6 +20,9 @@ export class SearchResultDetailElementComponent<T extends SearchResult<K>, K ext
    */
   dso: K;
 
+  /**
+   * Initialize instance variables
+   */
   ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;

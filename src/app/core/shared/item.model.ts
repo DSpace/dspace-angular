@@ -14,6 +14,9 @@ import { GenericConstructor } from './generic-constructor';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 
+/**
+ * Class representing a DSpace Item
+ */
 export class Item extends DSpaceObject {
   static type = new ResourceType('item');
 
@@ -113,6 +116,9 @@ export class Item extends DSpaceObject {
       }));
   }
 
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
   getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
     let entityType = this.firstMetadataValue('relationship.type');
     if (isEmpty(entityType)) {

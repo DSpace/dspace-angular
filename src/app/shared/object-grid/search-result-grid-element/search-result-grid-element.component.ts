@@ -14,7 +14,14 @@ import { hasValue } from '../../empty.util';
 })
 
 export class SearchResultGridElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
+  /**
+   * The DSpaceObject of the search result
+   */
   dso: K;
+
+  /**
+   * Whether or not the grid element is currently collapsed
+   */
   isCollapsed$: Observable<boolean>;
 
   public constructor(protected truncatableService: TruncatableService) {
@@ -24,6 +31,9 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
     }
   }
 
+  /**
+   * Retrieve the dso from the search result
+   */
   ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;

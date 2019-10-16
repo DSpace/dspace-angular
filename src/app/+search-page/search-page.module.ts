@@ -43,8 +43,6 @@ const components = [
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
-  CollectionSearchResultGridElementComponent,
-  CommunitySearchResultGridElementComponent,
   SearchFiltersComponent,
   SearchFilterComponent,
   SearchFacetFilterComponent,
@@ -83,8 +81,6 @@ const components = [
     SearchConfigurationService
   ],
   entryComponents: [
-    CollectionSearchResultGridElementComponent,
-    CommunitySearchResultGridElementComponent,
     SearchFacetFilterComponent,
     SearchRangeFilterComponent,
     SearchTextFilterComponent,

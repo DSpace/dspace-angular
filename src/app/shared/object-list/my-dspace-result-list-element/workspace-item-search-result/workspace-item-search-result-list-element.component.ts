@@ -14,7 +14,7 @@ import { WorkspaceItemSearchResult } from '../../../object-collection/shared/wor
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 
 /**
- * This component renders workspaceitem object for the mydspace result in the list view.
+ * This component renders workspaceitem object for the search result in the list view.
  */
 @Component({
   selector: 'ds-workspace-item-search-result-list-element',

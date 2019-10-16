@@ -24,8 +24,16 @@ import { CollectionElementLinkType } from '../../object-collection/collection-el
  * Component representing a form with a autocomplete functionality for DSpaceObjects
  */
 export class DsoInputSuggestionsComponent extends InputSuggestionsComponent {
+  /**
+   * The view mode of the listed object suggestions
+   */
   viewMode = ViewMode.ListElement;
+
+  /**
+   * The available link types
+   */
   linkTypes = CollectionElementLinkType;
+
   /**
    * The suggestions that should be shown
    */

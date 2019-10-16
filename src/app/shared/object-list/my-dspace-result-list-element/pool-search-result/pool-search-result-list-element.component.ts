@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
@@ -13,10 +13,9 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { Item } from '../../../../core/shared/item.model';
 
 /**
- * This component renders pool task object for the mydspace result in the list view.
+ * This component renders pool task object for the search result in the list view.
  */
 @Component({
   selector: 'ds-pool-search-result-list-element',
@@ -42,6 +41,9 @@ export class PoolSearchResultListElementComponent extends SearchResultListElemen
    */
   public workflowitem: WorkflowItem;
 
+  /**
+   * The index of this list element
+   */
   public index: number;
 
   constructor(protected truncatableService: TruncatableService) {

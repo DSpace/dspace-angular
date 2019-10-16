@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
@@ -11,7 +11,6 @@ import { WorkflowItem } from '../../../../core/submission/models/workflowitem.mo
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { PoolTaskSearchResult } from '../../../object-collection/shared/pool-task-search-result.model';
-import { Item } from '../../../../core/shared/item.model';
 
 /**
  * This component renders pool task object for the mydspace result in the detail view.
@@ -39,10 +38,6 @@ export class PoolSearchResultDetailElementComponent extends SearchResultDetailEl
    * The workflowitem object that belonging to the result object
    */
   public workflowitem: WorkflowItem;
-
-  constructor() {
-    super();
-  }
 
   /**
    * Initialize all instance variables

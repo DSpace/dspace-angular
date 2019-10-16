@@ -10,8 +10,9 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   styleUrls: ['../search-result-grid-element.component.scss', 'community-search-result-grid-element.component.scss'],
   templateUrl: 'community-search-result-grid-element.component.html'
 })
-
+/**
+ * Component representing a grid element for a community search result
+ */
 @listableObjectComponent(CommunitySearchResult, ViewMode.GridElement)
 export class CommunitySearchResultGridElementComponent extends SearchResultGridElementComponent<CommunitySearchResult, Community> {
-
 }

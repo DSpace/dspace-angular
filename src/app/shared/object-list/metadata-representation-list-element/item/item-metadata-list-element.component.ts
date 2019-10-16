@@ -17,7 +17,7 @@ import { metadataRepresentationComponent } from '../../../metadata-representatio
 export class ItemMetadataListElementComponent extends MetadataRepresentationListElementComponent {
   /**
    * The view-mode we're currently on
-   * @type {ElementViewMode}
+   * @type {ViewMode}
    */
   viewMode = ViewMode.ListElement;
 }

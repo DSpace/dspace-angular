@@ -12,7 +12,7 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
   templateUrl: './project-search-result-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an item of the type Project
+ * The component for displaying a list element for an item search result of the type Project
  */
 export class ProjectSearchResultListElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> {
 }

@@ -7,7 +7,6 @@ import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { MetadataMap } from '../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-search-result-list-element',
@@ -15,13 +14,18 @@ import { MetadataMap } from '../../../core/shared/metadata.models';
 })
 
 export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
+  /**
+   * The DSpaceObject of the search result
+   */
   dso: K;
-  metadata: MetadataMap;
 
   public constructor(protected truncatableService: TruncatableService) {
     super();
   }
 
+  /**
+   * Retrieve the dso from the search result
+   */
   ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
@@ -48,6 +52,9 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
     return Metadata.firstValue([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
 
+  /**
+   * Emits if the list element is currently collapsed or not
+   */
   isCollapsed(): Observable<boolean> {
     return this.truncatableService.isCollapsed(this.dso.id);
   }

@@ -14,7 +14,7 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
 import { WorkspaceItemSearchResult } from '../../../object-collection/shared/workspaceitem-search-result.model';
 
 /**
- * This component renders workspaceitem object for the mydspace result in the detail view.
+ * This component renders workspace item object for the search result in the detail view.
  */
 @Component({
   selector: 'ds-workspace-item-search-result-detail-element',

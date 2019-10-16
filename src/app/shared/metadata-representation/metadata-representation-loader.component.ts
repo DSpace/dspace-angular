@@ -12,19 +12,30 @@ import { MetadataRepresentationDirective } from './metadata-representation.direc
   templateUrl: './metadata-representation-loader.component.html'
 })
 /**
- * Component for determining what component to use depending on the item's relationship type (relationship.type)
+ * Component for determining what component to use depending on the item's relationship type (relationship.type), its metadata representation and, optionally, its context
  */
 export class MetadataRepresentationLoaderComponent implements OnInit {
   /**
    * The item or metadata to determine the component for
    */
   @Input() mdRepresentation: MetadataRepresentation;
+
+  /**
+   * The optional context
+   */
   @Input() context: Context;
+
+  /**
+   * Directive to determine where the dynamic child component is located
+   */
   @ViewChild(MetadataRepresentationDirective) mdRepDirective: MetadataRepresentationDirective;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
   }
 
+  /**
+   * Set up the dynamic child component
+   */
   ngOnInit(): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.getComponent());
 
@@ -36,7 +47,7 @@ export class MetadataRepresentationLoaderComponent implements OnInit {
   }
 
   /**
-   * Fetch the component depending on the item's relationship type
+   * Fetch the component depending on the item's relationship type, metadata representation type and context
    * @returns {string}
    */
   private getComponent(): GenericConstructor<MetadataRepresentationListElementComponent> {

@@ -14,7 +14,7 @@ import { focusShadow } from '../../../../../shared/animations/focus';
   animations: [focusShadow]
 })
 /**
- * The component for displaying a grid element for an item of the type Project
+ * The component for displaying a grid element for an item search result of the type Project
  */
 export class ProjectSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
 }

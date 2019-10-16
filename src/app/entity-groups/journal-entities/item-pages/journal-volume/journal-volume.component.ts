@@ -27,6 +27,9 @@ export class JournalVolumeComponent extends ItemComponent {
    */
   issues$: Observable<Item[]>;
 
+  /**
+   * Initialize the instance variables
+   */
   ngOnInit(): void {
     super.ngOnInit();
 

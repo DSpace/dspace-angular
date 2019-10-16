@@ -7,7 +7,18 @@ import { CollectionElementLinkType } from '../../collection-element-link.type';
   template: ``,
 })
 export class AbstractListableElementComponent<T extends ListableObject> {
+  /**
+   * The object to render in this list element
+   */
   @Input() object: T;
+
+  /**
+   * The link type to determine the type of link rendered in this element
+   */
   @Input() linkType: CollectionElementLinkType;
+
+  /**
+   * The available link types
+   */
   linkTypes = CollectionElementLinkType;
 }

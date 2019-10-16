@@ -12,8 +12,8 @@ import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-rep
   templateUrl: './person-item-page-list-element.component.html'
 })
 /**
- * The component for displaying a list element for an item of the type Person
- */
+ * The component for displaying an item of the type Person as a metadata field
+*/
 export class PersonItemPageListElementComponent {
   metadataRepresentation: ItemMetadataRepresentation;
 }

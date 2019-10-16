@@ -11,6 +11,8 @@ import { listableObjectComponent } from '../../../object-collection/shared/lista
   styleUrls: ['../search-result-grid-element.component.scss', 'collection-search-result-grid-element.component.scss'],
   templateUrl: 'collection-search-result-grid-element.component.html'
 })
-
+/**
+ * Component representing a grid element for a collection search result
+ */
 @listableObjectComponent(CollectionSearchResult, ViewMode.GridElement)
 export class CollectionSearchResultGridElementComponent extends SearchResultGridElementComponent<CollectionSearchResult, Collection> {}

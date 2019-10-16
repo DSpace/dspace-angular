@@ -8,6 +8,13 @@ export const DEFAULT_ENTITY_TYPE = 'Publication';
 export const DEFAULT_REPRESENTATION_TYPE = MetadataRepresentationType.PlainText;
 export const DEFAULT_CONTEXT = Context.Undefined;
 
+
+/**
+ * Decorator function to store metadata representation mapping
+ * @param entityType The entity type the component represents
+ * @param mdRepresentationType The metadata representation type the component represents
+ * @param context The optional context the component represents
+ */
 export function metadataRepresentationComponent(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context = DEFAULT_CONTEXT) {
   return function decorator(component: any) {
     if (hasNoValue(map.get(entityType))) {
@@ -24,6 +31,12 @@ export function metadataRepresentationComponent(entityType: string, mdRepresenta
   }
 }
 
+/**
+ * Getter to retrieve a matching component by entity type, metadata representation and context
+ * @param entityType The entity type to match
+ * @param mdRepresentationType The metadata representation to match
+ * @param context The context to match
+ */
 export function getMetadataRepresentationComponent(entityType: string, mdRepresentationType: MetadataRepresentationType, context: Context = DEFAULT_CONTEXT) {
   const mapForEntity = map.get(entityType);
   if (hasValue(mapForEntity)) {

@@ -18,7 +18,6 @@ export function searchResultFor(domainConstructor: GenericConstructor<ListableOb
       return;
     }
     searchResultMap.set(domainConstructor, searchResult);
-
   };
 }
 

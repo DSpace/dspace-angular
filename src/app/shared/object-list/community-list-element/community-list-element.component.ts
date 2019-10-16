@@ -10,6 +10,8 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
   styleUrls: ['./community-list-element.component.scss'],
   templateUrl: './community-list-element.component.html'
 })
-
+/**
+ * Component representing a list element for a community
+ */
 @listableObjectComponent(Community, ViewMode.ListElement)
 export class CommunityListElementComponent extends AbstractListableElementComponent<Community> {}

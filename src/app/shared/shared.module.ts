@@ -139,6 +139,8 @@ import { ListableObjectComponentLoaderComponent } from './object-collection/shar
 import { PublicationSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-types/publication/publication-search-result-list-element.component';
 import { PublicationSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/publication/publication-search-result-grid-element.component';
 import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
+import { CommunitySearchResultGridElementComponent } from './object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
+import { CollectionSearchResultGridElementComponent } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -253,7 +255,13 @@ const COMPONENTS = [
   EditItemSelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
+  CommunitySearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
   ListableObjectComponentLoaderComponent,
+  CollectionListElementComponent,
+  CommunityListElementComponent,
+  CollectionGridElementComponent,
+  CommunityGridElementComponent,
   BrowseByComponent,
   ItemTypeBadgeComponent,
   MetadataRepresentationLoaderComponent
@@ -268,6 +276,8 @@ const ENTRY_COMPONENTS = [
   CollectionSearchResultListElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
   SearchResultGridElementComponent,
   PublicationListElementComponent,
   PublicationGridElementComponent,

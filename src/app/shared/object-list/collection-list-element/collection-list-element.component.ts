@@ -10,6 +10,8 @@ import { listableObjectComponent } from '../../object-collection/shared/listable
   styleUrls: ['./collection-list-element.component.scss'],
   templateUrl: './collection-list-element.component.html'
 })
-
+/**
+ * Component representing list element for a collection
+ */
 @listableObjectComponent(Collection, ViewMode.ListElement)
 export class CollectionListElementComponent extends AbstractListableElementComponent<Collection> {}

@@ -117,7 +117,7 @@ export function createMockApi() {
     const id = req.params.item_id;
     try {
       req.item_id = id;
-      req.object = ITEMS.items.find((item) => {
+      req.item = ITEMS.items.find((item) => {
         return item.id === id;
       });
       next();
@@ -127,7 +127,7 @@ export function createMockApi() {
   });
 
   router.route('/items/:item_id').get((req, res) => {
-    res.json(toHALResponse(req, req.object));
+    res.json(toHALResponse(req, req.item));
   });
 
   router.route('/bundles').get((req, res) => {

@@ -17,6 +17,9 @@ export class SearchResult<T extends DSpaceObject> implements ListableObject {
    */
   hitHighlights: MetadataMap;
 
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
   getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
     return [this.constructor as GenericConstructor<ListableObject>];
   }

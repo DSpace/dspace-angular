@@ -15,7 +15,7 @@ import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claim
 import { Item } from '../../../../core/shared/item.model';
 
 /**
- * This component renders claimed task object for the mydspace result in the detail view.
+ * This component renders claimed task object for the search result in the detail view.
  */
 @Component({
   selector: 'ds-claimed-task-search-result-detail-element',

@@ -25,6 +25,9 @@ import { CollectionElementLinkType } from '../../shared/object-collection/collec
 export class SearchResultsComponent {
   hasNoValue = hasNoValue;
 
+  /**
+   * The link type of the listed search results
+   */
   @Input() linkType: CollectionElementLinkType;
 
   /**

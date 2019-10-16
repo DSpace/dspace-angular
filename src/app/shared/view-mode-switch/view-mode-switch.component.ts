@@ -22,13 +22,23 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
    */
   @Input() inPlaceSearch;
 
+  /**
+   * The current view mode
+   */
   currentMode: ViewMode = ViewMode.ListElement;
+
+  /**
+   * All available view modes
+   */
   viewModeEnum = ViewMode;
   private sub: Subscription;
 
   constructor(private searchService: SearchService) {
   }
 
+  /**
+   * Initialize the instance variables
+   */
   ngOnInit(): void {
     if (isEmpty(this.viewModeList)) {
       this.viewModeList = [ViewMode.ListElement, ViewMode.GridElement];
@@ -39,6 +49,10 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Switch view modes
+   * @param viewMode The new view mode
+   */
   switchViewTo(viewMode: ViewMode) {
     this.searchService.setViewMode(viewMode, this.getSearchLinkParts());
   }
@@ -49,6 +63,10 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Whether or not to show a certain view mode
+   * @param viewMode The view mode to check for
+   */
   isToShow(viewMode: ViewMode) {
     return this.viewModeList && this.viewModeList.includes(viewMode);
   }
