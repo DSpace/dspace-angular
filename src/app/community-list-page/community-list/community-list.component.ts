@@ -4,7 +4,7 @@ import {CommunityListDatasource} from '../community-list-datasource';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {Collection} from '../../core/shared/collection.model';
 import {Community} from '../../core/shared/community.model';
-import {isEmpty} from "../../shared/empty.util";
+import {isEmpty} from '../../shared/empty.util';
 
 @Component({
     selector: 'ds-community-list',
@@ -14,7 +14,6 @@ import {isEmpty} from "../../shared/empty.util";
 export class CommunityListComponent implements OnInit {
 
     private expandedNodes: FlatNode[] = [];
-    private Arr = Array;
 
     treeControl = new FlatTreeControl<FlatNode>(
         (node) => node.level, (node) => node.isExpandable

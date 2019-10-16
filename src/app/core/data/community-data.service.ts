@@ -59,7 +59,6 @@ export class CommunityDataService extends ComColDataService<Community> {
 
   findSubCommunitiesPerParentCommunity(parentCommunityUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Community>>> {
     const hrefObs = this.getFindAllHref(options, this.subcommunitiesLinkPath + '?parent=' + parentCommunityUUID);
-    console.log('subcomurl', hrefObs.pipe(take(1)).subscribe((val) => console.log('subcomurl', val)));
 
     hrefObs.pipe(
         filter((href: string) => hasValue(href)),

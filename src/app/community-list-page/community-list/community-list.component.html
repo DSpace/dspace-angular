@@ -6,7 +6,6 @@
         <div class="btn-group"
              (click)="getNextPage(node)">
             <button type="button" class="btn btn-default" cdkTreeNodeToggle
-                    [attr.aria-label]="'toggle ' + node.name"
                     (click)="getNextPage(node)">
                 <span class="fa fa-plus"
                       aria-hidden="true"></span>
@@ -15,24 +14,33 @@
                 {{ 'communityList.showMore' | translate }}
             </h5>
         </div>
+        <div class="text-muted" cdkTreeNodePadding>
+            <div class="d-flex" *ngIf="node.payload.shortDescription">
+                <button type="button" class="btn btn-default invisible">
+                </button>
+                <span>{{node.payload.shortDescription}}</span>
+            </div>
+        </div>
     </cdk-tree-node>
     <!-- This is the tree node template for leaf nodes -->
     <cdk-tree-node *cdkTreeNodeDef="let node; when: !(hasChild && isShowMore)" cdkTreeNodePadding
-                    class="example-tree-node">
+                   class="example-tree-node">
         <div class="btn-group">
-            <button type="button" class="btn btn-default" cdkTreeNodeToggle >
+            <button type="button" class="btn btn-default" cdkTreeNodeToggle>
                 <span class="fa fa-minus"
                       aria-hidden="true"></span>
             </button>
             <h6 class="align-middle pt-2">
                 <a [routerLink]="node.route" class="lead">
-                    {{node.name}} {{node.id}}
+                    {{node.name}}
                 </a>
             </h6>
         </div>
         <div class="text-muted" cdkTreeNodePadding>
-            <div class="d-flex" *ngIf="node.payload.shortDescription" >
+            <div class="d-flex" *ngIf="node.payload.shortDescription">
                 <button type="button" class="btn btn-default invisible">
+                <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
+                      aria-hidden="true"></span>
                 </button>
                 <span>{{node.payload.shortDescription}}</span>
             </div>
@@ -46,18 +54,18 @@
                     [attr.aria-label]="'toggle ' + node.name"
                     (click)="toggleExpanded(node)"
                     [ngClass]="node.isExpandable ? 'visible' : 'invisible'">
-                <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
-                      aria-hidden="true"></span>
+                <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}" aria-hidden="true"></span>
             </button>
             <h5 class="align-middle pt-2">
                 <a [routerLink]="node.route" class="lead">
-                    {{node.name}} {{node.id}}
+                    {{node.name}}
                 </a>
             </h5>
         </div>
         <div class="text-muted" cdkTreeNodePadding>
-            <div class="d-flex" *ngIf="node.payload.shortDescription" >
+            <div class="d-flex" *ngIf="node.payload.shortDescription">
                 <button type="button" class="btn btn-default invisible">
+                <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}" aria-hidden="true"></span>
                 </button>
                 <span>{{node.payload.shortDescription}}</span>
             </div>
