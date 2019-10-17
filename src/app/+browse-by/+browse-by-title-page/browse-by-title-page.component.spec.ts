@@ -18,6 +18,7 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { BrowseService } from '../../core/browse/browse.service';
 import { MockRouter } from '../../shared/mocks/mock-router';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 describe('BrowseByTitlePageComponent', () => {
   let comp: BrowseByTitlePageComponent;
@@ -64,7 +65,7 @@ describe('BrowseByTitlePageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [BrowseByTitlePageComponent, EnumKeysPipe],
+      declarations: [BrowseByTitlePageComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },
