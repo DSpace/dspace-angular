@@ -60,6 +60,8 @@
                            [searchConfig]="this.searchConfig"
                            [selectable]="true"
                            [selectionConfig]="{ repeatable: repeatable, listId: listId }"
+                           [linkType]="linkTypes.ExternalLink"
+                           [context]="context"
                            (deselectObject)="deselectObject.emit($event)"
                            (selectObject)="selectObject.emit($event)">
         </ds-search-results>

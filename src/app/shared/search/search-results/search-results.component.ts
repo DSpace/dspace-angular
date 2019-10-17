@@ -10,6 +10,7 @@ import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { Context } from '../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-search-results',
@@ -63,6 +64,8 @@ export class SearchResultsComponent {
   @Input() disableHeader = false;
 
   @Input() selectable = false;
+
+  @Input() context: Context;
 
   @Input() selectionConfig: {repeatable: boolean, listId: string};
 

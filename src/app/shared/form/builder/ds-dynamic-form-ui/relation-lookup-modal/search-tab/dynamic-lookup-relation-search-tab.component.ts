@@ -18,6 +18,9 @@ import { concat, map, multicast, switchMap, take, takeWhile, tap } from 'rxjs/op
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
 import { RouteService } from '../../../../../../core/services/route.service';
+import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
+import { Context } from '../../../../../../core/shared/context.model';
+import { relationship } from '../../../../../../core/cache/builders/build-decorators';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -48,6 +51,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     id: 'submission-relation-list',
     pageSize: 5
   });
+  linkTypes = CollectionElementLinkType;
+  context: Context;
 
   constructor(
     private searchService: SearchService,
@@ -62,6 +67,13 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
+    /**
+     * TODO REMOVE NEXT LINE
+     */
+    this.relationship.nameVariants = true;
+    if (this.relationship.nameVariants) {
+      this.context = Context.Submission;
+    }
 
     this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
@@ -77,8 +89,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
             () => new ReplaySubject(1),
             subject => subject.pipe(
               takeWhile((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => rd.isLoading),
-              concat(subject.pipe(take(1))
-              )
+              concat(subject.pipe(take(1)))
             )
           ) as any
         )
