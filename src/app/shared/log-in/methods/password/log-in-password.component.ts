@@ -12,8 +12,6 @@ import {
 import {
   getAuthenticationError,
   getAuthenticationInfo,
-  isAuthenticated,
-  isAuthenticationLoading,
 } from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core.reducers';
 
@@ -23,7 +21,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethodType } from '../authMethods-type';
 import { renderAuthMethodFor } from '../authMethods-decorator';
 import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
-import { InjectedAuthMethodModel } from '../../injectedAuthMethodModel/injectedAuthMethodModel';
+
 
 /**
  * /users/sign-in
@@ -68,7 +66,7 @@ export class LogInPasswordComponent implements OnInit {
    */
   public form: FormGroup;
 
-  @Input() authMethodModel: InjectedAuthMethodModel;
+  @Input() authMethodModel: AuthMethodModel;
 
   /**
    * @constructor
@@ -77,7 +75,7 @@ export class LogInPasswordComponent implements OnInit {
    * @param {Store<State>} store
    */
   constructor(
-    @Inject('authMethodModelProvider') public injectedAuthMethodModel: InjectedAuthMethodModel,
+    @Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
    /* private authService: AuthService,*/
     private formBuilder: FormBuilder,
     private store: Store<CoreState>

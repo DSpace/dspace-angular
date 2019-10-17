@@ -1,9 +1,9 @@
-import { Component, ContentChild, Injector, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component,  Injector, Input, OnInit} from '@angular/core';
 import { rendersAuthMethodType } from '../methods/authMethods-decorator';
-import { AuthMethodModel } from '../../../core/auth/models/auth-method.model';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { CoreState } from '../../../core/core.reducers';
-import { InjectedAuthMethodModel } from '../injectedAuthMethodModel/injectedAuthMethodModel';
+import { AuthMethodModel } from '../../../core/auth/models/auth-method.model';
+
 
 /**
  * This component represents a section that contains the submission license form.
@@ -15,7 +15,7 @@ import { InjectedAuthMethodModel } from '../injectedAuthMethodModel/injectedAuth
 })
 export class LoginContainerComponent implements OnInit {
 
-  @Input() authMethodModel: InjectedAuthMethodModel;
+  @Input() authMethodModel: AuthMethodModel;
 
   /**
    * Injector to inject a section component with the @Input parameters
