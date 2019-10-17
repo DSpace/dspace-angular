@@ -36,6 +36,7 @@ import { WrapperGridElementComponent } from './object-grid/wrapper-grid-element/
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
+import { ComcolPageHandleComponent } from './comcol-page-handle/comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
 import { ErrorComponent } from './error/error.component';
@@ -194,6 +195,7 @@ const COMPONENTS = [
   UserMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,
+  ComcolPageHandleComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
   ComColFormComponent,

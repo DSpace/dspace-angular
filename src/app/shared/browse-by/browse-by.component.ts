@@ -27,6 +27,10 @@ export class BrowseByComponent implements OnInit {
   @Input() title: string;
 
   /**
+   * The parent name
+   */
+  @Input() parentname: string;
+  /**
    * The list of objects to display
    */
   @Input() objects$: Observable<RemoteData<PaginatedList<ListableObject>>>;

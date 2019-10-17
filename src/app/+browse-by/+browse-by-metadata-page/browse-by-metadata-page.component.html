@@ -1,7 +1,31 @@
 <div class="container">
-  <div class="browse-by-metadata w-100">
+    <ng-container *ngVar="(parent$ | async) as parent">
+    <ng-container *ngIf="parent?.payload as parentContext">
+    <header class="comcol-header border-bottom mb-4 pb-4">
+        <!-- Parent Name -->
+        <ds-comcol-page-header [name]="parentContext.name">
+        </ds-comcol-page-header>
+        <!-- Handle -->
+        <ds-comcol-page-handle
+            [content]="parentContext.handle"
+            [title]="parentContext.type+'.page.handle'" >
+        </ds-comcol-page-handle>
+        <!-- Introductory text -->
+        <ds-comcol-page-content [content]="parentContext.introductoryText" [hasInnerHtml]="true">
+        </ds-comcol-page-content>
+        <!-- News -->
+        <ds-comcol-page-content [content]="parentContext.sidebarText" [hasInnerHtml]="true" [title]="'community.page.news'">
+        </ds-comcol-page-content>
+      </header>
+      <!-- Browse-By Links -->
+      <ds-comcol-page-browse-by [id]="parentContext.id" [contentType]="parentContext.type"></ds-comcol-page-browse-by>
+      </ng-container></ng-container>
+
+    <section class="comcol-page-browse-section">
+    <div class="browse-by-metadata w-100">
     <ds-browse-by *ngIf="startsWithOptions" class="col-xs-12 w-100"
       title="{{'browse.title' | translate:{collection: (parent$ | async)?.payload?.name || '', field: 'browse.metadata.' + browseId | translate, value: (value)? '&quot;' + value + '&quot;': ''} }}"
+      parentname="{{(parent$ | async)?.payload?.name || ''}}"
       [objects$]="(items$ !== undefined)? items$ : browseEntries$"
       [paginationConfig]="paginationConfig"
       [sortConfig]="sortConfig"
@@ -15,4 +39,17 @@
     </ds-browse-by>
     <ds-loading *ngIf="!startsWithOptions" message="{{'loading.browse-by-page' | translate}}"></ds-loading>
   </div>
+  </section>
+  <ng-container *ngVar="(parent$ | async) as parent">
+    <ng-container *ngIf="parent?.payload as parentContext">
+  <footer *ngIf="parentContext.copyrightText" class="border-top my-5 pt-4">
+    <div >
+
+      <!-- Copyright -->
+      <ds-comcol-page-content [content]="parentContext.copyrightText" [hasInnerHtml]="true">
+      </ds-comcol-page-content>
+    </div>
+  </footer>
+</ng-container>
+</ng-container>
 </div>
