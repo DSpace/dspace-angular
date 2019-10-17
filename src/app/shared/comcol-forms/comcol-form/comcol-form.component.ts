@@ -23,6 +23,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { RequestService } from '../../../core/data/request.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { take } from 'rxjs/operators';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -74,7 +77,6 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * @type {UploaderOptions}
    */
   uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
-    disableMultipart: true,
     autoUpload: false
   });
 
@@ -112,7 +114,9 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
                      protected formService: DynamicFormService,
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
-                     protected authService: AuthService) {
+                     protected authService: AuthService,
+                     protected requestService: RequestService,
+                     protected objectCache: ObjectCacheService) {
   }
 
   ngOnInit(): void {
@@ -204,7 +208,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    */
   deleteLogo() {
     if (hasValue(this.dso.id)) {
-      this.dsoService.deleteLogo(this.dso.id).subscribe((response: RestResponse) => {
+      this.dsoService.deleteLogo(this.dso).subscribe((response: RestResponse) => {
         if (response.isSuccessful) {
           this.notificationsService.success(
             this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
@@ -217,14 +221,25 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
             errorResponse.errorMessage
           );
         }
+        this.refreshCache();
       });
     }
+  }
+
+  /**
+   * Refresh the object's cache to ensure the latest version
+   */
+  private refreshCache() {
+    (this.dso as any).logo = undefined;
+    this.requestService.removeByHrefSubstring(this.dso.self);
+    this.objectCache.remove(this.dso.self);
   }
 
   /**
    * The request was successful, display a success notification
    */
   public onCompleteItem() {
+    this.refreshCache();
     this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
     this.finishUpload.emit();
   }

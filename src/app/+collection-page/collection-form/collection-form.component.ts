@@ -8,6 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
+import { RequestService } from '../../core/data/request.service';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
 
 /**
  * Form used for creating and editing collections
@@ -75,7 +77,9 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
-                     protected dsoService: CommunityDataService) {
-    super(location, formService, translate, notificationsService, authService);
+                     protected dsoService: CommunityDataService,
+                     protected requestService: RequestService,
+                     protected objectCache: ObjectCacheService) {
+    super(location, formService, translate, notificationsService, authService, requestService, objectCache);
   }
 }

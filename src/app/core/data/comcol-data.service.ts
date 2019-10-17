@@ -1,6 +1,6 @@
 import { distinctUntilChanged, filter, map, mergeMap, share, switchMap, take, tap } from 'rxjs/operators';
-import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { merge as observableMerge, Observable, throwError as observableThrowError, combineLatest as observableCombineLatest } from 'rxjs';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
@@ -8,14 +8,26 @@ import { CommunityDataService } from './community-data.service';
 import { DataService } from './data.service';
 import { DeleteRequest, FindAllOptions, FindByIDRequest, RestRequest } from './request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import {
+  configureRequest,
+  getRemoteDataPayload,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RestResponse } from '../cache/response.models';
+import { Bitstream } from '../shared/bitstream.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
 
 export abstract class ComColDataService<T extends CacheableObject> extends DataService<T> {
   protected abstract cds: CommunityDataService;
   protected abstract objectCache: ObjectCacheService;
   protected abstract halService: HALEndpointService;
+
+  /**
+   * Linkpath of endpoint to delete the logo
+   */
+  protected logoDeleteLinkpath = 'bitstreams';
 
   /**
    * Get the scoped endpoint URL by fetching the object with
@@ -71,14 +83,21 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
 
   /**
    * Delete the logo from the community or collection
-   * @param id  The community or collection's ID
+   * @param dso The object to delete the logo from
    */
-  public deleteLogo(id: string): Observable<RestResponse> {
-    return this.getLogoEndpoint(id).pipe(
-      map((href: string) =>  new DeleteRequest(this.requestService.generateRequestId(), href)),
-      configureRequest(this.requestService),
-      switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
-      getResponseFromEntry()
-    );
+  public deleteLogo(dso: DSpaceObject): Observable<RestResponse> {
+    const logo$ = (dso as any).logo;
+    if (hasValue(logo$)) {
+      return observableCombineLatest(
+        logo$.pipe(getSucceededRemoteData(), getRemoteDataPayload(), take(1)),
+        this.halService.getEndpoint(this.logoDeleteLinkpath)
+      ).pipe(
+        map(([logo, href]: [Bitstream, string]) => `${href}/${logo.id}`),
+        map((href: string) => new DeleteRequest(this.requestService.generateRequestId(), href)),
+        configureRequest(this.requestService),
+        switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
+        getResponseFromEntry()
+      );
+    }
   }
 }
