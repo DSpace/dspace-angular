@@ -6,7 +6,7 @@ export class AuthMethodModel {
   location?: string;
   isStandalonePage? = true;
 
-  constructor(authMethodName: string, location?: string) {
+  constructor(authMethodName: string, location?: string, isStandAlonePage?: boolean) {
     switch (authMethodName) {
       case 'ip': {
         this.authMethodType = AuthMethodType.Ip;

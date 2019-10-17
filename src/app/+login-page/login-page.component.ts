@@ -10,7 +10,7 @@ import {
   AddAuthenticationMessageAction,
   AuthenticatedAction,
   AuthenticationSuccessAction,
-  ResetAuthenticationMessagesAction
+  ResetAuthenticationMessagesAction, SetIsStandalonePageInAuthMethodsAction
 } from '../core/auth/auth.actions';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
@@ -79,4 +79,5 @@ export class LoginPageComponent implements OnDestroy, OnInit {
     // Clear all authentication messages when leaving login page
     this.store.dispatch(new ResetAuthenticationMessagesAction());
   }
+
 }

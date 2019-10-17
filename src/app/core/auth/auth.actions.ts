@@ -23,6 +23,7 @@ export const AuthActionTypes = {
   RETRIEVE_AUTH_METHODS: type('dspace/auth/RETRIEVE_AUTH_METHODS'),
   RETRIEVE_AUTH_METHODS_SUCCESS: type('dspace/auth/RETRIEVE_AUTH_METHODS_SUCCESS'),
   RETRIEVE_AUTH_METHODS_ERROR: type('dspace/auth/RETRIEVE_AUTH_METHODS_ERROR'),
+  SET_IS_STANDALONE_PAGE_IN_AUTH_METHODS: type('dspace/auth/SET_IS_STANDALONE_PAGE_IN_AUTH_METHODS'),
   REDIRECT_TOKEN_EXPIRED: type('dspace/auth/REDIRECT_TOKEN_EXPIRED'),
   REDIRECT_AUTHENTICATION_REQUIRED: type('dspace/auth/REDIRECT_AUTHENTICATION_REQUIRED'),
   REFRESH_TOKEN: type('dspace/auth/REFRESH_TOKEN'),
@@ -374,6 +375,15 @@ export class RetrieveAuthMethodsErrorAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR;
 }
 
+export class SetIsStandalonePageInAuthMethodsAction implements Action {
+  type: string = AuthActionTypes.SET_IS_STANDALONE_PAGE_IN_AUTH_METHODS;
+  payload: boolean;
+
+  constructor(isStandAlonePage: boolean) {
+    this.payload = isStandAlonePage;
+  }
+}
+
 /**
  * Change the redirect url.
  * @class SetRedirectUrlAction
@@ -413,4 +423,5 @@ export type AuthActions
   | ResetAuthenticationMessagesAction
   | RetrieveAuthMethodsAction
   | RetrieveAuthMethodsSuccessAction
+  | SetIsStandalonePageInAuthMethodsAction
   | RetrieveAuthMethodsErrorAction;
