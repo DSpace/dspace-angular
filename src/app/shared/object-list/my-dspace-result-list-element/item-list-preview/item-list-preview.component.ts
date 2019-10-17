@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { SearchResult } from '../../../../+search-page/search-result.model';
+import { SearchResult } from '../../../search/search-result.model';
 
 /**
  * This component show metadata for the given item object in the list view.

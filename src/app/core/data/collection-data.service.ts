@@ -25,8 +25,8 @@ import { ResponseParsingService } from './parsing.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { SearchParam } from '../cache/models/search-param.model';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {

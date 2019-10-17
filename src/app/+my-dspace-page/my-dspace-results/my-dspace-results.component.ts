@@ -6,8 +6,8 @@ import { SearchOptions } from '../../shared/search/search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../../shared/empty.util';
-import { SearchResult } from '../../+search-page/search-result.model';
 import { Context } from '../../core/shared/context.model';
+import { SearchResult } from '../../shared/search/search-result.model';
 
 /**
  * Component that represents all results for mydspace page

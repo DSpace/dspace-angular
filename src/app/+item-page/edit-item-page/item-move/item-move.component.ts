@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { first, map } from 'rxjs/operators';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { SearchOptions } from '../../../+search-page/search-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { SearchResult } from '../../../+search-page/search-result.model';
 import { Item } from '../../../core/shared/item.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -17,9 +14,10 @@ import { getItemEditPath } from '../../item-page-routing.module';
 import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../../../core/cache/response.models';
 import { Collection } from '../../../core/shared/collection.model';
-import { tap } from 'rxjs/internal/operators/tap';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { SearchResult } from '../../../shared/search/search-result.model';
 
 @Component({
   selector: 'ds-item-move',

@@ -13,12 +13,11 @@ import { ListableObject } from '../../../../../object-collection/shared/listable
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { RouteService } from '../../../../../services/route.service';
-import { SelectableListState } from '../../../../../object-list/selectable-list/selectable-list.reducer';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { concat, map, multicast, switchMap, take, takeWhile, tap } from 'rxjs/operators';
 import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
+import { RouteService } from '../../../../../../core/services/route.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',

@@ -14,7 +14,7 @@ import { UploaderOptions } from '../../shared/uploader/uploader-options.model';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { NotificationType } from '../../shared/notifications/models/notification-type';
 import { hasValue } from '../../shared/empty.util';
-import { SearchResult } from '../../+search-page/search-result.model';
+import { SearchResult } from '../../shared/search/search-result.model';
 
 /**
  * This component represents the whole mydspace page header

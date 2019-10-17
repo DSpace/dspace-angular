@@ -81,16 +81,15 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import { ItemViewMode } from '../../../items/item-type-decorator';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { RemoveRelationshipAction } from './relation-lookup-modal/relationship.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.reducer';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -162,7 +161,6 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges {
-  itemViewMode = ItemViewMode;
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
   // tslint:disable-next-line:no-input-rename
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;

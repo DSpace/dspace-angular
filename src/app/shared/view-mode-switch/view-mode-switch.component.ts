@@ -6,7 +6,6 @@ import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../empty.util';
 import { currentPath } from '../utils/route.utils';
-import { RouteService } from '../services/route.service';
 import { Router } from '@angular/router';
 
 /**

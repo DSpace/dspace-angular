@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ItemMoveComponent } from './item-move.component';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { of as observableOf } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -18,6 +17,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RestResponse } from '../../../core/cache/response.models';
 import { Collection } from '../../../core/shared/collection.model';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 describe('ItemMoveComponent', () => {
   let comp: ItemMoveComponent;

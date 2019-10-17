@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { Observable } from 'rxjs';
-import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { map, switchMap, take } from 'rxjs/operators';
@@ -10,10 +9,7 @@ import { createSuccessfulRemoteDataObject } from '../../../../../testing/utils';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { Router } from '@angular/router';
-import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { RouteService } from '../../../../../services/route.service';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
-import { size } from 'memory-cache';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 
 @Component({

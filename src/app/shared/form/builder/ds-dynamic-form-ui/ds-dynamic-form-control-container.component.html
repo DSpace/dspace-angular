@@ -61,7 +61,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <span class="d-inline-block align-middle ml-1">
-                        <ds-item-type-switcher [object]="(modelValueMDRepresentation | async)[i]" [viewMode]="itemViewMode.Metadata"></ds-item-type-switcher>
+                        <ds-metadata-representation-loader [mdRepresentation]="(modelValueMDRepresentation | async)[i]"></ds-metadata-representation-loader>
                     </span>
                 </ng-container>
             </li>

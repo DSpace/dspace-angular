@@ -27,7 +27,7 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
-import { SearchResult } from '../+search-page/search-result.model';
+import { SearchResult } from '../shared/search/search-result.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');

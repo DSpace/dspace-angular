@@ -28,23 +28,23 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-metadata-representation-list
-      [parentItem]="item"
+      [parentItem]="object"
       [itemType]="'Person'"
       [metadataField]="'dc.contributor.author'"
       [label]="'relationships.isAuthorOf' | translate">
     </ds-metadata-representation-list>
     <ds-related-items
-      [parentItem]="item"
+      [parentItem]="object"
       [relationType]="'isProjectOfPublication'"
       [label]="'relationships.isProjectOf' | translate">
     </ds-related-items>
     <ds-related-items
-      [parentItem]="item"
+      [parentItem]="object"
       [relationType]="'isOrgUnitOfPublication'"
       [label]="'relationships.isOrgUnitOf' | translate">
     </ds-related-items>
     <ds-related-items
-      [parentItem]="item"
+      [parentItem]="object"
       [relationType]="'isJournalIssueOfPublication'"
       [label]="'relationships.isJournalIssueOf' | translate">
     </ds-related-items>

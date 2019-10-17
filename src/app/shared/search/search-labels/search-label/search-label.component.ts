@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
-import { SearchService } from '../../search-service/search.service';
 import { map } from 'rxjs/operators';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../../empty.util';
+import { SearchService } from '../../../../core/shared/search/search.service';
 
 @Component({
   selector: 'ds-search-label',

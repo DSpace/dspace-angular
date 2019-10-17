@@ -133,7 +133,6 @@ import { DsDynamicLookupRelationModalComponent } from './form/builder/ds-dynamic
 import { SearchResultsComponent } from './search/search-results/search-results.component';
 import { SearchSidebarComponent } from './search/search-sidebar/search-sidebar.component';
 import { SearchSettingsComponent } from './search/search-settings/search-settings.component';
-import { ItemSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/item-search-result-grid-element.component';
 import { CollectionSearchResultGridElementComponent } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 import { CommunitySearchResultGridElementComponent } from './object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
 import { SearchFiltersComponent } from './search/search-filters/search-filters.component';
@@ -166,9 +165,7 @@ import { ListableObjectComponentLoaderComponent } from './object-collection/shar
 import { PublicationSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-types/publication/publication-search-result-list-element.component';
 import { PublicationSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/publication/publication-search-result-grid-element.component';
 import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
-import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
-import { TypedItemSearchResultListElementComponent } from './object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
-import { ItemTypeSwitcherComponent } from './items/switcher/item-type-switcher.component';
+import { SearchLabelComponent } from './search/search-labels/search-label/search-label.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -285,20 +282,17 @@ const COMPONENTS = [
   EditItemSelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
-  ItemSearchResultListElementComponent,
-  TypedItemSearchResultListElementComponent,
-  ItemTypeSwitcherComponent,
   BrowseByComponent,
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
-  ItemSearchResultGridElementComponent,
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
   SearchFiltersComponent,
   SearchFilterComponent,
   SearchFacetFilterComponent,
   SearchLabelsComponent,
+  SearchLabelComponent,
   SearchFacetFilterComponent,
   SearchFacetFilterWrapperComponent,
   SearchRangeFilterComponent,
@@ -370,7 +364,6 @@ const ENTRY_COMPONENTS = [
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
   SearchResultsComponent,
-  ItemSearchResultGridElementComponent,
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,
   SearchFacetFilterComponent,

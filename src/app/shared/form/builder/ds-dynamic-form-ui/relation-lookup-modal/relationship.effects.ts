@@ -79,7 +79,7 @@ export class RelationshipEffects {
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
       .pipe(
         mergeMap((type: RelationshipType) => {
-            const isSwitched = type.rightLabel === relationshipType;
+            const isSwitched = type.rightwardType === relationshipType;
             if (isSwitched) {
               return this.relationshipService.addRelationship(type.id, item2, item1);
             } else {
