@@ -2,13 +2,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RemoteData } from '../../../core/data/remote-data';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../animations/fade';
-import { SetViewMode } from '../../view-mode';
 import { SearchOptions } from '../search-options.model';
 import { SearchResult } from '../search-result.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { hasNoValue, isNotEmpty } from '../../empty.util';
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
+import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-search-results',
@@ -24,6 +25,11 @@ import { ListableObject } from '../../object-collection/shared/listable-object.m
  */
 export class SearchResultsComponent {
   hasNoValue = hasNoValue;
+
+  /**
+   * The link type of the listed search results
+   */
+  @Input() linkType: CollectionElementLinkType;
 
   /**
    * The actual search result objects
@@ -43,7 +49,7 @@ export class SearchResultsComponent {
   /**
    * The current view-mode of the list
    */
-  @Input() viewMode: SetViewMode;
+  @Input() viewMode: ViewMode;
 
   /**
    * An optional configuration to filter the result on one type

@@ -83,8 +83,8 @@ describe('MetadataRepresentationListComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should load 2 item-type-switcher components', () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-type-switcher'));
+  it('should load 2 metadata-representation-loader components', () => {
+    const fields = fixture.debugElement.queryAll(By.css('ds-metadata-representation-loader'));
     expect(fields.length).toBe(2);
   });
 

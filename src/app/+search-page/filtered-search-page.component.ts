@@ -4,14 +4,12 @@ import { SearchSidebarService } from '../core/shared/search/search-sidebar.servi
 import { SearchPageComponent } from './search-page.component';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
-import { RouteService } from '../shared/services/route.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { Observable } from 'rxjs';
-import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../shared/empty.util';
+import { RouteService } from '../core/services/route.service';
 
 /**
  * This component renders a simple item page.

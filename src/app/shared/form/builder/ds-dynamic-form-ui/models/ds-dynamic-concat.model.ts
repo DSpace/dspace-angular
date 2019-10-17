@@ -1,4 +1,7 @@
 import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelConfig, serializable } from '@ng-dynamic-forms/core';
+
+import { Subject } from 'rxjs';
+
 import { isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
@@ -27,6 +30,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() repeatable?: boolean;
   @serializable() required?: boolean;
   isCustomGroup = true;
+  valueUpdates: Subject<string>;
 
   constructor(config: DynamicConcatModelConfig, layout?: DynamicFormControlLayout) {
 
@@ -37,6 +41,9 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.workspaceItem = config.workspaceItem;
     this.repeatable = config.repeatable;
     this.required = config.required;
+
+    this.valueUpdates = new Subject<string>();
+    this.valueUpdates.subscribe((value: string) => this.value = value);
   }
 
   get value() {

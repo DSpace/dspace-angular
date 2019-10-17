@@ -9,7 +9,7 @@ import { WorkflowItemDataService } from '../../../core/submission/workflowitem-d
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**
- * This component represents mydspace actions related to WorkflowItem object.
+ * This component represents actions related to WorkflowItem object.
  */
 @Component({
   selector: 'ds-workflowitem-actions',

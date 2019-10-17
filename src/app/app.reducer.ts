@@ -27,6 +27,11 @@ import {
   selectableListReducer,
   SelectableListsState
 } from './shared/object-list/selectable-list/selectable-list.reducer';
+import {
+  bitstreamFormatReducer,
+  BitstreamFormatRegistryState
+} from './+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { ObjectSelectionListState, objectSelectionReducer } from './shared/object-select/object-select.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -34,13 +39,15 @@ export interface AppState {
   hostWindow: HostWindowState;
   forms: FormState;
   metadataRegistry: MetadataRegistryState;
+  bitstreamFormats: BitstreamFormatRegistryState;
   notifications: NotificationsState;
   searchSidebar: SearchSidebarState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
   cssVariables: CSSVariablesState;
   menus: MenusState;
-  selectableLists: SelectableListsState
+  objectSelection: ObjectSelectionListState;
+  selectableLists: SelectableListsState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -49,12 +56,14 @@ export const appReducers: ActionReducerMap<AppState> = {
   hostWindow: hostWindowReducer,
   forms: formReducer,
   metadataRegistry: metadataRegistryReducer,
+  bitstreamFormats: bitstreamFormatReducer,
   notifications: notificationsReducer,
   searchSidebar: sidebarReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer,
   cssVariables: cssVariablesReducer,
   menus: menusReducer,
+  objectSelection: objectSelectionReducer,
   selectableLists: selectableListReducer
 };
 

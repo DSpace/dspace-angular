@@ -10,6 +10,7 @@ import { CreateCollectionPageGuard } from './create-collection-page/create-colle
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getCollectionModulePath } from '../app-routing.module';
+import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -61,6 +62,15 @@ const COLLECTION_EDIT_PATH = ':id/edit';
         resolve: {
           collection: CollectionPageResolver
         }
+      },
+      {
+        path: ':id/edit/mapper',
+        component: CollectionItemMapperComponent,
+        pathMatch: 'full',
+        resolve: {
+          collection: CollectionPageResolver
+        },
+        canActivate: [AuthenticatedGuard]
       }
     ])
   ],

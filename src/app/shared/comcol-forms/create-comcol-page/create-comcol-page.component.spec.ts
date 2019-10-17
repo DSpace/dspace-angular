@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommunityDataService } from '../../../core/data/community-data.service';
-import { RouteService } from '../../services/route.service';
+import { RouteService } from '../../../core/services/route.service';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';

@@ -194,6 +194,8 @@ export abstract class FieldParser {
 
     controlModel.placeholder = this.configData.label;
 
+    controlModel.hint = this.configData.hints;
+
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);
     }

@@ -15,11 +15,11 @@ import { RouterStub } from '../../../../testing/router-stub';
 import { Router } from '@angular/router';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchRangeFilterComponent } from './search-range-filter.component';
-import { RouteService } from '../../../../services/route.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service-stub';
 import { createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
+import { RouteService } from '../../../../../core/services/route.service';
 
 describe('SearchRangeFilterComponent', () => {
   let comp: SearchRangeFilterComponent;

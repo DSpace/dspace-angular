@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
@@ -57,6 +57,11 @@ export class SearchFormComponent {
    */
   @Input() brandColor = 'primary';
 
+  /**
+   * Output the search data on submit
+   */
+  @Output() submitSearch = new EventEmitter<any>();
+
   constructor(private router: Router, private searchService: SearchService) {
   }
 
@@ -66,6 +71,7 @@ export class SearchFormComponent {
    */
   onSubmit(data: any) {
     this.updateSearch(data);
+    this.submitSearch.emit(data);
   }
 
   /**

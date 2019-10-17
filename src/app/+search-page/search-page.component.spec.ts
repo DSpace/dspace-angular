@@ -20,7 +20,7 @@ import { SearchSidebarService } from '../core/shared/search/search-sidebar.servi
 import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
@@ -191,7 +191,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => observableOf(true);
+      (comp as any).isSidebarCollapsed$ = observableOf(true);
       fixture.detectChanges();
     });
 
@@ -206,7 +206,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => observableOf(false);
+      (comp as any).isSidebarCollapsed$ = observableOf(false);
       fixture.detectChanges();
     });
 

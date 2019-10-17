@@ -12,7 +12,6 @@ import { PageInfo } from '../shared/page-info.model';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 
 import {
-  RegistryBitstreamformatsSuccessResponse,
   RegistryMetadatafieldsSuccessResponse,
   RegistryMetadataschemasSuccessResponse,
   RestResponse
@@ -20,7 +19,6 @@ import {
 import { Component } from '@angular/core';
 import { RegistryMetadataschemasResponse } from './registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from './registry-metadatafields-response.model';
-import { RegistryBitstreamformatsResponse } from './registry-bitstreamformats-response.model';
 import { map } from 'rxjs/operators';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore } from '../../shared/testing/mock-store';
@@ -44,7 +42,7 @@ import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
-@Component({ template: '' })
+@Component({template: ''})
 class DummyComponent {
 }
 
@@ -57,15 +55,15 @@ describe('RegistryService', () => {
   });
 
   const mockSchemasList = [
-
     Object.assign(new MetadataSchema(), {
       id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/1',
       prefix: 'dc',
       namespace: 'http://dublincore.org/documents/dcmi-terms/',
       type: MetadataSchema.type
-    }),
+}),
     Object.assign(new MetadataSchema(), {
+
       id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadataschemas/2',
       prefix: 'mock',
@@ -74,7 +72,8 @@ describe('RegistryService', () => {
     })
   ];
   const mockFieldsList = [
-    Object.assign(new MetadataField(), {
+    Object.assign(new MetadataField(),
+    {
       id: 1,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/8',
       element: 'contributor',
@@ -83,7 +82,8 @@ describe('RegistryService', () => {
       schema: mockSchemasList[0],
       type: MetadataField.type
     }),
-    Object.assign(new MetadataField(), {
+    Object.assign(new MetadataField(),
+      {
       id: 2,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/9',
       element: 'contributor',
@@ -92,7 +92,8 @@ describe('RegistryService', () => {
       schema: mockSchemasList[0],
       type: MetadataField.type
     }),
-    Object.assign(new MetadataField(), {
+    Object.assign(new MetadataField(),
+      {
       id: 3,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/10',
       element: 'contributor',
@@ -101,7 +102,8 @@ describe('RegistryService', () => {
       schema: mockSchemasList[1],
       type: MetadataField.type
     }),
-    Object.assign(new MetadataField(), {
+    Object.assign(new MetadataField(),
+      {
       id: 4,
       self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/metadatafields/11',
       element: 'contributor',
@@ -128,7 +130,7 @@ describe('RegistryService', () => {
     toRemoteDataObservable: (requestEntryObs: Observable<RequestEntry>, payloadObs: Observable<any>) => {
       return observableCombineLatest(requestEntryObs,
         payloadObs).pipe(map(([req, pay]) => {
-          return { req, pay };
+          return {req, pay};
         })
       );
     },
@@ -144,11 +146,11 @@ describe('RegistryService', () => {
         DummyComponent
       ],
       providers: [
-        { provide: RequestService, useValue: getMockRequestService() },
-        { provide: RemoteDataBuildService, useValue: rdbStub },
-        { provide: HALEndpointService, useValue: halServiceStub },
-        { provide: Store, useClass: MockStore },
-        { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        {provide: RequestService, useValue: getMockRequestService()},
+        {provide: RemoteDataBuildService, useValue: rdbStub},
+        {provide: HALEndpointService, useValue: halServiceStub},
+        {provide: Store, useClass: MockStore},
+        {provide: NotificationsService, useValue: new NotificationsServiceStub()},
         RegistryService
       ]
     });
@@ -163,7 +165,7 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadataschemasSuccessResponse(queryResponse, 200, 'OK', pageInfo);
-    const responseEntry = Object.assign(new RequestEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), {response: response});
 
     beforeEach(() => {
       (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
@@ -192,7 +194,7 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadataschemasSuccessResponse(queryResponse, 200, 'OK', pageInfo);
-    const responseEntry = Object.assign(new RequestEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), {response: response});
 
     beforeEach(() => {
       (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
@@ -221,7 +223,7 @@ describe('RegistryService', () => {
       page: pageInfo
     });
     const response = new RegistryMetadatafieldsSuccessResponse(queryResponse, 200, 'OK', pageInfo);
-    const responseEntry = Object.assign(new RequestEntry(), { response: response });
+    const responseEntry = Object.assign(new RequestEntry(), {response: response});
 
     beforeEach(() => {
       (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
@@ -244,35 +246,6 @@ describe('RegistryService', () => {
     });
   });
 
-  describe('when requesting bitstreamformats', () => {
-    const queryResponse = Object.assign(new RegistryBitstreamformatsResponse(), {
-      bitstreamformats: mockFieldsList,
-      page: pageInfo
-    });
-    const response = new RegistryBitstreamformatsSuccessResponse(queryResponse, 200, 'OK', pageInfo);
-    const responseEntry = Object.assign(new RequestEntry(), { response: response });
-
-    beforeEach(() => {
-      (registryService as any).requestService.getByHref.and.returnValue(observableOf(responseEntry));
-      /* tslint:disable:no-empty */
-      registryService.getBitstreamFormats(pagination).subscribe((value) => {
-      });
-      /* tslint:enable:no-empty */
-    });
-
-    it('should call getEndpoint on the halService', () => {
-      expect((registryService as any).halService.getEndpoint).toHaveBeenCalled();
-    });
-
-    it('should send out the request on the request service', () => {
-      expect((registryService as any).requestService.configure).toHaveBeenCalled();
-    });
-
-    it('should call getByHref on the request service with the correct request url', () => {
-      expect((registryService as any).requestService.getByHref).toHaveBeenCalledWith(endpointWithParams);
-    });
-  });
-
   describe('when dispatching to the store', () => {
     beforeEach(() => {
       spyOn(mockStore, 'dispatch');
@@ -285,7 +258,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistryEditSchemaAction with the correct schema', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryEditSchemaAction(mockSchemasList[0]));
-      })
+      });
     });
 
     describe('when calling cancelEditMetadataSchema', () => {
@@ -295,7 +268,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistryCancelSchemaAction', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryCancelSchemaAction());
-      })
+      });
     });
 
     describe('when calling selectMetadataSchema', () => {
@@ -305,7 +278,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistrySelectSchemaAction with the correct schema', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistrySelectSchemaAction(mockSchemasList[0]));
-      })
+      });
     });
 
     describe('when calling deselectMetadataSchema', () => {
@@ -315,7 +288,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistryDeselectSchemaAction with the correct schema', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryDeselectSchemaAction(mockSchemasList[0]));
-      })
+      });
     });
 
     describe('when calling deselectAllMetadataSchema', () => {
@@ -325,7 +298,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistryDeselectAllSchemaAction', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryDeselectAllSchemaAction());
-      })
+      });
     });
 
     describe('when calling editMetadataField', () => {
@@ -335,7 +308,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistryEditFieldAction with the correct Field', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryEditFieldAction(mockFieldsList[0]));
-      })
+      });
     });
 
     describe('when calling cancelEditMetadataField', () => {
@@ -345,7 +318,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistryCancelFieldAction', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryCancelFieldAction());
-      })
+      });
     });
 
     describe('when calling selectMetadataField', () => {
@@ -355,7 +328,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistrySelectFieldAction with the correct Field', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistrySelectFieldAction(mockFieldsList[0]));
-      })
+      });
     });
 
     describe('when calling deselectMetadataField', () => {
@@ -365,7 +338,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistryDeselectFieldAction with the correct Field', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryDeselectFieldAction(mockFieldsList[0]));
-      })
+      });
     });
 
     describe('when calling deselectAllMetadataField', () => {
@@ -375,7 +348,7 @@ describe('RegistryService', () => {
 
       it('should dispatch a MetadataRegistryDeselectAllFieldAction', () => {
         expect(mockStore.dispatch).toHaveBeenCalledWith(new MetadataRegistryDeselectAllFieldAction());
-      })
+      });
     });
   });
 
@@ -418,7 +391,7 @@ describe('RegistryService', () => {
       result.subscribe((response: RestResponse) => {
         expect(response.isSuccessful).toBe(true);
       });
-    })
+    });
   });
 
   describe('when deleteMetadataField is called', () => {
@@ -432,7 +405,7 @@ describe('RegistryService', () => {
       result.subscribe((response: RestResponse) => {
         expect(response.isSuccessful).toBe(true);
       });
-    })
+    });
   });
 
   describe('when clearMetadataSchemaRequests is called', () => {

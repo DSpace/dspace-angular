@@ -1,6 +1,7 @@
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { TypedObject } from '../cache/object-cache.reducer';
 import { ResourceType } from './resource-type';
+import { GenericConstructor } from './generic-constructor';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 
 /**
@@ -30,4 +31,11 @@ export class BrowseEntry extends ListableObject implements TypedObject {
    */
   @excludeFromEquals
   count: number;
+
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
+  }
 }

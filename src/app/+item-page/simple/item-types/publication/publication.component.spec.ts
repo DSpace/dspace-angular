@@ -3,7 +3,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -37,7 +36,6 @@ describe('PublicationComponent', () => {
       })],
       declarations: [PublicationComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
-        {provide: ITEM, useValue: mockItem},
         {provide: ItemDataService, useValue: {}},
         {provide: TruncatableService, useValue: {}},
         {provide: RelationshipService, useValue: {}}
@@ -52,6 +50,7 @@ describe('PublicationComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(PublicationComponent);
     comp = fixture.componentInstance;
+    comp.object = mockItem;
     fixture.detectChanges();
   }));
 

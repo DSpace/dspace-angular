@@ -36,6 +36,8 @@ export class DsDynamicInputModel extends DynamicInputModel {
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
     this.repeatable = config.repeatable;
+
+    this.hint = config.hint;
     this.readOnly = config.readOnly;
     this.value = config.value;
     this.relationship = config.relationship;
@@ -67,11 +69,7 @@ export class DsDynamicInputModel extends DynamicInputModel {
   }
 
   get hasLanguages(): boolean {
-    if (this.languageCodes && this.languageCodes.length > 1) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.languageCodes && this.languageCodes.length > 1;
   }
 
   get language(): string {

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { ItemViewMode } from '../../../shared/items/item-type-decorator';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { RelationshipService } from '../../../core/data/relationship.service';
 import { FindAllOptions } from '../../../core/data/request.models';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import { RelationshipService } from '../../../core/data/relationship.service';
 
 @Component({
   selector: 'ds-related-items',
@@ -51,9 +51,9 @@ export class RelatedItemsComponent implements OnInit {
 
   /**
    * The view-mode we're currently on
-   * @type {ElementViewMode}
+   * @type {ViewMode}
    */
-  viewMode = ItemViewMode.Summary;
+  viewMode = ViewMode.ListElement;
 
   /**
    * Whether or not the list is currently expanded to show all related items

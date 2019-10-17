@@ -24,6 +24,7 @@ export class OneboxFieldParser extends FieldParser {
       const clsGroup = {
         element: {
           control: 'form-row',
+          hint: 'ds-form-qualdrop-hint'
         }
       };
 
@@ -54,17 +55,20 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.id = newId.replace(/\./g, '_') + QUALDROP_GROUP_SUFFIX;
       inputSelectGroup.group = [];
       inputSelectGroup.legend = this.configData.label;
+      inputSelectGroup.hint = this.configData.hints;
       this.setLabel(inputSelectGroup, label);
       inputSelectGroup.required = isNotEmpty(this.configData.mandatory);
 
-      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(newId + QUALDROP_METADATA_SUFFIX, false);
+      const selectModelConfig: DynamicSelectModelConfig<any> = this.initModel(newId + QUALDROP_METADATA_SUFFIX, label, false);
+      selectModelConfig.hint = null;
       this.setOptions(selectModelConfig);
       if (isNotEmpty(fieldValue)) {
         selectModelConfig.value = fieldValue.metadata;
       }
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
 
-      const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + QUALDROP_VALUE_SUFFIX, false);
+      const inputModelConfig: DsDynamicInputModelConfig = this.initModel(newId + QUALDROP_VALUE_SUFFIX, label, false);
+      inputModelConfig.hint = null;
       this.setValues(inputModelConfig, fieldValue);
       inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
 

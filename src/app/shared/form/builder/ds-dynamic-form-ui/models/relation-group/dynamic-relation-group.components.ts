@@ -130,9 +130,11 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           || this.selectedChipItem.item[model.name].value === PLACEHOLDER_PARENT_METADATA)
           ? null
           : this.selectedChipItem.item[model.name];
-        if (isNotNull(value)) {
-          model.valueUpdates.next(this.formBuilderService.isInputModel(model) ? value.value : value);
-        }
+
+        const nextValue = (this.formBuilderService.isInputModel(model) && isNotNull(value) && (typeof value !== 'string')) ?
+          value.value : value;
+        model.valueUpdates.next(nextValue);
+
       });
     });
 
@@ -230,7 +232,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
         flatMap((valueModel) => {
           const returnList: Array<Observable<any>> = [];
           valueModel.forEach((valueObj) => {
-            const returnObj =  Object.keys(valueObj).map((fieldName) => {
+            const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
               if (isObject(valueObj[fieldName]) && valueObj[fieldName].hasAuthority() && isNotEmpty(valueObj[fieldName].authority)) {
                 const fieldId = fieldName.replace(/\./g, '_');
@@ -254,7 +256,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
               } else {
                 return$ = observableOf(valueObj[fieldName]);
               }
-              return return$.pipe(map((entry) => ({[fieldName]: entry})));
+              return return$.pipe(map((entry) => ({ [fieldName]: entry })));
             });
 
             returnList.push(combineLatest(returnObj));

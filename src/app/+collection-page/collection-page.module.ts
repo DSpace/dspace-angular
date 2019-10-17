@@ -9,6 +9,8 @@ import { CreateCollectionPageComponent } from './create-collection-page/create-c
 import { CollectionFormComponent } from './collection-form/collection-form.component';
 import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
+import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
+import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { SearchService } from '../core/shared/search/search.service';
 
 @NgModule({
@@ -22,10 +24,12 @@ import { SearchService } from '../core/shared/search/search.service';
     CreateCollectionPageComponent,
     EditCollectionPageComponent,
     DeleteCollectionPageComponent,
-    CollectionFormComponent
+    CollectionFormComponent,
+    CollectionItemMapperComponent
   ],
   providers: [
-    SearchService
+    SearchService,
+    SearchFixedFilterService
   ]
 })
 export class CollectionPageModule {

@@ -2,17 +2,17 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, merge as observableMerge, Observable, Subscription } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { filter, map, startWith, switchMap } from 'rxjs/operators';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
-import { RouteService } from '../../../shared/services/route.service';
-import { hasNoValue, hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
 import { SearchFilter } from '../../../shared/search/search-filter.model';
 import { RemoteData } from '../../data/remote-data';
-import { getSucceededRemoteData } from '../operators';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../cache/models/sort-options.model';
+import { RouteService } from '../../services/route.service';
+import { getSucceededRemoteData } from '../operators';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 
 /**
@@ -196,13 +196,6 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * @returns {Observable<string>} Emits the current fixed filter as a string
-   */
-  getCurrentFixedFilter(): Observable<string> {
-    return this.routeService.getRouteParameterValue('fixedFilterQuery');
-  }
-
-  /**
    * @returns {Observable<Params>} Emits the current active filters with their values as they are displayed in the frontend URL
    */
   getCurrentFrontendFilters(): Observable<Params> {
@@ -221,7 +214,6 @@ export class SearchConfigurationService implements OnDestroy {
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
       this.getFiltersPart(),
-      this.getFixedFilterPart()
     ).subscribe((update) => {
       const currentValue: SearchOptions = this.searchOptions.getValue();
       const updatedValue: SearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -243,7 +235,6 @@ export class SearchConfigurationService implements OnDestroy {
       this.getQueryPart(defaults.query),
       this.getDSOTypePart(),
       this.getFiltersPart(),
-      this.getFixedFilterPart()
     ).subscribe((update) => {
       const currentValue: PaginatedSearchOptions = this.paginatedSearchOptions.getValue();
       const updatedValue: PaginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), currentValue, update);
@@ -339,17 +330,5 @@ export class SearchConfigurationService implements OnDestroy {
     return this.getCurrentFilters().pipe(map((filters) => {
       return { filters }
     }));
-  }
-
-  /**
-   * @returns {Observable<string>} Emits the current fixed filter as a partial SearchOptions object
-   */
-  private getFixedFilterPart(): Observable<any> {
-    return this.getCurrentFixedFilter().pipe(
-      isNotEmptyOperator(),
-      map((fixedFilter) => {
-        return { fixedFilter }
-      }),
-    );
   }
 }

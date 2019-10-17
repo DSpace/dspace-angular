@@ -3,7 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, find, map, mergeMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, take } from 'rxjs/operators';
 import { cloneDeep, remove } from 'lodash';
 
 import { AppState } from '../../app.reducer';
@@ -262,12 +262,13 @@ export class RequestService {
    */
   private clearRequestsOnTheirWayToTheStore(request: GetRequest) {
     this.getByHref(request.href).pipe(
-      find((re: RequestEntry) => hasValue(re)))
-      .subscribe((re: RequestEntry) => {
-        if (!re.responsePending) {
-          remove(this.requestsOnTheirWayToTheStore, (item) => item === request.href);
-        }
-      });
+      filter((re: RequestEntry) => hasValue(re)),
+      take(1)
+    ).subscribe((re: RequestEntry) => {
+      if (!re.responsePending) {
+        remove(this.requestsOnTheirWayToTheStore, (item) => item === request.href);
+      }
+    });
   }
 
   /**

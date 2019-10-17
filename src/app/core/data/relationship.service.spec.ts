@@ -34,8 +34,8 @@ describe('RelationshipService', () => {
   const relationshipType = Object.assign(new RelationshipType(), {
     id: '1',
     uuid: '1',
-    leftLabel: 'isAuthorOfPublication',
-    rightLabel: 'isPublicationOfAuthor'
+    leftwardType: 'isAuthorOfPublication',
+    rightwardType: 'isPublicationOfAuthor'
   });
 
   const relationship1 = Object.assign(new Relationship(), {

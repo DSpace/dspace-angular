@@ -12,19 +12,12 @@ const searchResultMap = new Map();
  * @param {GenericConstructor<ListableObject>} domainConstructor The constructor of the DSpaceObject
  * @returns Decorator function that performs the actual mapping on initialization of the component
  */
-export function searchResultFor(domainConstructor: GenericConstructor<ListableObject>, configuration: string = null) {
+export function searchResultFor(domainConstructor: GenericConstructor<ListableObject>) {
   return function decorator(searchResult: any) {
     if (!searchResult) {
       return;
     }
-    if (isNull(configuration)) {
-      searchResultMap.set(domainConstructor, searchResult);
-    } else {
-      if (!searchResultMap.get(configuration)) {
-        searchResultMap.set(configuration, new Map());
-      }
-      searchResultMap.get(configuration).set(domainConstructor, searchResult);
-    }
+    searchResultMap.set(domainConstructor, searchResult);
   };
 }
 
@@ -33,10 +26,6 @@ export function searchResultFor(domainConstructor: GenericConstructor<ListableOb
  * @param {GenericConstructor<ListableObject>} domainConstructor The DSpaceObject's constructor for which the search result component is requested
  * @returns The component's constructor that matches the given DSpaceObject
  */
-export function getSearchResultFor(domainConstructor: GenericConstructor<ListableObject>, configuration: string = null) {
-  if (isNull(configuration) || configuration === 'default' || hasNoValue(searchResultMap.get(configuration))) {
+export function getSearchResultFor(domainConstructor: GenericConstructor<ListableObject>) {
     return searchResultMap.get(domainConstructor);
-  } else {
-    return searchResultMap.get(configuration).get(domainConstructor);
-  }
 }

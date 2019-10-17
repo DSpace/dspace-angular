@@ -13,6 +13,7 @@ import { RemoteData } from '../data/remote-data';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
+import { GenericConstructor } from './generic-constructor';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -122,7 +123,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * Like [[firstMetadata]], but only returns a string value, or `undefined`.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
    * @returns {string} the first matching string value, or `undefined`.
    */
   firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
@@ -159,4 +160,10 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
     });
   }
 
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
+  }
 }

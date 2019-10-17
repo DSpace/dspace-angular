@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>{{'item.edit.move.head' | translate: {id: (itemRD$ | async)?.payload?.handle} }}</h2>
+            <p>{{'item.edit.move.description' | translate}}</p>
+            <div class="row">
+                <div class="col-12">
+                    <ds-dso-input-suggestions #f id="search-form"
+                                          [suggestions]="(collectionSearchResults | async)"
+                                          [placeholder]="'item.edit.move.search.placeholder'| translate"
+                                          [action]="getCurrentUrl()"
+                                          [name]="'item-move'"
+                                          [(ngModel)]="selectedCollectionName"
+                                          (clickSuggestion)="onClick($event)"
+                                          (typeSuggestion)="resetCollection($event)"
+                                          (findSuggestions)="findSuggestions($event)"
+                                          (click)="f.open()"
+                                          ngDefaultControl>
+                    </ds-dso-input-suggestions>
+
+                </div>
+            </div>                                           
+            <div class="row">
+                <div class="col-12">
+                    <p>
+                        <input type="checkbox" name="tc" [(ngModel)]="inheritPolicies" id="inheritPoliciesCheckbox">
+                        <label for="inheritPoliciesCheckbox">{{'item.edit.move.inheritpolicies.checkbox' |
+                                translate}}</label>
+                    </p>
+                    <p>
+                        {{'item.edit.move.inheritpolicies.description' | translate}}
+                    </p>
+                </div>
+            </div>
+
+            <button (click)="moveCollection()" class="btn btn-primary" [disabled]=!canSubmit>
+                <span *ngIf="!processing"> {{'item.edit.move.move' | translate}}</span>
+                <span *ngIf="processing"><i class='fas fa-circle-notch fa-spin'></i>
+                    {{'item.edit.move.processing' | translate}}
+                </span>
+            </button>
+            <button [routerLink]="['/items/', (itemRD$ | async)?.payload?.id, 'edit']"
+                    class="btn btn-outline-secondary">
+                {{'item.edit.move.cancel' | translate}}
+            </button>
+        </div>
+    </div>
+</div>

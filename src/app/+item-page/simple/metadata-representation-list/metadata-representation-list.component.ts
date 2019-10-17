@@ -1,17 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { ItemViewMode } from '../../../shared/items/item-type-decorator';
-import { Observable } from 'rxjs/internal/Observable';
-import { RemoteData } from '../../../core/data/remote-data';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, zip as observableZip } from 'rxjs';
 import { RelationshipService } from '../../../core/data/relationship.service';
-import { Item } from '../../../core/shared/item.model';
-import { zip as observableZip, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { filter, map, switchMap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { switchMap } from 'rxjs/operators';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { Item } from '../../../core/shared/item.model';
+import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-metadata-representation-list',
@@ -55,12 +54,6 @@ export class MetadataRepresentationListComponent implements OnInit {
    * A list of metadata-representations to display
    */
   representations$: Observable<MetadataRepresentation[]>;
-
-  /**
-   * The view-mode we're currently on
-   * @type {ElementViewMode}
-   */
-  viewMode = ItemViewMode.Metadata;
 
   /**
    * The originally provided limit

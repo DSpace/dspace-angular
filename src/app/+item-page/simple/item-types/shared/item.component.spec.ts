@@ -7,13 +7,20 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
+import { ItemComponent } from './item.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { Observable } from 'rxjs/internal/Observable';
+import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { MetadataMap, MetadataValue } from '../../../../core/shared/metadata.models';
 import { compareArraysUsing, compareArraysUsingIds } from './item-relationships-utils';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { RelationshipService } from '../../../../core/data/relationship.service';
@@ -40,7 +47,6 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         })],
         declarations: [component, GenericItemPageFieldComponent, TruncatePipe],
         providers: [
-          {provide: ITEM, useValue: mockItem},
           {provide: ItemDataService, useValue: {}},
           {provide: TruncatableService, useValue: {}},
           {provide: RelationshipService, useValue: {}}
@@ -55,6 +61,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
     beforeEach(async(() => {
       fixture = TestBed.createComponent(component);
       comp = fixture.componentInstance;
+      comp.object = mockItem;
       fixture.detectChanges();
     }));
 

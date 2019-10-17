@@ -159,10 +159,10 @@ export class RelationshipService extends DataService<Relationship> {
         getSucceededRemoteData(),
         map((relationshipTypeRD) => relationshipTypeRD.payload),
         map((relationshipType: RelationshipType) => {
-          if (otherItem.uuid == item.uuid) {
-            return relationshipType.leftLabel;
+          if (otherItem.uuid === item.uuid) {
+            return relationshipType.leftwardType;
           } else {
-            return relationshipType.rightLabel;
+            return relationshipType.rightwardType;
           }
         })
         )
@@ -211,7 +211,6 @@ export class RelationshipService extends DataService<Relationship> {
     return this.searchBy('byLabel', findAllOptions);
   }
 
-
   /**
    * Method for fetching an item's relationships, but filtered by related item IDs (essentially performing a reverse lookup)
    * Only relationships where leftItem or rightItem's ID is present in the list provided will be returned
@@ -231,7 +230,7 @@ export class RelationshipService extends DataService<Relationship> {
           );
         }))
       }),
-      map((relationships: Relationship[]) => relationships.filter((relationship => hasValue(relationship)))),
+      map((relationships: Relationship[]) => relationships.filter(((relationship) => hasValue(relationship)))),
     )
   }
 
@@ -242,7 +241,6 @@ export class RelationshipService extends DataService<Relationship> {
       map((item: Item) => uuids.includes(item.uuid))
     );
   }
-
 
   getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string): Observable<Relationship> {
     return this.getItemRelationshipsByLabel(item1, label)
@@ -260,7 +258,7 @@ export class RelationshipService extends DataService<Relationship> {
             );
           }))
         }),
-        map((relationships: Relationship[]) => relationships.find((relationship => hasValue(relationship))))
+        map((relationships: Relationship[]) => relationships.find(((relationship) => hasValue(relationship))))
       )
   }
 

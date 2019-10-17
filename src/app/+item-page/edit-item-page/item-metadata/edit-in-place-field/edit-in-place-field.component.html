@@ -4,7 +4,7 @@
             <span>{{metadata?.key?.split('.').join('.&#8203;')}}</span>
         </div>
         <div *ngIf="(editable | async)" class="field-container">
-            <ds-input-suggestions [suggestions]="(metadataFieldSuggestions | async)"
+            <ds-filter-input-suggestions [suggestions]="(metadataFieldSuggestions | async)"
                                   [(ngModel)]="metadata.key"
                                   (submitSuggestion)="update(suggestionControl)"
                                   (clickSuggestion)="update(suggestionControl)"
@@ -16,7 +16,7 @@
                                   [valid]="(valid | async) !== false"
                                   dsAutoFocus autoFocusSelector=".suggestion_input"
                                   [ngModelOptions]="{standalone: true}"
-            ></ds-input-suggestions>
+            ></ds-filter-input-suggestions>
         </div>
         <small class="text-danger"
                *ngIf="(valid | async) === false">{{"item.edit.metadata.metadatafield.invalid" | translate}}</small>

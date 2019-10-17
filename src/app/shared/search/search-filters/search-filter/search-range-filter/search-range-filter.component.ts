@@ -5,19 +5,17 @@ import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { FilterType } from '../../../filter-type.model';
 import { renderFacetFor } from '../search-filter-type-decorator';
-import {
-  facetLoad,
-  SearchFacetFilterComponent
-} from '../search-facet-filter/search-facet-filter.component';
+import { facetLoad, SearchFacetFilterComponent } from '../search-facet-filter/search-facet-filter.component';
 import { SearchFilterConfig } from '../../../search-filter-config.model';
 import { FILTER_CONFIG, IN_PLACE_SEARCH, SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { RouteService } from '../../../../services/route.service';
-import { hasValue } from '../../../../empty.util';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
+import { RouteService } from '../../../../core/services/route.service';
+import { hasValue } from '../../../../shared/empty.util';
+import { SearchConfigurationService } from '../../../search-service/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
 
 /**
  * The suffix for a range filters' minimum in the frontend URL

@@ -27,6 +27,9 @@ export const routeServiceStub: any = {
   },
   getRouteDataValue: (param) => {
     return observableOf({})
+  },
+  getHistory: () => {
+    return observableOf(['/home','/collection/123','/home'])
   }
   /* tslint:enable:no-empty */
 };

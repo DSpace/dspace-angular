@@ -58,7 +58,7 @@ describe('SearchFiltersComponent', () => {
   describe('when the getSearchLink method is called', () => {
     beforeEach(() => {
       spyOn(searchService, 'getSearchLink');
-      comp.getSearchLink();
+      (comp as any).getSearchLink();
     });
 
     it('should call getSearchLink on the searchService', () => {

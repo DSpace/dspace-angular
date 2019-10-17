@@ -258,7 +258,6 @@ describe('SearchFilterService', () => {
     });
   });
 
-
   describe('when the getCurrentView method is called', () => {
     beforeEach(() => {
       spyOn(routeServiceStub, 'getQueryParameterValue');

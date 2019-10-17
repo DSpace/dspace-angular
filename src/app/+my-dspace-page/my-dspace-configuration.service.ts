@@ -8,9 +8,9 @@ import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-
 import { RoleService } from '../core/roles/role.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { RouteService } from '../shared/services/route.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { RouteService } from '../core/services/route.service';
 
 /**
  * Service that performs all actions that have to do with the current mydspace configuration
@@ -54,7 +54,6 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    * Initialize class
    *
    * @param {roleService} roleService
-   * @param {SearchFixedFilterService} fixedFilterService
    * @param {RouteService} routeService
    * @param {ActivatedRoute} route
    */
