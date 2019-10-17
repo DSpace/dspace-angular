@@ -9,13 +9,13 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { IdentifierType } from '../index/index.reducer';
-import { DsoDataRedirectService } from './dso-data-redirect.service';
+import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 
-describe('DsoDataRedirectService', () => {
+describe('DsoRedirectDataService', () => {
   let scheduler: TestScheduler;
-  let service: DsoDataRedirectService;
+  let service: DsoRedirectDataService;
   let halService: HALEndpointService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -66,7 +66,7 @@ describe('DsoDataRedirectService', () => {
           a: remoteData
         })
       });
-      service = new DsoDataRedirectService(
+      service = new DsoRedirectDataService(
         requestService,
         rdbService,
         dataBuildService,

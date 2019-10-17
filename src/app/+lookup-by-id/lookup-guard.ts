@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { DsoDataRedirectService } from '../core/data/dso-data-redirect.service';
+import { DsoRedirectDataService } from '../core/data/dso-redirect-data.service';
 import { Injectable } from '@angular/core';
 import { IdentifierType } from '../core/index/index.reducer';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ interface LookupParams {
 
 @Injectable()
 export class LookupGuard implements CanActivate {
-  constructor(private dsoService: DsoDataRedirectService) {
+  constructor(private dsoService: DsoRedirectDataService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state:RouterStateSnapshot): Observable<boolean>  {

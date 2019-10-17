@@ -20,7 +20,7 @@ import { getFinishedRemoteData } from '../shared/operators';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class DsoDataRedirectService extends DataService<any> {
+export class DsoRedirectDataService extends DataService<any> {
 
   protected linkPath = 'pid';
   protected forceBypassCache = false;
