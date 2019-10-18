@@ -20,6 +20,8 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { RequestError } from '../../../core/data/request.models';
+import { RequestService } from '../../../core/data/request.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 
 describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<DSpaceObject>;
@@ -69,6 +71,13 @@ describe('ComColFormComponent', () => {
   const locationStub = jasmine.createSpyObj('location', ['back']);
   /* tslint:enable:no-empty */
 
+  const requestServiceStub = jasmine.createSpyObj({
+    removeByHrefSubstring: {}
+  });
+  const objectCacheStub = jasmine.createSpyObj({
+    remove: {}
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
@@ -77,7 +86,9 @@ describe('ComColFormComponent', () => {
         { provide: Location, useValue: locationStub },
         { provide: DynamicFormService, useValue: formServiceStub },
         { provide: NotificationsService, useValue: notificationsService },
-        { provide: AuthService, useValue: new AuthServiceMock() }
+        { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: RequestService, useValue: requestServiceStub },
+        { provide: ObjectCacheService, useValue: objectCacheStub }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -151,6 +162,11 @@ describe('ComColFormComponent', () => {
       it('should emit finishUpload', () => {
         expect(comp.finishUpload.emit).toHaveBeenCalled();
       });
+
+      it('should remove the object\'s cache', () => {
+        expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
+        expect(objectCacheStub.remove).toHaveBeenCalled();
+      });
     });
 
     describe('onUploadError', () => {
@@ -215,6 +231,11 @@ describe('ComColFormComponent', () => {
           it('should display a success notification', () => {
             expect(notificationsService.success).toHaveBeenCalled();
           });
+
+          it('should remove the object\'s cache', () => {
+            expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
+            expect(objectCacheStub.remove).toHaveBeenCalled();
+          });
         });
 
         describe('when dsoService.deleteLogo returns an error response', () => {
@@ -227,6 +248,11 @@ describe('ComColFormComponent', () => {
 
           it('should display an error notification', () => {
             expect(notificationsService.error).toHaveBeenCalled();
+          });
+
+          it('should remove the object\'s cache', () => {
+            expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
+            expect(objectCacheStub.remove).toHaveBeenCalled();
           });
         });
       });
