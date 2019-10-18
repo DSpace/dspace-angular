@@ -84,10 +84,26 @@ describe('DsoRedirectDataService', () => {
   describe('findById', () => {
     it('should call HALEndpointService with the path to the pid endpoint', () => {
       setup();
-      scheduler.schedule(() => service.findById(dsoUUID));
+      scheduler.schedule(() => service.findById(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
       expect(halService.getEndpoint).toHaveBeenCalledWith('pid');
+    });
+
+    it('should call HALEndpointService with the path to the dso endpoint', () => {
+      setup();
+      scheduler.schedule(() => service.findById(dsoUUID, IdentifierType.UUID));
+      scheduler.flush();
+
+      expect(halService.getEndpoint).toHaveBeenCalledWith('dso');
+    });
+
+    it('should call HALEndpointService with the path to the dso endpoint when identifier type not specified', () => {
+      setup();
+      scheduler.schedule(() => service.findById(dsoUUID));
+      scheduler.flush();
+
+      expect(halService.getEndpoint).toHaveBeenCalledWith('dso');
     });
 
     it('should configure the proper FindByIDRequest for uuid', () => {
