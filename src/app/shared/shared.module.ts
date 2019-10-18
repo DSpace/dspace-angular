@@ -36,6 +36,7 @@ import { WrapperGridElementComponent } from './object-grid/wrapper-grid-element/
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
+import { ComcolPageHandleComponent } from './comcol-page-handle/comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
 import { ErrorComponent } from './error/error.component';
@@ -137,16 +138,16 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
+import { ItemSelectComponent } from './object-select/item-select/item-select.component';
+import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
 import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
 import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
 import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
-import {LogInShibbolethComponent} from './log-in/methods/shibboleth/log-in-shibboleth.component';
-// import {LogInComponent} from './log-in/log-in.component';
-import {LogInPasswordComponent} from './log-in/methods/password/log-in-password.component';
 import { LoginContainerComponent } from './log-in/container/login-container.component';
-import { LogInComponent } from './log-in/log-in.component';
+import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
+import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -168,7 +169,7 @@ const MODULES = [
   NouisliderModule,
   MomentModule,
   TextMaskModule,
-  MenuModule
+  MenuModule,
 ];
 
 const ROOT_MODULES = [
@@ -196,6 +197,7 @@ const COMPONENTS = [
   UserMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,
+  ComcolPageHandleComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
   ComColFormComponent,
@@ -270,11 +272,13 @@ const COMPONENTS = [
   TypedItemSearchResultGridElementComponent,
   ItemTypeSwitcherComponent,
   BrowseByComponent,
-  // LogInComponent,
+  ItemTypeBadgeComponent,
+  ItemSelectComponent,
+  CollectionSelectComponent,
   LogInShibbolethComponent,
   LogInPasswordComponent,
   LoginContainerComponent,
-  LogInComponent,
+
 
   ItemTypeBadgeComponent
 ];
