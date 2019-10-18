@@ -1,10 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { toBitstreamsArray } from '../../../core/shared/item-bitstreams-utils';
 import { Observable } from 'rxjs/internal/Observable';
-import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -13,19 +10,16 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
-import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
+import { hasValue } from '../../../shared/empty.util';
 import { zip as observableZip } from 'rxjs';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
-import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Bundle } from '../../../core/shared/bundle.model';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -38,25 +32,15 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class ItemBitstreamsComponent extends AbstractItemUpdateComponent implements OnDestroy {
 
   /**
-   * The currently listed bitstreams
+   * The currently listed bundles
    */
-  bitstreams$: BehaviorSubject<RemoteData<PaginatedList<Bitstream>>> = new BehaviorSubject<RemoteData<PaginatedList<Bitstream>>>(null);
-
-  /**
-   * The current paginated search options
-   */
-  searchOptions$: Observable<PaginatedSearchOptions>;
+  bundles$: Observable<Bundle[]>;
 
   /**
    * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
    * This is used to update the item in cache after bitstreams are deleted
    */
   itemUpdateSubscription: Subscription;
-
-  /**
-   * A subscription keeping track of the current search options and applying them to the bitstreams$ observable
-   */
-  bitstreamsSubscription: Subscription;
 
   constructor(
     public itemService: ItemDataService,
@@ -69,8 +53,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public bitstreamService: BitstreamDataService,
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
-    public cdRef: ChangeDetectorRef,
-    public searchConfig: SearchConfigurationService
+    public cdRef: ChangeDetectorRef
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
   }
@@ -80,9 +63,18 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.searchOptions$ = this.searchConfig.paginatedSearchOptions;
-    this.initializeBitstreamsUpdate();
     this.initializeItemUpdate();
+  }
+
+  /**
+   * Actions to perform after the item has been initialized
+   */
+  postItemInit(): void {
+    this.bundles$ = this.item.bundles.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page)
+    );
   }
 
   /**
@@ -100,16 +92,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   }
 
   /**
-   * Initialize field updates
-   */
-  initializeUpdates(): void {
-    this.updates$ = this.bitstreams$.pipe(
-      toBitstreamsArray(),
-      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, bitstreams))
-    );
-  }
-
-  /**
    * Update the item (and view) when it's removed in the request cache
    * Also re-initialize the original fields and updates
    */
@@ -123,22 +105,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
         this.item = itemRD.payload;
         this.initializeOriginalFields();
         this.initializeUpdates();
-        // Navigate back to the first page to force a reload of the bitstream page
-        this.router.navigate([this.url], {queryParamsHandling: 'merge', queryParams: {page: 0}});
         this.cdRef.detectChanges();
       }
-    });
-  }
-
-  /**
-   * Initialize the bitstream update subscription, which keeps track of the current search options and applies
-   * them to the bitstreams$ observable by sending out a REST request
-   */
-  initializeBitstreamsUpdate(): void {
-    this.bitstreamsSubscription = this.searchOptions$.pipe(
-      switchMap((searchOptions) => this.itemService.getBitstreams(this.item.id, searchOptions))
-    ).subscribe((bitsreams: RemoteData<PaginatedList<Bitstream>>) => {
-      this.bitstreams$.next(bitsreams);
     });
   }
 
@@ -148,6 +116,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Display notifications and reset the current item/updates
    */
   submit() {
+    /*
     const removedBitstreams$ = this.bitstreams$.pipe(
       toBitstreamsArray(),
       switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdates(this.url, bitstreams, true) as Observable<FieldUpdates>),
@@ -162,6 +131,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       this.displayNotifications(responses);
       this.reset();
     });
+    */
   }
 
   /**
@@ -180,6 +150,32 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     if (successfulResponses.length > 0) {
       this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
     }
+  }
+
+  /**
+   * Request the object updates service to discard all current changes to this item
+   * Shows a notification to remind the user that they can undo this
+   */
+  discard() {
+    super.discard();
+    const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), {timeOut: this.discardTimeOut});
+    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
+      bundles.forEach((bundle: Bundle) => {
+        this.objectUpdatesService.discardFieldUpdates(bundle.self, undoNotification);
+      });
+    });
+  }
+
+  /**
+   * Request the object updates service to undo discarding all changes to this item
+   */
+  reinstate() {
+    super.reinstate();
+    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
+      bundles.forEach((bundle: Bundle) => {
+        this.objectUpdatesService.reinstateFieldUpdates(bundle.self);
+      });
+    });
   }
 
   /**
@@ -202,7 +198,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Unsubscribe from open subscriptions whenever the component gets destroyed
    */
   ngOnDestroy(): void {
-    this.itemUpdateSubscription.unsubscribe();
-    this.bitstreamsSubscription.unsubscribe();
+    if (this.itemUpdateSubscription) {
+      this.itemUpdateSubscription.unsubscribe();
+    }
   }
 }

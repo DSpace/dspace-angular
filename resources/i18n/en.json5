@@ -276,6 +276,7 @@
   "item.bitstreams.upload.item": "Item: ",
   "item.bitstreams.upload.title": "Upload bitstream",
 
+  "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.edit.buttons.download": "Download",
   "item.edit.bitstreams.edit.buttons.edit": "Edit",

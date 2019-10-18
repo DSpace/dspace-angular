@@ -23,6 +23,7 @@ import { EditRelationshipComponent } from './item-relationships/edit-relationshi
 import { EditRelationshipListComponent } from './item-relationships/edit-relationship-list/edit-relationship-list.component';
 import { AbstractItemUpdateComponent } from './abstract-item-update/abstract-item-update.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
+import { ItemEditBitstreamBundleComponent } from './item-bitstreams/item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -51,6 +52,7 @@ import { ItemMoveComponent } from './item-move/item-move.component';
     ItemBitstreamsComponent,
     EditInPlaceFieldComponent,
     ItemEditBitstreamComponent,
+    ItemEditBitstreamBundleComponent,
     EditInPlaceFieldComponent,
     EditRelationshipComponent,
     EditRelationshipListComponent,

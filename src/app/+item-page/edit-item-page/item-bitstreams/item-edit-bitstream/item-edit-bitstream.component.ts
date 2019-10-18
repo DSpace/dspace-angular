@@ -28,6 +28,11 @@ export class ItemEditBitstreamComponent implements OnChanges {
   @Input() url: string;
 
   /**
+   * The url of the bundle
+   */
+  @Input() bundleUrl: string;
+
+  /**
    * The bitstream of this field
    */
   bitstream: Bitstream;
@@ -57,6 +62,7 @@ export class ItemEditBitstreamComponent implements OnChanges {
    */
   remove(): void {
     this.objectUpdatesService.saveRemoveFieldUpdate(this.url, this.bitstream);
+    this.objectUpdatesService.saveRemoveFieldUpdate(this.bundleUrl, this.bitstream);
   }
 
   /**
@@ -64,6 +70,7 @@ export class ItemEditBitstreamComponent implements OnChanges {
    */
   undo(): void {
     this.objectUpdatesService.removeSingleFieldUpdate(this.url, this.bitstream.uuid);
+    this.objectUpdatesService.removeSingleFieldUpdate(this.bundleUrl, this.bitstream.uuid);
   }
 
   /**

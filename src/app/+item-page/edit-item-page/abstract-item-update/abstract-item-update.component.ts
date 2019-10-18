@@ -52,6 +52,7 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
         map((data: RemoteData<Item>) => data.payload)
       ).subscribe((item: Item) => {
       this.item = item;
+      this.postItemInit();
     });
 
     this.discardTimeOut = this.EnvConfig.item.edit.undoTimeout;
@@ -69,6 +70,14 @@ export class AbstractItemUpdateComponent extends AbstractTrackableComponent impl
 
     this.initializeNotificationsPrefix();
     this.initializeUpdates();
+  }
+
+  /**
+   * Actions to perform after the item has been initialized
+   * Abstract method: Should be overwritten in the sub class
+   */
+  postItemInit(): void {
+    // Overwrite in subclasses
   }
 
   /**

@@ -1,0 +1,18 @@
+<ng-template #bundleView>
+  <tr>
+    <td colspan="4">{{'item.edit.bitstreams.bundle.name' | translate:{ name: bundle.name } }}</td>
+  </tr>
+  <ng-container *ngVar="((updates$ | async) | dsObjectValues) as updateValues">
+    <tr *ngFor="let updateValue of updateValues"
+        ds-item-edit-bitstream
+        [fieldUpdate]="updateValue"
+        [url]="url"
+        [bundleUrl]="bundle.self"
+        [ngClass]="{
+                    'table-warning': updateValue.changeType === 0,
+                    'table-danger': updateValue.changeType === 2,
+                    'table-success': updateValue.changeType === 1
+                  }">
+    </tr>
+  </ng-container>
+</ng-template>
