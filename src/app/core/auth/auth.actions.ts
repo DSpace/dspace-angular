@@ -369,15 +369,6 @@ export class RetrieveAuthMethodsErrorAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR;
 }
 
-/*export class SetIsStandalonePageInAuthMethodsAction implements Action {
-  type: string = AuthActionTypes.SET_IS_STANDALONE_PAGE_IN_AUTH_METHODS;
-  payload: boolean;
-
-  constructor(isStandAlonePage: boolean) {
-    this.payload = isStandAlonePage;
-  }
-}*/
-
 /**
  * Change the redirect url.
  * @class SetRedirectUrlAction
