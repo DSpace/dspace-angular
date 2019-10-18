@@ -22,10 +22,10 @@ import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import {RouteService} from '../services/route.service';
-import {GlobalConfig} from '../../../config/global-config.interface';
-import {GLOBAL_CONFIG} from '../../../config';
-import {AuthMethodModel} from './models/auth-method.model';
+import { RouteService } from '../services/route.service';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { GLOBAL_CONFIG } from '../../../config';
+import { AuthMethodModel } from './models/auth-method.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -115,7 +115,7 @@ export class AuthService {
 
   }
 
-  public startShibbAuth():  Observable<AuthStatus> {
+  public startShibbAuth(): Observable<AuthStatus> {
 
     return this.authRequestService.postToEndpoint('login').pipe(
       map((status: AuthStatus) => {
@@ -247,7 +247,7 @@ export class AuthService {
     // Send a request that sign end the session
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    const options: HttpOptions = Object.create({ headers, responseType: 'text' });
+    const options: HttpOptions = Object.create({headers, responseType: 'text'});
     return this.authRequestService.getRequest('logout', options).pipe(
       map((status: AuthStatus) => {
         if (!status.authenticated) {
@@ -323,7 +323,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: CookieAttributes = {expires: expires};
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -372,7 +372,6 @@ export class AuthService {
    * Redirect to the route navigated before the login
    */
   public redirectAfterLoginSuccess(isStandalonePage: boolean) {
-    console.log('isStandAlonePage: ', isStandalonePage);
     this.getRedirectUrl().pipe(
       take(1))
       .subscribe((redirectUrl) => {
@@ -387,14 +386,12 @@ export class AuthService {
           this.routeService.getHistory().pipe(
             take(1)
           ).subscribe((history) => {
-            console.log('HISTORY: ', history);
             let redirUrl;
             if (isStandalonePage) {
               // For standalone login pages, use the previous route.
               redirUrl = history[history.length - 2] || '';
             } else {
               // console.log('isStandAlonePage: ', isStandalonePage);
-              console.log( 'history[history.length - 1; ', history[history.length - 1]);
               redirUrl = history[history.length - 1] || '';
             }
             this.navigateToRedirectUrl(redirUrl);
@@ -447,7 +444,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = { expires: expires };
+    const options: CookieAttributes = {expires: expires};
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
