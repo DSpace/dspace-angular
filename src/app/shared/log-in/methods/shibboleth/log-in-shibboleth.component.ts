@@ -17,6 +17,7 @@ import {
   isAuthenticationLoading
 } from '../../../../core/auth/selectors';
 import { AuthService } from '../../../../core/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-log-in-shibboleth',
@@ -47,7 +48,8 @@ export class LogInShibbolethComponent implements OnInit {
   constructor(@Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
               private formBuilder: FormBuilder,
               private store: Store<CoreState>,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private router: Router) {
     this.authMethodModel = injectedAuthMethodModel;
   }
 
@@ -60,8 +62,8 @@ export class LogInShibbolethComponent implements OnInit {
   }
 
   submit() {
-    // this.store.dispatch(new SetRedirectUrlAction('/mytest/url'));
-    this.authService.setRedirectUrl('myTest/url');
+    const redirectUrl: string = this.router.url;
+    this.authService.setRedirectUrl(redirectUrl);
     this.store.dispatch(new StartShibbolethAuthenticationAction(this.authMethodModel));
     // https://host/Shibboleth.sso/Login?target=https://host/shibboleth
     window.location.href = this.injectedAuthMethodModel.location;
