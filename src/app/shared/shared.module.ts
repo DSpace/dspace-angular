@@ -148,6 +148,7 @@ import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-
 import { LoginContainerComponent } from './log-in/container/login-container.component';
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -278,8 +279,6 @@ const COMPONENTS = [
   LogInShibbolethComponent,
   LogInPasswordComponent,
   LoginContainerComponent,
-
-
   ItemTypeBadgeComponent
 ];
 
