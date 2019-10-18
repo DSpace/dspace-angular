@@ -220,16 +220,6 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         authMethods: (action as RetrieveAuthMethodsSuccessAction).payload
       });
 
-/*    case AuthActionTypes.SET_IS_STANDALONE_PAGE_IN_AUTH_METHODS:
-      const authMethods: AuthMethodModel[] = state.authMethods;
-      const newAuthMethods: AuthMethodModel[] = new Array<AuthMethodModel>();
-      const isStandAlonePage: boolean = (action as SetIsStandalonePageInAuthMethodsAction).payload;
-      for (const authMethod of authMethods) {
-        const newAuthMethod = new AuthMethodModel(authMethod.authMethodType, authMethod.location, isStandAlonePage);
-        newAuthMethods.push(newAuthMethod);
-      }
-      return Object.assign({}, state, {authMethods: newAuthMethods});*/
-
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR:
       return Object.assign({}, state, {
         loading: false
