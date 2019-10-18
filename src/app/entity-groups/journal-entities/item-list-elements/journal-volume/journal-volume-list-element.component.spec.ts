@@ -12,7 +12,7 @@ let journalVolumeListElementComponent: JournalVolumeListElementComponent;
 let fixture: ComponentFixture<JournalVolumeListElementComponent>;
 
 const mockItemWithMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
@@ -35,7 +35,7 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
   }
 });
 const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
