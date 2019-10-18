@@ -91,7 +91,7 @@ export class AuthEffects {
   );
 
   // It means "reacts to this action but don't send another"
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public authenticatedError$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_ERROR),
     tap((action: LogOutSuccessAction) => this.authService.removeToken())
@@ -137,7 +137,7 @@ export class AuthEffects {
   );
 
   // It means "reacts to this action but don't send another"
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public refreshTokenSuccess$: Observable<Action> = this.actions$.pipe(
     ofType(AuthActionTypes.REFRESH_TOKEN_SUCCESS),
     tap((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload))
@@ -147,7 +147,7 @@ export class AuthEffects {
    * When the store is rehydrated in the browser,
    * clear a possible invalid token or authentication errors
    */
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public clearInvalidTokenOnRehydrate$: Observable<any> = this.actions$.pipe(
     ofType(StoreActionTypes.REHYDRATE),
     switchMap(() => {
@@ -172,7 +172,7 @@ export class AuthEffects {
       })
     );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public logOutSuccess$: Observable<Action> = this.actions$
     .pipe(ofType(AuthActionTypes.LOG_OUT_SUCCESS),
       tap(() => this.authService.removeToken()),
@@ -180,14 +180,14 @@ export class AuthEffects {
       tap(() => this.authService.refreshAfterLogout())
     );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public redirectToLogin$: Observable<Action> = this.actions$
     .pipe(ofType(AuthActionTypes.REDIRECT_AUTHENTICATION_REQUIRED),
       tap(() => this.authService.removeToken()),
       tap(() => this.authService.redirectToLogin())
     );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   public redirectToLoginTokenExpired$: Observable<Action> = this.actions$
     .pipe(
       ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED),
