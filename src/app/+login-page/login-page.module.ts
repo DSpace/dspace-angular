@@ -12,7 +12,6 @@ import { LoginPageRoutingModule } from './login-page-routing.module';
   ],
   declarations: [
     LoginPageComponent,
-
   ],
 
 })
