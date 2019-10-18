@@ -29,13 +29,6 @@ module.exports = {
       timePerMethod: {'PATCH': 3} //time in seconds
     }
   },
-/*  // Authentications
-  auth: {
-    target: {
-      host: 'https://fis.tiss.tuwien.ac.at',
-      page: ''
-    }
-  },*/
   // Form settings
   form: {
     // NOTE: Map server-side validators to comparative Angular form validators
