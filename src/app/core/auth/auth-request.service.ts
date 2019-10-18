@@ -52,7 +52,6 @@ export class AuthRequestService {
   }
 
   public getRequest(method: string, options?: HttpOptions): Observable<any> {
-    console.log('auth.request getRequest() was called');
     return this.halService.getEndpoint(this.linkName).pipe(
       filter((href: string) => isNotEmpty(href)),
       map((endpointURL) => this.getEndpointByMethod(endpointURL, method)),
