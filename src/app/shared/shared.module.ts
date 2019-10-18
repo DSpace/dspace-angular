@@ -36,6 +36,7 @@ import { WrapperGridElementComponent } from './object-grid/wrapper-grid-element/
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
+import { ComcolPageHandleComponent } from './comcol-page-handle/comcol-page-handle.component';
 import { ComcolPageHeaderComponent } from './comcol-page-header/comcol-page-header.component';
 import { ComcolPageLogoComponent } from './comcol-page-logo/comcol-page-logo.component';
 import { ErrorComponent } from './error/error.component';
@@ -139,6 +140,8 @@ import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
 import { AbstractTrackableComponent } from './trackable/abstract-trackable.component';
+import { ItemSelectComponent } from './object-select/item-select/item-select.component';
+import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
 import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
@@ -194,6 +197,7 @@ const COMPONENTS = [
   UserMenuComponent,
   ChipsComponent,
   ComcolPageContentComponent,
+  ComcolPageHandleComponent,
   ComcolPageHeaderComponent,
   ComcolPageLogoComponent,
   ComColFormComponent,
@@ -271,7 +275,9 @@ const COMPONENTS = [
   ItemTypeBadgeComponent,
   BrowseByComponent,
   AbstractTrackableComponent,
-  CustomSwitchComponent
+  CustomSwitchComponent,
+  ItemSelectComponent,
+  CollectionSelectComponent
 ];
 
 const ENTRY_COMPONENTS = [

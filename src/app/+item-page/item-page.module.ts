@@ -32,8 +32,8 @@ import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.c
   imports: [
     CommonModule,
     SharedModule,
-    EditItemPageModule,
     ItemPageRoutingModule,
+    EditItemPageModule,
     SearchPageModule
   ],
   declarations: [
