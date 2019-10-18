@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../../../core/core.reducers';
 import { AuthMethodModel } from '../../../core/auth/models/auth-method.model';
 
-
 /**
  * This component represents a section that contains the submission license form.
  */
@@ -47,8 +46,7 @@ export class LoginContainerComponent implements OnInit {
    * Find the correct component based on the AuthMethod's type
    */
   getAuthMethodContent(): string {
-    console.log('Trying to render login component for type: ', this.authMethodModel.authMethodType);
-    return rendersAuthMethodType(this.authMethodModel.authMethodType)
+      return rendersAuthMethodType(this.authMethodModel.authMethodType)
   }
 
 }

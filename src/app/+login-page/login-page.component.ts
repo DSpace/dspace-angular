@@ -10,7 +10,7 @@ import {
   AddAuthenticationMessageAction,
   AuthenticatedAction,
   AuthenticationSuccessAction,
-  ResetAuthenticationMessagesAction, SetIsStandalonePageInAuthMethodsAction
+  ResetAuthenticationMessagesAction
 } from '../core/auth/auth.actions';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';

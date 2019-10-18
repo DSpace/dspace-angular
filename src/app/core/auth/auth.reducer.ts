@@ -8,7 +8,7 @@ import {
   LogOutErrorAction,
   RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction,
-  RefreshTokenSuccessAction, RetrieveAuthMethodsSuccessAction, SetIsStandalonePageInAuthMethodsAction,
+  RefreshTokenSuccessAction, RetrieveAuthMethodsSuccessAction,
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
@@ -220,7 +220,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         authMethods: (action as RetrieveAuthMethodsSuccessAction).payload
       });
 
-    case AuthActionTypes.SET_IS_STANDALONE_PAGE_IN_AUTH_METHODS:
+/*    case AuthActionTypes.SET_IS_STANDALONE_PAGE_IN_AUTH_METHODS:
       const authMethods: AuthMethodModel[] = state.authMethods;
       const newAuthMethods: AuthMethodModel[] = new Array<AuthMethodModel>();
       const isStandAlonePage: boolean = (action as SetIsStandalonePageInAuthMethodsAction).payload;
@@ -228,7 +228,7 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         const newAuthMethod = new AuthMethodModel(authMethod.authMethodType, authMethod.location, isStandAlonePage);
         newAuthMethods.push(newAuthMethod);
       }
-      return Object.assign({}, state, {authMethods: newAuthMethods});
+      return Object.assign({}, state, {authMethods: newAuthMethods});*/
 
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR:
       return Object.assign({}, state, {

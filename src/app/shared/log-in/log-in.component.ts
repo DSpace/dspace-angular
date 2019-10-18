@@ -6,7 +6,6 @@ import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } fr
 import { CoreState } from '../../core/core.reducers';
 import { filter, takeWhile, } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
-import { SetIsStandalonePageInAuthMethodsAction } from '../../core/auth/auth.actions';
 
 @Component({
   selector: 'ds-log-in',
@@ -46,7 +45,7 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.store.dispatch(new SetIsStandalonePageInAuthMethodsAction(this.isStandalonePage));
+    // this.store.dispatch(new SetIsStandalonePageInAuthMethodsAction(this.isStandalonePage));
 
     this.authMethodData = this.store.pipe(
       select(getAuthenticationMethods),

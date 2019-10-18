@@ -4,9 +4,9 @@ import { ShibbConstants } from '../../../+login-page/shibbolethTargetPage/const/
 export class AuthMethodModel {
   authMethodType: AuthMethodType;
   location?: string;
-  isStandalonePage? = true;
+  // isStandalonePage? = true;
 
-  constructor(authMethodName: string, location?: string, isStandAlonePage?: boolean) {
+  constructor(authMethodName: string, location?: string) {
     switch (authMethodName) {
       case 'ip': {
         this.authMethodType = AuthMethodType.Ip;

@@ -10,7 +10,7 @@ import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model'
 import { FormBuilder } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { CoreState } from '../../../../core/core.reducers';
-import { StartShibbolethAuthenticationAction } from '../../../../core/auth/auth.actions';
+import { SetRedirectUrlAction, StartShibbolethAuthenticationAction } from '../../../../core/auth/auth.actions';
 import { Observable } from 'rxjs';
 import {
   isAuthenticated,
@@ -58,6 +58,7 @@ export class LogInShibbolethComponent implements OnInit {
   }
 
   submit() {
+    this.store.dispatch(new SetRedirectUrlAction('/mytest/url'));
     this.store.dispatch(new StartShibbolethAuthenticationAction(this.authMethodModel));
     // https://host/Shibboleth.sso/Login?target=https://host/shibboleth
     window.location.href = this.injectedAuthMethodModel.location;
