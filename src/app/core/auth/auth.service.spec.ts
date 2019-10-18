@@ -249,16 +249,18 @@ describe('AuthService test', () => {
 
     it ('should set redirect url to previous page', () => {
       spyOn(routeServiceMock, 'getHistory').and.callThrough();
+      spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
-      expect(routerStub.navigate).toHaveBeenCalledWith(['/collection/123']);
+      expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/collection/123');
     });
 
     it ('should set redirect url to current page', () => {
       spyOn(routeServiceMock, 'getHistory').and.callThrough();
+      spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(false);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
-      expect(routerStub.navigate).toHaveBeenCalledWith(['/home']);
+      expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/home');
     });
 
     it ('should redirect to / and not to /login', () => {
