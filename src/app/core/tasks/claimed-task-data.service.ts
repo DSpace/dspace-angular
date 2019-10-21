@@ -21,6 +21,7 @@ import { ProcessTaskResponse } from './models/process-task-response';
  */
 @Injectable()
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
+  protected responseMsToLive = 10 * 1000;
 
   protected responseMsToLive = 10 * 1000;
 

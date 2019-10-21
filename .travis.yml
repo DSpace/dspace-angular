@@ -17,13 +17,12 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - git clone https://github.com/DSpace-Labs/DSpace-Docker-Images.git
 
 install:
   # Start up DSpace 7 using the entities database dump
-  - docker-compose -f DSpace-Docker-Images/docker-compose-files/dspace-compose-v2/d7.travis.ci.yml up -d
+  - docker-compose -f ./docker/docker-compose-travis.yml up -d
   # Use the dspace-cli image to populate the assetstore.  Trigger a discovery and oai update
-  - docker-compose -f DSpace-Docker-Images/docker-compose-files/dspace-compose-v2/d7.cli.yml -f DSpace-Docker-Images/docker-compose-files/dspace-compose-v2/d7.cli.assetstore.yml run --rm dspace-cli
+  - docker-compose -f ./docker/cli.yml -f ./docker/cli.assetstore.yml run --rm dspace-cli
   - travis_retry yarn install
 
 before_script:
@@ -32,7 +31,7 @@ before_script:
   #- curl http://localhost:8080/
 
 after_script:
-  - docker-compose -f DSpace-Docker-Images/docker-compose-files/dspace-compose-v2/d7.travis.ci.yml down
+  - docker-compose -f ./docker/docker-compose-travis.yml down
 
 addons:
   apt:

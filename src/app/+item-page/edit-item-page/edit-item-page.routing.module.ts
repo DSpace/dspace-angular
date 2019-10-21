@@ -10,6 +10,7 @@ import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemStatusComponent } from './item-status/item-status.component';
 import { ItemMetadataComponent } from './item-metadata/item-metadata.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
+import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
 
@@ -71,6 +72,13 @@ const ITEM_EDIT_MOVE_PATH = 'move';
             data: { title: 'item.edit.tabs.curate.title' }
           },
         ]
+      },
+      {
+        path: 'mapper',
+        component: ItemCollectionMapperComponent,
+        resolve: {
+          item: ItemPageResolver
+        }
       },
       {
         path: ITEM_EDIT_WITHDRAW_PATH,
