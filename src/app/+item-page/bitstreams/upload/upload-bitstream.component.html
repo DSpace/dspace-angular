@@ -1,6 +1,6 @@
 <div class="container" *ngVar="(bundlesRD$ | async)?.payload?.page as bundles">
   <ng-container *ngIf="bundles">
-    <div class="row" *ngIf="bundles.length > 0">
+    <div class="row">
       <div class="col-12 mb-4">
         <h2>{{'item.bitstreams.upload.title' | translate}}</h2>
         <ng-container *ngVar="(itemRD$ | async)?.payload as item">
@@ -10,7 +10,7 @@
           </div>
         </ng-container>
       </div>
-      <div class="col-12">
+      <div class="col-12" *ngIf="bundles.length > 0">
         <label for="bundleName" class="font-weight-bold">{{'item.bitstreams.upload.bundle' | translate}}</label>
         <select id="bundleName" class="form-control" [(ngModel)]="selectedBundleId" (change)="setUploadUrl()">
           <option *ngFor="let bundle of bundles" [value]="bundle.id">{{bundle.name}}</option>
@@ -24,9 +24,7 @@
                       (onCompleteItem)="onCompleteItem($event)"
                       (onUploadError)="onUploadError()"></ds-uploader>
       </div>
-    </div>
-    <div class="row" *ngIf="bundles.length === 0">
-      <div class="col-12">
+      <div class="col-12" *ngIf="bundles.length === 0">
         <div class="alert alert-info w-100 d-inline-block" role="alert">
           {{'item.bitstreams.upload.bundles.empty' | translate}}
         </div>
