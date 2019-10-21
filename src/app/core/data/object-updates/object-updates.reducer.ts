@@ -105,6 +105,9 @@ export function objectUpdatesReducer(state = initialState, action: ObjectUpdates
     case ObjectUpdatesActionTypes.REMOVE: {
       return removeObjectUpdates(state, action as RemoveObjectUpdatesAction);
     }
+    case ObjectUpdatesActionTypes.REMOVE_ALL: {
+      return removeAllObjectUpdates(state);
+    }
     case ObjectUpdatesActionTypes.REMOVE_FIELD: {
       return removeFieldUpdate(state, action as RemoveFieldUpdateAction);
     }
@@ -175,7 +178,24 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
  * @param action The action to perform on the current state
  */
 function discardObjectUpdates(state: any, action: DiscardObjectUpdatesAction) {
-  const url: string = action.payload.url;
+  if (action.payload.discardAll) {
+    let newState = Object.assign({}, state);
+    Object.keys(state).filter((path: string) => !path.endsWith(OBJECT_UPDATES_TRASH_PATH)).forEach((path: string) => {
+      newState = discardObjectUpdatesFor(path, newState);
+    });
+    return newState;
+  } else {
+    const url: string = action.payload.url;
+    return discardObjectUpdatesFor(url, state);
+  }
+}
+
+/**
+ * Discard all updates for a specific action's url in the store
+ * @param url   The action's url
+ * @param state The current state
+ */
+function discardObjectUpdatesFor(url: string, state: any) {
   const pageState: ObjectUpdatesEntry = state[url];
   const newFieldStates = {};
   Object.keys(pageState.fieldStates).forEach((uuid: string) => {
@@ -225,6 +245,18 @@ function removeObjectUpdates(state: any, action: RemoveObjectUpdatesAction) {
 function removeObjectUpdatesByURL(state: any, url: string) {
   const newState = Object.assign({}, state);
   delete newState[url + OBJECT_UPDATES_TRASH_PATH];
+  return newState;
+}
+
+/**
+ * Remove all updates in the store
+ * @param state The current state
+ */
+function removeAllObjectUpdates(state: any) {
+  const newState = Object.assign({}, state);
+  Object.keys(state).filter((path: string) => path.endsWith(OBJECT_UPDATES_TRASH_PATH)).forEach((path: string) => {
+    delete newState[path];
+  });
   return newState;
 }
 

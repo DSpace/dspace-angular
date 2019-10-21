@@ -14,6 +14,7 @@ export const ObjectUpdatesActionTypes = {
   DISCARD: type('dspace/core/cache/object-updates/DISCARD'),
   REINSTATE: type('dspace/core/cache/object-updates/REINSTATE'),
   REMOVE: type('dspace/core/cache/object-updates/REMOVE'),
+  REMOVE_ALL: type('dspace/core/cache/object-updates/REMOVE_ALL'),
   REMOVE_FIELD: type('dspace/core/cache/object-updates/REMOVE_FIELD'),
 };
 
@@ -144,7 +145,8 @@ export class DiscardObjectUpdatesAction implements Action {
   type = ObjectUpdatesActionTypes.DISCARD;
   payload: {
     url: string,
-    notification: INotification
+    notification: INotification,
+    discardAll: boolean;
   };
 
   /**
@@ -153,12 +155,14 @@ export class DiscardObjectUpdatesAction implements Action {
    * @param url
    *    the unique url of the page for which the changes should be discarded
    * @param notification The notification that is raised when changes are discarded
+   * @param discardAll  discard all
    */
   constructor(
     url: string,
-    notification: INotification
+    notification: INotification,
+    discardAll = false
   ) {
-    this.payload = { url, notification };
+    this.payload = { url, notification, discardAll };
   }
 }
 
@@ -204,6 +208,13 @@ export class RemoveObjectUpdatesAction implements Action {
   ) {
     this.payload = { url };
   }
+}
+
+/**
+ * An ngrx action to remove all previously discarded updates in the ObjectUpdates state
+ */
+export class RemoveAllObjectUpdatesAction implements Action {
+  type = ObjectUpdatesActionTypes.REMOVE_ALL;
 }
 
 /**

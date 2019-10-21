@@ -27,6 +27,11 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   @Input() bundle: Bundle;
 
   /**
+   * The current url of this page
+   */
+  @Input() url: string;
+
+  /**
    * The updates to the current bundle
    */
   updates$: Observable<FieldUpdates>;

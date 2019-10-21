@@ -226,6 +226,15 @@ export class ObjectUpdatesService {
   }
 
   /**
+   * Method to dispatch a DiscardObjectUpdatesAction to the store with discardAll set to true
+   * @param url The page's URL for which the changes should be discarded
+   * @param undoNotification The notification which is should possibly be canceled
+   */
+  discardAllFieldUpdates(url: string, undoNotification: INotification) {
+    this.store.dispatch(new DiscardObjectUpdatesAction(url, undoNotification, true));
+  }
+
+  /**
    * Method to dispatch an ReinstateObjectUpdatesAction to the store
    * @param url The page's URL for which the changes should be reinstated
    */

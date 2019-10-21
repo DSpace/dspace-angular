@@ -157,13 +157,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Shows a notification to remind the user that they can undo this
    */
   discard() {
-    super.discard();
     const undoNotification = this.notificationsService.info(this.getNotificationTitle('discarded'), this.getNotificationContent('discarded'), {timeOut: this.discardTimeOut});
-    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
-      bundles.forEach((bundle: Bundle) => {
-        this.objectUpdatesService.discardFieldUpdates(bundle.self, undoNotification);
-      });
-    });
+    this.objectUpdatesService.discardAllFieldUpdates(this.url, undoNotification);
   }
 
   /**
