@@ -66,6 +66,7 @@ import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-gr
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -122,8 +123,19 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicRelationGroupModel({
       id: 'relationGroup',
       formConfiguration: [],
+      isInlineGroup: false,
       mandatoryField: '',
       name: 'relationGroup',
+      relationFields: [],
+      scopeUUID: '',
+      submissionScope: ''
+    }),
+    new DynamicRelationGroupModel({
+      id: 'inlineRelationGroup',
+      formConfiguration: [],
+      isInlineGroup: true,
+      mandatoryField: '',
+      name: 'inlineRelationGroup',
       relationFields: [],
       scopeUUID: '',
       submissionScope: ''
@@ -296,10 +308,11 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[19])).toEqual(DsDynamicListComponent);
     expect(testFn(formModel[20])).toEqual(DsDynamicListComponent);
     expect(testFn(formModel[21])).toEqual(DsDynamicRelationGroupComponent);
-    expect(testFn(formModel[22])).toEqual(DsDatePickerComponent);
-    expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
+    expect(testFn(formModel[22])).toEqual(DsDynamicRelationInlineGroupComponent);
+    expect(testFn(formModel[23])).toEqual(DsDatePickerComponent);
     expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
-    expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
+    expect(testFn(formModel[25])).toEqual(DsDynamicLookupComponent);
+    expect(testFn(formModel[26])).toEqual(DsDynamicFormGroupComponent);
   });
 
 });

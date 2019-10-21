@@ -68,7 +68,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     this.formGroup = this.formBuilderService.createFormGroup(this.formModel);
   }
 
-  initArrayModel(formConfig) {
+  initArrayModel(formConfig): DynamicRowArrayModel[] {
     let arrayCounter = 0;
 
     const config = {
@@ -77,7 +77,6 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
       groupFactory: () => {
         let model;
         const fieldValue = isEmpty(this.model.value) || (arrayCounter === 0) ? {} : this.model.value[arrayCounter - 1];
-        console.log(fieldValue, this.normalizeGroupFormValue(fieldValue));
         model = this.initArrayItemModel(formConfig, this.normalizeGroupFormValue(fieldValue));
         arrayCounter++;
         setLayout(model, 'element', 'host', 'col');
@@ -180,6 +179,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
   private updateArrayModelValue(groupValue, index) {
     let modelValue = this.model.value;
+
     if (isEmpty(modelValue)) {
       modelValue = [groupValue];
     } else {

@@ -69,6 +69,7 @@ function init() {
     } as FormRowModel],
     id: 'dc_contributor_author',
     label: 'Authors',
+    isInlineGroup: false,
     mandatoryField: 'dc.contributor.author',
     name: 'dc.contributor.author',
     placeholder: 'Authors',
@@ -261,7 +262,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
       const chips = new Chips(modelValue, 'value', 'dc.contributor.author');
       groupComp.formCollapsed.subscribe((value) => {
         expect(value).toEqual(true);
-      })
+      });
       expect(groupComp.formModel.length).toEqual(formModel.length);
       expect(groupComp.chips.getChipsItems()).toEqual(chips.getChipsItems());
     }));
