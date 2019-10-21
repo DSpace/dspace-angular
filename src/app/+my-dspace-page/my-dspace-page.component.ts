@@ -28,6 +28,7 @@ import { SearchConfigurationService } from '../+search-page/search-service/searc
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
+import { RequestService } from '../core/data/request.service';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -96,6 +97,7 @@ export class MyDSpacePageComponent implements OnInit {
   viewModeList = [ViewMode.List, ViewMode.Detail];
 
   constructor(private service: SearchService,
+              private requestService: RequestService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
@@ -115,7 +117,8 @@ export class MyDSpacePageComponent implements OnInit {
   ngOnInit(): void {
     this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-
+    // This assures an empty search cache each for each onInit()
+    this.service.getEndpoint().subscribe((url) => this.requestService.removeByHrefSubstring(url));
     this.sub = this.searchOptions$.pipe(
       tap(() => this.resultsRD$.next(null)),
       switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getSucceededRemoteData())))

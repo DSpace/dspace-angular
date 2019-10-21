@@ -30,6 +30,8 @@ import { RoleService } from '../core/roles/role.service';
 import { MockRoleService } from '../shared/mocks/mock-role-service';
 import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
+import { RequestService } from '../core/data/request.service';
+import { getMockRequestService } from '../shared/mocks/mock-request.service';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -50,6 +52,7 @@ describe('MyDSpacePageComponent', () => {
   const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,
+    getEndpoint: observableOf('discover/search/objects'),
     getSearchLink: '/mydspace',
     getScopes: observableOf(['test-scope']),
     setServiceOptions: {}
@@ -76,6 +79,7 @@ describe('MyDSpacePageComponent', () => {
       scope: scopeParam
     })
   };
+
   const sidebarService = {
     isCollapsed: observableOf(true),
     collapse: () => this.isCollapsed = observableOf(true),
@@ -125,6 +129,10 @@ describe('MyDSpacePageComponent', () => {
         {
           provide: SearchFixedFilterService,
           useValue: mockFixedFilterService
+        },
+        {
+          provide: RequestService,
+          useValue: getMockRequestService()
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]
