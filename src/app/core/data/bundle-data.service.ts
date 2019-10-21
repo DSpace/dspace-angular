@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { FindAllOptions } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
+import { switchMap } from 'rxjs/operators';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bundles endpoint
@@ -20,6 +21,7 @@ import { Observable } from 'rxjs/internal/Observable';
 @Injectable()
 export class BundleDataService extends DataService<Bundle> {
   protected linkPath = 'bundles';
+  protected bitstreamsEndpoint = 'bitstreams';
   protected forceBypassCache = false;
 
   constructor(
@@ -42,5 +44,15 @@ export class BundleDataService extends DataService<Bundle> {
    */
   getBrowseEndpoint(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
+  }
+
+  /**
+   * Get the bitstreams endpoint for a bundle
+   * @param bundleId
+   */
+  getBitstreamsEndpoint(bundleId: string): Observable<string> {
+    return this.getBrowseEndpoint().pipe(
+      switchMap((href: string) => this.halService.getEndpoint(this.bitstreamsEndpoint, `${href}/${bundleId}`))
+    );
   }
 }

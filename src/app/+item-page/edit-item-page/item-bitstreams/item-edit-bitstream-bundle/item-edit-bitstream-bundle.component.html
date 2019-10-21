@@ -1,6 +1,16 @@
 <ng-template #bundleView>
   <tr>
-    <td colspan="4">{{'item.edit.bitstreams.bundle.name' | translate:{ name: bundle.name } }}</td>
+    <td colspan="3" class="font-weight-bold">{{'item.edit.bitstreams.bundle.name' | translate:{ name: bundle.name } }}</td>
+    <td class="text-center">
+      <div class="btn-group bundle-action-buttons">
+        <button [routerLink]="['/items/', item.id, 'bitstreams', 'new']"
+                [queryParams]="{bundle: bundle.id}"
+                class="btn btn-outline-success btn-sm"
+                title="{{'item.edit.bitstreams.bundle.edit.buttons.upload' | translate}}">
+          <i class="fas fa-upload fa-fw"></i>
+        </button>
+      </div>
+    </td>
   </tr>
   <ng-container *ngVar="((updates$ | async) | dsObjectValues) as updateValues">
     <tr *ngFor="let updateValue of updateValues"

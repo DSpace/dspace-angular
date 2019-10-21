@@ -2,17 +2,20 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
-import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { hasValue, hasValueOperator } from '../../../shared/empty.util';
+import { hasValue, isEmpty } from '../../../shared/empty.util';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { AuthService } from '../../../core/auth/auth.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { UploaderProperties } from '../../../shared/uploader/uploader-properties.model';
 import { getBitstreamModulePath } from '../../../app-routing.module';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
 
 @Component({
   selector: 'ds-upload-bitstream',
@@ -30,11 +33,22 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
   itemRD$: Observable<RemoteData<Item>>;
 
   /**
+   * The item's bundles
+   */
+  bundlesRD$: Observable<RemoteData<PaginatedList<Bundle>>>;
+
+  /**
+   * The ID of the currently selected bundle to upload a bitstream to
+   */
+  selectedBundleId: string;
+
+  /**
    * The uploader configuration options
    * @type {UploaderOptions}
    */
   uploadFilesOptions: UploaderOptions = {
-    url: '',
+    // URL needs to contain something to not produce any errors. This will be replaced once a bundle has been selected.
+    url: 'placeholder',
     authToken: null,
     disableMultipart: false,
     itemAlias: null
@@ -46,16 +60,10 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
-  /**
-   * Properties to send with the upload request
-   */
-  uploadProperties = Object.assign(new UploaderProperties(), {
-    bundleName: 'ORIGINAL'
-  });
-
   constructor(protected route: ActivatedRoute,
               protected router: Router,
               protected itemService: ItemDataService,
+              protected bundleService: BundleDataService,
               protected authService: AuthService,
               protected notificationsService: NotificationsService,
               protected translate: TranslateService) {
@@ -63,25 +71,36 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(map((data) => data.item));
-    this.subs.push(
-      this.route.queryParams.pipe(
-        map((params) => params.bundleName),
-        hasValueOperator(),
-        distinctUntilChanged()
-      ).subscribe((bundleName: string) => {
-        this.uploadProperties.bundleName = bundleName;
-      })
+    this.bundlesRD$ = this.itemRD$.pipe(
+      switchMap((itemRD: RemoteData<Item>) => itemRD.payload.bundles)
     );
-    this.subs.push(
-      this.itemRD$.pipe(
-        map((itemRD: RemoteData<Item>) => itemRD.payload),
-        switchMap((item: Item) => this.itemService.getBitstreamsEndpoint(item.id)),
-        distinctUntilChanged()
-      ).subscribe((url: string) => {
-        this.uploadFilesOptions.url = url;
+    this.selectedBundleId = this.route.snapshot.queryParams.bundle;
+    if (isEmpty(this.selectedBundleId)) {
+      this.bundlesRD$.pipe(
+        getSucceededRemoteData(),
+        getRemoteDataPayload(),
+        take(1)
+      ).subscribe((bundles: PaginatedList<Bundle>) => {
+        if (bundles.page.length > 0) {
+          this.selectedBundleId = bundles.page[0].id;
+          this.setUploadUrl();
+        }
+      });
+    } else {
+      this.setUploadUrl();
+    }
+  }
+
+  /**
+   * Set the upload url to match the selected bundle ID
+   */
+  setUploadUrl() {
+    this.bundleService.getBitstreamsEndpoint(this.selectedBundleId).pipe(take(1)).subscribe((href: string) => {
+      this.uploadFilesOptions.url = href;
+      if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
-      })
-    );
+      }
+    });
   }
 
   /**

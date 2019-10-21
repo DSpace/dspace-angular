@@ -24,6 +24,7 @@ import { EditRelationshipListComponent } from './item-relationships/edit-relatio
 import { AbstractItemUpdateComponent } from './abstract-item-update/abstract-item-update.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemEditBitstreamBundleComponent } from './item-bitstreams/item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
+import { BundleDataService } from '../../core/data/bundle-data.service';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -58,6 +59,9 @@ import { ItemEditBitstreamBundleComponent } from './item-bitstreams/item-edit-bi
     EditRelationshipListComponent,
     ItemCollectionMapperComponent,
     ItemMoveComponent,
+  ],
+  providers: [
+    BundleDataService
   ]
 })
 export class EditItemPageModule {

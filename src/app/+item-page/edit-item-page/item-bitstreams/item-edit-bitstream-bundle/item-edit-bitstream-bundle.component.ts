@@ -6,6 +6,7 @@ import { FieldUpdates } from '../../../../core/data/object-updates/object-update
 import { toBitstreamsArray } from '../../../../core/shared/item-bitstreams-utils';
 import { switchMap } from 'rxjs/operators';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
+import { Item } from '../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -25,6 +26,11 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    * The bundle to display bitstreams for
    */
   @Input() bundle: Bundle;
+
+  /**
+   * The item the bundle belongs to
+   */
+  @Input() item: Item;
 
   /**
    * The current url of this page

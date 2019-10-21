@@ -23,7 +23,7 @@
     </button>
   </div>
 
-  <table *ngIf="bundles?.length > 0" class="table table-responsive table-striped table-bordered mt-4">
+  <table *ngIf="item && bundles?.length > 0" class="table table-responsive table-striped table-bordered mt-4">
     <tbody>
       <tr>
         <th>{{'item.edit.bitstreams.headers.name' | translate}}</th>
@@ -33,7 +33,8 @@
       </tr>
       <ds-item-edit-bitstream-bundle *ngFor="let bundle of bundles"
                                      [url]="url"
-                                     [bundle]="bundle">
+                                     [bundle]="bundle"
+                                     [item]="item">
       </ds-item-edit-bitstream-bundle>
     </tbody>
   </table>
