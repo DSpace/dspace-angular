@@ -25,6 +25,7 @@ import { AbstractItemUpdateComponent } from './abstract-item-update/abstract-ite
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemEditBitstreamBundleComponent } from './item-bitstreams/item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 import { BundleDataService } from '../../core/data/bundle-data.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -34,7 +35,8 @@ import { BundleDataService } from '../../core/data/bundle-data.service';
     CommonModule,
     SharedModule,
     EditItemPageRoutingModule,
-    SearchPageModule
+    SearchPageModule,
+    DragDropModule
   ],
   declarations: [
     EditItemPageComponent,

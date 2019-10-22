@@ -20,6 +20,7 @@ import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Bundle } from '../../../core/shared/bundle.model';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -149,6 +150,21 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     });
     if (successfulResponses.length > 0) {
       this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+    }
+  }
+
+  /**
+   * A bitstream was moved within or between bundles
+   * Send updates to the object update service to track this move
+   * @param event
+   */
+  moveBitstream(event: CdkDragDrop<any>) {
+    const oldBundleId = event.previousContainer.id;
+    const newContainerId = event.container.id;
+    if (oldBundleId === newContainerId) {
+      // Move bitstreams within bundle
+    } else {
+      // Move bitstreams between bundles
     }
   }
 

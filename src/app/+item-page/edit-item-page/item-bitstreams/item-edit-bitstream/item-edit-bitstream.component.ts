@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef } from '@angular/core';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { cloneDeep } from 'lodash';
@@ -9,14 +9,20 @@ import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model'
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: '[ds-item-edit-bitstream]',
+  selector: 'ds-item-edit-bitstream',
+  styleUrls: ['../item-bitstreams.component.scss'],
   templateUrl: './item-edit-bitstream.component.html',
 })
 /**
  * Component that displays a single bitstream of an item on the edit page
  */
-export class ItemEditBitstreamComponent implements OnChanges {
+export class ItemEditBitstreamComponent implements OnChanges, OnInit {
+
+  /**
+   * The view on the bitstream
+   */
+  @ViewChild('bitstreamView') bitstreamView;
+
   /**
    * The current field, value and state of the bitstream
    */
@@ -42,7 +48,12 @@ export class ItemEditBitstreamComponent implements OnChanges {
    */
   format$: Observable<BitstreamFormat>;
 
-  constructor(private objectUpdatesService: ObjectUpdatesService) {
+  constructor(private objectUpdatesService: ObjectUpdatesService,
+              private viewContainerRef: ViewContainerRef) {
+  }
+
+  ngOnInit(): void {
+    this.viewContainerRef.createEmbeddedView(this.bitstreamView);
   }
 
   /**

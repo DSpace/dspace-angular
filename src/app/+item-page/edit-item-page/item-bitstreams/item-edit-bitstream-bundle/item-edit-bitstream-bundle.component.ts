@@ -7,9 +7,11 @@ import { toBitstreamsArray } from '../../../../core/shared/item-bitstreams-utils
 import { switchMap } from 'rxjs/operators';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
+  styleUrls: ['../item-bitstreams.component.scss'],
   templateUrl: './item-edit-bitstream-bundle.component.html',
 })
 /**
@@ -38,6 +40,11 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   @Input() url: string;
 
   /**
+   * Event emitter for moving a bitstream within or across bundles
+   */
+  @Output() moveBitstream: EventEmitter<any> = new EventEmitter();
+
+  /**
    * The updates to the current bundle
    */
   updates$: Observable<FieldUpdates>;
@@ -54,5 +61,13 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     );
 
     this.viewContainerRef.createEmbeddedView(this.bundleView);
+  }
+
+  /**
+   * A bitstream was moved, emit the event to moveBitstream
+   * @param event
+   */
+  drop(event: CdkDragDrop<any>) {
+    this.moveBitstream.emit(event);
   }
 }

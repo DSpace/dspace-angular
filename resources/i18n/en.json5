@@ -281,6 +281,7 @@
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.edit.buttons.download": "Download",
+  "item.edit.bitstreams.edit.buttons.drag": "Drag",
   "item.edit.bitstreams.edit.buttons.edit": "Edit",
   "item.edit.bitstreams.edit.buttons.remove": "Remove",
   "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
