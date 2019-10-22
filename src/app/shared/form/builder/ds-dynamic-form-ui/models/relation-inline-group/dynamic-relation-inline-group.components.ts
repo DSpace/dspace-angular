@@ -139,7 +139,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   remove(event: DynamicFormControlEvent) {
     const index = event.model.parent.index;
     const size = (event.model.parent.parent as any).size;
-    if (size === this.model.value.length) {
+    if (isNotEmpty(this.model.value) && size === this.model.value.length) {
       this.removeItemFromModelValue(index);
     }
   }
