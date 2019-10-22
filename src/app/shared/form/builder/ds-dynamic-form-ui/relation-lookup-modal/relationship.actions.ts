@@ -17,12 +17,12 @@ export const RelationshipActionTypes = {
  */
 export class AddRelationshipAction implements Action {
   type = RelationshipActionTypes.ADD_RELATIONSHIP;
-  exists = true;
 
   payload: {
     item1: Item;
     item2: Item;
     relationshipType: string;
+    nameVariant: string;
   };
 
   /**
@@ -31,13 +31,15 @@ export class AddRelationshipAction implements Action {
    * @param item1 The first item in the relationship
    * @param item2 The second item in the relationship
    * @param relationshipType The label of the relationshipType
+   * @param nameVariant The nameVariant of the relationshipType
    */
   constructor(
     item1: Item,
     item2: Item,
-    relationshipType: string
+    relationshipType: string,
+    nameVariant?: string
   ) {
-    this.payload = { item1, item2, relationshipType };
+    this.payload = { item1, item2, relationshipType, nameVariant };
   }
 }
 
@@ -46,7 +48,6 @@ export class AddRelationshipAction implements Action {
  */
 export class RemoveRelationshipAction implements Action {
   type = RelationshipActionTypes.REMOVE_RELATIONSHIP;
-  exists = false;
 
   payload: {
     item1: Item;

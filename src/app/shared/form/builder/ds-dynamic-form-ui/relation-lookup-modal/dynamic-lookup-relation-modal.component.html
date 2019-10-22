@@ -14,6 +14,7 @@
                         [listId]="listId"
                         [relationship]="relationship"
                         [repeatable]="repeatable"
+                        [context]="context"
                         (selectObject)="select($event)"
                         (deselectObject)="deselect($event)"
                         class="d-block pt-3">
@@ -27,6 +28,7 @@
                         [listId]="listId"
                         [label]="label"
                         [repeatable]="repeatable"
+                        [context]="context"
                         (selectObject)="select($event)"
                         (deselectObject)="deselect($event)"
                         class="d-block pt-3">
@@ -34,7 +36,6 @@
             </ng-template>
         </ngb-tab>
     </ngb-tabset>
-
 </div>
 <div class="modal-footer">
     <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate:{size: (selection$ | async)?.length || 0}) }}</small>

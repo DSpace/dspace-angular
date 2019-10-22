@@ -11,6 +11,7 @@ import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { Router } from '@angular/router';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { Context } from '../../../../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-selection-tab',
@@ -30,6 +31,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
   @Input() repeatable: boolean;
   @Input() selection$: Observable<ListableObject[]>;
   @Input() selectionRD$: Observable<RemoteData<PaginatedList<ListableObject>>>;
+  @Input() context: Context;
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
@@ -61,15 +63,12 @@ export class DsDynamicLookupRelationSelectionTabComponent {
                   currentPage: pagination.currentPage,
                   totalPages: Math.ceil(selected.length / pagination.pageSize)
                 });
-              return createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, selection))
+              return createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, selection));
             })
           );
         })
       )
-
   }
-
-
 
   resetRoute() {
     this.router.navigate([], {

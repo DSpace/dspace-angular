@@ -14,6 +14,7 @@
                                     [selectionConfig]="{ repeatable: repeatable, listId: listId }"
                                     [config]="initialPagination"
                                     [hideGear]="true"
+                                    [context]="context"
                                     (deselectObject)="deselectObject.emit($event)"
                                     (selectObject)="selectObject.emit($event)"
             ></ds-viewable-collection>

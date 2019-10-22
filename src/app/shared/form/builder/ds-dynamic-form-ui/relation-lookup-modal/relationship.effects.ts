@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { debounceTime, map, mergeMap, take, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { RelationshipAction, RelationshipActionTypes } from './relationship.actions';
+import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
@@ -21,11 +21,11 @@ export class RelationshipEffects {
    * Map that keeps track of the latest RelationshipEffects for each relationship's composed identifier
    */
   private debounceMap: {
-    [identifier: string]: BehaviorSubject<boolean>
+    [identifier: string]: BehaviorSubject<string>
   } = {};
 
-  private initialStateMap: {
-    [identifier: string]: boolean
+  private initialActionMap: {
+    [identifier: string]: string
   } = {};
 
 
@@ -39,22 +39,22 @@ export class RelationshipEffects {
           const { item1, item2, relationshipType } = action.payload;
           const identifier: string = this.createIdentifier(item1, item2, relationshipType);
           if (hasNoValue(this.debounceMap[identifier])) {
-            this.initialStateMap[identifier] = !action.exists;
-            this.debounceMap[identifier] = new BehaviorSubject<boolean>(action.exists);
+            this.initialActionMap[identifier] = action.type;
+            this.debounceMap[identifier] = new BehaviorSubject<string>(action.type);
             this.debounceMap[identifier].pipe(
               debounceTime(DEBOUNCE_TIME),
               take(1)
             ).subscribe(
-              (exists) => {
-                if (this.initialStateMap[identifier] !== exists) {
-                  exists ? this.addRelationship(item1, item2, relationshipType) : this.removeRelationship(item1, item2, relationshipType);
+              (type) => {
+                if (this.initialActionMap[identifier] === type) {
+                  type === RelationshipActionTypes.ADD_RELATIONSHIP ? this.addRelationship(item1, item2, relationshipType, (action as AddRelationshipAction).payload.nameVariant) : this.removeRelationship(item1, item2, relationshipType);
                 }
                 delete this.debounceMap[identifier];
-                delete this.initialStateMap[identifier];
+                delete this.initialActionMap[identifier];
               }
             )
           } else {
-            this.debounceMap[identifier].next(action.exists);
+            this.debounceMap[identifier].next(action.type);
           }
         }
       )
@@ -72,7 +72,7 @@ export class RelationshipEffects {
   }
 
 
-  private addRelationship(item1: Item, item2: Item, relationshipType: string) {
+  private addRelationship(item1: Item, item2: Item, relationshipType: string, nameVariant?: string) {
     const type1: string = item1.firstMetadataValue('relationship.type');
     // const type1: string = 'JournalVolume';
     const type2: string = item2.firstMetadataValue('relationship.type');
@@ -81,9 +81,9 @@ export class RelationshipEffects {
         mergeMap((type: RelationshipType) => {
             const isSwitched = type.rightwardType === relationshipType;
             if (isSwitched) {
-              return this.relationshipService.addRelationship(type.id, item2, item1);
+              return this.relationshipService.addRelationship(type.id, item2, item1, undefined, nameVariant);
             } else {
-              return this.relationshipService.addRelationship(type.id, item1, item2);
+              return this.relationshipService.addRelationship(type.id, item1, item2, nameVariant, undefined);
             }
           }
         )

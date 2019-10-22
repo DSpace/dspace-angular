@@ -18,6 +18,7 @@ import { RelationshipService } from '../../../../../core/data/relationship.servi
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
+import { Context } from '../../../../../core/shared/context.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -38,6 +39,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   itemRD$;
   repeatable: boolean;
   selection$: Observable<ListableObject[]>;
+  context: Context;
 
   constructor(
     public modal: NgbActiveModal,
@@ -51,8 +53,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.selection$ = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
+    if (this.relationship.nameVariants) {
+      this.context = Context.Submission;
+    }
   }
-
 
   close() {
     this.modal.close();
@@ -64,10 +68,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
         .pipe(
           getSucceededRemoteData(),
           tap((itemRD: RemoteData<Item>) => {
-            return selectableObjects.forEach((object) =>
-              this.store.dispatch(new AddRelationshipAction(itemRD.payload, object.indexableObject, this.relationship.relationshipType))
-            );
-          })
+              return selectableObjects.forEach((object) =>
+                this.store.dispatch(new AddRelationshipAction(itemRD.payload, object.indexableObject, this.relationship.relationshipType))
+              );
+            }
+          )
         ).subscribe());
   }
 
@@ -77,12 +82,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
       () => this.itemRD$.pipe(
         getSucceededRemoteData(),
         tap((itemRD: RemoteData<Item>) => {
-          return selectableObjects.forEach((object) =>
-            this.store.dispatch(new RemoveRelationshipAction(itemRD.payload, object.indexableObject, this.relationship.relationshipType))
-          );
-        })
+            return selectableObjects.forEach((object) =>
+              this.store.dispatch(new RemoveRelationshipAction(itemRD.payload, object.indexableObject, this.relationship.relationshipType))
+            );
+          }
+        )
       ).subscribe()
     );
   }
-
 }

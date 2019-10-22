@@ -39,6 +39,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Input() listId: string;
   @Input() repeatable: boolean;
   @Input() selection$: Observable<ListableObject[]>;
+  @Input() context: Context;
+
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
@@ -52,7 +54,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     pageSize: 5
   });
   linkTypes = CollectionElementLinkType;
-  context: Context;
 
   constructor(
     private searchService: SearchService,
@@ -67,13 +68,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
-    /**
-     * TODO REMOVE NEXT LINE
-     */
-    this.relationship.nameVariants = true;
-    if (this.relationship.nameVariants) {
-      this.context = Context.Submission;
-    }
 
     this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
