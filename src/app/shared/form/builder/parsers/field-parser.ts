@@ -37,6 +37,7 @@ export abstract class FieldParser {
         id: uniqueId() + '_array',
         label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
+        required: JSON.parse( this.configData.mandatory),
         notRepeatable: !this.configData.repeatable,
         groupFactory: () => {
           let model;
