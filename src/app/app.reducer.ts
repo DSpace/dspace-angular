@@ -3,9 +3,9 @@ import * as fromRouter from '@ngrx/router-store';
 import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
 import {
-  SearchSidebarState,
+  SidebarState,
   sidebarReducer
-} from './+search-page/search-sidebar/search-sidebar.reducer';
+} from './shared/sidebar/sidebar.reducer';
 import {
   filterReducer,
   SearchFiltersState
@@ -37,7 +37,7 @@ export interface AppState {
   metadataRegistry: MetadataRegistryState;
   bitstreamFormats: BitstreamFormatRegistryState;
   notifications: NotificationsState;
-  searchSidebar: SearchSidebarState;
+  searchSidebar: SidebarState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
   cssVariables: CSSVariablesState;

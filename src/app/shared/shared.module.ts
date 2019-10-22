@@ -147,6 +147,7 @@ import { TypedItemSearchResultGridElementComponent } from './object-grid/item-gr
 import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
 import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
 import { ItemMetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
+import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -233,6 +234,7 @@ const COMPONENTS = [
   ObjectCollectionComponent,
   PaginationComponent,
   SearchFormComponent,
+  PageWithSidebarComponent,
   ThumbnailComponent,
   GridThumbnailComponent,
   UploaderComponent,

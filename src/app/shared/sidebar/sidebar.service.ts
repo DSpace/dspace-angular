@@ -1,20 +1,20 @@
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { SearchSidebarState } from './search-sidebar.reducer';
+import { SidebarState } from './sidebar.reducer';
 import { createSelector, select, Store } from '@ngrx/store';
-import { SearchSidebarCollapseAction, SearchSidebarExpandAction } from './search-sidebar.actions';
+import { SidebarCollapseAction, SidebarExpandAction } from './sidebar.actions';
 import { AppState } from '../../app.reducer';
-import { HostWindowService } from '../../shared/host-window.service';
+import { HostWindowService } from '../host-window.service';
 import { map } from 'rxjs/operators';
 
 const sidebarStateSelector = (state: AppState) => state.searchSidebar;
-const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SearchSidebarState) => sidebar.sidebarCollapsed);
+const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SidebarState) => sidebar.sidebarCollapsed);
 
 /**
  * Service that performs all actions that have to do with the search sidebar
  */
 @Injectable()
-export class SearchSidebarService {
+export class SidebarService {
   /**
    * Emits true is the current screen size is mobile
    */
@@ -47,13 +47,13 @@ export class SearchSidebarService {
    * Dispatches a collapse action to the store
    */
   public collapse(): void {
-    this.store.dispatch(new SearchSidebarCollapseAction());
+    this.store.dispatch(new SidebarCollapseAction());
   }
 
   /**
    * Dispatches an expand action to the store
    */
   public expand(): void {
-    this.store.dispatch(new SearchSidebarExpandAction());
+    this.store.dispatch(new SidebarExpandAction());
   }
 }

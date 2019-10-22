@@ -23,7 +23,7 @@ import { SearchConfigurationServiceStub } from '../shared/testing/search-configu
 import { SearchService } from '../+search-page/search-service/search.service';
 import { SearchConfigurationService } from '../+search-page/search-service/search-configuration.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
-import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchFilterService } from '../+search-page/search-filters/search-filter/search-filter.service';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
@@ -108,7 +108,7 @@ describe('MyDSpacePageComponent', () => {
             })
         },
         {
-          provide: SearchSidebarService,
+          provide: SidebarService,
           useValue: sidebarService
         },
         {

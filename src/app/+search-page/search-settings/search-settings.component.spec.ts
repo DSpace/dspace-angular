@@ -7,7 +7,7 @@ import { SortDirection, SortOptions } from '../../core/cache/models/sort-options
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
-import { SearchSidebarService } from '../search-sidebar/search-sidebar.service';
+import { SidebarService } from '../../shared/sidebar/sidebar.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { By } from '@angular/platform-browser';
@@ -65,7 +65,7 @@ describe('SearchSettingsComponent', () => {
 
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         {
-          provide: SearchSidebarService,
+          provide: SidebarService,
           useValue: sidebarService
         },
         {
