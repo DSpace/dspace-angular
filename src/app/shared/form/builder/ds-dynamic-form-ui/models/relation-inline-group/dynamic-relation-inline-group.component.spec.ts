@@ -185,7 +185,6 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
       control2 = service.getFormControlById('local_contributor_affiliation', groupCompAsAny.formRef.formGroup, groupComp.formModel) as FormControl;
       model2 = service.findById('local_contributor_affiliation', groupComp.formModel) as DsDynamicInputModel;
 
-      // spyOn(store, 'dispatch');
     }));
 
     afterEach(() => {
@@ -219,7 +218,23 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
       expect(formArrayItemModel.type).toBe('GROUP');
     }));
 
-    describe('onBlur', () => {
+    it('should return emit blur event on blur', () => {
+      event = {
+        $event: new Event('blur'),
+        context: null,
+        control: null,
+        group: null,
+        model: null,
+        type: 'blur'
+      };
+      spyOn(groupCompAsAny.blur, 'emit');
+
+      groupComp.onBlur(event);
+
+      expect(groupCompAsAny.blur.emit).toHaveBeenCalled();
+    });
+
+    describe('onChange', () => {
       beforeEach(() => {
         const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
         const formArrayModel: DynamicRowArrayModel[] = groupComp.initArrayModel(formConfig) as DynamicRowArrayModel[];
@@ -244,14 +259,14 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         spyOn(groupCompAsAny, 'getRowValue');
         spyOn(groupCompAsAny, 'removeItemFromArray');
         spyOn(groupCompAsAny, 'removeItemFromModelValue');
-        spyOn((groupCompAsAny).blur, 'emit');
+        spyOn((groupCompAsAny).change, 'emit');
 
-        groupComp.onBlur(event);
+        groupComp.onChange(event);
 
         expect(groupCompAsAny.getRowValue).toHaveBeenCalled();
         expect(groupCompAsAny.removeItemFromArray).toHaveBeenCalled();
         expect(groupCompAsAny.removeItemFromModelValue).toHaveBeenCalled();
-        expect(groupCompAsAny.blur.emit).toHaveBeenCalled();
+        expect(groupCompAsAny.change.emit).toHaveBeenCalled();
       });
 
       it('should validate form when mandatory group field is empty', () => {
@@ -259,13 +274,13 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         spyOn(groupComp, 'hasEmptyGroupValue').and.returnValue(false);
         spyOn(groupCompAsAny, 'getRowValue').and.returnValue({'dc.contributor.author': null, 'local.contributor.affiliation': 'test'});
         spyOn(groupCompAsAny.formService, 'validateAllFormFields');
-        spyOn(groupCompAsAny.blur, 'emit');
+        spyOn(groupCompAsAny.change, 'emit');
 
-        groupComp.onBlur(event);
+        groupComp.onChange(event);
 
         expect(groupCompAsAny.getRowValue).toHaveBeenCalled();
         expect(groupCompAsAny.formService.validateAllFormFields).toHaveBeenCalled();
-        expect(groupCompAsAny.blur.emit).toHaveBeenCalled();
+        expect(groupCompAsAny.change.emit).toHaveBeenCalled();
       });
 
       it('should update Array Model Value', () => {
@@ -273,12 +288,12 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         spyOn(groupComp, 'hasEmptyGroupValue').and.returnValue(false);
         spyOn(groupCompAsAny, 'getRowValue').and.returnValue({'dc.contributor.author': 'test', 'local.contributor.affiliation': 'test'});
         spyOn(groupCompAsAny, 'updateArrayModelValue');
-        spyOn(groupCompAsAny.blur, 'emit');
+        spyOn(groupCompAsAny.change, 'emit');
 
-        groupComp.onBlur(event);
+        groupComp.onChange(event);
 
         expect(groupCompAsAny.getRowValue).toHaveBeenCalled();
-        expect(groupCompAsAny.blur.emit).toHaveBeenCalled();
+        expect(groupCompAsAny.change.emit).toHaveBeenCalled();
       });
     });
 
@@ -457,7 +472,9 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         parent: {
           index: 1,
           parent: {
-            size: 2
+            parent: {
+              size: 2
+            }
           }
         }
       };
@@ -479,6 +496,37 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 
       expect(groupCompAsAny.formService.changeForm).toHaveBeenCalled();
       expect(groupCompAsAny.formBuilderService.removeFormArrayGroup).toHaveBeenCalled();
+    });
+
+    it('should not remove item from array model when size is less than 2', () => {
+      const model: any = {
+        parent: {
+          index: 1,
+          parent: {
+            parent: {
+              size: 1
+            }
+          }
+        }
+      };
+      event = {
+        $event: new Event('remove'),
+        context: null,
+        control: null,
+        group: null,
+        model: model,
+        type: 'remove'
+      };
+
+      spyOn(groupCompAsAny.formBuilderService, 'getPath');
+      spyOn(groupCompAsAny.formBuilderService, 'removeFormArrayGroup');
+      spyOn(groupCompAsAny.formService, 'changeForm');
+      spyOn(groupCompAsAny.formGroup, 'get');
+
+      groupCompAsAny.removeItemFromArray(event);
+
+      expect(groupCompAsAny.formService.changeForm).not.toHaveBeenCalled();
+      expect(groupCompAsAny.formBuilderService.removeFormArrayGroup).not.toHaveBeenCalled();
     });
 
     it('should update model properly', () => {

@@ -108,6 +108,10 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
   }
 
   onBlur(event: DynamicFormControlEvent) {
+    this.blur.emit();
+  }
+
+  onChange(event: DynamicFormControlEvent) {
     const index = event.model.parent.parent.index;
     const groupValue = this.getRowValue(event.model.parent as DynamicFormGroupModel);
 
@@ -119,7 +123,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
     } else {
       this.updateArrayModelValue(groupValue, index);
     }
-    this.blur.emit();
+    this.change.emit();
   }
 
   hasEmptyGroupValue(groupValue): boolean {
@@ -169,12 +173,15 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
   private removeItemFromArray(event: DynamicFormControlEvent): void {
     const parentArrayModel: DynamicFormArrayGroupModel = event.model.parent.parent as DynamicFormArrayGroupModel;
-    const index = parentArrayModel.index;
-    const arrayContext = parentArrayModel.context;
-    const path = this.formBuilderService.getPath(arrayContext);
-    const formArrayControl = this.formGroup.get(path) as FormArray;
-    this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
-    this.formService.changeForm(this.formId, this.formModel);
+    const arraySize = parentArrayModel.parent.size;
+    if (arraySize > 1) {
+      const index = parentArrayModel.index;
+      const arrayContext = parentArrayModel.context;
+      const path = this.formBuilderService.getPath(arrayContext);
+      const formArrayControl = this.formGroup.get(path) as FormArray;
+      this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
+      this.formService.changeForm(this.formId, this.formModel);
+    }
   }
 
   private updateArrayModelValue(groupValue, index) {
