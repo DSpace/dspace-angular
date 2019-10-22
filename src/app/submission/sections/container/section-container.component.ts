@@ -101,8 +101,9 @@ export class SubmissionSectionContainerComponent implements OnInit {
       parent: this.injector
     });
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
-    this.hasInfoMessage = this.translate.get('submission.sections.' + this.sectionData.header + '.info').pipe(
-      map((message: string) => isNotEmpty(message))
+    const messageInfoKey = 'submission.sections.' + this.sectionData.header + '.info';
+    this.hasInfoMessage = this.translate.get(messageInfoKey).pipe(
+      map((message: string) => isNotEmpty(message) && messageInfoKey !== message)
     );
   }
 
