@@ -18,8 +18,8 @@ export class AuthMethodModel {
       }
       case 'shibboleth': {
         this.authMethodType = AuthMethodType.Shibboleth;
-        const strings: string[] = location.split('target=');
-        const target = strings[1];
+        // const strings: string[] = location.split('target=');
+        // const target = strings[1];
         // this.location = target + location + '/' + ShibbConstants.SHIBBOLETH_REDIRECT_ROUTE;
         this.location = location + '/' + ShibbConstants.SHIBBOLETH_REDIRECT_ROUTE;
         break;
