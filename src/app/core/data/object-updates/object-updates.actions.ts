@@ -16,6 +16,7 @@ export const ObjectUpdatesActionTypes = {
   REMOVE: type('dspace/core/cache/object-updates/REMOVE'),
   REMOVE_ALL: type('dspace/core/cache/object-updates/REMOVE_ALL'),
   REMOVE_FIELD: type('dspace/core/cache/object-updates/REMOVE_FIELD'),
+  MOVE: type('dspace/core/cache/object-updates/MOVE'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -37,7 +38,8 @@ export class InitializeFieldsAction implements Action {
   payload: {
     url: string,
     fields: Identifiable[],
-    lastModified: Date
+    lastModified: Date,
+    customOrder: string[]
   };
 
   /**
@@ -47,13 +49,15 @@ export class InitializeFieldsAction implements Action {
    *    the unique url of the page for which the fields are being initialized
    * @param fields The identifiable fields of which the updates are kept track of
    * @param lastModified The last modified date of the object that belongs to the page
+   * @param customOrder A custom order to keep track of objects moving around
    */
   constructor(
     url: string,
     fields: Identifiable[],
-    lastModified: Date
+    lastModified: Date,
+    customOrder: string[] = []
   ) {
-    this.payload = { url, fields, lastModified };
+    this.payload = { url, fields, lastModified, customOrder };
   }
 }
 
@@ -242,6 +246,34 @@ export class RemoveFieldUpdateAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to remove a single field update in the ObjectUpdates state for a certain page url and field uuid
+ */
+export class MoveFieldUpdateAction implements Action {
+  type = ObjectUpdatesActionTypes.MOVE;
+  payload: {
+    url: string,
+    from: number,
+    to: number
+  };
+
+  /**
+   * Create a new RemoveObjectUpdatesAction
+   *
+   * @param url
+   *    the unique url of the page for which a field's change should be removed
+   * @param from  The index of the object to move
+   * @param to    The index to move the object to
+   */
+  constructor(
+    url: string,
+    from: number,
+    to: number
+  ) {
+    this.payload = { url, from, to };
+  }
+}
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -253,4 +285,5 @@ export type ObjectUpdatesAction
   | DiscardObjectUpdatesAction
   | ReinstateObjectUpdatesAction
   | RemoveObjectUpdatesAction
-  | RemoveFieldUpdateAction;
+  | RemoveFieldUpdateAction
+  | MoveFieldUpdateAction;

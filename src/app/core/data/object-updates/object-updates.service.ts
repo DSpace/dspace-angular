@@ -15,7 +15,7 @@ import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
-  InitializeFieldsAction,
+  InitializeFieldsAction, MoveFieldUpdateAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   SetEditableFieldUpdateAction,
@@ -51,9 +51,10 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are being mapped
    * @param fields The initial fields for the page's object
    * @param lastModified The date the object was last modified
+   * @param addCustomOrder Add a custom order list to track move changes
    */
-  initialize(url, fields: Identifiable[], lastModified: Date): void {
-    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified));
+  initialize(url, fields: Identifiable[], lastModified: Date, addCustomOrder?: boolean): void {
+    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, addCustomOrder ? fields.map((field) => field.uuid) : []));
   }
 
   /**
@@ -128,6 +129,28 @@ export class ObjectUpdatesService {
   }
 
   /**
+   * Method that combines the state's updates with the initial values (when there's no update),
+   * sorted by their custom order to create a FieldUpdates object
+   * @param url The URL of the page for which the FieldUpdates should be requested
+   * @param initialFields The initial values of the fields
+   */
+  getFieldUpdatesByCustomOrder(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
+    const objectUpdates = this.getObjectEntry(url);
+    return objectUpdates.pipe(map((objectEntry) => {
+      const fieldUpdates: FieldUpdates = {};
+      for (const uuid of objectEntry.customOrder) {
+        let fieldUpdate = objectEntry.fieldUpdates[uuid];
+        if (isEmpty(fieldUpdate)) {
+          const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
+          fieldUpdate = { field: identifiable, changeType: undefined };
+        }
+        fieldUpdates[uuid] = fieldUpdate;
+      }
+      return fieldUpdates;
+    }))
+  }
+
+  /**
    * Method to check if a specific field is currently editable in the store
    * @param url The URL of the page on which the field resides
    * @param uuid The UUID of the field
@@ -194,6 +217,16 @@ export class ObjectUpdatesService {
    */
   saveChangeFieldUpdate(url: string, field: Identifiable) {
     this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
+  }
+
+  /**
+   * Dispatches a MoveFieldUpdateAction
+   * @param url   The page's URL for which the changes are saved
+   * @param from  The index of the object to move
+   * @param to    The index to move the object to
+   */
+  saveMoveFieldUpdate(url: string, from: number, to: number) {
+    this.store.dispatch(new MoveFieldUpdateAction(url, from, to));
   }
 
   /**

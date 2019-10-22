@@ -154,21 +154,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   }
 
   /**
-   * A bitstream was moved within or between bundles
-   * Send updates to the object update service to track this move
-   * @param event
-   */
-  moveBitstream(event: CdkDragDrop<any>) {
-    const oldBundleId = event.previousContainer.id;
-    const newContainerId = event.container.id;
-    if (oldBundleId === newContainerId) {
-      // Move bitstreams within bundle
-    } else {
-      // Move bitstreams between bundles
-    }
-  }
-
-  /**
    * Request the object updates service to discard all current changes to this item
    * Shows a notification to remind the user that they can undo this
    */

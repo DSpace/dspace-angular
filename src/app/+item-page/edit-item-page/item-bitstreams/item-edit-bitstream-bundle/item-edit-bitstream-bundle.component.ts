@@ -4,7 +4,7 @@ import { ObjectUpdatesService } from '../../../../core/data/object-updates/objec
 import { Observable } from 'rxjs/internal/Observable';
 import { FieldUpdates } from '../../../../core/data/object-updates/object-updates.reducer';
 import { toBitstreamsArray } from '../../../../core/shared/item-bitstreams-utils';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -40,11 +40,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   @Input() url: string;
 
   /**
-   * Event emitter for moving a bitstream within or across bundles
-   */
-  @Output() moveBitstream: EventEmitter<any> = new EventEmitter();
-
-  /**
    * The updates to the current bundle
    */
   updates$: Observable<FieldUpdates>;
@@ -54,20 +49,20 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.objectUpdatesService.initialize(this.bundle.self, [], new Date());
     this.updates$ = this.bundle.bitstreams.pipe(
       toBitstreamsArray(),
-      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.bundle.self, bitstreams))
+      tap((bitstreams: Bitstream[]) => this.objectUpdatesService.initialize(this.bundle.self, bitstreams, new Date(), true)),
+      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesByCustomOrder(this.bundle.self, bitstreams))
     );
 
     this.viewContainerRef.createEmbeddedView(this.bundleView);
   }
 
   /**
-   * A bitstream was moved, emit the event to moveBitstream
+   * A bitstream was moved, send updates to the store
    * @param event
    */
   drop(event: CdkDragDrop<any>) {
-    this.moveBitstream.emit(event);
+    this.objectUpdatesService.saveMoveFieldUpdate(this.bundle.self, event.previousIndex, event.currentIndex);
   }
 }

@@ -2,14 +2,15 @@ import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
-  InitializeFieldsAction,
+  InitializeFieldsAction, MoveFieldUpdateAction,
   ObjectUpdatesAction,
   ObjectUpdatesActionTypes,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   RemoveObjectUpdatesAction, SetEditableFieldUpdateAction, SetValidFieldUpdateAction
 } from './object-updates.actions';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 /**
  * Path where discarded objects are saved
@@ -61,6 +62,7 @@ export interface ObjectUpdatesEntry {
   fieldStates: FieldStates;
   fieldUpdates: FieldUpdates
   lastModified: Date;
+  customOrder: string[]
 }
 
 /**
@@ -117,6 +119,9 @@ export function objectUpdatesReducer(state = initialState, action: ObjectUpdates
     case ObjectUpdatesActionTypes.SET_VALID_FIELD: {
       return setValidFieldUpdate(state, action as SetValidFieldUpdateAction);
     }
+    case ObjectUpdatesActionTypes.MOVE: {
+      return moveFieldUpdate(state, action as MoveFieldUpdateAction);
+    }
     default: {
       return state;
     }
@@ -132,13 +137,15 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
   const lastModifiedServer: Date = action.payload.lastModified;
+  const customorder = action.payload.customOrder;
   const fieldStates = createInitialFieldStates(fields);
   const newPageState = Object.assign(
     {},
     state[url],
     { fieldStates: fieldStates },
     { fieldUpdates: {} },
-    { lastModified: lastModifiedServer }
+    { lastModified: lastModifiedServer },
+    { customOrder: customorder }
   );
   return Object.assign({}, state, { [url]: newPageState });
 }
@@ -361,4 +368,23 @@ function createInitialFieldStates(fields: Identifiable[]) {
   const fieldStates = {};
   uuids.forEach((uuid: string) => fieldStates[uuid] = initialFieldState);
   return fieldStates;
+}
+
+/**
+ * Move an object within the custom order of a page state
+ * @param state   The current state
+ * @param action  The move action to perform
+ */
+function moveFieldUpdate(state: any, action: MoveFieldUpdateAction) {
+  const url = action.payload.url;
+  const from = action.payload.from;
+  const to = action.payload.to;
+
+  const pageState: ObjectUpdatesEntry = state[url];
+  const customOrder = [...pageState.customOrder];
+  if (isNotEmpty(customOrder) && isNotEmpty(customOrder[from]) && isNotEmpty(customOrder[to])) {
+    moveItemInArray(customOrder, from, to);
+  }
+
+  return Object.assign({}, state, { [url]: Object.assign({}, pageState, { customOrder: customOrder }) })
 }

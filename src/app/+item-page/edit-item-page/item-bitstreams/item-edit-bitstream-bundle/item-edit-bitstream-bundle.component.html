@@ -13,15 +13,16 @@
     </div>
   </div>
   <div [id]="bundle.id" class="bundle-bitstreams-list" *ngVar="((updates$ | async) | dsObjectValues) as updateValues" cdkDropList (cdkDropListDropped)="drop($event)">
-    <div class="row" *ngFor="let updateValue of updateValues" cdkDrag>
-      <ds-item-edit-bitstream [fieldUpdate]="updateValue"
-                              [url]="url"
-                              [bundleUrl]="bundle.self"
-                              [ngClass]="{
+    <div class="row" *ngFor="let updateValue of updateValues" cdkDrag
+         [ngClass]="{
                   'table-warning': updateValue.changeType === 0,
                   'table-danger': updateValue.changeType === 2,
-                  'table-success': updateValue.changeType === 1
+                  'table-success': updateValue.changeType === 1,
+                  'bg-white': updateValue.changeType === undefined
                 }">
+      <ds-item-edit-bitstream [fieldUpdate]="updateValue"
+                              [url]="url"
+                              [bundleUrl]="bundle.self">
         <button disabled slot="drag-handle" class="drag-handle btn btn-outline-secondary btn-sm" cdkDragHandle>
           <i class="fas fa-grip-vertical fa-fw" [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
         </button>
