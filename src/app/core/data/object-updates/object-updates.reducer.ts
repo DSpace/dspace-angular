@@ -56,13 +56,22 @@ export interface FieldUpdates {
 }
 
 /**
+ * A custom order given to the list of objects
+ */
+export interface CustomOrder {
+  initialOrder: string[],
+  newOrder: string[],
+  changed: boolean
+}
+
+/**
  * The updated state of a single page
  */
 export interface ObjectUpdatesEntry {
   fieldStates: FieldStates;
   fieldUpdates: FieldUpdates
   lastModified: Date;
-  customOrder: string[]
+  customOrder: CustomOrder
 }
 
 /**
@@ -137,7 +146,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
   const lastModifiedServer: Date = action.payload.lastModified;
-  const customorder = action.payload.customOrder;
+  const order = action.payload.order;
   const fieldStates = createInitialFieldStates(fields);
   const newPageState = Object.assign(
     {},
@@ -145,7 +154,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     { fieldStates: fieldStates },
     { fieldUpdates: {} },
     { lastModified: lastModifiedServer },
-    { customOrder: customorder }
+    { customOrder: { initialOrder: order, newOrder: order, changed: false } }
   );
   return Object.assign({}, state, { [url]: newPageState });
 }
@@ -213,9 +222,19 @@ function discardObjectUpdatesFor(url: string, state: any) {
     }
   });
 
+  const newCustomOrder = Object.assign({}, pageState.customOrder);
+  if (pageState.customOrder.changed) {
+    const initialOrder = pageState.customOrder.initialOrder;
+    if (isNotEmpty(initialOrder)) {
+      newCustomOrder.newOrder = initialOrder;
+      newCustomOrder.changed = false;
+    }
+  }
+
   const discardedPageState = Object.assign({}, pageState, {
     fieldUpdates: {},
-    fieldStates: newFieldStates
+    fieldStates: newFieldStates,
+    customOrder: newCustomOrder
   });
   return Object.assign({}, state, { [url]: discardedPageState }, { [url + OBJECT_UPDATES_TRASH_PATH]: pageState });
 }
@@ -381,10 +400,19 @@ function moveFieldUpdate(state: any, action: MoveFieldUpdateAction) {
   const to = action.payload.to;
 
   const pageState: ObjectUpdatesEntry = state[url];
-  const customOrder = [...pageState.customOrder];
+  const initialOrder = pageState.customOrder.initialOrder;
+  const customOrder = [...pageState.customOrder.newOrder];
   if (isNotEmpty(customOrder) && isNotEmpty(customOrder[from]) && isNotEmpty(customOrder[to])) {
     moveItemInArray(customOrder, from, to);
   }
 
-  return Object.assign({}, state, { [url]: Object.assign({}, pageState, { customOrder: customOrder }) })
+  let changed = false;
+  initialOrder.forEach((id: string, index: number) => {
+    if (id !== customOrder[index]) {
+      changed = true;
+      return;
+    }
+  });
+
+  return Object.assign({}, state, { [url]: Object.assign({}, pageState, { customOrder: Object.assign({}, pageState.customOrder, { newOrder: customOrder, changed: changed }) }) })
 }

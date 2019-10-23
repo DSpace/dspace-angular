@@ -72,7 +72,6 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
    * Sends a new remove update for this field to the object updates service
    */
   remove(): void {
-    this.objectUpdatesService.saveRemoveFieldUpdate(this.url, this.bitstream);
     this.objectUpdatesService.saveRemoveFieldUpdate(this.bundleUrl, this.bitstream);
   }
 
@@ -80,7 +79,6 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
    * Cancels the current update for this field in the object updates service
    */
   undo(): void {
-    this.objectUpdatesService.removeSingleFieldUpdate(this.url, this.bitstream.uuid);
     this.objectUpdatesService.removeSingleFieldUpdate(this.bundleUrl, this.bitstream.uuid);
   }
 

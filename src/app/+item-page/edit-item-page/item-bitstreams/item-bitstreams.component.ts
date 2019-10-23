@@ -20,7 +20,6 @@ import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -83,13 +82,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   initializeNotificationsPrefix(): void {
     this.notificationsPrefix = 'item.edit.bitstreams.notifications.';
-  }
-
-  /**
-   * Initialize the original fields for the object-updates-service
-   */
-  initializeOriginalFields(): void {
-    this.objectUpdatesService.initialize(this.url, [], this.item.lastModified);
   }
 
   /**
@@ -166,12 +158,31 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Request the object updates service to undo discarding all changes to this item
    */
   reinstate() {
-    super.reinstate();
     this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
       bundles.forEach((bundle: Bundle) => {
         this.objectUpdatesService.reinstateFieldUpdates(bundle.self);
       });
     });
+  }
+
+  /**
+   * Checks whether or not the object is currently reinstatable
+   */
+  isReinstatable(): Observable<boolean> {
+    return this.bundles$.pipe(
+      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
+      map((reinstatable: boolean[]) => reinstatable.includes(true))
+    );
+  }
+
+  /**
+   * Checks whether or not there are currently updates for this object
+   */
+  hasChanges(): Observable<boolean> {
+    return this.bundles$.pipe(
+      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
+      map((hasChanges: boolean[]) => hasChanges.includes(true))
+    );
   }
 
   /**

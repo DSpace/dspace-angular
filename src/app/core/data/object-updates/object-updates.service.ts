@@ -138,7 +138,7 @@ export class ObjectUpdatesService {
     const objectUpdates = this.getObjectEntry(url);
     return objectUpdates.pipe(map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
-      for (const uuid of objectEntry.customOrder) {
+      for (const uuid of objectEntry.customOrder.newOrder) {
         let fieldUpdate = objectEntry.fieldUpdates[uuid];
         if (isEmpty(fieldUpdate)) {
           const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
@@ -315,7 +315,7 @@ export class ObjectUpdatesService {
    * @param url The page's url to check for in the store
    */
   hasUpdates(url: string): Observable<boolean> {
-    return this.getObjectEntry(url).pipe(map((objectEntry) => hasValue(objectEntry) && isNotEmpty(objectEntry.fieldUpdates)));
+    return this.getObjectEntry(url).pipe(map((objectEntry) => hasValue(objectEntry) && (isNotEmpty(objectEntry.fieldUpdates) || objectEntry.customOrder.changed)));
   }
 
   /**

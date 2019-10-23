@@ -39,7 +39,7 @@ export class InitializeFieldsAction implements Action {
     url: string,
     fields: Identifiable[],
     lastModified: Date,
-    customOrder: string[]
+    order: string[]
   };
 
   /**
@@ -49,15 +49,15 @@ export class InitializeFieldsAction implements Action {
    *    the unique url of the page for which the fields are being initialized
    * @param fields The identifiable fields of which the updates are kept track of
    * @param lastModified The last modified date of the object that belongs to the page
-   * @param customOrder A custom order to keep track of objects moving around
+   * @param order A custom order to keep track of objects moving around
    */
   constructor(
     url: string,
     fields: Identifiable[],
     lastModified: Date,
-    customOrder: string[] = []
+    order: string[] = []
   ) {
-    this.payload = { url, fields, lastModified, customOrder };
+    this.payload = { url, fields, lastModified, order };
   }
 }
 
