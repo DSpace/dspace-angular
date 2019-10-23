@@ -231,11 +231,6 @@ describe('ComColFormComponent', () => {
           it('should display a success notification', () => {
             expect(notificationsService.success).toHaveBeenCalled();
           });
-
-          it('should remove the object\'s cache', () => {
-            expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
-            expect(objectCacheStub.remove).toHaveBeenCalled();
-          });
         });
 
         describe('when dsoService.deleteLogo returns an error response', () => {
@@ -248,11 +243,6 @@ describe('ComColFormComponent', () => {
 
           it('should display an error notification', () => {
             expect(notificationsService.error).toHaveBeenCalled();
-          });
-
-          it('should remove the object\'s cache', () => {
-            expect(requestServiceStub.removeByHrefSubstring).toHaveBeenCalled();
-            expect(objectCacheStub.remove).toHaveBeenCalled();
           });
         });
       });
