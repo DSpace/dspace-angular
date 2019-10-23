@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { debounceTime, map, mergeMap, take, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes } from './relationship.actions';
+import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, RemoveRelationshipAction } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
@@ -34,7 +34,7 @@ export class RelationshipEffects {
    */
   @Effect({ dispatch: false }) mapLastActions$ = this.actions$
     .pipe(
-      ofType(...Object.values(RelationshipActionTypes)),
+      ofType(RelationshipActionTypes.ADD_RELATIONSHIP, RelationshipActionTypes.REMOVE_RELATIONSHIP),
       map((action: RelationshipAction) => {
           const { item1, item2, relationshipType } = action.payload;
           const identifier: string = this.createIdentifier(item1, item2, relationshipType);
@@ -74,7 +74,6 @@ export class RelationshipEffects {
 
   private addRelationship(item1: Item, item2: Item, relationshipType: string, nameVariant?: string) {
     const type1: string = item1.firstMetadataValue('relationship.type');
-    // const type1: string = 'JournalVolume';
     const type2: string = item2.firstMetadataValue('relationship.type');
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
       .pipe(

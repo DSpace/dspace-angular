@@ -1,6 +1,6 @@
 <ds-item-type-badge [object]="dso"></ds-item-type-badge>
 <ds-truncatable [id]="dso.id">
-    <ds-person-input-suggestions [suggestions]="suggestions" (typeSuggestion)="filter($event)"></ds-person-input-suggestions>
+    <ds-person-input-suggestions [suggestions]="suggestions" (typeSuggestion)="filter($event)" [(ngModel)]="selected" (clickSuggestion)="select($event)" (submitSuggestion)="select($event)"></ds-person-input-suggestions>
 <!--    <select>-->
 <!--        <option [value]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')" [innerHTML]="firstMetadataValue('person.familyName') + ', ' + firstMetadataValue('person.givenName')"></option>-->
 <!--        <option *ngFor="let value of allMetadataValues('dc.title.alternative')" [value]="value" [innerHTML]="value"></option>-->

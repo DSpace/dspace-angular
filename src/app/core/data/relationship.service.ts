@@ -19,13 +19,27 @@ import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } fr
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DataService } from './data.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { Store } from '@ngrx/store';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { SearchParam } from '../cache/models/search-param.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.actions';
+import { AppState, keySelector } from '../../app.reducer';
+import { RelationshipListState, RelationshipState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.reducer';
+
+
+const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
+
+const relationshipListStateSelector = (listID: string): MemoizedSelector<AppState, RelationshipListState> => {
+  return keySelector<RelationshipListState>(listID, relationshipListsStateSelector);
+};
+
+const relationshipStateSelector = (listID: string, itemID: string): MemoizedSelector<AppState, RelationshipState> => {
+  return keySelector<RelationshipState>(itemID, relationshipListStateSelector(listID));
+};
 
 /**
  * The service handling all relationship requests
@@ -44,7 +58,8 @@ export class RelationshipService extends DataService<Relationship> {
               protected objectCache: ObjectCacheService,
               protected notificationsService: NotificationsService,
               protected http: HttpClient,
-              protected comparator: DefaultChangeAnalyzer<Relationship>) {
+              protected comparator: DefaultChangeAnalyzer<Relationship>,
+              protected appStore: Store<AppState>) {
     super();
   }
 
@@ -204,7 +219,7 @@ export class RelationshipService extends DataService<Relationship> {
     if (options) {
       findAllOptions = Object.assign(new FindAllOptions(), options);
     }
-    const searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
+    const searchParams = [new SearchParam('label', label), new SearchParam('dso', item.id)];
     if (findAllOptions.searchParams) {
       findAllOptions.searchParams = [...findAllOptions.searchParams, ...searchParams];
     } else {
@@ -272,4 +287,17 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  public setNameVariant(listID: string, itemID: string, nameVariant: string) {
+    this.appStore.dispatch(new SetNameVariantAction(listID, itemID, nameVariant));
+  }
+
+  public getNameVariant(listID: string, itemID: string): Observable<string> {
+    return this.appStore.pipe(
+      select(relationshipStateSelector(listID, itemID)), map((state: RelationshipState) => hasValue(state) ? state.nameVariant : undefined)
+    );
+  }
+
+  public removeNameVariant(listID: string, itemID: string) {
+    this.appStore.dispatch(new RemoveNameVariantAction(listID, itemID));
+  }
 }

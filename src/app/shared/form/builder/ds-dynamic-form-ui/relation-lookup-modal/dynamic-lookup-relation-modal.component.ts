@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../empty.util';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
@@ -11,7 +11,7 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { getSucceededRemoteData } from '../../../../../core/shared/operators';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
@@ -19,6 +19,8 @@ import { RelationshipTypeService } from '../../../../../core/data/relationship-t
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
+import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
+import { PaginatedList } from '../../../../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -56,6 +58,27 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     if (this.relationship.nameVariants) {
       this.context = Context.Submission;
     }
+    this.itemRD$.pipe(
+      switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getItemRelationshipsByLabel(itemRD.payload, this.relationship.relationshipType)),
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((relationships: PaginatedList<Relationship>) => relationships.page.)
+    );
+    combineLatest(this.itemRD$, this.selection$)
+      .pipe(
+        take(1),
+        switchMap(([itemRD, objects]: [RemoteData<Item>, ListableObject[]]) => {
+            return combineLatest(objects.map((obj: Item) => this.relationshipService.getRelationshipsByRelatedItemIds(itemRD.payload, [obj.uuid])
+              .pipe(take(1), map((rels: Relationship[]) => [rels[0], obj.uuid] as [Relationship, string])))
+            )
+          }
+        )
+      ).subscribe((relations: [Relationship, string][]) => {
+        relations.forEach((([rel, id]: [Relationship, string]) => {
+          this.relationshipService.setNameVariant(this.listId, id, rel.)
+        }))
+      }
+    )
   }
 
   close() {

@@ -26,7 +26,7 @@
                            (click)="selectRadio(!checked, object)">
                 </ng-container>
               </span>
-            <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
+            <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType" [listID]="selectionConfig?.listId"></ds-listable-object-component-loader>
         </li>
     </ul>
 </ds-pagination>

@@ -5,6 +5,9 @@ import { listableObjectComponent } from '../../../../../shared/object-collection
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { Context } from '../../../../../core/shared/context.model';
+import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { take } from 'rxjs/operators';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.Submission)
 @Component({
@@ -18,16 +21,31 @@ import { Context } from '../../../../../core/shared/context.model';
 export class PersonSearchResultListSubmissionElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
   suggestions: string[];
   allSuggestions: string[];
+  selected: string;
+
+  constructor(protected truncatableService: TruncatableService, private relationshipService: RelationshipService) {
+    super(truncatableService);
+  }
 
   ngOnInit() {
     super.ngOnInit();
-    const defaultValue = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName')
+    const defaultValue = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
     const alternatives = this.allMetadataValues('dc.title.alternative');
     this.allSuggestions = [defaultValue, ...alternatives];
     this.suggestions = this.allSuggestions;
+
+    this.relationshipService.getNameVariant(this.listID, this.dso.uuid)
+      .pipe(take(1))
+      .subscribe((nameVariant: string) => {
+        this.selected = nameVariant || defaultValue;
+      });
   }
 
   filter(query) {
     this.suggestions = this.allSuggestions.filter((suggestion) => suggestion.includes(query));
+  }
+
+  select(value) {
+    this.relationshipService.setNameVariant(this.listID, this.dso.uuid, value);
   }
 }
