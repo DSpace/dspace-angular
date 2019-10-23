@@ -5,7 +5,7 @@ import { RemoteData } from '../../../../core/data/remote-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, map, take } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../../core/shared/operators';
-import { isNotUndefined } from '../../../empty.util';
+import { hasValue, isNotUndefined } from '../../../empty.util';
 import { DataService } from '../../../../core/data/data.service';
 import { ResourceType } from '../../../../core/shared/resource-type';
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
@@ -57,14 +57,14 @@ export class ComcolMetadataComponent<TDomain extends DSpaceObject> implements On
       .subscribe((dsoRD: RemoteData<TDomain>) => {
         if (isNotUndefined(dsoRD)) {
           const newUUID = dsoRD.payload.uuid;
-          if (uploader.queue.length > 0) {
+          if (hasValue(uploader) && uploader.queue.length > 0) {
             this.dsoDataService.getLogoEndpoint(newUUID).pipe(take(1)).subscribe((href: string) => {
               uploader.options.url = href;
               uploader.uploadAll();
             });
           } else {
-          this.router.navigate([this.frontendURL + newUUID]);
-        }
+            this.router.navigate([this.frontendURL + newUUID]);
+          }
           this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.notifications.success'));
         }
       });

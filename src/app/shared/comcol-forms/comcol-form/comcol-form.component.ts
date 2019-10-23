@@ -182,7 +182,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
     });
     this.submitForm.emit({
       dso: updatedDSO,
-      uploader: this.uploaderComponent.uploader
+      uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined
     });
   }
 
@@ -221,7 +221,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
             errorResponse.errorMessage
           );
         }
-        this.refreshCache();
+        (this.dso as any).logo = undefined;
       });
     }
   }
@@ -230,7 +230,6 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * Refresh the object's cache to ensure the latest version
    */
   private refreshCache() {
-    (this.dso as any).logo = undefined;
     this.requestService.removeByHrefSubstring(this.dso.self);
     this.objectCache.remove(this.dso.self);
   }
