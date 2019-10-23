@@ -79,7 +79,12 @@ describe('objectUpdatesReducer', () => {
           changeType: FieldChangeType.ADD
         }
       },
-      lastModified: modDate
+      lastModified: modDate,
+      customOrder: {
+        initialOrder: [],
+        newOrder: [],
+        changed: false
+      }
     }
   };
 
@@ -213,7 +218,12 @@ describe('objectUpdatesReducer', () => {
           },
         },
         fieldUpdates: {},
-        lastModified: modDate
+        lastModified: modDate,
+        customOrder: {
+          initialOrder: [],
+          newOrder: [],
+          changed: false
+        }
       }
     };
     const newState = objectUpdatesReducer(testState, action);

@@ -47,38 +47,6 @@ describe('UploadBistreamComponent', () => {
   });
   const notificationsServiceStub = new NotificationsServiceStub();
 
-  describe('when queryParam bundleName is missing', () => {
-    beforeEach(async(() => {
-      createUploadBitstreamTestingModule({});
-    }));
-
-    beforeEach(() => {
-      loadFixtureAndComp();
-    });
-
-    it('uploadProperties.bundleName should default to "ORIGINAL"', () => {
-      expect(comp.uploadProperties.bundleName).toEqual('ORIGINAL');
-    });
-  });
-
-  describe('when queryParam bundleName has a value', () => {
-    const customBundleName = 'FAKE-BUNDLE';
-
-    beforeEach(async(() => {
-      createUploadBitstreamTestingModule({
-        bundleName: customBundleName
-      });
-    }));
-
-    beforeEach(() => {
-      loadFixtureAndComp();
-    });
-
-    it('uploadProperties.bundleName should be set to the custom bundle name', () => {
-      expect(comp.uploadProperties.bundleName).toEqual(customBundleName);
-    });
-  });
-
   describe('when a file is uploaded', () => {
     beforeEach(async(() => {
       createUploadBitstreamTestingModule({});
