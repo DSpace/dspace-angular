@@ -20,6 +20,7 @@ import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Bundle } from '../../../core/shared/bundle.model';
+import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -35,6 +36,15 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * The currently listed bundles
    */
   bundles$: Observable<Bundle[]>;
+
+  /**
+   * The page options to use for fetching the bundles
+   */
+  bundlesOptions = {
+    id: 'bundles-pagination-options',
+    currentPage: 1,
+    pageSize: 9999
+  } as any;
 
   /**
    * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
@@ -70,7 +80,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
-    this.bundles$ = this.item.bundles.pipe(
+    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       map((bundlePage: PaginatedList<Bundle>) => bundlePage.page)

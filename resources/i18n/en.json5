@@ -278,6 +278,9 @@
   "item.bitstreams.upload.title": "Upload bitstream",
 
   "item.edit.bitstreams.bundle.edit.buttons.upload": "Upload",
+  "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
+  "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
+  "item.edit.bitstreams.bundle.load.more": "Load more",
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.edit.buttons.download": "Download",
@@ -490,6 +493,7 @@
   "journalvolume.page.volume": "Volume",
 
   "loading.bitstream": "Loading bitstream...",
+  "loading.bitstreams": "Loading bitstreams...",
   "loading.browse-by": "Loading items...",
   "loading.browse-by-page": "Loading page...",
   "loading.collection": "Loading collection...",

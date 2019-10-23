@@ -138,13 +138,15 @@ export class ObjectUpdatesService {
     const objectUpdates = this.getObjectEntry(url);
     return objectUpdates.pipe(map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
-      for (const uuid of objectEntry.customOrder.newOrder) {
-        let fieldUpdate = objectEntry.fieldUpdates[uuid];
-        if (isEmpty(fieldUpdate)) {
-          const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
-          fieldUpdate = { field: identifiable, changeType: undefined };
+      if (hasValue(objectEntry)) {
+        for (const uuid of objectEntry.customOrder.newOrder) {
+          let fieldUpdate = objectEntry.fieldUpdates[uuid];
+          if (isEmpty(fieldUpdate)) {
+            const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
+            fieldUpdate = {field: identifiable, changeType: undefined};
+          }
+          fieldUpdates[uuid] = fieldUpdate;
         }
-        fieldUpdates[uuid] = fieldUpdate;
       }
       return fieldUpdates;
     }))

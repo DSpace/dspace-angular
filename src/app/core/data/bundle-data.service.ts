@@ -11,9 +11,13 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindAllOptions } from './request.models';
+import { FindAllOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
+import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
+import { RemoteData } from './remote-data';
+import { PaginatedList } from './paginated-list';
+import { Bitstream } from '../shared/bitstream.model';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bundles endpoint
@@ -54,5 +58,24 @@ export class BundleDataService extends DataService<Bundle> {
     return this.getBrowseEndpoint().pipe(
       switchMap((href: string) => this.halService.getEndpoint(this.bitstreamsEndpoint, `${href}/${bundleId}`))
     );
+  }
+
+  /**
+   * Get a bundle's bitstreams using paginated search options
+   * @param bundleId        The bundle's ID
+   * @param searchOptions   The search options to use
+   */
+  getBitstreams(bundleId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    const hrefObs = this.getBitstreamsEndpoint(bundleId).pipe(
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+    );
+    hrefObs.pipe(
+      take(1)
+    ).subscribe((href) => {
+      const request = new GetRequest(this.requestService.generateRequestId(), href);
+      this.requestService.configure(request);
+    });
+
+    return this.rdbService.buildList<Bitstream>(hrefObs);
   }
 }

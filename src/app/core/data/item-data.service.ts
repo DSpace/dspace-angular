@@ -40,6 +40,7 @@ import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { Bitstream } from '../shared/bitstream.model';
+import { Bundle } from '../shared/bundle.model';
 
 @Injectable()
 export class ItemDataService extends DataService<Item> {
@@ -214,22 +215,22 @@ export class ItemDataService extends DataService<Item> {
   }
 
   /**
-   * Get the endpoint for an item's bitstreams
+   * Get the endpoint for an item's bundles
    * @param itemId
    */
-  public getBitstreamsEndpoint(itemId: string): Observable<string> {
+  public getBundlesEndpoint(itemId: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath).pipe(
-      switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
+      switchMap((url: string) => this.halService.getEndpoint('bundles', `${url}/${itemId}`))
     );
   }
 
   /**
-   * Get an item's bitstreams using paginated search options
+   * Get an item's bundles using paginated search options
    * @param itemId          The item's ID
    * @param searchOptions   The search options to use
    */
-  public getBitstreams(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    const hrefObs = this.getBitstreamsEndpoint(itemId).pipe(
+  public getBundles(itemId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<Bundle>>> {
+    const hrefObs = this.getBundlesEndpoint(itemId).pipe(
       map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
     );
     hrefObs.pipe(
@@ -239,7 +240,7 @@ export class ItemDataService extends DataService<Item> {
       this.requestService.configure(request);
     });
 
-    return this.rdbService.buildList<Bitstream>(hrefObs);
+    return this.rdbService.buildList<Bundle>(hrefObs);
   }
 
   /**

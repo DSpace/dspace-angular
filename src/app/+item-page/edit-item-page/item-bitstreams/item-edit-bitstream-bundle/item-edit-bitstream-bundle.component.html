@@ -28,5 +28,22 @@
         </button>
       </ds-item-edit-bitstream>
     </div>
+    <ng-container *ngVar="(bitstreamsRD$ | async) as bitstreamsRD">
+      <div class="row" *ngIf="bitstreamsRD?.payload?.elementsPerPage < bitstreamsRD?.payload?.totalElements">
+        <ng-container *ngVar="(isLoadingMore$ | async) as loading">
+          <div class="col-6 col-sm-7 col-md-8 col-lg-9 row-element" *ngIf="!loading">
+            <span class="font-italic">{{'item.edit.bitstreams.bundle.displaying' | translate:{ amount: bitstreamsRD?.payload?.elementsPerPage, total: bitstreamsRD?.payload?.totalElements } }}</span>
+          </div>
+          <div class="col-6 col-sm-5 col-md-4 col-lg-3 row-element text-center" *ngIf="!loading">
+            <a [routerLink]="[]" (click)="loadMore()">{{'item.edit.bitstreams.bundle.load.more' | translate}}</a>
+            <span> | </span>
+            <a [routerLink]="[]" (click)="loadAll()">{{'item.edit.bitstreams.bundle.load.all' | translate:{ total: bitstreamsRD?.payload?.totalElements } }}</a>
+          </div>
+          <div class="col-12 row-element text-center" *ngIf="loading">
+            <span class="font-italic">{{'loading.bitstreams' | translate}}</span>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
 </ng-template>
