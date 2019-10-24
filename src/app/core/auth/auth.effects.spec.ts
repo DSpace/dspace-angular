@@ -14,7 +14,7 @@ import {
   AuthenticatedSuccessAction,
   AuthenticationErrorAction,
   AuthenticationSuccessAction,
-  CheckAuthenticationTokenErrorAction,
+  CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
   RefreshTokenErrorAction,
@@ -146,7 +146,7 @@ describe('AuthEffects', () => {
 
         actions = hot('--a-', {a: {type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN, payload: token}});
 
-        const expected = cold('--b-', {b: new CheckAuthenticationTokenErrorAction()});
+        const expected = cold('--b-', {b: new CheckAuthenticationTokenCookieAction()});
 
         expect(authEffects.checkToken$).toBeObservable(expected);
       });

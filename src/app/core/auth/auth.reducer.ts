@@ -62,7 +62,7 @@ const initialState: AuthState = {
   authenticated: false,
   loaded: false,
   loading: false,
-  authMethods: new Array<AuthMethodModel>()
+  authMethods: []
 };
 
 /**
@@ -81,21 +81,9 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         info: undefined
       });
 
-    case AuthActionTypes.START_SHIBBOLETH_AUTHENTICATION:
-      return Object.assign({}, state, {
-        error: undefined,
-        loading: true,
-        info: undefined
-      });
-
-    case AuthActionTypes.GET_JWT_AFTER_SHIBB_LOGIN:
-      return Object.assign({}, state, {
-        error: undefined,
-        loading: true,
-        info: undefined
-      });
-
     case AuthActionTypes.AUTHENTICATED:
+    case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN:
+    case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE:
       return Object.assign({}, state, {
         loading: true
       });
@@ -129,20 +117,9 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
         loading: false
       });
 
-    case AuthActionTypes.AUTHENTICATED:
     case AuthActionTypes.AUTHENTICATE_SUCCESS:
     case AuthActionTypes.LOG_OUT:
       return state;
-
-    case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN:
-      return Object.assign({}, state, {
-        loading: true
-      });
-
-    case AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_ERROR:
-      return Object.assign({}, state, {
-        loading: false
-      });
 
     case AuthActionTypes.LOG_OUT_ERROR:
       return Object.assign({}, state, {

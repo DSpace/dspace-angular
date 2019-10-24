@@ -8,18 +8,17 @@ import { type } from '../../shared/ngrx/type';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethodModel } from './models/auth-method.model';
+import { AuthStatus } from './models/auth-status.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
-  START_SHIBBOLETH_AUTHENTICATION: type('dspace/auth/START_SHIBBOLETH_AUTHENTICATION'),
-  GET_JWT_AFTER_SHIBB_LOGIN: type('dspace/auth/GET_JWT_AFTER_SHIBB_LOGIN'),
   AUTHENTICATE_ERROR: type('dspace/auth/AUTHENTICATE_ERROR'),
   AUTHENTICATE_SUCCESS: type('dspace/auth/AUTHENTICATE_SUCCESS'),
   AUTHENTICATED: type('dspace/auth/AUTHENTICATED'),
   AUTHENTICATED_ERROR: type('dspace/auth/AUTHENTICATED_ERROR'),
   AUTHENTICATED_SUCCESS: type('dspace/auth/AUTHENTICATED_SUCCESS'),
   CHECK_AUTHENTICATION_TOKEN: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN'),
-  CHECK_AUTHENTICATION_TOKEN_ERROR: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_ERROR'),
+  CHECK_AUTHENTICATION_TOKEN_COOKIE: type('dspace/auth/CHECK_AUTHENTICATION_TOKEN_COOKIE'),
   RETRIEVE_AUTH_METHODS: type('dspace/auth/RETRIEVE_AUTH_METHODS'),
   RETRIEVE_AUTH_METHODS_SUCCESS: type('dspace/auth/RETRIEVE_AUTH_METHODS_SUCCESS'),
   RETRIEVE_AUTH_METHODS_ERROR: type('dspace/auth/RETRIEVE_AUTH_METHODS_ERROR'),
@@ -56,29 +55,6 @@ export class AuthenticateAction implements Action {
   constructor(email: string, password: string) {
     this.payload = {email, password};
   }
-}
-
-/**
- * Authenticate.
- * @class StartShibbolethAuthenticationAction
- * @implements {Action}
- */
-export class StartShibbolethAuthenticationAction implements Action {
-  public type: string = AuthActionTypes.START_SHIBBOLETH_AUTHENTICATION;
-  payload: AuthMethodModel;
-
-  constructor(authMethodModel: AuthMethodModel) {
-    this.payload = authMethodModel;
-  }
-}
-
-/**
- * GetJWTafterShibbLoginAction.
- * @class GetJWTafterShibbLoginAction
- * @implements {Action}
- */
-export class GetJWTafterShibbLoginAction implements Action {
-  public type: string = AuthActionTypes.GET_JWT_AFTER_SHIBB_LOGIN;
 }
 
 /**
@@ -166,11 +142,11 @@ export class CheckAuthenticationTokenAction implements Action {
 
 /**
  * Check Authentication Token Error.
- * @class CheckAuthenticationTokenErrorAction
+ * @class CheckAuthenticationTokenCookieAction
  * @implements {Action}
  */
-export class CheckAuthenticationTokenErrorAction implements Action {
-  public type: string = AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_ERROR;
+export class CheckAuthenticationTokenCookieAction implements Action {
+  public type: string = AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE;
 }
 
 /**
@@ -349,6 +325,12 @@ export class ResetAuthenticationMessagesAction implements Action {
  */
 export class RetrieveAuthMethodsAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS;
+
+  payload: AuthStatus;
+
+  constructor(authStatus: AuthStatus) {
+    this.payload = authStatus;
+  }
 }
 
 /**
@@ -391,14 +373,13 @@ export class SetRedirectUrlAction implements Action {
  */
 export type AuthActions
   = AuthenticateAction
-  | GetJWTafterShibbLoginAction
   | AuthenticatedAction
   | AuthenticatedErrorAction
   | AuthenticatedSuccessAction
   | AuthenticationErrorAction
   | AuthenticationSuccessAction
   | CheckAuthenticationTokenAction
-  | CheckAuthenticationTokenErrorAction
+  | CheckAuthenticationTokenCookieAction
   | RedirectWhenAuthenticationIsRequiredAction
   | RedirectWhenTokenExpiredAction
   | RegistrationAction

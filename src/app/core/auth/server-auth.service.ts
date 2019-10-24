@@ -46,13 +46,6 @@ export class ServerAuthService extends AuthService {
   }
 
   /**
-   * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
-   */
-  public checkAuthenticationToken() {
-    this.store.dispatch(new CheckAuthenticationTokenAction());
-  }
-
-  /**
    * Redirect to the route navigated before the login
    */
   public redirectAfterLoginSuccess(isStandalonePage: boolean) {

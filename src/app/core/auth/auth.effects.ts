@@ -1,12 +1,10 @@
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 
-import { filter, debounceTime, switchMap, take, tap, catchError, map } from 'rxjs/operators';
+import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
-
 // import services
 import { AuthService } from './auth.service';
 // import actions
@@ -18,7 +16,7 @@ import {
   AuthenticatedSuccessAction,
   AuthenticationErrorAction,
   AuthenticationSuccessAction,
-  CheckAuthenticationTokenErrorAction,
+  CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
   RefreshTokenAction,
@@ -28,8 +26,8 @@ import {
   RegistrationErrorAction,
   RegistrationSuccessAction,
   RetrieveAuthMethodsAction,
-  RetrieveAuthMethodsSuccessAction,
-  GetJWTafterShibbLoginAction, StartShibbolethAuthenticationAction, RetrieveAuthMethodsErrorAction
+  RetrieveAuthMethodsErrorAction,
+  RetrieveAuthMethodsSuccessAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -37,6 +35,7 @@ import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AppState } from '../../app.reducer';
 import { isAuthenticated } from './selectors';
 import { StoreActionTypes } from '../../store.actions';
+import { AuthMethodModel } from './models/auth-method.model';
 
 @Injectable()
 export class AuthEffects {
@@ -50,22 +49,6 @@ export class AuthEffects {
     ofType(AuthActionTypes.AUTHENTICATE),
     switchMap((action: AuthenticateAction) => {
       return this.authService.authenticate(action.payload.email, action.payload.password).pipe(
-        take(1),
-        map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
-        catchError((error) => observableOf(new AuthenticationErrorAction(error)))
-      );
-    })
-  );
-
-  /**
-   * Shib Login.
-   * @method shibLogin
-   */
-  @Effect()
-  public shibbLogin$: Observable<Action> = this.actions$.pipe(
-    ofType(AuthActionTypes.GET_JWT_AFTER_SHIBB_LOGIN),
-    switchMap((action: GetJWTafterShibbLoginAction) => {
-      return this.authService.startShibbAuth().pipe(
         take(1),
         map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
         catchError((error) => observableOf(new AuthenticationErrorAction(error)))
@@ -102,17 +85,27 @@ export class AuthEffects {
     switchMap(() => {
       return this.authService.hasValidAuthenticationToken().pipe(
         map((token: AuthTokenInfo) => new AuthenticatedAction(token)),
-        catchError((error) => observableOf(new CheckAuthenticationTokenErrorAction()))
+        catchError((error) => observableOf(new CheckAuthenticationTokenCookieAction()))
       );
     })
   );
 
   @Effect()
-  public checkTokenError$: Observable<Action> = this.actions$
-    .pipe(
-      ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_ERROR),
-      map(() => new RetrieveAuthMethodsAction())
-    )
+  public checkTokenError$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE),
+    switchMap(() => {
+      return this.authService.checkAuthenticationCookie().pipe(
+        map((response: AuthStatus) => {
+          if (response.authenticated) {
+            return new AuthenticatedAction(response.token);
+          } else {
+            return new RetrieveAuthMethodsAction(response);
+          }
+        }),
+        catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
+      );
+    })
+  );
 
   @Effect()
   public createUser$: Observable<Action> = this.actions$.pipe(
@@ -199,14 +192,14 @@ export class AuthEffects {
   public retrieveMethods$: Observable<Action> = this.actions$
     .pipe(
       ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
-      switchMap(() => {
-        return this.authService.retrieveAuthMethods()
+      switchMap((action: RetrieveAuthMethodsAction) => {
+        return this.authService.retrieveAuthMethods(action.payload)
           .pipe(
-            map((location: any) => new RetrieveAuthMethodsSuccessAction(location)),
+            map((authMethodModels: AuthMethodModel[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
             catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
           )
       })
-    )
+    );
 
   /**
    * @constructor

@@ -18,7 +18,11 @@ import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/emp
 import { CookieService } from '../services/cookie.service';
 import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
-import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
+import {
+  CheckAuthenticationTokenAction,
+  ResetAuthenticationMessagesAction,
+  SetRedirectUrlAction
+} from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -115,17 +119,11 @@ export class AuthService {
 
   }
 
-  public startShibbAuth(): Observable<AuthStatus> {
-
-    return this.authRequestService.postToEndpoint('login').pipe(
-      map((status: AuthStatus) => {
-        if (status.authenticated) {
-          return status;
-        } else {
-          throw(new Error('Shibboleth login failed'));
-        }
-      }))
-
+  /**
+   * Checks if token is present into the request cookie
+   */
+  public checkAuthenticationCookie(): Observable<AuthStatus> {
+    return this.authRequestService.postToEndpoint('login');
   }
 
   /**
@@ -162,7 +160,7 @@ export class AuthService {
    * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
    */
   public checkAuthenticationToken() {
-    return
+    this.store.dispatch(new CheckAuthenticationTokenAction());
   }
 
   /**
@@ -215,16 +213,12 @@ export class AuthService {
    * Retrieve authentication methods available
    * @returns {User}
    */
-  public retrieveAuthMethods(): Observable<AuthMethodModel[]> {
-    return this.authRequestService.postToEndpoint('login', {}).pipe(
-      map((status: AuthStatus) => {
-        let authMethods: AuthMethodModel[];
-        if (isNotEmpty(status.authMethods)) {
-          authMethods = status.authMethods;
-        }
-        return authMethods;
-      })
-    )
+  public retrieveAuthMethods(status: AuthStatus): Observable<AuthMethodModel[]> {
+    let authMethods: AuthMethodModel[] = [];
+    if (isNotEmpty(status.authMethods)) {
+      authMethods = status.authMethods;
+    }
+    return observableOf(authMethods);
   }
 
   /**

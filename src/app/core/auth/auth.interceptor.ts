@@ -123,6 +123,7 @@ export class AuthInterceptor implements HttpInterceptor {
     } else {
       authMethodModels.push(new AuthMethodModel(AuthMethodType.Password));
     }
+    authMethodModels.push(new AuthMethodModel(AuthMethodType.Shibboleth, 'location'));
     return authMethodModels;
   }
 
@@ -176,7 +177,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // Get the auth header from the service.
       const Authorization = authService.buildAuthHeader(token);
       // Clone the request to add the new header.
-      newReq = req.clone({headers: req.headers.set('authorization', Authorization), withCredentials: true});
+      newReq = req.clone({headers: req.headers.set('authorization', Authorization)});
     } else {
       newReq = req.clone({withCredentials: true});
     }
