@@ -17,7 +17,7 @@ export class LogInComponent implements OnInit, OnDestroy {
    * The authentication methods data
    * @type {AuthMethodModel[]}
    */
-  @Input() authMethodData: Observable<AuthMethodModel[]>;
+  @Input() authMethodModels: Observable<AuthMethodModel[]>;
 
   @Input() isStandalonePage: boolean;
 
@@ -47,7 +47,7 @@ export class LogInComponent implements OnInit, OnDestroy {
 
     // this.store.dispatch(new SetIsStandalonePageInAuthMethodsAction(this.isStandalonePage));
 
-    this.authMethodData = this.store.pipe(
+    this.authMethodModels = this.store.pipe(
       select(getAuthenticationMethods),
     );
 

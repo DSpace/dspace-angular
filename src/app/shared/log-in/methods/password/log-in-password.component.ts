@@ -1,27 +1,19 @@
-import { filter, map, takeWhile } from 'rxjs/operators';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  AuthenticateAction,
-  ResetAuthenticationMessagesAction
-} from '../../../../core/auth/auth.actions';
+import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../../core/auth/auth.actions';
 
-import {
-  getAuthenticationError,
-  getAuthenticationInfo,
-} from '../../../../core/auth/selectors';
+import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core.reducers';
 
 import { isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
-import { AuthService } from '../../../../core/auth/auth.service';
 import { AuthMethodType } from '../authMethods-type';
 import { renderAuthMethodFor } from '../authMethods-decorator';
 import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
-
 
 /**
  * /users/sign-in
@@ -70,13 +62,13 @@ export class LogInPasswordComponent implements OnInit {
 
   /**
    * @constructor
-   * @param {AuthService} authService
+   * @param {AuthMethodModel} injectedAuthMethodModel
    * @param {FormBuilder} formBuilder
    * @param {Store<State>} store
    */
   constructor(
     @Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
-   /* private authService: AuthService,*/
+    /* private authService: AuthService,*/
     private formBuilder: FormBuilder,
     private store: Store<CoreState>
   ) {
