@@ -1,23 +1,14 @@
-import {
-  Component,
-  Inject,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, Input, OnInit, } from '@angular/core';
+
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+
 import { renderAuthMethodFor } from '../authMethods-decorator';
 import { AuthMethodType } from '../authMethods-type';
 import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
-import { FormBuilder } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+
 import { CoreState } from '../../../../core/core.reducers';
-import { SetRedirectUrlAction, StartShibbolethAuthenticationAction } from '../../../../core/auth/auth.actions';
-import { Observable } from 'rxjs';
-import {
-  isAuthenticated,
-  isAuthenticationLoading
-} from '../../../../core/auth/selectors';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { Router } from '@angular/router';
+import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
 
 @Component({
   selector: 'ds-log-in-shibboleth',
@@ -37,6 +28,12 @@ export class LogInShibbolethComponent implements OnInit {
   public loading: Observable<boolean>;
 
   /**
+   * The shibboleth authentication location url.
+   * @type {string}
+   */
+  public location: string;
+
+  /**
    * Whether user is authenticated.
    * @type {Observable<string>}
    */
@@ -45,11 +42,10 @@ export class LogInShibbolethComponent implements OnInit {
   /**
    * @constructor
    */
-  constructor(@Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
-              private formBuilder: FormBuilder,
-              private store: Store<CoreState>,
-              private authService: AuthService,
-              private router: Router) {
+  constructor(
+    @Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
+    private store: Store<CoreState>
+  ) {
     this.authMethodModel = injectedAuthMethodModel;
   }
 
@@ -59,14 +55,9 @@ export class LogInShibbolethComponent implements OnInit {
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
-  }
 
-  submit() {
-    const redirectUrl: string = this.router.url;
-    this.authService.setRedirectUrl(redirectUrl);
-    this.store.dispatch(new StartShibbolethAuthenticationAction(this.authMethodModel));
-    // https://host/Shibboleth.sso/Login?target=https://host/shibboleth
-    window.location.href = this.injectedAuthMethodModel.location;
+    // set location
+    this.location = this.injectedAuthMethodModel.location
   }
 
 }
