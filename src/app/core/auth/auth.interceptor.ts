@@ -123,7 +123,7 @@ export class AuthInterceptor implements HttpInterceptor {
     } else {
       authMethodModels.push(new AuthMethodModel(AuthMethodType.Password));
     }
-    authMethodModels.push(new AuthMethodModel(AuthMethodType.Shibboleth, 'location'));
+
     return authMethodModels;
   }
 
