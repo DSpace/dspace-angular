@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { AuthService, LOGIN_ROUTE } from './auth.service';
+import { isNotEmpty } from '../../shared/empty.util';
+import { AuthService } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { CheckAuthenticationTokenAction } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
+import { AuthMethodModel } from './models/auth-method.model';
 
 /**
  * The auth service.
@@ -48,7 +49,7 @@ export class ServerAuthService extends AuthService {
    * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
    */
   public checkAuthenticationToken() {
-    this.store.dispatch(new CheckAuthenticationTokenAction())
+    this.store.dispatch(new CheckAuthenticationTokenAction());
   }
 
   /**
@@ -78,4 +79,26 @@ export class ServerAuthService extends AuthService {
       })
   }
 
+  /**
+   * Retrieve authentication methods available
+   * @returns {User}
+   */
+  public retrieveAuthMethods(): Observable<AuthMethodModel[]> {
+    const options: HttpOptions = Object.create({});
+    if (isNotEmpty(this.req.headers) && isNotEmpty(this.req.headers.referer)) {
+      let headers = new HttpHeaders();
+      headers = headers.append('X-Requested-With', this.req.headers.referer);
+      options.headers = headers;
+    }
+
+    return this.authRequestService.postToEndpoint('login', {}, options).pipe(
+      map((status: AuthStatus) => {
+        let authMethods: AuthMethodModel[];
+        if (isNotEmpty(status.authMethods)) {
+          authMethods = status.authMethods;
+        }
+        return authMethods;
+      })
+    )
+  }
 }
