@@ -10,7 +10,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { hasValue } from '../../../shared/empty.util';
+import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
 import { zip as observableZip } from 'rxjs';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
@@ -21,6 +21,9 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
+import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -119,14 +122,18 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Display notifications and reset the current item/updates
    */
   submit() {
-    /*
-    const removedBitstreams$ = this.bitstreams$.pipe(
-      toBitstreamsArray(),
-      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdates(this.url, bitstreams, true) as Observable<FieldUpdates>),
-      map((fieldUpdates: FieldUpdates) => Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
+    const removedBitstreams$ = this.bundles$.pipe(
+      take(1),
+      switchMap((bundles: Bundle[]) => observableZip(
+        ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true))
+      )),
+      map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
+        ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE))
+      )),
       map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field)),
       isNotEmptyOperator()
     );
+
     removedBitstreams$.pipe(
       take(1),
       switchMap((removedBistreams: Bitstream[]) => observableZip(...removedBistreams.map((bitstream: Bitstream) => this.bitstreamService.deleteAndReturnResponse(bitstream))))
@@ -134,7 +141,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       this.displayNotifications(responses);
       this.reset();
     });
-    */
   }
 
   /**
