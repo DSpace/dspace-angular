@@ -92,33 +92,37 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private parseAuthMethodsfromHeaders(headers: HttpHeaders): AuthMethodModel[] {
     let authMethodModels: AuthMethodModel[] = [];
-    const parts: string[] = headers.get('www-authenticate').split(',');
-    // get the realms from the header -  a realm is a single auth method
-    const completeWWWauthenticateHeader = headers.get('www-authenticate');
-    const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
-    const realms = completeWWWauthenticateHeader.match(regex);
+    if (isNotEmpty(headers.get('www-authenticate'))) {
+      const parts: string[] = headers.get('www-authenticate').split(',');
+      // get the realms from the header -  a realm is a single auth method
+      const completeWWWauthenticateHeader = headers.get('www-authenticate');
+      const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
+      const realms = completeWWWauthenticateHeader.match(regex);
 
-    // tslint:disable-next-line:forin
-    for (const j in realms) {
+      // tslint:disable-next-line:forin
+      for (const j in realms) {
 
-      const splittedRealm = realms[j].split(', ');
-      const methodName = splittedRealm[0].split(' ')[0].trim();
+        const splittedRealm = realms[j].split(', ');
+        const methodName = splittedRealm[0].split(' ')[0].trim();
 
-      let authMethodModel: AuthMethodModel;
-      if (splittedRealm.length === 1) {
-        authMethodModel = new AuthMethodModel(methodName);
-        authMethodModels.push(authMethodModel);
-      } else if (splittedRealm.length > 1) {
-        let location = splittedRealm[1];
-        location = this.parseLocation(location);
-        authMethodModel = new AuthMethodModel(methodName, location);
-        // console.log('location: ', location);
-        authMethodModels.push(authMethodModel);
+        let authMethodModel: AuthMethodModel;
+        if (splittedRealm.length === 1) {
+          authMethodModel = new AuthMethodModel(methodName);
+          authMethodModels.push(authMethodModel);
+        } else if (splittedRealm.length > 1) {
+          let location = splittedRealm[1];
+          location = this.parseLocation(location);
+          authMethodModel = new AuthMethodModel(methodName, location);
+          // console.log('location: ', location);
+          authMethodModels.push(authMethodModel);
+        }
       }
-    }
 
-    // make sure the email + password login component gets rendered first
-    authMethodModels = this.sortAuthMethods(authMethodModels);
+      // make sure the email + password login component gets rendered first
+      authMethodModels = this.sortAuthMethods(authMethodModels);
+    } else {
+      authMethodModels.push(new AuthMethodModel(AuthMethodType.Password));
+    }
     return authMethodModels;
   }
 
@@ -172,9 +176,9 @@ export class AuthInterceptor implements HttpInterceptor {
       // Get the auth header from the service.
       const Authorization = authService.buildAuthHeader(token);
       // Clone the request to add the new header.
-      newReq = req.clone({headers: req.headers.set('authorization', Authorization)});
+      newReq = req.clone({headers: req.headers.set('authorization', Authorization), withCredentials: true});
     } else {
-      newReq = req;
+      newReq = req.clone({withCredentials: true});
     }
 
 // Pass on the new request instead of the original request.

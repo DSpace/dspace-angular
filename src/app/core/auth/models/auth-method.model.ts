@@ -1,9 +1,9 @@
 import { AuthMethodType } from '../../../shared/log-in/methods/authMethods-type';
-import { ShibbConstants } from '../../../+login-page/shibbolethTargetPage/const/shibbConstants';
 
 export class AuthMethodModel {
   authMethodType: AuthMethodType;
   location?: string;
+
   // isStandalonePage? = true;
 
   constructor(authMethodName: string, location?: string) {
@@ -18,10 +18,7 @@ export class AuthMethodModel {
       }
       case 'shibboleth': {
         this.authMethodType = AuthMethodType.Shibboleth;
-        // const strings: string[] = location.split('target=');
-        // const target = strings[1];
-        // this.location = target + location + '/' + ShibbConstants.SHIBBOLETH_REDIRECT_ROUTE;
-        this.location = location + '/' + ShibbConstants.SHIBBOLETH_REDIRECT_ROUTE;
+        this.location = location;
         break;
       }
       case 'x509': {
