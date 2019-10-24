@@ -292,8 +292,9 @@ export class RelationshipService extends DataService<Relationship> {
   }
 
   public getNameVariant(listID: string, itemID: string): Observable<string> {
+    console.log(listID, itemID);
     return this.appStore.pipe(
-      select(relationshipStateSelector(listID, itemID)), map((state: RelationshipState) => hasValue(state) ? state.nameVariant : undefined)
+      select(relationshipStateSelector(listID, itemID)), tap((t) => console.log(t)), map((state: RelationshipState) => hasValue(state) ? state.nameVariant : undefined)
     );
   }
 

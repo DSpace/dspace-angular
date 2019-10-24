@@ -19,6 +19,7 @@ export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   relationship?: RelationshipOptions;
   repeatable: boolean;
   required: boolean;
+  metadataFields: string[];
 }
 
 export class DynamicConcatModel extends DynamicFormGroupModel {
@@ -29,6 +30,8 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() required?: boolean;
+  @serializable() metadataFields: string[];
+
   isCustomGroup = true;
   valueUpdates: Subject<string>;
 
@@ -41,6 +44,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     this.workspaceItem = config.workspaceItem;
     this.repeatable = config.repeatable;
     this.required = config.required;
+    this.metadataFields = config.metadataFields;
 
     this.valueUpdates = new Subject<string>();
     this.valueUpdates.subscribe((value: string) => this.value = value);
@@ -64,7 +68,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     let tempValue: string;
 
     if (typeof value === 'string') {
-      tempValue =  value;
+      tempValue = value;
     } else {
       tempValue = value.value;
     }

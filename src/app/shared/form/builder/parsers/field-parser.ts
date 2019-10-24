@@ -188,7 +188,7 @@ export abstract class FieldParser {
     controlModel.workspaceItem = this.workspaceItem;
     controlModel.relationship = this.configData.selectableRelationship;
     controlModel.repeatable = this.configData.repeatable;
-
+    controlModel.metadataFields = isNotEmpty(this.configData.selectableMetadata) ? this.configData.selectableMetadata.map((metadataObject) => metadataObject.metadata) : [];
     // Set label
     this.setLabel(controlModel, label);
 

@@ -89,7 +89,7 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { RemoveRelationshipAction } from './relation-lookup-modal/relationship.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.reducer';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { RelationshipOptions } from '../models/relationship-options.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -273,9 +273,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     const modalComp = this.modalRef.componentInstance;
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;
-    modalComp.relationship = this.model.relationship;
+    modalComp.relationshipOptions = this.model.relationship;
     modalComp.label = this.model.label;
     modalComp.itemRD$ = this.model.workspaceItem.item;
+    modalComp.metadataFields = this.model.metadataFields;
   }
 
   removeSelection(object: SearchResult<Item>) {

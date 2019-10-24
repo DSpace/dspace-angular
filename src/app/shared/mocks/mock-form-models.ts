@@ -55,7 +55,8 @@ export const qualdropInputConfig = {
   disabled: false,
   repeatable: false,
   value: 'test',
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const mockQualdropSelectModel = new DynamicSelectModel(qualdropSelectConfig);
@@ -134,7 +135,8 @@ const relationGroupConfig = {
       'issue test 2'
     ],
   },
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const MockRelationModel: DynamicRelationGroupModel = new DynamicRelationGroupModel(relationGroupConfig);
@@ -162,7 +164,8 @@ export const inputWithLanguageAndAuthorityConfig = {
     display: 'testWithLanguageAndAuthority',
     id: 'testWithLanguageAndAuthority',
   },
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const mockInputWithLanguageAndAuthorityModel = new DsDynamicInputModel(inputWithLanguageAndAuthorityConfig);
@@ -185,7 +188,8 @@ export const inputWithLanguageConfig = {
   disabled: false,
   repeatable: false,
   value: 'testWithLanguage',
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const mockInputWithLanguageModel = new DsDynamicInputModel(inputWithLanguageConfig);
@@ -213,7 +217,8 @@ export const inputWithLanguageAndAuthorityArrayConfig = {
     display: 'testLanguageAndAuthorityArray',
     id: 'testLanguageAndAuthorityArray',
   }],
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const mockInputWithLanguageAndAuthorityArrayModel = new DsDynamicInputModel(inputWithLanguageAndAuthorityArrayConfig);
@@ -225,7 +230,8 @@ export const inputWithFormFieldValueConfig = {
   disabled: false,
   repeatable: false,
   value: new FormFieldMetadataValueObject('testWithFormFieldValue'),
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const mockInputWithFormFieldValueModel = new DsDynamicInputModel(inputWithFormFieldValueConfig);
@@ -237,7 +243,8 @@ export const inputWithAuthorityValueConfig = {
   disabled: false,
   repeatable: false,
   value: Object.assign({}, new AuthorityValue(), { value: 'testWithAuthorityValue', id: 'testWithAuthorityValue', display: 'testWithAuthorityValue' }),
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const mockInputWithAuthorityValueModel = new DsDynamicInputModel(inputWithAuthorityValueConfig);
@@ -249,7 +256,8 @@ export const inputWithObjectValueConfig = {
   disabled: false,
   repeatable: false,
   value: { value: 'testWithObjectValue', id: 'testWithObjectValue', display: 'testWithObjectValue' },
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const mockInputWithObjectValueModel = new DsDynamicInputModel(inputWithObjectValueConfig);
@@ -265,7 +273,8 @@ export const fileFormEditInputConfig = {
   readOnly: false,
   disabled: false,
   repeatable: false,
-  workspaceItem: new WorkspaceItem()
+  workspaceItem: new WorkspaceItem(),
+  metadataFields: []
 };
 
 export const mockFileFormEditInputModel = new DsDynamicInputModel(fileFormEditInputConfig);

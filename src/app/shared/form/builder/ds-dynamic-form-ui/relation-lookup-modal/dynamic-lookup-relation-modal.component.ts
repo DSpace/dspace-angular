@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue } from '../../../../empty.util';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { hasValue, hasValueOperator } from '../../../../empty.util';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
@@ -20,7 +20,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -36,12 +36,13 @@ import { PaginatedList } from '../../../../../core/data/paginated-list';
 
 export class DsDynamicLookupRelationModalComponent implements OnInit {
   label: string;
-  relationship: RelationshipOptions;
+  relationshipOptions: RelationshipOptions;
   listId: string;
   itemRD$;
   repeatable: boolean;
   selection$: Observable<ListableObject[]>;
   context: Context;
+  metadataFields: string;
 
   constructor(
     public modal: NgbActiveModal,
@@ -55,30 +56,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.selection$ = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
-    if (this.relationship.nameVariants) {
+    if (this.relationshipOptions.nameVariants) {
       this.context = Context.Submission;
     }
-    this.itemRD$.pipe(
-      switchMap((itemRD: RemoteData<Item>) => this.relationshipService.getItemRelationshipsByLabel(itemRD.payload, this.relationship.relationshipType)),
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((relationships: PaginatedList<Relationship>) => relationships.page.)
-    );
-    combineLatest(this.itemRD$, this.selection$)
-      .pipe(
-        take(1),
-        switchMap(([itemRD, objects]: [RemoteData<Item>, ListableObject[]]) => {
-            return combineLatest(objects.map((obj: Item) => this.relationshipService.getRelationshipsByRelatedItemIds(itemRD.payload, [obj.uuid])
-              .pipe(take(1), map((rels: Relationship[]) => [rels[0], obj.uuid] as [Relationship, string])))
-            )
-          }
-        )
-      ).subscribe((relations: [Relationship, string][]) => {
-        relations.forEach((([rel, id]: [Relationship, string]) => {
-          this.relationshipService.setNameVariant(this.listId, id, rel.)
-        }))
-      }
-    )
+    this.itemRD$.subscribe((r) => console.log(r));
+    this.setExistingNameVariants();
   }
 
   close() {
@@ -87,18 +69,27 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
 
   select(...selectableObjects: SearchResult<Item>[]) {
     this.zone.runOutsideAngular(
-      () => this.itemRD$
-        .pipe(
-          getSucceededRemoteData(),
-          tap((itemRD: RemoteData<Item>) => {
-              return selectableObjects.forEach((object) =>
-                this.store.dispatch(new AddRelationshipAction(itemRD.payload, object.indexableObject, this.relationship.relationshipType))
-              );
-            }
-          )
-        ).subscribe());
-  }
+      () => {
+        const obs: Observable<any[]> = combineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {
+            return this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid)
+              .pipe(map((nameVariant: string) => {
+                  return {
+                    item: sri.indexableObject,
+                    nameVariant
+                  }
+                })
+              )
+          })
+        );
 
+        combineLatest(this.itemRD$.pipe(getSucceededRemoteData()), obs)
+          .subscribe(([itemRD, obs]: [RemoteData<Item>, any[]]) => {
+            return obs.forEach((object: any) =>
+              this.store.dispatch(new AddRelationshipAction(itemRD.payload, object.item, this.relationshipOptions.relationshipType, object.nameVariant))
+            );
+          })
+      });
+  }
 
   deselect(...selectableObjects: SearchResult<Item>[]) {
     this.zone.runOutsideAngular(
@@ -106,11 +97,44 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
         getSucceededRemoteData(),
         tap((itemRD: RemoteData<Item>) => {
             return selectableObjects.forEach((object) =>
-              this.store.dispatch(new RemoveRelationshipAction(itemRD.payload, object.indexableObject, this.relationship.relationshipType))
+              this.store.dispatch(new RemoveRelationshipAction(itemRD.payload, object.indexableObject, this.relationshipOptions.relationshipType))
             );
           }
         )
       ).subscribe()
     );
+  }
+
+  setExistingNameVariants() {
+    const virtualMDs$: Observable<MetadataValue[]> = this.itemRD$.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      map((item: Item) => item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual)));
+
+    const relatedItemPairs$: Observable<[Item, Item][]> = virtualMDs$.pipe(
+      switchMap((mds: MetadataValue[]) => combineLatest(mds.map((md: MetadataValue) => this.relationshipService.findById(md.virtualValue).pipe(getSucceededRemoteData(), getRemoteDataPayload())))),
+      switchMap((relationships: Relationship[]) => combineLatest(relationships.map((relationship: Relationship) =>
+          combineLatest(
+            relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
+            relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
+          ))
+        )
+      ),
+    );
+
+    const relatedItems$: Observable<Item[]> = combineLatest(relatedItemPairs$, this.itemRD$).pipe(
+      map(([relatedItemPairs, itemRD]: [[Item, Item][], RemoteData<Item>]) => relatedItemPairs.map(([left, right]: [Item, Item]) => left.uuid === itemRD.payload.uuid ? left : right))
+    );
+
+    combineLatest(virtualMDs$, relatedItems$).pipe(take(1)).subscribe(([virtualMDs, relatedItems]) => {
+        let index: number = 0;
+        virtualMDs.forEach(
+          (md: MetadataValue) => {
+            this.relationshipService.setNameVariant(this.listId, relatedItems[index].uuid, md.value);
+            index++;
+          }
+        );
+      }
+    )
   }
 }
