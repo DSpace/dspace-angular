@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize, deserializeAs, inheritSerialization } from 'cerialize';
 import { Relationship } from '../../../shared/item-relationships/relationship.model';
 import { mapsTo, relationship } from '../../builders/build-decorators';
 import { NormalizedObject } from '../normalized-object.model';
@@ -16,20 +16,20 @@ export class NormalizedRelationship extends NormalizedObject<Relationship> {
   /**
    * The identifier of this Relationship
    */
-  @autoserialize
+  @deserialize
   id: string;
 
   /**
    * The item to the left of this relationship
    */
-  @autoserialize
+  @deserialize
   @relationship(Item, false)
   leftItem: string;
 
   /**
    * The item to the right of this relationship
    */
-  @autoserialize
+  @deserialize
   @relationship(Item, false)
   rightItem: string;
 
@@ -46,15 +46,27 @@ export class NormalizedRelationship extends NormalizedObject<Relationship> {
   rightPlace: number;
 
   /**
-   * The type of Relationship
+   * The name variant of the Item to the left side of this Relationship
    */
   @autoserialize
+  leftwardValue: string;
+
+  /**
+   * The name variant of the Item to the right side of this Relationship
+   */
+  @autoserialize
+  rightwardValue: string;
+
+  /**
+   * The type of Relationship
+   */
+  @deserialize
   @relationship(RelationshipType, false)
   relationshipType: string;
 
   /**
    * The universally unique identifier of this Relationship
    */
-  @autoserializeAs(new IDToUUIDSerializer(Relationship.type.value), 'id')
+  @deserializeAs(new IDToUUIDSerializer(Relationship.type.value), 'id')
   uuid: string;
 }

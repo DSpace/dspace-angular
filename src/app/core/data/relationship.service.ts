@@ -292,7 +292,6 @@ export class RelationshipService extends DataService<Relationship> {
   }
 
   public getNameVariant(listID: string, itemID: string): Observable<string> {
-    console.log(listID, itemID);
     return this.appStore.pipe(
       select(relationshipStateSelector(listID, itemID)), tap((t) => console.log(t)), map((state: RelationshipState) => hasValue(state) ? state.nameVariant : undefined)
     );
@@ -300,5 +299,9 @@ export class RelationshipService extends DataService<Relationship> {
 
   public removeNameVariant(listID: string, itemID: string) {
     this.appStore.dispatch(new RemoveNameVariantAction(listID, itemID));
+  }
+
+  public getNameVariantsByListID(listID: string) {
+    return this.appStore.pipe(select(relationshipListStateSelector(listID)));
   }
 }

@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue, hasValueOperator } from '../../../../empty.util';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
@@ -21,6 +21,8 @@ import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { RelationshipListState } from './relationship.reducer';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -84,8 +86,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
 
         combineLatest(this.itemRD$.pipe(getSucceededRemoteData()), obs)
           .subscribe(([itemRD, obs]: [RemoteData<Item>, any[]]) => {
-            return obs.forEach((object: any) =>
-              this.store.dispatch(new AddRelationshipAction(itemRD.payload, object.item, this.relationshipOptions.relationshipType, object.nameVariant))
+            return obs.forEach((object: any) => {
+                this.store.dispatch(new AddRelationshipAction(itemRD.payload, object.item, this.relationshipOptions.relationshipType, object.nameVariant));
+                this.addSelectSubscription(object);
+              }
             );
           })
       });
@@ -96,13 +100,42 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
       () => this.itemRD$.pipe(
         getSucceededRemoteData(),
         tap((itemRD: RemoteData<Item>) => {
-            return selectableObjects.forEach((object) =>
-              this.store.dispatch(new RemoveRelationshipAction(itemRD.payload, object.indexableObject, this.relationshipOptions.relationshipType))
-            );
+            return selectableObjects.forEach((object) => {
+              this.store.dispatch(new RemoveRelationshipAction(itemRD.payload, object.indexableObject, this.relationshipOptions.relationshipType));
+              this.addSelectSubscription(object);
+            });
           }
         )
       ).subscribe()
     );
+  }
+
+  subscriptions = new Map<string, Subscription>();
+
+  addSelectSubscription(itemSR: SearchResult<Item>) {
+    const item$ = this.itemRD$.pipe(getSucceededRemoteData(), getRemoteDataPayload());
+    const nameVariant$ = this.relationshipService.getNameVariant(this.listId, itemSR.indexableObject.uuid).pipe(hasValueOperator());
+    const subscription = combineLatest(item$, nameVariant$)
+      .pipe(
+        switchMap(([item, nameVariant]: [Item, string]) => {
+          return this.relationshipService.getRelationshipByItemsAndLabel(item, itemSR.indexableObject, this.relationshipOptions.relationshipType)
+            .pipe(map((relationship: Relationship) => Object.assign(new Relationship(), relationship, { leftwardValue: nameVariant })))
+        }),
+        switchMap((updatedRelation: Relationship) => this.relationshipService.update(updatedRelation))
+      )
+      .subscribe();
+    this.subscriptions.set(itemSR.indexableObject.uuid, subscription);
+  }
+
+  removeSelectSubscription(itemSR: SearchResult<Item>) {
+    this.subscriptions.get(itemSR.indexableObject.uuid).unsubscribe();
+  }
+
+  ngOnDestroy() {
+    let sub;
+    while (sub = this.subscriptions.values().next(), !sub.done) {
+      sub.unsubscribe();
+    }
   }
 
   setExistingNameVariants() {
@@ -119,7 +152,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
             relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
           ))
         )
-      ),
+      )
     );
 
     const relatedItems$: Observable<Item[]> = combineLatest(relatedItemPairs$, this.itemRD$).pipe(
