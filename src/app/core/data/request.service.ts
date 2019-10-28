@@ -216,7 +216,7 @@ export class RequestService {
    * @param {GetRequest} request The request to check
    * @returns {boolean} True if the request is cached or still pending
    */
-  private isCachedOrPending(request: GetRequest): boolean {
+  public isCachedOrPending(request: GetRequest): boolean {
     const inReqCache = this.hasByHref(request.href);
     const inObjCache = this.objectCache.hasBySelfLink(request.href);
     const isCached = inReqCache || inObjCache;
