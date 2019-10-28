@@ -161,7 +161,10 @@ export class RemoteDataBuildService {
         const objectList = normalized[relationship].page || normalized[relationship];
         if (typeof objectList !== 'string') {
           objectList.forEach((href: string) => {
-            this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href))
+            const request = new GetRequest(this.requestService.generateRequestId(), href);
+            if (!this.requestService.isCachedOrPending(request)) {
+              this.requestService.configure(request)
+            }
           });
 
           const rdArr = [];
@@ -175,7 +178,10 @@ export class RemoteDataBuildService {
             result = rdArr[0];
           }
         } else {
-          this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), objectList));
+          const request = new GetRequest(this.requestService.generateRequestId(), objectList);
+          if (!this.requestService.isCachedOrPending(request)) {
+            this.requestService.configure(request)
+          }
 
           // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
           // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
