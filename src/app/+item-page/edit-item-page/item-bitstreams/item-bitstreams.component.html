@@ -43,7 +43,7 @@
   <ds-loading *ngIf="!bundles" message="{{'loading.bitstreams' | translate}}"></ds-loading>
 
   <div class="button-row bottom">
-    <div class="my-2 float-right">
+    <div class="mt-4 float-right">
       <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
               [disabled]="!(hasChanges() | async)"
               (click)="discard()"><i
