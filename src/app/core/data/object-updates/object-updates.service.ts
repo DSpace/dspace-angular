@@ -24,6 +24,9 @@ import {
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
+import { Operation } from 'fast-json-patch';
+import { ArrayMoveChangeAnalyzer } from '../array-move-change-analyzer.service';
+import { MoveOperation } from 'fast-json-patch/lib/core';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -42,7 +45,8 @@ function filterByUrlAndUUIDFieldStateSelector(url: string, uuid: string): Memoiz
  */
 @Injectable()
 export class ObjectUpdatesService {
-  constructor(private store: Store<CoreState>) {
+  constructor(private store: Store<CoreState>,
+              private comparator: ArrayMoveChangeAnalyzer<string>) {
 
   }
 
@@ -335,4 +339,16 @@ export class ObjectUpdatesService {
   getLastModified(url: string): Observable<Date> {
     return this.getObjectEntry(url).pipe(map((entry: ObjectUpdatesEntry) => entry.lastModified));
   }
+
+  /**
+   * Get move operations based on the custom order
+   * @param url The page's url
+   */
+  getMoveOperations(url: string): Observable<MoveOperation[]> {
+    return this.getObjectEntry(url).pipe(
+      map((objectEntry) => objectEntry.customOrder),
+      map((customOrder) => this.comparator.diff(customOrder.initialOrder, customOrder.newOrder))
+    );
+  }
+
 }

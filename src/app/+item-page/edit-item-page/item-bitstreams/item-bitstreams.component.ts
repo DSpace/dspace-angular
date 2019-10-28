@@ -24,6 +24,9 @@ import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-o
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
+import { Operation } from 'fast-json-patch';
+import { MoveOperation } from 'fast-json-patch/lib/core';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -66,7 +69,8 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     public bitstreamService: BitstreamDataService,
     public objectCache: ObjectCacheService,
     public requestService: RequestService,
-    public cdRef: ChangeDetectorRef
+    public cdRef: ChangeDetectorRef,
+    public bundleService: BundleDataService
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
   }
@@ -140,6 +144,19 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     ).subscribe((responses: RestResponse[]) => {
       this.displayNotifications(responses);
       this.reset();
+    });
+
+    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
+      bundles.forEach((bundle: Bundle) => {
+        this.objectUpdatesService.getMoveOperations(bundle.self).pipe(
+          take(1),
+          isNotEmptyOperator(),
+          map((operations: MoveOperation[]) => [...operations.map((operation: MoveOperation) => Object.assign(operation, {
+            from: `/_links/bitstreams${operation.from}/href`,
+            path: `/_links/bitstreams${operation.path}/href`
+          }))])
+        ).subscribe((operations: Operation[]) => this.bundleService.patch(bundle.self, operations));
+      });
     });
   }
 

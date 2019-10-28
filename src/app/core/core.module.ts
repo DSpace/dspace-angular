@@ -122,6 +122,7 @@ import { BrowseDefinition } from './shared/browse-definition.model';
 import { BitstreamDataService } from './data/bitstream-data.service';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
+import { ArrayMoveChangeAnalyzer } from './data/array-move-change-analyzer.service';
 
 const IMPORTS = [
   CommonModule,
@@ -201,6 +202,7 @@ const PROVIDERS = [
   DSpaceObjectDataService,
   DSOChangeAnalyzer,
   DefaultChangeAnalyzer,
+  ArrayMoveChangeAnalyzer,
   ObjectSelectService,
   CSSVariableService,
   MenuService,
