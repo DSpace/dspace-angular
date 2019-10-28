@@ -24,6 +24,8 @@ import { RequestService } from '../../../core/data/request.service';
 import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { Bundle } from '../../../core/shared/bundle.model';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -45,6 +47,19 @@ const fieldUpdate2 = {
   field: bitstream2,
   changeType: FieldChangeType.REMOVE
 };
+const bundle = Object.assign(new Bundle(), {
+  id: 'bundle1',
+  uuid: 'bundle1',
+  self: 'bundle1-selflink',
+  bitstreams: createMockRDPaginatedObs([bitstream1, bitstream2])
+});
+const moveOperations = [
+  {
+    op: 'move',
+    from: '/0',
+    path: '/1'
+  }
+];
 const date = new Date();
 const url = 'thisUrl';
 let item: Item;
@@ -57,6 +72,7 @@ let bitstreamService: BitstreamDataService;
 let objectCache: ObjectCacheService;
 let requestService: RequestService;
 let searchConfig: SearchConfigurationService;
+let bundleService: BundleDataService;
 
 describe('ItemBitstreamsComponent', () => {
   beforeEach(async(() => {
@@ -72,13 +88,15 @@ describe('ItemBitstreamsComponent', () => {
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
+        discardAllFieldUpdates: {},
         reinstateFieldUpdates: observableOf(true),
         initialize: {},
         getUpdatedFields: observableOf([bitstream1, bitstream2]),
         getLastModified: observableOf(date),
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false),
-        isValidPage: observableOf(true)
+        isValidPage: observableOf(true),
+        getMoveOperations: observableOf(moveOperations)
       }
     );
     router = Object.assign(new RouterStub(), {
@@ -105,18 +123,22 @@ describe('ItemBitstreamsComponent', () => {
     item = Object.assign(new Item(), {
       uuid: 'item',
       id: 'item',
-      bitstreams: createMockRDPaginatedObs([bitstream1, bitstream2]),
+      bundles: createMockRDPaginatedObs([bundle]),
       lastModified: date
     });
     itemService = Object.assign( {
       getBitstreams: () => createMockRDPaginatedObs([bitstream1, bitstream2]),
-      findById: () => createMockRDObs(item)
+      findById: () => createMockRDObs(item),
+      getBundles: () => createMockRDPaginatedObs([bundle])
     });
     route = Object.assign({
       parent: {
         data: observableOf({ item: createMockRD(item) })
       },
       url: url
+    });
+    bundleService = jasmine.createSpyObj('bundleService', {
+      patch: {}
     });
 
     TestBed.configureTestingModule({
@@ -133,6 +155,7 @@ describe('ItemBitstreamsComponent', () => {
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },
         { provide: SearchConfigurationService, useValue: searchConfig },
+        { provide: BundleDataService, useValue: bundleService },
         ChangeDetectorRef
       ], schemas: [
         NO_ERRORS_SCHEMA
@@ -158,6 +181,24 @@ describe('ItemBitstreamsComponent', () => {
 
     it('should not call deleteAndReturnResponse on the bitstreamService for the unmarked field', () => {
       expect(bitstreamService.deleteAndReturnResponse).not.toHaveBeenCalledWith(bitstream1);
+    });
+
+    it('should send out a patch for the move operations', () => {
+      expect(bundleService.patch).toHaveBeenCalled();
+    });
+  });
+
+  describe('discard', () => {
+    it('should discard ALL field updates', () => {
+      comp.discard();
+      expect(objectUpdatesService.discardAllFieldUpdates).toHaveBeenCalled();
+    });
+  });
+
+  describe('reinstate', () => {
+    it('should reinstate field updates on the bundle', () => {
+      comp.reinstate();
+      expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(bundle.self);
     });
   });
 });

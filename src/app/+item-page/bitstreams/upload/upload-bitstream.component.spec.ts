@@ -12,16 +12,27 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../shared/testing/auth-service-stub';
 import { Item } from '../../../core/shared/item.model';
 import { of as observableOf } from 'rxjs';
-import { createSuccessfulRemoteDataObject } from '../../../shared/testing/utils';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$
+} from '../../../shared/testing/utils';
 import { RouterStub } from '../../../shared/testing/router-stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { Bitstream } from '../../../core/shared/bitstream.model';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { Bundle } from '../../../core/shared/bundle.model';
 
 describe('UploadBistreamComponent', () => {
   let comp: UploadBitstreamComponent;
   let fixture: ComponentFixture<UploadBitstreamComponent>;
 
+  const bundle = Object.assign(new Bundle(), {
+    id: 'bundle',
+    uuid: 'bundle',
+    self: 'bundle-selflink'
+  });
   const itemName = 'fake-name';
   const mockItem = Object.assign(new Item(), {
     id: 'fake-id',
@@ -33,12 +44,16 @@ describe('UploadBistreamComponent', () => {
           value: itemName
         }
       ]
-    }
+    },
+    bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
   });
   let routeStub;
   const routerStub = new RouterStub();
   const restEndpoint = 'fake-rest-endpoint';
   const mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
+    getBitstreamsEndpoint: observableOf(restEndpoint)
+  });
+  const bundleService = jasmine.createSpyObj('bundleService', {
     getBitstreamsEndpoint: observableOf(restEndpoint)
   });
   const authToken = 'fake-auth-token';
@@ -90,7 +105,10 @@ describe('UploadBistreamComponent', () => {
       data: observableOf({
         item: createSuccessfulRemoteDataObject(mockItem)
       }),
-      queryParams: observableOf(queryParams)
+      queryParams: observableOf(queryParams),
+      snapshot: {
+        queryParams: queryParams
+      }
     };
 
     TestBed.configureTestingModule({
@@ -102,6 +120,7 @@ describe('UploadBistreamComponent', () => {
         { provide: ItemDataService, useValue: mockItemDataService },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: AuthService, useValue: authServiceStub },
+        { provide: BundleDataService, useValue: bundleService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]

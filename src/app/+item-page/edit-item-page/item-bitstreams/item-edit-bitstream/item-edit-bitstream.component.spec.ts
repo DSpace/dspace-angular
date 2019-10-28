@@ -5,10 +5,9 @@ import { of as observableOf } from 'rxjs/internal/observable/of';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { createMockRDObs } from '../item-bitstreams.component.spec';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { By } from '@angular/platform-browser';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
@@ -33,8 +32,6 @@ const url = 'thisUrl';
 let objectUpdatesService: ObjectUpdatesService;
 
 describe('ItemEditBitstreamComponent', () => {
-  let tdElements: DebugElement[];
-
   beforeEach(async(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
@@ -44,6 +41,8 @@ describe('ItemEditBitstreamComponent', () => {
         getFieldUpdatesExclusive: observableOf({
           [bitstream.uuid]: fieldUpdate,
         }),
+        saveRemoveFieldUpdate: {},
+        removeSingleFieldUpdate: {},
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
         reinstateFieldUpdates: observableOf(true),
@@ -71,26 +70,40 @@ describe('ItemEditBitstreamComponent', () => {
     fixture = TestBed.createComponent(ItemEditBitstreamComponent);
     comp = fixture.componentInstance;
     comp.fieldUpdate = fieldUpdate;
-    comp.url = url;
+    comp.bundleUrl = url;
     comp.ngOnChanges(undefined);
     fixture.detectChanges();
-
-    tdElements = fixture.debugElement.queryAll(By.css('td'));
   });
 
-  it('should display the bitstream\'s name in the first table cell', () => {
-    expect(tdElements[0].nativeElement.textContent.trim()).toEqual(bitstream.name);
+  describe('when remove is called', () => {
+    beforeEach(() => {
+      comp.remove();
+    });
+
+    it('should call saveRemoveFieldUpdate on objectUpdatesService', () => {
+      expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(url, bitstream);
+    });
   });
 
-  it('should display the bitstream\'s bundle in the second table cell', () => {
-    expect(tdElements[1].nativeElement.textContent.trim()).toEqual(bitstream.bundleName);
+  describe('when undo is called', () => {
+    beforeEach(() => {
+      comp.undo();
+    });
+
+    it('should call removeSingleFieldUpdate on objectUpdatesService', () => {
+      expect(objectUpdatesService.removeSingleFieldUpdate).toHaveBeenCalledWith(url, bitstream.uuid);
+    });
   });
 
-  it('should display the bitstream\'s description in the third table cell', () => {
-    expect(tdElements[2].nativeElement.textContent.trim()).toEqual(bitstream.description);
+  describe('when canRemove is called', () => {
+    it('should return true', () => {
+      expect(comp.canRemove()).toEqual(true)
+    });
   });
 
-  it('should display the bitstream\'s format in the fourth table cell', () => {
-    expect(tdElements[3].nativeElement.textContent.trim()).toEqual(format.shortDescription);
+  describe('when canUndo is called', () => {
+    it('should return false', () => {
+      expect(comp.canUndo()).toEqual(false)
+    });
   });
 });

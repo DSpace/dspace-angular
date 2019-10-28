@@ -3,8 +3,8 @@ import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
-  InitializeFieldsAction,
-  ReinstateObjectUpdatesAction,
+  InitializeFieldsAction, MoveFieldUpdateAction,
+  ReinstateObjectUpdatesAction, RemoveAllObjectUpdatesAction,
   RemoveFieldUpdateAction, RemoveObjectUpdatesAction,
   SetEditableFieldUpdateAction, SetValidFieldUpdateAction
 } from './object-updates.actions';
@@ -81,8 +81,8 @@ describe('objectUpdatesReducer', () => {
       },
       lastModified: modDate,
       customOrder: {
-        initialOrder: [],
-        newOrder: [],
+        initialOrder: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid],
+        newOrder: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid],
         changed: false
       }
     }
@@ -107,7 +107,12 @@ describe('objectUpdatesReducer', () => {
           isValid: true
         },
       },
-      lastModified: modDate
+      lastModified: modDate,
+      customOrder: {
+        initialOrder: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid],
+        newOrder: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid],
+        changed: false
+      }
     },
     [url + OBJECT_UPDATES_TRASH_PATH]: {
       fieldStates: {
@@ -138,7 +143,12 @@ describe('objectUpdatesReducer', () => {
           changeType: FieldChangeType.ADD
         }
       },
-      lastModified: modDate
+      lastModified: modDate,
+      customOrder: {
+        initialOrder: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid],
+        newOrder: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid],
+        changed: false
+      }
     }
   };
 
@@ -275,10 +285,27 @@ describe('objectUpdatesReducer', () => {
     expect(newState[url + OBJECT_UPDATES_TRASH_PATH]).toBeUndefined();
   });
 
+  it('should remove all updates from the state when the REMOVE_ALL action is dispatched', () => {
+    const action = new RemoveAllObjectUpdatesAction();
+
+    const newState = objectUpdatesReducer(discardedTestState, action as any);
+    expect(newState[url].fieldUpdates).toBeUndefined();
+    expect(newState[url + OBJECT_UPDATES_TRASH_PATH]).toBeUndefined();
+  });
+
   it('should remove a given field\'s update from the state when the REMOVE_FIELD action is dispatched, based on the payload', () => {
     const action = new RemoveFieldUpdateAction(url, uuid);
 
     const newState = objectUpdatesReducer(testState, action);
     expect(newState[url].fieldUpdates[uuid]).toBeUndefined();
+  });
+
+  it('should move the custom order from the state when the MOVE action is dispatched', () => {
+    const action = new MoveFieldUpdateAction(url, 0, 1);
+
+    const newState = objectUpdatesReducer(testState, action);
+    expect(newState[url].customOrder.newOrder[0]).toEqual(testState[url].customOrder.newOrder[1]);
+    expect(newState[url].customOrder.newOrder[1]).toEqual(testState[url].customOrder.newOrder[0]);
+    expect(newState[url].customOrder.changed).toEqual(true);
   });
 });
