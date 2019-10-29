@@ -26,6 +26,7 @@ import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
+import { RestResponse } from '../../../core/cache/response.models';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -138,7 +139,7 @@ describe('ItemBitstreamsComponent', () => {
       url: url
     });
     bundleService = jasmine.createSpyObj('bundleService', {
-      patch: {}
+      immediatePatch: observableOf(new RestResponse(true, 200, 'OK'))
     });
 
     TestBed.configureTestingModule({
@@ -184,7 +185,7 @@ describe('ItemBitstreamsComponent', () => {
     });
 
     it('should send out a patch for the move operations', () => {
-      expect(bundleService.patch).toHaveBeenCalled();
+      expect(bundleService.immediatePatch).toHaveBeenCalled();
     });
   });
 

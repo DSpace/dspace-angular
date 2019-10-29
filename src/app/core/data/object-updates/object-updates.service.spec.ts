@@ -42,7 +42,7 @@ describe('ObjectUpdatesService', () => {
     };
     store = new Store<CoreState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
-    service = new ObjectUpdatesService(store);
+    service = new ObjectUpdatesService(store, undefined);
 
     spyOn(service as any, 'getObjectEntry').and.returnValue(observableOf(objectEntry));
     spyOn(service as any, 'getFieldState').and.callFake((uuid) => {
@@ -190,7 +190,11 @@ describe('ObjectUpdatesService', () => {
     });
     describe('when updates are emtpy', () => {
       beforeEach(() => {
-        (service as any).getObjectEntry.and.returnValue(observableOf({}))
+        (service as any).getObjectEntry.and.returnValue(observableOf({
+          customOrder: {
+            changed: false
+          }
+        }))
       });
 
       it('should return false when there are no updates', () => {

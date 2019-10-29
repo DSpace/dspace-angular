@@ -6,7 +6,7 @@ import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable, of as observableOf } from 'rxjs';
-import { FindAllOptions } from './request.models';
+import { FindAllOptions, PatchRequest } from './request.models';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { compare, Operation } from 'fast-json-patch';
@@ -16,6 +16,8 @@ import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Item } from '../shared/item.model';
+import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 
 const endpoint = 'https://rest.api/core';
 
@@ -55,8 +57,8 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
 describe('DataService', () => {
   let service: TestService;
   let options: FindAllOptions;
-  const requestService = {} as RequestService;
-  const halService = {} as HALEndpointService;
+  const requestService = getMockRequestService();
+  const halService = new HALEndpointServiceStub('url') as any;
   const rdbService = {} as RemoteDataBuildService;
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
@@ -167,6 +169,27 @@ describe('DataService', () => {
     it('should call addPatch on the object cache with the right parameters', () => {
       service.patch(selfLink, operations);
       expect(objectCache.addPatch).toHaveBeenCalledWith(selfLink, operations);
+    });
+  });
+
+  describe('immediatePatch', () => {
+    const dso = {
+      uuid: 'dso-uuid'
+    };
+    const operations = [
+      Object.assign({
+        op: 'move',
+        from: '/1',
+        path: '/5'
+      }) as Operation
+    ];
+
+    beforeEach(() => {
+      service.immediatePatch(dso, operations);
+    });
+
+    it('should configure a PatchRequest', () => {
+      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PatchRequest));
     });
   });
 
