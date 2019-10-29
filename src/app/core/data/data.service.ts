@@ -17,7 +17,7 @@ import {
   FindAllOptions,
   FindAllRequest,
   FindByIDRequest,
-  GetRequest
+  GetRequest, PatchRequest
 } from './request.models';
 import { RequestService } from './request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -205,6 +205,32 @@ export abstract class DataService<T extends CacheableObject> {
    */
   patch(href: string, operations: Operation[]) {
     this.objectCache.addPatch(href, operations);
+  }
+
+  /**
+   * Send out an immediate patch request, instead of adding to the object cache first
+   * This is useful in cases where you need the returned response and an object cache update is not needed
+   * @param dso         The dso to send the patch to
+   * @param operations  The patch operations
+   */
+  immediatePatch(dso: T, operations: Operation[]): Observable<RestResponse> {
+    const requestId = this.requestService.generateRequestId();
+
+    const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, dso.uuid)));
+
+    hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PatchRequest(requestId, href, operations);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
   }
 
   /**

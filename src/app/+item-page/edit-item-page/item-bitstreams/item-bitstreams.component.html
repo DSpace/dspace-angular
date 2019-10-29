@@ -6,7 +6,7 @@
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.upload-button" | translate}}</span>
     </button>
     <button class="btn btn-danger mr-1" *ngIf="!(isReinstatable() | async)"
-            [disabled]="!(hasChanges() | async)"
+            [disabled]="!(hasChanges() | async) || submitting"
             (click)="discard()"><i
             class="fas fa-times"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
@@ -16,7 +16,7 @@
             class="fas fa-undo-alt"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
     </button>
-    <button class="btn btn-primary" [disabled]="!(hasChanges() | async)"
+    <button class="btn btn-primary" [disabled]="!(hasChanges() | async) || submitting"
             (click)="submit()"><i
             class="fas fa-save"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>
@@ -31,7 +31,6 @@
       <div class="col-6 col-sm-5 col-md-4 col-lg-3 text-center row-element">{{'item.edit.bitstreams.headers.actions' | translate}}</div>
     </div>
     <ds-item-edit-bitstream-bundle *ngFor="let bundle of bundles"
-                                   [url]="url"
                                    [bundle]="bundle"
                                    [item]="item">
     </ds-item-edit-bitstream-bundle>
@@ -45,7 +44,7 @@
   <div class="button-row bottom">
     <div class="mt-4 float-right">
       <button class="btn btn-danger" *ngIf="!(isReinstatable() | async)"
-              [disabled]="!(hasChanges() | async)"
+              [disabled]="!(hasChanges() | async) || submitting"
               (click)="discard()"><i
         class="fas fa-times"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
@@ -55,7 +54,7 @@
         class="fas fa-undo-alt"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
       </button>
-      <button class="btn btn-primary" [disabled]="!(hasChanges() | async)"
+      <button class="btn btn-primary" [disabled]="!(hasChanges() | async) || submitting"
               (click)="submit()"><i
         class="fas fa-save"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.save-button" | translate}}</span>

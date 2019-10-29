@@ -29,11 +29,6 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
   @Input() fieldUpdate: FieldUpdate;
 
   /**
-   * The current url of this page
-   */
-  @Input() url: string;
-
-  /**
    * The url of the bundle
    */
   @Input() bundleUrl: string;

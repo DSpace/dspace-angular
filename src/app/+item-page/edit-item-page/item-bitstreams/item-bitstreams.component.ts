@@ -10,8 +10,8 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { TranslateService } from '@ngx-translate/core';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
-import { zip as observableZip } from 'rxjs';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../../shared/empty.util';
+import { zip as observableZip, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
@@ -51,6 +51,12 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     currentPage: 1,
     pageSize: 9999
   } as any;
+
+  /**
+   * Are we currently submitting the changes?
+   * Used to disable any action buttons until the submit finishes
+   */
+  submitting = false;
 
   /**
    * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
@@ -113,6 +119,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     ).subscribe((itemRD: RemoteData<Item>) => {
       if (hasValue(itemRD)) {
         this.item = itemRD.payload;
+        this.postItemInit();
         this.initializeOriginalFields();
         this.initializeUpdates();
         this.cdRef.detectChanges();
@@ -122,41 +129,74 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
 
   /**
    * Submit the current changes
+   * Bitstreams that were dragged around send out a patch request with move operations to the rest API
    * Bitstreams marked as deleted send out a delete request to the rest API
    * Display notifications and reset the current item/updates
    */
   submit() {
-    const removedBitstreams$ = this.bundles$.pipe(
-      take(1),
+    this.submitting = true;
+    const bundlesOnce$ = this.bundles$.pipe(take(1));
+
+    // Fetch all move operations for each bundle
+    const moveOperations$ = bundlesOnce$.pipe(
+      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) =>
+        this.objectUpdatesService.getMoveOperations(bundle.self).pipe(
+          take(1),
+          map((operations: MoveOperation[]) => [...operations.map((operation: MoveOperation) => Object.assign(operation, {
+            from: `/_links/bitstreams${operation.from}/href`,
+            path: `/_links/bitstreams${operation.path}/href`
+          }))])
+        )
+      )))
+    );
+
+    // Send out an immediate patch request for each bundle
+    const patchResponses$ = observableCombineLatest(bundlesOnce$, moveOperations$).pipe(
+      switchMap(([bundles, moveOperationList]: [Bundle[], Operation[][]]) =>
+        observableZip(...bundles.map((bundle: Bundle, index: number) => {
+          if (isNotEmpty(moveOperationList[index])) {
+            return this.bundleService.immediatePatch(bundle, moveOperationList[index]);
+          } else {
+            return observableOf(undefined);
+          }
+        }))
+      )
+    );
+
+    // Fetch all removed bitstreams from the object update service
+    const removedBitstreams$ = bundlesOnce$.pipe(
       switchMap((bundles: Bundle[]) => observableZip(
         ...bundles.map((bundle: Bundle) => this.objectUpdatesService.getFieldUpdates(bundle.self, [], true))
       )),
       map((fieldUpdates: FieldUpdates[]) => ([] as FieldUpdate[]).concat(
         ...fieldUpdates.map((updates: FieldUpdates) => Object.values(updates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE))
       )),
-      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field)),
-      isNotEmptyOperator()
+      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field))
     );
 
-    removedBitstreams$.pipe(
+    // Send out delete requests for all deleted bitstreams
+    const removedResponses$ = removedBitstreams$.pipe(
       take(1),
-      switchMap((removedBistreams: Bitstream[]) => observableZip(...removedBistreams.map((bitstream: Bitstream) => this.bitstreamService.deleteAndReturnResponse(bitstream))))
-    ).subscribe((responses: RestResponse[]) => {
-      this.displayNotifications(responses);
-      this.reset();
-    });
+      switchMap((removedBistreams: Bitstream[]) => {
+        if (isNotEmpty(removedBistreams)) {
+          return observableZip(...removedBistreams.map((bitstream: Bitstream) => this.bitstreamService.deleteAndReturnResponse(bitstream)));
+        } else {
+          return observableOf(undefined);
+        }
+      })
+    );
 
-    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
-      bundles.forEach((bundle: Bundle) => {
-        this.objectUpdatesService.getMoveOperations(bundle.self).pipe(
-          take(1),
-          isNotEmptyOperator(),
-          map((operations: MoveOperation[]) => [...operations.map((operation: MoveOperation) => Object.assign(operation, {
-            from: `/_links/bitstreams${operation.from}/href`,
-            path: `/_links/bitstreams${operation.path}/href`
-          }))])
-        ).subscribe((operations: Operation[]) => this.bundleService.patch(bundle.self, operations));
-      });
+    // Perform the setup actions from above in order and display notifications
+    patchResponses$.pipe(
+      switchMap((responses: RestResponse[]) => {
+        this.displayNotifications('item.edit.bitstreams.notifications.move', responses);
+        return removedResponses$
+      }),
+      take(1)
+    ).subscribe((responses: RestResponse[]) => {
+      this.displayNotifications('item.edit.bitstreams.notifications.remove', responses);
+      this.reset();
+      this.submitting = false;
     });
   }
 
@@ -164,17 +204,20 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Display notifications
    * - Error notification for each failed response with their message
    * - Success notification in case there's at least one successful response
-   * @param responses
+   * @param key       The i18n key for the notification messages
+   * @param responses The returned responses to display notifications for
    */
-  displayNotifications(responses: RestResponse[]) {
-    const failedResponses = responses.filter((response: RestResponse) => !response.isSuccessful);
-    const successfulResponses = responses.filter((response: RestResponse) => response.isSuccessful);
+  displayNotifications(key: string, responses: RestResponse[]) {
+    if (isNotEmpty(responses)) {
+      const failedResponses = responses.filter((response: RestResponse) => hasValue(response) && !response.isSuccessful);
+      const successfulResponses = responses.filter((response: RestResponse) => hasValue(response) && response.isSuccessful);
 
-    failedResponses.forEach((response: ErrorResponse) => {
-      this.notificationsService.error(this.getNotificationTitle('failed'), response.errorMessage);
-    });
-    if (successfulResponses.length > 0) {
-      this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+      failedResponses.forEach((response: ErrorResponse) => {
+        this.notificationsService.error(this.translateService.instant(`${key}.failed.title`), response.errorMessage);
+      });
+      if (successfulResponses.length > 0) {
+        this.notificationsService.success(this.translateService.instant(`${key}.saved.title`), this.translateService.instant(`${key}.saved.content`));
+      }
     }
   }
 
@@ -230,8 +273,14 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Remove the current item's cache from object- and request-cache
    */
   refreshItemCache() {
-    this.objectCache.remove(this.item.self);
-    this.requestService.removeByHrefSubstring(this.item.self);
+    this.bundles$.pipe(take(1)).subscribe((bundles: Bundle[]) => {
+      bundles.forEach((bundle: Bundle) => {
+        this.objectCache.remove(bundle.self);
+        this.requestService.removeByHrefSubstring(bundle.self);
+      });
+      this.objectCache.remove(this.item.self);
+      this.requestService.removeByHrefSubstring(this.item.self);
+    });
   }
 
   /**

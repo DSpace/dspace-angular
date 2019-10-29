@@ -41,11 +41,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   @Input() item: Item;
 
   /**
-   * The current url of this page
-   */
-  @Input() url: string;
-
-  /**
    * The bitstreams within this bundle retrieved from the REST API
    */
   bitstreamsRD$: Observable<RemoteData<PaginatedList<Bitstream>>>;
