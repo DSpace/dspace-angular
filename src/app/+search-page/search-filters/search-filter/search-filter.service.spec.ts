@@ -28,11 +28,7 @@ describe('SearchFilterService', () => {
     pageSize: 2
   });
 
-  const mockFixedFilterService: SearchFixedFilterService = {
-    getQueryByFilterName: (filter: string) => {
-      return observableOf(undefined)
-    }
-  } as SearchFixedFilterService
+  const mockFixedFilterService: SearchFixedFilterService = {} as SearchFixedFilterService
   const value1 = 'random value';
   // const value2 = 'another value';
   const store: Store<SearchFiltersState> = jasmine.createSpyObj('store', {
@@ -261,20 +257,6 @@ describe('SearchFilterService', () => {
 
     it('should call getQueryParamsWithPrefix on the route service with prefix \'f.\'', () => {
       expect(routeServiceStub.getQueryParamsWithPrefix).toHaveBeenCalledWith('f.');
-    });
-  });
-
-  describe('when the getCurrentFixedFilter method is called', () => {
-    const filter = 'filter';
-
-    beforeEach(() => {
-      spyOn(routeServiceStub, 'getRouteParameterValue').and.returnValue(observableOf(filter));
-      spyOn(mockFixedFilterService, 'getQueryByFilterName').and.returnValue(observableOf(filter));
-      service.getCurrentFixedFilter().subscribe();
-    });
-
-    it('should call getQueryByFilterName on the fixed-filter service with the correct filter', () => {
-      expect(mockFixedFilterService.getQueryByFilterName).toHaveBeenCalledWith(filter);
     });
   });
 

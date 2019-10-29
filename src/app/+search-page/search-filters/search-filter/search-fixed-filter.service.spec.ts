@@ -1,48 +1,27 @@
 import { SearchFixedFilterService } from './search-fixed-filter.service';
-import { RouteService } from '../../../shared/services/route.service';
 import { RequestService } from '../../../core/data/request.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { of as observableOf } from 'rxjs';
 import { RequestEntry } from '../../../core/data/request.reducer';
-import { FilteredDiscoveryQueryResponse, RestResponse } from '../../../core/cache/response.models';
+import { FilteredDiscoveryQueryResponse } from '../../../core/cache/response.models';
 
 describe('SearchFixedFilterService', () => {
   let service: SearchFixedFilterService;
 
   const filterQuery = 'filter:query';
 
-  const routeServiceStub = {} as RouteService;
   const requestServiceStub = Object.assign({
     /* tslint:disable:no-empty */
-    configure: () => {},
+    configure: () => {
+    },
     /* tslint:enable:no-empty */
     generateRequestId: () => 'fake-id',
     getByHref: () => observableOf(Object.assign(new RequestEntry(), {
       response: new FilteredDiscoveryQueryResponse(filterQuery, 200, 'OK')
     }))
   }) as RequestService;
-  const halServiceStub = Object.assign(new HALEndpointService(requestServiceStub, undefined), {
-    getEndpoint: () => observableOf('fake-url')
-  });
 
   beforeEach(() => {
-    service = new SearchFixedFilterService(routeServiceStub, requestServiceStub, halServiceStub);
-  });
-
-  describe('when getQueryByFilterName is called with a filterName', () => {
-    it('should return the filter query', () => {
-      service.getQueryByFilterName('filter').subscribe((query) => {
-        expect(query).toBe(filterQuery);
-      });
-    });
-  });
-
-  describe('when getQueryByFilterName is called without a filterName', () => {
-    it('should return undefined', () => {
-      service.getQueryByFilterName(undefined).subscribe((query) => {
-        expect(query).toBeUndefined();
-      });
-    });
+    service = new SearchFixedFilterService();
   });
 
   describe('when getQueryByRelations is called', () => {

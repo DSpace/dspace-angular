@@ -7,7 +7,7 @@
             <ds-search-form *ngIf="searchEnabled" id="search-form"
                             [query]="(searchOptions$ | async)?.query"
                             [scope]="(searchOptions$ | async)?.scope"
-                            [currentUrl]="getSearchLink()"
+                            [currentUrl]="searchLink"
                             [scopes]="(scopeListRD$ | async)"
                             [inPlaceSearch]="inPlaceSearch">
             </ds-search-form>
@@ -15,12 +15,12 @@
             <div class="row">
                 <div id="search-body"
                      class="row-offcanvas row-offcanvas-left"
-                     [@pushInOut]="(isSidebarCollapsed() | async) ? 'collapsed' : 'expanded'">
+                     [@pushInOut]="(isSidebarCollapsed$ | async) ? 'collapsed' : 'expanded'">
                     <ds-search-sidebar *ngIf="(isXsOrSm$ | async)" class="col-12"
                                        id="search-sidebar-sm"
                                        [resultCount]="(resultsRD$ | async)?.payload.totalElements"
                                        (toggleSidebar)="closeSidebar()"
-                                       [ngClass]="{'active': !(isSidebarCollapsed() | async)}">
+                                       [ngClass]="{'active': !(isSidebarCollapsed$ | async)}">
                     </ds-search-sidebar>
                     <div id="search-content" class="col-12">
                         <div class="d-block d-md-none search-controls clearfix">

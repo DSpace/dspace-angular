@@ -11,6 +11,9 @@ import { PersonMetadataListElementComponent } from './item-list-elements/person/
 import { PersonListElementComponent } from './item-list-elements/person/person-list-element.component';
 import { ProjectListElementComponent } from './item-list-elements/project/project-list-element.component';
 import { TooltipModule } from 'ngx-bootstrap';
+import { PersonGridElementComponent } from './item-grid-elements/person/person-grid-element.component';
+import { OrgunitGridElementComponent } from './item-grid-elements/orgunit/orgunit-grid-element.component';
+import { ProjectGridElementComponent } from './item-grid-elements/project/project-grid-element.component';
 
 const ENTRY_COMPONENTS = [
   OrgunitComponent,
@@ -20,7 +23,10 @@ const ENTRY_COMPONENTS = [
   OrgUnitMetadataListElementComponent,
   PersonListElementComponent,
   PersonMetadataListElementComponent,
-  ProjectListElementComponent
+  ProjectListElementComponent,
+  PersonGridElementComponent,
+  OrgunitGridElementComponent,
+  ProjectGridElementComponent
 ];
 
 @NgModule({

@@ -6,11 +6,13 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 import { getMockTranslateService } from '../../shared/mocks/mock-translate.service';
 import { fakeAsync, tick } from '@angular/core/testing';
-import { ContentSourceRequest, RequestError, UpdateContentSourceRequest } from './request.models';
+import { ContentSourceRequest, GetRequest, RequestError, UpdateContentSourceRequest } from './request.models';
 import { ContentSource } from '../shared/content-source.model';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RequestEntry } from './request.reducer';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 
 const url = 'fake-url';
 const collectionId = 'fake-collection-id';
@@ -21,6 +23,8 @@ describe('CollectionDataService', () => {
   let requestService: RequestService;
   let translate: TranslateService;
   let notificationsService: any;
+  let rdbService: RemoteDataBuildService;
+  let objectCache: ObjectCacheService;
   let halService: any;
 
   describe('when the requests are successful', () => {
@@ -57,6 +61,19 @@ describe('CollectionDataService', () => {
         expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest), undefined);
       }));
     });
+
+    describe('getMappedItems', () => {
+      let result;
+
+      beforeEach(() => {
+        result = service.getMappedItems('collection-id');
+      });
+
+      it('should configure a GET request', () => {
+        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(GetRequest), undefined);
+      });
+    });
+
   });
 
   describe('when the requests are unsuccessful', () => {
@@ -99,11 +116,17 @@ describe('CollectionDataService', () => {
    */
   function createService(requestEntry$?) {
     requestService = getMockRequestService(requestEntry$);
+    rdbService = jasmine.createSpyObj('rdbService', {
+      buildList: jasmine.createSpy('buildList')
+    });
+    objectCache = jasmine.createSpyObj('objectCache', {
+      remove: jasmine.createSpy('remove')
+    });
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
     translate = getMockTranslateService();
 
-    service = new CollectionDataService(requestService, null, null, null, null, null, halService, notificationsService, null, null, translate);
+    service = new CollectionDataService(requestService, rdbService, null, null, null, objectCache, halService, notificationsService, null, null, translate);
   }
 
 });

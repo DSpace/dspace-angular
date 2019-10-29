@@ -10,6 +10,9 @@
   "engines": {
     "node": "8.* || >= 10.*"
   },
+  "resolutions": {
+    "set-value": ">= 2.0.1"
+  },
   "scripts": {
     "global": "npm install -g @angular/cli marked node-gyp nodemon node-nightly npm-check-updates npm-run-all rimraf typescript ts-node typedoc webpack webpack-bundle-analyzer pm2 rollup",
     "clean:coverage": "rimraf coverage",
@@ -22,10 +25,10 @@
     "clean:prod": "yarn run clean:coverage && yarn run clean:doc && yarn run clean:dist && yarn run clean:log && yarn run clean:json && yarn run clean:bld",
     "clean": "yarn run clean:prod && yarn run clean:node",
     "prebuild": "yarn run clean:bld && yarn run clean:dist",
-    "prebuild:aot": "yarn run prebuild",
+    "prebuild:ci": "yarn run prebuild",
     "prebuild:prod": "yarn run prebuild",
     "build": "node ./scripts/webpack.js --progress --mode development",
-    "build:aot": "yarn run syncbuilddir && node ./scripts/webpack.js --env.aot --env.server --mode development && node ./scripts/webpack.js --env.aot --env.client --mode development",
+    "build:ci": "yarn run syncbuilddir && node ./scripts/webpack.js --env.aot --env.server --mode development && node ./scripts/webpack.js --env.aot --env.client --mode development",
     "build:prod": "yarn run syncbuilddir && node ./scripts/webpack.js --env.aot --env.server --mode production && node ./scripts/webpack.js --env.aot --env.client --mode production",
     "postbuild:prod": "yarn run rollup",
     "rollup": "rollup -c rollup.config.js",
@@ -51,10 +54,13 @@
     "debug:server": "node-nightly --inspect --debug-brk dist/server.js",
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js --mode development",
     "debug:build:prod": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js --env.aot --env.client --env.server --mode production",
-    "ci": "yarn run lint && yarn run build:aot && yarn run test:headless",
+    "ci": "yarn run lint && yarn run build:ci && yarn run test:headless && npm-run-all -p -r server e2e",
     "protractor": "node node_modules/protractor/bin/protractor",
     "pree2e": "yarn run webdriver:update",
     "e2e": "yarn run protractor",
+    "pretest": "yarn run clean:bld",
+    "pretest:headless": "yarn run pretest",
+    "pretest:watch": "yarn run pretest",
     "test": "karma start --single-run",
     "test:headless": "karma start --single-run --browsers ChromeHeadless",
     "test:watch": "karma start --no-single-run --auto-watch",
@@ -109,6 +115,7 @@
     "https": "1.0.0",
     "js-cookie": "2.2.0",
     "js.clone": "0.0.3",
+    "json5": "^2.1.0",
     "jsonschema": "1.2.2",
     "jwt-decode": "^2.2.0",
     "methods": "1.1.2",
@@ -154,6 +161,7 @@
     "@types/hammerjs": "2.0.35",
     "@types/jasmine": "^2.8.6",
     "@types/js-cookie": "2.1.0",
+    "@types/json5": "^0.0.30",
     "@types/lodash": "^4.14.110",
     "@types/memory-cache": "0.2.0",
     "@types/mime": "2.0.0",

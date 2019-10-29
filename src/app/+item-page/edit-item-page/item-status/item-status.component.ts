@@ -68,6 +68,7 @@ export class ItemStatusComponent implements OnInit {
         The value is supposed to be a href for the button
       */
       this.operations = [];
+      this.operations.push(new ItemOperation('mappedCollections', this.getCurrentUrl(item) + '/mapper'));
       if (item.isWithdrawn) {
         this.operations.push(new ItemOperation('reinstate', this.getCurrentUrl(item) + '/reinstate'));
       } else {
@@ -79,6 +80,7 @@ export class ItemStatusComponent implements OnInit {
         this.operations.push(new ItemOperation('public', this.getCurrentUrl(item) + '/public'));
       }
       this.operations.push(new ItemOperation('delete', this.getCurrentUrl(item) + '/delete'));
+      this.operations.push(new ItemOperation('move', this.getCurrentUrl(item) + '/move'));
     });
 
   }

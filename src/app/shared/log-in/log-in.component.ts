@@ -1,5 +1,5 @@
 import { filter, map, takeWhile } from 'rxjs/operators';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
@@ -20,6 +20,7 @@ import { CoreState } from '../../core/core.reducers';
 import { isNotEmpty } from '../empty.util';
 import { fadeOut } from '../animations/fade';
 import { AuthService } from '../../core/auth/auth.service';
+import { Router } from '@angular/router';
 
 /**
  * /users/sign-in
@@ -81,10 +82,13 @@ export class LogInComponent implements OnDestroy, OnInit {
    */
   private alive = true;
 
+  @Input() isStandalonePage: boolean;
+
   /**
    * @constructor
    * @param {AuthService} authService
    * @param {FormBuilder} formBuilder
+   * @param {Router} router
    * @param {Store<State>} store
    */
   constructor(
@@ -135,7 +139,7 @@ export class LogInComponent implements OnDestroy, OnInit {
       takeWhile(() => this.alive),
       filter((authenticated) => authenticated))
       .subscribe(() => {
-          this.authService.redirectToPreviousUrl();
+          this.authService.redirectAfterLoginSuccess(this.isStandalonePage);
         }
       );
   }
@@ -188,4 +192,5 @@ export class LogInComponent implements OnDestroy, OnInit {
     // clear form
     this.form.reset();
   }
+
 }

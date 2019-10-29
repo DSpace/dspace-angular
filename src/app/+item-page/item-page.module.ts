@@ -31,8 +31,8 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
   imports: [
     CommonModule,
     SharedModule,
-    EditItemPageModule,
     ItemPageRoutingModule,
+    EditItemPageModule,
     SearchPageModule
   ],
   declarations: [
@@ -62,7 +62,8 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
     GenericItemPageFieldComponent,
     RelatedEntitiesSearchComponent,
     RelatedItemsComponent,
-    MetadataRepresentationListComponent
+    MetadataRepresentationListComponent,
+    ItemPageTitleFieldComponent
   ],
   entryComponents: [
     PublicationComponent

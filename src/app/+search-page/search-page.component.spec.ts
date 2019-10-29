@@ -21,7 +21,7 @@ import { SearchFilterService } from './search-filters/search-filter/search-filte
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { RemoteData } from '../core/data/remote-data';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
-import { RouteService } from '../shared/services/route.service';
+import { RouteService } from '../core/services/route.service';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
 import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchFixedFilterService } from './search-filters/search-filter/search-fixed-filter.service';
@@ -89,11 +89,7 @@ const routeServiceStub = {
     return observableOf('')
   }
 };
-const mockFixedFilterService: SearchFixedFilterService = {
-  getQueryByFilterName: (filter: string) => {
-    return observableOf(undefined)
-  }
-} as SearchFixedFilterService;
+const mockFixedFilterService: SearchFixedFilterService = {} as SearchFixedFilterService;
 
 export function configureSearchComponentTestingModule(compType) {
   TestBed.configureTestingModule({
@@ -201,7 +197,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => observableOf(true);
+      (comp as any).isSidebarCollapsed$ = observableOf(true);
       fixture.detectChanges();
     });
 
@@ -216,7 +212,7 @@ describe('SearchPageComponent', () => {
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      comp.isSidebarCollapsed = () => observableOf(false);
+      (comp as any).isSidebarCollapsed$ = observableOf(false);
       fixture.detectChanges();
     });
 

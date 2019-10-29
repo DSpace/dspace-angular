@@ -4,13 +4,13 @@ import { RegistryService } from '../../../../core/registry/registry.service';
 import { cloneDeep } from 'lodash';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import { FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { NgModel } from '@angular/forms';
 import { MetadatumViewModel } from '../../../../core/shared/metadata.models';
 import { MetadataField } from '../../../../core/metadata/metadata-field.model';
+import { InputSuggestion } from '../../../../shared/input-suggestions/input-suggestions.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
