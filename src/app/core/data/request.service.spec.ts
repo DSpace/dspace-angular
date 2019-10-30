@@ -298,7 +298,7 @@ describe('RequestService', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
           (objectCache.hasBySelfLink as any).and.returnValue(true);
-          (objectCache.hasById as any).and.returnValue(true);
+          (objectCache.hasByUUID as any).and.returnValue(true);
           spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
         });
 

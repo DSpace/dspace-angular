@@ -4,12 +4,12 @@ export function getMockObjectCacheService(): ObjectCacheService {
   return jasmine.createSpyObj('objectCacheService', [
     'add',
     'remove',
-    'getByID',
+    'getByUUID',
     'getBySelfLink',
     'getRequestHrefBySelfLink',
     'getRequestHrefByUUID',
     'getList',
-    'hasById',
+    'hasByUUID',
     'hasBySelfLink'
   ]);
 

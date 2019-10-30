@@ -49,7 +49,7 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
       );
       const successResponses = responses.pipe(
         filter((response) => response.isSuccessful),
-        mergeMap(() => this.objectCache.getObjectByID(options.scopeID)),
+        mergeMap(() => this.objectCache.getObjectByUUID(options.scopeID)),
         map((nc: NormalizedCommunity) => nc._links[linkPath]),
         filter((href) => isNotEmpty(href))
       );

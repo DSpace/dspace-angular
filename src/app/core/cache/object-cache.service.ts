@@ -75,15 +75,15 @@ export class ObjectCacheService {
   /**
    * Get an observable of the object with the specified UUID
    *
-   * @param id
+   * @param uuid
    *    The UUID of the object to get
    * @return Observable<NormalizedObject<T>>
    *    An observable of the requested object in normalized form
    */
-  getObjectByID<T extends CacheableObject>(id: string):
+  getObjectByUUID<T extends CacheableObject>(uuid: string):
     Observable<NormalizedObject<T>> {
     return this.store.pipe(
-      select(selfLinkFromUuidSelector(id)),
+      select(selfLinkFromUuidSelector(uuid)),
       mergeMap((selfLink: string) => this.getObjectBySelfLink(selfLink)
       )
     )
@@ -189,17 +189,17 @@ export class ObjectCacheService {
   /**
    * Check whether the object with the specified UUID is cached
    *
-   * @param id
+   * @param uuid
    *    The UUID of the object to check
    * @return boolean
    *    true if the object with the specified UUID is cached,
    *    false otherwise
    */
-  hasById(id: string): boolean {
+  hasByUUID(uuid: string): boolean {
     let result: boolean;
 
     this.store.pipe(
-      select(selfLinkFromUuidSelector(id)),
+      select(selfLinkFromUuidSelector(uuid)),
       take(1)
     ).subscribe((selfLink: string) => result = this.hasBySelfLink(selfLink));
 
