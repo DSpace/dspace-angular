@@ -22,7 +22,7 @@ describe('LookupGuard', () => {
       }
     };
     guard.canActivate(scopedRoute as any, undefined);
-    expect(dsoService.findById).toHaveBeenCalledWith('123456789%2F1234', IdentifierType.HANDLE)
+    expect(dsoService.findById).toHaveBeenCalledWith('123456789/1234', IdentifierType.HANDLE)
   });
 
   it('should call findById with handle params', () => {

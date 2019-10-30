@@ -154,9 +154,7 @@ export abstract class DataService<T extends CacheableObject> {
         map((endpoint: string) => this.getIDHref(endpoint, id)));
     } else if (identifierType === IdentifierType.HANDLE) {
       hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-        map((endpoint: string) => {
-          return this.getIDHref(endpoint, encodeURIComponent(id));
-        }));
+        map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
     }
     hrefObs.pipe(
       find((href: string) => hasValue(href)))

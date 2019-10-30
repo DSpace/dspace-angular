@@ -14,16 +14,18 @@ import { IdentifierType } from '../index/index.reducer';
 import { RemoteData } from './remote-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { getFinishedRemoteData } from '../shared/operators';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class DsoDataRedirectService extends DataService<any> {
+export class DsoRedirectDataService extends DataService<any> {
 
+  // Set the default link path to the identifier lookup endpoint.
   protected linkPath = 'pid';
   protected forceBypassCache = false;
+  private uuidEndpoint = 'dso';
 
   constructor(
     protected requestService: RequestService,
@@ -43,28 +45,37 @@ export class DsoDataRedirectService extends DataService<any> {
     return this.halService.getEndpoint(linkPath);
   }
 
+  setLinkPath(identifierType: IdentifierType) {
+    // The default 'pid' endpoint for identifiers does not support uuid lookups.
+    // For uuid lookups we need to change the linkPath.
+    if (identifierType === IdentifierType.UUID) {
+      this.linkPath = this.uuidEndpoint;
+    }
+  }
+
   getIDHref(endpoint, resourceID): string {
-    return endpoint.replace(/\{\?id\}/,`?id=${resourceID}`);
+    // Supporting both identifier (pid) and uuid (dso) endpoints
+    return endpoint.replace(/\{\?id\}/, `?id=${resourceID}`)
+      .replace(/\{\?uuid\}/, `?uuid=${resourceID}`);
   }
 
   findById(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
+    this.setLinkPath(identifierType);
     return super.findById(id, identifierType).pipe(
       getFinishedRemoteData(),
+      filter((response) => response.hasSucceeded),
       tap((response) => {
-        if (response.hasSucceeded) {
-          const uuid = response.payload.uuid;
-          // Is there an existing method somewhere that converts dso type route?
-          const dsoType = this.getEndpointFromDSOType(response.payload.type);
-          if (hasValue(uuid) && hasValue(dsoType)) {
-            this.router.navigate([dsoType + '/' + uuid]);
-          }
+        const uuid = response.payload.uuid;
+        const newRoute = this.getEndpointFromDSOType(response.payload.type);
+        if (hasValue(uuid) && hasValue(newRoute)) {
+          this.router.navigate([newRoute + '/' + uuid]);
         }
       })
     );
   }
-
+  // Is there an existing method somewhere else that converts dso type to route?
   getEndpointFromDSOType(dsoType: string): string {
-    // Are there other routes to consider?
+    // Are there other types to consider?
     if (dsoType.startsWith('item')) {
       return 'items'
     } else if (dsoType.startsWith('community')) {

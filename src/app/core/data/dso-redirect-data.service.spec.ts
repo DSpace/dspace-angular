@@ -9,13 +9,13 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { IdentifierType } from '../index/index.reducer';
-import { DsoDataRedirectService } from './dso-data-redirect.service';
+import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 
-describe('DsoDataRedirectService', () => {
+describe('DsoRedirectDataService', () => {
   let scheduler: TestScheduler;
-  let service: DsoDataRedirectService;
+  let service: DsoRedirectDataService;
   let halService: HALEndpointService;
   let requestService: RequestService;
   let rdbService: RemoteDataBuildService;
@@ -66,7 +66,7 @@ describe('DsoDataRedirectService', () => {
           a: remoteData
         })
       });
-      service = new DsoDataRedirectService(
+      service = new DsoRedirectDataService(
         requestService,
         rdbService,
         dataBuildService,
@@ -84,10 +84,26 @@ describe('DsoDataRedirectService', () => {
   describe('findById', () => {
     it('should call HALEndpointService with the path to the pid endpoint', () => {
       setup();
-      scheduler.schedule(() => service.findById(dsoUUID));
+      scheduler.schedule(() => service.findById(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
       expect(halService.getEndpoint).toHaveBeenCalledWith('pid');
+    });
+
+    it('should call HALEndpointService with the path to the dso endpoint', () => {
+      setup();
+      scheduler.schedule(() => service.findById(dsoUUID, IdentifierType.UUID));
+      scheduler.flush();
+
+      expect(halService.getEndpoint).toHaveBeenCalledWith('dso');
+    });
+
+    it('should call HALEndpointService with the path to the dso endpoint when identifier type not specified', () => {
+      setup();
+      scheduler.schedule(() => service.findById(dsoUUID));
+      scheduler.flush();
+
+      expect(halService.getEndpoint).toHaveBeenCalledWith('dso');
     });
 
     it('should configure the proper FindByIDRequest for uuid', () => {

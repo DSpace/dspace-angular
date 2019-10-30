@@ -1,11 +1,11 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { DsoDataRedirectService } from '../core/data/dso-data-redirect.service';
 import { Injectable } from '@angular/core';
 import { IdentifierType } from '../core/index/index.reducer';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RemoteData } from '../core/data/remote-data';
 import { FindByIDRequest } from '../core/data/request.models';
+import { DsoRedirectDataService } from '../core/data/dso-redirect-data.service';
 
 interface LookupParams {
   type: IdentifierType;
@@ -14,7 +14,8 @@ interface LookupParams {
 
 @Injectable()
 export class LookupGuard implements CanActivate {
-  constructor(private dsoService: DsoDataRedirectService) {
+
+  constructor(private dsoService: DsoRedirectDataService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state:RouterStateSnapshot): Observable<boolean>  {
@@ -34,7 +35,7 @@ export class LookupGuard implements CanActivate {
       type = IdentifierType.HANDLE;
       const prefix = route.params.idType;
       const handleId = route.params.id;
-      id = `${prefix}%2F${handleId}`;
+      id = `${prefix}/${handleId}`;
 
     } else if (route.params.idType === IdentifierType.HANDLE) {
       type = IdentifierType.HANDLE;
