@@ -10,7 +10,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { IdentifierType } from '../index/index.reducer';
 
 describe('DSpaceObjectDataService', () => {
   let scheduler: TestScheduler;
@@ -73,7 +72,7 @@ describe('DSpaceObjectDataService', () => {
       scheduler.schedule(() => service.findById(testObject.uuid));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestURL, testObject.uuid, IdentifierType.UUID), false);
+      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestURL, testObject.uuid), false);
     });
 
     it('should return a RemoteData<DSpaceObject> for the object with the given ID', () => {

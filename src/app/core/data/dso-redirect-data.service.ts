@@ -8,9 +8,8 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestService } from './request.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
-import { FindAllOptions, FindByIDRequest } from './request.models';
+import { FindAllOptions, FindByIDRequest, IdentifierType } from './request.models';
 import { Observable } from 'rxjs';
-import { IdentifierType } from '../index/index.reducer';
 import { RemoteData } from './remote-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Injectable } from '@angular/core';
@@ -61,7 +60,7 @@ export class DsoRedirectDataService extends DataService<any> {
 
   findById(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
     this.setLinkPath(identifierType);
-    return super.findById(id, identifierType).pipe(
+    return super.findById(id).pipe(
       getFinishedRemoteData(),
       take(1),
       tap((response) => {

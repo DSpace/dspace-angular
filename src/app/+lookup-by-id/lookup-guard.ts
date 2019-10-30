@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { IdentifierType } from '../core/index/index.reducer';
+import { IdentifierType } from '../core/data/request.models';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RemoteData } from '../core/data/remote-data';

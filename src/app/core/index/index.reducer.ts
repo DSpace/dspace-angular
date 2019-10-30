@@ -6,25 +6,23 @@ import {
   RemoveFromIndexByValueAction
 } from './index.actions';
 
-export enum IdentifierType {
-  UUID ='uuid',
-  HANDLE = 'handle'
-}
-
 /**
- * Contains the UUIDs of requests that were sent to the server and
- * have their responses cached, indexed by the UUIDs of requests that
- * weren't sent because the response they requested was already cached
+ * An enum containing all index names
  */
-export const UUID_MAPPING = 'get-request/configured-to-cache-uuid';
+export enum IndexName {
+  // Contains all objects in the object cache indexed by UUID
+  OBJECT = 'object/uuid-to-self-link',
 
-// contains all requests in the request cache indexed by UUID
-export const REQUEST = 'get-request/href-to-uuid';
+  // contains all requests in the request cache indexed by UUID
+  REQUEST = 'get-request/href-to-uuid',
 
-// returns the index for the provided id type (uuid, handle)
-export const getIdentiferByIndexName = (idType: IdentifierType): string => {
-  return `object/uuid-to-self-link/${idType}`;
-};
+  /**
+   * Contains the UUIDs of requests that were sent to the server and
+   * have their responses cached, indexed by the UUIDs of requests that
+   * weren't sent because the response they requested was already cached
+   */
+  UUID_MAPPING = 'get-request/configured-to-cache-uuid'
+}
 
 /**
  * The state of a single index
@@ -36,11 +34,8 @@ export interface IndexState {
 /**
  * The state that contains all indices
  */
-export interface MetaIndexState {
-  'get-request/configured-to-cache-uuid': IndexState,
-  'get-request/href-to-uuid': IndexState,
-  'object/uuid-to-self-link/uuid': IndexState,
-  'object/uuid-to-self-link/handle': IndexState
+export type MetaIndexState = {
+  [name in IndexName]: IndexState
 }
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)

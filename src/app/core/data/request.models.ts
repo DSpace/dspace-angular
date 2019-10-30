@@ -19,9 +19,14 @@ import { MetadatafieldParsingService } from './metadatafield-parsing.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
-import { IdentifierType } from '../index/index.reducer';
 
 /* tslint:disable:max-classes-per-file */
+
+// uuid and handle requests have separate endpoints
+export enum IdentifierType {
+  UUID ='uuid',
+  HANDLE = 'handle'
+}
 
 export abstract class RestRequest {
   public responseMsToLive = 0;
@@ -126,8 +131,7 @@ export class FindByIDRequest extends GetRequest {
   constructor(
     uuid: string,
     href: string,
-    public resourceID: string,
-    public identifierType?: IdentifierType
+    public resourceID: string
   ) {
     super(uuid, href);
   }

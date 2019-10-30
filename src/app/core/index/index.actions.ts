@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '../../shared/ngrx/type';
-import {  } from './index.reducer';
+import { IndexName } from './index.reducer';
 
 /**
  * The list of HrefIndexAction type definitions
@@ -19,7 +19,7 @@ export const IndexActionTypes = {
 export class AddToIndexAction implements Action {
   type = IndexActionTypes.ADD;
   payload: {
-    name: string;
+    name: IndexName;
     value: string;
     key: string;
   };
@@ -34,7 +34,7 @@ export class AddToIndexAction implements Action {
    * @param value
    *    the self link of the resource the key belongs to
    */
-  constructor(name: string, key: string, value: string) {
+  constructor(name: IndexName, key: string, value: string) {
     this.payload = { name, key, value };
   }
 }
@@ -45,7 +45,7 @@ export class AddToIndexAction implements Action {
 export class RemoveFromIndexByValueAction implements Action {
   type = IndexActionTypes.REMOVE_BY_VALUE;
   payload: {
-    name: string,
+    name: IndexName,
     value: string
   };
 
@@ -57,7 +57,7 @@ export class RemoveFromIndexByValueAction implements Action {
    * @param value
    *    the value to remove the UUID for
    */
-  constructor(name: string, value: string) {
+  constructor(name: IndexName, value: string) {
     this.payload = { name, value };
   }
 
@@ -69,7 +69,7 @@ export class RemoveFromIndexByValueAction implements Action {
 export class RemoveFromIndexBySubstringAction implements Action {
   type = IndexActionTypes.REMOVE_BY_SUBSTRING;
   payload: {
-    name: string,
+    name: IndexName,
     value: string
   };
 
@@ -81,7 +81,7 @@ export class RemoveFromIndexBySubstringAction implements Action {
    * @param value
    *    the value to remove the UUID for
    */
-  constructor(name: string, value: string) {
+  constructor(name: IndexName, value: string) {
     this.payload = { name, value };
   }
 

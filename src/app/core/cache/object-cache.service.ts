@@ -21,7 +21,6 @@ import {
 import { CacheableObject, ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
 import { AddToSSBAction } from './server-sync-buffer.actions';
 import { getMapsToType } from './builders/build-decorators';
-import { IdentifierType } from '../index/index.reducer';
 
 /**
  * The base selector function to select the object cache in the store
@@ -81,10 +80,10 @@ export class ObjectCacheService {
    * @return Observable<NormalizedObject<T>>
    *    An observable of the requested object in normalized form
    */
-  getObjectByID<T extends CacheableObject>(id: string, identifierType: IdentifierType = IdentifierType.UUID):
+  getObjectByID<T extends CacheableObject>(id: string):
     Observable<NormalizedObject<T>> {
     return this.store.pipe(
-      select(selfLinkFromUuidSelector(id, identifierType)),
+      select(selfLinkFromUuidSelector(id)),
       mergeMap((selfLink: string) => this.getObjectBySelfLink(selfLink)
       )
     )
@@ -196,11 +195,11 @@ export class ObjectCacheService {
    *    true if the object with the specified UUID is cached,
    *    false otherwise
    */
-  hasById(id: string, identifierType: IdentifierType = IdentifierType.UUID): boolean {
+  hasById(id: string): boolean {
     let result: boolean;
 
     this.store.pipe(
-      select(selfLinkFromUuidSelector(id, identifierType)),
+      select(selfLinkFromUuidSelector(id)),
       take(1)
     ).subscribe((selfLink: string) => result = this.hasBySelfLink(selfLink));
 

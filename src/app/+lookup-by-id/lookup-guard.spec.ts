@@ -1,6 +1,6 @@
 import { LookupGuard } from './lookup-guard';
 import { of as observableOf } from 'rxjs';
-import { IdentifierType } from '../core/index/index.reducer';
+import { IdentifierType } from '../core/data/request.models';
 
 describe('LookupGuard', () => {
   let dsoService: any;

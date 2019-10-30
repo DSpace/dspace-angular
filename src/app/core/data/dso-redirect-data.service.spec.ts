@@ -2,13 +2,12 @@ import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindByIDRequest } from './request.models';
+import { FindByIDRequest, IdentifierType } from './request.models';
 import { RequestService } from './request.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { IdentifierType } from '../index/index.reducer';
 import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
@@ -111,7 +110,7 @@ describe('DsoRedirectDataService', () => {
       scheduler.schedule(() => service.findById(dsoUUID, IdentifierType.UUID));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestUUIDURL, dsoUUID, IdentifierType.UUID), false);
+      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestUUIDURL, dsoUUID), false);
     });
 
     it('should configure the proper FindByIDRequest for handle', () => {
@@ -119,7 +118,7 @@ describe('DsoRedirectDataService', () => {
       scheduler.schedule(() => service.findById(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestHandleURL, dsoHandle, IdentifierType.HANDLE), false);
+      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestHandleURL, dsoHandle), false);
     });
 
     it('should navigate to item route', () => {
