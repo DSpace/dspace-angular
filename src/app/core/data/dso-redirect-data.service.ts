@@ -14,7 +14,7 @@ import { IdentifierType } from '../index/index.reducer';
 import { RemoteData } from './remote-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Injectable } from '@angular/core';
-import { filter, tap } from 'rxjs/operators';
+import { filter, take, tap } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { getFinishedRemoteData } from '../shared/operators';
 import { Router } from '@angular/router';
@@ -63,12 +63,14 @@ export class DsoRedirectDataService extends DataService<any> {
     this.setLinkPath(identifierType);
     return super.findById(id, identifierType).pipe(
       getFinishedRemoteData(),
-      filter((response) => response.hasSucceeded),
+      take(1),
       tap((response) => {
-        const uuid = response.payload.uuid;
-        const newRoute = this.getEndpointFromDSOType(response.payload.type);
-        if (hasValue(uuid) && hasValue(newRoute)) {
-          this.router.navigate([newRoute + '/' + uuid]);
+        if (response.hasSucceeded) {
+          const uuid = response.payload.uuid;
+          const newRoute = this.getEndpointFromDSOType(response.payload.type);
+          if (hasValue(uuid) && hasValue(newRoute)) {
+            this.router.navigate([newRoute + '/' + uuid]);
+          }
         }
       })
     );
