@@ -4,7 +4,7 @@ import { ObjectUpdatesService } from '../../../../core/data/object-updates/objec
 import { Observable } from 'rxjs/internal/Observable';
 import { FieldUpdates } from '../../../../core/data/object-updates/object-updates.reducer';
 import { toBitstreamsArray } from '../../../../core/shared/item-bitstreams-utils';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -89,6 +89,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     this.updates$ = this.bitstreamsRD$.pipe(
       toBitstreamsArray(),
       tap((bitstreams: Bitstream[]) => this.objectUpdatesService.initialize(this.bundle.self, bitstreams, new Date(), true)),
+      take(1),
       switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesByCustomOrder(this.bundle.self, bitstreams))
     );
     this.isLoadingMore$ = observableCombineLatest(this.currentSize$, this.bitstreamsRD$).pipe(

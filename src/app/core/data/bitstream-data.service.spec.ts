@@ -46,22 +46,6 @@ describe('BitstreamDataService', () => {
     service = new BitstreamDataService(requestService, null, null, null, null, objectCache, halService, null, null, null, bitstreamFormatService);
   });
 
-  describe('when deleting a bitstream', () => {
-    let response$: Observable<RestResponse>;
-
-    beforeEach(() => {
-      response$ = service.deleteAndReturnResponse(bitstream);
-    });
-
-    it('should de-cache the bitstream\'s object cache', () => {
-      expect(objectCache.remove).toHaveBeenCalledWith(bitstream.self);
-    });
-
-    it('should de-cache the bitstream\'s request cache', () => {
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(bitstream.self);
-    });
-  });
-
   describe('when updating the bitstream\'s format', () => {
     beforeEach(() => {
       service.updateFormat(bitstream, format);

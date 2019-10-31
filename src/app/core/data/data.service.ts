@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -327,6 +327,7 @@ export abstract class DataService<T extends CacheableObject> {
     const requestId = this.deleteAndReturnRequestId(dso);
 
     return this.requestService.getByUUID(requestId).pipe(
+      hasValueOperator(),
       find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response)
     );

@@ -62,19 +62,6 @@ export class BitstreamDataService extends DataService<Bitstream> {
   }
 
   /**
-   * Delete an existing DSpace Object on the server
-   * @param bitstream The Bitstream to be removed
-   * De-cache the removed bitstream from Object and Request cache
-   * Return an observable of the completed response
-   */
-  deleteAndReturnResponse(bitstream: Bitstream): Observable<RestResponse> {
-    const response$ = super.deleteAndReturnResponse(bitstream);
-    this.objectCache.remove(bitstream.self);
-    this.requestService.removeByHrefSubstring(bitstream.self);
-    return response$;
-  }
-
-  /**
    * Set the format of a bitstream
    * @param bitstream
    * @param format
