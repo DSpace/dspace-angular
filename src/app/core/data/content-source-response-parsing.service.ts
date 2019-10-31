@@ -20,8 +20,8 @@ export class ContentSourceResponseParsingService implements ResponseParsingServi
     const deserialized = new DSpaceRESTv2Serializer(ContentSource).deserialize(payload);
 
     let metadataConfigs = [];
-    if (payload._embedded && payload._embedded.metadata_configs && payload._embedded.metadata_configs.configs) {
-      metadataConfigs = new DSpaceRESTv2Serializer(MetadataConfig).serializeArray(payload._embedded.metadata_configs.configs);
+    if (payload._embedded && payload._embedded.harvestermetadata && payload._embedded.harvestermetadata.configs) {
+      metadataConfigs = new DSpaceRESTv2Serializer(MetadataConfig).serializeArray(payload._embedded.harvestermetadata.configs);
     }
     deserialized.metadataConfigs = metadataConfigs;
 

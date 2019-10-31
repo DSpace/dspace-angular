@@ -18,11 +18,12 @@
     </button>
   </div>
   <h4>{{ 'collection.edit.tabs.source.head' | translate }}</h4>
-  <div class="form-check mb-4">
+  <div *ngIf="contentSource" class="form-check mb-4">
     <input type="checkbox" class="form-check-input" id="externalSourceCheck" [checked]="(contentSource?.harvestType !== harvestTypeNone)" (change)="changeExternalSource()">
     <label class="form-check-label" for="externalSourceCheck">{{ 'collection.edit.tabs.source.external' | translate }}</label>
   </div>
-  <h4 *ngIf="(contentSource?.harvestType !== harvestTypeNone)">{{ 'collection.edit.tabs.source.form.head' | translate }}</h4>
+  <ds-loading *ngIf="!contentSource" [message]="'loading.content-source' | translate"></ds-loading>
+  <h4 *ngIf="contentSource && (contentSource?.harvestType !== harvestTypeNone)">{{ 'collection.edit.tabs.source.form.head' | translate }}</h4>
 </div>
 <ds-form *ngIf="formGroup && contentSource && (contentSource?.harvestType !== harvestTypeNone)"
          [formId]="'collection-source-form-id'"

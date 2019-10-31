@@ -30,6 +30,7 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { MetadataConfig } from '../../../core/shared/metadata-config.model';
+import { INotification } from '../../../shared/notifications/models/notification.model';
 
 /**
  * Component for managing the content source of the collection
@@ -214,6 +215,13 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   previouslySelectedHarvestType = ContentSourceHarvestType.Metadata;
 
+  /**
+   * Notifications displayed after clicking submit
+   * These are cleaned up every time a user submits the form to prevent error or other notifications from staying active
+   * while they shouldn't be.
+   */
+  displayedNotifications: INotification[] = [];
+
   public constructor(public objectUpdatesService: ObjectUpdatesService,
                      public notificationsService: NotificationsService,
                      protected location: Location,
@@ -269,7 +277,10 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.updateSub = this.update$.subscribe((update: FieldUpdate) => {
       if (update) {
         const field = update.field as ContentSource;
-        const defaultConfigId = this.contentSource.metadataConfigs[0].id;
+        let defaultConfigId;
+        if (hasValue(this.contentSource) && isNotEmpty(this.contentSource.metadataConfigs)) {
+          defaultConfigId = this.contentSource.metadataConfigs[0].id;
+        }
         this.formGroup.patchValue({
           oaiSourceContainer: {
             oaiSource: field.oaiSource
@@ -355,9 +366,14 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
       map((col) => col.payload.uuid),
       switchMap((uuid) => this.collectionService.updateContentSource(uuid, this.contentSource)),
       take(1)
-    ).subscribe((contentSource: ContentSource) => {
-      this.initializeOriginalContentSource(contentSource);
-      this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved'));
+    ).subscribe((result: ContentSource | INotification) => {
+      if (hasValue((result as any).harvestType)) {
+        this.clearNotifications();
+        this.initializeOriginalContentSource(result as ContentSource);
+        this.displayedNotifications.push(this.notificationsService.success(this.getNotificationTitle('saved'), this.getNotificationContent('saved')));
+      } else {
+        this.displayedNotifications.push(result as INotification);
+      }
     });
   }
 
@@ -417,6 +433,16 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   saveFieldUpdate() {
     this.objectUpdatesService.saveAddFieldUpdate(this.url, cloneDeep(this.contentSource));
+  }
+
+  /**
+   * Clear possible active notifications
+   */
+  clearNotifications() {
+    this.displayedNotifications.forEach((notification: INotification) => {
+      this.notificationsService.remove(notification);
+    });
+    this.displayedNotifications = [];
   }
 
   /**

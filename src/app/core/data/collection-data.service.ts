@@ -38,6 +38,7 @@ import { ResponseParsingService } from './parsing.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
+import { INotification } from '../../shared/notifications/models/notification.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
@@ -140,7 +141,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * @param collectionId
    * @param contentSource
    */
-  updateContentSource(collectionId: string, contentSource: ContentSource): Observable<ContentSource> {
+  updateContentSource(collectionId: string, contentSource: ContentSource): Observable<ContentSource | INotification> {
     const requestId = this.requestService.generateRequestId();
     const serializedContentSource = new DSpaceRESTv2Serializer(ContentSource).serialize(contentSource);
     const request$ = this.getHarvesterEndpoint(collectionId).pipe(
@@ -166,9 +167,9 @@ export class CollectionDataService extends ComColDataService<Collection> {
         if (!response.isSuccessful) {
           if (hasValue((response as any).errorMessage)) {
             if (response.statusCode === 422) {
-              this.notificationsService.error(this.translate.instant(this.errorTitle), this.translate.instant(this.contentSourceError), new NotificationOptions(-1));
+              return this.notificationsService.error(this.translate.instant(this.errorTitle), this.translate.instant(this.contentSourceError), new NotificationOptions(-1));
             } else {
-              this.notificationsService.error(this.translate.instant(this.errorTitle), (response as any).errorMessage, new NotificationOptions(-1));
+              return this.notificationsService.error(this.translate.instant(this.errorTitle), (response as any).errorMessage, new NotificationOptions(-1));
             }
           }
         } else {
@@ -176,10 +177,11 @@ export class CollectionDataService extends ComColDataService<Collection> {
         }
       }),
       isNotEmptyOperator(),
-      map((response: ContentSourceSuccessResponse) => {
-        if (isNotEmpty(response.contentsource)) {
-          return response.contentsource;
+      map((response: ContentSourceSuccessResponse | INotification) => {
+        if (isNotEmpty((response as any).contentsource)) {
+          return (response as ContentSourceSuccessResponse).contentsource;
         }
+        return response as INotification;
       })
     );
   }
