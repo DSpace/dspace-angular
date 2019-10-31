@@ -14,6 +14,7 @@ import { BundleDataService } from '../../../../core/data/bundle-data.service';
 import { PaginatedSearchOptions } from '../../../../+search-page/paginated-search-options.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { combineLatest as observableCombineLatest } from 'rxjs';
+import { hasNoValue } from '../../../../shared/empty.util';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -76,6 +77,12 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    */
   isLoadingMore$: Observable<boolean>;
 
+  /**
+   * What size were the object updates last initialized with?
+   * Used to check if the object updates need to be re-initialized when loading more bitstreams
+   */
+  lastInitializedWithSize: number;
+
   constructor(private objectUpdatesService: ObjectUpdatesService,
               private bundleService: BundleDataService,
               private viewContainerRef: ViewContainerRef) {
@@ -88,8 +95,12 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
     );
     this.updates$ = this.bitstreamsRD$.pipe(
       toBitstreamsArray(),
-      tap((bitstreams: Bitstream[]) => this.objectUpdatesService.initialize(this.bundle.self, bitstreams, new Date(), true)),
-      take(1),
+      tap((bitstreams: Bitstream[]) => {
+        if (hasNoValue(this.lastInitializedWithSize) || this.currentSize$.value !== this.lastInitializedWithSize) {
+          this.objectUpdatesService.initialize(this.bundle.self, bitstreams, new Date(), true);
+          this.lastInitializedWithSize = this.currentSize$.value;
+        }
+      }),
       switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesByCustomOrder(this.bundle.self, bitstreams))
     );
     this.isLoadingMore$ = observableCombineLatest(this.currentSize$, this.bitstreamsRD$).pipe(
