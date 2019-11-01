@@ -33,10 +33,8 @@ export class ObjectNotFoundComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.idType.startsWith('handle')) {
-      this.missingItem = 'handle: ' + this.id;
-    } else if (this.idType.startsWith('uuid')) {
-      this.missingItem = 'uuid: ' + this.id;
+    if (this.idType.startsWith('handle') || this.idType.startsWith('uuid')) {
+      this.missingItem = this.idType + ': ' + this.id;
     } else {
       this.missingItem = 'handle: ' + this.idType + '/' + this.id;
     }

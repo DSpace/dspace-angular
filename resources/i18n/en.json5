@@ -204,6 +204,7 @@
   "error.collection": "Error fetching collection",
   "error.collections": "Error fetching collections",
   "error.community": "Error fetching community",
+  "error.identifier": "No item found for the identifier",
   "error.default": "Error",
   "error.item": "Error fetching item",
   "error.items": "Error fetching items",
