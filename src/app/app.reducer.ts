@@ -32,7 +32,7 @@ import {
   BitstreamFormatRegistryState
 } from './+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { ObjectSelectionListState, objectSelectionReducer } from './shared/object-select/object-select.reducer';
-import { relationshipListReducer, RelationshipListsState } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.reducer';
+import { nameVariantReducer, NameVariantListsState } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
@@ -49,7 +49,7 @@ export interface AppState {
   menus: MenusState;
   objectSelection: ObjectSelectionListState;
   selectableLists: SelectableListsState;
-  relationshipLists: RelationshipListsState;
+  relationshipLists: NameVariantListsState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -67,7 +67,7 @@ export const appReducers: ActionReducerMap<AppState> = {
   menus: menusReducer,
   objectSelection: objectSelectionReducer,
   selectableLists: selectableListReducer,
-  relationshipLists: relationshipListReducer
+  relationshipLists: nameVariantReducer
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

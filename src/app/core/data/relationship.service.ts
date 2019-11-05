@@ -28,13 +28,13 @@ import { SearchParam } from '../cache/models/search-param.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.actions';
 import { AppState, keySelector } from '../../app.reducer';
-import { RelationshipListState, RelationshipState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.reducer';
+import { NameVariantListState, RelationshipState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
-const relationshipListStateSelector = (listID: string): MemoizedSelector<AppState, RelationshipListState> => {
-  return keySelector<RelationshipListState>(listID, relationshipListsStateSelector);
+const relationshipListStateSelector = (listID: string): MemoizedSelector<AppState, NameVariantListState> => {
+  return keySelector<NameVariantListState>(listID, relationshipListsStateSelector);
 };
 
 const relationshipStateSelector = (listID: string, itemID: string): MemoizedSelector<AppState, RelationshipState> => {

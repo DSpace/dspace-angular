@@ -82,7 +82,7 @@ import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.c
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { getSucceededRemoteData } from '../../../../core/shared/operators';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
@@ -269,14 +269,17 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   openLookup() {
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
-    const modalComp = this.modalRef.componentInstance;
-    modalComp.repeatable = this.model.repeatable;
-    modalComp.listId = this.listId;
-    modalComp.relationshipOptions = this.model.relationship;
-    modalComp.label = this.model.label;
-    modalComp.itemRD$ = this.model.workspaceItem.item;
-    modalComp.metadataFields = this.model.metadataFields;
+    this.model.workspaceItem.item.pipe(getSucceededRemoteData(), getRemoteDataPayload())
+      .subscribe((item: Item) => {
+        this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
+        const modalComp = this.modalRef.componentInstance;
+        modalComp.repeatable = this.model.repeatable;
+        modalComp.listId = this.listId;
+        modalComp.relationshipOptions = this.model.relationship;
+        modalComp.label = this.model.label;
+        modalComp.item = item;
+        modalComp.metadataFields = this.model.metadataFields;
+      })
   }
 
   removeSelection(object: SearchResult<Item>) {

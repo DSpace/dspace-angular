@@ -8,46 +8,9 @@ import { Item } from '../../../../../core/shared/item.model';
 export const RelationshipActionTypes = {
   ADD_RELATIONSHIP: type('dspace/relationship/ADD_RELATIONSHIP'),
   REMOVE_RELATIONSHIP: type('dspace/relationship/REMOVE_RELATIONSHIP'),
-  SET_NAME_VARIANT: type('dspace/relationship/SET_NAME_VARIANT'),
-  REMOVE_NAME_VARIANT: type('dspace/relationship/REMOVE_NAME_VARIANT'),
 };
 
 /* tslint:disable:max-classes-per-file */
-
-export abstract class RelationshipListAction implements Action {
-  type;
-  payload: {
-    listID: string;
-    itemID: string;
-  };
-
-  constructor(listID: string, itemID: string) {
-    this.payload = { listID, itemID };
-  }
-}
-
-export class SetNameVariantAction extends RelationshipListAction {
-  type = RelationshipActionTypes.SET_NAME_VARIANT;
-  payload: {
-    listID: string;
-    itemID: string;
-    nameVariant: string;
-  };
-
-  constructor(listID: string, itemID: string, nameVariant: string) {
-    super(listID, itemID);
-    this.payload.nameVariant = nameVariant;
-  }
-}
-
-export class RemoveNameVariantAction extends RelationshipListAction {
-  type = RelationshipActionTypes.REMOVE_NAME_VARIANT;
-  constructor(listID: string, itemID: string, ) {
-    super(listID, itemID);
-  }
-}
-
-
 /**
  * An ngrx action to create a new relationship
  */
