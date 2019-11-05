@@ -8,6 +8,7 @@ describe('LookupFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues = {};
 
+  const submissionId = '1234';
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
@@ -36,13 +37,13 @@ describe('LookupFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new LookupFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(parser instanceof LookupFieldParser).toBe(true);
   });
 
   it('should return a DynamicLookupModel object when repeatable option is false', () => {
-    const parser = new LookupFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -55,7 +56,7 @@ describe('LookupFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test journal');
 
-    const parser = new LookupFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

@@ -10,6 +10,7 @@ export const PLACEHOLDER_PARENT_METADATA = '#PLACEHOLDER_PARENT_METADATA_VALUE#'
  * Dynamic Group Model configuration interface
  */
 export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConfig {
+  submissionId: string,
   formConfiguration: FormRowModel[],
   mandatoryField: string,
   relationFields: string[],
@@ -21,6 +22,7 @@ export interface DynamicRelationGroupModelConfig extends DsDynamicInputModelConf
  * Dynamic Group Model class
  */
 export class DynamicRelationGroupModel extends DsDynamicInputModel {
+  @serializable() submissionId: string;
   @serializable() formConfiguration: FormRowModel[];
   @serializable() mandatoryField: string;
   @serializable() relationFields: string[];
@@ -32,6 +34,7 @@ export class DynamicRelationGroupModel extends DsDynamicInputModel {
   constructor(config: DynamicRelationGroupModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
 
+    this.submissionId = config.submissionId;
     this.formConfiguration = config.formConfiguration;
     this.mandatoryField = config.mandatoryField;
     this.relationFields = config.relationFields;
