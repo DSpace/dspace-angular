@@ -47,7 +47,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   metadataFields: string;
   subMap: {
     [uuid: string]: Subscription
-  };
+  } = {};
 
   constructor(
     public modal: NgbActiveModal,
@@ -78,7 +78,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
             this.subMap[sri.indexableObject.uuid] = nameVariant$
               .pipe(skip(1))
               .subscribe((nameVariant: string) =>
-                this.relationshipService.updateNameVariant(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)
+                this.relationshipService.updateNameVariant(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant).subscribe()
               );
             return nameVariant$
               .pipe(
@@ -97,7 +97,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
           .subscribe((obs: any[]) => {
             return obs.forEach((object: any) => {
                 this.store.dispatch(new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, object.nameVariant));
-                this.addSelectSubscription(object);
               }
             );
           })
@@ -107,39 +106,39 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   deselect(...selectableObjects: SearchResult<Item>[]) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
+        this.subMap[object.indexableObject.uuid].unsubscribe();
         this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType));
-        this.addSelectSubscription(object);
       })
     )
     ;
   }
 
-  subscriptions = new Map<string, Subscription>();
+  // subscriptions = new Map<string, Subscription>();
+  //
+  // addSelectSubscription(itemSR: SearchResult<Item>) {
+  //   const nameVariant$ = this.relationshipService.getNameVariant(this.listId, itemSR.indexableObject.uuid).pipe(hasValueOperator());
+  //   const subscription = nameVariant$
+  //     .pipe(
+  //       switchMap((nameVariant: string) => {
+  //         return this.relationshipService.getRelationshipByItemsAndLabel(this.item, itemSR.indexableObject, this.relationshipOptions.relationshipType)
+  //           .pipe(map((relationship: Relationship) => Object.assign(new Relationship(), relationship, { leftwardValue: nameVariant })))
+  //       }),
+  //       switchMap((updatedRelation: Relationship) => this.relationshipService.update(updatedRelation))
+  //     )
+  //     .subscribe();
+  //   this.subscriptions.set(itemSR.indexableObject.uuid, subscription);
+  // }
 
-  addSelectSubscription(itemSR: SearchResult<Item>) {
-    const nameVariant$ = this.relationshipService.getNameVariant(this.listId, itemSR.indexableObject.uuid).pipe(hasValueOperator());
-    const subscription = nameVariant$
-      .pipe(
-        switchMap((nameVariant: string) => {
-          return this.relationshipService.getRelationshipByItemsAndLabel(this.item, itemSR.indexableObject, this.relationshipOptions.relationshipType)
-            .pipe(map((relationship: Relationship) => Object.assign(new Relationship(), relationship, { leftwardValue: nameVariant })))
-        }),
-        switchMap((updatedRelation: Relationship) => this.relationshipService.update(updatedRelation))
-      )
-      .subscribe();
-    this.subscriptions.set(itemSR.indexableObject.uuid, subscription);
-  }
-
-  removeSelectSubscription(itemSR: SearchResult<Item>) {
-    this.subscriptions.get(itemSR.indexableObject.uuid).unsubscribe();
-  }
-
-  ngOnDestroy() {
-    let sub;
-    while (sub = this.subscriptions.values().next(), !sub.done) {
-      sub.unsubscribe();
-    }
-  }
+  // removeSelectSubscription(itemSR: SearchResult<Item>) {
+  //   this.subscriptions.get(itemSR.indexableObject.uuid).unsubscribe();
+  // }
+  //
+  // ngOnDestroy() {
+  //   let sub;
+  //   while (sub = this.subscriptions.values().next(), !sub.done) {
+  //     sub.unsubscribe();
+  //   }
+  // }
 
   setExistingNameVariants() {
     const virtualMDs$: Observable<MetadataValue[]> = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);

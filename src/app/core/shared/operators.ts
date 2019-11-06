@@ -47,6 +47,7 @@ export const getResponseFromEntry = () =>
 export const getResourceLinksFromResponse = () =>
   (source: Observable<RequestEntry>): Observable<string[]> =>
     source.pipe(
+      tap((t) => console.log(t)),
       filterSuccessfulResponses(),
       map((response: DSOSuccessResponse) => response.resourceSelfLinks),
     );

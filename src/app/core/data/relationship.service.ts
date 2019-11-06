@@ -26,9 +26,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { SearchParam } from '../cache/models/search-param.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.actions';
 import { AppState, keySelector } from '../../app.reducer';
-import { NameVariantListState, RelationshipState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
+import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
+import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
@@ -37,8 +37,8 @@ const relationshipListStateSelector = (listID: string): MemoizedSelector<AppStat
   return keySelector<NameVariantListState>(listID, relationshipListsStateSelector);
 };
 
-const relationshipStateSelector = (listID: string, itemID: string): MemoizedSelector<AppState, RelationshipState> => {
-  return keySelector<RelationshipState>(itemID, relationshipListStateSelector(listID));
+const relationshipStateSelector = (listID: string, itemID: string): MemoizedSelector<AppState, string> => {
+  return keySelector<string>(itemID, relationshipListStateSelector(listID));
 };
 
 /**
@@ -225,7 +225,7 @@ export class RelationshipService extends DataService<Relationship> {
     } else {
       findAllOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findAllOptions);
+    return this.searchBy('byLabel', findAllOptions, true);
   }
 
   /**
@@ -263,6 +263,7 @@ export class RelationshipService extends DataService<Relationship> {
     return this.getItemRelationshipsByLabel(item1, label)
       .pipe(
         getSucceededRemoteData(),
+        tap((t) => console.log(t)),
         map((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
         mergeMap((relationships: Relationship[]) => {
           return observableCombineLatest(...relationships.map((relationship: Relationship) => {
@@ -293,7 +294,7 @@ export class RelationshipService extends DataService<Relationship> {
 
   public getNameVariant(listID: string, itemID: string): Observable<string> {
     return this.appStore.pipe(
-      select(relationshipStateSelector(listID, itemID)), tap((t) => console.log(t)), map((state: RelationshipState) => hasValue(state) ? state.nameVariant : undefined)
+      select(relationshipStateSelector(listID, itemID))
     );
   }
 
@@ -303,5 +304,30 @@ export class RelationshipService extends DataService<Relationship> {
 
   public getNameVariantsByListID(listID: string) {
     return this.appStore.pipe(select(relationshipListStateSelector(listID)));
+  }
+
+  public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
+    return this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
+      .pipe(
+        switchMap((relation: Relationship) =>
+          relation.relationshipType.pipe(
+            getSucceededRemoteData(),
+            getRemoteDataPayload(),
+            map(type => {
+              return { relation, type }
+            })
+          )
+        ),
+        switchMap((relationshipAndType: {relation: Relationship, type: RelationshipType}) => {
+          const { relation, type } = relationshipAndType;
+          let updatedRelationship;
+          if (relationshipLabel === type.leftwardType) {
+            updatedRelationship = Object.assign(new Relationship(), relation, { rightWardValue: nameVariant });
+          } else {
+            updatedRelationship = Object.assign(new Relationship(), relation, { leftWardValue: nameVariant });
+          }
+          return this.update(updatedRelationship);
+        })
+      )
   }
 }

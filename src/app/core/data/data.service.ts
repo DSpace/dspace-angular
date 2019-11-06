@@ -184,17 +184,19 @@ export abstract class DataService<T extends CacheableObject> {
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+  protected searchBy(searchMethod: string, options: FindAllOptions = {}, refresh: boolean = false): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options);
 
     hrefObs.pipe(
-      first((href: string) => hasValue(href)))
+      find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
+        if (refresh) {
+          this.requestService.removeByHrefSubstring(href);
+        }
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
         this.requestService.configure(request, true);
       });
-
     return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
   }
 
@@ -219,7 +221,7 @@ export abstract class DataService<T extends CacheableObject> {
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);
         }
-        return this.findById(object.uuid);
+        return this.findByHref(object.self);
       }
     ));
 
