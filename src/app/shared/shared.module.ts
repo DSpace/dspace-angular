@@ -144,6 +144,7 @@ import { PublicationSearchResultGridElementComponent } from './object-grid/searc
 import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import { CommunitySearchResultGridElementComponent } from './object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
 import { CollectionSearchResultGridElementComponent } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
+import { ItemMetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -314,7 +315,8 @@ const ENTRY_COMPONENTS = [
   StartsWithTextComponent,
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
-  MetadataRepresentationListElementComponent
+  MetadataRepresentationListElementComponent,
+  ItemMetadataRepresentationListElementComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

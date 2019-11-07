@@ -407,7 +407,7 @@ describe('ItemComponent', () => {
       representations.subscribe((reps: MetadataRepresentation[]) => {
         expect(reps[0].getValue()).toEqual('First value');
         expect(reps[1].getValue()).toEqual('Second value');
-        expect(reps[2].getValue()).toEqual('related item');
+        expect(reps[2].getValue()).toEqual('Third value');
         expect(reps[3].getValue()).toEqual('Fourth value');
       });
     });
