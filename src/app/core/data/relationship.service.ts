@@ -225,7 +225,7 @@ export class RelationshipService extends DataService<Relationship> {
     } else {
       findAllOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findAllOptions, true);
+    return this.searchBy('byLabel', findAllOptions);
   }
 
   /**

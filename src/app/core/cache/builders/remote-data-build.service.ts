@@ -113,6 +113,7 @@ export class RemoteDataBuildService {
       href$ = observableOf(href$);
     }
 
+    href$.subscribe(href => console.log('request url: ', href));
     const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
     const tDomainList$ = requestEntry$.pipe(
       getResourceLinksFromResponse(),
