@@ -27,7 +27,6 @@ export class DropdownFieldParser extends FieldParser {
     super(submissionId, configData, initFormValues, parserOptions)
   }
 
-
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
     const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel(null, label);
     let layout: DynamicFormControlLayout;
