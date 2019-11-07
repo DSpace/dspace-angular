@@ -117,9 +117,8 @@ export const getRelatedItemsByTypeLabel = (thisId: string, label: string) =>
  * @param parentId    The id of the parent item
  * @param itemType    The type of relation this list resembles (for creating representations)
  * @param metadata    The list of original Metadatum objects
- * @param ids         The ItemDataService to use for fetching Items from the Rest API
  */
-export const relationsToRepresentations = (parentId: string, itemType: string, metadata: MetadataValue[], ids: ItemDataService) =>
+export const relationsToRepresentations = (parentId: string, itemType: string, metadata: MetadataValue[]) =>
   (source: Observable<Relationship[]>): Observable<MetadataRepresentation[]> =>
     source.pipe(
       flatMap((rels: Relationship[]) =>
@@ -139,7 +138,7 @@ export const relationsToRepresentations = (parentId: string, itemType: string, m
                         return leftItem.payload;
                       }
                     }),
-                    map((item: Item) => Object.assign(new ItemMetadataRepresentation(), item))
+                    map((item: Item) => Object.assign(new ItemMetadataRepresentation(metadatum), item))
                   );
                 }
               } else {

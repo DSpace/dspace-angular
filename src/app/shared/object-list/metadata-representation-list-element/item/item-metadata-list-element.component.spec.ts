@@ -5,7 +5,7 @@ import { ItemMetadataListElementComponent } from './item-metadata-list-element.c
 import { By } from '@angular/platform-browser';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 
-const mockItemMetadataRepresentation = new ItemMetadataRepresentation();
+const mockItemMetadataRepresentation = new ItemMetadataRepresentation(Object.assign({}));
 
 describe('ItemMetadataListElementComponent', () => {
   let comp: ItemMetadataListElementComponent;
