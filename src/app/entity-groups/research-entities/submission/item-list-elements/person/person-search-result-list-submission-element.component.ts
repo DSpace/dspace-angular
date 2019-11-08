@@ -9,7 +9,7 @@ import { RelationshipService } from '../../../../../core/data/relationship.servi
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { take } from 'rxjs/operators';
 
-@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.Submission)
+@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.Workspace)
 @Component({
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./person-search-result-list-submission-element.component.scss'],

@@ -168,6 +168,7 @@ import { PublicationSearchResultGridElementComponent } from './object-grid/searc
 import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import { SearchLabelComponent } from './search/search-labels/search-label/search-label.component';
 import { ItemMetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
+import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -319,7 +320,8 @@ const COMPONENTS = [
   ItemTypeBadgeComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
-  MetadataRepresentationLoaderComponent
+  MetadataRepresentationLoaderComponent,
+  MetadataRepresentationListComponent,
 ];
 
 const ENTRY_COMPONENTS = [

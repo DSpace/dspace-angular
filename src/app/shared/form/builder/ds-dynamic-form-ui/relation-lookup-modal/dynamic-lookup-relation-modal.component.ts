@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue, hasValueOperator } from '../../../../empty.util';
-import { map, skip, switchMap, take, tap } from 'rxjs/operators';
+import { hasValue } from '../../../../empty.util';
+import { map, skip, switchMap, take } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
@@ -12,7 +12,6 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
-import { RemoteData } from '../../../../../core/data/remote-data';
 import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -21,8 +20,6 @@ import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { NameVariantListState } from './name-variant.reducer';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -62,7 +59,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   ngOnInit(): void {
     this.selection$ = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
     if (this.relationshipOptions.nameVariants) {
-      this.context = Context.Submission;
+      this.context = Context.Workspace;
     }
   }
 

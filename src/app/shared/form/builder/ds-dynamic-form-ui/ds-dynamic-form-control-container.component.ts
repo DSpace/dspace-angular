@@ -57,7 +57,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/dat
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator, isNotUndefined } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
@@ -178,7 +178,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   relationships$: Observable<SearchResult<Item>[]>;
   hasRelationLookup: boolean;
   modalRef: NgbModalRef;
-  modelValueMDRepresentation;
+  item$: Observable<Item>;
   listId: string;
   searchConfig: string;
   /* tslint:disable:no-output-rename */
@@ -216,19 +216,20 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
       this.listId = 'list-' + this.model.relationship.relationshipType;
-      this.submissionObjectService
+      this.item$ = this.submissionObjectService
         .findById(this.model.submissionId).pipe(
-        getSucceededRemoteData(),
-        getRemoteDataPayload(),
-        switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getSucceededRemoteData(), getRemoteDataPayload())),
+          getSucceededRemoteData(),
+          getRemoteDataPayload(),
+          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getSucceededRemoteData(), getRemoteDataPayload())));
+
+      this.item$.pipe(
         switchMap((item: Item) => this.relationService.getRelatedItemsByLabel(item, this.model.relationship.relationshipType)),
-        map((items: PaginatedList<Item>) => items.page.map((item) => Object.assign(new SearchResult(), { indexableObject: item }))),
+        map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new SearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
 
       this.relationships$ = this.selectableListService.getSelectableList(this.listId).pipe(
         map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
       ) as Observable<SearchResult<Item>[]>;
-      this.modelValueMDRepresentation = this.relationships$.pipe(map((result: SearchResult<DSpaceObject>[]) => result.map((element: SearchResult<DSpaceObject>) => Object.assign(new ItemMetadataRepresentation(), element.indexableObject))));
     }
   }
 
@@ -274,13 +275,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   openLookup() {
-    this.submissionObjectService
-      .findById(this.model.submissionId).pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      switchMap((submissionObject: SubmissionObject) =>
-        (submissionObject.item as Observable<RemoteData<Item>>).pipe(getSucceededRemoteData(), getRemoteDataPayload()))
-    ).subscribe((item: Item) => {
+    this.item$.subscribe((item: Item) => {
       this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
       const modalComp = this.modalRef.componentInstance;
       modalComp.repeatable = this.model.repeatable;
