@@ -2,8 +2,8 @@ import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PageWithSidebarComponent } from './page-with-sidebar.component';
-import { SidebarService } from './sidebar/sidebar.service';
-import { HostWindowService } from '../shared/host-window.service';
+import { SidebarService } from './sidebar.service';
+import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PageWithSidebarComponent', () => {

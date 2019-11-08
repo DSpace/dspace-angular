@@ -7,7 +7,7 @@ import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
 import { map } from 'rxjs/operators';
 
-const sidebarStateSelector = (state: AppState) => state.searchSidebar;
+const sidebarStateSelector = (state: AppState) => state.sidebar;
 const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SidebarState) => sidebar.sidebarCollapsed);
 
 /**

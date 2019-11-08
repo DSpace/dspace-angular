@@ -1,4 +1,4 @@
-import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
+import { ActionReducerMap, createSelector, MemoizedSelector, State } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
@@ -6,6 +6,10 @@ import {
   SidebarState,
   sidebarReducer
 } from './shared/sidebar/sidebar.reducer';
+import {
+  SidebarFilterState,
+  sidebarFilterReducer, SidebarFiltersState
+} from './shared/sidebar/filter/sidebar-filter.reducer';
 import {
   filterReducer,
   SearchFiltersState
@@ -37,7 +41,8 @@ export interface AppState {
   metadataRegistry: MetadataRegistryState;
   bitstreamFormats: BitstreamFormatRegistryState;
   notifications: NotificationsState;
-  searchSidebar: SidebarState;
+  sidebar: SidebarState;
+  sidebarFilter: SidebarFiltersState;
   searchFilter: SearchFiltersState;
   truncatable: TruncatablesState;
   cssVariables: CSSVariablesState;
@@ -53,7 +58,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   metadataRegistry: metadataRegistryReducer,
   bitstreamFormats: bitstreamFormatReducer,
   notifications: notificationsReducer,
-  searchSidebar: sidebarReducer,
+  sidebar: sidebarReducer,
+  sidebarFilter: sidebarFilterReducer,
   searchFilter: filterReducer,
   truncatable: truncatableReducer,
   cssVariables: cssVariablesReducer,

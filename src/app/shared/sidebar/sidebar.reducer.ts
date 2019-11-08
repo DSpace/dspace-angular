@@ -12,7 +12,7 @@ const initialState: SidebarState = {
 };
 
 /**
- * Performs a search sidebar action on the current state
+ * Performs a sidebar action on the current state
  * @param {SidebarState} state The state before the action is performed
  * @param {SidebarAction} action The action that should be performed
  * @returns {SidebarState} The state after the action is performed
