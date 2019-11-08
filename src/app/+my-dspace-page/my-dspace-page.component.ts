@@ -96,6 +96,9 @@ export class MyDSpacePageComponent implements OnInit {
    */
   viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
 
+  /**
+   * The current context of this page: workspace or workflow
+   */
   context$: Observable<Context>;
 
   constructor(private service: SearchService,
@@ -114,6 +117,9 @@ export class MyDSpacePageComponent implements OnInit {
    *
    * Listen to changes in the scope
    * If something changes, update the list of scopes for the dropdown
+   *
+   * Listen to changes in the configuration
+   * If something changes, update the current context
    */
   ngOnInit(): void {
     this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
