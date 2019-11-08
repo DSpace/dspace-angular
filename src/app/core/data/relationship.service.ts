@@ -319,13 +319,13 @@ export class RelationshipService extends DataService<Relationship> {
             })
           )
         ),
-        switchMap((relationshipAndType: {relation: Relationship, type: RelationshipType}) => {
+        switchMap((relationshipAndType: { relation: Relationship, type: RelationshipType }) => {
           const { relation, type } = relationshipAndType;
           let updatedRelationship;
           if (relationshipLabel === type.leftwardType) {
-            updatedRelationship = Object.assign(new Relationship(), relation, { rightwardValue: nameVariant });
-          } else {
             updatedRelationship = Object.assign(new Relationship(), relation, { leftwardValue: nameVariant });
+          } else {
+            updatedRelationship = Object.assign(new Relationship(), relation, { rightwardValue: nameVariant });
           }
           return this.update(updatedRelationship);
         })

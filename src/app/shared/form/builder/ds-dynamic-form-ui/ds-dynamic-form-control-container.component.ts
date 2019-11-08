@@ -222,7 +222,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         getRemoteDataPayload(),
         switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getSucceededRemoteData(), getRemoteDataPayload())),
         switchMap((item: Item) => this.relationService.getRelatedItemsByLabel(item, this.model.relationship.relationshipType)),
-        tap((t) => console.log(t)),
         map((items: PaginatedList<Item>) => items.page.map((item) => Object.assign(new SearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
 

@@ -197,7 +197,7 @@ export abstract class DataService<T extends CacheableObject> {
         }
       ),
       switchMap((href) => this.requestService.getByHref(href)),
-      skipWhile((requestEntry) => hasValue(requestEntry)),
+      skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
       switchMap((href) =>
         this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>
       )
