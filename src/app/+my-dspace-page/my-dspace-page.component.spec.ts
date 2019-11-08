@@ -15,7 +15,6 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { RemoteData } from '../core/data/remote-data';
 import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from './my-dspace-page.component';
 import { RouteService } from '../core/services/route.service';
 import { routeServiceStub } from '../shared/testing/route-service-stub';
@@ -30,8 +29,6 @@ import { RoleService } from '../core/roles/role.service';
 import { MockRoleService } from '../shared/mocks/mock-role-service';
 import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
-import { RequestService } from '../core/data/request.service';
-import { getMockRequestService } from '../shared/mocks/mock-request.service';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -129,10 +126,6 @@ describe('MyDSpacePageComponent', () => {
         {
           provide: SearchFixedFilterService,
           useValue: mockFixedFilterService
-        },
-        {
-          provide: RequestService,
-          useValue: getMockRequestService()
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]

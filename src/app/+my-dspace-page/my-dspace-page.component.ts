@@ -97,7 +97,6 @@ export class MyDSpacePageComponent implements OnInit {
   viewModeList = [ViewMode.List, ViewMode.Detail];
 
   constructor(private service: SearchService,
-              private requestService: RequestService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
@@ -117,20 +116,12 @@ export class MyDSpacePageComponent implements OnInit {
   ngOnInit(): void {
     this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-
-    this.sub = new Subscription();
-    // This assures that the search cache is empty for each onInit.
-    // See https://github.com/DSpace/dspace-angular/pull/468
-    const removeSub = this.service.getEndpoint()
-      .subscribe((url) => this.requestService.removeByHrefSubstring(url));
-    const searchSub = this.searchOptions$.pipe(
+    this.sub = this.searchOptions$.pipe(
       tap(() => this.resultsRD$.next(null)),
       switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getSucceededRemoteData())))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
-    this.sub.add(removeSub);
-    this.sub.add(searchSub);
 
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
