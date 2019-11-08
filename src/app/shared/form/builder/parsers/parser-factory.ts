@@ -108,7 +108,11 @@ export class ParserFactory {
         }
       }
       case undefined: {
-        return DisabledFieldParser
+        return {
+          provide: FieldParser,
+          useClass: DisabledFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       default: {
         return undefined;

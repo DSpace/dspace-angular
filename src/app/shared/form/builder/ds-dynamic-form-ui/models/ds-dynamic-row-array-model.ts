@@ -1,9 +1,4 @@
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
-  DynamicFormArrayModel, DynamicFormArrayModelConfig, DynamicFormControlLayout,
-  serializable
-} from '@ng-dynamic-forms/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './tag/dynamic-tag.model';
+import { DynamicFormArrayModel, DynamicFormArrayModelConfig, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {
   notRepeatable: boolean;

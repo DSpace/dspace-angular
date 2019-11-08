@@ -55,7 +55,7 @@ export const qualdropInputConfig = {
   disabled: false,
   repeatable: false,
   value: 'test',
-  workspaceItem: new WorkspaceItem(),
+  submissionId: '1234',
   metadataFields: []
 };
 
@@ -136,7 +136,6 @@ const relationGroupConfig = {
       'issue test 2'
     ],
   },
-  workspaceItem: new WorkspaceItem(),
   metadataFields: []
 };
 
@@ -165,7 +164,7 @@ export const inputWithLanguageAndAuthorityConfig = {
     display: 'testWithLanguageAndAuthority',
     id: 'testWithLanguageAndAuthority',
   },
-  workspaceItem: new WorkspaceItem(),
+  submissionId: '1234',
   metadataFields: []
 };
 
@@ -189,7 +188,7 @@ export const inputWithLanguageConfig = {
   disabled: false,
   repeatable: false,
   value: 'testWithLanguage',
-  workspaceItem: new WorkspaceItem(),
+  submissionId: '1234',
   metadataFields: []
 };
 
@@ -218,7 +217,7 @@ export const inputWithLanguageAndAuthorityArrayConfig = {
     display: 'testLanguageAndAuthorityArray',
     id: 'testLanguageAndAuthorityArray',
   }],
-  workspaceItem: new WorkspaceItem(),
+  submissionId: '1234',
   metadataFields: []
 };
 
@@ -231,7 +230,7 @@ export const inputWithFormFieldValueConfig = {
   disabled: false,
   repeatable: false,
   value: new FormFieldMetadataValueObject('testWithFormFieldValue'),
-  workspaceItem: new WorkspaceItem(),
+  submissionId: '1234',
   metadataFields: []
 };
 
@@ -244,7 +243,7 @@ export const inputWithAuthorityValueConfig = {
   disabled: false,
   repeatable: false,
   value: Object.assign({}, new AuthorityValue(), { value: 'testWithAuthorityValue', id: 'testWithAuthorityValue', display: 'testWithAuthorityValue' }),
-  workspaceItem: new WorkspaceItem(),
+  submissionId: '1234',
   metadataFields: []
 };
 
@@ -257,7 +256,7 @@ export const inputWithObjectValueConfig = {
   disabled: false,
   repeatable: false,
   value: { value: 'testWithObjectValue', id: 'testWithObjectValue', display: 'testWithObjectValue' },
-  workspaceItem: new WorkspaceItem(),
+  submissionId: '1234',
   metadataFields: []
 };
 
@@ -274,7 +273,7 @@ export const fileFormEditInputConfig = {
   readOnly: false,
   disabled: false,
   repeatable: false,
-  workspaceItem: new WorkspaceItem(),
+  submissionId: '1234',
   metadataFields: []
 };
 

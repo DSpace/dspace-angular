@@ -233,7 +233,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
         this.formConfig,
         this.collectionId,
         sectionData,
-        this.workspaceItem,
         this.submissionService.getSubmissionScope()
       );
     } catch (e) {

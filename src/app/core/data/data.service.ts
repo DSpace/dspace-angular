@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, first, map, mergeMap, skipWhile, switchMap, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
@@ -190,12 +190,16 @@ export abstract class DataService<T extends CacheableObject> {
 
     return hrefObs.pipe(
       find((href: string) => hasValue(href)),
-      switchMap((href: string) => {
+      tap((href: string) => {
           this.requestService.removeByHrefSubstring(href);
           const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
           this.requestService.configure(request, true);
-          return this.rdbService.buildList<T>(href) as Observable<RemoteData<PaginatedList<T>>>
         }
+      ),
+      switchMap((href) => this.requestService.getByHref(href)),
+      skipWhile((requestEntry) => hasValue(requestEntry)),
+      switchMap((href) =>
+        this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>
       )
     );
   }

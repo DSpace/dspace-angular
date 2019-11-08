@@ -195,11 +195,11 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicColorPickerModel({id: 'testColorPicker'}),
 
-      new DynamicTypeaheadModel({id: 'testTypeahead', repeatable: false}),
+      new DynamicTypeaheadModel({id: 'testTypeahead', repeatable: false, metadataFields: [], submissionId: '1234'}),
 
-      new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false}),
+      new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false, metadataFields: [], submissionId: '1234'}),
 
-      new DynamicTagModel({id: 'testTag', repeatable: false}),
+      new DynamicTagModel({id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234'}),
 
       new DynamicListCheckboxGroupModel({id: 'testCheckboxList', authorityOptions: authorityOptions, repeatable: true}),
 
@@ -243,14 +243,15 @@ describe('FormBuilderService test suite', () => {
         relationFields: [],
         scopeUUID: '',
         submissionScope: '',
-        repeatable: false
+        repeatable: false,
+        metadataFields: []
       }),
 
       new DynamicDsDatePickerModel({id: 'testDate'}),
 
-      new DynamicLookupModel({id: 'testLookup', repeatable: false}),
+      new DynamicLookupModel({id: 'testLookup', repeatable: false, metadataFields: [], submissionId: '1234'}),
 
-      new DynamicLookupNameModel({id: 'testLookupName', repeatable: false}),
+      new DynamicLookupNameModel({id: 'testLookupName', repeatable: false, metadataFields: [], submissionId: '1234'}),
 
       new DynamicQualdropModel({id: 'testCombobox', readOnly: false, required: false}),
 

@@ -1,9 +1,4 @@
-import {
-  DynamicFormControlLayout,
-  DynamicInputModel,
-  DynamicInputModelConfig,
-  serializable
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
@@ -11,10 +6,8 @@ import { AuthorityOptions } from '../../../../../core/integration/models/authori
 import { hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
-  workspaceItem: WorkspaceItem;
   authorityOptions?: AuthorityOptions;
   languageCodes?: LanguageCode[];
   language?: string;
@@ -22,6 +15,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   relationship?: RelationshipOptions;
   repeatable: boolean;
   metadataFields: string[];
+  submissionId: string;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -30,10 +24,10 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
-  @serializable() workspaceItem: WorkspaceItem;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() metadataFields: string[];
+  @serializable() submissionId: string;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
@@ -43,7 +37,8 @@ export class DsDynamicInputModel extends DynamicInputModel {
     this.readOnly = config.readOnly;
     this.value = config.value;
     this.relationship = config.relationship;
-    this.workspaceItem = config.workspaceItem;
+    this.submissionId = config.submissionId;
+
     this.language = config.language;
     if (!this.language) {
       // TypeAhead

@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';
@@ -15,22 +14,22 @@ export const CONCAT_SECOND_INPUT_SUFFIX = '_CONCAT_SECOND_INPUT';
 export interface DynamicConcatModelConfig extends DynamicFormGroupModelConfig {
   separator: string;
   value?: any;
-  workspaceItem: WorkspaceItem;
   relationship?: RelationshipOptions;
   repeatable: boolean;
   required: boolean;
   metadataFields: string[];
+  submissionId: string;
 }
 
 export class DynamicConcatModel extends DynamicFormGroupModel {
 
   @serializable() separator: string;
   @serializable() hasLanguages = false;
-  @serializable() workspaceItem: WorkspaceItem;
   @serializable() relationship?: RelationshipOptions;
   @serializable() repeatable?: boolean;
   @serializable() required?: boolean;
   @serializable() metadataFields: string[];
+  @serializable() submissionId: string;
 
   isCustomGroup = true;
   valueUpdates: Subject<string>;
@@ -41,10 +40,10 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
 
     this.separator = config.separator + ' ';
     this.relationship = config.relationship;
-    this.workspaceItem = config.workspaceItem;
     this.repeatable = config.repeatable;
     this.required = config.required;
     this.metadataFields = config.metadataFields;
+    this.submissionId = config.submissionId;
 
     this.valueUpdates = new Subject<string>();
     this.valueUpdates.subscribe((value: string) => this.value = value);

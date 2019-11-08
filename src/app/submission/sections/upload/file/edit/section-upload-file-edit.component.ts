@@ -170,7 +170,6 @@ export class SubmissionSectionUploadFileEditComponent implements OnChanges {
       configForm,
       this.collectionId,
       this.fileData.metadata,
-      undefined,
       this.submissionService.getSubmissionScope()
     );
     formModel.push(new DynamicFormGroupModel(metadataGroupModelConfig, BITSTREAM_METADATA_FORM_GROUP_LAYOUT));

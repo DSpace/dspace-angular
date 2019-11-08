@@ -50,7 +50,8 @@ let LOOKUP_TEST_MODEL_CONFIG = {
   separator: ',',
   validators: { required: null },
   value: undefined,
-  workspaceItem: new WorkspaceItem()
+  metadataFields: [],
+  submissionId: '1234'
 };
 
 let LOOKUP_NAME_TEST_MODEL_CONFIG = {
@@ -73,7 +74,8 @@ let LOOKUP_NAME_TEST_MODEL_CONFIG = {
   separator: ',',
   validators: { required: null },
   value: undefined,
-  workspaceItem: new WorkspaceItem()
+  metadataFields: [],
+  submissionId: '1234'
 };
 
 let LOOKUP_TEST_GROUP = new FormGroup({
@@ -105,7 +107,8 @@ describe('Dynamic Lookup component', () => {
       separator: ',',
       validators: { required: null },
       value: undefined,
-      workspaceItem: new WorkspaceItem()
+      metadataFields: [],
+      submissionId: '1234'
     };
 
     LOOKUP_NAME_TEST_MODEL_CONFIG = {
@@ -128,7 +131,8 @@ describe('Dynamic Lookup component', () => {
       separator: ',',
       validators: { required: null },
       value: undefined,
-      workspaceItem: new WorkspaceItem()
+      metadataFields: [],
+      submissionId: '1234'
     };
 
     LOOKUP_TEST_GROUP = new FormGroup({

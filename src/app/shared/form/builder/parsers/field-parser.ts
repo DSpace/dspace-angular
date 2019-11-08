@@ -199,6 +199,8 @@ export abstract class FieldParser {
     controlModel.relationship = this.configData.selectableRelationship;
     controlModel.repeatable = this.configData.repeatable;
     controlModel.metadataFields = isNotEmpty(this.configData.selectableMetadata) ? this.configData.selectableMetadata.map((metadataObject) => metadataObject.metadata) : [];
+    controlModel.submissionId = this.submissionId;
+
     // Set label
     this.setLabel(controlModel, label);
 

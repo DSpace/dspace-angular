@@ -118,11 +118,11 @@ const testFormConfiguration = {
 const testFormModel = [
   new DynamicRowGroupModel({
     id: 'df-row-group-config-1',
-    group: [new DsDynamicInputModel({ id: 'dc.title', workspaceItem: new WorkspaceItem(), repeatable: false })],
+    group: [new DsDynamicInputModel({ id: 'dc.title', metadataFields: [], repeatable: false, submissionId: '1234' })],
   }),
   new DynamicRowGroupModel({
     id: 'df-row-group-config-2',
-    group: [new DsDynamicInputModel({ id: 'dc.contributor', workspaceItem: new WorkspaceItem(), repeatable: false })],
+    group: [new DsDynamicInputModel({ id: 'dc.contributor', metadataFields: [], repeatable: false, submissionId: '1234' })],
   })
 ];
 

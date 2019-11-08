@@ -89,7 +89,8 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { RemoveRelationshipAction } from './relation-lookup-modal/relationship.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.reducer';
-import { RelationshipOptions } from '../models/relationship-options.model';
+import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
+import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -204,7 +205,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private itemService: ItemDataService,
     private relationshipService: RelationshipService,
     private zone: NgZone,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private submissionObjectService: SubmissionObjectDataService
   ) {
     super(componentFactoryResolver, layoutService, validationService);
   }
@@ -269,17 +271,22 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   openLookup() {
-    this.model.workspaceItem.item.pipe(getSucceededRemoteData(), getRemoteDataPayload())
-      .subscribe((item: Item) => {
-        this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
-        const modalComp = this.modalRef.componentInstance;
-        modalComp.repeatable = this.model.repeatable;
-        modalComp.listId = this.listId;
-        modalComp.relationshipOptions = this.model.relationship;
-        modalComp.label = this.model.label;
-        modalComp.item = item;
-        modalComp.metadataFields = this.model.metadataFields;
-      })
+    this.submissionObjectService
+      .findById(this.model.submissionId).pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      switchMap((submissionObject: SubmissionObject) =>
+        (submissionObject.item as Observable<RemoteData<Item>>).pipe(getSucceededRemoteData(), getRemoteDataPayload()))
+    ).subscribe((item: Item) => {
+      this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg' });
+      const modalComp = this.modalRef.componentInstance;
+      modalComp.repeatable = this.model.repeatable;
+      modalComp.listId = this.listId;
+      modalComp.relationshipOptions = this.model.relationship;
+      modalComp.label = this.model.label;
+      modalComp.item = item;
+      modalComp.metadataFields = this.model.metadataFields;
+    })
   }
 
   removeSelection(object: SearchResult<Item>) {

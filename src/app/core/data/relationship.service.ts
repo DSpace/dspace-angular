@@ -263,6 +263,7 @@ export class RelationshipService extends DataService<Relationship> {
     return this.getItemRelationshipsByLabel(item1, label)
       .pipe(
         getSucceededRemoteData(),
+        isNotEmptyOperator(),
         tap((t) => console.log(t)),
         map((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
         mergeMap((relationships: Relationship[]) => {
@@ -322,9 +323,9 @@ export class RelationshipService extends DataService<Relationship> {
           const { relation, type } = relationshipAndType;
           let updatedRelationship;
           if (relationshipLabel === type.leftwardType) {
-            updatedRelationship = Object.assign(new Relationship(), relation, { rightWardValue: nameVariant });
+            updatedRelationship = Object.assign(new Relationship(), relation, { rightwardValue: nameVariant });
           } else {
-            updatedRelationship = Object.assign(new Relationship(), relation, { leftWardValue: nameVariant });
+            updatedRelationship = Object.assign(new Relationship(), relation, { leftwardValue: nameVariant });
           }
           return this.update(updatedRelationship);
         })

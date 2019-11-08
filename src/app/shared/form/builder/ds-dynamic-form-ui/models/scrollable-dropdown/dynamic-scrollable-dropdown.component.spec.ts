@@ -16,7 +16,6 @@ import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropd
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { AuthorityValue } from '../../../../../../core/integration/models/authority.value';
 import { createTestComponent, hasClass } from '../../../../../testing/utils';
-import { WorkspaceItem } from '../../../../../../core/submission/models/workspaceitem.model';
 
 export const SD_TEST_GROUP = new FormGroup({
   dropdown: new FormControl(),
@@ -40,7 +39,8 @@ export const SD_TEST_MODEL_CONFIG = {
   required: false,
   repeatable: false,
   value: undefined,
-  workspaceItem: new WorkspaceItem()
+  metadataFields: [],
+  submissionId: '1234'
 };
 
 describe('Dynamic Dynamic Scrollable Dropdown component', () => {

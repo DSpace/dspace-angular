@@ -96,14 +96,15 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicSwitchModel({ id: 'switch' }),
     new DynamicTextAreaModel({ id: 'textarea' }),
     new DynamicTimePickerModel({ id: 'timepicker' }),
-    new DynamicTypeaheadModel({ id: 'typeahead', workspaceItem: new WorkspaceItem(), repeatable: false }),
+    new DynamicTypeaheadModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
       authorityOptions: authorityOptions,
-      workspaceItem: new WorkspaceItem(),
-      repeatable: false
+      metadataFields: [],
+      repeatable: false,
+      submissionId: '1234'
     }),
-    new DynamicTagModel({ id: 'tag', workspaceItem: new WorkspaceItem(), repeatable: false}),
+    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234'}),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
       authorityOptions: authorityOptions,
@@ -123,12 +124,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       relationFields: [],
       scopeUUID: '',
       submissionScope: '',
-      workspaceItem: new WorkspaceItem(),
-      repeatable: false
+      repeatable: false,
+      metadataFields: []
     }),
     new DynamicDsDatePickerModel({ id: 'datepicker'}),
-    new DynamicLookupModel({ id: 'lookup', workspaceItem: new WorkspaceItem(), repeatable: false }),
-    new DynamicLookupNameModel({ id: 'lookupName', workspaceItem: new WorkspaceItem(), repeatable: false }),
+    new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicLookupNameModel({ id: 'lookupName', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
   ];
   const testModel = formModel[8];

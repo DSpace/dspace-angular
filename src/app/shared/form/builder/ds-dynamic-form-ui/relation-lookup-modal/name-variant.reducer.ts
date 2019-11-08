@@ -41,5 +41,5 @@ export function nameVariantReducer(state: NameVariantListsState = {}, action: Na
 }
 
 function setNameVariant(state: NameVariantListState, itemID: string, nameVariant: string) {
-  return Object.assign({}, state, { [itemID]: { nameVariant } });
+  return Object.assign({}, state, { [itemID]: nameVariant });
 }

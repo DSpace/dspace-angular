@@ -81,7 +81,8 @@ function init() {
     scopeUUID: '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f',
     submissionScope: undefined,
     validators: { required: null },
-    repeatable: false
+    repeatable: false,
+    metadataFields: []
   } as DynamicRelationGroupModelConfig;
 
   FORM_GROUP_TEST_GROUP = new FormGroup({

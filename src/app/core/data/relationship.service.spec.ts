@@ -90,6 +90,7 @@ describe('RelationshipService', () => {
       objectCache,
       null,
       null,
+      null,
       null
     );
   }
