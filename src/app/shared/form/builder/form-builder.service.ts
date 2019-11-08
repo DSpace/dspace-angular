@@ -11,6 +11,7 @@ import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormService,
+  DynamicFormValidationService,
   DynamicPathable,
   JSONUtils,
 } from '@ng-dynamic-forms/core';
@@ -26,10 +27,16 @@ import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 import { isNgbDateStruct } from '../../date.util';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 
 @Injectable()
 export class FormBuilderService extends DynamicFormService {
+
+  constructor(
+    validationService: DynamicFormValidationService,
+    protected rowParser: RowParser
+  ) {
+    super(validationService);
+  }
 
   findById(id: string, groupModel: DynamicFormControlModel[], arrayIndex = null): DynamicFormControlModel | null {
 
@@ -196,13 +203,13 @@ export class FormBuilderService extends DynamicFormService {
     return result;
   }
 
-  modelFromConfiguration(json: string | SubmissionFormsModel, scopeUUID: string, initFormValues: any = {}, wsi: WorkspaceItem, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
+  modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
     const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {
-        const rowParsed = new RowParser(currentRow, scopeUUID, initFormValues, wsi, submissionScope, readOnly).parse();
+        const rowParsed = this.rowParser.parse(submissionId, currentRow, scopeUUID, sectionData, submissionScope, readOnly);
         if (isNotNull(rowParsed)) {
           if (Array.isArray(rowParsed)) {
             rows = rows.concat(rowParsed);

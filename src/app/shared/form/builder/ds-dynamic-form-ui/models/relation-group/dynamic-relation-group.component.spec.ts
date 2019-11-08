@@ -26,13 +26,14 @@ import { MOCK_SUBMISSION_CONFIG } from '../../../../../testing/mock-submission-c
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore } from '../../../../../testing/mock-store';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
-import { WorkspaceItem } from '../../../../../../core/submission/models/workspaceitem.model';
 
 export let FORM_GROUP_TEST_MODEL_CONFIG;
 
 export let FORM_GROUP_TEST_GROUP;
 
 const config: GlobalConfig = MOCK_SUBMISSION_CONFIG;
+
+const submissionId = '1234';
 
 function init() {
   FORM_GROUP_TEST_MODEL_CONFIG = {
@@ -68,6 +69,7 @@ function init() {
         }]
       } as FormFieldModel]
     } as FormRowModel],
+    submissionId,
     id: 'dc_contributor_author',
     label: 'Authors',
     mandatoryField: 'dc.contributor.author',
@@ -79,7 +81,6 @@ function init() {
     scopeUUID: '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f',
     submissionScope: undefined,
     validators: { required: null },
-    workspaceItem: new WorkspaceItem(),
     repeatable: false
   } as DynamicRelationGroupModelConfig;
 
@@ -186,7 +187,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
     it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
       const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
-      const formModel = service.modelFromConfiguration(formConfig, groupComp.model.scopeUUID, {}, new WorkspaceItem(), groupComp.model.submissionScope, groupComp.model.readOnly);
+      const formModel = service.modelFromConfiguration(submissionId, formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips([], 'value', 'dc.contributor.author');
       groupComp.formCollapsed.subscribe((value) => {
         expect(value).toEqual(false);
@@ -260,7 +261,7 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
 
     it('should init component properly', inject([FormBuilderService], (service: FormBuilderService) => {
       const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
-      const formModel = service.modelFromConfiguration(formConfig, groupComp.model.scopeUUID, {}, new WorkspaceItem(), groupComp.model.submissionScope, groupComp.model.readOnly);
+      const formModel = service.modelFromConfiguration(submissionId, formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
       const chips = new Chips(modelValue, 'value', 'dc.contributor.author');
       groupComp.formCollapsed.subscribe((value) => {
         expect(value).toEqual(true);

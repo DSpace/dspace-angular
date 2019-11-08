@@ -3,12 +3,12 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { TagFieldParser } from './tag-field-parser';
 import { DynamicTagModel } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { ParserOptions } from './parser-options';
-import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 
 describe('TagFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
 
+  const submissionId = '1234';
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
@@ -37,13 +37,13 @@ describe('TagFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new TagFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
+    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(parser instanceof TagFieldParser).toBe(true);
   });
 
   it('should return a DynamicTagModel object when repeatable option is false', () => {
-    const parser = new TagFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
+    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -58,7 +58,7 @@ describe('TagFieldParser test suite', () => {
       ],
     };
 
-    const parser = new TagFieldParser(field, initFormValues, parserOptions, new WorkspaceItem());
+    const parser = new TagFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

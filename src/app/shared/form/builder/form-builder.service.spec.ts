@@ -49,13 +49,14 @@ import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-conca
 import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 
 describe('FormBuilderService test suite', () => {
 
   let testModel: DynamicFormControlModel[];
   let testFormConfiguration: SubmissionFormsModel;
   let service: FormBuilderService;
+
+  const submissionId =  '1234';
 
   function testValidator() {
     return {testValidator: {valid: true}};
@@ -194,17 +195,18 @@ describe('FormBuilderService test suite', () => {
 
       new DynamicColorPickerModel({id: 'testColorPicker'}),
 
-      new DynamicTypeaheadModel({id: 'testTypeahead', workspaceItem: new WorkspaceItem(), repeatable: false}),
+      new DynamicTypeaheadModel({id: 'testTypeahead', repeatable: false}),
 
-      new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', authorityOptions: authorityOptions, workspaceItem: new WorkspaceItem(), repeatable: false}),
+      new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false}),
 
-      new DynamicTagModel({id: 'testTag', workspaceItem: new WorkspaceItem(), repeatable: false}),
+      new DynamicTagModel({id: 'testTag', repeatable: false}),
 
       new DynamicListCheckboxGroupModel({id: 'testCheckboxList', authorityOptions: authorityOptions, repeatable: true}),
 
       new DynamicListRadioGroupModel({id: 'testRadioList', authorityOptions: authorityOptions, repeatable: false}),
 
       new DynamicRelationGroupModel({
+        submissionId,
         id: 'testRelationGroup',
         formConfiguration: [{
           fields: [{
@@ -241,15 +243,14 @@ describe('FormBuilderService test suite', () => {
         relationFields: [],
         scopeUUID: '',
         submissionScope: '',
-        workspaceItem: new WorkspaceItem(),
         repeatable: false
       }),
 
       new DynamicDsDatePickerModel({id: 'testDate'}),
 
-      new DynamicLookupModel({id: 'testLookup', workspaceItem: new WorkspaceItem(), repeatable: false}),
+      new DynamicLookupModel({id: 'testLookup', repeatable: false}),
 
-      new DynamicLookupNameModel({id: 'testLookupName', workspaceItem: new WorkspaceItem(), repeatable: false}),
+      new DynamicLookupNameModel({id: 'testLookupName', repeatable: false}),
 
       new DynamicQualdropModel({id: 'testCombobox', readOnly: false, required: false}),
 
@@ -410,7 +411,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it('should create an array of form models', () => {
-    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID', {}, new WorkspaceItem());
+    const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
 
     expect(formModel[0] instanceof DynamicRowGroupModel).toBe(true);
     expect((formModel[0] as DynamicRowGroupModel).group.length).toBe(3);
@@ -431,7 +432,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it('should return form\'s fields value from form model', () => {
-    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID', {}, new WorkspaceItem());
+    const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     let value = {} as any;
 
     expect(service.getValueFromModel(formModel)).toEqual(value);
@@ -452,7 +453,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it('should clear all form\'s fields value', () => {
-    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID', {}, new WorkspaceItem());
+    const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     const value = {} as any;
 
     ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).valueUpdates.next('test');
@@ -464,7 +465,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it('should return true when model has a custom group model as parent', () => {
-    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID', {}, new WorkspaceItem());
+    const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     let model = service.findById('dc_identifier_QUALDROP_VALUE', formModel);
     let modelParent = service.findById('dc_identifier_QUALDROP_GROUP', formModel);
     model.parent = modelParent;
@@ -493,7 +494,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it('should return true when model value is a map', () => {
-    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID', {}, new WorkspaceItem());
+    const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     const model = service.findById('dc_identifier_QUALDROP_VALUE', formModel);
     const modelParent = service.findById('dc_identifier_QUALDROP_GROUP', formModel);
     model.parent = modelParent;
@@ -502,7 +503,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it('should return true when model is a Qualdrop Group', () => {
-    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID', {}, new WorkspaceItem());
+    const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     let model = service.findById('dc_identifier_QUALDROP_GROUP', formModel);
 
     expect(service.isQualdropGroup(model)).toBe(true);
@@ -513,7 +514,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it('should return true when model is a Custom or List Group', () => {
-    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID', {}, new WorkspaceItem());
+    const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     let model = service.findById('dc_identifier_QUALDROP_GROUP', formModel);
 
     expect(service.isCustomOrListGroup(model)).toBe(true);
@@ -532,7 +533,7 @@ describe('FormBuilderService test suite', () => {
   });
 
   it('should return true when model is a Custom Group', () => {
-    const formModel = service.modelFromConfiguration(testFormConfiguration, 'testScopeUUID', {}, new WorkspaceItem());
+    const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     let model = service.findById('dc_identifier_QUALDROP_GROUP', formModel);
 
     expect(service.isCustomGroup(model)).toBe(true);

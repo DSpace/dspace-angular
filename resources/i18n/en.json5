@@ -161,6 +161,7 @@
 
   "collection.page.browse.recent.head": "Recent Submissions",
   "collection.page.browse.recent.empty": "No items to show",
+  "collection.page.handle": "Permanent URI for this collection",
   "collection.page.license": "License",
   "collection.page.news": "News",
 
@@ -184,8 +185,10 @@
   "community.form.rights": "Copyright text (HTML)",
   "community.form.tableofcontents": "News (HTML)",
   "community.form.title": "Name",
+  "community.page.handle": "Permanent URI for this community",
   "community.page.license": "License",
   "community.page.news": "News",
+  "community.all-lists.head": "Subcommunities and Collections",
   "community.sub-collection-list.head": "Collections of this Community",
   "community.sub-community-list.head": "Communities of this Community",
 

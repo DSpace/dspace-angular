@@ -229,6 +229,7 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
   initForm(sectionData: WorkspaceitemSectionFormObject): void {
     try {
       this.formModel = this.formBuilderService.modelFromConfiguration(
+        this.submissionId,
         this.formConfig,
         this.collectionId,
         sectionData,

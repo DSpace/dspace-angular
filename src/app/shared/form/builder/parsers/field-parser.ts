@@ -1,4 +1,5 @@
-import { hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
+import { Inject, InjectionToken } from '@angular/core';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isEmpty } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 
 import { uniqueId } from 'lodash';
@@ -12,13 +13,22 @@ import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
-import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+
+export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
+export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
+export const INIT_FORM_VALUES:InjectionToken<any> = new InjectionToken<any>('initFormValues');
+export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<ParserOptions>('parserOptions');
 
 export abstract class FieldParser {
 
   protected fieldId: string;
-  constructor(protected configData: FormFieldModel, protected initFormValues, protected parserOptions: ParserOptions, protected workspaceItem: WorkspaceItem) {
-  }
+
+  constructor(
+    @Inject(SUBMISSION_ID) protected submissionId: string,
+    @Inject(CONFIG_DATA) protected configData: FormFieldModel,
+    @Inject(INIT_FORM_VALUES) protected initFormValues: any,
+    @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions
+  ) {}
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
@@ -31,11 +41,12 @@ export abstract class FieldParser {
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
+
       const config = {
         id: uniqueId() + '_array',
+        label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
         notRepeatable: !this.configData.repeatable,
-        label: this.configData.label,
         required: isNotEmpty(this.configData.mandatory),
         groupFactory: () => {
           let model;
@@ -185,7 +196,6 @@ export abstract class FieldParser {
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly;
     controlModel.disabled = this.parserOptions.readOnly;
-    controlModel.workspaceItem = this.workspaceItem;
     controlModel.relationship = this.configData.selectableRelationship;
     controlModel.repeatable = this.configData.repeatable;
     controlModel.metadataFields = isNotEmpty(this.configData.selectableMetadata) ? this.configData.selectableMetadata.map((metadataObject) => metadataObject.metadata) : [];
