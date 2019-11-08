@@ -91,6 +91,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.reducer';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -215,17 +216,20 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
       this.listId = 'list-' + this.model.relationship.relationshipType;
-      this.model.workspaceItem.item.pipe(
+      this.submissionObjectService
+        .findById(this.model.submissionId).pipe(
         getSucceededRemoteData(),
-        switchMap((itemRD: RemoteData<Item>) => this.relationService.getRelatedItemsByLabel(itemRD.payload, this.model.relationship.relationshipType)),
-        map((items: Item[]) => items.map((item) => Object.assign(new SearchResult(), { indexableObject: item }))),
-      ).subscribe((relatedItems) => this.selectableListService.select(this.listId, relatedItems));
+        getRemoteDataPayload(),
+        switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getSucceededRemoteData(), getRemoteDataPayload())),
+        switchMap((item: Item) => this.relationService.getRelatedItemsByLabel(item, this.model.relationship.relationshipType)),
+        tap((t) => console.log(t)),
+        map((items: PaginatedList<Item>) => items.page.map((item) => Object.assign(new SearchResult(), { indexableObject: item }))),
+      ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
 
       this.relationships$ = this.selectableListService.getSelectableList(this.listId).pipe(
         map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
       ) as Observable<SearchResult<Item>[]>;
       this.modelValueMDRepresentation = this.relationships$.pipe(map((result: SearchResult<DSpaceObject>[]) => result.map((element: SearchResult<DSpaceObject>) => Object.assign(new ItemMetadataRepresentation(), element.indexableObject))));
-
     }
   }
 

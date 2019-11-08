@@ -64,7 +64,6 @@ import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
