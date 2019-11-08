@@ -167,6 +167,7 @@ import { PublicationSearchResultListElementComponent } from './object-list/searc
 import { PublicationSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/publication/publication-search-result-grid-element.component';
 import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import { SearchLabelComponent } from './search/search-labels/search-label/search-label.component';
+import { ItemMetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -365,6 +366,7 @@ const ENTRY_COMPONENTS = [
   PlainTextMetadataListElementComponent,
   ItemMetadataListElementComponent,
   MetadataRepresentationListElementComponent,
+  ItemMetadataRepresentationListElementComponent,
   SearchResultsComponent,
   CollectionSearchResultGridElementComponent,
   CommunitySearchResultGridElementComponent,

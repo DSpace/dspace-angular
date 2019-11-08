@@ -22,10 +22,10 @@ describe('ListableObject decorator function', () => {
     listableObjectComponent(type1, ViewMode.GridElement)(Test1Grid);
 
     listableObjectComponent(type2, ViewMode.ListElement)(Test2List);
-    listableObjectComponent(type2, ViewMode.ListElement, Context.Submission)(Test2ListSubmission);
+    listableObjectComponent(type2, ViewMode.ListElement, Context.Workspace)(Test2ListSubmission);
 
     listableObjectComponent(type3, ViewMode.ListElement)(Test3List);
-    listableObjectComponent(type3, ViewMode.DetailedListElement, Context.Submission)(Test3DetailedSubmission);
+    listableObjectComponent(type3, ViewMode.DetailedListElement, Context.Workspace)(Test3DetailedSubmission);
   });
 
   const gridDecorator = listableObjectComponent('Item', ViewMode.GridElement);
@@ -40,10 +40,10 @@ describe('ListableObject decorator function', () => {
 
   describe('If there\'s an exact match', () => {
     it('should return the matching class', () => {
-      const component = getListableObjectComponent([type3], ViewMode.DetailedListElement, Context.Submission);
+      const component = getListableObjectComponent([type3], ViewMode.DetailedListElement, Context.Workspace);
       expect(component).toEqual(Test3DetailedSubmission);
 
-      const component2 = getListableObjectComponent([type3, type2], ViewMode.ListElement, Context.Submission);
+      const component2 = getListableObjectComponent([type3, type2], ViewMode.ListElement, Context.Workspace);
       expect(component2).toEqual(Test2ListSubmission);
     });
   });
@@ -51,10 +51,10 @@ describe('ListableObject decorator function', () => {
   describe('If there isn\'nt an exact match', () => {
     describe('If there is a match for one of the entity types and the view mode', () => {
       it('should return the class with the matching entity type and view mode and default context', () => {
-        const component = getListableObjectComponent([type3], ViewMode.ListElement, Context.Submission);
+        const component = getListableObjectComponent([type3], ViewMode.ListElement, Context.Workspace);
         expect(component).toEqual(Test3List);
 
-        const component2 = getListableObjectComponent([type3, type1], ViewMode.GridElement, Context.Submission);
+        const component2 = getListableObjectComponent([type3, type1], ViewMode.GridElement, Context.Workspace);
         expect(component2).toEqual(Test1Grid);
       });
     });

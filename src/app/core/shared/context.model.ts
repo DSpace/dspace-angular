@@ -6,7 +6,8 @@ export enum Context {
   Undefined = 'undefined',
   ItemPage = 'itemPage',
   Search = 'search',
-  Submission = 'submission',
+  Workflow = 'workflow',
+  Workspace = 'workspace',
   AdminMenu = 'adminMenu',
   SubmissionModal = 'submissionModal',
 }

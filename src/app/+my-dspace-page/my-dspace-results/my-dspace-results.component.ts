@@ -37,7 +37,10 @@ export class MyDSpaceResultsComponent {
    */
   @Input() viewMode: ViewMode;
 
-  context = Context.Submission;
+  /**
+   * The current context for the search results
+   */
+  @Input() context: Context;
   /**
    * A boolean representing if search results entry are separated by a line
    */

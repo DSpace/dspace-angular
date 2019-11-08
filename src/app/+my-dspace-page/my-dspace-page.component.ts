@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { switchMap, tap, } from 'rxjs/operators';
+import { map, switchMap, tap, } from 'rxjs/operators';
 
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
@@ -28,6 +28,7 @@ import { MyDSpaceConfigurationService } from './my-dspace-configuration.service'
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
 import { SearchResult } from '../shared/search/search-result.model';
+import { Context } from '../core/shared/context.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -95,6 +96,11 @@ export class MyDSpacePageComponent implements OnInit {
    */
   viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
 
+  /**
+   * The current context of this page: workspace or workflow
+   */
+  context$: Observable<Context>;
+
   constructor(private service: SearchService,
               private sidebarService: SearchSidebarService,
               private windowService: HostWindowService,
@@ -111,6 +117,9 @@ export class MyDSpacePageComponent implements OnInit {
    *
    * Listen to changes in the scope
    * If something changes, update the list of scopes for the dropdown
+   *
+   * Listen to changes in the configuration
+   * If something changes, update the current context
    */
   ngOnInit(): void {
     this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
@@ -125,6 +134,17 @@ export class MyDSpacePageComponent implements OnInit {
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
+
+    this.context$ = this.searchConfigService.getCurrentConfiguration('workspace')
+      .pipe(
+        map((configuration: string) => {
+          if (configuration === 'workspace') {
+            return Context.Workspace
+          } else {
+            return Context.Workflow
+          }
+        })
+      );
 
   }
 

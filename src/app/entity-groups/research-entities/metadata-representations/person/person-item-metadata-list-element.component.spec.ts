@@ -5,12 +5,15 @@ import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-rep
 import { Item } from '../../../../core/shared/item.model';
 import { PersonItemMetadataListElementComponent } from './person-item-metadata-list-element.component';
 import { TooltipModule } from 'ngx-bootstrap';
+import { MetadataValue } from '../../../../core/shared/metadata.models';
 
 const jobTitle ='Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
 const firstName = 'Joe';
 const lastName = 'Anonymous';
 const mockItem = Object.assign(new Item(), { metadata: { 'person.jobTitle': [{ value: jobTitle }], 'person.givenName': [{ value: firstName }], 'person.familyName': [{ value: lastName }] } });
-const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(), mockItem);
+const virtMD = Object.assign(new MetadataValue(), { value: lastName + ', ' + firstName });
+
+const mockItemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(virtMD), mockItem);
 
 describe('PersonItemMetadataListElementComponent', () => {
   let comp: PersonItemMetadataListElementComponent;

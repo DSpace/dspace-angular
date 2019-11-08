@@ -17,7 +17,8 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   templateUrl: './item-search-result-list-element-submission.component.html'
 })
 
-@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Submission)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Workspace)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.Workflow)
 export class ItemSearchResultListElementSubmissionComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
   /**
    * Represent item's status
