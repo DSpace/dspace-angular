@@ -1,4 +1,4 @@
-<div class="top-item-page">
+a<div class="top-item-page">
     <div class="container">
         <div class="row">
 
@@ -63,19 +63,19 @@
         <div class="row">
             <ds-related-items
               class="col-12 col-md-4"
-              [parentItem]="item"
+              [parentItem]="object"
               [relationType]="'isProjectOfPublication'"
               [label]="'relationships.isProjectOf' | translate">
             </ds-related-items>
             <ds-related-items
               class="col-12 col-md-4"
-              [parentItem]="item"
+              [parentItem]="object"
               [relationType]="'isOrgUnitOfPublication'"
               [label]="'relationships.isOrgUnitOf' | translate">
             </ds-related-items>
             <ds-related-items
               class="col-12 col-md-4"
-              [parentItem]="item"
+              [parentItem]="object"
               [relationType]="'isJournalIssueOfPublication'"
               [label]="'relationships.isJournalIssueOf' | translate">
             </ds-related-items>

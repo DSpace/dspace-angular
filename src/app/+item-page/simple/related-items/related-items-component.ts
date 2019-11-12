@@ -1,13 +1,10 @@
 import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { ItemViewMode } from '../../../shared/items/item-type-decorator';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { FindAllOptions } from '../../../core/data/request.models';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
-import { hasNoValue, hasValueOperator } from '../../../shared/empty.util';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 
