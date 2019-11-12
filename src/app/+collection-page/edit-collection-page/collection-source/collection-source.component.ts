@@ -284,9 +284,12 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
     this.updateSub = this.update$.subscribe((update: FieldUpdate) => {
       if (update) {
         const field = update.field as ContentSource;
-        let defaultConfigId;
+        let configId;
         if (hasValue(this.contentSource) && isNotEmpty(this.contentSource.metadataConfigs)) {
-          defaultConfigId = this.contentSource.metadataConfigs[0].id;
+          configId = this.contentSource.metadataConfigs[0].id;
+        }
+        if (hasValue(field) && hasValue(field.metadataConfigId)) {
+          configId = field.metadataConfigId;
         }
         if (hasValue(field)) {
           this.formGroup.patchValue({
@@ -295,7 +298,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
             },
             oaiSetContainer: {
               oaiSetId: field.oaiSetId,
-              metadataConfigId: field.metadataConfigId || defaultConfigId
+              metadataConfigId: configId
             },
             harvestTypeContainer: {
               harvestType: field.harvestType
@@ -303,7 +306,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
           });
           this.contentSource = cloneDeep(field);
         }
-        this.contentSource.metadataConfigId = defaultConfigId;
+        this.contentSource.metadataConfigId = configId;
       }
     });
   }
