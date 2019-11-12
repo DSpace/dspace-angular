@@ -113,7 +113,7 @@ export class MetadataRepresentationListComponent implements OnInit {
                       return leftItem.payload;
                     }
                   }),
-                  map((item: Item) => Object.assign(new ItemMetadataRepresentation(), item))
+                  map((item: Item) => Object.assign(new ItemMetadataRepresentation(metadatum), item))
                 )
               ));
           } else {
