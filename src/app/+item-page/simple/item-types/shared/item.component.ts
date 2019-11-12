@@ -1,14 +1,6 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Observable ,  zip as observableZip, combineLatest as observableCombineLatest } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map } from 'rxjs/operators';
-import { PaginatedList } from '../../../../core/data/paginated-list';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { Component, Inject } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
-import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { compareArraysUsingIds, relationsToRepresentations } from './item-relationships-utils';
+import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 
 @Component({
   selector: 'ds-item',
@@ -17,57 +9,10 @@ import { compareArraysUsingIds, relationsToRepresentations } from './item-relati
 /**
  * A generic component for displaying metadata and relations of an item
  */
-export class ItemComponent implements OnInit {
-  /**
-   * Resolved relationships and types together in one observable
-   */
-  resolvedRelsAndTypes$: Observable<[Relationship[], RelationshipType[]]>;
-  @Input() object: Item;
+export class ItemComponent {
 
-  ngOnInit(): void {
-    const relationships$ = this.object.relationships;
-    if (relationships$) {
-      const relsCurrentPage$ = relationships$.pipe(
-        filter((rd: RemoteData<PaginatedList<Relationship>>) => rd.hasSucceeded),
-        getRemoteDataPayload(),
-        map((pl: PaginatedList<Relationship>) => pl.page),
-        distinctUntilChanged(compareArraysUsingIds())
-      );
-
-      const relTypesCurrentPage$ = relsCurrentPage$.pipe(
-        flatMap((rels: Relationship[]) =>
-          observableZip(...rels.map((rel: Relationship) => rel.relationshipType)).pipe(
-            map(([...arr]: Array<RemoteData<RelationshipType>>) => arr.map((d: RemoteData<RelationshipType>) => d.payload))
-          )
-        ),
-        distinctUntilChanged(compareArraysUsingIds())
-      );
-
-      this.resolvedRelsAndTypes$ = observableCombineLatest(
-        relsCurrentPage$,
-        relTypesCurrentPage$
-      );
-    }
-  }
-
-  /**
-   * Build a list of MetadataRepresentations for the current item. This combines all metadata and relationships of a
-   * certain type.
-   * @param itemType          The type of item we're building representations of. Used for matching templates.
-   * @param metadataField     The metadata field that resembles the item type.
-   */
-  buildRepresentations(itemType: string, metadataField: string): Observable<MetadataRepresentation[]> {
-    const metadata = this.object.findMetadataSortedByPlace(metadataField);
-    const relsCurrentPage$ = this.object.relationships.pipe(
-      getSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((pl: PaginatedList<Relationship>) => pl.page),
-      distinctUntilChanged(compareArraysUsingIds())
-    );
-
-    return relsCurrentPage$.pipe(
-      relationsToRepresentations(this.object.id, itemType, metadata)
-    );
-  }
+  constructor(
+    @Inject(ITEM) public item: Item
+  ) {}
 
 }

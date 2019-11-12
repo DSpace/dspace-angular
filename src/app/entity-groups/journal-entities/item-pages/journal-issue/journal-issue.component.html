@@ -29,12 +29,14 @@
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
-      [items]="volumes$ | async"
+      [parentItem]="item"
+      [relationType]="'isJournalVolumeOfIssue'"
       [label]="'relationships.isSingleVolumeOf' | translate">
     </ds-related-items>
     <ds-related-items
       class="mb-1 mt-1"
-      [items]="publications$ | async"
+      [parentItem]="item"
+      [relationType]="'isPublicationOfJournalIssue'"
       [label]="'relationships.isPublicationOfJournalIssue' | translate">
     </ds-related-items>
     <ds-generic-item-page-field [item]="object"
