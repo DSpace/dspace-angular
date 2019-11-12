@@ -3,12 +3,7 @@
          *ngVar="(collectionRD$ | async) as collectionRD">
         <div *ngIf="collectionRD?.hasSucceeded" @fadeInOut>
             <div *ngIf="collectionRD?.payload as collection">
-                <header class="comcol-header border-bottom mb-4 pb-4">
-                    <!-- Collection logo -->
-                    <ds-comcol-page-logo *ngIf="logoRD$"
-                        [logo]="(logoRD$ | async)?.payload" [alternateText]="'Collection Logo'">
-                        [alternateText]="'Collection Logo'">
-                    </ds-comcol-page-logo>
+              <header class="comcol-header border-bottom mb-4 pb-4">
                 <!-- Collection Name -->
                 <ds-comcol-page-header
                         [name]="collection.name">
@@ -37,6 +32,13 @@
                       [id]="collection.id"
                       [contentType]="collection.type">
               </ds-comcol-page-browse-by>
+
+              <!-- Collection logo -->
+              <ds-comcol-page-logo *ngIf="logoRD$"
+                                   [logo]="(logoRD$ | async)?.payload"
+                                   [alternateText]="'Collection Logo'"
+                                   [alternateText]="'Collection Logo'">
+              </ds-comcol-page-logo>
 
             <ng-container *ngVar="(itemRD$ | async) as itemRD">
                 <div class="mt-4" *ngIf="itemRD?.hasSucceeded" @fadeIn>

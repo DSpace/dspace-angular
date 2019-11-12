@@ -2,9 +2,6 @@
   <div class="community-page" *ngIf="communityRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="communityRD?.payload; let communityPayload">
       <header class="comcol-header border-bottom mb-4 pb-4">
-        <!-- Community logo -->
-        <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Community Logo'">
-        </ds-comcol-page-logo>
 
         <!-- Community name -->
         <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
@@ -24,6 +21,10 @@
         <!-- Browse-By Links -->
         <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
         </ds-comcol-page-browse-by>
+
+        <!-- Community logo -->
+        <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Community Logo'">
+        </ds-comcol-page-logo>
 
         <ds-community-page-sub-community-list [community]="communityPayload"></ds-community-page-sub-community-list>
         <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
