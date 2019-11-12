@@ -18,6 +18,7 @@ import { MetadataschemaParsingService } from './metadataschema-parsing.service';
 import { MetadatafieldParsingService } from './metadatafield-parsing.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
+import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
@@ -182,6 +183,17 @@ export class BrowseEntriesRequest extends GetRequest {
 export class BrowseItemsRequest extends GetRequest {
   getResponseParser(): GenericConstructor<ResponseParsingService> {
     return BrowseItemsResponseParsingService;
+  }
+}
+
+/**
+ * Request to fetch the mapped collections of an item
+ */
+export class MappedCollectionsRequest extends GetRequest {
+  public responseMsToLive = 10000;
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MappedCollectionsReponseParsingService;
   }
 }
 

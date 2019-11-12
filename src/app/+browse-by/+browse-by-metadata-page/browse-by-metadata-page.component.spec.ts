@@ -23,6 +23,7 @@ import { MockRouter } from '../../shared/mocks/mock-router';
 import { ResourceType } from '../../core/shared/resource-type';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 describe('BrowseByMetadataPageComponent', () => {
   let comp: BrowseByMetadataPageComponent;
@@ -86,7 +87,7 @@ describe('BrowseByMetadataPageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [BrowseByMetadataPageComponent, EnumKeysPipe],
+      declarations: [BrowseByMetadataPageComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: BrowseService, useValue: mockBrowseService },

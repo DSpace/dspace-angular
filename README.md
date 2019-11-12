@@ -131,6 +131,11 @@ yarn run clean:prod
 yarn run clean:dist
 ```
 
+Running the application with Docker
+-----------------------------------
+See [Docker Runtime Options](docker/README.md)
+
+
 Testing
 -------
 
