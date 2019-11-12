@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../empty.util';
@@ -33,7 +33,7 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
   ]
 })
 
-export class DsDynamicLookupRelationModalComponent implements OnInit {
+export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   label: string;
   relationshipOptions: RelationshipOptions;
   listId: string;
@@ -57,7 +57,12 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selection$ = this.selectableListService.getSelectableList(this.listId).pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
+    this.selection$ = this.selectableListService
+      .getSelectableList(this.listId)
+      .pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
+    this.selection$.subscribe((selection) =>
+      selection.map((s: SearchResult<Item>) => this.addNameVariantSubscription(s))
+    );
     if (this.relationshipOptions.nameVariants) {
       this.context = Context.Workspace;
     }
@@ -89,7 +94,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
               )
           })
         );
-
         obs
           .subscribe((obs: any[]) => {
             return obs.forEach((object: any) => {
@@ -98,6 +102,13 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
             );
           })
       });
+  }
+
+  addNameVariantSubscription(sri: SearchResult<Item>) {
+    const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
+    this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(switchMap((nameVariant: string) =>
+      this.relationshipService.updateNameVariant(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)
+    )).subscribe()
   }
 
   deselect(...selectableObjects: SearchResult<Item>[]) {
@@ -109,33 +120,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
     )
     ;
   }
-
-  // subscriptions = new Map<string, Subscription>();
-  //
-  // addSelectSubscription(itemSR: SearchResult<Item>) {
-  //   const nameVariant$ = this.relationshipService.getNameVariant(this.listId, itemSR.indexableObject.uuid).pipe(hasValueOperator());
-  //   const subscription = nameVariant$
-  //     .pipe(
-  //       switchMap((nameVariant: string) => {
-  //         return this.relationshipService.getRelationshipByItemsAndLabel(this.item, itemSR.indexableObject, this.relationshipOptions.relationshipType)
-  //           .pipe(map((relationship: Relationship) => Object.assign(new Relationship(), relationship, { leftwardValue: nameVariant })))
-  //       }),
-  //       switchMap((updatedRelation: Relationship) => this.relationshipService.update(updatedRelation))
-  //     )
-  //     .subscribe();
-  //   this.subscriptions.set(itemSR.indexableObject.uuid, subscription);
-  // }
-
-  // removeSelectSubscription(itemSR: SearchResult<Item>) {
-  //   this.subscriptions.get(itemSR.indexableObject.uuid).unsubscribe();
-  // }
-  //
-  // ngOnDestroy() {
-  //   let sub;
-  //   while (sub = this.subscriptions.values().next(), !sub.done) {
-  //     sub.unsubscribe();
-  //   }
-  // }
 
   setExistingNameVariants() {
     const virtualMDs$: Observable<MetadataValue[]> = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
@@ -165,5 +149,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit {
         );
       }
     )
+  }
+
+
+  ngOnDestroy() {
+    Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 }

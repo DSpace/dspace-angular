@@ -321,7 +321,6 @@ const COMPONENTS = [
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
-  MetadataRepresentationListComponent,
 ];
 
 const ENTRY_COMPONENTS = [

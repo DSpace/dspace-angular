@@ -52,6 +52,7 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
     RelatedItemsComponent,
     ItemComponent,
     GenericItemPageFieldComponent,
+    MetadataRepresentationListComponent,
     RelatedEntitiesSearchComponent
   ],
   exports: [
@@ -61,6 +62,7 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
     GenericItemPageFieldComponent,
     RelatedEntitiesSearchComponent,
     RelatedItemsComponent,
+    MetadataRepresentationListComponent,
     ItemPageTitleFieldComponent
   ],
   entryComponents: [

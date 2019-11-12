@@ -20,7 +20,6 @@ import { getSucceededRemoteData } from '../../../../../../core/shared/operators'
 import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
-import { relationship } from '../../../../../../core/cache/builders/build-decorators';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -152,8 +151,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   ngOnDestroy(): void {
-    if (hasValue(this.subscription)
-    ) {
+    if (hasValue(this.subscription)) {
       this.subscription.unsubscribe();
     }
   }
