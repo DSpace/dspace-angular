@@ -56,6 +56,12 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   update$: Observable<FieldUpdate>;
 
   /**
+   * The initial harvest type we started off with
+   * Used to compare changes
+   */
+  initialHarvestType: ContentSourceHarvestType;
+
+  /**
    * @type {string} Key prefix used to generate form labels
    */
   LABEL_KEY_PREFIX = 'collection.edit.tabs.source.form.';
@@ -268,6 +274,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    */
   initializeOriginalContentSource(contentSource: ContentSource) {
     this.contentSource = contentSource;
+    this.initialHarvestType = contentSource.harvestType;
     this.initializeMetadataConfigs();
     const initialContentSource = cloneDeep(this.contentSource);
     this.objectUpdatesService.initialize(this.url, [initialContentSource], new Date());
@@ -281,19 +288,21 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
         if (hasValue(this.contentSource) && isNotEmpty(this.contentSource.metadataConfigs)) {
           defaultConfigId = this.contentSource.metadataConfigs[0].id;
         }
-        this.formGroup.patchValue({
-          oaiSourceContainer: {
-            oaiSource: field.oaiSource
-          },
-          oaiSetContainer: {
-            oaiSetId: field.oaiSetId,
-            metadataConfigId: field.metadataConfigId || defaultConfigId
-          },
-          harvestTypeContainer: {
-            harvestType: field.harvestType
-          }
-        });
-        this.contentSource = cloneDeep(field);
+        if (hasValue(field)) {
+          this.formGroup.patchValue({
+            oaiSourceContainer: {
+              oaiSource: field.oaiSource
+            },
+            oaiSetContainer: {
+              oaiSetId: field.oaiSetId,
+              metadataConfigId: field.metadataConfigId || defaultConfigId
+            },
+            harvestTypeContainer: {
+              harvestType: field.harvestType
+            }
+          });
+          this.contentSource = cloneDeep(field);
+        }
         this.contentSource.metadataConfigId = defaultConfigId;
       }
     });
