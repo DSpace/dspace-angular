@@ -1,0 +1,13 @@
+<ngb-tabset [destroyOnHide]="true" #tabs="ngbTabset">
+  <ngb-tab *ngFor="let relationType of relationTypes" title="{{'item.page.relationships.' + relationType | translate}}">
+    <ng-template ngbTabContent>
+      <div class="mt-4">
+        <ds-related-entities-search [item]="item"
+                                    [relationType]="relationType"
+                                    [searchEnabled]="searchEnabled"
+                                    [sideBarWidth]="sideBarWidth">
+        </ds-related-entities-search>
+      </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
