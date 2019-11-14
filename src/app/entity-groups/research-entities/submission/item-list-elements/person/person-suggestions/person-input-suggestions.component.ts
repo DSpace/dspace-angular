@@ -46,5 +46,4 @@ export class PersonInputSuggestionsComponent extends InputSuggestionsComponent i
     this.queryInput.nativeElement.focus();
     return false;
   }
-
 }

@@ -264,7 +264,6 @@ export class RelationshipService extends DataService<Relationship> {
       .pipe(
         getSucceededRemoteData(),
         isNotEmptyOperator(),
-        tap((t) => console.log(t)),
         map((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
         mergeMap((relationships: Relationship[]) => {
           return observableCombineLatest(...relationships.map((relationship: Relationship) => {

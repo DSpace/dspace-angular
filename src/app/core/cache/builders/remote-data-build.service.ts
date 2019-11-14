@@ -116,7 +116,7 @@ export class RemoteDataBuildService {
     const requestEntry$ = href$.pipe(getRequestFromRequestHref(this.requestService));
     const tDomainList$ = requestEntry$.pipe(
       getResourceLinksFromResponse(),
-      flatMap((resourceUUIDs: string[]) => {
+      switchMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs).pipe(
           map((normList: Array<NormalizedObject<T>>) => {
             return normList.map((normalized: NormalizedObject<T>) => {

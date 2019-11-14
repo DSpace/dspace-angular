@@ -8,6 +8,7 @@ import { Item } from '../../../../../core/shared/item.model';
 export const RelationshipActionTypes = {
   ADD_RELATIONSHIP: type('dspace/relationship/ADD_RELATIONSHIP'),
   REMOVE_RELATIONSHIP: type('dspace/relationship/REMOVE_RELATIONSHIP'),
+  UPDATE_RELATIONSHIP: type('dspace/relationship/UPDATE_RELATIONSHIP'),
 };
 
 /* tslint:disable:max-classes-per-file */
@@ -26,6 +27,34 @@ export class AddRelationshipAction implements Action {
 
   /**
    * Create a new AddRelationshipAction
+   *
+   * @param item1 The first item in the relationship
+   * @param item2 The second item in the relationship
+   * @param relationshipType The label of the relationshipType
+   * @param nameVariant The nameVariant of the relationshipType
+   */
+  constructor(
+    item1: Item,
+    item2: Item,
+    relationshipType: string,
+    nameVariant?: string
+  ) {
+    this.payload = { item1, item2, relationshipType, nameVariant };
+  }
+}
+
+export class UpdateRelationshipAction implements Action {
+  type = RelationshipActionTypes.UPDATE_RELATIONSHIP;
+
+  payload: {
+    item1: Item;
+    item2: Item;
+    relationshipType: string;
+    nameVariant: string;
+  };
+
+  /**
+   * Create a new UpdateRelationshipAction
    *
    * @param item1 The first item in the relationship
    * @param item2 The second item in the relationship

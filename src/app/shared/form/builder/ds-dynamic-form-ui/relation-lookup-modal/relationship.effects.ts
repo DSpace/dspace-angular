@@ -3,9 +3,9 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { debounceTime, map, mergeMap, take, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, RemoveRelationshipAction } from './relationship.actions';
+import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
-import { hasNoValue, hasValueOperator } from '../../../../empty.util';
+import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -23,6 +23,11 @@ export class RelationshipEffects {
   private debounceMap: {
     [identifier: string]: BehaviorSubject<string>
   } = {};
+
+  private nameVariantUpdates: {
+    [identifier: string]: string
+  } = {};
+
 
   private initialActionMap: {
     [identifier: string]: string
@@ -47,7 +52,16 @@ export class RelationshipEffects {
             ).subscribe(
               (type) => {
                 if (this.initialActionMap[identifier] === type) {
-                  type === RelationshipActionTypes.ADD_RELATIONSHIP ? this.addRelationship(item1, item2, relationshipType, (action as AddRelationshipAction).payload.nameVariant) : this.removeRelationship(item1, item2, relationshipType);
+                  if (type === RelationshipActionTypes.ADD_RELATIONSHIP) {
+                    let nameVariant = (action as AddRelationshipAction).payload.nameVariant;
+                    if (hasValue(this.nameVariantUpdates[identifier])) {
+                      nameVariant = this.nameVariantUpdates[identifier];
+                      delete this.nameVariantUpdates[identifier];
+                    }
+                    this.addRelationship(item1, item2, relationshipType, nameVariant)
+                  } else {
+                    this.removeRelationship(item1, item2, relationshipType);
+                  }
                 }
                 delete this.debounceMap[identifier];
                 delete this.initialActionMap[identifier];
@@ -59,6 +73,25 @@ export class RelationshipEffects {
         }
       )
     );
+
+  @Effect({ dispatch: false }) updateNameVariantsActions$ = this.actions$
+    .pipe(
+      ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
+      map((action: UpdateRelationshipAction) => {
+          const { item1, item2, relationshipType, nameVariant } = action.payload;
+          const identifier: string = this.createIdentifier(item1, item2, relationshipType);
+          const inProgress = hasValue(this.debounceMap[identifier]);
+          if (inProgress) {
+            this.nameVariantUpdates[identifier] = nameVariant;
+          } else {
+            this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant)
+              .pipe(take(1))
+              .subscribe();
+          }
+        }
+      )
+    );
+
 
   constructor(private actions$: Actions,
               private relationshipService: RelationshipService,

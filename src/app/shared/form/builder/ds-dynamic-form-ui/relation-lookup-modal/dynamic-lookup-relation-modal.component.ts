@@ -12,7 +12,7 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
-import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
+import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
 import { Store } from '@ngrx/store';
@@ -60,7 +60,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.selection$ = this.selectableListService
       .getSelectableList(this.listId)
       .pipe(map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []));
-    this.selection$.subscribe((selection) =>
+    this.selection$.pipe(take(1)).subscribe((selection) =>
       selection.map((s: SearchResult<Item>) => this.addNameVariantSubscription(s))
     );
     if (this.relationshipOptions.nameVariants) {
@@ -76,13 +76,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = combineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {
-            const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
-            this.subMap[sri.indexableObject.uuid] = nameVariant$
-              .pipe(skip(1))
-              .subscribe((nameVariant: string) =>
-                this.relationshipService.updateNameVariant(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant).subscribe()
-              );
-            return nameVariant$
+            this.addNameVariantSubscription(sri);
+            return this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid)
               .pipe(
                 take(1),
                 map((nameVariant: string) => {
@@ -106,9 +101,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
 
   addNameVariantSubscription(sri: SearchResult<Item>) {
     const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
-    this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(switchMap((nameVariant: string) =>
-      this.relationshipService.updateNameVariant(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)
-    )).subscribe()
+    this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(
+      skip(1),
+    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)))
   }
 
   deselect(...selectableObjects: SearchResult<Item>[]) {
@@ -117,8 +112,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         this.subMap[object.indexableObject.uuid].unsubscribe();
         this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType));
       })
-    )
-    ;
+    );
   }
 
   setExistingNameVariants() {
