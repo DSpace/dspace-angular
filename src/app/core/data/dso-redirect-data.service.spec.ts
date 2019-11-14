@@ -110,7 +110,7 @@ describe('DsoRedirectDataService', () => {
       scheduler.schedule(() => service.findById(dsoUUID, IdentifierType.UUID));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestUUIDURL, dsoUUID), false);
+      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestUUIDURL, dsoUUID));
     });
 
     it('should configure the proper FindByIDRequest for handle', () => {
@@ -118,7 +118,7 @@ describe('DsoRedirectDataService', () => {
       scheduler.schedule(() => service.findById(dsoHandle, IdentifierType.HANDLE));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestHandleURL, dsoHandle), false);
+      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestHandleURL, dsoHandle));
     });
 
     it('should navigate to item route', () => {
