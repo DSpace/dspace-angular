@@ -115,15 +115,24 @@ function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
   file.on('error', function (err) {
     console.error('Something went wrong writing to output file at: ' + pathToOutputFile + err)
   });
-  file.write("{\n");
-  outputChunks.forEach(function (chunk) {
-    progressBar.increment();
-    chunk.split("\n").forEach(function (line) {
-      file.write("  " + line + "\n");
+  file.on('open', function() {
+    file.write("{\n");
+    outputChunks.forEach(function (chunk) {
+      progressBar.increment();
+      chunk.split("\n").forEach(function (line) {
+        file.write("  " + line + "\n");
+      });
     });
+    file.write("\n}");
+    file.end();
   });
-  file.write("\n}");
-  file.end();
+  file.on('finish', function() {
+    const osName = process.platform;
+    if (osName.startsWith("win")) {
+      replaceLineEndingsToCRLF(pathToOutputFile);
+    }
+  });
+
   progressBar.update(100);
   progressBar.stop();
 }
@@ -320,4 +329,14 @@ function getPathOfDirectory(pathToCheck) {
 
 function removeWhiteLines(string) {
   return string.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "")
+}
+
+/**
+ * Replaces UNIX \n LF line endings to windows \r\n CRLF line endings.
+ * @param filePath  Path to file whose line endings are being converted
+ */
+function replaceLineEndingsToCRLF(filePath) {
+  const data = readFileIfExists(filePath);
+  const result = data.replace(/\n/g,"\r\n");
+  fs.writeFileSync(filePath, result, 'utf8');
 }
