@@ -99,13 +99,13 @@ export class ObjectCacheService {
   getObjectBySelfLink<T extends CacheableObject>(selfLink: string): Observable<NormalizedObject<T>> {
     return this.getBySelfLink(selfLink).pipe(
       map((entry: ObjectCacheEntry) => {
-          // if (isNotEmpty(entry.patches)) {
-          //   const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
-          //   const patchedData = applyPatch(entry.data, flatPatch, undefined, false).newDocument;
-          //   return Object.assign({}, entry, { data: patchedData });
-          // } else {
+          if (isNotEmpty(entry.patches)) {
+            const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
+            const patchedData = applyPatch(entry.data, flatPatch, undefined, false).newDocument;
+            return Object.assign({}, entry, { data: patchedData });
+          } else {
             return entry;
-          // }
+          }
         }
       ),
       map((entry: ObjectCacheEntry) => {
