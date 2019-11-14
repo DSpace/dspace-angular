@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
 import { ItemViewMode } from '../../../shared/items/item-type-decorator';
 import { Observable } from 'rxjs/internal/Observable';
@@ -12,6 +12,8 @@ import { filter, map, switchMap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { PaginatedList } from '../../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-metadata-representation-list',
@@ -23,7 +25,7 @@ import { ItemMetadataRepresentation } from '../../../core/shared/metadata-repres
  * It expects an itemType to resolve the metadata to a an item
  * It expects a label to put on top of the list
  */
-export class MetadataRepresentationListComponent implements OnInit {
+export class MetadataRepresentationListComponent implements OnInit, OnDestroy {
   /**
    * The parent of the list of related items to display
    */
@@ -52,6 +54,18 @@ export class MetadataRepresentationListComponent implements OnInit {
   @Input() limit = 10;
 
   /**
+   * The amount to increment the list by when clicking "view more"
+   * Defaults to 10
+   * The default can optionally be overridden by providing the limit as input to the component
+   */
+  @Input() incrementBy = 10;
+
+  /**
+   * Is the list (re-)loading?
+   */
+  loading = false;
+
+  /**
    * A list of metadata-representations to display
    */
   representations$: Observable<MetadataRepresentation[]>;
@@ -73,6 +87,11 @@ export class MetadataRepresentationListComponent implements OnInit {
    */
   total: number;
 
+  /**
+   * Subscription on representations used to update the "loading" property of this component
+   */
+  representationsSub: Subscription;
+
   constructor(public relationshipService: RelationshipService) {
   }
 
@@ -88,6 +107,9 @@ export class MetadataRepresentationListComponent implements OnInit {
     const metadata = this.parentItem.findMetadataSortedByPlace(this.metadataField);
     this.total = metadata.length;
     this.representations$ = this.resolveMetadataRepresentations(metadata);
+    this.representationsSub = this.representations$.subscribe((represenations: MetadataRepresentation[]) => {
+      this.loading = represenations.length !== this.limit && represenations.length !== this.total;
+    });
   }
 
   /**
@@ -124,18 +146,31 @@ export class MetadataRepresentationListComponent implements OnInit {
   }
 
   /**
-   * Expand the list to display all metadata representations
+   * Expand the list to display more metadata representations
    */
   viewMore() {
-    this.limit = 9999;
+    this.limit = this.limit + this.incrementBy;
+    this.loading = true;
     this.setRepresentations();
   }
 
   /**
-   * Collapse the list to display the originally displayed metadata representations
+   * Collapse the list to display less metadata representations
    */
   viewLess() {
-    this.limit = this.originalLimit;
+    if (this.limit > this.originalLimit) {
+      this.limit = this.limit - this.incrementBy;
+    }
+    this.loading = true;
     this.setRepresentations();
+  }
+
+  /**
+   * Unsubscribe from the representations subscription
+   */
+  ngOnDestroy(): void {
+    if (this.representationsSub) {
+      this.representationsSub.unsubscribe();
+    }
   }
 }

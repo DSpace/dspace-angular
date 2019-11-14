@@ -1,11 +1,18 @@
-<ds-metadata-field-wrapper *ngIf="(items$ | async)?.payload?.page?.length > 0" [label]="label">
-  <ds-item-type-switcher *ngFor="let item of (items$ | async)?.payload?.page"
+<ds-metadata-field-wrapper [label]="label">
+  <ng-container *ngVar="(items$ | async) as itemsRD">
+    <ds-item-type-switcher *ngFor="let item of itemsRD?.payload?.page"
                            [object]="item" [viewMode]="viewMode">
-  </ds-item-type-switcher>
-  <div *ngIf="(items$ | async)?.payload?.page?.length < (items$ | async)?.payload?.totalElements" class="mt-2" id="view-more">
-    <a [routerLink]="" (click)="viewMore()">{{'item.page.related-items.view-more' | translate}}</a>
-  </div>
-  <div *ngIf="showingAll" class="mt-2" id="view-less">
-    <a [routerLink]="" (click)="viewLess()">{{'item.page.related-items.view-less' | translate}}</a>
-  </div>
+    </ds-item-type-switcher>
+    <ds-loading *ngIf="loading" message="{{'loading.default' | translate}}"></ds-loading>
+    <div class="d-inline-block w-100 mt-2" *ngIf="itemsRD?.payload?.page?.length > 0">
+      <div *ngIf="itemsRD?.payload?.page?.length < itemsRD?.payload?.totalElements" class="float-left" id="view-more">
+        <a [routerLink]="" (click)="viewMore()">{{'item.page.related-items.view-more' |
+          translate:{ amount: (itemsRD?.payload?.totalElements - itemsRD?.payload?.page?.length < incrementBy) ? itemsRD?.payload?.totalElements - itemsRD?.payload?.page?.length : incrementBy } }}</a>
+      </div>
+      <div *ngIf="limit > originalLimit" class="float-right" id="view-less">
+        <a [routerLink]="" (click)="viewLess()">{{'item.page.related-items.view-less' |
+          translate:{ amount: (itemsRD?.payload?.page?.length < limit) ? limit - itemsRD?.payload?.page?.length : incrementBy } }}</a>
+      </div>
+    </div>
+  </ng-container>
 </ds-metadata-field-wrapper>

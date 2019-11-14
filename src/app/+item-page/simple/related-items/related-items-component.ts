@@ -32,10 +32,24 @@ export class RelatedItemsComponent implements OnInit, OnDestroy {
   @Input() relationType: string;
 
   /**
-   * Default options to start a search request with
-   * Optional input, should you wish a different page size (or other options)
+   * The max amount of relations to display
+   * Defaults to 5
+   * The default can optionally be overridden by providing the limit as input to the component
    */
-  @Input() options = Object.assign(new FindAllOptions(), { elementsPerPage: 5 });
+  @Input() limit = 5;
+
+  /**
+   * The amount to increment the list by when clicking "view more"
+   * Defaults to 5
+   * The default can optionally be overridden by providing the limit as input to the component
+   */
+  @Input() incrementBy = 5;
+
+  /**
+   * Default options to start a search request with
+   * Optional input
+   */
+  @Input() options = new FindAllOptions();
 
   /**
    * An i18n label to use as a title for the list (usually describes the relation)
@@ -43,19 +57,14 @@ export class RelatedItemsComponent implements OnInit, OnDestroy {
   @Input() label: string;
 
   /**
-   * Completely hide the component until there's at least one item visible
+   * Is the list (re-)loading?
    */
-  @HostBinding('class.d-none') hidden = true;
+  loading = false;
 
   /**
    * The list of related items
    */
   items$: Observable<RemoteData<PaginatedList<Item>>>;
-
-  /**
-   * Search options for displaying all elements in a list
-   */
-  allOptions = Object.assign(new FindAllOptions(), { elementsPerPage: 9999 });
 
   /**
    * The view-mode we're currently on
@@ -64,12 +73,13 @@ export class RelatedItemsComponent implements OnInit, OnDestroy {
   viewMode = ItemViewMode.Element;
 
   /**
-   * Whether or not the list is currently expanded to show all related items
+   * The originally provided limit
+   * Used for comparing the current size with the original
    */
-  showingAll = false;
+  originalLimit: number;
 
   /**
-   * Subscription on items used to update the "hidden" property of this component
+   * Subscription on items used to update the "loading" property of this component
    */
   itemSub: Subscription;
 
@@ -77,26 +87,38 @@ export class RelatedItemsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.items$ = this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, this.options);
+    this.originalLimit = this.limit;
+    this.reloadItems();
+  }
+
+  /**
+   * Reload the current list of items (using the current limit)
+   */
+  reloadItems() {
+    this.items$ = this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, Object.assign(this.options, { elementsPerPage: this.limit }));
     this.itemSub = this.items$.subscribe((itemsRD: RemoteData<PaginatedList<Item>>) => {
-      this.hidden = !(itemsRD.hasSucceeded && itemsRD.payload && itemsRD.payload.page.length > 0);
+      this.loading = !(itemsRD.hasSucceeded && itemsRD.payload && itemsRD.payload.page.length > 0);
     });
   }
 
   /**
-   * Expand the list to display all related items
+   * Expand the list to display more
    */
   viewMore() {
-    this.items$ = this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, this.allOptions);
-    this.showingAll = true;
+    this.limit = this.limit + this.incrementBy;
+    this.loading = true;
+    this.reloadItems();
   }
 
   /**
-   * Collapse the list to display the originally displayed items
+   * Collapse the list to display less
    */
   viewLess() {
-    this.items$ = this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, this.options);
-    this.showingAll = false;
+    if (this.limit > this.originalLimit) {
+      this.limit = this.limit - this.incrementBy;
+    }
+    this.loading = true;
+    this.reloadItems();
   }
 
   /**
