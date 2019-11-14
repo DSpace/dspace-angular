@@ -1,9 +1,10 @@
 import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { Component } from '@angular/core';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
-import { DEFAULT_ITEM_TYPE, ItemViewMode, rendersItemType } from '../../../items/item-type-decorator';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
 
-@rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Metadata, MetadataRepresentationType.Item)
+@metadataRepresentationComponent('Publication', MetadataRepresentationType.Item)
 @Component({
   selector: 'ds-item-metadata-list-element',
   templateUrl: './item-metadata-list-element.component.html'
@@ -16,7 +17,7 @@ import { DEFAULT_ITEM_TYPE, ItemViewMode, rendersItemType } from '../../../items
 export class ItemMetadataListElementComponent extends MetadataRepresentationListElementComponent {
   /**
    * The view-mode we're currently on
-   * @type {ElementViewMode}
+   * @type {ViewMode}
    */
-  viewMode = ItemViewMode.Element;
+  viewMode = ViewMode.ListElement;
 }

@@ -12,7 +12,7 @@
   (paginationChange)="onPaginationChange($event)">
   <ul *ngIf="objects?.hasSucceeded" class="list-unstyled">
       <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4" [class.border-bottom]="hasBorder && !last">
-        <ds-wrapper-list-element [object]="object" [index]="i"></ds-wrapper-list-element>
+        <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
       </li>
   </ul>
 </ds-pagination>

@@ -8,11 +8,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**
- * This component represents mydspace actions related to WorkspaceItem object.
+ * This component represents actions related to WorkspaceItem object.
  */
 @Component({
   selector: 'ds-workspaceitem-actions',

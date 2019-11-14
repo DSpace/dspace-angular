@@ -15,7 +15,7 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { NotificationsService } from '../../notifications/notifications.service';
 
 /**
- * This component represents mydspace actions related to ClaimedTask object.
+ * This component represents actions related to ClaimedTask object.
  */
 @Component({
   selector: 'ds-claimed-task-actions',

@@ -160,7 +160,7 @@ export class SearchService implements OnDestroy {
           let co = DSpaceObject;
           if (dsos.payload[index]) {
             const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-            co = getSearchResultFor(constructor, searchOptions.configuration);
+            co = getSearchResultFor(constructor);
             return Object.assign(new co(), object, {
               indexableObject: dsos.payload[index]
             });
@@ -341,7 +341,7 @@ export class SearchService implements OnDestroy {
       if (isNotEmpty(params.get('view')) && hasValue(params.get('view'))) {
         return params.get('view');
       } else {
-        return ViewMode.List;
+        return ViewMode.ListElement;
       }
     }));
   }
@@ -354,7 +354,7 @@ export class SearchService implements OnDestroy {
     this.routeService.getQueryParameterValue('pageSize').pipe(first())
       .subscribe((pageSize) => {
         let queryParams = { view: viewMode, page: 1 };
-        if (viewMode === ViewMode.Detail) {
+        if (viewMode === ViewMode.DetailedListElement) {
           queryParams = Object.assign(queryParams, {pageSize: '1'});
         } else if (pageSize === '1') {
           queryParams = Object.assign(queryParams, {pageSize: '10'});

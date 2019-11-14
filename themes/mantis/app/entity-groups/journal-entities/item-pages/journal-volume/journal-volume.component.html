@@ -8,7 +8,7 @@
                 </ds-metadata-field-wrapper>
                 <div>
                     <a class="btn btn-secondary"
-                       [routerLink]="['/items/' + item.id + '/full']">
+                       [routerLink]="['/items/' + object.id + '/full']">
                         {{"item.page.link.full" | translate}}
                     </a>
                 </div>
@@ -17,22 +17,22 @@
                 <h2 class="item-page-title-field">
                   {{'journalvolume.page.titleprefix' | translate}}
                   <ds-metadata-values
-                            [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+                            [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
                 </h2>
                 <div class="row">
                     <div class="col-12 col-md-6">
 
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['publicationvolume.volumeNumber']"
                                                     [label]="'journalvolume.page.volume'">
                         </ds-generic-item-page-field>
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['creativework.datePublished']"
                                                     [label]="'journalvolume.page.issuedate'">
                         </ds-generic-item-page-field>
                     </div>
                     <div class="col-12 col-md-6">
-                        <ds-generic-item-page-field [item]="item"
+                        <ds-generic-item-page-field [item]="object"
                                                     [fields]="['dc.description']"
                                                     [label]="'journalvolume.page.description'">
                         </ds-generic-item-page-field>
@@ -47,13 +47,13 @@
         <div class="row">
             <ds-related-items
               class="col-12 col-md-4"
-              [parentItem]="item"
+              [parentItem]="object"
               [relationType]="'isJournalOfVolume'"
               [label]="'relationships.isSingleJournalOf' | translate">
             </ds-related-items>
             <ds-related-items
               class="col-12 col-md-4"
-              [parentItem]="item"
+              [parentItem]="object"
               [relationType]="'isIssueOfJournalVolume'"
               [label]="'relationships.isIssueOf' | translate">
             </ds-related-items>

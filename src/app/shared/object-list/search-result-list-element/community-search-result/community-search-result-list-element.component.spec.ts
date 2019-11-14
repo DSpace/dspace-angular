@@ -47,7 +47,6 @@ describe('CommunitySearchResultListElementComponent', () => {
       declarations: [ CommunitySearchResultListElementComponent, TruncatePipe ],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
-        { provide: 'objectElementProvider', useValue: (mockCommunityWithAbstract) }
       ],
 
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -59,6 +58,8 @@ describe('CommunitySearchResultListElementComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(CommunitySearchResultListElementComponent);
     communitySearchResultListElementComponent = fixture.componentInstance;
+    communitySearchResultListElementComponent.object = mockCommunityWithAbstract;
+    fixture.detectChanges();
   }));
 
   describe('When the community has an abstract', () => {
