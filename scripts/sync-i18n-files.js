@@ -18,13 +18,23 @@ const LANGUAGE_FILES_LOCATION = 'resources/i18n';
 
 parseCliInput();
 
+/**
+ * Parses the CLI input given by the user
+ *    If no parameters are set (standard usage) -> source file is default (set to DEFAULT_SOURCE_FILE_LOCATION) and all
+ *            other language files in the LANGUAGE_FILES_LOCATION are synced with this one in-place
+ *            (replaced with newly synced file)
+ *    If only target-file -t is set -> either -i in-place or -o output-file must be set
+ *    Source file can be set with -s if it should be something else than DEFAULT_SOURCE_FILE_LOCATION
+ *
+ *    If any of the paths to files/dirs given by user are not valid, an error message is printed and script gets aborted
+ */
 function parseCliInput() {
   program
     .option('-d, --output-dir <output-dir>', 'output dir when running script on all language files; mutually exclusive with -o')
     .option('-t, --target-file <target>', 'target file we compare with and where completed output ends up if -o is not configured and -i is')
     .option('-i, --edit-in-place', 'edit-in-place; store output straight in target file; mutually exclusive with -o')
     .option('-s, --source-file <source>', 'source file to be parsed for translation', projectRoot(DEFAULT_SOURCE_FILE_LOCATION))
-    .option('-o, --output-location <output>', 'where output of script ends up; mutually exclusive with -i')
+    .option('-o, --output-file <output>', 'where output of script ends up; mutually exclusive with -i')
     .usage('([-d <output-dir>] [-s <source-file>]) || (-t <target-file> (-i | -o <output>) [-s <source-file>])')
     .parse(process.argv);
 
@@ -72,6 +82,14 @@ function parseCliInput() {
   }
 }
 
+/**
+ * Creates chunk lists for both the source and the target files (for example en.json5 and nl.json5 respectively)
+ *    > Creates output chunks by comparing the source chunk with corresponding target chunk (based on key of translation)
+ *    > Writes the output chunks to a new valid lang.json5 file, either replacing the target file (-i in-place)
+ *          or sending it to an output file specified by the user
+ * @param pathToTargetFile    Valid path to target file to generate target chunks from
+ * @param pathToOutputFile    Valid path to output file to write output chunks to
+ */
 function syncFileWithSource(pathToTargetFile, pathToOutputFile) {
   const progressBar = new _cliProgress.SingleBar({}, _cliProgress.Presets.shades_classic);
   progressBar.start(100, 0);
