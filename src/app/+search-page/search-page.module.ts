@@ -34,7 +34,7 @@ import { SearchLabelComponent } from './search-labels/search-label/search-label.
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
 import { FilteredSearchPageComponent } from './filtered-search-page.component';
-import { SidebarFilterService } from "../shared/sidebar/filter/sidebar-filter.service";
+import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
 
 const effects = [
   SidebarEffects
