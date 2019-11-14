@@ -7,6 +7,7 @@ import { Item } from '../../../core/shared/item.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { VarDirective } from '../../../shared/utils/var.directive';
 
 const itemType = 'Person';
 const metadataField = 'dc.contributor.author';
@@ -64,7 +65,7 @@ describe('MetadataRepresentationListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [MetadataRepresentationListComponent],
+      declarations: [MetadataRepresentationListComponent, VarDirective],
       providers: [
         { provide: RelationshipService, useValue: relationshipService }
       ],
@@ -93,12 +94,16 @@ describe('MetadataRepresentationListComponent', () => {
   });
 
   describe('when viewMore is called', () => {
+    let originalLimit;
+
     beforeEach(() => {
+      // Store the original value of limit
+      originalLimit = comp.limit;
       comp.viewMore();
     });
 
-    it('should set the limit to a high number in order to retrieve all metadata representations', () => {
-      expect(comp.limit).toBeGreaterThanOrEqual(999);
+    it('should increment the limit with incrementBy', () => {
+      expect(comp.limit).toEqual(originalLimit + comp.incrementBy);
     });
   });
 
@@ -108,8 +113,8 @@ describe('MetadataRepresentationListComponent', () => {
     beforeEach(() => {
       // Store the original value of limit
       originalLimit = comp.limit;
-      // Set limit to a random number
-      comp.limit = 458;
+      // Increase limit with incrementBy
+      comp.limit = originalLimit + comp.incrementBy;
       comp.viewLess();
     });
 

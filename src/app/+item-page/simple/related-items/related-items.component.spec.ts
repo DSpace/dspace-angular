@@ -9,6 +9,7 @@ import { createRelationshipsObservable } from '../item-types/shared/item.compone
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { VarDirective } from '../../../shared/utils/var.directive';
 
 const parentItem: Item = Object.assign(new Item(), {
   bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -42,7 +43,7 @@ describe('RelatedItemsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [RelatedItemsComponent],
+      declarations: [RelatedItemsComponent, VarDirective],
       providers: [
         { provide: RelationshipService, useValue: relationshipService }
       ],
@@ -71,25 +72,23 @@ describe('RelatedItemsComponent', () => {
     });
 
     it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments', () => {
-      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, comp.allOptions);
-    });
-
-    it('should set showingAll to true', () => {
-      expect(comp.showingAll).toEqual(true);
+      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, { elementsPerPage: comp.limit + comp.incrementBy }));
     });
   });
 
   describe('when viewLess is called', () => {
+    let originalLimit;
+
     beforeEach(() => {
+      // Store the original value of limit
+      originalLimit = comp.limit;
+      // Increase limit with incrementBy
+      comp.limit = originalLimit + comp.incrementBy;
       comp.viewLess();
     });
 
     it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments', () => {
-      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, comp.options);
-    });
-
-    it('should set showingAll to false', () => {
-      expect(comp.showingAll).toEqual(false);
+      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, { elementsPerPage: originalLimit }));
     });
   });
 
