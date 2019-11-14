@@ -153,8 +153,9 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   findById(id: string): Observable<RemoteData<T>> {
+
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, id)));
+        map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))

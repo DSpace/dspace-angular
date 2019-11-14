@@ -22,6 +22,12 @@ import { MappedCollectionsReponseParsingService } from './mapped-collections-rep
 
 /* tslint:disable:max-classes-per-file */
 
+// uuid and handle requests have separate endpoints
+export enum IdentifierType {
+  UUID ='uuid',
+  HANDLE = 'handle'
+}
+
 export abstract class RestRequest {
   public responseMsToLive = 10 * 1000;
   public forceBypassCache = false;
@@ -50,7 +56,7 @@ export class GetRequest extends RestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions,
+    public options?: HttpOptions
   )  {
     super(uuid, href, RestRequestMethod.GET, body, options)
   }
