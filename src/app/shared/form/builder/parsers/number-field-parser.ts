@@ -1,5 +1,4 @@
 import { FieldParser } from './field-parser';
-import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 
@@ -21,19 +20,9 @@ export class NumberFieldParser extends FieldParser {
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
     const numberModelConfig: DsDynamicInputModelConfig = this.initModel(null, label);
 
-    let layout: DynamicFormControlLayout;
-
-    layout = {
-      element: {
-        label: 'col-form-label'
-      }
-    };
-
     this.setValues(numberModelConfig, fieldValue);
     numberModelConfig.inputType = 'number';
     numberModelConfig.min = 0;
-    const numberModel = new DsDynamicInputModel(numberModelConfig, layout);
-
-    return numberModel;
+    return new DsDynamicInputModel(numberModelConfig);
   }
 }

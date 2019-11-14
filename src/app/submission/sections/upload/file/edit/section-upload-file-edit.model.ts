@@ -11,8 +11,7 @@ export const BITSTREAM_METADATA_FORM_GROUP_CONFIG: DynamicFormGroupModelConfig =
 };
 export const BITSTREAM_METADATA_FORM_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    container: 'form-group',
-      label: 'col-form-label'
+    container: 'form-group'
   },
   grid: {
       label: 'col-sm-3'
@@ -36,8 +35,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG: DynamicSelectModelConf
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT: DynamicFormControlLayout = {
   element: {
-    container: 'p-0',
-    label: 'col-form-label'
+    container: 'p-0'
   },
   grid: {
     host: 'col-md-10'
@@ -67,8 +65,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePicke
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
-    container: 'p-0',
-    label: 'col-form-label'
+    container: 'p-0'
   },
   grid: {
     host: 'col-md-4'
@@ -98,8 +95,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_CONFIG: DynamicDatePickerM
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_END_DATE_LAYOUT: DynamicFormControlLayout = {
   element: {
-    container: 'p-0',
-    label: 'col-form-label'
+    container: 'p-0'
   },
   grid: {
     host: 'col-md-4'
@@ -127,8 +123,7 @@ export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_CONFIG: DynamicSelectModelCo
 };
 export const BITSTREAM_FORM_ACCESS_CONDITION_GROUPS_LAYOUT: DynamicFormControlLayout = {
   element: {
-    container: 'p-0',
-      label: 'col-form-label'
+    container: 'p-0'
   },
   grid: {
     host: 'col-sm-10'
