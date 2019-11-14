@@ -82,7 +82,8 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
           const date = firstItemRD.payload.firstMetadataValue(metadataField);
           if (hasValue(date)) {
             const dateObj = new Date(date);
-            lowerLimit = dateObj.getFullYear();
+            // TODO: it appears that getFullYear (based on local time) is sometimes unreliable. Switching to UTC.
+            lowerLimit = dateObj.getUTCFullYear();
           }
         }
         const options = [];

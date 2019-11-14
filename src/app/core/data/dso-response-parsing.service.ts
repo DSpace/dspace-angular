@@ -30,7 +30,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     if (hasValue(data.payload) && hasValue(data.payload.page) && data.payload.page.totalElements === 0) {
       processRequestDTO = { page: [] };
     } else {
-      processRequestDTO = this.process<NormalizedObject<DSpaceObject>>(data.payload, request.uuid);
+      processRequestDTO = this.process<NormalizedObject<DSpaceObject>>(data.payload, request);
     }
     let objectList = processRequestDTO;
 

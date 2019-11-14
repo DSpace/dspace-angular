@@ -38,7 +38,6 @@ const selectedBitstreamFormatSelector = createSelector(bitstreamFormatsStateSele
 export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   protected linkPath = 'bitstreamformats';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
