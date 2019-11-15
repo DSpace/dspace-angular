@@ -770,6 +770,10 @@
   // "error.community": "Error fetching community",
   "error.community": "Fehler beim Laden des Bereiches.",
   
+  // "error.identifier": "No item found for the identifier",
+  // TODO New key - Add a translation
+  "error.identifier": "No item found for the identifier",
+  
   // "error.default": "Error",
   "error.default": "Fehler",
   
