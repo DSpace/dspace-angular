@@ -10,16 +10,11 @@ import { TruncatableService } from '../../../../../shared/truncatable/truncatabl
 import { take } from 'rxjs/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { DsDynamicLookupRelationModalComponent } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NameVariantModalComponent } from './name-variant-modal/name-variant-modal.component';
-import { Community } from '../../../../../core/shared/community.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
-
-const NOTIFICATION_CONTENT_KEY = 'submission.sections.describe.relationship-lookup.name-variant.notification.content';
-const NOTIFICATION_CONFIRM_KEY = 'submission.sections.describe.relationship-lookup.name-variant.notification.confirm';
-const NOTIFICATION_DECLINE_KEY = 'submission.sections.describe.relationship-lookup.name-variant.notification.decline';
+import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.Workspace)
 @Component({
@@ -34,7 +29,7 @@ const NOTIFICATION_DECLINE_KEY = 'submission.sections.describe.relationship-look
 export class PersonSearchResultListSubmissionElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
   suggestions: string[];
   allSuggestions: string[];
-  selected: string;
+  selectedName: string;
   alternativeField = 'dc.title.alternative';
 
   constructor(protected truncatableService: TruncatableService,
@@ -42,7 +37,8 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
               private notificationsService: NotificationsService,
               private translateService: TranslateService,
               private modalService: NgbModal,
-              private itemDataService: ItemDataService) {
+              private itemDataService: ItemDataService,
+              private selectableListService: SelectableListService) {
     super(truncatableService);
   }
 
@@ -56,7 +52,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
     this.relationshipService.getNameVariant(this.listID, this.dso.uuid)
       .pipe(take(1))
       .subscribe((nameVariant: string) => {
-          this.selected = nameVariant || defaultValue;
+          this.selectedName = nameVariant || defaultValue;
         }
       );
   }
@@ -66,6 +62,13 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   }
 
   select(value) {
+    this.selectableListService.isObjectSelected(this.listID, this.object)
+      .pipe(take(1))
+      .subscribe((selected) => {
+        if (!selected) {
+          this.selectableListService.selectSingle(this.listID, this.object);
+        }
+      });
     this.relationshipService.setNameVariant(this.listID, this.dso.uuid, value);
   }
 

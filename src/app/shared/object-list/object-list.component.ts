@@ -180,31 +180,5 @@ export class ObjectListComponent {
     this.paginationChange.emit(event);
   }
 
-  selectCheckbox(value: boolean, object: ListableObject) {
-    if (value) {
-      this.selectionService.selectSingle(this.selectionConfig.listId, object);
-      this.selectObject.emit(object);
-    } else {
-      this.selectionService.deselectSingle(this.selectionConfig.listId, object);
-      this.deselectObject.emit(object);
-    }
-  }
 
-  selectRadio(value: boolean, object: ListableObject) {
-    const selected$ = this.selectionService.getSelectableList(this.selectionConfig.listId);
-    selected$.pipe(
-      take(1),
-      map((selected) => selected ? selected.selection : [])
-    ).subscribe((selection) => {
-      // First deselect any existing selections, this is a radio button
-      selection.forEach((selectedObject) => {
-        this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
-        this.deselectObject.emit(selectedObject);
-      });
-      if (value) {
-        this.selectionService.selectSingle(this.selectionConfig.listId, object);
-        this.selectObject.emit(object);
-      }
-    });
-  }
 }

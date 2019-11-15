@@ -13,20 +13,14 @@
     <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
         <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4" [class.border-bottom]="hasBorder && !last">
           <span *ngIf="selectable">
-                <ng-container *ngVar="selectionService?.isObjectSelected(selectionConfig?.listId, object) | async as checked">
-                    <input *ngIf="selectionConfig.repeatable" class="form-check-input" type="checkbox"
-                           [name]="'checkbox' + i"
-                           [id]="'object'+i"
-                           [checked]="checked"
-                           (change)="selectCheckbox(!checked, object)">
-                    <input *ngIf="!selectionConfig.repeatable" class="form-check-input" type="radio"
-                           [name]="'radio' + i"
-                           [id]="'object'+i"
-                           [checked]="checked"
-                           (click)="selectRadio(!checked, object)">
-                </ng-container>
+                   <ds-selectable-list-item-control [index]="i"
+                                                    [object]="object"
+                                                    [selectionConfig]="selectionConfig"
+                                                    (deselectObject)="deselectObject.emit($event)"
+                                                    (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
               </span>
-            <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType" [listID]="selectionConfig?.listId"></ds-listable-object-component-loader>
+            <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
+                                                 [listID]="selectionConfig?.listId"></ds-listable-object-component-loader>
         </li>
     </ul>
 </ds-pagination>

@@ -1,6 +1,6 @@
 <ds-item-type-badge [object]="dso"></ds-item-type-badge>
 <ds-truncatable [id]="dso.id">
-    <ds-person-input-suggestions [suggestions]="suggestions" (typeSuggestion)="filter($event)" [(ngModel)]="selected" (clickSuggestion)="select($event)" (submitSuggestion)="selectCustom($event)"></ds-person-input-suggestions>
+    <ds-person-input-suggestions [suggestions]="suggestions" (typeSuggestion)="filter($event)" [(ngModel)]="selectedName" (clickSuggestion)="select($event)" (submitSuggestion)="selectCustom($event)"></ds-person-input-suggestions>
     <span class="text-muted">
     <ds-truncatable-part [id]="dso.id" [minLines]="1">
             <span *ngIf="dso.allMetadata(['person.jobTitle']).length > 0"
