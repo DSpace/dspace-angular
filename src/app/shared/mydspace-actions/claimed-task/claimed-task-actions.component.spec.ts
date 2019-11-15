@@ -18,6 +18,10 @@ import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.mode
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 import { CoreModule } from '../../../core/core.module';
+import { getMockSearchService } from '../../mocks/mock-search-service';
+import { getMockRequestService } from '../../mocks/mock-request.service';
+import { SearchService } from '../../../+search-page/search-service/search.service';
+import { RequestService } from '../../../core/data/request.service';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;
@@ -31,6 +35,10 @@ const mockDataService = jasmine.createSpyObj('ClaimedTaskDataService', {
   rejectTask: jasmine.createSpy('rejectTask'),
   returnToPoolTask: jasmine.createSpy('returnToPoolTask'),
 });
+
+const searchService = getMockSearchService();
+
+const requestServce = getMockRequestService();
 
 const item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
@@ -83,6 +91,8 @@ describe('ClaimedTaskActionsComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ClaimedTaskDataService, useValue: mockDataService },
+        { provide: SearchService, useValue: searchService },
+        { provide: RequestService, useValue: requestServce }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ClaimedTaskActionsComponent, {

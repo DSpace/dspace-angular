@@ -1,7 +1,6 @@
 import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 
 import { CacheableObject } from '../../cache/object-cache.reducer';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { EPerson } from './eperson.model';
 import { mapsTo, relationship } from '../../cache/builders/build-decorators';
@@ -9,7 +8,7 @@ import { Group } from './group.model';
 
 @mapsTo(EPerson)
 @inheritSerialization(NormalizedDSpaceObject)
-export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implements CacheableObject, ListableObject {
+export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implements CacheableObject {
   /**
    * A string representing the unique handle of this EPerson
    */

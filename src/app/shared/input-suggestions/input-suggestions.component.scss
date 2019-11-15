@@ -5,18 +5,8 @@
         white-space: normal;
         word-break: break-word;
         padding: $input-padding-y $input-padding-x;
-        position: relative;
-
         &:focus {
             outline: none;
-        }
-
-        .click-blocker {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
         }
     }
 }

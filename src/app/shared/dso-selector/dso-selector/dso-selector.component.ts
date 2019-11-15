@@ -19,6 +19,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-dso-selector',
@@ -31,7 +32,10 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
  * The user can search the list by using the input field
  */
 export class DSOSelectorComponent implements OnInit {
-
+  /**
+   * The view mode of the listed objects
+   */
+  viewMode = ViewMode.ListElement;
   /**
    * The initially selected DSO's uuid
    */

@@ -7,7 +7,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { fadeInOut } from '../../../animations/fade';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { MyDSpaceResult } from '../../../../+my-dspace-page/my-dspace-result.model';
+import { SearchResult } from '../../../../+search-page/search-result.model';
 import { FileService } from '../../../../core/shared/file.service';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 
@@ -28,9 +28,9 @@ export class ItemDetailPreviewComponent {
   @Input() item: Item;
 
   /**
-   * The mydspace result object
+   * The search result object
    */
-  @Input() object: MyDSpaceResult<any>;
+  @Input() object: SearchResult<any>;
 
   /**
    * Represent item's status

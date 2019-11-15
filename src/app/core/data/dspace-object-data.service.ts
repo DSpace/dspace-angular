@@ -18,7 +18,6 @@ import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<DSpaceObject> {
   protected linkPath = 'dso';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

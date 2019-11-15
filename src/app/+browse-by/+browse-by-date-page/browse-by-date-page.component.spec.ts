@@ -11,7 +11,6 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { MockRouter } from '../../shared/mocks/mock-router';
 import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RemoteData } from '../../core/data/remote-data';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
@@ -19,6 +18,7 @@ import { ENV_CONFIG, GLOBAL_CONFIG } from '../../../config';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
 import { toRemoteData } from '../+browse-by-metadata-page/browse-by-metadata-page.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -69,7 +69,7 @@ describe('BrowseByDatePageComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule.forRoot()],
-      declarations: [BrowseByDatePageComponent, EnumKeysPipe],
+      declarations: [BrowseByDatePageComponent, EnumKeysPipe, VarDirective],
       providers: [
         { provide: GLOBAL_CONFIG, useValue: ENV_CONFIG },
         { provide: ActivatedRoute, useValue: activatedRouteStub },

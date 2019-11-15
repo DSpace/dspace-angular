@@ -119,6 +119,8 @@ import { MetadatafieldParsingService } from './data/metadatafield-parsing.servic
 import { NormalizedSubmissionUploadsModel } from './config/models/normalized-config-submission-uploads.model';
 import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
 import { BrowseDefinition } from './shared/browse-definition.model';
+import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
+import { ObjectSelectService } from '../shared/object-select/object-select.service';
 import { NormalizedAuthority } from './integration/models/normalized-authority.model';
 import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
@@ -169,6 +171,7 @@ const PROVIDERS = [
   RegistryMetadataschemasResponseParsingService,
   RegistryMetadatafieldsResponseParsingService,
   RegistryBitstreamformatsResponseParsingService,
+  MappedCollectionsReponseParsingService,
   DebugResponseParsingService,
   SearchResponseParsingService,
   MyDSpaceResponseParsingService,
@@ -200,6 +203,7 @@ const PROVIDERS = [
   DSpaceObjectDataService,
   DSOChangeAnalyzer,
   DefaultChangeAnalyzer,
+  ObjectSelectService,
   CSSVariableService,
   MenuService,
   ObjectUpdatesService,

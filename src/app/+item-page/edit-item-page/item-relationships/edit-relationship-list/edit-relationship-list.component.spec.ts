@@ -38,8 +38,8 @@ describe('EditRelationshipListComponent', () => {
     relationshipType = Object.assign(new RelationshipType(), {
       id: '1',
       uuid: '1',
-      leftLabel: 'isAuthorOfPublication',
-      rightLabel: 'isPublicationOfAuthor'
+      leftwardType: 'isAuthorOfPublication',
+      rightwardType: 'isPublicationOfAuthor'
     });
 
     relationships = [
@@ -97,7 +97,7 @@ describe('EditRelationshipListComponent', () => {
 
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
-        getRelatedItemsByLabel: observableOf([author1, author2]),
+        getRelatedItemsByLabel: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [author1, author2]))),
       }
     );
 
@@ -119,7 +119,7 @@ describe('EditRelationshipListComponent', () => {
     de = fixture.debugElement;
     comp.item = item;
     comp.url = url;
-    comp.relationshipLabel = relationshipType.leftLabel;
+    comp.relationshipLabel = relationshipType.leftwardType;
     fixture.detectChanges();
   });
 

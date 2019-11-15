@@ -24,7 +24,6 @@ export class NormalizedTestObject extends NormalizedObject<Item> {
 }
 
 class TestService extends DataService<any> {
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

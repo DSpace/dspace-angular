@@ -4,6 +4,7 @@
   [config]="searchConfig.pagination"
   [sortConfig]="searchConfig.sort"
   [objects]="searchResults"
+  [linkType]="linkType"
   [hideGear]="true">
 </ds-viewable-collection></div>
 <ds-loading *ngIf="hasNoValue(searchResults) || hasNoValue(searchResults.payload) || searchResults.isLoading" message="{{'loading.search-results' | translate}}"></ds-loading>

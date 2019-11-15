@@ -27,7 +27,6 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 export class GroupEpersonService extends EpersonService<Group> {
   protected linkPath = 'groups';
   protected browseEndpoint = '';
-  protected forceBypassCache = false;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Group>,

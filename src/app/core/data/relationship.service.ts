@@ -10,7 +10,7 @@ import {
   getRemoteDataPayload, getResponseFromEntry,
   getSucceededRemoteData
 } from '../shared/operators';
-import { DeleteRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindAllOptions, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { Item } from '../shared/item.model';
@@ -22,23 +22,42 @@ import { zip as observableZip } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
 import {
-  compareArraysUsingIds, filterRelationsByTypeLabel,
+  compareArraysUsingIds, filterRelationsByTypeLabel, paginatedRelationsToItems,
   relationsToItems
 } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { DataService } from './data.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../core.reducers';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HttpClient } from '@angular/common/http';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { SearchParam } from '../cache/models/search-param.model';
 
 /**
  * The service handling all relationship requests
  */
 @Injectable()
-export class RelationshipService {
+export class RelationshipService extends DataService<Relationship> {
   protected linkPath = 'relationships';
+  protected forceBypassCache = false;
 
-  constructor(protected requestService: RequestService,
-              protected halService: HALEndpointService,
+  constructor(protected itemService: ItemDataService,
+              protected requestService: RequestService,
               protected rdbService: RemoteDataBuildService,
-              protected itemService: ItemDataService,
-              protected objectCache: ObjectCacheService) {
+              protected dataBuildService: NormalizedObjectBuildService,
+              protected store: Store<CoreState>,
+              protected halService: HALEndpointService,
+              protected objectCache: ObjectCacheService,
+              protected notificationsService: NotificationsService,
+              protected http: HttpClient,
+              protected comparator: DefaultChangeAnalyzer<Relationship>) {
+    super();
+  }
+
+  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+    return this.halService.getEndpoint(linkPath);
   }
 
   /**
@@ -182,9 +201,9 @@ export class RelationshipService {
       map(([leftItems, rightItems, relTypesCurrentPage]) => {
         return relTypesCurrentPage.map((type, index) => {
           if (leftItems[index].uuid === item.uuid) {
-            return type.leftLabel;
+            return type.leftwardType;
           } else {
-            return type.rightLabel;
+            return type.rightwardType;
           }
         });
       }),
@@ -207,12 +226,31 @@ export class RelationshipService {
    * and return the items as an array
    * @param item
    * @param label
+   * @param options
    */
-  getRelatedItemsByLabel(item: Item, label: string): Observable<Item[]> {
-    return this.getItemResolvedRelsAndTypes(item).pipe(
-      filterRelationsByTypeLabel(label),
-      relationsToItems(item.uuid)
-    );
+  getRelatedItemsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.getItemRelationshipsByLabel(item, label, options).pipe(paginatedRelationsToItems(item.uuid));
+  }
+
+  /**
+   * Resolve a given item's relationships into related items, filtered by a relationship label
+   * and return the items as an array
+   * @param item
+   * @param label
+   * @param options
+   */
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
+    let findAllOptions = new FindAllOptions();
+    if (options) {
+      findAllOptions = Object.assign(new FindAllOptions(), options);
+    }
+    const searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
+    if (findAllOptions.searchParams) {
+      findAllOptions.searchParams = [...findAllOptions.searchParams, ...searchParams];
+    } else {
+      findAllOptions.searchParams = searchParams;
+    }
+    return this.searchBy('byLabel', findAllOptions);
   }
 
   /**

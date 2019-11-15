@@ -265,16 +265,18 @@ describe('AuthService test', () => {
 
     it ('should redirect to / and not to /login', () => {
       spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['/login', '/login']));
+      spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
-      expect(routerStub.navigate).toHaveBeenCalledWith(['/']);
+      expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/');
     });
 
     it ('should redirect to / when no redirect url is found', () => {
       spyOn(routeServiceMock, 'getHistory').and.returnValue(observableOf(['']));
+      spyOn(routerStub, 'navigateByUrl');
       authService.redirectAfterLoginSuccess(true);
       expect(routeServiceMock.getHistory).toHaveBeenCalled();
-      expect(routerStub.navigate).toHaveBeenCalledWith(['/']);
+      expect(routerStub.navigateByUrl).toHaveBeenCalledWith('/');
     });
   });
 });

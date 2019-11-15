@@ -3,31 +3,37 @@
                 [objects]="objects"
                 [hasBorder]="hasBorder"
                 [hideGear]="hideGear"
+                [linkType]="linkType"
+                [context]="context"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
                 (sortDirectionChange)="onSortDirectionChange($event)"
                 (sortFieldChange)="onSortFieldChange($event)"
-                *ngIf="(currentMode$ | async) === viewModeEnum.List">
+                *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
 </ds-object-list>
 
 <ds-object-grid [config]="config"
                 [sortConfig]="sortConfig"
                 [objects]="objects"
                 [hideGear]="hideGear"
+                [linkType]="linkType"
+                [context]="context"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
                 (sortDirectionChange)="onSortDirectionChange($event)"
                 (sortFieldChange)="onSortFieldChange($event)"
-                *ngIf="(currentMode$ | async) === viewModeEnum.Grid">
+                *ngIf="(currentMode$ | async) === viewModeEnum.GridElement">
 </ds-object-grid>
 
 <ds-object-detail [config]="config"
                   [sortConfig]="sortConfig"
                   [objects]="objects"
                   [hideGear]="hideGear"
-                  *ngIf="(currentMode$ | async) === viewModeEnum.Detail">
+                  [linkType]="linkType"
+                  [context]="context"
+                  *ngIf="(currentMode$ | async) === viewModeEnum.DetailedListElement">
 </ds-object-detail>
 
 

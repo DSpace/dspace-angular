@@ -1,8 +1,8 @@
-import { distinctUntilChanged, filter, find, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
@@ -12,22 +12,35 @@ import { URLCombiner } from '../url-combiner/url-combiner';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions, PatchRequest, PutRequest, RestRequest } from './request.models';
+import {
+  DeleteRequest,
+  FindAllOptions,
+  MappedCollectionsRequest,
+  PatchRequest,
+  PostRequest, PutRequest,
+  RestRequest
+} from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { configureRequest, getRequestFromRequestHref } from '../shared/operators';
+import {
+  configureRequest,
+  filterSuccessfulResponses,
+  getRequestFromRequestHref,
+  getResponseFromEntry
+} from '../shared/operators';
 import { RequestEntry } from './request.reducer';
-import { RestResponse } from '../cache/response.models';
+import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { Collection } from '../shared/collection.model';
+import { RemoteData } from './remote-data';
+import { PaginatedList } from './paginated-list';
 
 @Injectable()
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
@@ -58,6 +71,80 @@ export class ItemDataService extends DataService<Item> {
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => new URLCombiner(href, `?scope=${options.scopeID}`).toString()),
       distinctUntilChanged(),);
+  }
+
+  /**
+   * Fetches the endpoint used for mapping an item to a collection,
+   * or for fetching all collections the item is mapped to if no collection is provided
+   * @param itemId        The item's id
+   * @param collectionId  The collection's id (optional)
+   */
+  public getMappedCollectionsEndpoint(itemId: string, collectionId?: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      map((endpoint: string) => this.getIDHref(endpoint, itemId)),
+      map((endpoint: string) => `${endpoint}/mappedCollections${collectionId ? `/${collectionId}` : ''}`)
+    );
+  }
+
+  /**
+   * Removes the mapping of an item from a collection
+   * @param itemId        The item's id
+   * @param collectionId  The collection's id
+   */
+  public removeMappingFromCollection(itemId: string, collectionId: string): Observable<RestResponse> {
+    return this.getMappedCollectionsEndpoint(itemId, collectionId).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
+      configureRequest(this.requestService),
+      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
+      getResponseFromEntry()
+    );
+  }
+
+  /**
+   * Maps an item to a collection
+   * @param itemId          The item's id
+   * @param collectionHref  The collection's self link
+   */
+  public mapToCollection(itemId: string, collectionHref: string): Observable<RestResponse> {
+    return this.getMappedCollectionsEndpoint(itemId).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpointURL: string) => {
+        const options: HttpOptions = Object.create({});
+        let headers = new HttpHeaders();
+        headers = headers.append('Content-Type', 'text/uri-list');
+        options.headers = headers;
+        return new PostRequest(this.requestService.generateRequestId(), endpointURL, collectionHref, options);
+      }),
+      configureRequest(this.requestService),
+      switchMap((request: RestRequest) => this.requestService.getByUUID(request.uuid)),
+      getResponseFromEntry()
+    );
+  }
+
+  /**
+   * Fetches all collections the item is mapped to
+   * @param itemId    The item's id
+   */
+  public getMappedCollections(itemId: string): Observable<RemoteData<PaginatedList<Collection>>> {
+    const request$ = this.getMappedCollectionsEndpoint(itemId).pipe(
+      isNotEmptyOperator(),
+      distinctUntilChanged(),
+      map((endpointURL: string) => new MappedCollectionsRequest(this.requestService.generateRequestId(), endpointURL)),
+      configureRequest(this.requestService)
+    );
+
+    const requestEntry$ = request$.pipe(
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href))
+    );
+    const payload$ = requestEntry$.pipe(
+      filterSuccessfulResponses(),
+      map((response: GenericSuccessResponse<PaginatedList<Collection>>) => response.payload)
+    );
+
+    return this.rdbService.toRemoteDataObservable(requestEntry$, payload$);
   }
 
   /**

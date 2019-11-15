@@ -5,7 +5,6 @@ import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-da
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { RequestEntry } from './request.reducer';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { ResourceType } from '../shared/resource-type';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RemoteData } from './remote-data';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
@@ -15,6 +14,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { DeleteRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Observable } from 'rxjs/internal/Observable';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;
@@ -23,18 +23,12 @@ describe('RelationshipService', () => {
   const restEndpointURL = 'https://rest.api/';
   const relationshipsEndpointURL = `${restEndpointURL}/relationships`;
   const halService: any = new HALEndpointServiceStub(restEndpointURL);
-  const rdbService = getMockRemoteDataBuildService();
-  const objectCache = Object.assign({
-    /* tslint:disable:no-empty */
-    remove: () => {}
-    /* tslint:enable:no-empty */
-  }) as ObjectCacheService;
 
   const relationshipType = Object.assign(new RelationshipType(), {
     id: '1',
     uuid: '1',
-    leftLabel: 'isAuthorOfPublication',
-    rightLabel: 'isPublicationOfAuthor'
+    leftwardType: 'isAuthorOfPublication',
+    rightwardType: 'isPublicationOfAuthor'
   });
 
   const relationship1 = Object.assign(new Relationship(), {
@@ -73,17 +67,30 @@ describe('RelationshipService', () => {
   relationship2.rightItem = getRemotedataObservable(item);
   const relatedItems = [relatedItem1, relatedItem2];
 
+  const buildList$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [relatedItems]));
+  const rdbService = getMockRemoteDataBuildService(undefined, buildList$);
+  const objectCache = Object.assign({
+    /* tslint:disable:no-empty */
+    remove: () => {}
+    /* tslint:enable:no-empty */
+  }) as ObjectCacheService;
+
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.filter((relatedItem) => relatedItem.id === uuid)[0])
   });
 
   function initTestService() {
     return new RelationshipService(
-      requestService,
-      halService,
-      rdbService,
       itemService,
-      objectCache
+      requestService,
+      rdbService,
+      null,
+      null,
+      halService,
+      objectCache,
+      null,
+      null,
+      null
     );
   }
 
@@ -107,7 +114,7 @@ describe('RelationshipService', () => {
 
     it('should send a DeleteRequest', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), relationshipsEndpointURL + '/' + relationship1.uuid);
-      expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
     it('should clear the related items their cache', () => {
@@ -129,7 +136,7 @@ describe('RelationshipService', () => {
   describe('getItemRelationshipLabels', () => {
     it('should return the correct labels', () => {
       service.getItemRelationshipLabels(item).subscribe((result) => {
-        expect(result).toEqual([relationshipType.rightLabel]);
+        expect(result).toEqual([relationshipType.rightwardType]);
       });
     });
   });
@@ -144,8 +151,8 @@ describe('RelationshipService', () => {
 
   describe('getRelatedItemsByLabel', () => {
     it('should return the related items by label', () => {
-      service.getRelatedItemsByLabel(item, relationshipType.rightLabel).subscribe((result) => {
-        expect(result).toEqual(relatedItems);
+      service.getRelatedItemsByLabel(item, relationshipType.rightwardType).subscribe((result) => {
+        expect(result.payload.page).toEqual(relatedItems);
       });
     });
   })

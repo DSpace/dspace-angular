@@ -400,7 +400,7 @@ export class RegistryService {
       distinctUntilChanged()
     );
 
-    const serializedSchema = new DSpaceRESTv2Serializer(getMapsToType(MetadataSchema.type)).serialize(schema as NormalizedMetadataSchema);
+    const serializedSchema = new DSpaceRESTv2Serializer(getMapsToType(MetadataSchema.type)).serialize(schema);
 
     const request$ = endpoint$.pipe(
       take(1),

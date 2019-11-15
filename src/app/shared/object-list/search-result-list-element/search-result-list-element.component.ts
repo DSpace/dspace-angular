@@ -1,26 +1,32 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SearchResult } from '../../../+search-page/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { hasValue } from '../../empty.util';
-import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { MetadataMap } from '../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-search-result-list-element',
   template: ``
 })
 
-export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> {
+export class SearchResultListElementComponent<T extends SearchResult<K>, K extends DSpaceObject> extends AbstractListableElementComponent<T> implements OnInit {
+  /**
+   * The DSpaceObject of the search result
+   */
   dso: K;
-  metadata: MetadataMap;
 
-  public constructor(@Inject('objectElementProvider') public listable: ListableObject, protected truncatableService: TruncatableService) {
-    super(listable);
+  public constructor(protected truncatableService: TruncatableService) {
+    super();
+  }
+
+  /**
+   * Retrieve the dso from the search result
+   */
+  ngOnInit(): void {
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
     }
@@ -46,7 +52,11 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
     return Metadata.firstValue([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
   }
 
+  /**
+   * Emits if the list element is currently collapsed or not
+   */
   isCollapsed(): Observable<boolean> {
     return this.truncatableService.isCollapsed(this.dso.id);
   }
+
 }

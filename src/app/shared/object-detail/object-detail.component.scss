@@ -1,7 +1,7 @@
 @import '../../../styles/variables';
 @import '../../../styles/mixins';
 
-ds-wrapper-detail-element ::ng-deep {
+:host::ng-deep {
   div.thumbnail > img {
     height: $card-thumbnail-height;
     width: 100%;

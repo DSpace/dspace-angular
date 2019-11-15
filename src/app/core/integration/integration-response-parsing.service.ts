@@ -27,7 +27,7 @@ export class IntegrationResponseParsingService extends BaseResponseParsingServic
 
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     if (this.isSuccessStatus(data.statusCode)) {
-      const dataDefinition = this.process<IntegrationModel>(data.payload, request.uuid);
+      const dataDefinition = this.process<IntegrationModel>(data.payload, request);
       return new IntegrationSuccessResponse(this.processResponse(dataDefinition), data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else {
       return new ErrorResponse(
