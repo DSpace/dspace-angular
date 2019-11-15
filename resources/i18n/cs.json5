@@ -769,6 +769,9 @@
   
   // "error.community": "Error fetching community",
   "error.community": "Chyba během stahování komunity",
+  // "error.identifier": "No item found for the identifier",
+  // TODO New key - Add a translation
+  "error.identifier": "No item found for the identifier",
   
   // "error.identifier": "No item found for the identifier",
   // TODO New key - Add a translation
