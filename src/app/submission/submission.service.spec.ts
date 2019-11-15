@@ -45,6 +45,10 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../shared/testing/utils';
+import { getMockSearchService } from '../shared/mocks/mock-search-service';
+import { getMockRequestService } from '../shared/mocks/mock-request.service';
+import { SearchService } from '../+search-page/search-service/search.service';
+import { RequestService } from '../core/data/request.service';
 
 describe('SubmissionService test suite', () => {
   const config = MOCK_SUBMISSION_CONFIG;
@@ -349,7 +353,12 @@ describe('SubmissionService test suite', () => {
   let scheduler: TestScheduler;
   let service: SubmissionService;
 
+  const searchService = getMockSearchService();
+
+  const requestServce = getMockRequestService();
+
   beforeEach(async(() => {
+
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({ submissionReducers } as any),
@@ -365,6 +374,8 @@ describe('SubmissionService test suite', () => {
         { provide: Router, useValue: router },
         { provide: SubmissionRestService, useValue: restService },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: SearchService, useValue: searchService },
+        { provide: RequestService, useValue: requestServce },
         NotificationsService,
         RouteService,
         SubmissionService,

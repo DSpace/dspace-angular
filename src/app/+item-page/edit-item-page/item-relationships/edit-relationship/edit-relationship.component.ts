@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import { Item } from '../../../../core/shared/item.model';
 import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
-import { ItemViewMode } from '../../../../shared/items/item-type-decorator';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -31,7 +31,7 @@ export class EditRelationshipComponent implements OnChanges {
   /**
    * The view-mode we're currently on
    */
-  viewMode = ItemViewMode.Element;
+  viewMode = ViewMode.ListElement;
 
   constructor(private objectUpdatesService: ObjectUpdatesService) {
   }

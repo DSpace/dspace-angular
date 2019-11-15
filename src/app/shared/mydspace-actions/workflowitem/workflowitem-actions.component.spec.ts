@@ -15,6 +15,10 @@ import { WorkflowItemDataService } from '../../../core/submission/workflowitem-d
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
+import { getMockRequestService } from '../../mocks/mock-request.service';
+import { SearchService } from '../../../+search-page/search-service/search.service';
+import { RequestService } from '../../../core/data/request.service';
+import { getMockSearchService } from '../../mocks/mock-search-service';
 
 let component: WorkflowitemActionsComponent;
 let fixture: ComponentFixture<WorkflowitemActionsComponent>;
@@ -22,6 +26,10 @@ let fixture: ComponentFixture<WorkflowitemActionsComponent>;
 let mockObject: WorkflowItem;
 
 const mockDataService = {};
+
+const searchService = getMockSearchService();
+
+const requestServce = getMockRequestService();
 
 const item = Object.assign(new Item(), {
   bitstreams: observableOf({}),
@@ -72,6 +80,8 @@ describe('WorkflowitemActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkflowItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: SearchService, useValue: searchService },
+        { provide: RequestService, useValue: requestServce }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkflowitemActionsComponent, {
