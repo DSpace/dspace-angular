@@ -24,7 +24,7 @@ import { RequestService } from '../../../core/data/request.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { By } from '@angular/platform-browser';
 
-fdescribe('ComColFormComponent', () => {
+describe('ComColFormComponent', () => {
   let comp: ComColFormComponent<DSpaceObject>;
   let fixture: ComponentFixture<ComColFormComponent<DSpaceObject>>;
   let location: Location;
