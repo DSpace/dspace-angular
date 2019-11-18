@@ -85,9 +85,7 @@ export class SelectableListService {
    */
   isObjectSelected(id: string, object: ListableObject): Observable<boolean> {
     return this.getSelectableList(id).pipe(
-      filter((state: SelectableListState) => hasValue(state)),
-      map((state: SelectableListState) => isNotEmpty(state.selection) && hasValue(state.selection.find((selected) => selected.equals(object)))),
-      startWith(false),
+      map((state: SelectableListState) => hasValue(state) && isNotEmpty(state.selection) && hasValue(state.selection.find((selected) => selected.equals(object)))),
       distinctUntilChanged()
     );
   }

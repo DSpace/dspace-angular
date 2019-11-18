@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ListableObject } from './listable-object.model';
-import { SelectableListService } from '../../object-list/selectable-list/selectable-list.service';
-import { map, take } from 'rxjs/operators';
+import { ListableObject } from '../listable-object.model';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { map, skip, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -32,6 +32,7 @@ export class SelectableListItemControlComponent implements OnInit {
 
 
   selected$: Observable<boolean>;
+
   constructor(private selectionService: SelectableListService) {
   }
 
@@ -39,19 +40,22 @@ export class SelectableListItemControlComponent implements OnInit {
    * Setup the dynamic child component
    */
   ngOnInit(): void {
-    this.selected$ = this.selectionService?.isObjectSelected(this.selectionConfig.listId, this.object);
-    this.selected$.subscribe((selected: ListableObject) => {
-
+    this.selected$ = this.selectionService.isObjectSelected(this.selectionConfig.listId, this.object);
+    this.selected$
+      .pipe(skip(1)).subscribe((selected: boolean) => {
+      if (selected) {
+        this.selectObject.emit(this.object);
+      } else {
+        this.deselectObject.emit(this.object);
+      }
     })
   }
 
   selectCheckbox(value: boolean, object: ListableObject) {
     if (value) {
       this.selectionService.selectSingle(this.selectionConfig.listId, object);
-      this.selectObject.emit(object);
     } else {
       this.selectionService.deselectSingle(this.selectionConfig.listId, object);
-      this.deselectObject.emit(object);
     }
   }
 

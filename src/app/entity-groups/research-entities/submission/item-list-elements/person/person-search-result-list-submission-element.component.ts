@@ -96,7 +96,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
   }
 
   openModal(value): Promise<any> {
-    const modalRef = this.modalService.open(NameVariantModalComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(NameVariantModalComponent, { centered: true });
     const modalComp = modalRef.componentInstance;
     modalComp.value = value;
     return modalRef.result;
