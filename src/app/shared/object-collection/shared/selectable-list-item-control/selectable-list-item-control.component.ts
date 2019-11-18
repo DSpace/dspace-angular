@@ -33,7 +33,7 @@ export class SelectableListItemControlComponent implements OnInit {
 
   selected$: Observable<boolean>;
 
-  constructor(private selectionService: SelectableListService) {
+  constructor(public selectionService: SelectableListService) {
   }
 
   /**
