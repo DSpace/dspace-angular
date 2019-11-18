@@ -9,8 +9,6 @@ import { NgbDatepickerModule, NgbModule, NgbTimepickerModule, NgbTypeaheadModule
 import { TranslateModule } from '@ngx-translate/core';
 
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ItemTypeSwitcherComponent } from './items/switcher/item-type-switcher.component';
-import { TypedItemSearchResultListElementComponent } from './object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
 import { PublicationListElementComponent } from './object-list/item-list-element/item-types/publication/publication-list-element.component';
 
 import { FileUploadModule } from 'ng2-file-upload';
@@ -24,15 +22,11 @@ import { ConsolePipe } from './utils/console.pipe';
 
 import { CollectionListElementComponent } from './object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './object-list/community-list-element/community-list-element.component';
-import { ItemListElementComponent } from './object-list/item-list-element/item-list-element.component';
 import { SearchResultListElementComponent } from './object-list/search-result-list-element/search-result-list-element.component';
-import { WrapperListElementComponent } from './object-list/wrapper-list-element/wrapper-list-element.component';
 import { ObjectListComponent } from './object-list/object-list.component';
 import { CollectionGridElementComponent } from './object-grid/collection-grid-element/collection-grid-element.component';
 import { CommunityGridElementComponent } from './object-grid/community-grid-element/community-grid-element.component';
-import { ItemGridElementComponent } from './object-grid/item-grid-element/item-grid-element.component';
 import { AbstractListableElementComponent } from './object-collection/shared/object-collection-element/abstract-listable-element.component';
-import { WrapperGridElementComponent } from './object-grid/wrapper-grid-element/wrapper-grid-element.component';
 import { ObjectGridComponent } from './object-grid/object-grid.component';
 import { ObjectCollectionComponent } from './object-collection/object-collection.component';
 import { ComcolPageContentComponent } from './comcol-page-content/comcol-page-content.component';
@@ -81,12 +75,10 @@ import { DsDatePickerComponent } from './form/builder/ds-dynamic-form-ui/models/
 import { DsDynamicLookupComponent } from './form/builder/ds-dynamic-form-ui/models/lookup/dynamic-lookup.component';
 import { MockAdminGuard } from './mocks/mock-admin-guard.service';
 import { AlertComponent } from './alert/alert.component';
-import { MyDSpaceResultListElementComponent } from './object-list/my-dspace-result-list-element/my-dspace-result-list-element.component';
-import { MyDSpaceResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/my-dspace-result-detail-element.component';
+import { SearchResultDetailElementComponent } from './object-detail/my-dspace-result-detail-element/search-result-detail-element.component';
 import { ClaimedTaskActionsComponent } from './mydspace-actions/claimed-task/claimed-task-actions.component';
 import { PoolTaskActionsComponent } from './mydspace-actions/pool-task/pool-task-actions.component';
 import { ObjectDetailComponent } from './object-detail/object-detail.component';
-import { WrapperDetailElementComponent } from './object-detail/wrapper-detail-element/wrapper-detail-element.component';
 import { ItemDetailPreviewComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview.component';
 import { MyDSpaceItemStatusComponent } from './object-collection/shared/mydspace-item-status/my-dspace-item-status.component';
 import { WorkspaceitemActionsComponent } from './mydspace-actions/workspaceitem/workspaceitem-actions.component';
@@ -128,7 +120,6 @@ import { CreateItemParentSelectorComponent } from './dso-selector/modal-wrappers
 import { CreateCollectionParentSelectorComponent } from './dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import { CommunitySearchResultListElementComponent } from './object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { CollectionSearchResultListElementComponent } from './object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
-import { ItemSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-search-result-list-element.component';
 import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
@@ -145,9 +136,16 @@ import { ItemSelectComponent } from './object-select/item-select/item-select.com
 import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
 import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { DsoInputSuggestionsComponent } from './input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
-import { TypedItemSearchResultGridElementComponent } from './object-grid/item-grid-element/item-types/typed-item-search-result-grid-element.component';
 import { PublicationGridElementComponent } from './object-grid/item-grid-element/item-types/publication/publication-grid-element.component';
 import { ItemTypeBadgeComponent } from './object-list/item-type-badge/item-type-badge.component';
+import { MetadataRepresentationLoaderComponent } from './metadata-representation/metadata-representation-loader.component';
+import { MetadataRepresentationDirective } from './metadata-representation/metadata-representation.directive';
+import { ListableObjectComponentLoaderComponent } from './object-collection/shared/listable-object/listable-object-component-loader.component';
+import { PublicationSearchResultListElementComponent } from './object-list/search-result-list-element/item-search-result/item-types/publication/publication-search-result-list-element.component';
+import { PublicationSearchResultGridElementComponent } from './object-grid/search-result-grid-element/item-search-result/publication/publication-search-result-grid-element.component';
+import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
+import { CommunitySearchResultGridElementComponent } from './object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
+import { CollectionSearchResultGridElementComponent } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 import { ItemMetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
 
 const MODULES = [
@@ -229,16 +227,12 @@ const COMPONENTS = [
   ObjectDetailComponent,
   ObjectGridComponent,
   AbstractListableElementComponent,
-  WrapperListElementComponent,
-  WrapperDetailElementComponent,
-  WrapperGridElementComponent,
   ObjectCollectionComponent,
   PaginationComponent,
   SearchFormComponent,
   ThumbnailComponent,
   GridThumbnailComponent,
   UploaderComponent,
-  WrapperListElementComponent,
   ItemListPreviewComponent,
   MyDSpaceItemStatusComponent,
   ItemSubmitterComponent,
@@ -268,36 +262,40 @@ const COMPONENTS = [
   EditItemSelectorComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
-  ItemSearchResultListElementComponent,
-  TypedItemSearchResultListElementComponent,
-  TypedItemSearchResultGridElementComponent,
-  ItemTypeSwitcherComponent,
+  CommunitySearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
+  ListableObjectComponentLoaderComponent,
+  CollectionListElementComponent,
+  CommunityListElementComponent,
+  CollectionGridElementComponent,
+  CommunityGridElementComponent,
   BrowseByComponent,
   AbstractTrackableComponent,
   ComcolMetadataComponent,
   ItemTypeBadgeComponent,
   ItemSelectComponent,
-  CollectionSelectComponent
+  CollectionSelectComponent,
+  MetadataRepresentationLoaderComponent
 ];
 
 const ENTRY_COMPONENTS = [
   // put shared entry components (components that are created dynamically) here
-  ItemListElementComponent,
   CollectionListElementComponent,
   CommunityListElementComponent,
-  MyDSpaceResultListElementComponent,
   SearchResultListElementComponent,
   CommunitySearchResultListElementComponent,
   CollectionSearchResultListElementComponent,
-  ItemSearchResultListElementComponent,
-  ItemGridElementComponent,
   CollectionGridElementComponent,
   CommunityGridElementComponent,
+  CommunitySearchResultGridElementComponent,
+  CollectionSearchResultGridElementComponent,
   SearchResultGridElementComponent,
   PublicationListElementComponent,
   PublicationGridElementComponent,
+  PublicationSearchResultListElementComponent,
+  PublicationSearchResultGridElementComponent,
   BrowseEntryListElementComponent,
-  MyDSpaceResultDetailElementComponent,
+  SearchResultDetailElementComponent,
   SearchResultGridElementComponent,
   DsDynamicListComponent,
   DsDynamicLookupComponent,
@@ -348,7 +346,9 @@ const DIRECTIVES = [
   AuthorityConfidenceStateDirective,
   InListValidator,
   AutoFocusDirective,
-  RoleDirective
+  RoleDirective,
+  MetadataRepresentationDirective,
+  ListableObjectDirective
 ];
 
 @NgModule({
@@ -361,7 +361,8 @@ const DIRECTIVES = [
     ...COMPONENTS,
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
-    ...SHARED_ITEM_PAGE_COMPONENTS
+    ...SHARED_ITEM_PAGE_COMPONENTS,
+    PublicationSearchResultListElementComponent
   ],
   providers: [
     ...PROVIDERS

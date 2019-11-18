@@ -44,6 +44,7 @@ export abstract class TypedObject {
  */
 export class CacheableObject extends TypedObject {
   uuid?: string;
+  handle?: string;
   self: string;
   // isNew: boolean;
   // dirtyType: DirtyType;

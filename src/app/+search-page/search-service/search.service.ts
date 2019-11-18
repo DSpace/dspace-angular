@@ -97,14 +97,8 @@ export class SearchService implements OnDestroy {
     }
   }
 
-  /**
-   * Method to retrieve a paginated list of search results from the server
-   * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
-   * @param responseMsToLive The amount of milliseconds for the response to live in cache
-   * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
-   */
-  search(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
-    const hrefObs = this.halService.getEndpoint(this.searchLinkPath).pipe(
+  getEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
+    return this.halService.getEndpoint(this.searchLinkPath).pipe(
       map((url: string) => {
         if (hasValue(searchOptions)) {
           return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
@@ -113,6 +107,17 @@ export class SearchService implements OnDestroy {
         }
       })
     );
+  }
+
+  /**
+   * Method to retrieve a paginated list of search results from the server
+   * @param {PaginatedSearchOptions} searchOptions The configuration necessary to perform this search
+   * @param responseMsToLive The amount of milliseconds for the response to live in cache
+   * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
+   */
+  search(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+
+    const hrefObs = this.getEndpoint(searchOptions);
 
     const requestObs = hrefObs.pipe(
       map((url: string) => {
@@ -160,7 +165,7 @@ export class SearchService implements OnDestroy {
           let co = DSpaceObject;
           if (dsos.payload[index]) {
             const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;
-            co = getSearchResultFor(constructor, searchOptions.configuration);
+            co = getSearchResultFor(constructor);
             return Object.assign(new co(), object, {
               indexableObject: dsos.payload[index]
             });
@@ -341,7 +346,7 @@ export class SearchService implements OnDestroy {
       if (isNotEmpty(params.get('view')) && hasValue(params.get('view'))) {
         return params.get('view');
       } else {
-        return ViewMode.List;
+        return ViewMode.ListElement;
       }
     }));
   }
@@ -354,7 +359,7 @@ export class SearchService implements OnDestroy {
     this.routeService.getQueryParameterValue('pageSize').pipe(first())
       .subscribe((pageSize) => {
         let queryParams = { view: viewMode, page: 1 };
-        if (viewMode === ViewMode.Detail) {
+        if (viewMode === ViewMode.DetailedListElement) {
           queryParams = Object.assign(queryParams, {pageSize: '1'});
         } else if (pageSize === '1') {
           queryParams = Object.assign(queryParams, {pageSize: '10'});

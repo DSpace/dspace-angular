@@ -10,7 +10,7 @@ import { MetadataSchema } from './metadata-schema.model';
  */
 @mapsTo(MetadataField)
 @inheritSerialization(NormalizedObject)
-export class NormalizedMetadataField extends NormalizedObject<MetadataField> implements ListableObject {
+export class NormalizedMetadataField extends NormalizedObject<MetadataField> {
 
   /**
    * The identifier of this normalized metadata field

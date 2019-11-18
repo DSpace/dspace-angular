@@ -91,7 +91,7 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
       && this.isSuccessStatus(data.statusCode)) {
-      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject>(data.payload, request.href);
+      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject>(data.payload, request);
       return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else if (isEmpty(data.payload) && this.isSuccessStatus(data.statusCode)) {
       return new SubmissionSuccessResponse(null, data.statusCode, data.statusText);
@@ -109,11 +109,11 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
    * Parses response and normalize it
    *
    * @param {DSpaceRESTV2Response} data
-   * @param {string} requestHref
+   * @param {RestRequest} request
    * @returns {any[]}
    */
-  protected processResponse<ObjectDomain>(data: any, requestHref: string): any[] {
-    const dataDefinition = this.process<ObjectDomain>(data, requestHref);
+  protected processResponse<ObjectDomain>(data: any, request: RestRequest): any[] {
+    const dataDefinition = this.process<ObjectDomain>(data, request);
     const normalizedDefinition = Array.of();
     const processedList = Array.isArray(dataDefinition) ? dataDefinition : Array.of(dataDefinition);
 

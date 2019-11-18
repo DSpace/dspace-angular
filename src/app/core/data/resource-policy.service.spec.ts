@@ -61,7 +61,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.findByHref(requestURL));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new GetRequest(requestUUID, requestURL, null), false);
+      expect(requestService.configure).toHaveBeenCalledWith(new GetRequest(requestUUID, requestURL, null));
     });
 
     it('should return a RemoteData<ResourcePolicy> for the object with the given URL', () => {

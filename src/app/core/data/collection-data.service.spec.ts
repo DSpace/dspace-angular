@@ -37,7 +37,7 @@ describe('CollectionDataService', () => {
     });
 
     it('should configure a GET request', () => {
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(GetRequest), undefined);
+      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(GetRequest));
     });
   });
 

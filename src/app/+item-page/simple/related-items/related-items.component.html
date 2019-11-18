@@ -1,5 +1,11 @@
-<ds-metadata-field-wrapper *ngIf="items && items.length > 0" [label]="label">
-  <ds-item-type-switcher *ngFor="let item of items"
+<ds-metadata-field-wrapper *ngIf="(items$ | async)?.payload?.page?.length > 0" [label]="label">
+  <ds-listable-object-component-loader *ngFor="let item of (items$ | async)?.payload?.page"
                            [object]="item" [viewMode]="viewMode">
-  </ds-item-type-switcher>
+  </ds-listable-object-component-loader>
+  <div *ngIf="(items$ | async)?.payload?.page?.length < (items$ | async)?.payload?.totalElements" class="mt-2" id="view-more">
+    <a [routerLink]="" (click)="viewMore()">{{'item.page.related-items.view-more' | translate}}</a>
+  </div>
+  <div *ngIf="showingAll" class="mt-2" id="view-less">
+    <a [routerLink]="" (click)="viewLess()">{{'item.page.related-items.view-less' | translate}}</a>
+  </div>
 </ds-metadata-field-wrapper>

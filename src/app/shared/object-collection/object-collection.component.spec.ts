@@ -1,11 +1,11 @@
 import { ObjectCollectionComponent } from './object-collection.component';
-import { SetViewMode } from '../view-mode';
 import { By } from '@angular/platform-browser';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 import { RouterStub } from '../testing/router-stub';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 describe('ObjectCollectionComponent', () => {
   let fixture: ComponentFixture<ObjectCollectionComponent>;
@@ -36,14 +36,14 @@ describe('ObjectCollectionComponent', () => {
 
   }));
   it('should only show the grid component when the viewmode is set to grid', () => {
-    objectCollectionComponent.currentMode$ = observableOf(SetViewMode.Grid);
+    objectCollectionComponent.currentMode$ = observableOf(ViewMode.GridElement);
 
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeNull();
   });
 
   it('should only show the list component when the viewmode is set to list', () => {
-    objectCollectionComponent.currentMode$ = observableOf(SetViewMode.List);
+    objectCollectionComponent.currentMode$ = observableOf(ViewMode.ListElement);
 
     expect(fixture.debugElement.query(By.css('ds-object-list'))).toBeDefined();
     expect(fixture.debugElement.query(By.css('ds-object-grid'))).toBeNull();

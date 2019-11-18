@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Injector, Input } from '@angular/core';
 
-import { find } from 'rxjs/operators';
+import { find, take, tap } from 'rxjs/operators';
 
 import { MydspaceActionsServiceFactory } from './mydspace-actions-service.factory';
 import { RemoteData } from '../../core/data/remote-data';
@@ -11,6 +11,9 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SearchService } from '../../+search-page/search-service/search.service';
+import { RequestService } from '../../core/data/request.service';
+import { Subscription } from 'rxjs';
 
 /**
  * Abstract class for all different representations of mydspace actions
@@ -27,6 +30,8 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    */
   protected objectDataService: TService;
 
+  protected subscription: Subscription;
+
   /**
    * Initialize instance variables
    *
@@ -35,13 +40,17 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * @param {Router} router
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
+   * @param {SearchService} searchService
+   * @param {RequestService} requestService
    */
   constructor(
     protected objectType: ResourceType,
     protected injector: Injector,
     protected router: Router,
     protected notificationsService: NotificationsService,
-    protected translate: TranslateService) {
+    protected translate: TranslateService,
+    protected searchService: SearchService,
+    protected requestService: RequestService) {
     const factory = new MydspaceActionsServiceFactory<T, TService>();
     this.objectDataService = injector.get(factory.getConstructor(objectType));
   }
@@ -57,13 +66,18 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
    * Refresh current page
    */
   reload(): void {
+    this.router.navigated = false;
+    const url = decodeURIComponent(this.router.url);
     // override the route reuse strategy
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
-    this.router.navigated = false;
-    const url = decodeURIComponent(this.router.url);
-    this.router.navigateByUrl(url);
+    // This assures that the search cache is empty before reloading mydspace.
+    // See https://github.com/DSpace/dspace-angular/pull/468
+    this.searchService.getEndpoint().pipe(
+      take(1),
+      tap((cachedHref) => this.requestService.removeByHrefSubstring(cachedHref))
+    ).subscribe(() => this.router.navigateByUrl(url));
   }
 
   /**
