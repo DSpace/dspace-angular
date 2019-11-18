@@ -51,6 +51,7 @@ export class ComcolMetadataComponent<TDomain extends DSpaceObject> implements On
   onSubmit(event) {
     const dso = event.dso;
     const uploader = event.uploader;
+    const deleteLogo = event.deleteLogo;
 
     this.dsoDataService.update(dso)
       .pipe(getSucceededRemoteData())
@@ -62,7 +63,7 @@ export class ComcolMetadataComponent<TDomain extends DSpaceObject> implements On
               uploader.options.url = href;
               uploader.uploadAll();
             });
-          } else {
+          } else if (!deleteLogo) {
             this.router.navigate([this.frontendURL + newUUID]);
           }
           this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.notifications.success'));

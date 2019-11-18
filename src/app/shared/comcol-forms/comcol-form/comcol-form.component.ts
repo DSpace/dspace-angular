@@ -25,7 +25,6 @@ import { combineLatest as observableCombineLatest } from 'rxjs';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { RequestService } from '../../../core/data/request.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { take } from 'rxjs/operators';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -85,19 +84,25 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    */
   @Output() submitForm: EventEmitter<{
     dso: T,
-    uploader: FileUploader
+    uploader: FileUploader,
+    deleteLogo: boolean
   }> = new EventEmitter();
 
   /**
-   * Fires an event when the logo has finished uploading (with or without errors)
+   * Fires an event when the logo has finished uploading (with or without errors) or was removed
    */
-  @Output() finishUpload: EventEmitter<any> = new EventEmitter();
+  @Output() finish: EventEmitter<any> = new EventEmitter();
 
   /**
    * Observable keeping track whether or not the uploader has finished initializing
    * Used to start rendering the uploader component
    */
   initializedUploaderOptions = new BehaviorSubject(false);
+
+  /**
+   * Is the logo marked to be deleted?
+   */
+  markLogoForDeletion = false;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -160,6 +165,26 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    * Checks which new fields were added and sends the updated version of the DSO to the parent component
    */
   onSubmit() {
+    if (this.markLogoForDeletion && hasValue(this.dso.id)) {
+      this.dsoService.deleteLogo(this.dso).subscribe((response: RestResponse) => {
+        if (response.isSuccessful) {
+          this.notificationsService.success(
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
+          );
+        } else {
+          const errorResponse = response as ErrorResponse;
+          this.notificationsService.error(
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
+            errorResponse.errorMessage
+          );
+        }
+        (this.dso as any).logo = undefined;
+        this.uploadFilesOptions.method = RestRequestMethod.POST;
+        this.finish.emit();
+      });
+    }
+
     const formMetadata = new Object() as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
@@ -182,7 +207,8 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
     });
     this.submitForm.emit({
       dso: updatedDSO,
-      uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined
+      uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
+      deleteLogo: this.markLogoForDeletion
     });
   }
 
@@ -204,27 +230,18 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   }
 
   /**
+   * Mark the logo to be deleted
    * Send out a delete request to remove the logo from the community/collection and display notifications
    */
   deleteLogo() {
-    if (hasValue(this.dso.id)) {
-      this.dsoService.deleteLogo(this.dso).subscribe((response: RestResponse) => {
-        if (response.isSuccessful) {
-          this.notificationsService.success(
-            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
-            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
-          );
-        } else {
-          const errorResponse = response as ErrorResponse;
-          this.notificationsService.error(
-            this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
-            errorResponse.errorMessage
-          );
-        }
-        (this.dso as any).logo = undefined;
-        this.uploadFilesOptions.method = RestRequestMethod.POST;
-      });
-    }
+    this.markLogoForDeletion = true;
+  }
+
+  /**
+   * Undo marking the logo to be deleted
+   */
+  undoDeleteLogo() {
+    this.markLogoForDeletion = false;
   }
 
   /**
@@ -241,7 +258,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
   public onCompleteItem() {
     this.refreshCache();
     this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
-    this.finishUpload.emit();
+    this.finish.emit();
   }
 
   /**
@@ -249,7 +266,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
    */
   public onUploadError() {
     this.notificationsService.error(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.error'));
-    this.finishUpload.emit();
+    this.finish.emit();
   }
 
   /**

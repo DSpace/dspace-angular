@@ -22,8 +22,9 @@ import { ErrorResponse, RestResponse } from '../../../core/cache/response.models
 import { RequestError } from '../../../core/data/request.models';
 import { RequestService } from '../../../core/data/request.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { By } from '@angular/platform-browser';
 
-describe('ComColFormComponent', () => {
+fdescribe('ComColFormComponent', () => {
   let comp: ComColFormComponent<DSpaceObject>;
   let fixture: ComponentFixture<ComColFormComponent<DSpaceObject>>;
   let location: Location;
@@ -136,7 +137,8 @@ describe('ComColFormComponent', () => {
                 type: Community.type
               },
             ),
-            uploader: {}
+            uploader: {},
+            deleteLogo: false
           }
         );
       })
@@ -151,7 +153,7 @@ describe('ComColFormComponent', () => {
 
     describe('onCompleteItem', () => {
       beforeEach(() => {
-        spyOn(comp.finishUpload, 'emit');
+        spyOn(comp.finish, 'emit');
         comp.onCompleteItem();
       });
 
@@ -159,8 +161,8 @@ describe('ComColFormComponent', () => {
         expect(notificationsService.success).toHaveBeenCalled();
       });
 
-      it('should emit finishUpload', () => {
-        expect(comp.finishUpload.emit).toHaveBeenCalled();
+      it('should emit finish', () => {
+        expect(comp.finish.emit).toHaveBeenCalled();
       });
 
       it('should remove the object\'s cache', () => {
@@ -171,7 +173,7 @@ describe('ComColFormComponent', () => {
 
     describe('onUploadError', () => {
       beforeEach(() => {
-        spyOn(comp.finishUpload, 'emit');
+        spyOn(comp.finish, 'emit');
         comp.onUploadError();
       });
 
@@ -179,8 +181,8 @@ describe('ComColFormComponent', () => {
         expect(notificationsService.error).toHaveBeenCalled();
       });
 
-      it('should emit finishUpload', () => {
-        expect(comp.finishUpload.emit).toHaveBeenCalled();
+      it('should emit finish', () => {
+        expect(comp.finish.emit).toHaveBeenCalled();
       });
     });
   });
@@ -219,13 +221,17 @@ describe('ComColFormComponent', () => {
         expect(comp.uploadFilesOptions.method).toEqual(RestRequestMethod.PUT);
       });
 
-      describe('deleteLogo', () => {
+      describe('submit with logo marked for deletion', () => {
+        beforeEach(() => {
+          comp.markLogoForDeletion = true;
+        });
+
         describe('when dsoService.deleteLogo returns a successful response', () => {
           const response = new RestResponse(true, 200, 'OK');
 
           beforeEach(() => {
             spyOn(dsoService, 'deleteLogo').and.returnValue(observableOf(response));
-            comp.deleteLogo();
+            comp.onSubmit();
           });
 
           it('should display a success notification', () => {
@@ -238,12 +244,65 @@ describe('ComColFormComponent', () => {
 
           beforeEach(() => {
             spyOn(dsoService, 'deleteLogo').and.returnValue(observableOf(response));
-            comp.deleteLogo();
+            comp.onSubmit();
           });
 
           it('should display an error notification', () => {
             expect(notificationsService.error).toHaveBeenCalled();
           });
+        });
+      });
+
+      describe('deleteLogo', () => {
+        beforeEach(() => {
+          comp.deleteLogo();
+          fixture.detectChanges();
+        });
+
+        it('should set markLogoForDeletion to true', () => {
+          expect(comp.markLogoForDeletion).toEqual(true);
+        });
+
+        it('should mark the logo section with a danger alert', () => {
+          const logoSection = fixture.debugElement.query(By.css('#logo-section.alert-danger'));
+          expect(logoSection).toBeTruthy();
+        });
+
+        it('should hide the delete button', () => {
+          const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
+          expect(button).not.toBeTruthy();
+        });
+
+        it('should show the undo button', () => {
+          const button = fixture.debugElement.query(By.css('#logo-section .btn-warning'));
+          expect(button).toBeTruthy();
+        });
+      });
+
+      describe('undoDeleteLogo', () => {
+        beforeEach(() => {
+          comp.markLogoForDeletion = true;
+          comp.undoDeleteLogo();
+          fixture.detectChanges();
+        });
+
+        it('should set markLogoForDeletion to false', () => {
+          expect(comp.markLogoForDeletion).toEqual(false);
+        });
+
+        it('should disable the danger alert on the logo section', () => {
+          const logoSection = fixture.debugElement.query(By.css('#logo-section.alert-danger'));
+          expect(logoSection).not.toBeTruthy();
+        });
+
+        it('should show the delete button', () => {
+          const button = fixture.debugElement.query(By.css('#logo-section .btn-danger'));
+          expect(button).toBeTruthy();
+        });
+
+        it('should hide the undo button', () => {
+          const button = fixture.debugElement.query(By.css('#logo-section .btn-warning'));
+          expect(button).not.toBeTruthy();
         });
       });
     });
