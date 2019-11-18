@@ -7,6 +7,14 @@ import { PersonSearchResultListSubmissionElementComponent } from './person-searc
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ItemDataService } from '../../../../../core/data/item-data.service';
+import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../../app.reducer';
 
 let personListElementComponent: PersonSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListSubmissionElementComponent>;
@@ -48,12 +56,24 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
     })
   });
 
+const nameVariant = "Doe J.";
+const mockRelationshipService = {
+  getNameVariant: () => observableOf(nameVariant)
+};
+
 describe('PersonSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
       providers: [
-        { provide: TruncatableService, useValue: {} }
+        { provide: TruncatableService, useValue: {} },
+        { provide: RelationshipService, useValue: mockRelationshipService },
+        { provide: NotificationsService, useValue: {} },
+        { provide: TranslateService, useValue: {} },
+        { provide: NgbModal, useValue: {} },
+        { provide: ItemDataService, useValue: {} },
+        { provide: SelectableListService, useValue: {} },
+        { provide: Store, useValue: {}}
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

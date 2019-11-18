@@ -27,7 +27,6 @@ import { SelectableListService } from '../../../../../shared/object-list/selecta
  * The component for displaying a list element for an item search result of the type Person
  */
 export class PersonSearchResultListSubmissionElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
-  suggestions: string[];
   allSuggestions: string[];
   selectedName: string;
   alternativeField = 'dc.title.alternative';
@@ -47,7 +46,6 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
     const defaultValue = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
     const alternatives = this.allMetadataValues(this.alternativeField);
     this.allSuggestions = [defaultValue, ...alternatives];
-    this.suggestions = this.allSuggestions;
 
     this.relationshipService.getNameVariant(this.listID, this.dso.uuid)
       .pipe(take(1))
@@ -55,10 +53,6 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
           this.selectedName = nameVariant || defaultValue;
         }
       );
-  }
-
-  filter(query) {
-    this.suggestions = this.allSuggestions.filter((suggestion) => suggestion.includes(query));
   }
 
   select(value) {

@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Item } from '../shared/item.model';
+import * as uuidv4 from 'uuid/v4';
 
 const endpoint = 'https://rest.api/core';
 
@@ -52,10 +53,10 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
   }
 
 }
-describe('DataService', () => {
+fdescribe('DataService', () => {
   let service: TestService;
   let options: FindAllOptions;
-  const requestService = {} as RequestService;
+  const requestService = {generateRequestId: () => uuidv4()} as RequestService;
   const halService = {} as HALEndpointService;
   const rdbService = {} as RemoteDataBuildService;
   const notificationsService = {} as NotificationsService;
