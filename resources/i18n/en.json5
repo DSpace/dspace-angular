@@ -415,13 +415,9 @@
   "error.collections": "Error fetching collections",
 
   "error.community": "Error fetching community",
-<<<<<<< HEAD
-  "error.identifier": "No item found for the identifier",
-=======
 
   "error.identifier": "No item found for the identifier",
 
->>>>>>> Merged new message keys from dspace/master and ran script again
   "error.default": "Error",
 
   "error.item": "Error fetching item",
