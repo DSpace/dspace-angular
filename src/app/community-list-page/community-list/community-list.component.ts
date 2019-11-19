@@ -14,7 +14,7 @@ export class CommunityListComponent implements OnInit {
   public loadingNode: FlatNode;
 
   treeControl = new FlatTreeControl<FlatNode>(
-    (node) => node.level, (node) => node.isExpandable
+    (node) => node.level, (node) => true
   );
 
   dataSource: CommunityListDatasource;
@@ -29,7 +29,7 @@ export class CommunityListComponent implements OnInit {
 
   // whether or not this node has children (subcommunities or collections)
   hasChild(_: number, node: FlatNode) {
-    return node.isExpandable;
+    return node.isExpandable$;
   }
 
   // whether or not it is a show more node (contains no data, but is indication that there are more topcoms, subcoms or collections
@@ -68,15 +68,13 @@ export class CommunityListComponent implements OnInit {
   getNextPage(node: FlatNode): void {
     this.loadingNode = node;
     if (node.parent != null) {
-      if (node.parent.isExpandable) {
-        if (node.id === 'collection') {
-          const parentNodeInExpandedNodes = this.expandedNodes.find((node2: FlatNode) => node.parent.id === node2.id);
-          parentNodeInExpandedNodes.currentCollectionPage++;
-        }
-        if (node.id === 'community') {
-          const parentNodeInExpandedNodes = this.expandedNodes.find((node2: FlatNode) => node.parent.id === node2.id);
-          parentNodeInExpandedNodes.currentCommunityPage++;
-        }
+      if (node.id === 'collection') {
+        const parentNodeInExpandedNodes = this.expandedNodes.find((node2: FlatNode) => node.parent.id === node2.id);
+        parentNodeInExpandedNodes.currentCollectionPage++;
+      }
+      if (node.id === 'community') {
+        const parentNodeInExpandedNodes = this.expandedNodes.find((node2: FlatNode) => node.parent.id === node2.id);
+        parentNodeInExpandedNodes.currentCommunityPage++;
       }
       this.dataSource.loadCommunities(this.expandedNodes);
     } else {
