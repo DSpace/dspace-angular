@@ -15,7 +15,11 @@ export class TabbedRelatedEntitiesSearchComponent {
    * The types of relationships to fetch items for
    * e.g. 'isAuthorOfPublication'
    */
-  @Input() relationTypes: string[];
+  @Input() relationTypes: Array<{
+    label: string,
+    filter: string,
+    configuration?: string
+  }>;
 
   /**
    * The item to render relationships for

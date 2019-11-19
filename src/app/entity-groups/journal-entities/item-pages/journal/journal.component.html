@@ -37,7 +37,10 @@
   </div>
   <div class="mt-5 w-100">
     <ds-tabbed-related-entities-search  [item]="object"
-                                        [relationTypes]="['isJournalOfPublication']">
+                                        [relationTypes]="[{
+                                          label: 'isJournalOfPublication',
+                                          filter: 'isJournalOfPublication'
+                                        }]">
     </ds-tabbed-related-entities-search>
   </div>
 </div>

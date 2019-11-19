@@ -32,7 +32,6 @@ import { SearchAuthorityFilterComponent } from './search-filters/search-filter/s
 import { SearchLabelComponent } from './search-labels/search-label/search-label.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
-import { FilteredSearchPageComponent } from './filtered-search-page.component';
 
 const effects = [
   SearchSidebarEffects
@@ -59,7 +58,6 @@ const components = [
   SearchFacetRangeOptionComponent,
   SearchSwitchConfigurationComponent,
   SearchAuthorityFilterComponent,
-  FilteredSearchPageComponent,
   ConfigurationSearchPageComponent
 ];
 

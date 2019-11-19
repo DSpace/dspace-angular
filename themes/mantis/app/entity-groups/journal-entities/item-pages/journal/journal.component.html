@@ -62,6 +62,9 @@
         <h3 class="h2">{{"item.page.journal.search.title" | translate}}</h3>
     </div>
     <ds-tabbed-related-entities-search  [item]="object"
-                                        [relationTypes]="['isJournalOfPublication']">
+                                        [relationTypes]="[{
+                                            label: 'isJournalOfPublication',
+                                            filter: 'isJournalOfPublication'
+                                          }]">
     </ds-tabbed-related-entities-search>
 </div>

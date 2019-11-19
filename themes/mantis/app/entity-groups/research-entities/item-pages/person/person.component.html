@@ -80,6 +80,9 @@
         <h3 class="h2">{{"item.page.person.search.title" | translate}}</h3>
     </div>
 <ds-tabbed-related-entities-search  [item]="object"
-                                    [relationTypes]="['isAuthorOfPublication']">
+                                    [relationTypes]="[{
+                                        label: 'isAuthorOfPublication',
+                                        filter: 'isAuthorOfPublication'
+                                      }]">
 </ds-tabbed-related-entities-search>
 </div>
