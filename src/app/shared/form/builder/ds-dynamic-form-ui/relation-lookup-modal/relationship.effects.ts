@@ -113,9 +113,9 @@ export class RelationshipEffects {
         mergeMap((type: RelationshipType) => {
             const isSwitched = type.rightwardType === relationshipType;
             if (isSwitched) {
-              return this.relationshipService.addRelationship(type.id, item2, item1, undefined, nameVariant);
+              return this.relationshipService.addRelationship(type.id, item2, item1, nameVariant, undefined);
             } else {
-              return this.relationshipService.addRelationship(type.id, item1, item2, nameVariant, undefined);
+              return this.relationshipService.addRelationship(type.id, item1, item2, undefined, nameVariant);
             }
           }
         )

@@ -318,13 +318,15 @@ export class RelationshipService extends DataService<Relationship> {
             })
           )
         ),
+        tap(() => this.removeRelationshipItemsFromCache(item1)),
+        tap(() => this.removeRelationshipItemsFromCache(item2)),
         switchMap((relationshipAndType: { relation: Relationship, type: RelationshipType }) => {
           const { relation, type } = relationshipAndType;
           let updatedRelationship;
           if (relationshipLabel === type.leftwardType) {
-            updatedRelationship = Object.assign(new Relationship(), relation, { leftwardValue: nameVariant });
-          } else {
             updatedRelationship = Object.assign(new Relationship(), relation, { rightwardValue: nameVariant });
+          } else {
+            updatedRelationship = Object.assign(new Relationship(), relation, { leftwardValue: nameVariant });
           }
           return this.update(updatedRelationship);
         })

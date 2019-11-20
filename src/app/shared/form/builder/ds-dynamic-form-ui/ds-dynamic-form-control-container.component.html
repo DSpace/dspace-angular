@@ -56,13 +56,15 @@
         <ul class="list-unstyled">
             <li *ngFor="let result of ( relationships$ | async); let i = index">
                 <ng-container *ngVar="result.indexableObject as v">
-                    <button type="button" class="close float-left" aria-label="Close button"
-                            (click)="removeSelection(result)">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <span class="d-inline-block align-middle ml-1">
-                        <ds-listable-object-component-loader [context]="context" [object]="v" [index]="i"></ds-listable-object-component-loader>
+                    <ng-container *ngIf="(modelValueMDRepresentation | async) && (modelValueMDRepresentation | async)[i]">
+                        <button type="button" class="close float-left" aria-label="Close button"
+                                (click)="removeSelection(result)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span class="d-inline-block align-middle ml-1">
+                        <ds-metadata-representation-loader [mdRepresentation]="(modelValueMDRepresentation | async)[i]"></ds-metadata-representation-loader>
                     </span>
+                    </ng-container>
                 </ng-container>
             </li>
         </ul>

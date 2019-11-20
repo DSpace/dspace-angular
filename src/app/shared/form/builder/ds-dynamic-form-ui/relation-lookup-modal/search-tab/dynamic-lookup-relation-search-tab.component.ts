@@ -80,7 +80,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
           /* TODO: in Rxjs 6.4.0 and up, we can replace this with takeWhile(predicate, true) - see https://stackoverflow.com/a/44644237 */
           multicast(
             () => new ReplaySubject(1),
-            subject => subject.pipe(
+            (subject) => subject.pipe(
               takeWhile((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => rd.isLoading),
               concat(subject.pipe(take(1)))
             )
@@ -146,7 +146,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: SearchResult<Item>[]) => this.deselectObject.emit(...selection));
+      .subscribe((selection: Array<SearchResult<Item>>) => this.deselectObject.emit(...selection));
     this.selectableListService.deselectAll(this.listId);
   }
 

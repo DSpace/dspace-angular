@@ -13,10 +13,11 @@ import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
+import { RelationshipOptions } from '../models/relationship-options.model';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
-export const INIT_FORM_VALUES:InjectionToken<any> = new InjectionToken<any>('initFormValues');
+export const INIT_FORM_VALUES: InjectionToken<any> = new InjectionToken<any>('initFormValues');
 export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<ParserOptions>('parserOptions');
 
 export abstract class FieldParser {
@@ -28,7 +29,8 @@ export abstract class FieldParser {
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions
-  ) {}
+  ) {
+  }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
@@ -196,7 +198,9 @@ export abstract class FieldParser {
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly;
     controlModel.disabled = this.parserOptions.readOnly;
-    controlModel.relationship = this.configData.selectableRelationship;
+    if (hasValue(this.configData.selectableRelationship)) {
+      controlModel.relationship = Object.assign(new RelationshipOptions(), this.configData.selectableRelationship);
+    }
     controlModel.repeatable = this.configData.repeatable;
     controlModel.metadataFields = isNotEmpty(this.configData.selectableMetadata) ? this.configData.selectableMetadata.map((metadataObject) => metadataObject.metadata) : [];
     controlModel.submissionId = this.submissionId;
@@ -220,14 +224,14 @@ export abstract class FieldParser {
     if (this.configData.languageCodes && this.configData.languageCodes.length > 0) {
       (controlModel as DsDynamicInputModel).languageCodes = this.configData.languageCodes;
     }
-/*    (controlModel as DsDynamicInputModel).languageCodes = [{
-        display: 'English',
-        code: 'en_US'
-      },
-      {
-        display: 'Italian',
-        code: 'it_IT'
-      }];*/
+    /*    (controlModel as DsDynamicInputModel).languageCodes = [{
+            display: 'English',
+            code: 'en_US'
+          },
+          {
+            display: 'Italian',
+            code: 'it_IT'
+          }];*/
 
     return controlModel;
   }
@@ -238,21 +242,21 @@ export abstract class FieldParser {
 
   protected addPatternValidator(controlModel) {
     const regex = new RegExp(this.configData.input.regex);
-    controlModel.validators = Object.assign({}, controlModel.validators, {pattern: regex});
+    controlModel.validators = Object.assign({}, controlModel.validators, { pattern: regex });
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      {pattern: 'error.validation.pattern'});
+      { pattern: 'error.validation.pattern' });
 
   }
 
   protected markAsRequired(controlModel) {
     controlModel.required = true;
-    controlModel.validators = Object.assign({}, controlModel.validators, {required: null});
+    controlModel.validators = Object.assign({}, controlModel.validators, { required: null });
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      {required: this.configData.mandatoryMessage});
+      { required: this.configData.mandatoryMessage });
   }
 
   protected setLabel(controlModel, label = true, labelEmpty = false) {
@@ -269,7 +273,7 @@ export abstract class FieldParser {
         if (key === 0) {
           controlModel.value = option.metadata;
         }
-        controlModel.options.push({label: option.label, value: option.metadata});
+        controlModel.options.push({ label: option.label, value: option.metadata });
       });
     }
   }
