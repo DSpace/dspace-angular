@@ -12,7 +12,7 @@ import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 
 const mockItem = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
     'dc.title': [
       {

@@ -11,6 +11,13 @@ import { Bitstream } from '../../shared/bitstream.model';
 @mapsTo(Bundle)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedBundle extends NormalizedDSpaceObject<Bundle> {
+
+  /**
+   * The bundle's name
+   */
+  @autoserialize
+  name: string;
+
   /**
    * The primary bitstream of this Bundle
    */

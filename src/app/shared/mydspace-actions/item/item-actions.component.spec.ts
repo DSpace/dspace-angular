@@ -25,7 +25,7 @@ let mockObject: Item;
 const mockDataService = {};
 
 mockObject = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
