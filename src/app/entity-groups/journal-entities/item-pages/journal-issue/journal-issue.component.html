@@ -1,52 +1,54 @@
 <h2 class="item-page-title-field">
-  {{'journalissue.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+  {{'journalissue.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>
-      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
+      <ds-thumbnail [thumbnail]="object.getThumbnail() | async"></ds-thumbnail>
     </ds-metadata-field-wrapper>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['publicationvolume.volumeNumber']"
       [label]="'journalvolume.page.volume'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['publicationissue.issueNumber']"
       [label]="'journalissue.page.number'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['creativework.datePublished']"
       [label]="'journalissue.page.issuedate'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['journal.title']"
       [label]="'journalissue.page.journal-title'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['creativeworkseries.issn']"
       [label]="'journalissue.page.journal-issn'">
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
-      [items]="volumes$ | async"
+      [parentItem]="object"
+      [relationType]="'isJournalVolumeOfIssue'"
       [label]="'relationships.isSingleVolumeOf' | translate">
     </ds-related-items>
     <ds-related-items
       class="mb-1 mt-1"
-      [items]="publications$ | async"
+      [parentItem]="object"
+      [relationType]="'isPublicationOfJournalIssue'"
       [label]="'relationships.isPublicationOfJournalIssue' | translate">
     </ds-related-items>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['dc.description']"
       [label]="'journalissue.page.description'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['creativework.keywords']"
       [label]="'journalissue.page.keyword'">
     </ds-generic-item-page-field>
     <div>
-      <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + object.id + '/full']">
         {{"item.page.link.full" | translate}}
       </a>
     </div>

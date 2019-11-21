@@ -1,2 +1,3 @@
-<a [routerLink]="['/communities/' + dso.id]" class="lead" [innerHTML]="firstMetadataValue('dc.title')"></a>
+<a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" rel="noopener noreferrer"  [routerLink]="['/communities/' + dso.id]" class="lead" [innerHTML]="firstMetadataValue('dc.title')"></a>
+<span *ngIf="linkType == linkTypes.None" class="lead" [innerHTML]="firstMetadataValue('dc.title')"></span>
 <div *ngIf="dso.shortDescription" class="text-muted abstract-text" [innerHTML]="firstMetadataValue('dc.description.abstract')"></div>

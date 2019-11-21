@@ -1,11 +1,11 @@
 import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 import { Component } from '@angular/core';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
-import { DEFAULT_ITEM_TYPE, ItemViewMode, rendersItemType } from '../../../items/item-type-decorator';
+import { metadataRepresentationComponent } from '../../../metadata-representation/metadata-representation.decorator';
 
-@rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Metadata, MetadataRepresentationType.PlainText)
+@metadataRepresentationComponent('Publication', MetadataRepresentationType.PlainText)
 // For now, authority controlled fields are rendered the same way as plain text fields
-@rendersItemType(DEFAULT_ITEM_TYPE, ItemViewMode.Metadata, MetadataRepresentationType.AuthorityControlled)
+@metadataRepresentationComponent('Publication', MetadataRepresentationType.AuthorityControlled)
 @Component({
   selector: 'ds-plain-text-metadata-list-element',
   templateUrl: './plain-text-metadata-list-element.component.html'

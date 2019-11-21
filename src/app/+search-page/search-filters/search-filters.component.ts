@@ -71,7 +71,7 @@ export class SearchFiltersComponent implements OnInit {
   /**
    * @returns {string} The base path to the search page, or the current page when inPlaceSearch is true
    */
-  private getSearchLink(): string {
+  getSearchLink(): string {
     if (this.inPlaceSearch) {
       return './';
     }

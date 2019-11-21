@@ -1,12 +1,13 @@
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { TypedObject } from '../cache/object-cache.reducer';
 import { ResourceType } from './resource-type';
+import { GenericConstructor } from './generic-constructor';
 
 /**
  * Class object representing a browse entry
  * This class is not normalized because browse entries do not have self links
  */
-export class BrowseEntry implements ListableObject, TypedObject {
+export class BrowseEntry implements ListableObject {
   static type = new ResourceType('browseEntry');
 
   /**
@@ -28,4 +29,11 @@ export class BrowseEntry implements ListableObject, TypedObject {
    * The count of this browse entry
    */
   count: number;
+
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
+  }
 }

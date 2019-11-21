@@ -4,8 +4,10 @@ import { Observable } from 'rxjs/internal/Observable';
 import { FieldUpdate, FieldUpdates } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { Item } from '../../../../core/shared/item.model';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { hasValue } from '../../../../shared/empty.util';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../core/data/paginated-list';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -63,7 +65,7 @@ export class EditRelationshipListComponent implements OnInit, OnChanges {
    * Transform the item's relationships of a specific type into related items
    * @param label   The relationship type's label
    */
-  public getRelatedItemsByLabel(label: string): Observable<Item[]> {
+  public getRelatedItemsByLabel(label: string): Observable<RemoteData<PaginatedList<Item>>> {
     return this.relationshipService.getRelatedItemsByLabel(this.item, label);
   }
 
@@ -73,7 +75,7 @@ export class EditRelationshipListComponent implements OnInit, OnChanges {
    */
   public getUpdatesByLabel(label: string): Observable<FieldUpdates> {
     return this.getRelatedItemsByLabel(label).pipe(
-      switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, items))
+      switchMap((itemsRD) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, itemsRD.payload.page))
     )
   }
 
