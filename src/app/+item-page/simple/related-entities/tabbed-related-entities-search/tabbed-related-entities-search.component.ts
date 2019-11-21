@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ds-tabbed-related-entities-search',
@@ -10,7 +11,7 @@ import { Item } from '../../../../core/shared/item.model';
  * Related items can be facetted, or queried using an
  * optional search box.
  */
-export class TabbedRelatedEntitiesSearchComponent {
+export class TabbedRelatedEntitiesSearchComponent implements OnInit {
   /**
    * The types of relationships to fetch items for
    * e.g. 'isAuthorOfPublication'
@@ -37,4 +38,35 @@ export class TabbedRelatedEntitiesSearchComponent {
    * @type {number}
    */
   @Input() sideBarWidth = 4;
+
+  /**
+   * The active tab
+   */
+  activeTab: string;
+
+  constructor(private route: ActivatedRoute,
+              private router: Router) {
+  }
+
+  /**
+   * If the url contains a "tab" query parameter, set this tab to be the active tab
+   */
+  ngOnInit(): void {
+    this.activeTab = this.route.snapshot.queryParams.tab;
+  }
+
+  /**
+   * Add a "tab" query parameter to the URL when changing tabs
+   * @param event
+   */
+  onTabChange(event) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        tab: event.nextId
+      },
+      queryParamsHandling: 'merge'
+    });
+  }
+
 }

@@ -1,5 +1,5 @@
-<ngb-tabset *ngIf="relationTypes.length > 1" [destroyOnHide]="true" #tabs="ngbTabset">
-  <ngb-tab *ngFor="let relationType of relationTypes" title="{{'item.page.relationships.' + relationType.label | translate}}">
+<ngb-tabset *ngIf="relationTypes.length > 1" [destroyOnHide]="true" #tabs="ngbTabset" [activeId]="activeTab" (tabChange)="onTabChange($event)">
+  <ngb-tab *ngFor="let relationType of relationTypes" title="{{'item.page.relationships.' + relationType.label | translate}}" [id]="relationType.filter">
     <ng-template ngbTabContent>
       <div class="mt-4">
         <ds-related-entities-search [item]="item"
