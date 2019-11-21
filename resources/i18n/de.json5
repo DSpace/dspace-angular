@@ -170,7 +170,7 @@
   // "browse.comcol.by.author": "By Author",
   "browse.comcol.by.author": "Nach Autor/in",
   // "browse.comcol.by.dateissued": "By Issue Date",
-  browse.comcol.by.dateissued": "Nach Erscheinungsjahr",
+  "browse.comcol.by.dateissued": "Nach Erscheinungsjahr",
   // "browse.comcol.by.subject": "By Subject",
   "browse.comcol.by.subject": "Nach Schlagwort",
   // "browse.comcol.by.title": "By Title",
