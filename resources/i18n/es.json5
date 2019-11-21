@@ -1571,7 +1571,7 @@
 //  "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "Rechazar",
 //  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Si ha revisado el ítem y ha encontrado que <strong> no es </strong> adecuado para su inclusión en la colección, seleccione \ "Rechazar \". Después se le pedirá que ingrese un mensaje que indique por qué el ítem no es adecuado y si el remitente debe cambiar algo y volver a enviarlo.",
+  "submission.workflow.tasks.claimed.reject_help": "Si ha revisado el ítem y ha encontrado que <strong> no es </strong> adecuado para su inclusión en la colección, seleccione \"Rechazar\". Después se le pedirá que ingrese un mensaje que indique por qué el ítem no es adecuado y si el remitente debe cambiar algo y volver a enviarlo.",
 //  "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Regresar al pool",
 //  "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
