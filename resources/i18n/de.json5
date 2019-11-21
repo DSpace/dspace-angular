@@ -1514,7 +1514,7 @@
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
   "submission.sections.upload.header.policy.default.nolist": "In diese Sammlung {{collectionName}} hochgeladene Dateien werden für folgende(n) Gruppe(n) zugänglich sein:",
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zugüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
+  "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zugüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
   "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zur Ressource gehören. Sie können die Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien hinzufügen, indem Sie sie einfach irgenwo auf diese Seite ziehen.</strong>",
   // "submission.sections.upload.no-entry": "No",
