@@ -1,186 +1,147 @@
 {
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  // TODO New key - Add a translation
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  "404.help": "Não pudemos encontrar a página pela qual procura. A página pode ter sido movida ou apagada. Você pode utilizar o botão abaixo para voltar a página inicial. ",
   
   // "404.link.home-page": "Take me to the home page",
-  // TODO New key - Add a translation
-  "404.link.home-page": "Take me to the home page",
+  "404.link.home-page": "Leve-me a página inicial",
   
   // "404.page-not-found": "page not found",
-  // TODO New key - Add a translation
-  "404.page-not-found": "page not found",
+  "404.page-not-found": "página não encontrada",
   
   
   
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
+  "admin.registries.bitstream-formats.create.failure.content": "Um erro ocorreu durante a criação do novo formato de bitstream.",
   
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.head": "Failure",
+  "admin.registries.bitstream-formats.create.failure.head": "Falha",
   
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
+  "admin.registries.bitstream-formats.create.head": "Criar formato de Bitstream",
   
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
+  "admin.registries.bitstream-formats.create.new": "Adicionar um novo formato de bitstream",
   
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
+  "admin.registries.bitstream-formats.create.success.content": "O novo formato de bitstream foi criado com sucesso.",
   
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.head": "Success",
+  "admin.registries.bitstream-formats.create.success.head": "Sucesso",
   
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
+  "admin.registries.bitstream-formats.delete.failure.amount": "Falha ao remover {{ amount }} formato(s)",
   
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.failure.head": "Failure",
+  "admin.registries.bitstream-formats.delete.failure.head": "Falha",
   
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
+  "admin.registries.bitstream-formats.delete.success.amount": "Removeu com sucesso {{ amount }} formato(s)",
   
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.delete.success.head": "Success",
+  "admin.registries.bitstream-formats.delete.success.head": "Sucesso",
   
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
+  "admin.registries.bitstream-formats.description": "Esta lista de formatos de bitstream provê informações sobre formatos conhecidos e seus níveis de suporte.",
   
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.description.hint": "",
   
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.description.label": "Description",
+  "admin.registries.bitstream-formats.edit.description.label": "Descrição",
   
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
+  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensões são extensões de arquivo que são usadas para identificar automaticamente o formato dos arquivo enviados. Você pode informar várias extensões para cada formato.",
   
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
+  "admin.registries.bitstream-formats.edit.extensions.label": "Extensões de arquivo",
   
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Informe uma extenção e arquivo sem o ponto",
   
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
+  "admin.registries.bitstream-formats.edit.failure.content": "Ocorreu um erro ao editar o formato de bitstream.",
   
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.head": "Failure",
+  "admin.registries.bitstream-formats.edit.failure.head": "Falha",
   
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Formato de bitstream: {{ format }}",
   
-  // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
+  // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formatos marcados como interno são ocultos para o usuário, and used for administrative purposes.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.label": "Internal",
+  "admin.registries.bitstream-formats.edit.internal.label": "Interno",
   
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "O MIME type associado à este formato não tem que ser único.",
   
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
   
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "Um nome único para este formato (exemplo. Microsoft Word XP ou Microsoft Word 2000)",
   
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
+  "admin.registries.bitstream-formats.edit.shortDescription.label": "Nome",
   
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
+  "admin.registries.bitstream-formats.edit.success.content": "O formato de bitstream foi editedo com sucesso.",
   
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.head": "Success",
+  "admin.registries.bitstream-formats.edit.success.head": "Sucesso",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "O nível de suporte que a sua instituição promete para este formato.",
   
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
+  "admin.registries.bitstream-formats.edit.supportLevel.label": "Nível de suporte",
   
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
+  "admin.registries.bitstream-formats.head": "Registro de Formato de Bitstream",
   
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
+  "admin.registries.bitstream-formats.no-items": "Nenhum formato de bitstream para exibir.",
   
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.delete": "Delete selected",
+  "admin.registries.bitstream-formats.table.delete": "Apagar selecionado(s)",
   
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
+  "admin.registries.bitstream-formats.table.deselect-all": "Deselecionar todos",
   
   // "admin.registries.bitstream-formats.table.internal": "internal",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.internal": "internal",
+  "admin.registries.bitstream-formats.table.internal": "Interno",
   
   // "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.mimetype": "MIME Type",
   
   // "admin.registries.bitstream-formats.table.name": "Name",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.name": "Name",
+  "admin.registries.bitstream-formats.table.name": "Nome",
   
   // "admin.registries.bitstream-formats.table.return": "Return",
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.table.return": "Return",
   
   // "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Known",
+  "admin.registries.bitstream-formats.table.supportLevel.KNOWN": "Conhecido",
   
   // "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Supported",
+  "admin.registries.bitstream-formats.table.supportLevel.SUPPORTED": "Com suporte",
   
   // "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Unknown",
+  "admin.registries.bitstream-formats.table.supportLevel.UNKNOWN": "Desconhecido",
   
   // "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
+  "admin.registries.bitstream-formats.table.supportLevel.head": "Nível de Suporte",
   
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "DSpace Angular :: Registro de Formato de Bitstream",
   
   
   
