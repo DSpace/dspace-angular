@@ -42,7 +42,7 @@ describe('CollectionDataService', () => {
       it('should configure a new ContentSourceRequest', fakeAsync(() => {
         contentSource$.subscribe();
         tick();
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(ContentSourceRequest), undefined);
+        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(ContentSourceRequest));
       }));
     });
 
@@ -58,7 +58,7 @@ describe('CollectionDataService', () => {
       it('should configure a new UpdateContentSourceRequest', fakeAsync(() => {
         returnedContentSource$.subscribe();
         tick();
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest), undefined);
+        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest));
       }));
     });
 
@@ -70,7 +70,7 @@ describe('CollectionDataService', () => {
       });
 
       it('should configure a GET request', () => {
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(GetRequest), undefined);
+        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(GetRequest));
       });
     });
 
@@ -99,7 +99,7 @@ describe('CollectionDataService', () => {
       it('should configure a new UpdateContentSourceRequest', fakeAsync(() => {
         returnedContentSource$.subscribe();
         tick();
-        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest), undefined);
+        expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(UpdateContentSourceRequest));
       }));
 
       it('should display an error notification', fakeAsync(() => {

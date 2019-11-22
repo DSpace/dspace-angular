@@ -1,5 +1,11 @@
-<ds-metadata-field-wrapper *ngIf="representations && representations.length > 0" [label]="label">
-  <ds-item-type-switcher *ngFor="let rep of representations"
-                           [object]="rep" [viewMode]="viewMode">
-  </ds-item-type-switcher>
+<ds-metadata-field-wrapper *ngIf="representations$ && (representations$ | async)?.length > 0" [label]="label">
+  <ds-metadata-representation-loader *ngFor="let rep of (representations$ | async)"
+                         [mdRepresentation]="rep">
+  </ds-metadata-representation-loader>
+  <div *ngIf="(representations$ | async)?.length < total" class="mt-2">
+    <a [routerLink]="" (click)="viewMore()">{{'item.page.related-items.view-more' | translate}}</a>
+  </div>
+  <div *ngIf="limit > originalLimit" class="mt-2">
+    <a [routerLink]="" (click)="viewLess()">{{'item.page.related-items.view-less' | translate}}</a>
+  </div>
 </ds-metadata-field-wrapper>

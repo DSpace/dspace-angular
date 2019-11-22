@@ -43,7 +43,6 @@ import { INotification } from '../../shared/notifications/models/notification.mo
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
-  protected forceBypassCache = false;
   protected errorTitle = 'collection.source.update.notifications.error.title';
   protected contentSourceError = 'collection.source.update.notifications.error.content';
 

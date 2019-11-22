@@ -1,13 +1,12 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { MetadataMap } from '../core/shared/metadata.models';
-import { ListableObject } from '../shared/object-collection/shared/listable-object.model';
 import { NormalizedObject } from '../core/cache/models/normalized-object.model';
 
 /**
  * Represents a normalized version of a search result object of a certain DSpaceObject
  */
 @inheritSerialization(NormalizedObject)
-export class NormalizedSearchResult implements ListableObject {
+export class NormalizedSearchResult {
   /**
    * The UUID of the DSpaceObject that was found
    */
@@ -19,5 +18,4 @@ export class NormalizedSearchResult implements ListableObject {
    */
   @autoserialize
   hitHighlights: MetadataMap;
-
 }

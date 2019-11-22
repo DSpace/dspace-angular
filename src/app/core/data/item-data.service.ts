@@ -41,7 +41,6 @@ import { PaginatedList } from './paginated-list';
 @Injectable()
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

@@ -9,7 +9,7 @@ import { MetadataSchema } from './metadata-schema.model';
  */
 @mapsTo(MetadataSchema)
 @inheritSerialization(NormalizedObject)
-export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> implements ListableObject {
+export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> {
   /**
    * The unique identifier for this schema
    */

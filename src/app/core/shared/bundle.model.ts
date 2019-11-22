@@ -4,9 +4,15 @@ import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
 import { ResourceType } from './resource-type';
+import { PaginatedList } from '../data/paginated-list';
 
 export class Bundle extends DSpaceObject {
   static type = new ResourceType('bundle');
+
+  /**
+   * The bundle's name
+   */
+  name: string;
 
   /**
    * The primary bitstream of this Bundle
@@ -23,6 +29,9 @@ export class Bundle extends DSpaceObject {
    */
   owner: Observable<RemoteData<Item>>;
 
-  bitstreams: Observable<RemoteData<Bitstream[]>>
+  /**
+   * List of Bitstreams that are part of this Bundle
+   */
+  bitstreams: Observable<RemoteData<PaginatedList<Bitstream>>>;
 
 }

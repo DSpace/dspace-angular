@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RemoteData } from '../../core/data/remote-data';
 import { Observable, of as observableOf } from 'rxjs';
 import { RemoteDataError } from '../../core/data/remote-data-error';
+import { PaginatedList } from '../../core/data/paginated-list';
+import { PageInfo } from '../../core/shared/page-info.model';
 
 /**
  * Returns true if a Native Element has a specified css class.
@@ -120,4 +122,23 @@ export function createPendingRemoteDataObject<T>(object?: T): RemoteData<T> {
  */
 export function createPendingRemoteDataObject$<T>(object?: T): Observable<RemoteData<T>> {
   return observableOf(createPendingRemoteDataObject(object));
+}
+
+/**
+ * Method to create a paginated list for an array of objects
+ * @param objects An array representing the paginated list's page
+ */
+export function createPaginatedList<T>(objects?: T[]): PaginatedList<T> {
+  return new PaginatedList(new PageInfo(), objects);
+}
+
+/**
+ * Creates a jasmine spy for an exported function
+ * @param target The object to spy on
+ * @param prop The property/function to spy on
+ */
+export function spyOnExported<T>(target: T, prop: keyof T): jasmine.Spy {
+  const spy = jasmine.createSpy(`${prop}Spy`);
+  spyOnProperty(target, prop).and.returnValue(spy);
+  return spy;
 }
