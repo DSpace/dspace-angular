@@ -36,7 +36,7 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
-} from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
+} from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { ResourceType } from '../shared/resource-type';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';

@@ -47,7 +47,7 @@ import {
 } from '../shared/testing/utils';
 import { getMockSearchService } from '../shared/mocks/mock-search-service';
 import { getMockRequestService } from '../shared/mocks/mock-request.service';
-import { SearchService } from '../+search-page/search-service/search.service';
+import { SearchService } from '../search-page/search-service/search.service';
 import { RequestService } from '../core/data/request.service';
 
 describe('SubmissionService test suite', () => {

@@ -124,8 +124,8 @@ import { EditItemSelectorComponent } from './dso-selector/modal-wrappers/edit-it
 import { EditCommunitySelectorComponent } from './dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from './dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 import { ItemListPreviewComponent } from './object-list/my-dspace-result-list-element/item-list-preview/item-list-preview.component';
-import { MetadataFieldWrapperComponent } from '../+item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
-import { MetadataValuesComponent } from '../+item-page/field-components/metadata-values/metadata-values.component';
+import { MetadataFieldWrapperComponent } from '../item-page/field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { MetadataValuesComponent } from '../item-page/field-components/metadata-values/metadata-values.component';
 import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';

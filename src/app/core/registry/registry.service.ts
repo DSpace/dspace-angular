@@ -34,7 +34,7 @@ import { PaginationComponentOptions } from '../../shared/pagination/pagination-c
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { createSelector, select, Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
-import { MetadataRegistryState } from '../../+admin/admin-registries/metadata-registry/metadata-registry.reducers';
+import { MetadataRegistryState } from '../../admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import {
   MetadataRegistryCancelFieldAction,
   MetadataRegistryCancelSchemaAction,
@@ -46,7 +46,7 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction
-} from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
+} from '../../admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { distinctUntilChanged, flatMap, map, take, tap } from 'rxjs/operators';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';

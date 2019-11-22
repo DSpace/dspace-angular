@@ -7,7 +7,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   COMMUNITY_PARENT_PARAMETER,
   getCommunityCreatePath
-} from '../../../../+community-page/community-page-routing.module';
+} from '../../../../community-page/community-page-routing.module';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType

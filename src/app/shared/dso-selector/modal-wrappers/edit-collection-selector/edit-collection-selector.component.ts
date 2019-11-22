@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { getCollectionEditPath } from '../../../../+collection-page/collection-page-routing.module';
+import { getCollectionEditPath } from '../../../../collection-page/collection-page-routing.module';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType

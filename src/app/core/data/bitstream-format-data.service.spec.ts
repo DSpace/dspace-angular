@@ -17,7 +17,7 @@ import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction
-} from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
+} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { TestScheduler } from 'rxjs/testing';
 
 describe('BitstreamFormatDataService', () => {

@@ -11,7 +11,7 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { JournalComponent } from './journal.component';
-import { GenericItemPageFieldComponent } from '../../../../+item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 let comp: JournalComponent;

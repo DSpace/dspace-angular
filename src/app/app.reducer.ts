@@ -5,11 +5,11 @@ import { formReducer, FormState } from './shared/form/form.reducer';
 import {
   SearchSidebarState,
   sidebarReducer
-} from './+search-page/search-sidebar/search-sidebar.reducer';
+} from './search-page/search-sidebar/search-sidebar.reducer';
 import {
   filterReducer,
   SearchFiltersState
-} from './+search-page/search-filters/search-filter/search-filter.reducer';
+} from './search-page/search-filters/search-filter/search-filter.reducer';
 import {
   notificationsReducer,
   NotificationsState
@@ -18,7 +18,7 @@ import { truncatableReducer, TruncatablesState } from './shared/truncatable/trun
 import {
   metadataRegistryReducer,
   MetadataRegistryState
-} from './+admin/admin-registries/metadata-registry/metadata-registry.reducers';
+} from './admin/admin-registries/metadata-registry/metadata-registry.reducers';
 import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 import { menusReducer, MenusState } from './shared/menu/menu.reducer';
@@ -26,7 +26,7 @@ import { historyReducer, HistoryState } from './shared/history/history.reducer';
 import {
   bitstreamFormatReducer,
   BitstreamFormatRegistryState
-} from './+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+} from './admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import { ObjectSelectionListState, objectSelectionReducer } from './shared/object-select/object-select.reducer';
 
 export interface AppState {

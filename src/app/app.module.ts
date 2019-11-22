@@ -33,9 +33,9 @@ import { NotificationComponent } from './shared/notifications/notification/notif
 import { SharedModule } from './shared/shared.module';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
-import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
-import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
-import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
+import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
+import { AdminSidebarSectionComponent } from './admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
+import { ExpandableAdminSidebarSectionComponent } from './admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { NavbarModule } from './navbar/navbar.module';
 import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';

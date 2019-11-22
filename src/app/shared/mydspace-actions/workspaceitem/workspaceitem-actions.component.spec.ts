@@ -19,7 +19,7 @@ import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockRequestService } from '../../mocks/mock-request.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
+import { SearchService } from '../../../search-page/search-service/search.service';
 import { getMockSearchService } from '../../mocks/mock-search-service';
 
 let component: WorkspaceitemActionsComponent;

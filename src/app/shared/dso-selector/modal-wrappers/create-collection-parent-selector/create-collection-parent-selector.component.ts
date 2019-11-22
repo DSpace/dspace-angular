@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   COLLECTION_PARENT_PARAMETER,
   getCollectionCreatePath
-} from '../../../../+collection-page/collection-page-routing.module';
+} from '../../../../collection-page/collection-page-routing.module';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 
 /**

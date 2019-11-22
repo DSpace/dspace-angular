@@ -7,7 +7,7 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { Item } from '../../../core/shared/item.model';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
+import { SearchService } from '../../../search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
 
 /**

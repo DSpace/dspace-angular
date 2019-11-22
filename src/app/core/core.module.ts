@@ -80,7 +80,7 @@ import { NormalizedObjectBuildService } from './cache/builders/normalized-object
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
-import { SearchService } from '../+search-page/search-service/search.service';
+import { SearchService } from '../search-page/search-service/search.service';
 import { NormalizedCollection } from './cache/models/normalized-collection.model';
 import { NormalizedCommunity } from './cache/models/normalized-community.model';
 import { NormalizedDSpaceObject } from './cache/models/normalized-dspace-object.model';
@@ -103,7 +103,7 @@ import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model
 import { NormalizedAuthorityValue } from './integration/models/normalized-authority-value.model';
 import { RelationshipService } from './data/relationship.service';
 import { RoleService } from './roles/role.service';
-import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
+import { MyDSpaceGuard } from '../my-dspace-page/my-dspace.guard';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
 import { ClaimedTaskDataService } from './tasks/claimed-task-data.service';
 import { PoolTaskDataService } from './tasks/pool-task-data.service';

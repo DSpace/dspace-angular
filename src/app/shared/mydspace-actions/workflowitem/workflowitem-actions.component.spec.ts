@@ -16,7 +16,7 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 import { getMockRequestService } from '../../mocks/mock-request.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
+import { SearchService } from '../../../search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockSearchService } from '../../mocks/mock-search-service';
 

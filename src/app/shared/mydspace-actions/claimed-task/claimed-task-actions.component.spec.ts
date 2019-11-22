@@ -20,7 +20,7 @@ import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 import { CoreModule } from '../../../core/core.module';
 import { getMockSearchService } from '../../mocks/mock-search-service';
 import { getMockRequestService } from '../../mocks/mock-request.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
+import { SearchService } from '../../../search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
 
 let component: ClaimedTaskActionsComponent;

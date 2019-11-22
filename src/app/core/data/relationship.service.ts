@@ -24,7 +24,7 @@ import { ItemDataService } from './item-data.service';
 import {
   compareArraysUsingIds, filterRelationsByTypeLabel, paginatedRelationsToItems,
   relationsToItems
-} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+} from '../../item-page/simple/item-types/shared/item-relationships-utils';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DataService } from './data.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';

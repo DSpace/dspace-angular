@@ -9,8 +9,8 @@ import {
 import { Observable } from 'rxjs/internal/Observable';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { filter, map, startWith, tap } from 'rxjs/operators';
-import { getCollectionPageRoute } from '../../+collection-page/collection-page-routing.module';
-import { getCommunityPageRoute } from '../../+community-page/community-page-routing.module';
+import { getCollectionPageRoute } from '../../collection-page/collection-page-routing.module';
+import { getCommunityPageRoute } from '../../community-page/community-page-routing.module';
 import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
 import { Router, ActivatedRoute, RouterModule, UrlSegment } from '@angular/router';
 import { BrowseByTypeConfig } from '../../../config/browse-by-type-config.interface';

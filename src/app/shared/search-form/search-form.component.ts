@@ -3,8 +3,8 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { QueryParamsHandling } from '@angular/router/src/config';
-import { MYDSPACE_ROUTE } from '../../+my-dspace-page/my-dspace-page.component';
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { MYDSPACE_ROUTE } from '../../my-dspace-page/my-dspace-page.component';
+import { SearchService } from '../../search-page/search-service/search.service';
 
 /**
  * This component renders a simple item page.

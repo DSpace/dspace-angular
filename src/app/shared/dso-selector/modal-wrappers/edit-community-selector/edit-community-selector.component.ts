@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { getCommunityEditPath } from '../../../../+community-page/community-page-routing.module';
+import { getCommunityEditPath } from '../../../../community-page/community-page-routing.module';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType

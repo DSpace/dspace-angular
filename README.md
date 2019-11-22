@@ -276,12 +276,12 @@ dspace-angular
 │   │   ├── app.module.ts                               *
 │   │   ├── app.reducer.ts                              *
 │   │   ├── browser-app.module.ts                       * The root module for the client
-│   │   ├── +collection-page                            * Lazily loaded route for collection module
-│   │   ├── +community-page                             * Lazily loaded route for community module
+│   │   ├── collection-page                             * Lazily loaded route for collection module
+│   │   ├── community-page                              * Lazily loaded route for community module
 │   │   ├── core                                        *
 │   │   ├── header                                      *
-│   │   ├── +home                                       * Lazily loaded route for home module
-│   │   ├── +item-page                                  * Lazily loaded route for item module
+│   │   ├── home-page                                   * Lazily loaded route for home module
+│   │   ├── item-page                                   * Lazily loaded route for item module
 │   │   ├── object-list                                 *
 │   │   ├── pagenotfound                                *
 │   │   ├── server-app.module.ts                        * The root module for the server

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { getItemEditPath } from '../../../../+item-page/item-page-routing.module';
+import { getItemEditPath } from '../../../../item-page/item-page-routing.module';
 import { DSOSelectorModalWrapperComponent, SelectorActionType } from '../dso-selector-modal-wrapper.component';
 
 /**

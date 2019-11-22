@@ -1,5 +1,5 @@
 import { Config } from './config.interface';
-import { BrowseByType } from '../app/+browse-by/+browse-by-switcher/browse-by-decorator';
+import { BrowseByType } from '../app/browse-by/browse-by-switcher/browse-by-decorator';
 
 /**
  * Config used for rendering Browse-By pages and links

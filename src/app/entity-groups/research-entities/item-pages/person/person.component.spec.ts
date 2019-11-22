@@ -7,7 +7,7 @@ import { of as observableOf } from 'rxjs';
 import {
   createRelationshipsObservable,
   getItemPageFieldsTest
-} from '../../../../+item-page/simple/item-types/shared/item.component.spec';
+} from '../../../../item-page/simple/item-types/shared/item.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {

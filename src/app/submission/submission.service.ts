@@ -55,7 +55,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$
 } from '../shared/testing/utils';
-import { SearchService } from '../+search-page/search-service/search.service';
+import { SearchService } from '../search-page/search-service/search.service';
 import { RequestService } from '../core/data/request.service';
 
 /**

@@ -6,7 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router-stub';
-import * as collectionRouter from '../../../../+collection-page/collection-page-routing.module';
+import * as collectionRouter from '../../../../collection-page/collection-page-routing.module';
 import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';

@@ -11,7 +11,7 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../search-page/search-service/search.service';
 import { RequestService } from '../../core/data/request.service';
 import { Subscription } from 'rxjs';
 

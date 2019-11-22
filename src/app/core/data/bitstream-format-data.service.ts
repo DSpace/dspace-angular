@@ -18,12 +18,12 @@ import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { RestResponse } from '../cache/response.models';
 import { AppState } from '../../app.reducer';
-import { BitstreamFormatRegistryState } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { BitstreamFormatRegistryState } from '../../admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction
-} from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
+} from '../../admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { hasValue } from '../../shared/empty.util';
 import { RequestEntry } from './request.reducer';
 

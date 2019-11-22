@@ -1,5 +1,5 @@
 import { of as observableOf } from 'rxjs';
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../search-page/search-service/search.service';
 
 export function getMockSearchService(): SearchService {
   return jasmine.createSpyObj('searchService', {

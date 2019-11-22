@@ -8,7 +8,7 @@ import { EditItemSelectorComponent } from './edit-item-selector.component';
 import { Item } from '../../../../core/shared/item.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { RouterStub } from '../../../testing/router-stub';
-import * as itemRouter from '../../../../+item-page/item-page-routing.module';
+import * as itemRouter from '../../../../item-page/item-page-routing.module';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
