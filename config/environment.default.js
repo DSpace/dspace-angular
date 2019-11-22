@@ -141,6 +141,10 @@ module.exports = {
     code: 'nl',
     label: 'Nederlands',
     active: false,
+  }, {
+    code: 'pt',
+    label: 'Português',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {
