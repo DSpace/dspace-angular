@@ -31,7 +31,6 @@ import { PaginatedSearchOptions } from '../../shared/search/paginated-search-opt
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

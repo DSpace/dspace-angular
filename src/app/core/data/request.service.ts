@@ -19,7 +19,7 @@ import {
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
-import { GetRequest, RestRequest } from './request.models';
+import { GetRequest, RestRequest, SubmissionRequest } from './request.models';
 import { RequestEntry, RequestState } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
@@ -145,14 +145,10 @@ export class RequestService {
    * Configure a certain request
    * Used to make sure a request is in the cache
    * @param {RestRequest} request The request to send out
-   * @param {boolean} forceBypassCache When true, a new request is always dispatched
    */
-  configure<T extends CacheableObject>(request: RestRequest, forceBypassCache: boolean = false): void {
+  configure<T extends CacheableObject>(request: RestRequest): void {
     const isGetRequest = request.method === RestRequestMethod.GET;
-    if (forceBypassCache) {
-      this.clearRequestsOnTheirWayToTheStore(request);
-    }
-    if (!isGetRequest || (forceBypassCache && !this.isPending(request)) || !this.isCachedOrPending(request)) {
+    if (!isGetRequest || request.forceBypassCache || !this.isCachedOrPending(request)) {
       this.dispatchRequest(request);
       if (isGetRequest) {
         this.trackRequestsOnTheirWayToTheStore(request);
@@ -226,7 +222,6 @@ export class RequestService {
     const inReqCache = this.hasByHref(request.href);
     const inObjCache = this.objectCache.hasBySelfLink(request.href);
     const isCached = inReqCache || inObjCache;
-
     const isPending = this.isPending(request);
     return isCached || isPending;
   }

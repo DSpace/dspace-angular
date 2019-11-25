@@ -70,7 +70,8 @@
     "docs": "typedoc --options typedoc.json ./src/",
     "coverage": "http-server -c-1 -o -p 9875 ./coverage",
     "postinstall": "yarn run patch-protractor",
-    "patch-protractor": "ncp node_modules/webdriver-manager node_modules/protractor/node_modules/webdriver-manager"
+    "patch-protractor": "ncp node_modules/webdriver-manager node_modules/protractor/node_modules/webdriver-manager",
+    "sync-i18n": "node ./scripts/sync-i18n-files.js"
   },
   "dependencies": {
     "@angular/animations": "^6.1.4",
@@ -175,7 +176,9 @@
     "angular2-template-loader": "0.6.2",
     "autoprefixer": "^9.1.3",
     "caniuse-lite": "^1.0.30000697",
+    "cli-progress": "^3.3.1",
     "codelyzer": "^4.4.4",
+    "commander": "^3.0.2",
     "compression-webpack-plugin": "^1.1.6",
     "copy-webpack-plugin": "^4.4.1",
     "copyfiles": "^2.1.1",

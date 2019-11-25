@@ -23,13 +23,6 @@ describe('RelationshipService', () => {
   const restEndpointURL = 'https://rest.api/';
   const relationshipsEndpointURL = `${restEndpointURL}/relationships`;
   const halService: any = new HALEndpointServiceStub(restEndpointURL);
-  const rdbService = getMockRemoteDataBuildService();
-  const objectCache = Object.assign({
-    /* tslint:disable:no-empty */
-    remove: () => {},
-    hasBySelfLinkObservable: () => observableOf(false)
-    /* tslint:enable:no-empty */
-  }) as ObjectCacheService;
 
   const relationshipType = Object.assign(new RelationshipType(), {
     id: '1',
@@ -74,6 +67,15 @@ describe('RelationshipService', () => {
   relationship2.rightItem = getRemotedataObservable(item);
   const relatedItems = [relatedItem1, relatedItem2];
 
+  const buildList$ = createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [relatedItems]));
+  const rdbService = getMockRemoteDataBuildService(undefined, buildList$);
+  const objectCache = Object.assign({
+    /* tslint:disable:no-empty */
+    remove: () => {},
+    hasBySelfLinkObservable: () => observableOf(false)
+    /* tslint:enable:no-empty */
+  }) as ObjectCacheService;
+
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.find((relatedItem) => relatedItem.id === uuid)),
     findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
@@ -115,7 +117,7 @@ describe('RelationshipService', () => {
 
     it('should send a DeleteRequest', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), relationshipsEndpointURL + '/' + relationship1.uuid);
-      expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
     it('should clear the related items their cache', () => {
@@ -141,6 +143,15 @@ describe('RelationshipService', () => {
       });
     });
   });
+
+  describe('getRelatedItemsByLabel', () => {
+    it('should return the related items by label', () => {
+      service.getRelatedItemsByLabel(item, relationshipType.rightwardType).subscribe((result) => {
+        expect(result.payload.page).toEqual(relatedItems);
+      });
+    });
+  })
+
 });
 
 function getRemotedataObservable(obj: any): Observable<RemoteData<any>> {

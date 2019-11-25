@@ -18,30 +18,30 @@
                 <h2 class="item-page-title-field">
                   {{'orgunit.page.titleprefix' | translate}}
                     <ds-metadata-values
-                            [mdValues]="object?.allMetadata(['orgunit.identifier.name'])"></ds-metadata-values>
+                            [mdValues]="object?.allMetadata(['organization.legalName'])"></ds-metadata-values>
                 </h2>
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <ds-generic-item-page-field [item]="object"
-                                                    [fields]="['orgunit.identifier.city']"
+                                                    [fields]="['organization.address.addressLocality']"
                                                     [label]="'orgunit.page.city'">
                         </ds-generic-item-page-field>
                         <ds-generic-item-page-field [item]="object"
-                                                    [fields]="['orgunit.identifier.country']"
+                                                    [fields]="['organization.adress.addressCountry']"
                                                     [label]="'orgunit.page.country'">
                         </ds-generic-item-page-field>
                         <ds-generic-item-page-field [item]="object"
-                                                    [fields]="['orgunit.identifier.id']"
+                                                    [fields]="['dc.identifier']"
                                                     [label]="'orgunit.page.id'">
                         </ds-generic-item-page-field>
                     </div>
                     <div class="col-12 col-md-6">
                       <ds-generic-item-page-field [item]="object"
-                                                  [fields]="['orgunit.identifier.dateestablished']"
+                                                  [fields]="['organization.foundingDate']"
                                                   [label]="'orgunit.page.dateestablished'">
                       </ds-generic-item-page-field>
                         <ds-generic-item-page-field [item]="object"
-                                                    [fields]="['orgunit.identifier.description']"
+                                                    [fields]="['dc.description']"
                                                     [label]="'orgunit.page.description'">
                         </ds-generic-item-page-field>
                     </div>
@@ -50,27 +50,27 @@
         </div>
     </div>
 </div>
-<div class="relationships-item-page" *ngIf="(people$ | async) || (projects$ | async) || (publications$ | async)">
+<div class="relationships-item-page">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-4" *ngIf="people$ | async">
-                <ds-related-items
-                        [items]="people$ | async"
-                        [label]="'relationships.isPersonOf' | translate">
-                </ds-related-items>
-            </div>
-            <div class="col-12 col-md-4" *ngIf="projects$ | async">
-                <ds-related-items
-                        [items]="projects$ | async"
-                        [label]="'relationships.isProjectOf' | translate">
-                </ds-related-items>
-            </div>
-            <div class="col-12 col-md-4" *ngIf="publications$ | async">
-                <ds-related-items
-                        [items]="publications$ | async"
-                        [label]="'relationships.isPublicationOf' | translate">
-                </ds-related-items>
-            </div>
+            <ds-related-items
+              class="col-12 col-md-4"
+              [parentItem]="object"
+              [relationType]="'isPersonOfOrgUnit'"
+              [label]="'relationships.isPersonOf' | translate">
+            </ds-related-items>
+            <ds-related-items
+              class="col-12 col-md-4"
+              [parentItem]="object"
+              [relationType]="'isProjectOfOrgUnit'"
+              [label]="'relationships.isProjectOf' | translate">
+            </ds-related-items>
+            <ds-related-items
+              class="col-12 col-md-4"
+              [parentItem]="object"
+              [relationType]="'isPublicationOfOrgUnit'"
+              [label]="'relationships.isPublicationOf' | translate">
+            </ds-related-items>
         </div>
     </div>
 </div>

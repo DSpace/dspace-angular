@@ -15,7 +15,6 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { RemoteData } from '../core/data/remote-data';
 import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from './my-dspace-page.component';
 import { RouteService } from '../core/services/route.service';
 import { routeServiceStub } from '../shared/testing/route-service-stub';
@@ -49,6 +48,7 @@ describe('MyDSpacePageComponent', () => {
   const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,
+    getEndpoint: observableOf('discover/search/objects'),
     getSearchLink: '/mydspace',
     getScopes: observableOf(['test-scope']),
     setServiceOptions: {}
@@ -75,6 +75,7 @@ describe('MyDSpacePageComponent', () => {
       scope: scopeParam
     })
   };
+
   const sidebarService = {
     isCollapsed: observableOf(true),
     collapse: () => this.isCollapsed = observableOf(true),

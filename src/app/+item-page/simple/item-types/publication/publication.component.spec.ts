@@ -17,7 +17,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/ut
 import { RelationshipService } from '../../../../core/data/relationship.service';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: new MetadataMap(),
   relationships: createRelationshipsObservable()
 });

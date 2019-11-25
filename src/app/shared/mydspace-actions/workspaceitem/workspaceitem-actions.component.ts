@@ -1,4 +1,4 @@
-import { Component, Injector, Input } from '@angular/core';
+import { Component, Injector, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject } from 'rxjs';
@@ -9,6 +9,8 @@ import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.mod
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { SearchService } from '../../../+search-page/search-service/search.service';
+import { RequestService } from '../../../core/data/request.service';
 
 /**
  * This component represents actions related to WorkspaceItem object.
@@ -39,13 +41,17 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
    * @param {NgbModal} modalService
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
+   * @param {SearchService} searchService
+   * @param {RequestService} requestService
    */
   constructor(protected injector: Injector,
               protected router: Router,
               protected modalService: NgbModal,
               protected notificationsService: NotificationsService,
-              protected translate: TranslateService) {
-    super(WorkspaceItem.type, injector, router, notificationsService, translate);
+              protected translate: TranslateService,
+              protected searchService: SearchService,
+              protected requestService: RequestService) {
+    super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
   }
 
   /**

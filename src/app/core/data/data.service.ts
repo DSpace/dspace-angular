@@ -11,14 +11,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
-import {
-  CreateRequest,
-  DeleteByIDRequest,
-  FindAllOptions,
-  FindAllRequest,
-  FindByIDRequest,
-  GetRequest
-} from './request.models';
+import { CreateRequest, DeleteByIDRequest, FindAllOptions, FindAllRequest, FindByIDRequest, GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
@@ -45,11 +38,14 @@ export abstract class DataService<T extends CacheableObject> {
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
-  protected abstract forceBypassCache = false;
   protected abstract objectCache: ObjectCacheService;
   protected abstract notificationsService: NotificationsService;
   protected abstract http: HttpClient;
   protected abstract comparator: ChangeAnalyzer<T>;
+  /**
+   * Allows subclasses to reset the response cache time.
+   */
+  protected responseMsToLive: number;
 
   public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
 
@@ -131,7 +127,10 @@ export abstract class DataService<T extends CacheableObject> {
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        this.requestService.configure(request, this.forceBypassCache);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        this.requestService.configure(request);
       });
 
     return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
@@ -147,21 +146,29 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   findById(id: string): Observable<RemoteData<T>> {
+
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-      map((endpoint: string) => this.getIDHref(endpoint, id)));
+        map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
       .subscribe((href: string) => {
         const request = new FindByIDRequest(this.requestService.generateRequestId(), href, id);
-        this.requestService.configure(request, this.forceBypassCache);
+        if (hasValue(this.responseMsToLive)) {
+          request.responseMsToLive = this.responseMsToLive;
+        }
+        this.requestService.configure(request);
       });
 
     return this.rdbService.buildSingle<T>(hrefObs);
   }
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<T>> {
-    this.requestService.configure(new GetRequest(this.requestService.generateRequestId(), href, null, options), this.forceBypassCache);
+    const request = new GetRequest(this.requestService.generateRequestId(), href, null, options);
+    if (hasValue(this.responseMsToLive)) {
+      request.responseMsToLive = this.responseMsToLive;
+    }
+    this.requestService.configure(request);
     return this.rdbService.buildSingle<T>(href);
   }
 
@@ -193,7 +200,9 @@ export abstract class DataService<T extends CacheableObject> {
       tap((href: string) => {
           this.requestService.removeByHrefSubstring(href);
           const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-          this.requestService.configure(request, true);
+          request.responseMsToLive = 10 * 1000;
+
+          this.requestService.configure(request);
         }
       ),
       switchMap((href) => this.requestService.getByHref(href)),
