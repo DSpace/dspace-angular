@@ -1,5 +1,5 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NgZone, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
@@ -65,6 +65,12 @@ import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { ItemDataService } from '../../../../core/data/item-data.service';
+import { Store } from '@ngrx/store';
+import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { of as observableOf } from 'rxjs';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -103,7 +109,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       repeatable: false,
       submissionId: '1234'
     }),
-    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234'}),
+    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
       authorityOptions: authorityOptions,
@@ -126,7 +132,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       repeatable: false,
       metadataFields: []
     }),
-    new DynamicDsDatePickerModel({ id: 'datepicker'}),
+    new DynamicDsDatePickerModel({ id: 'datepicker' }),
     new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicLookupNameModel({ id: 'lookupName', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
@@ -137,7 +143,9 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   let component: DsDynamicFormControlContainerComponent;
   let debugElement: DebugElement;
   let testElement: DebugElement;
-
+  const testItem: Item = new Item();
+  const testWSI: WorkspaceItem = new WorkspaceItem();
+  testWSI.item = observableOf(createSuccessfulRemoteDataObject(testItem));
   beforeEach(async(() => {
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
@@ -156,20 +164,33 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         DynamicFormsCoreModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot(),
-        TextMaskModule
+        TextMaskModule,
       ],
       providers: [
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
         { provide: RelationshipService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: ItemDataService, useValue: {} }
+        { provide: ItemDataService, useValue: {} },
+        { provide: Store, useValue: {} },
+        { provide: RelationshipService, useValue: {} },
+        { provide: SelectableListService, useValue: {} },
+        {
+          provide: SubmissionObjectDataService,
+          useValue: {
+            findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI))
+          }
+        },
+        { provide: NgZone, useValue: new NgZone({}) }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {
 
       fixture = TestBed.createComponent(DsDynamicFormControlContainerComponent);
 
+      const ngZone = TestBed.get(NgZone);
+
+      spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
     });

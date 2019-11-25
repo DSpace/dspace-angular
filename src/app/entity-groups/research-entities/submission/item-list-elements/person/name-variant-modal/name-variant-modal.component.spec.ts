@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NameVariantModalComponent } from './name-variant-modal.component';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('NameVariantModalComponent', () => {
   let component: NameVariantModalComponent;
@@ -8,9 +10,11 @@ describe('NameVariantModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NameVariantModalComponent ]
+      declarations: [NameVariantModalComponent],
+      imports: [NgbModule.forRoot(), TranslateModule.forRoot()],
+      providers: [NgbActiveModal]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

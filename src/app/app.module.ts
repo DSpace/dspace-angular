@@ -76,7 +76,7 @@ const ENTITY_IMPORTS = [
 
 IMPORTS.push(
   StoreDevtoolsModule.instrument({
-    maxAge: 100,
+    maxAge: 1000,
     logOnly: ENV_CONFIG.production,
   })
 );

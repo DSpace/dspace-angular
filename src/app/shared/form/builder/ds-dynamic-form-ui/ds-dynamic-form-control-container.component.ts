@@ -71,10 +71,8 @@ import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { zip as observableZip } from 'rxjs';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
-import { Observable } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -96,7 +94,6 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import * as uuidv4 from 'uuid/v4';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -208,7 +205,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     protected validationService: DynamicFormValidationService,
     protected translateService: TranslateService,
     private modalService: NgbModal,
-    private relationService: RelationshipService,
     private selectableListService: SelectableListService,
     private itemService: ItemDataService,
     private relationshipService: RelationshipService,
@@ -220,7 +216,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngOnInit(): void {
-    const q = uuidv4();
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
       this.listId = 'list-' + this.model.relationship.relationshipType;
@@ -231,7 +226,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
       this.item$.pipe(
         take(1),
-        switchMap((item: Item) => this.relationService.getRelatedItemsByLabel(item, this.model.relationship.relationshipType)),
+        switchMap((item: Item) => this.relationshipService.getRelatedItemsByLabel(item, this.model.relationship.relationshipType)),
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
 

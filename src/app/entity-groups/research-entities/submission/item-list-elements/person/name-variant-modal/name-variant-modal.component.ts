@@ -9,8 +9,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class NameVariantModalComponent implements OnInit {
   @Input() value: string;
 
-  constructor(private modalService: NgbModal,
-              public modal: NgbActiveModal) {
+  constructor(public modal: NgbActiveModal) {
   }
 
   ngOnInit() {

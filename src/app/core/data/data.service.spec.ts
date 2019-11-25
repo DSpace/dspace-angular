@@ -53,7 +53,8 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
   }
 
 }
-fdescribe('DataService', () => {
+
+describe('DataService', () => {
   let service: TestService;
   let options: FindAllOptions;
   const requestService = {generateRequestId: () => uuidv4()} as RequestService;
@@ -89,6 +90,7 @@ fdescribe('DataService', () => {
       comparator,
     );
   }
+
   service = initTestService();
 
   describe('getFindAllHref', () => {
@@ -190,7 +192,7 @@ fdescribe('DataService', () => {
       dso2.self = selfLink;
       dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
-      spyOn(service, 'findById').and.returnValues(observableOf(dso));
+      spyOn(service, 'findByHref').and.returnValues(observableOf(dso));
       spyOn(objectCache, 'getObjectBySelfLink').and.returnValues(observableOf(dso));
       spyOn(objectCache, 'addPatch');
     });

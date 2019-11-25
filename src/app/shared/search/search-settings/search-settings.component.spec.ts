@@ -12,7 +12,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { By } from '@angular/platform-browser';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { hot } from 'jasmine-marbles';
 import { VarDirective } from '../../utils/var.directive';
 import { first } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
@@ -75,12 +74,8 @@ describe('SearchSettingsComponent', () => {
         {
           provide: SEARCH_CONFIG_SERVICE,
           useValue: {
-            paginatedSearchOptions: hot('a', {
-              a: paginatedSearchOptions
-            }),
-            getCurrentScope: hot('a', {
-              a: 'test-id'
-            }),
+            paginatedSearchOptions: observableOf(paginatedSearchOptions),
+            getCurrentScope: observableOf('test-id')
           }
         },
       ],
@@ -100,43 +95,34 @@ describe('SearchSettingsComponent', () => {
 
   });
 
-  it('it should show the order settings with the respective selectable options', () => {
+  it('it should show the order settings with the respective selectable options', (done) => {
     (comp as any).searchOptions$.pipe(first()).subscribe((options) => {
       fixture.detectChanges();
       const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
       expect(orderSetting).toBeDefined();
       const childElements = orderSetting.query(By.css('.form-control')).children;
       expect(childElements.length).toEqual(comp.searchOptionPossibilities.length);
+      done();
     });
   });
 
-  it('it should show the size settings with the respective selectable options', () => {
+  it('it should show the size settings', (done) => {
     (comp as any).searchOptions$.pipe(first()).subscribe((options) => {
         fixture.detectChanges();
-        const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
+        const pageSizeSetting = fixture.debugElement.query(By.css('page-size-settings'));
         expect(pageSizeSetting).toBeDefined();
-        const childElements = pageSizeSetting.query(By.css('.form-control')).children;
-        expect(childElements.length).toEqual(options.pagination.pageSizeOptions.length);
+        done();
       }
     )
   });
 
-  it('should have the proper order value selected by default', () => {
+  it('should have the proper order value selected by default', (done) => {
     (comp as any).searchOptions$.pipe(first()).subscribe((options) => {
       fixture.detectChanges();
       const orderSetting = fixture.debugElement.query(By.css('div.result-order-settings'));
       const childElementToBeSelected = orderSetting.query(By.css('.form-control option[value="0"][selected="selected"]'));
       expect(childElementToBeSelected).toBeDefined();
+      done();
     });
   });
-
-  it('should have the proper rpp value selected by default', () => {
-    (comp as any).searchOptions$.pipe(first()).subscribe((options) => {
-      fixture.detectChanges();
-      const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-      const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'));
-      expect(childElementToBeSelected).toBeDefined();
-    });
-  });
-
 });

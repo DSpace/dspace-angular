@@ -14,7 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../../app.reducer';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 
 let personListElementComponent: PersonSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListSubmissionElementComponent>;
@@ -23,7 +23,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bitstreams: observableOf({}),
+      bitstreams: createSuccessfulRemoteDataObject$([]),
       metadata: {
         'dc.title': [
           {
@@ -44,7 +44,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bitstreams: observableOf({}),
+      bitstreams: createSuccessfulRemoteDataObject$([]),
       metadata: {
         'dc.title': [
           {
@@ -61,7 +61,7 @@ const mockRelationshipService = {
   getNameVariant: () => observableOf(nameVariant)
 };
 
-describe('PersonSearchResultListElementComponent', () => {
+describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],

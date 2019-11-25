@@ -3,7 +3,7 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, skipWhile, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { DeleteRequest, FindAllOptions, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
@@ -137,7 +137,7 @@ export class RelationshipService extends DataService<Relationship> {
       this.requestService.hasByHrefObservable(item.self)
     ).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-      take(1),
+      tap(t => console.log(t)),
       switchMap(() => this.itemService.findByHref(item.self).pipe(take(1)))
     ).subscribe();
   }
@@ -318,8 +318,6 @@ export class RelationshipService extends DataService<Relationship> {
             })
           )
         ),
-        tap(() => this.removeRelationshipItemsFromCache(item1)),
-        tap(() => this.removeRelationshipItemsFromCache(item2)),
         switchMap((relationshipAndType: { relation: Relationship, type: RelationshipType }) => {
           const { relation, type } = relationshipAndType;
           let updatedRelationship;
@@ -329,7 +327,16 @@ export class RelationshipService extends DataService<Relationship> {
             updatedRelationship = Object.assign(new Relationship(), relation, { leftwardValue: nameVariant });
           }
           return this.update(updatedRelationship);
-        })
+        }),
+        // skipWhile((relationshipRD: RemoteData<Relationship>) => !relationshipRD.isSuccessful)
+        tap((relationshipRD: RemoteData<Relationship>) => {
+          console.log(relationshipRD.payload);
+          if (relationshipRD.hasSucceeded) {
+            this.removeRelationshipItemsFromCache(item1);
+            this.removeRelationshipItemsFromCache(item2);
+          }
+        }),
       )
   }
+
 }

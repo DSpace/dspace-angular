@@ -9,6 +9,7 @@ import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
 
 const DEBOUNCE_TIME = 5000;
 
@@ -85,7 +86,7 @@ export class RelationshipEffects {
             this.nameVariantUpdates[identifier] = nameVariant;
           } else {
             this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant)
-              .pipe(take(1))
+              .pipe()
               .subscribe();
           }
         }
