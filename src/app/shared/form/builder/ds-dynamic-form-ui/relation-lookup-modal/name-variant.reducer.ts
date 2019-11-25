@@ -3,6 +3,7 @@
  */
 
 import { NameVariantAction, NameVariantActionTypes, SetNameVariantAction } from './name-variant.actions';
+import { hasValue } from '../../../../empty.util';
 
 export type NameVariantListsState = {
   [listID: string]: NameVariantListState;
@@ -30,9 +31,11 @@ export function nameVariantReducer(state: NameVariantListsState = {}, action: Na
       return Object.assign({}, state, { [action.payload.listID]: newListState });
     }
     case NameVariantActionTypes.REMOVE_NAME_VARIANT: {
-      const listState: NameVariantListState = state[action.payload.listID] || {};
-      const newListState = setNameVariant(listState, action.payload.itemID, undefined);
-      return Object.assign({}, state, { [action.payload.listID]: newListState });
+      const listState: NameVariantListState = state[action.payload.listID];
+      if (hasValue(listState) && hasValue(listState[action.payload.itemID])) {
+        const newListState = setNameVariant(listState, action.payload.itemID, undefined);
+        return Object.assign({}, state, { [action.payload.listID]: newListState });
+      }
     }
     default: {
       return state;
