@@ -6,6 +6,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { FindAllOptions } from '../../../core/data/request.models';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RelationshipService } from '../../../core/data/relationship.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ds-related-items',

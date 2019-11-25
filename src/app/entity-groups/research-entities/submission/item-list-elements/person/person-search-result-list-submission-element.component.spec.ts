@@ -15,6 +15,7 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { Store } from '@ngrx/store';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
+import { PaginatedList } from '../../../../../core/data/paginated-list';
 
 let personListElementComponent: PersonSearchResultListSubmissionElementComponent;
 let fixture: ComponentFixture<PersonSearchResultListSubmissionElementComponent>;
@@ -23,7 +24,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bitstreams: createSuccessfulRemoteDataObject$([]),
+      bundles: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [])),
       metadata: {
         'dc.title': [
           {
@@ -44,7 +45,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bitstreams: createSuccessfulRemoteDataObject$([]),
+      bundles: createSuccessfulRemoteDataObject$(new PaginatedList(undefined, [])),
       metadata: {
         'dc.title': [
           {
