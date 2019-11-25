@@ -49,4 +49,18 @@
       </a>
     </div>
   </div>
+  <div class="mt-5 w-100">
+    <ds-tabbed-related-entities-search  [item]="object"
+                                        [relationTypes]="[{
+                                          label: 'isOrgUnitOfPerson',
+                                          filter: 'isOrgUnitOfPerson',
+                                          configuration: 'person'
+                                        },
+                                        {
+                                          label: 'isOrgUnitOfProject',
+                                          filter: 'isOrgUnitOfProject',
+                                          configuration: 'project'
+                                        }]">
+    </ds-tabbed-related-entities-search>
+  </div>
 </div>

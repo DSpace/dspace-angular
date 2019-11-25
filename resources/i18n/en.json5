@@ -822,6 +822,10 @@
 
   "item.page.relationships.isJournalOfPublication": "Publications",
 
+  "item.page.relationships.isOrgUnitOfPerson": "Persons",
+
+  "item.page.relationships.isOrgUnitOfProject": "Projects",
+
   "item.page.subject": "Keywords",
 
   "item.page.uri": "URI",
@@ -1271,6 +1275,8 @@
   "project.page.status": "Status",
 
   "project.page.titleprefix": "Research Project: ",
+
+  "project.search.results.head": "Project Search Results",
 
 
 
