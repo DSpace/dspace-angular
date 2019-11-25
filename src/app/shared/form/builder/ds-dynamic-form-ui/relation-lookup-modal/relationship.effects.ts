@@ -9,7 +9,6 @@ import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
 
 const DEBOUNCE_TIME = 5000;
 
@@ -36,7 +35,7 @@ export class RelationshipEffects {
 
 
   /**
-   * Effect that makes sure all last fired ObjectUpdatesActions are stored in the map of this service, with the url as their key
+   * Effect that makes sure all last fired RelationshipActions' types are stored in the map of this service, with the object uuid as their key
    */
   @Effect({ dispatch: false }) mapLastActions$ = this.actions$
     .pipe(
@@ -52,6 +51,7 @@ export class RelationshipEffects {
               take(1)
             ).subscribe(
               (type) => {
+                debugger;
                 if (this.initialActionMap[identifier] === type) {
                   if (type === RelationshipActionTypes.ADD_RELATIONSHIP) {
                     let nameVariant = (action as AddRelationshipAction).payload.nameVariant;
