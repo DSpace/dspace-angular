@@ -6,7 +6,7 @@ import { RelationshipService } from '../../../../core/data/relationship.service'
 import { Item } from '../../../../core/shared/item.model';
 import { map, switchMap} from 'rxjs/operators';
 import { hasValue } from '../../../../shared/empty.util';
-import {Relationship} from "../../../../core/shared/item-relationships/relationship.model";
+import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -66,7 +66,7 @@ export class EditRelationshipListComponent implements OnInit, OnChanges {
    */
   public getUpdatesByLabel(label: string): Observable<FieldUpdates> {
     return this.relationshipService.getItemRelationshipsByLabel(this.item, label).pipe(
-      map(relationsRD => relationsRD.payload.page.map(relationship =>
+      map((relationsRD) => relationsRD.payload.page.map((relationship) =>
         Object.assign(new Relationship(), relationship, {uuid: relationship.id})
       )),
       switchMap((initialFields) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, initialFields)),

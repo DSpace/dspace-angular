@@ -13,7 +13,7 @@ import {
   SelectVirtualMetadataAction,
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import {Relationship} from "../../shared/item-relationships/relationship.model";
+import {Relationship} from '../../shared/item-relationships/relationship.model';
 
 /**
  * Path where discarded objects are saved

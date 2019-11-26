@@ -88,7 +88,7 @@ export class RelationshipService extends DataService<Relationship> {
       isNotEmptyOperator(),
       distinctUntilChanged(),
       map((endpointURL: string) =>
-        new DeleteRequest(this.requestService.generateRequestId(), endpointURL + "?copyVirtualMetadata=" + copyVirtualMetadata)
+        new DeleteRequest(this.requestService.generateRequestId(), endpointURL + '?copyVirtualMetadata=' + copyVirtualMetadata)
       ),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),

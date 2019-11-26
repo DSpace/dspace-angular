@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
-import {Item} from "../../../core/shared/item.model";
-import {Relationship} from "../../../core/shared/item-relationships/relationship.model";
-import {MetadataValue} from "../../../core/shared/metadata.models";
-import {getRemoteDataPayload, getSucceededRemoteData} from "../../../core/shared/operators";
-import {ObjectUpdatesService} from "../../../core/data/object-updates/object-updates.service";
+import {Item} from '../../../core/shared/item.model';
+import {Relationship} from '../../../core/shared/item-relationships/relationship.model';
+import {MetadataValue} from '../../../core/shared/metadata.models';
+import {getRemoteDataPayload, getSucceededRemoteData} from '../../../core/shared/operators';
+import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
 
 @Component({
   selector: 'ds-virtual-metadata',
@@ -26,14 +26,14 @@ export class VirtualMetadataComponent implements OnChanges {
   @Output() close = new EventEmitter();
   @Output() save = new EventEmitter();
 
+  leftItem$: Observable<Item>;
+  rightItem$: Observable<Item>;
+
   constructor(
     protected route: ActivatedRoute,
     protected objectUpdatesService: ObjectUpdatesService,
   ) {
   }
-
-  leftItem$: Observable<Item>;
-  rightItem$: Observable<Item>;
 
   ngOnChanges(): void {
     this.leftItem$ = this.relationship.leftItem.pipe(

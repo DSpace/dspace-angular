@@ -9,7 +9,7 @@ import {Item} from '../../../../core/shared/item.model';
 import {getRemoteDataPayload, getSucceededRemoteData} from '../../../../core/shared/operators';
 import {ViewMode} from '../../../../core/shared/view-mode.model';
 import {hasValue, isNotEmpty} from '../../../../shared/empty.util';
-import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -53,6 +53,11 @@ export class EditRelationshipComponent implements OnChanges {
    */
   viewMode = ViewMode.ListElement;
 
+  /**
+   * Reference to NgbModal
+   */
+  public modalRef: NgbModalRef;
+
   constructor(
     private objectUpdatesService: ObjectUpdatesService,
     private modalService: NgbModal,
@@ -93,17 +98,16 @@ export class EditRelationshipComponent implements OnChanges {
       this.rightItem$,
     ).pipe(
       map((items: Item[]) =>
-        items.map(item => this.objectUpdatesService
+        items.map((item) => this.objectUpdatesService
           .isSelectedVirtualMetadataItem(this.url, this.relationship.id, item.uuid))
       ),
-      switchMap((selection$: Observable<boolean>[]) => observableCombineLatest(selection$)),
+      switchMap((selection$) => observableCombineLatest(selection$)),
       map((selection: boolean[]) => {
         return Object.assign({},
           this.fieldUpdate.field,
           {
-            uuid: this.relationship.id,
-            keepLeftVirtualMetadata: selection[0] == true,
-            keepRightVirtualMetadata: selection[1] == true,
+            keepLeftVirtualMetadata: selection[0] === true,
+            keepRightVirtualMetadata: selection[1] === true,
           }
         ) as DeleteRelationship
       }),
@@ -112,11 +116,6 @@ export class EditRelationshipComponent implements OnChanges {
       this.objectUpdatesService.saveRemoveFieldUpdate(this.url, deleteRelationship)
     );
   }
-
-  /**
-   * Reference to NgbModal
-   */
-  public modalRef: NgbModalRef;
 
   openVirtualMetadataModal(content: any) {
     this.modalRef = this.modalService.open(content);

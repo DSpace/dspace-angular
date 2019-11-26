@@ -110,7 +110,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   public submit(): void {
     // Get all the relationships that should be removed
     const removedRelationshipIDs$ = this.relationshipService.getItemRelationshipsArray(this.item).pipe(
-      map((relationships: Relationship[]) => relationships.map(relationship =>
+      map((relationships: Relationship[]) => relationships.map((relationship) =>
         Object.assign(new Relationship(), relationship, {uuid: relationship.id})
       )),
       switchMap((relationships: Relationship[]) => {
@@ -124,7 +124,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
       take(1),
       switchMap((deleteRelationships: DeleteRelationship[]) =>
         observableZip(...deleteRelationships.map((deleteRelationship) => {
-            let copyVirtualMetadata : string;
+            let copyVirtualMetadata: string;
             if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
               copyVirtualMetadata = 'all';
             } else if (deleteRelationship.keepLeftVirtualMetadata) {

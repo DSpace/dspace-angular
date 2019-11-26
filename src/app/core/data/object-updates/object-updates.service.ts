@@ -26,10 +26,10 @@ import {
 import {distinctUntilChanged, filter, map} from 'rxjs/operators';
 import {hasNoValue, hasValue, isEmpty, isNotEmpty} from '../../../shared/empty.util';
 import {INotification} from '../../../shared/notifications/models/notification.model';
-import {Item} from "../../shared/item.model";
-import {Relationship} from "../../shared/item-relationships/relationship.model";
-import {MetadataValue} from "../../shared/metadata.models";
-import {VirtualMetadata} from "../../../+item-page/edit-item-page/virtual-metadata/virtual-metadata.component";
+import {Item} from '../../shared/item.model';
+import {Relationship} from '../../shared/item-relationships/relationship.model';
+import {MetadataValue} from '../../shared/metadata.models';
+import {VirtualMetadata} from '../../../+item-page/edit-item-page/virtual-metadata/virtual-metadata.component';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -226,7 +226,7 @@ export class ObjectUpdatesService {
     return this.store
       .pipe(
         select(virtualMetadataSourceSelector(url, relationship)),
-        map(virtualMetadataSource => virtualMetadataSource && virtualMetadataSource[item]),
+        map((virtualMetadataSource) => virtualMetadataSource && virtualMetadataSource[item]),
     );
   }
 
