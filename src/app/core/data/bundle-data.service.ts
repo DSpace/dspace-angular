@@ -11,7 +11,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindAllOptions } from './request.models';
+import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 
 /**
@@ -40,7 +40,7 @@ export class BundleDataService extends DataService<Bundle> {
    * @param {FindAllOptions} options
    * @returns {Observable<string>}
    */
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 }

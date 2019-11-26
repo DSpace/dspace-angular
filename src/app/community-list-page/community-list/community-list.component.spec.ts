@@ -17,7 +17,7 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { Collection } from '../../core/shared/collection.model';
-import { Observable, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { isEmpty, isNotEmpty } from '../../shared/empty.util';
 
@@ -89,7 +89,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), mockSubcommunities1Page1)),
         collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
         name: 'community1',
-      }), true, 0, false, null
+      }), observableOf(true), 0, false, null
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -98,7 +98,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
         name: 'community2',
-      }), true, 0, false, null
+      }), observableOf(true), 0, false, null
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -107,7 +107,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
         name: 'community3',
-      }), false, 0, false, null
+      }), observableOf(false), 0, false, null
     ),
   ];
   let communityListServiceStub;
@@ -143,7 +143,7 @@ describe('CommunityListComponent', () => {
           flatnodes = [];
           const topFlatnodes = mockTopFlatnodesUnexpanded.slice(0, endPageIndex);
           topFlatnodes.map((topNode: FlatNode) => {
-            flatnodes = [...flatnodes, topNode]
+            flatnodes = [...flatnodes, topNode];
             const expandedParent: FlatNode = expandedNodes.find((expandedNode: FlatNode) => expandedNode.id === topNode.id);
             if (isNotEmpty(expandedParent)) {
               const matchingTopComWithArrays = mockTopCommunitiesWithChildrenArrays.find((topcom) => topcom.id === topNode.id);
@@ -151,12 +151,12 @@ describe('CommunityListComponent', () => {
                 const possibleSubcoms: Community[] = matchingTopComWithArrays.subcommunities;
                 let subComFlatnodes = [];
                 possibleSubcoms.map((subcom: Community) => {
-                  subComFlatnodes = [...subComFlatnodes, toFlatNode(subcom, false, topNode.level + 1, false, topNode)];
+                  subComFlatnodes = [...subComFlatnodes, toFlatNode(subcom, observableOf(false), topNode.level + 1, false, topNode)];
                 });
                 const possibleColls: Collection[] = matchingTopComWithArrays.collections;
                 let collFlatnodes = [];
                 possibleColls.map((coll: Collection) => {
-                  collFlatnodes = [...collFlatnodes, toFlatNode(coll, false, topNode.level + 1, false, topNode)];
+                  collFlatnodes = [...collFlatnodes, toFlatNode(coll, observableOf(false), topNode.level + 1, false, topNode)];
                 });
                 if (isNotEmpty(subComFlatnodes)) {
                   const endSubComIndex = this.subcommunityPageSize * expandedParent.currentCommunityPage;
@@ -313,7 +313,7 @@ describe('CommunityListComponent', () => {
           expect(allNodes.find((foundEl) => {
             return (foundEl.nativeElement.textContent.trim() === coll.name);
           })).toBeTruthy();
-        })
+        });
         expect(allNodes.length).toEqual(4);
         const showMoreEl = fixture.debugElement.queryAll(By.css('.show-more-node'));
         expect(showMoreEl.length).toEqual(2);

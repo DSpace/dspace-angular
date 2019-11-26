@@ -10,7 +10,7 @@ import {
   getRemoteDataPayload, getResponseFromEntry,
   getSucceededRemoteData
 } from '../shared/operators';
-import { DeleteRequest, FindAllOptions, RestRequest } from './request.models';
+import { DeleteRequest, FindListOptions, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { Item } from '../shared/item.model';
@@ -56,7 +56,7 @@ export class RelationshipService extends DataService<Relationship> {
     super();
   }
 
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
   }
 
@@ -228,7 +228,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label
    * @param options
    */
-  getRelatedItemsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Item>>> {
+  getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
     return this.getItemRelationshipsByLabel(item, label, options).pipe(paginatedRelationsToItems(item.uuid));
   }
 
@@ -239,10 +239,10 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label
    * @param options
    */
-  getItemRelationshipsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
-    let findAllOptions = new FindAllOptions();
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
+    let findAllOptions = new FindListOptions();
     if (options) {
-      findAllOptions = Object.assign(new FindAllOptions(), options);
+      findAllOptions = Object.assign(new FindListOptions(), options);
     }
     const searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
     if (findAllOptions.searchParams) {

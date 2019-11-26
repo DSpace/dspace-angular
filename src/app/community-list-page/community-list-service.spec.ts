@@ -1,4 +1,8 @@
-import { TestBed, inject, async, fakeAsync } from '@angular/core/testing';
+import { of as observableOf } from 'rxjs';
+import { TestBed, inject, async } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { MockStore } from '../shared/testing/mock-store';
 import { CommunityListService, FlatNode, toFlatNode } from './community-list-service';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { PaginatedList } from '../core/data/paginated-list';
@@ -10,10 +14,11 @@ import {
 } from '../shared/testing/utils';
 import { Community } from '../core/shared/community.model';
 import { Collection } from '../core/shared/collection.model';
-import { map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { FindListOptions } from '../core/data/request.models';
 
 describe('CommunityListService', () => {
+  let store: MockStore<AppState>;
   const standardElementsPerPage = 2;
   let collectionDataServiceStub: any;
   let communityDataServiceStub: any;
@@ -179,10 +184,11 @@ describe('CommunityListService', () => {
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },],
     });
-    service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub);
+    store = TestBed.get(Store);
+    service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store);
   }));
 
-  afterAll(() => service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub));
+  afterAll(() => service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store));
 
   it('should create', inject([CommunityListService], (serviceIn: CommunityListService) => {
     expect(serviceIn).toBeTruthy();
@@ -242,7 +248,7 @@ describe('CommunityListService', () => {
         beforeEach(() => {
           const expandedNodes = [];
           mockListOfTopCommunitiesPage1.map((community: Community) => {
-            const communityFlatNode = toFlatNode(community, true, 0, true, null);
+            const communityFlatNode = toFlatNode(community, observableOf(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 1;
             communityFlatNode.currentCommunityPage = 1;
             expandedNodes.push(communityFlatNode);
@@ -265,7 +271,7 @@ describe('CommunityListService', () => {
       });
       describe('Just first top comm expanded, all page 1: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
         beforeEach(() => {
-          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[0], true, 0, true, null);
+          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[0], observableOf(true), 0, true, null);
           communityFlatNode.currentCollectionPage = 1;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
@@ -284,7 +290,7 @@ describe('CommunityListService', () => {
       });
       describe('Just second top comm expanded, collections at page 2: should return list containing flatnodes of the communities in the test list and all its possible page-limited children (subcommunities and collections)', () => {
         beforeEach(() => {
-          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[1], true, 0, true, null);
+          const communityFlatNode = toFlatNode(mockListOfTopCommunitiesPage1[1], observableOf(true), 0, true, null);
           communityFlatNode.currentCollectionPage = 2;
           communityFlatNode.currentCommunityPage = 1;
           const expandedNodes = [communityFlatNode];
@@ -336,7 +342,7 @@ describe('CommunityListService', () => {
           beforeEach(() => {
             const expandedNodes = [];
             listOfCommunities.map((community: Community) => {
-              const communityFlatNode = toFlatNode(community, true, 0, true, null);
+              const communityFlatNode = toFlatNode(community, observableOf(true), 0, true, null);
               communityFlatNode.currentCollectionPage = 1;
               communityFlatNode.currentCommunityPage = 1;
               expandedNodes.push(communityFlatNode);
@@ -436,7 +442,7 @@ describe('CommunityListService', () => {
           });
           let flatNodeList;
           beforeEach(() => {
-            const communityFlatNode = toFlatNode(communityWithSubcoms, true, 0, true, null);
+            const communityFlatNode = toFlatNode(communityWithSubcoms, observableOf(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 1;
             communityFlatNode.currentCommunityPage = 1;
             const expandedNodes = [communityFlatNode];
@@ -475,7 +481,7 @@ describe('CommunityListService', () => {
           });
           let flatNodeList;
           beforeEach(() => {
-            const communityFlatNode = toFlatNode(communityWithCollections, true, 0, true, null);
+            const communityFlatNode = toFlatNode(communityWithCollections, observableOf(true), 0, true, null);
             communityFlatNode.currentCollectionPage = 2;
             communityFlatNode.currentCommunityPage = 1;
             const expandedNodes = [communityFlatNode];
@@ -523,7 +529,7 @@ describe('CommunityListService', () => {
             'dc.title': [{ language: 'en_US', value: 'Community 1' }]
           }
         });
-        expect(service.getIsExpandable(communityWithSubcoms)).toEqual(true);
+        expect(service.getIsExpandable(communityWithSubcoms)).toEqual(observableOf(true));
       });
       it('if community has collections', () => {
         const communityWithCollections = Object.assign(new Community(), {
@@ -536,7 +542,7 @@ describe('CommunityListService', () => {
             'dc.title': [{ language: 'en_US', value: 'Community 2' }]
           }
         });
-        expect(service.getIsExpandable(communityWithCollections)).toEqual(true);
+        expect(service.getIsExpandable(communityWithCollections)).toEqual(observableOf(true));
       });
     });
     describe('should return false', () => {
@@ -551,7 +557,7 @@ describe('CommunityListService', () => {
             'dc.title': [{ language: 'en_US', value: 'Community 3' }]
           }
         });
-        expect(service.getIsExpandable(communityWithNoSubcomsOrColls)).toEqual(false);
+        expect(service.getIsExpandable(communityWithNoSubcomsOrColls)).toEqual(observableOf(false));
       });
     });
 
