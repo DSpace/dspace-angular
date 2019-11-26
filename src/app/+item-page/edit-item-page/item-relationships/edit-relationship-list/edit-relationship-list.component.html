@@ -7,6 +7,7 @@
            class="relationship-row d-block"
            [fieldUpdate]="updateValue || {}"
            [url]="url"
+           [editItem]="item"
            [ngClass]="{'alert alert-danger': updateValue.changeType === 2}">
       </div>
       <ds-loading *ngIf="updateValues.length == 0" message="{{'loading.items' | translate}}"></ds-loading>

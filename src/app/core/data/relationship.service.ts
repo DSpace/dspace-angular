@@ -31,7 +31,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { SearchParam } from '../cache/models/search-param.model';
 
@@ -83,11 +83,13 @@ export class RelationshipService extends DataService<Relationship> {
    * Send a delete request for a relationship by ID
    * @param uuid
    */
-  deleteRelationship(uuid: string): Observable<RestResponse> {
+  deleteRelationship(uuid: string, copyVirtualMetadata: string): Observable<RestResponse> {
     return this.getRelationshipEndpoint(uuid).pipe(
       isNotEmptyOperator(),
       distinctUntilChanged(),
-      map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
+      map((endpointURL: string) =>
+        new DeleteRequest(this.requestService.generateRequestId(), endpointURL + "?copyVirtualMetadata=" + copyVirtualMetadata)
+      ),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry(),
@@ -269,5 +271,4 @@ export class RelationshipService extends DataService<Relationship> {
       this.requestService.removeByHrefSubstring(rightItem.payload.self);
     });
   }
-
 }

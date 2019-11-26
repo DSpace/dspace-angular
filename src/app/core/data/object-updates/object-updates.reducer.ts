@@ -7,9 +7,13 @@ import {
   ObjectUpdatesActionTypes,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
-  RemoveObjectUpdatesAction, SetEditableFieldUpdateAction, SetValidFieldUpdateAction
+  RemoveObjectUpdatesAction,
+  SetEditableFieldUpdateAction,
+  SetValidFieldUpdateAction,
+  SelectVirtualMetadataAction,
 } from './object-updates.actions';
 import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import {Relationship} from "../../shared/item-relationships/relationship.model";
 
 /**
  * Path where discarded objects are saved
@@ -42,7 +46,7 @@ export interface Identifiable {
 /**
  * The state of a single field update
  */
-export interface FieldUpdate {
+export interface  FieldUpdate {
   field: Identifiable,
   changeType: FieldChangeType
 }
@@ -54,12 +58,26 @@ export interface FieldUpdates {
   [uuid: string]: FieldUpdate;
 }
 
+export interface VirtualMetadataSources {
+  [source: string]: VirtualMetadataSource
+}
+
+export interface VirtualMetadataSource {
+  [uuid: string]: boolean,
+}
+
+export interface DeleteRelationship extends Relationship {
+  keepLeftVirtualMetadata: boolean,
+  keepRightVirtualMetadata: boolean,
+}
+
 /**
  * The updated state of a single page
  */
 export interface ObjectUpdatesEntry {
   fieldStates: FieldStates;
-  fieldUpdates: FieldUpdates
+  fieldUpdates: FieldUpdates;
+  virtualMetadataSources: VirtualMetadataSources;
   lastModified: Date;
 }
 
@@ -95,6 +113,9 @@ export function objectUpdatesReducer(state = initialState, action: ObjectUpdates
     }
     case ObjectUpdatesActionTypes.ADD_FIELD: {
       return addFieldUpdate(state, action as AddFieldUpdateAction);
+    }
+    case ObjectUpdatesActionTypes.SELECT_VIRTUAL_METADATA: {
+      return selectVirtualMetadata(state, action as SelectVirtualMetadataAction);
     }
     case ObjectUpdatesActionTypes.DISCARD: {
       return discardObjectUpdates(state, action as DiscardObjectUpdatesAction);
@@ -135,6 +156,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     state[url],
     { fieldStates: fieldStates },
     { fieldUpdates: {} },
+    { virtualMetadataSources: {} },
     { lastModified: lastModifiedServer }
   );
   return Object.assign({}, state, { [url]: newPageState });
@@ -167,6 +189,51 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
     { fieldStates: states },
     { fieldUpdates: fieldUpdates });
   return Object.assign({}, state, { [url]: newPageState });
+}
+
+/**
+ * Add a new update for a specific field to the store
+ * @param state The current state
+ * @param action The action to perform on the current state
+ */
+function selectVirtualMetadata(state: any, action: SelectVirtualMetadataAction) {
+
+  const url: string = action.payload.url;
+  const source: string = action.payload.source;
+  const uuid: string = action.payload.uuid;
+  const select: boolean = action.payload.select;
+
+  const pageState: ObjectUpdatesEntry = state[url] || {};
+
+  const virtualMetadataSource = Object.assign(
+    {},
+    pageState.virtualMetadataSources[source],
+    {
+      [uuid]: select,
+    },
+  );
+
+  const virtualMetadataSources = Object.assign(
+    {},
+    pageState.virtualMetadataSources,
+    {
+      [source]: virtualMetadataSource,
+    },
+  );
+
+  const newPageState = Object.assign(
+    {},
+    pageState,
+    {virtualMetadataSources: virtualMetadataSources},
+  );
+
+  return Object.assign(
+    {},
+    state,
+    {
+      [url]: newPageState,
+    }
+  );
 }
 
 /**

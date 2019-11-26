@@ -4,10 +4,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { FieldUpdate, FieldUpdates } from '../../../../core/data/object-updates/object-updates.reducer';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { Item } from '../../../../core/shared/item.model';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap} from 'rxjs/operators';
 import { hasValue } from '../../../../shared/empty.util';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../core/data/paginated-list';
+import {Relationship} from "../../../../core/shared/item-relationships/relationship.model";
 
 @Component({
   selector: 'ds-edit-relationship-list',
@@ -62,21 +61,16 @@ export class EditRelationshipListComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Transform the item's relationships of a specific type into related items
-   * @param label   The relationship type's label
-   */
-  public getRelatedItemsByLabel(label: string): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.relationshipService.getRelatedItemsByLabel(this.item, label);
-  }
-
-  /**
    * Get FieldUpdates for the relationships of a specific type
    * @param label   The relationship type's label
    */
   public getUpdatesByLabel(label: string): Observable<FieldUpdates> {
-    return this.getRelatedItemsByLabel(label).pipe(
-      switchMap((itemsRD) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, itemsRD.payload.page))
-    )
+    return this.relationshipService.getItemRelationshipsByLabel(this.item, label).pipe(
+      map(relationsRD => relationsRD.payload.page.map(relationship =>
+        Object.assign(new Relationship(), relationship, {uuid: relationship.id})
+      )),
+      switchMap((initialFields) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, initialFields)),
+    );
   }
 
   /**
@@ -97,5 +91,4 @@ export class EditRelationshipListComponent implements OnInit, OnChanges {
   trackUpdate(index, update: FieldUpdate) {
     return update && update.field ? update.field.uuid : undefined;
   }
-
 }

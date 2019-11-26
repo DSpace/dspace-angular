@@ -1,8 +1,12 @@
 import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
+import {
+  DeleteRelationship,
+  FieldUpdate,
+  FieldUpdates
+} from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import {filter, map, switchMap, take, tap} from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -18,7 +22,7 @@ import { ErrorResponse, RestResponse } from '../../../core/cache/response.models
 import { isNotEmptyOperator } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { getSucceededRemoteData} from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { getRelationsByRelatedItemIds } from '../../simple/item-types/shared/item-relationships-utils';
@@ -104,22 +108,36 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
    * Make sure the lists are refreshed afterwards and notifications are sent for success and errors
    */
   public submit(): void {
-    // Get all IDs of related items of which their relationship with the current item is about to be removed
-    const removedItemIds$ = this.relationshipService.getRelatedItems(this.item).pipe(
-      switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, items) as Observable<FieldUpdates>),
-      map((fieldUpdates: FieldUpdates) => Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
-      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field.uuid) as string[]),
-      isNotEmptyOperator()
-    );
     // Get all the relationships that should be removed
-    const removedRelationships$ = removedItemIds$.pipe(
-      getRelationsByRelatedItemIds(this.item, this.relationshipService)
+    const removedRelationshipIDs$ = this.relationshipService.getItemRelationshipsArray(this.item).pipe(
+      map((relationships: Relationship[]) => relationships.map(relationship =>
+        Object.assign(new Relationship(), relationship, {uuid: relationship.id})
+      )),
+      switchMap((relationships: Relationship[]) => {
+        return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>
+      }),
+      map((fieldUpdates: FieldUpdates) => Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
+      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field) as DeleteRelationship[]),
+      isNotEmptyOperator(),
     );
-    // Request a delete for every relationship found in the observable created above
-    removedRelationships$.pipe(
+    removedRelationshipIDs$.pipe(
       take(1),
-      map((removedRelationships: Relationship[]) => removedRelationships.map((rel: Relationship) => rel.id)),
-      switchMap((removedIds: string[]) => observableZip(...removedIds.map((uuid: string) => this.relationshipService.deleteRelationship(uuid))))
+      switchMap((deleteRelationships: DeleteRelationship[]) =>
+        observableZip(...deleteRelationships.map((deleteRelationship) => {
+            let copyVirtualMetadata : string;
+            if (deleteRelationship.keepLeftVirtualMetadata && deleteRelationship.keepRightVirtualMetadata) {
+              copyVirtualMetadata = 'all';
+            } else if (deleteRelationship.keepLeftVirtualMetadata) {
+              copyVirtualMetadata = 'left';
+            } else if (deleteRelationship.keepRightVirtualMetadata) {
+              copyVirtualMetadata = 'right';
+            } else {
+              copyVirtualMetadata = 'none';
+            }
+            return this.relationshipService.deleteRelationship(deleteRelationship.uuid, copyVirtualMetadata);
+          }
+        ))
+      ),
     ).subscribe((responses: RestResponse[]) => {
       this.displayNotifications(responses);
       this.reset();

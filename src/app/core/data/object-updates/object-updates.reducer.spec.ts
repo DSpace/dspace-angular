@@ -79,7 +79,8 @@ describe('objectUpdatesReducer', () => {
           changeType: FieldChangeType.ADD
         }
       },
-      lastModified: modDate
+      lastModified: modDate,
+      virtualMetadataSources: {},
     }
   };
 
@@ -213,6 +214,7 @@ describe('objectUpdatesReducer', () => {
           },
         },
         fieldUpdates: {},
+        virtualMetadataSources: {},
         lastModified: modDate
       }
     };

@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { CoreState } from '../../core.reducers';
-import { coreSelector } from '../../core.selectors';
+import {Injectable} from '@angular/core';
+import {createSelector, MemoizedSelector, select, Store} from '@ngrx/store';
+import {CoreState} from '../../core.reducers';
+import {coreSelector} from '../../core.selectors';
 import {
   FieldState,
   FieldUpdates,
   Identifiable,
   OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
-  ObjectUpdatesState
+  ObjectUpdatesState,
+  VirtualMetadataSource
 } from './object-updates.reducer';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
@@ -18,12 +19,17 @@ import {
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
+  SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction
 } from './object-updates.actions';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { INotification } from '../../../shared/notifications/models/notification.model';
+import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {hasNoValue, hasValue, isEmpty, isNotEmpty} from '../../../shared/empty.util';
+import {INotification} from '../../../shared/notifications/models/notification.model';
+import {Item} from "../../shared/item.model";
+import {Relationship} from "../../shared/item-relationships/relationship.model";
+import {MetadataValue} from "../../shared/metadata.models";
+import {VirtualMetadata} from "../../../+item-page/edit-item-page/virtual-metadata/virtual-metadata.component";
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -35,6 +41,10 @@ function filterByUrlObjectUpdatesStateSelector(url: string): MemoizedSelector<Co
 
 function filterByUrlAndUUIDFieldStateSelector(url: string, uuid: string): MemoizedSelector<CoreState, FieldState> {
   return createSelector(filterByUrlObjectUpdatesStateSelector(url), (state: ObjectUpdatesEntry) => state.fieldStates[uuid]);
+}
+
+function virtualMetadataSourceSelector(url: string, source: string): MemoizedSelector<CoreState, VirtualMetadataSource> {
+  return createSelector(filterByUrlObjectUpdatesStateSelector(url), (state: ObjectUpdatesEntry) => state.virtualMetadataSources[source]);
 }
 
 /**
@@ -193,6 +203,41 @@ export class ObjectUpdatesService {
    */
   saveChangeFieldUpdate(url: string, field: Identifiable) {
     this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
+  }
+
+  getVirtualMetadataList(relationship: Relationship, item: Item): VirtualMetadata[] {
+    return Object.entries(item.metadata)
+      .map(([key, value]) =>
+        value
+          .filter((metadata: MetadataValue) =>
+            metadata.authority && metadata.authority.endsWith(relationship.id))
+          .map((metadata: MetadataValue) => {
+            return {
+              metadataField: key,
+              metadataValue: metadata,
+            }
+          })
+      )
+      .reduce((previous, current) => previous.concat(current));
+  }
+
+  isSelectedVirtualMetadataItem(url: string, relationship: string, item: string): Observable<boolean> {
+
+    return this.store
+      .pipe(
+        select(virtualMetadataSourceSelector(url, relationship)),
+        map(virtualMetadataSource => virtualMetadataSource && virtualMetadataSource[item]),
+    );
+  }
+
+  /**
+   * Method to dispatch an AddFieldUpdateAction to the store
+   * @param url The page's URL for which the changes are saved
+   * @param field An updated field for the page's object
+   * @param changeType The last type of change applied to this field
+   */
+  setSelectedVirtualMetadataItem(url: string, relationship: string, item: string, selected: boolean) {
+    this.store.dispatch(new SelectVirtualMetadataAction(url, relationship, item, selected));
   }
 
   /**

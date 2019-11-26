@@ -109,7 +109,7 @@ describe('RelationshipService', () => {
     beforeEach(() => {
       spyOn(service, 'findById').and.returnValue(getRemotedataObservable(relationship1));
       spyOn(objectCache, 'remove');
-      service.deleteRelationship(relationships[0].uuid).subscribe();
+      service.deleteRelationship(relationships[0].uuid, 'none').subscribe();
     });
 
     it('should send a DeleteRequest', () => {
