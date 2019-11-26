@@ -5,6 +5,9 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { CommunityListPageComponent } from './community-list-page.component';
 import { CommunityListService } from './community-list-service';
 
+/**
+ * RouterModule to help navigate to the page with the community list tree
+ */
 @NgModule({
   imports: [
     RouterModule.forChild([

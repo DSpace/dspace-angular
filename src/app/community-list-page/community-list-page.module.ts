@@ -6,6 +6,9 @@ import { CommunityListPageRoutingModule } from './community-list-page.routing.mo
 import { CommunityListComponent } from './community-list/community-list.component';
 import { CdkTreeModule } from '@angular/cdk/tree';
 
+/**
+ * The page which houses a title and the community list, as described in community-list.component
+ */
 @NgModule({
   imports: [
     CommonModule,

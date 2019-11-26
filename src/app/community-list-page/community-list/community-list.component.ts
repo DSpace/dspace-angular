@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
 import { CommunityListService, FlatNode } from '../community-list-service';
 import { CommunityListDatasource } from '../community-list-datasource';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { isEmpty } from '../../shared/empty.util';
 
+/**
+ * A tree-structured list of nodes representing the communities, their subCommunities and collections.
+ * Initially only the page-restricted top communities are shown.
+ * Each node can be expanded to show its children and all children are also page-limited.
+ * More pages of a page-limited result can be shown by pressing a show more node/link.
+ * Which nodes were expanded is kept in the store, so this persists across pages.
+ */
 @Component({
   selector: 'ds-community-list',
   templateUrl: './community-list.component.html',
 })
-export class CommunityListComponent implements OnInit {
+export class CommunityListComponent implements OnInit, OnDestroy {
 
   private expandedNodes: FlatNode[] = [];
   public loadingNode: FlatNode;
@@ -24,7 +32,17 @@ export class CommunityListComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new CommunityListDatasource(this.communityListService);
-    this.dataSource.loadCommunities(null);
+    this.communityListService.getLoadingNodeFromStore().pipe(take(1)).subscribe((result) => {
+      this.loadingNode = result;
+    });
+    this.communityListService.getExpandedNodesFromStore().pipe(take(1)).subscribe((result) => {
+      this.expandedNodes = [...result];
+      this.dataSource.loadCommunities(this.expandedNodes);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.communityListService.saveCommunityListStateToStore(this.expandedNodes, this.loadingNode);
   }
 
   // whether or not this node has children (subcommunities or collections)
