@@ -21,6 +21,7 @@ export const SelectableListActionTypes = {
 
 /* tslint:disable:max-classes-per-file */
 export abstract class SelectableListAction implements Action {
+  // tslint:disable-next-line:no-shadowed-variable
   constructor(public type, public id: string) {
   }
 }
@@ -75,12 +76,9 @@ export class SelectableListSetSelectionAction extends SelectableListAction {
   }
 }
 
-
 export class SelectableListDeselectAllAction extends SelectableListAction {
   constructor(id: string) {
     super(SelectableListActionTypes.DESELECT_ALL, id);
   }
 }
-
-
 /* tslint:enable:max-classes-per-file */

@@ -26,7 +26,6 @@ let mockItemWithoutMetadata: ItemSearchResult;
 let nameVariant;
 let mockRelationshipService;
 
-
 function init() {
   mockItemWithMetadata = Object.assign(
     new ItemSearchResult(),
@@ -65,7 +64,7 @@ function init() {
       })
     });
 
-  nameVariant = "Doe J.";
+  nameVariant = 'Doe J.';
   mockRelationshipService = {
     getNameVariant: () => observableOf(nameVariant)
   };

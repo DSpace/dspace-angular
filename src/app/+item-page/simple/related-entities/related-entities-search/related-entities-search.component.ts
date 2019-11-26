@@ -49,9 +49,6 @@ export class RelatedEntitiesSearchComponent implements OnInit {
   fixedFilter: string;
   configuration$: Observable<string>;
 
-  constructor() {
-  }
-
   ngOnInit(): void {
     if (isNotEmpty(this.relationType) && isNotEmpty(this.item)) {
       this.fixedFilter = getFilterByRelation(this.relationType, this.item.id);

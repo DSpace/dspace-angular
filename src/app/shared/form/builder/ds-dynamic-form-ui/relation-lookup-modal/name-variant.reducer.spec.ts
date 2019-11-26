@@ -25,7 +25,6 @@ function init() {
   variantList1Item2 = 'Test Name Variant 2';
 }
 
-
 describe('nameVariantReducer', () => {
   beforeEach(() => {
     init();

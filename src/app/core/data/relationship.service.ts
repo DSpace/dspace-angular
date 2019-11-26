@@ -30,7 +30,6 @@ import { AppState, keySelector } from '../../app.reducer';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 
-
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
 const relationshipListStateSelector = (listID: string): MemoizedSelector<AppState, NameVariantListState> => {
@@ -313,7 +312,7 @@ export class RelationshipService extends DataService<Relationship> {
           relation.relationshipType.pipe(
             getSucceededRemoteData(),
             getRemoteDataPayload(),
-            map(type => {
+            map((type) => {
               return { relation, type }
             })
           )

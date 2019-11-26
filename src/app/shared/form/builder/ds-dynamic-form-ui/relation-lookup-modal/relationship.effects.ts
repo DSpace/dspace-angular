@@ -28,11 +28,9 @@ export class RelationshipEffects {
     [identifier: string]: string
   } = {};
 
-
   private initialActionMap: {
     [identifier: string]: string
   } = {};
-
 
   /**
    * Effect that makes sure all last fired RelationshipActions' types are stored in the map of this service, with the object uuid as their key
@@ -92,18 +90,15 @@ export class RelationshipEffects {
       )
     );
 
-
   constructor(private actions$: Actions,
               private relationshipService: RelationshipService,
               private relationshipTypeService: RelationshipTypeService,
   ) {
   }
 
-
   private createIdentifier(item1: Item, item2: Item, relationshipType: string): string {
     return `${item1.uuid}-${item2.uuid}-${relationshipType}`;
   }
-
 
   private addRelationship(item1: Item, item2: Item, relationshipType: string, nameVariant?: string) {
     const type1: string = item1.firstMetadataValue('relationship.type');

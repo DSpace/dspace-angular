@@ -34,4 +34,3 @@ export class NormalizedGroup extends NormalizedDSpaceObject<Group> implements Ca
   @autoserialize
   public permanent: boolean;
 }
-

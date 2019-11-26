@@ -8,7 +8,6 @@ import { ConfigurationSearchPageGuard } from './configuration-search-page.guard'
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { FilteredSearchPageComponent } from './filtered-search-page.component';
 
-
 const components = [
   SearchPageComponent,
   FilteredSearchPageComponent,

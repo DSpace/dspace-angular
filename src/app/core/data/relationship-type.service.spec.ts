@@ -12,7 +12,7 @@ import { ItemType } from '../shared/item-relationships/item-type.model';
 
 describe('RelationshipTypeService', () => {
   let service: RelationshipTypeService;
-  let requestService : RequestService;
+  let requestService: RequestService;
   let restEndpointURL;
   let halService: any;
   let publicationTypeString;
@@ -23,8 +23,6 @@ describe('RelationshipTypeService', () => {
   let orgUnitType;
 
   let relationshipType1;
-
-
   let relationshipType2;
 
   let buildList;
@@ -48,7 +46,6 @@ describe('RelationshipTypeService', () => {
       leftType: createSuccessfulRemoteDataObject$(publicationType),
       rightType: createSuccessfulRemoteDataObject$(personType)
     });
-
 
     relationshipType2 = Object.assign(new RelationshipType(), {
       id: '2',

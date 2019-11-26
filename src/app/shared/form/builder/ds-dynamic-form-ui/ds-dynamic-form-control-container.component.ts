@@ -178,7 +178,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
-  relationships$: Observable<SearchResult<Item>[]>;
+  relationships$: Observable<Array<SearchResult<Item>>>;
   hasRelationLookup: boolean;
   modalRef: NgbModalRef;
   item$: Observable<Item>;
@@ -231,14 +231,14 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         take(1),
         switchMap((item: Item) => this.relationService.getRelatedItemsByLabel(item, this.model.relationship.relationshipType)),
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
-      ).subscribe((relatedItems: SearchResult<Item>[]) => this.selectableListService.select(this.listId, relatedItems));
+      ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
 
       this.relationships$ = this.selectableListService.getSelectableList(this.listId).pipe(
         map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
-      ) as Observable<SearchResult<Item>[]>;
+      ) as Observable<Array<SearchResult<Item>>>;
       this.modelValueMDRepresentation =
         observableCombineLatest(this.item$, this.relationships$).pipe(
-          map(([item, relatedItems]: [Item, SearchResult<DSpaceObject>[]]) =>
+          map(([item, relatedItems]: [Item, Array<SearchResult<DSpaceObject>>]) =>
             relatedItems
               .map((element: SearchResult<DSpaceObject>) => {
                 const relationMD: MetadataValue = item.firstMetadata(this.model.relationship.metadataField, { value: element.indexableObject.uuid });
@@ -294,7 +294,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   public hasResultsSelected(): Observable<boolean> {
-    return this.model.value.pipe(map((list: SearchResult<DSpaceObject>[]) => isNotEmpty(list)));
+    return this.model.value.pipe(map((list: Array<SearchResult<DSpaceObject>>) => isNotEmpty(list)));
   }
 
   openLookup() {

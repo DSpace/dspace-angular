@@ -74,7 +74,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.modal.close();
   }
 
-  select(...selectableObjects: SearchResult<Item>[]) {
+  select(...selectableObjects: Array<SearchResult<Item>>) {
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = combineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {
@@ -92,8 +92,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
           })
         );
         obs
-          .subscribe((obs: any[]) => {
-            return obs.forEach((object: any) => {
+          .subscribe((arr: any[]) => {
+            return arr.forEach((object: any) => {
                 this.store.dispatch(new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, object.nameVariant));
               }
             );
@@ -108,7 +108,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)))
   }
 
-  deselect(...selectableObjects: SearchResult<Item>[]) {
+  deselect(...selectableObjects: Array<SearchResult<Item>>) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
@@ -120,7 +120,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   private setExistingNameVariants() {
     const virtualMDs: MetadataValue[] = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
 
-    const relatedItemPairs$: Observable<[Item, Item][]> =
+    const relatedItemPairs$: Observable<Array<[Item, Item]>> =
       combineLatest(virtualMDs.map((md: MetadataValue) => this.relationshipService.findById(md.virtualValue).pipe(getSucceededRemoteData(), getRemoteDataPayload())))
         .pipe(
           switchMap((relationships: Relationship[]) => combineLatest(relationships.map((relationship: Relationship) =>
@@ -133,11 +133,11 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         );
 
     const relatedItems$: Observable<Item[]> = relatedItemPairs$.pipe(
-      map(([relatedItemPairs,]: [[Item, Item][]]) => relatedItemPairs.map(([left, right]: [Item, Item]) => left.uuid === this.item.uuid ? left : right))
+      map(([relatedItemPairs,]: [Array<[Item, Item]>]) => relatedItemPairs.map(([left, right]: [Item, Item]) => left.uuid === this.item.uuid ? left : right))
     );
 
     relatedItems$.pipe(take(1)).subscribe((relatedItems) => {
-        let index: number = 0;
+        let index = 0;
         virtualMDs.forEach(
           (md: MetadataValue) => {
             this.relationshipService.setNameVariant(this.listId, relatedItems[index].uuid, md.value);

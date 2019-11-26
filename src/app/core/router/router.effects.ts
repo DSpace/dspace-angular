@@ -19,7 +19,7 @@ export class RouterEffects {
       map((actions: RouterNavigationAction[]) =>
         actions.map((navigateAction) => {
           const urlTree = this.router.parseUrl(navigateAction.payload.routerState.url);
-          return urlTree.root.children['primary'].segments.map(it => it.path).join('/');
+          return urlTree.root.children.primary.segments.map((it) => it.path).join('/');
         })),
       filter((actions: string[]) => actions[0] !== actions[1]),
       map(() => new RouteUpdateAction())

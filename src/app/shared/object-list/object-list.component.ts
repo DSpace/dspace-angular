@@ -179,6 +179,4 @@ export class ObjectListComponent {
   onPaginationChange(event) {
     this.paginationChange.emit(event);
   }
-
-
 }

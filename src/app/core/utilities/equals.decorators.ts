@@ -32,6 +32,7 @@ export function excludeFromEquals(object: any, propertyName: string): any {
   excludedFromEquals.set(object.constructor, [...list, propertyName]);
 }
 
+// tslint:disable-next-line:ban-types
 export function getExcludedFromEqualsFor(constructor: Function): string[] {
   return excludedFromEquals.get(constructor) || [];
 }
@@ -50,7 +51,7 @@ export function fieldsForEquals(...fields: string[]): any {
   }
 }
 
-
+// tslint:disable-next-line:ban-types
 export function getFieldsForEquals(constructor: Function, field: string): string[] {
   const fieldMap = fieldsForEqualsMap.get(constructor) || new Map();
   return fieldMap.get(field);

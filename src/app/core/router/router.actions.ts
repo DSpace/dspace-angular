@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { type } from '../../shared/ngrx/type';
-import { Params } from '@angular/router';
 
 /**
  * The list of HrefIndexAction type definitions
@@ -18,12 +17,6 @@ export const RouterActionTypes = {
  */
 export class RouteUpdateAction implements Action {
   type = RouterActionTypes.ROUTE_UPDATE;
-
-  /**
-   * Create a new RouteUpdateAction
-   */
-  constructor() {
-  }
 }
 
 /* tslint:enable:max-classes-per-file */

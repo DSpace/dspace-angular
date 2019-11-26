@@ -40,7 +40,6 @@ describe('RelationshipEffects', () => {
   let mockRelationshipService;
   let mockRelationshipTypeService;
 
-
   function init() {
     testUUID1 = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
     testUUID2 = '7f66a4d0-8557-4e77-8b1e-19930895f10a';
@@ -125,7 +124,7 @@ describe('RelationshipEffects', () => {
 
       describe('When it\'s not the first time for this identifier', () => {
         let action;
-        let testActionType = "TEST_TYPE";
+        const testActionType = 'TEST_TYPE';
         beforeEach(() => {
           (relationEffects as any).initialActionMap[identifier] = testActionType;
           (relationEffects as any).debounceMap[identifier] = new BehaviorSubject<string>(testActionType);
@@ -197,7 +196,7 @@ describe('RelationshipEffects', () => {
 
       describe('When it\'s not the first time for this identifier', () => {
         let action;
-        let testActionType = "TEST_TYPE";
+        const testActionType = 'TEST_TYPE';
         beforeEach(() => {
           (relationEffects as any).initialActionMap[identifier] = testActionType;
           (relationEffects as any).debounceMap[identifier] = new BehaviorSubject<string>(testActionType);

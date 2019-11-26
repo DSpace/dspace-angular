@@ -12,7 +12,7 @@ import { hasNoValue } from '../../empty.util';
 /**
  * Represents the state of all selectable lists in the store
  */
-export type SelectableListsState = {
+export interface SelectableListsState {
   [id: string]: SelectableListState;
 }
 
@@ -96,7 +96,6 @@ function setList(state: SelectableListState, action: SelectableListSetSelectionA
 function clearSelection(id: string) {
   return { id: id, selection: [] };
 }
-
 
 function isObjectInSelection(selection: ListableObject[], object: ListableObject) {
   return selection.findIndex((selected) => selected.equals(object)) >= 0

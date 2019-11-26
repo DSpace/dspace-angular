@@ -96,21 +96,21 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     });
   }
 
-  selectPage(page: SearchResult<Item>[]) {
+  selectPage(page: Array<SearchResult<Item>>) {
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: SearchResult<Item>[]) => {
+      .subscribe((selection: Array<SearchResult<Item>>) => {
         const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
         this.selectObject.emit(...filteredPage);
       });
     this.selectableListService.select(this.listId, page);
   }
 
-  deselectPage(page: SearchResult<Item>[]) {
+  deselectPage(page: Array<SearchResult<Item>>) {
     this.allSelected = false;
     this.selection$
       .pipe(take(1))
-      .subscribe((selection: SearchResult<Item>[]) => {
+      .subscribe((selection: Array<SearchResult<Item>>) => {
         const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) >= 0);
         this.deselectObject.emit(...filteredPage);
       });
@@ -133,7 +133,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     ).subscribe((results) => {
         this.selection$
           .pipe(take(1))
-          .subscribe((selection: SearchResult<Item>[]) => {
+          .subscribe((selection: Array<SearchResult<Item>>) => {
             const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
             this.selectObject.emit(...filteredResults);
           });

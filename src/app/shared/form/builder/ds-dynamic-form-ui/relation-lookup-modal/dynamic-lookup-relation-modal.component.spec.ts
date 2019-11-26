@@ -58,8 +58,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         { provide: RelationshipTypeService, useValue: {} },
         {
           provide: Store, useValue: {
-            dispatch: () => {
-            }
+            // tslint:disable-next-line:no-empty
+            dispatch: () => {}
           }
         },
         { provide: NgZone, useValue: new NgZone({}) },

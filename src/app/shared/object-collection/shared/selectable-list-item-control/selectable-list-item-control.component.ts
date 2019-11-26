@@ -18,7 +18,6 @@ export class SelectableListItemControlComponent implements OnInit {
    */
   @Input() object: ListableObject;
 
-
   @Input() selectionConfig: { repeatable: boolean, listId: string };
 
   /**
@@ -29,7 +28,6 @@ export class SelectableListItemControlComponent implements OnInit {
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
-
 
   selected$: Observable<boolean>;
 
