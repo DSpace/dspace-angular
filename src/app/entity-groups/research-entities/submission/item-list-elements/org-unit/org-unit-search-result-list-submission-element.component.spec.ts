@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { PersonSearchResultListSubmissionElementComponent } from './person-search-result-list-submission-element.component';
+import { OrgUnitSearchResultListSubmissionElementComponent } from './org-unit-search-result-list-submission-element.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
@@ -17,8 +17,8 @@ import { Store } from '@ngrx/store';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 
-let personListElementComponent: PersonSearchResultListSubmissionElementComponent;
-let fixture: ComponentFixture<PersonSearchResultListSubmissionElementComponent>;
+let personListElementComponent: OrgUnitSearchResultListSubmissionElementComponent;
+let fixture: ComponentFixture<OrgUnitSearchResultListSubmissionElementComponent>;
 
 let mockItemWithMetadata: ItemSearchResult;
 let mockItemWithoutMetadata: ItemSearchResult;
@@ -75,7 +75,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [PersonSearchResultListSubmissionElementComponent, TruncatePipe],
+      declarations: [OrgUnitSearchResultListSubmissionElementComponent, TruncatePipe],
       providers: [
         { provide: TruncatableService, useValue: {} },
         { provide: RelationshipService, useValue: mockRelationshipService },
@@ -88,13 +88,13 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
-    }).overrideComponent(PersonSearchResultListSubmissionElementComponent, {
+    }).overrideComponent(OrgUnitSearchResultListSubmissionElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(PersonSearchResultListSubmissionElementComponent);
+    fixture = TestBed.createComponent(OrgUnitSearchResultListSubmissionElementComponent);
     personListElementComponent = fixture.componentInstance;
 
   }));

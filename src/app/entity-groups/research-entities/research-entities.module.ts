@@ -22,7 +22,9 @@ import { PersonItemMetadataListElementComponent } from './metadata-representatio
 import { OrgUnitItemMetadataListElementComponent } from './metadata-representations/org-unit/org-unit-item-metadata-list-element.component';
 import { PersonSearchResultListSubmissionElementComponent } from './submission/item-list-elements/person/person-search-result-list-submission-element.component';
 import { PersonInputSuggestionsComponent } from './submission/item-list-elements/person/person-suggestions/person-input-suggestions.component';
-import { NameVariantModalComponent } from './submission/item-list-elements/person/name-variant-modal/name-variant-modal.component';
+import { NameVariantModalComponent } from './submission/name-variant-modal/name-variant-modal.component';
+import { OrgUnitInputSuggestionsComponent } from './submission/item-list-elements/org-unit/org-unit-suggestions/org-unit-input-suggestions.component';
+import { OrgUnitSearchResultListSubmissionElementComponent } from './submission/item-list-elements/org-unit/org-unit-search-result-list-submission-element.component';
 
 const ENTRY_COMPONENTS = [
   OrgUnitComponent,
@@ -44,7 +46,9 @@ const ENTRY_COMPONENTS = [
   ProjectSearchResultGridElementComponent,
   PersonSearchResultListSubmissionElementComponent,
   PersonInputSuggestionsComponent,
-  NameVariantModalComponent
+  NameVariantModalComponent,
+  OrgUnitSearchResultListSubmissionElementComponent,
+  OrgUnitInputSuggestionsComponent
 ];
 
 @NgModule({

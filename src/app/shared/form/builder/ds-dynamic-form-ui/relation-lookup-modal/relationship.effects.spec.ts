@@ -19,57 +19,80 @@ describe('RelationshipEffects', () => {
   let relationEffects: RelationshipEffects;
   let actions: Observable<any>;
 
-  const testUUID1 = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
-  const testUUID2 = '7f66a4d0-8557-4e77-8b1e-19930895f10a';
-  const leftTypeString = 'Publication';
-  const rightTypeString = 'Person';
-  const leftType = Object.assign(new ItemType(), {label: leftTypeString});
-  const rightType = Object.assign(new ItemType(), {label: rightTypeString});
-  const leftTypeMD = Object.assign(new MetadataValue(), { value: leftTypeString });
-  const rightTypeMD = Object.assign(new MetadataValue(), { value: rightTypeString });
-  const relationshipID = '1234';
+  let testUUID1;
+  let testUUID2;
+  let leftTypeString;
+  let rightTypeString;
+  let leftType;
+  let rightType;
+  let leftTypeMD;
+  let rightTypeMD;
+  let relationshipID;
   let identifier;
 
-  let leftItem = Object.assign(new Item(), {
-    uuid: testUUID1,
-    metadata: { 'relationship.type': [leftTypeMD] }
-  });
+  let leftItem;
 
-  let rightItem = Object.assign(new Item(), {
-    uuid: testUUID2,
-    metadata: { 'relationship.type': [rightTypeMD] }
-  });
+  let rightItem;
 
-  let relationshipType: RelationshipType = Object.assign(new RelationshipType(), {
-    leftwardType: 'isAuthorOfPublication',
-    rightwardType: 'isPublicationOfAuthor',
-    leftType: createSuccessfulRemoteDataObject$(leftType),
-    rightType: createSuccessfulRemoteDataObject$(rightType)
-  });
+  let relationshipType: RelationshipType;
 
-  let relationship = Object.assign(new Relationship(),
-    {
-      uuid: relationshipID,
-      leftItem: createSuccessfulRemoteDataObject$(leftItem),
-      rightItem: createSuccessfulRemoteDataObject$(rightItem),
-      relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
+  let relationship;
+  let mockRelationshipService;
+  let mockRelationshipTypeService;
+
+
+  function init() {
+    testUUID1 = '20e24c2f-a00a-467c-bdee-c929e79bf08d';
+    testUUID2 = '7f66a4d0-8557-4e77-8b1e-19930895f10a';
+    leftTypeString = 'Publication';
+    rightTypeString = 'Person';
+    leftType = Object.assign(new ItemType(), {label: leftTypeString});
+    rightType = Object.assign(new ItemType(), {label: rightTypeString});
+    leftTypeMD = Object.assign(new MetadataValue(), { value: leftTypeString });
+    rightTypeMD = Object.assign(new MetadataValue(), { value: rightTypeString });
+    relationshipID = '1234';
+
+    leftItem = Object.assign(new Item(), {
+      uuid: testUUID1,
+      metadata: { 'relationship.type': [leftTypeMD] }
     });
-  const mockRelationshipService = {
-    getRelationshipByItemsAndLabel:
-      () => observableOf(relationship),
-    deleteRelationship: () => {
-      /* Do nothing */
-    },
-    addRelationship: () => {
-      /* Do nothing */
-    }
-  };
-  const mockRelationshipTypeService = {
-    getRelationshipTypeByLabelAndTypes:
-      () => observableOf(relationshipType)
-  };
 
+    rightItem = Object.assign(new Item(), {
+      uuid: testUUID2,
+      metadata: { 'relationship.type': [rightTypeMD] }
+    });
+
+    relationshipType = Object.assign(new RelationshipType(), {
+      leftwardType: 'isAuthorOfPublication',
+      rightwardType: 'isPublicationOfAuthor',
+      leftType: createSuccessfulRemoteDataObject$(leftType),
+      rightType: createSuccessfulRemoteDataObject$(rightType)
+    });
+
+    relationship = Object.assign(new Relationship(),
+      {
+        uuid: relationshipID,
+        leftItem: createSuccessfulRemoteDataObject$(leftItem),
+        rightItem: createSuccessfulRemoteDataObject$(rightItem),
+        relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
+      });
+    mockRelationshipService = {
+      getRelationshipByItemsAndLabel:
+        () => observableOf(relationship),
+      deleteRelationship: () => {
+        /* Do nothing */
+      },
+      addRelationship: () => {
+        /* Do nothing */
+      }
+    };
+    mockRelationshipTypeService = {
+      getRelationshipTypeByLabelAndTypes:
+        () => observableOf(relationshipType)
+    };
+  }
   beforeEach(async(() => {
+    init();
     TestBed.configureTestingModule({
       providers: [
         RelationshipEffects,

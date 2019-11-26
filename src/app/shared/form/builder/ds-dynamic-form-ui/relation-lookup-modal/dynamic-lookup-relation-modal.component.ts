@@ -66,6 +66,8 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     if (this.relationshipOptions.nameVariants) {
       this.context = Context.Workspace;
     }
+
+    // this.setExistingNameVariants();
   }
 
   close() {
@@ -99,7 +101,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       });
   }
 
-  addNameVariantSubscription(sri: SearchResult<Item>) {
+  private addNameVariantSubscription(sri: SearchResult<Item>) {
     const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
     this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(
       skip(1),
@@ -115,25 +117,26 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     );
   }
 
-  setExistingNameVariants() {
-    const virtualMDs$: Observable<MetadataValue[]> = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
+  private setExistingNameVariants() {
+    const virtualMDs: MetadataValue[] = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
 
-    const relatedItemPairs$: Observable<[Item, Item][]> = virtualMDs$.pipe(
-      switchMap((mds: MetadataValue[]) => combineLatest(mds.map((md: MetadataValue) => this.relationshipService.findById(md.virtualValue).pipe(getSucceededRemoteData(), getRemoteDataPayload())))),
-      switchMap((relationships: Relationship[]) => combineLatest(relationships.map((relationship: Relationship) =>
-          combineLatest(
-            relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
-            relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
-          ))
-        )
-      )
-    );
+    const relatedItemPairs$: Observable<[Item, Item][]> =
+      combineLatest(virtualMDs.map((md: MetadataValue) => this.relationshipService.findById(md.virtualValue).pipe(getSucceededRemoteData(), getRemoteDataPayload())))
+        .pipe(
+          switchMap((relationships: Relationship[]) => combineLatest(relationships.map((relationship: Relationship) =>
+              combineLatest(
+                relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
+                relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
+              ))
+            )
+          )
+        );
 
     const relatedItems$: Observable<Item[]> = relatedItemPairs$.pipe(
       map(([relatedItemPairs,]: [[Item, Item][]]) => relatedItemPairs.map(([left, right]: [Item, Item]) => left.uuid === this.item.uuid ? left : right))
     );
 
-    combineLatest(virtualMDs$, relatedItems$).pipe(take(1)).subscribe(([virtualMDs, relatedItems]) => {
+    relatedItems$.pipe(take(1)).subscribe((relatedItems) => {
         let index: number = 0;
         virtualMDs.forEach(
           (md: MetadataValue) => {
@@ -144,7 +147,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       }
     )
   }
-
 
   ngOnDestroy() {
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());

@@ -51,7 +51,6 @@ export class RelationshipEffects {
               take(1)
             ).subscribe(
               (type) => {
-                debugger;
                 if (this.initialActionMap[identifier] === type) {
                   if (type === RelationshipActionTypes.ADD_RELATIONSHIP) {
                     let nameVariant = (action as AddRelationshipAction).payload.nameVariant;

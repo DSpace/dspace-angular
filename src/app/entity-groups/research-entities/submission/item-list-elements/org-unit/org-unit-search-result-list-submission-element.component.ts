@@ -11,22 +11,22 @@ import { take } from 'rxjs/operators';
 import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 
-@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.Workspace)
+@listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.Workspace)
 @Component({
   selector: 'ds-person-search-result-list-submission-element',
-  styleUrls: ['./person-search-result-list-submission-element.component.scss'],
-  templateUrl: './person-search-result-list-submission-element.component.html'
+  styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
+  templateUrl: './org-unit-search-result-list-submission-element.component.html'
 })
 
 /**
  * The component for displaying a list element for an item search result of the type Person
  */
-export class PersonSearchResultListSubmissionElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
+export class OrgUnitSearchResultListSubmissionElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
   allSuggestions: string[];
   selectedName: string;
   alternativeField = 'dc.title.alternative';
@@ -43,7 +43,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
 
   ngOnInit() {
     super.ngOnInit();
-    const defaultValue = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
+    const defaultValue = this.firstMetadataValue('organization.legalName');
     const alternatives = this.allMetadataValues(this.alternativeField);
     this.allSuggestions = [defaultValue, ...alternatives];
 

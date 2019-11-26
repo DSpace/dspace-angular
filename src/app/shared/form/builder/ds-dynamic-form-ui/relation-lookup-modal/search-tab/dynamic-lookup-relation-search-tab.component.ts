@@ -100,7 +100,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.selection$
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
-        const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0)
+        const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
         this.selectObject.emit(...filteredPage);
       });
     this.selectableListService.select(this.listId, page);
@@ -111,7 +111,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.selection$
       .pipe(take(1))
       .subscribe((selection: SearchResult<Item>[]) => {
-        const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) >= 0)
+        const filteredPage = page.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) >= 0);
         this.deselectObject.emit(...filteredPage);
       });
     this.selectableListService.deselect(this.listId, page);

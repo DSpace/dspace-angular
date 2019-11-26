@@ -137,7 +137,7 @@ export class RelationshipService extends DataService<Relationship> {
       this.requestService.hasByHrefObservable(item.self)
     ).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-      tap(t => console.log(t)),
+      take(1),
       switchMap(() => this.itemService.findByHref(item.self).pipe(take(1)))
     ).subscribe();
   }
@@ -330,7 +330,6 @@ export class RelationshipService extends DataService<Relationship> {
         }),
         // skipWhile((relationshipRD: RemoteData<Relationship>) => !relationshipRD.isSuccessful)
         tap((relationshipRD: RemoteData<Relationship>) => {
-          console.log(relationshipRD.payload);
           if (relationshipRD.hasSucceeded) {
             this.removeRelationshipItemsFromCache(item1);
             this.removeRelationshipItemsFromCache(item2);

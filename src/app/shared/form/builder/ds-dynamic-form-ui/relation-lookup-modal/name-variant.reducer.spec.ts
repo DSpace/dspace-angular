@@ -7,15 +7,29 @@ class NullAction implements Action {
   type = null;
 }
 
-const listID1 = 'dbfb81de-2930-4de6-ba2e-ea21c8534ee9';
-const listID2 = 'd7f2c48d-e1e2-4996-ab8d-e271cabec78a';
-const itemID1 = 'd1c81d4f-6b05-4844-986b-372d2e39c6aa';
-const itemID2 = 'fe4ca421-d897-417f-9436-9724262d5c69';
-const variantList1Item1 = 'Test Name Variant 1';
-const variantList1Item1Update = 'Test Name Variant 1 Update';
-const variantList1Item2 = 'Test Name Variant 2';
+let listID1;
+let listID2;
+let itemID1;
+let itemID2;
+let variantList1Item1;
+let variantList1Item1Update;
+let variantList1Item2;
+
+function init() {
+  listID1 = 'dbfb81de-2930-4de6-ba2e-ea21c8534ee9';
+  listID2 = 'd7f2c48d-e1e2-4996-ab8d-e271cabec78a';
+  itemID1 = 'd1c81d4f-6b05-4844-986b-372d2e39c6aa';
+  itemID2 = 'fe4ca421-d897-417f-9436-9724262d5c69';
+  variantList1Item1 = 'Test Name Variant 1';
+  variantList1Item1Update = 'Test Name Variant 1 Update';
+  variantList1Item2 = 'Test Name Variant 2';
+}
+
 
 describe('nameVariantReducer', () => {
+  beforeEach(() => {
+    init();
+  });
 
   it('should return the current state when no valid actions have been made', () => {
     const state = { [listID1]: { [itemID1]: variantList1Item1 } };

@@ -10,41 +10,59 @@ import { RelationshipTypeService } from './relationship-type.service';
 import { of as observableOf } from 'rxjs';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 
-fdescribe('RelationshipTypeService', () => {
+describe('RelationshipTypeService', () => {
   let service: RelationshipTypeService;
-  let requestService: RequestService;
+  let requestService : RequestService;
+  let restEndpointURL;
+  let halService: any;
+  let publicationTypeString;
+  let personTypeString;
+  let orgUnitTypeString;
+  let publicationType;
+  let personType;
+  let orgUnitType;
 
-  const restEndpointURL = 'https://rest.api/relationshiptypes';
-  const halService: any = new HALEndpointServiceStub(restEndpointURL);
-  const publicationTypeString = 'Publication';
-  const personTypeString = 'Person';
-  const orgUnitTypeString = 'OrgUnit';
-  const publicationType = Object.assign(new ItemType(), {label: publicationTypeString});
-  const personType = Object.assign(new ItemType(), {label: personTypeString});
-  const orgUnitType = Object.assign(new ItemType(), {label: orgUnitTypeString});
-
-  const relationshipType1 = Object.assign(new RelationshipType(), {
-    id: '1',
-    uuid: '1',
-    leftwardType: 'isAuthorOfPublication',
-    rightwardType: 'isPublicationOfAuthor',
-    leftType: createSuccessfulRemoteDataObject$(publicationType),
-    rightType: createSuccessfulRemoteDataObject$(personType)
-  });
+  let relationshipType1;
 
 
-  const relationshipType2 = Object.assign(new RelationshipType(), {
-    id: '2',
-    uuid: '2',
-    leftwardType: 'isOrgUnitOfPublication',
-    rightwardType: 'isPublicationOfOrgUnit',
-    leftType: createSuccessfulRemoteDataObject$(publicationType),
-    rightType: createSuccessfulRemoteDataObject$(orgUnitType)
-  });
+  let relationshipType2;
 
-  const buildList = createSuccessfulRemoteDataObject(new PaginatedList(new PageInfo(), [relationshipType1, relationshipType2]));
-  const rdbService = getMockRemoteDataBuildService(undefined, observableOf(buildList));
+  let buildList;
+  let rdbService;
 
+  function init() {
+    restEndpointURL = 'https://rest.api/relationshiptypes';
+    halService = new HALEndpointServiceStub(restEndpointURL);
+    publicationTypeString = 'Publication';
+    personTypeString = 'Person';
+    orgUnitTypeString = 'OrgUnit';
+    publicationType = Object.assign(new ItemType(), {label: publicationTypeString});
+    personType = Object.assign(new ItemType(), {label: personTypeString});
+    orgUnitType = Object.assign(new ItemType(), {label: orgUnitTypeString});
+
+    relationshipType1 = Object.assign(new RelationshipType(), {
+      id: '1',
+      uuid: '1',
+      leftwardType: 'isAuthorOfPublication',
+      rightwardType: 'isPublicationOfAuthor',
+      leftType: createSuccessfulRemoteDataObject$(publicationType),
+      rightType: createSuccessfulRemoteDataObject$(personType)
+    });
+
+
+    relationshipType2 = Object.assign(new RelationshipType(), {
+      id: '2',
+      uuid: '2',
+      leftwardType: 'isOrgUnitOfPublication',
+      rightwardType: 'isPublicationOfOrgUnit',
+      leftType: createSuccessfulRemoteDataObject$(publicationType),
+      rightType: createSuccessfulRemoteDataObject$(orgUnitType)
+    });
+
+    buildList = createSuccessfulRemoteDataObject(new PaginatedList(new PageInfo(), [relationshipType1, relationshipType2]));
+    rdbService = getMockRemoteDataBuildService(undefined, observableOf(buildList));
+
+  }
   function initTestService() {
     return new RelationshipTypeService(
       requestService,
@@ -54,6 +72,7 @@ fdescribe('RelationshipTypeService', () => {
   }
 
   beforeEach(() => {
+    init();
     requestService = getMockRequestService();
     service = initTestService();
   });

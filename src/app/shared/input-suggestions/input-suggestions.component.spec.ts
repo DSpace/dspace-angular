@@ -14,9 +14,11 @@ describe('InputSuggestionsComponent', () => {
   let fixture: ComponentFixture<InputSuggestionsComponent>;
   let de: DebugElement;
   let el: HTMLElement;
-  const suggestions = [{displayValue: 'suggestion uno', value: 'suggestion uno'}, {displayValue: 'suggestion dos', value: 'suggestion dos'}, {displayValue: 'suggestion tres', value: 'suggestion tres'}];
+  let suggestions;
 
   beforeEach(async(() => {
+    suggestions = [{displayValue: 'suggestion uno', value: 'suggestion uno'}, {displayValue: 'suggestion dos', value: 'suggestion dos'}, {displayValue: 'suggestion tres', value: 'suggestion tres'}];
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, FormsModule],
       declarations: [InputSuggestionsComponent],
