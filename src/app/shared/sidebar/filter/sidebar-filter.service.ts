@@ -10,6 +10,9 @@ import { Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { hasValue } from '../../empty.util';
 
+/**
+ * Service that performs all actions that have to do with sidebar filters like collapsing or expanding them.
+ */
 @Injectable()
 export class SidebarFilterService {
 

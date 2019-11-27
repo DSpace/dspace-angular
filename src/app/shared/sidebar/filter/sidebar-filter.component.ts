@@ -9,14 +9,18 @@ import { slide } from '../../animations/slide';
   templateUrl: './sidebar-filter.component.html',
   animations: [slide],
 })
+/**
+ * This components renders a sidebar filter including the label and the selected values.
+ * The filter input itself should still be provided in the content.
+ */
 export class SidebarFilterComponent implements OnInit {
 
   @Input() name:string;
   @Input() type:string;
   @Input() label:string;
   @Input() expanded = true;
+  @Input() singleValue = false;
   @Input() selectedValues:Observable<string[]>;
-  @Output() submitValue:EventEmitter<any> = new EventEmitter<any>();
   @Output() removeValue:EventEmitter<any> = new EventEmitter<any>();
 
   /**
@@ -30,7 +34,7 @@ export class SidebarFilterComponent implements OnInit {
   collapsed$:Observable<boolean>;
 
   constructor(
-    protected filterService:SidebarFilterService
+    protected filterService:SidebarFilterService,
   ) {
   }
 
@@ -62,6 +66,7 @@ export class SidebarFilterComponent implements OnInit {
   }
 
   ngOnInit():void {
+    this.closed = !this.expanded;
     this.initializeFilter();
     this.collapsed$ = this.isCollapsed();
   }

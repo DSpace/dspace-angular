@@ -11,7 +11,7 @@ const sidebarStateSelector = (state: AppState) => state.sidebar;
 const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SidebarState) => sidebar.sidebarCollapsed);
 
 /**
- * Service that performs all actions that have to do with the search sidebar
+ * Service that performs all actions that have to do with the sidebar
  */
 @Injectable()
 export class SidebarService {

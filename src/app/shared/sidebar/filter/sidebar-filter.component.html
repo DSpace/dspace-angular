@@ -12,11 +12,13 @@
        class="sidebar-filter-wrapper" [ngClass]="{'closed' : closed}">
     <div>
       <div class="filters py-2">
-        <ds-sidebar-filter-selected-option
-          *ngFor="let value of (selectedValues | async)"
-          [label]="value"
-          (click)="removeValue.emit(value)">
-        </ds-sidebar-filter-selected-option>
+        <ng-template *ngIf="!singleValue">
+          <ds-sidebar-filter-selected-option
+            *ngFor="let value of (selectedValues | async)"
+            [label]="value"
+            (click)="removeValue.emit(value)">
+          </ds-sidebar-filter-selected-option>
+        </ng-template>
       </div>
       <ng-content></ng-content>
     </div>

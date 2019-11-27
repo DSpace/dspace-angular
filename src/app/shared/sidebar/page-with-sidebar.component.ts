@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { SidebarService } from './sidebar.service';
 import { HostWindowService } from '../host-window.service';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { pushInOut } from '../animations/push';
 import { map } from 'rxjs/operators';
 
@@ -11,6 +11,12 @@ import { map } from 'rxjs/operators';
   templateUrl: './page-with-sidebar.component.html',
   animations: [pushInOut],
 })
+/**
+ * This component takes care of displaying the sidebar properly on all viewports. It does not
+ * provide default buttons to open or close the sidebar. Instead the parent component is expected
+ * to provide the content of the sidebar through an input. The main content of the page goes in
+ * the template outlet (inside the page-width-sidebar tags).
+ */
 export class PageWithSidebarComponent implements OnInit {
   @Input() id:string;
   @Input() sidebarContent:TemplateRef<any>;

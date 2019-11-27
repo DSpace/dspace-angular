@@ -5,6 +5,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./sidebar-dropdown.component.scss'],
   templateUrl: './sidebar-dropdown.component.html',
 })
+/**
+ * This components renders a sidebar dropdown including the label.
+ * The options should still be provided in the content.
+ */
 export class SidebarDropdownComponent {
   @Input() id:string;
   @Input() label:string;
