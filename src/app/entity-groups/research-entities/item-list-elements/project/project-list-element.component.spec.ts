@@ -8,7 +8,7 @@ import { TruncatableService } from '../../../../shared/truncatable/truncatable.s
 import { ProjectListElementComponent } from './project-list-element.component';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {

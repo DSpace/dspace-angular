@@ -1,13 +1,16 @@
 {
   
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  "404.help": "Nepodařilo se najít stránku, kterou hledáte. Je možné, že stránka byla přesunuta nebo smazána. Pomocí tlačítka níže můžete přejít na domovskou stránku. ",
+  // TODO New key - Add a translation
+  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   
   // "404.link.home-page": "Take me to the home page",
-  "404.link.home-page": "Přejít na domovskou stránku",
+  // TODO New key - Add a translation
+  "404.link.home-page": "Take me to the home page",
   
   // "404.page-not-found": "page not found",
-  "404.page-not-found": "stránka nenalezena",
+  // TODO New key - Add a translation
+  "404.page-not-found": "page not found",
   
   
   
@@ -52,7 +55,8 @@
   "admin.registries.bitstream-formats.delete.success.head": "Success",
   
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  "admin.registries.bitstream-formats.description": "Tento seznam formátů souborů poskytuje informace o známých formátech a o úrovni jejich podpory.",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
   
   // "admin.registries.bitstream-formats.edit.description.hint": "",
   // TODO New key - Add a translation
@@ -86,9 +90,9 @@
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
   
-  // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
+  // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   // TODO New key - Add a translation
@@ -127,7 +131,8 @@
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  "admin.registries.bitstream-formats.head": "Registr formátů souborů",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
   
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
   // TODO New key - Add a translation
@@ -174,12 +179,14 @@
   "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
   
   // "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Registr formátů souborů",
+  // TODO New key - Add a translation
+  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
   
   
   
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  "admin.registries.metadata.description": "Registr metadat je seznam všech metadatových polí dostupných v repozitáři. Tyto pole mohou být rozdělena do více schémat. DSpace však vyžaduje použití schématu Kvalifikovaný Dublin Core.",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
   
   // "admin.registries.metadata.form.create": "Create metadata schema",
   // TODO New key - Add a translation
@@ -198,47 +205,58 @@
   "admin.registries.metadata.form.namespace": "Namespace",
   
   // "admin.registries.metadata.head": "Metadata Registry",
-  "admin.registries.metadata.head": "Registr metadat",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.head": "Metadata Registry",
   
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  "admin.registries.metadata.schemas.no-items": "Žádná schémata metadat.",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
   // TODO New key - Add a translation
   "admin.registries.metadata.schemas.table.delete": "Delete selected",
   
   // "admin.registries.metadata.schemas.table.id": "ID",
+  // TODO New key - Add a translation
   "admin.registries.metadata.schemas.table.id": "ID",
   
   // "admin.registries.metadata.schemas.table.name": "Name",
-  "admin.registries.metadata.schemas.table.name": "Název",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.name": "Name",
   
   // "admin.registries.metadata.schemas.table.namespace": "Namespace",
-  "admin.registries.metadata.schemas.table.namespace": "Jmenný prostor",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.schemas.table.namespace": "Namespace",
   
   // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Registr metadat",
+  // TODO New key - Add a translation
+  "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
   
   
   
   // "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
-  "admin.registries.schema.description": "Toto je schéma metadat pro „{{namespace}}“.",
+  // TODO New key - Add a translation
+  "admin.registries.schema.description": "This is the metadata schema for \"{{namespace}}\".",
   
   // "admin.registries.schema.fields.head": "Schema metadata fields",
-  "admin.registries.schema.fields.head": "Pole schématu metadat",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.head": "Schema metadata fields",
   
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
-  "admin.registries.schema.fields.no-items": "Žádná metadatová pole.",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.no-items": "No metadata fields to show.",
   
   // "admin.registries.schema.fields.table.delete": "Delete selected",
   // TODO New key - Add a translation
   "admin.registries.schema.fields.table.delete": "Delete selected",
   
   // "admin.registries.schema.fields.table.field": "Field",
-  "admin.registries.schema.fields.table.field": "Pole",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.field": "Field",
   
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  "admin.registries.schema.fields.table.scopenote": "Poznámka o rozsahu",
+  // TODO New key - Add a translation
+  "admin.registries.schema.fields.table.scopenote": "Scope Note",
   
   // "admin.registries.schema.form.create": "Create metadata field",
   // TODO New key - Add a translation
@@ -261,7 +279,8 @@
   "admin.registries.schema.form.scopenote": "Scope Note",
   
   // "admin.registries.schema.head": "Metadata Schema",
-  "admin.registries.schema.head": "Schéma metadat",
+  // TODO New key - Add a translation
+  "admin.registries.schema.head": "Metadata Schema",
   
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
   // TODO New key - Add a translation
@@ -308,15 +327,18 @@
   "admin.registries.schema.return": "Return",
   
   // "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
-  "admin.registries.schema.title": "DSpace Angular :: Registr schémat metadat",
+  // TODO New key - Add a translation
+  "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
   
   
   
   // "auth.errors.invalid-user": "Invalid email address or password.",
-  "auth.errors.invalid-user": "Neplatná e-mailová adresa nebo heslo.",
+  // TODO New key - Add a translation
+  "auth.errors.invalid-user": "Invalid email address or password.",
   
   // "auth.messages.expired": "Your session has expired. Please log in again.",
-  "auth.messages.expired": "Vaše relace vypršela. Prosím, znova se přihlaste.",
+  // TODO New key - Add a translation
+  "auth.messages.expired": "Your session has expired. Please log in again.",
   
   
   
@@ -437,7 +459,8 @@
   "browse.startsWith.type_text": "Or enter first few letters:",
   
   // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  "browse.title": "Prohlížíte {{ collection }} dle {{ field }} {{ value }}",
+  // TODO New key - Add a translation
+  "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
   
   
   
@@ -596,7 +619,8 @@
   
   
   // "collection.page.browse.recent.head": "Recent Submissions",
-  "collection.page.browse.recent.head": "Poslední příspěvky",
+  // TODO New key - Add a translation
+  "collection.page.browse.recent.head": "Recent Submissions",
   
   // "collection.page.browse.recent.empty": "No items to show",
   // TODO New key - Add a translation
@@ -607,10 +631,12 @@
   "collection.page.handle": "Permanent URI for this collection",
   
   // "collection.page.license": "License",
-  "collection.page.license": "Licence",
+  // TODO New key - Add a translation
+  "collection.page.license": "License",
   
   // "collection.page.news": "News",
-  "collection.page.news": "Novinky",
+  // TODO New key - Add a translation
+  "collection.page.news": "News",
   
   
   
@@ -697,17 +723,20 @@
   "community.page.handle": "Permanent URI for this community",
   
   // "community.page.license": "License",
-  "community.page.license": "Licence",
+  // TODO New key - Add a translation
+  "community.page.license": "License",
   
   // "community.page.news": "News",
-  "community.page.news": "Novinky",
+  // TODO New key - Add a translation
+  "community.page.news": "News",
   
   // "community.all-lists.head": "Subcommunities and Collections",
   // TODO New key - Add a translation
   "community.all-lists.head": "Subcommunities and Collections",
   
   // "community.sub-collection-list.head": "Collections of this Community",
-  "community.sub-collection-list.head": "Kolekce v této komunitě",
+  // TODO New key - Add a translation
+  "community.sub-collection-list.head": "Collections of this Community",
   
   // "community.sub-community-list.head": "Communities of this Community",
   // TODO New key - Add a translation
@@ -758,46 +787,52 @@
   
   
   // "error.browse-by": "Error fetching items",
-  "error.browse-by": "Chyba během stahování záznamů",
+  // TODO New key - Add a translation
+  "error.browse-by": "Error fetching items",
   
   // "error.collection": "Error fetching collection",
-  "error.collection": "Chyba během stahování kolekce",
+  // TODO New key - Add a translation
+  "error.collection": "Error fetching collection",
   
   // "error.collections": "Error fetching collections",
   // TODO New key - Add a translation
   "error.collections": "Error fetching collections",
   
   // "error.community": "Error fetching community",
-  "error.community": "Chyba během stahování komunity",
-  // "error.identifier": "No item found for the identifier",
   // TODO New key - Add a translation
-  "error.identifier": "No item found for the identifier",
+  "error.community": "Error fetching community",
   
   // "error.identifier": "No item found for the identifier",
   // TODO New key - Add a translation
   "error.identifier": "No item found for the identifier",
   
   // "error.default": "Error",
-  "error.default": "Chyba",
+  // TODO New key - Add a translation
+  "error.default": "Error",
   
   // "error.item": "Error fetching item",
-  "error.item": "Chyba během stahování záznamu",
+  // TODO New key - Add a translation
+  "error.item": "Error fetching item",
   
   // "error.items": "Error fetching items",
   // TODO New key - Add a translation
   "error.items": "Error fetching items",
   
   // "error.objects": "Error fetching objects",
-  "error.objects": "Chyba během stahování objektů",
+  // TODO New key - Add a translation
+  "error.objects": "Error fetching objects",
   
   // "error.recent-submissions": "Error fetching recent submissions",
-  "error.recent-submissions": "Chyba během stahování posledních příspěvků",
+  // TODO New key - Add a translation
+  "error.recent-submissions": "Error fetching recent submissions",
   
   // "error.search-results": "Error fetching search results",
-  "error.search-results": "Chyba během stahování výsledků hledání",
+  // TODO New key - Add a translation
+  "error.search-results": "Error fetching search results",
   
   // "error.sub-collections": "Error fetching sub-collections",
-  "error.sub-collections": "Chyba během stahování subkolekcí",
+  // TODO New key - Add a translation
+  "error.sub-collections": "Error fetching sub-collections",
   
   // "error.sub-communities": "Error fetching sub-communities",
   // TODO New key - Add a translation
@@ -808,10 +843,12 @@
   "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
   
   // "error.top-level-communities": "Error fetching top-level communities",
-  "error.top-level-communities": "Chyba během stahování komunit nejvyšší úrovně",
+  // TODO New key - Add a translation
+  "error.top-level-communities": "Error fetching top-level communities",
   
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Pro dokončení zaslání Musíte udělit licenci. Pokud v tuto chvíli tuto licenci nemůžete udělit, můžete svou práci uložit a později se k svému příspěveku vrátit nebo jej smazat.",
+  // TODO New key - Add a translation
+  "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
   
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   // TODO New key - Add a translation
@@ -820,18 +857,22 @@
   
   
   // "footer.copyright": "copyright © 2002-{{ year }}",
+  // TODO New key - Add a translation
   "footer.copyright": "copyright © 2002-{{ year }}",
   
   // "footer.link.dspace": "DSpace software",
-  "footer.link.dspace": "software DSpace",
+  // TODO New key - Add a translation
+  "footer.link.dspace": "DSpace software",
   
   // "footer.link.duraspace": "DuraSpace",
+  // TODO New key - Add a translation
   "footer.link.duraspace": "DuraSpace",
   
   
   
   // "form.cancel": "Cancel",
-  "form.cancel": "Zrušit",
+  // TODO New key - Add a translation
+  "form.cancel": "Cancel",
   
   // "form.clear": "Clear",
   // TODO New key - Add a translation
@@ -850,38 +891,48 @@
   "form.edit-help": "Click here to edit the selected value",
   
   // "form.first-name": "First name",
-  "form.first-name": "Křestní jméno",
+  // TODO New key - Add a translation
+  "form.first-name": "First name",
   
   // "form.group-collapse": "Collapse",
-  "form.group-collapse": "Sbalit",
+  // TODO New key - Add a translation
+  "form.group-collapse": "Collapse",
   
   // "form.group-collapse-help": "Click here to collapse",
-  "form.group-collapse-help": "Kliknutím sem sbalíte",
+  // TODO New key - Add a translation
+  "form.group-collapse-help": "Click here to collapse",
   
   // "form.group-expand": "Expand",
-  "form.group-expand": "Rozbalit",
+  // TODO New key - Add a translation
+  "form.group-expand": "Expand",
   
   // "form.group-expand-help": "Click here to expand and add more elements",
-  "form.group-expand-help": "Kliknutím sem rozbalíte a přidáte další prvky",
+  // TODO New key - Add a translation
+  "form.group-expand-help": "Click here to expand and add more elements",
   
   // "form.last-name": "Last name",
-  "form.last-name": "Příjmení",
+  // TODO New key - Add a translation
+  "form.last-name": "Last name",
   
   // "form.loading": "Loading...",
-  "form.loading": "Načítá se...",
+  // TODO New key - Add a translation
+  "form.loading": "Loading...",
   
   // "form.no-results": "No results found",
-  "form.no-results": "Nebyli nalezeny žádné výsledky",
+  // TODO New key - Add a translation
+  "form.no-results": "No results found",
   
   // "form.no-value": "No value entered",
-  "form.no-value": "Nebyla zadána hodnota",
+  // TODO New key - Add a translation
+  "form.no-value": "No value entered",
   
   // "form.other-information": {},
   // TODO New key - Add a translation
   "form.other-information": {},
   
   // "form.remove": "Remove",
-  "form.remove": "Smazat",
+  // TODO New key - Add a translation
+  "form.remove": "Remove",
   
   // "form.save": "Save",
   // TODO New key - Add a translation
@@ -892,28 +943,34 @@
   "form.save-help": "Save changes",
   
   // "form.search": "Search",
-  "form.search": "Hledat",
+  // TODO New key - Add a translation
+  "form.search": "Search",
   
   // "form.search-help": "Click here to looking for an existing correspondence",
   // TODO New key - Add a translation
   "form.search-help": "Click here to looking for an existing correspondence",
   
   // "form.submit": "Submit",
-  "form.submit": "Odeslat",
+  // TODO New key - Add a translation
+  "form.submit": "Submit",
   
   
   
   // "home.description": "",
+  // TODO New key - Add a translation
   "home.description": "",
   
   // "home.title": "DSpace Angular :: Home",
-  "home.title": "DSpace Angular :: Domů",
+  // TODO New key - Add a translation
+  "home.title": "DSpace Angular :: Home",
   
   // "home.top-level-communities.head": "Communities in DSpace",
-  "home.top-level-communities.head": "Komunity v DSpace",
+  // TODO New key - Add a translation
+  "home.top-level-communities.head": "Communities in DSpace",
   
   // "home.top-level-communities.help": "Select a community to browse its collections.",
-  "home.top-level-communities.help": "Vybráním komunity můžete prohlížet její kolekce.",
+  // TODO New key - Add a translation
+  "home.top-level-communities.help": "Select a community to browse its collections.",
   
   
   
@@ -1452,30 +1509,36 @@
   
   
   // "item.page.abstract": "Abstract",
-  "item.page.abstract": "Abstrakt",
+  // TODO New key - Add a translation
+  "item.page.abstract": "Abstract",
   
   // "item.page.author": "Authors",
-  "item.page.author": "Autor",
+  // TODO New key - Add a translation
+  "item.page.author": "Authors",
   
   // "item.page.citation": "Citation",
   // TODO New key - Add a translation
   "item.page.citation": "Citation",
   
   // "item.page.collections": "Collections",
-  "item.page.collections": "Kolekce",
+  // TODO New key - Add a translation
+  "item.page.collections": "Collections",
   
   // "item.page.date": "Date",
-  "item.page.date": "Datum",
+  // TODO New key - Add a translation
+  "item.page.date": "Date",
   
   // "item.page.files": "Files",
-  "item.page.files": "Soubory",
+  // TODO New key - Add a translation
+  "item.page.files": "Files",
   
   // "item.page.filesection.description": "Description:",
   // TODO New key - Add a translation
   "item.page.filesection.description": "Description:",
   
   // "item.page.filesection.download": "Download",
-  "item.page.filesection.download": "Stáhnout",
+  // TODO New key - Add a translation
+  "item.page.filesection.download": "Download",
   
   // "item.page.filesection.format": "Format:",
   // TODO New key - Add a translation
@@ -1494,10 +1557,12 @@
   "item.page.journal.search.title": "Articles in this journal",
   
   // "item.page.link.full": "Full item page",
-  "item.page.link.full": "Úplný záznam",
+  // TODO New key - Add a translation
+  "item.page.link.full": "Full item page",
   
   // "item.page.link.simple": "Simple item page",
-  "item.page.link.simple": "Minimální záznam",
+  // TODO New key - Add a translation
+  "item.page.link.simple": "Simple item page",
   
   // "item.page.person.search.title": "Articles by this author",
   // TODO New key - Add a translation
@@ -1516,6 +1581,7 @@
   "item.page.subject": "Keywords",
   
   // "item.page.uri": "URI",
+  // TODO New key - Add a translation
   "item.page.uri": "URI",
   
   
@@ -1633,27 +1699,32 @@
   
   
   // "loading.browse-by": "Loading items...",
-  "loading.browse-by": "Načítají se záznamy...",
+  // TODO New key - Add a translation
+  "loading.browse-by": "Loading items...",
   
   // "loading.browse-by-page": "Loading page...",
   // TODO New key - Add a translation
   "loading.browse-by-page": "Loading page...",
   
   // "loading.collection": "Loading collection...",
-  "loading.collection": "Načítá se kolekce...",
+  // TODO New key - Add a translation
+  "loading.collection": "Loading collection...",
   
   // "loading.collections": "Loading collections...",
   // TODO New key - Add a translation
   "loading.collections": "Loading collections...",
   
   // "loading.community": "Loading community...",
-  "loading.community": "Načítá se komunita...",
+  // TODO New key - Add a translation
+  "loading.community": "Loading community...",
   
   // "loading.default": "Loading...",
-  "loading.default": "Načítá se...",
+  // TODO New key - Add a translation
+  "loading.default": "Loading...",
   
   // "loading.item": "Loading item...",
-  "loading.item": "Načítá se záznam...",
+  // TODO New key - Add a translation
+  "loading.item": "Loading item...",
   
   // "loading.items": "Loading items...",
   // TODO New key - Add a translation
@@ -1664,57 +1735,72 @@
   "loading.mydspace-results": "Loading items...",
   
   // "loading.objects": "Loading...",
-  "loading.objects": "Načítá se...",
+  // TODO New key - Add a translation
+  "loading.objects": "Loading...",
   
   // "loading.recent-submissions": "Loading recent submissions...",
-  "loading.recent-submissions": "Načítají se poslední příspěvky...",
+  // TODO New key - Add a translation
+  "loading.recent-submissions": "Loading recent submissions...",
   
   // "loading.search-results": "Loading search results...",
-  "loading.search-results": "Načítají se výsledky hledání...",
+  // TODO New key - Add a translation
+  "loading.search-results": "Loading search results...",
   
   // "loading.sub-collections": "Loading sub-collections...",
-  "loading.sub-collections": "Načítají se subkolekce...",
+  // TODO New key - Add a translation
+  "loading.sub-collections": "Loading sub-collections...",
   
   // "loading.sub-communities": "Loading sub-communities...",
   // TODO New key - Add a translation
   "loading.sub-communities": "Loading sub-communities...",
   
   // "loading.top-level-communities": "Loading top-level communities...",
-  "loading.top-level-communities": "Načítají se komunity nejvyšší úrovně...",
+  // TODO New key - Add a translation
+  "loading.top-level-communities": "Loading top-level communities...",
   
   
   
   // "login.form.email": "Email address",
-  "login.form.email": "E-mailová adresa",
+  // TODO New key - Add a translation
+  "login.form.email": "Email address",
   
   // "login.form.forgot-password": "Have you forgotten your password?",
-  "login.form.forgot-password": "Zapomněli jste své heslo?",
+  // TODO New key - Add a translation
+  "login.form.forgot-password": "Have you forgotten your password?",
   
   // "login.form.header": "Please log in to DSpace",
-  "login.form.header": "Prosím, přihlaste se do DSpace",
+  // TODO New key - Add a translation
+  "login.form.header": "Please log in to DSpace",
   
   // "login.form.new-user": "New user? Click here to register.",
-  "login.form.new-user": "Nový uživatel? Zaregistrujte se kliknutím sem.",
+  // TODO New key - Add a translation
+  "login.form.new-user": "New user? Click here to register.",
   
   // "login.form.password": "Password",
-  "login.form.password": "Heslo",
+  // TODO New key - Add a translation
+  "login.form.password": "Password",
   
   // "login.form.submit": "Log in",
-  "login.form.submit": "Přihlásit se",
+  // TODO New key - Add a translation
+  "login.form.submit": "Log in",
   
   // "login.title": "Login",
-  "login.title": "Přihlásit se",
+  // TODO New key - Add a translation
+  "login.title": "Login",
   
   
   
   // "logout.form.header": "Log out from DSpace",
-  "logout.form.header": "Odhlásit se z DSpace",
+  // TODO New key - Add a translation
+  "logout.form.header": "Log out from DSpace",
   
   // "logout.form.submit": "Log out",
-  "logout.form.submit": "Odhlásit se",
+  // TODO New key - Add a translation
+  "logout.form.submit": "Log out",
   
   // "logout.title": "Logout",
-  "logout.title": "Odhlásit se",
+  // TODO New key - Add a translation
+  "logout.title": "Logout",
   
   
   
@@ -2181,10 +2267,12 @@
   "nav.language": "Language switch",
   
   // "nav.login": "Log In",
-  "nav.login": "Přihlásit se",
+  // TODO New key - Add a translation
+  "nav.login": "Log In",
   
   // "nav.logout": "Log Out",
-  "nav.logout": "Odhlásit se",
+  // TODO New key - Add a translation
+  "nav.logout": "Log Out",
   
   // "nav.mydspace": "MyDSpace",
   // TODO New key - Add a translation
@@ -2231,16 +2319,20 @@
   
   
   // "pagination.results-per-page": "Results Per Page",
-  "pagination.results-per-page": "Výsledků na stránku",
+  // TODO New key - Add a translation
+  "pagination.results-per-page": "Results Per Page",
   
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  "pagination.showing.detail": "{{ range }} z {{ total }}",
+  // TODO New key - Add a translation
+  "pagination.showing.detail": "{{ range }} of {{ total }}",
   
   // "pagination.showing.label": "Now showing ",
-  "pagination.showing.label": "Zobrazují se záznamy ",
+  // TODO New key - Add a translation
+  "pagination.showing.label": "Now showing ",
   
   // "pagination.sort-direction": "Sort Options",
-  "pagination.sort-direction": "Seřazení",
+  // TODO New key - Add a translation
+  "pagination.sort-direction": "Sort Options",
   
   
   
@@ -2421,6 +2513,7 @@
   
   
   // "search.description": "",
+  // TODO New key - Add a translation
   "search.description": "",
   
   // "search.switch-configuration.title": "Show",
@@ -2428,18 +2521,22 @@
   "search.switch-configuration.title": "Show",
   
   // "search.title": "DSpace Angular :: Search",
-  "search.title": "DSpace Angular :: Hledat",
+  // TODO New key - Add a translation
+  "search.title": "DSpace Angular :: Search",
   
   
   
   // "search.filters.applied.f.author": "Author",
-  "search.filters.applied.f.author": "Autor",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.author": "Author",
   
   // "search.filters.applied.f.dateIssued.max": "End date",
-  "search.filters.applied.f.dateIssued.max": "Do data",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.dateIssued.max": "End date",
   
   // "search.filters.applied.f.dateIssued.min": "Start date",
-  "search.filters.applied.f.dateIssued.min": "Od data",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.dateIssued.min": "Start date",
   
   // "search.filters.applied.f.dateSubmitted": "Date submitted",
   // TODO New key - Add a translation
@@ -2450,7 +2547,8 @@
   "search.filters.applied.f.entityType": "Item Type",
   
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
-  "search.filters.applied.f.has_content_in_original_bundle": "Má soubory",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.has_content_in_original_bundle": "Has files",
   
   // "search.filters.applied.f.itemtype": "Type",
   // TODO New key - Add a translation
@@ -2461,7 +2559,8 @@
   "search.filters.applied.f.namedresourcetype": "Status",
   
   // "search.filters.applied.f.subject": "Subject",
-  "search.filters.applied.f.subject": "Předmět",
+  // TODO New key - Add a translation
+  "search.filters.applied.f.subject": "Subject",
   
   // "search.filters.applied.f.submitter": "Submitter",
   // TODO New key - Add a translation
@@ -2470,10 +2569,12 @@
   
   
   // "search.filters.filter.author.head": "Author",
-  "search.filters.filter.author.head": "Autor",
+  // TODO New key - Add a translation
+  "search.filters.filter.author.head": "Author",
   
   // "search.filters.filter.author.placeholder": "Author name",
-  "search.filters.filter.author.placeholder": "Jméno autora",
+  // TODO New key - Add a translation
+  "search.filters.filter.author.placeholder": "Author name",
   
   // "search.filters.filter.birthDate.head": "Birth Date",
   // TODO New key - Add a translation
@@ -2516,13 +2617,16 @@
   "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
   
   // "search.filters.filter.dateIssued.head": "Date",
-  "search.filters.filter.dateIssued.head": "Datum",
+  // TODO New key - Add a translation
+  "search.filters.filter.dateIssued.head": "Date",
   
   // "search.filters.filter.dateIssued.max.placeholder": "Minimum Date",
-  "search.filters.filter.dateIssued.max.placeholder": "Datum od",
+  // TODO New key - Add a translation
+  "search.filters.filter.dateIssued.max.placeholder": "Minimum Date",
   
   // "search.filters.filter.dateIssued.min.placeholder": "Maximum Date",
-  "search.filters.filter.dateIssued.min.placeholder": "Datum do",
+  // TODO New key - Add a translation
+  "search.filters.filter.dateIssued.min.placeholder": "Maximum Date",
   
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
   // TODO New key - Add a translation
@@ -2541,7 +2645,8 @@
   "search.filters.filter.entityType.placeholder": "Item Type",
   
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
-  "search.filters.filter.has_content_in_original_bundle.head": "Má soubory",
+  // TODO New key - Add a translation
+  "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   
   // "search.filters.filter.itemtype.head": "Type",
   // TODO New key - Add a translation
@@ -2608,22 +2713,28 @@
   "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
   
   // "search.filters.filter.scope.head": "Scope",
-  "search.filters.filter.scope.head": "Rozsah",
+  // TODO New key - Add a translation
+  "search.filters.filter.scope.head": "Scope",
   
   // "search.filters.filter.scope.placeholder": "Scope filter",
-  "search.filters.filter.scope.placeholder": "Filtr rozsahu",
+  // TODO New key - Add a translation
+  "search.filters.filter.scope.placeholder": "Scope filter",
   
   // "search.filters.filter.show-less": "Collapse",
-  "search.filters.filter.show-less": "Sbalit",
+  // TODO New key - Add a translation
+  "search.filters.filter.show-less": "Collapse",
   
   // "search.filters.filter.show-more": "Show more",
-  "search.filters.filter.show-more": "Zobrazit více",
+  // TODO New key - Add a translation
+  "search.filters.filter.show-more": "Show more",
   
   // "search.filters.filter.subject.head": "Subject",
-  "search.filters.filter.subject.head": "Předmět",
+  // TODO New key - Add a translation
+  "search.filters.filter.subject.head": "Subject",
   
   // "search.filters.filter.subject.placeholder": "Subject",
-  "search.filters.filter.subject.placeholder": "Předmět",
+  // TODO New key - Add a translation
+  "search.filters.filter.subject.placeholder": "Subject",
   
   // "search.filters.filter.submitter.head": "Submitter",
   // TODO New key - Add a translation
@@ -2636,18 +2747,22 @@
   
   
   // "search.filters.head": "Filters",
-  "search.filters.head": "Filtry",
+  // TODO New key - Add a translation
+  "search.filters.head": "Filters",
   
   // "search.filters.reset": "Reset filters",
-  "search.filters.reset": "Obnovit filtry",
+  // TODO New key - Add a translation
+  "search.filters.reset": "Reset filters",
   
   
   
   // "search.form.search": "Search",
-  "search.form.search": "Hledat",
+  // TODO New key - Add a translation
+  "search.form.search": "Search",
   
   // "search.form.search_dspace": "Search DSpace",
-  "search.form.search_dspace": "Hledat v DSpace",
+  // TODO New key - Add a translation
+  "search.form.search_dspace": "Search DSpace",
   
   // "search.form.search_mydspace": "Search MyDSpace",
   // TODO New key - Add a translation
@@ -2656,10 +2771,12 @@
   
   
   // "search.results.head": "Search Results",
-  "search.results.head": "Výsledky hledání",
+  // TODO New key - Add a translation
+  "search.results.head": "Search Results",
   
   // "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
-  "search.results.no-results": "Nebyli nalezeny žádné výsledky",
+  // TODO New key - Add a translation
+  "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
   
   // "search.results.no-results-link": "quotes around it",
   // TODO New key - Add a translation
@@ -2668,25 +2785,32 @@
   
   
   // "search.sidebar.close": "Back to results",
-  "search.sidebar.close": "Zpět na výsledky",
+  // TODO New key - Add a translation
+  "search.sidebar.close": "Back to results",
   
   // "search.sidebar.filters.title": "Filters",
-  "search.sidebar.filters.title": "Filtry",
+  // TODO New key - Add a translation
+  "search.sidebar.filters.title": "Filters",
   
   // "search.sidebar.open": "Search Tools",
-  "search.sidebar.open": "Vyhledávací nástroje",
+  // TODO New key - Add a translation
+  "search.sidebar.open": "Search Tools",
   
   // "search.sidebar.results": "results",
-  "search.sidebar.results": "výsledky",
+  // TODO New key - Add a translation
+  "search.sidebar.results": "results",
   
   // "search.sidebar.settings.rpp": "Results per page",
-  "search.sidebar.settings.rpp": "Výsledků na stránku",
+  // TODO New key - Add a translation
+  "search.sidebar.settings.rpp": "Results per page",
   
   // "search.sidebar.settings.sort-by": "Sort By",
-  "search.sidebar.settings.sort-by": "Řadit dle",
+  // TODO New key - Add a translation
+  "search.sidebar.settings.sort-by": "Sort By",
   
   // "search.sidebar.settings.title": "Settings",
-  "search.sidebar.settings.title": "Nastavení",
+  // TODO New key - Add a translation
+  "search.sidebar.settings.title": "Settings",
   
   
   
@@ -2695,20 +2819,25 @@
   "search.view-switch.show-detail": "Show detail",
   
   // "search.view-switch.show-grid": "Show as grid",
-  "search.view-switch.show-grid": "Zobrazit mřížku",
+  // TODO New key - Add a translation
+  "search.view-switch.show-grid": "Show as grid",
   
   // "search.view-switch.show-list": "Show as list",
-  "search.view-switch.show-list": "Zobrazit seznam",
+  // TODO New key - Add a translation
+  "search.view-switch.show-list": "Show as list",
   
   
   
   // "sorting.dc.title.ASC": "Title Ascending",
-  "sorting.dc.title.ASC": "Název vzestupně",
+  // TODO New key - Add a translation
+  "sorting.dc.title.ASC": "Title Ascending",
   
   // "sorting.dc.title.DESC": "Title Descending",
-  "sorting.dc.title.DESC": "Název sestupně",
+  // TODO New key - Add a translation
+  "sorting.dc.title.DESC": "Title Descending",
   
   // "sorting.score.DESC": "Relevance",
+  // TODO New key - Add a translation
   "sorting.score.DESC": "Relevance",
   
   
@@ -3060,6 +3189,7 @@
   
   
   // "title": "DSpace",
+  // TODO New key - Add a translation
   "title": "DSpace",
   
   

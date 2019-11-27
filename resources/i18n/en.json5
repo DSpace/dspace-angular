@@ -46,7 +46,7 @@
 
   "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
 
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
 
   "admin.registries.bitstream-formats.edit.internal.label": "Internal",
 

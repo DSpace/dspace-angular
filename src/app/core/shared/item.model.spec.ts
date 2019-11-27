@@ -4,7 +4,7 @@ import { Item } from './item.model';
 import { Bitstream } from './bitstream.model';
 import { isEmpty } from '../../shared/empty.util';
 import { first, map } from 'rxjs/operators';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 describe('Item', () => {
 
@@ -18,8 +18,9 @@ describe('Item', () => {
   const nonExistingBundleName = 'c1e568f7-d14e-496b-bdd7-07026998cc00';
   let bitstreams;
   let remoteDataThumbnail;
+  let remoteDataThumbnailList;
   let remoteDataFiles;
-  let remoteDataAll;
+  let remoteDataBundles;
 
   beforeEach(() => {
     const thumbnail = {
@@ -33,15 +34,16 @@ describe('Item', () => {
     }];
 
     remoteDataThumbnail = createSuccessfulRemoteDataObject$(thumbnail);
-    remoteDataFiles = createSuccessfulRemoteDataObject$(bitstreams);
-    remoteDataAll = createSuccessfulRemoteDataObject$([...bitstreams, thumbnail]);
+    remoteDataThumbnailList = createSuccessfulRemoteDataObject$(createPaginatedList([thumbnail]));
+    remoteDataFiles = createSuccessfulRemoteDataObject$(createPaginatedList(bitstreams));
 
     // Create Bundles
     const bundles =
       [
         {
           name: thumbnailBundleName,
-          primaryBitstream: remoteDataThumbnail
+          primaryBitstream: remoteDataThumbnail,
+          bitstreams: remoteDataThumbnailList
         },
 
         {
@@ -49,7 +51,9 @@ describe('Item', () => {
           bitstreams: remoteDataFiles
         }];
 
-    item = Object.assign(new Item(), { bitstreams: remoteDataAll });
+    remoteDataBundles = createSuccessfulRemoteDataObject$(createPaginatedList(bundles));
+
+    item = Object.assign(new Item(), { bundles: remoteDataBundles });
   });
 
   it('should return the bitstreams related to this item with the specified bundle name', () => {
