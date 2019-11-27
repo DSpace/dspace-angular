@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ds-tabbed-related-entities-search',
@@ -42,7 +44,7 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
   /**
    * The active tab
    */
-  activeTab: string;
+  activeTab$: Observable<string>;
 
   constructor(private route: ActivatedRoute,
               private router: Router) {
@@ -52,7 +54,9 @@ export class TabbedRelatedEntitiesSearchComponent implements OnInit {
    * If the url contains a "tab" query parameter, set this tab to be the active tab
    */
   ngOnInit(): void {
-    this.activeTab = this.route.snapshot.queryParams.tab;
+    this.activeTab$ = this.route.queryParams.pipe(
+      map((params) => params.tab)
+    );
   }
 
   /**

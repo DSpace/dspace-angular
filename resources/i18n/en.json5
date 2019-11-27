@@ -822,9 +822,9 @@
 
   "item.page.relationships.isJournalOfPublication": "Publications",
 
-  "item.page.relationships.isOrgUnitOfPerson": "Persons",
+  "item.page.relationships.isOrgUnitOfPerson": "Authors",
 
-  "item.page.relationships.isOrgUnitOfProject": "Projects",
+  "item.page.relationships.isOrgUnitOfProject": "Research Projects",
 
   "item.page.subject": "Keywords",
 

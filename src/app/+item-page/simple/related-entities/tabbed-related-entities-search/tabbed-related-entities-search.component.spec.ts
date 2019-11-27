@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MockRouter } from '../../../../shared/mocks/mock-router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VarDirective } from '../../../../shared/utils/var.directive';
+import { of as observableOf } from 'rxjs';
 
 describe('TabbedRelatedEntitiesSearchComponent', () => {
   let comp: TabbedRelatedEntitiesSearchComponent;
@@ -34,11 +35,7 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            snapshot: {
-              queryParams: {
-                tab: mockRelationType
-              }
-            }
+            queryParams: observableOf({ tab: mockRelationType })
           },
         },
         { provide: Router, useValue: router }
@@ -56,7 +53,9 @@ describe('TabbedRelatedEntitiesSearchComponent', () => {
   });
 
   it('should initialize the activeTab depending on the current query parameters', () => {
-    expect(comp.activeTab).toEqual(mockRelationType);
+    comp.activeTab$.subscribe((activeTab) => {
+      expect(activeTab).toEqual(mockRelationType);
+    });
   });
 
   describe('onTabChange', () => {
