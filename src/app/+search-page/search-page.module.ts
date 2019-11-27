@@ -8,8 +8,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { CommunitySearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component'
 import { CollectionSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 import { SearchSidebarComponent } from './search-sidebar/search-sidebar.component';
-import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
-import { SearchSidebarEffects } from './search-sidebar/search-sidebar.effects';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
+import { SidebarEffects } from '../shared/sidebar/sidebar-effects.service';
 import { SearchSettingsComponent } from './search-settings/search-settings.component';
 import { EffectsModule } from '@ngrx/effects';
 import { SearchFiltersComponent } from './search-filters/search-filters.component';
@@ -32,9 +32,10 @@ import { SearchAuthorityFilterComponent } from './search-filters/search-filter/s
 import { SearchLabelComponent } from './search-labels/search-label/search-label.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
+import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
 
 const effects = [
-  SearchSidebarEffects
+  SidebarEffects
 ];
 
 const components = [
@@ -67,11 +68,12 @@ const components = [
     CommonModule,
     SharedModule,
     EffectsModule.forFeature(effects),
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
   ],
   declarations: components,
   providers: [
-    SearchSidebarService,
+    SidebarService,
+    SidebarFilterService,
     SearchFilterService,
     SearchFixedFilterService,
     ConfigurationSearchPageGuard,

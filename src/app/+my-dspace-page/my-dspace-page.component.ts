@@ -17,7 +17,7 @@ import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { SearchService } from '../+search-page/search-service/search.service';
-import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue } from '../shared/empty.util';
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
@@ -102,7 +102,7 @@ export class MyDSpacePageComponent implements OnInit {
   context$: Observable<Context>;
 
   constructor(private service: SearchService,
-              private sidebarService: SearchSidebarService,
+              private sidebarService: SidebarService,
               private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();

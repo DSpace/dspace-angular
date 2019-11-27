@@ -16,7 +16,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { RemoteData } from '../core/data/remote-data';
@@ -115,7 +115,7 @@ export function configureSearchComponentTestingModule(compType) {
           })
       },
       {
-        provide: SearchSidebarService,
+        provide: SidebarService,
         useValue: sidebarService
       },
       {
@@ -188,36 +188,6 @@ describe('SearchPageComponent', () => {
 
     it('should trigger the openSidebar function', () => {
       expect(comp.openSidebar).toHaveBeenCalled();
-    });
-
-  });
-
-  describe('when sidebarCollapsed is true in mobile view', () => {
-    let menu: HTMLElement;
-
-    beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      (comp as any).isSidebarCollapsed$ = observableOf(true);
-      fixture.detectChanges();
-    });
-
-    it('should close the sidebar', () => {
-      expect(menu.classList).not.toContain('active');
-    });
-
-  });
-
-  describe('when sidebarCollapsed is false in mobile view', () => {
-    let menu: HTMLElement;
-
-    beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      (comp as any).isSidebarCollapsed$ = observableOf(false);
-      fixture.detectChanges();
-    });
-
-    it('should open the menu', () => {
-      expect(menu.classList).toContain('active');
     });
 
   });
