@@ -117,7 +117,7 @@ describe('CommunityListService', () => {
   beforeEach(async(() => {
     communityDataServiceStub = {
       findTop(options: FindListOptions = {}) {
-        const allTopComs = [...mockListOfTopCommunitiesPage1, ...mockListOfTopCommunitiesPage2]
+        const allTopComs = [...mockListOfTopCommunitiesPage1, ...mockListOfTopCommunitiesPage2];
         let currentPage = options.currentPage;
         const elementsPerPage = 3;
         if (currentPage === undefined) {
@@ -182,7 +182,9 @@ describe('CommunityListService', () => {
     TestBed.configureTestingModule({
       providers: [CommunityListService,
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
-        { provide: CommunityDataService, useValue: communityDataServiceStub },],
+        { provide: CommunityDataService, useValue: communityDataServiceStub },
+        { provide: Store, useValue: MockStore },
+      ],
     });
     store = TestBed.get(Store);
     service = new CommunityListService(communityDataServiceStub, collectionDataServiceStub, store);
@@ -529,7 +531,9 @@ describe('CommunityListService', () => {
             'dc.title': [{ language: 'en_US', value: 'Community 1' }]
           }
         });
-        expect(service.getIsExpandable(communityWithSubcoms)).toEqual(observableOf(true));
+        service.getIsExpandable(communityWithSubcoms).pipe(take(1)).subscribe((result) => {
+          expect(result).toEqual(true);
+        });
       });
       it('if community has collections', () => {
         const communityWithCollections = Object.assign(new Community(), {
@@ -542,7 +546,9 @@ describe('CommunityListService', () => {
             'dc.title': [{ language: 'en_US', value: 'Community 2' }]
           }
         });
-        expect(service.getIsExpandable(communityWithCollections)).toEqual(observableOf(true));
+        service.getIsExpandable(communityWithCollections).pipe(take(1)).subscribe((result) => {
+          expect(result).toEqual(true);
+        });
       });
     });
     describe('should return false', () => {
@@ -557,7 +563,9 @@ describe('CommunityListService', () => {
             'dc.title': [{ language: 'en_US', value: 'Community 3' }]
           }
         });
-        expect(service.getIsExpandable(communityWithNoSubcomsOrColls)).toEqual(observableOf(false));
+        service.getIsExpandable(communityWithNoSubcomsOrColls).pipe(take(1)).subscribe((result) => {
+          expect(result).toEqual(false);
+        });
       });
     });
 

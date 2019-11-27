@@ -118,8 +118,20 @@ describe('CommunityListComponent', () => {
       topCurrentPage: 1,
       collectionPageSize: 2,
       subcommunityPageSize: 2,
+      expandedNodes: [],
+      loadingNode: null,
       getNextPageTopCommunities() {
         this.topCurrentPage++;
+      },
+      getLoadingNodeFromStore() {
+        return observableOf(this.loadingNode);
+      },
+      getExpandedNodesFromStore() {
+        return observableOf(this.expandedNodes);
+      },
+      saveCommunityListStateToStore(expandedNodes, loadingNode) {
+        this.expandedNodes = expandedNodes;
+        this.loadingNode = loadingNode;
       },
       loadCommunities(expandedNodes) {
         let flatnodes;
