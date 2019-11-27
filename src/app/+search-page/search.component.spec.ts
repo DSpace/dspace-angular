@@ -150,14 +150,14 @@ export function configureSearchComponentTestingModule(compType) {
   }).compileComponents();
 }
 
-describe('SearchPageComponent', () => {
+describe('SearchComponent', () => {
   beforeEach(async(() => {
     configureSearchComponentTestingModule(SearchComponent);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
-    comp = fixture.componentInstance; // SearchPageComponent test instance
+    comp = fixture.componentInstance; // SearchComponent test instance
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;
     searchConfigurationServiceObject = (comp as any).searchConfigService;

@@ -16,14 +16,6 @@ import { getSucceededRemoteData } from '../core/shared/operators';
 import { RouteService } from '../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 
-export const SEARCH_ROUTE = '/search';
-
-/**
- * This component renders a simple item page.
- * The route parameter 'id' is used to request the item it represents.
- * All fields of the item that should be displayed, are defined in its template.
- */
-
 @Component({
   selector: 'ds-search',
   styleUrls: ['./search.component.scss'],
@@ -39,8 +31,7 @@ export const SEARCH_ROUTE = '/search';
 })
 
 /**
- * This component represents the whole search page
- * It renders search results depending on the current search options
+ * This component renders a sidebar, a search input bar and the search results.
  */
 export class SearchComponent implements OnInit {
   /**
