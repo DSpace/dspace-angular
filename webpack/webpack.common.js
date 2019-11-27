@@ -173,7 +173,7 @@ module.exports = (env) => {
                     ]
                 },
                 {
-                    test: /\.(html|eot|ttf|svg|woff|woff2)$/,
+                    test: /\.(html|eot|ttf|otf|svg|woff|woff2)$/,
                     loader: 'raw-loader'
                 }
             ]
