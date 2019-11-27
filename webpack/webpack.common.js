@@ -120,17 +120,17 @@ module.exports = (env) => {
                             }
                         },
                         {
-                            loader: 'resolve-url-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
                                 includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
                             }
+                        },
+                        {
+                          loader: 'resolve-url-loader',
+                          options: {
+                            sourceMap: true
+                          }
                         },
                         {
                             loader: 'sass-resources-loader',
@@ -158,18 +158,18 @@ module.exports = (env) => {
                             }
                         },
                         {
-                            loader: 'resolve-url-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
                                 includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
                             }
-                        }
+                          },
+                        {
+                            loader: 'resolve-url-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
                     ]
                 },
                 {
