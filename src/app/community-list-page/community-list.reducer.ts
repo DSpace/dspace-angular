@@ -1,5 +1,5 @@
 import { FlatNode } from './community-list-service';
-import { CommunityListActionTypes, CommunityListSaveAction } from './community-list.actions';
+import { CommunityListActions, CommunityListActionTypes, CommunityListSaveAction } from './community-list.actions';
 
 /**
  * States we wish to put in store concerning the community list
@@ -21,7 +21,7 @@ const initialState: CommunityListState = {
  * Reducer to interact with store concerning objects for the community list
  * @constructor
  */
-export function CommunityListReducer(state = initialState, action: CommunityListSaveAction) {
+export function CommunityListReducer(state = initialState, action: CommunityListActions) {
   switch (action.type) {
     case CommunityListActionTypes.SAVE: {
       return Object.assign({}, state, {
