@@ -16,7 +16,7 @@ import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 
-@listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.Workspace)
+@listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.SubmissionModal)
 @Component({
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],

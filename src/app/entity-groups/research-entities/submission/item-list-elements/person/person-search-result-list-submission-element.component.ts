@@ -16,7 +16,7 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
 
-@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.Workspace)
+@listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SubmissionModal)
 @Component({
   selector: 'ds-person-search-result-list-submission-element',
   styleUrls: ['./person-search-result-list-submission-element.component.scss'],

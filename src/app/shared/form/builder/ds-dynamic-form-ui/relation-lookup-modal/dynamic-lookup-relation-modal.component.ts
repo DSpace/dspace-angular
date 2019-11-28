@@ -64,7 +64,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       selection.map((s: SearchResult<Item>) => this.addNameVariantSubscription(s))
     );
     if (this.relationshipOptions.nameVariants) {
-      this.context = Context.Workspace;
+      this.context = Context.SubmissionModal;
     }
 
     // this.setExistingNameVariants();

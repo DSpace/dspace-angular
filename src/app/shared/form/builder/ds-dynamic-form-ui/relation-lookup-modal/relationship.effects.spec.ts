@@ -14,6 +14,7 @@ import { cold, hot } from 'jasmine-marbles';
 import * as operators from 'rxjs/operators';
 import { last } from 'rxjs/operators';
 import { ItemType } from '../../../../../core/shared/item-relationships/item-type.model';
+import { RestResponse } from '../../../../../core/cache/response.models';
 
 describe('RelationshipEffects', () => {
   let relationEffects: RelationshipEffects;
@@ -71,19 +72,18 @@ describe('RelationshipEffects', () => {
     relationship = Object.assign(new Relationship(),
       {
         uuid: relationshipID,
+        id: relationshipID,
         leftItem: createSuccessfulRemoteDataObject$(leftItem),
         rightItem: createSuccessfulRemoteDataObject$(rightItem),
         relationshipType: createSuccessfulRemoteDataObject$(relationshipType)
       });
+
     mockRelationshipService = {
       getRelationshipByItemsAndLabel:
         () => observableOf(relationship),
-      deleteRelationship: () => {
-        /* Do nothing */
-      },
-      addRelationship: () => {
-        /* Do nothing */
-      }
+      deleteRelationship: () => observableOf(new RestResponse(true, 200, 'OK')),
+      addRelationship: () => observableOf(new RestResponse(true, 200, 'OK'))
+
     };
     mockRelationshipTypeService = {
       getRelationshipTypeByLabelAndTypes:

@@ -7,12 +7,11 @@
                                        (submitSuggestion)="selectCustom($event)"></ds-org-unit-input-suggestions>
         <span class="text-muted">
         <span *ngIf="dso.allMetadata('organization.address.addressLocality').length > 0"
-              class="item-list-job-title">
-                    <span [innerHTML]="firstMetadataValue(['organization.address.addressLocality'])"><span [innerHTML]="firstMetadataValue(['organization.address.addressLocality'])"></span></span>
-                    <span *ngIf="dso.allMetadata('organization.address.addressCountry').length > 0">, </span>
+              class="item-list-address-locality">
+                    <span [innerHTML]="firstMetadataValue(['organization.address.addressLocality'])"><span [innerHTML]="firstMetadataValue(['organization.address.addressLocality'])"></span></span><span *ngIf="dso.allMetadata('organization.address.addressCountry').length > 0">, </span>
         </span>
         <span *ngIf="dso.allMetadata('organization.address.addressCountry').length > 0"
-              class="item-list-job-title">
+              class="item-list-address-country">
                     <span [innerHTML]="firstMetadataValue(['organization.address.addressCountry'])"><span [innerHTML]="firstMetadataValue(['organization.address.addressCountry'])"></span></span>
         </span>
         </span>

@@ -281,6 +281,7 @@ describe('InputSuggestionsComponent', () => {
       expect(autocomplete.nativeElement.classList).not.toContain('show');
     });
   });
+
   describe('when the variable \'show\' is set to true and close() is called', () => {
     beforeEach(() => {
       comp.show.next(true);
@@ -304,5 +305,4 @@ describe('InputSuggestionsComponent', () => {
       expect(comp.onClickSuggestion).toHaveBeenCalledWith(suggestions[clickedIndex].value);
     });
   });
-
 });

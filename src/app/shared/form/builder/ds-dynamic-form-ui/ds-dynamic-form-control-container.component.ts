@@ -298,7 +298,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   openLookup() {
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg', centered: true });
+    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, { size: 'lg'});
     const modalComp = this.modalRef.componentInstance;
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;

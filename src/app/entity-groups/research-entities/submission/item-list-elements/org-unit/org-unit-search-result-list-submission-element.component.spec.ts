@@ -39,10 +39,16 @@ function init() {
               value: 'This is just another title'
             }
           ],
-          'person.jobTitle': [
+          'organization.address.addressLocality': [
             {
               language: 'en_US',
-              value: 'Developer'
+              value: 'Europe'
+            }
+          ],
+          'organization.address.addressCountry': [
+            {
+              language: 'en_US',
+              value: 'Belgium'
             }
           ]
         }
@@ -70,7 +76,7 @@ function init() {
   };
 }
 
-describe('PersonSearchResultListElementSubmissionComponent', () => {
+describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
@@ -83,7 +89,7 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
         { provide: NgbModal, useValue: {} },
         { provide: ItemDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
-        { provide: Store, useValue: {}}
+        { provide: Store, useValue: {} }
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -98,26 +104,50 @@ describe('PersonSearchResultListElementSubmissionComponent', () => {
 
   }));
 
-  describe('When the item has a job title', () => {
+  describe('When the item has a address locality span', () => {
     beforeEach(() => {
       personListElementComponent.object = mockItemWithMetadata;
       fixture.detectChanges();
     });
 
-    it('should show the job title span', () => {
-      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-job-title'));
+    it('should show the address locality span', () => {
+      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-address-locality'));
       expect(jobTitleField).not.toBeNull();
     });
   });
 
-  describe('When the item has no job title', () => {
+  describe('When the item has no address locality', () => {
     beforeEach(() => {
       personListElementComponent.object = mockItemWithoutMetadata;
       fixture.detectChanges();
     });
 
-    it('should not show the job title span', () => {
-      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-job-title'));
+    it('should not show the address locality span', () => {
+      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-address-locality'));
+      expect(jobTitleField).toBeNull();
+    });
+  });
+
+  describe('When the item has a address country span', () => {
+    beforeEach(() => {
+      personListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show the address country span', () => {
+      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-address-country'));
+      expect(jobTitleField).not.toBeNull();
+    });
+  });
+
+  describe('When the item has no address country', () => {
+    beforeEach(() => {
+      personListElementComponent.object = mockItemWithoutMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should not show the address country span', () => {
+      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-address-country'));
       expect(jobTitleField).toBeNull();
     });
   });
