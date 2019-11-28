@@ -181,6 +181,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
         }
         (this.dso as any).logo = undefined;
         this.uploadFilesOptions.method = RestRequestMethod.POST;
+        this.refreshCache();
         this.finish.emit();
       });
     }
