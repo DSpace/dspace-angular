@@ -14,7 +14,7 @@ let fixture: ComponentFixture<PublicationSearchResultListElementComponent>;
 const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
     Object.assign(new Item(), {
-      bitstreams: observableOf({}),
+      bundles: observableOf({}),
       metadata: {
         'dc.title': [
           {
@@ -52,7 +52,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
     Object.assign(new Item(), {
-      bitstreams: observableOf({}),
+      bundles: observableOf({}),
       metadata: {
         'dc.title': [
           {

@@ -138,7 +138,7 @@ describe('SearchFilterService', () => {
       service.expand(mockFilterConfig.name);
     });
 
-    it('SearchSidebarExpandAction should be dispatched to the store', () => {
+    it('SidebarExpandAction should be dispatched to the store', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new SearchFilterExpandAction(mockFilterConfig.name));
     });
   });

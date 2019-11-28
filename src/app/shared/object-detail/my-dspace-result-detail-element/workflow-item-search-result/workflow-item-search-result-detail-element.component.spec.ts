@@ -20,7 +20,7 @@ const mockResultObject: WorkflowItemSearchResult = new WorkflowItemSearchResult(
 mockResultObject.hitHighlights = {};
 
 const item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {

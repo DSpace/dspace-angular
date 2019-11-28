@@ -24,7 +24,7 @@ describe('ItemSelectComponent', () => {
   const mockItemList = [
     Object.assign(new Item(), {
       id: 'id1',
-      bitstreams: of({}),
+      bundles: of({}),
       metadata: [
         {
           key: 'dc.title',
@@ -39,7 +39,7 @@ describe('ItemSelectComponent', () => {
     }),
     Object.assign(new Item(), {
       id: 'id2',
-      bitstreams: of({}),
+      bundles: of({}),
       metadata: [
         {
           key: 'dc.title',

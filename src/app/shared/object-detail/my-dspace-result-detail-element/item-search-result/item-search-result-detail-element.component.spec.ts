@@ -18,7 +18,7 @@ const mockResultObject: ItemSearchResult = new ItemSearchResult();
 mockResultObject.hitHighlights = {};
 
 mockResultObject.indexableObject = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {

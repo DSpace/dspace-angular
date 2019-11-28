@@ -23,7 +23,7 @@ const mockResultObject: ClaimedTaskSearchResult = new ClaimedTaskSearchResult();
 mockResultObject.hitHighlights = {};
 
 const item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {

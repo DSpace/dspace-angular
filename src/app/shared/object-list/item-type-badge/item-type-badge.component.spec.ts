@@ -14,7 +14,7 @@ let fixture: ComponentFixture<ItemTypeBadgeComponent>;
 const type = 'authorOfPublication';
 
 const mockItemWithRelationshipType = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'relationship.type': [
       {
@@ -26,7 +26,7 @@ const mockItemWithRelationshipType = Object.assign(new Item(), {
 });
 
 const mockItemWithoutRelationshipType = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
