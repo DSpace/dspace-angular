@@ -15,6 +15,9 @@ import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { Context } from '../../core/shared/context.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 
 /**
  * This component renders a paginated set of results in the detail view.
@@ -28,6 +31,10 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   animations: [fadeIn]
 })
 export class ObjectDetailComponent {
+  /**
+   * The view mode of this component
+   */
+  viewMode = ViewMode.DetailedListElement;
 
   /**
    * Pagination options object
@@ -48,6 +55,16 @@ export class ObjectDetailComponent {
    * A boolean representing if to hide pagination when there is only a page
    */
   @Input() hidePagerWhenSinglePage = true;
+
+  /**
+   * The link type of the rendered listable elements
+   */
+  @Input() linkType: CollectionElementLinkType;
+
+  /**
+   * The context of the rendered listable elements
+   */
+  @Input() context: Context;
 
   /**
    * The list of objects to paginate

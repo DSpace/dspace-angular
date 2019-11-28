@@ -12,17 +12,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 
 const parentItem: Item = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
 const mockItem1: Item = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
 const mockItem2: Item = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: [],
   relationships: createRelationshipsObservable()
 });
@@ -62,7 +62,7 @@ describe('RelatedItemsComponent', () => {
   }));
 
   it(`should load ${mockItems.length} item-type-switcher components`, () => {
-    const fields = fixture.debugElement.queryAll(By.css('ds-item-type-switcher'));
+    const fields = fixture.debugElement.queryAll(By.css('ds-listable-object-component-loader'));
     expect(fields.length).toBe(mockItems.length);
   });
 

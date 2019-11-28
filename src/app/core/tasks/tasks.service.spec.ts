@@ -29,7 +29,6 @@ class TestTask extends TaskObject {
 
 class TestService extends TasksService<TestTask> {
   protected linkPath = LINK_NAME;
-  protected forceBypassCache = true;
 
   constructor(
     protected requestService: RequestService,

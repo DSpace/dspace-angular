@@ -53,8 +53,9 @@ export const requestUUIDIndexSelector: MemoizedSelector<AppState, IndexState> = 
 /**
  * Return the self link of an object in the object-cache based on its UUID
  *
- * @param uuid
+ * @param id
  *    the UUID for which you want to find the matching self link
+ * @param identifierType the type of index, used to select index from state
  * @returns
  *    a MemoizedSelector to select the self link
  */

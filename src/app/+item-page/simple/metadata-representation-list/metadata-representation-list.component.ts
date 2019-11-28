@@ -1,11 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { ItemViewMode } from '../../../shared/items/item-type-decorator';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { Item } from '../../../core/shared/item.model';
-import { zip as observableZip, combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip } from 'rxjs';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -69,12 +68,6 @@ export class MetadataRepresentationListComponent implements OnInit, OnDestroy {
    * A list of metadata-representations to display
    */
   representations$: Observable<MetadataRepresentation[]>;
-
-  /**
-   * The view-mode we're currently on
-   * @type {ElementViewMode}
-   */
-  viewMode = ItemViewMode.Metadata;
 
   /**
    * The originally provided limit

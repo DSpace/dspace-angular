@@ -7,17 +7,14 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
 import { ChangeDetectionStrategy, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { ItemComponent } from './item.component';
-import { of as observableOf } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { Observable } from 'rxjs/internal/Observable';
@@ -56,7 +53,6 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
         })],
         declarations: [component, GenericItemPageFieldComponent, TruncatePipe],
         providers: [
-          {provide: ITEM, useValue: mockItem},
           {provide: ItemDataService, useValue: {}},
           {provide: SearchFixedFilterService, useValue: searchFixedFilterServiceStub},
           {provide: TruncatableService, useValue: {}}
@@ -71,6 +67,7 @@ export function getItemPageFieldsTest(mockItem: Item, component) {
     beforeEach(async(() => {
       fixture = TestBed.createComponent(component);
       comp = fixture.componentInstance;
+      comp.object = mockItem;
       fixture.detectChanges();
     }));
 

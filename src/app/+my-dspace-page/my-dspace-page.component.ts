@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { switchMap, tap, } from 'rxjs/operators';
+import { map, switchMap, tap, } from 'rxjs/operators';
 
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
@@ -17,10 +17,9 @@ import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
 import { SearchService } from '../+search-page/search-service/search.service';
-import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue } from '../shared/empty.util';
 import { getSucceededRemoteData } from '../core/shared/operators';
-import { MyDSpaceResult } from './my-dspace-result.model';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
 import { SearchConfigurationOption } from '../+search-page/search-switch-configuration/search-configuration-option.model';
 import { RoleType } from '../core/roles/role-types';
@@ -28,6 +27,8 @@ import { SearchConfigurationService } from '../+search-page/search-service/searc
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
+import { SearchResult } from '../+search-page/search-result.model';
+import { Context } from '../core/shared/context.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
 export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
@@ -63,7 +64,7 @@ export class MyDSpacePageComponent implements OnInit {
   /**
    * The current search results
    */
-  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<MyDSpaceResult<DSpaceObject>>>> = new BehaviorSubject(null);
+  resultsRD$: BehaviorSubject<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> = new BehaviorSubject(null);
 
   /**
    * The current paginated search options
@@ -93,10 +94,15 @@ export class MyDSpacePageComponent implements OnInit {
   /**
    * List of available view mode
    */
-  viewModeList = [ViewMode.List, ViewMode.Detail];
+  viewModeList = [ViewMode.ListElement, ViewMode.DetailedListElement];
+
+  /**
+   * The current context of this page: workspace or workflow
+   */
+  context$: Observable<Context>;
 
   constructor(private service: SearchService,
-              private sidebarService: SearchSidebarService,
+              private sidebarService: SidebarService,
               private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
@@ -111,20 +117,34 @@ export class MyDSpacePageComponent implements OnInit {
    *
    * Listen to changes in the scope
    * If something changes, update the list of scopes for the dropdown
+   *
+   * Listen to changes in the configuration
+   * If something changes, update the current context
    */
   ngOnInit(): void {
     this.configurationList$ = this.searchConfigService.getAvailableConfigurationOptions();
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
-
     this.sub = this.searchOptions$.pipe(
       tap(() => this.resultsRD$.next(null)),
       switchMap((options: PaginatedSearchOptions) => this.service.search(options).pipe(getSucceededRemoteData())))
       .subscribe((results) => {
         this.resultsRD$.next(results);
       });
+
     this.scopeListRD$ = this.searchConfigService.getCurrentScope('').pipe(
       switchMap((scopeId) => this.service.getScopes(scopeId))
     );
+
+    this.context$ = this.searchConfigService.getCurrentConfiguration('workspace')
+      .pipe(
+        map((configuration: string) => {
+          if (configuration === 'workspace') {
+            return Context.Workspace
+          } else {
+            return Context.Workflow
+          }
+        })
+      );
 
   }
 

@@ -22,15 +22,12 @@ import { ProcessTaskResponse } from './models/process-task-response';
 @Injectable()
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
+  protected responseMsToLive = 10 * 1000;
+
   /**
    * The endpoint link name
    */
   protected linkPath = 'claimedtasks';
-
-  /**
-   * When true, a new request is always dispatched
-   */
-  protected forceBypassCache = true;
 
   /**
    * Initialize instance variables

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
 import { ItemComponent } from '../../../../+item-page/simple/item-types/shared/item.component';
+import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
-@rendersItemType('Person', ItemViewMode.Full)
+@listableObjectComponent('Person', ViewMode.StandalonePage)
 @Component({
   selector: 'ds-person',
   styleUrls: ['./person.component.scss'],

@@ -114,7 +114,7 @@ describe('RelationshipService', () => {
 
     it('should send a DeleteRequest', () => {
       const expected = new DeleteRequest(requestService.generateRequestId(), relationshipsEndpointURL + '/' + relationship1.uuid);
-      expect(requestService.configure).toHaveBeenCalledWith(expected, undefined);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
     it('should clear the related items their cache', () => {

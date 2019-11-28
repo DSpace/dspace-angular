@@ -47,9 +47,7 @@ describe('CollectionSearchResultListElementComponent', () => {
       declarations: [ CollectionSearchResultListElementComponent, TruncatePipe ],
       providers: [
         { provide: TruncatableService, useValue: truncatableServiceStub },
-        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
       ],
-
       schemas: [ NO_ERRORS_SCHEMA ]
     }).overrideComponent(CollectionSearchResultListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
@@ -59,6 +57,8 @@ describe('CollectionSearchResultListElementComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(CollectionSearchResultListElementComponent);
     collectionSearchResultListElementComponent = fixture.componentInstance;
+    collectionSearchResultListElementComponent.object = mockCollectionWithAbstract;
+    fixture.detectChanges();
   }));
 
   describe('When the collection has an abstract', () => {

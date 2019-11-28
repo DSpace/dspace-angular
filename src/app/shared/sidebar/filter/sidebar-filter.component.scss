@@ -1,0 +1,12 @@
+:host .facet-filter {
+  border: 1px solid map-get($theme-colors, light);
+  cursor: pointer;
+
+  .sidebar-filter-wrapper.closed {
+    overflow: hidden;
+  }
+
+  .filter-toggle {
+    line-height: $line-height-base;
+  }
+}

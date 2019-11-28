@@ -20,7 +20,7 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 @Injectable()
 export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
-  protected forceBypassCache = true;
+  protected responseMsToLive = 10 * 1000;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,

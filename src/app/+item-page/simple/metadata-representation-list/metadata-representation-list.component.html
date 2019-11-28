@@ -1,8 +1,8 @@
 <ds-metadata-field-wrapper [label]="label">
   <ng-container *ngVar="(representations$ | async) as representations">
-    <ds-item-type-switcher *ngFor="let rep of representations"
-                             [object]="rep" [viewMode]="viewMode">
-    </ds-item-type-switcher>
+    <ds-metadata-representation-loader *ngFor="let rep of representations"
+                                       [mdRepresentation]="rep">
+    </ds-metadata-representation-loader>
     <ds-loading *ngIf="loading" message="{{'loading.default' | translate}}"></ds-loading>
     <div class="d-inline-block w-100 mt-2" *ngIf="representations?.length > 0">
       <div *ngIf="representations?.length < total" class="float-left">

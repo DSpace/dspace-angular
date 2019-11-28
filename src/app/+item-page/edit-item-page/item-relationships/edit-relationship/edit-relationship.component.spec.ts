@@ -5,7 +5,6 @@ import { ObjectUpdatesService } from '../../../../core/data/object-updates/objec
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { EditRelationshipComponent } from './edit-relationship.component';
 import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { ResourceType } from '../../../../core/shared/resource-type';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
