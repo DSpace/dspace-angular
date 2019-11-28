@@ -50,7 +50,7 @@ describe('ItemPageFieldComponent', () => {
 
 export function mockItemWithMetadataFieldAndValue(field: string, value: string): Item {
   const item = Object.assign(new Item(), {
-    bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+    bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
     metadata: new MetadataMap()
   });
   item.metadata[field] = [{

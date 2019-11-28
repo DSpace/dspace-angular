@@ -30,7 +30,7 @@ let component: ItemDetailPreviewComponent;
 let fixture: ComponentFixture<ItemDetailPreviewComponent>;
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), []))),
+  bundles: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), []))),
   metadata: {
     'dc.contributor.author': [
       {
@@ -88,7 +88,7 @@ describe('ItemDetailPreviewComponent', () => {
     component.object = { hitHighlights: {} } as any;
     component.item = mockItem;
     component.separator = ', ';
-    spyOn(component.item, 'getFiles').and.returnValue(mockItem.bitstreams);
+    spyOn(component.item, 'getFiles').and.returnValue(mockItem.bundles);
     fixture.detectChanges();
 
   }));

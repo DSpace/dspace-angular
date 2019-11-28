@@ -86,9 +86,9 @@
   // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
   
-  // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
+  // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are are hidden from the user, and used for administrative purposes.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
   
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
   // TODO New key - Add a translation
@@ -1125,9 +1125,9 @@
   // TODO New key - Add a translation
   "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
   
-  // "item.edit.move.error": "An error occured when attempting to move the item",
+  // "item.edit.move.error": "An error occurred when attempting to move the item",
   // TODO New key - Add a translation
-  "item.edit.move.error": "An error occured when attempting to move the item",
+  "item.edit.move.error": "An error occurred when attempting to move the item",
   
   // "item.edit.move.head": "Move item: {{id}}",
   // TODO New key - Add a translation
@@ -1153,9 +1153,9 @@
   // TODO New key - Add a translation
   "item.edit.move.search.placeholder": "Enter a search query to look for collections",
   
-  // "item.edit.move.success": "The item has been moved succesfully",
+  // "item.edit.move.success": "The item has been moved successfully",
   // TODO New key - Add a translation
-  "item.edit.move.success": "The item has been moved succesfully",
+  "item.edit.move.success": "The item has been moved successfully",
   
   // "item.edit.move.title": "Move item",
   // TODO New key - Add a translation
@@ -2911,9 +2911,9 @@
   // TODO New key - Add a translation
   "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
   
-  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
   // TODO New key - Add a translation
-  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the fle metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
   
   // "submission.sections.upload.no-entry": "No",
   // TODO New key - Add a translation

@@ -14,7 +14,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bitstreams: observableOf({}),
+      bundles: observableOf({}),
       metadata: {
         'dc.title': [
           {
@@ -36,7 +36,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bitstreams: observableOf({}),
+      bundles: observableOf({}),
       metadata: {
         'dc.title': [
           {

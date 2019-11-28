@@ -1,6 +1,6 @@
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchService } from './search-service/search.service';
-import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchPageComponent } from './search-page.component';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
@@ -36,7 +36,7 @@ export class ConfigurationSearchPageComponent extends SearchPageComponent implem
   @Input() configuration: string;
 
   constructor(protected service: SearchService,
-              protected sidebarService: SearchSidebarService,
+              protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService) {

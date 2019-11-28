@@ -4,6 +4,7 @@ import { Item } from '../../core/shared/item.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { PaginatedList } from '../../core/data/paginated-list';
+import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../testing/utils';
 
 /* tslint:disable:no-shadowed-variable */
 export const MockItem: Item = Object.assign(new Item(), {
@@ -12,102 +13,107 @@ export const MockItem: Item = Object.assign(new Item(), {
   isArchived: true,
   isDiscoverable: true,
   isWithdrawn: false,
-  bitstreams: observableOf(Object.assign({
-    self: 'dspace-angular://aggregated/object/1507836003548',
-    requestPending: false,
-    responsePending: false,
-    isSuccessful: true,
-    errorMessage: '',
-    state: '',
-    error: undefined,
-    isRequestPending: false,
-    isResponsePending: false,
-    isLoading: false,
-    hasFailed: false,
-    hasSucceeded: true,
-    statusCode: '202',
-    pageInfo: {},
-    payload: {
-      pageInfo: {
-        elementsPerPage: 20,
-        totalElements: 3,
-        totalPages: 1,
-        currentPage: 2
-      },
-      page: [
-        {
-          sizeBytes: 10201,
-          content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-          format: observableOf({
-            self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10',
-            requestPending: false,
-            responsePending: false,
-            isSuccessful: true,
-            errorMessage: '',
-            statusCode: '202',
-            pageInfo: {},
-            payload: {
-              shortDescription: 'Microsoft Word XML',
-              description: 'Microsoft Word XML',
-              mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-              supportLevel: 0,
-              internal: false,
-              extensions: null,
-              self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
-            }
-          }),
-          bundleName: 'ORIGINAL',
-          self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
-          id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
-          uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
-          type: 'bitstream',
-          metadata: {
-            'dc.title': [
-              {
-                language: null,
-                value: 'test_word.docx'
+  bundles: createSuccessfulRemoteDataObject$(createPaginatedList([
+    {
+      name: 'ORIGINAL',
+      bitstreams: observableOf(Object.assign({
+        self: 'dspace-angular://aggregated/object/1507836003548',
+        requestPending: false,
+        responsePending: false,
+        isSuccessful: true,
+        errorMessage: '',
+        state: '',
+        error: undefined,
+        isRequestPending: false,
+        isResponsePending: false,
+        isLoading: false,
+        hasFailed: false,
+        hasSucceeded: true,
+        statusCode: '202',
+        pageInfo: {},
+        payload: {
+          pageInfo: {
+            elementsPerPage: 20,
+            totalElements: 3,
+            totalPages: 1,
+            currentPage: 2
+          },
+          page: [
+            {
+              sizeBytes: 10201,
+              content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
+              format: observableOf({
+                self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10',
+                requestPending: false,
+                responsePending: false,
+                isSuccessful: true,
+                errorMessage: '',
+                statusCode: '202',
+                pageInfo: {},
+                payload: {
+                  shortDescription: 'Microsoft Word XML',
+                  description: 'Microsoft Word XML',
+                  mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                  supportLevel: 0,
+                  internal: false,
+                  extensions: null,
+                  self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
+                }
+              }),
+              bundleName: 'ORIGINAL',
+              self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
+              id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
+              uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
+              type: 'bitstream',
+              metadata: {
+                'dc.title': [
+                  {
+                    language: null,
+                    value: 'test_word.docx'
+                  }
+                ]
               }
-            ]
-          }
-        },
-        {
-          sizeBytes: 31302,
-          content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
-          format: observableOf({
-            self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4',
-            requestPending: false,
-            responsePending: false,
-            isSuccessful: true,
-            errorMessage: '',
-            statusCode: '202',
-            pageInfo: {},
-            payload: {
-              shortDescription: 'Adobe PDF',
-              description: 'Adobe Portable Document Format',
-              mimetype: 'application/pdf',
-              supportLevel: 0,
-              internal: false,
-              extensions: null,
-              self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
-            }
-          }),
-          bundleName: 'ORIGINAL',
-          self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28',
-          id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
-          uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
-          type: 'bitstream',
-          metadata: {
-            'dc.title': [
-              {
-                language: null,
-                value: 'test_pdf.pdf'
+            },
+            {
+              sizeBytes: 31302,
+              content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
+              format: observableOf({
+                self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4',
+                requestPending: false,
+                responsePending: false,
+                isSuccessful: true,
+                errorMessage: '',
+                statusCode: '202',
+                pageInfo: {},
+                payload: {
+                  shortDescription: 'Adobe PDF',
+                  description: 'Adobe Portable Document Format',
+                  mimetype: 'application/pdf',
+                  supportLevel: 0,
+                  internal: false,
+                  extensions: null,
+                  self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
+                }
+              }),
+              bundleName: 'ORIGINAL',
+              self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28',
+              id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
+              uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
+              type: 'bitstream',
+              metadata: {
+                'dc.title': [
+                  {
+                    language: null,
+                    value: 'test_pdf.pdf'
+                  }
+                ]
               }
-            ]
-          }
+            }
+          ]
         }
-      ]
+      }))
     }
-  }) as RemoteData<PaginatedList<Bitstream>>),
+  ])),
   self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/items/0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   id: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',
   uuid: '0ec7ff22-f211-40ab-a69e-c819b0b1f357',

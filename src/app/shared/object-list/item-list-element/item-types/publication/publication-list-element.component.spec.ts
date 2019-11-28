@@ -8,7 +8,7 @@ import { TruncatableService } from '../../../../truncatable/truncatable.service'
 import { of as observableOf } from 'rxjs';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {

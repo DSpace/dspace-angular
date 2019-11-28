@@ -41,7 +41,7 @@ const searchService = getMockSearchService();
 const requestServce = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
