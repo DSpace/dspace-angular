@@ -3,14 +3,14 @@ import { URLCombiner } from '../core/url-combiner/url-combiner';
 import 'core-js/library/fn/object/entries';
 import { SearchFilter } from './search-filter.model';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
-import { SetViewMode } from '../shared/view-mode';
+import { ViewMode } from '../core/shared/view-mode.model';
 
 /**
  * This model class represents all parameters needed to request information about a certain search request
  */
 export class SearchOptions {
   configuration?: string;
-  view?: SetViewMode = SetViewMode.List;
+  view?: ViewMode = ViewMode.ListElement;
   scope?: string;
   query?: string;
   dsoType?: DSpaceObjectType;

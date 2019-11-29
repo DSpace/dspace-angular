@@ -18,11 +18,19 @@ import { MetadataschemaParsingService } from './metadataschema-parsing.service';
 import { MetadatafieldParsingService } from './metadatafield-parsing.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
+import { MappedCollectionsReponseParsingService } from './mapped-collections-reponse-parsing.service';
 
 /* tslint:disable:max-classes-per-file */
 
+// uuid and handle requests have separate endpoints
+export enum IdentifierType {
+  UUID ='uuid',
+  HANDLE = 'handle'
+}
+
 export abstract class RestRequest {
-  public responseMsToLive = 0;
+  public responseMsToLive = 10 * 1000;
+  public forceBypassCache = false;
   constructor(
     public uuid: string,
     public href: string,
@@ -48,7 +56,7 @@ export class GetRequest extends RestRequest {
     public uuid: string,
     public href: string,
     public body?: any,
-    public options?: HttpOptions,
+    public options?: HttpOptions
   )  {
     super(uuid, href, RestRequestMethod.GET, body, options)
   }
@@ -185,6 +193,17 @@ export class BrowseItemsRequest extends GetRequest {
   }
 }
 
+/**
+ * Request to fetch the mapped collections of an item
+ */
+export class MappedCollectionsRequest extends GetRequest {
+  public responseMsToLive = 10000;
+
+  getResponseParser(): GenericConstructor<ResponseParsingService> {
+    return MappedCollectionsReponseParsingService;
+  }
+}
+
 export class ConfigRequest extends GetRequest {
   constructor(uuid: string, href: string, public options?: HttpOptions) {
     super(uuid, href, null, options);
@@ -281,6 +300,7 @@ export class UpdateMetadataFieldRequest extends PutRequest {
  * Class representing a submission HTTP GET request object
  */
 export class SubmissionRequest extends GetRequest {
+  forceBypassCache = true;
   constructor(uuid: string, href: string) {
     super(uuid, href);
   }
@@ -392,7 +412,7 @@ export class TaskDeleteRequest extends DeleteRequest {
 }
 
 export class MyDSpaceRequest extends GetRequest {
-  public responseMsToLive = 0;
+  public responseMsToLive = 10 * 1000;
 }
 
 export class RequestError extends Error {

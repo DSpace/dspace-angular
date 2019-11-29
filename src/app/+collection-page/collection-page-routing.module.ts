@@ -11,6 +11,7 @@ import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { getCollectionModulePath } from '../app-routing.module';
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
 import { ItemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
+import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 
@@ -68,6 +69,15 @@ const ITEMTEMPLATE_PATH = ':id/itemtemplate';
         resolve: {
           collection: CollectionPageResolver
         }
+      },
+      {
+        path: ':id/edit/mapper',
+        component: CollectionItemMapperComponent,
+        pathMatch: 'full',
+        resolve: {
+          collection: CollectionPageResolver
+        },
+        canActivate: [AuthenticatedGuard]
       }
     ])
   ],

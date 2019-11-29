@@ -1,33 +1,38 @@
 <div class="container" *ngVar="(communityRD$ | async) as communityRD">
   <div class="community-page" *ngIf="communityRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="communityRD?.payload; let communityPayload">
-      <!-- Community name -->
-      <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
-      <!-- Browse-By Links -->
-      <ds-comcol-page-browse-by [id]="communityPayload.id"></ds-comcol-page-browse-by>
-      <!-- Community logo -->
-      <ds-comcol-page-logo *ngIf="logoRD$"
-                           [logo]="(logoRD$ | async)?.payload"
-                           [alternateText]="'Community Logo'">
-      </ds-comcol-page-logo>
-      <!-- Introductory text -->
-      <ds-comcol-page-content
-        [content]="communityPayload.introductoryText"
-        [hasInnerHtml]="true">
-      </ds-comcol-page-content>
-      <!-- News -->
-      <ds-comcol-page-content
-        [content]="communityPayload.sidebarText"
-        [hasInnerHtml]="true"
-        [title]="'community.page.news'">
-      </ds-comcol-page-content>
-      <!-- Copyright -->
-      <ds-comcol-page-content
-        [content]="communityPayload.copyrightText"
-        [hasInnerHtml]="true">
-      </ds-comcol-page-content>
-      <ds-community-page-sub-community-list [community]="communityPayload"></ds-community-page-sub-community-list>
-      <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
+      <header class="comcol-header border-bottom mb-4 pb-4">
+        <!-- Community logo -->
+        <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Community Logo'">
+        </ds-comcol-page-logo>
+
+        <!-- Community name -->
+        <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
+        <!-- Handle -->
+        <ds-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
+        </ds-comcol-page-handle>
+        <!-- Introductory text -->
+        <ds-comcol-page-content [content]="communityPayload.introductoryText" [hasInnerHtml]="true">
+        </ds-comcol-page-content>
+        <!-- News -->
+        <ds-comcol-page-content [content]="communityPayload.sidebarText" [hasInnerHtml]="true"
+          [title]="'community.page.news'">
+        </ds-comcol-page-content>
+
+      </header>
+      <section class="comcol-page-browse-section">
+        <!-- Browse-By Links -->
+        <ds-comcol-page-browse-by [id]="communityPayload.id" [contentType]="communityPayload.type">
+        </ds-comcol-page-browse-by>
+
+        <ds-community-page-sub-community-list [community]="communityPayload"></ds-community-page-sub-community-list>
+        <ds-community-page-sub-collection-list [community]="communityPayload"></ds-community-page-sub-collection-list>
+      </section>
+      <footer  *ngIf="communityPayload.copyrightText"  class="border-top my-5 pt-4">
+        <!-- Copyright -->
+        <ds-comcol-page-content [content]="communityPayload.copyrightText" [hasInnerHtml]="true">
+        </ds-comcol-page-content>
+      </footer>
     </div>
   </div>
 

@@ -17,6 +17,10 @@ import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.mod
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
+import { RequestService } from '../../../core/data/request.service';
+import { getMockRequestService } from '../../mocks/mock-request.service';
+import { SearchService } from '../../../+search-page/search-service/search.service';
+import { getMockSearchService } from '../../mocks/mock-search-service';
 
 let component: WorkspaceitemActionsComponent;
 let fixture: ComponentFixture<WorkspaceitemActionsComponent>;
@@ -28,8 +32,12 @@ const mockDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
   delete: jasmine.createSpy('delete')
 });
 
+const searchService = getMockSearchService();
+
+const requestServce = getMockRequestService();
+
 const item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
@@ -62,6 +70,7 @@ mockObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd), id: '1
 
 describe('WorkspaceitemActionsComponent', () => {
   beforeEach(async(() => {
+
     TestBed.configureTestingModule({
       imports: [
         NgbModule.forRoot(),
@@ -78,6 +87,8 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: WorkspaceitemDataService, useValue: mockDataService },
+        { provide: SearchService, useValue: searchService },
+        { provide: RequestService, useValue: requestServce },
         NgbModal
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -159,6 +170,16 @@ describe('WorkspaceitemActionsComponent', () => {
 
     fixture.whenStable().then(() => {
       expect(notificationsServiceStub.error).toHaveBeenCalled();
+    });
+  }));
+
+  it('should clear the object cache by href', async(() => {
+    component.reload();
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(searchService.getEndpoint).toHaveBeenCalled();
+      expect(requestServce.removeByHrefSubstring).toHaveBeenCalledWith('discover/search/objects');
     });
   }));
 });

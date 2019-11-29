@@ -5,14 +5,10 @@ import { PersonListElementComponent } from './person-list-element.component';
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 
-let personListElementComponent: PersonListElementComponent;
-let fixture: ComponentFixture<PersonListElementComponent>;
-
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+const mockItem: Item = Object.assign(new Item(), {
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
@@ -28,28 +24,22 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
     ]
   }
 });
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
 
 describe('PersonListElementComponent', () => {
+  let comp;
+  let fixture;
+
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PersonListElementComponent , TruncatePipe],
+      declarations: [PersonListElementComponent, TruncatePipe],
       providers: [
-        { provide: ITEM, useValue: mockItemWithMetadata},
-        { provide: TruncatableService, useValue: {} }
+        { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PersonListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
@@ -57,31 +47,18 @@ describe('PersonListElementComponent', () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(PersonListElementComponent);
-    personListElementComponent = fixture.componentInstance;
-
+    comp = fixture.componentInstance;
   }));
 
-  describe('When the item has a job title', () => {
+  describe(`when the person is rendered`, () => {
     beforeEach(() => {
-      personListElementComponent.item = mockItemWithMetadata;
+      comp.object = mockItem;
       fixture.detectChanges();
     });
 
-    it('should show the job title span', () => {
-      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-job-title'));
-      expect(jobTitleField).not.toBeNull();
-    });
-  });
-
-  describe('When the item has no job title', () => {
-    beforeEach(() => {
-      personListElementComponent.item = mockItemWithoutMetadata;
-      fixture.detectChanges();
-    });
-
-    it('should not show the job title span', () => {
-      const jobTitleField = fixture.debugElement.query(By.css('span.item-list-job-title'));
-      expect(jobTitleField).toBeNull();
+    it(`should contain a PersonListElementComponent`, () => {
+      const personListElement = fixture.debugElement.query(By.css(`ds-person-search-result-list-element`));
+      expect(personListElement).not.toBeNull();
     });
   });
 });

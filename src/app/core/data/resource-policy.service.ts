@@ -22,7 +22,6 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<ResourcePolicy> {
   protected linkPath = 'resourcepolicies';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,

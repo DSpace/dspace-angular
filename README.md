@@ -3,13 +3,12 @@
 dspace-angular
 ==============
 
-> The next UI for DSpace, based on Angular Universal.
+> The next UI for DSpace 7, based on Angular Universal.
 
-This project is currently in pre-alpha.
+This project is currently under active development. For more information on the DSpace 7 release see the [DSpace 7.0 Release Status wiki page](https://wiki.lyrasis.org/display/DSPACE/DSpace+Release+7.0+Status)
 
-You can find additional information on the [wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+-+Angular+UI) or [the project board (waffle.io)](https://waffle.io/DSpace/dspace-angular).
+You can find additional information on the DSpace 7 Angular UI on the [wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+-+Angular+UI+Development).
 
-If you're looking for the 2016 Angular 2 DSpace UI prototype, you can find it [here](https://github.com/DSpace-Labs/angular2-ui-prototype)
 
 Quick start
 -----------
@@ -32,8 +31,6 @@ yarn start
 
 Then go to [http://localhost:3000](http://localhost:3000) in your browser
 
-NOTE: currently there's not much to see at that URL. We really do need your help. If you're interested in jumping in, and you've made it this far, please look at the [the project board (waffle.io)](https://waffle.io/DSpace/dspace-angular), grab a card, and get to work. Thanks!
-
 Not sure where to start? watch the training videos linked in the [Introduction to the technology](#introduction-to-the-technology) section below.
 
 Table of Contents
@@ -42,24 +39,27 @@ Table of Contents
 -	[Introduction to the technology](#introduction-to-the-technology)
 -	[Requirements](#requirements)
 -	[Installing](#installing)
--	[Configuring](#configuring)
+    -	[Configuring](#configuring)
 -	[Running the app](#running-the-app)
--	[Running in production mode](#running-in-production-mode)
+    -	[Running in production mode](#running-in-production-mode)
+    - [Deploy](#deploy)
+    - [Running the application with Docker](#running-the-application-with-docker)
 -	[Cleaning](#cleaning)
 -	[Testing](#testing)
+    - [Test a Pull Request](#test-a-pull-request)
 -	[Documentation](#documentation)
 -	[Other commands](#other-commands)
 -	[Recommended Editors/IDEs](#recommended-editorsides)
 -	[Collaborating](#collaborating)
 -	[File Structure](#file-structure)
--	[3rd Party Library Installation](#3rd-party-library-installation)
+-	[Managing Dependencies (via yarn)](#managing-dependencies-via-yarn)
 -	[Frequently asked questions](#frequently-asked-questions)
 -	[License](#license)
 
 Introduction to the technology
 ------------------------------
 
-You can find more information on the technologies used in this project (Angular 2, Typescript, Angular Universal, RxJS, etc) on the [DuraSpace wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
+You can find more information on the technologies used in this project (Angular.io, Typescript, Angular Universal, RxJS, etc) on the [LYRASIS wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+UI+Technology+Stack)
 
 Requirements
 ------------
@@ -75,8 +75,7 @@ Installing
 -	`yarn run global` to install the required global dependencies
 -	`yarn install` to install the local dependencies
 
-Configuring
------------
+### Configuring
 
 Default configuration file is located in `config/` folder.
 
@@ -98,8 +97,7 @@ Running the app
 
 After you have installed all dependencies you can now run the app. Run `yarn run watch` to start a local server which will watch for changes, rebuild the code, and reload the server for you. You can visit it at `http://localhost:3000`.
 
-Running in production mode
---------------------------
+### Running in production mode
 
 When building for production we're using Ahead of Time (AoT) compilation. With AoT, the browser downloads a pre-compiled version of the application, so it can render the application immediately, without waiting to compile the app first. The compiler is roughly half the size of Angular itself, so omitting it dramatically reduces the application payload.
 
@@ -117,6 +115,19 @@ yarn run build:prod
 
 This will build the application and put the result in the `dist` folder
 
+### Deploy
+```bash
+# deploy production in standalone pm2 container
+yarn run deploy
+
+# remove production from standalone pm2 container
+yarn run undeploy
+```
+
+### Running the application with Docker
+See [Docker Runtime Options](docker/README.md)
+
+
 Cleaning
 --------
 
@@ -130,6 +141,7 @@ yarn run clean:prod
 # cleans the distribution directory
 yarn run clean:dist
 ```
+
 
 Testing
 -------
@@ -184,20 +196,13 @@ To run all the tests (e.g.: to run tests with Continuous Integration software) y
 Documentation
 --------------
 
+See [`./docs`](docs) for further documentation.
+
+### Building code documentation
+
 To build the code documentation we use [TYPEDOC](http://typedoc.org). TYPEDOC is a documentation generator for TypeScript projects. It extracts informations from properly formatted comments that can be written within the code files. Follow the instructions [here](http://typedoc.org/guides/doccomments/) to know how to make those comments.
 
 Run:`yarn run docs` to produce the documentation that will be available in the 'doc' folder.
-
-Deploy
-------
-
-```bash
-# deploy production in standalone pm2 container
-yarn run deploy
-
-# remove production from standalone pm2 container
-yarn run undeploy
-```
 
 Other commands
 --------------
@@ -224,7 +229,7 @@ To get the most out of TypeScript, you'll need a TypeScript-aware editor. We've 
 Collaborating
 -------------
 
-See [the guide on the wiki](https://wiki.duraspace.org/display/DSPACE/DSpace+7+-+Angular+2+UI#DSpace7-Angular2UI-Howtocontribute)
+See [the guide on the wiki](https://wiki.lyrasis.org/display/DSPACE/DSpace+7+-+Angular+UI+Development#DSpace7-AngularUIDevelopment-Howtocontribute)
 
 File Structure
 --------------
@@ -330,10 +335,20 @@ dspace-angular
 └── yarn.lock                                           * Yarn lockfile (https://yarnpkg.com/en/docs/yarn-lock)
 ```
 
-3rd Party Library Installation
-------------------------------
+Managing Dependencies (via yarn)
+-------------
 
-Install your library via `yarn add lib-name --save` and import it in your code. `--save` will add it to `package.json`.
+This project makes use of [`yarn`](https://yarnpkg.com/en/) to ensure that the exact same dependency versions are used every time you install it.
+
+* `yarn` creates a [`yarn.lock`](https://yarnpkg.com/en/docs/yarn-lock) to track those versions. That file is updated automatically by whenever dependencies are added/updated/removed via yarn.
+* **Adding new dependencies**: To install/add a new dependency (third party library), use [`yarn add`](https://yarnpkg.com/en/docs/cli/add). For example: `yarn add some-lib`.
+    * If you are adding a new build tool dependency (to `devDependencies`), use `yarn add some-lib --dev`
+* **Upgrading existing dependencies**: To upgrade existing dependencies, you can use [`yarn upgrade`](https://yarnpkg.com/en/docs/cli/upgrade).  For example: `yarn upgrade some-lib` or `yarn upgrade some-lib@version`
+* **Removing dependencies**: If a dependency is no longer needed, or replaced, use [`yarn remove`](https://yarnpkg.com/en/docs/cli/remove) to remove it.
+
+As you can see above, using `yarn` commandline tools means that you should never need to modify the `package.json` manually. *We recommend always using `yarn` to keep dependencies updated / in sync.*
+
+### Adding Typings for libraries
 
 If the library does not include typings, you can install them using yarn:
 
@@ -365,24 +380,6 @@ If you're importing a module that uses CommonJS you need to import as
 import * as _ from 'lodash';
 ```
 
-Managing Dependencies (via yarn)
--------------
-
-This project makes use of [`yarn`](https://yarnpkg.com/en/) to ensure that the exact same dependency versions are used every time you install it.
-
-* `yarn` creates a [`yarn.lock`](https://yarnpkg.com/en/docs/yarn-lock) to track those versions. That file is updated automatically by whenever dependencies are added/updated/removed via yarn.
-* **Adding new dependencies**: To install/add a new dependency (third party library), use [`yarn add`](https://yarnpkg.com/en/docs/cli/add). For example: `yarn add some-lib`.
-    * If you are adding a new build tool dependency (to `devDependencies`), use `yarn add some-lib --dev`
-* **Upgrading existing dependencies**: To upgrade existing dependencies, you can use [`yarn upgrade`](https://yarnpkg.com/en/docs/cli/upgrade).  For example: `yarn upgrade some-lib` or `yarn upgrade some-lib@version`
-* **Removing dependencies**: If a dependency is no longer needed, or replaced, use [`yarn remove`](https://yarnpkg.com/en/docs/cli/remove) to remove it.
-
-As you can see above, using `yarn` commandline tools means that you should never need to modify the `package.json` manually. *We recommend always using `yarn` to keep dependencies updated / in sync.*
-
-Further Documentation
----------------------
-
-See [`./docs`](docs) for further documentation.
-
 Frequently asked questions
 --------------------------
 
@@ -406,5 +403,4 @@ Frequently asked questions
 
 License
 -------
-
-http://www.dspace.org/license
+This project's source code is made available under the DSpace BSD License: http://www.dspace.org/license

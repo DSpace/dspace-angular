@@ -15,7 +15,7 @@ let component: ItemDetailPreviewFieldComponent;
 let fixture: ComponentFixture<ItemDetailPreviewFieldComponent>;
 
 const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.contributor.author': [
       {

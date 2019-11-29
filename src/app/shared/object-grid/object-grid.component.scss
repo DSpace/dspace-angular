@@ -1,6 +1,6 @@
 $ds-wrapper-grid-spacing: $spacer/2;
 
-ds-wrapper-grid-element ::ng-deep {
+:host ::ng-deep {
   div.thumbnail > img {
     height: $card-thumbnail-height;
     width: 100%;

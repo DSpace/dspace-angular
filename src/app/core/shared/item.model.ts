@@ -1,16 +1,23 @@
-import { map, startWith, filter, take } from 'rxjs/operators';
+import { map, startWith, filter, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { DSpaceObject } from './dspace-object.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValueOperator, isNotEmpty, isEmpty } from '../../shared/empty.util';
 import { PaginatedList } from '../data/paginated-list';
 import { Relationship } from './item-relationships/relationship.model';
 import { ResourceType } from './resource-type';
-import { getSucceededRemoteData } from './operators';
+import { getAllSucceededRemoteData, getSucceededRemoteData } from './operators';
+import { Bundle } from './bundle.model';
+import { GenericConstructor } from './generic-constructor';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 
+/**
+ * Class representing a DSpace Item
+ */
 export class Item extends DSpaceObject {
   static type = new ResourceType('item');
 
@@ -53,7 +60,10 @@ export class Item extends DSpaceObject {
     return this.owningCollection;
   }
 
-  bitstreams: Observable<RemoteData<PaginatedList<Bitstream>>>;
+  /**
+   * Bitstream bundles within this item
+   */
+  bundles: Observable<RemoteData<PaginatedList<Bundle>>>;
 
   relationships: Observable<RemoteData<PaginatedList<Relationship>>>;
 
@@ -97,17 +107,25 @@ export class Item extends DSpaceObject {
    * see https://github.com/DSpace/dspace-angular/issues/332
    */
   getBitstreamsByBundleName(bundleName: string): Observable<Bitstream[]> {
-    return this.bitstreams.pipe(
+    return this.bundles.pipe(
       getSucceededRemoteData(),
+      map((rd: RemoteData<PaginatedList<Bundle>>) => rd.payload.page.find((bundle: Bundle) => bundle.name === bundleName)),
+      hasValueOperator(),
+      switchMap((bundle: Bundle) => bundle.bitstreams),
+      getAllSucceededRemoteData(),
       map((rd: RemoteData<PaginatedList<Bitstream>>) => rd.payload.page),
-      filter((bitstreams: Bitstream[]) => hasValue(bitstreams)),
-      take(1),
-      startWith([]),
-      map((bitstreams) => {
-        return bitstreams
-          .filter((bitstream) => hasValue(bitstream))
-          .filter((bitstream) => bitstream.bundleName === bundleName)
-      }));
+      startWith([])
+    );
   }
 
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    let entityType = this.firstMetadataValue('relationship.type');
+    if (isEmpty(entityType)) {
+      entityType = DEFAULT_ENTITY_TYPE;
+    }
+    return [entityType, ...super.getRenderTypes()];
+  }
 }

@@ -1,17 +1,12 @@
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { JournalIssueComponent } from './journal-issue.component';
-import { of as observableOf } from 'rxjs';
-import {
-  createRelationshipsObservable,
-  getItemPageFieldsTest
-} from '../../../../+item-page/simple/item-types/shared/item.component.spec';
+import { createRelationshipsObservable, getItemPageFieldsTest } from '../../../../+item-page/simple/item-types/shared/item.component.spec';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: {
     'publicationissue.issueNumber': [
       {

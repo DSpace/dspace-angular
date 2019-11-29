@@ -7,19 +7,20 @@ import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
 import { SearchPageModule } from '../+search-page/search-page.module';
 import { MyDSpaceResultsComponent } from './my-dspace-results/my-dspace-results.component';
-import { WorkspaceitemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workspaceitem-my-dspace-result/workspaceitem-my-dspace-result-list-element.component';
-import { ItemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/item-my-dspace-result/item-my-dspace-result-list-element.component';
-import { WorkflowitemMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workflowitem-my-dspace-result/workflowitem-my-dspace-result-list-element.component';
-import { ClaimedMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-my-dspace-result/claimed-my-dspace-result-list-element.component';
-import { PoolMyDSpaceResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/pool-my-dspace-result/pool-my-dspace-result-list-element.component';
+import { WorkspaceItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workspace-item-search-result/workspace-item-search-result-list-element.component';
+import { ClaimedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-search-result-list-element.component';
+import { PoolSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/pool-search-result/pool-search-result-list-element.component';
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
-import { ItemMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-my-dspace-result/item-my-dspace-result-detail-element.component';
-import { WorkspaceitemMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workspaceitem-my-dspace-result/workspaceitem-my-dspace-result-detail-element.component';
-import { WorkflowitemMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workflowitem-my-dspace-result/workflowitem-my-dspace-result-detail-element.component';
-import { ClaimedMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/claimed-my-dspace-result/claimed-my-dspace-result-detail-element.component';
-import { PoolMyDSpaceResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-my-dspace-result/pool-my-dspace-result-detail-lement.component';
+import { ItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/item-search-result/item-search-result-detail-element.component';
+import { WorkspaceItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workspace-item-search-result/workspace-item-search-result-detail-element.component';
+import { WorkflowItemSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/workflow-item-search-result/workflow-item-search-result-detail-element.component';
+import { ClaimedTaskSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/claimed-task-search-result/claimed-task-search-result-detail-element.component';
 import { MyDSpaceGuard } from './my-dspace.guard';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import { SearchResultListElementComponent } from '../shared/object-list/search-result-list-element/search-result-list-element.component';
+import { ItemSearchResultListElementSubmissionComponent } from '../shared/object-list/my-dspace-result-list-element/item-search-result/item-search-result-list-element-submission.component';
+import { WorkflowItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workflow-item-search-result/workflow-item-search-result-list-element.component';
+import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/my-dspace-result-detail-element/pool-search-result/pool-search-result-detail-element.component';
 
 @NgModule({
   imports: [
@@ -31,33 +32,34 @@ import { MyDSpaceConfigurationService } from './my-dspace-configuration.service'
   declarations: [
     MyDSpacePageComponent,
     MyDSpaceResultsComponent,
-    ItemMyDSpaceResultListElementComponent,
-    WorkspaceitemMyDSpaceResultListElementComponent,
-    WorkflowitemMyDSpaceResultListElementComponent,
-    ClaimedMyDSpaceResultListElementComponent,
-    PoolMyDSpaceResultListElementComponent,
-    ItemMyDSpaceResultDetailElementComponent,
-    WorkspaceitemMyDSpaceResultDetailElementComponent,
-    WorkflowitemMyDSpaceResultDetailElementComponent,
-    ClaimedMyDSpaceResultDetailElementComponent,
-    PoolMyDSpaceResultDetailElementComponent,
-    MyDSpaceNewSubmissionComponent
+    WorkspaceItemSearchResultListElementComponent,
+    WorkflowItemSearchResultListElementComponent,
+    ClaimedSearchResultListElementComponent,
+    PoolSearchResultListElementComponent,
+    ItemSearchResultDetailElementComponent,
+    WorkspaceItemSearchResultDetailElementComponent,
+    WorkflowItemSearchResultDetailElementComponent,
+    ClaimedTaskSearchResultDetailElementComponent,
+    PoolSearchResultDetailElementComponent,
+    MyDSpaceNewSubmissionComponent,
+    ItemSearchResultListElementSubmissionComponent
   ],
   providers: [
     MyDSpaceGuard,
     MyDSpaceConfigurationService
   ],
   entryComponents: [
-    ItemMyDSpaceResultListElementComponent,
-    WorkspaceitemMyDSpaceResultListElementComponent,
-    WorkflowitemMyDSpaceResultListElementComponent,
-    ClaimedMyDSpaceResultListElementComponent,
-    PoolMyDSpaceResultListElementComponent,
-    ItemMyDSpaceResultDetailElementComponent,
-    WorkspaceitemMyDSpaceResultDetailElementComponent,
-    WorkflowitemMyDSpaceResultDetailElementComponent,
-    ClaimedMyDSpaceResultDetailElementComponent,
-    PoolMyDSpaceResultDetailElementComponent
+    SearchResultListElementComponent,
+    WorkspaceItemSearchResultListElementComponent,
+    WorkflowItemSearchResultListElementComponent,
+    ClaimedSearchResultListElementComponent,
+    PoolSearchResultListElementComponent,
+    ItemSearchResultDetailElementComponent,
+    WorkspaceItemSearchResultDetailElementComponent,
+    WorkflowItemSearchResultDetailElementComponent,
+    ClaimedTaskSearchResultDetailElementComponent,
+    PoolSearchResultDetailElementComponent,
+    ItemSearchResultListElementSubmissionComponent
   ]
 })
 

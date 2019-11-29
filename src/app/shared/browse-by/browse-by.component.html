@@ -1,5 +1,5 @@
 <ng-container *ngVar="(objects$ | async) as objects">
-  <h2 class="w-100">{{title | translate}}</h2>
+  <h3 [ngClass]="{'sr-only': parentname }" >{{title | translate}}</h3>
   <ng-container *ngComponentOutlet="getStartsWithComponent(); injector: objectInjector;"></ng-container>
   <div *ngIf="objects?.hasSucceeded && !objects?.isLoading && objects?.payload?.page.length > 0" @fadeIn>
     <div *ngIf="!enableArrows">
@@ -25,7 +25,7 @@
       </div>
       <ul class="list-unstyled">
         <li *ngFor="let object of objects?.payload?.page" class="mt-4 mb-4">
-          <ds-wrapper-list-element [object]="object"></ds-wrapper-list-element>
+          <ds-listable-object-component-loader [object]="object"></ds-listable-object-component-loader>
         </li>
       </ul>
       <div>

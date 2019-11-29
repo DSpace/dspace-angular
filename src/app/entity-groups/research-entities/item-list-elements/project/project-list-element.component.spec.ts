@@ -1,18 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ProjectListElementComponent } from './project-list-element.component';
 import { of as observableOf } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
+import { ProjectListElementComponent } from './project-list-element.component';
 
-let projectListElementComponent: ProjectListElementComponent;
-let fixture: ComponentFixture<ProjectListElementComponent>;
-
-const mockItemWithMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+const mockItem: Item = Object.assign(new Item(), {
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
@@ -28,28 +24,22 @@ const mockItemWithMetadata: Item = Object.assign(new Item(), {
     // ]
   }
 });
-const mockItemWithoutMetadata: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
-  }
-});
 
 describe('ProjectListElementComponent', () => {
+  let comp;
+  let fixture;
+
+  const truncatableServiceStub: any = {
+    isCollapsed: (id: number) => observableOf(true),
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectListElementComponent , TruncatePipe],
+      declarations: [ProjectListElementComponent, TruncatePipe],
       providers: [
-        { provide: ITEM, useValue: mockItemWithMetadata},
-        { provide: TruncatableService, useValue: {} }
+        { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ProjectListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
@@ -57,31 +47,18 @@ describe('ProjectListElementComponent', () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(ProjectListElementComponent);
-    projectListElementComponent = fixture.componentInstance;
-
+    comp = fixture.componentInstance;
   }));
 
-  // describe('When the item has a status', () => {
-  //   beforeEach(() => {
-  //     projectListElementComponent.item = mockItemWithMetadata;
-  //     fixture.detectChanges();
-  //   });
-  //
-  //   it('should show the status span', () => {
-  //     const statusField = fixture.debugElement.query(By.css('span.item-list-status'));
-  //     expect(statusField).not.toBeNull();
-  //   });
-  // });
-  //
-  // describe('When the item has no status', () => {
-  //   beforeEach(() => {
-  //     projectListElementComponent.item = mockItemWithoutMetadata;
-  //     fixture.detectChanges();
-  //   });
-  //
-  //   it('should not show the status span', () => {
-  //     const statusField = fixture.debugElement.query(By.css('span.item-list-status'));
-  //     expect(statusField).toBeNull();
-  //   });
-  // });
+  describe(`when the project is rendered`, () => {
+    beforeEach(() => {
+      comp.object = mockItem;
+      fixture.detectChanges();
+    });
+
+    it(`should contain a ProjectListElementComponent`, () => {
+      const projectListElement = fixture.debugElement.query(By.css(`ds-project-search-result-list-element`));
+      expect(projectListElement).not.toBeNull();
+    });
+  });
 });

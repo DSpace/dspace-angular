@@ -39,7 +39,8 @@
                           </button>
                       </div>
                       <ds-my-dspace-results [searchResults]="resultsRD$ | async"
-                                            [searchConfig]="searchOptions$ | async"></ds-my-dspace-results>
+                                            [searchConfig]="searchOptions$ | async"
+                                            [context]="context$ | async"></ds-my-dspace-results>
                   </div>
               </div>
           </div>

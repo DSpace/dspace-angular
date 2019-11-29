@@ -11,26 +11,30 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
 import { SearchService } from '../+search-page/search-service/search.service';
 import { EditItemTemplatePageComponent } from './edit-item-template-page/edit-item-template-page.component';
 import { EditItemPageModule } from '../+item-page/edit-item-page/edit-item-page.module';
+import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
+import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    EditItemPageModule,
-    CollectionPageRoutingModule
+    CollectionPageRoutingModule,
+    EditItemPageModule
   ],
   declarations: [
     CollectionPageComponent,
     CreateCollectionPageComponent,
     DeleteCollectionPageComponent,
     CollectionFormComponent,
-    EditItemTemplatePageComponent
+    EditItemTemplatePageComponent,
+    CollectionItemMapperComponent
   ],
   exports: [
     CollectionFormComponent
   ],
   providers: [
-    SearchService
+    SearchService,
+    SearchFixedFilterService
   ]
 })
 export class CollectionPageModule {

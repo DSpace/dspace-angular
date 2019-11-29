@@ -103,7 +103,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(getRequestFromRequestUUID(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.getByUUID).toHaveBeenCalledWith(testRequestUUID)
+      expect(requestService.getByUUID).toHaveBeenCalledWith(testRequestUUID);
     });
 
     it('shouldn\'t return anything if there is no request matching the request uuid', () => {
@@ -148,7 +148,7 @@ describe('Core Module - RxJS Operators', () => {
       scheduler.schedule(() => source.pipe(configureRequest(requestService)).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(testRequest, undefined);
+      expect(requestService.configure).toHaveBeenCalledWith(testRequest);
     });
   });
 
