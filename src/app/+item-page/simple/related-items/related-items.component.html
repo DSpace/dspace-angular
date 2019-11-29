@@ -11,7 +11,7 @@
       </div>
       <div *ngIf="limit > originalLimit" class="float-right" id="view-less">
         <a [routerLink]="" (click)="viewLess()">{{'item.page.related-items.view-less' |
-          translate:{ amount: (itemsRD?.payload?.page?.length < limit) ? limit - itemsRD?.payload?.page?.length : incrementBy } }}</a>
+          translate:{ amount: (itemsRD?.payload?.page?.length < limit) ? (itemsRD?.payload?.page?.length + incrementBy) - limit : incrementBy } }}</a>
       </div>
     </div>
   </ng-container>
