@@ -6,7 +6,7 @@ import {
   EventEmitter,
   Input,
   NgZone,
-  OnChanges,
+  OnChanges, OnDestroy,
   OnInit,
   Output,
   QueryList,
@@ -72,7 +72,7 @@ import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -171,7 +171,7 @@ export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<
   templateUrl: './ds-dynamic-form-control-container.component.html',
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges {
+export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
   // tslint:disable-next-line:no-input-rename
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
@@ -194,6 +194,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     selectedResult: SearchResult<Item>,
     mdRep: MetadataRepresentation
   }>>;
+  /**
+   * List of subscriptions to unsubscribe from
+   */
+  private subs: Subscription[] = [];
 
   /* tslint:disable:no-output-rename */
   @Output('dfBlur') blur: EventEmitter<DynamicFormControlEvent> = new EventEmitter<DynamicFormControlEvent>();
@@ -230,11 +234,14 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
       this.listId = 'list-' + this.model.relationship.relationshipType;
-      this.submissionObjectService
+      const item$ = this.submissionObjectService
         .findById(this.model.submissionId).pipe(
-          getSucceededRemoteData(),
+          getAllSucceededRemoteData(),
           getRemoteDataPayload(),
-          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload()))).subscribe((item) => this.item = item);
+          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
+
+      this.subs.push(item$.subscribe((item) => this.item = item));
+
       this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
@@ -243,13 +250,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
       ) as Observable<Array<SearchResult<Item>>>;
       this.selectedValues$ =
-        this.relationships$.pipe(
-          map((relatedItems: Array<SearchResult<Item>>) =>
-            relatedItems
+        observableCombineLatest(item$, this.relationships$).pipe(
+          map(([item, relatedItems]: [Item, Array<SearchResult<DSpaceObject>>]) => {
+              return relatedItems
               .map((element: SearchResult<Item>) => {
-                const relationMD: MetadataValue = this.item.firstMetadata(this.model.relationship.metadataField, { value: element.indexableObject.uuid });
+                const relationMD: MetadataValue = item.firstMetadata(this.model.relationship.metadataField, { value: element.indexableObject.uuid });
                 if (hasValue(relationMD)) {
-                  const metadataRepresentationMD: MetadataValue = this.item.firstMetadata(this.model.metadataFields, { authority: relationMD.authority });
+                  const metadataRepresentationMD: MetadataValue = item.firstMetadata(this.model.metadataFields, { authority: relationMD.authority });
                   return {
                     selectedResult: element,
                     mdRep: Object.assign(
@@ -259,9 +266,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
                   };
                 }
               }).filter(hasValue)
+            }
           )
-        )
-      ;
+        );
 
     }
   }
@@ -326,5 +333,14 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     // this.zone.runOutsideAngular(
     //   () =>     );
+  }
+
+  /**
+   * Unsubscribe from all subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((sub) => hasValue(sub))
+      .forEach((sub) => sub.unsubscribe());
   }
 }
