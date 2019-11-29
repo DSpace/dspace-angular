@@ -174,6 +174,7 @@ import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.componen
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -391,7 +392,8 @@ const ENTRY_COMPONENTS = [
   SearchFacetRangeOptionComponent,
   SearchAuthorityFilterComponent,
   DsDynamicLookupRelationSearchTabComponent,
-  DsDynamicLookupRelationSelectionTabComponent
+  DsDynamicLookupRelationSelectionTabComponent,
+  DsDynamicLookupRelationExternalSourceTabComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

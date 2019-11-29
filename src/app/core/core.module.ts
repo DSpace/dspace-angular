@@ -134,6 +134,9 @@ import { SearchConfigurationService } from './shared/search/search-configuration
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
+import { NormalizedExternalSource } from './cache/models/normalized-external-source.model';
+import { NormalizedExternalSourceEntry } from './cache/models/normalized-external-source-entry.model';
+import { ExternalSourceService } from './data/external-source.service';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
   if (ENV_CONFIG.production) {
@@ -240,6 +243,7 @@ const PROVIDERS = [
   SearchConfigurationService,
   SelectableListService,
   RelationshipTypeService,
+  ExternalSourceService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -284,7 +288,9 @@ export const normalizedModels =
     NormalizedPoolTask,
     NormalizedRelationship,
     NormalizedRelationshipType,
-    NormalizedItemType
+    NormalizedItemType,
+    NormalizedExternalSource,
+    NormalizedExternalSourceEntry
   ];
 
 @NgModule({

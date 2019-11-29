@@ -43,8 +43,8 @@ export class HALEndpointService {
       );
   }
 
-  public getEndpoint(linkPath: string): Observable<string> {
-    return this.getEndpointAt(this.getRootHref(), ...linkPath.split('/'));
+  public getEndpoint(linkPath: string, startHref?: string): Observable<string> {
+    return this.getEndpointAt(startHref || this.getRootHref(), ...linkPath.split('/'));
   }
 
   /**
