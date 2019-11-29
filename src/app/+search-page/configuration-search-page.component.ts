@@ -1,14 +1,14 @@
 import { HostWindowService } from '../shared/host-window.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchPageComponent } from './search-page.component';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { SearchService } from '../core/shared/search/search.service';
-import { SearchSidebarService } from '../core/shared/search/search-sidebar.service';
 import { Router } from '@angular/router';
 import { hasValue } from '../shared/empty.util';
 import { RouteService } from '../core/services/route.service';
+import { SearchService } from '../core/shared/search/search.service';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -35,7 +35,7 @@ export class ConfigurationSearchPageComponent extends SearchPageComponent implem
   @Input() configuration: string;
 
   constructor(protected service: SearchService,
-              protected sidebarService: SearchSidebarService,
+              protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,

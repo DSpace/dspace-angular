@@ -70,8 +70,8 @@ describe('PageSizeSelectorComponent', () => {
     (comp as any).paginationOptions$.pipe(first()).subscribe((options) => {
         const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
         expect(pageSizeSetting).toBeDefined();
-        const childElements = pageSizeSetting.query(By.css('.form-control')).children;
-        expect(childElements.length).toEqual(options.pageSizeOptions.length);
+      const childElements = pageSizeSetting.queryAll(By.css('option'));
+      expect(childElements.length).toEqual(options.pagination.pageSizeOptions.length);
         done()
       }
     )
@@ -80,7 +80,7 @@ describe('PageSizeSelectorComponent', () => {
   it('should have the proper rpp value selected by default', (done) => {
     (comp as any).paginationOptions$.pipe(take(1)).subscribe((options) => {
       const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
-      const childElementToBeSelected = pageSizeSetting.query(By.css('.form-control option[value="10"][selected="selected"]'));
+      const childElementToBeSelected = pageSizeSetting.query(By.css('option[value="10"][selected="selected"]'));
       expect(childElementToBeSelected).toBeDefined();
       done();
     });

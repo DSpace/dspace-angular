@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../ngrx/type';
+
+import { type } from '../ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -9,32 +10,32 @@ import { type } from '../../ngrx/type';
  * literal types and runs a simple check to guarantee all
  * action types in the application are unique.
  */
-export const SearchSidebarActionTypes = {
-  COLLAPSE: type('dspace/search-sidebar/COLLAPSE'),
-  EXPAND: type('dspace/search-sidebar/EXPAND'),
-  TOGGLE: type('dspace/search-sidebar/TOGGLE')
+export const SidebarActionTypes = {
+  COLLAPSE: type('dspace/sidebar/COLLAPSE'),
+  EXPAND: type('dspace/sidebar/EXPAND'),
+  TOGGLE: type('dspace/sidebar/TOGGLE')
 };
 
 /* tslint:disable:max-classes-per-file */
 /**
  * Used to collapse the sidebar
  */
-export class SearchSidebarCollapseAction implements Action {
-  type = SearchSidebarActionTypes.COLLAPSE;
+export class SidebarCollapseAction implements Action {
+  type = SidebarActionTypes.COLLAPSE;
 }
 
 /**
  * Used to expand the sidebar
  */
-export class SearchSidebarExpandAction implements Action {
-  type = SearchSidebarActionTypes.EXPAND;
+export class SidebarExpandAction implements Action {
+  type = SidebarActionTypes.EXPAND;
 }
 
 /**
  * Used to collapse the sidebar when it's expanded and expand it when it's collapsed
  */
-export class SearchSidebarToggleAction implements Action {
-  type = SearchSidebarActionTypes.TOGGLE;
+export class SidebarToggleAction implements Action {
+  type = SidebarActionTypes.TOGGLE;
 }
 /* tslint:enable:max-classes-per-file */
 
@@ -42,7 +43,7 @@ export class SearchSidebarToggleAction implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type SearchSidebarAction
-  = SearchSidebarCollapseAction
-  | SearchSidebarExpandAction
-  | SearchSidebarToggleAction
+export type SidebarAction
+  = SidebarCollapseAction
+  | SidebarExpandAction
+  | SidebarToggleAction

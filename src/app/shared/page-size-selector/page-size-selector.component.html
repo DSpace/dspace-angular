@@ -1,10 +1,13 @@
-<div class="setting-option page-size-settings mb-3 p-3">
-    <h5>{{ 'search.sidebar.settings.rpp' | translate}}</h5>
-    <select class="form-control" (change)="reloadRPP($event)">
-        <option *ngFor="let pageSizeOption of (paginationOptions$ | async).pageSizeOptions"
+<div class="page-size-settings">
+    <ds-sidebar-dropdown
+            [id]="'search-sidebar-rpp'"
+            [label]="'search.sidebar.settings.rpp'"
+            (change)="reloadRPP($event)"
+    >
+        <option *ngFor="let pageSizeOption of +(paginationOptions$ | async).pageSizeOptions"
                 [value]="pageSizeOption"
                 [selected]="pageSizeOption === +(paginationOptions$ | async).pageSize ? 'selected': null">
             {{pageSizeOption}}
         </option>
-    </select>
+    </ds-sidebar-dropdown>
 </div>

@@ -129,11 +129,11 @@ import {
 } from './dspace-rest-v2/mocks/mock-response-map';
 import { EndpointMockingRestService } from './dspace-rest-v2/endpoint-mocking-rest.service';
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
-import { SearchSidebarService } from './shared/search/search-sidebar.service';
 import { SearchFilterService } from './shared/search/search-filter.service';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
   if (ENV_CONFIG.production) {
@@ -234,7 +234,7 @@ const PROVIDERS = [
   ClaimedTaskDataService,
   PoolTaskDataService,
   SearchService,
-  SearchSidebarService,
+  SidebarService,
   SearchFilterService,
   SearchFilterService,
   SearchConfigurationService,

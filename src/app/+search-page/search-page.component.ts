@@ -9,7 +9,7 @@ import { HostWindowService } from '../shared/host-window.service';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchResult } from '../shared/search/search-result.model';
 import { SearchService } from '../core/shared/search/search.service';
-import { SearchSidebarService } from '../core/shared/search/search-sidebar.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { getSucceededRemoteData } from '../core/shared/operators';
@@ -104,7 +104,7 @@ export class SearchPageComponent implements OnInit {
   isSidebarCollapsed$: Observable<boolean>;
 
   constructor(protected service: SearchService,
-              protected sidebarService: SearchSidebarService,
+              protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,

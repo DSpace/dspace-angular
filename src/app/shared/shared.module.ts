@@ -168,6 +168,10 @@ import { PublicationSearchResultGridElementComponent } from './object-grid/searc
 import { ListableObjectDirective } from './object-collection/shared/listable-object/listable-object.directive';
 import { SearchLabelComponent } from './search/search-labels/search-label/search-label.component';
 import { ItemMetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
+import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component';
+import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
+import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.component';
+import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 
@@ -255,6 +259,10 @@ const COMPONENTS = [
   ObjectCollectionComponent,
   PaginationComponent,
   SearchFormComponent,
+  PageWithSidebarComponent,
+  SidebarDropdownComponent,
+  SidebarFilterComponent,
+  SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
   GridThumbnailComponent,
   UploaderComponent,

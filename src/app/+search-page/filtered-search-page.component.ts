@@ -1,14 +1,13 @@
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchService } from '../core/shared/search/search.service';
-import { SearchSidebarService } from '../core/shared/search/search-sidebar.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchPageComponent } from './search-page.component';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
-import { map, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../shared/empty.util';
+import { hasValue } from '../shared/empty.util';
 import { RouteService } from '../core/services/route.service';
 
 /**
@@ -38,7 +37,7 @@ export class FilteredSearchPageComponent extends SearchPageComponent implements 
   @Input() fixedFilterQuery: string;
 
   constructor(protected service: SearchService,
-              protected sidebarService: SearchSidebarService,
+              protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
