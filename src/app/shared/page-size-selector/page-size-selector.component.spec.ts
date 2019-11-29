@@ -70,9 +70,9 @@ describe('PageSizeSelectorComponent', () => {
     (comp as any).paginationOptions$.pipe(first()).subscribe((options) => {
         const pageSizeSetting = fixture.debugElement.query(By.css('div.page-size-settings'));
         expect(pageSizeSetting).toBeDefined();
-      const childElements = pageSizeSetting.queryAll(By.css('option'));
-      expect(childElements.length).toEqual(options.pagination.pageSizeOptions.length);
-        done()
+        const childElements = pageSizeSetting.queryAll(By.css('option'));
+        expect(childElements.length).toEqual(options.pageSizeOptions.length);
+        done();
       }
     )
   });

@@ -12,9 +12,9 @@ import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { By } from '@angular/platform-browser';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { VarDirective } from '../../utils/var.directive';
-import { first, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../+my-dspace-page/my-dspace-page.component';
-import { SidebarService } from '../../../core/shared/search/search-sidebar.service';
+import { SidebarService } from '../../sidebar/sidebar.service';
 
 describe('SearchSettingsComponent', () => {
 
@@ -119,13 +119,11 @@ describe('SearchSettingsComponent', () => {
     });
   });
 
-  it('it should show the size settings with the respective selectable options', (done) => {
+  it('it should show the size settings', (done) => {
     (comp as any).searchOptions$.pipe(take(1)).subscribe((options) => {
         fixture.detectChanges();
         const pageSizeSetting = fixture.debugElement.query(By.css('page-size-settings'));
         expect(pageSizeSetting).toBeDefined();
-        const childElements = pageSizeSetting.queryAll(By.css('option'));
-        expect(childElements.length).toEqual(options.pagination.pageSizeOptions.length);
         done();
       }
     )
