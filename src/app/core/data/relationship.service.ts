@@ -130,7 +130,7 @@ export class RelationshipService extends DataService<Relationship> {
 
   private removeRelationshipItemsFromCache(item) {
     this.objectCache.remove(item.self);
-    this.requestService.removeByHrefSubstring(item.self);
+    this.requestService.removeByHrefSubstring(item.uuid);
     combineLatest(
       this.objectCache.hasBySelfLinkObservable(item.self),
       this.requestService.hasByHrefObservable(item.self)
@@ -327,7 +327,6 @@ export class RelationshipService extends DataService<Relationship> {
           }
           return this.update(updatedRelationship);
         }),
-        // skipWhile((relationshipRD: RemoteData<Relationship>) => !relationshipRD.isSuccessful)
         tap((relationshipRD: RemoteData<Relationship>) => {
           if (relationshipRD.hasSucceeded) {
             this.removeRelationshipItemsFromCache(item1);
@@ -335,6 +334,22 @@ export class RelationshipService extends DataService<Relationship> {
           }
         }),
       )
+  }
+
+  public updatePlace(relationship: Relationship, newIndex: number, left: boolean): Observable<RemoteData<Relationship>> {
+    let updatedRelationship;
+    if (left) {
+      updatedRelationship = Object.assign(new Relationship(), relationship, { leftPlace: newIndex });
+    } else {
+      updatedRelationship = Object.assign(new Relationship(), relationship, { rightPlace: newIndex });
+    }
+    return this.update(updatedRelationship).pipe(
+      tap((relationshipRD: RemoteData<Relationship>) => {
+        if (relationshipRD.hasSucceeded) {
+          this.removeRelationshipItemsFromCacheByRelationship(relationship.id);
+        }
+      })
+    );
   }
 
 }

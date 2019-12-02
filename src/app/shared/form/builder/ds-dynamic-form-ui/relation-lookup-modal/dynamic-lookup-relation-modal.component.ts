@@ -2,7 +2,7 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../empty.util';
-import { map, skip, switchMap, take } from 'rxjs/operators';
+import { map, skip, take } from 'rxjs/operators';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
@@ -11,15 +11,12 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -66,8 +63,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     if (this.relationshipOptions.nameVariants) {
       this.context = Context.SubmissionModal;
     }
-
-    // this.setExistingNameVariants();
   }
 
   close() {
@@ -115,37 +110,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType));
       })
     );
-  }
-
-  private setExistingNameVariants() {
-    const virtualMDs: MetadataValue[] = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
-
-    const relatedItemPairs$: Observable<Array<[Item, Item]>> =
-      combineLatest(virtualMDs.map((md: MetadataValue) => this.relationshipService.findById(md.virtualValue).pipe(getSucceededRemoteData(), getRemoteDataPayload())))
-        .pipe(
-          switchMap((relationships: Relationship[]) => combineLatest(relationships.map((relationship: Relationship) =>
-              combineLatest(
-                relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
-                relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
-              ))
-            )
-          )
-        );
-
-    const relatedItems$: Observable<Item[]> = relatedItemPairs$.pipe(
-      map(([relatedItemPairs,]: [Array<[Item, Item]>]) => relatedItemPairs.map(([left, right]: [Item, Item]) => left.uuid === this.item.uuid ? left : right))
-    );
-
-    relatedItems$.pipe(take(1)).subscribe((relatedItems) => {
-        let index = 0;
-        virtualMDs.forEach(
-          (md: MetadataValue) => {
-            this.relationshipService.setNameVariant(this.listId, relatedItems[index].uuid, md.value);
-            index++;
-          }
-        );
-      }
-    )
   }
 
   ngOnDestroy() {

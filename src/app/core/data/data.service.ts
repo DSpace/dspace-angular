@@ -20,7 +20,7 @@ import { Operation } from 'fast-json-patch';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { configureRequest, getResponseFromEntry } from '../shared/operators';
+import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
@@ -228,8 +228,12 @@ export abstract class DataService<T extends CacheableObject> {
    * @param {DSpaceObject} object The given object
    */
   update(object: T): Observable<RemoteData<T>> {
-    const oldVersion$ = this.objectCache.getObjectBySelfLink(object.self);
-    return oldVersion$.pipe(take(1), mergeMap((oldVersion: T) => {
+    const oldVersion$ = this.findByHref(object.self);
+    return oldVersion$.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      mergeMap((oldVersion: T) => {
+        console.log(oldVersion);
         const operations = this.comparator.diff(oldVersion, object);
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);
@@ -237,7 +241,6 @@ export abstract class DataService<T extends CacheableObject> {
         return this.findByHref(object.self);
       }
     ));
-
   }
 
   /**

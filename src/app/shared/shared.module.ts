@@ -174,6 +174,8 @@ import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.componen
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -196,6 +198,7 @@ const MODULES = [
   MomentModule,
   TextMaskModule,
   MenuModule,
+  DragDropModule
 ];
 
 const ROOT_MODULES = [
@@ -330,7 +333,8 @@ const COMPONENTS = [
   ItemSelectComponent,
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
-  SelectableListItemControlComponent
+  SelectableListItemControlComponent,
+  ExistingMetadataListElementComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -432,7 +436,8 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent
+    PublicationSearchResultListElementComponent,
+    ExistingMetadataListElementComponent
   ],
   providers: [
     ...PROVIDERS

@@ -6,7 +6,8 @@ import {
   EventEmitter,
   Input,
   NgZone,
-  OnChanges, OnDestroy,
+  OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   QueryList,
@@ -49,7 +50,6 @@ import {
   DynamicNGBootstrapTimePickerComponent
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { MetadataRepresentation } from '../../../../core/shared/metadata-representation/metadata-representation.model';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
@@ -71,9 +71,8 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
+import { map, startWith, switchMap } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -82,25 +81,18 @@ import { SelectableListService } from '../../../object-list/selectable-list/sele
 import { DsDynamicDisabledComponent } from './models/disabled/dynamic-disabled.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_DISABLED } from './models/disabled/dynamic-disabled.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getSucceededRemoteData,
-  obsLog
-} from '../../../../core/shared/operators';
+import { getAllSucceededRemoteData, getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { RemoveRelationshipAction } from './relation-lookup-modal/relationship.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.reducer';
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { SubmissionObject } from '../../../../core/submission/models/submission-object.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
-import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataValue } from '../../../../core/shared/metadata.models';
-import * as uuidv4 from 'uuid/v4';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -184,16 +176,15 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
-  relationships$: Observable<Array<SearchResult<Item>>>;
+  relationships$: Observable<Relationship[]>;
+  relationships: Relationship[];
   hasRelationLookup: boolean;
   modalRef: NgbModalRef;
   item: Item;
   listId: string;
   searchConfig: string;
-  selectedValues$: Observable<Array<{
-    selectedResult: SearchResult<Item>,
-    mdRep: MetadataRepresentation
-  }>>;
+
+
   /**
    * List of subscriptions to unsubscribe from
    */
@@ -238,38 +229,54 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         .findById(this.model.submissionId).pipe(
           getAllSucceededRemoteData(),
           getRemoteDataPayload(),
-          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
+          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>)
+            .pipe(
+              getAllSucceededRemoteData(),
+              getRemoteDataPayload()
+            )
+          )
+        );
 
       this.subs.push(item$.subscribe((item) => this.item = item));
+      this.relationships$ = item$.pipe(
+        switchMap((item) => this.relationService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType)
+          .pipe(
+            getAllSucceededRemoteData(),
+            getRemoteDataPayload(),
+            map((relationshipList: PaginatedList<Relationship>) => relationshipList.page),
+            startWith([]),
+            switchMap((relationships: Relationship[]) =>
+              observableCombineLatest(
+                relationships.map((relationship: Relationship) =>
+                  relationship.leftItem.pipe(
+                    getSucceededRemoteData(),
+                    getRemoteDataPayload(),
+                    map((item: Item) => {
+                      return { relationship, left: item.uuid === this.item.uuid }
+                    }),
+                  )
+                ))),
+            map((relationships: { relationship: Relationship, left: boolean }[]) =>
+              relationships
+                .sort((
+                  a: { relationship: Relationship, left: boolean },
+                  b: { relationship: Relationship, left: boolean }
+                ) => {
+                  const placeA: number = a.left ? a.relationship.leftPlace : a.relationship.rightPlace;
+                  const placeB: number = b.left ? b.relationship.leftPlace : b.relationship.rightPlace;
+                  return Math.sign(placeA - placeB);
+                })
+                .map((relationship) => relationship.relationship)
+            )
+          )
+        )
+      );
+
+      this.relationships$.subscribe((rels) => this.relationships = rels);
 
       this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
-
-      this.relationships$ = this.selectableListService.getSelectableList(this.listId).pipe(
-        map((listState: SelectableListState) => hasValue(listState) && hasValue(listState.selection) ? listState.selection : []),
-      ) as Observable<Array<SearchResult<Item>>>;
-      this.selectedValues$ =
-        observableCombineLatest(item$, this.relationships$).pipe(
-          map(([item, relatedItems]: [Item, Array<SearchResult<DSpaceObject>>]) => {
-              return relatedItems
-              .map((element: SearchResult<Item>) => {
-                const relationMD: MetadataValue = item.firstMetadata(this.model.relationship.metadataField, { value: element.indexableObject.uuid });
-                if (hasValue(relationMD)) {
-                  const metadataRepresentationMD: MetadataValue = item.firstMetadata(this.model.metadataFields, { authority: relationMD.authority });
-                  return {
-                    selectedResult: element,
-                    mdRep: Object.assign(
-                      new ItemMetadataRepresentation(metadataRepresentationMD),
-                      element.indexableObject
-                    )
-                  };
-                }
-              }).filter(hasValue)
-            }
-          )
-        );
-
     }
   }
 
@@ -327,12 +334,39 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.item = this.item;
   }
 
-  removeSelection(object: SearchResult<Item>) {
-    this.selectableListService.deselectSingle(this.listId, object);
-    this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.model.relationship.relationshipType))
 
-    // this.zone.runOutsideAngular(
-    //   () =>     );
+  moveSelection(event: CdkDragDrop<Relationship>) {
+    moveItemInArray(this.relationships, event.previousIndex, event.currentIndex);
+    this.zone.runOutsideAngular(() => {
+      observableCombineLatest(
+        this.relationships.map((relationship: Relationship, index: number) =>
+          relationship.leftItem.pipe(
+            getSucceededRemoteData(),
+            getRemoteDataPayload(),
+            map((item: Item) => {
+              const left: boolean = item.uuid === this.item.uuid;
+              if (left) {
+                return { relationship, left: item.uuid === this.item.uuid, oldIndex: relationship.leftPlace, newIndex: index }
+              } else {
+                return { relationship, left: item.uuid === this.item.uuid, oldIndex: relationship.rightPlace, newIndex: index }
+              }
+            }),
+          )
+        )
+      ).pipe(
+        switchMap((relationships: { relationship: Relationship, left: boolean, oldIndex: number, newIndex: number }[]) =>
+          observableCombineLatest(relationships.map((rel: { relationship: Relationship, left: boolean, oldIndex: number, newIndex: number }) => {
+              if (rel.oldIndex !== rel.newIndex) {
+                return this.relationshipService.updatePlace(rel.relationship, rel.newIndex, rel.left);
+              } else {
+                observableOf(undefined);
+              }
+            }
+            )
+          )
+        )
+      ).subscribe();
+    })
   }
 
   /**
@@ -342,5 +376,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+  }
+
+  /**
+   * Prevent unnecessary rerendering so fields don't lose focus
+   */
+  trackRelationship(index, relationship: Relationship) {
+    return hasValue(relationship) ? relationship.id : undefined;
   }
 }
