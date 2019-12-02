@@ -4,20 +4,28 @@
     <ds-page-size-selector></ds-page-size-selector>
   </div>
   <div class="col-8">
-    <div *ngIf="(entriesRD$ | async)?.payload.page < 1">
-      {{'submission.sections.describe.relationship-lookup.selection-tab.no-selection' | translate}}
-    </div>
-    <div *ngIf="(entriesRD$ | async)?.payload.page.length >= 1">
-      <h3>{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + label | translate}}</h3>
-      <ds-viewable-collection [objects]="entriesRD$ | async"
-                              [selectable]="true"
-                              [selectionConfig]="{ repeatable: repeatable, listId: listId }"
-                              [config]="initialPagination"
-                              [hideGear]="true"
-                              [context]="context"
-                              (deselectObject)="deselectObject.emit($event)"
-                              (selectObject)="selectObject.emit($event)"
-      ></ds-viewable-collection>
+    <ds-search-form [query]="(searchConfigService.paginatedSearchOptions | async)?.query" [inPlaceSearch]="true"></ds-search-form>
+    <div>
+      <h3>{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + externalSource.id | translate}}</h3>
+      <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
+        <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !entriesRD?.isLoading && entriesRD?.payload?.page.length > 0" @fadeIn
+                                [objects]="entriesRD"
+                                [selectable]="true"
+                                [selectionConfig]="{ repeatable: repeatable, listId: listId }"
+                                [config]="initialPagination"
+                                [hideGear]="true"
+                                [context]="context"
+                                (deselectObject)="deselectObject.emit($event)"
+                                (selectObject)="selectObject.emit($event)">
+        </ds-viewable-collection>
+        <ds-loading *ngIf="!entriesRD || !entriesRD?.payload || entriesRD?.isLoading"
+                    message="{{'loading.search-results' | translate}}"></ds-loading>
+        <ds-error   *ngIf="entriesRD?.hasFailed && (!entriesRD?.error || entriesRD?.error?.statusCode != 400)"
+                    message="{{'error.search-results' | translate}}"></ds-error>
+        <div *ngIf="entriesRD?.payload?.page.length == 0 || entriesRD?.error?.statusCode == 400">
+          {{ 'search.results.empty' | translate }}
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

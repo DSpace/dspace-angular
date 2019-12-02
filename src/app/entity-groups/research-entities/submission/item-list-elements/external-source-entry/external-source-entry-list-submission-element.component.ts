@@ -3,7 +3,9 @@ import { ExternalSourceEntry } from '../../../../../core/shared/external-source-
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Context } from '../../../../../core/shared/context.model';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
 
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.SubmissionModal)
 @Component({
@@ -11,6 +13,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./external-source-entry-list-submission-element.component.scss'],
   templateUrl: './external-source-entry-list-submission-element.component.html'
 })
-export class ExternalSourceEntryListSubmissionElementComponent extends AbstractListableElementComponent<ExternalSourceEntry> {
+export class ExternalSourceEntryListSubmissionElementComponent extends AbstractListableElementComponent<ExternalSourceEntry> implements OnInit {
+  /**
+   * The metadata value for the object's uri
+   */
+  uri: MetadataValue;
 
+  ngOnInit(): void {
+    this.uri = Metadata.first(this.object.metadata, 'dc.identifier.uri');
+  }
 }

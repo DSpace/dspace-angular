@@ -7,7 +7,7 @@
 </div>
 <div class="modal-body">
     <ngb-tabset>
-        <ngb-tab [title]="'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + label | translate">
+        <ngb-tab [title]="'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + label | translate  : {count: (totalInternal$ | async)}">
             <ng-template ngbTabContent>
                 <ds-dynamic-lookup-relation-search-tab
                         [selection$]="selection$"
@@ -19,6 +19,20 @@
                         (deselectObject)="deselect($event)"
                         class="d-block pt-3">
                 </ds-dynamic-lookup-relation-search-tab>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab *ngFor="let source of (externalSourcesRD$ | async)?.payload?.page; let idx = index"
+                 [title]="'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + source.id | translate  : {count: (totalExternal$ | async)[idx]}">
+            <ng-template ngbTabContent>
+                <ds-dynamic-lookup-relation-external-source-tab
+                        [listId]="listId"
+                        [repeatable]="repeatable"
+                        [context]="context"
+                        [externalSource]="source"
+                        (selectObject)="select($event)"
+                        (deselectObject)="deselect($event)"
+                        class="d-block pt-3">
+                </ds-dynamic-lookup-relation-external-source-tab>
             </ng-template>
         </ngb-tab>
         <ngb-tab [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">

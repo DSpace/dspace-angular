@@ -10,9 +10,10 @@ import { ExternalSourceEntry } from '../../../../../../core/shared/external-sour
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
 import { switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
+import { fadeIn, fadeInOut } from '../../../../../animations/fade';
+import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -23,6 +24,10 @@ import { ListableObject } from '../../../../../object-collection/shared/listable
       provide: SEARCH_CONFIG_SERVICE,
       useClass: SearchConfigurationService
     }
+  ],
+  animations: [
+    fadeIn,
+    fadeInOut
   ]
 })
 

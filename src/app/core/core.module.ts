@@ -137,6 +137,7 @@ import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { NormalizedExternalSource } from './cache/models/normalized-external-source.model';
 import { NormalizedExternalSourceEntry } from './cache/models/normalized-external-source-entry.model';
 import { ExternalSourceService } from './data/external-source.service';
+import { LookupRelationService } from './data/lookup-relation.service';
 
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
   if (ENV_CONFIG.production) {
@@ -244,6 +245,7 @@ const PROVIDERS = [
   SelectableListService,
   RelationshipTypeService,
   ExternalSourceService,
+  LookupRelationService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

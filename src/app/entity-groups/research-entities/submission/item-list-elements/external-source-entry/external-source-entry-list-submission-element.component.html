@@ -1,1 +1,2 @@
-<div>Listable external source works! Display: {{object.value}}</div>
+<div>{{object.display}}</div>
+<div *ngIf="uri"><a [href]="uri.value">{{uri.value}}</a></div>

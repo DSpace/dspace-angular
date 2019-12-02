@@ -11,7 +11,7 @@ import { RelationshipOptions } from '../../../models/relationship-options.model'
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { concat, map, multicast, switchMap, take, takeWhile, tap } from 'rxjs/operators';
@@ -20,6 +20,7 @@ import { getSucceededRemoteData } from '../../../../../../core/shared/operators'
 import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { Context } from '../../../../../../core/shared/context.model';
+import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-search-tab',
@@ -43,7 +44,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
-  searchConfig: PaginatedSearchOptions;
   allSelected: boolean;
   someSelected$: Observable<boolean>;
   selectAllLoading: boolean;
@@ -57,9 +57,11 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   constructor(
     private searchService: SearchService,
     private router: Router,
+    private route: ActivatedRoute,
     private selectableListService: SelectableListService,
     private searchConfigService: SearchConfigurationService,
     private routeService: RouteService,
+    protected lookupRelationService: LookupRelationService
   ) {
   }
 
@@ -70,29 +72,13 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
 
     this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
-      map((options) => {
-        return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: this.relationship.filter, configuration: this.relationship.searchConfiguration })
-      }),
-      switchMap((options) => {
-        this.searchConfig = options;
-        return this.searchService.search(options).pipe(
-          /* Make sure to only listen to the first x results, until loading is finished */
-          /* TODO: in Rxjs 6.4.0 and up, we can replace this with takeWhile(predicate, true) - see https://stackoverflow.com/a/44644237 */
-          multicast(
-            () => new ReplaySubject(1),
-            (subject) => subject.pipe(
-              takeWhile((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => rd.isLoading),
-              concat(subject.pipe(take(1)))
-            )
-          ) as any
-        )
-      })
+      switchMap((options) => this.lookupRelationService.getLocalResults(this.relationship, options))
     );
   }
 
   resetRoute() {
     this.router.navigate([], {
-      queryParams: Object.assign({}, { page: 1, pageSize: this.initialPagination.pageSize }),
+      queryParams: Object.assign({}, { pageSize: this.initialPagination.pageSize }, this.route.snapshot.queryParams, { page: 1 })
     });
   }
 
@@ -124,7 +110,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
       currentPage: 1,
       pageSize: 9999
     });
-    const fullSearchConfig = Object.assign(this.searchConfig, { pagination: fullPagination });
+    const fullSearchConfig = Object.assign(this.lookupRelationService.searchConfig, { pagination: fullPagination });
     const results$ = this.searchService.search(fullSearchConfig) as Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
     results$.pipe(
       getSucceededRemoteData(),

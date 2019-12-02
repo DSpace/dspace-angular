@@ -1,5 +1,5 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription, zip as observableZip } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../empty.util';
 import { map, skip, switchMap, take } from 'rxjs/operators';
@@ -11,7 +11,11 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getSucceededRemoteData
+} from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -20,6 +24,11 @@ import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { ExternalSource } from '../../../../../core/shared/external-source.model';
+import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -46,11 +55,29 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     [uuid: string]: Subscription
   } = {};
 
+  /**
+   * A list of the available external sources configured for this relationship
+   */
+  externalSourcesRD$: Observable<RemoteData<PaginatedList<ExternalSource>>>;
+
+  /**
+   * The total amount of internal items for the current options
+   */
+  totalInternal$: Observable<number>;
+
+  /**
+   * The total amount of results for each external source using the current options
+   */
+  totalExternal$: Observable<number[]>;
+
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
     private relationshipService: RelationshipService,
     private relationshipTypeService: RelationshipTypeService,
+    private externalSourceService: ExternalSourceService,
+    private lookupRelationService: LookupRelationService,
+    private searchConfigService: SearchConfigurationService,
     private zone: NgZone,
     private store: Store<AppState>
   ) {
@@ -67,6 +94,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       this.context = Context.SubmissionModal;
     }
 
+    this.externalSourcesRD$ = this.externalSourceService.findAll();
+
+    this.setTotals();
     // this.setExistingNameVariants();
   }
 
@@ -146,6 +176,28 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         );
       }
     )
+  }
+
+  /**
+   * Calculate and set the total entries available for each tab
+   */
+  setTotals() {
+    this.totalInternal$ = this.searchConfigService.paginatedSearchOptions.pipe(
+      switchMap((options) => this.lookupRelationService.getTotalLocalResults(this.relationshipOptions, options))
+    );
+
+    const externalSourcesAndOptions$ = combineLatest(
+      this.externalSourcesRD$.pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload()
+      ),
+      this.searchConfigService.paginatedSearchOptions
+    );
+
+    this.totalExternal$ = externalSourcesAndOptions$.pipe(
+      switchMap(([sources, options]) =>
+        observableZip(...sources.page.map((source: ExternalSource) => this.lookupRelationService.getTotalExternalResults(source, options))))
+    );
   }
 
   ngOnDestroy() {

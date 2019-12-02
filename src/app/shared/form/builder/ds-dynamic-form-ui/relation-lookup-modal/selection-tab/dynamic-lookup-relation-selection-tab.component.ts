@@ -35,17 +35,11 @@ export class DsDynamicLookupRelationSelectionTabComponent {
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
-  initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: 'submission-relation-list',
-    pageSize: 5
-  });
-
   constructor(private router: Router,
               private searchConfigService: SearchConfigurationService) {
   }
 
   ngOnInit() {
-    this.resetRoute();
     this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
       .pipe(
         map((options: PaginatedSearchOptions) => options.pagination),
@@ -68,11 +62,5 @@ export class DsDynamicLookupRelationSelectionTabComponent {
           );
         })
       )
-  }
-
-  resetRoute() {
-    this.router.navigate([], {
-      queryParams: Object.assign({}, { page: 1, pageSize: this.initialPagination.pageSize }),
-    });
   }
 }
