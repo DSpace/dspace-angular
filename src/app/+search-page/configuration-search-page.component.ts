@@ -1,7 +1,7 @@
 import { HostWindowService } from '../shared/host-window.service';
 import { SearchService } from './search-service/search.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { SearchPageComponent } from './search-page.component';
+import { SearchComponent } from './search.component';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
@@ -16,8 +16,8 @@ import { RouteService } from '../core/services/route.service';
  */
 @Component({
   selector: 'ds-configuration-search-page',
-  styleUrls: ['./search-page.component.scss'],
-  templateUrl: './search-page.component.html',
+  styleUrls: ['./search.component.scss'],
+  templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
   providers: [
@@ -28,7 +28,7 @@ import { RouteService } from '../core/services/route.service';
   ]
 })
 
-export class ConfigurationSearchPageComponent extends SearchPageComponent implements OnInit {
+export class ConfigurationSearchPageComponent extends SearchComponent implements OnInit {
   /**
    * The configuration to use for the search options
    * If empty, the configuration will be determined by the route parameter called 'configuration'
