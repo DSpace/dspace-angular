@@ -50,6 +50,10 @@ import {
   DynamicNGBootstrapTimePickerComponent
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  Reorderable,
+  ReorderableRelationship
+} from './existing-metadata-list-element/existing-metadata-list-element.component';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_TYPEAHEAD } from './models/typeahead/dynamic-typeahead.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
@@ -176,14 +180,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
-  relationships$: Observable<Relationship[]>;
-  relationships: Relationship[];
+  reorderables$: Observable<ReorderableRelationship[]>;
+  reorderables: ReorderableRelationship[];
   hasRelationLookup: boolean;
   modalRef: NgbModalRef;
   item: Item;
   listId: string;
   searchConfig: string;
-
 
   /**
    * List of subscriptions to unsubscribe from
@@ -223,6 +226,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   ngOnInit(): void {
     this.hasRelationLookup = hasValue(this.model.relationship);
+    this.reorderables = [];
     if (this.hasRelationLookup) {
       this.listId = 'list-' + this.model.relationship.relationshipType;
       const item$ = this.submissionObjectService
@@ -238,7 +242,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         );
 
       this.subs.push(item$.subscribe((item) => this.item = item));
-      this.relationships$ = item$.pipe(
+      this.reorderables$ = item$.pipe(
         switchMap((item) => this.relationService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType)
           .pipe(
             getAllSucceededRemoteData(),
@@ -251,28 +255,24 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
                   relationship.leftItem.pipe(
                     getSucceededRemoteData(),
                     getRemoteDataPayload(),
-                    map((item: Item) => {
-                      return { relationship, left: item.uuid === this.item.uuid }
+                    map((leftItem: Item) => {
+                      return new ReorderableRelationship(relationship, leftItem.uuid !== this.item.uuid)
                     }),
                   )
                 ))),
-            map((relationships: { relationship: Relationship, left: boolean }[]) =>
-              relationships
-                .sort((
-                  a: { relationship: Relationship, left: boolean },
-                  b: { relationship: Relationship, left: boolean }
-                ) => {
-                  const placeA: number = a.left ? a.relationship.leftPlace : a.relationship.rightPlace;
-                  const placeB: number = b.left ? b.relationship.leftPlace : b.relationship.rightPlace;
-                  return Math.sign(placeA - placeB);
-                })
-                .map((relationship) => relationship.relationship)
-            )
+                map((relationships: ReorderableRelationship[]) =>
+                  relationships
+                    .sort((a: Reorderable, b: Reorderable) => {
+                      return Math.sign(a.getPlace() - b.getPlace());
+                    })
+                )
           )
         )
       );
 
-      this.relationships$.subscribe((rels) => this.relationships = rels);
+      this.subs.push(this.reorderables$.subscribe((rs) => {
+        this.reorderables = rs
+      }));
 
       this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
@@ -334,27 +334,18 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.item = this.item;
   }
 
-
   moveSelection(event: CdkDragDrop<Relationship>) {
-    moveItemInArray(this.relationships, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.reorderables, event.previousIndex, event.currentIndex);
     this.zone.runOutsideAngular(() => {
       observableCombineLatest(
-        this.relationships.map((relationship: Relationship, index: number) =>
-          relationship.leftItem.pipe(
-            getSucceededRemoteData(),
-            getRemoteDataPayload(),
-            map((item: Item) => {
-              const left: boolean = item.uuid === this.item.uuid;
-              if (left) {
-                return { relationship, left: item.uuid === this.item.uuid, oldIndex: relationship.leftPlace, newIndex: index }
-              } else {
-                return { relationship, left: item.uuid === this.item.uuid, oldIndex: relationship.rightPlace, newIndex: index }
-              }
-            }),
-          )
+        this.reorderables.map((reo: Reorderable, index: number) => {
+            reo.oldIndex = reo.getPlace();
+            reo.newIndex = index;
+            return reo;
+          }
         )
       ).pipe(
-        switchMap((relationships: { relationship: Relationship, left: boolean, oldIndex: number, newIndex: number }[]) =>
+        switchMap((relationships: Array<{ relationship: Relationship, left: boolean, oldIndex: number, newIndex: number }>) =>
           observableCombineLatest(relationships.map((rel: { relationship: Relationship, left: boolean, oldIndex: number, newIndex: number }) => {
               if (rel.oldIndex !== rel.newIndex) {
                 return this.relationshipService.updatePlace(rel.relationship, rel.newIndex, rel.left);
@@ -381,7 +372,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   /**
    * Prevent unnecessary rerendering so fields don't lose focus
    */
-  trackRelationship(index, relationship: Relationship) {
-    return hasValue(relationship) ? relationship.id : undefined;
+  trackReorderable(index, reorderable: Reorderable) {
+    return hasValue(reorderable) ? reorderable.getId() : undefined;
   }
 }

@@ -1,4 +1,4 @@
-<li *ngIf="metadataRepresentation$ | async">
+<li *ngIf="metadataRepresentation">
     <button type="button" class="close float-left" aria-label="Move button" cdkDragHandle>
         <i aria-hidden="true" class="fas fa-arrows-alt fa-xs"></i>
     </button>
@@ -6,6 +6,6 @@
         <span aria-hidden="true">&times;</span>
     </button>
     <span class="d-inline-block align-middle ml-1">
-              <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation$ | async"></ds-metadata-representation-loader>
+              <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation"></ds-metadata-representation-loader>
           </span>
 </li>
