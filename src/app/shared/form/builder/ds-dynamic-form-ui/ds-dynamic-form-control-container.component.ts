@@ -260,12 +260,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
                     }),
                   )
                 ))),
-                map((relationships: ReorderableRelationship[]) =>
-                  relationships
-                    .sort((a: Reorderable, b: Reorderable) => {
-                      return Math.sign(a.getPlace() - b.getPlace());
-                    })
-                )
+            map((relationships: ReorderableRelationship[]) =>
+              relationships
+                .sort((a: Reorderable, b: Reorderable) => {
+                  return Math.sign(a.getPlace() - b.getPlace());
+                })
+            )
           )
         )
       );
@@ -337,25 +337,20 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   moveSelection(event: CdkDragDrop<Relationship>) {
     moveItemInArray(this.reorderables, event.previousIndex, event.currentIndex);
     this.zone.runOutsideAngular(() => {
-      observableCombineLatest(
-        this.reorderables.map((reo: Reorderable, index: number) => {
-            reo.oldIndex = reo.getPlace();
-            reo.newIndex = index;
-            return reo;
+      const relationships = this.reorderables.map((reo: Reorderable, index: number) => {
+          reo.oldIndex = reo.getPlace();
+          reo.newIndex = index;
+          return reo;
+        }
+      );
+      return observableCombineLatest(relationships.map((rel: ReorderableRelationship) => {
+          console.log(rel);
+          if (rel.oldIndex !== rel.newIndex) {
+            return this.relationshipService.updatePlace(rel.relationship, rel.newIndex, !rel.useLeftItem);
+          } else {
+            return observableOf(undefined);
           }
-        )
-      ).pipe(
-        switchMap((relationships: Array<{ relationship: Relationship, left: boolean, oldIndex: number, newIndex: number }>) =>
-          observableCombineLatest(relationships.map((rel: { relationship: Relationship, left: boolean, oldIndex: number, newIndex: number }) => {
-              if (rel.oldIndex !== rel.newIndex) {
-                return this.relationshipService.updatePlace(rel.relationship, rel.newIndex, rel.left);
-              } else {
-                observableOf(undefined);
-              }
-            }
-            )
-          )
-        )
+        })
       ).subscribe();
     })
   }
