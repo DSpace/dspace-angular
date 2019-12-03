@@ -85,7 +85,6 @@ export class ExistingMetadataListElementComponent implements OnInit, OnChanges, 
       filter((item: Item) => hasValue(item) && isNotEmpty(item.uuid))
     ).subscribe((item: Item) => {
       this.relatedItem = item;
-
       const relationMD: MetadataValue = this.submissionItem.firstMetadata(this.relationshipOptions.metadataField, { value: this.relatedItem.uuid });
       if (hasValue(relationMD)) {
         const metadataRepresentationMD: MetadataValue = this.submissionItem.firstMetadata(this.metadataFields, { authority: relationMD.authority });

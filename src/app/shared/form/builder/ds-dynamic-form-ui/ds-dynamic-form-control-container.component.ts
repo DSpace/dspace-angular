@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ContentChildren,
@@ -75,7 +75,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, startWith, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -219,7 +219,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private relationshipService: RelationshipService,
     private zone: NgZone,
     private store: Store<AppState>,
-    private submissionObjectService: SubmissionObjectDataService
+    private submissionObjectService: SubmissionObjectDataService,
+    private ref: ChangeDetectorRef
   ) {
     super(componentFactoryResolver, layoutService, validationService);
   }
@@ -228,6 +229,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.hasRelationLookup = hasValue(this.model.relationship);
     this.reorderables = [];
     if (this.hasRelationLookup) {
+
       this.listId = 'list-' + this.model.relationship.relationshipType;
       const item$ = this.submissionObjectService
         .findById(this.model.submissionId).pipe(
@@ -271,7 +273,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       );
 
       this.subs.push(this.reorderables$.subscribe((rs) => {
-        this.reorderables = rs
+        this.reorderables = rs;
+        this.ref.detectChanges();
       }));
 
       this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
@@ -335,8 +338,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   moveSelection(event: CdkDragDrop<Relationship>) {
-    moveItemInArray(this.reorderables, event.previousIndex, event.currentIndex);
     this.zone.runOutsideAngular(() => {
+      moveItemInArray(this.reorderables, event.previousIndex, event.currentIndex);
       const relationships = this.reorderables.map((reo: Reorderable, index: number) => {
           reo.oldIndex = reo.getPlace();
           reo.newIndex = index;
@@ -351,7 +354,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
             return observableOf(undefined);
           }
         })
-      ).subscribe();
+      ).pipe(getSucceededRemoteData()).subscribe();
     })
   }
 

@@ -54,7 +54,8 @@
 
     <div *ngIf="hasRelationLookup" class="mt-3">
         <ul class="list-unstyled" cdkDropList (cdkDropListDropped)="moveSelection($event)">
-            <ds-existing-metadata-list-element cdkDrag [cdkDragData]="relationship" *ngFor="let reorderable of reorderables; trackBy: trackReorderable"
+            <ds-existing-metadata-list-element cdkDrag
+                                               *ngFor="let reorderable of reorderables; trackBy: trackReorderable"
                                                [reoRel]="reorderable"
                                                [submissionItem]="item"
                                                [listId]="listId"
