@@ -7,11 +7,18 @@ import { SearchPageComponent } from './search-page.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
 import { FilteredSearchPageComponent } from './filtered-search-page.component';
+import { EffectsModule } from '@ngrx/effects';
+import { SearchComponent } from './search.component';
+import { SearchTrackerComponent } from './search-tracker.component';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 const components = [
   SearchPageComponent,
+  SearchComponent,
   FilteredSearchPageComponent,
-  ConfigurationSearchPageComponent
+  ConfigurationSearchPageComponent,
+  SearchTrackerComponent,
+
 ];
 
 @NgModule({
@@ -19,7 +26,8 @@ const components = [
     SearchPageRoutingModule,
     CommonModule,
     SharedModule,
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
+    StatisticsModule.forRoot(),
   ],
   providers: [ConfigurationSearchPageGuard],
   declarations: components,
