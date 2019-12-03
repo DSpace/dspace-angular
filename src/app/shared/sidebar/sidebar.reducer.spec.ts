@@ -1,12 +1,12 @@
 import * as deepFreeze from 'deep-freeze';
 
-import { sidebarReducer } from './search-sidebar.reducer';
+import { sidebarReducer } from './sidebar.reducer';
 import {
-  SearchSidebarCollapseAction, SearchSidebarExpandAction,
-  SearchSidebarToggleAction
-} from './search-sidebar.actions';
+  SidebarCollapseAction, SidebarExpandAction,
+  SidebarToggleAction
+} from './sidebar.actions';
 
-class NullAction extends SearchSidebarCollapseAction {
+class NullAction extends SidebarCollapseAction {
   type = null;
 
   constructor() {
@@ -34,7 +34,7 @@ describe('sidebarReducer', () => {
 
   it('should set sidebarCollapsed to true in response to the COLLAPSE action', () => {
     const state = { sidebarCollapsed: false };
-    const action = new  SearchSidebarCollapseAction();
+    const action = new  SidebarCollapseAction();
     const newState = sidebarReducer(state, action);
 
     expect(newState.sidebarCollapsed).toEqual(true);
@@ -44,7 +44,7 @@ describe('sidebarReducer', () => {
     const state = { sidebarCollapsed: false };
     deepFreeze([state]);
 
-    const action = new  SearchSidebarCollapseAction();
+    const action = new  SidebarCollapseAction();
     sidebarReducer(state, action);
 
     // no expect required, deepFreeze will ensure an exception is thrown if the state
@@ -53,7 +53,7 @@ describe('sidebarReducer', () => {
 
   it('should set sidebarCollapsed to false in response to the EXPAND action', () => {
     const state = { sidebarCollapsed: true };
-    const action = new  SearchSidebarExpandAction();
+    const action = new  SidebarExpandAction();
     const newState = sidebarReducer(state, action);
 
     expect(newState.sidebarCollapsed).toEqual(false);
@@ -63,13 +63,13 @@ describe('sidebarReducer', () => {
     const state = { sidebarCollapsed: true };
     deepFreeze([state]);
 
-    const action = new  SearchSidebarExpandAction();
+    const action = new  SidebarExpandAction();
     sidebarReducer(state, action);
   });
 
   it('should flip the value of sidebarCollapsed in response to the TOGGLE action', () => {
     const state1 = { sidebarCollapsed: true };
-    const action = new  SearchSidebarToggleAction();
+    const action = new  SidebarToggleAction();
 
     const state2 = sidebarReducer(state1, action);
     const state3 = sidebarReducer(state2, action);
@@ -82,7 +82,7 @@ describe('sidebarReducer', () => {
     const state = { sidebarCollapsed: true };
     deepFreeze([state]);
 
-    const action = new  SearchSidebarToggleAction();
+    const action = new  SidebarToggleAction();
     sidebarReducer(state, action);
   });
 
