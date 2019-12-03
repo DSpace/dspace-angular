@@ -55,7 +55,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
   entriesRD$: Observable<RemoteData<PaginatedList<ExternalSourceEntry>>>;
 
   constructor(private router: Router,
-              private searchConfigService: SearchConfigurationService,
+              public searchConfigService: SearchConfigurationService,
               private externalSourceService: ExternalSourceService) {
   }
 

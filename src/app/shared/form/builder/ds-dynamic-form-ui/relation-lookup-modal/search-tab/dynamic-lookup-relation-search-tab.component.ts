@@ -59,9 +59,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     private router: Router,
     private route: ActivatedRoute,
     private selectableListService: SelectableListService,
-    private searchConfigService: SearchConfigurationService,
+    public searchConfigService: SearchConfigurationService,
     private routeService: RouteService,
-    protected lookupRelationService: LookupRelationService
+    public lookupRelationService: LookupRelationService
   ) {
   }
 

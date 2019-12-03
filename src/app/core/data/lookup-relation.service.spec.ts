@@ -9,6 +9,7 @@ import { RelationshipOptions } from '../../shared/form/builder/models/relationsh
 import { SearchResult } from '../../shared/search/search-result.model';
 import { Item } from '../shared/item.model';
 import { skip, take } from 'rxjs/operators';
+import { ExternalSource } from '../shared/external-source.model';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;
@@ -29,6 +30,11 @@ describe('LookupRelationService', () => {
       })
     })
   ];
+  const externalSource = Object.assign(new ExternalSource(), {
+    id: 'orcidV2',
+    name: 'orcidV2',
+    hierarchical: false
+  });
 
   function init() {
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
@@ -92,7 +98,7 @@ describe('LookupRelationService', () => {
     let result;
 
     beforeEach(() => {
-      result = service.getTotalExternalResults(relationship, optionsWithQuery);
+      result = service.getTotalExternalResults(externalSource, optionsWithQuery);
     });
 
     it('should start with 0', () => {
