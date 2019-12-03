@@ -15,6 +15,8 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../../testing/utils'
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../../../../core/shared/item.model';
+import { ActivatedRoute } from '@angular/router';
+import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 
 describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let component: DsDynamicLookupRelationSearchTabComponent;
@@ -32,6 +34,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
 
   let results;
   let selectableListService;
+  let lookupRelationService;
 
   function init() {
     relationship = { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true } as RelationshipOptions;
@@ -47,6 +50,10 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
 
     results = new PaginatedList(undefined, [searchResult1, searchResult2, searchResult3]);
     selectableListService = jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']);
+    lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
+      getLocalResults: createSuccessfulRemoteDataObject$(results)
+    });
+    lookupRelationService.searchConfig = {};
   }
 
   beforeEach(async(() => {
@@ -71,6 +78,8 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
             }
           }
         },
+        { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } },
+        { provide: LookupRelationService, useValue: lookupRelationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
