@@ -1,16 +1,11 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataRepresentation } from '../../../../../core/shared/metadata-representation/metadata-representation.model';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getSucceededRemoteData
-} from '../../../../../core/shared/operators';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
 import { hasValue, isNotEmpty } from '../../../../empty.util';
-import { of as observableOf, Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { combineLatest as observableCombineLatest, of } from 'rxjs';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';

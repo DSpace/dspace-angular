@@ -11,14 +11,14 @@ import { Site } from '../core/shared/site.model';
 })
 export class HomePageComponent implements OnInit {
 
-  site$:Observable<Site>;
+  site$: Observable<Site>;
 
   constructor(
-    private route:ActivatedRoute,
+    private route: ActivatedRoute,
   ) {
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.site$ = this.route.data.pipe(
       map((data) => data.site as Site),
     );

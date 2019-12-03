@@ -3,16 +3,15 @@ import { RequestService } from '../core/data/request.service';
 import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service-stub';
 import { getMockRequestService } from '../shared/mocks/mock-request.service';
 import { TrackRequest } from './track-request.model';
-import { ResourceType } from '../core/shared/resource-type';
-import { SearchOptions } from '../+search-page/search-options.model';
 import { isEqual } from 'lodash';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
+import { SearchOptions } from '../shared/search/search-options.model';
 
 describe('StatisticsService', () => {
-  let service:StatisticsService;
-  let requestService:jasmine.SpyObj<RequestService>;
+  let service: StatisticsService;
+  let requestService: jasmine.SpyObj<RequestService>;
   const restURL = 'https://rest.api';
-  const halService:any = new HALEndpointServiceStub(restURL);
+  const halService: any = new HALEndpointServiceStub(restURL);
 
   function initTestService() {
     return new StatisticsService(
@@ -26,9 +25,9 @@ describe('StatisticsService', () => {
     service = initTestService();
 
     it('should send a request to track an item view ', () => {
-      const mockItem:any = {uuid: 'mock-item-uuid', type: 'item'};
+      const mockItem: any = {uuid: 'mock-item-uuid', type: 'item'};
       service.trackViewEvent(mockItem);
-      const request:TrackRequest = requestService.configure.calls.mostRecent().args[0];
+      const request: TrackRequest = requestService.configure.calls.mostRecent().args[0];
       expect(request.body).toBeDefined('request.body');
       const body = JSON.parse(request.body);
       expect(body.targetId).toBe('mock-item-uuid');
@@ -40,7 +39,7 @@ describe('StatisticsService', () => {
     requestService = getMockRequestService();
     service = initTestService();
 
-    const mockSearch:any = new SearchOptions({
+    const mockSearch: any = new SearchOptions({
       query: 'mock-query',
     });
 
@@ -52,7 +51,7 @@ describe('StatisticsService', () => {
     };
     const sort = {by: 'search-field', order: 'ASC'};
     service.trackSearchEvent(mockSearch, page, sort);
-    const request:TrackRequest = requestService.configure.calls.mostRecent().args[0];
+    const request: TrackRequest = requestService.configure.calls.mostRecent().args[0];
     const body = JSON.parse(request.body);
 
     it('should specify the right query', () => {
@@ -80,7 +79,7 @@ describe('StatisticsService', () => {
     requestService = getMockRequestService();
     service = initTestService();
 
-    const mockSearch:any = new SearchOptions({
+    const mockSearch: any = new SearchOptions({
       query: 'mock-query',
       configuration: 'mock-configuration',
       dsoType: DSpaceObjectType.ITEM,
@@ -109,7 +108,7 @@ describe('StatisticsService', () => {
       }
     ];
     service.trackSearchEvent(mockSearch, page, sort, filters);
-    const request:TrackRequest = requestService.configure.calls.mostRecent().args[0];
+    const request: TrackRequest = requestService.configure.calls.mostRecent().args[0];
     const body = JSON.parse(request.body);
 
     it('should specify the dsoType', () => {
