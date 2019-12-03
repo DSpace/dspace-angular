@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { SearchPageRoutingModule } from './search-page-routing.module';
-import { SearchPageComponent } from './search-page.component';
+import { SearchComponent } from './search.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { CommunitySearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component'
 import { CollectionSearchResultGridElementComponent } from '../shared/object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
@@ -33,7 +33,10 @@ import { SearchLabelComponent } from './search-labels/search-label/search-label.
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
 import { FilteredSearchPageComponent } from './filtered-search-page.component';
+import { SearchPageComponent } from './search-page.component';
 import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
+import { StatisticsModule } from '../statistics/statistics.module';
+import { SearchTrackerComponent } from './search-tracker.component';
 
 const effects = [
   SidebarEffects
@@ -41,6 +44,7 @@ const effects = [
 
 const components = [
   SearchPageComponent,
+  SearchComponent,
   SearchResultsComponent,
   SearchSidebarComponent,
   SearchSettingsComponent,
@@ -61,7 +65,8 @@ const components = [
   SearchSwitchConfigurationComponent,
   SearchAuthorityFilterComponent,
   FilteredSearchPageComponent,
-  ConfigurationSearchPageComponent
+  ConfigurationSearchPageComponent,
+  SearchTrackerComponent,
 ];
 
 @NgModule({
@@ -71,6 +76,7 @@ const components = [
     SharedModule,
     EffectsModule.forFeature(effects),
     CoreModule.forRoot(),
+    StatisticsModule.forRoot(),
   ],
   declarations: components,
   providers: [

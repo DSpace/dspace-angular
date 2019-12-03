@@ -124,6 +124,8 @@ import { ObjectSelectService } from '../shared/object-select/object-select.servi
 import { NormalizedAuthority } from './integration/models/normalized-authority.model';
 import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import { SiteDataService } from './data/site-data.service';
+import { NormalizedSite } from './cache/models/normalized-site.model';
 
 const IMPORTS = [
   CommonModule,
@@ -142,6 +144,7 @@ const PROVIDERS = [
   AuthResponseParsingService,
   CommunityDataService,
   CollectionDataService,
+  SiteDataService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
   DynamicFormLayoutService,
@@ -237,6 +240,7 @@ export const normalizedModels =
     NormalizedBitstream,
     NormalizedBitstreamFormat,
     NormalizedItem,
+    NormalizedSite,
     NormalizedCollection,
     NormalizedCommunity,
     NormalizedEPerson,

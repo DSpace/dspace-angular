@@ -34,6 +34,7 @@ import { HostWindowService } from './shared/host-window.service';
 import { Theme } from '../config/theme.inferface';
 import { isNotEmpty } from './shared/empty.util';
 import { CookieService } from './core/services/cookie.service';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 
 export const LANG_COOKIE = 'language_cookie';
 
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
+    private angulartics2DSpace: Angulartics2DSpace,
     private authService: AuthService,
     private router: Router,
     private cssService: CSSVariableService,
@@ -88,6 +90,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         translate.use(config.defaultLanguage);
       }
     }
+
+    angulartics2DSpace.startTracking();
 
     metadata.listenForRouteChange();
 

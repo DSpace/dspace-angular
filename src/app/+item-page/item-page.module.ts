@@ -26,6 +26,7 @@ import { MetadataRepresentationListComponent } from './simple/metadata-represent
 import { RelatedEntitiesSearchComponent } from './simple/related-entities/related-entities-search/related-entities-search.component';
 import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
 import { MetadataFieldWrapperComponent } from './field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
     SharedModule,
     ItemPageRoutingModule,
     EditItemPageModule,
-    SearchPageModule
+    SearchPageModule,
+    StatisticsModule.forRoot()
   ],
   declarations: [
     ItemPageComponent,
