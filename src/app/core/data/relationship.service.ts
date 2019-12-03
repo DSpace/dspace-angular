@@ -357,7 +357,7 @@ export class RelationshipService extends DataService<Relationship> {
       );
 
     update$.pipe(
-      filter((relationshipRD: RemoteData<Relationship>) => relationshipRD.state === RemoteDataState.ResponsePending),
+      filter((relationshipRD: RemoteData<Relationship>) => relationshipRD.state === RemoteDataState.RequestPending),
       take(1),
     ).subscribe(() => {
       this.removeRelationshipItemsFromCache(item1);

@@ -11,8 +11,5 @@ import { ItemMetadataRepresentationListElementComponent } from '../../../../shar
 /**
  * The component for displaying an item of the type Person as a metadata field
  */
-export class PersonItemMetadataListElementComponent extends ItemMetadataRepresentationListElementComponent implements OnInit {
-  ngOnInit(): void {
-    console.log('this.metadataRepresentation', this.metadataRepresentation);
-  }
+export class PersonItemMetadataListElementComponent extends ItemMetadataRepresentationListElementComponent {
 }

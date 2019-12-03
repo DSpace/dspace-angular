@@ -347,7 +347,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         }
       );
       return observableCombineLatest(reorderables.map((rel: ReorderableRelationship) => {
-          console.log(rel);
           if (rel.oldIndex !== rel.newIndex) {
             return this.relationshipService.updatePlace(rel);
           } else {
