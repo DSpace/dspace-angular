@@ -1686,6 +1686,6 @@
 
   "uploader.queue-length": "Queue length",
 
-  "virtual-metadata-modal.head": "Select the items for which you want to save the virtual metadata as real metadata",
+  "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
 }
 

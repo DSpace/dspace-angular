@@ -110,11 +110,14 @@ describe('ItemRelationshipsComponent', () => {
     relationships[1].rightItem = observableOf(new RemoteData(false, false, true, undefined, item));
 
     fieldUpdate1 = {
-      field: author1,
+      field: relationships[0],
       changeType: undefined
     };
     fieldUpdate2 = {
-      field: author2,
+      field: Object.assign(
+        relationships[1],
+        {keepLeftVirtualMetadata: true, keepRightVirtualMetadata: false}
+      ),
       changeType: FieldChangeType.REMOVE
     };
 
@@ -130,12 +133,12 @@ describe('ItemRelationshipsComponent', () => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({
-          [author1.uuid]: fieldUpdate1,
-          [author2.uuid]: fieldUpdate2
+          [relationships[0].uuid]: fieldUpdate1,
+          [relationships[1].uuid]: fieldUpdate2
         }),
         getFieldUpdatesExclusive: observableOf({
-          [author1.uuid]: fieldUpdate1,
-          [author2.uuid]: fieldUpdate2
+          [relationships[0].uuid]: fieldUpdate1,
+          [relationships[1].uuid]: fieldUpdate2
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
@@ -227,7 +230,7 @@ describe('ItemRelationshipsComponent', () => {
     });
 
     it('it should delete the correct relationship', () => {
-      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid);
+      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left');
     });
   });
 });

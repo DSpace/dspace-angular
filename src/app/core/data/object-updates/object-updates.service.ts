@@ -204,24 +204,7 @@ export class ObjectUpdatesService {
   saveChangeFieldUpdate(url: string, field: Identifiable) {
     this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
   }
-
-  getVirtualMetadataList(relationship: Relationship, item: Item): VirtualMetadata[] {
-    return Object.entries(item.metadata)
-      .map(([key, value]) =>
-        value
-          .filter((metadata: MetadataValue) =>
-            metadata.authority && metadata.authority.endsWith(relationship.id))
-          .map((metadata: MetadataValue) => {
-            return {
-              metadataField: key,
-              metadataValue: metadata,
-            }
-          })
-      )
-      .reduce((previous, current) => previous.concat(current));
-  }
-
-  isSelectedVirtualMetadataItem(url: string, relationship: string, item: string): Observable<boolean> {
+  isSelectedVirtualMetadata(url: string, relationship: string, item: string): Observable<boolean> {
 
     return this.store
       .pipe(
@@ -231,13 +214,14 @@ export class ObjectUpdatesService {
   }
 
   /**
-   * Method to dispatch an AddFieldUpdateAction to the store
+   * Method to dispatch a SelectVirtualMetadataAction to the store
    * @param url The page's URL for which the changes are saved
-   * @param field An updated field for the page's object
-   * @param changeType The last type of change applied to this field
+   * @param relationship the relationship for which virtual metadata is selected
+   * @param uuid the selection identifier, can either be the item uuid or the relationship type uuid
+   * @param selected whether or not to select the virtual metadata to be saved
    */
-  setSelectedVirtualMetadataItem(url: string, relationship: string, item: string, selected: boolean) {
-    this.store.dispatch(new SelectVirtualMetadataAction(url, relationship, item, selected));
+  setSelectedVirtualMetadata(url: string, relationship: string, uuid: string, selected: boolean) {
+    this.store.dispatch(new SelectVirtualMetadataAction(url, relationship, uuid, selected));
   }
 
   /**

@@ -99,7 +99,7 @@ export class EditRelationshipComponent implements OnChanges {
     ).pipe(
       map((items: Item[]) =>
         items.map((item) => this.objectUpdatesService
-          .isSelectedVirtualMetadataItem(this.url, this.relationship.id, item.uuid))
+          .isSelectedVirtualMetadata(this.url, this.relationship.id, item.uuid))
       ),
       switchMap((selection$) => observableCombineLatest(selection$)),
       map((selection: boolean[]) => {

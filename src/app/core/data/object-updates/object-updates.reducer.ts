@@ -58,14 +58,24 @@ export interface FieldUpdates {
   [uuid: string]: FieldUpdate;
 }
 
+/**
+ * The states of all virtual metadata selections available for a single page, mapped by the relationship uuid
+ */
 export interface VirtualMetadataSources {
   [source: string]: VirtualMetadataSource
 }
 
+/**
+ * The selection of virtual metadata for a relationship, mapped by the uuid of either the item or the relationship type
+ */
 export interface VirtualMetadataSource {
   [uuid: string]: boolean,
 }
 
+/**
+ * A fieldupdate interface which represents a relationship selected to be deleted,
+ * along with a selection of the virtual metadata to keep
+ */
 export interface DeleteRelationship extends Relationship {
   keepLeftVirtualMetadata: boolean,
   keepRightVirtualMetadata: boolean,
@@ -192,7 +202,7 @@ function addFieldUpdate(state: any, action: AddFieldUpdateAction) {
 }
 
 /**
- * Add a new update for a specific field to the store
+ * Update the selected virtual metadata in the store
  * @param state The current state
  * @param action The action to perform on the current state
  */

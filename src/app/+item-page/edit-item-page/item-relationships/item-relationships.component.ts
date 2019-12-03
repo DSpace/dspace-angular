@@ -116,8 +116,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
       switchMap((relationships: Relationship[]) => {
         return this.objectUpdatesService.getFieldUpdatesExclusive(this.url, relationships) as Observable<FieldUpdates>
       }),
-      map((fieldUpdates: FieldUpdates) => Object.values(fieldUpdates).filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)),
-      map((fieldUpdates: FieldUpdate[]) => fieldUpdates.map((fieldUpdate: FieldUpdate) => fieldUpdate.field) as DeleteRelationship[]),
+      map((fieldUpdates: FieldUpdates) =>
+        Object.values(fieldUpdates)
+          .filter((fieldUpdate: FieldUpdate) => fieldUpdate.changeType === FieldChangeType.REMOVE)
+          .map((fieldUpdate: FieldUpdate) => fieldUpdate.field as DeleteRelationship)
+      ),
       isNotEmptyOperator(),
     );
     removedRelationshipIDs$.pipe(

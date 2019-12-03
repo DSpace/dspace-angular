@@ -48,15 +48,27 @@ export class VirtualMetadataComponent implements OnChanges {
 
   getVirtualMetadata(relationship: Relationship, relatedItem: Item): VirtualMetadata[] {
 
-    return this.objectUpdatesService.getVirtualMetadataList(relationship, relatedItem);
+    return Object.entries(relatedItem.metadata)
+      .map(([key, value]) =>
+        value
+          .filter((metadata: MetadataValue) =>
+            metadata.authority && metadata.authority.endsWith(relationship.id))
+          .map((metadata: MetadataValue) => {
+            return {
+              metadataField: key,
+              metadataValue: metadata,
+            }
+          })
+      )
+      .reduce((previous, current) => previous.concat(current));
   }
 
   setSelectedVirtualMetadataItem(item: Item, selected: boolean) {
-    this.objectUpdatesService.setSelectedVirtualMetadataItem(this.url, this.relationship.id, item.uuid, selected);
+    this.objectUpdatesService.setSelectedVirtualMetadata(this.url, this.relationship.id, item.uuid, selected);
   }
 
   isSelectedVirtualMetadataItem(item: Item): Observable<boolean> {
-    return this.objectUpdatesService.isSelectedVirtualMetadataItem(this.url, this.relationship.id, item.uuid);
+    return this.objectUpdatesService.isSelectedVirtualMetadata(this.url, this.relationship.id, item.uuid);
   }
 }
 

@@ -5,10 +5,11 @@ import {
   FieldChangeType,
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
-  RemoveFieldUpdateAction, RemoveObjectUpdatesAction,
+  RemoveFieldUpdateAction, RemoveObjectUpdatesAction, SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction, SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { OBJECT_UPDATES_TRASH_PATH, objectUpdatesReducer } from './object-updates.reducer';
+import {Relationship} from "../../shared/item-relationships/relationship.model";
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;
@@ -44,6 +45,7 @@ const identifiable3 = {
   language: null,
   value: 'Unchanged value'
 };
+const relationship: Relationship = Object.assign(new Relationship, {uuid: 'test relationship uuid'});
 
 const modDate = new Date(2010, 2, 11);
 const uuid = identifiable1.uuid;
@@ -80,7 +82,9 @@ describe('objectUpdatesReducer', () => {
         }
       },
       lastModified: modDate,
-      virtualMetadataSources: {},
+      virtualMetadataSources: {
+        [relationship.uuid]: {[identifiable1.uuid]: true}
+      },
     }
   };
 
@@ -103,7 +107,10 @@ describe('objectUpdatesReducer', () => {
           isValid: true
         },
       },
-      lastModified: modDate
+      lastModified: modDate,
+      virtualMetadataSources: {
+        [relationship.uuid]: {[identifiable1.uuid]: true}
+      },
     },
     [url + OBJECT_UPDATES_TRASH_PATH]: {
       fieldStates: {
@@ -134,7 +141,10 @@ describe('objectUpdatesReducer', () => {
           changeType: FieldChangeType.ADD
         }
       },
-      lastModified: modDate
+      lastModified: modDate,
+      virtualMetadataSources: {
+        [relationship.uuid]: {[identifiable1.uuid]: true}
+      },
     }
   };
 
@@ -192,6 +202,12 @@ describe('objectUpdatesReducer', () => {
 
   it('should perform the REMOVE_FIELD action without affecting the previous state', () => {
     const action = new RemoveFieldUpdateAction(url, uuid);
+    // testState has already been frozen above
+    objectUpdatesReducer(testState, action);
+  });
+
+  it('should perform the SELECT_VIRTUAL_METADATA action without affecting the previous state', () => {
+    const action = new SelectVirtualMetadataAction(url, relationship.uuid, identifiable1.uuid, true);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
   });
