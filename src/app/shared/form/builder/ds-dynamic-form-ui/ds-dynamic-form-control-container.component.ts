@@ -340,16 +340,16 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   moveSelection(event: CdkDragDrop<Relationship>) {
     this.zone.runOutsideAngular(() => {
       moveItemInArray(this.reorderables, event.previousIndex, event.currentIndex);
-      const relationships = this.reorderables.map((reo: Reorderable, index: number) => {
+      const reorderables = this.reorderables.map((reo: Reorderable, index: number) => {
           reo.oldIndex = reo.getPlace();
           reo.newIndex = index;
           return reo;
         }
       );
-      return observableCombineLatest(relationships.map((rel: ReorderableRelationship) => {
+      return observableCombineLatest(reorderables.map((rel: ReorderableRelationship) => {
           console.log(rel);
           if (rel.oldIndex !== rel.newIndex) {
-            return this.relationshipService.updatePlace(rel.relationship, rel.newIndex, !rel.useLeftItem);
+            return this.relationshipService.updatePlace(rel);
           } else {
             return observableOf(undefined);
           }
