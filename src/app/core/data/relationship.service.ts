@@ -333,7 +333,7 @@ export class RelationshipService extends DataService<Relationship> {
   }
 
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
-    return this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
+    const update$ = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
         switchMap((relation: Relationship) =>
           relation.relationshipType.pipe(
@@ -354,13 +354,17 @@ export class RelationshipService extends DataService<Relationship> {
           }
           return this.update(updatedRelationship);
         }),
-        tap((relationshipRD: RemoteData<Relationship>) => {
-          if (relationshipRD.hasSucceeded) {
-            this.removeRelationshipItemsFromCache(item1);
-            this.removeRelationshipItemsFromCache(item2);
-          }
-        }),
-      )
+      );
+
+    update$.pipe(
+      filter((relationshipRD: RemoteData<Relationship>) => relationshipRD.state === RemoteDataState.ResponsePending),
+      take(1),
+    ).subscribe(() => {
+      this.removeRelationshipItemsFromCache(item1);
+      this.removeRelationshipItemsFromCache(item2);
+    });
+
+    return update$
   }
 
   public updatePlace(reoRel: ReorderableRelationship): Observable<RemoteData<Relationship>> {

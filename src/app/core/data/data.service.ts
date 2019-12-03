@@ -236,6 +236,7 @@ export abstract class DataService<T extends CacheableObject> {
         console.log(oldVersion);
         const operations = this.comparator.diff(oldVersion, object);
         if (isNotEmpty(operations)) {
+          console.log('operations', operations);
           this.objectCache.addPatch(object.self, operations);
         }
         return this.findByHref(object.self);
