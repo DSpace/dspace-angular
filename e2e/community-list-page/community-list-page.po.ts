@@ -1,4 +1,4 @@
-import { browser, by, element } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 
 export class CommunityListPageProtractor {
   HOMEPAGE = '/home';
@@ -9,10 +9,15 @@ export class CommunityListPageProtractor {
   }
 
   navigateToCommunityList() {
-    return browser.get(this.COMMUNITY_LIST);
+    browser.get(this.COMMUNITY_LIST);
+    const loading = element(by.css('.ds-loading'));
+    browser.wait(protractor.ExpectedConditions.invisibilityOf(loading), 10000);
+    return;
+
   }
 
   anExpandableCommunityIsPresent() {
+    console.log(element(by.css('body')));
     return element(by.css('.expandable-node h5 a')).isPresent();
   }
 

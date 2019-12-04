@@ -1,4 +1,4 @@
-<ds-loading *ngIf="(dataSource.loading$ | async) && loadingNode === undefined "></ds-loading>
+<ds-loading *ngIf="(dataSource.loading$ | async) && loadingNode === undefined " class="ds-loading"></ds-loading>
 
 <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <!-- This is the tree node template for show more node -->
@@ -13,7 +13,7 @@
            class="btn btn-outline-secondary btn-sm">
           {{ 'communityList.showMore' | translate }}
         </a>
-        <ds-loading *ngIf="node===loadingNode && dataSource.loading$ | async"></ds-loading>
+        <ds-loading *ngIf="node===loadingNode && dataSource.loading$ | async" class="ds-loading"></ds-loading>
       </div>
     </div>
     <div class="text-muted" cdkTreeNodePadding>
@@ -57,7 +57,7 @@
         <span class="{{node.isExpanded ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}}"
               aria-hidden="true"></span>
       </button>
-      <ds-loading></ds-loading>
+      <ds-loading class="ds-loading"></ds-loading>
     </div>
   </cdk-tree-node>
   <!-- This is the tree node template for leaf nodes (collections and (sub)coms without children) -->
