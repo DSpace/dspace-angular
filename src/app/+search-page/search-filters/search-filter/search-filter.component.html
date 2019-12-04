@@ -1,7 +1,18 @@
 <div class="facet-filter d-block mb-3 p-3" *ngIf="active$ | async">
-    <div (click)="toggle()" class="filter-name"><h5 class="d-inline-block mb-0">{{'search.filters.filter.' + filter.name + '.head'| translate}}</h5> <span class="filter-toggle fas float-right"
-                                                                      [ngClass]="(collapsed$ | async) ? 'fa-plus' : 'fa-minus'"></span></div>
-    <div [@slide]="(collapsed$ | async) ? 'collapsed' : 'expanded'"  (@slide.start)="startSlide($event)" (@slide.done)="finishSlide($event)" class="search-filter-wrapper" [ngClass]="{'closed' : closed}">
-        <ds-search-facet-filter-wrapper [filterConfig]="filter" [inPlaceSearch]="inPlaceSearch"></ds-search-facet-filter-wrapper>
-    </div>
+  <div (click)="toggle()" class="filter-name">
+    <h5 class="d-inline-block mb-0">
+      {{'search.filters.filter.' + filter.name + '.head'| translate}}
+    </h5>
+    <span class="filter-toggle fas float-right"
+          [ngClass]="(collapsed$ | async) ? 'fa-plus' : 'fa-minus'">
+    </span>
+  </div>
+  <div [@slide]="(collapsed$ | async) ? 'collapsed' : 'expanded'"
+       (@slide.start)="startSlide($event)" (@slide.done)="finishSlide($event)"
+       class="search-filter-wrapper" [ngClass]="{'closed' : closed}">
+    <ds-search-facet-filter-wrapper
+      [filterConfig]="filter"
+      [inPlaceSearch]="inPlaceSearch">
+    </ds-search-facet-filter-wrapper>
+  </div>
 </div>

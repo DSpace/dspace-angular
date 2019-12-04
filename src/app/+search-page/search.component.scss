@@ -1,0 +1,10 @@
+@include media-breakpoint-down(md) {
+  .container {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/deep/ .search-controls {
+    margin-bottom: $spacer;
+}

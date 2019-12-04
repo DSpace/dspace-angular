@@ -1,0 +1,11 @@
+a {
+  color: $body-color;
+
+  &:hover, &focus {
+    text-decoration: none;
+  }
+
+  span.badge {
+    vertical-align: text-top;
+  }
+}

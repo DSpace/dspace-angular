@@ -145,6 +145,10 @@ import { ListableObjectDirective } from './object-collection/shared/listable-obj
 import { CommunitySearchResultGridElementComponent } from './object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
 import { CollectionSearchResultGridElementComponent } from './object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 import { ItemMetadataRepresentationListElementComponent } from './object-list/metadata-representation-list-element/item/item-metadata-representation-list-element.component';
+import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component';
+import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
+import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.component';
+import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -228,6 +232,10 @@ const COMPONENTS = [
   ObjectCollectionComponent,
   PaginationComponent,
   SearchFormComponent,
+  PageWithSidebarComponent,
+  SidebarDropdownComponent,
+  SidebarFilterComponent,
+  SidebarFilterSelectedOptionComponent,
   ThumbnailComponent,
   GridThumbnailComponent,
   UploaderComponent,

@@ -1,7 +1,5 @@
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { LookupFieldParser } from './lookup-field-parser';
-import { DynamicLookupModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
 import { DynamicLookupNameModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
 import { ParserOptions } from './parser-options';
@@ -10,6 +8,7 @@ describe('LookupNameFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues = {};
 
+  const submissionId = '1234';
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
@@ -38,13 +37,13 @@ describe('LookupNameFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new LookupNameFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(parser instanceof LookupNameFieldParser).toBe(true);
   });
 
   it('should return a DynamicLookupNameModel object when repeatable option is false', () => {
-    const parser = new LookupNameFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -57,7 +56,7 @@ describe('LookupNameFieldParser test suite', () => {
     };
     const expectedValue = new FormFieldMetadataValueObject('test author');
 
-    const parser = new LookupNameFieldParser(field, initFormValues, parserOptions);
+    const parser = new LookupNameFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

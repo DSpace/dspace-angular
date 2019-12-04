@@ -10,13 +10,13 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SearchPageComponent } from './search-page.component';
+import { SearchComponent } from './search.component';
 import { SearchService } from './search-service/search.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { SearchSidebarService } from './search-sidebar/search-sidebar.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
 import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { RemoteData } from '../core/data/remote-data';
@@ -27,11 +27,11 @@ import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SearchFixedFilterService } from './search-filters/search-filter/search-fixed-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 
-let comp: SearchPageComponent;
-let fixture: ComponentFixture<SearchPageComponent>;
+let comp: SearchComponent;
+let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
-const store: Store<SearchPageComponent> = jasmine.createSpyObj('store', {
+const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* tslint:disable:no-empty */
   dispatch: {},
   /* tslint:enable:no-empty */
@@ -115,7 +115,7 @@ export function configureSearchComponentTestingModule(compType) {
           })
       },
       {
-        provide: SearchSidebarService,
+        provide: SidebarService,
         useValue: sidebarService
       },
       {
@@ -150,14 +150,14 @@ export function configureSearchComponentTestingModule(compType) {
   }).compileComponents();
 }
 
-describe('SearchPageComponent', () => {
+describe('SearchComponent', () => {
   beforeEach(async(() => {
-    configureSearchComponentTestingModule(SearchPageComponent);
+    configureSearchComponentTestingModule(SearchComponent);
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchPageComponent);
-    comp = fixture.componentInstance; // SearchPageComponent test instance
+    fixture = TestBed.createComponent(SearchComponent);
+    comp = fixture.componentInstance; // SearchComponent test instance
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;
     searchConfigurationServiceObject = (comp as any).searchConfigService;
@@ -188,36 +188,6 @@ describe('SearchPageComponent', () => {
 
     it('should trigger the openSidebar function', () => {
       expect(comp.openSidebar).toHaveBeenCalled();
-    });
-
-  });
-
-  describe('when sidebarCollapsed is true in mobile view', () => {
-    let menu: HTMLElement;
-
-    beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      (comp as any).isSidebarCollapsed$ = observableOf(true);
-      fixture.detectChanges();
-    });
-
-    it('should close the sidebar', () => {
-      expect(menu.classList).not.toContain('active');
-    });
-
-  });
-
-  describe('when sidebarCollapsed is false in mobile view', () => {
-    let menu: HTMLElement;
-
-    beforeEach(() => {
-      menu = fixture.debugElement.query(By.css('#search-sidebar-sm')).nativeElement;
-      (comp as any).isSidebarCollapsed$ = observableOf(false);
-      fixture.detectChanges();
-    });
-
-    it('should open the menu', () => {
-      expect(menu.classList).toContain('active');
     });
 
   });
