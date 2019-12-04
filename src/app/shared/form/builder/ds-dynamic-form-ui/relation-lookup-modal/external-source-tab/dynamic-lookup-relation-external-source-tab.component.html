@@ -10,7 +10,6 @@
       <ng-container *ngVar="(entriesRD$ | async) as entriesRD">
         <ds-viewable-collection *ngIf="entriesRD?.hasSucceeded && !entriesRD?.isLoading && entriesRD?.payload?.page?.length > 0" @fadeIn
                                 [objects]="entriesRD"
-                                [selectable]="true"
                                 [selectionConfig]="{ repeatable: repeatable, listId: listId }"
                                 [config]="initialPagination"
                                 [hideGear]="true"

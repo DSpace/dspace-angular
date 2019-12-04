@@ -14,6 +14,7 @@ import { Context } from '../../../../../../core/shared/context.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { fadeIn, fadeInOut } from '../../../../../animations/fade';
 import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
+import { RelationshipOptions } from '../../../models/relationship-options.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -34,6 +35,7 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit {
   @Input() label: string;
   @Input() listId: string;
+  @Input() relationship: RelationshipOptions;
   @Input() repeatable: boolean;
   @Input() context: Context;
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();

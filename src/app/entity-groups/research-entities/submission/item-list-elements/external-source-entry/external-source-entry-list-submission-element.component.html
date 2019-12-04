@@ -1,2 +1,11 @@
-<div>{{object.display}}</div>
-<div *ngIf="uri"><a [href]="uri.value">{{uri.value}}</a></div>
+<div class="d-inline-block">
+  <button (click)="import()"
+          class="btn btn-outline-primary btn-sm float-left"
+          title="{{'submission.sections.describe.relationship-lookup.external-source.import-button-title' | translate}}">
+    <i class="fas fa-cloud-download-alt fa-fw"></i>
+  </button>
+</div>
+<div class="d-inline-block ml-2">
+  <div>{{object.display}}</div>
+  <div *ngIf="uri"><a [href]="uri.value">{{uri.value}}</a></div>
+</div>

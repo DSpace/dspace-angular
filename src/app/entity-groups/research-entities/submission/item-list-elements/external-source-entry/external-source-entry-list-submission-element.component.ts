@@ -3,9 +3,13 @@ import { ExternalSourceEntry } from '../../../../../core/shared/external-source-
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { Context } from '../../../../../core/shared/context.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ExternalSourceEntryImportModalComponent } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from '../../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { hasValue } from '../../../../../shared/empty.util';
 
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.SubmissionModal)
 @Component({
@@ -19,7 +23,29 @@ export class ExternalSourceEntryListSubmissionElementComponent extends AbstractL
    */
   uri: MetadataValue;
 
+  /**
+   * The modal for importing the entry
+   */
+  modalRef: NgbModalRef;
+
+  constructor(@Inject(DsDynamicLookupRelationExternalSourceTabComponent) private externalSourceTab: DsDynamicLookupRelationExternalSourceTabComponent,
+              private modalService: NgbModal) {
+    super();
+  }
+
   ngOnInit(): void {
     this.uri = Metadata.first(this.object.metadata, 'dc.identifier.uri');
+  }
+
+  import(): void {
+    this.modalRef = this.modalService.open(ExternalSourceEntryImportModalComponent, {
+      size: 'lg',
+      container: 'ds-dynamic-lookup-relation-modal'
+    });
+    const modalComp = this.modalRef.componentInstance;
+    modalComp.externalSourceEntry = this.object;
+    if (hasValue(this.externalSourceTab) && hasValue(this.externalSourceTab.relationship)) {
+      modalComp.relationship = this.externalSourceTab.relationship;
+    }
   }
 }

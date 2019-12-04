@@ -25,6 +25,11 @@ export class ExternalSourceEntry extends ListableObject {
   value: string;
 
   /**
+   * The ID of the external source this entry originates from
+   */
+  externalSource: string;
+
+  /**
    * Metadata of the entry
    */
   metadata: MetadataMap;
