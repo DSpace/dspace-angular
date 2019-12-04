@@ -240,17 +240,17 @@ export class RelationshipService extends DataService<Relationship> {
    * @param options
    */
   getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
-    let findAllOptions = new FindListOptions();
+    let findListOptions = new FindListOptions();
     if (options) {
-      findAllOptions = Object.assign(new FindListOptions(), options);
+      findListOptions = Object.assign(new FindListOptions(), options);
     }
     const searchParams = [ new SearchParam('label', label), new SearchParam('dso', item.id) ];
-    if (findAllOptions.searchParams) {
-      findAllOptions.searchParams = [...findAllOptions.searchParams, ...searchParams];
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
     } else {
-      findAllOptions.searchParams = searchParams;
+      findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findAllOptions);
+    return this.searchBy('byLabel', findListOptions);
   }
 
   /**

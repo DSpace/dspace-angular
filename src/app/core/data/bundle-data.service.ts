@@ -37,7 +37,7 @@ export class BundleDataService extends DataService<Bundle> {
 
   /**
    * Get the endpoint for browsing bundles
-   * @param {FindAllOptions} options
+   * @param {FindListOptions} options
    * @returns {Observable<string>}
    */
   getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {

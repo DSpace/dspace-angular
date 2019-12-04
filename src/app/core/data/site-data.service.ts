@@ -10,7 +10,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindAllOptions } from './request.models';
+import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
@@ -46,10 +46,10 @@ export class SiteDataService extends DataService<Site> {
 
   /**
    * Get the endpoint for browsing the site object
-   * @param {FindAllOptions} options
+   * @param {FindListOptions} options
    * @param {Observable<string>} linkPath
    */
-  getBrowseEndpoint(options:FindAllOptions, linkPath?:string):Observable<string> {
+  getBrowseEndpoint(options:FindListOptions, linkPath?:string):Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
