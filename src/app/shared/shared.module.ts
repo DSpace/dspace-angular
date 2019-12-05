@@ -176,6 +176,7 @@ import { MetadataRepresentationListComponent } from '../+item-page/simple/metada
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -333,7 +334,8 @@ const COMPONENTS = [
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
-  ExternalSourceEntryImportModalComponent
+  ExternalSourceEntryImportModalComponent,
+  ImportableListItemControlComponent
 ];
 
 const ENTRY_COMPONENTS = [

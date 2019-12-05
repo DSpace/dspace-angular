@@ -15,6 +15,9 @@
                 (sortFieldChange)="onSortFieldChange($event)"
                 [selectable]="selectable"
                 [selectionConfig]="selectionConfig"
+                [importable]="importable"
+                [importConfig]="importConfig"
+                (importObject)="importObject.emit($event)"
                 *ngIf="(currentMode$ | async) === viewModeEnum.ListElement">
 </ds-object-list>
 

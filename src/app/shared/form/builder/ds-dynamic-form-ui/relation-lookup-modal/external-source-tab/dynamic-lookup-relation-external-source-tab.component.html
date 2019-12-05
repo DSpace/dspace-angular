@@ -14,8 +14,9 @@
                                 [config]="initialPagination"
                                 [hideGear]="true"
                                 [context]="context"
-                                (deselectObject)="deselectObject.emit($event)"
-                                (selectObject)="selectObject.emit($event)">
+                                [importable]="true"
+                                [importConfig]="importConfig"
+                                (importObject)="import($event)">
         </ds-viewable-collection>
         <ds-loading *ngIf="!entriesRD || !entriesRD?.payload || entriesRD?.isLoading"
                     message="{{'loading.search-results' | translate}}"></ds-loading>
