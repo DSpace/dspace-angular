@@ -13,7 +13,13 @@
   </div>
 
   <h4>{{ ('submission.sections.describe.relationship-lookup.external-source.import-modal.select' | translate) }}</h4>
-  <div id="external-source-entry-entities" class="mb-2">
+  <div id="external-source-entry-collection" class="mb-3">
+    <div class="form-group">
+      <label for="collection">{{ ('submission.sections.describe.relationship-lookup.external-source.import-modal.collection' | translate) }}</label>
+      <input type="text" class="form-control" id="collection" placeholder="Enter collection ID" [value]="collectionId">
+    </div>
+  </div>
+  <div id="external-source-entry-entities" class="mb-3">
     <h5 class="font-weight-bold">{{ ('submission.sections.describe.relationship-lookup.external-source.import-modal.entities' | translate) }}</h5>
 
     <ds-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0"
@@ -29,7 +35,7 @@
                        (deselectObject)="deselectEntity()"
                        (selectObject)="selectEntity($event)">
     </ds-search-results>
-    <div class="form-check">
+    <div class="ml-4">
       <input class="form-check-input" type="radio" name="new-entity" id="new-entity" value="new-entity" (click)="selectNewEntity()" [checked]="selectedImportType === importType.NewEntity" />
       <label class="form-check-label" for="new-entity">{{ ('submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new' | translate) }}</label>
     </div>
@@ -37,7 +43,7 @@
   <div id="external-source-entry-authority">
     <h5 class="font-weight-bold">{{ ('submission.sections.describe.relationship-lookup.external-source.import-modal.authority' | translate) }}</h5>
 
-    <div class="form-check">
+    <div class="ml-4">
       <input class="form-check-input" type="radio" name="new-authority" id="new-authority" value="new-authority" (click)="selectNewAuthority()" [checked]="selectedImportType === importType.NewAuthority" />
       <label class="form-check-label" for="new-authority">{{ ('submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new' | translate) }}</label>
     </div>

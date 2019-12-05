@@ -101,6 +101,7 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import * as uuidv4 from 'uuid/v4';
+import { Collection } from '../../../../core/shared/collection.model';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -188,6 +189,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   hasRelationLookup: boolean;
   modalRef: NgbModalRef;
   item: Item;
+  collection: Collection;
   listId: string;
   searchConfig: string;
   selectedValues$: Observable<Array<{
@@ -234,13 +236,18 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
       this.listId = 'list-' + this.model.relationship.relationshipType;
-      const item$ = this.submissionObjectService
+
+      const submissionObject$ = this.submissionObjectService
         .findById(this.model.submissionId).pipe(
           getAllSucceededRemoteData(),
-          getRemoteDataPayload(),
-          switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
+          getRemoteDataPayload()
+        );
+
+      const item$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
+      const collection$ = submissionObject$.pipe(switchMap((submissionObject: SubmissionObject) => (submissionObject.collection as Observable<RemoteData<Collection>>).pipe(getAllSucceededRemoteData(), getRemoteDataPayload())));
 
       this.subs.push(item$.subscribe((item) => this.item = item));
+      this.subs.push(collection$.subscribe((collection) => this.collection = collection));
 
       this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
@@ -325,6 +332,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.label = this.model.label;
     modalComp.metadataFields = this.model.metadataFields;
     modalComp.item = this.item;
+    modalComp.collection = this.collection;
   }
 
   removeSelection(object: SearchResult<Item>) {

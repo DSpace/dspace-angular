@@ -37,6 +37,7 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { Collection } from '../shared/collection.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
+import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 
 @Injectable()
 export class ItemDataService extends DataService<Item> {
@@ -238,6 +239,34 @@ export class ItemDataService extends DataService<Item> {
       find((href: string) => hasValue(href)),
       map((href: string) => {
         const request = new PutRequest(requestId, href, collection.self, options);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      map((request: RequestEntry) => request.response)
+    );
+  }
+
+  /**
+   * Import an external source entry into a collection
+   * @param externalSourceEntry
+   * @param collectionId
+   */
+  public importExternalSourceEntry(externalSourceEntry: ExternalSourceEntry, collectionId: string): Observable<RestResponse> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.halService.getEndpoint(this.linkPath).pipe(map((href) => `${href}?owningCollection=${collectionId}`));
+
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, externalSourceEntry.self, options);
         this.requestService.configure(request);
       })
     ).subscribe();

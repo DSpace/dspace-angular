@@ -1533,6 +1533,8 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
 
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entities",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Import as a new local entity",

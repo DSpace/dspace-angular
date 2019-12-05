@@ -47,6 +47,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   relationshipOptions: RelationshipOptions;
   listId: string;
   item;
+  collection;
   repeatable: boolean;
   selection$: Observable<ListableObject[]>;
   context: Context;

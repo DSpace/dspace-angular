@@ -20,6 +20,8 @@ import { ExternalSourceEntryImportModalComponent } from './external-source-entry
 import { Subscription } from 'rxjs/internal/Subscription';
 import { hasValue } from '../../../../../empty.util';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { Item } from '../../../../../../core/shared/item.model';
+import { Collection } from '../../../../../../core/shared/collection.model';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -40,6 +42,8 @@ import { SelectableListService } from '../../../../../object-list/selectable-lis
 export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit, OnDestroy {
   @Input() label: string;
   @Input() listId: string;
+  @Input() item: Item;
+  @Input() collection: Collection;
   @Input() relationship: RelationshipOptions;
   @Input() repeatable: boolean;
   @Input() context: Context;
@@ -103,6 +107,8 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
     });
     const modalComp = this.modalRef.componentInstance;
     modalComp.externalSourceEntry = entry;
+    modalComp.item = this.item;
+    modalComp.collection = this.collection;
     modalComp.relationship = this.relationship;
     this.importObjectSub = modalComp.importedObject.subscribe((object) => {
       this.selectableListService.selectSingle(this.listId, object);
