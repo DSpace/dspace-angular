@@ -64,6 +64,11 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() context: Context;
 
   /**
+   * Option for hiding the pagination detail
+   */
+  @Input() hidePaginationDetail = false;
+
+  /**
    * the page info of the list
    */
   pageInfo: Observable<PageInfo>;

@@ -94,7 +94,7 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.uri = Metadata.first(this.externalSourceEntry.metadata, 'dc.identifier.uri');
-    this.searchOptions = Object.assign(new PaginatedSearchOptions({ query: this.externalSourceEntry.value }));
+    this.searchOptions = Object.assign(new PaginatedSearchOptions({ query: 'sarah' }));
     this.localEntitiesRD$ = this.lookupRelationService.getLocalResults(this.relationship, this.searchOptions);
   }
 
@@ -117,7 +117,9 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    * @param event
    */
   deselectEntity(event) {
-    this.selectedImportType = ImportType.None;
+    if (this.selectedImportType === ImportType.LocalEntity) {
+      this.selectedImportType = ImportType.None;
+    }
   }
 
   /**

@@ -5,6 +5,7 @@
                 [hideGear]="hideGear"
                 [linkType]="linkType"
                 [context]="context"
+                [hidePaginationDetail]="hidePaginationDetail"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
@@ -23,6 +24,7 @@
                 [hideGear]="hideGear"
                 [linkType]="linkType"
                 [context]="context"
+                [hidePaginationDetail]="hidePaginationDetail"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
@@ -37,6 +39,7 @@
                   [hideGear]="hideGear"
                   [linkType]="linkType"
                   [context]="context"
+                  [hidePaginationDetail]="hidePaginationDetail"
                   *ngIf="(currentMode$ | async) === viewModeEnum.DetailedListElement">
 </ds-object-detail>
 

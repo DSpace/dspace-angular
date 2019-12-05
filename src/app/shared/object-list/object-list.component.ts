@@ -75,6 +75,11 @@ export class ObjectListComponent {
   @Input() context: Context;
 
   /**
+   * Option for hiding the pagination detail
+   */
+  @Input() hidePaginationDetail = false;
+
+  /**
    * The current listable objects
    */
   private _objects: RemoteData<PaginatedList<ListableObject>>;
