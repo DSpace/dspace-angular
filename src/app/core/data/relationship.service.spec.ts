@@ -109,11 +109,11 @@ describe('RelationshipService', () => {
     beforeEach(() => {
       spyOn(service, 'findById').and.returnValue(getRemotedataObservable(relationship1));
       spyOn(objectCache, 'remove');
-      service.deleteRelationship(relationships[0].uuid, 'none').subscribe();
+      service.deleteRelationship(relationships[0].uuid, 'right').subscribe();
     });
 
     it('should send a DeleteRequest', () => {
-      const expected = new DeleteRequest(requestService.generateRequestId(), relationshipsEndpointURL + '/' + relationship1.uuid);
+      const expected = new DeleteRequest(requestService.generateRequestId(), relationshipsEndpointURL + '/' + relationship1.uuid + '?copyVirtualMetadata=right');
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 

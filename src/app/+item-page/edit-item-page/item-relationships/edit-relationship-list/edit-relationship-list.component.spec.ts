@@ -98,6 +98,7 @@ describe('EditRelationshipListComponent', () => {
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
         getRelatedItemsByLabel: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [author1, author2]))),
+        getItemRelationshipsByLabel: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), relationships))),
       }
     );
 
