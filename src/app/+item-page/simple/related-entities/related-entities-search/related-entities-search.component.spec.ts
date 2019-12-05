@@ -16,7 +16,7 @@ describe('RelatedEntitiesSearchComponent', () => {
     id: 'id1'
   });
   const mockRelationType = 'publicationsOfAuthor';
-  const mockRelationEntityType = 'publication';
+  const mockConfiguration = 'publication';
   const mockFilter= `f.${mockRelationType}=${mockItem.id}`;
   const fixedFilterServiceStub = {
     getFilterByRelation: () => mockFilter
@@ -39,7 +39,7 @@ describe('RelatedEntitiesSearchComponent', () => {
     fixedFilterService = (comp as any).fixedFilterService;
     comp.relationType = mockRelationType;
     comp.item = mockItem;
-    comp.relationEntityType = mockRelationEntityType;
+    comp.configuration = mockConfiguration;
     fixture.detectChanges();
   });
 
@@ -49,7 +49,7 @@ describe('RelatedEntitiesSearchComponent', () => {
 
   it('should create a configuration$', () => {
     comp.configuration$.subscribe((configuration) => {
-      expect(configuration).toEqual(mockRelationEntityType);
+      expect(configuration).toEqual(mockConfiguration);
     })
   });
 

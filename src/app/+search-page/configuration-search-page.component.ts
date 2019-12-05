@@ -35,6 +35,12 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
    */
   @Input() configuration: string;
 
+  /**
+   * The actual query for the fixed filter.
+   * If empty, the query will be determined by the route parameter called 'filter'
+   */
+  @Input() fixedFilterQuery: string;
+
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
@@ -64,7 +70,11 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
     return this.searchConfigService.paginatedSearchOptions.pipe(
       map((options: PaginatedSearchOptions) => {
         const config = this.configuration || options.configuration;
-        return Object.assign(options, { configuration: config });
+        const filter = this.fixedFilterQuery || options.fixedFilter;
+        return Object.assign(options, {
+          configuration: config,
+          fixedFilter: filter
+        });
       })
     );
   }
