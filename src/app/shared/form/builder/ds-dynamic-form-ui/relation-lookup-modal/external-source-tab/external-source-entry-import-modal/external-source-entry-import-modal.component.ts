@@ -17,6 +17,7 @@ import { SelectableListService } from '../../../../../../object-list/selectable-
 import { ListableObject } from '../../../../../../object-collection/shared/listable-object.model';
 import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
+import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
 
 /**
  * The possible types of import for the external entry
@@ -34,6 +35,12 @@ export enum ImportType {
   styleUrls: ['./external-source-entry-import-modal.component.scss'],
   templateUrl: './external-source-entry-import-modal.component.html'
 })
+/**
+ * Component to display a modal window for importing an external source entry
+ * Shows information about the selected entry and a selectable list of local entities and authorities with similar names
+ * and the ability to add one of those results to the selection instead of the external entry.
+ * The other option is to import the external entry as a new entity or authority into the repository.
+ */
 export class ExternalSourceEntryImportModalComponent implements OnInit {
   /**
    * The external source entry
@@ -128,7 +135,8 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.uri = Metadata.first(this.externalSourceEntry.metadata, 'dc.identifier.uri');
-    this.searchOptions = Object.assign(new PaginatedSearchOptions({ query: 'sarah' }));
+    const pagination = Object.assign(new PaginationComponentOptions(), { id: 'external-entry-import', pageSize: 5 });
+    this.searchOptions = Object.assign(new PaginatedSearchOptions({ query: this.externalSourceEntry.value, pagination: pagination }));
     this.localEntitiesRD$ = this.lookupRelationService.getLocalResults(this.relationship, this.searchOptions);
     this.collectionId = this.collection.id;
   }
@@ -180,7 +188,6 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    * Create and import a new entity from the external entry
    */
   importNewEntity() {
-    console.log(this.collection);
     this.itemService.importExternalSourceEntry(this.externalSourceEntry, this.collectionId).subscribe((response) => {
       console.log(response);
     });

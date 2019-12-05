@@ -1523,7 +1523,10 @@
   "submission.general.save-later": "Save for later",
 
 
+
   "submission.sections.describe.relationship-lookup.close": "Close",
+
+  "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-button-title": "Import remote entry",
 

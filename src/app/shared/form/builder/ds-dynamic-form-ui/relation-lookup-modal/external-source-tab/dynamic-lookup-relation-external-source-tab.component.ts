@@ -22,6 +22,8 @@ import { hasValue } from '../../../../../empty.util';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { Item } from '../../../../../../core/shared/item.model';
 import { Collection } from '../../../../../../core/shared/collection.model';
+import { NotificationsService } from '../../../../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-external-source-tab',
@@ -38,18 +40,49 @@ import { Collection } from '../../../../../../core/shared/collection.model';
     fadeInOut
   ]
 })
-
+/**
+ * Component rendering the tab content of an external source during submission lookup
+ * Shows a list of entries matching the current search query with the option to import them into the repository
+ */
 export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit, OnDestroy {
-  @Input() label: string;
+  /**
+   * The ID of the list of selected entries
+   */
   @Input() listId: string;
+
+  /**
+   * The item in submission
+   */
   @Input() item: Item;
+
+  /**
+   * The collection the user is submitting an item into
+   */
   @Input() collection: Collection;
+
+  /**
+   * The relationship-options for the current lookup
+   */
   @Input() relationship: RelationshipOptions;
-  @Input() repeatable: boolean;
+
+  /**
+   * The context to displaying lists for
+   */
   @Input() context: Context;
+
+  /**
+   * Emit an event when an object has been deselected
+   */
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * Emit an event when an object has been selected (or imported)
+   */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  /**
+   * The initial pagination options
+   */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-external-source-relation-list',
     pageSize: 5
@@ -86,9 +119,14 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
               public searchConfigService: SearchConfigurationService,
               private externalSourceService: ExternalSourceService,
               private modalService: NgbModal,
-              private selectableListService: SelectableListService) {
+              private selectableListService: SelectableListService,
+              private notificationsService: NotificationsService,
+              private translateService: TranslateService) {
   }
 
+  /**
+   * Get the entries for the selected external source
+   */
   ngOnInit(): void {
     this.entriesRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((searchOptions: PaginatedSearchOptions) =>
@@ -112,10 +150,14 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
     modalComp.relationship = this.relationship;
     this.importObjectSub = modalComp.importedObject.subscribe((object) => {
       this.selectableListService.selectSingle(this.listId, object);
+      this.notificationsService.success(this.translateService.get('submission.sections.describe.relationship-lookup.external-source.added'));
       this.selectObject.emit(object);
     });
   }
 
+  /**
+   * Unsubscribe from open subscriptions
+   */
   ngOnDestroy(): void {
     if (hasValue(this.importObjectSub)) {
       this.importObjectSub.unsubscribe();
