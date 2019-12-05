@@ -77,7 +77,7 @@ function init() {
         }]
       } as FormFieldModel]
     } as FormRowModel],
-    submissionId: submissionId,
+    submissionId,
     id: 'dc_contributor_author',
     label: 'Authors',
     isInlineGroup: true,
