@@ -1,6 +1,12 @@
+import { StaticProvider } from '@angular/core';
 import { ParserType } from './parser-type';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { FieldParser } from './field-parser';
+import {
+  CONFIG_DATA,
+  FieldParser,
+  INIT_FORM_VALUES,
+  PARSER_OPTIONS,
+  SUBMISSION_ID
+} from './field-parser';
 import { DateFieldParser } from './date-field-parser';
 import { DropdownFieldParser } from './dropdown-field-parser';
 import { RelationGroupFieldParser } from './relation-group-field-parser';
@@ -15,51 +21,110 @@ import { TextareaFieldParser } from './textarea-field-parser';
 import { NumberFieldParser } from './number-field-parser';
 import { CalendarFieldParser } from './calendar-field-parser';
 
+const fieldParserDeps = [
+  SUBMISSION_ID,
+  CONFIG_DATA,
+  INIT_FORM_VALUES,
+  PARSER_OPTIONS,
+];
+
 /**
  * A factory for form's field parser.
  */
 export class ParserFactory {
-  public static getConstructor(type: ParserType): GenericConstructor<FieldParser> {
+  public static getProvider(type: ParserType): StaticProvider {
     switch (type) {
       case ParserType.Calendar: {
-        return CalendarFieldParser
+        return {
+          provide: FieldParser,
+          useClass: CalendarFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Date: {
-        return DateFieldParser
+        return {
+          provide: FieldParser,
+          useClass: DateFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Dropdown: {
-        return DropdownFieldParser
+        return {
+          provide: FieldParser,
+          useClass: DropdownFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.RelationGroup:
       case ParserType.InlineGroup: {
-        return RelationGroupFieldParser
+        return {
+          provide: FieldParser,
+          useClass: RelationGroupFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.List: {
-        return ListFieldParser
+        return {
+          provide: FieldParser,
+          useClass: ListFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Lookup: {
-        return LookupFieldParser
+        return {
+          provide: FieldParser,
+          useClass: LookupFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.LookupName: {
-        return LookupNameFieldParser
+        return {
+          provide: FieldParser,
+          useClass: LookupNameFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Onebox: {
-        return OneboxFieldParser
+        return {
+          provide: FieldParser,
+          useClass: OneboxFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Name: {
-        return NameFieldParser
+        return {
+          provide: FieldParser,
+          useClass: NameFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Number: {
-        return NumberFieldParser
+        return {
+          provide: FieldParser,
+          useClass: NumberFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Series: {
-        return SeriesFieldParser
+        return {
+          provide: FieldParser,
+          useClass: SeriesFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Tag: {
-        return TagFieldParser
+        return {
+          provide: FieldParser,
+          useClass: TagFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
       case ParserType.Textarea: {
-        return TextareaFieldParser
+        return {
+          provide: FieldParser,
+          useClass: TextareaFieldParser,
+          deps: [...fieldParserDeps]
+        }
       }
 
       default: {

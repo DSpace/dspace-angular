@@ -16,6 +16,7 @@ export class RelationGroupFieldParser extends FieldParser {
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean) {
     const modelConfiguration: DynamicRelationGroupModelConfig = this.initModel(null, label);
 
+    modelConfiguration.submissionId = this.submissionId;
     modelConfiguration.scopeUUID = this.parserOptions.authorityUuid;
     modelConfiguration.submissionScope = this.parserOptions.submissionScope;
     if (this.configData && this.configData.rows && this.configData.rows.length > 0) {

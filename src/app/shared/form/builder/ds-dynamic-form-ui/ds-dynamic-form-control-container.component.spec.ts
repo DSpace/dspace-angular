@@ -121,6 +121,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       repeatable: false
     }),
     new DynamicRelationGroupModel({
+      submissionId: '1234',
       id: 'relationGroup',
       formConfiguration: [],
       isInlineGroup: false,

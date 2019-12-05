@@ -93,6 +93,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
 
     this.formId = this.formService.getUniqueId(this.model.id);
     this.formModel = this.formBuilderService.modelFromConfiguration(
+      this.model.submissionId,
       config,
       this.model.scopeUUID,
       {},

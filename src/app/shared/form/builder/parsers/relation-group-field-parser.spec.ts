@@ -9,6 +9,7 @@ describe('RelationGroupFieldParser test suite', () => {
   let inLineField: FormFieldModel;
   let initFormValues = {};
 
+  const submissionId = '1234';
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: 'testScopeUUID',
@@ -77,13 +78,13 @@ describe('RelationGroupFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new RelationGroupFieldParser(field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(parser instanceof RelationGroupFieldParser).toBe(true);
   });
 
   it('should return a DynamicRelationGroupModel object', () => {
-    const parser = new RelationGroupFieldParser(field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -104,7 +105,7 @@ describe('RelationGroupFieldParser test suite', () => {
 
   it('should throw when rows configuration is empty', () => {
     field.rows = null;
-    const parser = new RelationGroupFieldParser(field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(() => parser.parse())
       .toThrow();
@@ -115,7 +116,7 @@ describe('RelationGroupFieldParser test suite', () => {
       author: [new FormFieldMetadataValueObject('test author')],
       affiliation: [new FormFieldMetadataValueObject('test affiliation')]
     };
-    const parser = new RelationGroupFieldParser(field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
     const expectedValue = [{
