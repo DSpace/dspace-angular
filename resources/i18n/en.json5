@@ -90,7 +90,7 @@
 
   "admin.registries.bitstream-formats.table.supportLevel.head": "Support Level",
 
-  "admin.registries.bitstream-formats.title": "DSpace Angular :: Bitstream Format Registry",
+  "admin.registries.bitstream-formats.title": "DSpace Cris Angular :: Bitstream Format Registry",
 
 
 
@@ -116,7 +116,7 @@
 
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
 
-  "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
+  "admin.registries.metadata.title": "DSpace Cris Angular :: Metadata Registry",
 
 
 
@@ -166,7 +166,7 @@
 
   "admin.registries.schema.return": "Return",
 
-  "admin.registries.schema.title": "DSpace Angular :: Metadata Schema Registry",
+  "admin.registries.schema.title": "DSpace Cris Angular :: Metadata Schema Registry",
 
 
 
@@ -498,9 +498,9 @@
 
   "home.description": "",
 
-  "home.title": "DSpace Angular :: Home",
+  "home.title": "DSpace Cris Angular :: Home",
 
-  "home.top-level-communities.head": "Communities in DSpace",
+  "home.top-level-communities.head": "Communities in DSpace Cris",
 
   "home.top-level-communities.help": "Select a community to browse its collections.",
 
@@ -850,7 +850,7 @@
 
   "journal.search.results.head": "Journal Search Results",
 
-  "journal.search.title": "DSpace Angular :: Journal Search",
+  "journal.search.title": "DSpace Cris Angular :: Journal Search",
 
 
 
@@ -1246,7 +1246,7 @@
 
   "person.search.results.head": "Person Search Results",
 
-  "person.search.title": "DSpace Angular :: Person Search",
+  "person.search.title": "DSpace Cris Angular :: Person Search",
 
 
 
@@ -1286,7 +1286,7 @@
 
   "publication.search.results.head": "Publication Search Results",
 
-  "publication.search.title": "DSpace Angular :: Publication Search",
+  "publication.search.title": "DSpace Cris Angular :: Publication Search",
 
 
 
@@ -1320,7 +1320,7 @@
 
   "search.switch-configuration.title": "Show",
 
-  "search.title": "DSpace Angular :: Search",
+  "search.title": "DSpace Cris Angular :: Search",
 
 
 
@@ -1704,7 +1704,7 @@
 
 
 
-  "title": "DSpace",
+  "title": "DSpace Cris",
 
 
 
