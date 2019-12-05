@@ -98,6 +98,7 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
 
   initArrayItemModel(formConfig, initValues: any = {}) {
     const formModel = this.formBuilderService.modelFromConfiguration(
+      this.model.submissionId,
       formConfig,
       this.model.scopeUUID,
       initValues,

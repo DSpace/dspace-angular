@@ -95,7 +95,7 @@ describe('RelationGroupFieldParser test suite', () => {
   it('should return a DynamicRelationGroupModel object when has a inline group', () => {
     inLineField = Object.assign({}, field);
     inLineField.input.type = 'inline-group';
-    const parser = new RelationGroupFieldParser(inLineField, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, inLineField, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

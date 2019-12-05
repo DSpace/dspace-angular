@@ -43,6 +43,8 @@ export let FORM_GROUP_TEST_GROUP;
 
 const config: GlobalConfig = MOCK_SUBMISSION_CONFIG;
 
+const submissionId = '1234';
+
 function init() {
   FORM_GROUP_TEST_MODEL_CONFIG = {
     disabled: false,
@@ -75,6 +77,7 @@ function init() {
         }]
       } as FormFieldModel]
     } as FormRowModel],
+    submissionId: submissionId,
     id: 'dc_contributor_author',
     label: 'Authors',
     isInlineGroup: true,
@@ -210,7 +213,14 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 
     it('should init array item model', inject([FormBuilderService], (service: FormBuilderService) => {
       const formConfig = { rows: groupComp.model.formConfiguration } as SubmissionFormsModel;
-      const expectedFormArrayItemModel = service.modelFromConfiguration(formConfig, groupComp.model.scopeUUID, {}, groupComp.model.submissionScope, groupComp.model.readOnly);
+      const expectedFormArrayItemModel = service.modelFromConfiguration(
+        submissionId,
+        formConfig,
+        groupComp.model.scopeUUID,
+        {},
+        groupComp.model.submissionScope,
+        groupComp.model.readOnly
+      );
 
       const formArrayItemModel: DynamicFormGroupModel = groupComp.initArrayItemModel(formConfig) as DynamicFormGroupModel;
 
