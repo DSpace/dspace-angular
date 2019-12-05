@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 
 import { of as observableOf, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, flatMap, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, flatMap, map, switchMap } from 'rxjs/operators';
 
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
@@ -125,7 +125,7 @@ export class SubmissionFormComponent implements OnChanges, OnDestroy {
         map((submission: SubmissionObjectEntry) => submission.isLoading),
         map((isLoading: boolean) => isLoading),
         distinctUntilChanged(),
-        flatMap((isLoading: boolean) => {
+        switchMap((isLoading: boolean) => {
           if (!isLoading) {
             return this.getSectionsList();
           } else {

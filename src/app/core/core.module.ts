@@ -121,6 +121,8 @@ import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
 import { BrowseDefinition } from './shared/browse-definition.model';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
+import { SiteDataService } from './data/site-data.service';
+import { NormalizedSite } from './cache/models/normalized-site.model';
 
 const IMPORTS = [
   CommonModule,
@@ -139,6 +141,7 @@ const PROVIDERS = [
   AuthResponseParsingService,
   CommunityDataService,
   CollectionDataService,
+  SiteDataService,
   DSOResponseParsingService,
   DSpaceRESTv2Service,
   DynamicFormLayoutService,
@@ -232,6 +235,7 @@ export const normalizedModels =
     NormalizedBitstream,
     NormalizedBitstreamFormat,
     NormalizedItem,
+    NormalizedSite,
     NormalizedCollection,
     NormalizedCommunity,
     NormalizedEPerson,

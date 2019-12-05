@@ -115,6 +115,7 @@ const mockFormRowModel = {
 } as FormRowModel;
 
 const relationGroupConfig = {
+  submissionId: '1234',
   id: 'relationGroup',
   formConfiguration: [mockFormRowModel],
   mandatoryField: 'false',

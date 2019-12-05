@@ -21,6 +21,8 @@ import { AuthService } from '../../app/core/auth/auth.service';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { SubmissionService } from '../../app/submission/submission.service';
+import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
+import { StatisticsModule } from '../../app/statistics/statistics.module';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -47,7 +49,8 @@ export function getRequest(transferState: TransferState): any {
       preloadingStrategy:
       IdlePreload
     }),
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
+    StatisticsModule.forRoot(),
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics, Angulartics2DSpace]),
     BrowserAnimationsModule,
     DSpaceBrowserTransferStateModule,
     TranslateModule.forRoot({

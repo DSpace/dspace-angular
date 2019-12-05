@@ -1,4 +1,11 @@
-import { FieldParser } from './field-parser';
+import { Inject } from '@angular/core';
+import {
+  CONFIG_DATA,
+  FieldParser,
+  INIT_FORM_VALUES,
+  PARSER_OPTIONS,
+  SUBMISSION_ID
+} from './field-parser';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
@@ -14,13 +21,15 @@ import { ParserOptions } from './parser-options';
 
 export class ConcatFieldParser extends FieldParser {
 
-  constructor(protected configData: FormFieldModel,
-              protected initFormValues,
-              protected parserOptions: ParserOptions,
+  constructor(
+              @Inject(SUBMISSION_ID) submissionId: string,
+              @Inject(CONFIG_DATA) configData: FormFieldModel,
+              @Inject(INIT_FORM_VALUES) initFormValues,
+              @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
               protected separator: string,
               protected firstPlaceholder: string = null,
               protected secondPlaceholder: string = null) {
-    super(configData, initFormValues, parserOptions);
+    super(submissionId, configData, initFormValues, parserOptions);
 
     this.separator = separator;
     this.firstPlaceholder = firstPlaceholder;

@@ -27,6 +27,7 @@ import { RelatedEntitiesSearchComponent } from './simple/related-entities/relate
 import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
 import { MetadataFieldWrapperComponent } from './field-components/metadata-field-wrapper/metadata-field-wrapper.component';
 import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/
     SharedModule,
     ItemPageRoutingModule,
     EditItemPageModule,
-    SearchPageModule
+    SearchPageModule,
+    StatisticsModule.forRoot()
   ],
   declarations: [
     ItemPageComponent,
