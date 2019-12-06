@@ -1,5 +1,8 @@
 <ds-home-news></ds-home-news>
 <div class="container">
+  <ng-container *ngIf="(site$ | async) as site">
+    <ds-view-tracker [object]="site"></ds-view-tracker>
+  </ng-container>
   <ds-search-form [inPlaceSearch]="false"></ds-search-form>
   <ds-top-level-community-list></ds-top-level-community-list>
 </div>

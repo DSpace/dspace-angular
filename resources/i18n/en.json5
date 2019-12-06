@@ -340,6 +340,14 @@
 
 
 
+  "communityList.tabTitle": "DSpace - Community List",
+
+  "communityList.title": "List of Communities",
+
+  "communityList.showMore": "Show More",
+
+
+
   "community.create.head": "Create a Community",
 
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -825,6 +833,14 @@
 
   "item.page.related-items.view-less": "View less",
 
+  "item.page.relationships.isAuthorOfPublication": "Publications",
+
+  "item.page.relationships.isJournalOfPublication": "Publications",
+
+  "item.page.relationships.isOrgUnitOfPerson": "Authors",
+
+  "item.page.relationships.isOrgUnitOfProject": "Research Projects",
+
   "item.page.subject": "Keywords",
 
   "item.page.uri": "URI",
@@ -1274,6 +1290,8 @@
   "project.page.status": "Status",
 
   "project.page.titleprefix": "Research Project: ",
+
+  "project.search.results.head": "Project Search Results",
 
 
 

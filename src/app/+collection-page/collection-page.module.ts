@@ -11,12 +11,14 @@ import { EditCollectionPageComponent } from './edit-collection-page/edit-collect
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
 import { SearchService } from '../core/shared/search/search.service';
+import { StatisticsModule } from '../statistics/statistics.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    CollectionPageRoutingModule
+    CollectionPageRoutingModule,
+    StatisticsModule.forRoot()
   ],
   declarations: [
     CollectionPageComponent,

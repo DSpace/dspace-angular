@@ -22,6 +22,10 @@ export class SearchResponseParsingService implements ResponseParsingService {
       }
     };
     const payload = data.payload._embedded.searchResult || emptyPayload;
+    payload.appliedFilters = data.payload.appliedFilters;
+    payload.sort = data.payload.sort;
+    payload.scope = data.payload.scope;
+    payload.configuration = data.payload.configuration;
     const hitHighlights: MetadataMap[] = payload._embedded.objects
       .map((object) => object.hitHighlights)
       .map((hhObject) => {

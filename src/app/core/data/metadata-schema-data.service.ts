@@ -7,7 +7,7 @@ import { CoreState } from '../core.reducers';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions } from './request.models';
+import { FindListOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HttpClient } from '@angular/common/http';
@@ -33,7 +33,7 @@ class DataServiceImpl extends DataService<MetadataSchema> {
     super();
   }
 
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
   }
 }

@@ -8,7 +8,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestService } from './request.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
-import { FindAllOptions, FindByIDRequest, IdentifierType } from './request.models';
+import { FindListOptions, FindByIDRequest, IdentifierType } from './request.models';
 import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
@@ -40,7 +40,7 @@ export class DsoRedirectDataService extends DataService<any> {
     super();
   }
 
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
   }
 

@@ -1,11 +1,10 @@
 import { HostWindowService } from '../shared/host-window.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { SearchPageComponent } from './search-page.component';
+import { SearchComponent } from './search.component';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { Router } from '@angular/router';
 import { hasValue } from '../shared/empty.util';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
@@ -15,8 +14,8 @@ import { SearchService } from '../core/shared/search/search.service';
  */
 @Component({
   selector: 'ds-configuration-search-page',
-  styleUrls: ['./search-page.component.scss'],
-  templateUrl: './search-page.component.html',
+  styleUrls: ['./search.component.scss'],
+  templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [pushInOut],
   providers: [
@@ -27,20 +26,25 @@ import { SearchService } from '../core/shared/search/search.service';
   ]
 })
 
-export class ConfigurationSearchPageComponent extends SearchPageComponent implements OnInit {
+export class ConfigurationSearchPageComponent extends SearchComponent implements OnInit {
   /**
    * The configuration to use for the search options
    * If empty, the configuration will be determined by the route parameter called 'configuration'
    */
   @Input() configuration: string;
 
+  /**
+   * The actual query for the fixed filter.
+   * If empty, the query will be determined by the route parameter called 'filter'
+   */
+  @Input() fixedFilterQuery: string;
+
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService,
-              protected router: Router) {
-    super(service, sidebarService, windowService, searchConfigService, routeService, router);
+              protected routeService: RouteService) {
+    super(service, sidebarService, windowService, searchConfigService, routeService);
   }
 
   /**
@@ -54,6 +58,9 @@ export class ConfigurationSearchPageComponent extends SearchPageComponent implem
     super.ngOnInit();
     if (hasValue(this.configuration)) {
       this.routeService.setParameter('configuration', this.configuration);
+    }
+    if (hasValue(this.fixedFilterQuery)) {
+      this.routeService.setParameter('fixedFilter', this.fixedFilterQuery);
     }
   }
 }

@@ -3,15 +3,28 @@ import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { SearchPageRoutingModule } from './search-page-routing.module';
-import { SearchPageComponent } from './search-page.component';
+import { SearchComponent } from './search.component';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
+import { SidebarEffects } from '../shared/sidebar/sidebar-effects.service';
+import { EffectsModule } from '@ngrx/effects';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
-import { FilteredSearchPageComponent } from './filtered-search-page.component';
+import { SearchPageComponent } from './search-page.component';
+import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
+import { StatisticsModule } from '../statistics/statistics.module';
+import { SearchTrackerComponent } from './search-tracker.component';
+import { SearchFilterService } from '../core/shared/search/search-filter.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+
+const effects = [
+  SidebarEffects
+];
 
 const components = [
   SearchPageComponent,
-  FilteredSearchPageComponent,
-  ConfigurationSearchPageComponent
+  SearchComponent,
+  ConfigurationSearchPageComponent,
+  SearchTrackerComponent,
 ];
 
 @NgModule({
@@ -19,10 +32,18 @@ const components = [
     SearchPageRoutingModule,
     CommonModule,
     SharedModule,
-    CoreModule.forRoot()
+    EffectsModule.forFeature(effects),
+    CoreModule.forRoot(),
+    StatisticsModule.forRoot(),
   ],
-  providers: [ConfigurationSearchPageGuard],
   declarations: components,
+  providers: [
+    SidebarService,
+    SidebarFilterService,
+    SearchFilterService,
+    ConfigurationSearchPageGuard,
+    SearchConfigurationService
+  ],
   exports: components
 })
 
