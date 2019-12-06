@@ -3,10 +3,10 @@ import { Item } from '../../../core/shared/item.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { FindAllOptions } from '../../../core/data/request.models';
-import { ViewMode } from '../../../core/shared/view-mode.model';
 import { RelationshipService } from '../../../core/data/relationship.service';
-import { Subscription } from 'rxjs';
+import { FindListOptions } from '../../../core/data/request.models';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { ViewMode } from '../../../core/shared/view-mode.model';
 
 @Component({
   selector: 'ds-related-items',
@@ -33,7 +33,7 @@ export class RelatedItemsComponent implements OnInit, OnDestroy {
    * Default options to start a search request with
    * Optional input, should you wish a different page size (or other options)
    */
-  @Input() options = Object.assign(new FindAllOptions(), { elementsPerPage: 5 });
+  @Input() options = Object.assign(new FindListOptions(), { elementsPerPage: 5 });
 
   /**
    * An i18n label to use as a title for the list (usually describes the relation)
@@ -53,7 +53,7 @@ export class RelatedItemsComponent implements OnInit, OnDestroy {
   /**
    * Search options for displaying all elements in a list
    */
-  allOptions = Object.assign(new FindAllOptions(), { elementsPerPage: 9999 });
+  allOptions = Object.assign(new FindListOptions(), { elementsPerPage: 9999 });
 
   /**
    * The view-mode we're currently on

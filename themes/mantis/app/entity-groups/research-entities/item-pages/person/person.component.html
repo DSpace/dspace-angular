@@ -79,7 +79,10 @@
     <div class="container search-container">
         <h3 class="h2">{{"item.page.person.search.title" | translate}}</h3>
     </div>
-<ds-related-entities-search [item]="object"
-                            [relationType]="'isAuthorOfPublication'">
-</ds-related-entities-search>
+<ds-tabbed-related-entities-search  [item]="object"
+                                    [relationTypes]="[{
+                                        label: 'isAuthorOfPublication',
+                                        filter: 'isAuthorOfPublication'
+                                      }]">
+</ds-tabbed-related-entities-search>
 </div>
