@@ -8,7 +8,7 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../../core/data/paginated-list';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
 import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { switchMap } from 'rxjs/operators';
+import { startWith, switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { Context } from '../../../../../../core/shared/context.model';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
@@ -62,7 +62,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
   ngOnInit(): void {
     this.entriesRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       switchMap((searchOptions: PaginatedSearchOptions) =>
-        this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions))
+        this.externalSourceService.getExternalSourceEntries(this.externalSource.id, searchOptions).pipe(startWith(undefined)))
     )
   }
 }
