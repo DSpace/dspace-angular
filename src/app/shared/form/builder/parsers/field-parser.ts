@@ -85,7 +85,7 @@ export abstract class FieldParser {
 
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
-      if (model.hasLanguages || isNotEmpty(model.relationship)) {
+      if (model.hasLanguages) {
         setLayout(model, 'grid', 'control', 'col');
       }
       return model;
@@ -247,7 +247,6 @@ export abstract class FieldParser {
       {},
       controlModel.errorMessages,
       { pattern: 'error.validation.pattern' });
-
   }
 
   protected markAsRequired(controlModel) {
@@ -320,7 +319,6 @@ export abstract class FieldParser {
         }
       }
     }
-
     return modelConfig;
   }
 

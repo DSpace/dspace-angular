@@ -176,6 +176,7 @@ import { MetadataRepresentationListComponent } from '../+item-page/simple/metada
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { DsDynamicFormControlContainerWrapperComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container-wrapper/ds-dynamic-form-control-container-wrapper.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -437,7 +438,8 @@ const DIRECTIVES = [
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     PublicationSearchResultListElementComponent,
-    ExistingMetadataListElementComponent
+    ExistingMetadataListElementComponent,
+    DsDynamicFormControlContainerWrapperComponent
   ],
   providers: [
     ...PROVIDERS

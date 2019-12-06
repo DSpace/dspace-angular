@@ -1,0 +1,41 @@
+<div class="form-group"
+     [formGroup]="group">
+    <ds-dynamic-form-control-container
+            *ngFor="let field of model.group"
+            [formId]="formId"
+            [group]="group"
+            [hasErrorMessaging]="field.hasErrorMessages"
+            [hidden]="field.hidden"
+            [layout]="layout"
+            [model]="field"
+            [templates]="inputTemplateList"
+            (dfBlur)="blur.emit($event)"
+            (dfChange)="change.emit($event)"
+            (dfFocus)="focus.emit($event)"></ds-dynamic-form-control-container>
+    <div *ngIf="hasRelationLookup" class="col-auto text-center">
+        <button *ngIf="model.repeatable" class="btn btn-secondary"
+                type="submit"
+                ngbTooltip="{{'form.add-help' | translate}}"
+                placement="top"
+                (click)="addValue(); $event.stopPropagation();">{{'form.add' | translate}}
+        </button>
+        <button class="btn btn-secondary"
+                type="submit"
+                ngbTooltip="{{'form.lookup-help' | translate}}"
+                placement="top"
+                (click)="openLookup(); $event.stopPropagation();">{{'form.lookup' | translate}}
+        </button>
+    </div>
+    <div *ngIf="hasRelationLookup" class="mt-3">
+        <ul class="list-unstyled" cdkDropList (cdkDropListDropped)="moveSelection($event)">
+            <ds-existing-metadata-list-element cdkDrag
+                                               *ngFor="let reorderable of reorderables; trackBy: trackReorderable"
+                                               [reoRel]="reorderable"
+                                               [submissionItem]="item"
+                                               [listId]="listId"
+                                               [metadataFields]="model.metadataFields"
+                                               [relationshipOptions]="model.relationship">
+            </ds-existing-metadata-list-element>
+        </ul>
+    </div>
+</div>

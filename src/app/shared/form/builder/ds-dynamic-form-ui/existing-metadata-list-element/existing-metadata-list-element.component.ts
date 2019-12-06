@@ -14,6 +14,7 @@ import { SelectableListService } from '../../../../object-list/selectable-list/s
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
+import { Metadata } from '../../../../../core/shared/metadata.utils';
 
 export abstract class Reorderable {
   constructor(public oldIndex?: number, public newIndex?: number) {
@@ -43,6 +44,22 @@ export class ReorderableRelationship extends Reorderable {
     } else {
       return this.relationship.leftPlace
     }
+  }
+}
+export class ReorderableMetadata extends Reorderable {
+  metadata: MetadataValue;
+
+  constructor(metadata: MetadataValue, oldIndex?: number, newIndex?: number) {
+    super(oldIndex, newIndex);
+    this.metadata = metadata;
+  }
+
+  getId(): string {
+    return this.metadata.uuid;
+  }
+
+  getPlace(): number {
+      return this.metadata.place
   }
 }
 

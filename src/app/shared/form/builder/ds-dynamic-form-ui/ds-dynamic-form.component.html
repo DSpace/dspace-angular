@@ -1,4 +1,4 @@
-<ds-dynamic-form-control-container *ngFor="let model of formModel; trackBy: trackByFn"
+<ds-dynamic-form-control-container-wrapper *ngFor="let model of formModel; trackBy: trackByFn"
                                    [formId]="formId"
                                    [group]="formGroup"
                                    [hasErrorMessaging]="model.hasErrorMessages"
@@ -8,5 +8,5 @@
                                    [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
                                    [templates]="templates"
                                    (dfBlur)="onEvent($event, 'blur')"
-                                   (dfChange)="onEvent($event, 'change')"
-                                   (dfFocus)="onEvent($event, 'focus')"></ds-dynamic-form-control-container>
+                                   (dfChange)="onEvent($event, 'change'); test($event);"
+                                   (dfFocus)="onEvent($event, 'focus')"></ds-dynamic-form-control-container-wrapper>
