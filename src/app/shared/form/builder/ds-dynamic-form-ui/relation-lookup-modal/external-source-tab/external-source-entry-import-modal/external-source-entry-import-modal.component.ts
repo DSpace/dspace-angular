@@ -18,6 +18,11 @@ import { ListableObject } from '../../../../../../object-collection/shared/lista
 import { Collection } from '../../../../../../../core/shared/collection.model';
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
 import { PaginationComponentOptions } from '../../../../../../pagination/pagination-component-options.model';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../../../core/shared/operators';
+import { take } from 'rxjs/operators';
+import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
+import { NotificationsService } from '../../../../../../notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * The possible types of import for the external entry
@@ -42,6 +47,16 @@ export enum ImportType {
  * The other option is to import the external entry as a new entity or authority into the repository.
  */
 export class ExternalSourceEntryImportModalComponent implements OnInit {
+  /**
+   * The prefix for every i18n key within this modal
+   */
+  labelPrefix = 'submission.sections.describe.relationship-lookup.external-source.import-modal.';
+
+  /**
+   * The label to use for all messages (added to the end of relevant i18n keys)
+   */
+  label: string;
+
   /**
    * The external source entry
    */
@@ -130,7 +145,9 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
   constructor(public modal: NgbActiveModal,
               public lookupRelationService: LookupRelationService,
               private selectService: SelectableListService,
-              private itemService: ItemDataService) {
+              private itemService: ItemDataService,
+              private notificationsService: NotificationsService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -180,6 +197,7 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    */
   importLocalEntity() {
     if (this.selectedEntity !== undefined) {
+      this.notificationsService.success(this.translateService.get(this.labelPrefix + this.label + '.added.local-entity'));
       this.importedObject.emit(this.selectedEntity);
     }
   }
@@ -188,8 +206,17 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    * Create and import a new entity from the external entry
    */
   importNewEntity() {
-    this.itemService.importExternalSourceEntry(this.externalSourceEntry, this.collectionId).subscribe((response) => {
-      console.log(response);
+    this.itemService.importExternalSourceEntry(this.externalSourceEntry, this.collectionId).pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      take(1)
+    ).subscribe((item: Item) => {
+      this.lookupRelationService.removeLocalResultsCache();
+      const searchResult = Object.assign(new ItemSearchResult(), {
+        indexableObject: item
+      });
+      this.notificationsService.success(this.translateService.get(this.labelPrefix + this.label + '.added.new-entity'));
+      this.importedObject.emit(searchResult);
     });
   }
 

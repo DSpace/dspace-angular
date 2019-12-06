@@ -254,7 +254,7 @@ export class ItemDataService extends DataService<Item> {
    * @param externalSourceEntry
    * @param collectionId
    */
-  public importExternalSourceEntry(externalSourceEntry: ExternalSourceEntry, collectionId: string): Observable<RestResponse> {
+  public importExternalSourceEntry(externalSourceEntry: ExternalSourceEntry, collectionId: string): Observable<RemoteData<Item>> {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
@@ -273,7 +273,13 @@ export class ItemDataService extends DataService<Item> {
 
     return this.requestService.getByUUID(requestId).pipe(
       find((request: RequestEntry) => request.completed),
-      map((request: RequestEntry) => request.response)
+      getResponseFromEntry(),
+      map((response: any) => {
+        if (isNotEmpty(response.resourceSelfLinks)) {
+          return response.resourceSelfLinks[0];
+        }
+      }),
+      switchMap((selfLink: string) => this.findByHref(selfLink))
     );
   }
 
