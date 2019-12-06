@@ -48,10 +48,7 @@ import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import {
-  DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
-} from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
+import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
@@ -176,7 +173,6 @@ import { MetadataRepresentationListComponent } from '../+item-page/simple/metada
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import { DsDynamicFormControlContainerWrapperComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container-wrapper/ds-dynamic-form-control-container-wrapper.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -438,8 +434,7 @@ const DIRECTIVES = [
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
     PublicationSearchResultListElementComponent,
-    ExistingMetadataListElementComponent,
-    DsDynamicFormControlContainerWrapperComponent
+    ExistingMetadataListElementComponent
   ],
   providers: [
     ...PROVIDERS

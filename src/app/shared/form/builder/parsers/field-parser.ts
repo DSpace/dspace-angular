@@ -14,6 +14,7 @@ import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
 import { RelationshipOptions } from '../models/relationship-options.model';
+import { relationship } from '../../../../core/cache/builders/build-decorators';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -39,7 +40,6 @@ export abstract class FieldParser {
       && (this.configData.input.type !== 'list')
       && (this.configData.input.type !== 'tag')
       && (this.configData.input.type !== 'group')
-      && isEmpty(this.configData.selectableRelationship)
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
@@ -48,10 +48,11 @@ export abstract class FieldParser {
         id: uniqueId() + '_array',
         label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
-        notRepeatable: !this.configData.repeatable,
+        notRepeatable: !this.configData.repeatable || hasValue(this.configData.selectableRelationship),
         required: isNotEmpty(this.configData.mandatory),
         groupFactory: () => {
           let model;
+          console.log(arrayCounter);
           if ((arrayCounter === 0)) {
             model = this.modelFactory();
             arrayCounter++;
@@ -85,7 +86,7 @@ export abstract class FieldParser {
 
     } else {
       const model = this.modelFactory(this.getInitFieldValue());
-      if (model.hasLanguages) {
+      if (model.hasLanguages || isNotEmpty(model.relationship)) {
         setLayout(model, 'grid', 'control', 'col');
       }
       return model;
