@@ -1,18 +1,20 @@
 <ds-metadata-field-wrapper [label]="label">
-  <ng-container *ngVar="(representations$ | async) as representations">
-    <ds-metadata-representation-loader *ngFor="let rep of representations"
-                                       [mdRepresentation]="rep">
-    </ds-metadata-representation-loader>
-    <ds-loading *ngIf="loading" message="{{'loading.default' | translate}}"></ds-loading>
-    <div class="d-inline-block w-100 mt-2" *ngIf="representations?.length > 0">
-      <div *ngIf="representations?.length < total" class="float-left">
-        <a [routerLink]="" (click)="viewMore()">{{'item.page.related-items.view-more' |
-          translate:{ amount: (total - representations?.length < incrementBy) ? total - representations?.length : incrementBy } }}</a>
+  <ng-container *ngFor="let objectPage of objects; let i = index">
+    <ng-container *ngVar="(objectPage | async) as representations">
+      <ds-metadata-representation-loader *ngFor="let rep of representations"
+                                         [mdRepresentation]="rep">
+      </ds-metadata-representation-loader>
+      <ds-loading *ngIf="(i + 1) === objects.length && (i > 0) && (!representations || representations?.length === 0)" message="{{'loading.default' | translate}}"></ds-loading>
+      <div class="d-inline-block w-100 mt-2" *ngIf="(i + 1) === objects.length && representations?.length > 0">
+        <div *ngIf="(objects.length * incrementBy) < total" class="float-left">
+          <a [routerLink]="" (click)="increase()">{{'item.page.related-items.view-more' |
+            translate:{ amount: (total - (objects.length * incrementBy) < incrementBy) ? total - (objects.length * incrementBy) : incrementBy } }}</a>
+        </div>
+        <div *ngIf="objects.length > 1" class="float-right">
+          <a [routerLink]="" (click)="decrease()">{{'item.page.related-items.view-less' |
+            translate:{ amount: representations?.length } }}</a>
+        </div>
       </div>
-      <div *ngIf="limit > originalLimit" class="float-right">
-        <a [routerLink]="" (click)="viewLess()">{{'item.page.related-items.view-less' |
-          translate:{ amount: (representations?.length < limit) ? (representations?.length + incrementBy) - limit : incrementBy } }}</a>
-      </div>
-    </div>
+    </ng-container>
   </ng-container>
 </ds-metadata-field-wrapper>

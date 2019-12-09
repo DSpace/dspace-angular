@@ -1,18 +1,20 @@
 <ds-metadata-field-wrapper [label]="label">
-  <ng-container *ngVar="(items$ | async) as itemsRD">
-    <ds-listable-object-component-loader *ngFor="let item of itemsRD?.payload?.page"
-                                         [object]="item" [viewMode]="viewMode">
-    </ds-listable-object-component-loader>
-    <ds-loading *ngIf="loading" message="{{'loading.default' | translate}}"></ds-loading>
-    <div class="d-inline-block w-100 mt-2" *ngIf="itemsRD?.payload?.page?.length > 0">
-      <div *ngIf="itemsRD?.payload?.page?.length < itemsRD?.payload?.totalElements" class="float-left" id="view-more">
-        <a [routerLink]="" (click)="viewMore()">{{'item.page.related-items.view-more' |
-          translate:{ amount: (itemsRD?.payload?.totalElements - itemsRD?.payload?.page?.length < incrementBy) ? itemsRD?.payload?.totalElements - itemsRD?.payload?.page?.length : incrementBy } }}</a>
+  <ng-container *ngFor="let objectPage of objects; let i = index">
+    <ng-container *ngVar="(objectPage | async) as itemsRD">
+      <ds-listable-object-component-loader *ngFor="let item of itemsRD?.payload?.page"
+                                           [object]="item" [viewMode]="viewMode">
+      </ds-listable-object-component-loader>
+      <ds-loading *ngIf="(i + 1) === objects.length && (itemsRD || i > 0) && !(itemsRD?.hasSucceeded && itemsRD?.payload && itemsRD?.payload?.page?.length > 0)" message="{{'loading.default' | translate}}"></ds-loading>
+      <div class="d-inline-block w-100 mt-2" *ngIf="(i + 1) === objects.length && itemsRD?.payload?.page?.length > 0">
+        <div *ngIf="itemsRD?.payload?.totalPages > objects.length" class="float-left" id="view-more">
+          <a [routerLink]="" (click)="increase()">{{'item.page.related-items.view-more' |
+            translate:{ amount: (itemsRD?.payload?.totalElements - (incrementBy * objects.length) < incrementBy) ? itemsRD?.payload?.totalElements - (incrementBy * objects.length) : incrementBy } }}</a>
+        </div>
+        <div *ngIf="objects.length > 1" class="float-right" id="view-less">
+          <a [routerLink]="" (click)="decrease()">{{'item.page.related-items.view-less' |
+            translate:{ amount: itemsRD?.payload?.page?.length } }}</a>
+        </div>
       </div>
-      <div *ngIf="limit > originalLimit" class="float-right" id="view-less">
-        <a [routerLink]="" (click)="viewLess()">{{'item.page.related-items.view-less' |
-          translate:{ amount: (itemsRD?.payload?.page?.length < limit) ? (itemsRD?.payload?.page?.length + incrementBy) - limit : incrementBy } }}</a>
-      </div>
-    </div>
+    </ng-container>
   </ng-container>
 </ds-metadata-field-wrapper>

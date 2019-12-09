@@ -12,7 +12,7 @@ import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { PaginatedList } from '../../../core/data/paginated-list';
+import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
   selector: 'ds-metadata-representation-list',
@@ -24,7 +24,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
  * It expects an itemType to resolve the metadata to a an item
  * It expects a label to put on top of the list
  */
-export class MetadataRepresentationListComponent implements OnInit, OnDestroy {
+export class MetadataRepresentationListComponent extends AbstractIncrementalListComponent<Observable<MetadataRepresentation[]>> {
   /**
    * The parent of the list of related items to display
    */
@@ -46,13 +46,6 @@ export class MetadataRepresentationListComponent implements OnInit, OnDestroy {
   @Input() label: string;
 
   /**
-   * The max amount of representations to display
-   * Defaults to 10
-   * The default can optionally be overridden by providing the limit as input to the component
-   */
-  @Input() limit = 10;
-
-  /**
    * The amount to increment the list by when clicking "view more"
    * Defaults to 10
    * The default can optionally be overridden by providing the limit as input to the component
@@ -60,59 +53,33 @@ export class MetadataRepresentationListComponent implements OnInit, OnDestroy {
   @Input() incrementBy = 10;
 
   /**
-   * Is the list (re-)loading?
-   */
-  loading = false;
-
-  /**
-   * A list of metadata-representations to display
-   */
-  representations$: Observable<MetadataRepresentation[]>;
-
-  /**
-   * The originally provided limit
-   * Used for resetting the limit to the original value when collapsing the list
-   */
-  originalLimit: number;
-
-  /**
    * The total amount of metadata values available
    */
   total: number;
 
-  /**
-   * Subscription on representations used to update the "loading" property of this component
-   */
-  representationsSub: Subscription;
-
   constructor(public relationshipService: RelationshipService) {
-  }
-
-  ngOnInit(): void {
-    this.originalLimit = this.limit;
-    this.setRepresentations();
+    super();
   }
 
   /**
-   * Initialize the metadata representations
+   * Get a specific page
+   * @param page  The page to fetch
    */
-  setRepresentations() {
+  getPage(page: number): Observable<MetadataRepresentation[]> {
     const metadata = this.parentItem.findMetadataSortedByPlace(this.metadataField);
     this.total = metadata.length;
-    this.representations$ = this.resolveMetadataRepresentations(metadata);
-    this.representationsSub = this.representations$.subscribe((represenations: MetadataRepresentation[]) => {
-      this.loading = represenations.length !== this.limit && represenations.length !== this.total;
-    });
+    return this.resolveMetadataRepresentations(metadata, page);
   }
 
   /**
    * Resolve a list of metadata values to a list of metadata representations
-   * @param metadata
+   * @param metadata  The list of all metadata values
+   * @param page      The page to return representations for
    */
-  resolveMetadataRepresentations(metadata: MetadataValue[]): Observable<MetadataRepresentation[]> {
+  resolveMetadataRepresentations(metadata: MetadataValue[], page: number): Observable<MetadataRepresentation[]> {
     return observableZip(
       ...metadata
-        .slice(0, this.limit)
+        .slice((this.objects.length * this.incrementBy), (this.objects.length * this.incrementBy) + this.incrementBy)
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
           if (metadatum.isVirtual) {
@@ -136,34 +103,5 @@ export class MetadataRepresentationListComponent implements OnInit, OnDestroy {
           }
         })
     );
-  }
-
-  /**
-   * Expand the list to display more metadata representations
-   */
-  viewMore() {
-    this.limit = this.limit + this.incrementBy;
-    this.loading = true;
-    this.setRepresentations();
-  }
-
-  /**
-   * Collapse the list to display less metadata representations
-   */
-  viewLess() {
-    if (this.limit > this.originalLimit) {
-      this.limit = this.limit - this.incrementBy;
-    }
-    this.loading = true;
-    this.setRepresentations();
-  }
-
-  /**
-   * Unsubscribe from the representations subscription
-   */
-  ngOnDestroy(): void {
-    if (this.representationsSub) {
-      this.representationsSub.unsubscribe();
-    }
   }
 }
