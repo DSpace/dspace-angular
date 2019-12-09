@@ -8,6 +8,7 @@ import { Relationship } from '../../../core/shared/item-relationships/relationsh
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
+import { of as observableOf } from 'rxjs';
 
 const itemType = 'Person';
 const metadataField = 'dc.contributor.author';
@@ -89,37 +90,29 @@ describe('MetadataRepresentationListComponent', () => {
     expect(fields.length).toBe(2);
   });
 
-  it('should initialize the original limit', () => {
-    expect(comp.originalLimit).toEqual(comp.limit);
+  it('should contain one page of items', () => {
+    expect(comp.objects.length).toEqual(1);
   });
 
-  describe('when viewMore is called', () => {
-    let originalLimit;
-
+  describe('when increase is called', () => {
     beforeEach(() => {
-      // Store the original value of limit
-      originalLimit = comp.limit;
-      comp.viewMore();
+      comp.increase();
     });
 
-    it('should increment the limit with incrementBy', () => {
-      expect(comp.limit).toEqual(originalLimit + comp.incrementBy);
+    it('should add a new page to the list', () => {
+      expect(comp.objects.length).toEqual(2);
     });
   });
 
-  describe('when viewLess is called', () => {
-    let originalLimit;
-
+  describe('when decrease is called', () => {
     beforeEach(() => {
-      // Store the original value of limit
-      originalLimit = comp.limit;
-      // Increase limit with incrementBy
-      comp.limit = originalLimit + comp.incrementBy;
-      comp.viewLess();
+      // Add a second page
+      comp.objects.push(observableOf(undefined));
+      comp.decrease();
     });
 
-    it('should reset the limit to the original value', () => {
-      expect(comp.limit).toEqual(originalLimit);
+    it('should decrease the list of pages', () => {
+      expect(comp.objects.length).toEqual(1);
     });
   });
 
