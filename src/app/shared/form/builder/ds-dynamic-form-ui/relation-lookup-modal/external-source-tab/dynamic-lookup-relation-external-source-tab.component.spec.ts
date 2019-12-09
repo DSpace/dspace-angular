@@ -25,7 +25,7 @@ import { Collection } from '../../../../../../core/shared/collection.model';
 import { RelationshipOptions } from '../../../models/relationship-options.model';
 import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
 
-fdescribe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
+describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;
   let fixture: ComponentFixture<DsDynamicLookupRelationExternalSourceTabComponent>;
   let pSearchOptions;

@@ -13,7 +13,7 @@ import { ExternalSource } from '../shared/external-source.model';
 import { RequestService } from './request.service';
 import { of as observableOf } from 'rxjs';
 
-fdescribe('LookupRelationService', () => {
+describe('LookupRelationService', () => {
   let service: LookupRelationService;
   let externalSourceService: ExternalSourceService;
   let searchService: SearchService;
