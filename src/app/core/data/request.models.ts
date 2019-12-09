@@ -138,7 +138,7 @@ export class FindByIDRequest extends GetRequest {
   }
 }
 
-export class FindAllOptions {
+export class FindListOptions {
   scopeID?: string;
   elementsPerPage?: number;
   currentPage?: number;
@@ -147,11 +147,11 @@ export class FindAllOptions {
   startsWith?: string;
 }
 
-export class FindAllRequest extends GetRequest {
+export class FindListRequest extends GetRequest {
   constructor(
     uuid: string,
     href: string,
-    public body?: FindAllOptions,
+    public body?: FindListOptions,
   ) {
     super(uuid, href);
   }

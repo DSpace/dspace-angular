@@ -17,6 +17,7 @@ describe('RowParser test suite', () => {
   let row9: FormRowModel;
   let row10: FormRowModel;
 
+  const submissionId = '1234';
   const scopeUUID = 'testScopeUUID';
   const initFormValues = {};
   const submissionScope = 'WORKSPACE';
@@ -328,76 +329,98 @@ describe('RowParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    let parser = new RowParser(row1, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row2, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row3, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row4, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row5, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row6, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row7, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row8, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row9, scopeUUID, initFormValues, submissionScope, readOnly);
-
-    expect(parser instanceof RowParser).toBe(true);
-
-    parser = new RowParser(row10, scopeUUID, initFormValues, submissionScope, readOnly);
+    const parser = new RowParser(undefined);
 
     expect(parser instanceof RowParser).toBe(true);
   });
 
-  it('should return a DynamicRowGroupModel object', () => {
-    const parser = new RowParser(row1, scopeUUID, initFormValues, submissionScope, readOnly);
+  describe('parse', () => {
+    it('should return a DynamicRowGroupModel object', () => {
+      const parser = new RowParser(undefined);
 
-    const rowModel = parser.parse();
+      const rowModel = parser.parse(submissionId, row1, scopeUUID, initFormValues, submissionScope, readOnly);
 
-    expect(rowModel instanceof DynamicRowGroupModel).toBe(true);
-  });
+      expect(rowModel instanceof DynamicRowGroupModel).toBe(true);
+    });
 
-  it('should return a row with three fields', () => {
-    const parser = new RowParser(row1, scopeUUID, initFormValues, submissionScope, readOnly);
+    it('should return a row with three fields', () => {
+      const parser = new RowParser(undefined);
 
-    const rowModel = parser.parse();
+      const rowModel = parser.parse(submissionId, row1, scopeUUID, initFormValues, submissionScope, readOnly);
 
-    expect((rowModel as DynamicRowGroupModel).group.length).toBe(3);
-  });
+      expect((rowModel as DynamicRowGroupModel).group.length).toBe(3);
+    });
 
-  it('should return a DynamicRowArrayModel object', () => {
-    const parser = new RowParser(row2, scopeUUID, initFormValues, submissionScope, readOnly);
+    it('should return a DynamicRowArrayModel object', () => {
+      const parser = new RowParser(undefined);
 
-    const rowModel = parser.parse();
+      const rowModel = parser.parse(submissionId, row2, scopeUUID, initFormValues, submissionScope, readOnly);
 
-    expect(rowModel instanceof DynamicRowArrayModel).toBe(true);
-  });
+      expect(rowModel instanceof DynamicRowArrayModel).toBe(true);
+    });
 
-  it('should return a row that contains only scoped fields', () => {
-    const parser = new RowParser(row3, scopeUUID, initFormValues, submissionScope, readOnly);
+    it('should return a row that contains only scoped fields', () => {
+      const parser = new RowParser(undefined);
 
-    const rowModel = parser.parse();
+      const rowModel = parser.parse(submissionId, row3, scopeUUID, initFormValues, submissionScope, readOnly);
 
-    expect((rowModel as DynamicRowGroupModel).group.length).toBe(1);
+      expect((rowModel as DynamicRowGroupModel).group.length).toBe(1);
+    });
+
+    it('should be able to parse a dropdown combo field', () => {
+      const parser = new RowParser(undefined);
+
+      const rowModel = parser.parse(submissionId, row4, scopeUUID, initFormValues, submissionScope, readOnly);
+
+      expect(rowModel).toBeDefined();
+    });
+
+    it('should be able to parse a lookup-name field', () => {
+      const parser = new RowParser(undefined);
+
+      const rowModel = parser.parse(submissionId, row5, scopeUUID, initFormValues, submissionScope, readOnly);
+
+      expect(rowModel).toBeDefined();
+    });
+
+    it('should be able to parse a list field', () => {
+      const parser = new RowParser(undefined);
+
+      const rowModel = parser.parse(submissionId, row6, scopeUUID, initFormValues, submissionScope, readOnly);
+
+      expect(rowModel).toBeDefined();
+    });
+
+    it('should be able to parse a date field', () => {
+      const parser = new RowParser(undefined);
+
+      const rowModel = parser.parse(submissionId, row7, scopeUUID, initFormValues, submissionScope, readOnly);
+
+      expect(rowModel).toBeDefined();
+    });
+
+    it('should be able to parse a tag field', () => {
+      const parser = new RowParser(undefined);
+
+      const rowModel = parser.parse(submissionId, row8, scopeUUID, initFormValues, submissionScope, readOnly);
+
+      expect(rowModel).toBeDefined();
+    });
+
+    it('should be able to parse a textarea field', () => {
+      const parser = new RowParser(undefined);
+
+      const rowModel = parser.parse(submissionId, row9, scopeUUID, initFormValues, submissionScope, readOnly);
+
+      expect(rowModel).toBeDefined();
+    });
+
+    it('should be able to parse a group field', () => {
+      const parser = new RowParser(undefined);
+
+      const rowModel = parser.parse(submissionId, row10, scopeUUID, initFormValues, submissionScope, readOnly);
+
+      expect(rowModel).toBeDefined();
+    });
   });
 });

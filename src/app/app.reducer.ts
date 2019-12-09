@@ -1,5 +1,6 @@
 import { ActionReducerMap, createSelector, MemoizedSelector, State } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
+import { CommunityListReducer, CommunityListState } from './community-list-page/community-list.reducer';
 import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
 import {
@@ -48,6 +49,7 @@ export interface AppState {
   cssVariables: CSSVariablesState;
   menus: MenusState;
   objectSelection: ObjectSelectionListState;
+  communityList: CommunityListState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -64,7 +66,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   truncatable: truncatableReducer,
   cssVariables: cssVariablesReducer,
   menus: menusReducer,
-  objectSelection: objectSelectionReducer
+  objectSelection: objectSelectionReducer,
+  communityList: CommunityListReducer,
 };
 
 export const routerStateSelector = (state: AppState) => state.router;

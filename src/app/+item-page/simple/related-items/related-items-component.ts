@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { RelationshipService } from '../../../core/data/relationship.service';
-import { FindAllOptions } from '../../../core/data/request.models';
+import { FindListOptions } from '../../../core/data/request.models';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 
@@ -47,7 +47,7 @@ export class RelatedItemsComponent implements OnInit, OnDestroy {
    * Default options to start a search request with
    * Optional input
    */
-  @Input() options = new FindAllOptions();
+  @Input() options = new FindListOptions();
 
   /**
    * An i18n label to use as a title for the list (usually describes the relation)

@@ -3,7 +3,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { ConfigService } from './config.service';
 import { RequestService } from '../data/request.service';
-import { ConfigRequest, FindAllOptions } from '../data/request.models';
+import { ConfigRequest, FindListOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 
@@ -27,7 +27,7 @@ describe('ConfigService', () => {
   let requestService: RequestService;
   let halService: any;
 
-  const findOptions: FindAllOptions = new FindAllOptions();
+  const findOptions: FindListOptions = new FindListOptions();
 
   const scopeName = 'traditional';
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
