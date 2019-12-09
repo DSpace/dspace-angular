@@ -1,15 +1,14 @@
 <ng-container [formGroup]="group">
-
     <div [dynamicId]="bindId && model.id"
          [formArrayName]="model.id"
          [ngClass]="getClass('element', 'control')">
 
         <div *ngFor="let groupModel of model.groups; let idx = index" role="group"
-             [formGroupName]="idx" [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]">
-
+             [formGroupName]="idx" [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
+             cdkDropList (cdkDropListDropped)="test($event)">
             <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
 
-            <ds-dynamic-form-control-container *ngFor="let _model of groupModel.group"
+            <ds-dynamic-form-control-container cdkDrag *ngFor="let _model of groupModel.group"
                                                [bindId]="false"
                                                [context]="groupModel"
                                                [group]="control.at(idx)"

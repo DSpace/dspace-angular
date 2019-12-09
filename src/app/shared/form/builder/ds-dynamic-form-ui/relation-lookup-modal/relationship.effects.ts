@@ -84,7 +84,6 @@ export class RelationshipEffects {
             this.nameVariantUpdates[identifier] = nameVariant;
           } else {
             this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant)
-              .pipe(getSucceededRemoteData())
               .subscribe();
           }
         }

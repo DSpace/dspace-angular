@@ -35,4 +35,8 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     super(layoutService, validationService);
   }
 
+
+  test(event) {
+    console.log(event);
+  }
 }
