@@ -228,9 +228,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngOnInit(): void {
-    if (this.model.type === 'ARRAY') {
-      console.log((this.model as DynamicRowArrayModel).get(1));
-    }
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
 
@@ -360,26 +357,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.item = this.item;
   }
 
-  // moveSelection(event: CdkDragDrop<Relationship>) {
-  //   this.zone.runOutsideAngular(() => {
-  //     moveItemInArray(this.reorderables, event.previousIndex, event.currentIndex);
-  //     const reorderables = this.reorderables.map((reo: Reorderable, index: number) => {
-  //         reo.oldIndex = reo.getPlace();
-  //         reo.newIndex = index;
-  //         return reo;
-  //       }
-  //     );
-  //     return observableCombineLatest(reorderables.map((rel: ReorderableRelationship) => {
-  //         if (rel.oldIndex !== rel.newIndex) {
-  //           return this.relationshipService.updatePlace(rel);
-  //         } else {
-  //           return observableOf(undefined);
-  //         }
-  //       })
-  //     ).pipe(getSucceededRemoteData()).subscribe();
-  //   })
-  // }
-
   /**
    * Unsubscribe from all subscriptions
    */
@@ -387,12 +364,5 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
-  }
-
-  /**
-   * Prevent unnecessary rerendering so fields don't lose focus
-   */
-  trackReorderable(index, reorderable: Reorderable) {
-    return hasValue(reorderable) ? reorderable.getId() : undefined;
   }
 }

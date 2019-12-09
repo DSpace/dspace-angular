@@ -41,18 +41,18 @@ export abstract class FieldParser {
       && (this.configData.input.type !== 'tag')
       && (this.configData.input.type !== 'group')
     ) {
+      let hideHints = false;
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
 
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,
-        initialCount: this.getInitArrayIndex(),
+        initialCount: this.getInitArrayIndex() + 1,
         notRepeatable: !this.configData.repeatable || hasValue(this.configData.selectableRelationship),
         required: isNotEmpty(this.configData.mandatory),
         groupFactory: () => {
           let model;
-          console.log(arrayCounter);
           if ((arrayCounter === 0)) {
             model = this.modelFactory();
             arrayCounter++;
@@ -60,8 +60,13 @@ export abstract class FieldParser {
             const fieldArrayOfValueLenght = this.getInitValueCount(arrayCounter - 1);
             let fieldValue = null;
             if (fieldArrayOfValueLenght > 0) {
-              fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter++);
-              if (fieldArrayCounter === fieldArrayOfValueLenght) {
+              if (fieldArrayCounter === 0) {
+                fieldValue = '';
+              } else {
+                fieldValue = this.getInitFieldValue(arrayCounter - 1, fieldArrayCounter - 1);
+              }
+              fieldArrayCounter++;
+              if (fieldArrayCounter === fieldArrayOfValueLenght + 1) {
                 fieldArrayCounter = 0;
                 arrayCounter++;
               }
@@ -71,6 +76,9 @@ export abstract class FieldParser {
           setLayout(model, 'element', 'host', 'col');
           if (model.hasLanguages) {
             setLayout(model, 'grid', 'control', 'col');
+          }
+          if (hideHints) {
+            model.hint = undefined;
           }
           return [model];
         }
