@@ -23,11 +23,31 @@ export abstract class Reorderable {
   abstract getPlace(): number;
 }
 
-export class ReorderableRelationship extends Reorderable {
-  relationship: Relationship;
-  useLeftItem: boolean;
+export class ReorderableMetadataValue extends Reorderable {
 
-  constructor(relationship: Relationship, useLeftItem: boolean, oldIndex?: number, newIndex?: number) {
+  constructor(public metadataValue: MetadataValue, oldIndex?: number, newIndex?: number) {
+    super(oldIndex, newIndex);
+    this.metadataValue = metadataValue;
+  }
+
+  getId(): string {
+    if (hasValue(this.metadataValue.authority)) {
+      return this.metadataValue.authority;
+    } else {
+      // can't use UUIDs, they're generated client side
+      return this.metadataValue.value;
+    }
+  }
+
+  getPlace(): number {
+    return this.metadataValue.place;
+  }
+
+}
+
+export class ReorderableRelationship extends Reorderable {
+
+  constructor(public relationship: Relationship, public useLeftItem: boolean, oldIndex?: number, newIndex?: number) {
     super(oldIndex, newIndex);
     this.relationship = relationship;
     this.useLeftItem = useLeftItem;

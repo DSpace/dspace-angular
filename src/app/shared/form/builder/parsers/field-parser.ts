@@ -50,6 +50,7 @@ export abstract class FieldParser {
         initialCount: this.getInitArrayIndex() + 1,
         notRepeatable: !this.configData.repeatable || hasValue(this.configData.selectableRelationship),
         required: isNotEmpty(this.configData.mandatory),
+        submissionId: this.submissionId,
         groupFactory: () => {
           let model;
           let isFirstModelInArray = true;
