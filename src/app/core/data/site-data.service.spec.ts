@@ -13,7 +13,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { of as observableOf } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
 import { RequestEntry } from './request.reducer';
-import { FindAllOptions } from './request.models';
+import { FindListOptions } from './request.models';
 import { TestScheduler } from 'rxjs/testing';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
@@ -31,7 +31,7 @@ describe('SiteDataService', () => {
   });
 
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
-  const options = Object.assign(new FindAllOptions(), {});
+  const options = Object.assign(new FindListOptions(), {});
 
   const getRequestEntry$ = (successful:boolean, statusCode:number, statusText:string) => {
     return observableOf({

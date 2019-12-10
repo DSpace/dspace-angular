@@ -32,7 +32,6 @@ import { SearchAuthorityFilterComponent } from './search-filters/search-filter/s
 import { SearchLabelComponent } from './search-labels/search-label/search-label.component';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
-import { FilteredSearchPageComponent } from './filtered-search-page.component';
 import { SearchPageComponent } from './search-page.component';
 import { SidebarFilterService } from '../shared/sidebar/filter/sidebar-filter.service';
 import { StatisticsModule } from '../statistics/statistics.module';
@@ -64,7 +63,6 @@ const components = [
   SearchFacetRangeOptionComponent,
   SearchSwitchConfigurationComponent,
   SearchAuthorityFilterComponent,
-  FilteredSearchPageComponent,
   ConfigurationSearchPageComponent,
   SearchTrackerComponent,
 ];

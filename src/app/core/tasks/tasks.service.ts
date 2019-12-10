@@ -4,7 +4,7 @@ import { merge as observableMerge, Observable, of as observableOf } from 'rxjs';
 import { distinctUntilChanged, filter, flatMap, map, mergeMap, tap } from 'rxjs/operators';
 
 import { DataService } from '../data/data.service';
-import { DeleteRequest, FindAllOptions, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
+import { DeleteRequest, FindListOptions, PostRequest, TaskDeleteRequest, TaskPostRequest } from '../data/request.models';
 import { isNotEmpty } from '../../shared/empty.util';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { ProcessTaskResponse } from './models/process-task-response';
@@ -18,7 +18,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
  */
 export abstract class TasksService<T extends CacheableObject> extends DataService<T> {
 
-  public getBrowseEndpoint(options: FindAllOptions): Observable<string> {
+  public getBrowseEndpoint(options: FindListOptions): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
