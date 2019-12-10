@@ -255,7 +255,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
                 getSucceededRemoteData(),
                 getRemoteDataPayload(),
                 map((leftItem: Item) => {
-                  return new ReorderableRelationship(relationship, leftItem.uuid !== this.item.uuid)
+                  return new ReorderableRelationship(relationship, leftItem.uuid !== this.item.uuid, this.relationshipService)
                 }),
               )
             )
