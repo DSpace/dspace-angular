@@ -182,8 +182,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input() hasErrorMessaging = false;
   @Input() layout = null as DynamicFormLayout;
   @Input() model: any;
-  reorderable$: Observable<ReorderableRelationship>;
-  reorderable: ReorderableRelationship;
+  relationshipValue$: Observable<ReorderableRelationship>;
   hasRelationLookup: boolean;
   modalRef: NgbModalRef;
   item: Item;
@@ -247,7 +246,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.subs.push(item$.subscribe((item) => this.item = item));
       const value = Object.assign(new MetadataValue(), this.model.value);
       if (hasValue(value) && value.isVirtual) {
-        this.reorderable$ = this.relationshipService.findById(value.virtualValue)
+        this.relationshipValue$ = this.relationshipService.findById(value.virtualValue)
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload(),
@@ -261,12 +260,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
               )
             )
           );
-
-        this.subs.push(this.reorderable$.subscribe((rs) => {
-          this.reorderable = rs;
-          this.ref.detectChanges();
-        }));
-
       }
       // this.reorderable$ =
       //   item$.pipe(

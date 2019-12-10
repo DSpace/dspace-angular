@@ -70,12 +70,13 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
     } else {
       tempValue = value.value;
     }
-    values = [...tempValue.split(this.separator), null].map((v) => Object.assign(new FormFieldMetadataValueObject(), value, { value: v }));
+    values = [...tempValue.split(this.separator), null].map((v) =>
+      Object.assign(new FormFieldMetadataValueObject(), value, { display: v, value: v }));
 
-    if (values[0]) {
+    if (values[0].value) {
       (this.get(0) as DsDynamicInputModel).valueUpdates.next(values[0]);
     }
-    if (values[1]) {
+    if (values[1].value) {
       (this.get(1) as DsDynamicInputModel).valueUpdates.next(values[1]);
     }
   }

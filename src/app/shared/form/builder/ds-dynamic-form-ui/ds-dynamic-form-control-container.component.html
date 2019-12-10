@@ -9,7 +9,7 @@
 
     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
     <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
-    <div [ngClass]="{'form-row': model.hasLanguages || hasRelationLookup, 'd-none': hasRelationLookup && model.value}">
+    <div [ngClass]="{'form-row': model.hasLanguages || hasRelationLookup, 'd-none': relationshipValue$ | async}">
         <div [ngClass]="getClass('grid', 'control')">
 
             <ng-container #componentViewContainer></ng-container>
@@ -18,7 +18,7 @@
                    class="text-muted" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
 
             <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
-                <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate:model.validators }}</small>
+                <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate: model.validators }}</small>
             </div>
 
         </div>
@@ -49,9 +49,9 @@
 
     <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
 
-    <ng-container *ngIf="hasRelationLookup && model.value && reorderable">
+    <ng-container *ngIf="relationshipValue$ | async">
         <ds-existing-metadata-list-element
-                [reoRel]="reorderable"
+                [reoRel]="relationshipValue$ | async"
                 [submissionItem]="item"
                 [listId]="listId"
                 [metadataFields]="model.metadataFields"

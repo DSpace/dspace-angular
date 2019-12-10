@@ -106,7 +106,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
           });
           if (value.isVirtual) {
             console.log('value.virtualValue', value.virtualValue);
-            this.relationshipService.findById(value.virtualValue)
+            return this.relationshipService.findById(value.virtualValue)
               .pipe(
                 tap((relationship: Relationship) => console.log('relationship', relationship)),
                 getSucceededRemoteData(),

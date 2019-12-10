@@ -64,4 +64,8 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   hasPlaceholder() {
     return this.hasValue() && this.value === PLACEHOLDER_PARENT_METADATA;
   }
+
+  toString() {
+    return this.display || this.value;
+  }
 }
