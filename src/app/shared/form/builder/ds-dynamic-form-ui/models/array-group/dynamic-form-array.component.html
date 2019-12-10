@@ -1,30 +1,42 @@
 <ng-container [formGroup]="group">
     <div [dynamicId]="bindId && model.id"
          [formArrayName]="model.id"
-         [ngClass]="getClass('element', 'control')" cdkDropList (cdkDropListDropped)="moveSelection($event)">
-
-        <div *ngFor="let groupModel of model.groups; let idx = index" role="group"
-             [formGroupName]="idx" [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]" cdkDrag>
-            <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
-
-            <ds-dynamic-form-control-container  *ngFor="let _model of groupModel.group"
-                                               [bindId]="false"
-                                               [context]="groupModel"
-                                               [group]="control.at(idx)"
-                                               [hidden]="_model.hidden"
-                                               [layout]="layout"
-                                               [model]="_model"
-                                               [templates]="templates"
-                                               [ngClass]="[getClass('element', 'host', _model), getClass('grid', 'host', _model)]"
-                                               (dfBlur)="onBlur($event)"
-                                               (dfChange)="onChange($event)"
-                                               (dfFocus)="onFocus($event)"
-                                               (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control-container>
-
-            <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: groupModel"></ng-container>
-
+         [ngClass]="getClass('element', 'control')">
+        <div role="group"
+             formGroupName="0" [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]">
+            <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model.groups[0]"></ng-container>
+            <ng-container *ngTemplateOutlet="controlContainer; context: {$implicit: 0}"></ng-container>
+            <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model.groups[0]"></ng-container>
         </div>
-
+        <div cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="moveSelection($event)">
+            <div *ngFor="let groupModel of model.groups; let idx = index" role="group"
+                 [formGroupName]="idx" [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]" cdkDrag>
+                <ng-container *ngIf="idx > 0">
+                    <button type="button" class="close float-left" aria-label="Move button" cdkDragHandle>
+                        <i aria-hidden="true" class="fas fa-arrows-alt fa-xs"></i>
+                    </button>
+                    <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
+                    <ng-container *ngTemplateOutlet="controlContainer; context: {$implicit: idx}"></ng-container>
+                    <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: groupModel"></ng-container>
+                </ng-container>
+            </div>
+        </div>
     </div>
-
 </ng-container>
+
+
+<ng-template #controlContainer let-idx>
+    <ds-dynamic-form-control-container *ngFor="let _model of model.groups[idx].group"
+                                       [bindId]="false"
+                                       [context]="model.groups[idx]"
+                                       [group]="control.at(idx)"
+                                       [hidden]="_model.hidden"
+                                       [layout]="layout"
+                                       [model]="_model"
+                                       [templates]="templates"
+                                       [ngClass]="[getClass('element', 'host', _model), getClass('grid', 'host', _model)]"
+                                       (dfBlur)="onBlur($event)"
+                                       (dfChange)="onChange($event)"
+                                       (dfFocus)="onFocus($event)"
+                                       (ngbEvent)="onCustomEvent($event, null, true)"></ds-dynamic-form-control-container>
+</ng-template>

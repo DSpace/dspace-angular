@@ -227,6 +227,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngOnInit(): void {
+    console.log(this.model);
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
 

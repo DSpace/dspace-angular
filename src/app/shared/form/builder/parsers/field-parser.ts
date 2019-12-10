@@ -48,7 +48,8 @@ export abstract class FieldParser {
         id: uniqueId() + '_array',
         label: this.configData.label,
         initialCount: this.getInitArrayIndex() + 1,
-        notRepeatable: !this.configData.repeatable || hasValue(this.configData.selectableRelationship),
+        notRepeatable: !this.configData.repeatable,
+        hasRelationship: isNotEmpty(this.configData.selectableRelationship),
         required: isNotEmpty(this.configData.mandatory),
         submissionId: this.submissionId,
         groupFactory: () => {
@@ -79,7 +80,7 @@ export abstract class FieldParser {
             }
           }
           setLayout(model, 'element', 'host', 'col');
-          if (model.hasLanguages) {
+          if (model.hasLanguages|| isNotEmpty(model.relationship)) {
             setLayout(model, 'grid', 'control', 'col');
           }
           return [model];
@@ -193,7 +194,7 @@ export abstract class FieldParser {
     }
   }
 
-  protected initModel(id?: string, label = true, setErrors = true) {
+  protected initModel(id?: string, label = true, setErrors = true, hint = true) {
 
     const controlModel = Object.create(null);
 
@@ -218,10 +219,10 @@ export abstract class FieldParser {
 
     // Set label
     this.setLabel(controlModel, label);
-
+    if (hint) {
+      controlModel.hint = this.configData.hints;
+    }
     controlModel.placeholder = this.configData.label;
-
-    controlModel.hint = this.configData.hints;
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);

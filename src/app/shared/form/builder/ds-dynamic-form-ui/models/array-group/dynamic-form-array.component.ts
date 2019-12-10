@@ -69,6 +69,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   }
 
   ngOnInit(): void {
+    console.log(this.model);
     this.submissionObjectService
       .findById(this.model.submissionId).pipe(
       getSucceededRemoteData(),
