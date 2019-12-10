@@ -37,7 +37,8 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 
 @Component({
   selector: 'ds-dynamic-form-array',
-  templateUrl: './dynamic-form-array.component.html'
+  templateUrl: './dynamic-form-array.component.html',
+  styleUrls: ['./dynamic-form-array.component.scss']
 })
 export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent implements OnInit {
 

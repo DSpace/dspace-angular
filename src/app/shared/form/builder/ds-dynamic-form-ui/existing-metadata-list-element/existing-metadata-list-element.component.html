@@ -1,8 +1,8 @@
-<li *ngIf="metadataRepresentation">
+<div *ngIf="metadataRepresentation" class="mt-2 mb-4">
     <button type="button" class="close float-left" aria-label="Close button" (click)="removeSelection()">
         <span aria-hidden="true">&times;</span>
     </button>
     <span class="d-inline-block align-middle ml-1">
               <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation"></ds-metadata-representation-loader>
           </span>
-</li>
+</div>

@@ -12,7 +12,7 @@
             <div *ngFor="let groupModel of model.groups; let idx = index" role="group"
                  [formGroupName]="idx" [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]" cdkDrag>
                 <ng-container *ngIf="idx > 0">
-                    <button type="button" class="close float-left" aria-label="Move button" cdkDragHandle>
+                    <button type="button" class="close float-left drag-button" aria-label="Move button" cdkDragHandle>
                         <i aria-hidden="true" class="fas fa-arrows-alt fa-xs"></i>
                     </button>
                     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
