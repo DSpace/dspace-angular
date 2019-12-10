@@ -11,6 +11,7 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   authorityOptions?: AuthorityOptions;
   languageCodes?: LanguageCode[];
   language?: string;
+  place?: number;
   value?: any;
   relationship?: RelationshipOptions;
   repeatable: boolean;

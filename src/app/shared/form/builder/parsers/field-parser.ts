@@ -44,6 +44,12 @@ export abstract class FieldParser {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
 
+      let metadataKey;
+
+      if (Array.isArray(this.configData.selectableMetadata) && this.configData.selectableMetadata.length === 1) {
+        metadataKey = this.configData.selectableMetadata[0].metadata;
+      };
+
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,
@@ -52,6 +58,7 @@ export abstract class FieldParser {
         hasRelationship: isNotEmpty(this.configData.selectableRelationship),
         required: isNotEmpty(this.configData.mandatory),
         submissionId: this.submissionId,
+        metadataKey,
         groupFactory: () => {
           let model;
           let isFirstModelInArray = true;
@@ -314,6 +321,7 @@ export abstract class FieldParser {
 
       if (typeof fieldValue === 'object') {
         modelConfig.language = fieldValue.language;
+        modelConfig.place = fieldValue.place;
         if (forceValueAsObj) {
           modelConfig.value = fieldValue;
         } else {

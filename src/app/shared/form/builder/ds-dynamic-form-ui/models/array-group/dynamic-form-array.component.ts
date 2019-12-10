@@ -70,6 +70,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   }
 
   ngOnInit(): void {
+    console.log('this.model', this.model);
     this.submissionObjectService
       .findById(this.model.submissionId).pipe(
       getSucceededRemoteData(),
@@ -89,7 +90,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
     this.zone.runOutsideAngular(() => {
       const reorderable$arr: Array<Observable<Reorderable>> = this.model.groups
         .map((group, index) => [group, (this.control as any).controls[index]])
-        .slice(1) // disregard the first group, it is always empty to ensure the first field remains empty
+        //.slice(1) // disregard the first group, it is always empty to ensure the first field remains empty
         .map(([group, control]: [DynamicFormArrayGroupModel, AbstractControl], index: number) => {
           const model = group.group[0] as DynamicConcatModel;
           let formFieldMetadataValue: FormFieldMetadataValueObject = model.value as FormFieldMetadataValueObject;
@@ -158,6 +159,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
             if (reorderable.hasMoved) {
               console.log('reorderable moved', reorderable, reorderable.getPlace());
               reorderable.update().pipe(take(1)).subscribe((v) => {
+                this.change.emit(undefined);
                 console.log('reorderable updated', reorderable, reorderable.getPlace());
               });
             }
