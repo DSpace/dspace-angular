@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, NgZone, Output, QueryList } from '@angular/core';
+import { Component, EventEmitter, Input, NgZone, OnInit, Output, QueryList } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
   DynamicFormArrayComponent,
@@ -39,12 +39,12 @@ import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
   selector: 'ds-dynamic-form-array',
   templateUrl: './dynamic-form-array.component.html'
 })
-export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
+export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent implements OnInit {
 
   @Input() bindId = true;
   @Input() group: FormGroup;
   @Input() layout: DynamicFormLayout;
-  private _model: DynamicRowArrayModel;
+  @Input() model: DynamicRowArrayModel;
   @Input() templates: QueryList<DynamicTemplateDirective> | undefined;
 
   /* tslint:disable:no-output-rename */
@@ -56,14 +56,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
   private submissionItem: Item;
   private reorderables: Reorderable[];
 
-  get model(): DynamicRowArrayModel {
-    return this._model;
-  };
-
-  @Input() set model(model: DynamicRowArrayModel) {
-    this._model = model;
-    this.onSetModel();
-  };
   /* tslint:enable:no-output-rename */
 
   constructor(protected layoutService: DynamicFormLayoutService,
@@ -76,7 +68,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
     super(layoutService, validationService);
   }
 
-  private onSetModel(): void {
+  ngOnInit(): void {
     this.submissionObjectService
       .findById(this.model.submissionId).pipe(
       getSucceededRemoteData(),
@@ -89,11 +81,12 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
       )
     ).subscribe((item) => this.submissionItem = item);
 
-    this.updateReorderables(this._model.groups);
+    this.updateReorderables();
   }
 
-  private updateReorderables(groups: DynamicFormArrayGroupModel[]): void  {
-    const reorderable$arr: Array<Observable<Reorderable>> = groups
+  private updateReorderables(): void  {
+    const reorderable$arr: Array<Observable<Reorderable>> = this.model.groups
+      .slice(1) // disregard the first group, it is always empty to ensure the first field remains empty
       .map((group: DynamicFormArrayGroupModel, index: number) => {
         const formFieldMetadataValue: FormFieldMetadataValueObject = (group.group[0] as DynamicConcatModel).value as FormFieldMetadataValueObject;
         if (hasValue(formFieldMetadataValue)) {
@@ -105,10 +98,8 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
             confidence: formFieldMetadataValue.confidence
           });
           if (value.isVirtual) {
-            console.log('value.virtualValue', value.virtualValue);
             return this.relationshipService.findById(value.virtualValue)
               .pipe(
-                tap((relationship: Relationship) => console.log('relationship', relationship)),
                 getSucceededRemoteData(),
                 getRemoteDataPayload(),
                 switchMap((relationship: Relationship) =>
@@ -129,10 +120,16 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
           } else {
             return observableOf(new ReorderableMetadataValue(value, index, index));
           }
+        } else {
+          const value = Object.assign(new MetadataValue(), {
+            value: '',
+            place: index,
+          });
+          return observableOf(new ReorderableMetadataValue(value, index, index));
         }
       });
 
-    observableCombineLatest(...reorderable$arr)
+    observableCombineLatest(reorderable$arr)
       .subscribe((reorderables: Reorderable[]) => {
         if (isNotEmpty(this.reorderables)) {
           reorderables.forEach((newReorderable: Reorderable) => {
@@ -149,7 +146,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent {
 
   moveSelection(event: CdkDragDrop<Relationship>) {
     this.model.moveGroup(event.previousIndex,event.currentIndex - event.previousIndex);
-    this.updateReorderables(this._model.groups);
+    this.updateReorderables();
 
     // this.zone.runOutsideAngular(() => {
 
