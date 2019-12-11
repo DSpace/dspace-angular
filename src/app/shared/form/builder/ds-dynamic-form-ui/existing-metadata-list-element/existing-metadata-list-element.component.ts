@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { DynamicFormControlEvent } from '@ng-dynamic-forms/core';
+import { DynamicFormArrayGroupModel, DynamicFormControlEvent } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -47,6 +47,7 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
     public metadataValue: FormFieldMetadataValueObject,
     public model: DynamicConcatModel,
     public control: FormControl,
+    public group: DynamicFormArrayGroupModel,
     oldIndex?: number,
     newIndex?: number
   ) {

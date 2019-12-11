@@ -5,7 +5,7 @@ import {
   DynamicFormArrayComponent,
   DynamicFormArrayGroupModel,
   DynamicFormControlCustomEvent,
-  DynamicFormControlEvent,
+  DynamicFormControlEvent, DynamicFormControlEventType,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormService,
@@ -131,7 +131,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
                   place: index,
                 });
               }
-              return observableOf(new ReorderableFormFieldMetadataValue(formFieldMetadataValue, model as any, control as FormControl, index, index));
+              return observableOf(new ReorderableFormFieldMetadataValue(formFieldMetadataValue, model as any, control as FormControl, group, index, index));
             }
           } else {
             formFieldMetadataValue = Object.assign(new FormFieldMetadataValueObject(), {
@@ -139,7 +139,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
               display: '',
               place: index,
             });
-            return observableOf(new ReorderableFormFieldMetadataValue(formFieldMetadataValue, model as any, control as FormControl, index, index));
+            return observableOf(new ReorderableFormFieldMetadataValue(formFieldMetadataValue, model as any, control as FormControl, group, index, index));
           }
         });
 
@@ -157,10 +157,19 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
 
           this.reorderables.forEach((reorderable: Reorderable) => {
             if (reorderable.hasMoved) {
-              console.log('reorderable moved', reorderable, reorderable.getPlace());
               reorderable.update().pipe(take(1)).subscribe((v) => {
-                this.change.emit(undefined);
-                console.log('reorderable updated', reorderable, reorderable.getPlace());
+                if (reorderable instanceof ReorderableFormFieldMetadataValue) {
+                  const reoMD = reorderable as ReorderableFormFieldMetadataValue;
+                  const mdl = Object.assign({}, reoMD.model, { value: reoMD.metadataValue });
+                  this.onChange({
+                    $event: undefined,
+                    context: reoMD.group,
+                    control: reoMD.control,
+                    group: this.group,
+                    model: mdl,
+                    type: DynamicFormControlEventType.Change
+                  });
+                }
               });
             }
           })
@@ -172,6 +181,13 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   moveSelection(event: CdkDragDrop<Relationship>) {
     this.model.moveGroup(event.previousIndex, event.currentIndex - event.previousIndex);
     this.updateReorderables();
+  }
+
+  onChange($event) {
+    console.log($event);
+    const group = Object.assign({}, $event.group, { index: (($event.group.index || 0) - 1 + this.reorderables.length) % this.reorderables.length });
+    const event = Object.assign({}, $event, { context: group });
+    super.onChange(event);
   }
 
 }

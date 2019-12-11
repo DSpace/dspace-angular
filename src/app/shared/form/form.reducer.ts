@@ -151,6 +151,8 @@ function initForm(state: FormState, action: FormInitAction): FormState {
  *    the new state, with the data changed.
  */
 function changeDataForm(state: FormState, action: FormChangeAction): FormState {
+  console.log("state changed", action);
+
   if (hasValue(state[action.payload.formId])) {
     const newState = Object.assign({}, state);
     newState[action.payload.formId] = Object.assign({}, newState[action.payload.formId], {

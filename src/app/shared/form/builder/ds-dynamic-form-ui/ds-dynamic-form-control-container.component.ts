@@ -227,7 +227,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   ngOnInit(): void {
-    console.log(this.model);
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
 
@@ -246,6 +245,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
       this.subs.push(item$.subscribe((item) => this.item = item));
       const value = Object.assign(new MetadataValue(), this.model.value);
+      console.log(value);
       if (hasValue(value) && value.isVirtual) {
         this.relationshipValue$ = this.relationshipService.findById(value.virtualValue)
           .pipe(
@@ -262,34 +262,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
             )
           );
       }
-      // this.reorderable$ =
-      //   item$.pipe(
-      //     switchMap((item) => this.relationService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType)
-      //       .pipe(
-      //         getAllSucceededRemoteData(),
-      //         getRemoteDataPayload(),
-      //         map((relationshipList: PaginatedList<Relationship>) => relationshipList.page),
-      //         startWith([]),
-      //         switchMap((relationships: Relationship[]) =>
-      //           observableCombineLatest(
-      //             relationships.map((relationship: Relationship) =>
-      //               relationship.leftItem.pipe(
-      //                 getSucceededRemoteData(),
-      //                 getRemoteDataPayload(),
-      //                 map((leftItem: Item) => {
-      //                   return new ReorderableRelationship(relationship, leftItem.uuid !== this.item.uuid)
-      //                 }),
-      //               )
-      //             ))),
-      //         map((relationships: ReorderableRelationship[]) =>
-      //           relationships
-      //             .sort((a: Reorderable, b: Reorderable) => {
-      //               return Math.sign(a.getPlace() - b.getPlace());
-      //             })
-      //         )
-      //       )
-      //     )
-      //   );
 
       this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
