@@ -29,7 +29,7 @@ import {
   configureRequest,
   filterSuccessfulResponses,
   getRequestFromRequestHref,
-  getResponseFromEntry
+  getResponseFromEntry, getSucceededRemoteData
 } from '../shared/operators';
 import { RequestEntry } from './request.reducer';
 import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
@@ -53,7 +53,8 @@ export class ItemDataService extends DataService<Item> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DSOChangeAnalyzer<Item>) {
+    protected comparator: DSOChangeAnalyzer<Item>,
+    ) {
     super();
   }
 

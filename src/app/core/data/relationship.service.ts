@@ -178,11 +178,11 @@ export class RelationshipService extends DataService<Relationship> {
   }
 
   /**
-   * Get an item its relationships in the form of an array
+   * Get an item's relationships in the form of an array
    * @param item
    */
   getItemRelationshipsArray(item: Item): Observable<Relationship[]> {
-    return item.relationships.pipe(
+    return this.findAllByHref(item._links.relationships.href).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),

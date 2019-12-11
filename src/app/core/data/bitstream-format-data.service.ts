@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Bitstream } from '../shared/bitstream.model';
 import { DataService } from './data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
@@ -182,5 +184,9 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
       find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response.isSuccessful)
     );
+  }
+
+  findByBitstream(bitstream: Bitstream): Observable<RemoteData<BitstreamFormat>> {
+    return this.findByHref(bitstream._links.format.href);
   }
 }

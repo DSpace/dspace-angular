@@ -1,5 +1,6 @@
 import { DSpaceObject } from './dspace-object.model';
 import { Bitstream } from './bitstream.model';
+import { HALLink } from './HALLink.model';
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
@@ -82,4 +83,13 @@ export class Collection extends DSpaceObject {
   owner: Observable<RemoteData<Collection>>;
 
   items: Observable<RemoteData<Item[]>>;
+
+  _links: {
+    license: HALLink;
+    harvester: HALLink;
+    mappedItems: HALLink;
+    defaultAccessConditions: HALLink;
+    logo: HALLink;
+    self: HALLink;
+  }
 }

@@ -22,13 +22,14 @@ export class NormalizedBitstream extends NormalizedDSpaceObject<Bitstream> {
    * The relative path to this Bitstream's file
    */
   @autoserialize
+  @relationship(Bitstream, false, false)
   content: string;
 
   /**
    * The format of this Bitstream
    */
   @autoserialize
-  @relationship(BitstreamFormat, false)
+  @relationship(BitstreamFormat, false, false)
   format: string;
 
   /**
@@ -41,14 +42,14 @@ export class NormalizedBitstream extends NormalizedDSpaceObject<Bitstream> {
    * An array of Bundles that are direct parents of this Bitstream
    */
   @autoserialize
-  @relationship(Item, true)
+  @relationship(Item, true, false)
   parents: string[];
 
   /**
    * The Bundle that owns this Bitstream
    */
   @autoserialize
-  @relationship(Item, false)
+  @relationship(Item, false, false)
   owner: string;
 
   /**

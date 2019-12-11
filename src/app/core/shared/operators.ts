@@ -59,9 +59,91 @@ export const getRemoteDataPayload = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<T> =>
     source.pipe(map((remoteData: RemoteData<T>) => remoteData.payload));
 
+export const getPaginatedListPayload = () =>
+  <T>(source: Observable<PaginatedList<T>>): Observable<T[]> =>
+    source.pipe(map((list: PaginatedList<T>) => list.page));
+
 export const getSucceededRemoteData = () =>
   <T>(source: Observable<RemoteData<T>>): Observable<RemoteData<T>> =>
     source.pipe(find((rd: RemoteData<T>) => rd.hasSucceeded));
+
+/**
+ * Get the first successful remotely retrieved object
+ *
+ * You usually don't want to use this, it is a code smell.
+ * Work with the RemoteData object instead, that way you can
+ * handle loading and errors correctly.
+ *
+ * These operators were created as a first step in refactoring
+ * out all the instances where this is used incorrectly.
+ */
+export const getFirstSucceededRemoteDataPayload = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<T> =>
+    source.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload()
+    );
+
+/**
+ * Get the all successful remotely retrieved objects
+ *
+ * You usually don't want to use this, it is a code smell.
+ * Work with the RemoteData object instead, that way you can
+ * handle loading and errors correctly.
+ *
+ * These operators were created as a first step in refactoring
+ * out all the instances where this is used incorrectly.
+ */
+export const getAllSucceededRemoteDataPayload = () =>
+  <T>(source: Observable<RemoteData<T>>): Observable<T> =>
+    source.pipe(
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload()
+    );
+
+/**
+ * Get the first successful remotely retrieved paginated list
+ * as an array
+ *
+ * You usually don't want to use this, it is a code smell.
+ * Work with the RemoteData object instead, that way you can
+ * handle loading and errors correctly.
+ *
+ * You also don't want to ignore pagination and simply use the
+ * page as an array.
+ *
+ * These operators were created as a first step in refactoring
+ * out all the instances where this is used incorrectly.
+ */
+export const getFirstSucceededRemoteListPayload = () =>
+  <T>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
+    source.pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+      getPaginatedListPayload()
+    );
+
+/**
+ * Get all successful remotely retrieved paginated lists
+ * as arrays
+ *
+ * You usually don't want to use this, it is a code smell.
+ * Work with the RemoteData object instead, that way you can
+ * handle loading and errors correctly.
+ *
+ * You also don't want to ignore pagination and simply use the
+ * page as an array.
+ *
+ * These operators were created as a first step in refactoring
+ * out all the instances where this is used incorrectly.
+ */
+export const getAllSucceededRemoteListPayload = () =>
+  <T>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
+    source.pipe(
+      getAllSucceededRemoteData(),
+      getRemoteDataPayload(),
+      getPaginatedListPayload()
+    );
 
 /**
  * Operator that checks if a remote data object contains a page not found error

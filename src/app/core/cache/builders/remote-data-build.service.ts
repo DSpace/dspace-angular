@@ -1,9 +1,21 @@
 import { Injectable } from '@angular/core';
 
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  race as observableRace
+} from 'rxjs';
 import { distinctUntilChanged, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
 
-import { hasValue, hasValueOperator, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined
+} from '../../../shared/empty.util';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
@@ -157,46 +169,55 @@ export class RemoteDataBuildService {
     relationships.forEach((relationship: string) => {
       let result;
       if (hasValue(normalized[relationship])) {
-        const { resourceType, isList } = getRelationMetadata(normalized, relationship);
+        const { resourceType, isList, shouldAutoResolve } = getRelationMetadata(normalized, relationship);
         const objectList = normalized[relationship].page || normalized[relationship];
-        if (typeof objectList !== 'string') {
-          objectList.forEach((href: string) => {
-            const request = new GetRequest(this.requestService.generateRequestId(), href);
+        if (shouldAutoResolve) {
+          if (typeof objectList !== 'string') {
+            objectList.forEach((href: string) => {
+              const request = new GetRequest(this.requestService.generateRequestId(), href);
+              if (!this.requestService.isCachedOrPending(request)) {
+                this.requestService.configure(request)
+              }
+            });
+
+            const rdArr = [];
+            objectList.forEach((href: string) => {
+              rdArr.push(this.buildSingle(href));
+            });
+
+            if (isList) {
+              result = this.aggregate(rdArr);
+            } else if (rdArr.length === 1) {
+              result = rdArr[0];
+            }
+          } else {
+            const request = new GetRequest(this.requestService.generateRequestId(), objectList);
             if (!this.requestService.isCachedOrPending(request)) {
               this.requestService.configure(request)
             }
-          });
 
-          const rdArr = [];
-          objectList.forEach((href: string) => {
-            rdArr.push(this.buildSingle(href));
-          });
-
-          if (isList) {
-            result = this.aggregate(rdArr);
-          } else if (rdArr.length === 1) {
-            result = rdArr[0];
-          }
-        } else {
-          const request = new GetRequest(this.requestService.generateRequestId(), objectList);
-          if (!this.requestService.isCachedOrPending(request)) {
-            this.requestService.configure(request)
+            // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
+            // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
+            // but it should still be built as a list
+            if (isList) {
+              result = this.buildList(objectList);
+            } else {
+              result = this.buildSingle(objectList);
+            }
           }
 
-          // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
-          // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
-          // but it should still be built as a list
-          if (isList) {
-            result = this.buildList(objectList);
+          if (hasValue(normalized[relationship].page)) {
+            links[relationship] = this.toPaginatedList(result, normalized[relationship].pageInfo);
           } else {
-            result = this.buildSingle(objectList);
+            links[relationship] = result;
           }
-        }
-
-        if (hasValue(normalized[relationship].page)) {
-          links[relationship] = this.toPaginatedList(result, normalized[relationship].pageInfo);
         } else {
-          links[relationship] = result;
+          if (hasNoValue(links._links)) {
+            links._links = {};
+          }
+          links._links[relationship] = {
+            href: objectList
+          };
         }
       }
     });

@@ -81,7 +81,9 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
   protected abstract getFindByParentHref(parentUUID: string): Observable<string>;
 
   public findByParent(parentUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
-    const href$ = this.buildHrefFromFindOptions(this.getFindByParentHref(parentUUID), [], options);
+    const href$ = this.getFindByParentHref(parentUUID).pipe(
+      map((href: string) => this.buildHrefFromFindOptions(href, options))
+    );
     return this.findList(href$, options);
   }
 

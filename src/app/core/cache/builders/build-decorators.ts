@@ -53,7 +53,7 @@ export function getMapsToType(type: string | ResourceType) {
   return typeMap.get(type);
 }
 
-export function relationship<T extends CacheableObject>(value: GenericConstructor<T>, isList: boolean = false): any {
+export function relationship<T extends CacheableObject>(value: GenericConstructor<T>, isList: boolean = false, shouldAutoResolve: boolean = true): any {
   return function r(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
     if (!target || !propertyKey) {
       return;
@@ -66,7 +66,8 @@ export function relationship<T extends CacheableObject>(value: GenericConstructo
     relationshipMap.set(target.constructor, metaDataList);
     return Reflect.metadata(relationshipKey, {
       resourceType: (value as any).type.value,
-      isList
+      isList,
+      shouldAutoResolve
     }).apply(this, arguments);
   };
 }

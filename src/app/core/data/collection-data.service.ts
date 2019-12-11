@@ -7,6 +7,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Collection } from '../shared/collection.model';
+import { Item } from '../shared/item.model';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
 import { RequestService } from './request.service';
@@ -240,4 +241,9 @@ export class CollectionDataService extends ComColDataService<Collection> {
         this.halService.getEndpoint('collections', `${communityEndpointHref}/${parentUUID}`)),
     );
   }
+
+  findOwningCollectionFor(item: Item): Observable<RemoteData<Collection>> {
+    return this.findByHref(item._links.owningCollection.href);
+  }
+
 }

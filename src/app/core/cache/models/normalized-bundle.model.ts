@@ -22,7 +22,7 @@ export class NormalizedBundle extends NormalizedDSpaceObject<Bundle> {
    * The primary bitstream of this Bundle
    */
   @autoserialize
-  @relationship(Bitstream, false)
+  @relationship(Bitstream, false, false)
   primaryBitstream: string;
 
   /**
@@ -39,7 +39,7 @@ export class NormalizedBundle extends NormalizedDSpaceObject<Bundle> {
    * List of Bitstreams that are part of this Bundle
    */
   @autoserialize
-  @relationship(Bitstream, true)
+  @relationship(Bitstream, true, false)
   bitstreams: string[];
 
 }

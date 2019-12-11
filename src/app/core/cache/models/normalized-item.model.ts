@@ -48,25 +48,25 @@ export class NormalizedItem extends NormalizedDSpaceObject<Item> {
    * An array of Collections that are direct parents of this Item
    */
   @deserialize
-  @relationship(Collection, true)
+  @relationship(Collection, true, false)
   parents: string[];
 
   /**
    * The Collection that owns this Item
    */
   @deserialize
-  @relationship(Collection, false)
+  @relationship(Collection, false, false)
   owningCollection: string;
 
   /**
    * List of Bitstreams that are owned by this Item
    */
   @deserialize
-  @relationship(Bundle, true)
+  @relationship(Bundle, true, false)
   bundles: string[];
 
   @deserialize
-  @relationship(Relationship, true)
+  @relationship(Relationship, true, false)
   relationships: string[];
 
 }

@@ -30,42 +30,41 @@ export class NormalizedCollection extends NormalizedDSpaceObject<Collection> {
    * The Bitstream that represents the license of this Collection
    */
   @autoserialize
-  @relationship(License, false)
   license: string;
 
   /**
    * The Bitstream that represents the default Access Conditions of this Collection
    */
   @autoserialize
-  @relationship(ResourcePolicy, false)
+  @relationship(ResourcePolicy, false, false)
   defaultAccessConditions: string;
 
   /**
    * The Bitstream that represents the logo of this Collection
    */
   @deserialize
-  @relationship(Bitstream, false)
+  @relationship(Bitstream, false, false)
   logo: string;
 
   /**
    * An array of Communities that are direct parents of this Collection
    */
   @deserialize
-  @relationship(Community, true)
+  @relationship(Community, true, false)
   parents: string[];
 
   /**
    * The Community that owns this Collection
    */
   @deserialize
-  @relationship(Community, false)
+  @relationship(Community, false, false)
   owner: string;
 
   /**
    * List of Items that are part of (not necessarily owned by) this Collection
    */
   @deserialize
-  @relationship(Item, true)
+  @relationship(Item, true, false)
   items: string[];
 
 }

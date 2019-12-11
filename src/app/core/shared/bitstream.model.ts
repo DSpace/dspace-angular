@@ -1,8 +1,8 @@
-import { DSpaceObject } from './dspace-object.model';
-import { RemoteData } from '../data/remote-data';
-import { Item } from './item.model';
-import { BitstreamFormat } from './bitstream-format.model';
 import { Observable } from 'rxjs';
+import { RemoteData } from '../data/remote-data';
+import { BitstreamFormat } from './bitstream-format.model';
+import { DSpaceObject } from './dspace-object.model';
+import { HALLink } from './HALLink.model';
 import { ResourceType } from './resource-type';
 
 export class Bitstream extends DSpaceObject {
@@ -24,22 +24,24 @@ export class Bitstream extends DSpaceObject {
   bundleName: string;
 
   /**
-   * An array of Bitstream Format of this Bitstream
+   * The Thumbnail for this Bitstream
    */
-  format: Observable<RemoteData<BitstreamFormat>>;
+  thumbnail?: Observable<RemoteData<Bitstream>>;
 
   /**
-   * An array of Items that are direct parents of this Bitstream
+   * The Bitstream Format for this Bitstream
    */
-  parents: Observable<RemoteData<Item[]>>;
-
-  /**
-   * The Bundle that owns this Bitstream
-   */
-  owner: Observable<RemoteData<Item>>;
+  format?: Observable<RemoteData<BitstreamFormat>>;
 
   /**
    * The URL to retrieve this Bitstream's file
    */
   content: string;
+
+  _links: {
+    self: HALLink;
+    bundle: HALLink;
+    content: HALLink;
+    format: HALLink;
+  }
 }

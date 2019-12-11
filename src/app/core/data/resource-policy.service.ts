@@ -61,6 +61,6 @@ export class ResourcePolicyService {
   }
 
   findByHref(href: string, options?: HttpOptions): Observable<RemoteData<ResourcePolicy>> {
-    return this.dataService.findByHref(href, options);
+    return this.dataService.findByHref(href, {}, options);
   }
 }

@@ -27,24 +27,26 @@ export abstract class BaseResponseParsingService {
         return this.processArray(data, request);
       } else if (isRestDataObject(data)) {
         const object = this.deserialize(data);
-        if (isNotEmpty(data._embedded)) {
-          Object
-            .keys(data._embedded)
-            .filter((property) => data._embedded.hasOwnProperty(property))
-            .forEach((property) => {
-              const parsedObj = this.process<ObjectDomain>(data._embedded[property], request);
-              if (isNotEmpty(parsedObj)) {
-                if (isRestPaginatedList(data._embedded[property])) {
-                  object[property] = parsedObj;
-                  object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
-                } else if (isRestDataObject(data._embedded[property])) {
-                  object[property] = this.retrieveObjectOrUrl(parsedObj);
-                } else if (Array.isArray(parsedObj)) {
-                  object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
-                }
-              }
-            });
-        }
+
+        // TODO remove
+        // if (isNotEmpty(data._embedded)) {
+        //   Object
+        //     .keys(data._embedded)
+        //     .filter((property) => data._embedded.hasOwnProperty(property))
+        //     .forEach((property) => {
+        //       const parsedObj = this.process<ObjectDomain>(data._embedded[property], request);
+        //       if (isNotEmpty(parsedObj)) {
+        //         if (isRestPaginatedList(data._embedded[property])) {
+        //           object[property] = parsedObj;
+        //           object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
+        //         } else if (isRestDataObject(data._embedded[property])) {
+        //           object[property] = this.retrieveObjectOrUrl(parsedObj);
+        //         } else if (Array.isArray(parsedObj)) {
+        //           object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
+        //         }
+        //       }
+        //     });
+        // }
 
         this.cache(object, request);
         return object;
