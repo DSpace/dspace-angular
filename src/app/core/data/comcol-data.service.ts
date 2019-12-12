@@ -1,24 +1,19 @@
 import {
   distinctUntilChanged,
-  filter, first,
-  map,
-  mergeMap,
-  share,
-  switchMap,
+  filter, first,map, mergeMap, share, switchMap,
   take,
   tap
 } from 'rxjs/operators';
-import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
+import { merge as observableMerge, Observable, throwError as observableThrowError, combineLatest as observableCombineLatest } from 'rxjs';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { DeleteRequest, FindAllOptions, FindByIDRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindListOptions, FindByIDRequest, RestRequest } from './request.models';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
-import { FindListOptions, FindByIDRequest } from './request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   configureRequest,
