@@ -53,8 +53,11 @@
     </div>
   </div>
   <div class="mt-5 w-100">
-    <ds-related-entities-search [item]="object"
-      [relationType]="'isAuthorOfPublication'">
-    </ds-related-entities-search>
+    <ds-tabbed-related-entities-search  [item]="object"
+                                        [relationTypes]="[{
+                                          label: 'isAuthorOfPublication',
+                                          filter: 'isAuthorOfPublication'
+                                        }]">
+    </ds-tabbed-related-entities-search>
   </div>
 </div>

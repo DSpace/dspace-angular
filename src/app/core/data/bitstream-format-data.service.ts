@@ -11,7 +11,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { DeleteByIDRequest, FindAllOptions, PostRequest, PutRequest } from './request.models';
+import { DeleteByIDRequest, FindListOptions, PostRequest, PutRequest } from './request.models';
 import { Observable } from 'rxjs';
 import { find, map, tap } from 'rxjs/operators';
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
@@ -54,10 +54,10 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   /**
    * Get the endpoint for browsing bitstream formats
-   * @param {FindAllOptions} options
+   * @param {FindListOptions} options
    * @returns {Observable<string>}
    */
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 

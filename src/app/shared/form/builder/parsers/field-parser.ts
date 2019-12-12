@@ -1,3 +1,4 @@
+import { Inject, InjectionToken } from '@angular/core';
 import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 
@@ -13,12 +14,21 @@ import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
 
+export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
+export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
+export const INIT_FORM_VALUES:InjectionToken<any> = new InjectionToken<any>('initFormValues');
+export const PARSER_OPTIONS: InjectionToken<ParserOptions> = new InjectionToken<ParserOptions>('parserOptions');
+
 export abstract class FieldParser {
 
   protected fieldId: string;
 
-  constructor(protected configData: FormFieldModel, protected initFormValues, protected parserOptions: ParserOptions) {
-  }
+  constructor(
+    @Inject(SUBMISSION_ID) protected submissionId: string,
+    @Inject(CONFIG_DATA) protected configData: FormFieldModel,
+    @Inject(INIT_FORM_VALUES) protected initFormValues: any,
+    @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions
+  ) {}
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
