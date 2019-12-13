@@ -12,9 +12,9 @@
                 (dfFocus)="onFocus($event)">
 
             <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
-                <ng-container *ngIf="!context.hasRelationship">
+                metadata: {{context.metadata}}
                     <!--Array with repeatable items-->
-                    <div *ngIf="!context.notRepeatable"
+                    <div *ngIf="!context.notRepeatable && (!context.hasRelationship || (context.hasRelationship && index < 1))"
                          class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
                         <div class="btn-group" role="group" aria-label="Add and remove button">
                             <button type="button" class="btn btn-secondary"
@@ -31,7 +31,7 @@
                     </div>
 
                     <!--Array with non repeatable items - Only delete button-->
-                    <div *ngIf="context.notRepeatable && group.context.groups.length > 1"
+                    <div *ngIf="context.notRepeatable && group.context.groups.length > 1 || (context.hasRelationship && index > 0)"
                          class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
                         <div class="btn-group" role="group" aria-label="Remove button">
                             <button type="button" class="btn btn-secondary"
@@ -41,15 +41,14 @@
                             </button>
                         </div>
                     </div>
-                </ng-container>
 
-                <div *ngIf="!context.notRepeatable && context.hasRelationship && index < 1" class="col-auto text-center">
-                    <button type="button" class="btn btn-secondary"
-                            [disabled]="isItemReadOnly(context, index)"
-                            (click)="insertItem($event, group.context, group.index + 1)">
-                        {{'form.add' | translate}}
-                    </button>
-                </div>
+<!--                <div *ngIf="!context.notRepeatable && context.hasRelationship && index < 1" class="col-auto text-center">-->
+<!--                    <button type="button" class="btn btn-secondary"-->
+<!--                            [disabled]="isItemReadOnly(context, index)"-->
+<!--                            (click)="insertItem($event, group.context, group.index + 1)">-->
+<!--                        {{'form.add' | translate}}-->
+<!--                    </button>-->
+<!--                </div>-->
             </ng-template>
 
         </ds-dynamic-form>

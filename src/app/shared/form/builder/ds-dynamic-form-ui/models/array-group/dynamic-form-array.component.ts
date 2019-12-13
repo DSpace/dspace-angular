@@ -25,7 +25,7 @@ import {
 } from '../../../../../../core/shared/operators';
 import { SubmissionObject } from '../../../../../../core/submission/models/submission-object.model';
 import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
-import { hasValue, isNotEmpty } from '../../../../../empty.util';
+import { hasNoValue, hasValue, isNotEmpty, isNull } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import {
   Reorderable,
@@ -55,7 +55,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   @Output('ngbEvent') customEvent: EventEmitter<DynamicFormControlCustomEvent> = new EventEmitter();
 
   private submissionItem: Item;
-  private reorderables: Reorderable[];
+  private reorderables: Reorderable[] = [];
 
   /* tslint:enable:no-output-rename */
 
@@ -70,7 +70,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   }
 
   ngOnInit(): void {
-    console.log('this.model', this.model);
     this.submissionObjectService
       .findById(this.model.submissionId).pipe(
       getSucceededRemoteData(),
@@ -88,9 +87,10 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
 
   private updateReorderables(): void {
     this.zone.runOutsideAngular(() => {
-      const reorderable$arr: Array<Observable<Reorderable>> = this.model.groups
-        .map((group, index) => [group, (this.control as any).controls[index]])
-        //.slice(1) // disregard the first group, it is always empty to ensure the first field remains empty
+      let groups = this.model.groups.map((group, index) => [group, (this.control as any).controls[index]]);
+      groups = [...groups, groups[0]];
+      const reorderable$arr: Array<Observable<Reorderable>> = groups
+        .filter(([group, control], index) => index > 0 && hasValue((group.group[0] as any).value)) // disregard the first group, it is always empty to ensure the first field remains empty
         .map(([group, control]: [DynamicFormArrayGroupModel, AbstractControl], index: number) => {
           const model = group.group[0] as DynamicConcatModel;
           let formFieldMetadataValue: FormFieldMetadataValueObject = model.value as FormFieldMetadataValueObject;
@@ -155,15 +155,17 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
           }
           this.reorderables = reorderables;
 
-          this.reorderables.forEach((reorderable: Reorderable) => {
+          this.reorderables.forEach((reorderable: Reorderable, index: number) => {
             if (reorderable.hasMoved) {
+              const prevIndex = reorderable.oldIndex;
               reorderable.update().pipe(take(1)).subscribe((v) => {
+                console.log(reorderable, index);
                 if (reorderable instanceof ReorderableFormFieldMetadataValue) {
                   const reoMD = reorderable as ReorderableFormFieldMetadataValue;
                   const mdl = Object.assign({}, reoMD.model, { value: reoMD.metadataValue });
-                  this.onChange({
-                    $event: undefined,
-                    context: reoMD.group,
+                  super.onChange({
+                    $event: { previousIndex: prevIndex  },
+                    context: { index },
                     control: reoMD.control,
                     group: this.group,
                     model: mdl,
@@ -175,7 +177,6 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
           })
         });
     })
-
   }
 
   moveSelection(event: CdkDragDrop<Relationship>) {
@@ -184,10 +185,13 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
   }
 
   onChange($event) {
-    console.log($event);
-    const group = Object.assign({}, $event.group, { index: (($event.group.index || 0) - 1 + this.reorderables.length) % this.reorderables.length });
-    const event = Object.assign({}, $event, { context: group });
-    super.onChange(event);
+    let event = $event;
+    if (hasNoValue($event.context)) {
+      const context = Object.assign({}, $event.context, { index: this.reorderables.length });
+      event = Object.assign({}, $event, { context });
+      super.onChange(event);
+    } else {
+      this.updateReorderables();
+    }
   }
-
 }

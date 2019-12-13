@@ -196,7 +196,8 @@ function newOperation(state: JsonPatchOperationsState, action): JsonPatchOperati
     body,
     action.type,
     action.payload.path,
-    hasValue(action.payload.value) ? action.payload.value : null);
+    hasValue(action.payload.value) ? action.payload.value : null,
+    hasValue(action.payload.from) ? action.payload.from : null);
 
   if (hasValue(newState[ action.payload.resourceType ])
     && hasValue(newState[ action.payload.resourceType ].children)) {
@@ -293,7 +294,7 @@ function flushOperation(state: JsonPatchOperationsState, action: FlushPatchOpera
   }
 }
 
-function addOperationToList(body: JsonPatchOperationObject[], actionType, targetPath, value?) {
+function addOperationToList(body: JsonPatchOperationObject[], actionType, targetPath, value?, fromPath?) {
   const newBody = Array.from(body);
   switch (actionType) {
     case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_ADD_OPERATION:
@@ -312,6 +313,9 @@ function addOperationToList(body: JsonPatchOperationObject[], actionType, target
       break;
     case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_REMOVE_OPERATION:
       newBody.push(makeOperationEntry({ op: JsonPatchOperationType.remove, path: targetPath }));
+      break;
+    case JsonPatchOperationsActionTypes.NEW_JSON_PATCH_MOVE_OPERATION:
+      newBody.push(makeOperationEntry({ op: JsonPatchOperationType.move, from: fromPath, path: targetPath }));
       break;
   }
   return newBody;

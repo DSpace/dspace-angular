@@ -50,10 +50,11 @@ export abstract class FieldParser {
         metadataKey = this.configData.selectableMetadata[0].metadata;
       };
 
+      console.log(this.getInitArrayIndex());
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,
-        initialCount: this.getInitArrayIndex() + 1,
+        initialCount: this.getInitArrayIndex(),
         notRepeatable: !this.configData.repeatable,
         hasRelationship: isNotEmpty(this.configData.selectableRelationship),
         required: isNotEmpty(this.configData.mandatory),
@@ -87,7 +88,7 @@ export abstract class FieldParser {
             }
           }
           setLayout(model, 'element', 'host', 'col');
-          if (model.hasLanguages|| isNotEmpty(model.relationship)) {
+          if (model.hasLanguages || isNotEmpty(model.relationship)) {
             setLayout(model, 'grid', 'control', 'col');
           }
           return [model];
@@ -166,9 +167,10 @@ export abstract class FieldParser {
   }
 
   protected getInitArrayIndex() {
+    let fieldCount = 0;
     const fieldIds: any = this.getAllFieldIds();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds)) {
-      return this.initFormValues[fieldIds].length;
+      fieldCount = this.initFormValues[fieldIds].filter(value => hasValue(value) && hasValue(value.value)).length;
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
       let counter = 0;
       fieldIds.forEach((id) => {
@@ -176,10 +178,9 @@ export abstract class FieldParser {
           counter = counter + this.initFormValues[id].length;
         }
       });
-      return (counter === 0) ? 1 : counter;
-    } else {
-      return 1;
+      fieldCount = counter;
     }
+    return (fieldCount === 0) ? 1 : fieldCount + 1
   }
 
   protected getFieldId(): string {

@@ -9,7 +9,7 @@ import {
   DynamicFormControlModel
 } from '@ng-dynamic-forms/core';
 
-import { isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../shared/empty.util';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
@@ -326,6 +326,12 @@ export class SectionFormOperationsService {
         } else {
           this.operationsBuilder.remove(pathCombiner.getPath(path));
         }
+      } else if (hasValue(event.$event) && hasValue(event.$event.previousIndex)) {
+        console.log(event, path);
+        this.operationsBuilder.move(
+          pathCombiner.getPath(path),
+          pathCombiner.getPath(segmentedPath + '/' + event.$event.previousIndex).path
+      )
       } else {
         // New value is not equal from the previous one, so dispatch a replace operation
         this.operationsBuilder.replace(

@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
 import {
-  NewPatchAddOperationAction,
+  NewPatchAddOperationAction, NewPatchMoveOperationAction,
   NewPatchRemoveOperationAction,
   NewPatchReplaceOperationAction
 } from '../json-patch-operations.actions';
@@ -59,6 +59,18 @@ export class JsonPatchOperationsBuilder {
         path.subRootElement,
         path.path,
         this.prepareValue(value, plain, false)));
+  }
+
+
+  move(path: JsonPatchOperationPathObject, prevPath: string) {
+    this.store.dispatch(
+      new NewPatchMoveOperationAction(
+        path.rootElement,
+        path.subRootElement,
+        prevPath,
+        path.path
+      )
+    );
   }
 
   /**
