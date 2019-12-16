@@ -1,8 +1,9 @@
-<div *ngIf="metadataRepresentation" class="mt-2 mb-4">
-    <button type="button" class="close float-left" aria-label="Close button" (click)="removeSelection()">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <span class="d-inline-block align-middle ml-1">
+<div *ngIf="metadataRepresentation" class="mt-2 mb-4 d-flex">
+    <span class="d-inline-block align-middle ml-1 mr-auto">
               <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation"></ds-metadata-representation-loader>
-          </span>
+    </span>
+    <button type="button" class="btn btn-secondary"
+            (click)="removeSelection()">
+        <i class="fas fa-trash" aria-hidden="true"></i>
+    </button>
 </div>

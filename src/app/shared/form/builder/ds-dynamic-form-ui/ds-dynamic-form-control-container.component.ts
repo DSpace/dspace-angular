@@ -16,7 +16,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -29,7 +29,7 @@ import {
   DYNAMIC_FORM_CONTROL_TYPE_SELECT,
   DYNAMIC_FORM_CONTROL_TYPE_TEXTAREA,
   DYNAMIC_FORM_CONTROL_TYPE_TIMEPICKER,
-  DynamicDatePickerModel,
+  DynamicDatePickerModel, DynamicFormArrayModel,
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
@@ -331,4 +331,12 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
   }
+  //
+  //
+  // removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
+  //   const formArrayControl = this.group.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
+  //   this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
+  //   this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
+  //   this.formService.changeForm(this.formId, this.formModel);
+  // }
 }
