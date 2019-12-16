@@ -4,7 +4,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { filter, find, map, switchMap, tap } from 'rxjs/operators';
 import { configureRequest, getSucceededRemoteData } from '../shared/operators';
-import { FindAllOptions, FindAllRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RemoteData } from './remote-data';
@@ -12,6 +11,7 @@ import { PaginatedList } from './paginated-list';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { ItemType } from '../shared/item-relationships/item-type.model';
 import { isNotUndefined } from '../../shared/empty.util';
+import { FindListOptions, FindListRequest } from './request.models';
 
 /**
  * The service handling all relationship requests
@@ -35,11 +35,11 @@ export class RelationshipTypeService {
     );
   }
 
-  getAllRelationshipTypes(options: FindAllOptions): Observable<RemoteData<PaginatedList<RelationshipType>>> {
+  getAllRelationshipTypes(options: FindListOptions): Observable<RemoteData<PaginatedList<RelationshipType>>> {
     const link$ = this.halService.getEndpoint(this.linkPath);
     return link$
       .pipe(
-        map((endpointURL: string) => new FindAllRequest(this.requestService.generateRequestId(), endpointURL, options)),
+        map((endpointURL: string) => new FindListRequest(this.requestService.generateRequestId(), endpointURL, options)),
         configureRequest(this.requestService),
         switchMap(() => this.rdbService.buildList(link$))
       );

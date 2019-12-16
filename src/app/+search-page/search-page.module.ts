@@ -8,9 +8,11 @@ import { ConfigurationSearchPageComponent } from './configuration-search-page.co
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
 import { SearchTrackerComponent } from './search-tracker.component';
 import { StatisticsModule } from '../statistics/statistics.module';
+import { SearchComponent } from './search.component';
 
 const components = [
   SearchPageComponent,
+  SearchComponent,
   ConfigurationSearchPageComponent,
   SearchTrackerComponent
 ];
