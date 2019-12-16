@@ -35,7 +35,7 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/cdk@6.4.7":
+"@angular/cdk@^6.4.7":
   version "6.4.7"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.4.7.tgz#1549b304dd412e82bd854cc55a7d5c6772ee0411"
   integrity sha512-18x0U66fLD5kGQWZ9n3nb75xQouXlWs7kUDaTd8HTrHpT1s2QIAqlLd1KxfrYiVhsEC2jPQaoiae7VnBlcvkBg==
@@ -103,15 +103,6 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/material@6.4.7":
-  version "6.4.7"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-6.4.7.tgz#3c8f2d6a6a7904d97be29e06a84ffb62a8da6c16"
-  integrity sha512-SdNx7Xovi24Kw9eU6lkLhY/7f2M7L9F+/uh6XuPr4jbGgCUVVpeeVI5ztZhsZRbj1sN+/r1p5w8u62apWWl5Ww==
-  dependencies:
-    tslib "^1.7.1"
-  optionalDependencies:
-    parse5 "^5.0.0"
-
 "@angular/platform-browser-dynamic@^6.1.4":
   version "6.1.6"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-6.1.6.tgz#49c2048d61b6d0958b2f0deb68cebe638b2f7f63"
@@ -176,7 +167,7 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@ng-bootstrap/ng-bootstrap@2.2.2":
+"@ng-bootstrap/ng-bootstrap@^2.0.0":
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-2.2.2.tgz#07c64badd48b563140eb5a6327b5516bf2226834"
   integrity sha512-uqngK1urcevQeF+zgoGW1XDnasjoob4QrwhynNUFpDnnplP1wa+BEUjpSccxU+L2dHLfrOb2sPGEGp8cE2X3Iw==
@@ -1163,7 +1154,6 @@ async@^2.0.0, async@^2.5.0:
 async@^2.1.4:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.2.tgz#18330ea7e6e313887f5d2f2a904bac6fe4dd5381"
-  integrity sha512-H1qVYh1MYhEEFLsP97cVKqCGo7KfCyTt6uEWqsTBr9SO84oK9Uwbyd/yCW+6rKJLHksBNUVWZDAjfS+Ccx0Bbg==
   dependencies:
     lodash "^4.17.11"
 
@@ -1403,7 +1393,6 @@ big.js@^3.1.3:
 big.js@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
-  integrity sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==
 
 binary-extensions@^1.0.0:
   version "1.11.0"
@@ -2961,7 +2950,6 @@ dateformat@^1.0.11, dateformat@^1.0.6:
 debug-loader@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/debug-loader/-/debug-loader-0.0.1.tgz#44dc37e09e3c39e6af334681960f70a534a9d056"
-  integrity sha1-RNw34J48OeavM0aBlg9wpTSp0FY=
   dependencies:
     loader-utils "^0.2.12"
 
@@ -5827,7 +5815,6 @@ json5@^0.5.0:
 json5@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-1.0.1.tgz#779fb0018604fa854eacbf6252180d83543e3dbe"
-  integrity sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==
   dependencies:
     minimist "^1.2.0"
 
@@ -6167,7 +6154,6 @@ loader-utils@^1.0.0, loader-utils@^1.0.2, loader-utils@^1.1.0:
 loader-utils@^1.0.1, loader-utils@^1.0.4:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.2.3.tgz#1ff5dc6911c9f0a062531a4c04b609406108c2c7"
-  integrity sha512-fkpz8ejdnEMG3s37wGL07iSBDg99O9D5yflE9RGNH3hRdx9SOwYfnGYdZOUIZitN8E+E2vkq3MUMYMvPYl5ZZA==
   dependencies:
     big.js "^5.2.2"
     emojis-list "^2.0.0"
@@ -7769,11 +7755,6 @@ parse-passwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
   integrity sha1-bVuTSkVpk7I9N/QKOC1vFmao5cY=
-
-parse5@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.0.tgz#c59341c9723f414c452975564c7c00a68d58acd2"
-  integrity sha512-fxNG2sQjHvlVAYmzBZS9YlDp6PTSSDwa98vkD4QgVDDCAo84z5X1t5XyJQ62ImdLXx5NdIIfihey6xpum9/gRQ==
 
 parseqs@0.0.5:
   version "0.0.5"
@@ -9668,7 +9649,6 @@ sass-loader@^7.1.0:
 sass-resources-loader@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/sass-resources-loader/-/sass-resources-loader-2.0.0.tgz#88569c542fbf1f18f33a6578b77cc5b36c56911d"
-  integrity sha512-I+5FfV+Hb29U5Nt8DbslWOBgRmTv1M/EwOn4/4rc6Aqy9yjygoa8UTnyCFXfTZV8FoQyIBZbEyKSBryhByqQbA==
   dependencies:
     async "^2.1.4"
     chalk "^1.1.3"
@@ -11515,7 +11495,6 @@ webpack-dev-server@^3.1.11:
 webpack-import-glob-loader@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/webpack-import-glob-loader/-/webpack-import-glob-loader-1.6.3.tgz#1b1de573f49c2c2afdb814dc13b44b2111b2ea7b"
-  integrity sha512-//xc5CYowGzVyPtj7OAU7mowkuR+ZEfFeeOGdcs/UR4u6IAGpXXBlwjC/YCOggv1vuXKJNyiS4w4GaqcXcEO6Q==
   dependencies:
     glob "^5.0.15"
 

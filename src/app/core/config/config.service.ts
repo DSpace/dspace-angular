@@ -2,7 +2,7 @@ import { merge as observableMerge, Observable, throwError as observableThrowErro
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { RequestService } from '../data/request.service';
 import { ConfigSuccessResponse } from '../cache/response.models';
-import { ConfigRequest, FindAllOptions, RestRequest } from '../data/request.models';
+import { ConfigRequest, FindListOptions, RestRequest } from '../data/request.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ConfigData } from './config-data';
@@ -35,7 +35,7 @@ export abstract class ConfigService {
     return `${endpoint}/${resourceName}`;
   }
 
-  protected getConfigSearchHref(endpoint, options: FindAllOptions = {}): string {
+  protected getConfigSearchHref(endpoint, options: FindListOptions = {}): string {
     let result;
     const args = [];
 
@@ -93,7 +93,7 @@ export abstract class ConfigService {
       distinctUntilChanged());
   }
 
-  public getConfigBySearch(options: FindAllOptions = {}): Observable<ConfigData> {
+  public getConfigBySearch(options: FindListOptions = {}): Observable<ConfigData> {
     return this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getConfigSearchHref(endpoint, options)),
       filter((href: string) => isNotEmpty(href)),

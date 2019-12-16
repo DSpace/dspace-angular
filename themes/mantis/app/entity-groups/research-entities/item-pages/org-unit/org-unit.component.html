@@ -56,21 +56,26 @@
             <ds-related-items
               class="col-12 col-md-4"
               [parentItem]="object"
-              [relationType]="'isPersonOfOrgUnit'"
-              [label]="'relationships.isPersonOf' | translate">
-            </ds-related-items>
-            <ds-related-items
-              class="col-12 col-md-4"
-              [parentItem]="object"
-              [relationType]="'isProjectOfOrgUnit'"
-              [label]="'relationships.isProjectOf' | translate">
-            </ds-related-items>
-            <ds-related-items
-              class="col-12 col-md-4"
-              [parentItem]="object"
               [relationType]="'isPublicationOfOrgUnit'"
               [label]="'relationships.isPublicationOf' | translate">
             </ds-related-items>
         </div>
     </div>
+</div>
+<div class="container">
+  <div class="row">
+    <ds-tabbed-related-entities-search  class="w-100"
+                                        [item]="object"
+                                        [relationTypes]="[{
+                                            label: 'isOrgUnitOfPerson',
+                                            filter: 'isOrgUnitOfPerson',
+                                            configuration: 'person'
+                                          },
+                                          {
+                                            label: 'isOrgUnitOfProject',
+                                            filter: 'isOrgUnitOfProject',
+                                            configuration: 'project'
+                                          }]">
+    </ds-tabbed-related-entities-search>
+  </div>
 </div>
