@@ -121,6 +121,8 @@ import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
 import { BrowseDefinition } from './shared/browse-definition.model';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
+import { SiteDataService } from './data/site-data.service';
+import { NormalizedSite } from './cache/models/normalized-site.model';
 
 import {
   MOCK_RESPONSE_MAP,
@@ -160,6 +162,7 @@ const PROVIDERS = [
   AuthResponseParsingService,
   CommunityDataService,
   CollectionDataService,
+  SiteDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
   { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]},
@@ -261,6 +264,7 @@ export const normalizedModels =
     NormalizedBitstream,
     NormalizedBitstreamFormat,
     NormalizedItem,
+    NormalizedSite,
     NormalizedCollection,
     NormalizedCommunity,
     NormalizedEPerson,

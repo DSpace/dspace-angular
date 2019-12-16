@@ -10,7 +10,7 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SearchPageComponent } from './search-page.component';
+import { SearchComponent } from './search.component';
 import { SearchService } from '../core/shared/search/search.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
@@ -25,11 +25,11 @@ import { SearchConfigurationServiceStub } from '../shared/testing/search-configu
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 
-let comp: SearchPageComponent;
-let fixture: ComponentFixture<SearchPageComponent>;
+let comp: SearchComponent;
+let fixture: ComponentFixture<SearchComponent>;
 let searchServiceObject: SearchService;
 let searchConfigurationServiceObject: SearchConfigurationService;
-const store: Store<SearchPageComponent> = jasmine.createSpyObj('store', {
+const store: Store<SearchComponent> = jasmine.createSpyObj('store', {
   /* tslint:disable:no-empty */
   dispatch: {},
   /* tslint:enable:no-empty */
@@ -143,14 +143,14 @@ export function configureSearchComponentTestingModule(compType) {
   }).compileComponents();
 }
 
-describe('SearchPageComponent', () => {
+describe('SearchComponent', () => {
   beforeEach(async(() => {
-    configureSearchComponentTestingModule(SearchPageComponent);
+    configureSearchComponentTestingModule(SearchComponent);
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchPageComponent);
-    comp = fixture.componentInstance; // SearchPageComponent test instance
+    fixture = TestBed.createComponent(SearchComponent);
+    comp = fixture.componentInstance; // SearchComponent test instance
     comp.inPlaceSearch = false;
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;

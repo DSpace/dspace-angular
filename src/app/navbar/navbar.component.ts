@@ -53,17 +53,18 @@ export class NavbarComponent extends MenuComponent implements OnInit {
         } as TextMenuItemModel,
         index: 0
       },
-      // {
-      //   id: 'browse_global_communities_and_collections',
-      //   parentID: 'browse_global',
-      //   active: false,
-      //   visible: true,
-      //   model: {
-      //     type: MenuItemType.LINK,
-      //     text: 'menu.section.browse_global_communities_and_collections',
-      //     link: '#'
-      //   } as LinkMenuItemModel,
-      // },
+      /* Communities & Collections tree */
+      {
+        id: `browse_global_communities_and_collections`,
+        parentID: 'browse_global',
+        active: false,
+        visible: true,
+        model: {
+          type: MenuItemType.LINK,
+          text: `menu.section.browse_global_communities_and_collections`,
+          link: `/community-list`
+        } as LinkMenuItemModel
+      },
 
       /* Statistics */
       {

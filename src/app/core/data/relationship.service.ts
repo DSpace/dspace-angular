@@ -5,7 +5,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { distinctUntilChanged, filter, map, mergeMap, skipWhile, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
-import { DeleteRequest, FindAllOptions, PostRequest, RestRequest } from './request.models';
+import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { Item } from '../shared/item.model';
@@ -62,7 +62,7 @@ export class RelationshipService extends DataService<Relationship> {
     super();
   }
 
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
   }
 
@@ -202,7 +202,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label
    * @param options
    */
-  getRelatedItemsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Item>>> {
+  getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
     return this.getItemRelationshipsByLabel(item, label, options).pipe(paginatedRelationsToItems(item.uuid));
   }
 
@@ -213,18 +213,18 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label
    * @param options
    */
-  getItemRelationshipsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
-    let findAllOptions = new FindAllOptions();
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
+    let findListOptions = new FindListOptions();
     if (options) {
-      findAllOptions = Object.assign(new FindAllOptions(), options);
+      findListOptions = Object.assign(new FindListOptions(), options);
     }
     const searchParams = [new SearchParam('label', label), new SearchParam('dso', item.id)];
-    if (findAllOptions.searchParams) {
-      findAllOptions.searchParams = [...findAllOptions.searchParams, ...searchParams];
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
     } else {
-      findAllOptions.searchParams = searchParams;
+      findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findAllOptions);
+    return this.searchBy('byLabel', findListOptions);
   }
 
   /**
