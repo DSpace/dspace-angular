@@ -3,7 +3,7 @@ import { distinctUntilChanged, filter, first, flatMap, map, mergeMap, tap } from
 
 import { RequestService } from '../data/request.service';
 import { IntegrationSuccessResponse } from '../cache/response.models';
-import { FindAllOptions, GetRequest, IntegrationRequest } from '../data/request.models';
+import { FindListOptions, GetRequest, IntegrationRequest } from '../data/request.models';
 import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IntegrationData } from './integration-data';
@@ -24,7 +24,7 @@ export abstract class IntegrationService<T extends CacheableObject> extends Data
   protected abstract entryValueEndpoint: string;
   protected abstract halService: HALEndpointService;
 
-  getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions, linkPath?: string): Observable<string> {
     return undefined;
   }
 

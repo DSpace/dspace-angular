@@ -1,11 +1,11 @@
 import { findIndex } from 'lodash';
 
 import { SortOptions } from '../../cache/models/sort-options.model';
-import { FindAllOptions } from '../../data/request.models';
+import { FindListOptions } from '../../data/request.models';
 import { SearchParam } from '../../cache/models/search-param.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 
-export class IntegrationSearchOptions extends FindAllOptions {
+export class IntegrationSearchOptions extends FindListOptions {
 
   private _uuid: string;
   public name: string;
