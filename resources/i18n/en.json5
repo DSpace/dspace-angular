@@ -1529,6 +1529,15 @@
   "submission.general.save-later": "Save for later",
 
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
+  
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+  
+  "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
+  
+
 
   "submission.sections.general.add-more": "Add more",
 
