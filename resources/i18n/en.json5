@@ -822,9 +822,9 @@
 
   "item.page.person.search.title": "Articles by this author",
 
-  "item.page.related-items.view-more": "View more",
+  "item.page.related-items.view-more": "Show {{ amount }} more",
 
-  "item.page.related-items.view-less": "View less",
+  "item.page.related-items.view-less": "Hide last {{ amount }}",
 
   "item.page.relationships.isAuthorOfPublication": "Publications",
 
