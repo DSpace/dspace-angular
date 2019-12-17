@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
+import { DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
 import { Community } from '../../core/shared/community.model';
-import { ResourceType } from '../../core/shared/resource-type';
 import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
 
 /**
