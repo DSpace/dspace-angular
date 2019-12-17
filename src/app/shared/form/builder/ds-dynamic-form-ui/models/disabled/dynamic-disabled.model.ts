@@ -14,7 +14,6 @@ export class DynamicDisabledModel extends DsDynamicInputModel {
 
   constructor(config: DsDynamicDisabledModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
-
     this.readOnly = true;
     this.disabled = true;
     this.valueUpdates.next(config.value);
