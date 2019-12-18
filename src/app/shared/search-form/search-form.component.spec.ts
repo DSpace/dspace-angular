@@ -3,7 +3,6 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { SearchFormComponent } from './search-form.component';
 import { FormsModule } from '@angular/forms';
-import { ResourceType } from '../../core/shared/resource-type';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
