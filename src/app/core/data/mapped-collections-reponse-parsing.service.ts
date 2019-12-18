@@ -15,8 +15,8 @@ export class MappedCollectionsReponseParsingService implements ResponseParsingSe
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload;
 
-    if (payload._embedded && payload._embedded.mappedCollections) {
-      const mappedCollections = payload._embedded.mappedCollections;
+    if (payload._embedded && payload._embedded.collections) {
+      const mappedCollections = payload._embedded.collections;
       // TODO: When the API supports it, change this to fetch a paginated list, instead of creating static one
       // Reason: Pagination is currently not supported on the mappedCollections endpoint
       const paginatedMappedCollections = new PaginatedList(Object.assign(new PageInfo(), {
