@@ -142,6 +142,11 @@ export class ExternalSourceEntryImportModalComponent implements OnInit {
    */
   importedObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  /**
+   * Should it display the ability to import the entry as an authority?
+   */
+  authorityEnabled = false;
+
   constructor(public modal: NgbActiveModal,
               public lookupRelationService: LookupRelationService,
               private selectService: SelectableListService,
