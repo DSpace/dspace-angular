@@ -69,6 +69,14 @@ export class DsDynamicLookupRelationSelectionTabComponent {
    */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  /**
+   * The initial pagination to use
+   */
+  initialPagination = Object.assign(new PaginationComponentOptions(), {
+    id: 'submission-relation-list',
+    pageSize: 5
+  });
+
   constructor(private router: Router,
               private searchConfigService: SearchConfigurationService) {
   }
