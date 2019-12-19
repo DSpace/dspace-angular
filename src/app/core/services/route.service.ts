@@ -195,6 +195,9 @@ export class RouteService {
     this.store.dispatch(new SetParameterAction(key, value));
   }
 
+  /**
+   * Sets the current route parameters and query parameters in the store
+   */
   public setCurrentRouteInfo() {
     combineLatest(this.getRouteParams(), this.route.queryParams)
       .pipe(take(1))

@@ -27,6 +27,9 @@ const fieldParserDeps = [
   PARSER_OPTIONS,
 ];
 
+/**
+ * Method to retrieve a field parder with its providers based on the input type
+ */
 export class ParserFactory {
   public static getProvider(type: ParserType): StaticProvider {
     switch (type) {

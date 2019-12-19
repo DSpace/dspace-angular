@@ -33,6 +33,9 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
   ]
 })
 
+/**
+ * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
+ */
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   label: string;
   relationshipOptions: RelationshipOptions;

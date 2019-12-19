@@ -4,6 +4,9 @@ import { DynamicFormControlComponent, DynamicFormLayoutService, DynamicFormValid
 import { FormGroup } from '@angular/forms';
 import { DynamicDisabledModel } from './dynamic-disabled.model';
 
+/**
+ * Component representing a simple disabled input field
+ */
 @Component({
   selector: 'ds-dynamic-disabled',
   templateUrl: './dynamic-disabled.component.html'

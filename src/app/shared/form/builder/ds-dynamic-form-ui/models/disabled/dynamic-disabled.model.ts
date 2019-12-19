@@ -7,6 +7,9 @@ export interface DsDynamicDisabledModelConfig extends DsDynamicInputModelConfig 
   value?: any;
 }
 
+/**
+ * This model represents the data for a disabled input field
+ */
 export class DynamicDisabledModel extends DsDynamicInputModel {
 
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DISABLED;
