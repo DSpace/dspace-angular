@@ -128,8 +128,8 @@ import {
   MOCK_RESPONSE_MAP,
   MockResponseMap,
   mockResponseMap
-} from './dspace-rest-v2/mocks/mock-response-map';
-import { EndpointMockingRestService } from './dspace-rest-v2/endpoint-mocking-rest.service';
+} from '../shared/mocks/dspace-rest-v2/mocks/mock-response-map';
+import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpoint-mocking-rest.service';
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
 import { SearchFilterService } from './shared/search/search-filter.service';
 import { SearchConfigurationService } from './shared/search/search-configuration.service';
@@ -141,6 +141,10 @@ import { NormalizedExternalSourceEntry } from './cache/models/normalized-externa
 import { ExternalSourceService } from './data/external-source.service';
 import { LookupRelationService } from './data/lookup-relation.service';
 
+/**
+ * When not in production, endpoint responses can be mocked for testing purposes
+ * If there is no mock version available for the endpoint, the actual REST response will be used just like in production mode
+ */
 export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
   if (ENV_CONFIG.production) {
     return new DSpaceRESTv2Service(http);

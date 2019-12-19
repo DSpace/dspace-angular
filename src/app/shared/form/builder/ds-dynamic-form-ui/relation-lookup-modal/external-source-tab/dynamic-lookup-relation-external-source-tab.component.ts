@@ -49,7 +49,7 @@ export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit
   @Input() label: string;
 
   /**
-   * The ID of the list of selected entries
+   * The ID of the list to add/remove selected items to/from
    */
   @Input() listId: string;
 

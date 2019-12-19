@@ -4,6 +4,9 @@ import { ExternalSourceEntry } from '../../shared/external-source-entry.model';
 import { mapsTo } from '../builders/build-decorators';
 import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models';
 
+/**
+ * Normalized model class for an external source entry
+ */
 @mapsTo(ExternalSourceEntry)
 @inheritSerialization(NormalizedObject)
 export class NormalizedExternalSourceEntry extends NormalizedObject<ExternalSourceEntry> {

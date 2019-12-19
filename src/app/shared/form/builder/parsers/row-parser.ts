@@ -27,6 +27,10 @@ export const ROW_ID_PREFIX = 'df-row-group-config-';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Parser the submission data for a single row
+ */
 export class RowParser {
   constructor(private parentInjector: Injector) {
   }

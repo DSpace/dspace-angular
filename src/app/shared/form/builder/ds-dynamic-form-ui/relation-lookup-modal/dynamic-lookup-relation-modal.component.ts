@@ -42,16 +42,58 @@ import { ExternalSourceService } from '../../../../../core/data/external-source.
   ]
 })
 
+/**
+ * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
+ */
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
+  /**
+   * The label to use to display i18n messages (describing the type of relationship)
+   */
   label: string;
+
+  /**
+   * Options for searching related items
+   */
   relationshipOptions: RelationshipOptions;
+
+  /**
+   * The ID of the list to add/remove selected items to/from
+   */
   listId: string;
+
+  /**
+   * The item we're adding relationships to
+   */
   item;
+
+  /**
+   * The collection we're submitting an item to
+   */
   collection;
+
+  /**
+   * Is the selection repeatable?
+   */
   repeatable: boolean;
+
+  /**
+   * The list of selected items
+   */
   selection$: Observable<ListableObject[]>;
+
+  /**
+   * The context to display lists
+   */
   context: Context;
+
+  /**
+   * The metadata-fields describing these relationships
+   */
   metadataFields: string;
+
+  /**
+   * A map of subscriptions within this component
+   */
   subMap: {
     [uuid: string]: Subscription
   } = {};
@@ -105,6 +147,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.modal.close();
   }
 
+  /**
+   * Select (a list of) objects and add them to the store
+   * @param selectableObjects
+   */
   select(...selectableObjects: Array<SearchResult<Item>>) {
     this.zone.runOutsideAngular(
       () => {
@@ -132,6 +178,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       });
   }
 
+  /**
+   * Add a subscription updating relationships with name variants
+   * @param sri The search result to track name variants for
+   */
   private addNameVariantSubscription(sri: SearchResult<Item>) {
     const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
     this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(
@@ -139,6 +189,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)))
   }
 
+  /**
+   * Deselect (a list of) objects and remove them from the store
+   * @param selectableObjects
+   */
   deselect(...selectableObjects: Array<SearchResult<Item>>) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
@@ -148,6 +202,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     );
   }
 
+  /**
+   * Set existing name variants for items by the item's virtual metadata
+   */
   private setExistingNameVariants() {
     const virtualMDs: MetadataValue[] = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
 

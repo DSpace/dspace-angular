@@ -5,6 +5,10 @@ import { EquatableObject } from './equatable';
 const excludedFromEquals = new Map();
 const fieldsForEqualsMap = new Map();
 
+/**
+ * Decorator function that adds the equatable settings from the given (parent) object
+ * @param parentCo The constructor of the parent object
+ */
 export function inheritEquatable(parentCo: GenericConstructor<EquatableObject<any>>) {
   return function decorator(childCo: GenericConstructor<EquatableObject<any>>) {
     const parentExcludedFields = getExcludedFromEqualsFor(parentCo) || [];
@@ -21,6 +25,11 @@ export function inheritEquatable(parentCo: GenericConstructor<EquatableObject<an
   }
 }
 
+/**
+ * Function to mark properties as excluded from the equals method
+ * @param object The object to exclude the property for
+ * @param propertyName The name of the property to exclude
+ */
 export function excludeFromEquals(object: any, propertyName: string): any {
   if (!object) {
     return;
@@ -37,6 +46,10 @@ export function getExcludedFromEqualsFor(constructor: Function): string[] {
   return excludedFromEquals.get(constructor) || [];
 }
 
+/**
+ * Function to save the fields that are to be used for a certain property in the equals method for the given object
+ * @param fields The fields to use to equate the property of the object
+ */
 export function fieldsForEquals(...fields: string[]): any {
   return function i(object: any, propertyName: string): any {
     if (!object) {

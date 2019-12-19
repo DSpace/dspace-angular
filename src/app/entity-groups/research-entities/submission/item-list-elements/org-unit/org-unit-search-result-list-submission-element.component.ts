@@ -24,7 +24,7 @@ import { NameVariantModalComponent } from '../../name-variant-modal/name-variant
 })
 
 /**
- * The component for displaying a list element for an item search result of the type Person
+ * The component for displaying a list element for an item search result of the type OrgUnit
  */
 export class OrgUnitSearchResultListSubmissionElementComponent extends SearchResultListElementComponent<ItemSearchResult, Item> implements OnInit {
   allSuggestions: string[];

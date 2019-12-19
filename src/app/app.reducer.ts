@@ -1,7 +1,7 @@
 import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
-import { CommunityListReducer, CommunityListState } from './community-list-page/community-list.reducer';
 import { hostWindowReducer, HostWindowState } from './shared/search/host-window.reducer';
+import { CommunityListReducer, CommunityListState } from './community-list-page/community-list.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
 import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
 import { sidebarFilterReducer, SidebarFiltersState } from './shared/sidebar/filter/sidebar-filter.reducer';

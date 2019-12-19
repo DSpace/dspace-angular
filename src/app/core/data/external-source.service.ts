@@ -21,6 +21,9 @@ import { PaginatedList } from './paginated-list';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 
+/**
+ * A service handling all external source requests
+ */
 @Injectable()
 export class ExternalSourceService extends DataService<ExternalSource> {
   protected linkPath = 'externalsources';
@@ -38,6 +41,11 @@ export class ExternalSourceService extends DataService<ExternalSource> {
     super();
   }
 
+  /**
+   * Get the endpoint to browse external sources
+   * @param options
+   * @param linkPath
+   */
   getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
   }

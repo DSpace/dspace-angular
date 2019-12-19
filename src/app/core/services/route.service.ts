@@ -187,14 +187,27 @@ export class RouteService {
     );
   }
 
+  /**
+   * Add a parameter to the current route
+   * @param key   The parameter name
+   * @param value The parameter value
+   */
   public addParameter(key, value) {
     this.store.dispatch(new AddParameterAction(key, value));
   }
 
+  /**
+   * Set a parameter in the current route (overriding the previous value)
+   * @param key   The parameter name
+   * @param value The parameter value
+   */
   public setParameter(key, value) {
     this.store.dispatch(new SetParameterAction(key, value));
   }
 
+  /**
+   * Sets the current route parameters and query parameters in the store
+   */
   public setCurrentRouteInfo() {
     combineLatest(this.getRouteParams(), this.route.queryParams)
       .pipe(take(1))

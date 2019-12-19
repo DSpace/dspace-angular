@@ -829,9 +829,9 @@
 
   "item.page.person.search.title": "Articles by this author",
 
-  "item.page.related-items.view-more": "View more",
+  "item.page.related-items.view-more": "Show {{ amount }} more",
 
-  "item.page.related-items.view-less": "View less",
+  "item.page.related-items.view-less": "Hide last {{ amount }}",
 
   "item.page.relationships.isAuthorOfPublication": "Publications",
 
@@ -1634,6 +1634,10 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
+
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.title.Journal Issue": "Journal Issues",
@@ -1643,6 +1647,10 @@
   "submission.sections.describe.relationship-lookup.title.Journal": "Journals",
 
   "submission.sections.describe.relationship-lookup.title.Author": "Authors",
+
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+
+  "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 
