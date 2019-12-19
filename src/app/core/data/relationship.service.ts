@@ -288,24 +288,51 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  /**
+   * Set a name variant for item with ID "itemID" part of list with ID "listID"
+   * @param listID      ID of the list the item is a part of
+   * @param itemID      ID of the item
+   * @param nameVariant A name variant for the item
+   */
   public setNameVariant(listID: string, itemID: string, nameVariant: string) {
     this.appStore.dispatch(new SetNameVariantAction(listID, itemID, nameVariant));
   }
 
+  /**
+   * Get the name variant for item with ID "itemID" part of list with ID "listID"
+   * @param listID      ID of the list the item is a part of
+   * @param itemID      ID of the item
+   */
   public getNameVariant(listID: string, itemID: string): Observable<string> {
     return this.appStore.pipe(
       select(relationshipStateSelector(listID, itemID))
     );
   }
 
+  /**
+   * Remove the name variant for item with ID "itemID" part of list with ID "listID"
+   * @param listID      ID of the list the item is a part of
+   * @param itemID      ID of the item
+   */
   public removeNameVariant(listID: string, itemID: string) {
     this.appStore.dispatch(new RemoveNameVariantAction(listID, itemID));
   }
 
+  /**
+   * Get the name variants of all items part of list with ID "listID"
+   * @param listID    ID of the list the items are a part of
+   */
   public getNameVariantsByListID(listID: string) {
     return this.appStore.pipe(select(relationshipListStateSelector(listID)));
   }
 
+  /**
+   * Get the relationship between two items with a name variant for the item on the opposite side of the relationship-label
+   * @param item1             Related item
+   * @param item2             Other related item
+   * @param relationshipLabel The label describing the relationship between the two items
+   * @param nameVariant       The name variant to give the item on the opposite side of the relationship-label
+   */
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
     return this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(

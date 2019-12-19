@@ -3,6 +3,9 @@ import { NormalizedObject } from './normalized-object.model';
 import { ExternalSource } from '../../shared/external-source.model';
 import { mapsTo } from '../builders/build-decorators';
 
+/**
+ * Normalized model class for an external source
+ */
 @mapsTo(ExternalSource)
 @inheritSerialization(NormalizedObject)
 export class NormalizedExternalSource extends NormalizedObject<ExternalSource> {

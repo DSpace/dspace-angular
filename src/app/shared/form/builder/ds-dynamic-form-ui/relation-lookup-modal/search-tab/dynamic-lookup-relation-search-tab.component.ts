@@ -33,25 +33,81 @@ import { LookupRelationService } from '../../../../../../core/data/lookup-relati
     }
   ]
 })
-
+/**
+ * Tab for browsing local entities to add to the selection
+ */
 export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDestroy {
+  /**
+   * Options for searching related items
+   */
   @Input() relationship: RelationshipOptions;
+
+  /**
+   * The ID of the list to add/remove selected items to/from
+   */
   @Input() listId: string;
+
+  /**
+   * Is the selection repeatable?
+   */
   @Input() repeatable: boolean;
+
+  /**
+   * The list of selected items
+   */
   @Input() selection$: Observable<ListableObject[]>;
+
+  /**
+   * The context to display lists
+   */
   @Input() context: Context;
 
+  /**
+   * Send an event to deselect an object from the list
+   */
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * Send an event to select an object from the list
+   */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * Search results
+   */
   resultsRD$: Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
+
+  /**
+   * Are all results selected?
+   */
   allSelected: boolean;
+
+  /**
+   * Are some results selected?
+   */
   someSelected$: Observable<boolean>;
+
+  /**
+   * Is it currently loading to select all results?
+   */
   selectAllLoading: boolean;
+
+  /**
+   * Subscription to unsubscribe from
+   */
   subscription;
+
+  /**
+   * The initial pagination to use
+   */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 5
   });
+
+  /**
+   * The type of links to display
+   */
   linkTypes = CollectionElementLinkType;
 
   constructor(
@@ -76,12 +132,19 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     );
   }
 
+  /**
+   * Reset the route parameters
+   */
   resetRoute() {
     this.router.navigate([], {
       queryParams: Object.assign({}, { pageSize: this.initialPagination.pageSize }, this.route.snapshot.queryParams, { page: 1 })
     });
   }
 
+  /**
+   * Select all results within the page provided
+   * @param page
+   */
   selectPage(page: Array<SearchResult<Item>>) {
     this.selection$
       .pipe(take(1))
@@ -92,6 +155,10 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.selectableListService.select(this.listId, page);
   }
 
+  /**
+   * Deselect all results within the page provided
+   * @param page
+   */
   deselectPage(page: Array<SearchResult<Item>>) {
     this.allSelected = false;
     this.selection$
@@ -103,6 +170,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.selectableListService.deselect(this.listId, page);
   }
 
+  /**
+   * Select all results
+   */
   selectAll() {
     this.allSelected = true;
     this.selectAllLoading = true;
@@ -128,6 +198,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     );
   }
 
+  /**
+   * Deselect all
+   */
   deselectAll() {
     this.allSelected = false;
     this.selection$

@@ -30,15 +30,43 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
     fadeInOut
   ]
 })
-
+/**
+ * The tab displaying a list of importable entries for an external source
+ */
 export class DsDynamicLookupRelationExternalSourceTabComponent implements OnInit {
+  /**
+   * The label to use to display i18n messages (describing the type of relationship)
+   */
   @Input() label: string;
+
+  /**
+   * The ID of the list to add/remove selected items to/from
+   */
   @Input() listId: string;
+
+  /**
+   * Is the selection repeatable?
+   */
   @Input() repeatable: boolean;
+
+  /**
+   * The context to display lists
+   */
   @Input() context: Context;
+
+  /**
+   * Send an event to deselect an object from the list
+   */
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * Send an event to select an object from the list
+   */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  /**
+   * The initial pagination to start with
+   */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-external-source-relation-list',
     pageSize: 5

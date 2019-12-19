@@ -9,6 +9,9 @@ import { RelationshipTypeService } from '../../../../../../core/data/relationshi
   selector: 'ds-dynamic-disabled',
   templateUrl: './dynamic-disabled.component.html'
 })
+/**
+ * Component for displaying a form input with a disabled property
+ */
 export class DsDynamicDisabledComponent extends DynamicFormControlComponent {
 
   @Input() formId: string;

@@ -13,6 +13,9 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
   styleUrls: ['./external-source-entry-list-submission-element.component.scss'],
   templateUrl: './external-source-entry-list-submission-element.component.html'
 })
+/**
+ * The component for displaying a list element of an external source entry
+ */
 export class ExternalSourceEntryListSubmissionElementComponent extends AbstractListableElementComponent<ExternalSourceEntry> implements OnInit {
   /**
    * The metadata value for the object's uri
