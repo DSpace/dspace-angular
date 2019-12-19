@@ -24,8 +24,9 @@ import { Context } from '../../../../../../core/shared/context.model';
     }
   ]
 })
+
 /**
- * Tab displaying the currently selected relations to add
+ * Tab for inside the lookup model that represents the currently selected relationships
  */
 export class DsDynamicLookupRelationSelectionTabComponent {
   /**
@@ -72,6 +73,9 @@ export class DsDynamicLookupRelationSelectionTabComponent {
               private searchConfigService: SearchConfigurationService) {
   }
 
+  /**
+   * Set up the selection and pagination on load
+   */
   ngOnInit() {
     this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
       .pipe(

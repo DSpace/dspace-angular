@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { startWith, switchMap, } from 'rxjs/operators';
 import { PaginatedList } from '../core/data/paginated-list';
 import { RemoteData } from '../core/data/remote-data';
@@ -11,10 +11,12 @@ import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { RouteService } from '../core/services/route.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
-import { SearchResult } from '../shared/search/search-result.model';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { SearchResult } from '../shared/search/search-result.model';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchService } from '../core/shared/search/search.service';
+import { currentPath } from '../shared/utils/route.utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-search',
@@ -96,7 +98,8 @@ export class SearchComponent implements OnInit {
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService) {
+              protected routeService: RouteService,
+              protected router: Router) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -159,7 +162,7 @@ export class SearchComponent implements OnInit {
    */
   private getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.service.getSearchLink();
   }

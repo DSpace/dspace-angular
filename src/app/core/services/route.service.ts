@@ -206,7 +206,7 @@ export class RouteService {
   }
 
   /**
-   * Get the current query and route parameters and add them
+   * Sets the current route parameters and query parameters in the store
    */
   public setCurrentRouteInfo() {
     combineLatest(this.getRouteParams(), this.route.queryParams)

@@ -8,6 +8,7 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { hasValue } from '../shared/empty.util';
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
+import { Router } from '@angular/router';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -43,8 +44,9 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService) {
-    super(service, sidebarService, windowService, searchConfigService, routeService);
+              protected routeService: RouteService,
+              protected router: Router) {
+    super(service, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   /**

@@ -9,6 +9,7 @@ import { RouteService } from '../core/services/route.service';
 import { hasValue } from '../shared/empty.util';
 import { SearchSuccessResponse } from '../core/cache/response.models';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { Router } from '@angular/router';
 import { SearchService } from '../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchQueryResponse } from '../shared/search/search-query-response.model';
@@ -30,14 +31,15 @@ import { SearchQueryResponse } from '../shared/search/search-query-response.mode
 export class SearchTrackerComponent extends SearchComponent implements OnInit {
 
   constructor(
-    protected service:SearchService,
-    protected sidebarService:SidebarService,
-    protected windowService:HostWindowService,
-    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService:SearchConfigurationService,
-    protected routeService:RouteService,
-    public angulartics2:Angulartics2
+    protected service: SearchService,
+    protected sidebarService: SidebarService,
+    protected windowService: HostWindowService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+    protected routeService: RouteService,
+    public angulartics2: Angulartics2,
+    protected router: Router
   ) {
-    super(service, sidebarService, windowService, searchConfigService, routeService);
+    super(service, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   ngOnInit():void {
@@ -58,9 +60,9 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
       )
     )
       .subscribe((entry) => {
-        const config:PaginatedSearchOptions = entry.searchOptions;
-        const searchQueryResponse:SearchQueryResponse = entry.response;
-        const filters:Array<{ filter:string, operator:string, value:string, label:string; }> = [];
+        const config: PaginatedSearchOptions = entry.searchOptions;
+        const searchQueryResponse: SearchQueryResponse = entry.response;
+        const filters:Array<{ filter: string, operator: string, value: string, label: string; }> = [];
         const appliedFilters = searchQueryResponse.appliedFilters || [];
         for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
           const appliedFilter = appliedFilters[i];

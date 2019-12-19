@@ -63,12 +63,22 @@ export function selectableListReducer(state: SelectableListsState = {}, action: 
   }
 }
 
+/**
+ * Adds multiple objects to the existing selection state
+ * @param state The current state
+ * @param action The action to perform
+ */
 function select(state: SelectableListState, action: SelectableListSelectAction) {
   const filteredNewObjects = action.payload.filter((object) => !isObjectInSelection(state.selection, object));
   const newSelection = [...state.selection, ...filteredNewObjects];
   return Object.assign({}, state, { selection: newSelection });
 }
 
+/**
+ * Adds a single object to the existing selection state
+ * @param state The current state
+ * @param action The action to perform
+ */
 function selectSingle(state: SelectableListState, action: SelectableListSelectSingleAction) {
   let newSelection = state.selection;
   if (!isObjectInSelection(state.selection, action.payload.object)) {
@@ -77,11 +87,21 @@ function selectSingle(state: SelectableListState, action: SelectableListSelectSi
   return Object.assign({}, state, { selection: newSelection });
 }
 
+/**
+ * Removes multiple objects in the existing selection state
+ * @param state The current state
+ * @param action The action to perform
+ */
 function deselect(state: SelectableListState, action: SelectableListDeselectAction) {
   const newSelection = state.selection.filter((selected) => hasNoValue(action.payload.find((object) => object.equals(selected))));
   return Object.assign({}, state, { selection: newSelection });
 }
 
+/** Removes a single object from the existing selection state
+ *
+ * @param state The current state
+ * @param action The action to perform
+ */
 function deselectSingle(state: SelectableListState, action: SelectableListDeselectSingleAction) {
   const newSelection = state.selection.filter((selected) => {
     return !selected.equals(action.payload);
@@ -89,14 +109,29 @@ function deselectSingle(state: SelectableListState, action: SelectableListDesele
   return Object.assign({}, state, { selection: newSelection });
 }
 
+/**
+ * Sets the selection state of the list
+ * @param state The current state
+ * @param action The action to perform
+ */
 function setList(state: SelectableListState, action: SelectableListSetSelectionAction) {
   return Object.assign({}, state, { selection: action.payload });
 }
 
+/**
+ * Clears the selection
+ * @param state The current state
+ * @param action The action to perform
+ */
 function clearSelection(id: string) {
   return { id: id, selection: [] };
 }
 
+/**
+ * Checks whether the object is in currently in the selection
+ * @param state The current state
+ * @param action The action to perform
+ */
 function isObjectInSelection(selection: ListableObject[], object: ListableObject) {
   return selection.findIndex((selected) => selected.equals(object)) >= 0
 }

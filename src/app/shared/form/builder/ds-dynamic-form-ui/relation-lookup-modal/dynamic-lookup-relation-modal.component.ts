@@ -41,8 +41,9 @@ import { ExternalSourceService } from '../../../../../core/data/external-source.
     }
   ]
 })
+
 /**
- * Modal component for looking up relations
+ * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
  */
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   /**

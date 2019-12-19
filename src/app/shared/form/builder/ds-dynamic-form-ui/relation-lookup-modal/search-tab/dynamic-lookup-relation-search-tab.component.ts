@@ -33,8 +33,9 @@ import { LookupRelationService } from '../../../../../../core/data/lookup-relati
     }
   ]
 })
+
 /**
- * Tab for browsing local entities to add to the selection
+ * Tab for inside the lookup model that represents the items that can be used as a relationship in this submission
  */
 export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDestroy {
   /**
@@ -121,6 +122,9 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   ) {
   }
 
+  /**
+   * Sets up the pagination and fixed query parameters
+   */
   ngOnInit(): void {
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
@@ -133,7 +137,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   /**
-   * Reset the route parameters
+   * Method to reset the route when the window is opened to make sure no strange pagination issues appears
    */
   resetRoute() {
     this.router.navigate([], {
@@ -142,8 +146,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   /**
-   * Select all results within the page provided
-   * @param page
+   * Selects a page in the store
+   * @param page The page to select
    */
   selectPage(page: Array<SearchResult<Item>>) {
     this.selection$
@@ -156,8 +160,8 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   /**
-   * Deselect all results within the page provided
-   * @param page
+   * Deselects a page in the store
+   * @param page the page to deselect
    */
   deselectPage(page: Array<SearchResult<Item>>) {
     this.allSelected = false;
@@ -171,7 +175,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   /**
-   * Select all results
+   * Select all items that were found using the current search query
    */
   selectAll() {
     this.allSelected = true;
@@ -199,7 +203,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
   }
 
   /**
-   * Deselect all
+   * Deselect all items
    */
   deselectAll() {
     this.allSelected = false;

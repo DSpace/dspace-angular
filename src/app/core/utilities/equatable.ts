@@ -2,10 +2,10 @@ import { getExcludedFromEqualsFor, getFieldsForEquals } from './equals.decorator
 import { hasNoValue, hasValue } from '../../shared/empty.util';
 
 /**
- * Compare two objects by comparing a given list of their properties
- * @param object1   The first object
- * @param object2   The second object
- * @param fieldList A list of fields to compare the two objects by
+ * Method to compare fields of two objects against each other
+ * @param object1 The first object for the comparison
+ * @param object2 The second object for the comparison
+ * @param fieldList The list of property/field names to compare
  */
 function equalsByFields(object1, object2, fieldList): boolean {
   const unequalProperty = fieldList.find((key) => {
@@ -34,7 +34,8 @@ function equalsByFields(object1, object2, fieldList): boolean {
 }
 
 /**
- * An object with a defined equals method
+ * Abstract class to represent objects that can be compared to each other
+ * It provides a default way of comparing
  */
 export abstract class EquatableObject<T> {
   equals(other: T): boolean {

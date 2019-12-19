@@ -118,7 +118,7 @@ export class SearchService implements OnDestroy {
    * @returns {Observable<RequestEntry>} Emits an observable with the request entries
    */
   searchEntries(searchOptions?: PaginatedSearchOptions, responseMsToLive?:number)
-    :Observable<{searchOptions:PaginatedSearchOptions, requestEntry:RequestEntry}> {
+    :Observable<{searchOptions: PaginatedSearchOptions, requestEntry: RequestEntry}> {
 
     const hrefObs = this.getEndpoint(searchOptions);
 

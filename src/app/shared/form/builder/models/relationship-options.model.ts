@@ -1,7 +1,7 @@
 const RELATION_METADATA_PREFIX = 'relation.'
 
 /**
- * Extra options for displaying search results of relationships
+ * The submission options for fields that can represent relationships
  */
 export class RelationshipOptions {
   relationshipType: string;

@@ -11,7 +11,9 @@ export const NameVariantActionTypes = {
 };
 
 /* tslint:disable:max-classes-per-file */
-
+/**
+ * Abstract class for actions that happen to name variants
+ */
 export abstract class NameVariantListAction implements Action {
   type;
   payload: {
@@ -24,6 +26,9 @@ export abstract class NameVariantListAction implements Action {
   }
 }
 
+/**
+ * Action for setting a new name on an item in a certain list
+ */
 export class SetNameVariantAction extends NameVariantListAction {
   type = NameVariantActionTypes.SET_NAME_VARIANT;
   payload: {
@@ -38,6 +43,9 @@ export class SetNameVariantAction extends NameVariantListAction {
   }
 }
 
+/**
+ * Action for removing a name on an item in a certain list
+ */
 export class RemoveNameVariantAction extends NameVariantListAction {
   type = NameVariantActionTypes.REMOVE_NAME_VARIANT;
   constructor(listID: string, itemID: string) {

@@ -12,8 +12,7 @@ import { Item } from '../shared/item.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { RemoteData } from './remote-data';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
-import { zip as observableZip } from 'rxjs';
+import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
 import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
@@ -93,6 +92,14 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  /**
+   * Method to create a new relationship
+   * @param typeId The identifier of the relationship type
+   * @param item1 The first item of the relationship
+   * @param item2 The second item of the relationship
+   * @param leftwardValue The leftward value of the relationship
+   * @param rightwardValue The rightward value of the relationship
+   */
   addRelationship(typeId: string, item1: Item, item2: Item, leftwardValue?: string, rightwardValue?: string): Observable<RestResponse> {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -113,11 +120,15 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  /**
+   * Method to remove two items of a relationship from the cache using the identifier of the relationship
+   * @param relationshipId The identifier of the relationship
+   */
   private removeRelationshipItemsFromCacheByRelationship(relationshipId: string) {
     this.findById(relationshipId).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
-      switchMap((relationship: Relationship) => observableCombineLatest(
+      switchMap((relationship: Relationship) => combineLatest(
         relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
         relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
         )
@@ -129,10 +140,14 @@ export class RelationshipService extends DataService<Relationship> {
     })
   }
 
+  /**
+   * Method to remove an item that's part of a relationship from the cache
+   * @param item The item to remove from the cache
+   */
   private removeRelationshipItemsFromCache(item) {
     this.objectCache.remove(item.self);
     this.requestService.removeByHrefSubstring(item.self);
-    observableCombineLatest(
+    combineLatest(
       this.objectCache.hasBySelfLinkObservable(item.self),
       this.requestService.hasByHrefObservable(item.self)
     ).pipe(
@@ -259,6 +274,12 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  /**
+   * Method to retrieve a relationship based on two items and a relationship type label
+   * @param item1 The first item in the relationship
+   * @param item2 The second item in the relationship
+   * @param label The rightward or leftward type of the relationship
+   */
   getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string): Observable<Relationship> {
     return this.getItemRelationshipsByLabel(item1, label)
       .pipe(
@@ -289,19 +310,19 @@ export class RelationshipService extends DataService<Relationship> {
   }
 
   /**
-   * Set a name variant for item with ID "itemID" part of list with ID "listID"
-   * @param listID      ID of the list the item is a part of
-   * @param itemID      ID of the item
-   * @param nameVariant A name variant for the item
+   * Method to set the name variant for specific list and item
+   * @param listID The list for which to save the name variant
+   * @param itemID The item ID for which to save the name variant
+   * @param nameVariant The name variant to save
    */
   public setNameVariant(listID: string, itemID: string, nameVariant: string) {
     this.appStore.dispatch(new SetNameVariantAction(listID, itemID, nameVariant));
   }
 
   /**
-   * Get the name variant for item with ID "itemID" part of list with ID "listID"
-   * @param listID      ID of the list the item is a part of
-   * @param itemID      ID of the item
+   * Method to retrieve the name variant for a specific list and item
+   * @param listID The list for which to retrieve the name variant
+   * @param itemID The item ID for which to retrieve the name variant
    */
   public getNameVariant(listID: string, itemID: string): Observable<string> {
     return this.appStore.pipe(
@@ -310,28 +331,28 @@ export class RelationshipService extends DataService<Relationship> {
   }
 
   /**
-   * Remove the name variant for item with ID "itemID" part of list with ID "listID"
-   * @param listID      ID of the list the item is a part of
-   * @param itemID      ID of the item
+   * Method to remove the name variant for specific list and item
+   * @param listID The list for which to remove the name variant
+   * @param itemID The item ID for which to remove the name variant
    */
   public removeNameVariant(listID: string, itemID: string) {
     this.appStore.dispatch(new RemoveNameVariantAction(listID, itemID));
   }
 
   /**
-   * Get the name variants of all items part of list with ID "listID"
-   * @param listID    ID of the list the items are a part of
+   * Method to retrieve all name variants for a single list
+   * @param listID The id of the list
    */
   public getNameVariantsByListID(listID: string) {
     return this.appStore.pipe(select(relationshipListStateSelector(listID)));
   }
 
   /**
-   * Get the relationship between two items with a name variant for the item on the opposite side of the relationship-label
-   * @param item1             Related item
-   * @param item2             Other related item
-   * @param relationshipLabel The label describing the relationship between the two items
-   * @param nameVariant       The name variant to give the item on the opposite side of the relationship-label
+   * Method to update the name variant on the server
+   * @param item1 The first item of the relationship
+   * @param item2 The second item of the relationship
+   * @param relationshipLabel The leftward or rightward type of the relationship
+   * @param nameVariant The name variant to set for the matching relationship
    */
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
     return this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)

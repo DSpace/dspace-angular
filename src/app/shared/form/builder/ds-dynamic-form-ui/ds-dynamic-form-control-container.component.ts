@@ -230,6 +230,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     super(componentFactoryResolver, layoutService, validationService);
   }
 
+  /**
+   * Sets up the necessary variables for when this control can be used to add relationships to the submitted item
+   */
   ngOnInit(): void {
     this.hasRelationLookup = hasValue(this.model.relationship);
     if (this.hasRelationLookup) {
@@ -314,6 +317,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     return this.model.value.pipe(map((list: Array<SearchResult<DSpaceObject>>) => isNotEmpty(list)));
   }
 
+  /**
+   * Open a modal where the user can select relationships to be added to item being submitted
+   */
   openLookup() {
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'
@@ -327,12 +333,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.item = this.item;
   }
 
+  /**
+   * Method to remove a selected relationship from the item
+   * @param object The second item in the relationship, the submitted item being the first
+   */
   removeSelection(object: SearchResult<Item>) {
     this.selectableListService.deselectSingle(this.listId, object);
     this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.model.relationship.relationshipType))
-
-    // this.zone.runOutsideAngular(
-    //   () =>     );
   }
 
   /**
