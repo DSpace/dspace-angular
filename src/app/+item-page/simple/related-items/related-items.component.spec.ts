@@ -9,6 +9,8 @@ import { createRelationshipsObservable } from '../item-types/shared/item.compone
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { RelationshipService } from '../../../core/data/relationship.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { of as observableOf } from 'rxjs';
 
 const parentItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -42,7 +44,7 @@ describe('RelatedItemsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [RelatedItemsComponent],
+      declarations: [RelatedItemsComponent, VarDirective],
       providers: [
         { provide: RelationshipService, useValue: relationshipService }
       ],
@@ -65,31 +67,33 @@ describe('RelatedItemsComponent', () => {
     expect(fields.length).toBe(mockItems.length);
   });
 
-  describe('when viewMore is called', () => {
+  it('should contain one page of items', () => {
+    expect(comp.objects.length).toEqual(1);
+  });
+
+  describe('when increase is called', () => {
     beforeEach(() => {
-      comp.viewMore();
+      comp.increase();
     });
 
-    it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments', () => {
-      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, comp.allOptions);
+    it('should add a new page to the list', () => {
+      expect(comp.objects.length).toEqual(2);
     });
 
-    it('should set showingAll to true', () => {
-      expect(comp.showingAll).toEqual(true);
+    it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments (second page)', () => {
+      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, Object.assign(comp.options, { elementsPerPage: comp.incrementBy, currentPage: 2 }));
     });
   });
 
-  describe('when viewLess is called', () => {
+  describe('when decrease is called', () => {
     beforeEach(() => {
-      comp.viewLess();
+      // Add a second page
+      comp.objects.push(observableOf(undefined));
+      comp.decrease();
     });
 
-    it('should call relationship-service\'s getRelatedItemsByLabel with the correct arguments', () => {
-      expect(relationshipService.getRelatedItemsByLabel).toHaveBeenCalledWith(parentItem, relationType, comp.options);
-    });
-
-    it('should set showingAll to false', () => {
-      expect(comp.showingAll).toEqual(false);
+    it('should decrease the list of pages', () => {
+      expect(comp.objects.length).toEqual(1);
     });
   });
 

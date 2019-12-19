@@ -5,7 +5,7 @@ import { PaginatedList } from '../../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { FindAllOptions } from '../../../core/data/request.models';
+import { FindListOptions } from '../../../core/data/request.models';
 import { map, switchMap, take } from 'rxjs/operators';
 import { hasValue } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -35,7 +35,7 @@ export class BitstreamFormatsComponent implements OnInit {
    * The current pagination configuration for the page used by the FindAll method
    * Currently simply renders all bitstream formats
    */
-  config: FindAllOptions = Object.assign(new FindAllOptions(), {
+  config: FindListOptions = Object.assign(new FindListOptions(), {
     elementsPerPage: 20
   });
 
@@ -145,7 +145,7 @@ export class BitstreamFormatsComponent implements OnInit {
    * @param event The page change event
    */
   onPageChange(event) {
-    this.config = Object.assign(new FindAllOptions(), this.config, {
+    this.config = Object.assign(new FindListOptions(), this.config, {
       currentPage: event,
     });
     this.pageConfig.currentPage = event;

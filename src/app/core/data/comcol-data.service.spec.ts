@@ -8,12 +8,12 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
-import { FindAllOptions, FindByIDRequest } from './request.models';
+import { FindListOptions, FindByIDRequest } from './request.models';
 import { RequestService } from './request.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RequestEntry } from './request.reducer';
-import { of as observableOf } from 'rxjs';
+import {Observable, of as observableOf} from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
@@ -45,6 +45,11 @@ class TestService extends ComColDataService<any> {
   ) {
     super();
   }
+
+  protected getFindByParentHref(parentUUID: string): Observable<string> {
+    // implementation in subclasses for communities/collections
+    return undefined;
+  }
 }
 
 /* tslint:enable:max-classes-per-file */
@@ -66,7 +71,7 @@ describe('ComColDataService', () => {
   const dataBuildService = {} as NormalizedObjectBuildService;
 
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
-  const options = Object.assign(new FindAllOptions(), {
+  const options = Object.assign(new FindListOptions(), {
     scopeID: scopeID
   });
   const getRequestEntry$ = (successful: boolean) => {

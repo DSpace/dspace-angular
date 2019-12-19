@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Inject, Injectable } from '@angular/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { GLOBAL_CONFIG, GlobalConfig } from '../../../config';
-import { isEmpty } from '../../shared/empty.util';
-import { RestRequestMethod } from '../data/rest-request-method';
+import { GLOBAL_CONFIG, GlobalConfig } from '../../../../config';
+import { isEmpty } from '../../empty.util';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
 
-import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
-import { DSpaceRESTv2Service, HttpOptions } from './dspace-rest-v2.service';
+import { DSpaceRESTV2Response } from '../../../core/dspace-rest-v2/dspace-rest-v2-response.model';
+import { DSpaceRESTv2Service, HttpOptions } from '../../../core/dspace-rest-v2/dspace-rest-v2.service';
 import { MOCK_RESPONSE_MAP, MockResponseMap } from './mocks/mock-response-map';
 import * as URL from 'url-parse';
 
@@ -14,6 +14,8 @@ import * as URL from 'url-parse';
  * Service to access DSpace's REST API.
  *
  * If a URL is found in this.mockResponseMap, it returns the mock response instead
+ * This service can be used for mocking REST responses when developing new features
+ * This is especially useful, when a REST endpoint is broken or does not exist yet
  */
 @Injectable()
 export class EndpointMockingRestService extends DSpaceRESTv2Service {

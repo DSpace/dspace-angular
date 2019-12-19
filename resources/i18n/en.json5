@@ -340,6 +340,14 @@
 
 
 
+  "communityList.tabTitle": "DSpace - Community List",
+
+  "communityList.title": "List of Communities",
+
+  "communityList.showMore": "Show More",
+
+
+
   "community.create.head": "Create a Community",
 
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -821,9 +829,17 @@
 
   "item.page.person.search.title": "Articles by this author",
 
-  "item.page.related-items.view-more": "View more",
+  "item.page.related-items.view-more": "Show {{ amount }} more",
 
-  "item.page.related-items.view-less": "View less",
+  "item.page.related-items.view-less": "Hide last {{ amount }}",
+
+  "item.page.relationships.isAuthorOfPublication": "Publications",
+
+  "item.page.relationships.isJournalOfPublication": "Publications",
+
+  "item.page.relationships.isOrgUnitOfPerson": "Authors",
+
+  "item.page.relationships.isOrgUnitOfProject": "Research Projects",
 
   "item.page.subject": "Keywords",
 
@@ -1275,6 +1291,8 @@
 
   "project.page.titleprefix": "Research Project: ",
 
+  "project.search.results.head": "Project Search Results",
+
 
 
   "publication.listelement.badge": "Publication",
@@ -1547,6 +1565,10 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Search for Journal Volumes",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
+
   "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.title.Journal Issue": "Journal Issues",
@@ -1556,6 +1578,10 @@
   "submission.sections.describe.relationship-lookup.title.Journal": "Journals",
 
   "submission.sections.describe.relationship-lookup.title.Author": "Authors",
+
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+
+  "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
 
   "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
 

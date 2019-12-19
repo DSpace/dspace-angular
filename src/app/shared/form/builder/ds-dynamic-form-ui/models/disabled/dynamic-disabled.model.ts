@@ -7,6 +7,9 @@ export interface DsDynamicDisabledModelConfig extends DsDynamicInputModelConfig 
   value?: any;
 }
 
+/**
+ * This model represents the data for a disabled input field
+ */
 export class DynamicDisabledModel extends DsDynamicInputModel {
 
   @serializable() readonly type: string = DYNAMIC_FORM_CONTROL_TYPE_DISABLED;
@@ -14,7 +17,6 @@ export class DynamicDisabledModel extends DsDynamicInputModel {
 
   constructor(config: DsDynamicDisabledModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
-
     this.readOnly = true;
     this.disabled = true;
     this.valueUpdates.next(config.value);

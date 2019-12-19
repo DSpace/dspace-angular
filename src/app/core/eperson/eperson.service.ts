@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { FindAllOptions } from '../data/request.models';
+import { FindListOptions } from '../data/request.models';
 import { DataService } from '../data/data.service';
 import { CacheableObject } from '../cache/object-cache.reducer';
 
@@ -8,7 +8,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
  */
 export abstract class EpersonService<TDomain extends CacheableObject> extends DataService<TDomain> {
 
-  public getBrowseEndpoint(options: FindAllOptions): Observable<string> {
+  public getBrowseEndpoint(options: FindListOptions): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 }

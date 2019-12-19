@@ -34,6 +34,12 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
    */
   @Input() configuration: string;
 
+  /**
+   * The actual query for the fixed filter.
+   * If empty, the query will be determined by the route parameter called 'filter'
+   */
+  @Input() fixedFilterQuery: string;
+
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,

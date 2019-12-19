@@ -225,6 +225,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     super(componentFactoryResolver, layoutService, validationService);
   }
 
+  /**
+   * Sets up the necessary variables for when this control can be used to add relationships to the submitted item
+   */
   ngOnInit(): void {
     this.hasRelationLookup = hasValue(this.model.relationship);
     this.reorderables = [];
@@ -324,6 +327,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     return this.model.value.pipe(map((list: Array<SearchResult<DSpaceObject>>) => isNotEmpty(list)));
   }
 
+  /**
+   * Open a modal where the user can select relationships to be added to item being submitted
+   */
   openLookup() {
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'

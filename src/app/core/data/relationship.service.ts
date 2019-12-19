@@ -3,39 +3,20 @@ import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  mergeMap,
-  startWith,
-  switchMap,
-  take,
-  tap
-} from 'rxjs/operators';
-import {
-  compareArraysUsingIds,
-  paginatedRelationsToItems,
-  relationsToItems
-} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
-import {
-  hasValue,
-  hasValueOperator,
-  isNotEmpty,
-  isNotEmptyOperator
-} from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import {
-  RemoveNameVariantAction,
-  SetNameVariantAction
-} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
+import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
+import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -43,18 +24,11 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { Item } from '../shared/item.model';
-import {
-  configureRequest,
-  getRemoteDataPayload,
-  getResponseFromEntry,
-  getSucceededRemoteData
-} from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { ItemDataService } from './item-data.service';
 import { PaginatedList } from './paginated-list';
 import { RemoteData, RemoteDataState } from './remote-data';
-import { DeleteRequest, FindAllOptions, PostRequest, RestRequest } from './request.models';
 import { RequestService } from './request.service';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
@@ -89,7 +63,7 @@ export class RelationshipService extends DataService<Relationship> {
     super();
   }
 
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
   }
 
@@ -119,6 +93,14 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  /**
+   * Method to create a new relationship
+   * @param typeId The identifier of the relationship type
+   * @param item1 The first item of the relationship
+   * @param item2 The second item of the relationship
+   * @param leftwardValue The leftward value of the relationship
+   * @param rightwardValue The rightward value of the relationship
+   */
   addRelationship(typeId: string, item1: Item, item2: Item, leftwardValue?: string, rightwardValue?: string): Observable<RestResponse> {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
@@ -139,6 +121,10 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  /**
+   * Method to remove two items of a relationship from the cache using the identifier of the relationship
+   * @param relationshipId The identifier of the relationship
+   */
   private removeRelationshipItemsFromCacheByRelationship(relationshipId: string) {
     this.findById(relationshipId).pipe(
       getSucceededRemoteData(),
@@ -155,6 +141,10 @@ export class RelationshipService extends DataService<Relationship> {
     })
   }
 
+  /**
+   * Method to remove an item that's part of a relationship from the cache
+   * @param item The item to remove from the cache
+   */
   private removeRelationshipItemsFromCache(item) {
     this.objectCache.remove(item.self);
     this.requestService.removeByHrefSubstring(item.uuid);
@@ -229,7 +219,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label
    * @param options
    */
-  getRelatedItemsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Item>>> {
+  getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
     return this.getItemRelationshipsByLabel(item, label, options).pipe(paginatedRelationsToItems(item.uuid));
   }
 
@@ -240,18 +230,18 @@ export class RelationshipService extends DataService<Relationship> {
    * @param label
    * @param options
    */
-  getItemRelationshipsByLabel(item: Item, label: string, options?: FindAllOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
-    let findAllOptions = new FindAllOptions();
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
+    let findListOptions = new FindListOptions();
     if (options) {
-      findAllOptions = Object.assign(new FindAllOptions(), options);
+      findListOptions = Object.assign(new FindListOptions(), options);
     }
     const searchParams = [new SearchParam('label', label), new SearchParam('dso', item.id)];
-    if (findAllOptions.searchParams) {
-      findAllOptions.searchParams = [...findAllOptions.searchParams, ...searchParams];
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
     } else {
-      findAllOptions.searchParams = searchParams;
+      findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findAllOptions);
+    return this.searchBy('byLabel', findListOptions);
   }
 
   /**
@@ -285,6 +275,12 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  /**
+   * Method to retrieve a relationship based on two items and a relationship type label
+   * @param item1 The first item in the relationship
+   * @param item2 The second item in the relationship
+   * @param label The rightward or leftward type of the relationship
+   */
   getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string): Observable<Relationship> {
     return this.getItemRelationshipsByLabel(item1, label)
       .pipe(
@@ -314,24 +310,51 @@ export class RelationshipService extends DataService<Relationship> {
     );
   }
 
+  /**
+   * Method to set the name variant for specific list and item
+   * @param listID The list for which to save the name variant
+   * @param itemID The item ID for which to save the name variant
+   * @param nameVariant The name variant to save
+   */
   public setNameVariant(listID: string, itemID: string, nameVariant: string) {
     this.appStore.dispatch(new SetNameVariantAction(listID, itemID, nameVariant));
   }
 
+  /**
+   * Method to retrieve the name variant for a specific list and item
+   * @param listID The list for which to retrieve the name variant
+   * @param itemID The item ID for which to retrieve the name variant
+   */
   public getNameVariant(listID: string, itemID: string): Observable<string> {
     return this.appStore.pipe(
       select(relationshipStateSelector(listID, itemID))
     );
   }
 
+  /**
+   * Method to remove the name variant for specific list and item
+   * @param listID The list for which to remove the name variant
+   * @param itemID The item ID for which to remove the name variant
+   */
   public removeNameVariant(listID: string, itemID: string) {
     this.appStore.dispatch(new RemoveNameVariantAction(listID, itemID));
   }
 
+  /**
+   * Method to retrieve all name variants for a single list
+   * @param listID The id of the list
+   */
   public getNameVariantsByListID(listID: string) {
     return this.appStore.pipe(select(relationshipListStateSelector(listID)));
   }
 
+  /**
+   * Method to update the name variant on the server
+   * @param item1 The first item of the relationship
+   * @param item2 The second item of the relationship
+   * @param relationshipLabel The leftward or rightward type of the relationship
+   * @param nameVariant The name variant to set for the matching relationship
+   */
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
     const update$ = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
