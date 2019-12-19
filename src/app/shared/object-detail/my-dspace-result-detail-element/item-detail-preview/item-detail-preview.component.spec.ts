@@ -88,7 +88,7 @@ describe('ItemDetailPreviewComponent', () => {
     component.object = { hitHighlights: {} } as any;
     component.item = mockItem;
     component.separator = ', ';
-    spyOn(component.item, 'getFiles').and.returnValue(mockItem.bundles);
+    spyOn(component.item, 'getFiles').and.returnValue(mockItem.bundles as any);
     fixture.detectChanges();
 
   }));
