@@ -3,7 +3,7 @@ import { RequestEntry } from './request.reducer';
 import { RestResponse } from '../cache/response.models';
 import { Observable, of as observableOf } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
+import { AppState } from '../../app.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -36,7 +36,7 @@ describe('BitstreamFormatDataService', () => {
     dispatch(action: Action) {
       // Do Nothing
     }
-  } as Store<CoreState>;
+  } as Store<AppState>;
 
   const objectCache = {} as ObjectCacheService;
   const halEndpointService = {

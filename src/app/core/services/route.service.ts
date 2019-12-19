@@ -1,12 +1,6 @@
-import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Params,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } from '@angular/router';
 
 import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
@@ -18,6 +12,7 @@ import { SetParametersAction, SetQueryParametersAction } from './route.actions';
 import { CoreState } from '../core.reducers';
 import { hasValue } from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
+import { AppState } from '../../app.reducer';
 
 /**
  * Selector to select all route parameters from the store
@@ -67,7 +62,7 @@ export function parameterSelector(key: string, paramsSelector: (state: CoreState
  */
 @Injectable()
 export class RouteService {
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store<CoreState>) {
+  constructor(private route: ActivatedRoute, private router: Router, private store: Store<AppState|CoreState>) {
     this.saveRouting();
   }
 

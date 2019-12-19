@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
@@ -14,9 +13,9 @@ import { RemoteData } from './remote-data';
 import {
   CreateRequest,
   DeleteByIDRequest,
+  FindByIDRequest,
   FindListOptions,
   FindListRequest,
-  FindByIDRequest,
   GetRequest
 } from './request.models';
 import { RequestService } from './request.service';
@@ -42,7 +41,7 @@ export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
   protected abstract dataBuildService: NormalizedObjectBuildService;
-  protected abstract store: Store<CoreState>;
+  protected abstract store: Store<any>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
   protected abstract objectCache: ObjectCacheService;
@@ -231,7 +230,7 @@ export abstract class DataService<T extends CacheableObject> {
    */
   update(object: T): Observable<RemoteData<T>> {
     const oldVersion$ = this.objectCache.getObjectBySelfLink(object.self);
-    return oldVersion$.pipe(take(1), mergeMap((oldVersion: T) => {
+    return oldVersion$.pipe(take(1), mergeMap((oldVersion: NormalizedObject<T>) => {
         const operations = this.comparator.diff(oldVersion, object);
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);

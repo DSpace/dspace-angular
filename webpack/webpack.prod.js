@@ -47,7 +47,6 @@ module.exports = {
             comments: false
           },
           compress: {
-            warnings: false,
             conditionals: false,
             unused: true,
             comparisons: true,
@@ -58,7 +57,8 @@ module.exports = {
             join_vars: true,
             negate_iife: true
           },
-          sourceMap: true
+          sourceMap: true,
+          warnings: false
         }
       }),
       new OptimizeCSSAssetsPlugin({

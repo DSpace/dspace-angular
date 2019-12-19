@@ -30,7 +30,7 @@ import {
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormInstancesService,
   DynamicFormControlRelationGroup,
   DynamicFormLayout,
   DynamicFormLayoutService,
@@ -178,13 +178,14 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   protected test: boolean;
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected dynamicFormInstanceService: DynamicFormInstancesService,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
     protected translateService: TranslateService,
     protected typeBindRelationService: DsDynamicTypeBindRelationService,
   ) {
 
-    super(componentFactoryResolver, layoutService, validationService);
+    super(componentFactoryResolver, layoutService, validationService, dynamicFormInstanceService);
   }
 
   ngOnChanges(changes: SimpleChanges) {

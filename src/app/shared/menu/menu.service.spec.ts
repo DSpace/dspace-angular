@@ -12,6 +12,7 @@ import {
   ExpandMenuAction, ExpandMenuPreviewAction, HideMenuAction,
   RemoveMenuSectionAction, ShowMenuAction, ToggleActiveMenuSectionAction, ToggleMenuAction
 } from './menu.actions';
+import { MenuSection } from './menu.reducer';
 
 describe('MenuService', () => {
   let service: MenuService;
@@ -125,7 +126,7 @@ describe('MenuService', () => {
     describe('when the subsection list is not empty', () => {
 
       beforeEach(() => {
-        spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1));
+        spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1 as MenuSection));
         selectSpy.and.callFake(() => {
           return () => {
             return () => hot('a', {
@@ -283,7 +284,7 @@ describe('MenuService', () => {
 
   describe('isSectionActive', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1));
+      spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1 as MenuSection));
     });
 
     it('should return false when the section is not active', () => {
@@ -298,7 +299,7 @@ describe('MenuService', () => {
 
   describe('isSectionVisible', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenuSection').and.returnValue(observableOf(hiddenSection3));
+      spyOn(service, 'getMenuSection').and.returnValue(observableOf(hiddenSection3 as MenuSection));
     });
 
     it('should return false when the section is hidden', () => {

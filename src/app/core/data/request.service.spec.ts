@@ -21,6 +21,7 @@ import {
 } from './request.models';
 import { RequestService } from './request.service';
 import { TestScheduler } from 'rxjs/testing';
+import { RequestEntry } from './request.reducer';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;
@@ -107,7 +108,7 @@ describe('RequestService', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValue(observableOf({
           completed: false
-        }))
+        } as RequestEntry))
       });
 
       it('should return true', () => {
@@ -122,7 +123,7 @@ describe('RequestService', () => {
       beforeEach(() => {
         spyOn(service, 'getByHref').and.returnValues(observableOf({
           completed: true
-        }));
+        } as RequestEntry));
       });
 
       it('should return false', () => {
@@ -432,7 +433,7 @@ describe('RequestService', () => {
       let valid;
       const requestEntry = { completed: false };
       beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry as RequestEntry));
         valid = serviceAsAny.isValid(requestEntry);
       });
       it('return an observable emitting false', () => {
@@ -444,7 +445,7 @@ describe('RequestService', () => {
       let valid;
       const requestEntry = { completed: true, response: { isSuccessful: false } };
       beforeEach(() => {
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry as RequestEntry));
         valid = serviceAsAny.isValid(requestEntry);
       });
       it('return an observable emitting false', () => {
@@ -470,7 +471,7 @@ describe('RequestService', () => {
 
       beforeEach(() => {
         spyOn(Date.prototype, 'getTime').and.returnValue(now);
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry as RequestEntry));
         valid = serviceAsAny.isValid(requestEntry);
       });
 
@@ -497,7 +498,7 @@ describe('RequestService', () => {
       };
       beforeEach(() => {
         spyOn(Date.prototype, 'getTime').and.returnValue(now);
-        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry));
+        spyOn(service, 'getByUUID').and.returnValue(observableOf(requestEntry as RequestEntry));
         valid = serviceAsAny.isValid(requestEntry);
       });
 

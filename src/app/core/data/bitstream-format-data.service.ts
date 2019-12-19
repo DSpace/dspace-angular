@@ -5,7 +5,6 @@ import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { createSelector, select, Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -43,7 +42,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected dataBuildService: NormalizedObjectBuildService,
-    protected store: Store<CoreState>,
+    protected store: Store<AppState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
@@ -55,6 +54,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
   /**
    * Get the endpoint for browsing bitstream formats
    * @param {FindListOptions} options
+   * @param {string} linkPath
    * @returns {Observable<string>}
    */
   getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
@@ -99,7 +99,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   /**
    * Create a new BitstreamFormat
-   * @param BitstreamFormat
+   * @param {BitstreamFormat} bitstreamFormat
    */
   public createBitstreamFormat(bitstreamFormat: BitstreamFormat): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();
