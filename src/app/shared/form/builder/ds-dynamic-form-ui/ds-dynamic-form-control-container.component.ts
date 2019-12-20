@@ -331,12 +331,4 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
   }
-  //
-  //
-  // removeItem($event, arrayContext: DynamicFormArrayModel, index: number): void {
-  //   const formArrayControl = this.group.get(this.formBuilderService.getPath(arrayContext)) as FormArray;
-  //   this.removeArrayItem.emit(this.getEvent($event, arrayContext, index, 'remove'));
-  //   this.formBuilderService.removeFormArrayGroup(index, formArrayControl, arrayContext);
-  //   this.formService.changeForm(this.formId, this.formModel);
-  // }
 }
