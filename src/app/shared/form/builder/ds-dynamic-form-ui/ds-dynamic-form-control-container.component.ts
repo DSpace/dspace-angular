@@ -85,8 +85,7 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-  getSucceededRemoteData,
-  obsLog
+  getSucceededRemoteData
 } from '../../../../core/shared/operators';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Item } from '../../../../core/shared/item.model';
@@ -100,7 +99,6 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
-import * as uuidv4 from 'uuid/v4';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
