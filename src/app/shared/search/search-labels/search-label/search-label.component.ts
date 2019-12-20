@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Params } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../empty.util';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { currentPath } from '../../../utils/route.utils';
 
 @Component({
   selector: 'ds-search-label',
@@ -25,7 +26,8 @@ export class SearchLabelComponent implements OnInit {
    * Initialize the instance variable
    */
   constructor(
-    private searchService: SearchService) {
+    private searchService: SearchService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class SearchLabelComponent implements OnInit {
    */
   private getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }
