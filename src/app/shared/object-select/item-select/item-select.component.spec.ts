@@ -16,7 +16,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/internal/observable/of';
 
-describe('ItemSelectComponent', () => {
+fdescribe('ItemSelectComponent', () => {
   let comp: ItemSelectComponent;
   let fixture: ComponentFixture<ItemSelectComponent>;
   let objectSelectService: ObjectSelectService;

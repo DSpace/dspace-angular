@@ -192,7 +192,7 @@ describe('DataService', () => {
       dso2.self = selfLink;
       dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
-      spyOn(service, 'findByHref').and.returnValues(createSuccessfulRemoteDataObject$(dso));
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(dso));
       spyOn(objectCache, 'addPatch');
     });
 
