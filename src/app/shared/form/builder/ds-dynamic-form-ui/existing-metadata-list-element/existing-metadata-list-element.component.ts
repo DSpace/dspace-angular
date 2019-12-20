@@ -15,11 +15,13 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 
+// tslint:disable:max-classes-per-file
 export abstract class Reorderable {
   constructor(public oldIndex?: number, public newIndex?: number) {
   }
 
   abstract getId(): string;
+
   abstract getPlace(): number;
 }
 
@@ -84,7 +86,7 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
       const relationMD: MetadataValue = this.submissionItem.firstMetadata(this.relationshipOptions.metadataField, { value: this.relatedItem.uuid });
       if (hasValue(relationMD)) {
         const metadataRepresentationMD: MetadataValue = this.submissionItem.firstMetadata(this.metadataFields, { authority: relationMD.authority });
-        this.metadataRepresentation =  Object.assign(
+        this.metadataRepresentation = Object.assign(
           new ItemMetadataRepresentation(metadataRepresentationMD),
           this.relatedItem
         )
@@ -107,3 +109,4 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
   }
 
 }
+// tslint:enable:max-classes-per-file
