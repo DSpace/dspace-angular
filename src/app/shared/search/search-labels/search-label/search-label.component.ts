@@ -26,7 +26,8 @@ export class SearchLabelComponent implements OnInit {
    * Initialize the instance variable
    */
   constructor(
-    private searchService: SearchService, private router: Router) {
+    private searchService: SearchService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
