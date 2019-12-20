@@ -126,7 +126,7 @@ export class DsDynamicTypeaheadComponent extends DynamicFormControlComponent imp
 
     this.authority$ = this.authorityService.findById(this.model.authorityOptions.name).pipe(
       find((result: RemoteData<Authority>) => result.hasSucceeded && !result.isResponsePending),
-      map((result: RemoteData<Authority>) => result.payload)
+      map((result: RemoteData<Authority>) => result.payload as Authority)
     );
 
     this.isHierarchical$ = this.authority$.pipe(
