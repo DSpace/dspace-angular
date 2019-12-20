@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../core/shared/search/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 import { SearchServiceStub } from '../testing/search-service-stub';
 import { ViewMode } from '../../core/shared/view-mode.model';

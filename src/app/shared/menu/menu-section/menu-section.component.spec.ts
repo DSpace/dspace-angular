@@ -13,13 +13,14 @@ describe('MenuSectionComponent', () => {
   let comp: MenuSectionComponent;
   let fixture: ComponentFixture<MenuSectionComponent>;
   let menuService: MenuService;
-  const dummySection = {
-    id: 'section',
-    visible: true,
-    active: false
-  } as any;
+  let dummySection;
 
   beforeEach(async(() => {
+    dummySection = {
+      id: 'section',
+      visible: true,
+      active: false
+    } as any;
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), NoopAnimationsModule],
       declarations: [MenuSectionComponent],

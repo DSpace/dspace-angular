@@ -10,15 +10,23 @@ describe('LinkMenuItemComponent', () => {
   let component: LinkMenuItemComponent;
   let fixture: ComponentFixture<LinkMenuItemComponent>;
   let debugElement: DebugElement;
-  const text = 'HELLO';
-  const link = 'http://google.com';
-  const nameSpace = 'dspace.com/';
-  const globalConfig = {
-    ui: {
-      nameSpace: nameSpace
-    }
-  } as any;
+  let text;
+  let link;
+  let nameSpace;
+  let globalConfig;
+
+  function init() {
+    text = 'HELLO';
+    link = 'http://google.com';
+    nameSpace = 'dspace.com/';
+    globalConfig = {
+      ui: {
+        nameSpace: nameSpace
+      }
+    } as any;
+  }
   beforeEach(async(() => {
+    init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [LinkMenuItemComponent, RouterLinkDirectiveStub],

@@ -10,6 +10,7 @@ export function getMockRequestService(requestEntry$: Observable<RequestEntry> = 
     getByHref: requestEntry$,
     getByUUID: requestEntry$,
     uriEncodeBody: jasmine.createSpy('uriEncodeBody'),
+    hasByHrefObservable: observableOf(false),
     /* tslint:disable:no-empty */
     removeByHrefSubstring: () => {}
     /* tslint:enable:no-empty */

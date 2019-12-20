@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { of } from 'rxjs/internal/observable/of';
+import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 
 @Component({
   selector: 'ds-related-entities-search',
@@ -47,12 +47,9 @@ export class RelatedEntitiesSearchComponent implements OnInit {
   fixedFilter: string;
   configuration$: Observable<string>;
 
-  constructor(private fixedFilterService: SearchFixedFilterService) {
-  }
-
   ngOnInit(): void {
     if (isNotEmpty(this.relationType) && isNotEmpty(this.item)) {
-      this.fixedFilter = this.fixedFilterService.getFilterByRelation(this.relationType, this.item.id);
+      this.fixedFilter = getFilterByRelation(this.relationType, this.item.id);
     }
     if (isNotEmpty(this.configuration)) {
       this.configuration$ = of(this.configuration);

@@ -381,8 +381,8 @@ describe('FormComponent test suite', () => {
   });
 
   describe('', () => {
+    init();
     beforeEach(() => {
-
       formFixture = TestBed.createComponent(FormComponent);
       store = TestBed.get(Store);
       formComp = formFixture.componentInstance; // FormComponent test instance

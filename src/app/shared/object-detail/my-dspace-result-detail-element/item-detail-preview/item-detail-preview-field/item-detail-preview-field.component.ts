@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { Item } from '../../../../../core/shared/item.model';
-import { SearchResult } from '../../../../../+search-page/search-result.model';
+import { SearchResult } from '../../../../search/search-result.model';
 
 /**
  * This component show values for the given item metadata

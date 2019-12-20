@@ -6,7 +6,7 @@ import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
 import { hasValue } from '../../shared/empty.util';
-import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
+import { SearchQueryResponse } from '../../shared/search/search-query-response.model';
 import { MetadataMap, MetadataValue } from '../shared/metadata.models';
 
 @Injectable()

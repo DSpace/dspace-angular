@@ -1,0 +1,13 @@
+<div>
+    <div class="form-row align-items-center">
+        <div class="col">
+            <input class="form-control"
+                   [class.is-invalid]="showErrorMessages"
+                   [value]="modelValuesString"
+                   [disabled]="model.disabled"
+                   [type]="model.inputType"
+                   [placeholder]="model.placeholder | translate"
+                   [readonly]="model.readOnly">
+        </div>
+    </div>
+</div>

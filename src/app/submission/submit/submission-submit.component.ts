@@ -56,7 +56,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    *
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {NotificationsService} notificationsService
-   * @param {SubmissionService} submissioService
+   * @param {SubmissionService} submissionService
    * @param {Router} router
    * @param {TranslateService} translate
    * @param {ViewContainerRef} viewContainerRef
@@ -64,7 +64,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private notificationsService: NotificationsService,
               private router: Router,
-              private submissioService: SubmissionService,
+              private submissionService: SubmissionService,
               private translate: TranslateService,
               private viewContainerRef: ViewContainerRef) {
   }
@@ -75,7 +75,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   ngOnInit() {
     // NOTE execute the code on the browser side only, otherwise it is executed twice
     this.subs.push(
-      this.submissioService.createSubmission()
+      this.submissionService.createSubmission()
         .subscribe((submissionObject: SubmissionObject) => {
           // NOTE new submission is created on the browser side only
           if (isNotNull(submissionObject)) {

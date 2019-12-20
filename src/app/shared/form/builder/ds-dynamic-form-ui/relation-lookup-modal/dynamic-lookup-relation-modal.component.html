@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">{{ ('submission.sections.describe.relationship-lookup.title.' + label) | translate }}</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <ngb-tabset>
+        <ngb-tab [title]="'submission.sections.describe.relationship-lookup.search-tab.tab-title.' + label | translate">
+            <ng-template ngbTabContent>
+                <ds-dynamic-lookup-relation-search-tab
+                        [selection$]="selection$"
+                        [listId]="listId"
+                        [relationship]="relationshipOptions"
+                        [repeatable]="repeatable"
+                        [context]="context"
+                        (selectObject)="select($event)"
+                        (deselectObject)="deselect($event)"
+                        class="d-block pt-3">
+                </ds-dynamic-lookup-relation-search-tab>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab [title]="'submission.sections.describe.relationship-lookup.selection-tab.tab-title' | translate : {count: (selection$ | async)?.length}">
+            <ng-template ngbTabContent>
+                <ds-dynamic-lookup-relation-selection-tab
+                        [selection$]="selection$"
+                        [listId]="listId"
+                        [label]="label"
+                        [repeatable]="repeatable"
+                        [context]="context"
+                        (selectObject)="select($event)"
+                        (deselectObject)="deselect($event)"
+                        class="d-block pt-3">
+                </ds-dynamic-lookup-relation-selection-tab>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>
+<div class="modal-footer">
+    <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate:{size: (selection$ | async)?.length || 0}) }}</small>
+    <div>
+        <button type="button" class="btn btn-danger" (click)="close()">{{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
+    </div>
+</div>

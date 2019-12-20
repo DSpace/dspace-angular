@@ -20,7 +20,7 @@ import { Store, StoreModule } from '@ngrx/store';
 // Load the implementations that should be tested
 import { AppComponent } from './app.component';
 
-import { HostWindowState } from './shared/host-window.reducer';
+import { HostWindowState } from './shared/search/host-window.reducer';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 
 import { MetadataService } from './core/metadata/metadata.service';
