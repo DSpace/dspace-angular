@@ -13,7 +13,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { AuthorityEntry } from '../../core/integration/models/authority-entry.model';
 import { IntegrationData } from '../../core/integration/integration-data';
 
-fdescribe('AuthorityTreeviewService test suite', () => {
+describe('AuthorityTreeviewService test suite', () => {
 
   let scheduler: TestScheduler;
   let service: AuthorityTreeviewService;
@@ -179,26 +179,29 @@ fdescribe('AuthorityTreeviewService test suite', () => {
       expect(serviceAsAny.dataChange.value).toEqual([itemNode, itemNode2, itemNode3]);
     });
 
-    fit('should set initValueHierarchy', () => {
+    it('should set initValueHierarchy', () => {
       const pageInfo = Object.assign(new PageInfo(), {
         elementsPerPage: 1,
         totalElements: 3,
         totalPages: 1,
         currentPage: 1
       });
-      serviceAsAny.authorityService.findTopEntries.and.returnValue(hot('-a', {
+      serviceAsAny.authorityService.findTopEntries.and.returnValue(hot('-c', {
         a: new IntegrationData(pageInfo, [item, item2, item3])
       }));
-      serviceAsAny.authorityService.getEntryByValue.and.returnValue(
+      serviceAsAny.authorityService.getEntryByValue.and.returnValues(
         hot('-a', {
           a: new IntegrationData(pageInfo, [child2])
+        }),
+        hot('-b', {
+          b: new IntegrationData(pageInfo, [item])
         })
       );
       scheduler.schedule(() => service.initialize(searchOptions, 'root2'));
       scheduler.flush();
 
       expect(serviceAsAny.authorityName).toEqual(searchOptions.name);
-      expect(serviceAsAny.initValueHierarchy).toEqual(['root1', 'root2']);
+      expect(serviceAsAny.initValueHierarchy).toEqual(['root1', 'root1-child2']);
     });
   });
 

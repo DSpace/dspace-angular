@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { flatMap, map, merge, scan, take, tap } from 'rxjs/operators';
+import { flatMap, map, merge, scan, take } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 
 import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './authority-treeview-node.model';
@@ -11,7 +11,6 @@ import { IntegrationSearchOptions } from '../../core/integration/models/integrat
 import { IntegrationData } from '../../core/integration/integration-data';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { isEmpty, isNotEmpty } from '../empty.util';
-import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 
 /**
  * A database that only load part of the data initially. After user clicks on the `Load more`
@@ -47,7 +46,6 @@ export class AuthorityTreeviewService {
     if (isNotEmpty(initValueId)) {
       this.getNodeHierarchyById(options, initValueId).pipe(take(1))
         .subscribe((hierarchy: string[]) => {
-          console.log(hierarchy);
           this.initValueHierarchy = hierarchy;
           this.getTopNodes(options, []);
       })
