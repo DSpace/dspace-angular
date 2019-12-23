@@ -76,7 +76,6 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
   ngOnChanges() {
     const item$ = this.reoRel.useLeftItem ?
       this.reoRel.relationship.leftItem : this.reoRel.relationship.rightItem;
-
     this.subs.push(item$.pipe(
       getAllSucceededRemoteData(),
       getRemoteDataPayload(),
