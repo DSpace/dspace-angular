@@ -19,6 +19,9 @@ export const SelectableListActionTypes = {
   DESELECT_ALL: type('dspace/selectable-lists/DESELECT_ALL')
 };
 
+/**
+ * Abstract action class for actions on selectable lists
+ */
 /* tslint:disable:max-classes-per-file */
 export abstract class SelectableListAction implements Action {
   // tslint:disable-next-line:no-shadowed-variable
@@ -27,7 +30,7 @@ export abstract class SelectableListAction implements Action {
 }
 
 /**
- * Used to select an item in a the selectable list
+ * Action to select objects in a the selectable list
  */
 export class SelectableListSelectAction extends SelectableListAction {
   payload: ListableObject[];
@@ -37,7 +40,9 @@ export class SelectableListSelectAction extends SelectableListAction {
     this.payload = objects;
   }
 }
-
+/**
+ * Action to select a single object in a the selectable list
+ */
 export class SelectableListSelectSingleAction extends SelectableListAction {
   payload: {
     object: ListableObject,
@@ -49,6 +54,9 @@ export class SelectableListSelectSingleAction extends SelectableListAction {
   }
 }
 
+/**
+ * Action to deselect a single object in a the selectable list
+ */
 export class SelectableListDeselectSingleAction extends SelectableListAction {
   payload: ListableObject;
 
@@ -58,6 +66,9 @@ export class SelectableListDeselectSingleAction extends SelectableListAction {
   }
 }
 
+/**
+ * Action to deselect objects in a the selectable list
+ */
 export class SelectableListDeselectAction extends SelectableListAction {
   payload: ListableObject[];
 
@@ -67,6 +78,9 @@ export class SelectableListDeselectAction extends SelectableListAction {
   }
 }
 
+/**
+ * Action to set a new or overwrite an existing selection
+ */
 export class SelectableListSetSelectionAction extends SelectableListAction {
   payload: ListableObject[];
 
@@ -76,6 +90,9 @@ export class SelectableListSetSelectionAction extends SelectableListAction {
   }
 }
 
+/**
+ * Action to deselect all currently selected objects
+ */
 export class SelectableListDeselectAllAction extends SelectableListAction {
   constructor(id: string) {
     super(SelectableListActionTypes.DESELECT_ALL, id);

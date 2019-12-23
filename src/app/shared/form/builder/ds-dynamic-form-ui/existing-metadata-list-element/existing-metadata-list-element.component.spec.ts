@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExistingMetadataListElementComponent } from './existing-metadata-list-element.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { Store } from '@ngrx/store';
 
 describe('ExistingMetadataListElementComponent', () => {
   let component: ExistingMetadataListElementComponent;
@@ -8,9 +11,14 @@ describe('ExistingMetadataListElementComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExistingMetadataListElementComponent ]
+      declarations: [ExistingMetadataListElementComponent],
+      providers: [
+        { provide: SelectableListService, useValue: {} },
+        { provide: Store, useValue: {} },
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

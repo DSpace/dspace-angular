@@ -66,13 +66,13 @@ export class StatisticsService {
       },
     };
     if (hasValue(searchOptions.configuration)) {
-      Object.assign(body, {configuration: searchOptions.configuration})
+      Object.assign(body, { configuration: searchOptions.configuration })
     }
     if (hasValue(searchOptions.dsoType)) {
-      Object.assign(body, {dsoType: searchOptions.dsoType.toLowerCase()})
+      Object.assign(body, { dsoType: searchOptions.dsoType.toLowerCase() })
     }
     if (hasValue(searchOptions.scope)) {
-      Object.assign(body, {scope: searchOptions.scope})
+      Object.assign(body, { scope: searchOptions.scope })
     }
     if (isNotEmpty(filters)) {
       const bodyFilters = [];
@@ -85,7 +85,7 @@ export class StatisticsService {
           label: filter.label
         })
       }
-      Object.assign(body, {appliedFilters: bodyFilters})
+      Object.assign(body, { appliedFilters: bodyFilters })
     }
     this.sendEvent('/statistics/searchevents', body);
   }

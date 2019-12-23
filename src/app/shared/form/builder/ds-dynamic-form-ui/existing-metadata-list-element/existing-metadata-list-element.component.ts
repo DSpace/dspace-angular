@@ -25,6 +25,7 @@ import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
+// tslint:disable:max-classes-per-file
 export abstract class Reorderable {
 
   constructor(public oldIndex?: number, public newIndex?: number) {
@@ -174,3 +175,4 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
   }
 
 }
+// tslint:enable:max-classes-per-file

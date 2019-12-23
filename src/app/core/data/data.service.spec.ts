@@ -6,7 +6,7 @@ import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable, of as observableOf } from 'rxjs';
-import { FindAllOptions } from './request.models';
+import { FindListOptions } from './request.models';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { compare, Operation } from 'fast-json-patch';
@@ -42,7 +42,7 @@ class TestService extends DataService<any> {
     super();
   }
 
-  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return observableOf(endpoint);
   }
 }
@@ -56,7 +56,7 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
 
 describe('DataService', () => {
   let service: TestService;
-  let options: FindAllOptions;
+  let options: FindListOptions;
   const requestService = {generateRequestId: () => uuidv4()} as RequestService;
   const halService = {} as HALEndpointService;
   const rdbService = {} as RemoteDataBuildService;
@@ -192,7 +192,7 @@ describe('DataService', () => {
       dso2.self = selfLink;
       dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
-      spyOn(service, 'findByHref').and.returnValues(createSuccessfulRemoteDataObject$(dso));
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(dso));
       spyOn(objectCache, 'addPatch');
     });
 

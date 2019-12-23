@@ -73,6 +73,11 @@ export class RelationshipEffects {
       )
     );
 
+  /**
+   * Updates the namevariant in a relationship
+   * If the relationship is currently being added or removed, it will add the name variant to an update map so it will be sent with the next add request instead
+   * Otherwise the update is done immediately
+   */
   @Effect({ dispatch: false }) updateNameVariantsActions$ = this.actions$
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),

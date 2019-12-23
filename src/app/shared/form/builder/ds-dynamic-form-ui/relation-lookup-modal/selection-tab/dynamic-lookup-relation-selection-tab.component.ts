@@ -25,6 +25,9 @@ import { Context } from '../../../../../../core/shared/context.model';
   ]
 })
 
+/**
+ * Tab for inside the lookup model that represents the currently selected relationships
+ */
 export class DsDynamicLookupRelationSelectionTabComponent {
   @Input() label: string;
   @Input() listId: string;
@@ -44,6 +47,9 @@ export class DsDynamicLookupRelationSelectionTabComponent {
               private searchConfigService: SearchConfigurationService) {
   }
 
+  /**
+   * Set up the selection and pagination on load
+   */
   ngOnInit() {
     this.resetRoute();
     this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
@@ -70,6 +76,9 @@ export class DsDynamicLookupRelationSelectionTabComponent {
       )
   }
 
+  /**
+   * Method to reset the route when the window is opened to make sure no strange pagination issues appears
+   */
   resetRoute() {
     this.router.navigate([], {
       queryParams: Object.assign({}, { page: 1, pageSize: this.initialPagination.pageSize }),

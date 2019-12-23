@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
-import { FindAllOptions } from '../data/request.models';
+import { FindListOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ResourcePolicy } from '../shared/resource-policy.model';
 import { RemoteData } from '../data/remote-data';
@@ -36,7 +36,7 @@ class DataServiceImpl extends DataService<ResourcePolicy> {
     super();
   }
 
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
   }
 }

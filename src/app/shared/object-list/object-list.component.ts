@@ -1,21 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchResult } from '../search/search-result.model';
 import { SelectableListService } from './selectable-list/selectable-list.service';
-import { map, take, tap } from 'rxjs/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
@@ -60,9 +50,6 @@ export class ObjectListComponent {
   @Input() hidePagerWhenSinglePage = true;
   @Input() selectable = false;
   @Input() selectionConfig: { repeatable: boolean, listId: string };
-  // @Input() previousSelection: ListableObject[] = [];
-  // allSelected = false;
-  // selectAllLoading = false;
 
   /**
    * The link type of the listable elements

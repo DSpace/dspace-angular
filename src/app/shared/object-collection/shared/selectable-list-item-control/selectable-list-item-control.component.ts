@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   templateUrl: './selectable-list-item-control.component.html'
 })
 /**
- * Component for determining what component to use depending on the item's relationship type (relationship.type)
+ * Component for rendering list item that has a control (checkbox or radio button) because it's selectable
  */
 export class SelectableListItemControlComponent implements OnInit {
   /**
@@ -49,29 +49,30 @@ export class SelectableListItemControlComponent implements OnInit {
     })
   }
 
-  selectCheckbox(value: boolean, object: ListableObject) {
+  selectCheckbox(value: boolean) {
     if (value) {
-      this.selectionService.selectSingle(this.selectionConfig.listId, object);
+      this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
     } else {
-      this.selectionService.deselectSingle(this.selectionConfig.listId, object);
+      this.selectionService.deselectSingle(this.selectionConfig.listId, this.object);
     }
   }
 
-  selectRadio(value: boolean, object: ListableObject) {
-    const selected$ = this.selectionService.getSelectableList(this.selectionConfig.listId);
-    selected$.pipe(
-      take(1),
-      map((selected) => selected ? selected.selection : [])
-    ).subscribe((selection) => {
-      // First deselect any existing selections, this is a radio button
-      selection.forEach((selectedObject) => {
-        this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
-        this.deselectObject.emit(selectedObject);
-      });
-      if (value) {
-        this.selectionService.selectSingle(this.selectionConfig.listId, object);
-        this.selectObject.emit(object);
-      }
-    });
+  selectRadio(value: boolean) {
+    if (value) {
+      const selected$ = this.selectionService.getSelectableList(this.selectionConfig.listId);
+      selected$.pipe(
+        take(1),
+        map((selected) => selected ? selected.selection : [])
+      ).subscribe((selection) => {
+          // First deselect any existing selections, this is a radio button
+          selection.forEach((selectedObject) => {
+            this.selectionService.deselectSingle(this.selectionConfig.listId, selectedObject);
+            this.deselectObject.emit(selectedObject);
+          });
+          this.selectionService.selectSingle(this.selectionConfig.listId, this.object);
+          this.selectObject.emit(this.object);
+        }
+      );
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { of as observableOf } from 'rxjs';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { RestRequestMethod } from '../data/rest-request-method';
+import { GlobalConfig } from '../../../../config/global-config.interface';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { EndpointMockingRestService } from './endpoint-mocking-rest.service';
 import { MockResponseMap } from './mocks/mock-response-map';
 
