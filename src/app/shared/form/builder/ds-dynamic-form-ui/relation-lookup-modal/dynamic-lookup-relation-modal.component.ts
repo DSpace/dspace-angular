@@ -42,6 +42,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   selection$: Observable<ListableObject[]>;
   context: Context;
   metadataFields: string;
+  query: string;
   subMap: {
     [uuid: string]: Subscription
   } = {};

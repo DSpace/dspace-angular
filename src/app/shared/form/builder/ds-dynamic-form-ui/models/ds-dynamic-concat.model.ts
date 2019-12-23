@@ -37,7 +37,7 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
   constructor(config: DynamicConcatModelConfig, layout?: DynamicFormControlLayout) {
 
     super(config, layout);
-
+    console.log(config);
     this.separator = config.separator + ' ';
     this.relationship = config.relationship;
     this.repeatable = config.repeatable;
@@ -57,8 +57,10 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
       return Object.assign(new FormFieldMetadataValueObject(), firstValue, { value: firstValue.value + this.separator + secondValue.value });
     } else if (isNotEmpty(firstValue) && isNotEmpty(firstValue.value)) {
       return Object.assign(new FormFieldMetadataValueObject(), firstValue);
+    } else if (isNotEmpty(secondValue) && isNotEmpty(secondValue.value)) {
+      return Object.assign(new FormFieldMetadataValueObject(), secondValue);
     } else {
-      return null;
+      return new FormFieldMetadataValueObject();
     }
   }
 

@@ -32,6 +32,8 @@ export abstract class FieldParser {
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
 
   public parse() {
+    console.log(this.configData);
+
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
       && (this.configData.input.type !== 'list')
       && (this.configData.input.type !== 'tag')
@@ -44,9 +46,8 @@ export abstract class FieldParser {
 
       if (Array.isArray(this.configData.selectableMetadata) && this.configData.selectableMetadata.length === 1) {
         metadataKey = this.configData.selectableMetadata[0].metadata;
-      };
+      }
 
-      console.log(this.getInitArrayIndex());
       const config = {
         id: uniqueId() + '_array',
         label: this.configData.label,

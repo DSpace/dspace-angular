@@ -39,6 +39,7 @@ import { Context } from '../../../../../../core/shared/context.model';
 export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDestroy {
   @Input() relationship: RelationshipOptions;
   @Input() listId: string;
+  @Input() query: string;
   @Input() repeatable: boolean;
   @Input() selection$: Observable<ListableObject[]>;
   @Input() context: Context;
@@ -73,8 +74,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
     this.resetRoute();
     this.routeService.setParameter('fixedFilterQuery', this.relationship.filter);
     this.routeService.setParameter('configuration', this.relationship.searchConfiguration);
-
-    this.someSelected$ = this.selection$.pipe(map((selection) => isNotEmpty(selection)));
     this.resultsRD$ = this.searchConfigService.paginatedSearchOptions.pipe(
       map((options) => {
         return Object.assign(new PaginatedSearchOptions({}), options, { fixedFilter: this.relationship.filter, configuration: this.relationship.searchConfiguration })
@@ -101,7 +100,7 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
    */
   resetRoute() {
     this.router.navigate([], {
-      queryParams: Object.assign({}, { page: 1, pageSize: this.initialPagination.pageSize }),
+      queryParams: Object.assign({}, { page: 1, pageSize: this.initialPagination.pageSize, query: this.query }),
     });
   }
 
