@@ -322,9 +322,4 @@ export class FormComponent implements OnDestroy, OnInit {
     const control = group.controls[index] as FormControl;
     return { $event, context, control, group, model, type };
   }
-
-
-  print(data) {
-    console.log(data);
-  }
 }

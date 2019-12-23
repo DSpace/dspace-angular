@@ -56,10 +56,10 @@ describe('FormBuilderService test suite', () => {
   let testFormConfiguration: SubmissionFormsModel;
   let service: FormBuilderService;
 
-  const submissionId =  '1234';
+  const submissionId = '1234';
 
   function testValidator() {
-    return {testValidator: {valid: true}};
+    return { testValidator: { valid: true } };
   }
 
   function testAsyncValidator() {
@@ -71,10 +71,10 @@ describe('FormBuilderService test suite', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
-        {provide: FormBuilderService, useClass: FormBuilderService},
-        {provide: DynamicFormValidationService, useValue: {}},
-        {provide: NG_VALIDATORS, useValue: testValidator, multi: true},
-        {provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true}
+        { provide: FormBuilderService, useClass: FormBuilderService },
+        { provide: DynamicFormValidationService, useValue: {} },
+        { provide: NG_VALIDATORS, useValue: testValidator, multi: true },
+        { provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true }
       ]
     });
 
@@ -148,9 +148,9 @@ describe('FormBuilderService test suite', () => {
         }
       ),
 
-      new DynamicTextAreaModel({id: 'testTextArea'}),
+      new DynamicTextAreaModel({ id: 'testTextArea' }),
 
-      new DynamicCheckboxModel({id: 'testCheckbox'}),
+      new DynamicCheckboxModel({ id: 'testCheckbox' }),
 
       new DynamicFormArrayModel(
         {
@@ -158,10 +158,10 @@ describe('FormBuilderService test suite', () => {
           initialCount: 5,
           groupFactory: () => {
             return [
-              new DynamicInputModel({id: 'testFormArrayGroupInput'}),
+              new DynamicInputModel({ id: 'testFormArrayGroupInput' }),
               new DynamicFormArrayModel({
                 id: 'testNestedFormArray', groupFactory: () => [
-                  new DynamicInputModel({id: 'testNestedFormArrayGroupInput'})
+                  new DynamicInputModel({ id: 'testNestedFormArrayGroupInput' })
                 ]
               })
             ];
@@ -173,37 +173,37 @@ describe('FormBuilderService test suite', () => {
         {
           id: 'testFormGroup',
           group: [
-            new DynamicInputModel({id: 'nestedTestInput'}),
-            new DynamicTextAreaModel({id: 'nestedTestTextArea'})
+            new DynamicInputModel({ id: 'nestedTestInput' }),
+            new DynamicTextAreaModel({ id: 'nestedTestTextArea' })
           ]
         }
       ),
 
-      new DynamicSliderModel({id: 'testSlider'}),
+      new DynamicSliderModel({ id: 'testSlider' }),
 
-      new DynamicSwitchModel({id: 'testSwitch'}),
+      new DynamicSwitchModel({ id: 'testSwitch' }),
 
-      new DynamicDatePickerModel({id: 'testDatepicker', value: new Date()}),
+      new DynamicDatePickerModel({ id: 'testDatepicker', value: new Date() }),
 
-      new DynamicFileUploadModel({id: 'testFileUpload'}),
+      new DynamicFileUploadModel({ id: 'testFileUpload' }),
 
-      new DynamicEditorModel({id: 'testEditor'}),
+      new DynamicEditorModel({ id: 'testEditor' }),
 
-      new DynamicTimePickerModel({id: 'testTimePicker'}),
+      new DynamicTimePickerModel({ id: 'testTimePicker' }),
 
-      new DynamicRatingModel({id: 'testRating'}),
+      new DynamicRatingModel({ id: 'testRating' }),
 
-      new DynamicColorPickerModel({id: 'testColorPicker'}),
+      new DynamicColorPickerModel({ id: 'testColorPicker' }),
 
-      new DynamicTypeaheadModel({id: 'testTypeahead', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicTypeaheadModel({ id: 'testTypeahead', repeatable: false, metadataFields: [], submissionId: '1234' }),
 
-      new DynamicScrollableDropdownModel({id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicScrollableDropdownModel({ id: 'testScrollableDropdown', authorityOptions: authorityOptions, repeatable: false, metadataFields: [], submissionId: '1234' }),
 
-      new DynamicTagModel({id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicTagModel({ id: 'testTag', repeatable: false, metadataFields: [], submissionId: '1234' }),
 
-      new DynamicListCheckboxGroupModel({id: 'testCheckboxList', authorityOptions: authorityOptions, repeatable: true}),
+      new DynamicListCheckboxGroupModel({ id: 'testCheckboxList', authorityOptions: authorityOptions, repeatable: true }),
 
-      new DynamicListRadioGroupModel({id: 'testRadioList', authorityOptions: authorityOptions, repeatable: false}),
+      new DynamicListRadioGroupModel({ id: 'testRadioList', authorityOptions: authorityOptions, repeatable: false }),
 
       new DynamicRelationGroupModel({
         submissionId,
@@ -211,7 +211,7 @@ describe('FormBuilderService test suite', () => {
         formConfiguration: [{
           fields: [{
             hints: 'Enter the name of the author.',
-            input: {type: 'onebox'},
+            input: { type: 'onebox' },
             label: 'Authors',
             languageCodes: [],
             mandatory: 'true',
@@ -226,7 +226,7 @@ describe('FormBuilderService test suite', () => {
         } as FormRowModel, {
           fields: [{
             hints: 'Enter the affiliation of the author.',
-            input: {type: 'onebox'},
+            input: { type: 'onebox' },
             label: 'Affiliation',
             languageCodes: [],
             mandatory: 'false',
@@ -247,13 +247,13 @@ describe('FormBuilderService test suite', () => {
         metadataFields: []
       }),
 
-      new DynamicDsDatePickerModel({id: 'testDate'}),
+      new DynamicDsDatePickerModel({ id: 'testDate' }),
 
-      new DynamicLookupModel({id: 'testLookup', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicLookupModel({ id: 'testLookup', repeatable: false, metadataFields: [], submissionId: '1234' }),
 
-      new DynamicLookupNameModel({id: 'testLookupName', repeatable: false, metadataFields: [], submissionId: '1234'}),
+      new DynamicLookupNameModel({ id: 'testLookupName', repeatable: false, metadataFields: [], submissionId: '1234' }),
 
-      new DynamicQualdropModel({id: 'testCombobox', readOnly: false, required: false}),
+      new DynamicQualdropModel({ id: 'testCombobox', readOnly: false, required: false }),
 
       new DynamicRowArrayModel(
         {
@@ -264,11 +264,12 @@ describe('FormBuilderService test suite', () => {
           submissionId: '1234',
           groupFactory: () => {
             return [
-              new DynamicInputModel({id: 'testFormRowArrayGroupInput'})
+              new DynamicInputModel({ id: 'testFormRowArrayGroupInput' })
             ];
           },
-          required: false
-        }
+          required: false,
+          metadataKey: 'dc.contributor.author'
+        },
       ),
     ];
 
@@ -278,7 +279,7 @@ describe('FormBuilderService test suite', () => {
         {
           fields: [
             {
-              input: {type: 'lookup'},
+              input: { type: 'lookup' },
               label: 'Journal',
               mandatory: 'false',
               repeatable: false,
@@ -293,7 +294,7 @@ describe('FormBuilderService test suite', () => {
               languageCodes: []
             } as FormFieldModel,
             {
-              input: {type: 'onebox'},
+              input: { type: 'onebox' },
               label: 'Issue',
               mandatory: 'false',
               repeatable: false,
@@ -306,7 +307,7 @@ describe('FormBuilderService test suite', () => {
               languageCodes: []
             } as FormFieldModel,
             {
-              input: {type: 'name'},
+              input: { type: 'name' },
               label: 'Name',
               mandatory: 'false',
               repeatable: false,
@@ -324,24 +325,24 @@ describe('FormBuilderService test suite', () => {
           fields: [
             {
               hints: 'If the item has any identification numbers or codes associated with↵	it, please enter the types and the actual numbers or codes.',
-              input: {type: 'onebox'},
+              input: { type: 'onebox' },
               label: 'Identifiers',
               languageCodes: [],
               mandatory: 'false',
               repeatable: false,
               selectableMetadata: [
-                {metadata: 'dc.identifier.issn', label: 'ISSN'},
-                {metadata: 'dc.identifier.other', label: 'Other'},
-                {metadata: 'dc.identifier.ismn', label: 'ISMN'},
-                {metadata: 'dc.identifier.govdoc', label: 'Gov\'t Doc #'},
-                {metadata: 'dc.identifier.uri', label: 'URI'},
-                {metadata: 'dc.identifier.isbn', label: 'ISBN'},
-                {metadata: 'dc.identifier.doi', label: 'DOI'},
-                {metadata: 'dc.identifier.pmid', label: 'PubMed ID'},
-                {metadata: 'dc.identifier.arxiv', label: 'arXiv'}
+                { metadata: 'dc.identifier.issn', label: 'ISSN' },
+                { metadata: 'dc.identifier.other', label: 'Other' },
+                { metadata: 'dc.identifier.ismn', label: 'ISMN' },
+                { metadata: 'dc.identifier.govdoc', label: 'Gov\'t Doc #' },
+                { metadata: 'dc.identifier.uri', label: 'URI' },
+                { metadata: 'dc.identifier.isbn', label: 'ISBN' },
+                { metadata: 'dc.identifier.doi', label: 'DOI' },
+                { metadata: 'dc.identifier.pmid', label: 'PubMed ID' },
+                { metadata: 'dc.identifier.arxiv', label: 'arXiv' }
               ]
             }, {
-              input: {type: 'onebox'},
+              input: { type: 'onebox' },
               label: 'Publisher',
               mandatory: 'false',
               repeatable: false,
@@ -358,7 +359,7 @@ describe('FormBuilderService test suite', () => {
         {
           fields: [
             {
-              input: {type: 'onebox'},
+              input: { type: 'onebox' },
               label: 'Conference',
               mandatory: 'false',
               repeatable: false,
@@ -626,7 +627,7 @@ describe('FormBuilderService test suite', () => {
 
   it('should throw when unknown DynamicFormControlModel id is specified in JSON', () => {
 
-    expect(() => service.fromJSON([{id: 'test'}]))
+    expect(() => service.fromJSON([{ id: 'test' }]))
       .toThrow(new Error(`unknown form control model type defined on JSON object with id "test"`));
   });
 
@@ -646,8 +647,8 @@ describe('FormBuilderService test suite', () => {
     const formGroup = service.createFormGroup(testModel);
     const nestedFormGroup = formGroup.controls.testFormGroup as FormGroup;
     const nestedFormGroupModel = testModel[7] as DynamicFormGroupModel;
-    const newModel1 = new DynamicInputModel({id: 'newInput1'});
-    const newModel2 = new DynamicInputModel({id: 'newInput2'});
+    const newModel1 = new DynamicInputModel({ id: 'newInput1' });
+    const newModel2 = new DynamicInputModel({ id: 'newInput2' });
 
     service.addFormGroupControl(formGroup, testModel, newModel1);
     service.addFormGroupControl(nestedFormGroup, nestedFormGroupModel, newModel2);
@@ -664,8 +665,8 @@ describe('FormBuilderService test suite', () => {
     const formGroup = service.createFormGroup(testModel);
     const nestedFormGroup = formGroup.controls.testFormGroup as FormGroup;
     const nestedFormGroupModel = testModel[7] as DynamicFormGroupModel;
-    const newModel1 = new DynamicInputModel({id: 'newInput1'});
-    const newModel2 = new DynamicInputModel({id: 'newInput2'});
+    const newModel1 = new DynamicInputModel({ id: 'newInput1' });
+    const newModel2 = new DynamicInputModel({ id: 'newInput2' });
 
     service.insertFormGroupControl(4, formGroup, testModel, newModel1);
     service.insertFormGroupControl(0, nestedFormGroup, nestedFormGroupModel, newModel2);

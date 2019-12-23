@@ -61,7 +61,6 @@ export class JsonPatchOperationsBuilder {
         this.prepareValue(value, plain, false)));
   }
 
-
   move(path: JsonPatchOperationPathObject, prevPath: string) {
     this.store.dispatch(
       new NewPatchMoveOperationAction(

@@ -1,20 +1,16 @@
 import { Inject, InjectionToken } from '@angular/core';
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isEmpty } from '../../../empty.util';
+import { hasValue, isNotEmpty, isNotNull, isNotUndefined } from '../../../empty.util';
 import { FormFieldModel } from '../models/form-field.model';
 
 import { uniqueId } from 'lodash';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import {
-  DynamicRowArrayModel,
-  DynamicRowArrayModelConfig
-} from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRowArrayModel, DynamicRowArrayModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DsDynamicInputModel, DsDynamicInputModelConfig } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { setLayout } from './parser.utils';
 import { AuthorityOptions } from '../../../../core/integration/models/authority-options.model';
 import { ParserOptions } from './parser-options';
 import { RelationshipOptions } from '../models/relationship-options.model';
-import { relationship } from '../../../../core/cache/builders/build-decorators';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -170,7 +166,7 @@ export abstract class FieldParser {
     let fieldCount = 0;
     const fieldIds: any = this.getAllFieldIds();
     if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length === 1 && this.initFormValues.hasOwnProperty(fieldIds)) {
-      fieldCount = this.initFormValues[fieldIds].filter(value => hasValue(value) && hasValue(value.value)).length;
+      fieldCount = this.initFormValues[fieldIds].filter((value) => hasValue(value) && hasValue(value.value)).length;
     } else if (isNotEmpty(this.initFormValues) && isNotNull(fieldIds) && fieldIds.length > 1) {
       let counter = 0;
       fieldIds.forEach((id) => {
