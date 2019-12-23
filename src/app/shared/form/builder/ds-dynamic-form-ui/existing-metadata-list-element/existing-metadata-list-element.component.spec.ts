@@ -44,7 +44,7 @@ describe('ExistingMetadataListElementComponent', () => {
     relatedSearchResult = Object.assign(new ItemSearchResult(), { indexableObject: relatedItem });
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
-    reoRel = new ReorderableRelationship(relationship, true);
+    reoRel = new ReorderableRelationship(relationship, true, {} as any);
   }
 
   beforeEach(async(() => {
