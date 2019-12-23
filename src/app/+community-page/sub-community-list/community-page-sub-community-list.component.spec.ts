@@ -5,6 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
 import { Community } from '../../core/shared/community.model';
 import { PaginatedList } from '../../core/data/paginated-list';
@@ -15,8 +17,9 @@ import { FindListOptions } from '../../core/data/request.models';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
 import { CommunityDataService } from '../../core/data/community-data.service';
+import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 
-describe('SubCommunityList Component', () => {
+describe('CommunityPageSubCommunityListComponent Component', () => {
   let comp: CommunityPageSubCommunityListComponent;
   let fixture: ComponentFixture<CommunityPageSubCommunityListComponent>;
   let communityDataServiceStub: any;
@@ -110,13 +113,18 @@ describe('SubCommunityList Component', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule,
+      imports: [
+        TranslateModule.forRoot(),
+        SharedModule,
         RouterTestingModule.withRoutes([]),
-        NoopAnimationsModule],
+        NgbModule.forRoot(),
+        NoopAnimationsModule
+      ],
       declarations: [CommunityPageSubCommunityListComponent],
       providers: [
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: SelectableListService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -129,7 +137,7 @@ describe('SubCommunityList Component', () => {
 
   });
 
-  it('should display a list of subCommunities', () => {
+  it('should display a list of sub-communities', () => {
     subCommList = subcommunities;
     fixture.detectChanges();
 
@@ -142,7 +150,7 @@ describe('SubCommunityList Component', () => {
     expect(subComList[4].nativeElement.textContent).toContain('SubCommunity 5');
   });
 
-  it('should not display the header when subCommunities are empty', () => {
+  it('should not display the header when list of sub-communities is empty', () => {
     subCommList = [];
     fixture.detectChanges();
 
@@ -150,16 +158,21 @@ describe('SubCommunityList Component', () => {
     expect(subComHead.length).toEqual(0);
   });
 
-  it('should update list of collection on pagination change', () => {
+  it('should update list of sub-communities on pagination change', () => {
     subCommList = subcommunities;
     fixture.detectChanges();
 
-    const pagination = Object.create({});
-    pagination.pageId = comp.pageId;
-    pagination.page = 2;
-    pagination.pageSize = 5;
-    pagination.sortField = 'dc.title';
-    pagination.sortDirection = 'ASC';
+    const pagination = Object.create({
+      pagination:{
+        id: comp.pageId,
+        currentPage: 2,
+        pageSize: 5
+      },
+      sort: {
+        field: 'dc.title',
+        direction: 'ASC'
+      }
+    });
     comp.onPaginationChange(pagination);
     fixture.detectChanges();
 

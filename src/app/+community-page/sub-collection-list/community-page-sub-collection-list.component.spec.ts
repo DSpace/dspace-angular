@@ -5,6 +5,8 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { CommunityPageSubCollectionListComponent } from './community-page-sub-collection-list.component';
 import { Community } from '../../core/shared/community.model';
 import { SharedModule } from '../../shared/shared.module';
@@ -15,8 +17,9 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
+import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 
-describe('CommunityPageSubCollectionListComponent Component', () => {
+describe('CommunityPageSubCollectionList Component', () => {
   let comp: CommunityPageSubCollectionListComponent;
   let fixture: ComponentFixture<CommunityPageSubCollectionListComponent>;
   let collectionDataServiceStub: any;
@@ -109,13 +112,18 @@ describe('CommunityPageSubCollectionListComponent Component', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule,
+      imports: [
+        TranslateModule.forRoot(),
+        SharedModule,
         RouterTestingModule.withRoutes([]),
-        NoopAnimationsModule],
+        NgbModule.forRoot(),
+        NoopAnimationsModule
+      ],
       declarations: [CommunityPageSubCollectionListComponent],
       providers: [
         { provide: CollectionDataService, useValue: collectionDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: SelectableListService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -140,7 +148,7 @@ describe('CommunityPageSubCollectionListComponent Component', () => {
     expect(collList[4].nativeElement.textContent).toContain('Collection 5');
   });
 
-  it('should not display the header when collection list is empty', () => {
+  it('should not display the header when list of collections is empty', () => {
     subCollList = [];
     fixture.detectChanges();
 
@@ -148,16 +156,21 @@ describe('CommunityPageSubCollectionListComponent Component', () => {
     expect(subComHead.length).toEqual(0);
   });
 
-  it('should update list of collection on pagination change', () => {
+  it('should update list of collections on pagination change', () => {
     subCollList = collections;
     fixture.detectChanges();
 
-    const pagination = Object.create({});
-    pagination.pageId = comp.pageId;
-    pagination.page = 2;
-    pagination.pageSize = 5;
-    pagination.sortField = 'dc.title';
-    pagination.sortDirection = 'ASC';
+    const pagination = Object.create({
+      pagination:{
+        id: comp.pageId,
+        currentPage: 2,
+        pageSize: 5
+      },
+      sort: {
+        field: 'dc.title',
+        direction: 'ASC'
+      }
+    });
     comp.onPaginationChange(pagination);
     fixture.detectChanges();
 

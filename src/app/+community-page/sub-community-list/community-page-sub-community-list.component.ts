@@ -60,10 +60,10 @@ export class CommunityPageSubCommunityListComponent implements OnInit {
    * @param event The new pagination data
    */
   onPaginationChange(event) {
-    this.config.currentPage = event.page;
-    this.config.pageSize = event.pageSize;
-    this.sortConfig.field = event.sortField;
-    this.sortConfig.direction = event.sortDirection;
+    this.config.currentPage = event.pagination.currentPage;
+    this.config.pageSize = event.pagination.pageSize;
+    this.sortConfig.field = event.sort.field;
+    this.sortConfig.direction = event.sort.direction;
     this.updatePage();
   }
 
