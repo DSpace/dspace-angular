@@ -58,7 +58,7 @@ describe('SeriesFieldParser test suite', () => {
     initFormValues = {
       series: [new FormFieldMetadataValueObject('test; series')],
     };
-    const expectedValue = new FormFieldMetadataValueObject('test; series');
+    const expectedValue = new FormFieldMetadataValueObject('test; series', undefined, undefined, 'test');
 
     const parser = new SeriesFieldParser(submissionId, field, initFormValues, parserOptions);
 
