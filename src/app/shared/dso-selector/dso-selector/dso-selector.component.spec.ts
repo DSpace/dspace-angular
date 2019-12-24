@@ -2,14 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSOSelectorComponent } from './dso-selector.component';
-import { SearchService } from '../../../+search-page/search-service/search.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { ItemSearchResult } from '../../object-collection/shared/item-search-result.model';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../../testing/utils';
+import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 
 describe('DSOSelectorComponent', () => {
   let component: DSOSelectorComponent;

@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { fadeIn, fadeInOut } from '../../shared/animations/fade';
-import { SearchOptions } from '../../+search-page/search-options.model';
+import { SearchOptions } from '../../shared/search/search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../../shared/empty.util';
-import { SearchResult } from '../../+search-page/search-result.model';
 import { Context } from '../../core/shared/context.model';
+import { SearchResult } from '../../shared/search/search-result.model';
 
 /**
  * Component that represents all results for mydspace page

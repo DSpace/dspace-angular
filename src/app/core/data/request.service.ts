@@ -3,7 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { cloneDeep, remove } from 'lodash';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -302,6 +302,7 @@ export class RequestService {
    */
   hasByHref(href: string): boolean {
     let result = false;
+    /* NB: that this is only a solution because the select method is synchronous, see: https://github.com/ngrx/store/issues/296#issuecomment-269032571*/
     this.getByHref(href).pipe(
       take(1)
     ).subscribe((requestEntry: RequestEntry) => result = this.isValid(requestEntry));

@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { hasValue, isNotEmpty } from '../empty.util';
 import { QueryParamsHandling } from '@angular/router/src/config';
 import { MYDSPACE_ROUTE } from '../../+my-dspace-page/my-dspace-page.component';
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../core/shared/search/search.service';
+import { currentPath } from '../utils/route.utils';
 
 /**
  * This component renders a simple item page.
@@ -104,7 +105,7 @@ export class SearchFormComponent {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }

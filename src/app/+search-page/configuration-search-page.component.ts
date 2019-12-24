@@ -1,15 +1,14 @@
 import { HostWindowService } from '../shared/host-window.service';
-import { SearchService } from './search-service/search.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { SearchComponent } from './search.component';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit } from '@angular/core';
 import { pushInOut } from '../shared/animations/push';
-import { SearchConfigurationService } from './search-service/search-configuration.service';
-import { Observable } from 'rxjs';
-import { PaginatedSearchOptions } from './paginated-search-options.model';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
-import { map } from 'rxjs/operators';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { Router } from '@angular/router';
+import { hasValue } from '../shared/empty.util';
 import { RouteService } from '../core/services/route.service';
+import { SearchService } from '../core/shared/search/search.service';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -45,8 +44,9 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              protected routeService: RouteService) {
-    super(service, sidebarService, windowService, searchConfigService, routeService);
+              protected routeService: RouteService,
+              protected router: Router) {
+    super(service, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   /**
@@ -58,24 +58,8 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
    */
   ngOnInit(): void {
     super.ngOnInit();
-  }
-
-  /**
-   * Get the current paginated search options after updating the configuration using the configuration input
-   * This is to make sure the configuration is included in the paginated search options, as it is not part of any
-   * query or route parameters
-   * @returns {Observable<PaginatedSearchOptions>}
-   */
-  protected getSearchOptions(): Observable<PaginatedSearchOptions> {
-    return this.searchConfigService.paginatedSearchOptions.pipe(
-      map((options: PaginatedSearchOptions) => {
-        const config = this.configuration || options.configuration;
-        const filter = this.fixedFilterQuery || options.fixedFilter;
-        return Object.assign(options, {
-          configuration: config,
-          fixedFilter: filter
-        });
-      })
-    );
+    if (hasValue(this.configuration)) {
+      this.routeService.setParameter('configuration', this.configuration);
+    }
   }
 }

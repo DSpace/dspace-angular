@@ -11,7 +11,6 @@ import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 import { RouterStub } from '../../testing/router-stub';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
@@ -19,8 +18,8 @@ import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockRequestService } from '../../mocks/mock-request.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { getMockSearchService } from '../../mocks/mock-search-service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: WorkspaceitemActionsComponent;
 let fixture: ComponentFixture<WorkspaceitemActionsComponent>;

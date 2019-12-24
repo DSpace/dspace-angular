@@ -37,18 +37,16 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
-import { RemoteData } from '../core/data/remote-data';
 import { RemoteDataError } from '../core/data/remote-data-error';
 import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
 } from '../shared/testing/utils';
 import { getMockSearchService } from '../shared/mocks/mock-search-service';
 import { getMockRequestService } from '../shared/mocks/mock-request.service';
-import { SearchService } from '../+search-page/search-service/search.service';
 import { RequestService } from '../core/data/request.service';
+import { SearchService } from '../core/shared/search/search.service';
 
 describe('SubmissionService test suite', () => {
   const config = MOCK_SUBMISSION_CONFIG;

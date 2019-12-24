@@ -3,12 +3,11 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { SearchFormComponent } from './search-form.component';
 import { FormsModule } from '@angular/forms';
-import { ResourceType } from '../../core/shared/resource-type';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../core/shared/search/search.service';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
