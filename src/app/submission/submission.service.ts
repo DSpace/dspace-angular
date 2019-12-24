@@ -21,7 +21,12 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
-import { SubmissionObjectEntry, SubmissionSectionEntry, SubmissionSectionError, SubmissionSectionObject } from './objects/submission-objects.reducer';
+import {
+  SubmissionObjectEntry,
+  SubmissionSectionEntry,
+  SubmissionSectionError,
+  SubmissionSectionObject
+} from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { GlobalConfig } from '../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../config';
@@ -38,11 +43,7 @@ import { WorkspaceitemSectionsObject } from '../core/submission/models/workspace
 import { RemoteData } from '../core/data/remote-data';
 import { ErrorResponse } from '../core/cache/response.models';
 import { RemoteDataError } from '../core/data/remote-data-error';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../shared/testing/utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/testing/utils';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
 
@@ -107,7 +108,7 @@ export class SubmissionService {
    */
   createSubmission(): Observable<SubmissionObject> {
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}).pipe(
-      map((workspaceitem: SubmissionObject) => workspaceitem[0] as SubmissionObject),
+      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
       catchError(() => observableOf({} as SubmissionObject)))
   }
 
