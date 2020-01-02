@@ -3,24 +3,21 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loader';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
-import { ITEM } from '../../../../shared/items/switcher/item-type-switcher.component';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
-import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { By } from '@angular/platform-browser';
 import { createRelationshipsObservable } from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
-import { of as observableOf } from 'rxjs';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 const mockItem: Item = Object.assign(new Item(), {
-  bitstreams: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
+  bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
   metadata: new MetadataMap(),
   relationships: createRelationshipsObservable()
 });
@@ -28,12 +25,6 @@ const mockItem: Item = Object.assign(new Item(), {
 describe('PublicationComponent', () => {
   let comp: PublicationComponent;
   let fixture: ComponentFixture<PublicationComponent>;
-
-  const searchFixedFilterServiceStub = {
-    /* tslint:disable:no-empty */
-    getQueryByRelations: () => {}
-    /* tslint:enable:no-empty */
-  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -45,10 +36,9 @@ describe('PublicationComponent', () => {
       })],
       declarations: [PublicationComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
-        {provide: ITEM, useValue: mockItem},
         {provide: ItemDataService, useValue: {}},
-        {provide: SearchFixedFilterService, useValue: searchFixedFilterServiceStub},
-        {provide: TruncatableService, useValue: {}}
+        {provide: TruncatableService, useValue: {}},
+        {provide: RelationshipService, useValue: {}}
       ],
 
       schemas: [NO_ERRORS_SCHEMA]
@@ -60,6 +50,7 @@ describe('PublicationComponent', () => {
   beforeEach(async(() => {
     fixture = TestBed.createComponent(PublicationComponent);
     comp = fixture.componentInstance;
+    comp.object = mockItem;
     fixture.detectChanges();
   }));
 

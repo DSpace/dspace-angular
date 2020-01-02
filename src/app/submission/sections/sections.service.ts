@@ -84,7 +84,7 @@ export class SectionsService {
     } else if (!isEqual(currentErrors, prevErrors)) { // compare previous error list with the current one
       const dispatchedErrors = [];
 
-      // Itereate over the current error list
+      // Iterate over the current error list
       currentErrors.forEach((error: SubmissionSectionError) => {
         const errorPaths: SectionErrorPath[] = parseSectionErrorPaths(error.path);
 

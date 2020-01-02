@@ -72,7 +72,7 @@ describe('DSpaceObjectDataService', () => {
       scheduler.schedule(() => service.findById(testObject.uuid));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestURL, testObject.uuid), false);
+      expect(requestService.configure).toHaveBeenCalledWith(new FindByIDRequest(requestUUID, requestURL, testObject.uuid));
     });
 
     it('should return a RemoteData<DSpaceObject> for the object with the given ID', () => {

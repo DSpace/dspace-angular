@@ -1,4 +1,4 @@
-import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRoute,
@@ -12,12 +12,17 @@ import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { isEqual } from 'lodash';
 
-import { AddUrlToHistoryAction } from '../../shared/history/history.actions';
-import { historySelector } from '../../shared/history/selectors';
-import { SetParametersAction, SetQueryParametersAction } from './route.actions';
-import { CoreState } from '../core.reducers';
+import {
+  AddParameterAction,
+  SetParameterAction,
+  SetParametersAction,
+  SetQueryParametersAction
+} from './route.actions';
+import { CoreState } from '../../core/core.reducers';
+import { coreSelector } from '../../core/core.selectors';
 import { hasValue } from '../../shared/empty.util';
-import { coreSelector } from '../core.selectors';
+import { historySelector } from '../../shared/history/selectors';
+import { AddUrlToHistoryAction } from '../../shared/history/history.actions';
 
 /**
  * Selector to select all route parameters from the store
@@ -121,7 +126,7 @@ export class RouteService {
   }
 
   getRouteDataValue(datafield: string): Observable<any> {
-    return this.route.data.pipe(map((data) => data[datafield]), distinctUntilChanged(),);
+    return this.route.data.pipe(map((data) => data[datafield]), distinctUntilChanged());
   }
 
   /**
@@ -157,11 +162,9 @@ export class RouteService {
   }
 
   public saveRouting(): void {
-    combineLatest(this.router.events, this.getRouteParams(), this.route.queryParams)
-      .pipe(filter(([event, params, queryParams]) => event instanceof NavigationEnd))
-      .subscribe(([event, params, queryParams]: [NavigationEnd, Params, Params]) => {
-        this.store.dispatch(new SetParametersAction(params));
-        this.store.dispatch(new SetQueryParametersAction(queryParams));
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
         this.store.dispatch(new AddUrlToHistoryAction(event.urlAfterRedirects));
       });
   }
@@ -182,5 +185,27 @@ export class RouteService {
     return this.getHistory().pipe(
       map((history: string[]) => history[history.length - 2] || '')
     );
+  }
+
+  public addParameter(key, value) {
+    this.store.dispatch(new AddParameterAction(key, value));
+  }
+
+  public setParameter(key, value) {
+    this.store.dispatch(new SetParameterAction(key, value));
+  }
+
+  /**
+   * Sets the current route parameters and query parameters in the store
+   */
+  public setCurrentRouteInfo() {
+    combineLatest(this.getRouteParams(), this.route.queryParams)
+      .pipe(take(1))
+      .subscribe(
+        ([params, queryParams]: [Params, Params]) => {
+          this.store.dispatch(new SetParametersAction(params));
+          this.store.dispatch(new SetQueryParametersAction(queryParams));
+        }
+      )
   }
 }

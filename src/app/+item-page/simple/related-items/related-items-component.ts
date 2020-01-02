@@ -1,6 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
-import { ItemViewMode } from '../../../shared/items/item-type-decorator';
+import { Observable } from 'rxjs/internal/Observable';
+import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { FindListOptions } from '../../../core/data/request.models';
+import { ViewMode } from '../../../core/shared/view-mode.model';
+import { RelationshipService } from '../../../core/data/relationship.service';
+import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
   selector: 'ds-related-items',
@@ -9,13 +15,32 @@ import { ItemViewMode } from '../../../shared/items/item-type-decorator';
 })
 /**
  * This component is used for displaying relations between items
- * It expects a list of items to display and a label to put on top
+ * It expects a parent item and relationship type, as well as a label to display on top
  */
-export class RelatedItemsComponent {
+export class RelatedItemsComponent extends AbstractIncrementalListComponent<Observable<RemoteData<PaginatedList<Item>>>> {
   /**
-   * A list of items to display
+   * The parent of the list of related items to display
    */
-  @Input() items: Item[];
+  @Input() parentItem: Item;
+
+  /**
+   * The label of the relationship type to display
+   * Used in sending a search request to the REST API
+   */
+  @Input() relationType: string;
+
+  /**
+   * The amount to increment the list by when clicking "view more"
+   * Defaults to 5
+   * The default can optionally be overridden by providing the limit as input to the component
+   */
+  @Input() incrementBy = 5;
+
+  /**
+   * Default options to start a search request with
+   * Optional input
+   */
+  @Input() options = new FindListOptions();
 
   /**
    * An i18n label to use as a title for the list (usually describes the relation)
@@ -24,7 +49,19 @@ export class RelatedItemsComponent {
 
   /**
    * The view-mode we're currently on
-   * @type {ElementViewMode}
+   * @type {ViewMode}
    */
-  viewMode = ItemViewMode.Element;
+  viewMode = ViewMode.ListElement;
+
+  constructor(public relationshipService: RelationshipService) {
+    super();
+  }
+
+  /**
+   * Get a specific page
+   * @param page  The page to fetch
+   */
+  getPage(page: number): Observable<RemoteData<PaginatedList<Item>>> {
+    return this.relationshipService.getRelatedItemsByLabel(this.parentItem, this.relationType, Object.assign(this.options, { elementsPerPage: this.incrementBy, currentPage: page }));
+  }
 }

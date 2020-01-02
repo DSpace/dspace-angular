@@ -3,13 +3,9 @@ import { inheritSerialization, deserialize, autoserialize, autoserializeAs } fro
 import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 import { Item } from '../../shared/item.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
-import { NormalizedCollection } from './normalized-collection.model';
-import { NormalizedBitstream } from './normalized-bitstream.model';
-import { NormalizedRelationship } from './items/normalized-relationship.model';
 import { Collection } from '../../shared/collection.model';
-import { Bitstream } from '../../shared/bitstream.model';
 import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { Bundle } from '../../shared/bundle.model';
 
 /**
  * Normalized model class for a DSpace Item
@@ -66,10 +62,10 @@ export class NormalizedItem extends NormalizedDSpaceObject<Item> {
    * List of Bitstreams that are owned by this Item
    */
   @deserialize
-  @relationship(Bitstream, true)
-  bitstreams: string[];
+  @relationship(Bundle, true)
+  bundles: string[];
 
-  @autoserialize
+  @deserialize
   @relationship(Relationship, true)
   relationships: string[];
 

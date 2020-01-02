@@ -373,8 +373,7 @@ export class AuthService {
         if (isNotEmpty(redirectUrl)) {
           this.clearRedirectUrl();
           this.router.onSameUrlNavigation = 'reload';
-          const url = decodeURIComponent(redirectUrl);
-          this.navigateToRedirectUrl(url);
+          this.navigateToRedirectUrl(redirectUrl);
         } else {
           // If redirectUrl is empty use history.
           this.routeService.getHistory().pipe(
@@ -395,16 +394,17 @@ export class AuthService {
 
   }
 
-  protected navigateToRedirectUrl(url: string) {
+  protected navigateToRedirectUrl(redirectUrl: string) {
+    const url = decodeURIComponent(redirectUrl);
     // in case the user navigates directly to /login (via bookmark, etc), or the route history is not found.
     if (isEmpty(url) || url.startsWith(LOGIN_ROUTE)) {
-      this.router.navigate(['/']);
+      this.router.navigateByUrl('/');
       /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
       // this._window.nativeWindow.location.href = '/';
     } else {
       /* TODO Reenable hard redirect when REST API can handle x-forwarded-for, see https://github.com/DSpace/DSpace/pull/2207 */
       // this._window.nativeWindow.location.href = url;
-      this.router.navigate([url]);
+      this.router.navigateByUrl(url);
     }
   }
 

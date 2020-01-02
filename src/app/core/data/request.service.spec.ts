@@ -298,10 +298,11 @@ describe('RequestService', () => {
       describe('in the ObjectCache', () => {
         beforeEach(() => {
           (objectCache.hasBySelfLink as any).and.returnValue(true);
+          (objectCache.hasByUUID as any).and.returnValue(true);
           spyOn(serviceAsAny, 'hasByHref').and.returnValue(false);
         });
 
-        it('should return true', () => {
+        it('should return true for GetRequest', () => {
           const result = serviceAsAny.isCachedOrPending(testGetRequest);
           const expected = true;
 

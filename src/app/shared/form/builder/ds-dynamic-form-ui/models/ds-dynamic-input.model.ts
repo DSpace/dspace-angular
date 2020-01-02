@@ -1,21 +1,21 @@
-import {
-  DynamicFormControlLayout,
-  DynamicInputModel,
-  DynamicInputModelConfig,
-  serializable
-} from '@ng-dynamic-forms/core';
+import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig, serializable } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
 import { LanguageCode } from '../../models/form-field-language-value.model';
 import { AuthorityOptions } from '../../../../../core/integration/models/authority-options.model';
 import { hasValue } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   authorityOptions?: AuthorityOptions;
   languageCodes?: LanguageCode[];
   language?: string;
   value?: any;
+  relationship?: RelationshipOptions;
+  repeatable: boolean;
+  metadataFields: string[];
+  submissionId: string;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -24,13 +24,21 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() private _languageCodes: LanguageCode[];
   @serializable() private _language: string;
   @serializable() languageUpdates: Subject<string>;
+  @serializable() relationship?: RelationshipOptions;
+  @serializable() repeatable?: boolean;
+  @serializable() metadataFields: string[];
+  @serializable() submissionId: string;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
-
+    this.repeatable = config.repeatable;
+    this.metadataFields = config.metadataFields;
     this.hint = config.hint;
     this.readOnly = config.readOnly;
     this.value = config.value;
+    this.relationship = config.relationship;
+    this.submissionId = config.submissionId;
+
     this.language = config.language;
     if (!this.language) {
       // TypeAhead
@@ -79,5 +87,4 @@ export class DsDynamicInputModel extends DynamicInputModel {
       this.language = this.languageCodes ? this.languageCodes[0].code : null;
     }
   }
-
 }

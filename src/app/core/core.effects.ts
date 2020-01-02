@@ -6,6 +6,7 @@ import { JsonPatchOperationsEffects } from './json-patch/json-patch-operations.e
 import { ServerSyncBufferEffects } from './cache/server-sync-buffer.effects';
 import { ObjectUpdatesEffects } from './data/object-updates/object-updates.effects';
 import { RouteEffects } from './services/route.effects';
+import { RouterEffects } from './router/router.effects';
 
 export const coreEffects = [
   RequestEffects,
@@ -15,5 +16,6 @@ export const coreEffects = [
   JsonPatchOperationsEffects,
   ServerSyncBufferEffects,
   ObjectUpdatesEffects,
-  RouteEffects
+  RouteEffects,
+  RouterEffects
 ];

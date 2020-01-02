@@ -15,7 +15,11 @@ module.exports = function (config) {
   };
 
   var configuration = {
-
+    client: {
+      jasmine: {
+        random: false
+      }
+    },
     // base path that will be used to resolve all patterns (e.g. files, exclude)
     basePath: '',
 

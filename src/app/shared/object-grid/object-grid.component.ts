@@ -20,6 +20,9 @@ import { HostWindowService, WidthCategory } from '../host-window.service';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { Context } from '../../core/shared/context.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -31,17 +34,57 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 })
 
 export class ObjectGridComponent implements OnInit {
+  /**
+   * The view mode of the this component
+   */
+  viewMode = ViewMode.GridElement;
 
+  /**
+   * The current pagination configuration
+   */
   @Input() config: PaginationComponentOptions;
+
+  /**
+   * The current sort configuration
+   */
   @Input() sortConfig: SortOptions;
+
+  /**
+   * The whether or not the gear is hidden
+   */
   @Input() hideGear = false;
+
+  /**
+   * Whether or not the pager is visible when there is only a single page of results
+   */
   @Input() hidePagerWhenSinglePage = true;
+
+  /**
+   * The link type of the listable elements
+   */
+  @Input() linkType: CollectionElementLinkType;
+
+  /**
+   * The context of the listable elements
+   */
+  @Input() context: Context;
+
+  /**
+   * Behavior subject to output the current listable objects
+   */
   private _objects$: BehaviorSubject<RemoteData<PaginatedList<ListableObject>>>;
 
+  /**
+   * Setter to make sure the observable is turned into an observable
+   * @param objects The new objects to output
+   */
   @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
     this._objects$.next(objects);
   }
 
+  /**
+   * Getter to return the current objects
+   */
   get objects() {
     return this._objects$.getValue();
   }
@@ -76,7 +119,10 @@ export class ObjectGridComponent implements OnInit {
    */
   @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter<SortDirection>();
 
-  @Output() paginationChange: EventEmitter<SortDirection> = new EventEmitter<any>();
+  /**
+   * An event fired when on of the pagination parameters changes
+   */
+  @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();
 
   /**
    * An event fired when the sort field is changed.
@@ -90,6 +136,9 @@ export class ObjectGridComponent implements OnInit {
     this._objects$ = new BehaviorSubject(undefined);
   }
 
+  /**
+   * Initialize the instance variables
+   */
   ngOnInit(): void {
     const nbColumns$ = this.hostWindow.widthCategory.pipe(
       map((widthCat: WidthCategory) => {
@@ -133,22 +182,40 @@ export class ObjectGridComponent implements OnInit {
     }));
   }
 
+  /**
+   * Emits the current page when it changes
+   * @param event The new page
+   */
   onPageChange(event) {
     this.pageChange.emit(event);
   }
-
+  /**
+   * Emits the current page size when it changes
+   * @param event The new page size
+   */
   onPageSizeChange(event) {
     this.pageSizeChange.emit(event);
   }
-
+  /**
+   * Emits the current sort direction when it changes
+   * @param event The new sort direction
+   */
   onSortDirectionChange(event) {
     this.sortDirectionChange.emit(event);
   }
 
+  /**
+   * Emits the current sort field when it changes
+   * @param event The new sort field
+   */
   onSortFieldChange(event) {
     this.sortFieldChange.emit(event);
   }
 
+  /**
+   * Emits the current pagination when it changes
+   * @param event The new pagination
+   */
   onPaginationChange(event) {
     this.paginationChange.emit(event);
   }

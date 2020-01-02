@@ -1,7 +1,6 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { mapsTo } from '../cache/builders/build-decorators';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { MetadataSchema } from './metadata-schema.model';
 
 /**
@@ -9,7 +8,7 @@ import { MetadataSchema } from './metadata-schema.model';
  */
 @mapsTo(MetadataSchema)
 @inheritSerialization(NormalizedObject)
-export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> implements ListableObject {
+export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> {
   /**
    * The unique identifier for this schema
    */
@@ -33,4 +32,5 @@ export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> i
    */
   @autoserialize
   namespace: string;
+
 }

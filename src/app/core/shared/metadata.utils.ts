@@ -127,6 +127,8 @@ export class Metadata {
       return true;
     } else if (filter.language && filter.language !== mdValue.language) {
       return false;
+    } else if (filter.authority && filter.authority !== mdValue.authority) {
+      return false;
     } else if (filter.value) {
       let fValue = filter.value;
       let mValue = mdValue.value;

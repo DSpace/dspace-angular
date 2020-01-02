@@ -1,7 +1,8 @@
 <div class="container" *ngVar="(itemRD$ | async) as itemRD">
   <div class="item-page" *ngIf="itemRD?.hasSucceeded" @fadeInOut>
     <div *ngIf="itemRD?.payload as item">
-      <ds-item-type-switcher [object]="item" [viewMode]="viewMode"></ds-item-type-switcher>
+      <ds-view-tracker [object]="item"></ds-view-tracker>
+      <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode"></ds-listable-object-component-loader>
     </div>
   </div>
   <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>

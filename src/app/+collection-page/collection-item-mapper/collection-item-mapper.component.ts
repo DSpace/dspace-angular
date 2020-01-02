@@ -5,12 +5,9 @@ import { fadeIn, fadeInOut } from '../../shared/animations/fade';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import { SearchConfigurationService } from '../../+search-page/search-service/search-configuration.service';
-import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { map, startWith, switchMap, take } from 'rxjs/operators';
 import { getRemoteDataPayload, getSucceededRemoteData, toDSpaceObjectListRD } from '../../core/shared/operators';
-import { SearchService } from '../../+search-page/search-service/search.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
@@ -22,6 +19,9 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { RestResponse } from '../../core/cache/response.models';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SEARCH_CONFIG_SERVICE } from '../../+my-dspace-page/my-dspace-page.component';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { SearchService } from '../../core/shared/search/search.service';
 
 @Component({
   selector: 'ds-collection-item-mapper',

@@ -37,9 +37,9 @@ import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.comp
 import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
 import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { NavbarModule } from './navbar/navbar.module';
+import { ClientCookieService } from './core/services/client-cookie.service';
 import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
-import { ClientCookieService } from './core/services/client-cookie.service';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -76,7 +76,7 @@ const ENTITY_IMPORTS = [
 
 IMPORTS.push(
   StoreDevtoolsModule.instrument({
-    maxAge: 100,
+    maxAge: 1000,
     logOnly: ENV_CONFIG.production,
   })
 );

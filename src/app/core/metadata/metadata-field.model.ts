@@ -2,11 +2,12 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 import { isNotEmpty } from '../../shared/empty.util';
 import { MetadataSchema } from './metadata-schema.model';
 import { ResourceType } from '../shared/resource-type';
+import { GenericConstructor } from '../shared/generic-constructor';
 
 /**
  * Class the represents a metadata field
  */
-export class MetadataField implements ListableObject {
+export class MetadataField extends ListableObject {
   static type = new ResourceType('metadatafield');
 
   /**
@@ -49,5 +50,12 @@ export class MetadataField implements ListableObject {
       key += separator + this.qualifier;
     }
     return key;
+  }
+
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
   }
 }

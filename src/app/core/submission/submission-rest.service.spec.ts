@@ -59,10 +59,12 @@ describe('SubmissionRestService test suite', () => {
   describe('getDataById', () => {
     it('should configure a new SubmissionRequest', () => {
       const expected = new SubmissionRequest(requestService.generateRequestId(), resourceHref);
+      expected.forceBypassCache = true;
       scheduler.schedule(() => service.getDataById(resourceEndpoint, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(expected, true);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(resourceHref);
+      expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
   });
 

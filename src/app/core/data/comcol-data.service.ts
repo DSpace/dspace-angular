@@ -1,12 +1,23 @@
-import { distinctUntilChanged, filter, map, mergeMap, share, take, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter, first,
+  map,
+  mergeMap,
+  share,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 import { merge as observableMerge, Observable, throwError as observableThrowError } from 'rxjs';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
-import { FindAllOptions, FindByIDRequest } from './request.models';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
+import { FindListOptions, FindByIDRequest } from './request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getResponseFromEntry } from '../shared/operators';
 import { CacheableObject } from '../cache/object-cache.reducer';
@@ -26,7 +37,7 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
    * @return { Observable<string> }
    *    an Observable<string> containing the scoped URL
    */
-  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     if (isEmpty(options.scopeID)) {
       return this.halService.getEndpoint(linkPath);
     } else {
@@ -57,4 +68,12 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
       return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged(), share());
     }
   }
+
+  protected abstract getFindByParentHref(parentUUID: string): Observable<string>;
+
+  public findByParent(parentUUID: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+    const href$ = this.buildHrefFromFindOptions(this.getFindByParentHref(parentUUID), [], options);
+    return this.findList(href$, options);
+  }
+
 }

@@ -13,10 +13,8 @@ let fixture: ComponentFixture<ItemTypeBadgeComponent>;
 
 const type = 'authorOfPublication';
 
-const mockItemWithRelationshipType: ItemSearchResult = new ItemSearchResult();
-mockItemWithRelationshipType.hitHighlights = {};
-mockItemWithRelationshipType.indexableObject = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+const mockItemWithRelationshipType = Object.assign(new Item(), {
+  bundles: observableOf({}),
   metadata: {
     'relationship.type': [
       {
@@ -27,10 +25,8 @@ mockItemWithRelationshipType.indexableObject = Object.assign(new Item(), {
   }
 });
 
-const mockItemWithoutRelationshipType: ItemSearchResult = new ItemSearchResult();
-mockItemWithoutRelationshipType.hitHighlights = {};
-mockItemWithoutRelationshipType.indexableObject = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+const mockItemWithoutRelationshipType = Object.assign(new Item(), {
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {

@@ -1,58 +1,63 @@
 <h2 class="item-page-title-field">
-  {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="[item?.firstMetadata('person.familyName'), item?.firstMetadata('person.givenName')]" [separator]="', '"></ds-metadata-values>
+  {{'person.page.titleprefix' | translate}}<ds-metadata-values [mdValues]="[object?.firstMetadata('person.familyName'), object?.firstMetadata('person.givenName')]" [separator]="', '"></ds-metadata-values>
 </h2>
 <div class="row">
   <div class="col-xs-12 col-md-4">
     <ds-metadata-field-wrapper>
-      <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async" [defaultImage]="'assets/images/person-placeholder.svg'"></ds-thumbnail>
+      <ds-thumbnail [thumbnail]="this.object.getThumbnail() | async" [defaultImage]="'assets/images/person-placeholder.svg'"></ds-thumbnail>
     </ds-metadata-field-wrapper>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['person.email']"
       [label]="'person.page.email'">
     </ds-generic-item-page-field>
-    <!--<ds-generic-item-page-field [item]="item"-->
+    <!--<ds-generic-item-page-field [item]="object"-->
       <!--[fields]="['person.identifier.orcid']"-->
       <!--[label]="'person.page.orcid'">-->
     <!--</ds-generic-item-page-field>-->
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['person.birthDate']"
       [label]="'person.page.birthdate'">
     </ds-generic-item-page-field>
-    <!--<ds-generic-item-page-field [item]="item"-->
+    <!--<ds-generic-item-page-field [item]="object"-->
       <!--[fields]="['person.identifier.staffid']"-->
       <!--[label]="'person.page.staffid'">-->
     <!--</ds-generic-item-page-field>-->
   </div>
   <div class="col-xs-12 col-md-6">
     <ds-related-items
-      [items]="projects$ | async"
+      [parentItem]="object"
+      [relationType]="'isProjectOfPerson'"
       [label]="'relationships.isProjectOf' | translate">
     </ds-related-items>
     <ds-related-items
-      [items]="orgUnits$ | async"
+      [parentItem]="object"
+      [relationType]="'isOrgUnitOfPerson'"
       [label]="'relationships.isOrgUnitOf' | translate">
     </ds-related-items>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['person.jobTitle']"
       [label]="'person.page.jobtitle'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['person.familyName']"
       [label]="'person.page.lastname'">
     </ds-generic-item-page-field>
-    <ds-generic-item-page-field [item]="item"
+    <ds-generic-item-page-field [item]="object"
       [fields]="['person.givenName']"
       [label]="'person.page.firstname'">
     </ds-generic-item-page-field>
     <div>
-      <a class="btn btn-outline-primary" [routerLink]="['/items/' + item.id + '/full']">
+      <a class="btn btn-outline-primary" [routerLink]="['/items/' + object.id + '/full']">
         {{"item.page.link.full" | translate}}
       </a>
     </div>
   </div>
   <div class="mt-5 w-100">
-    <ds-related-entities-search [item]="item"
-      [relationType]="'isAuthorOfPublication'">
-    </ds-related-entities-search>
+    <ds-tabbed-related-entities-search  [item]="object"
+                                        [relationTypes]="[{
+                                          label: 'isAuthorOfPublication',
+                                          filter: 'isAuthorOfPublication'
+                                        }]">
+    </ds-tabbed-related-entities-search>
   </div>
 </div>

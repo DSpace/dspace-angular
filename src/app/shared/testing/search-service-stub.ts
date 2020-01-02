@@ -1,22 +1,22 @@
 import {of as observableOf,  Observable ,  BehaviorSubject } from 'rxjs';
-import { SetViewMode } from '../view-mode';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 export class SearchServiceStub {
 
-  private _viewMode: SetViewMode;
+  private _viewMode: ViewMode;
   private subject?: BehaviorSubject<any> = new BehaviorSubject(this.testViewMode);
 
   viewMode = this.subject.asObservable();
 
   constructor(private searchLink: string = '/search') {
-    this.setViewMode(SetViewMode.List);
+    this.setViewMode(ViewMode.ListElement);
   }
 
-  getViewMode(): Observable<SetViewMode> {
+  getViewMode(): Observable<ViewMode> {
     return this.viewMode;
   }
 
-  setViewMode(viewMode: SetViewMode) {
+  setViewMode(viewMode: ViewMode) {
     this.testViewMode = viewMode;
   }
 
@@ -24,11 +24,11 @@ export class SearchServiceStub {
     return null;
   }
 
-  get testViewMode(): SetViewMode {
+  get testViewMode(): ViewMode {
     return this._viewMode;
   }
 
-  set testViewMode(viewMode: SetViewMode) {
+  set testViewMode(viewMode: ViewMode) {
     this._viewMode = viewMode;
     this.subject.next(viewMode);
   }

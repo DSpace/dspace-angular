@@ -1,6 +1,4 @@
 import { FormFieldModel } from '../models/form-field.model';
-import { DynamicConcatModel } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { SeriesFieldParser } from './series-field-parser';
 import { DateFieldParser } from './date-field-parser';
 import { DynamicDsDatePickerModel } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
@@ -10,6 +8,7 @@ describe('DateFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
 
+  const submissionId = '1234';
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: null,
@@ -37,13 +36,13 @@ describe('DateFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new DateFieldParser(field, initFormValues, parserOptions);
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(parser instanceof DateFieldParser).toBe(true);
   });
 
   it('should return a DynamicDsDatePickerModel object when repeatable option is false', () => {
-    const parser = new DateFieldParser(field, initFormValues, parserOptions);
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -56,7 +55,7 @@ describe('DateFieldParser test suite', () => {
     };
     const expectedValue = '1983-11-18';
 
-    const parser = new DateFieldParser(field, initFormValues, parserOptions);
+    const parser = new DateFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

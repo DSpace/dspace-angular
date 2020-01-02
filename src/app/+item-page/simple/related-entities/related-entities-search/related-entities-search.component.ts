@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../../../../core/shared/item.model';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { isNotEmpty } from '../../../../shared/empty.util';
 import { of } from 'rxjs/internal/observable/of';
+import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 
 @Component({
   selector: 'ds-related-entities-search',
@@ -23,16 +23,14 @@ export class RelatedEntitiesSearchComponent implements OnInit {
   @Input() relationType: string;
 
   /**
+   * An optional configuration to use for the search options
+   */
+  @Input() configuration: string;
+
+  /**
    * The item to render relationships for
    */
   @Input() item: Item;
-
-  /**
-   * The entity type of the relationship items to be displayed
-   * e.g. 'publication'
-   * This determines the title of the search results (if search is enabled)
-   */
-  @Input() relationEntityType: string;
 
   /**
    * Whether or not the search bar and title should be displayed (defaults to true)
@@ -49,15 +47,12 @@ export class RelatedEntitiesSearchComponent implements OnInit {
   fixedFilter: string;
   configuration$: Observable<string>;
 
-  constructor(private fixedFilterService: SearchFixedFilterService) {
-  }
-
   ngOnInit(): void {
     if (isNotEmpty(this.relationType) && isNotEmpty(this.item)) {
-      this.fixedFilter = this.fixedFilterService.getFilterByRelation(this.relationType, this.item.id);
+      this.fixedFilter = getFilterByRelation(this.relationType, this.item.id);
     }
-    if (isNotEmpty(this.relationEntityType)) {
-      this.configuration$ = of(this.relationEntityType);
+    if (isNotEmpty(this.configuration)) {
+      this.configuration$ = of(this.configuration);
     }
   }
 
