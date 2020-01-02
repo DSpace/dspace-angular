@@ -1,4 +1,4 @@
-import { AuthMethodType } from './authMethods-type';
+import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 
 const authMethodsMap = new Map();
 

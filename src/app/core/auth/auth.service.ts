@@ -27,9 +27,7 @@ import { NativeWindowRef, NativeWindowService } from '../services/window.service
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RouteService } from '../services/route.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { GLOBAL_CONFIG } from '../../../config';
-import { AuthMethodModel } from './models/auth-method.model';
+import { AuthMethod } from './models/auth.method';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -213,8 +211,8 @@ export class AuthService {
    * Retrieve authentication methods available
    * @returns {User}
    */
-  public retrieveAuthMethods(status: AuthStatus): Observable<AuthMethodModel[]> {
-    let authMethods: AuthMethodModel[] = [];
+  public retrieveAuthMethods(status: AuthStatus): Observable<AuthMethod[]> {
+    let authMethods: AuthMethod[] = [];
     if (isNotEmpty(status.authMethods)) {
       authMethods = status.authMethods;
     }
@@ -241,7 +239,7 @@ export class AuthService {
     // Send a request that sign end the session
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    const options: HttpOptions = Object.create({headers, responseType: 'text'});
+    const options: HttpOptions = Object.create({ headers, responseType: 'text' });
     return this.authRequestService.getRequest('logout', options).pipe(
       map((status: AuthStatus) => {
         if (!status.authenticated) {
@@ -317,7 +315,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = {expires: expires};
+    const options: CookieAttributes = { expires: expires };
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -384,7 +382,6 @@ export class AuthService {
               // For standalone login pages, use the previous route.
               redirUrl = history[history.length - 2] || '';
             } else {
-              // console.log('isStandAlonePage: ', isStandalonePage);
               redirUrl = history[history.length - 1] || '';
             }
             this.navigateToRedirectUrl(redirUrl);
@@ -438,7 +435,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = {expires: expires};
+    const options: CookieAttributes = { expires: expires };
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }

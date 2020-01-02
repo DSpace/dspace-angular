@@ -8,14 +8,14 @@ import {
   LogOutErrorAction,
   RedirectWhenAuthenticationIsRequiredAction,
   RedirectWhenTokenExpiredAction,
-  RefreshTokenSuccessAction, RetrieveAuthMethodsSuccessAction,
+  RefreshTokenSuccessAction,
+  RetrieveAuthMethodsSuccessAction,
   SetRedirectUrlAction
 } from './auth.actions';
 // import models
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { AuthMethodModel } from './models/auth-method.model';
-import { AuthMethodType } from '../../shared/log-in/methods/authMethods-type';
+import { AuthMethod } from './models/auth.method';
 
 /**
  * The auth state.
@@ -50,8 +50,8 @@ export interface AuthState {
   // the authenticated user
   user?: EPerson;
 
-  // all authenticationMethods enabled at the backend
-  authMethods?: AuthMethodModel[];
+  // all authentication Methods enabled at the backend
+  authMethods?: AuthMethod[];
 
 }
 

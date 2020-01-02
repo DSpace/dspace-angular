@@ -26,8 +26,8 @@ import {
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { EPersonMock } from '../../shared/testing/eperson-mock';
 import { AuthStatus } from './models/auth-status.model';
-import { AuthMethodModel } from './models/auth-method.model';
-import { AuthMethodType } from '../../shared/log-in/methods/authMethods-type';
+import { AuthMethod } from './models/auth.method';
+import { AuthMethodType } from './models/auth.method-type';
 
 describe('authReducer', () => {
 
@@ -441,8 +441,8 @@ describe('authReducer', () => {
       authMethods: []
     };
     const authMethods = [
-      new AuthMethodModel(AuthMethodType.Password),
-      new AuthMethodModel(AuthMethodType.Shibboleth, 'location')
+      new AuthMethod(AuthMethodType.Password),
+      new AuthMethod(AuthMethodType.Shibboleth, 'location')
     ];
     const action = new RetrieveAuthMethodsSuccessAction(authMethods);
     const newState = authReducer(initialState, action);

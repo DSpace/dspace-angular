@@ -7,7 +7,7 @@ import { type } from '../../shared/ngrx/type';
 // import models
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { AuthMethodModel } from './models/auth-method.model';
+import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
 
 export const AuthActionTypes = {
@@ -340,9 +340,9 @@ export class RetrieveAuthMethodsAction implements Action {
  */
 export class RetrieveAuthMethodsSuccessAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_SUCCESS;
-  payload: AuthMethodModel[];
+  payload: AuthMethod[];
 
-  constructor(authMethods: AuthMethodModel[] ) {
+  constructor(authMethods: AuthMethod[] ) {
     this.payload = authMethods;
   }
 }

@@ -1,10 +1,10 @@
 <ds-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-loading>
-<div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="form-login px-4 py-3">
-  <ng-container *ngFor="let authMethodModel of (authMethodModels | async); let i = index">
+<div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="px-4 py-3">
+  <ng-container *ngFor="let authMethod of (authMethods | async); let i = index">
     <div *ngIf="i === 1" class="text-center mt-2">
       <span class="align-middle">{{"login.form.or-divider" | translate}}</span>
     </div>
-    <ds-login-container [authMethodModel]="authMethodModel"></ds-login-container>
+    <ds-log-in-container [authMethod]="authMethod"></ds-log-in-container>
   </ng-container>
 
   <div class="dropdown-divider"></div>

@@ -171,9 +171,8 @@ import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component'
 import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
 import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.component';
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
-import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import { LoginContainerComponent } from './log-in/container/login-container.component';
+import { LogInContainerComponent } from './log-in/container/log-in-container.component';
 import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
 import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
 import { LogInComponent } from './log-in/log-in.component';
@@ -336,7 +335,7 @@ const COMPONENTS = [
   SelectableListItemControlComponent,
   LogInShibbolethComponent,
   LogInPasswordComponent,
-  LoginContainerComponent,
+  LogInContainerComponent,
   ItemTypeBadgeComponent
 ];
 

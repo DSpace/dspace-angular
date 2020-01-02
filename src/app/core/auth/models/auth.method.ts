@@ -1,6 +1,6 @@
-import { AuthMethodType } from '../../../shared/log-in/methods/authMethods-type';
+import { AuthMethodType } from './auth.method-type';
 
-export class AuthMethodModel {
+export class AuthMethod {
   authMethodType: AuthMethodType;
   location?: string;
 

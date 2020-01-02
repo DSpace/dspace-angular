@@ -1,25 +1,36 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+
 import { Observable } from 'rxjs';
-import { AuthMethodModel } from '../../core/auth/models/auth-method.model';
+import { filter, takeWhile, } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
+
+import { AuthMethod } from '../../core/auth/models/auth.method';
 import { getAuthenticationMethods, isAuthenticated, isAuthenticationLoading } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
-import { filter, takeWhile, } from 'rxjs/operators';
 import { AuthService } from '../../core/auth/auth.service';
 
+/**
+ * /users/sign-in
+ * @class LogInComponent
+ */
 @Component({
   selector: 'ds-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss']
 })
 export class LogInComponent implements OnInit, OnDestroy {
-  /**
-   * The authentication methods data
-   * @type {AuthMethodModel[]}
-   */
-  @Input() authMethodModels: Observable<AuthMethodModel[]>;
 
+  /**
+   * A boolean representing if LogInComponent is in a standalone page
+   * @type {boolean}
+   */
   @Input() isStandalonePage: boolean;
+
+  /**
+   * The list of authentication methods available
+   * @type {AuthMethod[]}
+   */
+  public authMethods: Observable<AuthMethod[]>;
 
   /**
    * Whether user is authenticated.
@@ -45,9 +56,7 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    // this.store.dispatch(new SetIsStandalonePageInAuthMethodsAction(this.isStandalonePage));
-
-    this.authMethodModels = this.store.pipe(
+    this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
     );
 

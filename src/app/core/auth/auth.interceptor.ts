@@ -22,8 +22,8 @@ import { isNotEmpty, isNotNull, isUndefined } from '../../shared/empty.util';
 import { RedirectWhenTokenExpiredAction, RefreshTokenAction } from './auth.actions';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { AuthMethodModel } from './models/auth-method.model';
-import { AuthMethodType } from '../../shared/log-in/methods/authMethods-type';
+import { AuthMethod } from './models/auth.method';
+import { AuthMethodType } from './models/auth.method-type';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -36,15 +36,30 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private inj: Injector, private router: Router, private store: Store<AppState>) {
   }
 
+  /**
+   * Check if response status code is 401
+   *
+   * @param response
+   */
   private isUnauthorized(response: HttpResponseBase): boolean {
     // invalid_token The access token provided is expired, revoked, malformed, or invalid for other reasons
     return response.status === 401;
   }
 
+  /**
+   * Check if response status code is 200 or 204
+   *
+   * @param response
+   */
   private isSuccess(response: HttpResponseBase): boolean {
     return (response.status === 200 || response.status === 204);
   }
 
+  /**
+   * Check if http request is to authn endpoint
+   *
+   * @param http
+   */
   private isAuthRequest(http: HttpRequest<any> | HttpResponseBase): boolean {
     return http && http.url
       && (http.url.endsWith('/authn/login')
@@ -52,29 +67,47 @@ export class AuthInterceptor implements HttpInterceptor {
         || http.url.endsWith('/authn/status'));
   }
 
+  /**
+   * Check if response is from a login request
+   *
+   * @param http
+   */
   private isLoginResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
     return http.url && http.url.endsWith('/authn/login')
   }
 
+  /**
+   * Check if response is from a logout request
+   *
+   * @param http
+   */
   private isLogoutResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
     return http.url && http.url.endsWith('/authn/logout');
   }
 
-  private parseLocation(unparsedLocation: string): string {
-    unparsedLocation = unparsedLocation.trim();
-    unparsedLocation = unparsedLocation.replace('location="', '');
-    unparsedLocation = unparsedLocation.replace('"', '');
+  /**
+   * Extract location url from the WWW-Authenticate header
+   *
+   * @param header
+   */
+  private parseLocation(header: string): string {
+    let location = header.trim();
+    location = location.replace('location="', '');
+    location = location.replace('"', '');
     let re = /%3A%2F%2F/g;
-    unparsedLocation = unparsedLocation.replace(re, '://');
-    re = /%3A/g
-    unparsedLocation = unparsedLocation.replace(re, ':')
-    const parsedLocation = unparsedLocation.trim(); // + '/shibboleth';
-
-    return parsedLocation;
+    location = location.replace(re, '://');
+    re = /%3A/g;
+    location = location.replace(re, ':');
+    return location.trim();
   }
 
-  private sortAuthMethods(authMethodModels: AuthMethodModel[]): AuthMethodModel[] {
-    const sortedAuthMethodModels: AuthMethodModel[] = new Array<AuthMethodModel>();
+  /**
+   * Sort authentication methods list
+   *
+   * @param authMethodModels
+   */
+  private sortAuthMethods(authMethodModels: AuthMethod[]): AuthMethod[] {
+    const sortedAuthMethodModels: AuthMethod[] = [];
     authMethodModels.forEach((method) => {
       if (method.authMethodType === AuthMethodType.Password) {
         sortedAuthMethodModels.push(method);
@@ -90,10 +123,14 @@ export class AuthInterceptor implements HttpInterceptor {
     return sortedAuthMethodModels;
   }
 
-  private parseAuthMethodsfromHeaders(headers: HttpHeaders): AuthMethodModel[] {
-    let authMethodModels: AuthMethodModel[] = [];
+  /**
+   * Extract authentication methods list from the WWW-Authenticate headers
+   *
+   * @param headers
+   */
+  private parseAuthMethodsFromHeaders(headers: HttpHeaders): AuthMethod[] {
+    let authMethodModels: AuthMethod[] = [];
     if (isNotEmpty(headers.get('www-authenticate'))) {
-      const parts: string[] = headers.get('www-authenticate').split(',');
       // get the realms from the header -  a realm is a single auth method
       const completeWWWauthenticateHeader = headers.get('www-authenticate');
       const regex = /(\w+ (\w+=((".*?")|[^,]*)(, )?)*)/g;
@@ -105,15 +142,14 @@ export class AuthInterceptor implements HttpInterceptor {
         const splittedRealm = realms[j].split(', ');
         const methodName = splittedRealm[0].split(' ')[0].trim();
 
-        let authMethodModel: AuthMethodModel;
+        let authMethodModel: AuthMethod;
         if (splittedRealm.length === 1) {
-          authMethodModel = new AuthMethodModel(methodName);
+          authMethodModel = new AuthMethod(methodName);
           authMethodModels.push(authMethodModel);
         } else if (splittedRealm.length > 1) {
           let location = splittedRealm[1];
           location = this.parseLocation(location);
-          authMethodModel = new AuthMethodModel(methodName, location);
-          // console.log('location: ', location);
+          authMethodModel = new AuthMethod(methodName, location);
           authMethodModels.push(authMethodModel);
         }
       }
@@ -121,17 +157,25 @@ export class AuthInterceptor implements HttpInterceptor {
       // make sure the email + password login component gets rendered first
       authMethodModels = this.sortAuthMethods(authMethodModels);
     } else {
-      authMethodModels.push(new AuthMethodModel(AuthMethodType.Password));
+      authMethodModels.push(new AuthMethod(AuthMethodType.Password));
     }
 
     return authMethodModels;
   }
 
+  /**
+   * Generate an AuthStatus object
+   *
+   * @param authenticated
+   * @param accessToken
+   * @param error
+   * @param httpHeaders
+   */
   private makeAuthStatusObject(authenticated: boolean, accessToken ?: string, error ?: string, httpHeaders ?: HttpHeaders): AuthStatus {
     const authStatus = new AuthStatus();
     // let authMethods: AuthMethodModel[];
     if (httpHeaders) {
-      authStatus.authMethods = this.parseAuthMethodsfromHeaders(httpHeaders);
+      authStatus.authMethods = this.parseAuthMethodsFromHeaders(httpHeaders);
     }
 
     authStatus.id = null;
@@ -149,6 +193,11 @@ export class AuthInterceptor implements HttpInterceptor {
     return authStatus;
   }
 
+  /**
+   * Intercept method
+   * @param req
+   * @param next
+   */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     const authService = this.inj.get(AuthService);
@@ -182,7 +231,7 @@ export class AuthInterceptor implements HttpInterceptor {
       newReq = req.clone({withCredentials: true});
     }
 
-// Pass on the new request instead of the original request.
+    // Pass on the new request instead of the original request.
     return next.handle(newReq).pipe(
       // tap((response) => console.log('next.handle: ', response)),
       map((response) => {

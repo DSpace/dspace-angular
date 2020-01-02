@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
@@ -8,12 +8,11 @@ import { AuthenticateAction, ResetAuthenticationMessagesAction } from '../../../
 
 import { getAuthenticationError, getAuthenticationInfo, } from '../../../../core/auth/selectors';
 import { CoreState } from '../../../../core/core.reducers';
-
 import { isNotEmpty } from '../../../empty.util';
 import { fadeOut } from '../../../animations/fade';
-import { AuthMethodType } from '../authMethods-type';
-import { renderAuthMethodFor } from '../authMethods-decorator';
-import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
+import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
+import { AuthMethod } from '../../../../core/auth/models/auth.method';
 
 /**
  * /users/sign-in
@@ -27,6 +26,12 @@ import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model'
 })
 @renderAuthMethodFor(AuthMethodType.Password)
 export class LogInPasswordComponent implements OnInit {
+
+  /**
+   * The authentication method data.
+   * @type {AuthMethod}
+   */
+  public authMethod: AuthMethod;
 
   /**
    * The error if authentication fails.
@@ -58,21 +63,18 @@ export class LogInPasswordComponent implements OnInit {
    */
   public form: FormGroup;
 
-  @Input() authMethodModel: AuthMethodModel;
-
   /**
    * @constructor
-   * @param {AuthMethodModel} injectedAuthMethodModel
+   * @param {AuthMethod} injectedAuthMethodModel
    * @param {FormBuilder} formBuilder
    * @param {Store<State>} store
    */
   constructor(
-    @Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
-    /* private authService: AuthService,*/
+    @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
     private formBuilder: FormBuilder,
     private store: Store<CoreState>
   ) {
-    this.authMethodModel = injectedAuthMethodModel;
+    this.authMethod = injectedAuthMethodModel;
   }
 
   /**
@@ -116,15 +118,6 @@ export class LogInPasswordComponent implements OnInit {
       this.hasError = false;
       this.hasMessage = false;
     }
-  }
-
-  /**
-   * To the registration page.
-   * @method register
-   */
-  public register() {
-    // TODO enable after registration process is done
-    // this.router.navigate(['/register']);
   }
 
   /**

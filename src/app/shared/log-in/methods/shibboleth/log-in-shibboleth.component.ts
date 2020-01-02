@@ -1,11 +1,11 @@
-import { Component, Inject, Input, OnInit, } from '@angular/core';
+import { Component, Inject, OnInit, } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
-import { renderAuthMethodFor } from '../authMethods-decorator';
-import { AuthMethodType } from '../authMethods-type';
-import { AuthMethodModel } from '../../../../core/auth/models/auth-method.model';
+import { renderAuthMethodFor } from '../log-in.methods-decorator';
+import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
+import { AuthMethod } from '../../../../core/auth/models/auth.method';
 
 import { CoreState } from '../../../../core/core.reducers';
 import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/selectors';
@@ -19,7 +19,11 @@ import { isAuthenticated, isAuthenticationLoading } from '../../../../core/auth/
 @renderAuthMethodFor(AuthMethodType.Shibboleth)
 export class LogInShibbolethComponent implements OnInit {
 
-  @Input() authMethodModel: AuthMethodModel;
+  /**
+   * The authentication method data.
+   * @type {AuthMethod}
+   */
+  public authMethod: AuthMethod;
 
   /**
    * True if the authentication is loading.
@@ -41,12 +45,14 @@ export class LogInShibbolethComponent implements OnInit {
 
   /**
    * @constructor
+   * @param {AuthMethod} injectedAuthMethodModel
+   * @param {Store<State>} store
    */
   constructor(
-    @Inject('authMethodModelProvider') public injectedAuthMethodModel: AuthMethodModel,
+    @Inject('authMethodProvider') public injectedAuthMethodModel: AuthMethod,
     private store: Store<CoreState>
   ) {
-    this.authMethodModel = injectedAuthMethodModel;
+    this.authMethod = injectedAuthMethodModel;
   }
 
   ngOnInit(): void {

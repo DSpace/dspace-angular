@@ -1,23 +1,24 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { of as observableOf } from 'rxjs';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LogInComponent } from './log-in.component';
-import { authReducer } from '../../core/auth/auth.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { authMethodsMock, AuthServiceStub } from '../testing/auth-service-stub';
-import { createTestComponent } from '../testing/utils';
-import { SharedModule } from '../shared.module';
+import { LogInContainerComponent } from './log-in-container.component';
+import { authReducer } from '../../../core/auth/auth.reducer';
+import { SharedModule } from '../../shared.module';
+import { createTestComponent } from '../../testing/utils';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthMethod } from '../../../core/auth/models/auth.method';
+import { AuthServiceStub } from '../../testing/auth-service-stub';
 
-describe('LogInComponent', () => {
+describe('LogInContainerComponent', () => {
 
-  let component: LogInComponent;
-  let fixture: ComponentFixture<LogInComponent>;
+  let component: LogInContainerComponent;
+  let fixture: ComponentFixture<LogInContainerComponent>;
+
+  const authMethod = new AuthMethod('password');
 
   beforeEach(async(() => {
     // refine the test module by declaring the test component
@@ -34,7 +35,7 @@ describe('LogInComponent', () => {
       ],
       providers: [
         {provide: AuthService, useClass: AuthServiceStub},
-        LogInComponent
+        LogInContainerComponent
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -50,7 +51,7 @@ describe('LogInComponent', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      const html = `<ds-log-in [isStandalonePage]="isStandalonePage"> </ds-log-in>`;
+      const html = `<ds-log-in-container [authMethod]="authMethod"> </ds-log-in-container>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -60,7 +61,7 @@ describe('LogInComponent', () => {
       testFixture.destroy();
     });
 
-    it('should create LogInComponent', inject([LogInComponent], (app: LogInComponent) => {
+    it('should create LogInContainerComponent', inject([LogInContainerComponent], (app: LogInContainerComponent) => {
 
       expect(app).toBeDefined();
 
@@ -69,11 +70,11 @@ describe('LogInComponent', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(LogInComponent);
+      fixture = TestBed.createComponent(LogInContainerComponent);
       component = fixture.componentInstance;
-      component.isAuthenticated = observableOf(false);
-      component.loading = observableOf(false);
 
+      spyOn(component, 'getAuthMethodContent').and.callThrough();
+      component.authMethod = authMethod;
       fixture.detectChanges();
     });
 
@@ -82,15 +83,15 @@ describe('LogInComponent', () => {
       component = null;
     });
 
-    it('should render a log-in container component foe each auth method available', () => {
-      component.authMethods = observableOf(authMethodsMock);
+    it('should inject component properly', () => {
 
+      component.ngOnInit();
       fixture.detectChanges();
 
-      const loginContainers = fixture.debugElement.queryAll(By.css('ds-log-in-container'));
-      expect(loginContainers.length).toBe(2);
+      expect(component.getAuthMethodContent).toHaveBeenCalled();
 
     });
+
   });
 
 });

@@ -1,16 +1,16 @@
 import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { HttpHeaders } from '@angular/common/http';
+
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AuthStatus } from './models/auth-status.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { AuthService } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
-import { CheckAuthenticationTokenAction } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
-import { AuthMethodModel } from './models/auth-method.model';
+import { AuthMethod } from './models/auth.method';
 
 /**
  * The auth service.
@@ -76,7 +76,7 @@ export class ServerAuthService extends AuthService {
    * Retrieve authentication methods available
    * @returns {User}
    */
-  public retrieveAuthMethods(): Observable<AuthMethodModel[]> {
+  public retrieveAuthMethods(): Observable<AuthMethod[]> {
     const options: HttpOptions = Object.create({});
     if (isNotEmpty(this.req.headers) && isNotEmpty(this.req.headers.referer)) {
       let headers = new HttpHeaders();
@@ -86,7 +86,7 @@ export class ServerAuthService extends AuthService {
 
     return this.authRequestService.postToEndpoint('login', {}, options).pipe(
       map((status: AuthStatus) => {
-        let authMethods: AuthMethodModel[];
+        let authMethods: AuthMethod[];
         if (isNotEmpty(status.authMethods)) {
           authMethods = status.authMethods;
         }
