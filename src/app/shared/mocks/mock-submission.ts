@@ -1325,7 +1325,7 @@ export const mockUploadConfigResponse = {
     },
     self: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata'
   },
-  required: false,
+  required: true,
   maxSize: 536870912,
   name: 'upload',
   type: 'submissionupload',
@@ -1335,6 +1335,9 @@ export const mockUploadConfigResponse = {
   },
   self: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
 };
+
+export const mockUploadConfigResponseNotRequired = mockUploadConfigResponse;
+mockUploadConfigResponseNotRequired.required = false;
 
 export const mockAccessConditionOptions = [
   {

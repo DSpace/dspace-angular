@@ -18,6 +18,7 @@ import {
   mockSubmissionId,
   mockSubmissionState,
   mockUploadConfigResponse,
+  mockUploadConfigResponseNotRequired,
   mockUploadFiles
 } from '../../../shared/mocks/mock-submission';
 import { BrowserModule } from '@angular/platform-browser';
@@ -215,6 +216,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       expect(comp.collectionName).toBe(mockCollection.name);
       expect(comp.availableAccessConditionOptions.length).toBe(4);
       expect(comp.availableAccessConditionOptions).toEqual(mockUploadConfigResponse.accessConditionOptions as any);
+      expect(comp.required).toBe(true);
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.availableGroups.size).toBe(2);
       expect(compAsAny.availableGroups).toEqual(expectedGroupsMap);
@@ -254,6 +256,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       expect(comp.collectionName).toBe(mockCollection.name);
       expect(comp.availableAccessConditionOptions.length).toBe(4);
       expect(comp.availableAccessConditionOptions).toEqual(mockUploadConfigResponse.accessConditionOptions as any);
+      expect(comp.required).toBe(true);
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.availableGroups.size).toBe(2);
       expect(compAsAny.availableGroups).toEqual(expectedGroupsMap);
@@ -263,14 +266,38 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
     });
 
-    it('should the properly section status', () => {
+    it('should properly read the section status', () => {
       bitstreamService.getUploadedFileList.and.returnValue(hot('-a-b', {
         a: [],
         b: mockUploadFiles
       }));
 
+      expect(comp.required).toBe(true);
+
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('-c-d', {
         c: false,
+        d: true
+      }));
+    });
+
+    it('should properly read the section status when required is false', () => {
+      uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
+        new ConfigData(new PageInfo(), mockUploadConfigResponseNotRequired as any)
+      ));
+
+      bitstreamService.getUploadedFileList.and.returnValue(observableOf(mockUploadFiles));
+
+      comp.onSectionInit();
+
+      bitstreamService.getUploadedFileList.and.returnValue(hot('-a-b', {
+        a: [],
+        b: mockUploadFiles
+      }));
+
+      expect(comp.required).toBe(false);
+
+      expect(compAsAny.getSectionStatus()).toBeObservable(cold('-c-d', {
+        c: true,
         d: true
       }));
     });

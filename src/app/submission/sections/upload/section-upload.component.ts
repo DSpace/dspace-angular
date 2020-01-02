@@ -105,6 +105,12 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   protected availableGroups: Map<string, Group[]>; // Groups for any policy
 
   /**
+   * Is the upload required
+   * @type {boolean}
+   */
+  public required: boolean;
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -172,6 +178,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         }),
         flatMap(() => config$),
         flatMap((config: SubmissionUploadsModel) => {
+          this.required = config.required;
           this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
 
           this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
@@ -273,8 +280,11 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    *     the section status
    */
   protected getSectionStatus(): Observable<boolean> {
+    // if not mandatory, always true
+    // if mandatory, at least one file is required
     return this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id).pipe(
-      map((fileList: any[]) => (isNotUndefined(fileList) && fileList.length > 0)));
+      map((fileList: any[]) =>
+        (!this.required || (isNotUndefined(fileList) && fileList.length > 0))));
   }
 
   /**
