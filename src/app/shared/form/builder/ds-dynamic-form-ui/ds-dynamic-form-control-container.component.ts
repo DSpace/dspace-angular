@@ -248,7 +248,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
       this.subs.push(item$.subscribe((item) => this.item = item));
       const value = Object.assign(new MetadataValue(), this.model.value);
-      console.log(value);
       if (hasValue(value) && value.isVirtual) {
         this.relationshipValue$ = this.relationshipService.findById(value.virtualValue)
           .pipe(
@@ -317,7 +316,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Open a modal where the user can select relationships to be added to item being submitted
    */
   openLookup() {
-    console.log(this.model);
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
@@ -328,7 +326,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;
     modalComp.relationshipOptions = this.model.relationship;
-    modalComp.label = this.model.label;
     modalComp.metadataFields = this.model.metadataFields;
     modalComp.item = this.item;
   }

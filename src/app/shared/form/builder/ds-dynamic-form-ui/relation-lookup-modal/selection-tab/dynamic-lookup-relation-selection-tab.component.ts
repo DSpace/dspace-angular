@@ -29,7 +29,7 @@ import { Context } from '../../../../../../core/shared/context.model';
  * Tab for inside the lookup model that represents the currently selected relationships
  */
 export class DsDynamicLookupRelationSelectionTabComponent {
-  @Input() label: string;
+  @Input() relationshipType: string;
   @Input() listId: string;
   @Input() repeatable: boolean;
   @Input() selection$: Observable<ListableObject[]>;

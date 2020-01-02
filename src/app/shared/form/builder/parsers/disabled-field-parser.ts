@@ -8,7 +8,6 @@ import { DsDynamicDisabledModelConfig, DynamicDisabledModel } from '../ds-dynami
 export class DisabledFieldParser extends FieldParser {
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
-    console.log(fieldValue);
     const emptyModelConfig: DsDynamicDisabledModelConfig = this.initModel(null, label);
     this.setValues(emptyModelConfig, fieldValue);
     return new DynamicDisabledModel(emptyModelConfig)

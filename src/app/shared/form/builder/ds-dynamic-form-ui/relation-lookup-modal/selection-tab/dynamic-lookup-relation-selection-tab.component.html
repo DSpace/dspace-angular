@@ -8,7 +8,7 @@
             {{'submission.sections.describe.relationship-lookup.selection-tab.no-selection' | translate}}
         </div>
         <div *ngIf="(selectionRD$ | async)?.payload.page.length >= 1">
-            <h3>{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + label | translate}}</h3>
+            <h3>{{ 'submission.sections.describe.relationship-lookup.selection-tab.title.' + relationshipType | translate}}</h3>
             <ds-viewable-collection [objects]="selectionRD$ | async"
                                     [selectable]="true"
                                     [selectionConfig]="{ repeatable: repeatable, listId: listId }"

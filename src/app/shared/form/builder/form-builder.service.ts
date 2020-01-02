@@ -124,6 +124,7 @@ export class FormBuilderService extends DynamicFormService {
 
     const iterateControlModels = (findGroupModel: DynamicFormControlModel[], controlModelIndex: number = 0): void => {
       let iterateResult = Object.create({});
+
       // Iterate over all group's controls
       for (const controlModel of findGroupModel) {
 
@@ -139,7 +140,6 @@ export class FormBuilderService extends DynamicFormService {
 
         if (this.isRowArrayGroup(controlModel)) {
           for (const arrayItemModel of (controlModel as DynamicRowArrayModel).groups) {
-
             iterateResult = mergeWith(iterateResult, iterateControlModels(arrayItemModel.group, arrayItemModel.index), customizer);
           }
           continue;
@@ -147,8 +147,6 @@ export class FormBuilderService extends DynamicFormService {
 
         if (this.isArrayGroup(controlModel)) {
           iterateResult[controlModel.name] = [];
-          console.log((controlModel as DynamicFormArrayModel).groups);
-
           for (const arrayItemModel of (controlModel as DynamicFormArrayModel).groups) {
             iterateResult[controlModel.name].push(iterateControlModels(arrayItemModel.group, arrayItemModel.index));
           }
@@ -199,6 +197,7 @@ export class FormBuilderService extends DynamicFormService {
 
       return iterateResult;
     };
+
     result = iterateControlModels(groupModel);
 
     return result;
