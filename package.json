@@ -100,7 +100,7 @@
     "angular-idle-preload": "3.0.0",
     "angular-sortablejs": "^2.5.0",
     "angular2-text-mask": "9.0.0",
-    "angulartics2": "^6.2.0",
+    "angulartics2": "7.5.2",
     "body-parser": "1.18.2",
     "bootstrap": "4.3.1",
     "cerialize": "0.1.18",
