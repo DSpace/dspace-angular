@@ -435,12 +435,13 @@ describe('FormBuilderService test suite', () => {
     expect((formModel[2] as DynamicRowGroupModel).get(0) instanceof DynamicTypeaheadModel).toBe(true);
   });
 
-  it('should return form\'s fields value from form model', () => {
+  fit('should return form\'s fields value from form model', () => {
     const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
-    let value = {} as any;
+    let value  = {} as any;
 
+    console.log(service.getValueFromModel(formModel));
     expect(service.getValueFromModel(formModel)).toEqual(value);
-
+    console.log('first test');
     ((formModel[0] as DynamicRowGroupModel).get(1) as DsDynamicInputModel).valueUpdates.next('test');
 
     value = {

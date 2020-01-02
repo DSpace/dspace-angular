@@ -322,7 +322,9 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       size: 'lg'
     });
     const modalComp = this.modalRef.componentInstance;
-    modalComp.query = this.model.value.value;
+    if (hasValue(this.model.value)) {
+      modalComp.query = this.model.value.value;
+    }
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;
     modalComp.relationshipOptions = this.model.relationship;
