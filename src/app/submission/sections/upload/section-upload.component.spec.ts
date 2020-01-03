@@ -313,8 +313,6 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
 
-      bitstreamService.getUploadedFileList.and.returnValue(observableOf(mockUploadFiles));
-
       comp.onSectionInit();
 
       bitstreamService.getUploadedFileList.and.returnValue(hot('-a-b', {
