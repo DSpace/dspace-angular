@@ -267,9 +267,20 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     });
 
     it('should properly read the section status', () => {
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
+
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+
+      resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
+
       uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
         new ConfigData(new PageInfo(), mockUploadConfigResponseNotRequired as any)
       ));
+
+      groupService.findById.and.returnValues(
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
+      );
 
       comp.onSectionInit();
 
