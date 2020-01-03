@@ -1336,7 +1336,8 @@ export const mockUploadConfigResponse = {
   self: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
 };
 
-export const mockUploadConfigResponseNotRequired = mockUploadConfigResponse;
+// Clone the object and change one property
+export const mockUploadConfigResponseNotRequired = JSON.parse(JSON.stringify(mockUploadConfigResponse));
 mockUploadConfigResponseNotRequired.required = false;
 
 export const mockAccessConditionOptions = [
