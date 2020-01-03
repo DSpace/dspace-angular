@@ -267,6 +267,12 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     });
 
     it('should properly read the section status', () => {
+      uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
+        new ConfigData(new PageInfo(), mockUploadConfigResponseNotRequired as any)
+      ));
+
+      comp.onSectionInit();
+
       bitstreamService.getUploadedFileList.and.returnValue(hot('-a-b', {
         a: [],
         b: mockUploadFiles
@@ -281,9 +287,20 @@ describe('SubmissionSectionUploadComponent test suite', () => {
     });
 
     it('should properly read the section status when required is false', () => {
+      submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
+
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+
+      resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
+
       uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
         new ConfigData(new PageInfo(), mockUploadConfigResponseNotRequired as any)
       ));
+
+      groupService.findById.and.returnValues(
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup)),
+        createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
+      );
 
       bitstreamService.getUploadedFileList.and.returnValue(observableOf(mockUploadFiles));
 
