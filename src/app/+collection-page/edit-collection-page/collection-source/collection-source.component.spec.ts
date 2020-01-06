@@ -20,6 +20,7 @@ import { By } from '@angular/platform-browser';
 import { Collection } from '../../../core/shared/collection.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { RequestService } from '../../../core/data/request.service';
 
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -36,6 +37,7 @@ let formService: DynamicFormService;
 let router: any;
 let collection: Collection;
 let collectionService: CollectionDataService;
+let requestService: RequestService;
 
 describe('CollectionSourceComponent', () => {
   let comp: CollectionSourceComponent;
@@ -111,8 +113,10 @@ describe('CollectionSourceComponent', () => {
     });
     collectionService = jasmine.createSpyObj('collectionService', {
       getContentSource: observableOf(contentSource),
-      updateContentSource: observableOf(contentSource)
+      updateContentSource: observableOf(contentSource),
+      getHarvesterEndpoint: observableOf('harvester-endpoint')
     });
+    requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring']);
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
@@ -125,7 +129,8 @@ describe('CollectionSourceComponent', () => {
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: new RemoteData(false, false, true, null, collection) }) } } },
         { provide: Router, useValue: router },
         { provide: GLOBAL_CONFIG, useValue: { collection: { edit: { undoTimeout: 10 } } } as any },
-        { provide: CollectionDataService, useValue: collectionService }
+        { provide: CollectionDataService, useValue: collectionService },
+        { provide: RequestService, useValue: requestService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

@@ -31,6 +31,7 @@ import { CollectionDataService } from '../../../core/data/collection-data.servic
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { MetadataConfig } from '../../../core/shared/metadata-config.model';
 import { INotification } from '../../../shared/notifications/models/notification.model';
+import { RequestService } from '../../../core/data/request.service';
 
 /**
  * Component for managing the content source of the collection
@@ -236,7 +237,8 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
                      protected route: ActivatedRoute,
                      protected router: Router,
                      @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-                     protected collectionService: CollectionDataService) {
+                     protected collectionService: CollectionDataService,
+                     protected requestService: RequestService) {
     super(objectUpdatesService, notificationsService, translate);
   }
 
@@ -373,6 +375,15 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
    * Submit the edited Content Source to the REST API, re-initialize the field update and display a notification
    */
   onSubmit() {
+    // Remove cached harvester request to allow for latest harvester to be displayed when switching tabs
+    this.collectionRD$.pipe(
+      getSucceededRemoteData(),
+      map((col) => col.payload.uuid),
+      switchMap((uuid) => this.collectionService.getHarvesterEndpoint(uuid)),
+      take(1)
+    ).subscribe((endpoint) => this.requestService.removeByHrefSubstring(endpoint));
+
+    // Update harvester
     this.collectionRD$.pipe(
       getSucceededRemoteData(),
       map((col) => col.payload.uuid),
