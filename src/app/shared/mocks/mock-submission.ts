@@ -1336,9 +1336,104 @@ export const mockUploadConfigResponse = {
   self: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
 };
 
+export const mockUploadConfigResponseNotRequired = {
+  accessConditionOptions: [
+    {
+      name: 'openaccess',
+      groupUUID: '123456-g',
+      hasStartDate: false,
+      hasEndDate: false
+    },
+    {
+      name: 'lease',
+      groupUUID: '123456-g',
+      hasStartDate: false,
+      hasEndDate: true,
+      maxEndDate: '2019-07-12T14:40:06.308+0000'
+    },
+    {
+      name: 'embargo',
+      groupUUID: '123456-g',
+      hasStartDate: true,
+      hasEndDate: false,
+      maxStartDate: '2022-01-12T14:40:06.308+0000'
+    },
+    {
+      name: 'administrator',
+      groupUUID: '0f2773dd-1741-475f-80e7-ccdef153d655',
+      hasStartDate: false,
+      hasEndDate: false
+    }
+  ],
+  metadata: {
+    rows: [
+      {
+        fields: [
+          {
+            input: {
+              type: 'onebox'
+            },
+            label: 'Title',
+            mandatory: true,
+            repeatable: false,
+            mandatoryMessage: 'You must enter a main title for this item.',
+            hints: 'Enter the name of the file.',
+            selectableMetadata: [
+              {
+                metadata: 'dc.title',
+                label: null,
+                authority: null,
+                closed: null
+              }
+            ],
+            languageCodes: []
+          }
+        ]
+      },
+      {
+        fields: [
+          {
+            input: {
+              type: 'textarea'
+            },
+            label: 'Description',
+            mandatory: false,
+            repeatable: true,
+            hints: 'Enter a description for the file',
+            selectableMetadata: [
+              {
+                metadata: 'dc.description',
+                label: null,
+                authority: null,
+                closed: null
+              }
+            ],
+            languageCodes: []
+          }
+        ]
+      }
+    ],
+    name: 'bitstream-metadata',
+    type: 'submissionform',
+    _links: {
+      self: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata'
+    },
+    self: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata'
+  },
+  required: false,
+  maxSize: 536870912,
+  name: 'upload',
+  type: 'submissionupload',
+  _links: {
+    metadata: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload/metadata',
+    self: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+  },
+  self: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+};
+
 // Clone the object and change one property
-export const mockUploadConfigResponseNotRequired = JSON.parse(JSON.stringify(mockUploadConfigResponse));
-mockUploadConfigResponseNotRequired.required = false;
+// export const mockUploadConfigResponseNotRequired = JSON.parse(JSON.stringify(mockUploadConfigResponse));
+// mockUploadConfigResponseNotRequired.required = false;
 
 export const mockAccessConditionOptions = [
   {
