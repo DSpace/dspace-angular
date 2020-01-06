@@ -1,6 +1,6 @@
-import {Component, Input} from "@angular/core";
-import {ItemPageFieldComponent} from "../item-page-field.component";
-import {Item} from "../../../../../core/shared/item.model";
+import { Component, Input } from '@angular/core';
+import {ItemPageFieldComponent} from '../item-page-field.component';
+import {Item} from '../../../../../core/shared/item.model';
 
 @Component({
   selector: 'ds-item-page-generic-uri-field',
