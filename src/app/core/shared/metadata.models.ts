@@ -81,6 +81,9 @@ export interface MetadataValueFilter {
   /** The value constraint. */
   value?: string;
 
+  /** The authority constraint. */
+  authority?: string;
+
   /** Whether the value constraint should match without regard to case. */
   ignoreCase?: boolean;
 

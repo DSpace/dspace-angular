@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SearchPageComponent } from './search-page.component';
 import { ConfigurationSearchPageGuard } from './configuration-search-page.guard';
 import { ConfigurationSearchPageComponent } from './configuration-search-page.component';
+import { SearchPageComponent } from './search-page.component';
 
 @NgModule({
   imports: [

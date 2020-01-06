@@ -6,7 +6,7 @@ import { CoreState } from '../core.reducers';
 import { Store } from '@ngrx/store';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Observable, of as observableOf } from 'rxjs';
-import { FindAllOptions } from './request.models';
+import { FindListOptions } from './request.models';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { compare, Operation } from 'fast-json-patch';
@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Item } from '../shared/item.model';
+import * as uuidv4 from 'uuid/v4';
 
 const endpoint = 'https://rest.api/core';
 
@@ -40,7 +41,7 @@ class TestService extends DataService<any> {
     super();
   }
 
-  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return observableOf(endpoint);
   }
 }
@@ -51,10 +52,11 @@ class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
   }
 
 }
+
 describe('DataService', () => {
   let service: TestService;
-  let options: FindAllOptions;
-  const requestService = {} as RequestService;
+  let options: FindListOptions;
+  const requestService = {generateRequestId: () => uuidv4()} as RequestService;
   const halService = {} as HALEndpointService;
   const rdbService = {} as RemoteDataBuildService;
   const notificationsService = {} as NotificationsService;
@@ -87,6 +89,7 @@ describe('DataService', () => {
       comparator,
     );
   }
+
   service = initTestService();
 
   describe('getFindAllHref', () => {
@@ -188,7 +191,7 @@ describe('DataService', () => {
       dso2.self = selfLink;
       dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
-      spyOn(service, 'findById').and.returnValues(observableOf(dso));
+      spyOn(service, 'findByHref').and.returnValues(observableOf(dso));
       spyOn(objectCache, 'getObjectBySelfLink').and.returnValues(observableOf(dso));
       spyOn(objectCache, 'addPatch');
     });

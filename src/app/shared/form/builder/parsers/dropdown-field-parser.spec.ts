@@ -6,6 +6,7 @@ import { ParserOptions } from './parser-options';
 describe('DropdownFieldParser test suite', () => {
   let field: FormFieldModel;
 
+  const submissionId = '1234';
   const initFormValues = {};
   const parserOptions: ParserOptions = {
     readOnly: false,
@@ -35,13 +36,13 @@ describe('DropdownFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new DropdownFieldParser(field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(parser instanceof DropdownFieldParser).toBe(true);
   });
 
   it('should return a DynamicScrollableDropdownModel object when repeatable option is false', () => {
-    const parser = new DropdownFieldParser(field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -50,7 +51,7 @@ describe('DropdownFieldParser test suite', () => {
 
   it('should throw when authority is not passed', () => {
     field.selectableMetadata[0].authority = null;
-    const parser = new DropdownFieldParser(field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(() => parser.parse())
       .toThrow();

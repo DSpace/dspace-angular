@@ -15,7 +15,7 @@ import { isNumeric } from 'rxjs/internal-compatibility';
 import { isEqual, isObject, transform } from 'lodash';
 
 import { HostWindowService } from '../host-window.service';
-import { HostWindowState } from '../host-window.reducer';
+import { HostWindowState } from '../search/host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue, isNotEmpty } from '../empty.util';
@@ -328,13 +328,19 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Method to emit a general pagination change event
    */
   private emitPaginationChange() {
-    this.paginationChange.emit({
-      pageId: this.id,
-      page: this.currentPage,
-      pageSize: this.pageSize,
-      sortDirection: this.sortDirection,
-      sortField: this.sortField
-    });
+    this.paginationChange.emit(
+      {
+        pagination: Object.assign(
+          new PaginationComponentOptions(),
+          {
+            id: this.id,
+            currentPage: this.currentPage,
+            pageSize: this.pageSize,
+          }),
+        sort: Object.assign(
+          new SortOptions(this.sortField, this.sortDirection)
+        )
+      })
   }
 
   /**
@@ -507,5 +513,4 @@ export class PaginationComponent implements OnDestroy, OnInit {
   get shouldShowBottomPager(): boolean {
     return this.hasMultiplePages || !this.hidePagerWhenSinglePage
   }
-
 }

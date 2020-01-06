@@ -48,6 +48,10 @@ export class ObjectCollectionComponent implements OnInit {
    * Whether or not to hide the gear to change the sort and pagination configuration
    */
   @Input() hideGear = false;
+  @Input() selectable = false;
+  @Input() selectionConfig: {repeatable: boolean, listId: string};
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
   /**
    * The link type of the rendered list elements

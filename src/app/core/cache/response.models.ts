@@ -1,9 +1,9 @@
-import { SearchQueryResponse } from '../../+search-page/search-service/search-query-response.model';
+import { SearchQueryResponse } from '../../shared/search/search-query-response.model';
 import { RequestError } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 import { ConfigObject } from '../config/models/config.model';
-import { FacetValue } from '../../+search-page/search-service/facet-value.model';
-import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
+import { FacetValue } from '../../shared/search/facet-value.model';
+import { SearchFilterConfig } from '../../shared/search/search-filter-config.model';
 import { IntegrationModel } from '../integration/models/integration.model';
 import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';

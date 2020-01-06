@@ -7,6 +7,8 @@ import { Item } from '../../../core/shared/item.model';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { TranslateModule } from '@ngx-translate/core';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { of as observableOf } from 'rxjs';
 
 const itemType = 'Person';
 const metadataField = 'dc.contributor.author';
@@ -64,7 +66,7 @@ describe('MetadataRepresentationListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [MetadataRepresentationListComponent],
+      declarations: [MetadataRepresentationListComponent, VarDirective],
       providers: [
         { provide: RelationshipService, useValue: relationshipService }
       ],
@@ -88,33 +90,29 @@ describe('MetadataRepresentationListComponent', () => {
     expect(fields.length).toBe(2);
   });
 
-  it('should initialize the original limit', () => {
-    expect(comp.originalLimit).toEqual(comp.limit);
+  it('should contain one page of items', () => {
+    expect(comp.objects.length).toEqual(1);
   });
 
-  describe('when viewMore is called', () => {
+  describe('when increase is called', () => {
     beforeEach(() => {
-      comp.viewMore();
+      comp.increase();
     });
 
-    it('should set the limit to a high number in order to retrieve all metadata representations', () => {
-      expect(comp.limit).toBeGreaterThanOrEqual(999);
+    it('should add a new page to the list', () => {
+      expect(comp.objects.length).toEqual(2);
     });
   });
 
-  describe('when viewLess is called', () => {
-    let originalLimit;
-
+  describe('when decrease is called', () => {
     beforeEach(() => {
-      // Store the original value of limit
-      originalLimit = comp.limit;
-      // Set limit to a random number
-      comp.limit = 458;
-      comp.viewLess();
+      // Add a second page
+      comp.objects.push(observableOf(undefined));
+      comp.decrease();
     });
 
-    it('should reset the limit to the original value', () => {
-      expect(comp.limit).toEqual(originalLimit);
+    it('should decrease the list of pages', () => {
+      expect(comp.objects.length).toEqual(1);
     });
   });
 

@@ -7,7 +7,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { MockTranslateLoader } from '../../mocks/mock-translate-loader';
 import { RouterStub } from '../../testing/router-stub';
-import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
@@ -16,9 +15,9 @@ import { NotificationsService } from '../../notifications/notifications.service'
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 import { getMockRequestService } from '../../mocks/mock-request.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockSearchService } from '../../mocks/mock-search-service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: WorkflowitemActionsComponent;
 let fixture: ComponentFixture<WorkflowitemActionsComponent>;

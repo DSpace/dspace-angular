@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, first, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, first, map, mergeMap, skipWhile, switchMap, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
@@ -14,8 +14,8 @@ import { RemoteData } from './remote-data';
 import {
   CreateRequest,
   DeleteByIDRequest,
-  FindAllOptions,
-  FindAllRequest,
+  FindListOptions,
+  FindListRequest,
   FindByIDRequest,
   GetRequest
 } from './request.models';
@@ -54,17 +54,17 @@ export abstract class DataService<T extends CacheableObject> {
    */
   protected responseMsToLive: number;
 
-  public abstract getBrowseEndpoint(options: FindAllOptions, linkPath?: string): Observable<string>
+  public abstract getBrowseEndpoint(options: FindListOptions, linkPath?: string): Observable<string>
 
   /**
    * Create the HREF with given options object
    *
-   * @param options The [[FindAllOptions]] object
+   * @param options The [[FindListOptions]] object
    * @param linkPath The link path for the object
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
    */
-  protected getFindAllHref(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
+  protected getFindAllHref(options: FindListOptions = {}, linkPath?: string): Observable<string> {
     let result: Observable<string>;
     const args = [];
 
@@ -77,11 +77,11 @@ export abstract class DataService<T extends CacheableObject> {
    * Create the HREF for a specific object's search method with given options object
    *
    * @param searchMethod The search method for the object
-   * @param options The [[FindAllOptions]] object
+   * @param options The [[FindListOptions]] object
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
    */
-  protected getSearchByHref(searchMethod: string, options: FindAllOptions = {}): Observable<string> {
+  protected getSearchByHref(searchMethod: string, options: FindListOptions = {}): Observable<string> {
     let result: Observable<string>;
     const args = [];
 
@@ -101,11 +101,11 @@ export abstract class DataService<T extends CacheableObject> {
    *
    * @param href$ The HREF to which the query string should be appended
    * @param args Array with additional params to combine with query string
-   * @param options The [[FindAllOptions]] object
+   * @param options The [[FindListOptions]] object
    * @return {Observable<string>}
    *    Return an observable that emits created HREF
    */
-  protected buildHrefFromFindOptions(href$: Observable<string>, args: string[], options: FindAllOptions): Observable<string> {
+  protected buildHrefFromFindOptions(href$: Observable<string>, args: string[], options: FindListOptions): Observable<string> {
 
     if (hasValue(options.currentPage) && typeof options.currentPage === 'number') {
       /* TODO: this is a temporary fix for the pagination start index (0 or 1) discrepancy between the rest and the frontend respectively */
@@ -127,20 +127,22 @@ export abstract class DataService<T extends CacheableObject> {
     }
   }
 
-  findAll(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
-    const hrefObs = this.getFindAllHref(options);
+  findAll(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+    return this.findList(this.getFindAllHref(options), options);
+  }
 
-    hrefObs.pipe(
+  protected findList(href$, options: FindListOptions) {
+    href$.pipe(
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
-        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
+        const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
         if (hasValue(this.responseMsToLive)) {
           request.responseMsToLive = this.responseMsToLive;
         }
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
+    return this.rdbService.buildList<T>(href$) as Observable<RemoteData<PaginatedList<T>>>;
   }
 
   /**
@@ -155,7 +157,7 @@ export abstract class DataService<T extends CacheableObject> {
   findById(id: string): Observable<RemoteData<T>> {
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-        map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
+      map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
@@ -191,26 +193,33 @@ export abstract class DataService<T extends CacheableObject> {
   }
 
   /**
-   * Make a new FindAllRequest with given search method
+   * Make a new FindListRequest with given search method
    *
    * @param searchMethod The search method for the object
-   * @param options The [[FindAllOptions]] object
+   * @param options The [[FindListOptions]] object
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  protected searchBy(searchMethod: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+  protected searchBy(searchMethod: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options);
 
-    hrefObs.pipe(
-      first((href: string) => hasValue(href)))
-      .subscribe((href: string) => {
-        const request = new FindAllRequest(this.requestService.generateRequestId(), href, options);
-        request.responseMsToLive = 10 * 1000;
-        this.requestService.configure(request);
-      });
+    return hrefObs.pipe(
+      find((href: string) => hasValue(href)),
+      tap((href: string) => {
+          this.requestService.removeByHrefSubstring(href);
+          const request = new FindListRequest(this.requestService.generateRequestId(), href, options);
+          request.responseMsToLive = 10 * 1000;
 
-    return this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>;
+          this.requestService.configure(request);
+        }
+      ),
+      switchMap((href) => this.requestService.getByHref(href)),
+      skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
+      switchMap((href) =>
+        this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>
+      )
+    );
   }
 
   /**
@@ -234,7 +243,7 @@ export abstract class DataService<T extends CacheableObject> {
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);
         }
-        return this.findById(object.uuid);
+        return this.findByHref(object.self);
       }
     ));
 

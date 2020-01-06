@@ -1,10 +1,12 @@
-import { SearchResult } from '../../../+search-page/search-result.model';
+import { SearchResult } from '../../search/search-result.model';
 import { Item } from '../../../core/shared/item.model';
-import { searchResultFor } from '../../../+search-page/search-service/search-result-element-decorator';
+import { inheritEquatable } from '../../../core/utilities/equals.decorators';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
 import { ListableObject } from './listable-object.model';
+import { searchResultFor } from '../../search/search-result-element-decorator';
 
 @searchResultFor(Item)
+@inheritEquatable(SearchResult)
 export class ItemSearchResult extends SearchResult<Item> {
 
   /**

@@ -1,28 +1,8 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { BehaviorSubject, combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  find,
-  flatMap,
-  map,
-  mergeMap,
-  reduce,
-  startWith
-} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, mergeMap, reduce, startWith, flatMap, find } from 'rxjs/operators';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
@@ -36,7 +16,7 @@ import { SubmissionService } from '../../submission.service';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FindAllOptions } from '../../../core/data/request.models';
+import { FindListOptions } from '../../../core/data/request.models';
 
 /**
  * An interface to represent a collection entry
@@ -205,7 +185,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
         map((collectionRD: RemoteData<Collection>) => collectionRD.payload.name)
       );
 
-      const findOptions: FindAllOptions = {
+      const findOptions: FindListOptions = {
         elementsPerPage: 1000
       };
 
@@ -247,7 +227,8 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
             } else {
               return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
             }
-          }));
+        })
+      );
       }
     }
   }

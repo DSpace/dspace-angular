@@ -1,13 +1,5 @@
 import { filter, map, take } from 'rxjs/operators';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  Inject,
-  OnInit,
-  ViewEncapsulation
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, HostListener, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 import { select, Store } from '@ngrx/store';
@@ -18,12 +10,11 @@ import { GLOBAL_CONFIG, GlobalConfig } from '../config';
 
 import { MetadataService } from './core/metadata/metadata.service';
 import { HostWindowResizeAction } from './shared/host-window.actions';
-import { HostWindowState } from './shared/host-window.reducer';
+import { HostWindowState } from './shared/search/host-window.reducer';
 import { NativeWindowRef, NativeWindowService } from './core/services/window.service';
 import { isAuthenticated } from './core/auth/selectors';
 import { AuthService } from './core/auth/auth.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { RouteService } from './core/services/route.service';
 import variables from '../styles/_exposed_variables.scss';
 import { CSSVariableService } from './shared/sass-helper/sass-helper.service';
 import { MenuService } from './shared/menu/menu.service';
@@ -34,6 +25,7 @@ import { HostWindowService } from './shared/host-window.service';
 import { Theme } from '../config/theme.inferface';
 import { isNotEmpty } from './shared/empty.util';
 import { CookieService } from './core/services/cookie.service';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 
 export const LANG_COOKIE = 'language_cookie';
 
@@ -60,6 +52,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private store: Store<HostWindowState>,
     private metadata: MetadataService,
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics,
+    private angulartics2DSpace: Angulartics2DSpace,
     private authService: AuthService,
     private router: Router,
     private cssService: CSSVariableService,
@@ -88,6 +81,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         translate.use(config.defaultLanguage);
       }
     }
+
+    angulartics2DSpace.startTracking();
 
     metadata.listenForRouteChange();
 

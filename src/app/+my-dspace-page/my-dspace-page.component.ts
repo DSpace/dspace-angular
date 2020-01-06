@@ -15,19 +15,19 @@ import { RemoteData } from '../core/data/remote-data';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';
-import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
-import { SearchService } from '../+search-page/search-service/search.service';
-import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
+import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
 import { hasValue } from '../shared/empty.util';
 import { getSucceededRemoteData } from '../core/shared/operators';
 import { MyDSpaceResponseParsingService } from '../core/data/mydspace-response-parsing.service';
-import { SearchConfigurationOption } from '../+search-page/search-switch-configuration/search-configuration-option.model';
+import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { RoleType } from '../core/roles/role-types';
-import { SearchConfigurationService } from '../+search-page/search-service/search-configuration.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { ViewMode } from '../core/shared/view-mode.model';
 import { MyDSpaceRequest } from '../core/data/request.models';
-import { SearchResult } from '../+search-page/search-result.model';
+import { SearchResult } from '../shared/search/search-result.model';
 import { Context } from '../core/shared/context.model';
 
 export const MYDSPACE_ROUTE = '/mydspace';
@@ -102,7 +102,7 @@ export class MyDSpacePageComponent implements OnInit {
   context$: Observable<Context>;
 
   constructor(private service: SearchService,
-              private sidebarService: SearchSidebarService,
+              private sidebarService: SidebarService,
               private windowService: HostWindowService,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: MyDSpaceConfigurationService) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
