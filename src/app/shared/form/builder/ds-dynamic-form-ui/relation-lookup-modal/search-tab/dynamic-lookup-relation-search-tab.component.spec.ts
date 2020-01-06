@@ -26,9 +26,11 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   let item1;
   let item2;
   let item3;
+  let item4;
   let searchResult1;
   let searchResult2;
   let searchResult3;
+  let searchResult4;
   let listID;
   let selection$;
 
@@ -42,9 +44,11 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     item1 = Object.assign(new Item(), { uuid: 'e1c51c69-896d-42dc-8221-1d5f2ad5516e' });
     item2 = Object.assign(new Item(), { uuid: 'c8279647-1acc-41ae-b036-951d5f65649b' });
     item3 = Object.assign(new Item(), { uuid: 'c3bcbff5-ec0c-4831-8e4c-94b9c933ccac' });
+    item4 = Object.assign(new Item(), { uuid: 'f96a385e-de10-45b2-be66-7f10bf52f765' });
     searchResult1 = Object.assign(new ItemSearchResult(), { indexableObject: item1 });
     searchResult2 = Object.assign(new ItemSearchResult(), { indexableObject: item2 });
     searchResult3 = Object.assign(new ItemSearchResult(), { indexableObject: item3 });
+    searchResult4 = Object.assign(new ItemSearchResult(), { indexableObject: item4 });
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
     selection$ = observableOf([searchResult1, searchResult2]);
 
@@ -102,12 +106,12 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
   describe('selectPage', () => {
     beforeEach(() => {
       spyOn(component.selectObject, 'emit');
-      component.selectPage([searchResult1, searchResult2, searchResult3]);
+      component.selectPage([searchResult1, searchResult2, searchResult4]);
     });
 
     it('should emit the page filtered from already selected objects and call select on the service for all objects', () => {
-      expect(component.selectObject.emit).toHaveBeenCalledWith(searchResult3);
-      expect(selectableListService.select).toHaveBeenCalledWith(listID, [searchResult1, searchResult2, searchResult3]);
+      expect(component.selectObject.emit).toHaveBeenCalledWith(searchResult4);
+      expect(selectableListService.select).toHaveBeenCalledWith(listID, [searchResult1, searchResult2, searchResult4]);
     });
   });
 

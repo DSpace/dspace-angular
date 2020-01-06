@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 })
 
 /**
- * This component represents the part of the search sidebar that contains the general search settings.
+ * This component represents the part of the search sidebar that contains the page size settings.
  */
 export class PageSizeSelectorComponent implements OnInit {
   /**

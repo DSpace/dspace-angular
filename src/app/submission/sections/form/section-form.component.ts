@@ -166,8 +166,8 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {
         if (isUndefined(this.formModel)) {
           this.sectionData.errors = [];
-          // Is the first loading so init form
           this.workspaceItem = workspaceItem;
+          // Is the first loading so init form
           this.initForm(sectionData);
           this.sectionData.data = sectionData;
           this.subscriptions();
