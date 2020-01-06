@@ -274,7 +274,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       resourcePolicyService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(mockDefaultAccessCondition));
 
       uploadsConfigService.getConfigByHref.and.returnValue(observableOf(
-        new ConfigData(new PageInfo(), mockUploadConfigResponseNotRequired as any)
+        new ConfigData(new PageInfo(), mockUploadConfigResponse as any)
       ));
 
       groupService.findById.and.returnValues(
