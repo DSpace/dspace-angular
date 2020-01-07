@@ -12,20 +12,19 @@
 
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
+  "admin.registries.bitstream-formats.create.failure.content": "Er is een fout opgetreden bij het maken van het nieuwe bitstream-formaat.",
 
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   "admin.registries.bitstream-formats.create.failure.head": "Gefaald",
 
   // "admin.registries.bitstream-formats.create.head": "Create Bitstream format",
-   "admin.registries.bitstream-formats.create.head": "Maak een Bitstream formaat aan",
+   "admin.registries.bitstream-formats.create.head": "Maak een bitstream-formaat aan",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  "admin.registries.bitstream-formats.create.new": "Voeg een nieuw Bitstream formaat toe",
+  "admin.registries.bitstream-formats.create.new": "Voeg een nieuw bitstream-formaat toe",
 
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
-  "admin.registries.bitstream-formats.create.success.content": "Het nieuwe Bitstream formaat is aangemaakt.",
+  "admin.registries.bitstream-formats.create.success.content": "Het nieuwe bitstream-formaat is aangemaakt.",
 
   // "admin.registries.bitstream-formats.create.success.head": "Success",
   "admin.registries.bitstream-formats.create.success.head": "Succes",
@@ -37,94 +36,79 @@
   "admin.registries.bitstream-formats.delete.failure.head": "Gefaald",
 
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-   "admin.registries.bitstream-formats.delete.success.amount": "Het verwijderen van {{ amount }} forma(a)t(en) is gelukt.",
+   "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} Forma(a)t(en) zijn succesvol verwijderd.",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   "admin.registries.bitstream-formats.delete.success.head": "Succes",
 
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  "admin.registries.bitstream-formats.description": "Deze lijst van Bitstream formaten biedt informatie over de formaten die in deze repository zijn toegelaten en op welke manier ze ondersteund worden. De term Bitstream wordt in DSpace gebruikt om een bestand aan te duiden dat samen met metadata onderdeel uitmaakt van een item. De naam bitstream duidt op het feit dat het bestand achterliggend wordt opgeslaan zonder bestandsextensie.",
+  "admin.registries.bitstream-formats.description": "Deze lijst van bitstream-formaten biedt informatie over de formaten die in deze repository zijn toegelaten en op welke manier ze ondersteund worden. De term Bitstream wordt in DSpace gebruikt om een bestand aan te duiden dat samen met metadata onderdeel uitmaakt van een item. De naam bitstream duidt op het feit dat het bestand achterliggend wordt opgeslaan zonder bestandsextensie.",
 
   // "admin.registries.bitstream-formats.edit.description.hint": "",
-  // TODO New key - Add a translation
   "admin.registries.bitstream-formats.edit.description.hint": "",
 
   // "admin.registries.bitstream-formats.edit.description.label": "Description",
   "admin.registries.bitstream-formats.edit.description.label": "Beschrijving",
 
   // "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.hint": "Extensions are file extensions that are used to automatically identify the format of uploaded files. You can enter several extensions for each format.",
+   "admin.registries.bitstream-formats.edit.extensions.hint": "Extensies zijn bestandsextensies die worden gebruikt om automatisch het formaat van geuploade bestanden te bepalen. U kunt meerdere extensies voor een formaat invullen.",
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
+  "admin.registries.bitstream-formats.edit.extensions.label": "Bestandsextensies",
 
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extenstion without the dot",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Vul een bestandsextensie toe zonder de punt",
 
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
+  "admin.registries.bitstream-formats.edit.failure.content": "Er is een fout opgetreden bij het bewerken van het bitstream-formaat.",
 
   // "admin.registries.bitstream-formats.edit.failure.head": "Failure",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.failure.head": "Failure",
+  "admin.registries.bitstream-formats.edit.failure.head": "Gefaald",
 
   // "admin.registries.bitstream-formats.edit.head": "Bitstream format: {{ format }}",
-  "admin.registries.bitstream-formats.edit.head": "Bitstream formaat: {{ format }}",
+  "admin.registries.bitstream-formats.edit.head": "Bitstream-formaat: {{ format }}",
 
   // "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.internal.hint": "Formats marked as internal are hidden from the user, and used for administrative purposes.",
+  "admin.registries.bitstream-formats.edit.internal.hint": "Formaten die als intern gemarkeerd zijn, worden niet getoond aan de gebruiker en zijn bedoeld voor administratieve doeleinden.",
 
   // "admin.registries.bitstream-formats.edit.internal.label": "Internal",
    "admin.registries.bitstream-formats.edit.internal.label": "Intern",
 
   // "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.mimetype.hint": "The MIME type associated with this format, does not have to be unique.",
+  "admin.registries.bitstream-formats.edit.mimetype.hint": "Het MIME type dat bij dit formaat hoort. Het hoeft niet uniek te zijn.",
 
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
    "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
+  "admin.registries.bitstream-formats.edit.shortDescription.hint": "Een unieke naam voor dit formaat (b.v. Microsoft Word XP of Microsoft Word 2000)",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.label": "Name",
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Naam",
 
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
+  "admin.registries.bitstream-formats.edit.success.content": "Het bitstream-formaat is bewerkt.",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   "admin.registries.bitstream-formats.edit.success.head": "Succes",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Het niveau van ondersteuning dat uw instituut belooft te bieden voor dit formaat.",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
+  "admin.registries.bitstream-formats.edit.supportLevel.label": "Ondersteuningsniveau",
 
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  "admin.registries.bitstream-formats.head": "Bitstream Formaat Register",
+  "admin.registries.bitstream-formats.head": "Bitstream-formaat Register",
 
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
+  "admin.registries.bitstream-formats.no-items": "Geen bitstream-formaten om te tonen.",
 
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.delete": "Delete selected",
+  "admin.registries.bitstream-formats.table.delete": "Verwijder geselecteerde",
 
   // "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
-  // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.table.deselect-all": "Deselect all",
+  "admin.registries.bitstream-formats.table.deselect-all": "De-selecteer alle",
 
   // "admin.registries.bitstream-formats.table.internal": "internal",
   "admin.registries.bitstream-formats.table.internal": "intern",
@@ -177,8 +161,7 @@
   "admin.registries.metadata.schemas.no-items": "Er kunnen geen metadataschema's getoond worden.",
 
   // "admin.registries.metadata.schemas.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.metadata.schemas.table.delete": "Delete selected",
+  "admin.registries.metadata.schemas.table.delete": "Verwijder geselecteerde",
 
   // "admin.registries.metadata.schemas.table.id": "ID",
   "admin.registries.metadata.schemas.table.id": "ID",
@@ -204,8 +187,7 @@
   "admin.registries.schema.fields.no-items": "Er kunnen geen metadatavelden getoond worden.",
 
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  // TODO New key - Add a translation
-  "admin.registries.schema.fields.table.delete": "Delete selected",
+  "admin.registries.schema.fields.table.delete": "Verwijder geselecteerde",
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Veld",
@@ -220,55 +202,43 @@
   "admin.registries.schema.form.edit": "Bewerk metadataveld",
 
   // "admin.registries.schema.form.element": "Element",
-  // TODO New key - Add a translation
   "admin.registries.schema.form.element": "Element",
 
   // "admin.registries.schema.form.qualifier": "Qualifier",
-  // TODO New key - Add a translation
   "admin.registries.schema.form.qualifier": "Qualifier",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
-  // TODO New key - Add a translation
-  "admin.registries.schema.form.scopenote": "Scope Note",
+  "admin.registries.schema.form.scopenote": "Opmerking over het bereik",
 
   // "admin.registries.schema.head": "Metadata Schema",
-  "admin.registries.schema.head": "Metadata Schema",
+  "admin.registries.schema.head": "Metadataschema",
 
   // "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.created": "Successfully created metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.created": "Metadataschema \"{{prefix}}\" is aangemaakt",
 
   // "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.failure": "Failed to delete {{amount}} metadata schemas",
+  "admin.registries.schema.notification.deleted.failure": "Het verwijderen van {{amount}} metadataschemas is mislukt",
 
   // "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.deleted.success": "Successfully deleted {{amount}} metadata schemas",
+  "admin.registries.schema.notification.deleted.success": "{{amount}} Metadataschemas verwijderd",
 
   // "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.edited": "Successfully edited metadata schema \"{{prefix}}\"",
+  "admin.registries.schema.notification.edited": "Metadataschema \"{{prefix}}\" is bewerkt",
 
   // "admin.registries.schema.notification.failure": "Error",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.failure": "Error",
+  "admin.registries.schema.notification.failure": "Fout",
 
   // "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.created": "Successfully created metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.created": "Metadataveld \"{{field}}\" is aangemaakt",
 
   // "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.failure": "Failed to delete {{amount}} metadata fields",
+  "admin.registries.schema.notification.field.deleted.failure": "Het verwijderen van {{amount}} metadatavelden is mislukt",
 
   // "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.deleted.success": "Successfully deleted {{amount}} metadata fields",
+  "admin.registries.schema.notification.field.deleted.success": "{{amount}} Metadatavelden verwijderd",
 
   // "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
-  // TODO New key - Add a translation
-  "admin.registries.schema.notification.field.edited": "Successfully edited metadata field \"{{field}}\"",
+  "admin.registries.schema.notification.field.edited": "Metadataveld \"{{field}}\" is bewerkt",
 
   // "admin.registries.schema.notification.success": "Success",
   "admin.registries.schema.notification.success": "Succes",
@@ -428,60 +398,46 @@
   "collection.edit.item-mapper.confirm": "Map de geselecteerde items",
 
   // "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+  "collection.edit.item-mapper.description": "Dit is de item mapper, waarmee collectiebeheerders items van andere collecties kunnen mappen naar deze collectie. U kunt items van andere collecties zoeken en mappen of de bladeren door de lijst met al gemapte items.",
 
   // "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
+  "collection.edit.item-mapper.head": "Item mapper - Map items uit andere collecties",
 
   // "collection.edit.item-mapper.no-search": "Please enter a query to search",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.no-search": "Please enter a query to search",
+  "collection.edit.item-mapper.no-search": "Vul een zoekterm in om te zoeken",
 
   // "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.error.content": "Er is een fout opgetreden bij het mappen van {{amount}} items.",
 
   // "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
+  "collection.edit.item-mapper.notifications.map.error.head": "Mapping fouten ",
 
   // "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
+  "collection.edit.item-mapper.notifications.map.success.content": "Er zijn {{amount}} items gemapt.",
 
   // "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
+  "collection.edit.item-mapper.notifications.map.success.head": "Mapping afgerond",
 
   // "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.error.content": "Er zijn fouten opgetreden bij het verwijderen van de mapping van {{amount}} items.",
 
   // "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
+  "collection.edit.item-mapper.notifications.unmap.error.head": "Fouten bij het verwijderen van mappings",
 
   // "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
+  "collection.edit.item-mapper.notifications.unmap.success.content": "De mappings van {{amount}} items zijn verwijderd.",
 
   // "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
+  "collection.edit.item-mapper.notifications.unmap.success.head": "Verwijderen van mappings afgerond",
 
   // "collection.edit.item-mapper.remove": "Remove selected item mappings",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.remove": "Remove selected item mappings",
+  "collection.edit.item-mapper.remove": "Verwijder de geselecteerde item mappings",
 
   // "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
+  "collection.edit.item-mapper.tabs.browse": "Blader door gemapte items",
 
   // "collection.edit.item-mapper.tabs.map": "Map new items",
-  // TODO New key - Add a translation
-  "collection.edit.item-mapper.tabs.map": "Map new items",
+  "collection.edit.item-mapper.tabs.map": "Map nieuwe items",
 
 
 
@@ -608,44 +564,34 @@
 
 
   // "dso-selector.create.collection.head": "New collection",
-  // TODO New key - Add a translation
-  "dso-selector.create.collection.head": "New collection",
+  "dso-selector.create.collection.head": "Nieuwe collectie",
 
   // "dso-selector.create.community.head": "New community",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.head": "New community",
+  "dso-selector.create.community.head": "Nieuwe community",
 
   // "dso-selector.create.community.sub-level": "Create a new community in",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.sub-level": "Create a new community in",
+  "dso-selector.create.community.sub-level": "Maak een nieuwe community in",
 
   // "dso-selector.create.community.top-level": "Create a new top-level community",
-  // TODO New key - Add a translation
-  "dso-selector.create.community.top-level": "Create a new top-level community",
+  "dso-selector.create.community.top-level": "Maak een nieuwe community op het hoogste niveau",
 
   // "dso-selector.create.item.head": "New item",
-  // TODO New key - Add a translation
-  "dso-selector.create.item.head": "New item",
+  "dso-selector.create.item.head": "Nieuw item",
 
   // "dso-selector.edit.collection.head": "Edit collection",
-  // TODO New key - Add a translation
-  "dso-selector.edit.collection.head": "Edit collection",
+  "dso-selector.edit.collection.head": "Bewerk collectie",
 
   // "dso-selector.edit.community.head": "Edit community",
-  // TODO New key - Add a translation
-  "dso-selector.edit.community.head": "Edit community",
+  "dso-selector.edit.community.head": "Bewerk community",
 
   // "dso-selector.edit.item.head": "Edit item",
-  // TODO New key - Add a translation
-  "dso-selector.edit.item.head": "Edit item",
+  "dso-selector.edit.item.head": "Bewerk item",
 
   // "dso-selector.no-results": "No {{ type }} found",
-  // TODO New key - Add a translation
-  "dso-selector.no-results": "No {{ type }} found",
+  "dso-selector.no-results": "Geen {{ type }} gevonden",
 
   // "dso-selector.placeholder": "Search for a {{ type }}",
-  // TODO New key - Add a translation
-  "dso-selector.placeholder": "Search for a {{ type }}",
+  "dso-selector.placeholder": "Zoek een {{ type }}",
 
 
 
@@ -660,9 +606,6 @@
 
   // "error.community": "Error fetching community",
   "error.community": "Fout bij het ophalen van een community",
-
-  // "error.identifier": "No item found for the identifier",
-  "error.identifier": "Geen item gevonden voor deze identifier",
 
   // "error.identifier": "No item found for the identifier",
   "error.identifier": "Geen item gevonden voor deze identifier",
@@ -692,18 +635,16 @@
   "error.sub-communities": "Fout bij het ophalen van sub-communities",
 
   // "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
-  // TODO New key - Add a translation
-  "error.submission.sections.init-form-error": "An error occurred during section initialize, please check your input-form configuration. Details are below : <br> <br>",
+  "error.submission.sections.init-form-error": "Er is een fout opgetreden bij het initialiseren van deze sectie. Controleer de configuratie van het invoerformulier. Details: <br> <br>",
 
   // "error.top-level-communities": "Error fetching top-level communities",
   "error.top-level-communities": "Fout bij het inladen van communities op het hoogste niveau",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "U moet de invoerlicentie goedkeuren om de invoer af te werken. Indien u deze licentie momenteel niet kan of mag goedkeuren, kan u uw werk opslaan en de invoer later afwerken. U kunt dit nieuwe item ook verwijderen indien u niet voldoet aan de vereisten van de invoerlicentie.",
+  "error.validation.license.notgranted": "U moet de invoerlicentie goedkeuren om de invoer af te werken. Indien u deze licentie momenteel niet kan of mag goedkeuren, kunt u uw werk opslaan en de invoer later afwerken. U kunt dit nieuwe item ook verwijderen indien u niet voldoet aan de vereisten van de invoerlicentie.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
-  // TODO New key - Add a translation
-  "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
+  "error.validation.pattern": "Deze invoer wordt ingeperkt door dit patroon: {{ pattern }}.",
 
 
 
@@ -823,190 +764,146 @@
 
 
   // "item.edit.item-mapper.buttons.add": "Map item to selected collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.buttons.add": "Map item to selected collections",
+  "item.edit.item-mapper.buttons.add": "Map dit item naar de geselecteerde collecties",
 
   // "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.buttons.remove": "Remove item's mapping for selected collections",
+  "item.edit.item-mapper.buttons.remove": "Verwijder de mapping van de item naar de geselecteerde collecties",
 
   // "item.edit.item-mapper.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.cancel": "Cancel",
+  "item.edit.item-mapper.cancel": "Annuleer",
 
   // "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.description": "This is the item mapper tool that allows administrators to map this item to other collections. You can search for collections and map them, or browse the list of collections the item is currently mapped to.",
+  "item.edit.item-mapper.description": "Dit is de item mapper, waarmee collectiebeheerders dit item kunnen mappen naar andere collecties. U kunt collecties zoeken en mappen of bladeren door de lijst waar dit item al naar is gemapt.",
 
   // "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.head": "Item Mapper - Map Item to Collections",
+  "item.edit.item-mapper.head": "Item mapper - Map een item naar collecties",
 
   // "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
-  // TODO New key - Add a translation
   "item.edit.item-mapper.item": "Item: \"<b>{{name}}</b>\"",
 
   // "item.edit.item-mapper.no-search": "Please enter a query to search",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.no-search": "Please enter a query to search",
+  "item.edit.item-mapper.no-search": "Vul een zoekterm in om te zoeken",
 
   // "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.content": "Errors occurred for mapping of item to {{amount}} collections.",
+   "item.edit.item-mapper.notifications.add.error.content": "Er zijn fouten opgetreden bij het mappen van het item naar {{amount}} collecties.",
 
   // "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.error.head": "Mapping errors",
+   "item.edit.item-mapper.notifications.add.error.head": "Mapping fouten",
 
   // "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.success.content": "Successfully mapped item to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.add.success.content": "Het item is naar {{amount}} collecties gemapt.",
 
   // "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.add.success.head": "Mapping completed",
+  "item.edit.item-mapper.notifications.add.success.head": "Mapping afgerond",
 
   // "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.content": "Errors occurred for the removal of the mapping to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.remove.error.content": "Er zijn fouten opgetreden bij het verwijderen van de mapping naar {{amount}} collecties.",
 
   // "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.error.head": "Removal of mapping errors",
+  "item.edit.item-mapper.notifications.remove.error.head": "Fouten bij het verwijderen van mappings",
 
   // "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.success.content": "Successfully removed mapping of item to {{amount}} collections.",
+  "item.edit.item-mapper.notifications.remove.success.content": "De mapping van dit item naar {{amount}} collecties is verwijderd.",
 
   // "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.notifications.remove.success.head": "Removal of mapping completed",
+  "item.edit.item-mapper.notifications.remove.success.head": "Verwijderen van mapping afgerond",
 
   // "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.tabs.browse": "Browse mapped collections",
+  "item.edit.item-mapper.tabs.browse": "Blader door gemapte collecties",
 
   // "item.edit.item-mapper.tabs.map": "Map new collections",
-  // TODO New key - Add a translation
-  "item.edit.item-mapper.tabs.map": "Map new collections",
+  "item.edit.item-mapper.tabs.map": "Map een nieuwe collectie",
 
 
 
   // "item.edit.metadata.add-button": "Add",
-  // TODO New key - Add a translation
-  "item.edit.metadata.add-button": "Add",
+  "item.edit.metadata.add-button": "Voeg toe",
 
   // "item.edit.metadata.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.metadata.discard-button": "Discard",
+  "item.edit.metadata.discard-button": "Annuleer",
 
   // "item.edit.metadata.edit.buttons.edit": "Edit",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.edit": "Edit",
+  "item.edit.metadata.edit.buttons.edit": "Bewerk",
 
   // "item.edit.metadata.edit.buttons.remove": "Remove",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.remove": "Remove",
+  "item.edit.metadata.edit.buttons.remove": "Verwijder",
 
   // "item.edit.metadata.edit.buttons.undo": "Undo changes",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.undo": "Undo changes",
+  "item.edit.metadata.edit.buttons.undo": "Maak wijzigingen ongedaan",
 
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
-  // TODO New key - Add a translation
-  "item.edit.metadata.edit.buttons.unedit": "Stop editing",
+  "item.edit.metadata.edit.buttons.unedit": "Stop met bewerken",
 
   // "item.edit.metadata.headers.edit": "Edit",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.edit": "Edit",
+  "item.edit.metadata.headers.edit": "Bewerk",
 
   // "item.edit.metadata.headers.field": "Field",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.field": "Field",
+  "item.edit.metadata.headers.field": "Veld",
 
   // "item.edit.metadata.headers.language": "Lang",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.language": "Lang",
+  "item.edit.metadata.headers.language": "Taal",
 
   // "item.edit.metadata.headers.value": "Value",
-  // TODO New key - Add a translation
-  "item.edit.metadata.headers.value": "Value",
+  "item.edit.metadata.headers.value": "Waarde",
 
   // "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
-  // TODO New key - Add a translation
-  "item.edit.metadata.metadatafield.invalid": "Please choose a valid metadata field",
+  "item.edit.metadata.metadatafield.invalid": "Kies een geldig metadataveld",
 
   // "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+  "item.edit.metadata.notifications.discarded.content": "Uw wijzigingen zijn geannuleerd. Klik 'maak ongedaan' om ze terug te halen.",
 
   // "item.edit.metadata.notifications.discarded.title": "Changed discarded",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.discarded.title": "Changed discarded",
+  "item.edit.metadata.notifications.discarded.title": "Wijzingen geannuleerd",
 
   // "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+  "item.edit.metadata.notifications.invalid.content": "Uw wijzingen zijn niet opgeslagen. Controleer of alle velden geldig zijn voor u opslaat.",
 
   // "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.invalid.title": "Metadata invalid",
+  "item.edit.metadata.notifications.invalid.title": "Ongeldige metadata",
 
   // "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "item.edit.metadata.notifications.outdated.content": "Het item waar u aan werkt is gewijzigd door een andere gebruiker. Uw huidige wijzigingen worden geannuleerd om conflicten te voorkomen.",
 
   // "item.edit.metadata.notifications.outdated.title": "Changed outdated",
   // TODO New key - Add a translation
   "item.edit.metadata.notifications.outdated.title": "Changed outdated",
 
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
+  "item.edit.metadata.notifications.saved.content": "Uw wijzingen in de metadata van dit item zijn opgeslagen.",
 
   // "item.edit.metadata.notifications.saved.title": "Metadata saved",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.saved.title": "Metadata saved",
+  "item.edit.metadata.notifications.saved.title": "Metadata opgeslagen",
 
   // "item.edit.metadata.reinstate-button": "Undo",
-  // TODO New key - Add a translation
-  "item.edit.metadata.reinstate-button": "Undo",
+  "item.edit.metadata.reinstate-button": "Maak ongedaan",
 
   // "item.edit.metadata.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.metadata.save-button": "Save",
+  "item.edit.metadata.save-button": "Opslaan",
 
 
 
   // "item.edit.modify.overview.field": "Field",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.field": "Field",
+  "item.edit.modify.overview.field": "Veld",
 
   // "item.edit.modify.overview.language": "Language",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.language": "Language",
+  "item.edit.modify.overview.language": "Taal",
 
   // "item.edit.modify.overview.value": "Value",
-  // TODO New key - Add a translation
-  "item.edit.modify.overview.value": "Value",
+  "item.edit.modify.overview.value": "Waarde",
 
 
 
   // "item.edit.move.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.move.cancel": "Cancel",
+  "item.edit.move.cancel": "Annuleer",
 
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
-  // TODO New key - Add a translation
-  "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
+  "item.edit.move.description": "Kies de collectie waar u dit item naartoe wilt verplaatsen. Om de lijst met collecties in te perken kunt een zoekterm invullen in het zoekveld.",
 
   // "item.edit.move.error": "An error occurred when attempting to move the item",
-  // TODO New key - Add a translation
-  "item.edit.move.error": "An error occurred when attempting to move the item",
+  "item.edit.move.error": "Er is een fout opgetreden bij het verplaatsen van het item",
 
   // "item.edit.move.head": "Move item: {{id}}",
-  // TODO New key - Add a translation
-  "item.edit.move.head": "Move item: {{id}}",
+  "item.edit.move.head": "Verplaats item: {{id}}",
 
   // "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
   // TODO New key - Add a translation
@@ -1017,76 +914,60 @@
   "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
 
   // "item.edit.move.move": "Move",
-  // TODO New key - Add a translation
-  "item.edit.move.move": "Move",
+  "item.edit.move.move": "Verplaats",
 
   // "item.edit.move.processing": "Moving...",
-  // TODO New key - Add a translation
-  "item.edit.move.processing": "Moving...",
+  "item.edit.move.processing": "Bezig ...",
 
   // "item.edit.move.search.placeholder": "Enter a search query to look for collections",
-  // TODO New key - Add a translation
-  "item.edit.move.search.placeholder": "Enter a search query to look for collections",
+  "item.edit.move.search.placeholder": "Vul een zoekterm in om collecties te zoeken",
 
   // "item.edit.move.success": "The item has been moved successfully",
-  // TODO New key - Add a translation
-  "item.edit.move.success": "The item has been moved successfully",
+  "item.edit.move.success": "Het item is verplaatst",
 
   // "item.edit.move.title": "Move item",
-  // TODO New key - Add a translation
-  "item.edit.move.title": "Move item",
+  "item.edit.move.title": "Verplaats item",
 
 
 
   // "item.edit.private.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.private.cancel": "Cancel",
+  "item.edit.private.cancel": "Annuleer",
 
   // "item.edit.private.confirm": "Make it Private",
-  // TODO New key - Add a translation
-  "item.edit.private.confirm": "Make it Private",
+   "item.edit.private.confirm": "Maak privé",
 
   // "item.edit.private.description": "Are you sure this item should be made private in the archive?",
-  // TODO New key - Add a translation
-  "item.edit.private.description": "Are you sure this item should be made private in the archive?",
+  "item.edit.private.description": "Weet u zeker dat dit item privé moet worden in het archief?",
 
   // "item.edit.private.error": "An error occurred while making the item private",
-  // TODO New key - Add a translation
-  "item.edit.private.error": "An error occurred while making the item private",
+  "item.edit.private.error": "Er is een fout opgetreden bij het privé maken van het item",
 
   // "item.edit.private.header": "Make item private: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.private.header": "Make item private: {{ id }}",
+  "item.edit.private.header": "Maak item privé: {{ id }}",
 
   // "item.edit.private.success": "The item is now private",
   // TODO New key - Add a translation
-  "item.edit.private.success": "The item is now private",
+  "item.edit.private.success": "Dit item is nu privé",
 
 
 
   // "item.edit.public.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.public.cancel": "Cancel",
+  "item.edit.public.cancel": "Annuleer",
 
   // "item.edit.public.confirm": "Make it Public",
-  // TODO New key - Add a translation
-  "item.edit.public.confirm": "Make it Public",
+  "item.edit.public.confirm": "Maak openbaar",
 
   // "item.edit.public.description": "Are you sure this item should be made public in the archive?",
-  // TODO New key - Add a translation
-  "item.edit.public.description": "Are you sure this item should be made public in the archive?",
+  "item.edit.public.description": "Weet u zeker dat dit item openbaar moet worden in het archief?",
 
   // "item.edit.public.error": "An error occurred while making the item public",
-  // TODO New key - Add a translation
-  "item.edit.public.error": "An error occurred while making the item public",
+  "item.edit.public.error": "Er is een fout opgetreden bij het openbaar maken van het item",
 
   // "item.edit.public.header": "Make item public: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.public.header": "Make item public: {{ id }}",
+  "item.edit.public.header": "Maak item openbaar: {{ id }}",
 
   // "item.edit.public.success": "The item is now public",
-  // TODO New key - Add a translation
-  "item.edit.public.success": "The item is now public",
+  "item.edit.public.success": "Het item is nu openbaar",
 
 
 
