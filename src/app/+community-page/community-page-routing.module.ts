@@ -5,7 +5,6 @@ import { CommunityPageComponent } from './community-page.component';
 import { CommunityPageResolver } from './community-page.resolver';
 import { CreateCommunityPageComponent } from './create-community-page/create-community-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { EditCommunityPageComponent } from './edit-community-page/edit-community-page.component';
 import { CreateCommunityPageGuard } from './create-community-page/create-community-page.guard';
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
@@ -38,12 +37,8 @@ const COMMUNITY_EDIT_PATH = ':id/edit';
       },
       {
         path: COMMUNITY_EDIT_PATH,
-        pathMatch: 'full',
-        component: EditCommunityPageComponent,
-        canActivate: [AuthenticatedGuard],
-        resolve: {
-          dso: CommunityPageResolver
-        }
+        loadChildren: './edit-community-page/edit-community-page.module#EditCommunityPageModule',
+        canActivate: [AuthenticatedGuard]
       },
       {
         path: ':id/delete',
