@@ -8,9 +8,8 @@ import { CollectionPageRoutingModule } from './collection-page-routing.module';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { CollectionFormComponent } from './collection-form/collection-form.component';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
-import { SearchService } from '../+search-page/search-service/search.service';
 import { CollectionItemMapperComponent } from './collection-item-mapper/collection-item-mapper.component';
-import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
+import { SearchService } from '../core/shared/search/search.service';
 import { StatisticsModule } from '../statistics/statistics.module';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { StatisticsModule } from '../statistics/statistics.module';
   ],
   providers: [
     SearchService,
-    SearchFixedFilterService
   ]
 })
 export class CollectionPageModule {

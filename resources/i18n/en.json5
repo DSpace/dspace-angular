@@ -541,6 +541,9 @@
   "footer.link.duraspace": "DuraSpace",
 
 
+  "form.add": "Add",
+
+  "form.add-help": "Click here to add the current entry and to add another one",
 
   "form.cancel": "Cancel",
 
@@ -565,6 +568,10 @@
   "form.last-name": "Last name",
 
   "form.loading": "Loading...",
+
+  "form.lookup": "Lookup",
+
+  "form.lookup-help": "Click here to look up an existing relation",
 
   "form.no-results": "No results found",
 
@@ -806,7 +813,7 @@
 
   "item.edit.tabs.relationships.head": "Item Relationships",
 
-  "item.edit.tabs.relationships.title": "Item Edit - Relationships",
+  "item.edit.tabs.relationships.title": "Item Edit -  Relationships",
 
   "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
 
@@ -904,9 +911,9 @@
 
   "item.page.person.search.title": "Articles by this author",
 
-  "item.page.related-items.view-more": "View more",
+  "item.page.related-items.view-more": "Show {{ amount }} more",
 
-  "item.page.related-items.view-less": "View less",
+  "item.page.related-items.view-less": "Hide last {{ amount }}",
 
   "item.page.relationships.isAuthorOfPublication": "Publications",
 
@@ -1443,6 +1450,9 @@
   "search.filters.applied.f.subject": "Subject",
 
   "search.filters.applied.f.submitter": "Submitter",
+  "search.filters.applied.f.jobTitle": "Job Title",
+  "search.filters.applied.f.birthDate.max": "End birth date",
+  "search.filters.applied.f.birthDate.min": "Start birth date",
 
 
 
@@ -1611,6 +1621,69 @@
   "submission.general.save-later": "Save for later",
 
 
+  "submission.sections.describe.relationship-lookup.close": "Close",
+
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
+
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
+
+  "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
+
+  "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
+
+  "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
+
+  "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
+
+  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
+
+  "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Search for Authors",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Search for Journals",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Search for Journal Issues",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Search for Journal Volumes",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.title.Journal Issue": "Journal Issues",
+
+  "submission.sections.describe.relationship-lookup.title.Journal Volume": "Journal Volumes",
+
+  "submission.sections.describe.relationship-lookup.title.Journal": "Journals",
+
+  "submission.sections.describe.relationship-lookup.title.Author": "Authors",
+
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+
+  "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
+
+  "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Author": "Selected Authors",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Volume": "Selected Journal Volume",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Issue": "Selected Issue",
+
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+
+  "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
+
+  "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Use only for this submission",
 
   "submission.sections.general.add-more": "Add more",
 

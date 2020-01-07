@@ -9,8 +9,8 @@ import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.mod
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 /**
  * This component represents actions related to WorkspaceItem object.

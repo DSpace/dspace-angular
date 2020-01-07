@@ -3,7 +3,7 @@ import { hasValue } from '../../shared/empty.util';
 
 export class PaginatedList<T> {
 
-  constructor(private pageInfo: PageInfo,
+  constructor(public pageInfo: PageInfo,
               public page: T[]) {
   }
 

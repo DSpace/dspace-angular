@@ -1,14 +1,11 @@
 import { Inject } from '@angular/core';
-import {
-  CONFIG_DATA,
-  FieldParser,
-  INIT_FORM_VALUES,
-  PARSER_OPTIONS,
-  SUBMISSION_ID
-} from './field-parser';
 import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DynamicFormControlLayout, DynamicInputModel, DynamicInputModelConfig } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlLayout,
+  DynamicInputModel,
+  DynamicInputModelConfig
+} from '@ng-dynamic-forms/core';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -18,17 +15,24 @@ import {
 } from '../ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { isNotEmpty } from '../../../empty.util';
 import { ParserOptions } from './parser-options';
+import {
+  CONFIG_DATA,
+  FieldParser,
+  INIT_FORM_VALUES,
+  PARSER_OPTIONS,
+  SUBMISSION_ID
+} from './field-parser';
 
 export class ConcatFieldParser extends FieldParser {
 
   constructor(
-              @Inject(SUBMISSION_ID) submissionId: string,
-              @Inject(CONFIG_DATA) configData: FormFieldModel,
-              @Inject(INIT_FORM_VALUES) initFormValues,
-              @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
-              protected separator: string,
-              protected firstPlaceholder: string = null,
-              protected secondPlaceholder: string = null) {
+    @Inject(SUBMISSION_ID) submissionId: string,
+    @Inject(CONFIG_DATA) configData: FormFieldModel,
+    @Inject(INIT_FORM_VALUES) initFormValues,
+    @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
+    protected separator: string,
+    protected firstPlaceholder: string = null,
+    protected secondPlaceholder: string = null) {
     super(submissionId, configData, initFormValues, parserOptions);
 
     this.separator = separator;
@@ -49,16 +53,17 @@ export class ConcatFieldParser extends FieldParser {
     };
 
     const groupId = id.replace(/\./g, '_') + CONCAT_GROUP_SUFFIX;
-    const concatGroup: DynamicConcatModelConfig = this.initModel(groupId, false, false);
+    const concatGroup: DynamicConcatModelConfig = this.initModel(groupId, label, false);
 
     concatGroup.group = [];
     concatGroup.separator = this.separator;
 
-    const input1ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_FIRST_INPUT_SUFFIX, label, false, false);
-    const input2ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_SECOND_INPUT_SUFFIX, label, true, false);
+    const input1ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_FIRST_INPUT_SUFFIX, false, false);
+    const input2ModelConfig: DynamicInputModelConfig = this.initModel(id + CONCAT_SECOND_INPUT_SUFFIX, false, false);
     input2ModelConfig.hint = '&nbsp;';
 
     if (this.configData.mandatory) {
+      concatGroup.required = true;
       input1ModelConfig.required = true;
     }
 

@@ -196,8 +196,9 @@ export class ObjectCacheService {
    *    false otherwise
    */
   hasByUUID(uuid: string): boolean {
-    let result: boolean;
+    let result = false;
 
+    /* NB: that this is only a solution because the select method is synchronous, see: https://github.com/ngrx/store/issues/296#issuecomment-269032571*/
     this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
       take(1)

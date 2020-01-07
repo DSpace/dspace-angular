@@ -1,5 +1,5 @@
 import { CacheableObject, TypedObject } from '../object-cache.reducer';
-import { autoserialize } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
 import { ResourceType } from '../../shared/resource-type';
 /**
  * An abstract model class for a NormalizedObject.
@@ -8,10 +8,10 @@ export abstract class NormalizedObject<T extends TypedObject> implements Cacheab
   /**
    * The link to the rest endpoint where this object can be found
    */
-  @autoserialize
+  @deserialize
   self: string;
 
-  @autoserialize
+  @deserialize
   _links: {
     [name: string]: string
   };
@@ -19,6 +19,6 @@ export abstract class NormalizedObject<T extends TypedObject> implements Cacheab
   /**
    * A string representing the kind of object
    */
-  @autoserialize
+  @deserialize
   type: string;
 }

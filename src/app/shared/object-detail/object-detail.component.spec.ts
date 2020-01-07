@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { ObjectDetailComponent } from './object-detail.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MockTranslateLoader } from '../mocks/mock-translate-loader';
-import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';

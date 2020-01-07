@@ -11,7 +11,6 @@ import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspa
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 import { ClaimedTaskSearchResult } from '../../../object-collection/shared/claimed-task-search-result.model';
-import { TruncatableAction } from '../../../truncatable/truncatable.actions';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 
 let component: ClaimedSearchResultListElementComponent;

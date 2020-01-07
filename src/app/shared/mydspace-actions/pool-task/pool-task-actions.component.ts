@@ -13,8 +13,8 @@ import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service'
 import { isNotUndefined } from '../../empty.util';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 /**
  * This component represents mydspace actions related to PoolTask object.

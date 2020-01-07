@@ -18,6 +18,11 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() linkType: CollectionElementLinkType;
 
   /**
+   * The identifier of the list this element resides in
+   */
+  @Input() listID: string;
+
+  /**
    * The available link types
    */
   linkTypes = CollectionElementLinkType;

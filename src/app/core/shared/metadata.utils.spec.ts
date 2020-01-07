@@ -8,8 +8,8 @@ import {
 } from './metadata.models';
 import { Metadata } from './metadata.utils';
 
-const mdValue = (value: string, language?: string): MetadataValue => {
-  return Object.assign(new MetadataValue(), { uuid: uuidv4(), value: value, language: isUndefined(language) ? null : language, place: 0, authority: undefined, confidence: undefined });
+const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {
+  return Object.assign(new MetadataValue(), { uuid: uuidv4(), value: value, language: isUndefined(language) ? null : language, place: 0, authority: isUndefined(authority) ? null : authority, confidence: undefined });
 };
 
 const dcDescription = mdValue('Some description');
@@ -184,6 +184,8 @@ describe('Metadata', () => {
     testValueMatches(mdValue('a'), true, { language: null });
     testValueMatches(mdValue('a'), false, { language: 'en_US' });
     testValueMatches(mdValue('a', 'en_US'), true, { language: 'en_US' });
+    testValueMatches(mdValue('a', undefined, '4321'), true, { authority: '4321' });
+    testValueMatches(mdValue('a', undefined, '4321'), false, { authority: '1234' });
   });
 
   describe('toViewModelList method', () => {
