@@ -28,6 +28,7 @@ import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testin
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import { SharedModule } from '../../../shared/shared.module';
 import { createTestComponent } from '../../../shared/testing/utils';
+import { UploaderOptions } from '../../../shared/uploader/uploader-options.model';
 
 describe('SubmissionUploadFilesComponent Component', () => {
 
@@ -112,12 +113,12 @@ describe('SubmissionUploadFilesComponent Component', () => {
       comp.submissionId = submissionId;
       comp.collectionId = collectionId;
       comp.sectionId = 'upload';
-      comp.uploadFilesOptions = {
+      comp.uploadFilesOptions = Object.assign(new UploaderOptions(),{
         url: '',
         authToken: null,
         disableMultipart: false,
         itemAlias: null
-      };
+      });
 
     });
 
@@ -208,11 +209,11 @@ class TestComponent {
   submissionId = mockSubmissionId;
   collectionId = mockSubmissionCollectionId;
   sectionId = 'upload';
-  uploadFilesOptions = {
+  uploadFilesOptions = Object.assign(new UploaderOptions(), {
     url: '',
     authToken: null,
     disableMultipart: false,
     itemAlias: null
-  };
+  });
 
 }

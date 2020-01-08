@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import {
   DynamicFormControlModel,
@@ -11,8 +11,24 @@ import { TranslateService } from '@ngx-translate/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 import { ResourceType } from '../../../core/shared/resource-type';
-import { isNotEmpty } from '../../empty.util';
+import { hasValue, isNotEmpty } from '../../empty.util';
+import { UploaderOptions } from '../../uploader/uploader-options.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { AuthService } from '../../../core/auth/auth.service';
 import { Community } from '../../../core/shared/community.model';
+import { Collection } from '../../../core/shared/collection.model';
+import { UploaderComponent } from '../../uploader/uploader.component';
+import { FileUploader } from 'ng2-file-upload';
+import { ErrorResponse, RestResponse } from '../../../core/cache/response.models';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { RemoteData } from '../../../core/data/remote-data';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { combineLatest as observableCombineLatest } from 'rxjs';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import { RequestService } from '../../../core/data/request.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 
 /**
  * A form for creating and editing Communities or Collections
@@ -22,7 +38,13 @@ import { Community } from '../../../core/shared/community.model';
   styleUrls: ['./comcol-form.component.scss'],
   templateUrl: './comcol-form.component.html'
 })
-export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
+export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDestroy {
+
+  /**
+   * The logo uploader component
+   */
+  @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
+
   /**
    * DSpaceObject that the form represents
    */
@@ -31,7 +53,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   /**
    * Type of DSpaceObject that the form represents
    */
-  protected type: ResourceType;
+  type: ResourceType;
 
   /**
    * @type {string} Key prefix used to generate form labels
@@ -54,14 +76,56 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
   formGroup: FormGroup;
 
   /**
-   * Emits DSO when the form is submitted
-   * @type {EventEmitter<any>}
+   * The uploader configuration options
+   * @type {UploaderOptions}
    */
-  @Output() submitForm: EventEmitter<any> = new EventEmitter();
+  uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
+    autoUpload: false
+  });
 
-  public constructor(private location: Location,
-                     private formService: DynamicFormService,
-                     private translate: TranslateService) {
+  /**
+   * Emits DSO and Uploader when the form is submitted
+   */
+  @Output() submitForm: EventEmitter<{
+    dso: T,
+    uploader: FileUploader,
+    deleteLogo: boolean
+  }> = new EventEmitter();
+
+  /**
+   * Fires an event when the logo has finished uploading (with or without errors) or was removed
+   */
+  @Output() finish: EventEmitter<any> = new EventEmitter();
+
+  /**
+   * Observable keeping track whether or not the uploader has finished initializing
+   * Used to start rendering the uploader component
+   */
+  initializedUploaderOptions = new BehaviorSubject(false);
+
+  /**
+   * Is the logo marked to be deleted?
+   */
+  markLogoForDeletion = false;
+
+  /**
+   * Array to track all subscriptions and unsubscribe them onDestroy
+   * @type {Array}
+   */
+  protected subs: Subscription[] = [];
+
+  /**
+   * The service used to fetch from or send data to
+   */
+  protected dsoService: ComColDataService<Community | Collection>;
+
+  public constructor(protected location: Location,
+                     protected formService: DynamicFormService,
+                     protected translate: TranslateService,
+                     protected notificationsService: NotificationsService,
+                     protected authService: AuthService,
+                     protected requestService: RequestService,
+                     protected objectCache: ObjectCacheService) {
   }
 
   ngOnInit(): void {
@@ -77,13 +141,56 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
       .subscribe(() => {
         this.updateFieldTranslations();
       });
+
+    if (hasValue(this.dso.id)) {
+      this.subs.push(
+        observableCombineLatest(
+          this.dsoService.getLogoEndpoint(this.dso.id),
+          (this.dso as any).logo
+        ).subscribe(([href, logoRD]: [string, RemoteData<Bitstream>]) => {
+          this.uploadFilesOptions.url = href;
+          this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+          // If the object already contains a logo, send out a PUT request instead of POST for setting a new logo
+          if (hasValue(logoRD.payload)) {
+            this.uploadFilesOptions.method = RestRequestMethod.PUT;
+          }
+          this.initializedUploaderOptions.next(true);
+        })
+      );
+    } else {
+      // Set a placeholder URL to not break the uploader component. This will be replaced once the object is created.
+      this.uploadFilesOptions.url = 'placeholder';
+      this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
+      this.initializedUploaderOptions.next(true);
+    }
   }
 
   /**
    * Checks which new fields were added and sends the updated version of the DSO to the parent component
    */
   onSubmit() {
-    const formMetadata = {} as MetadataMap;
+    if (this.markLogoForDeletion && hasValue(this.dso.id)) {
+      this.dsoService.deleteLogo(this.dso).subscribe((response: RestResponse) => {
+        if (response.isSuccessful) {
+          this.notificationsService.success(
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.title'),
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.success.content')
+          );
+        } else {
+          const errorResponse = response as ErrorResponse;
+          this.notificationsService.error(
+            this.translate.get(this.type.value + '.edit.logo.notifications.delete.error.title'),
+            errorResponse.errorMessage
+          );
+        }
+        (this.dso as any).logo = undefined;
+        this.uploadFilesOptions.method = RestRequestMethod.POST;
+        this.refreshCache();
+        this.finish.emit();
+      });
+    }
+
+    const formMetadata = {}  as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
           value: fieldModel.value as string,
@@ -103,7 +210,11 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
       },
       type: Community.type
     });
-    this.submitForm.emit(updatedDSO);
+    this.submitForm.emit({
+      dso: updatedDSO,
+      uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
+      deleteLogo: this.markLogoForDeletion
+    });
   }
 
   /**
@@ -123,7 +234,59 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit {
     );
   }
 
+  /**
+   * Mark the logo to be deleted
+   * Send out a delete request to remove the logo from the community/collection and display notifications
+   */
+  deleteLogo() {
+    this.markLogoForDeletion = true;
+  }
+
+  /**
+   * Undo marking the logo to be deleted
+   */
+  undoDeleteLogo() {
+    this.markLogoForDeletion = false;
+  }
+
+  /**
+   * Refresh the object's cache to ensure the latest version
+   */
+  private refreshCache() {
+    this.requestService.removeByHrefSubstring(this.dso.self);
+    this.objectCache.remove(this.dso.self);
+  }
+
+  /**
+   * The request was successful, display a success notification
+   */
+  public onCompleteItem() {
+    this.refreshCache();
+    this.notificationsService.success(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.success'));
+    this.finish.emit();
+  }
+
+  /**
+   * The request was unsuccessful, display an error notification
+   */
+  public onUploadError() {
+    this.notificationsService.error(null, this.translate.get(this.type.value + '.edit.logo.notifications.add.error'));
+    this.finish.emit();
+  }
+
+  /**
+   * Cancel the form and return to the previous page
+   */
   onCancel() {
     this.location.back();
+  }
+
+  /**
+   * Unsubscribe from open subscriptions
+   */
+  ngOnDestroy(): void {
+    this.subs
+      .filter((subscription) => hasValue(subscription))
+      .forEach((subscription) => subscription.unsubscribe());
   }
 }

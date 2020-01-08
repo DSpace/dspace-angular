@@ -1,7 +1,19 @@
 import { Component, Input } from '@angular/core';
-import { DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+  DynamicTextAreaModel
+} from '@ng-dynamic-forms/core';
 import { Collection } from '../../core/shared/collection.model';
 import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
+import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { RequestService } from '../../core/data/request.service';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
 
 /**
  * Form used for creating and editing collections
@@ -20,7 +32,7 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
   /**
    * @type {Collection.type} This is a collection-type form
    */
-  protected type = Collection.type;
+  type = Collection.type;
 
   /**
    * The dynamic form fields used for creating/editing a collection
@@ -63,4 +75,15 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> {
       name: 'dc.description.provenance',
     }),
   ];
+
+  public constructor(protected location: Location,
+                     protected formService: DynamicFormService,
+                     protected translate: TranslateService,
+                     protected notificationsService: NotificationsService,
+                     protected authService: AuthService,
+                     protected dsoService: CommunityDataService,
+                     protected requestService: RequestService,
+                     protected objectCache: ObjectCacheService) {
+    super(location, formService, translate, notificationsService, authService, requestService, objectCache);
+  }
 }
