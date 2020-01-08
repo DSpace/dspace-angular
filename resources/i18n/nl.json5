@@ -972,88 +972,69 @@
 
 
   // "item.edit.reinstate.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.cancel": "Cancel",
+  "item.edit.reinstate.cancel": "Annuleer",
 
   // "item.edit.reinstate.confirm": "Reinstate",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.confirm": "Reinstate",
+   "item.edit.reinstate.confirm": "Zet terug",
 
   // "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.description": "Are you sure this item should be reinstated to the archive?",
+   "item.edit.reinstate.description": "Weet u zeker dat dit item weer teruggezet moet worden in het archief?",
 
   // "item.edit.reinstate.error": "An error occurred while reinstating the item",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.error": "An error occurred while reinstating the item",
+  "item.edit.reinstate.error": "Er is een fout opgetreden bij het terugzetten van het item",
 
   // "item.edit.reinstate.header": "Reinstate item: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.header": "Reinstate item: {{ id }}",
+  "item.edit.reinstate.header": "Zet item terug: {{ id }}",
 
   // "item.edit.reinstate.success": "The item was reinstated successfully",
-  // TODO New key - Add a translation
-  "item.edit.reinstate.success": "The item was reinstated successfully",
+  "item.edit.reinstate.success": "Het item is teruggezet",
 
 
 
   // "item.edit.relationships.discard-button": "Discard",
-  // TODO New key - Add a translation
-  "item.edit.relationships.discard-button": "Discard",
+  "item.edit.relationships.discard-button": "Annuleer",
 
   // "item.edit.relationships.edit.buttons.remove": "Remove",
-  // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.remove": "Remove",
+  "item.edit.relationships.edit.buttons.remove": "Verwijder",
 
   // "item.edit.relationships.edit.buttons.undo": "Undo changes",
-  // TODO New key - Add a translation
-  "item.edit.relationships.edit.buttons.undo": "Undo changes",
+   "item.edit.relationships.edit.buttons.undo": "Maak wijzigingen ongedaan",
 
   // "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+   "item.edit.relationships.notifications.discarded.content": "Uw wijzigingen zijn ongedaan gemaakt. Klik 'maak ongedaan' om ze weer terug te halen.",
 
   // "item.edit.relationships.notifications.discarded.title": "Changes discarded",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.discarded.title": "Changes discarded",
+  "item.edit.relationships.notifications.discarded.title": "Wijzingen geannuleerd",
 
   // "item.edit.relationships.notifications.failed.title": "Error deleting relationship",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.failed.title": "Error deleting relationship",
+  "item.edit.relationships.notifications.failed.title": "Er is een fout opgetreden bij het verwijderen van een relatie",
 
   // "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.outdated.content": "The item you're currently working on has been changed by another user. Your current changes are discarded to prevent conflicts",
+  "item.edit.relationships.notifications.outdated.content": "Het item waar u aan werkt is gewijzigd door een andere gebruiker. Uw huidige wijzigingen zijn ongedaan gemaakt om conflicten te voorkomen.",
 
   // "item.edit.relationships.notifications.outdated.title": "Changes outdated",
   // TODO New key - Add a translation
   "item.edit.relationships.notifications.outdated.title": "Changes outdated",
 
   // "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
+  "item.edit.relationships.notifications.saved.content": "Uw wijzingen in de relaties van dit item zijn opgeslagen.",
 
   // "item.edit.relationships.notifications.saved.title": "Relationships saved",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.saved.title": "Relationships saved",
+  "item.edit.relationships.notifications.saved.title": "Relaties opgeslagen",
 
   // "item.edit.relationships.reinstate-button": "Undo",
-  // TODO New key - Add a translation
-  "item.edit.relationships.reinstate-button": "Undo",
+  "item.edit.relationships.reinstate-button": "Maak ongedaan",
 
   // "item.edit.relationships.save-button": "Save",
-  // TODO New key - Add a translation
-  "item.edit.relationships.save-button": "Save",
+  "item.edit.relationships.save-button": "Opslaan",
 
 
 
   // "item.edit.tabs.bitstreams.head": "Item Bitstreams",
-  // TODO New key - Add a translation
-  "item.edit.tabs.bitstreams.head": "Item Bitstreams",
+  "item.edit.tabs.bitstreams.head": "Item bitstreams",
 
   // "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
-  // TODO New key - Add a translation
-  "item.edit.tabs.bitstreams.title": "Item Edit - Bitstreams",
+  "item.edit.tabs.bitstreams.title": "Item bewerken - Bitstreams",
 
   // "item.edit.tabs.curate.head": "Curate",
   // TODO New key - Add a translation
@@ -1064,146 +1045,112 @@
   "item.edit.tabs.curate.title": "Item Edit - Curate",
 
   // "item.edit.tabs.metadata.head": "Item Metadata",
-  // TODO New key - Add a translation
-  "item.edit.tabs.metadata.head": "Item Metadata",
+  "item.edit.tabs.metadata.head": "Item metadata",
 
   // "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
-  // TODO New key - Add a translation
-  "item.edit.tabs.metadata.title": "Item Edit -  Metadata",
+  "item.edit.tabs.metadata.title": "Item bewerken -  Metadata",
 
   // "item.edit.tabs.relationships.head": "Item Relationships",
-  // TODO New key - Add a translation
-  "item.edit.tabs.relationships.head": "Item Relationships",
+  "item.edit.tabs.relationships.head": "Item relaties",
 
   // "item.edit.tabs.relationships.title": "Item Edit - Relationships",
-  // TODO New key - Add a translation
-  "item.edit.tabs.relationships.title": "Item Edit - Relationships",
+  "item.edit.tabs.relationships.title": "Item bewerken - relaties",
 
   // "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
+  "item.edit.tabs.status.buttons.authorizations.button": "Autorisaties ..",
 
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
   // TODO New key - Add a translation
   "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
 
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
+  "item.edit.tabs.status.buttons.delete.button": "Permanent verwijderen",
 
   // "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.delete.label": "Completely expunge item",
+  "item.edit.tabs.status.buttons.delete.label": "Verwijderen het item geheel",
 
   // "item.edit.tabs.status.buttons.mappedCollections.button": "Mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.mappedCollections.button": "Mapped collections",
+  "item.edit.tabs.status.buttons.mappedCollections.button": "Gemapte collecties",
 
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
+  "item.edit.tabs.status.buttons.mappedCollections.label": "Beheer gemapte collecties",
 
   // "item.edit.tabs.status.buttons.move.button": "Move...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.move.button": "Move...",
+  "item.edit.tabs.status.buttons.move.button": "Verplaats ..",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
+  "item.edit.tabs.status.buttons.move.label": "Verplaats het item naar een andere collectie",
 
   // "item.edit.tabs.status.buttons.private.button": "Make it private...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.private.button": "Make it private...",
+  "item.edit.tabs.status.buttons.private.button": "Maak privé ...",
 
   // "item.edit.tabs.status.buttons.private.label": "Make item private",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.private.label": "Make item private",
+  "item.edit.tabs.status.buttons.private.label": "Maak het item privé",
 
   // "item.edit.tabs.status.buttons.public.button": "Make it public...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.public.button": "Make it public...",
+  "item.edit.tabs.status.buttons.public.button": "Maak openbaar ..",
 
   // "item.edit.tabs.status.buttons.public.label": "Make item public",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.public.label": "Make item public",
+  "item.edit.tabs.status.buttons.public.label": "Maak het item openbaar",
 
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
+  "item.edit.tabs.status.buttons.reinstate.button": "Zet terug ...",
 
   // "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.reinstate.label": "Reinstate item into the repository",
+  "item.edit.tabs.status.buttons.reinstate.label": "Zet het item terug in het repository",
 
   // "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.withdraw.button": "Withdraw...",
+  "item.edit.tabs.status.buttons.withdraw.button": "Trek terug ...",
 
   // "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.withdraw.label": "Withdraw item from the repository",
+  "item.edit.tabs.status.buttons.withdraw.label": "Trek het item terug uit het repository",
 
   // "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.description": "Welcome to the item management page. From here you can withdraw, reinstate, move or delete the item. You may also update or add new metadata / bitstreams on the other tabs.",
+  "item.edit.tabs.status.description": "Welkom op de itembeheerpagina. Hier kunt u het item terugtrekken, terugzetten, verplaatsen of verwijderen. Onder de andere tabbladen kunt u metadata / bitstreams bewerken of toevoegen.",
 
   // "item.edit.tabs.status.head": "Item Status",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.head": "Item Status",
+  "item.edit.tabs.status.head": "Item status",
 
   // "item.edit.tabs.status.labels.handle": "Handle",
-  // TODO New key - Add a translation
   "item.edit.tabs.status.labels.handle": "Handle",
 
   // "item.edit.tabs.status.labels.id": "Item Internal ID",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.id": "Item Internal ID",
+  "item.edit.tabs.status.labels.id": "Intern Item ID",
 
   // "item.edit.tabs.status.labels.itemPage": "Item Page",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.itemPage": "Item Page",
+  "item.edit.tabs.status.labels.itemPage": "Itempagina",
 
   // "item.edit.tabs.status.labels.lastModified": "Last Modified",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.labels.lastModified": "Last Modified",
+  "item.edit.tabs.status.labels.lastModified": "Laatst gewijzigd",
 
   // "item.edit.tabs.status.title": "Item Edit -  Status",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.title": "Item Edit -  Status",
+  "item.edit.tabs.status.title": "Item bewerken -  Status",
 
   // "item.edit.tabs.view.head": "View Item",
-  // TODO New key - Add a translation
-  "item.edit.tabs.view.head": "View Item",
+  "item.edit.tabs.view.head": "Bekijk het item",
 
   // "item.edit.tabs.view.title": "Item Edit -  View",
-  // TODO New key - Add a translation
-  "item.edit.tabs.view.title": "Item Edit -  View",
+  "item.edit.tabs.view.title": "Item bewerken -  Bekijk",
 
 
 
   // "item.edit.withdraw.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.cancel": "Cancel",
+  "item.edit.withdraw.cancel": "Annuleer",
 
   // "item.edit.withdraw.confirm": "Withdraw",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.confirm": "Withdraw",
+  "item.edit.withdraw.confirm": "Trek terug",
 
   // "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.description": "Are you sure this item should be withdrawn from the archive?",
+  "item.edit.withdraw.description": "Weet u zeker dat dit item uit het archief moet worden teruggetrokken?",
 
   // "item.edit.withdraw.error": "An error occurred while withdrawing the item",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.error": "An error occurred while withdrawing the item",
+  "item.edit.withdraw.error": "Er is een fout opgetreden bij het terugtrekken van het item",
 
   // "item.edit.withdraw.header": "Withdraw item: {{ id }}",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.header": "Withdraw item: {{ id }}",
+  "item.edit.withdraw.header": "Item terugtrekken: {{ id }}",
 
   // "item.edit.withdraw.success": "The item was withdrawn successfully",
-  // TODO New key - Add a translation
-  "item.edit.withdraw.success": "The item was withdrawn successfully",
+  "item.edit.withdraw.success": "Het item is teruggetrokken",
 
 
 
@@ -1214,8 +1161,7 @@
   "item.page.author": "Auteur",
 
   // "item.page.citation": "Citation",
-  // TODO New key - Add a translation
-  "item.page.citation": "Citation",
+  "item.page.citation": "Citeren als",
 
   // "item.page.collections": "Collections",
   "item.page.collections": "Collecties",
@@ -1227,27 +1173,22 @@
   "item.page.files": "Bestanden",
 
   // "item.page.filesection.description": "Description:",
-  // TODO New key - Add a translation
-  "item.page.filesection.description": "Description:",
+  "item.page.filesection.description": "Beschrijving:",
 
   // "item.page.filesection.download": "Download",
   "item.page.filesection.download": "Download",
 
   // "item.page.filesection.format": "Format:",
-  // TODO New key - Add a translation
-  "item.page.filesection.format": "Format:",
+  "item.page.filesection.format": "Formaat:",
 
   // "item.page.filesection.name": "Name:",
-  // TODO New key - Add a translation
-  "item.page.filesection.name": "Name:",
+  "item.page.filesection.name": "Naam:",
 
   // "item.page.filesection.size": "Size:",
-  // TODO New key - Add a translation
-  "item.page.filesection.size": "Size:",
+  "item.page.filesection.size": "Grootte:",
 
   // "item.page.journal.search.title": "Articles in this journal",
-  // TODO New key - Add a translation
-  "item.page.journal.search.title": "Articles in this journal",
+  "item.page.journal.search.title": "Artikelen in dit tijdschrift",
 
   // "item.page.link.full": "Full item page",
   "item.page.link.full": "Volledige itemweergave",
@@ -1256,20 +1197,16 @@
   "item.page.link.simple": "Eenvoudige itemweergave",
 
   // "item.page.person.search.title": "Articles by this author",
-  // TODO New key - Add a translation
-  "item.page.person.search.title": "Articles by this author",
+  "item.page.person.search.title": "Artikelen van deze auteur",
 
   // "item.page.related-items.view-more": "View more",
-  // TODO New key - Add a translation
-  "item.page.related-items.view-more": "View more",
+  "item.page.related-items.view-more": "Bekijk meer",
 
   // "item.page.related-items.view-less": "View less",
-  // TODO New key - Add a translation
-  "item.page.related-items.view-less": "View less",
+  "item.page.related-items.view-less": "Bekijk minder",
 
   // "item.page.subject": "Keywords",
-  // TODO New key - Add a translation
-  "item.page.subject": "Keywords",
+  "item.page.subject": "Trefwoorden",
 
   // "item.page.uri": "URI",
   "item.page.uri": "URI",
@@ -1277,114 +1214,88 @@
 
 
   // "item.select.confirm": "Confirm selected",
-  // TODO New key - Add a translation
-  "item.select.confirm": "Confirm selected",
+  "item.select.confirm": "Bevestig selectie",
 
   // "item.select.empty": "No items to show",
-  // TODO New key - Add a translation
-  "item.select.empty": "No items to show",
+  "item.select.empty": "Geen items om te tonen",
 
   // "item.select.table.author": "Author",
-  // TODO New key - Add a translation
-  "item.select.table.author": "Author",
+  "item.select.table.author": "Auteur",
 
   // "item.select.table.collection": "Collection",
-  // TODO New key - Add a translation
-  "item.select.table.collection": "Collection",
+  "item.select.table.collection": "Collectie",
 
   // "item.select.table.title": "Title",
-  // TODO New key - Add a translation
-  "item.select.table.title": "Title",
+  "item.select.table.title": "Titel",
 
 
 
   // "journal.listelement.badge": "Journal",
-  // TODO New key - Add a translation
-  "journal.listelement.badge": "Journal",
+  "journal.listelement.badge": "Tijdschrift",
 
   // "journal.page.description": "Description",
-  // TODO New key - Add a translation
-  "journal.page.description": "Description",
+  "journal.page.description": "Beschrijving",
 
   // "journal.page.editor": "Editor-in-Chief",
-  // TODO New key - Add a translation
-  "journal.page.editor": "Editor-in-Chief",
+  "journal.page.editor": "Hoofdredacteur",
 
   // "journal.page.issn": "ISSN",
-  // TODO New key - Add a translation
   "journal.page.issn": "ISSN",
 
   // "journal.page.publisher": "Publisher",
-  // TODO New key - Add a translation
-  "journal.page.publisher": "Publisher",
+  "journal.page.publisher": "Uitgever",
 
   // "journal.page.titleprefix": "Journal: ",
-  // TODO New key - Add a translation
-  "journal.page.titleprefix": "Journal: ",
+  "journal.page.titleprefix": "Tijdschrift: ",
 
   // "journal.search.results.head": "Journal Search Results",
-  // TODO New key - Add a translation
-  "journal.search.results.head": "Journal Search Results",
+   "journal.search.results.head": "Tijdschrift zoekresultaten",
 
   // "journal.search.title": "DSpace Angular :: Journal Search",
-  // TODO New key - Add a translation
-  "journal.search.title": "DSpace Angular :: Journal Search",
+  "journal.search.title": "DSpace Angular :: Tijdschrift zoeken",
 
 
 
   // "journalissue.listelement.badge": "Journal Issue",
-  // TODO New key - Add a translation
-  "journalissue.listelement.badge": "Journal Issue",
+  "journalissue.listelement.badge": "Tijdschrift aflevering",
 
   // "journalissue.page.description": "Description",
-  // TODO New key - Add a translation
-  "journalissue.page.description": "Description",
+  "journalissue.page.description": "Beschrijving",
 
   // "journalissue.page.issuedate": "Issue Date",
-  // TODO New key - Add a translation
-  "journalissue.page.issuedate": "Issue Date",
+  "journalissue.page.issuedate": "Datum van uitgave",
 
   // "journalissue.page.journal-issn": "Journal ISSN",
-  // TODO New key - Add a translation
-  "journalissue.page.journal-issn": "Journal ISSN",
+  "journalissue.page.journal-issn": "Tijdschrift ISSN",
 
   // "journalissue.page.journal-title": "Journal Title",
-  // TODO New key - Add a translation
-  "journalissue.page.journal-title": "Journal Title",
+  "journalissue.page.journal-title": "Tijdschrifttitel",
 
   // "journalissue.page.keyword": "Keywords",
-  // TODO New key - Add a translation
-  "journalissue.page.keyword": "Keywords",
+  "journalissue.page.keyword": "Trefwoorden",
 
   // "journalissue.page.number": "Number",
-  // TODO New key - Add a translation
-  "journalissue.page.number": "Number",
+  "journalissue.page.number": "Nummer",
 
   // "journalissue.page.titleprefix": "Journal Issue: ",
-  // TODO New key - Add a translation
-  "journalissue.page.titleprefix": "Journal Issue: ",
+  "journalissue.page.titleprefix": "Tijdschriftaflevering: ",
 
 
 
   // "journalvolume.listelement.badge": "Journal Volume",
-  // TODO New key - Add a translation
-  "journalvolume.listelement.badge": "Journal Volume",
+  "journalvolume.listelement.badge": "Tijdschriftjaargang",
 
   // "journalvolume.page.description": "Description",
-  // TODO New key - Add a translation
-  "journalvolume.page.description": "Description",
+  "journalvolume.page.description": "Beschrijving",
 
   // "journalvolume.page.issuedate": "Issue Date",
-  // TODO New key - Add a translation
-  "journalvolume.page.issuedate": "Issue Date",
+  "journalvolume.page.issuedate": "Datum van uitgave",
 
   // "journalvolume.page.titleprefix": "Journal Volume: ",
-  // TODO New key - Add a translation
-  "journalvolume.page.titleprefix": "Journal Volume: ",
+  "journalvolume.page.titleprefix": "Tijdschriftjaargang: ",
 
   // "journalvolume.page.volume": "Volume",
-  // TODO New key - Add a translation
-  "journalvolume.page.volume": "Volume",
+  "journalvolume.page.volume": "Jaargang",
 
 
 
@@ -1392,15 +1303,13 @@
   "loading.browse-by": "Items worden ingeladen...",
 
   // "loading.browse-by-page": "Loading page...",
-  // TODO New key - Add a translation
-  "loading.browse-by-page": "Loading page...",
+  "loading.browse-by-page": "Pagina wordt ingeladen...",
 
   // "loading.collection": "Loading collection...",
   "loading.collection": "Collectie wordt ingeladen...",
 
   // "loading.collections": "Loading collections...",
-  // TODO New key - Add a translation
-  "loading.collections": "Loading collections...",
+  "loading.collections": "Collecties worden ingeladen...",
 
   // "loading.community": "Loading community...",
   "loading.community": "Community wordt ingeladen...",
@@ -1412,12 +1321,10 @@
   "loading.item": "Item wordt ingeladen...",
 
   // "loading.items": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.items": "Loading items...",
+  "loading.items": "Items worden ingeladen...",
 
   // "loading.mydspace-results": "Loading items...",
-  // TODO New key - Add a translation
-  "loading.mydspace-results": "Loading items...",
+  "loading.mydspace-results": "Items worden ingeladen...",
 
   // "loading.objects": "Loading...",
   "loading.objects": "Laden...",
@@ -1432,11 +1339,10 @@
   "loading.sub-collections": "De sub-collecties worden ingeladen...",
 
   // "loading.sub-communities": "Loading sub-communities...",
-  // TODO New key - Add a translation
-  "loading.sub-communities": "Loading sub-communities...",
+  "loading.sub-communities": "De sub-communities worden ingeladen...",
 
   // "loading.top-level-communities": "Loading top-level communities...",
-  "loading.top-level-communities": "Inladen van de Communities op het hoogste niveau...",
+  "loading.top-level-communities": "Inladen van de communities op het hoogste niveau...",
 
 
 
@@ -1475,78 +1381,61 @@
 
 
   // "menu.header.admin": "Admin",
-  // TODO New key - Add a translation
-  "menu.header.admin": "Admin",
+  "menu.header.admin": "Beheer",
 
   // "menu.header.image.logo": "Repository logo",
-  // TODO New key - Add a translation
-  "menu.header.image.logo": "Repository logo",
+   "menu.header.image.logo": "Repository logo",
 
 
 
   // "menu.section.access_control": "Access Control",
-  // TODO New key - Add a translation
-  "menu.section.access_control": "Access Control",
+   "menu.section.access_control": "Toegangscontrole",
 
   // "menu.section.access_control_authorizations": "Authorizations",
-  // TODO New key - Add a translation
-  "menu.section.access_control_authorizations": "Authorizations",
+  "menu.section.access_control_authorizations": "Autorisaties",
 
   // "menu.section.access_control_groups": "Groups",
-  // TODO New key - Add a translation
-  "menu.section.access_control_groups": "Groups",
+  "menu.section.access_control_groups": "Groepen",
 
   // "menu.section.access_control_people": "People",
-  // TODO New key - Add a translation
-  "menu.section.access_control_people": "People",
+  "menu.section.access_control_people": "Personen",
 
 
 
   // "menu.section.browse_community": "This Community",
-  // TODO New key - Add a translation
-  "menu.section.browse_community": "This Community",
+  "menu.section.browse_community": "Deze community",
 
   // "menu.section.browse_community_by_author": "By Author",
-  // TODO New key - Add a translation
-  "menu.section.browse_community_by_author": "By Author",
+  "menu.section.browse_community_by_author": "Op auteur",
 
   // "menu.section.browse_community_by_issue_date": "By Issue Date",
-  // TODO New key - Add a translation
-  "menu.section.browse_community_by_issue_date": "By Issue Date",
+  "menu.section.browse_community_by_issue_date": "Op datum van uitgave",
 
   // "menu.section.browse_community_by_title": "By Title",
-  // TODO New key - Add a translation
-  "menu.section.browse_community_by_title": "By Title",
+  "menu.section.browse_community_by_title": "Op titel",
 
   // "menu.section.browse_global": "All of DSpace",
-  // TODO New key - Add a translation
-  "menu.section.browse_global": "All of DSpace",
+  "menu.section.browse_global": "Heel DSpace",
 
   // "menu.section.browse_global_by_author": "By Author",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_author": "By Author",
+  "menu.section.browse_global_by_author": "Op auteur",
 
   // "menu.section.browse_global_by_dateissued": "By Issue Date",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_dateissued": "By Issue Date",
+  "menu.section.browse_global_by_dateissued": "Op datum van uitgave",
 
   // "menu.section.browse_global_by_subject": "By Subject",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_subject": "By Subject",
+  "menu.section.browse_global_by_subject": "Op onderwerp",
 
   // "menu.section.browse_global_by_title": "By Title",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_by_title": "By Title",
+  "menu.section.browse_global_by_title": "Op titel",
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
-  // TODO New key - Add a translation
-  "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+  "menu.section.browse_global_communities_and_collections": "Communities & Collecties",
 
 
 
   // "menu.section.control_panel": "Control Panel",
-  // TODO New key - Add a translation
-  "menu.section.control_panel": "Control Panel",
+   "menu.section.control_panel": "Controlepaneel",
 
   // "menu.section.curation_task": "Curation Task",
   // TODO New key - Add a translation
@@ -1555,180 +1444,141 @@
 
 
   // "menu.section.edit": "Edit",
-  // TODO New key - Add a translation
-  "menu.section.edit": "Edit",
+  "menu.section.edit": "Bewerk",
 
   // "menu.section.edit_collection": "Collection",
-  // TODO New key - Add a translation
-  "menu.section.edit_collection": "Collection",
+  "menu.section.edit_collection": "Collectie",
 
   // "menu.section.edit_community": "Community",
-  // TODO New key - Add a translation
   "menu.section.edit_community": "Community",
 
   // "menu.section.edit_item": "Item",
-  // TODO New key - Add a translation
   "menu.section.edit_item": "Item",
 
 
 
   // "menu.section.export": "Export",
-  // TODO New key - Add a translation
-  "menu.section.export": "Export",
+  "menu.section.export": "Exporteer",
 
   // "menu.section.export_collection": "Collection",
-  // TODO New key - Add a translation
-  "menu.section.export_collection": "Collection",
+  "menu.section.export_collection": "Collectie",
 
   // "menu.section.export_community": "Community",
-  // TODO New key - Add a translation
   "menu.section.export_community": "Community",
 
   // "menu.section.export_item": "Item",
-  // TODO New key - Add a translation
   "menu.section.export_item": "Item",
 
   // "menu.section.export_metadata": "Metadata",
-  // TODO New key - Add a translation
-  "menu.section.export_metadata": "Metadata",
+   "menu.section.export_metadata": "Metadata",
 
 
 
   // "menu.section.find": "Find",
-  // TODO New key - Add a translation
-  "menu.section.find": "Find",
+   "menu.section.find": "Vind",
 
   // "menu.section.find_items": "Items",
-  // TODO New key - Add a translation
   "menu.section.find_items": "Items",
 
   // "menu.section.find_private_items": "Private Items",
-  // TODO New key - Add a translation
-  "menu.section.find_private_items": "Private Items",
+  "menu.section.find_private_items": "Privé items",
 
   // "menu.section.find_withdrawn_items": "Withdrawn Items",
-  // TODO New key - Add a translation
-  "menu.section.find_withdrawn_items": "Withdrawn Items",
+  "menu.section.find_withdrawn_items": "Teruggetrokken items",
 
 
 
   // "menu.section.icon.access_control": "Access Control menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.access_control": "Access Control menu section",
+  "menu.section.icon.access_control": "Menusectie toegangscontrole",
 
   // "menu.section.icon.control_panel": "Control Panel menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.control_panel": "Control Panel menu section",
+  "menu.section.icon.control_panel": "Menusectie controlepaneel",
 
   // "menu.section.icon.curation_task": "Curation Task menu section",
   // TODO New key - Add a translation
   "menu.section.icon.curation_task": "Curation Task menu section",
 
   // "menu.section.icon.edit": "Edit menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.edit": "Edit menu section",
+  "menu.section.icon.edit": "Menusectie bewerkingen",
 
   // "menu.section.icon.export": "Export menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.export": "Export menu section",
+  "menu.section.icon.export": "Menusectie export",
 
   // "menu.section.icon.find": "Find menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.find": "Find menu section",
+  "menu.section.icon.find": "Menusectie vinden",
 
   // "menu.section.icon.import": "Import menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.import": "Import menu section",
+  "menu.section.icon.import": "Menusectie import",
 
   // "menu.section.icon.new": "New menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.new": "New menu section",
+   "menu.section.icon.new": "Menusectie nieuw",
 
   // "menu.section.icon.pin": "Pin sidebar",
-  // TODO New key - Add a translation
-  "menu.section.icon.pin": "Pin sidebar",
+  "menu.section.icon.pin": "Zijbalk vastzetten",
 
   // "menu.section.icon.registries": "Registries menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.registries": "Registries menu section",
+  "menu.section.icon.registries": "Menusectie registers",
 
   // "menu.section.icon.statistics_task": "Statistics Task menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.statistics_task": "Statistics Task menu section",
+  "menu.section.icon.statistics_task": "Menusectie statistiektaken",
 
   // "menu.section.icon.unpin": "Unpin sidebar",
-  // TODO New key - Add a translation
-  "menu.section.icon.unpin": "Unpin sidebar",
+  "menu.section.icon.unpin": "Zijbalk losmaken",
 
 
 
   // "menu.section.import": "Import",
-  // TODO New key - Add a translation
   "menu.section.import": "Import",
 
   // "menu.section.import_batch": "Batch Import (ZIP)",
-  // TODO New key - Add a translation
-  "menu.section.import_batch": "Batch Import (ZIP)",
+  "menu.section.import_batch": "Batch import (ZIP)",
 
   // "menu.section.import_metadata": "Metadata",
-  // TODO New key - Add a translation
   "menu.section.import_metadata": "Metadata",
 
 
 
   // "menu.section.new": "New",
-  // TODO New key - Add a translation
-  "menu.section.new": "New",
+  "menu.section.new": "Nieuw",
 
   // "menu.section.new_collection": "Collection",
-  // TODO New key - Add a translation
-  "menu.section.new_collection": "Collection",
+  "menu.section.new_collection": "Collectie",
 
   // "menu.section.new_community": "Community",
-  // TODO New key - Add a translation
   "menu.section.new_community": "Community",
 
   // "menu.section.new_item": "Item",
-  // TODO New key - Add a translation
   "menu.section.new_item": "Item",
 
   // "menu.section.new_item_version": "Item Version",
-  // TODO New key - Add a translation
-  "menu.section.new_item_version": "Item Version",
+  "menu.section.new_item_version": "Item versie",
 
 
 
   // "menu.section.pin": "Pin sidebar",
-  // TODO New key - Add a translation
-  "menu.section.pin": "Pin sidebar",
+  "menu.section.pin": "Zijbalk vastzetten",
 
   // "menu.section.unpin": "Unpin sidebar",
-  // TODO New key - Add a translation
-  "menu.section.unpin": "Unpin sidebar",
+   "menu.section.unpin": "Zijbalk losmaken",
 
 
 
   // "menu.section.registries": "Registries",
-  // TODO New key - Add a translation
-  "menu.section.registries": "Registries",
+  "menu.section.registries": "Registers",
 
   // "menu.section.registries_format": "Format",
-  // TODO New key - Add a translation
-  "menu.section.registries_format": "Format",
+  "menu.section.registries_format": "Formaten",
 
   // "menu.section.registries_metadata": "Metadata",
-  // TODO New key - Add a translation
   "menu.section.registries_metadata": "Metadata",
 
 
 
   // "menu.section.statistics": "Statistics",
-  // TODO New key - Add a translation
-  "menu.section.statistics": "Statistics",
+  "menu.section.statistics": "Statistieken",
 
   // "menu.section.statistics_task": "Statistics Task",
-  // TODO New key - Add a translation
-  "menu.section.statistics_task": "Statistics Task",
+   "menu.section.statistics_task": "Statistiektaken",
 
 
 
@@ -1779,60 +1629,48 @@
   "mydspace.description": "",
 
   // "mydspace.general.text-here": "HERE",
-  // TODO New key - Add a translation
-  "mydspace.general.text-here": "HERE",
+  "mydspace.general.text-here": "HIER",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
   // TODO New key - Add a translation
   "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
 
   // "mydspace.messages.description-placeholder": "Insert your message here...",
-  // TODO New key - Add a translation
-  "mydspace.messages.description-placeholder": "Insert your message here...",
+  "mydspace.messages.description-placeholder": " Vul hier uw bericht in...",
 
   // "mydspace.messages.hide-msg": "Hide message",
-  // TODO New key - Add a translation
-  "mydspace.messages.hide-msg": "Hide message",
+   "mydspace.messages.hide-msg": "Verberg bericht",
 
   // "mydspace.messages.mark-as-read": "Mark as read",
-  // TODO New key - Add a translation
-  "mydspace.messages.mark-as-read": "Mark as read",
+  "mydspace.messages.mark-as-read": "Markeer als gelezen",
 
   // "mydspace.messages.mark-as-unread": "Mark as unread",
-  // TODO New key - Add a translation
-  "mydspace.messages.mark-as-unread": "Mark as unread",
+  "mydspace.messages.mark-as-unread": "Markeer als ongelezen",
 
   // "mydspace.messages.no-content": "No content.",
-  // TODO New key - Add a translation
-  "mydspace.messages.no-content": "No content.",
+  "mydspace.messages.no-content": "Geen inhoud.",
 
   // "mydspace.messages.no-messages": "No messages yet.",
-  // TODO New key - Add a translation
-  "mydspace.messages.no-messages": "No messages yet.",
+  "mydspace.messages.no-messages": "Nog geen berichten.",
 
   // "mydspace.messages.send-btn": "Send",
-  // TODO New key - Add a translation
-  "mydspace.messages.send-btn": "Send",
+  "mydspace.messages.send-btn": "Verstuur",
 
   // "mydspace.messages.show-msg": "Show message",
-  // TODO New key - Add a translation
-  "mydspace.messages.show-msg": "Show message",
+  "mydspace.messages.show-msg": "Toon bericht",
 
   // "mydspace.messages.subject-placeholder": "Subject...",
-  // TODO New key - Add a translation
-  "mydspace.messages.subject-placeholder": "Subject...",
+  "mydspace.messages.subject-placeholder": "Onderwerp...",
 
   // "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
   // TODO New key - Add a translation
   "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
 
   // "mydspace.messages.title": "Messages",
-  // TODO New key - Add a translation
-  "mydspace.messages.title": "Messages",
+  "mydspace.messages.title": "Berichten",
 
   // "mydspace.messages.to": "To",
-  // TODO New key - Add a translation
-  "mydspace.messages.to": "To",
+  "mydspace.messages.to": "Aan",
 
   // "mydspace.new-submission": "New submission",
   // TODO New key - Add a translation
@@ -1843,67 +1681,54 @@
   "mydspace.results.head": "Your submissions",
 
   // "mydspace.results.no-abstract": "No Abstract",
-  // TODO New key - Add a translation
-  "mydspace.results.no-abstract": "No Abstract",
+  "mydspace.results.no-abstract": "Geen abstract",
 
   // "mydspace.results.no-authors": "No Authors",
-  // TODO New key - Add a translation
-  "mydspace.results.no-authors": "No Authors",
+   "mydspace.results.no-authors": "Geen auteurs",
 
   // "mydspace.results.no-collections": "No Collections",
-  // TODO New key - Add a translation
-  "mydspace.results.no-collections": "No Collections",
+  "mydspace.results.no-collections": "Geen collecties",
 
   // "mydspace.results.no-date": "No Date",
-  // TODO New key - Add a translation
-  "mydspace.results.no-date": "No Date",
+  "mydspace.results.no-date": "Geen datum",
 
   // "mydspace.results.no-files": "No Files",
-  // TODO New key - Add a translation
-  "mydspace.results.no-files": "No Files",
+  "mydspace.results.no-files": "Geen bestanden",
 
   // "mydspace.results.no-results": "There were no items to show",
-  // TODO New key - Add a translation
-  "mydspace.results.no-results": "There were no items to show",
+  "mydspace.results.no-results": "Er zijn geen items om getoond te worden",
 
   // "mydspace.results.no-title": "No title",
-  // TODO New key - Add a translation
-  "mydspace.results.no-title": "No title",
+  "mydspace.results.no-title": "Geen titel",
 
   // "mydspace.results.no-uri": "No Uri",
-  // TODO New key - Add a translation
-  "mydspace.results.no-uri": "No Uri",
+  "mydspace.results.no-uri": "Geen URI",
 
   // "mydspace.show.workflow": "All tasks",
-  // TODO New key - Add a translation
-  "mydspace.show.workflow": "All tasks",
+  "mydspace.show.workflow": "Alle taken",
 
   // "mydspace.show.workspace": "Your Submissions",
   // TODO New key - Add a translation
   "mydspace.show.workspace": "Your Submissions",
 
   // "mydspace.status.archived": "Archived",
-  // TODO New key - Add a translation
-  "mydspace.status.archived": "Archived",
+  "mydspace.status.archived": "Opgeslagen",
 
   // "mydspace.status.validation": "Validation",
-  // TODO New key - Add a translation
-  "mydspace.status.validation": "Validation",
+  "mydspace.status.validation": "Validatie",
 
   // "mydspace.status.waiting-for-controller": "Waiting for controller",
   // TODO New key - Add a translation
   "mydspace.status.waiting-for-controller": "Waiting for controller",
 
   // "mydspace.status.workflow": "Workflow",
-  // TODO New key - Add a translation
-  "mydspace.status.workflow": "Workflow",
+   "mydspace.status.workflow": "Workflow",
 
   // "mydspace.status.workspace": "Workspace",
   // TODO New key - Add a translation
   "mydspace.status.workspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
-  // TODO New key - Add a translation
   "mydspace.title": "MyDSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
@@ -1919,18 +1744,15 @@
   "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
 
   // "mydspace.view-btn": "View",
-  // TODO New key - Add a translation
-  "mydspace.view-btn": "View",
+  "mydspace.view-btn": "Bekijk",
 
 
 
   // "nav.browse.header": "All of DSpace",
-  // TODO New key - Add a translation
-  "nav.browse.header": "All of DSpace",
+  "nav.browse.header": "Heel DSpace",
 
   // "nav.community-browse.header": "By Community",
-  // TODO New key - Add a translation
-  "nav.community-browse.header": "By Community",
+  "nav.community-browse.header": "Per community",
 
   // "nav.language": "Language switch",
   // TODO New key - Add a translation
@@ -1943,46 +1765,37 @@
   "nav.logout": "Log Uit",
 
   // "nav.mydspace": "MyDSpace",
-  // TODO New key - Add a translation
   "nav.mydspace": "MyDSpace",
 
   // "nav.search": "Search",
-  // TODO New key - Add a translation
-  "nav.search": "Search",
+  "nav.search": "Zoek",
 
   // "nav.statistics.header": "Statistics",
-  // TODO New key - Add a translation
-  "nav.statistics.header": "Statistics",
+  "nav.statistics.header": "Statistieken",
 
 
 
   // "orgunit.listelement.badge": "Organizational Unit",
-  // TODO New key - Add a translation
-  "orgunit.listelement.badge": "Organizational Unit",
+  "orgunit.listelement.badge": "Organisatie-onderdeel",
 
   // "orgunit.page.city": "City",
-  // TODO New key - Add a translation
-  "orgunit.page.city": "City",
+  "orgunit.page.city": "Plaats",
 
   // "orgunit.page.country": "Country",
-  // TODO New key - Add a translation
-  "orgunit.page.country": "Country",
+  "orgunit.page.country": "Land",
 
   // "orgunit.page.dateestablished": "Date established",
   // TODO New key - Add a translation
   "orgunit.page.dateestablished": "Date established",
 
   // "orgunit.page.description": "Description",
-  // TODO New key - Add a translation
-  "orgunit.page.description": "Description",
+  "orgunit.page.description": "Beschrijving",
 
   // "orgunit.page.id": "ID",
-  // TODO New key - Add a translation
   "orgunit.page.id": "ID",
 
   // "orgunit.page.titleprefix": "Organizational Unit: ",
-  // TODO New key - Add a translation
-  "orgunit.page.titleprefix": "Organizational Unit: ",
+  "orgunit.page.titleprefix": "Organisatie-onderdeel: ",
 
 
 
@@ -2001,35 +1814,27 @@
 
 
   // "person.listelement.badge": "Person",
-  // TODO New key - Add a translation
-  "person.listelement.badge": "Person",
+  "person.listelement.badge": "Persoon",
 
   // "person.page.birthdate": "Birth Date",
-  // TODO New key - Add a translation
-  "person.page.birthdate": "Birth Date",
+  "person.page.birthdate": "Geboortedatum",
 
   // "person.page.email": "Email Address",
-  // TODO New key - Add a translation
-  "person.page.email": "Email Address",
+  "person.page.email": "Emailadres",
 
   // "person.page.firstname": "First Name",
-  // TODO New key - Add a translation
-  "person.page.firstname": "First Name",
+  "person.page.firstname": "Voornaam",
 
   // "person.page.jobtitle": "Job Title",
-  // TODO New key - Add a translation
-  "person.page.jobtitle": "Job Title",
+  "person.page.jobtitle": "Functie",
 
   // "person.page.lastname": "Last Name",
-  // TODO New key - Add a translation
-  "person.page.lastname": "Last Name",
+  "person.page.lastname": "Achternaam",
 
   // "person.page.link.full": "Show all metadata",
-  // TODO New key - Add a translation
-  "person.page.link.full": "Show all metadata",
+  "person.page.link.full": "Toon alle metadata",
 
   // "person.page.orcid": "ORCID",
-  // TODO New key - Add a translation
   "person.page.orcid": "ORCID",
 
   // "person.page.staffid": "Staff ID",
@@ -2037,8 +1842,7 @@
   "person.page.staffid": "Staff ID",
 
   // "person.page.titleprefix": "Person: ",
-  // TODO New key - Add a translation
-  "person.page.titleprefix": "Person: ",
+  "person.page.titleprefix": "Persoon: ",
 
   // "person.search.results.head": "Person Search Results",
   // TODO New key - Add a translation
@@ -2051,128 +1855,101 @@
 
 
   // "project.listelement.badge": "Research Project",
-  // TODO New key - Add a translation
-  "project.listelement.badge": "Research Project",
+  "project.listelement.badge": "Onderzoeksproject",
 
   // "project.page.contributor": "Contributors",
   // TODO New key - Add a translation
   "project.page.contributor": "Contributors",
 
   // "project.page.description": "Description",
-  // TODO New key - Add a translation
-  "project.page.description": "Description",
+  "project.page.description": "Beschrijving",
 
   // "project.page.expectedcompletion": "Expected Completion",
-  // TODO New key - Add a translation
-  "project.page.expectedcompletion": "Expected Completion",
+  "project.page.expectedcompletion": "Verwachte afronding",
 
   // "project.page.funder": "Funders",
   // TODO New key - Add a translation
   "project.page.funder": "Funders",
 
   // "project.page.id": "ID",
-  // TODO New key - Add a translation
   "project.page.id": "ID",
 
   // "project.page.keyword": "Keywords",
-  // TODO New key - Add a translation
-  "project.page.keyword": "Keywords",
+  "project.page.keyword": "Trefwoorden",
 
   // "project.page.status": "Status",
-  // TODO New key - Add a translation
   "project.page.status": "Status",
 
   // "project.page.titleprefix": "Research Project: ",
-  // TODO New key - Add a translation
-  "project.page.titleprefix": "Research Project: ",
+  "project.page.titleprefix": "Onderzoeksproject: ",
 
 
 
   // "publication.listelement.badge": "Publication",
-  // TODO New key - Add a translation
-  "publication.listelement.badge": "Publication",
+  "publication.listelement.badge": "Publicatie",
 
   // "publication.page.description": "Description",
-  // TODO New key - Add a translation
-  "publication.page.description": "Description",
+  "publication.page.description": "Beschrijving",
 
   // "publication.page.journal-issn": "Journal ISSN",
-  // TODO New key - Add a translation
-  "publication.page.journal-issn": "Journal ISSN",
+  "publication.page.journal-issn": "Tijdschrift ISSN",
 
   // "publication.page.journal-title": "Journal Title",
-  // TODO New key - Add a translation
-  "publication.page.journal-title": "Journal Title",
+  "publication.page.journal-title": "Tijdschrifttitel",
 
   // "publication.page.publisher": "Publisher",
-  // TODO New key - Add a translation
-  "publication.page.publisher": "Publisher",
+  "publication.page.publisher": "Uitgever",
 
   // "publication.page.titleprefix": "Publication: ",
-  // TODO New key - Add a translation
-  "publication.page.titleprefix": "Publication: ",
+  "publication.page.titleprefix": "Publicatie: ",
 
   // "publication.page.volume-title": "Volume Title",
   // TODO New key - Add a translation
   "publication.page.volume-title": "Volume Title",
 
   // "publication.search.results.head": "Publication Search Results",
-  // TODO New key - Add a translation
-  "publication.search.results.head": "Publication Search Results",
+  "publication.search.results.head": "Publicatie zoekresultaten",
 
   // "publication.search.title": "DSpace Angular :: Publication Search",
-  // TODO New key - Add a translation
-  "publication.search.title": "DSpace Angular :: Publication Search",
+  "publication.search.title": "DSpace Angular :: Publicatie zoeken",
 
 
 
   // "relationships.isAuthorOf": "Authors",
-  // TODO New key - Add a translation
-  "relationships.isAuthorOf": "Authors",
+  "relationships.isAuthorOf": "Auteurs",
 
   // "relationships.isIssueOf": "Journal Issues",
-  // TODO New key - Add a translation
-  "relationships.isIssueOf": "Journal Issues",
+  "relationships.isIssueOf": "Tijdschriftafleveringen",
 
   // "relationships.isJournalIssueOf": "Journal Issue",
-  // TODO New key - Add a translation
-  "relationships.isJournalIssueOf": "Journal Issue",
+  "relationships.isJournalIssueOf": "Tijdschriftaflevering",
 
   // "relationships.isJournalOf": "Journals",
-  // TODO New key - Add a translation
-  "relationships.isJournalOf": "Journals",
+  "relationships.isJournalOf": "Tijdschriften",
 
   // "relationships.isOrgUnitOf": "Organizational Units",
-  // TODO New key - Add a translation
-  "relationships.isOrgUnitOf": "Organizational Units",
+  "relationships.isOrgUnitOf": "Organisatie-onderdelen",
 
   // "relationships.isPersonOf": "Authors",
-  // TODO New key - Add a translation
-  "relationships.isPersonOf": "Authors",
+  "relationships.isPersonOf": "Auteurs",
 
   // "relationships.isProjectOf": "Research Projects",
-  // TODO New key - Add a translation
-  "relationships.isProjectOf": "Research Projects",
+  "relationships.isProjectOf": "Onderzoeksprojecten",
 
   // "relationships.isPublicationOf": "Publications",
-  // TODO New key - Add a translation
-  "relationships.isPublicationOf": "Publications",
+  "relationships.isPublicationOf": "Publicaties",
 
   // "relationships.isPublicationOfJournalIssue": "Articles",
-  // TODO New key - Add a translation
-  "relationships.isPublicationOfJournalIssue": "Articles",
+  "relationships.isPublicationOfJournalIssue": "Artikelen",
 
   // "relationships.isSingleJournalOf": "Journal",
-  // TODO New key - Add a translation
-  "relationships.isSingleJournalOf": "Journal",
+  "relationships.isSingleJournalOf": "Tijdschrift",
 
   // "relationships.isSingleVolumeOf": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isSingleVolumeOf": "Journal Volume",
+  "relationships.isSingleVolumeOf": "Tijdschriftjaargang",
 
   // "relationships.isVolumeOf": "Journal Volumes",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf": "Journal Volumes",
+  "relationships.isVolumeOf": "Tijdschriftjaargangen",
 
 
 
@@ -2180,8 +1957,7 @@
   "search.description": "",
 
   // "search.switch-configuration.title": "Show",
-  // TODO New key - Add a translation
-  "search.switch-configuration.title": "Show",
+  "search.switch-configuration.title": "Toon",
 
   // "search.title": "DSpace Angular :: Search",
   "search.title": "DSpace Angular :: Zoek",
@@ -2202,22 +1978,19 @@
   "search.filters.applied.f.dateSubmitted": "Date submitted",
 
   // "search.filters.applied.f.entityType": "Item Type",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.entityType": "Item Type",
+  "search.filters.applied.f.entityType": "Soort item",
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
   "search.filters.applied.f.has_content_in_original_bundle": "Heeft bestanden",
 
   // "search.filters.applied.f.itemtype": "Type",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.itemtype": "Type",
+   "search.filters.applied.f.itemtype": "Type",
 
   // "search.filters.applied.f.namedresourcetype": "Status",
-  // TODO New key - Add a translation
   "search.filters.applied.f.namedresourcetype": "Status",
 
   // "search.filters.applied.f.subject": "Subject",
-  "search.filters.applied.f.subject": "Sleutelwoord",
+  "search.filters.applied.f.subject": "Onderwerp",
 
   // "search.filters.applied.f.submitter": "Submitter",
   // TODO New key - Add a translation
@@ -2232,44 +2005,34 @@
   "search.filters.filter.author.placeholder": "Auteursnaam",
 
   // "search.filters.filter.birthDate.head": "Birth Date",
-  // TODO New key - Add a translation
-  "search.filters.filter.birthDate.head": "Birth Date",
+  "search.filters.filter.birthDate.head": "Geboortedatum",
 
   // "search.filters.filter.birthDate.placeholder": "Birth Date",
-  // TODO New key - Add a translation
-  "search.filters.filter.birthDate.placeholder": "Birth Date",
+  "search.filters.filter.birthDate.placeholder": "Geboortedatum",
 
   // "search.filters.filter.creativeDatePublished.head": "Date Published",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.head": "Date Published",
+  "search.filters.filter.creativeDatePublished.head": "Datum van uitgave",
 
   // "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.placeholder": "Date Published",
+  "search.filters.filter.creativeDatePublished.placeholder": "Datum van uitgave",
 
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.head": "Editor",
+  "search.filters.filter.creativeWorkEditor.head": "Redacteur",
 
   // "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
+  "search.filters.filter.creativeWorkEditor.placeholder": "Redacteur",
 
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.head": "Subject",
+  "search.filters.filter.creativeWorkKeywords.head": "Onderwerp",
 
   // "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkKeywords.placeholder": "Subject",
+  "search.filters.filter.creativeWorkKeywords.placeholder": "Onderwerp",
 
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkPublisher.head": "Publisher",
+  "search.filters.filter.creativeWorkPublisher.head": "Uitgever",
 
   // "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeWorkPublisher.placeholder": "Publisher",
+  "search.filters.filter.creativeWorkPublisher.placeholder": "Uitgever",
 
   // "search.filters.filter.dateIssued.head": "Date",
   "search.filters.filter.dateIssued.head": "Datum",
@@ -2289,31 +2052,25 @@
   "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
 
   // "search.filters.filter.entityType.head": "Item Type",
-  // TODO New key - Add a translation
-  "search.filters.filter.entityType.head": "Item Type",
+  "search.filters.filter.entityType.head": "Soort item",
 
   // "search.filters.filter.entityType.placeholder": "Item Type",
-  // TODO New key - Add a translation
-  "search.filters.filter.entityType.placeholder": "Item Type",
+  "search.filters.filter.entityType.placeholder": "Soort item",
 
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   "search.filters.filter.has_content_in_original_bundle.head": "Heeft bestanden",
 
   // "search.filters.filter.itemtype.head": "Type",
-  // TODO New key - Add a translation
   "search.filters.filter.itemtype.head": "Type",
 
   // "search.filters.filter.itemtype.placeholder": "Type",
-  // TODO New key - Add a translation
   "search.filters.filter.itemtype.placeholder": "Type",
 
   // "search.filters.filter.jobTitle.head": "Job Title",
-  // TODO New key - Add a translation
-  "search.filters.filter.jobTitle.head": "Job Title",
+  "search.filters.filter.jobTitle.head": "Functienaam",
 
   // "search.filters.filter.jobTitle.placeholder": "Job Title",
-  // TODO New key - Add a translation
-  "search.filters.filter.jobTitle.placeholder": "Job Title",
+  "search.filters.filter.jobTitle.placeholder": "Functienaam",
 
   // "search.filters.filter.knowsLanguage.head": "Known language",
   // TODO New key - Add a translation
@@ -2324,36 +2081,28 @@
   "search.filters.filter.knowsLanguage.placeholder": "Known language",
 
   // "search.filters.filter.namedresourcetype.head": "Status",
-  // TODO New key - Add a translation
   "search.filters.filter.namedresourcetype.head": "Status",
 
   // "search.filters.filter.namedresourcetype.placeholder": "Status",
-  // TODO New key - Add a translation
   "search.filters.filter.namedresourcetype.placeholder": "Status",
 
   // "search.filters.filter.objectpeople.head": "People",
-  // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.head": "People",
+  "search.filters.filter.objectpeople.head": "Personen",
 
   // "search.filters.filter.objectpeople.placeholder": "People",
-  // TODO New key - Add a translation
-  "search.filters.filter.objectpeople.placeholder": "People",
+  "search.filters.filter.objectpeople.placeholder": "Personen",
 
   // "search.filters.filter.organizationAddressCountry.head": "Country",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.head": "Country",
+  "search.filters.filter.organizationAddressCountry.head": "Land",
 
   // "search.filters.filter.organizationAddressCountry.placeholder": "Country",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressCountry.placeholder": "Country",
+  "search.filters.filter.organizationAddressCountry.placeholder": "Land",
 
   // "search.filters.filter.organizationAddressLocality.head": "City",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.head": "City",
+  "search.filters.filter.organizationAddressLocality.head": "Plaats",
 
   // "search.filters.filter.organizationAddressLocality.placeholder": "City",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationAddressLocality.placeholder": "City",
+  "search.filters.filter.organizationAddressLocality.placeholder": "Plaats",
 
   // "search.filters.filter.organizationFoundingDate.head": "Date Founded",
   // TODO New key - Add a translation
@@ -2428,7 +2177,7 @@
   "search.sidebar.filters.title": "Filters",
 
   // "search.sidebar.open": "Search Tools",
-  "search.sidebar.open": "Zoek Tools",
+  "search.sidebar.open": "Zoekmogelijkheden",
 
   // "search.sidebar.results": "results",
   "search.sidebar.results": "resultaten",
