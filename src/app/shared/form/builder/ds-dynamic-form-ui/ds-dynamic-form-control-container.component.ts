@@ -343,6 +343,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.item = this.item;
   }
 
+  /**
+   * Method to move a relationship inside the list of relationships
+   * This will update the view and update the right or left place field of the relationships in the list
+   * @param event
+   */
   moveSelection(event: CdkDragDrop<Relationship>) {
     this.zone.runOutsideAngular(() => {
       moveItemInArray(this.reorderables, event.previousIndex, event.currentIndex);

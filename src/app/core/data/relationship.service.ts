@@ -390,6 +390,11 @@ export class RelationshipService extends DataService<Relationship> {
     return update$
   }
 
+  /**
+   * Method to update the the right or left place of a relationship
+   * The useLeftItem field in the reorderable relationship determines which place should be updated
+   * @param reoRel
+   */
   public updatePlace(reoRel: ReorderableRelationship): Observable<RemoteData<Relationship>> {
     let updatedRelationship;
     if (reoRel.useLeftItem) {
