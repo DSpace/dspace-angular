@@ -99,6 +99,7 @@ export class AuthEffects {
       return this.authService.checkAuthenticationCookie().pipe(
         map((response: AuthStatus) => {
           if (response.authenticated) {
+            this.authService.storeToken(response.token);
             return new AuthenticatedAction(response.token);
           } else {
             return new RetrieveAuthMethodsAction(response);
