@@ -1,6 +1,6 @@
 import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
 
 import { of as observableOf } from 'rxjs';
@@ -14,6 +14,7 @@ import { getMockTranslateService } from '../../shared/mocks/mock-translate.servi
 import { RouterStub } from '../../shared/testing/router-stub';
 import { mockSubmissionObject } from '../../shared/mocks/mock-submission';
 import { SubmissionSubmitComponent } from './submission-submit.component';
+import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 
 describe('SubmissionSubmitComponent Component', () => {
 
@@ -39,6 +40,7 @@ describe('SubmissionSubmitComponent Component', () => {
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         ViewContainerRef
       ],
       schemas: [NO_ERRORS_SCHEMA]

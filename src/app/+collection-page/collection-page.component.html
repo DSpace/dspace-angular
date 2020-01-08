@@ -32,6 +32,13 @@
                 </ds-comcol-page-content>
 
               </header>
+
+              <div class="add">
+                <a class="btn btn-lg btn-primary mt-1 ml-2" [routerLink]="['/submit']" [queryParams]="{collection:collection.id}" role="button">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> {{'mydspace.new-submission' | translate}}
+                </a>
+              </div>
+
               <section class="comcol-page-browse-section">
               <!-- Browse-By Links -->
               <ds-comcol-page-browse-by

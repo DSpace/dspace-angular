@@ -109,11 +109,13 @@ export class SubmissionService {
   /**
    * Perform a REST call to create a new workspaceitem and return response
    *
+   * @param collectionId
+   *    The owning collection id
    * @return Observable<SubmissionObject>
    *    observable of SubmissionObject
    */
-  createSubmission(): Observable<SubmissionObject> {
-    return this.restService.postToEndpoint(this.workspaceLinkPath, {}).pipe(
+  createSubmission(collectionId?: string): Observable<SubmissionObject> {
+    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
       map((workspaceitem: SubmissionObject) => workspaceitem[0]),
       catchError(() => observableOf({})))
   }
