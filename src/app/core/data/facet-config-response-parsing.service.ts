@@ -7,7 +7,7 @@ import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { SearchFilterConfig } from '../../+search-page/search-service/search-filter-config.model';
+import { SearchFilterConfig } from '../../shared/search/search-filter-config.model';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';

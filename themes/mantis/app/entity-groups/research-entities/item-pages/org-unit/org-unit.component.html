@@ -1,0 +1,81 @@
+<div class="top-item-page">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
+                <ds-metadata-field-wrapper>
+                    <ds-thumbnail [thumbnail]="object.getThumbnail() | async"
+                                  [defaultImage]="'assets/images/orgunit-placeholder.svg'"></ds-thumbnail>
+                </ds-metadata-field-wrapper>
+                <div>
+                    <a class="btn btn-secondary"
+                       [routerLink]="['/items/' + object.id + '/full']">
+                        {{"item.page.link.full" | translate}}
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-md-10">
+                <h2 class="item-page-title-field">
+                  {{'orgunit.page.titleprefix' | translate}}
+                    <ds-metadata-values
+                            [mdValues]="object?.allMetadata(['organization.legalName'])"></ds-metadata-values>
+                </h2>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <ds-generic-item-page-field [item]="object"
+                                                    [fields]="['organization.address.addressLocality']"
+                                                    [label]="'orgunit.page.city'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="object"
+                                                    [fields]="['organization.adress.addressCountry']"
+                                                    [label]="'orgunit.page.country'">
+                        </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="object"
+                                                    [fields]="['dc.identifier']"
+                                                    [label]="'orgunit.page.id'">
+                        </ds-generic-item-page-field>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <ds-generic-item-page-field [item]="object"
+                                                  [fields]="['organization.foundingDate']"
+                                                  [label]="'orgunit.page.dateestablished'">
+                      </ds-generic-item-page-field>
+                        <ds-generic-item-page-field [item]="object"
+                                                    [fields]="['dc.description']"
+                                                    [label]="'orgunit.page.description'">
+                        </ds-generic-item-page-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relationships-item-page">
+    <div class="container">
+        <div class="row">
+            <ds-related-items
+              class="col-12 col-md-4"
+              [parentItem]="object"
+              [relationType]="'isPublicationOfOrgUnit'"
+              [label]="'relationships.isPublicationOf' | translate">
+            </ds-related-items>
+        </div>
+    </div>
+</div>
+<div class="container">
+  <div class="row">
+    <ds-tabbed-related-entities-search  class="w-100"
+                                        [item]="object"
+                                        [relationTypes]="[{
+                                            label: 'isOrgUnitOfPerson',
+                                            filter: 'isOrgUnitOfPerson',
+                                            configuration: 'person'
+                                          },
+                                          {
+                                            label: 'isOrgUnitOfProject',
+                                            filter: 'isOrgUnitOfProject',
+                                            configuration: 'project'
+                                          }]">
+    </ds-tabbed-related-entities-search>
+  </div>
+</div>

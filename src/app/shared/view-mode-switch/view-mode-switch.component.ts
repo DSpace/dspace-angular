@@ -2,9 +2,11 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../empty.util';
+import { currentPath } from '../utils/route.utils';
+import { Router } from '@angular/router';
 
 /**
  * Component to switch between list and grid views.
@@ -33,7 +35,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
   viewModeEnum = ViewMode;
   private sub: Subscription;
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private router: Router) {
   }
 
   /**
@@ -76,7 +78,7 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
    */
   public getSearchLink(): string {
     if (this.inPlaceSearch) {
-      return './';
+      return currentPath(this.router);
     }
     return this.searchService.getSearchLink();
   }

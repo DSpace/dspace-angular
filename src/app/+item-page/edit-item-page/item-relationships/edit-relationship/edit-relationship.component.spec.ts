@@ -12,8 +12,6 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Store} from '@ngrx/store';
-import {CoreState} from '../../../../core/core.reducers';
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';
@@ -95,9 +93,11 @@ describe('EditRelationshipComponent', () => {
     itemSelection[relatedItem.uuid] = false;
     itemSelection[item.uuid] = true;
 
-    const store = new Store<CoreState>(undefined, undefined, undefined);
-
-    objectUpdatesService = new ObjectUpdatesService(store);
+    objectUpdatesService = {
+      isSelectedVirtualMetadata: () => null,
+      removeSingleFieldUpdate: () => null,
+      saveRemoveFieldUpdate: () => null,
+    };
 
     spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
 
@@ -178,18 +178,18 @@ describe('EditRelationshipComponent', () => {
     });
 
     it('should close the virtual metadata modal and call saveRemoveFieldUpdate with the correct arguments', () => {
-      expect(comp.closeVirtualMetadataModal).toHaveBeenCalled();
-      expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(url, Object.assign({}, fieldUpdate1.field, {
-        keepLeftVirtualMetadata: false,
-        keepRightVirtualMetadata: true,
-      }));
+      fixture.whenStable(() => {
+        expect(comp.closeVirtualMetadataModal).toHaveBeenCalled();
+        expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(url, Object.assign({}, fieldUpdate1.field, {
+          keepLeftVirtualMetadata: false,
+          keepRightVirtualMetadata: true,
+        }));
+      });
     });
-
   });
 
   describe('undo', () => {
     beforeEach(() => {
-      spyOn(objectUpdatesService, 'removeSingleFieldUpdate');
       comp.undo();
       comp.ngOnChanges();
     });
@@ -197,7 +197,8 @@ describe('EditRelationshipComponent', () => {
     it('should call removeSingleFieldUpdate with the correct arguments', () => {
 
       fixture.whenStable().then(() => {
-        expect(objectUpdatesService.removeSingleFieldUpdate).toHaveBeenCalledWith(url, fieldUpdate1[0]);
+        expect(spyOn(objectUpdatesService, 'removeSingleFieldUpdate'))
+          .toHaveBeenCalledWith(url, fieldUpdate1[0]);
       })
     });
   });

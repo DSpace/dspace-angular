@@ -1,0 +1,18 @@
+<div>
+    <div id="sidebar-options" class="d-block d-md-none search-controls clearfix">
+        <small class="results">{{resultCount}} {{"search.sidebar.results" | translate}}</small>
+        <button (click)="toggleSidebar.emit()"
+                aria-controls="#search-body"
+                class="btn btn-outline-primary float-right close-sidebar"><i
+                class="fas fa-arrow-right" [title]="'search.sidebar.close' | translate"></i> {{"search.sidebar.close" | translate}}
+        </button>
+    </div>
+    <div id="search-sidebar-content">
+        <ds-view-mode-switch *ngIf="showViewModes" [viewModeList]="viewModeList" class="d-none d-md-block"></ds-view-mode-switch>
+        <div class="sidebar-content">
+            <ds-search-switch-configuration [inPlaceSearch]="inPlaceSearch" *ngIf="configurationList" [configurationList]="configurationList"></ds-search-switch-configuration>
+            <ds-search-filters [inPlaceSearch]="inPlaceSearch"></ds-search-filters>
+            <ds-search-settings></ds-search-settings>
+        </div>
+    </div>
+</div>

@@ -19,23 +19,24 @@
          (fileOver)="fileOverBase($event)"
          class="well ds-base-drop-zone mt-1 mb-3 text-muted">
       <p class="text-center m-0 p-0 d-flex justify-content-center align-items-center" *ngIf="uploader?.queue?.length === 0">
-        <span><i class="fas fa-cloud-upload" aria-hidden="true"></i> {{dropMsg | translate}} {{'uploader.or' | translate}}
-          <label class="btn btn-link m-0 p-0">
-            <input class="d-none" type="file" ng2FileSelect [uploader]="uploader" multiple  />
-            {{'uploader.browse' | translate}}
-          </label>
-        </span>
+        <span><i class="fas fa-cloud-upload" aria-hidden="true"></i> {{dropMsg | translate}} {{'uploader.or' | translate}}</span>
+        <label class="btn btn-link m-0 p-0 ml-1">
+          <input class="d-none" type="file" ng2FileSelect [uploader]="uploader" multiple  />
+          {{'uploader.browse' | translate}}
+        </label>
       </p>
       <div *ngIf="(isOverBaseDropZone | async) || uploader?.queue?.length !== 0">
         <div class="m-1">
           <div class="upload-item-top">
-            <span class="filename">{{'uploader.queue-length' | translate}}: {{ uploader?.queue?.length }} | {{ uploader?.queue[0]?.file.name }}</span>
+            <span class="filename">
+              <span *ngIf="!uploader.options.disableMultipart">{{'uploader.queue-length' | translate}}: {{ uploader?.queue?.length }} | </span>{{ uploader?.queue[0]?.file.name }}
+            </span>
             <div class="btn-group btn-group-sm float-right" role="group">
               <button type="button" class="btn btn-danger" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>
-            <span *ngIf="uploader.progress < 100" class="float-right mr-3">{{ uploader.progress }}%</span>
+            <span *ngIf="uploader.progress < 100 && !(uploader.progress === 0 && !uploader.options.autoUpload)" class="float-right mr-3">{{ uploader.progress }}%</span>
             <span *ngIf="uploader.progress === 100" class="float-right mr-3">{{'uploader.processing' | translate}}...</span>
           </div>
           <div class="ds-base-drop-zone-progress clearfix mt-2">

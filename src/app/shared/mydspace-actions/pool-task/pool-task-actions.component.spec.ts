@@ -18,9 +18,9 @@ import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
 import { getMockRequestService } from '../../mocks/mock-request.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockSearchService } from '../../mocks/mock-search-service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: PoolTaskActionsComponent;
 let fixture: ComponentFixture<PoolTaskActionsComponent>;

@@ -5,7 +5,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 /**
  * Class that represents a metadata schema
  */
-export class MetadataSchema implements ListableObject {
+export class MetadataSchema extends ListableObject {
   static type = new ResourceType('metadataschema');
 
   /**

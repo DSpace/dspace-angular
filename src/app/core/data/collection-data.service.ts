@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { FindAllOptions, GetRequest } from './request.models';
+import {FindListOptions, FindListRequest, GetRequest} from './request.models';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { configureRequest } from '../shared/operators';
@@ -25,8 +25,8 @@ import { ResponseParsingService } from './parsing.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { SearchParam } from '../cache/models/search-param.model';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
@@ -50,11 +50,11 @@ export class CollectionDataService extends ComColDataService<Collection> {
   /**
    * Get all collections the user is authorized to submit to
    *
-   * @param options The [[FindAllOptions]] object
+   * @param options The [[FindListOptions]] object
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollection(options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+  getAuthorizedCollection(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorized';
 
     return this.searchBy(searchHref, options).pipe(
@@ -65,13 +65,15 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Get all collections the user is authorized to submit to, by community
    *
    * @param communityId The community id
-   * @param options The [[FindAllOptions]] object
+   * @param options The [[FindListOptions]] object
    * @return Observable<RemoteData<PaginatedList<Collection>>>
    *    collection list
    */
-  getAuthorizedCollectionByCommunity(communityId: string, options: FindAllOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
+  getAuthorizedCollectionByCommunity(communityId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunity';
-    options.searchParams = [new SearchParam('uuid', communityId)];
+    options = Object.assign({}, options, {
+      searchParams: [new SearchParam('uuid', communityId)]
+    });
 
     return this.searchBy(searchHref, options).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
@@ -85,7 +87,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    */
   hasAuthorizedCollection(): Observable<boolean> {
     const searchHref = 'findAuthorized';
-    const options = new FindAllOptions();
+    const options = new FindListOptions();
     options.elementsPerPage = 1;
 
     return this.searchBy(searchHref, options).pipe(
@@ -136,4 +138,10 @@ export class CollectionDataService extends ComColDataService<Collection> {
     return this.rdbService.buildList(href$);
   }
 
+  protected getFindByParentHref(parentUUID: string): Observable<string> {
+    return this.halService.getEndpoint('communities').pipe(
+      switchMap((communityEndpointHref: string) =>
+        this.halService.getEndpoint('collections', `${communityEndpointHref}/${parentUUID}`)),
+    );
+  }
 }

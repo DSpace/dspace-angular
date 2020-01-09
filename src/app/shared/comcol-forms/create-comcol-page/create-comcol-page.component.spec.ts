@@ -11,11 +11,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { CreateComColPageComponent } from './create-comcol-page.component';
-import { DataService } from '../../../core/data/data.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$
 } from '../../testing/utils';
+import { ComColDataService } from '../../../core/data/comcol-data.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
 
 describe('CreateComColPageComponent', () => {
   let comp: CreateComColPageComponent<DSpaceObject>;
@@ -30,6 +32,8 @@ describe('CreateComColPageComponent', () => {
   let communityDataServiceStub;
   let routeServiceStub;
   let routerStub;
+
+  const logoEndpoint = 'rest/api/logo/endpoint';
 
   function initializeVars() {
     community = Object.assign(new Community(), {
@@ -56,8 +60,8 @@ describe('CreateComColPageComponent', () => {
           value: community.name
         }]
       })),
-      create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity)
-
+      create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
+      getLogoEndpoint: () => observableOf(logoEndpoint)
     };
 
     routeServiceStub = {
@@ -74,10 +78,11 @@ describe('CreateComColPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       providers: [
-        { provide: DataService, useValue: communityDataServiceStub },
+        { provide: ComColDataService, useValue: communityDataServiceStub },
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: RouteService, useValue: routeServiceStub },
         { provide: Router, useValue: routerStub },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -86,6 +91,7 @@ describe('CreateComColPageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateComColPageComponent);
     comp = fixture.componentInstance;
+    (comp as any).type = Community.type;
     fixture.detectChanges();
     dsoDataService = (comp as any).dsoDataService;
     communityDataService = (comp as any).communityDataService;
@@ -95,27 +101,86 @@ describe('CreateComColPageComponent', () => {
 
   describe('onSubmit', () => {
     let data;
-    beforeEach(() => {
-      data = Object.assign(new Community(), {
-        metadata: [{
-          key: 'dc.title',
-          value: 'test'
-        }]
+
+    describe('with an empty queue in the uploader', () => {
+      beforeEach(() => {
+        data = {
+          dso: Object.assign(new Community(), {
+            metadata: [{
+              key: 'dc.title',
+              value: 'test'
+            }]
+          }),
+          uploader: {
+            options: {
+              url: ''
+            },
+            queue: [],
+            /* tslint:disable:no-empty */
+            uploadAll: () => {}
+            /* tslint:enable:no-empty */
+          }
+        };
+      });
+
+      it('should navigate when successful', () => {
+        spyOn(router, 'navigate');
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(router.navigate).toHaveBeenCalled();
+      });
+
+      it('should not navigate on failure', () => {
+        spyOn(router, 'navigate');
+        spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(router.navigate).not.toHaveBeenCalled();
       });
     });
-    it('should navigate when successful', () => {
-      spyOn(router, 'navigate');
-      comp.onSubmit(data);
-      fixture.detectChanges();
-      expect(router.navigate).toHaveBeenCalled();
-    });
 
-    it('should not navigate on failure', () => {
-      spyOn(router, 'navigate');
-      spyOn(dsoDataService, 'create').and.returnValue(createFailedRemoteDataObject$(newCommunity));
-      comp.onSubmit(data);
-      fixture.detectChanges();
-      expect(router.navigate).not.toHaveBeenCalled();
+    describe('with at least one item in the uploader\'s queue', () => {
+      beforeEach(() => {
+        data = {
+          dso: Object.assign(new Community(), {
+            metadata: [{
+              key: 'dc.title',
+              value: 'test'
+            }]
+          }),
+          uploader: {
+            options: {
+              url: ''
+            },
+            queue: [
+              {}
+            ],
+            /* tslint:disable:no-empty */
+            uploadAll: () => {}
+            /* tslint:enable:no-empty */
+          }
+        };
+      });
+
+      it('should not navigate', () => {
+        spyOn(router, 'navigate');
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(router.navigate).not.toHaveBeenCalled();
+      });
+
+      it('should set the uploader\'s url to the logo\'s endpoint', () => {
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(data.uploader.options.url).toEqual(logoEndpoint);
+      });
+
+      it('should call the uploader\'s uploadAll', () => {
+        spyOn(data.uploader, 'uploadAll');
+        comp.onSubmit(data);
+        fixture.detectChanges();
+        expect(data.uploader.uploadAll).toHaveBeenCalled();
+      });
     });
   });
 });

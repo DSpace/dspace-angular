@@ -26,6 +26,9 @@ import { MetadataRepresentationListComponent } from './simple/metadata-represent
 import { RelatedEntitiesSearchComponent } from './simple/related-entities/related-entities-search/related-entities-search.component';
 import { MetadataValuesComponent } from './field-components/metadata-values/metadata-values.component';
 import { MetadataFieldWrapperComponent } from './field-components/metadata-field-wrapper/metadata-field-wrapper.component';
+import { TabbedRelatedEntitiesSearchComponent } from './simple/related-entities/tabbed-related-entities-search/tabbed-related-entities-search.component';
+import { StatisticsModule } from '../statistics/statistics.module';
+import { AbstractIncrementalListComponent } from './simple/abstract-incremental-list/abstract-incremental-list.component';
 
 @NgModule({
   imports: [
@@ -33,7 +36,8 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
     SharedModule,
     ItemPageRoutingModule,
     EditItemPageModule,
-    SearchPageModule
+    SearchPageModule,
+    StatisticsModule.forRoot()
   ],
   declarations: [
     ItemPageComponent,
@@ -53,7 +57,9 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
     ItemComponent,
     GenericItemPageFieldComponent,
     MetadataRepresentationListComponent,
-    RelatedEntitiesSearchComponent
+    RelatedEntitiesSearchComponent,
+    TabbedRelatedEntitiesSearchComponent,
+    AbstractIncrementalListComponent
   ],
   exports: [
     ItemComponent,
@@ -63,7 +69,8 @@ import { MetadataFieldWrapperComponent } from './field-components/metadata-field
     RelatedEntitiesSearchComponent,
     RelatedItemsComponent,
     MetadataRepresentationListComponent,
-    ItemPageTitleFieldComponent
+    ItemPageTitleFieldComponent,
+    TabbedRelatedEntitiesSearchComponent
   ],
   entryComponents: [
     PublicationComponent

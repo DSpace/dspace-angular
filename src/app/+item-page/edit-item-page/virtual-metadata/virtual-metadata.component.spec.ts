@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {of as observableOf} from 'rxjs/internal/observable/of';
 import {TranslateModule} from '@ngx-translate/core';
 import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
@@ -8,7 +8,7 @@ import {Item} from '../../../core/shared/item.model';
 import {ObjectUpdatesService} from '../../../core/data/object-updates/object-updates.service';
 import {VarDirective} from '../../../shared/utils/var.directive';
 
-fdescribe('VirtualMetadataComponent', () => {
+describe('VirtualMetadataComponent', () => {
 
   let comp: VirtualMetadataComponent;
   let fixture: ComponentFixture<VirtualMetadataComponent>;
@@ -50,6 +50,7 @@ fdescribe('VirtualMetadataComponent', () => {
         NO_ERRORS_SCHEMA
       ]
     }).compileComponents();
+
     fixture = TestBed.createComponent(VirtualMetadataComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;

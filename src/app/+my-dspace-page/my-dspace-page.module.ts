@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 
 import { MyDspacePageRoutingModule } from './my-dspace-page-routing.module';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
-import { SearchPageModule } from '../+search-page/search-page.module';
 import { MyDSpaceResultsComponent } from './my-dspace-results/my-dspace-results.component';
 import { WorkspaceItemSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/workspace-item-search-result/workspace-item-search-result-list-element.component';
 import { ClaimedSearchResultListElementComponent } from '../shared/object-list/my-dspace-result-list-element/claimed-search-result/claimed-search-result-list-element.component';
@@ -27,7 +26,6 @@ import { PoolSearchResultDetailElementComponent } from '../shared/object-detail/
     CommonModule,
     SharedModule,
     MyDspacePageRoutingModule,
-    SearchPageModule
   ],
   declarations: [
     MyDSpacePageComponent,

@@ -16,43 +16,54 @@ import {
 describe('MenuService', () => {
   let service: MenuService;
   let selectSpy;
-  const store = Object.assign(observableOf({}), {
-    dispatch: () => {/***/
-    }
-  }) as any;
-  const fakeMenu = {
-    id: MenuID.ADMIN,
-    collapsed: true,
-    visible: false,
-    previewCollapsed: true
-  } as any;
-  const visibleSection1 = {
-    id: 'section',
-    visible: true,
-    active: false
-  };
-  const visibleSection2 = {
-    id: 'section_2',
-    visible: true
-  };
-  const hiddenSection3 = {
-    id: 'section_3',
-    visible: false
-  };
-  const subSection4 = {
-    id: 'section_4',
-    visible: true,
-    parentID: 'section1'
-  };
+  let store;
+  let fakeMenu;
+  let visibleSection1;
+  let visibleSection2;
+  let hiddenSection3;
+  let subSection4;
+  let topSections;
 
-  const topSections = {
-    section: visibleSection1,
-    section_2: visibleSection2,
-    section_3: hiddenSection3,
-    section_4: subSection4
-  };
+  function init() {
+    store = Object.assign(observableOf({}), {
+      dispatch: () => {/***/
+      }
+    }) as any;
+    fakeMenu = {
+      id: MenuID.ADMIN,
+      collapsed: true,
+      visible: false,
+      previewCollapsed: true
+    } as any;
+    visibleSection1 = {
+      id: 'section',
+      visible: true,
+      active: false
+    };
+    visibleSection2 = {
+      id: 'section_2',
+      visible: true
+    };
+    hiddenSection3 = {
+      id: 'section_3',
+      visible: false
+    };
+    subSection4 = {
+      id: 'section_4',
+      visible: true,
+      parentID: 'section1'
+    };
+
+    topSections = {
+      section: visibleSection1,
+      section_2: visibleSection2,
+      section_3: hiddenSection3,
+      section_4: subSection4
+    };
+  }
 
   beforeEach(async(() => {
+    init();
     TestBed.configureTestingModule({
       providers: [
         { provide: Store, useValue: store },

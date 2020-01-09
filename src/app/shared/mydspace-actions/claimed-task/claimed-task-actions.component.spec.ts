@@ -17,11 +17,10 @@ import { ClaimedTaskActionsComponent } from './claimed-task-actions.component';
 import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
-import { CoreModule } from '../../../core/core.module';
 import { getMockSearchService } from '../../mocks/mock-search-service';
 import { getMockRequestService } from '../../mocks/mock-request.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: ClaimedTaskActionsComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsComponent>;
@@ -30,52 +29,67 @@ let mockObject: ClaimedTask;
 let notificationsServiceStub: NotificationsServiceStub;
 let router: RouterStub;
 
-const mockDataService = jasmine.createSpyObj('ClaimedTaskDataService', {
-  approveTask: jasmine.createSpy('approveTask'),
-  rejectTask: jasmine.createSpy('rejectTask'),
-  returnToPoolTask: jasmine.createSpy('returnToPoolTask'),
-});
+let mockDataService;
 
-const searchService = getMockSearchService();
+let searchService;
 
-const requestServce = getMockRequestService();
+let requestServce;
 
-const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
-  metadata: {
-    'dc.title': [
-      {
-        language: 'en_US',
-        value: 'This is just another title'
-      }
-    ],
-    'dc.type': [
-      {
-        language: null,
-        value: 'Article'
-      }
-    ],
-    'dc.contributor.author': [
-      {
-        language: 'en_US',
-        value: 'Smith, Donald'
-      }
-    ],
-    'dc.date.issued': [
-      {
-        language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
-});
-const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
-const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
+let item;
+let rdItem;
+let workflowitem;
+let rdWorkflowitem;
+
+function init() {
+  mockDataService = jasmine.createSpyObj('ClaimedTaskDataService', {
+    approveTask: jasmine.createSpy('approveTask'),
+    rejectTask: jasmine.createSpy('rejectTask'),
+    returnToPoolTask: jasmine.createSpy('returnToPoolTask'),
+  });
+
+  searchService = getMockSearchService();
+
+  requestServce = getMockRequestService();
+
+  item = Object.assign(new Item(), {
+    bundles: observableOf({}),
+    metadata: {
+      'dc.title': [
+        {
+          language: 'en_US',
+          value: 'This is just another title'
+        }
+      ],
+      'dc.type': [
+        {
+          language: null,
+          value: 'Article'
+        }
+      ],
+      'dc.contributor.author': [
+        {
+          language: 'en_US',
+          value: 'Smith, Donald'
+        }
+      ],
+      'dc.date.issued': [
+        {
+          language: null,
+          value: '2015-06-26'
+        }
+      ]
+    }
+  });
+  rdItem = createSuccessfulRemoteDataObject(item);
+  workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+  rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
+  mockObject = Object.assign(new ClaimedTask(), { workflowitem: observableOf(rdWorkflowitem), id: '1234' });
+
+}
 
 describe('ClaimedTaskActionsComponent', () => {
   beforeEach(async(() => {
+    init();
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
