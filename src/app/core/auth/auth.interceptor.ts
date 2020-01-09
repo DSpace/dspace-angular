@@ -68,16 +68,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   /**
-   * Check if http request is to authn login endpoint
-   *
-   * @param http
-   */
-  private isLoginRequest(http: HttpRequest<any> | HttpResponseBase): boolean {
-    return http && http.url
-      && (http.url.endsWith('/authn/login'));
-  }
-
-  /**
    * Check if response is from a login request
    *
    * @param http
@@ -238,7 +228,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // Clone the request to add the new header.
       newReq = req.clone({headers: req.headers.set('authorization', Authorization)});
     } else {
-      const updateReq = this.isLoginRequest(req) ? { withCredentials: true } : {};
+      const updateReq = this.isAuthRequest(req) ? { withCredentials: true } : {};
       newReq = req.clone(updateReq);
     }
 
