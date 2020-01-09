@@ -238,7 +238,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // Clone the request to add the new header.
       newReq = req.clone({headers: req.headers.set('authorization', Authorization)});
     } else {
-      const updateReq = this.isLoginRequest(req) ? { withCredentials: true } : null;
+      const updateReq = this.isLoginRequest(req) ? { withCredentials: true } : {};
       newReq = req.clone(updateReq);
     }
 
