@@ -51,7 +51,7 @@ export abstract class FieldParser {
         label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
         notRepeatable: !this.configData.repeatable,
-        hasRelationship: isNotEmpty(this.configData.selectableRelationship),
+        relationshipConfig: this.configData.selectableRelationship,
         required: isNotEmpty(this.configData.mandatory),
         submissionId: this.submissionId,
         metadataKey,

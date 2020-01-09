@@ -260,7 +260,7 @@ describe('FormBuilderService test suite', () => {
           id: 'testFormRowArray',
           initialCount: 5,
           notRepeatable: false,
-          hasRelationship: false,
+          relationshipConfig: undefined,
           submissionId: '1234',
           groupFactory: () => {
             return [

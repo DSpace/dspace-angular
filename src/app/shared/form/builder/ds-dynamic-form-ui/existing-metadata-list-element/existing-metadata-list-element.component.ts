@@ -125,6 +125,7 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
   @Input() reoRel: ReorderableRelationship;
   @Input() metadataFields: string[];
   @Input() relationshipOptions: RelationshipOptions;
+  @Input() submissionId: string;
   metadataRepresentation: MetadataRepresentation;
   relatedItem: Item;
 
@@ -161,7 +162,7 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
 
   removeSelection() {
     this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem }));
-    this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem, this.relationshipOptions.relationshipType))
+    this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem, this.relationshipOptions.relationshipType, this.submissionId))
   }
 
   /**

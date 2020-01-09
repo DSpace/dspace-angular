@@ -37,4 +37,8 @@ export class DsDynamicFormComponent extends DynamicFormComponent {
   constructor(protected formService: FormBuilderService, protected layoutService: DynamicFormLayoutService) {
     super(formService, layoutService);
   }
+
+  log(t: string) {
+    console.log(t);
+  }
 }

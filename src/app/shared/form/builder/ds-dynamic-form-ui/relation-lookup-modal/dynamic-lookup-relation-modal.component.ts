@@ -45,6 +45,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   subMap: {
     [uuid: string]: Subscription
   } = {};
+  submissionId: string;
 
   constructor(
     public modal: NgbActiveModal,
@@ -92,7 +93,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         obs
           .subscribe((arr: any[]) => {
             return arr.forEach((object: any) => {
-                this.store.dispatch(new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, object.nameVariant));
+                this.store.dispatch(new AddRelationshipAction(this.item, object.item, this.relationshipOptions.relationshipType, this.submissionId, object.nameVariant));
               }
             );
           })
@@ -103,14 +104,14 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
     this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(
       skip(1),
-    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)))
+    ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, this.submissionId, nameVariant)))
   }
 
   deselect(...selectableObjects: Array<SearchResult<Item>>) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
         this.subMap[object.indexableObject.uuid].unsubscribe();
-        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType));
+        this.store.dispatch(new RemoveRelationshipAction(this.item, object.indexableObject, this.relationshipOptions.relationshipType, this.submissionId));
       })
     );
   }

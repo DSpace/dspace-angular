@@ -378,6 +378,7 @@ export class SaveSubmissionFormSuccessAction implements Action {
   payload: {
     submissionId: string;
     submissionObject: SubmissionObject[];
+    notify?: boolean
   };
 
   /**
@@ -388,8 +389,8 @@ export class SaveSubmissionFormSuccessAction implements Action {
    * @param submissionObject
    *    the submission's Object
    */
-  constructor(submissionId: string, submissionObject: SubmissionObject[]) {
-    this.payload = { submissionId, submissionObject };
+  constructor(submissionId: string, submissionObject: SubmissionObject[], notify?: boolean) {
+    this.payload = { submissionId, submissionObject, notify };
   }
 }
 
@@ -435,6 +436,7 @@ export class SaveSubmissionSectionFormSuccessAction implements Action {
   payload: {
     submissionId: string;
     submissionObject: SubmissionObject[];
+    notify?: boolean
   };
 
   /**
@@ -445,8 +447,8 @@ export class SaveSubmissionSectionFormSuccessAction implements Action {
    * @param submissionObject
    *    the submission's Object
    */
-  constructor(submissionId: string, submissionObject: SubmissionObject[]) {
-    this.payload = { submissionId, submissionObject };
+  constructor(submissionId: string, submissionObject: SubmissionObject[], notify?: boolean) {
+    this.payload = { submissionId, submissionObject, notify };
   }
 }
 

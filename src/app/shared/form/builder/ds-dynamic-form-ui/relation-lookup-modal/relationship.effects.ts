@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { debounceTime, map, mergeMap, take, tap } from 'rxjs/operators';
+import { debounceTime, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
-import { getSucceededRemoteData } from '../../../../../core/shared/operators';
-import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
+import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, UpdateRelationshipAction } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
+import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
+import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submission/objects/submission-objects.actions';
+import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
+import { SubmissionState } from '../../../../../submission/submission.reducers';
+import { Store } from '@ngrx/store';
 
 const DEBOUNCE_TIME = 5000;
 
@@ -40,7 +45,7 @@ export class RelationshipEffects {
     .pipe(
       ofType(RelationshipActionTypes.ADD_RELATIONSHIP, RelationshipActionTypes.REMOVE_RELATIONSHIP),
       map((action: RelationshipAction) => {
-          const { item1, item2, relationshipType } = action.payload;
+          const { item1, item2, submissionId, relationshipType } = action.payload;
           const identifier: string = this.createIdentifier(item1, item2, relationshipType);
           if (hasNoValue(this.debounceMap[identifier])) {
             this.initialActionMap[identifier] = action.type;
@@ -57,13 +62,15 @@ export class RelationshipEffects {
                       nameVariant = this.nameVariantUpdates[identifier];
                       delete this.nameVariantUpdates[identifier];
                     }
-                    this.addRelationship(item1, item2, relationshipType, nameVariant)
+                    this.addRelationship(item1, item2, relationshipType, submissionId, nameVariant);
                   } else {
-                    this.removeRelationship(item1, item2, relationshipType);
+                    this.removeRelationship(item1, item2, relationshipType, submissionId);
                   }
+
                 }
                 delete this.debounceMap[identifier];
                 delete this.initialActionMap[identifier];
+
               }
             )
           } else {
@@ -98,6 +105,8 @@ export class RelationshipEffects {
   constructor(private actions$: Actions,
               private relationshipService: RelationshipService,
               private relationshipTypeService: RelationshipTypeService,
+              private submissionObjectService: SubmissionObjectDataService,
+              private store: Store<SubmissionState>
   ) {
   }
 
@@ -105,7 +114,7 @@ export class RelationshipEffects {
     return `${item1.uuid}-${item2.uuid}-${relationshipType}`;
   }
 
-  private addRelationship(item1: Item, item2: Item, relationshipType: string, nameVariant?: string) {
+  private addRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string, nameVariant?: string) {
     const type1: string = item1.firstMetadataValue('relationship.type');
     const type2: string = item2.firstMetadataValue('relationship.type');
     return this.relationshipTypeService.getRelationshipTypeByLabelAndTypes(relationshipType, type1, type2)
@@ -119,16 +128,39 @@ export class RelationshipEffects {
             }
           }
         )
-      ).pipe(take(1))
-      .subscribe();
+      ).pipe(take(1), switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()))
+      ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
 
-  private removeRelationship(item1: Item, item2: Item, relationshipType: string) {
+  private removeRelationship(item1: Item, item2: Item, relationshipType: string, submissionId: string) {
     this.relationshipService.getRelationshipByItemsAndLabel(item1, item2, relationshipType).pipe(
       take(1),
       hasValueOperator(),
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
-      take(1)
-    ).subscribe();
+      take(1),
+      switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()))
+    ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject])));
   }
+
+  // private addAsMetadataInStore(submissionID: string, sectionID: string, metadataField: string, relationship: Relationship, repeatable: boolean, relationshipType: string) {
+  //   const sectionData$: Observable<WorkspaceitemSectionDataType> = this.sectionsService.getSectionData(submissionID, sectionID);
+  //   observableCombineLatest(
+  //     sectionData$.pipe(take(1)),
+  //     relationship.relationshipType.pipe(getSucceededRemoteData(), getRemoteDataPayload())
+  //   ).subscribe(
+  //     ([sectionData, relType]: [WorkspaceitemSectionDataType, RelationshipType]) => {
+  //       const useLeft = relType.rightwardType === relationshipType;
+  //       const value = this.relationshipService.toVirtualMetadata(relationship, useLeft);
+  //       let values;
+  //       if (repeatable) {
+  //         const existingValues: FormFieldMetadataValueObject[] = sectionData[metadataField];
+  //         values = [...existingValues, value];
+  //       } else {
+  //         values = [value];
+  //       }
+  //       sectionData[metadataField] = values;
+  //       this.sectionsService.updateSectionData(submissionID, sectionID, sectionData);
+  //     }
+  //   );
+  // }
 }

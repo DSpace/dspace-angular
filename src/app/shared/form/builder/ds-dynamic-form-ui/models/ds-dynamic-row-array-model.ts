@@ -1,10 +1,11 @@
 import { DynamicFormArrayModel, DynamicFormArrayModelConfig, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
+import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export interface DynamicRowArrayModelConfig extends DynamicFormArrayModelConfig {
   notRepeatable: boolean;
   required: boolean;
   submissionId: string;
-  hasRelationship: boolean;
+  relationshipConfig: RelationshipOptions;
   metadataKey: string;
 }
 
@@ -12,7 +13,7 @@ export class DynamicRowArrayModel extends DynamicFormArrayModel {
   @serializable() notRepeatable = false;
   @serializable() required = false;
   @serializable() submissionId: string;
-  @serializable() hasRelationship: boolean;
+  @serializable() relationshipConfig: RelationshipOptions;
   @serializable() metadataKey: string;
   isRowArray = true;
 
@@ -21,7 +22,7 @@ export class DynamicRowArrayModel extends DynamicFormArrayModel {
     this.notRepeatable = config.notRepeatable;
     this.required = config.required;
     this.submissionId = config.submissionId;
-    this.hasRelationship = config.hasRelationship;
+    this.relationshipConfig = config.relationshipConfig;
     this.metadataKey = config.metadataKey;
   }
 }
