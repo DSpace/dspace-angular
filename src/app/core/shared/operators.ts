@@ -9,8 +9,7 @@ import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
 import { PaginatedList } from '../data/paginated-list';
-import { SearchResult } from '../../+search-page/search-result.model';
-import { Item } from './item.model';
+import { SearchResult } from '../../shared/search/search-result.model';
 import { Router } from '@angular/router';
 
 /**

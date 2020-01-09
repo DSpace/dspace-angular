@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Metadata } from '../../../core/shared/metadata.utils';
-import { SearchResult } from '../../../+search-page/search-result.model';
 import { hasValue } from '../../empty.util';
+import { SearchResult } from '../../search/search-result.model';
 
 /**
  * Component representing Search Results with ViewMode.DetailedElement

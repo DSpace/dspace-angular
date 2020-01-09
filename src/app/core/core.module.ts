@@ -53,7 +53,7 @@ import { UUIDService } from './shared/uuid.service';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthRequestService } from './auth/auth-request.service';
 import { AuthResponseParsingService } from './auth/auth-response-parsing.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { HALEndpointService } from './shared/hal-endpoint.service';
 import { FacetValueResponseParsingService } from './data/facet-value-response-parsing.service';
@@ -80,7 +80,8 @@ import { NormalizedObjectBuildService } from './cache/builders/normalized-object
 import { DSOChangeAnalyzer } from './data/dso-change-analyzer.service';
 import { ObjectUpdatesService } from './data/object-updates/object-updates.service';
 import { DefaultChangeAnalyzer } from './data/default-change-analyzer.service';
-import { SearchService } from '../+search-page/search-service/search.service';
+import { SearchService } from './shared/search/search.service';
+import { RelationshipService } from './data/relationship.service';
 import { NormalizedCollection } from './cache/models/normalized-collection.model';
 import { NormalizedCommunity } from './cache/models/normalized-community.model';
 import { NormalizedDSpaceObject } from './cache/models/normalized-dspace-object.model';
@@ -101,7 +102,6 @@ import { NormalizedSubmissionFormsModel } from './config/models/normalized-confi
 import { NormalizedSubmissionSectionModel } from './config/models/normalized-config-submission-section.model';
 import { NormalizedAuthStatus } from './auth/models/normalized-auth-status.model';
 import { NormalizedAuthorityEntry } from './integration/models/normalized-authority-entry.model';
-import { RelationshipService } from './data/relationship.service';
 import { RoleService } from './roles/role.service';
 import { MyDSpaceGuard } from '../+my-dspace-page/my-dspace.guard';
 import { MyDSpaceResponseParsingService } from './data/mydspace-response-parsing.service';
@@ -127,6 +127,31 @@ import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dyna
 import { SiteDataService } from './data/site-data.service';
 import { NormalizedSite } from './cache/models/normalized-site.model';
 
+import {
+  MOCK_RESPONSE_MAP,
+  MockResponseMap,
+  mockResponseMap
+} from '../shared/mocks/dspace-rest-v2/mocks/mock-response-map';
+import { EndpointMockingRestService } from '../shared/mocks/dspace-rest-v2/endpoint-mocking-rest.service';
+import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../../config';
+import { SearchFilterService } from './shared/search/search-filter.service';
+import { SearchConfigurationService } from './shared/search/search-configuration.service';
+import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
+import { RelationshipTypeService } from './data/relationship-type.service';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
+
+/**
+ * When not in production, endpoint responses can be mocked for testing purposes
+ * If there is no mock version available for the endpoint, the actual REST response will be used just like in production mode
+ */
+export const restServiceFactory = (cfg: GlobalConfig, mocks: MockResponseMap, http: HttpClient) => {
+  if (ENV_CONFIG.production) {
+    return new DSpaceRESTv2Service(http);
+  } else {
+    return new EndpointMockingRestService(cfg, mocks, http);
+  }
+};
+
 const IMPORTS = [
   CommonModule,
   StoreModule.forFeature('core', coreReducers, {}),
@@ -146,7 +171,8 @@ const PROVIDERS = [
   CollectionDataService,
   SiteDataService,
   DSOResponseParsingService,
-  DSpaceRESTv2Service,
+  { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
+  { provide: DSpaceRESTv2Service, useFactory: restServiceFactory, deps: [GLOBAL_CONFIG, MOCK_RESPONSE_MAP, HttpClient]},
   DynamicFormLayoutService,
   DynamicFormService,
   DynamicFormValidationService,
@@ -218,6 +244,13 @@ const PROVIDERS = [
   ClaimedTaskDataService,
   PoolTaskDataService,
   DsDynamicTypeBindRelationService,
+  SearchService,
+  SidebarService,
+  SearchFilterService,
+  SearchFilterService,
+  SearchConfigurationService,
+  SelectableListService,
+  RelationshipTypeService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,

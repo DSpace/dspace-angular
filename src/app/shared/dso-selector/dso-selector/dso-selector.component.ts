@@ -12,12 +12,12 @@ import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { debounceTime, startWith, switchMap } from 'rxjs/operators';
-import { SearchService } from '../../../+search-page/search-service/search.service';
-import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { PaginatedSearchOptions } from '../../search/paginated-search-options.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
-import { SearchResult } from '../../../+search-page/search-result.model';
+import { SearchResult } from '../../search/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
 

@@ -3,10 +3,9 @@ import { RequestService } from '../core/data/request.service';
 import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service-stub';
 import { getMockRequestService } from '../shared/mocks/mock-request.service';
 import { TrackRequest } from './track-request.model';
-import { ResourceType } from '../core/shared/resource-type';
-import { SearchOptions } from '../+search-page/search-options.model';
 import { isEqual } from 'lodash';
 import { DSpaceObjectType } from '../core/shared/dspace-object-type.model';
+import { SearchOptions } from '../shared/search/search-options.model';
 
 describe('StatisticsService', () => {
   let service:StatisticsService;

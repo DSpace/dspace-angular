@@ -156,7 +156,9 @@ describe('ItemRelationshipsComponent', () => {
         getRelatedItemsByLabel: observableOf([author1, author2]),
         getItemRelationshipsArray: observableOf(relationships),
         deleteRelationship: observableOf(new RestResponse(true, 200, 'OK')),
-        getItemResolvedRelatedItemsAndRelationships: observableCombineLatest(observableOf([author1, author2]), observableOf([item, item]), observableOf(relationships))
+        getItemResolvedRelatedItemsAndRelationships: observableCombineLatest(observableOf([author1, author2]), observableOf([item, item]), observableOf(relationships)),
+        getRelationshipsByRelatedItemIds: observableOf(relationships),
+        getRelationshipTypeLabelsByItem: observableOf([relationshipType.leftwardType])
       }
     );
 

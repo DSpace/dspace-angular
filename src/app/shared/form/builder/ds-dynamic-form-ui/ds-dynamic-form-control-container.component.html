@@ -10,37 +10,60 @@
 
     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
 
-  <div [ngClass]="{'form-row': model.hasLanguages }">
-    <div [ngClass]="getClass('grid', 'control')">
+    <div [ngClass]="{'form-row': model.hasLanguages || hasRelationLookup }">
+        <div [ngClass]="getClass('grid', 'control')">
 
-      <ng-container #componentViewContainer></ng-container>
+            <ng-container #componentViewContainer></ng-container>
 
-      <small *ngIf="hasHint && (!showErrorMessages || errorMessages.length === 0)"
-             class="text-muted" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
+            <small *ngIf="hasHint && (!showErrorMessages || errorMessages.length === 0)"
+                   class="text-muted" [innerHTML]="model.hint | translate" [ngClass]="getClass('element', 'hint')"></small>
 
-      <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
-        <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate:model.validators }}</small>
-      </div>
+            <div *ngIf="showErrorMessages" [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
+                <small *ngFor="let message of errorMessages" class="invalid-feedback d-block">{{ message | translate:model.validators }}</small>
+            </div>
 
+        </div>
+
+        <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2">
+            <select
+                    #language="ngModel"
+                    [disabled]="model.readOnly"
+                    [(ngModel)]="model.language"
+                    class="form-control"
+                    (blur)="onBlur($event)"
+                    (change)="onChangeLanguage($event)"
+                    [ngModelOptions]="{standalone: true}"
+                    required>
+                <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
+            </select>
+        </div>
+
+        <div *ngIf="hasRelationLookup" class="col-auto text-center">
+            <button class="btn btn-secondary"
+                    type="submit"
+                    ngbTooltip="{{'form.lookup-help' | translate}}"
+                    placement="top"
+                    (click)="openLookup(); $event.stopPropagation();">{{'form.lookup' | translate}}
+            </button>
+        </div>
     </div>
-
-    <div *ngIf="model.languageCodes && model.languageCodes.length > 0" class="col-xs-2">
-      <select
-        #language="ngModel"
-        [disabled]="model.readOnly"
-        [(ngModel)]="model.language"
-        class="form-control"
-        (blur)="onBlur($event)"
-        (change)="onChangeLanguage($event)"
-        [ngModelOptions]="{standalone: true}"
-        required>
-        <option *ngFor="let lang of model.languageCodes" [value]="lang.code">{{lang.display}}</option>
-      </select>
-    </div>
-  </div>
 
     <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: model"></ng-container>
 
     <ng-content></ng-content>
 
+
+    <div *ngIf="hasRelationLookup" class="mt-3">
+        <ul class="list-unstyled">
+            <li *ngFor="let value of ( selectedValues$ | async)">
+              <button type="button" class="close float-left" aria-label="Close button"
+                      (click)="removeSelection(value.selectedResult)">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              <span class="d-inline-block align-middle ml-1">
+              <ds-metadata-representation-loader [mdRepresentation]="value.mdRep"></ds-metadata-representation-loader>
+          </span>
+            </li>
+        </ul>
+    </div>
 </div>

@@ -11,21 +11,19 @@ import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { SearchComponent } from './search.component';
-import { SearchService } from './search-service/search.service';
+import { SearchService } from '../core/shared/search/search.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { SearchFilterService } from './search-filters/search-filter/search-filter.service';
-import { SearchConfigurationService } from './search-service/search-configuration.service';
-import { RemoteData } from '../core/data/remote-data';
+import { SearchFilterService } from '../core/shared/search/search-filter.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { RouteService } from '../core/services/route.service';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
-import { PaginatedSearchOptions } from './paginated-search-options.model';
-import { SearchFixedFilterService } from './search-filters/search-filter/search-fixed-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
+import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 
 let comp: SearchComponent;
 let fixture: ComponentFixture<SearchComponent>;
@@ -89,7 +87,6 @@ const routeServiceStub = {
     return observableOf('')
   }
 };
-const mockFixedFilterService: SearchFixedFilterService = {} as SearchFixedFilterService;
 
 export function configureSearchComponentTestingModule(compType) {
   TestBed.configureTestingModule({
@@ -123,10 +120,6 @@ export function configureSearchComponentTestingModule(compType) {
         useValue: {}
       },
       {
-        provide: SearchFixedFilterService,
-        useValue: mockFixedFilterService
-      },
-      {
         provide: SearchConfigurationService,
         useValue: {
           paginatedSearchOptions: hot('a', {
@@ -158,6 +151,7 @@ describe('SearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
     comp = fixture.componentInstance; // SearchComponent test instance
+    comp.inPlaceSearch = false;
     fixture.detectChanges();
     searchServiceObject = (comp as any).service;
     searchConfigurationServiceObject = (comp as any).searchConfigService;

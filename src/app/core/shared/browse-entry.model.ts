@@ -2,12 +2,13 @@ import { ListableObject } from '../../shared/object-collection/shared/listable-o
 import { TypedObject } from '../cache/object-cache.reducer';
 import { ResourceType } from './resource-type';
 import { GenericConstructor } from './generic-constructor';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 
 /**
  * Class object representing a browse entry
  * This class is not normalized because browse entries do not have self links
  */
-export class BrowseEntry implements ListableObject {
+export class BrowseEntry extends ListableObject implements TypedObject {
   static type = new ResourceType('browseEntry');
 
   /**
@@ -28,6 +29,7 @@ export class BrowseEntry implements ListableObject {
   /**
    * The count of this browse entry
    */
+  @excludeFromEquals
   count: number;
 
   /**

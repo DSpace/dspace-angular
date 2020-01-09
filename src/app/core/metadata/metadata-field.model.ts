@@ -7,7 +7,7 @@ import { GenericConstructor } from '../shared/generic-constructor';
 /**
  * Class the represents a metadata field
  */
-export class MetadataField implements ListableObject {
+export class MetadataField extends ListableObject {
   static type = new ResourceType('metadatafield');
 
   /**

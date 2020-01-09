@@ -17,7 +17,7 @@
         <div *ngIf="(!context.notRepeatable) && context.showButtons"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
              [class]="arrayButtonsStyle">
-          <div class="btn-group" role="group" aria-label="Basic example">
+          <div class="btn-group" role="group" aria-label="Add and remove button">
             <button type="button" class="btn btn-secondary"
                     [disabled]="isItemReadOnly(context, index)"
                     (click)="insertItem($event, group.context, group.index + 1)">
@@ -35,7 +35,7 @@
         <div *ngIf="context.notRepeatable && context.showButtons && group.context.groups.length > 1"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
              [class]="arrayButtonsStyle">
-          <div class="btn-group" role="group" aria-label="Basic example">
+          <div class="btn-group" role="group" aria-label="Remove button">
             <button type="button" class="btn btn-secondary"
                     (click)="removeItem($event, context, index)"
                     [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">

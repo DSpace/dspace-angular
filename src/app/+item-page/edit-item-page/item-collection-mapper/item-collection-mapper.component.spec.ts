@@ -1,15 +1,12 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { ItemCollectionMapperComponent } from './item-collection-mapper.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
-import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RouterStub } from '../../../shared/testing/router-stub';
@@ -19,7 +16,6 @@ import { SearchServiceStub } from '../../../shared/testing/search-service-stub';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../../../shared/shared.module';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { HostWindowService } from '../../../shared/host-window.service';
@@ -28,7 +24,6 @@ import { By } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
 import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service-stub';
-import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../../../core/cache/response.models';
 import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
@@ -39,6 +34,9 @@ import { SearchFormComponent } from '../../../shared/search-form/search-form.com
 import { Collection } from '../../../core/shared/collection.model';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 
 describe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;

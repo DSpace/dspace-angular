@@ -1,16 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { Observable } from 'rxjs/internal/Observable';
-import { RemoteData } from '../../../core/data/remote-data';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, zip as observableZip } from 'rxjs';
 import { RelationshipService } from '../../../core/data/relationship.service';
-import { Item } from '../../../core/shared/item.model';
-import { combineLatest as observableCombineLatest, of as observableOf, zip as observableZip } from 'rxjs';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { filter, map, switchMap } from 'rxjs/operators';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
+import { Item } from '../../../core/shared/item.model';
+import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
   selector: 'ds-metadata-representation-list',
@@ -22,7 +22,7 @@ import { ItemMetadataRepresentation } from '../../../core/shared/metadata-repres
  * It expects an itemType to resolve the metadata to a an item
  * It expects a label to put on top of the list
  */
-export class MetadataRepresentationListComponent implements OnInit {
+export class MetadataRepresentationListComponent extends AbstractIncrementalListComponent<Observable<MetadataRepresentation[]>> {
   /**
    * The parent of the list of related items to display
    */
@@ -44,22 +44,11 @@ export class MetadataRepresentationListComponent implements OnInit {
   @Input() label: string;
 
   /**
-   * The max amount of representations to display
+   * The amount to increment the list by when clicking "view more"
    * Defaults to 10
    * The default can optionally be overridden by providing the limit as input to the component
    */
-  @Input() limit = 10;
-
-  /**
-   * A list of metadata-representations to display
-   */
-  representations$: Observable<MetadataRepresentation[]>;
-
-  /**
-   * The originally provided limit
-   * Used for resetting the limit to the original value when collapsing the list
-   */
-  originalLimit: number;
+  @Input() incrementBy = 10;
 
   /**
    * The total amount of metadata values available
@@ -67,30 +56,28 @@ export class MetadataRepresentationListComponent implements OnInit {
   total: number;
 
   constructor(public relationshipService: RelationshipService) {
-  }
-
-  ngOnInit(): void {
-    this.originalLimit = this.limit;
-    this.setRepresentations();
+    super();
   }
 
   /**
-   * Initialize the metadata representations
+   * Get a specific page
+   * @param page  The page to fetch
    */
-  setRepresentations() {
+  getPage(page: number): Observable<MetadataRepresentation[]> {
     const metadata = this.parentItem.findMetadataSortedByPlace(this.metadataField);
     this.total = metadata.length;
-    this.representations$ = this.resolveMetadataRepresentations(metadata);
+    return this.resolveMetadataRepresentations(metadata, page);
   }
 
   /**
    * Resolve a list of metadata values to a list of metadata representations
-   * @param metadata
+   * @param metadata  The list of all metadata values
+   * @param page      The page to return representations for
    */
-  resolveMetadataRepresentations(metadata: MetadataValue[]): Observable<MetadataRepresentation[]> {
+  resolveMetadataRepresentations(metadata: MetadataValue[], page: number): Observable<MetadataRepresentation[]> {
     return observableZip(
       ...metadata
-        .slice(0, this.limit)
+        .slice((this.objects.length * this.incrementBy), (this.objects.length * this.incrementBy) + this.incrementBy)
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
           if (metadatum.isVirtual) {
@@ -114,21 +101,5 @@ export class MetadataRepresentationListComponent implements OnInit {
           }
         })
     );
-  }
-
-  /**
-   * Expand the list to display all metadata representations
-   */
-  viewMore() {
-    this.limit = 9999;
-    this.setRepresentations();
-  }
-
-  /**
-   * Collapse the list to display the originally displayed metadata representations
-   */
-  viewLess() {
-    this.limit = this.originalLimit;
-    this.setRepresentations();
   }
 }

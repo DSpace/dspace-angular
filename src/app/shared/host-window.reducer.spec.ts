@@ -1,5 +1,5 @@
 import * as deepFreeze from 'deep-freeze';
-import { hostWindowReducer } from './host-window.reducer';
+import { hostWindowReducer } from './search/host-window.reducer';
 import { HostWindowResizeAction } from './host-window.actions';
 
 class NullAction extends HostWindowResizeAction {
