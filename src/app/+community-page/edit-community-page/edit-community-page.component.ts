@@ -12,7 +12,7 @@ import { getCommunityPageRoute } from '../community-page-routing.module';
   templateUrl: '../../shared/comcol-forms/edit-comcol-page/edit-comcol-page.component.html'
 })
 export class EditCommunityPageComponent extends EditComColPageComponent<Community> {
-  public type = 'community';
+  type = 'community';
 
   public constructor(
     protected router: Router,

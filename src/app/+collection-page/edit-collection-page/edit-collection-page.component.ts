@@ -12,7 +12,7 @@ import { getCollectionPageRoute } from '../collection-page-routing.module';
   templateUrl: '../../shared/comcol-forms/edit-comcol-page/edit-comcol-page.component.html'
 })
 export class EditCollectionPageComponent extends EditComColPageComponent<Collection> {
-  public type = 'collection';
+  type = 'collection';
 
   public constructor(
     protected router: Router,

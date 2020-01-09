@@ -28,7 +28,10 @@ import { CollectionCurateComponent } from './collection-curate/collection-curate
           {
             path: 'metadata',
             component: CollectionMetadataComponent,
-            data: { title: 'collection.edit.tabs.metadata.title' }
+            data: {
+              title: 'collection.edit.tabs.metadata.title',
+              hideReturnButton: true
+            }
           },
           {
             path: 'roles',

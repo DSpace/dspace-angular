@@ -130,8 +130,6 @@ import { RoleDirective } from './roles/role.directive';
 import { UserMenuComponent } from './auth-nav-menu/user-menu/user-menu.component';
 import { ClaimedTaskActionsReturnToPoolComponent } from './mydspace-actions/claimed-task/return-to-pool/claimed-task-actions-return-to-pool.component';
 import { ItemDetailPreviewFieldComponent } from './object-detail/my-dspace-result-detail-element/item-detail-preview/item-detail-preview-field/item-detail-preview-field.component';
-import { AbstractTrackableComponent } from './trackable/abstract-trackable.component';
-import { ComcolMetadataComponent } from './comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { DsDynamicLookupRelationModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
 import { SearchSidebarComponent } from './search/search-sidebar/search-sidebar.component';
@@ -156,6 +154,8 @@ import { DsDynamicDisabledComponent } from './form/builder/ds-dynamic-form-ui/mo
 import { DsDynamicLookupRelationSearchTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/selection-tab/dynamic-lookup-relation-selection-tab.component';
 import { PageSizeSelectorComponent } from './page-size-selector/page-size-selector.component';
+import { AbstractTrackableComponent } from './trackable/abstract-trackable.component';
+import { ComcolMetadataComponent } from './comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { ItemSelectComponent } from './object-select/item-select/item-select.component';
 import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
 import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
