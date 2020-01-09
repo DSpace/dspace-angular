@@ -23,13 +23,9 @@ import {
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction
 } from './object-updates.actions';
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
 import {hasNoValue, hasValue, isEmpty, isNotEmpty} from '../../../shared/empty.util';
 import {INotification} from '../../../shared/notifications/models/notification.model';
-import {Item} from '../../shared/item.model';
-import {Relationship} from '../../shared/item-relationships/relationship.model';
-import {MetadataValue} from '../../shared/metadata.models';
-import {VirtualMetadata} from '../../../+item-page/edit-item-page/virtual-metadata/virtual-metadata.component';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -101,18 +97,22 @@ export class ObjectUpdatesService {
    */
   getFieldUpdates(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
     const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(map((objectEntry) => {
-      const fieldUpdates: FieldUpdates = {};
-      Object.keys(objectEntry.fieldStates).forEach((uuid) => {
-        let fieldUpdate = objectEntry.fieldUpdates[uuid];
-        if (isEmpty(fieldUpdate)) {
-          const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
-          fieldUpdate = { field: identifiable, changeType: undefined };
-        }
-        fieldUpdates[uuid] = fieldUpdate;
-      });
-      return fieldUpdates;
-    }))
+    return objectUpdates.pipe(
+      switchMap((objectEntry) => {
+        const fieldUpdates: FieldUpdates = {};
+        Object.keys(objectEntry.fieldStates).forEach((uuid) => {
+          fieldUpdates[uuid] = objectEntry.fieldUpdates[uuid];
+        });
+        return this.getFieldUpdatesExclusive(url, initialFields).pipe(
+          map((fieldUpdatesExclusive) => {
+            Object.keys(fieldUpdatesExclusive).forEach((uuid) => {
+              fieldUpdates[uuid] = fieldUpdatesExclusive[uuid];
+            });
+            return fieldUpdates;
+          })
+        );
+      }),
+    );
   }
 
   /**
@@ -204,6 +204,15 @@ export class ObjectUpdatesService {
   saveChangeFieldUpdate(url: string, field: Identifiable) {
     this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
   }
+
+  /**
+   * Check whether the virtual metadata of a given item is selected to be saved as real metadata
+   * @param url           The URL of the page on which the field resides
+   * @param relationship  The id of the relationship for which to check whether the virtual metadata is selected to be
+   *                      saved as real metadata
+   * @param item          The id of the item for which to check whether the virtual metadata is selected to be
+   *                      saved as real metadata
+   */
   isSelectedVirtualMetadata(url: string, relationship: string, item: string): Observable<boolean> {
 
     return this.store

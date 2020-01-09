@@ -84,6 +84,9 @@ export class AddFieldUpdateAction implements Action {
   }
 }
 
+/**
+ * An ngrx action to select/deselect virtual metadata in the ObjectUpdates state for a certain page url
+ */
 export class SelectVirtualMetadataAction implements Action {
 
   type = ObjectUpdatesActionTypes.SELECT_VIRTUAL_METADATA;
@@ -95,12 +98,16 @@ export class SelectVirtualMetadataAction implements Action {
   };
 
   /**
-   * Create a new AddFieldUpdateAction
+   * Create a new SelectVirtualMetadataAction
    *
    * @param url
    *    the unique url of the page for which a field update is added
-   * @param field The identifiable field of which a new update is added
-   * @param changeType The update's change type
+   * @param source
+   *    the id of the relationship which adds the virtual metadata
+   * @param uuid
+   *    the id of the item which has the virtual metadata
+   * @param select
+   *    whether to select or deselect the virtual metadata to be saved as real metadata
    */
   constructor(
     url: string,

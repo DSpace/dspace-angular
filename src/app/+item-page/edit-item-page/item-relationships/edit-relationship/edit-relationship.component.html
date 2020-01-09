@@ -19,7 +19,9 @@
 </div>
 <ng-template #virtualMetadataModal>
   <ds-virtual-metadata
-          [relationship]="relationship"
+          [relationshipId]="relationship.id"
+          [leftItem]="leftItem$ | async"
+          [rightItem]="rightItem$ | async"
           [url]="url"
           (close)="closeVirtualMetadataModal()"
           (save)="remove()"

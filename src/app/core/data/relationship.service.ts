@@ -1,39 +1,40 @@
-import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { hasValue, hasValueOperator, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {RequestService} from './request.service';
+import {HALEndpointService} from '../shared/hal-endpoint.service';
+import {RemoteDataBuildService} from '../cache/builders/remote-data-build.service';
+import {hasValue, hasValueOperator, isNotEmptyOperator} from '../../shared/empty.util';
+import {distinctUntilChanged, filter, flatMap, map, switchMap, take, tap} from 'rxjs/operators';
 import {
   configureRequest,
-  filterSuccessfulResponses,
-  getRemoteDataPayload, getResponseFromEntry,
+  getRemoteDataPayload,
+  getResponseFromEntry,
   getSucceededRemoteData
 } from '../shared/operators';
-import { DeleteRequest, FindAllOptions, RestRequest } from './request.models';
-import { Observable } from 'rxjs/internal/Observable';
-import { RestResponse } from '../cache/response.models';
-import { Item } from '../shared/item.model';
-import { Relationship } from '../shared/item-relationships/relationship.model';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { RemoteData } from './remote-data';
-import { combineLatest as observableCombineLatest } from 'rxjs/internal/observable/combineLatest';
-import { zip as observableZip } from 'rxjs';
-import { PaginatedList } from './paginated-list';
-import { ItemDataService } from './item-data.service';
+import {DeleteRequest, FindAllOptions, RestRequest} from './request.models';
+import {Observable} from 'rxjs/internal/Observable';
+import {RestResponse} from '../cache/response.models';
+import {Item} from '../shared/item.model';
+import {Relationship} from '../shared/item-relationships/relationship.model';
+import {RelationshipType} from '../shared/item-relationships/relationship-type.model';
+import {RemoteData} from './remote-data';
+import {combineLatest as observableCombineLatest} from 'rxjs/internal/observable/combineLatest';
+import {zip as observableZip} from 'rxjs';
+import {PaginatedList} from './paginated-list';
+import {ItemDataService} from './item-data.service';
 import {
-  compareArraysUsingIds, filterRelationsByTypeLabel, paginatedRelationsToItems,
+  compareArraysUsingIds,
+  paginatedRelationsToItems,
   relationsToItems
 } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { DataService } from './data.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {ObjectCacheService} from '../cache/object-cache.service';
+import {DataService} from './data.service';
+import {NormalizedObjectBuildService} from '../cache/builders/normalized-object-build.service';
+import {Store} from '@ngrx/store';
+import {CoreState} from '../core.reducers';
+import {NotificationsService} from '../../shared/notifications/notifications.service';
 import {HttpClient} from '@angular/common/http';
-import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { SearchParam } from '../cache/models/search-param.model';
+import {DefaultChangeAnalyzer} from './default-change-analyzer.service';
+import {SearchParam} from '../cache/models/search-param.model';
 
 /**
  * The service handling all relationship requests
@@ -93,19 +94,12 @@ export class RelationshipService extends DataService<Relationship> {
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry(),
-      tap(() => this.clearRelatedCache(uuid))
-    );
-  }
-
-  /**
-   * Get a combined observable containing an array of all relationships in an item, as well as an array of the relationships their types
-   * This is used for easier access of a relationship's type because they exist as observables
-   * @param item
-   */
-  getItemResolvedRelsAndTypes(item: Item): Observable<[Relationship[], RelationshipType[]]> {
-    return observableCombineLatest(
-      this.getItemRelationshipsArray(item),
-      this.getItemRelationshipTypesArray(item)
+      take(1),
+      switchMap((response) =>
+        this.clearRelatedCache(uuid).pipe(
+          map(() => response),
+        )
+      ),
     );
   }
 
@@ -252,23 +246,33 @@ export class RelationshipService extends DataService<Relationship> {
     } else {
       findAllOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findAllOptions);
+    return this.searchBy('byLabel', findAllOptions).pipe(
+      tap((relationshipsRD) => relationshipsRD.payload.page.forEach(
+        (relationship) => console.log('relationship: ' + relationship.id))
+      ),
+    );
   }
 
   /**
    * Clear object and request caches of the items related to a relationship (left and right items)
    * @param uuid
    */
-  clearRelatedCache(uuid: string) {
-    this.findById(uuid).pipe(
+  clearRelatedCache(uuid: string): Observable<void> {
+    return this.findById(uuid).pipe(
       getSucceededRemoteData(),
-      flatMap((rd: RemoteData<Relationship>) => observableCombineLatest(rd.payload.leftItem.pipe(getSucceededRemoteData()), rd.payload.rightItem.pipe(getSucceededRemoteData()))),
-      take(1)
-    ).subscribe(([leftItem, rightItem]) => {
-      this.objectCache.remove(leftItem.payload.self);
-      this.objectCache.remove(rightItem.payload.self);
-      this.requestService.removeByHrefSubstring(leftItem.payload.self);
-      this.requestService.removeByHrefSubstring(rightItem.payload.self);
-    });
+      switchMap((rd: RemoteData<Relationship>) =>
+        observableCombineLatest(
+          rd.payload.leftItem.pipe(getSucceededRemoteData()),
+          rd.payload.rightItem.pipe(getSucceededRemoteData())
+        )
+      ),
+      take(1),
+      map(([leftItem, rightItem]) => {
+        this.objectCache.remove(leftItem.payload.self);
+        this.objectCache.remove(rightItem.payload.self);
+        this.requestService.removeByHrefSubstring(leftItem.payload.self);
+        this.requestService.removeByHrefSubstring(rightItem.payload.self);
+      }),
+    );
   }
 }

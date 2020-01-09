@@ -22,10 +22,12 @@ import { ErrorResponse, RestResponse } from '../../../core/cache/response.models
 import { isNotEmptyOperator } from '../../../shared/empty.util';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { getSucceededRemoteData} from '../../../core/shared/operators';
+import {getRemoteDataPayload, getSucceededRemoteData} from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { getRelationsByRelatedItemIds } from '../../simple/item-types/shared/item-relationships-utils';
+import {RelationshipType} from '../../../core/shared/item-relationships/relationship-type.model';
+import {ItemType} from '../../../core/shared/item-relationships/item-type.model';
+import {EntityTypeService} from '../../../core/data/entity-type.service';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -40,13 +42,14 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   /**
    * The labels of all different relations within this item
    */
-  relationLabels$: Observable<string[]>;
+  relationshipTypes$: Observable<RelationshipType[]>;
 
   /**
    * A subscription that checks when the item is deleted in cache and reloads the item by sending a new request
    * This is used to update the item in cache after relationships are deleted
    */
   itemUpdateSubscription: Subscription;
+  entityType$: Observable<ItemType>;
 
   constructor(
     protected itemService: ItemDataService,
@@ -59,7 +62,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
     protected relationshipService: RelationshipService,
     protected objectCache: ObjectCacheService,
     protected requestService: RequestService,
-    protected cdRef: ChangeDetectorRef
+    protected entityTypeService: EntityTypeService,
   ) {
     super(itemService, objectUpdatesService, router, notificationsService, translateService, EnvConfig, route);
   }
@@ -69,21 +72,13 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.relationLabels$ = this.relationshipService.getItemRelationshipLabels(this.item);
-    this.initializeItemUpdate();
-  }
-
-  /**
-   * Update the item (and view) when it's removed in the request cache
-   */
-  public initializeItemUpdate(): void {
     this.itemUpdateSubscription = this.requestService.hasByHrefObservable(this.item.self).pipe(
       filter((exists: boolean) => !exists),
       switchMap(() => this.itemService.findById(this.item.uuid)),
       getSucceededRemoteData(),
     ).subscribe((itemRD: RemoteData<Item>) => {
       this.item = itemRD.payload;
-      this.cdRef.detectChanges();
+      this.initializeUpdates();
     });
   }
 
@@ -91,8 +86,22 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
    * Initialize the values and updates of the current item's relationship fields
    */
   public initializeUpdates(): void {
-    this.updates$ = this.relationshipService.getRelatedItems(this.item).pipe(
-      switchMap((items: Item[]) => this.objectUpdatesService.getFieldUpdates(this.url, items))
+
+    this.entityType$ = this.entityTypeService.getEntityTypeByLabel(
+      this.item.firstMetadataValue('relationship.type')
+    ).pipe(
+      getSucceededRemoteData(),
+      getRemoteDataPayload(),
+    );
+
+    this.relationshipTypes$ = this.entityType$.pipe(
+      switchMap((entityType) =>
+        this.entityTypeService.getEntityTypeRelationships(entityType.id).pipe(
+          getSucceededRemoteData(),
+          getRemoteDataPayload(),
+          map((relationshipTypes) => relationshipTypes.page),
+        )
+      ),
     );
   }
 
@@ -142,8 +151,9 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
         ))
       ),
     ).subscribe((responses: RestResponse[]) => {
-      this.displayNotifications(responses);
-      this.reset();
+      this.itemUpdateSubscription.add(() => {
+        this.displayNotifications(responses);
+      });
     });
   }
 
@@ -166,21 +176,11 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   }
 
   /**
-   * Re-initialize fields and subscriptions
-   */
-  reset() {
-    this.initializeOriginalFields();
-    this.initializeUpdates();
-    this.initializeItemUpdate();
-  }
-
-  /**
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.relationshipService.getRelatedItems(this.item).pipe(take(1)).subscribe((items: Item[]) => {
-      this.objectUpdatesService.initialize(this.url, items, this.item.lastModified);
-    });
+    const initialFields = [];
+    this.objectUpdatesService.initialize(this.url, initialFields, this.item.lastModified);
   }
 
   /**
@@ -189,5 +189,4 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
   ngOnDestroy(): void {
     this.itemUpdateSubscription.unsubscribe();
   }
-
 }

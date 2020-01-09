@@ -13,7 +13,7 @@ import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: '[ds-edit-relationship]',
+  selector: 'ds-edit-relationship',
   styleUrls: ['./edit-relationship.component.scss'],
   templateUrl: './edit-relationship.component.html',
 })
