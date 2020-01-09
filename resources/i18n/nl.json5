@@ -155,7 +155,7 @@
   "admin.registries.metadata.form.namespace": "Namespace",
 
   // "admin.registries.metadata.head": "Metadata Registry",
-  "admin.registries.metadata.head": "Metadata Register",
+  "admin.registries.metadata.head": "Metadataregister",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
   "admin.registries.metadata.schemas.no-items": "Er kunnen geen metadataschema's getoond worden.",
@@ -173,7 +173,7 @@
   "admin.registries.metadata.schemas.table.namespace": "Namespace",
 
   // "admin.registries.metadata.title": "DSpace Angular :: Metadata Registry",
-  "admin.registries.metadata.title": "DSpace Angular :: Metadata Register",
+  "admin.registries.metadata.title": "DSpace Angular :: Metadataregister",
 
 
 
@@ -702,7 +702,6 @@
   "form.no-value": "Geen waarde ingevoerd",
 
   // "form.other-information": {},
-  // TODO New key - Add a translation
   "form.other-information": {},
 
   // "form.remove": "Remove",
@@ -865,8 +864,7 @@
   "item.edit.metadata.notifications.outdated.content": "Het item waar u aan werkt is gewijzigd door een andere gebruiker. Uw huidige wijzigingen worden geannuleerd om conflicten te voorkomen.",
 
   // "item.edit.metadata.notifications.outdated.title": "Changed outdated",
-  // TODO New key - Add a translation
-  "item.edit.metadata.notifications.outdated.title": "Changed outdated",
+  "item.edit.metadata.notifications.outdated.title": "Wijzigingen verouderd",
 
   // "item.edit.metadata.notifications.saved.content": "Your changes to this item's metadata were saved.",
   "item.edit.metadata.notifications.saved.content": "Uw wijzingen in de metadata van dit item zijn opgeslagen.",
@@ -906,12 +904,10 @@
   "item.edit.move.head": "Verplaats item: {{id}}",
 
   // "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
-  // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.checkbox": "Inherit policies",
+  "item.edit.move.inheritpolicies.checkbox": "Erf policies",
 
   // "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
-  // TODO New key - Add a translation
-  "item.edit.move.inheritpolicies.description": "Inherit the default policies of the destination collection",
+   "item.edit.move.inheritpolicies.description": "Neem de standaard policies van de doelcollectie over",
 
   // "item.edit.move.move": "Move",
   "item.edit.move.move": "Verplaats",
@@ -946,8 +942,7 @@
   "item.edit.private.header": "Maak item privé: {{ id }}",
 
   // "item.edit.private.success": "The item is now private",
-  // TODO New key - Add a translation
-  "item.edit.private.success": "Dit item is nu privé",
+   "item.edit.private.success": "Dit item is nu privé",
 
 
 
@@ -1013,8 +1008,7 @@
   "item.edit.relationships.notifications.outdated.content": "Het item waar u aan werkt is gewijzigd door een andere gebruiker. Uw huidige wijzigingen zijn ongedaan gemaakt om conflicten te voorkomen.",
 
   // "item.edit.relationships.notifications.outdated.title": "Changes outdated",
-  // TODO New key - Add a translation
-  "item.edit.relationships.notifications.outdated.title": "Changes outdated",
+  "item.edit.relationships.notifications.outdated.title": "Wijzingen verouderd",
 
   // "item.edit.relationships.notifications.saved.content": "Your changes to this item's relationships were saved.",
   "item.edit.relationships.notifications.saved.content": "Uw wijzingen in de relaties van dit item zijn opgeslagen.",
@@ -1037,12 +1031,10 @@
   "item.edit.tabs.bitstreams.title": "Item bewerken - Bitstreams",
 
   // "item.edit.tabs.curate.head": "Curate",
-  // TODO New key - Add a translation
-  "item.edit.tabs.curate.head": "Curate",
+  "item.edit.tabs.curate.head": "Beheer",
 
   // "item.edit.tabs.curate.title": "Item Edit - Curate",
-  // TODO New key - Add a translation
-  "item.edit.tabs.curate.title": "Item Edit - Curate",
+  "item.edit.tabs.curate.title": "Item bewerken - Beheer",
 
   // "item.edit.tabs.metadata.head": "Item Metadata",
   "item.edit.tabs.metadata.head": "Item metadata",
@@ -1060,8 +1052,7 @@
   "item.edit.tabs.status.buttons.authorizations.button": "Autorisaties ..",
 
   // "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
-  // TODO New key - Add a translation
-  "item.edit.tabs.status.buttons.authorizations.label": "Edit item's authorization policies",
+  "item.edit.tabs.status.buttons.authorizations.label": "Bewerk de autorisatieregels",
 
   // "item.edit.tabs.status.buttons.delete.button": "Permanently delete",
   "item.edit.tabs.status.buttons.delete.button": "Permanent verwijderen",
@@ -1438,8 +1429,7 @@
    "menu.section.control_panel": "Controlepaneel",
 
   // "menu.section.curation_task": "Curation Task",
-  // TODO New key - Add a translation
-  "menu.section.curation_task": "Curation Task",
+   "menu.section.curation_task": "Beheertaak",
 
 
 
@@ -1495,8 +1485,7 @@
   "menu.section.icon.control_panel": "Menusectie controlepaneel",
 
   // "menu.section.icon.curation_task": "Curation Task menu section",
-  // TODO New key - Add a translation
-  "menu.section.icon.curation_task": "Curation Task menu section",
+  "menu.section.icon.curation_task": "Menusectie beheertaken",
 
   // "menu.section.icon.edit": "Edit menu section",
   "menu.section.icon.edit": "Menusectie bewerkingen",
@@ -1583,57 +1572,45 @@
 
 
   // "menu.section.toggle.access_control": "Toggle Access Control section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.access_control": "Toggle Access Control section",
+  "menu.section.toggle.access_control": "Sectie Toegangscontrole aan/uit",
 
   // "menu.section.toggle.control_panel": "Toggle Control Panel section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.control_panel": "Toggle Control Panel section",
+   "menu.section.toggle.control_panel": "Sectie Controlepaneel aan/uit",
 
   // "menu.section.toggle.curation_task": "Toggle Curation Task section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.curation_task": "Toggle Curation Task section",
+  "menu.section.toggle.curation_task": "Sectie Beheertaken aan/uit",
 
   // "menu.section.toggle.edit": "Toggle Edit section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.edit": "Toggle Edit section",
+  "menu.section.toggle.edit": "Sectie Bewerk aan/uit",
 
   // "menu.section.toggle.export": "Toggle Export section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.export": "Toggle Export section",
+   "menu.section.toggle.export": "Sectie Export aan/uit",
 
   // "menu.section.toggle.find": "Toggle Find section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.find": "Toggle Find section",
+  "menu.section.toggle.find": "Sectie Vind aan/uit",
 
   // "menu.section.toggle.import": "Toggle Import section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.import": "Toggle Import section",
+  "menu.section.toggle.import": "Sectie Import aan/uit",
 
   // "menu.section.toggle.new": "Toggle New section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.new": "Toggle New section",
+  "menu.section.toggle.new": "Sectie Nieuw aan/uit",
 
   // "menu.section.toggle.registries": "Toggle Registries section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.registries": "Toggle Registries section",
+  "menu.section.toggle.registries": "Sectie registers aan/uit",
 
   // "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
-  // TODO New key - Add a translation
-  "menu.section.toggle.statistics_task": "Toggle Statistics Task section",
+  "menu.section.toggle.statistics_task": "Sectie statistiektaken aan/uit",
 
 
 
   // "mydspace.description": "",
-  // TODO New key - Add a translation
-  "mydspace.description": "",
+   "mydspace.description": "",
 
   // "mydspace.general.text-here": "HERE",
   "mydspace.general.text-here": "HIER",
 
   // "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
-  // TODO New key - Add a translation
-  "mydspace.messages.controller-help": "Select this option to send a message to item's submitter.",
+  "mydspace.messages.controller-help": "Kies deze optie om een bericht te sturen naar de indiener van het item.",
 
   // "mydspace.messages.description-placeholder": "Insert your message here...",
   "mydspace.messages.description-placeholder": " Vul hier uw bericht in...",
@@ -1663,8 +1640,7 @@
   "mydspace.messages.subject-placeholder": "Onderwerp...",
 
   // "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
-  // TODO New key - Add a translation
-  "mydspace.messages.submitter-help": "Select this option to send a message to controller.",
+  "mydspace.messages.submitter-help": "Kies deze optie om een bericht te sturen naar de controlleur.",
 
   // "mydspace.messages.title": "Messages",
   "mydspace.messages.title": "Berichten",
@@ -1673,12 +1649,10 @@
   "mydspace.messages.to": "Aan",
 
   // "mydspace.new-submission": "New submission",
-  // TODO New key - Add a translation
-  "mydspace.new-submission": "New submission",
+  "mydspace.new-submission": "Nieuwe submission",
 
   // "mydspace.results.head": "Your submissions",
-  // TODO New key - Add a translation
-  "mydspace.results.head": "Your submissions",
+  "mydspace.results.head": "Uw submissions",
 
   // "mydspace.results.no-abstract": "No Abstract",
   "mydspace.results.no-abstract": "Geen abstract",
@@ -1708,8 +1682,7 @@
   "mydspace.show.workflow": "Alle taken",
 
   // "mydspace.show.workspace": "Your Submissions",
-  // TODO New key - Add a translation
-  "mydspace.show.workspace": "Your Submissions",
+  "mydspace.show.workspace": "Uw Submissions",
 
   // "mydspace.status.archived": "Archived",
   "mydspace.status.archived": "Opgeslagen",
@@ -1718,30 +1691,25 @@
   "mydspace.status.validation": "Validatie",
 
   // "mydspace.status.waiting-for-controller": "Waiting for controller",
-  // TODO New key - Add a translation
-  "mydspace.status.waiting-for-controller": "Waiting for controller",
+  "mydspace.status.waiting-for-controller": "Wachten op controlleur",
 
   // "mydspace.status.workflow": "Workflow",
    "mydspace.status.workflow": "Workflow",
 
   // "mydspace.status.workspace": "Workspace",
-  // TODO New key - Add a translation
   "mydspace.status.workspace": "Workspace",
 
   // "mydspace.title": "MyDSpace",
   "mydspace.title": "MyDSpace",
 
   // "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-failed": "Error creating new workspace. Please verify the content uploaded before retry.",
+  "mydspace.upload.upload-failed": "Er is een fout opgetreden bij het aanmaken van de nieuwe workspace. Controleer alstublieft de inhoud voordat u het opnieuw probeert.",
 
   // "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-multiple-successful": "{{qty}} new workspace items created.",
+  "mydspace.upload.upload-multiple-successful": "{{qty}} nieuwe workspace items aangemaakt.",
 
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  // TODO New key - Add a translation
-  "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
+  "mydspace.upload.upload-successful": "Nieuw workspace item aangemaakt. Klik {{here}} om het te bewerken.",
 
   // "mydspace.view-btn": "View",
   "mydspace.view-btn": "Bekijk",
@@ -1755,8 +1723,7 @@
   "nav.community-browse.header": "Per community",
 
   // "nav.language": "Language switch",
-  // TODO New key - Add a translation
-  "nav.language": "Language switch",
+  "nav.language": "Verander van taal",
 
   // "nav.login": "Log In",
   "nav.login": "Log In",
@@ -1785,8 +1752,7 @@
   "orgunit.page.country": "Land",
 
   // "orgunit.page.dateestablished": "Date established",
-  // TODO New key - Add a translation
-  "orgunit.page.dateestablished": "Date established",
+  "orgunit.page.dateestablished": "Stichtingsdatum",
 
   // "orgunit.page.description": "Description",
   "orgunit.page.description": "Beschrijving",
@@ -1838,19 +1804,16 @@
   "person.page.orcid": "ORCID",
 
   // "person.page.staffid": "Staff ID",
-  // TODO New key - Add a translation
-  "person.page.staffid": "Staff ID",
+  "person.page.staffid": "Personeels-ID",
 
   // "person.page.titleprefix": "Person: ",
   "person.page.titleprefix": "Persoon: ",
 
   // "person.search.results.head": "Person Search Results",
-  // TODO New key - Add a translation
-  "person.search.results.head": "Person Search Results",
+  "person.search.results.head": "Zoekresultaten Persoon",
 
   // "person.search.title": "DSpace Angular :: Person Search",
-  // TODO New key - Add a translation
-  "person.search.title": "DSpace Angular :: Person Search",
+  "person.search.title": "DSpace Angular :: Persoon zoeken",
 
 
 
@@ -1858,7 +1821,6 @@
   "project.listelement.badge": "Onderzoeksproject",
 
   // "project.page.contributor": "Contributors",
-  // TODO New key - Add a translation
   "project.page.contributor": "Contributors",
 
   // "project.page.description": "Description",
@@ -1868,7 +1830,6 @@
   "project.page.expectedcompletion": "Verwachte afronding",
 
   // "project.page.funder": "Funders",
-  // TODO New key - Add a translation
   "project.page.funder": "Funders",
 
   // "project.page.id": "ID",
@@ -1904,8 +1865,7 @@
   "publication.page.titleprefix": "Publicatie: ",
 
   // "publication.page.volume-title": "Volume Title",
-  // TODO New key - Add a translation
-  "publication.page.volume-title": "Volume Title",
+  "publication.page.volume-title": "Jaargangtitel",
 
   // "publication.search.results.head": "Publication Search Results",
   "publication.search.results.head": "Publicatie zoekresultaten",
@@ -1974,8 +1934,7 @@
   "search.filters.applied.f.dateIssued.min": "Startdatum",
 
   // "search.filters.applied.f.dateSubmitted": "Date submitted",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.dateSubmitted": "Date submitted",
+   "search.filters.applied.f.dateSubmitted": "Indiendatum",
 
   // "search.filters.applied.f.entityType": "Item Type",
   "search.filters.applied.f.entityType": "Soort item",
@@ -1993,8 +1952,7 @@
   "search.filters.applied.f.subject": "Onderwerp",
 
   // "search.filters.applied.f.submitter": "Submitter",
-  // TODO New key - Add a translation
-  "search.filters.applied.f.submitter": "Submitter",
+  "search.filters.applied.f.submitter": "Indiener",
 
 
 
@@ -2044,12 +2002,10 @@
   "search.filters.filter.dateIssued.min.placeholder": "Laatste Datum",
 
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.head": "Date submitted",
+  "search.filters.filter.dateSubmitted.head": "Indiendatum",
 
   // "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
-  // TODO New key - Add a translation
-  "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
+  "search.filters.filter.dateSubmitted.placeholder": "Indiendatum",
 
   // "search.filters.filter.entityType.head": "Item Type",
   "search.filters.filter.entityType.head": "Soort item",
@@ -2073,12 +2029,10 @@
   "search.filters.filter.jobTitle.placeholder": "Functienaam",
 
   // "search.filters.filter.knowsLanguage.head": "Known language",
-  // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.head": "Known language",
+  "search.filters.filter.knowsLanguage.head": "Kent taal",
 
   // "search.filters.filter.knowsLanguage.placeholder": "Known language",
-  // TODO New key - Add a translation
-  "search.filters.filter.knowsLanguage.placeholder": "Known language",
+  "search.filters.filter.knowsLanguage.placeholder": "Kent taal",
 
   // "search.filters.filter.namedresourcetype.head": "Status",
   "search.filters.filter.namedresourcetype.head": "Status",
@@ -2105,12 +2059,10 @@
   "search.filters.filter.organizationAddressLocality.placeholder": "Plaats",
 
   // "search.filters.filter.organizationFoundingDate.head": "Date Founded",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.head": "Date Founded",
+  "search.filters.filter.organizationFoundingDate.head": "Oprichtingsdatum",
 
   // "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
-  // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
+  "search.filters.filter.organizationFoundingDate.placeholder": "Oprichtingsdatum",
 
   // "search.filters.filter.scope.head": "Scope",
   "search.filters.filter.scope.head": "Bereik",
@@ -2131,12 +2083,10 @@
   "search.filters.filter.subject.placeholder": "Onderwerp",
 
   // "search.filters.filter.submitter.head": "Submitter",
-  // TODO New key - Add a translation
-  "search.filters.filter.submitter.head": "Submitter",
+  "search.filters.filter.submitter.head": "Indiener",
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  // TODO New key - Add a translation
-  "search.filters.filter.submitter.placeholder": "Submitter",
+  "search.filters.filter.submitter.placeholder": "Indiener",
 
 
 
@@ -2216,348 +2166,266 @@
 
 
   // "submission.edit.title": "Edit Submission",
-  // TODO New key - Add a translation
-  "submission.edit.title": "Edit Submission",
+   "submission.edit.title": "Bewerk submission",
 
   // "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
-  // TODO New key - Add a translation
-  "submission.general.cannot_submit": "You have not the privilege to make a new submission.",
+  "submission.general.cannot_submit": "U heeft niet voldoende rechten om een nieuwe submission in te dienen.",
 
   // "submission.general.deposit": "Deposit",
-  // TODO New key - Add a translation
-  "submission.general.deposit": "Deposit",
+  "submission.general.deposit": "Dien in",
 
   // "submission.general.discard.confirm.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "submission.general.discard.confirm.cancel": "Cancel",
+  "submission.general.discard.confirm.cancel": "Annuleer",
 
   // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
-  // TODO New key - Add a translation
-  "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
+  "submission.general.discard.confirm.info": "Deze handeling kan niet ongedaan worden gemaakt. Weet u het zeker?",
 
   // "submission.general.discard.confirm.submit": "Yes, I'm sure",
-  // TODO New key - Add a translation
-  "submission.general.discard.confirm.submit": "Yes, I'm sure",
+  "submission.general.discard.confirm.submit": "Ja, ik weet het zeker",
 
   // "submission.general.discard.confirm.title": "Discard submission",
-  // TODO New key - Add a translation
-  "submission.general.discard.confirm.title": "Discard submission",
+  "submission.general.discard.confirm.title": "Annuleer submission",
 
   // "submission.general.discard.submit": "Discard",
-  // TODO New key - Add a translation
-  "submission.general.discard.submit": "Discard",
+   "submission.general.discard.submit": "Annuleer",
 
   // "submission.general.save": "Save",
-  // TODO New key - Add a translation
-  "submission.general.save": "Save",
+  "submission.general.save": "Opslaan",
 
   // "submission.general.save-later": "Save for later",
-  // TODO New key - Add a translation
-  "submission.general.save-later": "Save for later",
+  "submission.general.save-later": "Bewaar voor later",
 
 
 
   // "submission.sections.general.add-more": "Add more",
-  // TODO New key - Add a translation
-  "submission.sections.general.add-more": "Add more",
+  "submission.sections.general.add-more": "Voeg meer toe",
 
   // "submission.sections.general.collection": "Collection",
-  // TODO New key - Add a translation
-  "submission.sections.general.collection": "Collection",
+  "submission.sections.general.collection": "Collectie",
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  // TODO New key - Add a translation
-  "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
+  "submission.sections.general.deposit_error_notice": "Er is een probleem opgetreden bij het indienen van het item. Probeer het later nog eens.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  // TODO New key - Add a translation
-  "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
+  "submission.sections.general.deposit_success_notice": "Submission ingediend.",
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  // TODO New key - Add a translation
-  "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
+  "submission.sections.general.discard_error_notice": "Er is een probleem opgetreden bij het annuleren van de submission. Probeer het later nog eens.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
-  // TODO New key - Add a translation
-  "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
+  "submission.sections.general.discard_success_notice": "Submission geannuleerd.",
 
   // "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
-  // TODO New key - Add a translation
-  "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
+  "submission.sections.general.metadata-extracted": "Er zijn nieuwe metadata gevonden en toegevoegd aan de <strong>{{sectionId}}</strong> sectie.",
 
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
-  // TODO New key - Add a translation
-  "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
+  "submission.sections.general.metadata-extracted-new-section": "De nieuwe sectie <strong>{{sectionId}}</strong> is toegevoegd aaan de submission.",
 
   // "submission.sections.general.no-collection": "No collection found",
-  // TODO New key - Add a translation
-  "submission.sections.general.no-collection": "No collection found",
+  "submission.sections.general.no-collection": "Geen collectie gevonden",
 
   // "submission.sections.general.no-sections": "No options available",
-  // TODO New key - Add a translation
-  "submission.sections.general.no-sections": "No options available",
+  "submission.sections.general.no-sections": "Geen opties beschikbaar",
 
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
-  // TODO New key - Add a translation
-  "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
+  "submission.sections.general.save_error_notice": "Er is een probleem opgetreden bij het bewaren van het item. Probeer het later nog eens.",
 
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
-  // TODO New key - Add a translation
-  "submission.sections.general.save_success_notice": "Submission saved successfully.",
+  "submission.sections.general.save_success_notice": "Submission is opgeslagen.",
 
   // "submission.sections.general.search-collection": "Search for a collection",
-  // TODO New key - Add a translation
-  "submission.sections.general.search-collection": "Search for a collection",
+  "submission.sections.general.search-collection": "Zoek een collectie",
 
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
-  // TODO New key - Add a translation
-  "submission.sections.general.sections_not_valid": "There are incomplete sections.",
+   "submission.sections.general.sections_not_valid": "Sommige secties zijn onvolledig.",
 
 
 
   // "submission.sections.submit.progressbar.cclicense": "Creative commons license",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.cclicense": "Creative commons license",
+  "submission.sections.submit.progressbar.cclicense": "Creative commons licentie",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
-  // TODO New key - Add a translation
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
 
   // "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
+   "submission.sections.submit.progressbar.describe.stepcustom": "Beschrijf",
 
   // "submission.sections.submit.progressbar.describe.stepone": "Describe",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.stepone": "Describe",
+  "submission.sections.submit.progressbar.describe.stepone": "Beschrijf",
 
   // "submission.sections.submit.progressbar.describe.steptwo": "Describe",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.describe.steptwo": "Describe",
+  "submission.sections.submit.progressbar.describe.steptwo": "Beschrijf",
 
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
+   "submission.sections.submit.progressbar.detect-duplicate": "Mogelijke verdubbeling",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.license": "Deposit license",
+   "submission.sections.submit.progressbar.license": "Deposit licentie",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
-  // TODO New key - Add a translation
-  "submission.sections.submit.progressbar.upload": "Upload files",
+  "submission.sections.submit.progressbar.upload": "Upload bestanden",
 
 
 
   // "submission.sections.upload.delete.confirm.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.cancel": "Cancel",
+  "submission.sections.upload.delete.confirm.cancel": "Annuleer",
 
   // "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
+  "submission.sections.upload.delete.confirm.info": "Deze handeling kan niet ongedaan worden gemaakt. Weet u het zeker?",
 
   // "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
+  "submission.sections.upload.delete.confirm.submit": "Ja, ik weet het zeker",
 
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.confirm.title": "Delete bitstream",
+  "submission.sections.upload.delete.confirm.title": "Verwijder bitstream",
 
   // "submission.sections.upload.delete.submit": "Delete",
-  // TODO New key - Add a translation
-  "submission.sections.upload.delete.submit": "Delete",
+  "submission.sections.upload.delete.submit": "Verwijder",
 
   // "submission.sections.upload.drop-message": "Drop files to attach them to the item",
-  // TODO New key - Add a translation
-  "submission.sections.upload.drop-message": "Drop files to attach them to the item",
+  "submission.sections.upload.drop-message": "Sleep bestanden om ze toe te voegen aan het item",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.access-condition-label": "Access condition type",
+  "submission.sections.upload.form.access-condition-label": "Soort toegangsrecht",
 
   // "submission.sections.upload.form.date-required": "Date is required.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.date-required": "Date is required.",
+  "submission.sections.upload.form.date-required": "De datum is verplicht.",
 
   // "submission.sections.upload.form.from-label": "Access grant from",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.from-label": "Access grant from",
+   "submission.sections.upload.form.from-label": "Toegang vanaf",
 
   // "submission.sections.upload.form.from-placeholder": "From",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.from-placeholder": "From",
+  "submission.sections.upload.form.from-placeholder": "Van",
 
   // "submission.sections.upload.form.group-label": "Group",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.group-label": "Group",
+  "submission.sections.upload.form.group-label": "Groep",
 
   // "submission.sections.upload.form.group-required": "Group is required.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.group-required": "Group is required.",
+   "submission.sections.upload.form.group-required": "Groep is verplicht.",
 
   // "submission.sections.upload.form.until-label": "Access grant until",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.until-label": "Access grant until",
+   "submission.sections.upload.form.until-label": "Toegang tot",
 
   // "submission.sections.upload.form.until-placeholder": "Until",
-  // TODO New key - Add a translation
-  "submission.sections.upload.form.until-placeholder": "Until",
+   "submission.sections.upload.form.until-placeholder": "Tot",
 
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  // TODO New key - Add a translation
-  "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
+  "submission.sections.upload.header.policy.default.nolist": "Bestanden in de collectie {{collectionName}} zullen toegankelijk zijn volgens deze groep(en):",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  // TODO New key - Add a translation
-  "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
+   "submission.sections.upload.header.policy.default.withlist": "Let op: bestanden in de collectie {{collectionName}} zullen niet alleen toegankelijk zijn volgens de expliciet toegekende rechten per bestand, maar ook volgens de volgende groep(en):",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
-  // TODO New key - Add a translation
-  "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files just dragging & dropping them everywhere in the page</strong>",
+   "submission.sections.upload.info": "Hier vindt u alle bestanden van het item. U kunt de metadata en toegangsrechten bewerken of <strong>meer bestanden toevoegen door ze naar deze pagina te slepen.</strong>",
 
   // "submission.sections.upload.no-entry": "No",
-  // TODO New key - Add a translation
-  "submission.sections.upload.no-entry": "No",
+  "submission.sections.upload.no-entry": "Nee",
 
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
-  // TODO New key - Add a translation
-  "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
+  "submission.sections.upload.no-file-uploaded": "Nog geen bestand geupload.",
 
   // "submission.sections.upload.save-metadata": "Save metadata",
-  // TODO New key - Add a translation
-  "submission.sections.upload.save-metadata": "Save metadata",
+   "submission.sections.upload.save-metadata": "Bewaar metadata",
 
   // "submission.sections.upload.undo": "Cancel",
-  // TODO New key - Add a translation
-  "submission.sections.upload.undo": "Cancel",
+  "submission.sections.upload.undo": "Annuleer",
 
   // "submission.sections.upload.upload-failed": "Upload failed",
-  // TODO New key - Add a translation
-  "submission.sections.upload.upload-failed": "Upload failed",
+   "submission.sections.upload.upload-failed": "Upload mislukt",
 
   // "submission.sections.upload.upload-successful": "Upload successful",
-  // TODO New key - Add a translation
-  "submission.sections.upload.upload-successful": "Upload successful",
+  "submission.sections.upload.upload-successful": "Upload geslaagd",
 
 
 
   // "submission.submit.title": "Submission",
-  // TODO New key - Add a translation
   "submission.submit.title": "Submission",
 
 
 
   // "submission.workflow.generic.delete": "Delete",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.delete": "Delete",
+  "submission.workflow.generic.delete": "Verwijder",
 
   // "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.delete-help": "If you would to discard this item, select \"Delete\".  You will then be asked to confirm it.",
+  "submission.workflow.generic.delete-help": "Als u dit item wilt verwijderen, kies \"Verwijder\". Er zal gevraagd worden dit te bevestigen.",
 
   // "submission.workflow.generic.edit": "Edit",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.edit": "Edit",
+  "submission.workflow.generic.edit": "Bewerk",
 
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
+   "submission.workflow.generic.edit-help": "Kies deze optie om de metadata van het item te bewerken.",
 
   // "submission.workflow.generic.view": "View",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.view": "View",
+  "submission.workflow.generic.view": "Bekijk",
 
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-  // TODO New key - Add a translation
-  "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
+  "submission.workflow.generic.view-help": "Kies deze optie om de metadata van het item te bekijken.",
 
 
 
   // "submission.workflow.tasks.claimed.approve": "Approve",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.approve": "Approve",
+  "submission.workflow.tasks.claimed.approve": "Accepteer",
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
+  "submission.workflow.tasks.claimed.approve_help": "Als u het item gecontroleerd heeft en het geschikt is om in de collectie te worden opgenomen, kiest u \"Accepteer\".",
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.edit": "Edit",
+  "submission.workflow.tasks.claimed.edit": "Bewerk",
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
+   "submission.workflow.tasks.claimed.edit_help": "Kies deze optie om de metadata van het item te bewerken.",
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Vul uw reden om dit item te weigeren. Geef hierbij aan of de indiener het probleem kan verhelpen en het item opnieuw kan indienen.",
 
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
+  "submission.workflow.tasks.claimed.reject.reason.placeholder": "Reden voor weigering",
 
   // "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
+   "submission.workflow.tasks.claimed.reject.reason.submit": "Weiger item",
 
   // "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Reden",
 
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject.submit": "Reject",
+   "submission.workflow.tasks.claimed.reject.submit": "Weiger",
 
   // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  "submission.workflow.tasks.claimed.reject_help": "Als u het item gecontroleerd heeft en heeft geconstateerd dat het <strong>niet</strong> geschikt is om opgenomen te worden, kies dan \"Weiger\". Er zal gevraagd worden om de reden van de weigering te geven. Ook kunt u aangeven of de indiener iets kan wijzigen en opnieuw indienen.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.return": "Return to pool",
+  "submission.workflow.tasks.claimed.return": "Terug naar pool",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
+   "submission.workflow.tasks.claimed.return_help": "Stuur de taak terug naar de pool, zodat iemand anders de taak kan uitvoeren.",
 
 
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.error": "Error occurred during operation...",
+  "submission.workflow.tasks.generic.error": "Er is een fout opgetreden tijdens de verwerking...",
 
   // "submission.workflow.tasks.generic.processing": "Processing...",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.processing": "Processing...",
+  "submission.workflow.tasks.generic.processing": "Bezig met verwerken...",
 
   // "submission.workflow.tasks.generic.submitter": "Submitter",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.submitter": "Submitter",
+  "submission.workflow.tasks.generic.submitter": "Indiener",
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.generic.success": "Operation successful",
+    "submission.workflow.tasks.generic.success": "Verwerking geslaagd",
 
 
 
   // "submission.workflow.tasks.pool.claim": "Claim",
-  // TODO New key - Add a translation
   "submission.workflow.tasks.pool.claim": "Claim",
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
+  "submission.workflow.tasks.pool.claim_help": "Ken uzelf deze taak toe.",
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.hide-detail": "Hide detail",
+  "submission.workflow.tasks.pool.hide-detail": "Verberg detail",
 
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
-  // TODO New key - Add a translation
-  "submission.workflow.tasks.pool.show-detail": "Show detail",
+  "submission.workflow.tasks.pool.show-detail": "Toon detail",
 
 
 
@@ -2567,24 +2435,19 @@
 
 
   // "uploader.browse": "browse",
-  // TODO New key - Add a translation
-  "uploader.browse": "browse",
+  "uploader.browse": "blader",
 
   // "uploader.drag-message": "Drag & Drop your files here",
-  // TODO New key - Add a translation
-  "uploader.drag-message": "Drag & Drop your files here",
+  "uploader.drag-message": "Sleep uw bestanden hierheen",
 
   // "uploader.or": ", or",
-  // TODO New key - Add a translation
-  "uploader.or": ", or",
+  "uploader.or": ", of",
 
   // "uploader.processing": "Processing",
-  // TODO New key - Add a translation
-  "uploader.processing": "Processing",
+  "uploader.processing": "Bezig",
 
   // "uploader.queue-length": "Queue length",
-  // TODO New key - Add a translation
-  "uploader.queue-length": "Queue length",
+  "uploader.queue-length": "Queue lengte",
 
 
 
