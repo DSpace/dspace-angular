@@ -151,7 +151,9 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       name: 'inlineRelationGroup',
       relationFields: [],
       scopeUUID: '',
-      submissionScope: ''
+      submissionScope: '',
+      repeatable: false,
+      metadataFields: []
     }),
     new DynamicDsDatePickerModel({ id: 'datepicker' }),
     new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234' }),
@@ -190,7 +192,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       providers: [
         DsDynamicFormControlContainerComponent,
         DynamicFormService,
-        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() }
+        { provide: DsDynamicTypeBindRelationService, useValue: getMockDsDynamicTypeBindRelationService() },
         { provide: RelationshipService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: ItemDataService, useValue: {} },
@@ -340,11 +342,10 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     expect(testFn(formModel[19])).toEqual(DsDynamicListComponent);
     expect(testFn(formModel[20])).toEqual(DsDynamicListComponent);
     expect(testFn(formModel[21])).toEqual(DsDynamicRelationGroupComponent);
-    expect(testFn(formModel[22])).toEqual(DsDynamicRelationInlineGroupComponent);
-    expect(testFn(formModel[23])).toEqual(DsDatePickerComponent);
+    expect(testFn(formModel[22])).toEqual(DsDatePickerComponent);
+    expect(testFn(formModel[23])).toEqual(DsDynamicLookupComponent);
     expect(testFn(formModel[24])).toEqual(DsDynamicLookupComponent);
-    expect(testFn(formModel[25])).toEqual(DsDynamicLookupComponent);
-    expect(testFn(formModel[26])).toEqual(DsDynamicFormGroupComponent);
+    expect(testFn(formModel[25])).toEqual(DsDynamicFormGroupComponent);
   });
 
 });

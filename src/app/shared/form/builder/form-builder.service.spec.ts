@@ -267,8 +267,7 @@ describe('FormBuilderService test suite', () => {
             return [
               new DynamicInputModel({id: 'testFormRowArrayGroupInput'})
             ];
-          },
-          required: false
+          }
         }
       ),
     ];
