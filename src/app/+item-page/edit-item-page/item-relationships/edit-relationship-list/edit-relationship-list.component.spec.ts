@@ -36,7 +36,16 @@ let entityType;
 let relatedEntityType;
 
 describe('EditRelationshipListComponent', () => {
-  beforeEach(async(() => {
+
+  beforeEach(() => {
+
+    entityType = Object.assign(new ItemType(), {
+      id: 'entityType',
+    });
+
+    relatedEntityType = Object.assign(new ItemType(), {
+      id: 'relatedEntityType',
+    });
 
     relationshipType = Object.assign(new RelationshipType(), {
       id: '1',
@@ -80,14 +89,6 @@ describe('EditRelationshipListComponent', () => {
         undefined,
         new PaginatedList(new PageInfo(), [relationship1, relationship2])
       ))
-    });
-
-    entityType = Object.assign(new ItemType(), {
-      id: 'entityType',
-    });
-
-    relatedEntityType = Object.assign(new ItemType(), {
-      id: 'relatedEntityType',
     });
 
     author1 = Object.assign(new Item(), {
@@ -145,24 +146,23 @@ describe('EditRelationshipListComponent', () => {
         NO_ERRORS_SCHEMA
       ]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(EditRelationshipListComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;
+
     comp.item = item;
+    comp.itemType = entityType;
     comp.url = url;
     comp.relationshipType = relationshipType;
+
     fixture.detectChanges();
   });
 
   describe('changeType is REMOVE', () => {
-    beforeEach(() => {
-      fieldUpdate1.changeType = FieldChangeType.REMOVE;
-      fixture.detectChanges();
-    });
     it('the div should have class alert-danger', () => {
+
+      fieldUpdate1.changeType = FieldChangeType.REMOVE;
       const element = de.queryAll(By.css('.relationship-row'))[1].nativeElement;
       expect(element.classList).toContain('alert-danger');
     });

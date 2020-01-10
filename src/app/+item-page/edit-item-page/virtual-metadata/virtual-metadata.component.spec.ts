@@ -87,16 +87,15 @@ describe('VirtualMetadataComponent', () => {
 
   describe('when selecting an item', () => {
     it('should call the updates service setSelectedVirtualMetadata method', () => {
+
       fixture.debugElement
-        .query(By.css('input.select'))
+        .query(By.css('div.item'))
         .triggerEventHandler('click', null);
-      fixture.whenStable().then(() =>
-        expect(objectUpdatesService.setSelectedVirtualMetadata).toHaveBeenCalledWith(
-          url,
-          relationshipId,
-          item.uuid,
-          true
-        )
+      expect(objectUpdatesService.setSelectedVirtualMetadata).toHaveBeenCalledWith(
+        url,
+        relationshipId,
+        item.uuid,
+        true
       );
     });
   })

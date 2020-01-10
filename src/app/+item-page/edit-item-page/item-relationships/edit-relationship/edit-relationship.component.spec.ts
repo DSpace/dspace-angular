@@ -31,7 +31,9 @@ let de;
 let el;
 
 describe('EditRelationshipComponent', () => {
+
   beforeEach(async(() => {
+
     relationshipType = Object.assign(new RelationshipType(), {
       id: '1',
       uuid: '1',
@@ -95,8 +97,8 @@ describe('EditRelationshipComponent', () => {
 
     objectUpdatesService = {
       isSelectedVirtualMetadata: () => null,
-      removeSingleFieldUpdate: () => null,
-      saveRemoveFieldUpdate: () => null,
+      removeSingleFieldUpdate: jasmine.createSpy('removeSingleFieldUpdate'),
+      saveRemoveFieldUpdate: jasmine.createSpy('saveRemoveFieldUpdate'),
     };
 
     spyOn(objectUpdatesService, 'isSelectedVirtualMetadata').and.callFake((a, b, uuid) => observableOf(itemSelection[uuid]));
@@ -118,6 +120,7 @@ describe('EditRelationshipComponent', () => {
   }));
 
   beforeEach(() => {
+
     fixture = TestBed.createComponent(EditRelationshipComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;
@@ -170,37 +173,30 @@ describe('EditRelationshipComponent', () => {
   });
 
   describe('remove', () => {
+
     beforeEach(() => {
       spyOn(comp, 'closeVirtualMetadataModal');
-      spyOn(objectUpdatesService, 'saveRemoveFieldUpdate');
       comp.ngOnChanges();
       comp.remove();
     });
 
     it('should close the virtual metadata modal and call saveRemoveFieldUpdate with the correct arguments', () => {
-      fixture.whenStable(() => {
-        expect(comp.closeVirtualMetadataModal).toHaveBeenCalled();
-        expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(url, Object.assign({}, fieldUpdate1.field, {
+      expect(comp.closeVirtualMetadataModal).toHaveBeenCalled();
+      expect(objectUpdatesService.saveRemoveFieldUpdate).toHaveBeenCalledWith(
+        url,
+        Object.assign({}, fieldUpdate1.field, {
           keepLeftVirtualMetadata: false,
           keepRightVirtualMetadata: true,
-        }));
-      });
+        }),
+      );
     });
   });
 
   describe('undo', () => {
-    beforeEach(() => {
-      comp.undo();
-      comp.ngOnChanges();
-    });
 
     it('should call removeSingleFieldUpdate with the correct arguments', () => {
-
-      fixture.whenStable().then(() => {
-        expect(spyOn(objectUpdatesService, 'removeSingleFieldUpdate'))
-          .toHaveBeenCalledWith(url, fieldUpdate1[0]);
-      })
+      comp.undo();
+      expect(objectUpdatesService.removeSingleFieldUpdate).toHaveBeenCalledWith(url, relationships[0].uuid);
     });
   });
-
 });

@@ -8,7 +8,7 @@
         <ng-container *ngFor="let item of items; trackBy: trackItem">
             <div *ngVar="(isSelectedVirtualMetadataItem(item) | async) as selected"
                  (click)="setSelectedVirtualMetadataItem(item, !selected)"
-                 class="d-flex flex-row">
+                 class="item d-flex flex-row">
                 <div class="m-2">
                     <label>
                         <input class="select" type="checkbox" [checked]="selected">
