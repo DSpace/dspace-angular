@@ -273,7 +273,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
 
     });
 
-    it('should properly read the section status', () => {
+    it('should properly read the section status when required is true', () => {
       submissionServiceStub.getSubmissionObject.and.returnValue(observableOf(submissionState));
 
       collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
