@@ -72,7 +72,7 @@ export class SubmissionRestService {
   protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string): string {
     let url = isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
     if (collectionId) {
-      url = new URLCombiner(url, '?owningCollection=' + collectionId).toString();
+      url = new URLCombiner(url, `?owningCollection=${collectionId}`).toString();
     }
     return url;
   }
