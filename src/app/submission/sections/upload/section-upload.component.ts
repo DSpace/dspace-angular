@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, find, flatMap, map, reduce, take, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
@@ -228,7 +228,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
       }),
 
       // retrieve submission's bitstreams from state
-      combineLatest(this.configMetadataForm$,
+      observableCombineLatest(this.configMetadataForm$,
         this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id)).pipe(
         filter(([configMetadataForm, fileList]: [SubmissionFormsModel, any[]]) => {
           return isNotEmpty(configMetadataForm) && isNotUndefined(fileList)
