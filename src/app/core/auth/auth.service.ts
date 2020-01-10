@@ -211,7 +211,7 @@ export class AuthService {
    * Retrieve authentication methods available
    * @returns {User}
    */
-  public retrieveAuthMethods(status: AuthStatus): Observable<AuthMethod[]> {
+  public retrieveAuthMethodsFromAuthStatus(status: AuthStatus): Observable<AuthMethod[]> {
     let authMethods: AuthMethod[] = [];
     if (isNotEmpty(status.authMethods)) {
       authMethods = status.authMethods;

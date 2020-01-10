@@ -139,13 +139,13 @@ describe('AuthService test', () => {
     it('should return the authentication methods available', () => {
       const authStatus = new AuthStatus();
 
-      authService.retrieveAuthMethods(authStatus).subscribe((authMethods: AuthMethod[]) => {
+      authService.retrieveAuthMethodsFromAuthStatus(authStatus).subscribe((authMethods: AuthMethod[]) => {
         expect(authMethods).toBeDefined();
         expect(authMethods.length).toBe(0);
       });
 
       authStatus.authMethods = authMethodsMock;
-      authService.retrieveAuthMethods(authStatus).subscribe((authMethods: AuthMethod[]) => {
+      authService.retrieveAuthMethodsFromAuthStatus(authStatus).subscribe((authMethods: AuthMethod[]) => {
         expect(authMethods).toBeDefined();
         expect(authMethods.length).toBe(2);
       });

@@ -196,7 +196,7 @@ export class AuthEffects {
     .pipe(
       ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
       switchMap((action: RetrieveAuthMethodsAction) => {
-        return this.authService.retrieveAuthMethods(action.payload)
+        return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload)
           .pipe(
             map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
             catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
