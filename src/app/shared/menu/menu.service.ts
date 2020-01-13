@@ -52,7 +52,7 @@ const getSubSectionsFromSectionSelector = (id: string): MemoizedSelector<MenuSta
 @Injectable()
 export class MenuService {
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store<AppState>) {
   }
 
   /**
