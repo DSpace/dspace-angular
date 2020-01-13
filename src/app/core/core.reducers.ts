@@ -12,6 +12,7 @@ import {
   bitstreamFormatReducer,
   BitstreamFormatRegistryState
 } from '../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+import { historyReducer, HistoryState } from './history/history.reducer';
 
 export interface CoreState {
   'bitstreamFormats': BitstreamFormatRegistryState;
@@ -19,6 +20,7 @@ export interface CoreState {
   'cache/syncbuffer': ServerSyncBufferState,
   'cache/object-updates': ObjectUpdatesState
   'data/request': RequestState,
+  'history': HistoryState;
   'index': MetaIndexState,
   'auth': AuthState,
   'json/patch': JsonPatchOperationsState,
@@ -31,6 +33,7 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'cache/syncbuffer': serverSyncBufferReducer,
   'cache/object-updates': objectUpdatesReducer,
   'data/request': requestReducer,
+  'history': historyReducer,
   'index': indexReducer,
   'auth': authReducer,
   'json/patch': jsonPatchOperationsReducer,
