@@ -246,6 +246,16 @@ describe('MenuService', () => {
 
       expect(result).toBeObservable(expected);
     });
+
+    it('should return undefined', () => {
+
+      const result = service.getMenuSection(MenuID.ADMIN, 'fake');
+      const expected = cold('b', {
+        b: undefined
+      });
+
+      expect(result).toBeObservable(expected);
+    });
   });
 
   describe('isMenuCollapsed', () => {
