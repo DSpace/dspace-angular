@@ -342,7 +342,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
       fixture.detectChanges();
 
       expect(comp.searchField.reset).toHaveBeenCalled();
-      expect(comp.collectionChange.emit).toHaveBeenCalledWith(submissionRestResponse[0]);
+      expect(comp.collectionChange.emit).toHaveBeenCalledWith(submissionRestResponse[0] as any);
       expect(submissionServiceStub.changeSubmissionCollection).toHaveBeenCalled();
       expect(comp.selectedCollectionId).toBe(mockCollectionList[1].collection.id);
       expect(comp.selectedCollectionName$).toBeObservable(cold('(a|)', {

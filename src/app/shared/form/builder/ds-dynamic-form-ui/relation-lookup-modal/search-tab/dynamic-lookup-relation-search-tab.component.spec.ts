@@ -122,7 +122,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     });
 
     it('should emit the page filtered from not yet selected objects and call select on the service for all objects', () => {
-      expect(component.deselectObject.emit).toHaveBeenCalledWith(searchResult1, searchResult2);
+      expect((component.deselectObject as any).emit).toHaveBeenCalledWith(searchResult1, searchResult2);
       expect(selectableListService.deselect).toHaveBeenCalledWith(listID, [searchResult1, searchResult2, searchResult3]);
     });
   });
@@ -146,7 +146,7 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     });
 
     it('should emit the page filtered from not yet selected objects and call select on the service for all objects', () => {
-      expect(component.deselectObject.emit).toHaveBeenCalledWith(searchResult1, searchResult2);
+      expect((component.deselectObject as any).emit).toHaveBeenCalledWith(searchResult1, searchResult2);
       expect(selectableListService.deselectAll).toHaveBeenCalledWith(listID);
     });
   });
