@@ -1,12 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, first, map, mergeMap, skipWhile, switchMap, take, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  first,
+  map,
+  mergeMap,
+  skipWhile,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
@@ -14,9 +24,9 @@ import { RemoteData } from './remote-data';
 import {
   CreateRequest,
   DeleteByIDRequest,
+  FindByIDRequest,
   FindListOptions,
   FindListRequest,
-  FindByIDRequest,
   GetRequest
 } from './request.models';
 import { RequestService } from './request.service';
@@ -37,6 +47,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { ChangeAnalyzer } from './change-analyzer';
 import { RestRequestMethod } from './rest-request-method';
 import { getMapsToType } from '../cache/builders/build-decorators';
+import { CoreState } from '../core.reducers';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;

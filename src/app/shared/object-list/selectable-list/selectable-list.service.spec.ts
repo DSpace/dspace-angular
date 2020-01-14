@@ -1,10 +1,15 @@
 import { Store } from '@ngrx/store';
 import { async, TestBed } from '@angular/core/testing';
 import { SelectableListService } from './selectable-list.service';
-import { SelectableListsState } from './selectable-list.reducer';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import { hasValue } from '../../empty.util';
-import { SelectableListDeselectAction, SelectableListDeselectSingleAction, SelectableListSelectAction, SelectableListSelectSingleAction } from './selectable-list.actions';
+import {
+  SelectableListDeselectAction,
+  SelectableListDeselectSingleAction,
+  SelectableListSelectAction,
+  SelectableListSelectSingleAction
+} from './selectable-list.actions';
+import { AppState } from '../../../app.reducer';
 
 class SelectableObject extends ListableObject {
   constructor(private value: string) {
@@ -33,7 +38,7 @@ describe('SelectableListService', () => {
   const selected4 = new SelectableObject(value4);
 
   let service: SelectableListService;
-  const store: Store<SelectableListsState> = jasmine.createSpyObj('store', {
+  const store: Store<AppState> = jasmine.createSpyObj('store', {
     /* tslint:disable:no-empty */
     dispatch: {},
     /* tslint:enable:no-empty */

@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
 import { hasValue, isNotEmpty } from '../../../../../empty.util';
 import { concat, map, multicast, switchMap, take, takeWhile, tap } from 'rxjs/operators';
-import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
 import { getSucceededRemoteData } from '../../../../../../core/shared/operators';
 import { RouteService } from '../../../../../../core/services/route.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
@@ -86,13 +85,13 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
           multicast(
             () => new ReplaySubject(1),
             (subject) => subject.pipe(
-              takeWhile((rd: RemoteData<PaginatedList<SearchResult<DSpaceObject>>>) => rd.isLoading),
+              takeWhile((rd: RemoteData<PaginatedList<SearchResult<Item>>>) => rd.isLoading),
               concat(subject.pipe(take(1)))
             )
           ) as any
         )
       })
-    );
+    ) as Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
   }
 
   /**

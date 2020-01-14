@@ -16,7 +16,7 @@ import { hasValue } from '../../empty.util';
 @Injectable()
 export class SidebarFilterService {
 
-  constructor(private store: Store<SidebarFilterState>) {
+  constructor(private store: Store<SidebarFiltersState>) {
   }
 
   /**

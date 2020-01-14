@@ -17,7 +17,6 @@ import {
 } from './json-patch-operations.actions';
 import { JsonPatchOperationModel } from './json-patch.model';
 import { getResponseFromEntry } from '../shared/operators';
-import { ObjectCacheEntry } from '../cache/object-cache.reducer';
 
 /**
  * An abstract class that provides methods to make JSON Patch requests.
@@ -88,8 +87,8 @@ export abstract class JsonPatchOperationsService<ResponseDefinitionDomain, Patch
         flatMap(() => {
           const [successResponse$, errorResponse$] = partition((response: RestResponse) => response.isSuccessful)(this.requestService.getByUUID(requestId).pipe(
             getResponseFromEntry(),
-            find((entry: ObjectCacheEntry) => startTransactionTime < entry.timeAdded),
-            map((entry: ObjectCacheEntry) => entry),
+            find((entry: RestResponse) => startTransactionTime < entry.timeAdded),
+            map((entry: RestResponse) => entry),
           ));
           return observableMerge(
             errorResponse$.pipe(

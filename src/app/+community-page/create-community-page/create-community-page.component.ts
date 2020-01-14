@@ -4,6 +4,8 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { RouteService } from '../../core/services/route.service';
 import { Router } from '@angular/router';
 import { CreateComColPageComponent } from '../../shared/comcol-forms/create-comcol-page/create-comcol-page.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component that represents the page where a user can create a new Community
@@ -15,12 +17,15 @@ import { CreateComColPageComponent } from '../../shared/comcol-forms/create-comc
 })
 export class CreateCommunityPageComponent extends CreateComColPageComponent<Community> {
   protected frontendURL = '/communities/';
+  protected type = Community.type;
 
   public constructor(
     protected communityDataService: CommunityDataService,
     protected routeService: RouteService,
-    protected router: Router
+    protected router: Router,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService
   ) {
-    super(communityDataService, communityDataService, routeService, router);
+    super(communityDataService, communityDataService, routeService, router, notificationsService, translate);
   }
 }

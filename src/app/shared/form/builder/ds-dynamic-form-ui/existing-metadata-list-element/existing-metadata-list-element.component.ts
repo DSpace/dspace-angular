@@ -26,6 +26,9 @@ import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
 
 // tslint:disable:max-classes-per-file
+/**
+ * Abstract class that defines objects that can be reordered
+ */
 export abstract class Reorderable {
 
   constructor(public oldIndex?: number, public newIndex?: number) {
@@ -81,6 +84,9 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
 
 }
 
+/**
+ * Represents a single relationship that can be reordered in a list of multiple relationships
+ */
 export class ReorderableRelationship extends Reorderable {
 
   constructor(public relationship: Relationship, public useLeftItem: boolean, protected relationshipService: RelationshipService, oldIndex?: number, newIndex?: number) {
@@ -114,6 +120,9 @@ export class ReorderableRelationship extends Reorderable {
   }
 }
 
+/**
+ * Represents a single existing relationship value as metadata in submission
+ */
 @Component({
   selector: 'ds-existing-metadata-list-element',
   templateUrl: './existing-metadata-list-element.component.html',
@@ -160,6 +169,9 @@ export class ExistingMetadataListElementComponent implements OnChanges, OnDestro
     }));
   }
 
+  /**
+   * Removes the selected relationship from the list
+   */
   removeSelection() {
     this.selectableListService.deselectSingle(this.listId, Object.assign(new ItemSearchResult(), { indexableObject: this.relatedItem }));
     this.store.dispatch(new RemoveRelationshipAction(this.submissionItem, this.relatedItem, this.relationshipOptions.relationshipType, this.submissionId))

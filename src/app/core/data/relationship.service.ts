@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
-import { Observable } from 'rxjs/internal/Observable';
 import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
@@ -13,24 +12,25 @@ import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { RemoteData, RemoteDataState } from './remote-data';
+import { PaginatedList } from './paginated-list';
+import { ItemDataService } from './item-data.service';
 import { Relationship } from '../shared/item-relationships/relationship.model';
 import { Item } from '../shared/item.model';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { ItemDataService } from './item-data.service';
-import { PaginatedList } from './paginated-list';
-import { RemoteData, RemoteDataState } from './remote-data';
 import { RequestService } from './request.service';
 import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../shared/metadata.models';
+import { Observable } from 'rxjs/internal/Observable';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -119,7 +119,7 @@ export class RelationshipService extends DataService<Relationship> {
       getResponseFromEntry(),
       tap(() => this.removeRelationshipItemsFromCache(item1)),
       tap(() => this.removeRelationshipItemsFromCache(item2))
-    );
+    ) as Observable<RestResponse>;
   }
 
   /**
@@ -357,7 +357,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param nameVariant The name variant to set for the matching relationship
    */
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
-    const update$ = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
+    const update$: Observable<RemoteData<Relationship>> = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
         switchMap((relation: Relationship) =>
           relation.relationshipType.pipe(
@@ -391,6 +391,11 @@ export class RelationshipService extends DataService<Relationship> {
     return update$
   }
 
+  /**
+   * Method to update the the right or left place of a relationship
+   * The useLeftItem field in the reorderable relationship determines which place should be updated
+   * @param reoRel
+   */
   public updatePlace(reoRel: ReorderableRelationship): Observable<RemoteData<Relationship>> {
     let updatedRelationship;
     if (reoRel.useLeftItem) {

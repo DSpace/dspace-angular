@@ -34,7 +34,7 @@ import {
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormInstancesService,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
@@ -73,8 +73,8 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, switchMap, take } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import { map, startWith, switchMap, find, take } from 'rxjs/operators';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -96,7 +96,6 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { FormService } from '../../form.service';
-import { combineLatest as observableCombineLatest } from 'rxjs';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -208,6 +207,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected dynamicFormInstanceService: DynamicFormInstancesService,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
     protected translateService: TranslateService,
@@ -222,7 +222,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private ref: ChangeDetectorRef,
     private formService: FormService
   ) {
-    super(componentFactoryResolver, layoutService, validationService);
+
+    super(componentFactoryResolver, layoutService, validationService, dynamicFormInstanceService);
   }
 
   /**

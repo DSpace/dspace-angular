@@ -7,7 +7,7 @@ import { SelectableListService } from './selectable-list/selectable-list.service
 describe('ObjectListComponent', () => {
   let comp: ObjectListComponent;
   let fixture: ComponentFixture<ObjectListComponent>;
-  const testEvent = { test: 'test' };
+  const testEvent: any = { test: 'test' };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

@@ -1,3 +1,38 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 d-inline-block">
+      <label>{{type.value + '.edit.logo.label' | translate}}</label>
+    </div>
+    <ng-container *ngVar="(dso?.logo | async)?.payload as logo">
+      <div class="col-12 d-inline-block alert" [ngClass]="{'alert-danger': markLogoForDeletion}" id="logo-section">
+        <div class="row">
+          <div class="col-8 d-inline-block">
+            <ds-comcol-page-logo [logo]="logo"></ds-comcol-page-logo>
+          </div>
+          <div class="col-4 d-inline-block">
+            <div *ngIf="logo" class="btn-group btn-group-sm float-right" role="group">
+              <button *ngIf="!markLogoForDeletion" type="button" class="btn btn-danger" (click)="deleteLogo()">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </button>
+              <button *ngIf="markLogoForDeletion" type="button" class="btn btn-warning" (click)="undoDeleteLogo()">
+                <i class="fas fa-undo" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!logo" class="col-12 d-inline-block">
+        <ds-uploader  *ngIf="initializedUploaderOptions | async"
+                      [dropMsg]="type.value + '.edit.logo.upload'"
+                      [dropOverDocumentMsg]="type.value + '.edit.logo.upload'"
+                      [enableDragOverDocument]="true"
+                      [uploadFilesOptions]="uploadFilesOptions"
+                      (onCompleteItem)="onCompleteItem()"
+                      (onUploadError)="onUploadError()"></ds-uploader>
+      </div>
+    </ng-container>
+  </div>
+</div>
 <ds-form *ngIf="formModel"
          [formId]="'comcol-form-id'"
          [formModel]="formModel" (submitForm)="onSubmit()" (cancel)="onCancel()"></ds-form>

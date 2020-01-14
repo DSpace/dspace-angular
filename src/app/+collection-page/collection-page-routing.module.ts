@@ -5,7 +5,6 @@ import { CollectionPageComponent } from './collection-page.component';
 import { CollectionPageResolver } from './collection-page.resolver';
 import { CreateCollectionPageComponent } from './create-collection-page/create-collection-page.component';
 import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
-import { EditCollectionPageComponent } from './edit-collection-page/edit-collection-page.component';
 import { CreateCollectionPageGuard } from './create-collection-page/create-collection-page.guard';
 import { DeleteCollectionPageComponent } from './delete-collection-page/delete-collection-page.component';
 import { URLCombiner } from '../core/url-combiner/url-combiner';
@@ -39,12 +38,8 @@ const COLLECTION_EDIT_PATH = ':id/edit';
       },
       {
         path: COLLECTION_EDIT_PATH,
-        pathMatch: 'full',
-        component: EditCollectionPageComponent,
-        canActivate: [AuthenticatedGuard],
-        resolve: {
-          dso: CollectionPageResolver
-        }
+        loadChildren: './edit-collection-page/edit-collection-page.module#EditCollectionPageModule',
+        canActivate: [AuthenticatedGuard]
       },
       {
         path: ':id/delete',
