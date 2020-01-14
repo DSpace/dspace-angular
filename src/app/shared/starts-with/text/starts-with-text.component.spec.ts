@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -66,7 +66,7 @@ describe('StartsWithTextComponent', () => {
     let select;
     let input;
     const expectedValue = '0';
-    const extras = {
+    const extras: NavigationExtras = {
       queryParams: Object.assign({ startsWith: expectedValue }),
       queryParamsHandling: 'merge'
     };
@@ -96,7 +96,7 @@ describe('StartsWithTextComponent', () => {
     let select;
     let input;
     const expectedValue = options[1];
-    const extras = {
+    const extras: NavigationExtras = {
       queryParams: Object.assign({ startsWith: expectedValue }),
       queryParamsHandling: 'merge'
     };
@@ -126,7 +126,7 @@ describe('StartsWithTextComponent', () => {
     let optionLink;
     let input;
     const expectedValue = options[1];
-    const extras = {
+    const extras: NavigationExtras = {
       queryParams: Object.assign({ startsWith: expectedValue }),
       queryParamsHandling: 'merge'
     };
@@ -154,7 +154,7 @@ describe('StartsWithTextComponent', () => {
   describe('when filling in the input form', () => {
     let form;
     const expectedValue = 'A';
-    const extras = {
+    const extras: NavigationExtras = {
       queryParams: Object.assign({ startsWith: expectedValue }),
       queryParamsHandling: 'merge'
     };

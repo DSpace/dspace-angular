@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { filter, find, map, switchMap, tap } from 'rxjs/operators';
+import { filter, find, map, switchMap } from 'rxjs/operators';
 import { configureRequest, getSucceededRemoteData } from '../shared/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
@@ -42,7 +42,7 @@ export class RelationshipTypeService {
         map((endpointURL: string) => new FindListRequest(this.requestService.generateRequestId(), endpointURL, options)),
         configureRequest(this.requestService),
         switchMap(() => this.rdbService.buildList(link$))
-      );
+      ) as Observable<RemoteData<PaginatedList<RelationshipType>>>;
   }
 
   /**

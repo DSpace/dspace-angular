@@ -1,5 +1,10 @@
-import { DynamicDateControlModel, DynamicFormControlLayout, serializable } from '@ng-dynamic-forms/core';
-import { DynamicDateControlModelConfig } from '@ng-dynamic-forms/core/src/model/dynamic-date-control.model';
+import {
+  DynamicDateControlModel,
+  DynamicDateControlModelConfig,
+  DynamicFormControlLayout,
+  serializable
+} from '@ng-dynamic-forms/core';
+
 import { Subject } from 'rxjs';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
