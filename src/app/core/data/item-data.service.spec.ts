@@ -211,7 +211,7 @@ describe('ItemDataService', () => {
     });
 
     it('should configure a POST request', () => {
-      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest), undefined));
+      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest)));
     });
   });
 
