@@ -1,9 +1,13 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel
+} from '@ng-dynamic-forms/core';
 import { FormGroup } from '@angular/forms';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { TranslateService } from '@ngx-translate/core';
+
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { MetadataMap, MetadataValue } from '../../../core/shared/metadata.models';
 import { ResourceType } from '../../../core/shared/resource-type';
@@ -186,7 +190,7 @@ export class ComColFormComponent<T extends DSpaceObject> implements OnInit, OnDe
       });
     }
 
-    const formMetadata = new Object() as MetadataMap;
+    const formMetadata = {}  as MetadataMap;
     this.formModel.forEach((fieldModel: DynamicInputModel) => {
       const value: MetadataValue = {
           value: fieldModel.value as string,

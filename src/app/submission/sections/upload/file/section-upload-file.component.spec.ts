@@ -37,6 +37,7 @@ import { getMockSectionUploadService } from '../../../../shared/mocks/mock-secti
 import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { Group } from '../../../../core/eperson/models/group.model';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
+import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 
 function getMockFileService(): FileService {
   return jasmine.createSpyObj('FileService', {
@@ -104,7 +105,8 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
         ChangeDetectorRef,
         NgbModal,
         SubmissionSectionUploadFileComponent,
-        SubmissionSectionUploadFileEditComponent
+        SubmissionSectionUploadFileEditComponent,
+        FormBuilderService
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents().then();
