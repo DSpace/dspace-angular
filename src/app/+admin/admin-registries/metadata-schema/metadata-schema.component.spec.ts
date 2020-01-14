@@ -1,7 +1,6 @@
 import { MetadataSchemaComponent } from './metadata-schema.component';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
@@ -22,6 +21,7 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { RestResponse } from '../../../core/cache/response.models';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { MetadataField } from '../../../core/metadata/metadata-field.model';
 
 describe('MetadataSchemaComponent', () => {
   let comp: MetadataSchemaComponent;
@@ -152,12 +152,12 @@ describe('MetadataSchemaComponent', () => {
 
     it('should start editing the selected field', async(() => {
       fixture.whenStable().then(() => {
-        expect(registryService.editMetadataField).toHaveBeenCalledWith(mockFieldsList[2]);
+        expect(registryService.editMetadataField).toHaveBeenCalledWith(mockFieldsList[2] as MetadataField);
       });
     }));
 
     it('should cancel editing the selected field when clicked again', async(() => {
-      spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(mockFieldsList[2]));
+      spyOn(registryService, 'getActiveMetadataField').and.returnValue(observableOf(mockFieldsList[2] as MetadataField));
       spyOn(registryService, 'cancelEditMetadataField');
       row.click();
       fixture.detectChanges();
@@ -172,7 +172,7 @@ describe('MetadataSchemaComponent', () => {
 
     beforeEach(() => {
       spyOn(registryService, 'deleteMetadataField').and.callThrough();
-      spyOn(registryService, 'getSelectedMetadataFields').and.returnValue(observableOf(selectedFields));
+      spyOn(registryService, 'getSelectedMetadataFields').and.returnValue(observableOf(selectedFields as MetadataField[]));
       comp.deleteFields();
       fixture.detectChanges();
     });

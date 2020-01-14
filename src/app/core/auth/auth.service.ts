@@ -60,7 +60,8 @@ export class AuthService {
     // and is not the login route, clear redirect url and messages
     const routeUrl$ = this.store.pipe(
       select(routerStateSelector),
-      filter((routerState: RouterReducerState) => isNotUndefined(routerState) && isNotUndefined(routerState.state)),
+      filter((routerState: RouterReducerState) => isNotUndefined(routerState)
+        && isNotUndefined(routerState.state) && isNotEmpty(routerState.state.url)),
       filter((routerState: RouterReducerState) => !this.isLoginRoute(routerState.state.url)),
       map((routerState: RouterReducerState) => routerState.state.url)
     );

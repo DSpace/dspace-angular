@@ -6,22 +6,14 @@ import { CoreState } from '../core.reducers';
 import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import {
-  DeleteRequest,
-  FindListOptions,
-  GetRequest,
-  MappedCollectionsRequest,
-  PostRequest,
-  RestRequest
-} from './request.models';
+import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { RestResponse } from '../cache/response.models';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HttpClient } from '@angular/common/http';
 import { RequestEntry } from './request.reducer';
-import { of as observableOf } from 'rxjs';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 
 describe('ItemDataService', () => {
@@ -184,7 +176,7 @@ describe('ItemDataService', () => {
     });
 
     it('should configure a DELETE request', () => {
-      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(DeleteRequest), undefined));
+      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(DeleteRequest)));
     });
   });
 
@@ -198,7 +190,7 @@ describe('ItemDataService', () => {
     });
 
     it('should configure a POST request', () => {
-      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest), undefined));
+      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest)));
     });
   });
 
