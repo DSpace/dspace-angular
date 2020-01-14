@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
@@ -356,7 +356,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param nameVariant The name variant to set for the matching relationship
    */
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
-    const update$ = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
+    const update$: Observable<RemoteData<Relationship>> = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
         switchMap((relation: Relationship) =>
           relation.relationshipType.pipe(

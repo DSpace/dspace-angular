@@ -75,7 +75,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, startWith, switchMap, take } from 'rxjs/operators';
+import { map, startWith, switchMap, find } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -353,20 +353,21 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   moveSelection(event: CdkDragDrop<Relationship>) {
     this.zone.runOutsideAngular(() => {
       moveItemInArray(this.reorderables, event.previousIndex, event.currentIndex);
-      const reorderables = this.reorderables.map((reo: Reorderable, index: number) => {
+      const reorderables: Reorderable[] = this.reorderables.map((reo: Reorderable, index: number) => {
           reo.oldIndex = reo.getPlace();
           reo.newIndex = index;
           return reo;
         }
       );
-      return observableCombineLatest(reorderables.map((rel: ReorderableRelationship) => {
+      observableCombineLatest(
+        reorderables.map((rel: ReorderableRelationship) => {
           if (rel.oldIndex !== rel.newIndex) {
             return this.relationshipService.updatePlace(rel);
           } else {
-            return observableOf(undefined);
+            return observableOf(undefined) as Observable<RemoteData<Relationship>>;
           }
         })
-      ).pipe(getSucceededRemoteData()).subscribe();
+      ).subscribe();
     })
   }
 

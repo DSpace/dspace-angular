@@ -252,7 +252,7 @@ export abstract class DataService<T extends CacheableObject> {
     return oldVersion$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
-      mergeMap((oldVersion: NormalizedObject<T>) => {
+      mergeMap((oldVersion: T) => {
         const operations = this.comparator.diff(oldVersion, object);
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);
