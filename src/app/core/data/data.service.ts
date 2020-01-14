@@ -1,17 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, first, map, mergeMap, skipWhile, switchMap, take, tap } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  find,
+  first,
+  map,
+  mergeMap,
+  skipWhile,
+  switchMap,
+  take,
+  tap
+} from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
-import { CreateRequest, DeleteByIDRequest, FindListOptions, FindListRequest, FindByIDRequest, GetRequest } from './request.models';
+import {
+  CreateRequest,
+  DeleteByIDRequest,
+  FindByIDRequest,
+  FindListOptions,
+  FindListRequest,
+  GetRequest
+} from './request.models';
 import { RequestService } from './request.service';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
@@ -30,6 +47,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { ChangeAnalyzer } from './change-analyzer';
 import { RestRequestMethod } from './rest-request-method';
 import { getMapsToType } from '../cache/builders/build-decorators';
+import { CoreState } from '../core.reducers';
 
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
@@ -150,7 +168,7 @@ export abstract class DataService<T extends CacheableObject> {
   findById(id: string): Observable<RemoteData<T>> {
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
-        map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
+      map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
 
     hrefObs.pipe(
       find((href: string) => hasValue(href)))
@@ -231,7 +249,7 @@ export abstract class DataService<T extends CacheableObject> {
    */
   update(object: T): Observable<RemoteData<T>> {
     const oldVersion$ = this.objectCache.getObjectBySelfLink(object.self);
-    return oldVersion$.pipe(take(1), mergeMap((oldVersion: T) => {
+    return oldVersion$.pipe(take(1), mergeMap((oldVersion: NormalizedObject<T>) => {
         const operations = this.comparator.diff(oldVersion, object);
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);

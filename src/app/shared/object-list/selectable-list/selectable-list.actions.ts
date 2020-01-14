@@ -55,7 +55,7 @@ export class SelectableListSelectSingleAction extends SelectableListAction {
 }
 
 /**
- * Action to deselect objects in a the selectable list
+ * Action to deselect a single object in a the selectable list
  */
 export class SelectableListDeselectSingleAction extends SelectableListAction {
   payload: ListableObject;
@@ -67,7 +67,7 @@ export class SelectableListDeselectSingleAction extends SelectableListAction {
 }
 
 /**
- * Action to deselect a single object in a the selectable list
+ * Action to deselect objects in a the selectable list
  */
 export class SelectableListDeselectAction extends SelectableListAction {
   payload: ListableObject[];

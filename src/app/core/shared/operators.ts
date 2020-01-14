@@ -125,9 +125,3 @@ export const getFirstOccurrence = () =>
     source.pipe(
       map((rd) => Object.assign(rd, { payload: rd.payload.page.length > 0 ? rd.payload.page[0] : undefined }))
     );
-
-export const obsLog = (logString?: string) =>
-  <T>(source: Observable<T>): Observable<T> =>
-    source.pipe(
-      tap((t) => console.log(logString || '', t))
-    );

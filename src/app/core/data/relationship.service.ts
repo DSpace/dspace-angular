@@ -3,8 +3,13 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, map, mergeMap, skipWhile, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
+import {
+  configureRequest,
+  getRemoteDataPayload,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../shared/operators';
 import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
@@ -15,7 +20,11 @@ import { RemoteData } from './remote-data';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
-import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import {
+  compareArraysUsingIds,
+  paginatedRelationsToItems,
+  relationsToItems
+} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DataService } from './data.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
@@ -28,7 +37,10 @@ import { SearchParam } from '../cache/models/search-param.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { AppState, keySelector } from '../../app.reducer';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
+import {
+  RemoveNameVariantAction,
+  SetNameVariantAction
+} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -117,7 +129,7 @@ export class RelationshipService extends DataService<Relationship> {
       getResponseFromEntry(),
       tap(() => this.removeRelationshipItemsFromCache(item1)),
       tap(() => this.removeRelationshipItemsFromCache(item2))
-    );
+    ) as Observable<RestResponse>;
   }
 
   /**

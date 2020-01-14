@@ -61,7 +61,7 @@ export class LookupRelationService {
           concat(subject.pipe(take(1)))
         )
       ) as any
-    )
+    ) as Observable<RemoteData<PaginatedList<SearchResult<Item>>>>;
   }
 
   /**

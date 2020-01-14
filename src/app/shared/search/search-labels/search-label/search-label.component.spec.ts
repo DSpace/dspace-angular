@@ -4,7 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, of as observableOf } from 'rxjs';
-import { Params } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { SearchLabelComponent } from './search-label.component';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
 import { SEARCH_CONFIG_SERVICE } from '../../../../+my-dspace-page/my-dspace-page.component';
@@ -39,7 +39,8 @@ describe('SearchLabelComponent', () => {
       declarations: [SearchLabelComponent, ObjectKeysPipe],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() }
+        { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
+        { provide: Router, useValue: {} }
         // { provide: SearchConfigurationService, useValue: {getCurrentFrontendFilters : () =>  observableOf({})} }
       ],
       schemas: [NO_ERRORS_SCHEMA]

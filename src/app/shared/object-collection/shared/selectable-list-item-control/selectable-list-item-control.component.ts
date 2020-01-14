@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   templateUrl: './selectable-list-item-control.component.html'
 })
 /**
- * Component for determining what component to use depending on the item's relationship type (relationship.type)
+ * Component for rendering list item that has a control (checkbox or radio button) because it's selectable
  */
 export class SelectableListItemControlComponent implements OnInit {
   /**
