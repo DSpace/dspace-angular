@@ -261,7 +261,6 @@ describe('FormBuilderService test suite', () => {
           id: 'testFormRowArray',
           initialCount: 5,
           notRepeatable: false,
-          required: false,
           showButtons: false,
           groupFactory: () => {
             return [

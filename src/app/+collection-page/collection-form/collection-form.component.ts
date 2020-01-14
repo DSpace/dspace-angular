@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { DynamicFormService, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+  DynamicTextAreaModel
+} from '@ng-dynamic-forms/core';
 import { Collection } from '../../core/shared/collection.model';
 import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
 import { Location } from '@angular/common';

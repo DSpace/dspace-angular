@@ -136,7 +136,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         );
 
     const relatedItems$: Observable<Item[]> = relatedItemPairs$.pipe(
-      map(([relatedItemPairs,]: [Array<[Item, Item]>]) => relatedItemPairs.map(([left, right]: [Item, Item]) => left.uuid === this.item.uuid ? left : right))
+      map((relatedItemPairs: Array<[Item, Item]>) => {
+        return relatedItemPairs
+          .map(([left, right]: [Item, Item]) => left.uuid === this.item.uuid ? left : right)
+      })
     );
 
     relatedItems$.pipe(take(1)).subscribe((relatedItems) => {

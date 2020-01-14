@@ -1,21 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
-import {
-  catchError, concatMap,
-  distinctUntilChanged,
-  filter,
-  find,
-  map,
-  startWith, take, tap
-} from 'rxjs/operators';
+import { catchError, concatMap, distinctUntilChanged, filter, find, map, startWith, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
 import { submissionSelector, SubmissionState } from './submission.reducers';
-import { hasValue, isEmpty, isNotUndefined } from '../shared/empty.util';
+import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../shared/empty.util';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -28,7 +21,12 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
-import { SubmissionObjectEntry, SubmissionSectionEntry, SubmissionSectionError, SubmissionSectionObject } from './objects/submission-objects.reducer';
+import {
+  SubmissionObjectEntry,
+  SubmissionSectionEntry,
+  SubmissionSectionError,
+  SubmissionSectionObject
+} from './objects/submission-objects.reducer';
 import { submissionObjectFromIdSelector } from './selectors';
 import { GlobalConfig } from '../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../config';
@@ -45,11 +43,7 @@ import { WorkspaceitemSectionsObject } from '../core/submission/models/workspace
 import { RemoteData } from '../core/data/remote-data';
 import { ErrorResponse } from '../core/cache/response.models';
 import { RemoteDataError } from '../core/data/remote-data-error';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../shared/testing/utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/testing/utils';
 import { RequestService } from '../core/data/request.service';
 import { SearchService } from '../core/shared/search/search.service';
 
@@ -114,8 +108,32 @@ export class SubmissionService {
    */
   createSubmission(): Observable<SubmissionObject> {
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}).pipe(
-      map((workspaceitem: SubmissionObject) => workspaceitem[0]),
-      catchError(() => observableOf({})))
+      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
+      catchError(() => observableOf({} as SubmissionObject)))
+  }
+
+  /**
+   * Perform a REST call to create a new workspaceitem for a specified collection and return response
+   *
+   * @param collectionId
+   *    The collection id
+   * @return Observable<SubmissionObject>
+   *    observable of SubmissionObject
+   */
+  createSubmissionForCollection(collectionId: string): Observable<SubmissionObject> {
+    const paramsObj = Object.create({});
+
+    if (isNotEmpty(collectionId)) {
+      paramsObj.collection = collectionId;
+    }
+
+    const params = new HttpParams({fromObject: paramsObj});
+    const options: HttpOptions = Object.create({});
+    options.params = params;
+
+    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, options).pipe(
+      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
+      catchError(() => observableOf({} as SubmissionObject)))
   }
 
   /**

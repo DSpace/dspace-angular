@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ComponentFactoryResolver,
+  ComponentFactoryResolver, ComponentRef,
   ContentChildren,
   EventEmitter,
   Input,
@@ -32,13 +32,13 @@ import {
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormInstancesService,
   DynamicFormControlRelationGroup,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
   DynamicTemplateDirective,
-  RelationUtils,
+  findActivationRelation, DynamicFormArrayGroupModel,
 } from '@ng-dynamic-forms/core';
 import {
   DynamicNGBootstrapCalendarComponent,
@@ -223,10 +223,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected dynamicFormInstanceService: DynamicFormInstancesService,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
-    protected translateService: TranslateService,
     protected typeBindRelationService: DsDynamicTypeBindRelationService,
+    protected translateService: TranslateService,
     private modalService: NgbModal,
     private relationService: RelationshipService,
     private selectableListService: SelectableListService,
@@ -236,7 +237,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private store: Store<AppState>,
     private submissionObjectService: SubmissionObjectDataService
   ) {
-    super(componentFactoryResolver, layoutService, validationService);
+
+    super(componentFactoryResolver, layoutService, validationService, dynamicFormInstanceService);
   }
 
   /**
@@ -311,7 +313,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   protected setControlTypeBindRelations(): void {
 
-    const typeBindRelActivation = RelationUtils.findActivationRelation(this.model.typeBind);
+    const typeBindRelActivation = findActivationRelation(this.model.typeBind);
 
     if (typeBindRelActivation !== null) {
 
@@ -339,36 +341,19 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   }
 
   protected createFormControlComponent(): void {
+    super.createFormControlComponent();
 
-    const componentType = this.componentType;
+    if (this.componentType !== null) {
+      let index;
 
-    if (componentType !== null) {
-
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-
-      this.componentViewContainerRef.clear();
-      this.componentRef = this.componentViewContainerRef.createComponent(componentFactory);
-
-      const instance = this.componentRef.instance;
-
-      instance.bindId = this.bindId;
-      instance.group = this.group;
-      instance.layout = this.layout;
-      instance.model = this.model as any;
-      (instance as any).formModel = this.formModel;
-      (instance as any).formGroup = this.formGroup;
-
-      if (this.templates) {
-        instance.templates = this.templates;
+      if (this.context && this.context instanceof DynamicFormArrayGroupModel) {
+        index = this.context.index;
       }
 
-      this.componentSubscriptions.push(instance.blur.subscribe(($event: any) => this.onBlur($event)));
-      this.componentSubscriptions.push(instance.change.subscribe(($event: any) => this.onChange($event)));
-      this.componentSubscriptions.push(instance.focus.subscribe(($event: any) => this.onFocus($event)));
-
-      if (instance.customEvent !== undefined) {
-        this.componentSubscriptions.push(
-          instance.customEvent.subscribe(($event: any) => this.onCustomEvent($event)));
+      const instance = this.dynamicFormInstanceService.getFormControlInstance(this.model, index);
+      if (instance) {
+        (instance as any).formModel = this.formModel;
+        (instance as any).formGroup = this.formGroup;
       }
     }
   }

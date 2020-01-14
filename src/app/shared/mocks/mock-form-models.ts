@@ -76,7 +76,6 @@ const rowArrayQualdropConfig = {
   id: 'row_QUALDROP_GROUP',
   initialCount: 1,
   notRepeatable: true,
-  required: false,
   showButtons: true,
   groupFactory: () => {
     return [MockQualdropModel];

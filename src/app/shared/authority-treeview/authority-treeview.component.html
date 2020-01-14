@@ -31,10 +31,11 @@
         <!-- Leaf node -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <button mat-icon-button disabled></button>
-          <button class="btn btn-outline-link btn-sm"
+          <button class="btn btn-outline-link btn-sm text-left"
                   [class.text-success]="node.item?.value === selectedItem?.value"
                   [disabled]="!node.item?.selectable"
                   [ngbTooltip]="node.item?.otherInformation?.note"
+                  container="body"
                   (click)="onSelect(node.item)">{{node.item.display}}</button>
         </mat-tree-node>
 
@@ -48,10 +49,11 @@
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-          <button class="btn btn-outline-link btn-sm"
+          <button class="btn btn-outline-link btn-sm text-left"
                   [class.text-success]="node.item?.value === selectedItem?.value"
                   [disabled]="!node.item?.selectable"
                   [ngbTooltip]="node.item?.otherInformation?.note"
+                  container="body"
                   (click)="onSelect(node.item)">{{node.item.display}}</button>
         </mat-tree-node>
 

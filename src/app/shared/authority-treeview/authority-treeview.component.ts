@@ -11,7 +11,7 @@ import { AuthorityEntry } from '../../core/integration/models/authority-entry.mo
 import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { isAuthenticated } from '../../core/auth/selectors';
 import { CoreState } from '../../core/core.reducers';
-import { AuthorityTreeviewService} from './authority-treeview.service';
+import { AuthorityTreeviewService } from './authority-treeview.service';
 import { LOAD_MORE, LOAD_MORE_ROOT, TreeviewFlatNode, TreeviewNode } from './authority-treeview-node.model';
 import { IntegrationSearchOptions } from '../../core/integration/models/integration-options.model';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -29,7 +29,7 @@ export class AuthorityTreeviewComponent implements OnDestroy, OnInit {
 
   @Input() searchOptions: IntegrationSearchOptions;
   @Input() preloadLevel = 2;
-  @Input() selectedItem: AuthorityEntry = null;
+  @Input() selectedItem: any = null;
 
   description: Observable<string>;
   nodeMap = new Map<string, TreeviewFlatNode>();
@@ -69,10 +69,17 @@ export class AuthorityTreeviewComponent implements OnDestroy, OnInit {
     }
 
     const newNode: TreeviewFlatNode = new TreeviewFlatNode(
-      node.item, level, node.hasChildren, node.pageInfo, node.loadMoreParentItem, node.isSearchNode);
+      node.item,
+      level,
+      node.hasChildren,
+      node.pageInfo,
+      node.loadMoreParentItem,
+      node.isSearchNode,
+      node.isInInitValueHierarchy
+    );
     this.nodeMap.set(node.item.id, newNode);
 
-    if ((((level + 1) < this.preloadLevel) && newNode.expandable) || newNode.isSearchNode) {
+    if ((((level + 1) < this.preloadLevel) && newNode.expandable) || newNode.isSearchNode || newNode.isInInitValueHierarchy) {
       if (!newNode.isSearchNode) {
         this.loadChildren(newNode);
       }
@@ -132,7 +139,8 @@ export class AuthorityTreeviewComponent implements OnDestroy, OnInit {
     this.isAuthenticated.pipe(
       find((isAuth) => isAuth)
     ).subscribe(() => {
-      this.authorityTreeviewService.initialize(this.searchOptions);
+      const valueId: string = (this.selectedItem) ? (this.selectedItem.authority || this.selectedItem.id) : null;
+      this.authorityTreeviewService.initialize(this.searchOptions, valueId);
     });
   }
 
@@ -163,6 +171,7 @@ export class AuthorityTreeviewComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
+    this.authorityTreeviewService.cleanTree();
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());

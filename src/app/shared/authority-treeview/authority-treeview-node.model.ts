@@ -20,7 +20,8 @@ export class TreeviewNode {
               public hasChildren = false,
               public pageInfo: PageInfo = new PageInfo(),
               public loadMoreParentItem: AuthorityEntry | null = null,
-              public isSearchNode = false) {
+              public isSearchNode = false,
+              public isInInitValueHierarchy = false) {
   }
 
   updatePageInfo(pageInfo: PageInfo) {
@@ -35,7 +36,8 @@ export class TreeviewFlatNode {
               public expandable = false,
               public pageInfo: PageInfo = new PageInfo(),
               public loadMoreParentItem: AuthorityEntry | null = null,
-              public isSearchNode = false) {
+              public isSearchNode = false,
+              public isInInitValueHierarchy = false) {
   }
 }
 

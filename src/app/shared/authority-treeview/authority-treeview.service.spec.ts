@@ -38,6 +38,8 @@ describe('AuthorityTreeviewService test suite', () => {
   let searchItemNode: TreeviewNode;
   let searchChildNode: TreeviewNode;
   let searchChildNode3: TreeviewNode;
+  let initValueChildNode: TreeviewNode;
+  let initValueChildNode2: TreeviewNode;
 
   let treeNodeList: TreeviewNode[];
   let treeNodeListWithChildren: TreeviewNode[];
@@ -90,6 +92,9 @@ describe('AuthorityTreeviewService test suite', () => {
     child2.id = child2.value = child2.display = 'root1-child2';
     child2.otherInformation = { parent: 'root1' };
     childNode2 = new TreeviewNode(child2, true);
+    initValueChildNode2 = new TreeviewNode(child2, false, new PageInfo(), item, false, true);
+    initValueChildNode = new TreeviewNode(child, true, new PageInfo(), item, false, true);
+    initValueChildNode.childrenChange.next([initValueChildNode2]);
 
     item5 = new AuthorityEntry();
     item5.id = item5.value = item5.display = 'root4';
@@ -172,6 +177,31 @@ describe('AuthorityTreeviewService test suite', () => {
 
       expect(serviceAsAny.authorityName).toEqual(searchOptions.name);
       expect(serviceAsAny.dataChange.value).toEqual([itemNode, itemNode2, itemNode3]);
+    });
+
+    it('should set initValueHierarchy', () => {
+      const pageInfo = Object.assign(new PageInfo(), {
+        elementsPerPage: 1,
+        totalElements: 3,
+        totalPages: 1,
+        currentPage: 1
+      });
+      serviceAsAny.authorityService.findTopEntries.and.returnValue(hot('-c', {
+        a: new IntegrationData(pageInfo, [item, item2, item3])
+      }));
+      serviceAsAny.authorityService.getEntryByValue.and.returnValues(
+        hot('-a', {
+          a: new IntegrationData(pageInfo, [child2])
+        }),
+        hot('-b', {
+          b: new IntegrationData(pageInfo, [item])
+        })
+      );
+      scheduler.schedule(() => service.initialize(searchOptions, 'root2'));
+      scheduler.flush();
+
+      expect(serviceAsAny.authorityName).toEqual(searchOptions.name);
+      expect(serviceAsAny.initValueHierarchy).toEqual(['root1', 'root1-child2']);
     });
   });
 

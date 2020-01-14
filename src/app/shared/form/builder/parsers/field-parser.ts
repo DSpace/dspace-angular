@@ -50,8 +50,8 @@ export abstract class FieldParser {
         id: uniqueId() + '_array',
         label: this.configData.label,
         initialCount: this.getInitArrayIndex(),
-        required: JSON.parse( this.configData.mandatory),
         notRepeatable: !this.configData.repeatable,
+        required: JSON.parse( this.configData.mandatory),
         groupFactory: () => {
           let model;
           if ((arrayCounter === 0)) {
@@ -208,7 +208,7 @@ export abstract class FieldParser {
     controlModel.submissionId = this.submissionId;
 
     // Set label
-    this.setLabel(controlModel, label, labelEmpty);
+    this.setLabel(controlModel, label);
 
     controlModel.placeholder = this.configData.label;
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { flatMap, map, merge, scan } from 'rxjs/operators';
+import { flatMap, map, merge, scan, take } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 
 import { LOAD_MORE_NODE, LOAD_MORE_ROOT_NODE, TreeviewFlatNode, TreeviewNode } from './authority-treeview-node.model';
@@ -26,15 +26,32 @@ export class AuthorityTreeviewService {
 
   private authorityName = '';
   private dataChange = new BehaviorSubject<TreeviewNode[]>([]);
+  private initValueHierarchy: string[] = [];
   private searching = new BehaviorSubject<boolean>(false);
   private hideSearchingWhenUnsubscribed$ = new Observable(() => () => this.searching.next(false));
 
   constructor(private authorityService: AuthorityService) {
   }
 
-  initialize(options: IntegrationSearchOptions): void {
+  cleanTree() {
+    this.nodeMap = new Map<string, TreeviewNode>();
+    this.storedNodeMap = new Map<string, TreeviewNode>();
+    this.storedNodes = [];
+    this.initValueHierarchy = [];
+    this.dataChange.next([]);
+  }
+
+  initialize(options: IntegrationSearchOptions, initValueId?: string): void {
     this.authorityName = options.name;
-    this.getTopNodes(options, []);
+    if (isNotEmpty(initValueId)) {
+      this.getNodeHierarchyById(options, initValueId).pipe(take(1))
+        .subscribe((hierarchy: string[]) => {
+          this.initValueHierarchy = hierarchy;
+          this.getTopNodes(options, []);
+      })
+    } else {
+      this.getTopNodes(options, []);
+    }
   }
 
   getData(): Observable<TreeviewNode[]> {
@@ -123,18 +140,33 @@ export class AuthorityTreeviewService {
     this.storedNodes = [];
   }
 
-  private _generateNode(item: AuthorityEntry, isSearchNode = false): TreeviewNode {
+  private _generateNode(item: AuthorityEntry, isSearchNode = false, toStore = true): TreeviewNode {
     if (this.nodeMap.has(item.id)) {
       return this.nodeMap.get(item.id)!;
     }
     const entry: AuthorityEntry = Object.assign(new AuthorityEntry(), item);
     const hasChildren = entry.hasOtherInformation() && isNotEmpty((entry.otherInformation as any).children);
     const pageInfo: PageInfo = new PageInfo();
-    const result = new TreeviewNode(entry, hasChildren, pageInfo, null, isSearchNode);
+    const isInInitValueHierarchy = this.initValueHierarchy.includes(entry.id);
+    const result = new TreeviewNode(
+      entry,
+      hasChildren,
+      pageInfo,
+      null,
+      isSearchNode,
+      isInInitValueHierarchy);
 
-    this.nodeMap.set(entry.id, result);
-
+    if (toStore) {
+      this.nodeMap.set(entry.id, result);
+    }
     return result;
+  }
+
+  private getNodeHierarchyById(options: IntegrationSearchOptions, id: string): Observable<any> {
+    return this.getById(options, id).pipe(
+      flatMap((entry: AuthorityEntry) => this.getNodeHierarchy(options, entry, [], false)),
+      map((node: TreeviewNode) => this.getNodeHierarchyIds(node))
+    );
   }
 
   private getChildrenByParent(parentId: string, pageInfo: PageInfo): Observable<IntegrationData> {
@@ -172,11 +204,11 @@ export class AuthorityTreeviewService {
     });
   }
 
-  private getNodeHierarchy(options: IntegrationSearchOptions, item: AuthorityEntry, children?: TreeviewNode[]): Observable<TreeviewNode> {
+  private getNodeHierarchy(options: IntegrationSearchOptions, item: AuthorityEntry, children?: TreeviewNode[], toStore = true): Observable<TreeviewNode> {
     if (isEmpty(item)) {
       return observableOf(null);
     }
-    const node = this._generateNode(item, true);
+    const node = this._generateNode(item, toStore, toStore);
 
     if (isNotEmpty(children)) {
       const newChildren = children
@@ -192,10 +224,21 @@ export class AuthorityTreeviewService {
 
     if (node.item.hasOtherInformation() && isNotEmpty(node.item.otherInformation.parent)) {
       return this.getById(options, node.item.otherInformation.parent).pipe(
-        flatMap((parentItem) => this.getNodeHierarchy(options, parentItem, [node]))
+        flatMap((parentItem) => this.getNodeHierarchy(options, parentItem, [node], toStore))
       )
     } else {
       return observableOf(node);
+    }
+  }
+
+  private getNodeHierarchyIds(node: TreeviewNode, hierarchyIds: string[] = []): string[] {
+    if (!hierarchyIds.includes(node.item.id)) {
+      hierarchyIds.push(node.item.id);
+    }
+    if (isNotEmpty(node.children)) {
+      return this.getNodeHierarchyIds(node.children[0], hierarchyIds);
+    } else {
+      return hierarchyIds;
     }
   }
 }

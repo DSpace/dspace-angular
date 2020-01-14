@@ -338,8 +338,8 @@ const COMPONENTS = [
   ItemTypeBadgeComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
-  MetadataRepresentationLoaderComponent,
   AuthorityTreeviewComponent,
+  MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent
 ];
 

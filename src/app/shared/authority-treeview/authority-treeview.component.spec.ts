@@ -14,6 +14,7 @@ import { MaterialModule } from '../material/material.module';
 import { CoreState } from '../../core/core.reducers';
 import { AuthorityEntry } from '../../core/integration/models/authority-entry.model';
 import { TreeviewFlatNode } from './authority-treeview-node.model';
+import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 
 describe('AuthorityTreeviewComponent test suite', () => {
 
@@ -38,6 +39,7 @@ describe('AuthorityTreeviewComponent test suite', () => {
     isSearching: jasmine.createSpy('isSearching'),
     searchBy: jasmine.createSpy('searchBy'),
     restoreNodes: jasmine.createSpy('restoreNodes'),
+    cleanTree: jasmine.createSpy('cleanTree'),
   });
 
   const store: Store<CoreState> = jasmine.createSpyObj('store', {
@@ -99,6 +101,7 @@ describe('AuthorityTreeviewComponent test suite', () => {
       authorityTreeviewServiceStub.getData.and.returnValue(observableOf([]));
       authorityTreeviewServiceStub.isSearching.and.returnValue(observableOf(false));
       comp.searchOptions = searchOptions;
+      comp.selectedItem = null;
     });
 
     afterEach(() => {
@@ -111,6 +114,22 @@ describe('AuthorityTreeviewComponent test suite', () => {
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
       expect(authorityTreeviewServiceStub.initialize).toHaveBeenCalled();
+    });
+
+    it('should should init component properly with init value as FormFieldMetadataValueObject', () => {
+      comp.selectedItem = new FormFieldMetadataValueObject('test', null, 'auth001');
+      fixture.detectChanges();
+      expect(comp.dataSource.data).toEqual([]);
+      expect(authorityTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.searchOptions, 'auth001');
+    });
+
+    it('should should init component properly with init value as AuthorityEntry', () => {
+      const authority = new AuthorityEntry();
+      authority.id = 'auth001';
+      comp.selectedItem = authority;
+      fixture.detectChanges();
+      expect(comp.dataSource.data).toEqual([]);
+      expect(authorityTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.searchOptions, 'auth001');
     });
 
     it('should call loadMore function', () => {
@@ -183,6 +202,11 @@ describe('AuthorityTreeviewComponent test suite', () => {
       expect(comp.nodeMap).toEqual(nodeMap);
       expect(comp.searchText).toEqual('');
       expect(comp.searchOptions.query).toEqual('');
+    });
+
+    it('should call cleanTree method on destroy', () => {
+      compAsAny.ngOnDestroy();
+      expect(authorityTreeviewServiceStub.cleanTree).toHaveBeenCalled();
     });
   });
 });

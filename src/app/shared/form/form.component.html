@@ -13,7 +13,7 @@
 
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
 
-        <!--Array with repeteable items-->
+        <!--Array with repeatable items-->
         <div *ngIf="(!context.notRepeatable) && context.showButtons"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
              [class]="arrayButtonsStyle">
@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <!--Array with non repeteable items - Only delete button-->
+        <!--Array with non repeatable items - Only delete button-->
         <div *ngIf="context.notRepeatable && context.showButtons && group.context.groups.length > 1"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end"
              [class]="arrayButtonsStyle">

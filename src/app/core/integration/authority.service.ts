@@ -17,12 +17,13 @@ import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { SearchParam } from '../cache/models/search-param.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { IntegrationData } from './integration-data';
+import { IntegrationModel } from './models/integration.model';
 
 /**
  * A service that provides methods to make REST requests with authorities endpoint.
  */
 @Injectable()
-export class AuthorityService extends IntegrationService<AuthorityEntry> {
+export class AuthorityService extends IntegrationService<IntegrationModel> {
   protected forceBypassCache = false;
   protected linkPath = 'authorities';
   protected entriesEndpoint = 'entries';
@@ -37,7 +38,7 @@ export class AuthorityService extends IntegrationService<AuthorityEntry> {
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: DefaultChangeAnalyzer<AuthorityEntry>
+    protected comparator: DefaultChangeAnalyzer<IntegrationModel>
   ) {
     super();
   }
