@@ -1,24 +1,35 @@
 import { Injectable } from '@angular/core';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { MenuSection, MenuSectionIndex, MenuSections, MenusState, MenuState } from './menu.reducer';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { MenuSection, MenuSections, MenuState } from './menu.reducer';
 import { AppState, keySelector } from '../../app.reducer';
 import { MenuID } from './initial-menus-state';
-import { Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
-  CollapseMenuAction, CollapseMenuPreviewAction,
+  CollapseMenuAction,
+  CollapseMenuPreviewAction,
   DeactivateMenuSectionAction,
-  ExpandMenuAction, ExpandMenuPreviewAction,
+  ExpandMenuAction,
+  ExpandMenuPreviewAction,
   HideMenuAction,
   RemoveMenuSectionAction,
   ShowMenuAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
-import { hasNoValue, isNotEmpty } from '../empty.util';
-import { combineLatest as observableCombineLatest } from 'rxjs';
+import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
+
+export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
+  return createSelector(selector, (state) => {
+    if (hasValue(state)) {
+      return state[key];
+    } else {
+      return undefined;
+    }
+  });
+}
 
 const menusStateSelector = (state) => state.menus;
 
@@ -28,20 +39,20 @@ const menuByIDSelector = (menuID: MenuID): MemoizedSelector<AppState, MenuState>
 
 const menuSectionStateSelector = (state: MenuState) => state.sections;
 
-const menuSectionByIDSelector = (id: string): MemoizedSelector<AppState, MenuSection> => {
-  return keySelector<MenuSection>(id, menuSectionStateSelector);
+const menuSectionByIDSelector = (id: string): MemoizedSelector<MenuState, MenuSection> => {
+  return menuKeySelector<MenuSection>(id, menuSectionStateSelector);
 };
 
 const menuSectionIndexStateSelector = (state: MenuState) => state.sectionToSubsectionIndex;
 
-const getSubSectionsFromSectionSelector = (id: string): MemoizedSelector<AppState, MenuSectionIndex> => {
-  return keySelector<MenuSectionIndex>(id, menuSectionIndexStateSelector);
+const getSubSectionsFromSectionSelector = (id: string): MemoizedSelector<MenuState, string[]> => {
+  return menuKeySelector<string[]>(id, menuSectionIndexStateSelector);
 };
 
 @Injectable()
 export class MenuService {
 
-  constructor(private store: Store<MenusState>) {
+  constructor(private store: Store<AppState>) {
   }
 
   /**

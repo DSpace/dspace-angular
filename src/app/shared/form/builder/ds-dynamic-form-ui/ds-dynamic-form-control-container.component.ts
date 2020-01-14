@@ -32,7 +32,7 @@ import {
   DynamicFormControl,
   DynamicFormControlContainerComponent,
   DynamicFormControlEvent,
-  DynamicFormControlModel,
+  DynamicFormControlModel, DynamicFormInstancesService,
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
@@ -213,6 +213,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected dynamicFormInstanceService: DynamicFormInstancesService,
     protected layoutService: DynamicFormLayoutService,
     protected validationService: DynamicFormValidationService,
     protected translateService: TranslateService,
@@ -225,7 +226,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private store: Store<AppState>,
     private submissionObjectService: SubmissionObjectDataService
   ) {
-    super(componentFactoryResolver, layoutService, validationService);
+
+    super(componentFactoryResolver, layoutService, validationService, dynamicFormInstanceService);
   }
 
   /**
