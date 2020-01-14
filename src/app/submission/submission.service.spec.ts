@@ -1,7 +1,7 @@
 import { StoreModule } from '@ngrx/store';
 import { async, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -18,10 +18,7 @@ import { MockActivatedRoute } from '../shared/mocks/mock-active-router';
 import { GLOBAL_CONFIG } from '../../config';
 import { HttpOptions } from '../core/dspace-rest-v2/dspace-rest-v2.service';
 import { SubmissionScopeType } from '../core/submission/submission-scope-type';
-import {
-  mockSubmissionDefinition,
-  mockSubmissionRestResponse
-} from '../shared/mocks/mock-submission';
+import { mockSubmissionDefinition, mockSubmissionRestResponse } from '../shared/mocks/mock-submission';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { MockTranslateLoader } from '../shared/mocks/mock-translate-loader';
 import { MOCK_SUBMISSION_CONFIG } from '../shared/testing/mock-submission-config';
@@ -39,10 +36,7 @@ import {
 } from './objects/submission-objects.actions';
 import { RemoteDataError } from '../core/data/remote-data-error';
 import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '../shared/testing/utils';
+import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject, } from '../shared/testing/utils';
 import { getMockSearchService } from '../shared/mocks/mock-search-service';
 import { getMockRequestService } from '../shared/mocks/mock-request.service';
 import { RequestService } from '../core/data/request.service';
@@ -401,6 +395,22 @@ describe('SubmissionService test suite', () => {
       service.createSubmission();
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
+    });
+  });
+
+  describe('createSubmissionForCollection', () => {
+    it('should create a new submission', () => {
+      const paramsObj = Object.create({});
+
+      paramsObj.collection = '1234';
+
+      const params = new HttpParams({fromObject: paramsObj});
+      const options: HttpOptions = Object.create({});
+      options.params = params;
+
+      service.createSubmissionForCollection('1234');
+
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, options);
     });
   });
 
