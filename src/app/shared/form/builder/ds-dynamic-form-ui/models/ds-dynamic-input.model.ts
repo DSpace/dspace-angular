@@ -13,6 +13,7 @@ import { LanguageCode } from '../../models/form-field-language-value.model';
 import { AuthorityOptions } from '../../../../../core/integration/models/authority-options.model';
 import { hasValue, isEmpty, isNotUndefined } from '../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { RelationshipOptions } from '../../models/relationship-options.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   authorityOptions?: AuthorityOptions;
@@ -20,6 +21,10 @@ export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   language?: string;
   value?: any;
   typeBind?: DynamicFormControlRelationGroup[];
+  relationship?: RelationshipOptions;
+  repeatable: boolean;
+  metadataFields: string[];
+  submissionId: string;
 }
 
 export class DsDynamicInputModel extends DynamicInputModel {
@@ -31,13 +36,21 @@ export class DsDynamicInputModel extends DynamicInputModel {
   @serializable() hiddenUpdates: Subject<boolean>;
   @serializable() typeBind: DynamicFormControlRelationGroup[];
   @serializable() typeBindHidden = false;
+  @serializable() relationship?: RelationshipOptions;
+  @serializable() repeatable?: boolean;
+  @serializable() metadataFields: string[];
+  @serializable() submissionId: string;
 
   constructor(config: DsDynamicInputModelConfig, layout?: DynamicFormControlLayout) {
     super(config, layout);
-
+    this.repeatable = config.repeatable;
+    this.metadataFields = config.metadataFields;
     this.hint = config.hint;
     this.readOnly = config.readOnly;
     this.value = config.value;
+    this.relationship = config.relationship;
+    this.submissionId = config.submissionId;
+
     this.language = config.language;
     if (!this.language) {
       // TypeAhead

@@ -30,5 +30,4 @@ export class DynamicRowArrayModel extends DynamicFormArrayModel {
       this.showButtons = config.showButtons;
     }
   }
-
 }

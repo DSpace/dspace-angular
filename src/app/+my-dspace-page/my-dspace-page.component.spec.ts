@@ -19,15 +19,14 @@ import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from './my-dspace-page.c
 import { RouteService } from '../core/services/route.service';
 import { routeServiceStub } from '../shared/testing/route-service-stub';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
-import { SearchService } from '../+search-page/search-service/search.service';
-import { SearchConfigurationService } from '../+search-page/search-service/search-configuration.service';
-import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
+import { SearchService } from '../core/shared/search/search.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { SearchFilterService } from '../+search-page/search-filters/search-filter/search-filter.service';
+import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
 import { MockRoleService } from '../shared/mocks/mock-role-service';
-import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 
 describe('MyDSpacePageComponent', () => {
@@ -82,8 +81,6 @@ describe('MyDSpacePageComponent', () => {
     collapse: () => this.isCollapsed = observableOf(true),
     expand: () => this.isCollapsed = observableOf(false)
   };
-  const mockFixedFilterService: SearchFixedFilterService = {
-  } as SearchFixedFilterService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -123,10 +120,6 @@ describe('MyDSpacePageComponent', () => {
           provide: RoleService,
           useValue: new MockRoleService()
         },
-        {
-          provide: SearchFixedFilterService,
-          useValue: mockFixedFilterService
-        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MyDSpacePageComponent, {

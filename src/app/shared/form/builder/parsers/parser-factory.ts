@@ -20,6 +20,7 @@ import { TagFieldParser } from './tag-field-parser';
 import { TextareaFieldParser } from './textarea-field-parser';
 import { NumberFieldParser } from './number-field-parser';
 import { CalendarFieldParser } from './calendar-field-parser';
+import { DisabledFieldParser } from './disabled-field-parser';
 
 const fieldParserDeps = [
   SUBMISSION_ID,
@@ -29,7 +30,7 @@ const fieldParserDeps = [
 ];
 
 /**
- * A factory for form's field parser.
+ * Method to retrieve a field parder with its providers based on the input type
  */
 export class ParserFactory {
   public static getProvider(type: ParserType): StaticProvider {
@@ -126,7 +127,13 @@ export class ParserFactory {
           deps: [...fieldParserDeps]
         }
       }
-
+      case undefined: {
+        return {
+          provide: FieldParser,
+          useClass: DisabledFieldParser,
+          deps: [...fieldParserDeps]
+        }
+      }
       default: {
         return undefined;
       }

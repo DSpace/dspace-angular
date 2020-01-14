@@ -16,7 +16,6 @@ import { find, map, tap } from 'rxjs/operators';
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { RestResponse } from '../cache/response.models';
-import { AppState } from '../../app.reducer';
 import { BitstreamFormatRegistryState } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import {
   BitstreamFormatsRegistryDeselectAction,
@@ -25,8 +24,9 @@ import {
 } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { hasValue } from '../../shared/empty.util';
 import { RequestEntry } from './request.reducer';
+import { CoreState } from '../core.reducers';
 
-const bitstreamFormatsStateSelector = (state: AppState) => state.bitstreamFormats;
+const bitstreamFormatsStateSelector = (state: CoreState) => state.bitstreamFormats;
 const selectedBitstreamFormatSelector = createSelector(bitstreamFormatsStateSelector,
   (bitstreamFormatRegistryState: BitstreamFormatRegistryState) => bitstreamFormatRegistryState.selectedBitstreamFormats);
 
@@ -42,7 +42,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected dataBuildService: NormalizedObjectBuildService,
-    protected store: Store<AppState>,
+    protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,

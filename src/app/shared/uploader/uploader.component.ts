@@ -95,7 +95,8 @@ export class UploaderComponent {
       disableMultipart: this.uploadFilesOptions.disableMultipart,
       itemAlias: this.uploadFilesOptions.itemAlias,
       removeAfterUpload: true,
-      autoUpload: true
+      autoUpload: this.uploadFilesOptions.autoUpload,
+      method: this.uploadFilesOptions.method
     });
 
     if (isUndefined(this.enableDragOverDocument)) {
@@ -117,7 +118,10 @@ export class UploaderComponent {
     if (isUndefined(this.onBeforeUpload)) {
       this.onBeforeUpload = () => {return};
     }
-    this.uploader.onBeforeUploadItem = () => {
+    this.uploader.onBeforeUploadItem = (item) => {
+      if (item.url !== this.uploader.options.url) {
+        item.url = this.uploader.options.url;
+      }
       this.onBeforeUpload();
       this.isOverDocumentDropZone = observableOf(false);
 

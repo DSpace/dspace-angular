@@ -1,18 +1,26 @@
 <ds-pagination
-  [paginationOptions]="config"
-  [pageInfoState]="objects?.payload"
-  [collectionSize]="objects?.payload?.totalElements"
-  [sortOptions]="sortConfig"
-  [hideGear]="hideGear"
-  [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
-  (pageChange)="onPageChange($event)"
-  (pageSizeChange)="onPageSizeChange($event)"
-  (sortDirectionChange)="onSortDirectionChange($event)"
-  (sortFieldChange)="onSortFieldChange($event)"
-  (paginationChange)="onPaginationChange($event)">
-  <ul *ngIf="objects?.hasSucceeded" class="list-unstyled">
-      <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4" [class.border-bottom]="hasBorder && !last">
-        <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"></ds-listable-object-component-loader>
-      </li>
-  </ul>
+        [paginationOptions]="config"
+        [pageInfoState]="objects?.payload"
+        [collectionSize]="objects?.payload?.totalElements"
+        [sortOptions]="sortConfig"
+        [hideGear]="hideGear"
+        [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+        (sortDirectionChange)="onSortDirectionChange($event)"
+        (sortFieldChange)="onSortFieldChange($event)"
+        (paginationChange)="onPaginationChange($event)">
+    <ul *ngIf="objects?.hasSucceeded" class="list-unstyled" [ngClass]="{'ml-4': selectable}">
+        <li *ngFor="let object of objects?.payload?.page; let i = index; let last = last" class="mt-4 mb-4" [class.border-bottom]="hasBorder && !last">
+          <span *ngIf="selectable">
+                   <ds-selectable-list-item-control [index]="i"
+                                                    [object]="object"
+                                                    [selectionConfig]="selectionConfig"
+                                                    (deselectObject)="deselectObject.emit($event)"
+                                                    (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
+              </span>
+            <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
+                                                 [listID]="selectionConfig?.listId"></ds-listable-object-component-loader>
+        </li>
+    </ul>
 </ds-pagination>

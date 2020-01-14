@@ -1,7 +1,19 @@
 import { Component, Input } from '@angular/core';
-import { DynamicFormControlModel, DynamicInputModel, DynamicTextAreaModel } from '@ng-dynamic-forms/core';
+import {
+  DynamicFormControlModel,
+  DynamicFormService,
+  DynamicInputModel,
+  DynamicTextAreaModel
+} from '@ng-dynamic-forms/core';
 import { Community } from '../../core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol-forms/comcol-form/comcol-form.component';
+import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { CommunityDataService } from '../../core/data/community-data.service';
+import { AuthService } from '../../core/auth/auth.service';
+import { RequestService } from '../../core/data/request.service';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
 
 /**
  * Form used for creating and editing communities
@@ -20,7 +32,7 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
   /**
    * @type {Community.type} This is a community-type form
    */
-  protected type = Community.type;
+  type = Community.type;
 
   /**
    * The dynamic form fields used for creating/editing a community
@@ -55,4 +67,15 @@ export class CommunityFormComponent extends ComColFormComponent<Community> {
       name: 'dc.description.tableofcontents',
     }),
   ];
+
+  public constructor(protected location: Location,
+                     protected formService: DynamicFormService,
+                     protected translate: TranslateService,
+                     protected notificationsService: NotificationsService,
+                     protected authService: AuthService,
+                     protected dsoService: CommunityDataService,
+                     protected requestService: RequestService,
+                     protected objectCache: ObjectCacheService) {
+    super(location, formService, translate, notificationsService, authService, requestService, objectCache);
+  }
 }

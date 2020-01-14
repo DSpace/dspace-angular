@@ -13,13 +13,29 @@ describe('EditCommunityPageComponent', () => {
   let comp: EditCommunityPageComponent;
   let fixture: ComponentFixture<EditCommunityPageComponent>;
 
+  const routeStub = {
+    data: observableOf({
+      dso: { payload: {} }
+    }),
+    routeConfig: {
+      children: []
+    },
+    snapshot: {
+      firstChild: {
+        routeConfig: {
+          path: 'mockUrl'
+        }
+      }
+    }
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
       declarations: [EditCommunityPageComponent],
       providers: [
         { provide: CommunityDataService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
+        { provide: ActivatedRoute, useValue: routeStub },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -31,9 +47,9 @@ describe('EditCommunityPageComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('frontendURL', () => {
-    it('should have the right frontendURL set', () => {
-      expect((comp as any).frontendURL).toEqual('/communities/');
+  describe('type', () => {
+    it('should have the right type set', () => {
+      expect((comp as any).type).toEqual('community');
     })
   });
 });

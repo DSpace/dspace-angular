@@ -42,6 +42,11 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
   @Input() linkType: CollectionElementLinkType;
 
   /**
+   * The identifier of the list this element resides in
+   */
+  @Input() listID: string;
+
+  /**
    * Directive hook used to place the dynamic child component
    */
   @ViewChild(ListableObjectDirective) listableObjectDirective: ListableObjectDirective;
@@ -62,6 +67,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit {
     (componentRef.instance as any).object = this.object;
     (componentRef.instance as any).index = this.index;
     (componentRef.instance as any).linkType = this.linkType;
+    (componentRef.instance as any).listID = this.listID;
   }
 
   /**

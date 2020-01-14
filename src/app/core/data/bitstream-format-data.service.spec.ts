@@ -3,7 +3,6 @@ import { RequestEntry } from './request.reducer';
 import { RestResponse } from '../cache/response.models';
 import { Observable, of as observableOf } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -19,6 +18,7 @@ import {
   BitstreamFormatsRegistrySelectAction
 } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { TestScheduler } from 'rxjs/testing';
+import { CoreState } from '../core.reducers';
 
 describe('BitstreamFormatDataService', () => {
   let service: BitstreamFormatDataService;
@@ -36,7 +36,7 @@ describe('BitstreamFormatDataService', () => {
     dispatch(action: Action) {
       // Do Nothing
     }
-  } as Store<AppState>;
+  } as Store<CoreState>;
 
   const objectCache = {} as ObjectCacheService;
   const halEndpointService = {

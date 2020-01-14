@@ -9,6 +9,7 @@ import { Group } from './group.model';
 @mapsTo(EPerson)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedEPerson extends NormalizedDSpaceObject<EPerson> implements CacheableObject {
+
   /**
    * A string representing the unique handle of this EPerson
    */

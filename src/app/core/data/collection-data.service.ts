@@ -25,8 +25,8 @@ import { ResponseParsingService } from './parsing.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { SearchParam } from '../cache/models/search-param.model';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 @Injectable()
 export class CollectionDataService extends ComColDataService<Collection> {
@@ -71,10 +71,11 @@ export class CollectionDataService extends ComColDataService<Collection> {
    */
   getAuthorizedCollectionByCommunity(communityId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Collection>>> {
     const searchHref = 'findAuthorizedByCommunity';
-    const newOptions = new FindListOptions();
-    newOptions.searchParams = [new SearchParam('uuid', communityId)];
+    options = Object.assign({}, options, {
+      searchParams: [new SearchParam('uuid', communityId)]
+    });
 
-    return this.searchBy(searchHref, newOptions).pipe(
+    return this.searchBy(searchHref, options).pipe(
       filter((collections: RemoteData<PaginatedList<Collection>>) => !collections.isResponsePending));
   }
 

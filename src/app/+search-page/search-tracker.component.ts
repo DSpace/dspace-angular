@@ -2,16 +2,17 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { SearchComponent } from './search.component';
-import { SearchService } from './search-service/search.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
-import { SearchConfigurationService } from './search-service/search-configuration.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { SEARCH_CONFIG_SERVICE } from '../+my-dspace-page/my-dspace-page.component';
 import { RouteService } from '../core/services/route.service';
 import { hasValue } from '../shared/empty.util';
-import { SearchQueryResponse } from './search-service/search-query-response.model';
 import { SearchSuccessResponse } from '../core/cache/response.models';
-import { PaginatedSearchOptions } from './paginated-search-options.model';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { Router } from '@angular/router';
+import { SearchService } from '../core/shared/search/search.service';
+import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
+import { SearchQueryResponse } from '../shared/search/search-query-response.model';
 
 /**
  * This component triggers a page view statistic
@@ -30,14 +31,15 @@ import { PaginatedSearchOptions } from './paginated-search-options.model';
 export class SearchTrackerComponent extends SearchComponent implements OnInit {
 
   constructor(
-    protected service:SearchService,
-    protected sidebarService:SidebarService,
-    protected windowService:HostWindowService,
-    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService:SearchConfigurationService,
-    protected routeService:RouteService,
-    public angulartics2:Angulartics2
+    protected service: SearchService,
+    protected sidebarService: SidebarService,
+    protected windowService: HostWindowService,
+    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+    protected routeService: RouteService,
+    public angulartics2: Angulartics2,
+    protected router: Router
   ) {
-    super(service, sidebarService, windowService, searchConfigService, routeService);
+    super(service, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
   ngOnInit():void {
@@ -58,9 +60,9 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
       )
     )
       .subscribe((entry) => {
-        const config:PaginatedSearchOptions = entry.searchOptions;
-        const searchQueryResponse:SearchQueryResponse = entry.response;
-        const filters:Array<{ filter:string, operator:string, value:string, label:string; }> = [];
+        const config: PaginatedSearchOptions = entry.searchOptions;
+        const searchQueryResponse: SearchQueryResponse = entry.response;
+        const filters:Array<{ filter: string, operator: string, value: string, label: string; }> = [];
         const appliedFilters = searchQueryResponse.appliedFilters || [];
         for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
           const appliedFilter = appliedFilters[i];

@@ -1,9 +1,11 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
+import { hasValue } from '../../shared/empty.util';
 
 /**
  * Represents the state of a paginated response
  */
 export class PageInfo {
+
   /**
    * The number of elements on a page
    */
@@ -42,4 +44,20 @@ export class PageInfo {
 
   @autoserialize
   self: string;
+
+  constructor(
+    options?: {
+      elementsPerPage: number,
+      totalElements: number,
+      totalPages: number,
+      currentPage: number
+    }
+  ) {
+    if (hasValue(options)) {
+      this.elementsPerPage = options.elementsPerPage;
+      this.totalElements = options.totalElements;
+      this.totalPages = options.totalPages;
+      this.currentPage = options.currentPage;
+    }
+  }
 }

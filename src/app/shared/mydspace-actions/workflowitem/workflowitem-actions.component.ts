@@ -7,8 +7,8 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 /**
  * This component represents actions related to WorkflowItem object.

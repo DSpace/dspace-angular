@@ -26,7 +26,7 @@ export interface HttpOptions {
 @Injectable()
 export class DSpaceRESTv2Service {
 
-  constructor(private http: HttpClient) {
+  constructor(protected http: HttpClient) {
 
   }
 

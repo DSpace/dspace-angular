@@ -38,7 +38,9 @@ export const SD_TEST_MODEL_CONFIG = {
   readOnly: false,
   required: false,
   repeatable: false,
-  value: undefined
+  value: undefined,
+  metadataFields: [],
+  submissionId: '1234'
 };
 
 describe('Dynamic Dynamic Scrollable Dropdown component', () => {

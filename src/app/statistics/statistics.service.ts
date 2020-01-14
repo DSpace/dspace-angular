@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { DSpaceObject } from '../core/shared/dspace-object.model';
 import { map, take } from 'rxjs/operators';
 import { TrackRequest } from './track-request.model';
-import { SearchOptions } from '../+search-page/search-options.model';
 import { hasValue, isNotEmpty } from '../shared/empty.util';
 import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { RestRequest } from '../core/data/request.models';
+import { SearchOptions } from '../shared/search/search-options.model';
 
 /**
  * The statistics service
@@ -15,24 +15,24 @@ import { RestRequest } from '../core/data/request.models';
 export class StatisticsService {
 
   constructor(
-    protected requestService:RequestService,
-    protected halService:HALEndpointService,
+    protected requestService: RequestService,
+    protected halService: HALEndpointService,
   ) {
   }
 
-  private sendEvent(linkPath:string, body:any) {
+  private sendEvent(linkPath: string, body: any) {
     const requestId = this.requestService.generateRequestId();
     this.halService.getEndpoint(linkPath).pipe(
-      map((endpoint:string) => new TrackRequest(requestId, endpoint, JSON.stringify(body))),
+      map((endpoint: string) => new TrackRequest(requestId, endpoint, JSON.stringify(body))),
       take(1) // otherwise the previous events will fire again
-    ).subscribe((request:RestRequest) => this.requestService.configure(request));
+    ).subscribe((request: RestRequest) => this.requestService.configure(request));
   }
 
   /**
    * To track a page view
    * @param dso: The dso which was viewed
    */
-  trackViewEvent(dso:DSpaceObject) {
+  trackViewEvent(dso: DSpaceObject) {
     this.sendEvent('/statistics/viewevents', {
       targetId: dso.uuid,
       targetType: (dso as any).type
@@ -47,10 +47,10 @@ export class StatisticsService {
    * @param filters: An array of search filters used to filter the result set
    */
   trackSearchEvent(
-    searchOptions:SearchOptions,
-    page:{ size:number, totalElements:number, totalPages:number, number:number },
-    sort:{ by:string, order:string },
-    filters?:Array<{ filter:string, operator:string, value:string, label:string }>
+    searchOptions: SearchOptions,
+    page: { size: number, totalElements: number, totalPages: number, number: number },
+    sort: { by: string, order: string },
+    filters?: Array<{ filter: string, operator: string, value: string, label: string }>
   ) {
     const body = {
       query: searchOptions.query,
@@ -66,13 +66,13 @@ export class StatisticsService {
       },
     };
     if (hasValue(searchOptions.configuration)) {
-      Object.assign(body, {configuration: searchOptions.configuration})
+      Object.assign(body, { configuration: searchOptions.configuration })
     }
     if (hasValue(searchOptions.dsoType)) {
-      Object.assign(body, {dsoType: searchOptions.dsoType.toLowerCase()})
+      Object.assign(body, { dsoType: searchOptions.dsoType.toLowerCase() })
     }
     if (hasValue(searchOptions.scope)) {
-      Object.assign(body, {scope: searchOptions.scope})
+      Object.assign(body, { scope: searchOptions.scope })
     }
     if (isNotEmpty(filters)) {
       const bodyFilters = [];
@@ -85,7 +85,7 @@ export class StatisticsService {
           label: filter.label
         })
       }
-      Object.assign(body, {appliedFilters: bodyFilters})
+      Object.assign(body, { appliedFilters: bodyFilters })
     }
     this.sendEvent('/statistics/searchevents', body);
   }

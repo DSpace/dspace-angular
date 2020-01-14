@@ -1,24 +1,13 @@
-import { ActionReducerMap, createSelector, MemoizedSelector, State } from '@ngrx/store';
+import { ActionReducerMap, createSelector, MemoizedSelector } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
+
+import { hostWindowReducer, HostWindowState } from './shared/search/host-window.reducer';
 import { CommunityListReducer, CommunityListState } from './community-list-page/community-list.reducer';
-import { hostWindowReducer, HostWindowState } from './shared/host-window.reducer';
 import { formReducer, FormState } from './shared/form/form.reducer';
-import {
-  SidebarState,
-  sidebarReducer
-} from './shared/sidebar/sidebar.reducer';
-import {
-  SidebarFilterState,
-  sidebarFilterReducer, SidebarFiltersState
-} from './shared/sidebar/filter/sidebar-filter.reducer';
-import {
-  filterReducer,
-  SearchFiltersState
-} from './+search-page/search-filters/search-filter/search-filter.reducer';
-import {
-  notificationsReducer,
-  NotificationsState
-} from './shared/notifications/notifications.reducers';
+import { sidebarReducer, SidebarState } from './shared/sidebar/sidebar.reducer';
+import { sidebarFilterReducer, SidebarFiltersState } from './shared/sidebar/filter/sidebar-filter.reducer';
+import { filterReducer, SearchFiltersState } from './shared/search/search-filters/search-filter/search-filter.reducer';
+import { notificationsReducer, NotificationsState } from './shared/notifications/notifications.reducers';
 import { truncatableReducer, TruncatablesState } from './shared/truncatable/truncatable.reducer';
 import {
   metadataRegistryReducer,
@@ -27,20 +16,21 @@ import {
 import { hasValue } from './shared/empty.util';
 import { cssVariablesReducer, CSSVariablesState } from './shared/sass-helper/sass-helper.reducer';
 import { menusReducer, MenusState } from './shared/menu/menu.reducer';
-import { historyReducer, HistoryState } from './shared/history/history.reducer';
 import {
-  bitstreamFormatReducer,
-  BitstreamFormatRegistryState
-} from './+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
+  selectableListReducer,
+  SelectableListsState
+} from './shared/object-list/selectable-list/selectable-list.reducer';
 import { ObjectSelectionListState, objectSelectionReducer } from './shared/object-select/object-select.reducer';
+import {
+  NameVariantListsState,
+  nameVariantReducer
+} from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 
 export interface AppState {
   router: fromRouter.RouterReducerState;
-  history: HistoryState;
   hostWindow: HostWindowState;
   forms: FormState;
   metadataRegistry: MetadataRegistryState;
-  bitstreamFormats: BitstreamFormatRegistryState;
   notifications: NotificationsState;
   sidebar: SidebarState;
   sidebarFilter: SidebarFiltersState;
@@ -49,16 +39,16 @@ export interface AppState {
   cssVariables: CSSVariablesState;
   menus: MenusState;
   objectSelection: ObjectSelectionListState;
+  selectableLists: SelectableListsState;
+  relationshipLists: NameVariantListsState;
   communityList: CommunityListState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
   router: fromRouter.routerReducer,
-  history: historyReducer,
   hostWindow: hostWindowReducer,
   forms: formReducer,
   metadataRegistry: metadataRegistryReducer,
-  bitstreamFormats: bitstreamFormatReducer,
   notifications: notificationsReducer,
   sidebar: sidebarReducer,
   sidebarFilter: sidebarFilterReducer,
@@ -67,6 +57,8 @@ export const appReducers: ActionReducerMap<AppState> = {
   cssVariables: cssVariablesReducer,
   menus: menusReducer,
   objectSelection: objectSelectionReducer,
+  selectableLists: selectableListReducer,
+  relationshipLists: nameVariantReducer,
   communityList: CommunityListReducer,
 };
 
