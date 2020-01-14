@@ -112,7 +112,7 @@ describe('RelationshipEffects', () => {
       describe('When it\'s the first time for this identifier', () => {
         let action;
         it('should set the current value debounceMap and the value of the initialActionMap to ADD_RELATIONSHIP', () => {
-          action = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
+          action = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
           actions = hot('--a-', { a: action });
           const expected = cold('--b-', { b: undefined });
           expect(relationEffects.mapLastActions$).toBeObservable(expected);
@@ -131,7 +131,7 @@ describe('RelationshipEffects', () => {
         });
 
         it('should set the current value debounceMap to ADD_RELATIONSHIP but not change the value of the initialActionMap', () => {
-          action = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
+          action = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
           actions = hot('--a-', { a: action });
           const expected = cold('--b-', { b: undefined });
           expect(relationEffects.mapLastActions$).toBeObservable(expected);
@@ -150,7 +150,7 @@ describe('RelationshipEffects', () => {
             spyOn((relationEffects as any), 'addRelationship');
           });
           it('should call addRelationship on the effect', () => {
-            action = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
+            action = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
             actions = hot('--a-', { a: action });
             const expected = cold('--b-', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
@@ -168,8 +168,8 @@ describe('RelationshipEffects', () => {
             spyOn((relationEffects as any), 'removeRelationship');
           });
           it('should <b>not</b> call removeRelationship or addRelationship on the effect', () => {
-            const actiona = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
-            const actionb = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
+            const actiona = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
+            const actionb = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
             actions = hot('--ab-', { a: actiona, b: actionb });
             const expected = cold('--bb-', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
@@ -184,7 +184,7 @@ describe('RelationshipEffects', () => {
       describe('When it\'s the first time for this identifier', () => {
         let action;
         it('should set the current value debounceMap and the value of the initialActionMap to REMOVE_RELATIONSHIP', () => {
-          action = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
+          action = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
           actions = hot('--a-', { a: action });
           const expected = cold('--b-', { b: undefined });
           expect(relationEffects.mapLastActions$).toBeObservable(expected);
@@ -203,7 +203,7 @@ describe('RelationshipEffects', () => {
         });
 
         it('should set the current value debounceMap to REMOVE_RELATIONSHIP but not change the value of the initialActionMap', () => {
-          action = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
+          action = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
           actions = hot('--a-', { a: action });
           const expected = cold('--b-', { b: undefined });
           expect(relationEffects.mapLastActions$).toBeObservable(expected);
@@ -223,7 +223,7 @@ describe('RelationshipEffects', () => {
           });
 
           it('should call removeRelationship on the effect', () => {
-            action = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
+            action = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
             actions = hot('--a-', { a: action });
             const expected = cold('--b-', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
@@ -241,8 +241,8 @@ describe('RelationshipEffects', () => {
             spyOn((relationEffects as any), 'removeRelationship');
           });
           it('should <b>not</b> call addRelationship or removeRelationship on the effect', () => {
-            const actionb = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
-            const actiona = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType);
+            const actionb = new RemoveRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
+            const actiona = new AddRelationshipAction(leftItem, rightItem, relationshipType.leftwardType, '1234');
             actions = hot('--ab-', { a: actiona, b: actionb });
             const expected = cold('--bb-', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);

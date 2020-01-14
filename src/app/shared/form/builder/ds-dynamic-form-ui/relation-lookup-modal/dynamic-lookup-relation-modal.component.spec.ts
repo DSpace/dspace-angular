@@ -119,8 +119,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
     it('should dispatch an RemoveRelationshipAction for each deselected object', () => {
       component.deselect(searchResult1, searchResult2);
-      const action = new RemoveRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType);
-      const action2 = new RemoveRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType);
+      const action = new RemoveRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, '1234');
+      const action2 = new RemoveRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, '1234');
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);

@@ -84,7 +84,7 @@ describe('ExistingMetadataListElementComponent', () => {
 
     it('should dispatch a RemoveRelationshipAction', () => {
       component.removeSelection();
-      const action = new RemoveRelationshipAction(submissionItem, relatedItem, relationshipOptions.relationshipType);
+      const action = new RemoveRelationshipAction(submissionItem, relatedItem, relationshipOptions.relationshipType, '1234');
       expect(store.dispatch).toHaveBeenCalledWith(action);
 
     });

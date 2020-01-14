@@ -82,7 +82,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
       )
     ).subscribe((item) => this.submissionItem = item);
 
-    this.updateReorderables();
+    // this.updateReorderables();
   }
 
   private updateReorderables(): void {
@@ -185,12 +185,12 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
 
   onChange($event) {
     let event = $event;
-    if (hasNoValue($event.context)) {
-      const context = Object.assign({}, $event.context, { index: this.reorderables.length });
-      event = Object.assign({}, $event, { context });
-    } else {
-      this.updateReorderables();
-    }
+    // if (hasNoValue($event.context)) {
+    //   const context = Object.assign({}, $event.context, { index: this.reorderables.length });
+    //   event = Object.assign({}, $event, { context });
+    // } else {
+    //   this.updateReorderables();
+    // }
     super.onChange(event);
 
   }
