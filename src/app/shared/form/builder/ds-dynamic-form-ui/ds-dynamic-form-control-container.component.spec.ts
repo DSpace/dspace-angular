@@ -150,7 +150,9 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       name: 'inlineRelationGroup',
       relationFields: [],
       scopeUUID: '',
-      submissionScope: ''
+      submissionScope: '',
+      repeatable: false,
+      metadataFields: []
     }),
     new DynamicDsDatePickerModel({ id: 'datepicker' }),
     new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234' }),
