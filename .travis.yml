@@ -1,5 +1,5 @@
 sudo: required
-dist: trusty
+dist: bionic
 
 env:
   # Install the latest docker-compose version for ci testing.
@@ -38,7 +38,6 @@ addons:
     sources:
       - google-chrome
     packages:
-      - dpkg
       - google-chrome-stable
 
 language: node_js
