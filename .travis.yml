@@ -12,6 +12,9 @@ env:
   DSPACE_REST_NAMESPACE: '/server/api'
   DSPACE_REST_SSL: false
 
+services:
+  - xvfb
+
 before_install:
   # Docker Compose Install
   - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
