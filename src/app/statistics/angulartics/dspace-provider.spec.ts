@@ -20,7 +20,7 @@ describe('Angulartics2DSpace', () => {
 
   it('should use the statisticsService', () => {
     provider.startTracking();
-    expect(statisticsService.trackViewEvent).toHaveBeenCalledWith('mock-object');
+    expect(statisticsService.trackViewEvent).toHaveBeenCalledWith('mock-object' as any);
   });
 
 });

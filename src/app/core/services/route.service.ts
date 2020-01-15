@@ -1,28 +1,17 @@
-import { distinctUntilChanged, filter, map, take, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Params,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, RouterStateSnapshot, } from '@angular/router';
 
 import { combineLatest, Observable } from 'rxjs';
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { isEqual } from 'lodash';
 
-import {
-  AddParameterAction,
-  SetParameterAction,
-  SetParametersAction,
-  SetQueryParametersAction
-} from './route.actions';
-import { CoreState } from '../../core/core.reducers';
-import { coreSelector } from '../../core/core.selectors';
+import { AddParameterAction, SetParameterAction, SetParametersAction, SetQueryParametersAction } from './route.actions';
+import { CoreState } from '../core.reducers';
+import { coreSelector } from '../core.selectors';
 import { hasValue } from '../../shared/empty.util';
-import { historySelector } from '../../shared/history/selectors';
-import { AddUrlToHistoryAction } from '../../shared/history/history.actions';
+import { historySelector } from '../history/selectors';
+import { AddUrlToHistoryAction } from '../history/history.actions';
 
 /**
  * Selector to select all route parameters from the store
