@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
+import { TopLevelCommunityListComponent } from './top-level-community-list.component';
 import { Community } from '../../core/shared/community.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -19,17 +19,16 @@ import { HostWindowServiceStub } from '../../shared/testing/host-window-service-
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 
-describe('CommunityPageSubCommunityListComponent Component', () => {
-  let comp: CommunityPageSubCommunityListComponent;
-  let fixture: ComponentFixture<CommunityPageSubCommunityListComponent>;
+describe('TopLevelCommunityList Component', () => {
+  let comp: TopLevelCommunityListComponent;
+  let fixture: ComponentFixture<TopLevelCommunityListComponent>;
   let communityDataServiceStub: any;
-  let subCommList = [];
 
-  const subcommunities = [Object.assign(new Community(), {
+  const topCommList = [Object.assign(new Community(), {
     id: '123456789-1',
     metadata: {
       'dc.title': [
-        { language: 'en_US', value: 'SubCommunity 1' }
+        { language: 'en_US', value: 'TopCommunity 1' }
       ]
     }
   }),
@@ -37,7 +36,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
       id: '123456789-2',
       metadata: {
         'dc.title': [
-          { language: 'en_US', value: 'SubCommunity 2' }
+          { language: 'en_US', value: 'TopCommunity 2' }
         ]
       }
     }),
@@ -45,7 +44,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
       id: '123456789-3',
       metadata: {
         'dc.title': [
-          { language: 'en_US', value: 'SubCommunity 3' }
+          { language: 'en_US', value: 'TopCommunity 3' }
         ]
       }
     }),
@@ -53,7 +52,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
       id: '12345678942',
       metadata: {
         'dc.title': [
-          { language: 'en_US', value: 'SubCommunity 4' }
+          { language: 'en_US', value: 'TopCommunity 4' }
         ]
       }
     }),
@@ -61,7 +60,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
       id: '123456789-5',
       metadata: {
         'dc.title': [
-          { language: 'en_US', value: 'SubCommunity 5' }
+          { language: 'en_US', value: 'TopCommunity 5' }
         ]
       }
     }),
@@ -69,7 +68,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
       id: '123456789-6',
       metadata: {
         'dc.title': [
-          { language: 'en_US', value: 'SubCommunity 6' }
+          { language: 'en_US', value: 'TopCommunity 6' }
         ]
       }
     }),
@@ -77,23 +76,14 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
       id: '123456789-7',
       metadata: {
         'dc.title': [
-          { language: 'en_US', value: 'SubCommunity 7' }
+          { language: 'en_US', value: 'TopCommunity 7' }
         ]
       }
     })
   ];
 
-  const mockCommunity = Object.assign(new Community(), {
-    id: '123456789',
-    metadata: {
-      'dc.title': [
-        { language: 'en_US', value: 'Test title' }
-      ]
-    }
-  });
-
   communityDataServiceStub = {
-    findByParent(parentUUID: string, options: FindListOptions = {}) {
+    findTop(options: FindListOptions = {}) {
       let currentPage = options.currentPage;
       let elementsPerPage = options.elementsPerPage;
       if (currentPage === undefined) {
@@ -103,10 +93,10 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
 
       const startPageIndex = (currentPage - 1) * elementsPerPage;
       let endPageIndex = (currentPage * elementsPerPage);
-      if (endPageIndex > subCommList.length) {
-        endPageIndex = subCommList.length;
+      if (endPageIndex > topCommList.length) {
+        endPageIndex = topCommList.length;
       }
-      return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), subCommList.slice(startPageIndex, endPageIndex)));
+      return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), topCommList.slice(startPageIndex, endPageIndex)));
 
     }
   };
@@ -120,7 +110,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
         NgbModule.forRoot(),
         NoopAnimationsModule
       ],
-      declarations: [CommunityPageSubCommunityListComponent],
+      declarations: [TopLevelCommunityListComponent],
       providers: [
         { provide: CommunityDataService, useValue: communityDataServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -131,37 +121,24 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CommunityPageSubCommunityListComponent);
+    fixture = TestBed.createComponent(TopLevelCommunityListComponent);
     comp = fixture.componentInstance;
-    comp.community = mockCommunity;
+    fixture.detectChanges();
 
   });
 
-  it('should display a list of sub-communities', () => {
-    subCommList = subcommunities;
-    fixture.detectChanges();
-
+  it('should display a list of top-communities', () => {
     const subComList = fixture.debugElement.queryAll(By.css('li'));
+
     expect(subComList.length).toEqual(5);
-    expect(subComList[0].nativeElement.textContent).toContain('SubCommunity 1');
-    expect(subComList[1].nativeElement.textContent).toContain('SubCommunity 2');
-    expect(subComList[2].nativeElement.textContent).toContain('SubCommunity 3');
-    expect(subComList[3].nativeElement.textContent).toContain('SubCommunity 4');
-    expect(subComList[4].nativeElement.textContent).toContain('SubCommunity 5');
+    expect(subComList[0].nativeElement.textContent).toContain('TopCommunity 1');
+    expect(subComList[1].nativeElement.textContent).toContain('TopCommunity 2');
+    expect(subComList[2].nativeElement.textContent).toContain('TopCommunity 3');
+    expect(subComList[3].nativeElement.textContent).toContain('TopCommunity 4');
+    expect(subComList[4].nativeElement.textContent).toContain('TopCommunity 5');
   });
 
-  it('should not display the header when list of sub-communities is empty', () => {
-    subCommList = [];
-    fixture.detectChanges();
-
-    const subComHead = fixture.debugElement.queryAll(By.css('h2'));
-    expect(subComHead.length).toEqual(0);
-  });
-
-  it('should update list of sub-communities on pagination change', () => {
-    subCommList = subcommunities;
-    fixture.detectChanges();
-
+  it('should update list of top-communities on pagination change', () => {
     const pagination = Object.create({
       pagination:{
         id: comp.pageId,
@@ -178,7 +155,7 @@ describe('CommunityPageSubCommunityListComponent Component', () => {
 
     const collList = fixture.debugElement.queryAll(By.css('li'));
     expect(collList.length).toEqual(2);
-    expect(collList[0].nativeElement.textContent).toContain('SubCommunity 6');
-    expect(collList[1].nativeElement.textContent).toContain('SubCommunity 7');
+    expect(collList[0].nativeElement.textContent).toContain('TopCommunity 6');
+    expect(collList[1].nativeElement.textContent).toContain('TopCommunity 7');
   });
 });
