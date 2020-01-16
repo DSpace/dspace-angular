@@ -19,12 +19,12 @@ import { PaginatedList } from './paginated-list';
 import { RemoteData } from './remote-data';
 
 describe('SiteDataService', () => {
-  let scheduler:TestScheduler;
-  let service:SiteDataService;
-  let halService:HALEndpointService;
-  let requestService:RequestService;
-  let rdbService:RemoteDataBuildService;
-  let objectCache:ObjectCacheService;
+  let scheduler: TestScheduler;
+  let service: SiteDataService;
+  let halService: HALEndpointService;
+  let requestService: RequestService;
+  let rdbService: RemoteDataBuildService;
+  let objectCache: ObjectCacheService;
 
   const testObject = Object.assign(new Site(), {
     uuid: '9b4f22f4-164a-49db-8817-3316b6ee5746',
@@ -33,7 +33,7 @@ describe('SiteDataService', () => {
   const requestUUID = '34cfed7c-f597-49ef-9cbe-ea351f0023c2';
   const options = Object.assign(new FindListOptions(), {});
 
-  const getRequestEntry$ = (successful:boolean, statusCode:number, statusText:string) => {
+  const getRequestEntry$ = (successful: boolean, statusCode: number, statusText: string) => {
     return observableOf({
       response: new RestResponse(successful, statusCode, statusText)
     } as RequestEntry);

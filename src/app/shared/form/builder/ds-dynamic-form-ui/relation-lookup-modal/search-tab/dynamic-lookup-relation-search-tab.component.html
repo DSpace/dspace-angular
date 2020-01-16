@@ -3,7 +3,7 @@
                        [resultCount]="(resultsRD$ | async)?.payload?.totalElements"
                        [inPlaceSearch]="true" [showViewModes]="false"></ds-search-sidebar>
     <div class="col-8">
-        <ds-search-form [inPlaceSearch]="true"></ds-search-form>
+        <ds-search-form [query]="(searchConfigService.paginatedSearchOptions | async)?.query" [inPlaceSearch]="true"></ds-search-form>
 
         <ds-search-labels [inPlaceSearch]="true"></ds-search-labels>
 
@@ -56,8 +56,8 @@
             </div>
         </div>
         <ds-search-results [searchResults]="(resultsRD$ | async)"
-                           [sortConfig]="this.searchConfig?.sort"
-                           [searchConfig]="this.searchConfig"
+                           [sortConfig]="this.lookupRelationService.searchConfig?.sort"
+                           [searchConfig]="this.lookupRelationService.searchConfig"
                            [selectable]="true"
                            [selectionConfig]="{ repeatable: repeatable, listId: listId }"
                            [linkType]="linkTypes.ExternalLink"

@@ -123,8 +123,8 @@ describe('RelationshipService', () => {
     it('should clear the related items their cache', () => {
       expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1.self);
       expect(objectCache.remove).toHaveBeenCalledWith(item.self);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.self);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.uuid);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.uuid);
     });
   });
 

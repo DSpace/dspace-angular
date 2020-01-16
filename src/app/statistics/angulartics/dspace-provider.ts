@@ -9,15 +9,15 @@ import { StatisticsService } from '../statistics.service';
 export class Angulartics2DSpace {
 
   constructor(
-    private angulartics2:Angulartics2,
-    private statisticsService:StatisticsService,
+    private angulartics2: Angulartics2,
+    private statisticsService: StatisticsService,
   ) {
   }
 
   /**
    * Activates this plugin
    */
-  startTracking():void {
+  startTracking(): void {
     this.angulartics2.eventTrack
       .pipe(this.angulartics2.filterDeveloperMode())
       .subscribe((event) => this.eventTrack(event));
