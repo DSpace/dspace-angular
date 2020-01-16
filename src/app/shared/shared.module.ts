@@ -154,6 +154,8 @@ import { DsDynamicDisabledComponent } from './form/builder/ds-dynamic-form-ui/mo
 import { DsDynamicLookupRelationSearchTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/selection-tab/dynamic-lookup-relation-selection-tab.component';
 import { PageSizeSelectorComponent } from './page-size-selector/page-size-selector.component';
+import { AbstractTrackableComponent } from './trackable/abstract-trackable.component';
+import { ComcolMetadataComponent } from './comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { ItemSelectComponent } from './object-select/item-select/item-select.component';
 import { CollectionSelectComponent } from './object-select/collection-select/collection-select.component';
 import { FilterInputSuggestionsComponent } from './input-suggestions/filter-suggestions/filter-input-suggestions.component';
@@ -326,6 +328,8 @@ const COMPONENTS = [
   CollectionGridElementComponent,
   CommunityGridElementComponent,
   BrowseByComponent,
+  AbstractTrackableComponent,
+  ComcolMetadataComponent,
   ItemTypeBadgeComponent,
   ItemSelectComponent,
   CollectionSelectComponent,
@@ -402,6 +406,7 @@ const SHARED_ITEM_PAGE_COMPONENTS = [
 const PROVIDERS = [
   TruncatableService,
   MockAdminGuard,
+  AbstractTrackableComponent,
   {
     provide: DYNAMIC_FORM_CONTROL_MAP_FN,
     useValue: dsDynamicFormControlMapFn

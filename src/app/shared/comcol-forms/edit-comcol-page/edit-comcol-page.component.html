@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom">{{ type + '.edit.head' | translate }}</h2>
+      <div class="pt-2">
+        <ul class="nav nav-tabs justify-content-start mb-2">
+          <li *ngFor="let page of pages" class="nav-item">
+            <a class="nav-link"
+               [ngClass]="{'active' : page === currentPage}"
+               [routerLink]="['./' + page]">
+              {{ type + '.edit.tabs.' + page + '.head' | translate}}
+            </a>
+          </li>
+        </ul>
+        <div class="tab-pane active">
+          <div class="mb-4">
+            <router-outlet></router-outlet>
+          </div>
+          <a *ngIf="!hideReturnButton" [routerLink]="getPageUrl((dsoRD$ | async)?.payload)" class="btn btn-outline-secondary">{{ type + '.edit.return' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
