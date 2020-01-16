@@ -13,6 +13,12 @@ import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { AddRelationshipAction, RemoveRelationshipAction } from './relationship.actions';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { PaginatedSearchOptions } from '../../../../search/paginated-search-options.model';
+import { ExternalSource } from '../../../../../core/shared/external-source.model';
+import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../../../testing/utils';
+import { ExternalSourceService } from '../../../../../core/data/external-source.service';
+import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
   let component: DsDynamicLookupRelationModalComponent;
@@ -28,6 +34,24 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let relationship;
   let nameVariant;
   let metadataField;
+  let pSearchOptions;
+  let externalSourceService;
+  let lookupRelationService;
+
+  const externalSources = [
+    Object.assign(new ExternalSource(), {
+      id: 'orcidV2',
+      name: 'orcidV2',
+      hierarchical: false
+    }),
+    Object.assign(new ExternalSource(), {
+      id: 'sherpaPublisher',
+      name: 'sherpaPublisher',
+      hierarchical: false
+    })
+  ];
+  const totalLocal = 10;
+  const totalExternal = 8;
 
   function init() {
     item = Object.assign(new Item(), { uuid: '7680ca97-e2bd-4398-bfa7-139a8673dc42', metadata: {} });
@@ -41,6 +65,14 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     relationship = { filter: 'filter', relationshipType: 'isAuthorOfPublication', nameVariants: true } as RelationshipOptions;
     nameVariant = 'Doe, J.';
     metadataField = 'dc.contributor.author';
+    pSearchOptions = new PaginatedSearchOptions({});
+    externalSourceService = jasmine.createSpyObj('externalSourceService', {
+      findAll: createSuccessfulRemoteDataObject$(createPaginatedList(externalSources))
+    });
+    lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
+      getTotalLocalResults: observableOf(totalLocal),
+      getTotalExternalResults: observableOf(totalExternal)
+    });
   }
 
   beforeEach(async(() => {
@@ -49,6 +81,13 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       declarations: [DsDynamicLookupRelationModalComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule.forRoot()],
       providers: [
+        {
+          provide: SearchConfigurationService, useValue: {
+            paginatedSearchOptions: observableOf(pSearchOptions)
+          }
+        },
+        { provide: ExternalSourceService, useValue: externalSourceService },
+        { provide: LookupRelationService, useValue: lookupRelationService },
         {
           provide: SelectableListService, useValue: selectableListService
         },

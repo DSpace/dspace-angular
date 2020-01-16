@@ -30,14 +30,45 @@ import { Context } from '../../../../../../core/shared/context.model';
  */
 export class DsDynamicLookupRelationSelectionTabComponent {
   @Input() relationshipType: string;
+
+  /**
+   * The ID of the list to add/remove selected items to/from
+   */
   @Input() listId: string;
+
+  /**
+   * Is the selection repeatable?
+   */
   @Input() repeatable: boolean;
+
+  /**
+   * The list of selected items
+   */
   @Input() selection$: Observable<ListableObject[]>;
+
+  /**
+   * The paginated list of selected items
+   */
   @Input() selectionRD$: Observable<RemoteData<PaginatedList<ListableObject>>>;
+
+  /**
+   * The context to display lists
+   */
   @Input() context: Context;
+
+  /**
+   * Send an event to deselect an object from the list
+   */
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  /**
+   * Send an event to select an object from the list
+   */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  /**
+   * The initial pagination to use
+   */
   initialPagination = Object.assign(new PaginationComponentOptions(), {
     id: 'submission-relation-list',
     pageSize: 5
@@ -51,7 +82,6 @@ export class DsDynamicLookupRelationSelectionTabComponent {
    * Set up the selection and pagination on load
    */
   ngOnInit() {
-    this.resetRoute();
     this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
       .pipe(
         map((options: PaginatedSearchOptions) => options.pagination),
@@ -74,14 +104,5 @@ export class DsDynamicLookupRelationSelectionTabComponent {
           );
         })
       )
-  }
-
-  /**
-   * Method to reset the route when the window is opened to make sure no strange pagination issues appears
-   */
-  resetRoute() {
-    this.router.navigate([], {
-      queryParams: Object.assign({}, { page: 1, pageSize: this.initialPagination.pageSize }),
-    });
   }
 }

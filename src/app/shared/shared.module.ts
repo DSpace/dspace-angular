@@ -171,8 +171,8 @@ import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component'
 import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
 import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.component';
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
-import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 
@@ -396,7 +396,8 @@ const ENTRY_COMPONENTS = [
   SearchFacetRangeOptionComponent,
   SearchAuthorityFilterComponent,
   DsDynamicLookupRelationSearchTabComponent,
-  DsDynamicLookupRelationSelectionTabComponent
+  DsDynamicLookupRelationSelectionTabComponent,
+  DsDynamicLookupRelationExternalSourceTabComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

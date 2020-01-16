@@ -74,11 +74,6 @@ describe('DsDynamicLookupRelationSelectionTabComponent', () => {
   });
 
   it('should call navigate on the router when is called resetRoute', () => {
-    component.resetRoute();
-    expect(router.navigate).toHaveBeenCalled();
-  });
-
-  it('should call navigate on the router when is called resetRoute', () => {
     component.selectionRD$ = createSelection([]);
     fixture.detectChanges();
     const colComponent = fixture.debugElement.query(By.css('ds-viewable-collection'));
