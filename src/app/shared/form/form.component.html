@@ -11,8 +11,6 @@
                 (dfChange)="onChange($event)"
                 (dfFocus)="onFocus($event)">
             <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
-                {{group.index}}-{{index}}
-
                 <!--Array with repeatable items-->
                 <div *ngIf="!context.notRepeatable && index < 1"
                      class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">

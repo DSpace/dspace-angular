@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../empty.util';
@@ -34,6 +34,7 @@ import { Context } from '../../../../../core/shared/context.model';
  * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
  */
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
+  @Output() selectEvent: EventEmitter<ListableObject[]> = new EventEmitter<ListableObject[]>();
   relationshipOptions: RelationshipOptions;
   listId: string;
   item;
@@ -74,6 +75,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   select(...selectableObjects: Array<SearchResult<Item>>) {
+    this.selectEvent.emit(selectableObjects);
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = combineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {

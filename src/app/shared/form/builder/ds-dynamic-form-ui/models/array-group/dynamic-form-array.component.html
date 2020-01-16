@@ -15,7 +15,6 @@
                     <button type="button" class="close float-left drag-button" cdkDragHandle>
                         <i class="fas fa-grip-vertical fa-fw"></i>
                     </button>
-                    {{idx}}
                     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>
                     <ng-container *ngTemplateOutlet="controlContainer; context: {$implicit: idx}"></ng-container>
                     <ng-container *ngTemplateOutlet="endTemplate?.templateRef; context: groupModel"></ng-container>
