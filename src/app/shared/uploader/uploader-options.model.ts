@@ -1,3 +1,4 @@
+import { RestRequestMethod } from '../../core/data/rest-request-method';
 
 export class UploaderOptions {
   /**
@@ -9,5 +10,15 @@ export class UploaderOptions {
 
   disableMultipart = false;
 
-  itemAlias: string;
+  itemAlias: string = null;
+
+  /**
+   * Automatically send out an upload request when adding files
+   */
+  autoUpload = true;
+
+  /**
+   * The request method to use for the file upload request
+   */
+  method: RestRequestMethod = RestRequestMethod.POST;
 }
