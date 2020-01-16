@@ -10,7 +10,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { AuthService } from './auth.service';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { EPerson } from '../eperson/models/eperson.model';
-import { AuthMethod } from './models/auth.method';
+import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
 
 /**
  * The auth service.
@@ -46,6 +46,24 @@ export class ServerAuthService extends AuthService {
   }
 
   /**
+   * Checks if token is present into the request cookie
+   */
+  public checkAuthenticationCookie(): Observable<AuthStatus> {
+    // Determine if the user has an existing auth session on the server
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Accept', 'application/json');
+    if (isNotEmpty(this.req.headers) && isNotEmpty(this.req.headers.referer)) {
+      // use to allow the rest server to identify the real origin on SSR
+      headers = headers.append('X-Requested-With', this.req.headers.referer);
+    }
+    options.headers = headers;
+    return this.authRequestService.getRequest('status', options).pipe(
+      map((status: NormalizedAuthStatus) => Object.assign(new AuthStatus(), status))
+    );
+  }
+
+  /**
    * Redirect to the route navigated before the login
    */
   public redirectAfterLoginSuccess(isStandalonePage: boolean) {
@@ -72,26 +90,4 @@ export class ServerAuthService extends AuthService {
       })
   }
 
-  /**
-   * Retrieve authentication methods available
-   * @returns {User}
-   */
-  public retrieveAuthMethods(): Observable<AuthMethod[]> {
-    const options: HttpOptions = Object.create({});
-    if (isNotEmpty(this.req.headers) && isNotEmpty(this.req.headers.referer)) {
-      let headers = new HttpHeaders();
-      headers = headers.append('X-Requested-With', this.req.headers.referer);
-      options.headers = headers;
-    }
-
-    return this.authRequestService.postToEndpoint('login', {}, options).pipe(
-      map((status: AuthStatus) => {
-        let authMethods: AuthMethod[];
-        if (isNotEmpty(status.authMethods)) {
-          authMethods = status.authMethods;
-        }
-        return authMethods;
-      })
-    )
-  }
 }
