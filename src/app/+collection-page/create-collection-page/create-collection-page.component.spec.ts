@@ -10,6 +10,8 @@ import { CollectionDataService } from '../../core/data/collection-data.service';
 import { of as observableOf } from 'rxjs';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { CreateCollectionPageComponent } from './create-collection-page.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 
 describe('CreateCollectionPageComponent', () => {
   let comp: CreateCollectionPageComponent;
@@ -27,6 +29,7 @@ describe('CreateCollectionPageComponent', () => {
         },
         { provide: RouteService, useValue: { getQueryParameterValue: () => observableOf('1234') } },
         { provide: Router, useValue: {} },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

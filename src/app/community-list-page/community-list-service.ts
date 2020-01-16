@@ -312,7 +312,7 @@ export class CommunityListService {
 
     hasColls$ = this.collectionDataService.findByParent(community.uuid, { elementsPerPage: 1 })
       .pipe(
-        filter((rd: RemoteData<PaginatedList<Community>>) => rd.hasSucceeded),
+        filter((rd: RemoteData<PaginatedList<Collection>>) => rd.hasSucceeded),
         take(1),
         map((results) => results.payload.totalElements > 0),
       );
@@ -320,8 +320,8 @@ export class CommunityListService {
     let hasChildren$: Observable<boolean>;
     hasChildren$ = observableCombineLatest(hasSubcoms$, hasColls$).pipe(
       take(1),
-      map((result: [boolean]) => {
-        if (result[0] || result[1]) {
+      map(([hasSubcoms, hasColls]: [boolean, boolean]) => {
+        if (hasSubcoms || hasColls) {
           return true;
         } else {
           return false;

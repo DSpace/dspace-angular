@@ -1,0 +1,116 @@
+import { LookupRelationService } from './lookup-relation.service';
+import { ExternalSourceService } from './external-source.service';
+import { SearchService } from '../shared/search/search.service';
+import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { PaginatedList } from './paginated-list';
+import { PageInfo } from '../shared/page-info.model';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { RelationshipOptions } from '../../shared/form/builder/models/relationship-options.model';
+import { SearchResult } from '../../shared/search/search-result.model';
+import { Item } from '../shared/item.model';
+import { skip, take } from 'rxjs/operators';
+import { ExternalSource } from '../shared/external-source.model';
+
+describe('LookupRelationService', () => {
+  let service: LookupRelationService;
+  let externalSourceService: ExternalSourceService;
+  let searchService: SearchService;
+
+  const totalExternal = 8;
+  const optionsWithQuery = new PaginatedSearchOptions({ query: 'test-query' });
+  const relationship = Object.assign(new RelationshipOptions(), {
+    filter: 'test-filter',
+    configuration: 'test-configuration'
+  });
+  const localResults = [
+    Object.assign(new SearchResult(), {
+      indexableObject: Object.assign(new Item(), {
+        uuid: 'test-item-uuid',
+        handle: 'test-item-handle'
+      })
+    })
+  ];
+  const externalSource = Object.assign(new ExternalSource(), {
+    id: 'orcidV2',
+    name: 'orcidV2',
+    hierarchical: false
+  });
+
+  function init() {
+    externalSourceService = jasmine.createSpyObj('externalSourceService', {
+      getExternalSourceEntries: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo({ elementsPerPage: 1, totalElements: totalExternal, totalPages: totalExternal, currentPage: 1 }), [{}]))
+    });
+    searchService = jasmine.createSpyObj('searchService', {
+      search: createSuccessfulRemoteDataObject$(createPaginatedList(localResults))
+    });
+    service = new LookupRelationService(externalSourceService, searchService);
+  }
+
+  beforeEach(() => {
+    init();
+  });
+
+  describe('getLocalResults', () => {
+    let result;
+
+    beforeEach(() => {
+      result = service.getLocalResults(relationship, optionsWithQuery);
+    });
+
+    it('should return the local results', () => {
+      result.subscribe((resultsRD) => {
+        expect(resultsRD.payload.page).toBe(localResults);
+      });
+    });
+
+    it('should set the searchConfig to contain a fixedFilter and configuration', () => {
+      expect(service.searchConfig).toEqual(Object.assign(new PaginatedSearchOptions({}), optionsWithQuery,
+        { fixedFilter: relationship.filter, configuration: relationship.searchConfiguration }
+      ));
+    });
+  });
+
+  describe('getTotalLocalResults', () => {
+    let result;
+
+    beforeEach(() => {
+      result = service.getTotalLocalResults(relationship, optionsWithQuery);
+    });
+
+    it('should start with 0', () => {
+      result.pipe(take(1)).subscribe((amount) => {
+        expect(amount).toEqual(0)
+      });
+    });
+
+    it('should return the correct total amount', () => {
+      result.pipe(skip(1)).subscribe((amount) => {
+        expect(amount).toEqual(localResults.length)
+      });
+    });
+
+    it('should not set searchConfig', () => {
+      expect(service.searchConfig).toBeUndefined();
+    });
+  });
+
+  describe('getTotalExternalResults', () => {
+    let result;
+
+    beforeEach(() => {
+      result = service.getTotalExternalResults(externalSource, optionsWithQuery);
+    });
+
+    it('should start with 0', () => {
+      result.pipe(take(1)).subscribe((amount) => {
+        expect(amount).toEqual(0)
+      });
+    });
+
+    it('should return the correct total amount', () => {
+      result.pipe(skip(1)).subscribe((amount) => {
+        expect(amount).toEqual(totalExternal)
+      });
+    });
+  });
+});
