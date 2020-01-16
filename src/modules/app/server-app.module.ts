@@ -47,7 +47,7 @@ export function createTranslateLoader() {
         deps: []
       }
     }),
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics, Angulartics2DSpace]),
+    Angulartics2Module.forRoot(),
     ServerModule,
     AppModule
   ],

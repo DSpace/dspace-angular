@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+
+import { BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { PaginatedList } from '../../core/data/paginated-list';
-
 import { RemoteData } from '../../core/data/remote-data';
 import { Community } from '../../core/shared/community.model';
-
 import { fadeInOut } from '../../shared/animations/fade';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { take } from 'rxjs/operators';
 
 /**
  * this component renders the Top-Level Community list
@@ -34,13 +34,18 @@ export class TopLevelCommunityListComponent implements OnInit {
   config: PaginationComponentOptions;
 
   /**
+   * The pagination id
+   */
+  pageId = 'top-level-pagination';
+
+  /**
    * The sorting configuration
    */
   sortConfig: SortOptions;
 
   constructor(private cds: CommunityDataService) {
     this.config = new PaginationComponentOptions();
-    this.config.id = 'top-level-pagination';
+    this.config.id = this.pageId;
     this.config.pageSize = 5;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
@@ -55,10 +60,10 @@ export class TopLevelCommunityListComponent implements OnInit {
    * @param event The new pagination data
    */
   onPaginationChange(event) {
-    this.config.currentPage = event.page;
-    this.config.pageSize = event.pageSize;
-    this.sortConfig.field = event.sortField;
-    this.sortConfig.direction = event.sortDirection;
+    this.config.currentPage = event.pagination.currentPage;
+    this.config.pageSize = event.pagination.pageSize;
+    this.sortConfig.field = event.sort.field;
+    this.sortConfig.direction = event.sort.direction;
     this.updatePage();
   }
 

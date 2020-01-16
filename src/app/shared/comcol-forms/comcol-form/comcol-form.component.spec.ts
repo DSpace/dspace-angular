@@ -3,9 +3,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
+import { DynamicFormControlModel, DynamicFormService, DynamicInputModel } from '@ng-dynamic-forms/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DynamicFormControlModel } from '@ng-dynamic-forms/core/src/model/dynamic-form-control.model';
 import { Community } from '../../../core/shared/community.model';
 import { ComColFormComponent } from './comcol-form.component';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
@@ -137,7 +136,7 @@ describe('ComColFormComponent', () => {
                 type: Community.type
               },
             ),
-            uploader: {},
+            uploader: {} as any,
             deleteLogo: false
           }
         );
