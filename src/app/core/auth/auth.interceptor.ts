@@ -86,6 +86,15 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   /**
+   * Check if response is from a status request
+   *
+   * @param http
+   */
+  private isStatusResponse(http: HttpRequest<any> | HttpResponseBase): boolean {
+    return http.url && http.url.endsWith('/authn/status');
+  }
+
+  /**
    * Extract location url from the WWW-Authenticate header
    *
    * @param header
@@ -202,8 +211,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const authService = this.inj.get(AuthService);
 
-    const token = authService.getToken();
-    let newReq;
+    const token: AuthTokenInfo = authService.getToken();
+    let newReq: HttpRequest<any>;
+    let updateReq: any = {};
+    let authorization: string;
 
     if (authService.isTokenExpired()) {
       authService.setRedirectUrl(this.router.url);
@@ -224,11 +235,13 @@ export class AuthInterceptor implements HttpInterceptor {
           }
         });
       // Get the auth header from the service.
-      const Authorization = authService.buildAuthHeader(token);
+      authorization = authService.buildAuthHeader(token);
       // Clone the request to add the new header.
-      newReq = req.clone({headers: req.headers.set('authorization', Authorization)});
+      newReq = req.clone({ headers: req.headers.set('authorization', authorization) });
     } else {
-      const updateReq = this.isAuthRequest(req) ? { withCredentials: true } : {};
+      if (this.isAuthRequest(req)) {
+        updateReq = { withCredentials: true };
+      }
       newReq = req.clone(updateReq);
     }
 
@@ -237,19 +250,29 @@ export class AuthInterceptor implements HttpInterceptor {
       // tap((response) => console.log('next.handle: ', response)),
       map((response) => {
         // Intercept a Login/Logout response
-        if (response instanceof HttpResponse && this.isSuccess(response) && (this.isLoginResponse(response) || this.isLogoutResponse(response))) {
+        if (response instanceof HttpResponse && this.isSuccess(response) && this.isAuthRequest(response)) {
           // It's a success Login/Logout response
           let authRes: HttpResponse<any>;
           if (this.isLoginResponse(response)) {
             // login successfully
             const newToken = response.headers.get('authorization');
-            authRes = response.clone({body: this.makeAuthStatusObject(true, newToken)});
+            authRes = response.clone({
+              body: this.makeAuthStatusObject(true, newToken)
+            });
 
             // clean eventually refresh Requests list
             this.refreshTokenRequestUrls = [];
+          } else if (this.isStatusResponse(response)) {
+            authRes = response.clone({
+              body: Object.assign(response.body, {
+                authMethods: this.parseAuthMethodsFromHeaders(response.headers)
+              })
+            })
           } else {
             // logout successfully
-            authRes = response.clone({body: this.makeAuthStatusObject(false)});
+            authRes = response.clone({
+              body: this.makeAuthStatusObject(false)
+            });
           }
           return authRes;
         } else {
