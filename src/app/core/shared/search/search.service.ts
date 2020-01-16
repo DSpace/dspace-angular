@@ -89,9 +89,9 @@ export class SearchService implements OnDestroy {
     }
   }
 
-  getEndpoint(searchOptions?:PaginatedSearchOptions):Observable<string> {
+  getEndpoint(searchOptions?: PaginatedSearchOptions): Observable<string> {
     return this.halService.getEndpoint(this.searchLinkPath).pipe(
-      map((url:string) => {
+      map((url: string) => {
         if (hasValue(searchOptions)) {
           return (searchOptions as PaginatedSearchOptions).toRestUrl(url);
         } else {
@@ -117,16 +117,15 @@ export class SearchService implements OnDestroy {
    * @param responseMsToLive The amount of milliseconds for the response to live in cache
    * @returns {Observable<RequestEntry>} Emits an observable with the request entries
    */
-  searchEntries(searchOptions?: PaginatedSearchOptions, responseMsToLive?:number)
-    :Observable<{searchOptions: PaginatedSearchOptions, requestEntry: RequestEntry}> {
+  searchEntries(searchOptions?: PaginatedSearchOptions, responseMsToLive?: number): Observable<{searchOptions: PaginatedSearchOptions, requestEntry: RequestEntry}> {
 
     const hrefObs = this.getEndpoint(searchOptions);
 
     const requestObs = hrefObs.pipe(
-      map((url:string) => {
+      map((url: string) => {
         const request = new this.request(this.requestService.generateRequestId(), url);
 
-        const getResponseParserFn:() => GenericConstructor<ResponseParsingService> = () => {
+        const getResponseParserFn: () => GenericConstructor<ResponseParsingService> = () => {
           return this.parser;
         };
 
@@ -139,8 +138,8 @@ export class SearchService implements OnDestroy {
       configureRequest(this.requestService),
     );
     return requestObs.pipe(
-      switchMap((request:RestRequest) => this.requestService.getByHref(request.href)),
-      map(((requestEntry:RequestEntry) => ({
+      switchMap((request: RestRequest) => this.requestService.getByHref(request.href)),
+      map(((requestEntry: RequestEntry) => ({
         searchOptions: searchOptions,
         requestEntry: requestEntry
       })))
@@ -152,16 +151,15 @@ export class SearchService implements OnDestroy {
    * @param searchEntries: The request entries from the search method
    * @returns {Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>>} Emits a paginated list with all search results found
    */
-  getPaginatedResults(searchEntries:Observable<{ searchOptions:PaginatedSearchOptions, requestEntry:RequestEntry }>)
-    :Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
-    const requestEntryObs:Observable<RequestEntry> = searchEntries.pipe(
+  getPaginatedResults(searchEntries: Observable<{ searchOptions: PaginatedSearchOptions, requestEntry: RequestEntry }>): Observable<RemoteData<PaginatedList<SearchResult<DSpaceObject>>>> {
+    const requestEntryObs: Observable<RequestEntry> = searchEntries.pipe(
       map((entry) => entry.requestEntry),
     );
 
     // get search results from response cache
-    const sqrObs:Observable<SearchQueryResponse> = requestEntryObs.pipe(
+    const sqrObs: Observable<SearchQueryResponse> = requestEntryObs.pipe(
       filterSuccessfulResponses(),
-      map((response:SearchSuccessResponse) => response.results),
+      map((response: SearchSuccessResponse) => response.results),
     );
 
     // turn dspace href from search results to effective list of DSpaceObjects

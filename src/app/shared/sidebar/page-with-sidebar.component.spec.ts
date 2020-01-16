@@ -7,8 +7,8 @@ import { HostWindowService } from '../host-window.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PageWithSidebarComponent', () => {
-  let comp:PageWithSidebarComponent;
-  let fixture:ComponentFixture<PageWithSidebarComponent>;
+  let comp: PageWithSidebarComponent;
+  let fixture: ComponentFixture<PageWithSidebarComponent>;
 
   const sidebarService = {
     isCollapsed: observableOf(true),
@@ -42,7 +42,7 @@ describe('PageWithSidebarComponent', () => {
   });
 
   describe('when sidebarCollapsed is true in mobile view', () => {
-    let menu:HTMLElement;
+    let menu: HTMLElement;
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#mock-id-sidebar-content')).nativeElement;
@@ -58,7 +58,7 @@ describe('PageWithSidebarComponent', () => {
   });
 
   describe('when sidebarCollapsed is false in mobile view', () => {
-    let menu:HTMLElement;
+    let menu: HTMLElement;
 
     beforeEach(() => {
       menu = fixture.debugElement.query(By.css('#mock-id-sidebar-content')).nativeElement;
@@ -70,6 +70,5 @@ describe('PageWithSidebarComponent', () => {
     it('should open the menu', () => {
       expect(menu.classList).toContain('active');
     });
-
   });
 });

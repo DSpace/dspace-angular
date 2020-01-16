@@ -8,17 +8,17 @@ import {
  * Interface that represents the state for a single filters
  */
 export interface SidebarFilterState {
-  filterCollapsed:boolean,
+  filterCollapsed: boolean,
 }
 
 /**
  * Interface that represents the state for all available filters
  */
 export interface SidebarFiltersState {
-  [name:string]:SidebarFilterState
+  [name: string]: SidebarFilterState
 }
 
-const initialState:SidebarFiltersState = Object.create(null);
+const initialState: SidebarFiltersState = Object.create(null);
 
 /**
  * Performs a  filter action on the current state
@@ -26,7 +26,7 @@ const initialState:SidebarFiltersState = Object.create(null);
  * @param {SidebarFilterAction} action The action that should be performed
  * @returns {SidebarFiltersState} The state after the action is performed
  */
-export function sidebarFilterReducer(state = initialState, action:SidebarFilterAction):SidebarFiltersState {
+export function sidebarFilterReducer(state = initialState, action: SidebarFilterAction): SidebarFiltersState {
 
   switch (action.type) {
 
