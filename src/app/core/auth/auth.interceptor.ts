@@ -56,7 +56,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return http.url && http.url.endsWith('/authn/logout');
   }
 
-  private makeAuthStatusObject(authenticated:boolean, accessToken?: string, error?: string): AuthStatus {
+  private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string): AuthStatus {
     const authStatus = new AuthStatus();
     authStatus.id = null;
     authStatus.okay = true;

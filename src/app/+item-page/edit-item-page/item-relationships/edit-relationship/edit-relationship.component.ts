@@ -70,5 +70,4 @@ export class EditRelationshipComponent implements OnChanges {
   canUndo(): boolean {
     return this.fieldUpdate.changeType >= 0;
   }
-
 }

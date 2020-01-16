@@ -45,7 +45,7 @@ export class FilterInitializeAction extends SidebarFilterAction {
   type = SidebarFilterActionTypes.INITIALIZE;
   initiallyExpanded;
 
-  constructor(name:string, initiallyExpanded:boolean) {
+  constructor(name: string, initiallyExpanded: boolean) {
     super(name);
     this.initiallyExpanded = initiallyExpanded;
   }

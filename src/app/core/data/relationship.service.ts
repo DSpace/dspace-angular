@@ -1,46 +1,35 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import {
-  configureRequest,
-  getRemoteDataPayload,
-  getResponseFromEntry,
-  getSucceededRemoteData
-} from '../shared/operators';
-import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
-import { Observable } from 'rxjs/internal/Observable';
-import { RestResponse } from '../cache/response.models';
-import { Item } from '../shared/item.model';
-import { Relationship } from '../shared/item-relationships/relationship.model';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { RemoteData } from './remote-data';
+import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
+import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import { AppState, keySelector } from '../../app.reducer';
+import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
+import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
+import { SearchParam } from '../cache/models/search-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
+import { RestResponse } from '../cache/response.models';
+import { CoreState } from '../core.reducers';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { RemoteData, RemoteDataState } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { ItemDataService } from './item-data.service';
-import {
-  compareArraysUsingIds,
-  paginatedRelationsToItems,
-  relationsToItems
-} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { Relationship } from '../shared/item-relationships/relationship.model';
+import { Item } from '../shared/item.model';
 import { DataService } from './data.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { MemoizedSelector, select, Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { SearchParam } from '../cache/models/search-param.model';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { AppState, keySelector } from '../../app.reducer';
-import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
-import {
-  RemoveNameVariantAction,
-  SetNameVariantAction
-} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
+import { RequestService } from './request.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -140,9 +129,9 @@ export class RelationshipService extends DataService<Relationship> {
     this.findById(relationshipId).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
-      switchMap((relationship: Relationship) => combineLatest(
-        relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
-        relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
+      switchMap((rel: Relationship) => combineLatest(
+        rel.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
+        rel.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
         )
       ),
       take(1)
@@ -158,10 +147,10 @@ export class RelationshipService extends DataService<Relationship> {
    */
   private removeRelationshipItemsFromCache(item) {
     this.objectCache.remove(item.self);
-    this.requestService.removeByHrefSubstring(item.self);
+    this.requestService.removeByHrefSubstring(item.uuid);
     combineLatest(
       this.objectCache.hasBySelfLinkObservable(item.self),
-      this.requestService.hasByHrefObservable(item.self)
+      this.requestService.hasByHrefObservable(item.uuid)
     ).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
       take(1),
@@ -367,7 +356,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param nameVariant The name variant to set for the matching relationship
    */
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
-    return this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
+    const update$: Observable<RemoteData<Relationship>> = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
         switchMap((relation: Relationship) =>
           relation.relationshipType.pipe(
@@ -388,14 +377,44 @@ export class RelationshipService extends DataService<Relationship> {
           }
           return this.update(updatedRelationship);
         }),
-        // skipWhile((relationshipRD: RemoteData<Relationship>) => !relationshipRD.isSuccessful)
-        tap((relationshipRD: RemoteData<Relationship>) => {
-          if (relationshipRD.hasSucceeded) {
-            this.removeRelationshipItemsFromCache(item1);
-            this.removeRelationshipItemsFromCache(item2);
-          }
-        }),
-      )
+      );
+
+    update$.pipe(
+      filter((relationshipRD: RemoteData<Relationship>) => relationshipRD.state === RemoteDataState.RequestPending),
+      take(1),
+    ).subscribe(() => {
+      this.removeRelationshipItemsFromCache(item1);
+      this.removeRelationshipItemsFromCache(item2);
+    });
+
+    return update$
+  }
+
+  /**
+   * Method to update the the right or left place of a relationship
+   * The useLeftItem field in the reorderable relationship determines which place should be updated
+   * @param reoRel
+   */
+  public updatePlace(reoRel: ReorderableRelationship): Observable<RemoteData<Relationship>> {
+    let updatedRelationship;
+    if (reoRel.useLeftItem) {
+      updatedRelationship = Object.assign(new Relationship(), reoRel.relationship, { rightPlace: reoRel.newIndex });
+    } else {
+      updatedRelationship = Object.assign(new Relationship(), reoRel.relationship, { leftPlace: reoRel.newIndex });
+    }
+
+    const update$ = this.update(updatedRelationship);
+
+    update$.pipe(
+      filter((relationshipRD: RemoteData<Relationship>) => relationshipRD.state === RemoteDataState.ResponsePending),
+      take(1),
+    ).subscribe((relationshipRD: RemoteData<Relationship>) => {
+      if (relationshipRD.state === RemoteDataState.ResponsePending) {
+        this.removeRelationshipItemsFromCacheByRelationship(reoRel.relationship.id);
+      }
+    });
+
+    return update$;
   }
 
 }

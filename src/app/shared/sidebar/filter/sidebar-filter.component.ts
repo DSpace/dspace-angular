@@ -15,13 +15,13 @@ import { slide } from '../../animations/slide';
  */
 export class SidebarFilterComponent implements OnInit {
 
-  @Input() name:string;
-  @Input() type:string;
-  @Input() label:string;
+  @Input() name: string;
+  @Input() type: string;
+  @Input() label: string;
   @Input() expanded = true;
   @Input() singleValue = false;
-  @Input() selectedValues:Observable<string[]>;
-  @Output() removeValue:EventEmitter<any> = new EventEmitter<any>();
+  @Input() selectedValues: Observable<string[]>;
+  @Output() removeValue: EventEmitter<any> = new EventEmitter<any>();
 
   /**
    * True when the filter is 100% collapsed in the UI
@@ -31,10 +31,10 @@ export class SidebarFilterComponent implements OnInit {
   /**
    * Emits true when the filter is currently collapsed in the store
    */
-  collapsed$:Observable<boolean>;
+  collapsed$: Observable<boolean>;
 
   constructor(
-    protected filterService:SidebarFilterService,
+    protected filterService: SidebarFilterService,
   ) {
   }
 
@@ -49,7 +49,7 @@ export class SidebarFilterComponent implements OnInit {
    * Method to change this.collapsed to false when the slide animation ends and is sliding open
    * @param event The animation event
    */
-  finishSlide(event:any):void {
+  finishSlide(event: any): void {
     if (event.fromState === 'collapsed') {
       this.closed = false;
     }
@@ -59,13 +59,13 @@ export class SidebarFilterComponent implements OnInit {
    * Method to change this.collapsed to true when the slide animation starts and is sliding closed
    * @param event The animation event
    */
-  startSlide(event:any):void {
+  startSlide(event: any): void {
     if (event.toState === 'collapsed') {
       this.closed = true;
     }
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.closed = !this.expanded;
     this.initializeFilter();
     this.collapsed$ = this.isCollapsed();
@@ -82,7 +82,7 @@ export class SidebarFilterComponent implements OnInit {
    * Checks if the filter is currently collapsed
    * @returns {Observable<boolean>} Emits true when the current state of the filter is collapsed, false when it's expanded
    */
-  private isCollapsed():Observable<boolean> {
+  private isCollapsed(): Observable<boolean> {
     return this.filterService.isCollapsed(this.name);
   }
 

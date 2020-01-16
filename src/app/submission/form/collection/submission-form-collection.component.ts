@@ -1,8 +1,28 @@
-import { ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { BehaviorSubject, combineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, mergeMap, reduce, startWith, flatMap, find } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  find,
+  flatMap,
+  map,
+  mergeMap,
+  reduce,
+  startWith
+} from 'rxjs/operators';
 
 import { Collection } from '../../../core/shared/collection.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
@@ -227,8 +247,7 @@ export class SubmissionFormCollectionComponent implements OnChanges, OnInit {
             } else {
               return listCollection.filter((v) => v.collection.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1).slice(0, 5);
             }
-        })
-      );
+          }));
       }
     }
   }

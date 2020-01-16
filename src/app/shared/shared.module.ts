@@ -48,10 +48,7 @@ import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import {
-  DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
-} from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
+import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
@@ -174,11 +171,12 @@ import { PageWithSidebarComponent } from './sidebar/page-with-sidebar.component'
 import { SidebarDropdownComponent } from './sidebar/sidebar-dropdown.component';
 import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.component';
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
-import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
 import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -201,6 +199,7 @@ const MODULES = [
   MomentModule,
   TextMaskModule,
   MenuModule,
+  DragDropModule
 ];
 
 const ROOT_MODULES = [
@@ -339,7 +338,8 @@ const COMPONENTS = [
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
   ExternalSourceEntryImportModalComponent,
-  ImportableListItemControlComponent
+  ImportableListItemControlComponent,
+  ExistingMetadataListElementComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -444,7 +444,8 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent
+    PublicationSearchResultListElementComponent,
+    ExistingMetadataListElementComponent
   ],
   providers: [
     ...PROVIDERS

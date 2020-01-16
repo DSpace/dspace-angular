@@ -140,7 +140,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     this.externalSourcesRD$ = this.externalSourceService.findAll();
 
     this.setTotals();
-    // this.setExistingNameVariants();
   }
 
   close() {
