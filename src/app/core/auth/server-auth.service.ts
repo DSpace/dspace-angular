@@ -53,9 +53,10 @@ export class ServerAuthService extends AuthService {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
-    if (isNotEmpty(this.req.headers) && isNotEmpty(this.req.headers.referer)) {
+    if (isNotEmpty(this.req.protocol) && isNotEmpty(this.req.header('host'))) {
+      const referer = this.req.protocol + '://' + this.req.header('host') + this.req.path;
       // use to allow the rest server to identify the real origin on SSR
-      headers = headers.append('X-Requested-With', this.req.headers.referer);
+      headers = headers.append('X-Requested-With', referer);
     }
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
