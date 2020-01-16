@@ -10,10 +10,8 @@ import {
   DynamicFormArrayModel,
   DynamicFormControlModel,
   DynamicFormGroupModel,
-  DynamicFormService,
-  DynamicFormValidationService,
-  DynamicPathable,
-  JSONUtils,
+  DynamicFormService, DynamicFormValidationService,
+  DynamicPathable, parseReviver,
 } from '@ng-dynamic-forms/core';
 import { isObject, isString, mergeWith } from 'lodash';
 
@@ -205,7 +203,7 @@ export class FormBuilderService extends DynamicFormService {
 
   modelFromConfiguration(submissionId: string, json: string | SubmissionFormsModel, scopeUUID: string, sectionData: any = {}, submissionScope?: string, readOnly = false): DynamicFormControlModel[] | never {
     let rows: DynamicFormControlModel[] = [];
-    const rawData = typeof json === 'string' ? JSON.parse(json, JSONUtils.parseReviver) : json;
+    const rawData = typeof json === 'string' ? JSON.parse(json, parseReviver) : json;
 
     if (rawData.rows && !isEmpty(rawData.rows)) {
       rawData.rows.forEach((currentRow) => {

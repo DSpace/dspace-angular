@@ -3,12 +3,11 @@
     <div *ngIf="communityRD?.payload; let communityPayload">
       <ds-view-tracker [object]="communityPayload"></ds-view-tracker>
       <header class="comcol-header border-bottom mb-4 pb-4">
+        <!-- Community name -->
+        <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
         <!-- Community logo -->
         <ds-comcol-page-logo *ngIf="logoRD$" [logo]="(logoRD$ | async)?.payload" [alternateText]="'Community Logo'">
         </ds-comcol-page-logo>
-
-        <!-- Community name -->
-        <ds-comcol-page-header [name]="communityPayload.name"></ds-comcol-page-header>
         <!-- Handle -->
         <ds-comcol-page-handle [content]="communityPayload.handle" [title]="'community.page.handle'">
         </ds-comcol-page-handle>

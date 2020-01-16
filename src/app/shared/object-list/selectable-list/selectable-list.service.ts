@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, startWith, tap } from 'rxjs/operators';
-import { SelectableListsState, SelectableListState } from './selectable-list.reducer';
+import { distinctUntilChanged, map } from 'rxjs/operators';
+import { SelectableListState } from './selectable-list.reducer';
 import { AppState, keySelector } from '../../../app.reducer';
 import { ListableObject } from '../../object-collection/shared/listable-object.model';
 import {
-  SelectableListDeselectAction, SelectableListDeselectAllAction,
-  SelectableListDeselectSingleAction, SelectableListSelectAction,
+  SelectableListDeselectAction,
+  SelectableListDeselectAllAction,
+  SelectableListDeselectSingleAction,
+  SelectableListSelectAction,
   SelectableListSelectSingleAction
 } from './selectable-list.actions';
-import { hasNoValue, hasValue, isNotEmpty } from '../../empty.util';
+import { hasValue, isNotEmpty } from '../../empty.util';
 
-const selectableListsStateSelector = (state) => state.selectableLists;
+const selectableListsStateSelector = (state: AppState) => state.selectableLists;
 
 const menuByIDSelector = (id: string): MemoizedSelector<AppState, SelectableListState> => {
   return keySelector<SelectableListState>(id, selectableListsStateSelector);
@@ -21,7 +23,7 @@ const menuByIDSelector = (id: string): MemoizedSelector<AppState, SelectableList
 @Injectable()
 export class SelectableListService {
 
-  constructor(private store: Store<SelectableListsState>) {
+  constructor(private store: Store<AppState>) {
   }
 
   /**

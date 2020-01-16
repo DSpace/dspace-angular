@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { By } from '@angular/platform-browser';
 import { StartsWithDateComponent } from './starts-with-date.component';
@@ -159,7 +159,7 @@ describe('StartsWithDateComponent', () => {
   describe('when filling in the input form', () => {
     let form;
     const expectedValue = '2015';
-    const extras = {
+    const extras: NavigationExtras = {
       queryParams: Object.assign({ startsWith: expectedValue }),
       queryParamsHandling: 'merge'
     };
