@@ -169,16 +169,10 @@ export class AuthService {
   }
 
   /**
-   * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
+   * Checks if token is present into browser storage and is valid.
    */
   public checkAuthenticationToken() {
-    this.store.pipe(
-      select(getAuthenticationMethods),
-      filter((authMethods: AuthMethod[]) => isEmpty(authMethods)),
-      take(1)
-    ).subscribe(() => {
-      this.store.dispatch(new CheckAuthenticationTokenAction());
-    });
+    this.store.dispatch(new CheckAuthenticationTokenAction());
   }
 
   /**
