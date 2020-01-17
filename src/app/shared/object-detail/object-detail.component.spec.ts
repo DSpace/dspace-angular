@@ -13,7 +13,7 @@ import { DSpaceObject } from '../../core/shared/dspace-object.model';
 describe('ObjectDetailComponent', () => {
   let comp: ObjectDetailComponent;
   let fixture: ComponentFixture<ObjectDetailComponent>;
-  const testEvent = {test: 'test'};
+  const testEvent: any = {test: 'test'};
 
   const testObjects = [
     Object.assign (new DSpaceObject(), { one: 1 }),
@@ -27,7 +27,7 @@ describe('ObjectDetailComponent', () => {
     Object.assign (new DSpaceObject(), { nine: 9 }),
     Object.assign (new DSpaceObject(), { ten: 10 }),
   ];
-  const pageInfo = Object.assign(new PageInfo(), {elementsPerPage: 1, totalElements: 10, totalPages: 10, currentPage: 1})
+  const pageInfo = Object.assign(new PageInfo(), {elementsPerPage: 1, totalElements: 10, totalPages: 10, currentPage: 1});
   const mockRD = createSuccessfulRemoteDataObject(new PaginatedList(pageInfo, testObjects));
 
   beforeEach(async(() => {

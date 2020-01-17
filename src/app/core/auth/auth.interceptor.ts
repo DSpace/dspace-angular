@@ -180,7 +180,7 @@ export class AuthInterceptor implements HttpInterceptor {
    * @param error
    * @param httpHeaders
    */
-  private makeAuthStatusObject(authenticated: boolean, accessToken ?: string, error ?: string, httpHeaders ?: HttpHeaders): AuthStatus {
+  private makeAuthStatusObject(authenticated: boolean, accessToken?: string, error?: string, httpHeaders?: HttpHeaders): AuthStatus {
     const authStatus = new AuthStatus();
     // let authMethods: AuthMethodModel[];
     if (httpHeaders) {

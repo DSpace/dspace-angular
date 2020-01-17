@@ -9,10 +9,10 @@ import { RouteService } from '../core/services/route.service';
 import { hasValue } from '../shared/empty.util';
 import { SearchSuccessResponse } from '../core/cache/response.models';
 import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
-import { Router } from '@angular/router';
 import { SearchService } from '../core/shared/search/search.service';
 import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
 import { SearchQueryResponse } from '../shared/search/search-query-response.model';
+import { Router } from '@angular/router';
 
 /**
  * This component triggers a page view statistic
@@ -42,7 +42,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
     super(service, sidebarService, windowService, searchConfigService, routeService, router);
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     // super.ngOnInit();
     this.getSearchOptions().pipe(
       switchMap((options) => this.service.searchEntries(options)
@@ -62,7 +62,7 @@ export class SearchTrackerComponent extends SearchComponent implements OnInit {
       .subscribe((entry) => {
         const config: PaginatedSearchOptions = entry.searchOptions;
         const searchQueryResponse: SearchQueryResponse = entry.response;
-        const filters:Array<{ filter: string, operator: string, value: string, label: string; }> = [];
+        const filters: Array<{ filter: string, operator: string, value: string, label: string; }> = [];
         const appliedFilters = searchQueryResponse.appliedFilters || [];
         for (let i = 0, filtersLength = appliedFilters.length; i < filtersLength; i++) {
           const appliedFilter = appliedFilters[i];

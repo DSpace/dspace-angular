@@ -17,5 +17,5 @@ export interface ChangeAnalyzer<T extends CacheableObject> {
    * @param {NormalizedObject} object2
    *    The second object to compare
    */
-  diff(object1: T | NormalizedObject<T>, object2: T | NormalizedObject<T>):  Operation[];
+  diff(object1: T | NormalizedObject<T>, object2: T | NormalizedObject<T>): Operation[];
 }

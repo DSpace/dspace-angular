@@ -127,12 +127,6 @@ module.exports = (env) => {
                             }
                         },
                         {
-                          loader: 'resolve-url-loader',
-                          options: {
-                            sourceMap: true
-                          }
-                        },
-                        {
                             loader: 'sass-resources-loader',
                             options: {
                                 resources: globalCSSImports(env)
@@ -163,13 +157,7 @@ module.exports = (env) => {
                                 sourceMap: true,
                                 includePaths: [projectRoot('./'), path.join(themePath, 'styles')]
                             }
-                          },
-                        {
-                            loader: 'resolve-url-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
+                        }
                     ]
                 },
                 {

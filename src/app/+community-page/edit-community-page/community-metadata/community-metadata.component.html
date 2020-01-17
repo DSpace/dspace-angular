@@ -1,0 +1,6 @@
+<ds-community-form (submitForm)="onSubmit($event)"
+                   [dso]="(dsoRD$ | async)?.payload"
+                   (finish)="navigateToHomePage()"></ds-community-form>
+<a class="btn btn-danger"
+   [routerLink]="'/communities/' + (dsoRD$ | async)?.payload.uuid + '/delete'">{{'community.edit.delete'
+  | translate}}</a>

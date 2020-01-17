@@ -25,6 +25,7 @@ import { PersonInputSuggestionsComponent } from './submission/item-list-elements
 import { NameVariantModalComponent } from './submission/name-variant-modal/name-variant-modal.component';
 import { OrgUnitInputSuggestionsComponent } from './submission/item-list-elements/org-unit/org-unit-suggestions/org-unit-input-suggestions.component';
 import { OrgUnitSearchResultListSubmissionElementComponent } from './submission/item-list-elements/org-unit/org-unit-search-result-list-submission-element.component';
+import { ExternalSourceEntryListSubmissionElementComponent } from './submission/item-list-elements/external-source-entry/external-source-entry-list-submission-element.component';
 
 const ENTRY_COMPONENTS = [
   OrgUnitComponent,
@@ -48,7 +49,8 @@ const ENTRY_COMPONENTS = [
   PersonInputSuggestionsComponent,
   NameVariantModalComponent,
   OrgUnitSearchResultListSubmissionElementComponent,
-  OrgUnitInputSuggestionsComponent
+  OrgUnitInputSuggestionsComponent,
+  ExternalSourceEntryListSubmissionElementComponent
 ];
 
 @NgModule({
