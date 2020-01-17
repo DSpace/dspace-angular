@@ -2,22 +2,31 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { of as observableOf } from 'rxjs';
 import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LogInComponent } from './log-in.component';
-import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthService } from '../../core/auth/auth.service';
 import { authMethodsMock, AuthServiceStub } from '../testing/auth-service-stub';
 import { createTestComponent } from '../testing/utils';
 import { SharedModule } from '../shared.module';
+import { appReducers } from '../../app.reducer';
 
 describe('LogInComponent', () => {
 
   let component: LogInComponent;
   let fixture: ComponentFixture<LogInComponent>;
+  const initialState = {
+    core: {
+      auth: {
+        authenticated: false,
+        loaded: false,
+        loading: false,
+        authMethods: authMethodsMock
+      }
+    }
+  };
 
   beforeEach(async(() => {
     // refine the test module by declaring the test component
@@ -25,7 +34,7 @@ describe('LogInComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot(authReducer),
+        StoreModule.forRoot(appReducers),
         SharedModule,
         TranslateModule.forRoot()
       ],
@@ -34,6 +43,7 @@ describe('LogInComponent', () => {
       ],
       providers: [
         {provide: AuthService, useClass: AuthServiceStub},
+        provideMockStore({ initialState }),
         LogInComponent
       ],
       schemas: [
@@ -71,8 +81,6 @@ describe('LogInComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(LogInComponent);
       component = fixture.componentInstance;
-      component.isAuthenticated = observableOf(false);
-      component.loading = observableOf(false);
 
       fixture.detectChanges();
     });
@@ -82,11 +90,7 @@ describe('LogInComponent', () => {
       component = null;
     });
 
-    it('should render a log-in container component foe each auth method available', () => {
-      component.authMethods = observableOf(authMethodsMock);
-
-      fixture.detectChanges();
-
+    it('should render a log-in container component for each auth method available', () => {
       const loginContainers = fixture.debugElement.queryAll(By.css('ds-log-in-container'));
       expect(loginContainers.length).toBe(2);
 
