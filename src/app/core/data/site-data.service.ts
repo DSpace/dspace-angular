@@ -1,3 +1,4 @@
+import { dataService } from '../cache/builders/build-decorators';
 import { DataService } from './data.service';
 import { Site } from '../shared/site.model';
 import { RequestService } from './request.service';
@@ -22,6 +23,7 @@ import { getSucceededRemoteData } from '../shared/operators';
  * Service responsible for handling requests related to the Site object
  */
 @Injectable()
+@dataService(Site)
 export class SiteDataService extends DataService<Site> {​
   protected linkPath = 'sites';
   protected forceBypassCache = false;

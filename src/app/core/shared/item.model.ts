@@ -1,10 +1,16 @@
+import { Observable } from 'rxjs/internal/Observable';
 import { isEmpty } from '../../shared/empty.util';
 import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { link } from '../cache/builders/build-decorators';
+import { PaginatedList } from '../data/paginated-list';
+import { RemoteData } from '../data/remote-data';
+import { Bundle } from './bundle.model';
 
 import { DSpaceObject } from './dspace-object.model';
 import { GenericConstructor } from './generic-constructor';
-import { HALLink } from './HALLink.model';
+import { HALLink } from './hal-link.model';
+import { Relationship } from './item-relationships/relationship.model';
 import { ResourceType } from './resource-type';
 
 /**
@@ -38,12 +44,19 @@ export class Item extends DSpaceObject {
    */
   isWithdrawn: boolean;
 
+  @link(Bundle, true)
+  bundles: Observable<RemoteData<PaginatedList<Bundle>>>;
+
+  @link(Relationship, true)
+  relationships: Observable<RemoteData<PaginatedList<Relationship>>>;
+
   _links: {
-    self: HALLink;
-    parents: HALLink;
-    owningCollection: HALLink;
-    bundles: HALLink;
+    mappedCollections: HALLink;
     relationships: HALLink;
+    bundles: HALLink;
+    owningCollection: HALLink;
+    templateItemOf: HALLink;
+    self: HALLink;
   };
 
   /**

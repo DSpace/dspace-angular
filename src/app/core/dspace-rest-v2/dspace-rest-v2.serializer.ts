@@ -77,14 +77,16 @@ export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
   }
 
   private normalizeLinks(links: any): any {
-    const normalizedLinks = links;
-    for (const link in normalizedLinks) {
-      if (Array.isArray(normalizedLinks[link])) {
-        normalizedLinks[link] = normalizedLinks[link].map((linkedResource) => {
-          return linkedResource.href;
-        });
-      } else {
-        normalizedLinks[link] = normalizedLinks[link].href;
+    const normalizedLinks = {};
+    for (const link in links) {
+      if (links.hasOwnProperty(link)) {
+        if (Array.isArray(links[link])) {
+          normalizedLinks[link] = links[link].map((linkedResource) => {
+            return linkedResource.href;
+          });
+        } else {
+          normalizedLinks[link] = links[link].href;
+        }
       }
     }
     return normalizedLinks;

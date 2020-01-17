@@ -1,4 +1,5 @@
 import { CacheableObject, TypedObject } from '../cache/object-cache.reducer';
+import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { BitstreamFormatSupportLevel } from './bitstream-format-support-level';
 
@@ -56,4 +57,7 @@ export class BitstreamFormat implements CacheableObject {
    */
   id: string;
 
+  _links: {
+    self: HALLink;
+  }
 }

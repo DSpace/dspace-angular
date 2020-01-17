@@ -1,6 +1,7 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
 import { CacheableObject, TypedObject } from '../../cache/object-cache.reducer';
+import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
 
 /**
@@ -20,7 +21,8 @@ export abstract class NormalizedConfigObject<T extends CacheableObject> implemen
    */
   @autoserialize
   public _links: {
-    [name: string]: string
+    self: HALLink,
+    [name: string]: HALLink
   };
 
   /**

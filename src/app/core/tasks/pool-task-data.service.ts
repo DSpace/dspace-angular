@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { dataService } from '../cache/builders/build-decorators';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
@@ -20,6 +21,7 @@ import { ProcessTaskResponse } from './models/process-task-response';
  * The service handling all REST requests for PoolTask
  */
 @Injectable()
+@dataService(PoolTask)
 export class PoolTaskDataService extends TasksService<PoolTask> {
 
   /**

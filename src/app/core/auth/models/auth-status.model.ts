@@ -1,3 +1,4 @@
+import { HALLink } from '../../shared/hal-link.model';
 import { AuthError } from './auth-error.model';
 import { AuthTokenInfo } from './auth-token-info.model';
 import { EPerson } from '../../eperson/models/eperson.model';
@@ -51,4 +52,8 @@ export class AuthStatus implements CacheableObject {
    * The self link of this auth status' REST object
    */
   self: string;
+
+  _links: {
+    self: HALLink;
+  }
 }

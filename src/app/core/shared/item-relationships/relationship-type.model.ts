@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
+import { link } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
+import { HALLink } from '../hal-link.model';
 import { ResourceType } from '../resource-type';
 import { ItemType } from './item-type.model';
 
@@ -63,10 +65,18 @@ export class RelationshipType implements CacheableObject {
   /**
    * The type of Item found to the left of this RelationshipType
    */
-  leftType: Observable<RemoteData<ItemType>>;
+  @link(ItemType)
+  leftType?: Observable<RemoteData<ItemType>>;
 
   /**
    * The type of Item found to the right of this RelationshipType
    */
-  rightType: Observable<RemoteData<ItemType>>;
+  @link(ItemType)
+  rightType?: Observable<RemoteData<ItemType>>;
+
+  _links: {
+    self: HALLink,
+    leftType: HALLink,
+    rightType: HALLink,
+  }
 }

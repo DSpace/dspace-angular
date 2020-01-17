@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { dataService } from '../cache/builders/build-decorators';
 import { Bitstream } from '../shared/bitstream.model';
 import { DataService } from './data.service';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -40,6 +41,7 @@ const selectedBitstreamFormatSelector = createSelector(bitstreamFormatsStateSele
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
  */
 @Injectable()
+@dataService(BitstreamFormat)
 export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   protected linkPath = 'bitstreamformats';

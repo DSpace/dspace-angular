@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -42,6 +43,7 @@ class DataServiceImpl extends DataService<DSpaceObject> {
 }
 
 @Injectable()
+@dataService(DSpaceObject)
 export class DSpaceObjectDataService {
   protected linkPath = 'dso';
   private dataService: DataServiceImpl;

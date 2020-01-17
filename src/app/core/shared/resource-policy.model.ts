@@ -1,4 +1,5 @@
 import { CacheableObject } from '../cache/object-cache.reducer';
+import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { ActionType } from '../cache/models/action-type.model';
 
@@ -33,4 +34,7 @@ export class ResourcePolicy implements CacheableObject {
    */
   uuid: string;
 
+  _links: {
+    self: HALLink,
+  }
 }

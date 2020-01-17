@@ -1,3 +1,4 @@
+import { HALLink } from '../../shared/hal-link.model';
 import { CacheableObject, TypedObject } from '../object-cache.reducer';
 import { autoserialize, deserialize } from 'cerialize';
 import { ResourceType } from '../../shared/resource-type';
@@ -13,7 +14,8 @@ export abstract class NormalizedObject<T extends TypedObject> implements Cacheab
 
   @deserialize
   _links: {
-    [name: string]: string
+    self: HALLink,
+    [name: string]: HALLink
   };
 
   /**

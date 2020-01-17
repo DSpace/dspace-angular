@@ -1,5 +1,5 @@
 import { DSpaceObject } from './dspace-object.model';
-import { HALLink } from './HALLink.model';
+import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 
 export class Bundle extends DSpaceObject {

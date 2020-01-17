@@ -134,7 +134,7 @@ export class SubmissionSectionLicenseComponent extends SectionModelComponent {
 
     this.licenseText$ = this.collectionDataService.findById(this.collectionId).pipe(
       filter((collectionData: RemoteData<Collection>) => isNotUndefined((collectionData.payload))),
-      flatMap((collectionData: RemoteData<Collection>) => collectionData.payload.license),
+      flatMap((collectionData: RemoteData<Collection>) => (collectionData.payload as any).license),
       find((licenseData: RemoteData<License>) => isNotUndefined((licenseData.payload))),
       map((licenseData: RemoteData<License>) => licenseData.payload.text),
       startWith(''));

@@ -45,13 +45,6 @@ export class NormalizedItem extends NormalizedDSpaceObject<Item> {
   isWithdrawn: boolean;
 
   /**
-   * An array of Collections that are direct parents of this Item
-   */
-  @deserialize
-  @relationship(Collection, true, false)
-  parents: string[];
-
-  /**
    * The Collection that owns this Item
    */
   @deserialize

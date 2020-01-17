@@ -1,6 +1,7 @@
+import { link } from '../cache/builders/build-decorators';
 import { DSpaceObject } from './dspace-object.model';
 import { Bitstream } from './bitstream.model';
-import { HALLink } from './HALLink.model';
+import { HALLink } from './hal-link.model';
 import { Item } from './item.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
@@ -60,29 +61,19 @@ export class Collection extends DSpaceObject {
   /**
    * The deposit license of this Collection
    */
-  license: Observable<RemoteData<License>>;
+//  license?: Observable<RemoteData<License>>;
 
   /**
    * The Bitstream that represents the logo of this Collection
    */
-  logo: Observable<RemoteData<Bitstream>>;
+  @link(Bitstream)
+  logo?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The default access conditions of this Collection
    */
-  defaultAccessConditions: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;
-
-  /**
-   * An array of Collections that are direct parents of this Collection
-   */
-  parents: Observable<RemoteData<Collection[]>>;
-
-  /**
-   * The Collection that owns this Collection
-   */
-  owner: Observable<RemoteData<Collection>>;
-
-  items: Observable<RemoteData<Item[]>>;
+  @link(ResourcePolicy, true)
+  defaultAccessConditions?: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;
 
   _links: {
     license: HALLink;

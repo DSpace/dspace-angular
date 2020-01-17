@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
+import { dataService } from '../cache/builders/build-decorators';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -48,6 +49,7 @@ import { INotification } from '../../shared/notifications/models/notification.mo
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 @Injectable()
+@dataService(Collection)
 export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
   protected errorTitle = 'collection.source.update.notifications.error.title';

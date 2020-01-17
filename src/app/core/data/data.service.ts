@@ -16,6 +16,7 @@ import {
 import { Store } from '@ngrx/store';
 
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { URLCombiner } from '../url-combiner/url-combiner';
@@ -30,7 +31,6 @@ import {
   GetRequest
 } from './request.models';
 import { RequestService } from './request.service';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { SearchParam } from '../cache/models/search-param.model';
 import { Operation } from 'fast-json-patch';
@@ -140,11 +140,11 @@ export abstract class DataService<T extends CacheableObject> {
     }
   }
 
-  findAll(options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
-    return this.findList(this.getFindAllHref(options), options);
+  findAll(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
+    return this.findList(this.getFindAllHref(options), options, ...linksToFollow);
   }
 
-  protected findList(href$, options: FindListOptions) {
+  protected findList(href$, options: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<T>>) {
     href$.pipe(
       first((href: string) => hasValue(href)))
       .subscribe((href: string) => {
@@ -155,7 +155,7 @@ export abstract class DataService<T extends CacheableObject> {
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildList<T>(href$) as Observable<RemoteData<PaginatedList<T>>>;
+    return this.rdbService.buildList<T>(href$, ...linksToFollow) as Observable<RemoteData<PaginatedList<T>>>;
   }
 
   /**
@@ -167,7 +167,7 @@ export abstract class DataService<T extends CacheableObject> {
     return `${endpoint}/${resourceID}`;
   }
 
-  findById(id: string): Observable<RemoteData<T>> {
+  findById(id: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
 
     const hrefObs = this.halService.getEndpoint(this.linkPath).pipe(
       map((endpoint: string) => this.getIDHref(endpoint, encodeURIComponent(id))));
@@ -182,27 +182,27 @@ export abstract class DataService<T extends CacheableObject> {
         this.requestService.configure(request);
       });
 
-    return this.rdbService.buildSingle<T>(hrefObs);
+    return this.rdbService.buildSingle<T>(hrefObs, ...linksToFollow);
   }
 
-  findByHref(href: string, findListOptions: FindListOptions = {}, httpOptions?: HttpOptions): Observable<RemoteData<T>> {
-    const requestHref = this.buildHrefFromFindOptions(href, findListOptions, []);
-    const request = new GetRequest(this.requestService.generateRequestId(), requestHref, null, httpOptions);
+  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
+    const requestHref = this.buildHrefFromFindOptions(href, {}, []);
+    const request = new GetRequest(this.requestService.generateRequestId(), requestHref);
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
     }
     this.requestService.configure(request);
-    return this.rdbService.buildSingle<T>(href);
+    return this.rdbService.buildSingle<T>(href, ...linksToFollow);
   }
 
-  findAllByHref(href: string, findListOptions: FindListOptions = {}, httpOptions?: HttpOptions): Observable<RemoteData<PaginatedList<T>>> {
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
     const requestHref = this.buildHrefFromFindOptions(href, findListOptions, []);
-    const request = new GetRequest(this.requestService.generateRequestId(), requestHref, null, httpOptions);
+    const request = new GetRequest(this.requestService.generateRequestId(), requestHref);
     if (hasValue(this.responseMsToLive)) {
       request.responseMsToLive = this.responseMsToLive;
     }
     this.requestService.configure(request);
-    return this.rdbService.buildList<T>(requestHref);
+    return this.rdbService.buildList<T>(requestHref, ...linksToFollow);
   }
 
   /**
@@ -224,7 +224,7 @@ export abstract class DataService<T extends CacheableObject> {
    * @return {Observable<RemoteData<PaginatedList<T>>}
    *    Return an observable that emits response from the server
    */
-  protected searchBy(searchMethod: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<T>>> {
+  protected searchBy(searchMethod: string, options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
 
     const hrefObs = this.getSearchByHref(searchMethod, options);
 
@@ -241,7 +241,7 @@ export abstract class DataService<T extends CacheableObject> {
       switchMap((href) => this.requestService.getByHref(href)),
       skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
       switchMap((href) =>
-        this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>
+        this.rdbService.buildList<T>(hrefObs, ...linksToFollow) as Observable<RemoteData<PaginatedList<T>>>
       )
     );
   }

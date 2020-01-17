@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
@@ -18,6 +19,7 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
  * A service that provides methods to make REST requests with workflowitems endpoint.
  */
 @Injectable()
+@dataService(WorkflowItem)
 export class WorkflowItemDataService extends DataService<WorkflowItem> {
   protected linkPath = 'workflowitems';
   protected responseMsToLive = 10 * 1000;

@@ -2,6 +2,7 @@ import { filter, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -20,6 +21,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 @Injectable()
+@dataService(Community)
 export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
   protected topLinkPath = 'communities/search/top';

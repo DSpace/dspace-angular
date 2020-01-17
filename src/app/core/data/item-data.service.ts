@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { BrowseService } from '../browse/browse.service';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 import { Item } from '../shared/item.model';
@@ -40,6 +41,7 @@ import { PaginatedList } from './paginated-list';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 
 @Injectable()
+@dataService(Item)
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
 

@@ -8,6 +8,7 @@ import { merge as observableMerge, Observable, throwError as observableThrowErro
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { NormalizedCommunity } from '../cache/models/normalized-community.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALLink } from '../shared/hal-link.model';
 import { CommunityDataService } from './community-data.service';
 
 import { DataService } from './data.service';
@@ -71,7 +72,8 @@ export abstract class ComColDataService<T extends CacheableObject> extends DataS
         filter((response) => response.isSuccessful),
         mergeMap(() => this.objectCache.getObjectByUUID(options.scopeID)),
         map((nc: NormalizedCommunity) => nc._links[linkPath]),
-        filter((href) => isNotEmpty(href))
+        filter((halLink: HALLink) => isNotEmpty(halLink)),
+        map((halLink: HALLink) => halLink.href)
       );
 
       return observableMerge(errorResponses, successResponses).pipe(distinctUntilChanged(), share());

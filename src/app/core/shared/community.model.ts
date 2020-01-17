@@ -1,9 +1,11 @@
+import { link } from '../cache/builders/build-decorators';
 import { DSpaceObject } from './dspace-object.model';
 import { Bitstream } from './bitstream.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
 import { PaginatedList } from '../data/paginated-list';
+import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 
 export class Community extends DSpaceObject {
@@ -49,20 +51,19 @@ export class Community extends DSpaceObject {
   /**
    * The Bitstream that represents the logo of this Community
    */
-  logo: Observable<RemoteData<Bitstream>>;
+  @link(Bitstream)
+  logo?: Observable<RemoteData<Bitstream>>;
 
-  /**
-   * An array of Communities that are direct parents of this Community
-   */
-  parents: Observable<RemoteData<DSpaceObject[]>>;
+  @link(Collection, true)
+  collections?: Observable<RemoteData<PaginatedList<Collection>>>;
 
-  /**
-   * The Community that owns this Community
-   */
-  owner: Observable<RemoteData<Community>>;
+  @link(Community, true)
+  subcommunities?: Observable<RemoteData<PaginatedList<Community>>>;
 
-  collections: Observable<RemoteData<PaginatedList<Collection>>>;
-
-  subcommunities: Observable<RemoteData<PaginatedList<Community>>>;
-
+  _links: {
+    collections: HALLink;
+    logo: HALLink;
+    subcommunities: HALLink;
+    self: HALLink;
+  }
 }

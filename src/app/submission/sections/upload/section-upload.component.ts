@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
 import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription} from 'rxjs';
 import { distinctUntilChanged, filter, find, flatMap, map, reduce, take, tap } from 'rxjs/operators';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
@@ -160,13 +161,11 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         filter((submissionObject: SubmissionObjectEntry) => isNotUndefined(submissionObject) && !submissionObject.isLoading),
         filter((submissionObject: SubmissionObjectEntry) => isUndefined(this.collectionId) || this.collectionId !== submissionObject.collection),
         tap((submissionObject: SubmissionObjectEntry) => this.collectionId = submissionObject.collection),
-        flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection)),
+        flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection, followLink('defaultAccessConditions'))),
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
         flatMap((collectionRemoteData: RemoteData<Collection>) => {
-          return this.resourcePolicyService.findByHref(
-            (collectionRemoteData.payload as any)._links.defaultAccessConditions
-          );
+          return this.resourcePolicyService.findByHref((collectionRemoteData.payload as any).defaultAccessConditions);
         }),
         filter((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) =>
           defaultAccessConditionsRemoteData.hasSucceeded),

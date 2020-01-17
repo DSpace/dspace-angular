@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-
+import { GenericConstructor } from './generic-constructor';
+import { HALLink } from './hal-link.model';
 import {
   MetadataMap,
   MetadataValue,
@@ -9,11 +9,9 @@ import {
 import { Metadata } from './metadata.utils';
 import { hasNoValue, isUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
-import { RemoteData } from '../data/remote-data';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
-import { GenericConstructor } from './generic-constructor';
 
 /**
  * An abstract model class for a DSpaceObject.
@@ -67,24 +65,16 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   @excludeFromEquals
   metadata: MetadataMap;
 
+  _links: {
+    self: HALLink,
+  };
+
   /**
    * Retrieve the current metadata as a list of MetadatumViewModels
    */
   get metadataAsList(): MetadatumViewModel[] {
     return Metadata.toViewModelList(this.metadata);
   }
-
-  /**
-   * An array of DSpaceObjects that are direct parents of this DSpaceObject
-   */
-  @excludeFromEquals
-  parents: Observable<RemoteData<DSpaceObject[]>>;
-
-  /**
-   * The DSpaceObject that owns this DSpaceObject
-   */
-  @excludeFromEquals
-  owner: Observable<RemoteData<DSpaceObject>>;
 
   /**
    * Gets all matching metadata in this DSpaceObject.

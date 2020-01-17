@@ -1,3 +1,5 @@
+import { HALLink } from '../shared/hal-link.model';
+import { HALResource } from '../shared/hal-resource.model';
 import {
   ObjectCacheAction,
   ObjectCacheActionTypes,
@@ -42,10 +44,14 @@ export abstract class TypedObject {
  *
  * A cacheable object should have a self link
  */
-export class CacheableObject extends TypedObject {
+export class CacheableObject extends TypedObject implements HALResource {
   uuid?: string;
   handle?: string;
   self: string;
+
+  _links: {
+    self: HALLink;
+  }
   // isNew: boolean;
   // dirtyType: DirtyType;
   // hasDirtyAttributes: boolean;

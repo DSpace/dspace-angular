@@ -1,11 +1,13 @@
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { HALLink } from '../shared/hal-link.model';
+import { HALResource } from '../shared/hal-resource.model';
 import { ResourceType } from '../shared/resource-type';
 import { GenericConstructor } from '../shared/generic-constructor';
 
 /**
  * Class that represents a metadata schema
  */
-export class MetadataSchema extends ListableObject {
+export class MetadataSchema extends ListableObject implements HALResource {
   static type = new ResourceType('metadataschema');
 
   /**
@@ -27,6 +29,10 @@ export class MetadataSchema extends ListableObject {
    * The namespace of this metadata schema
    */
   namespace: string;
+
+  _links: {
+    self: HALLink,
+  };
 
   /**
    * Method that returns as which type of object this object should be rendered

@@ -25,32 +25,32 @@ export class NormalizedCommunity extends NormalizedDSpaceObject<Community> {
    * The Bitstream that represents the logo of this Community
    */
   @deserialize
-  @relationship(Bitstream, false)
+  @relationship(Bitstream, false, false)
   logo: string;
 
   /**
    * An array of Communities that are direct parents of this Community
    */
   @deserialize
-  @relationship(Community, true)
+  @relationship(Community, true, false)
   parents: string[];
 
   /**
    * The Community that owns this Community
    */
   @deserialize
-  @relationship(Community, false)
+  @relationship(Community, false, false)
   owner: string;
 
   /**
    * List of Collections that are owned by this Community
    */
   @deserialize
-  @relationship(Collection, true)
+  @relationship(Collection, true, false)
   collections: string[];
 
   @deserialize
-  @relationship(Community, true)
+  @relationship(Community, true, false)
   subcommunities: string[];
 
 }

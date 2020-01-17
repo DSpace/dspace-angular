@@ -1,11 +1,14 @@
 import { Observable } from 'rxjs';
+import { link } from '../cache/builders/build-decorators';
 import { RemoteData } from '../data/remote-data';
 import { BitstreamFormat } from './bitstream-format.model';
+import { Bundle } from './bundle.model';
 import { DSpaceObject } from './dspace-object.model';
-import { HALLink } from './HALLink.model';
+import { HALResource } from './hal-resource.model';
+import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 
-export class Bitstream extends DSpaceObject {
+export class Bitstream extends DSpaceObject implements HALResource {
   static type = new ResourceType('bitstream');
 
   /**
@@ -31,17 +34,19 @@ export class Bitstream extends DSpaceObject {
   /**
    * The Bitstream Format for this Bitstream
    */
+  @link(BitstreamFormat)
   format?: Observable<RemoteData<BitstreamFormat>>;
 
-  /**
-   * The URL to retrieve this Bitstream's file
-   */
-  content: string;
-
   _links: {
+    // @link(Bitstream)
     self: HALLink;
+
+    // @link(Bundle)
     bundle: HALLink;
-    content: HALLink;
+
+    // @link(BitstreamFormat)
     format: HALLink;
+
+    content: HALLink;
   }
 }

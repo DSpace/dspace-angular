@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 
 import {
   combineLatest as observableCombineLatest,
@@ -16,16 +16,24 @@ import {
   isNotEmpty,
   isNotUndefined
 } from '../../../shared/empty.util';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 import { RemoteDataError } from '../../data/remote-data-error';
 import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
+import { HALResource } from '../../shared/hal-resource.model';
 import { NormalizedObject } from '../models/normalized-object.model';
 import { ObjectCacheService } from '../object-cache.service';
 import { DSOSuccessResponse, ErrorResponse } from '../response.models';
-import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
+import {
+  getDataServiceFor, getLink,
+  getLinks,
+  getMapsTo,
+  getRelationMetadata,
+  getRelationships
+} from './build-decorators';
 import { PageInfo } from '../../shared/page-info.model';
 import {
   filterSuccessfulResponses,
@@ -39,10 +47,11 @@ import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils
 @Injectable()
 export class RemoteDataBuildService {
   constructor(protected objectCache: ObjectCacheService,
+              private parentInjector: Injector,
               protected requestService: RequestService) {
   }
 
-  buildSingle<T extends CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<T>> {
+  buildSingle<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -83,7 +92,7 @@ export class RemoteDataBuildService {
         }),
         hasValueOperator(),
         map((normalized: NormalizedObject<T>) => {
-          return this.build<T>(normalized);
+          return this.build<T>(normalized, ...linksToFollow);
         }),
         startWith(undefined),
         distinctUntilChanged()
@@ -120,7 +129,7 @@ export class RemoteDataBuildService {
     );
   }
 
-  buildList<T extends CacheableObject>(href$: string | Observable<string>): Observable<RemoteData<PaginatedList<T>>> {
+  buildList<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -132,7 +141,7 @@ export class RemoteDataBuildService {
         return this.objectCache.getList(resourceUUIDs).pipe(
           map((normList: Array<NormalizedObject<T>>) => {
             return normList.map((normalized: NormalizedObject<T>) => {
-              return this.build<T>(normalized);
+              return this.build<T>(normalized, ...linksToFollow);
             });
           }));
       }),
@@ -162,8 +171,8 @@ export class RemoteDataBuildService {
     return this.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  build<T extends CacheableObject>(normalized: NormalizedObject<T>): T {
-    const links: any = {};
+  build<T extends CacheableObject>(normalized: NormalizedObject<T>, ...linksToFollow: Array<FollowLinkConfig<T>>): T {
+    const halLinks: any = {};
     const relationships = getRelationships(normalized.constructor) || [];
 
     relationships.forEach((relationship: string) => {
@@ -207,22 +216,61 @@ export class RemoteDataBuildService {
           }
 
           if (hasValue(normalized[relationship].page)) {
-            links[relationship] = this.toPaginatedList(result, normalized[relationship].pageInfo);
+            halLinks[relationship] = this.toPaginatedList(result, normalized[relationship].pageInfo);
           } else {
-            links[relationship] = result;
+            halLinks[relationship] = result;
           }
         } else {
-          if (hasNoValue(links._links)) {
-            links._links = {};
+          if (hasNoValue(halLinks._links)) {
+            halLinks._links = {};
           }
-          links._links[relationship] = {
+          halLinks._links[relationship] = {
             href: objectList
           };
         }
       }
     });
-    const domainModel = getMapsTo(normalized.constructor);
-    return Object.assign(new domainModel(), normalized, links);
+    const domainModelConstructor = getMapsTo(normalized.constructor);
+    const domainModel = Object.assign(new domainModelConstructor(), normalized, halLinks);
+
+    linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
+      this.resolveLink(domainModel, linkToFollow);
+    });
+
+    console.log('domainModel._links', domainModel._links);
+
+    return domainModel;
+  }
+
+  public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>) {
+    console.log('resolveLink', model, linkToFollow);
+
+    const matchingLink = getLink(model.constructor, linkToFollow.name);
+
+    if (hasNoValue(matchingLink)) {
+      throw new Error(`followLink('${linkToFollow.name}') was used for a ${model.constructor.name}, but there is no property on ${model.constructor.name} models with an @link() for ${linkToFollow.name}`);
+    } else {
+      const provider = getDataServiceFor(matchingLink.targetConstructor);
+
+      if (hasNoValue(provider)) {
+        throw new Error(`The @link() for ${linkToFollow.name} on ${model.constructor.name} models refers to a ${matchingLink.targetConstructor.name}, but there is no service with an @dataService(${matchingLink.targetConstructor.name}) annotation in order to retrieve it`);
+      }
+
+      const service = Injector.create({
+        providers: [],
+        parent: this.parentInjector
+      }).get(provider);
+
+      const href = model._links[matchingLink.linkName].href;
+
+      if (matchingLink.isList) {
+        model[linkToFollow.name] =  service.findAllByHref(href, linkToFollow.findListOptions, ...linkToFollow.linksToFollow);
+      } else {
+        model[linkToFollow.name] =  service.findByHref(href, ...linkToFollow.linksToFollow);
+      }
+
+      console.log(`model['${linkToFollow.name}']`, model[linkToFollow.name]);
+    }
   }
 
   aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {

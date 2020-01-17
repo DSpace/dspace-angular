@@ -1,4 +1,5 @@
 import { CacheableObject } from '../../cache/object-cache.reducer';
+import { HALLink } from '../../shared/hal-link.model';
 import { ResourceType } from '../../shared/resource-type';
 
 export abstract class ConfigObject implements CacheableObject {
@@ -11,8 +12,9 @@ export abstract class ConfigObject implements CacheableObject {
   /**
    * The links to all related resources returned by the rest api.
    */
-  public _links: {
-    [name: string]: string
+  _links: {
+    self: HALLink,
+    [name: string]: HALLink
   };
 
   /**

@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -26,6 +28,7 @@ import { RequestService } from './request.service';
 @Injectable(
   {providedIn: 'root'}
 )
+@dataService(Bundle)
 export class BundleDataService extends DataService<Bundle> {
   protected linkPath = 'bundles';
   protected forceBypassCache = false;
@@ -52,13 +55,13 @@ export class BundleDataService extends DataService<Bundle> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
-  findAllByItem(item: Item, options?: FindListOptions): Observable<RemoteData<PaginatedList<Bundle>>> {
-    return this.findAllByHref(item._links.bundles.href, options);
+  findAllByItem(item: Item, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<PaginatedList<Bundle>>> {
+    return this.findAllByHref(item._links.bundles.href, options,  ...linksToFollow);
   }
 
   // TODO should be implemented rest side
-  findByItemAndName(item: Item, bundleName: string): Observable<RemoteData<Bundle>> {
-    return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }).pipe(
+  findByItemAndName(item: Item, bundleName: string, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<Bundle>> {
+    return this.findAllByItem(item, { elementsPerPage: Number.MAX_SAFE_INTEGER }, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
           const matchingBundle = rd.payload.page.find((bundle: Bundle) =>

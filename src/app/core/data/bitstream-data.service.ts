@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap } from 'rxjs/operators';
 import { hasNoValue, hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -26,6 +28,7 @@ import { RequestService } from './request.service';
 @Injectable({
   providedIn: 'root'
 })
+@dataService(Bitstream)
 export class BitstreamDataService extends DataService<Bitstream> {
 
   protected linkPath = 'bitstreams';
@@ -57,8 +60,8 @@ export class BitstreamDataService extends DataService<Bitstream> {
    * @param bundle the bundle to retrieve bitstreams from
    * @param options options for the find all request
    */
-  findAllByBundle(bundle: Bundle, options?: FindListOptions): Observable<RemoteData<PaginatedList<Bitstream>>> {
-    return this.findAllByHref(bundle._links.bitstreams.href, options);
+  findAllByBundle(bundle: Bundle, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
+    return this.findAllByHref(bundle._links.bitstreams.href, options, ...linksToFollow);
   }
 
   /**
@@ -132,11 +135,11 @@ export class BitstreamDataService extends DataService<Bitstream> {
     );
   }
 
-  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Bitstream>>> {
+  public findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
     return this.bundleService.findByItemAndName(item, bundleName).pipe(
       switchMap((bundleRD: RemoteData<Bundle>) => {
         if (hasValue(bundleRD.payload)) {
-          return this.findAllByBundle(bundleRD.payload, options);
+          return this.findAllByBundle(bundleRD.payload, options, ...linksToFollow);
         } else {
           return [bundleRD as any];
         }

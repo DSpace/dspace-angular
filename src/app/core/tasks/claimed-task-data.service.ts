@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { dataService } from '../cache/builders/build-decorators';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
@@ -20,6 +21,7 @@ import { ProcessTaskResponse } from './models/process-task-response';
  * The service handling all REST requests for ClaimedTask
  */
 @Injectable()
+@dataService(ClaimedTask)
 export class ClaimedTaskDataService extends TasksService<ClaimedTask> {
 
   protected responseMsToLive = 10 * 1000;

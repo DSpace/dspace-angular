@@ -58,9 +58,9 @@ export class DsoRedirectDataService extends DataService<any> {
       .replace(/\{\?uuid\}/, `?uuid=${resourceID}`);
   }
 
-  findById(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
+  findByIdAndIDType(id: string, identifierType = IdentifierType.UUID): Observable<RemoteData<FindByIDRequest>> {
     this.setLinkPath(identifierType);
-    return super.findById(id).pipe(
+    return this.findById(id).pipe(
       getFinishedRemoteData(),
       take(1),
       tap((response) => {

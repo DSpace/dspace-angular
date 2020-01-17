@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
+import { link } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
+import { HALLink } from '../hal-link.model';
 import { ResourceType } from '../resource-type';
 import { RelationshipType } from './relationship-type.model';
 import { Item } from '../item.model';
@@ -29,12 +31,14 @@ export class Relationship implements CacheableObject {
   /**
    * The item to the left of this relationship
    */
-  leftItem: Observable<RemoteData<Item>>;
+  @link(Item)
+  leftItem?: Observable<RemoteData<Item>>;
 
   /**
    * The item to the right of this relationship
    */
-  rightItem: Observable<RemoteData<Item>>;
+  @link(Item)
+  rightItem?: Observable<RemoteData<Item>>;
 
   /**
    * The place of the Item to the left side of this Relationship
@@ -59,5 +63,14 @@ export class Relationship implements CacheableObject {
   /**
    * The type of Relationship
    */
-  relationshipType: Observable<RemoteData<RelationshipType>>;
+  @link(RelationshipType)
+  relationshipType?: Observable<RemoteData<RelationshipType>>;
+
+  _links: {
+    self: HALLink,
+    leftItem: HALLink,
+    rightItem: HALLink,
+    relationshipType: HALLink,
+  }
+
 }

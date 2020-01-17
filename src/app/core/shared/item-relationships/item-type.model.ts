@@ -1,4 +1,5 @@
 import { CacheableObject } from '../../cache/object-cache.reducer';
+import { HALLink } from '../hal-link.model';
 import { ResourceType } from '../resource-type';
 
 /**
@@ -23,4 +24,8 @@ export class ItemType implements CacheableObject {
    * The universally unique identifier of this ItemType
    */
   uuid: string;
+
+  _links: {
+    self: HALLink,
+  };
 }

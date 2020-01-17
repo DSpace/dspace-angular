@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { FindListOptions } from '../data/request.models';
+import { Collection } from '../shared/collection.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ResourcePolicy } from '../shared/resource-policy.model';
 import { RemoteData } from '../data/remote-data';
@@ -17,7 +18,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { ChangeAnalyzer } from './change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { PaginatedList } from './paginated-list';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<ResourcePolicy> {
@@ -60,7 +61,11 @@ export class ResourcePolicyService {
     this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
-  findByHref(href: string, options?: HttpOptions): Observable<RemoteData<ResourcePolicy>> {
-    return this.dataService.findByHref(href, {}, options);
+  findByHref(href: string): Observable<RemoteData<ResourcePolicy>> {
+    return this.dataService.findByHref(href);
+  }
+
+  getDefaultAccessConditionsFor(collection: Collection, findListOptions?: FindListOptions): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+    return this.dataService.findAllByHref(collection._links.defaultAccessConditions.href, findListOptions);
   }
 }

@@ -57,8 +57,8 @@ export class SubmissionObjectEffects {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
       definition.sections.page.forEach((sectionDefinition: SubmissionSectionModel) => {
-        const sectionId = sectionDefinition._links.self.substr(sectionDefinition._links.self.lastIndexOf('/') + 1);
-        const config = sectionDefinition._links.config || '';
+        const sectionId = sectionDefinition._links.self.href.substr(sectionDefinition._links.self.href.lastIndexOf('/') + 1);
+        const config = sectionDefinition._links.config.href || '';
         const enabled = (sectionDefinition.mandatory) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
         const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         const sectionErrors = null;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
 
@@ -42,6 +43,7 @@ class DataServiceImpl extends DataService<MetadataSchema> {
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
 @Injectable()
+@dataService(MetadataSchema)
 export class MetadataSchemaDataService {
   private dataService: DataServiceImpl;
 

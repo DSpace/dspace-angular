@@ -1,5 +1,6 @@
 import { autoserializeAs, deserializeAs, autoserialize } from 'cerialize';
 import { DSpaceObject } from '../../shared/dspace-object.model';
+import { HALLink } from '../../shared/hal-link.model';
 import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models';
 import { mapsTo } from '../builders/build-decorators';
 import { NormalizedObject } from './normalized-object.model';
@@ -67,6 +68,7 @@ export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedOb
    */
   @deserializeAs(Object)
   _links: {
-    [name: string]: string
+    self: HALLink,
+    [name: string]: HALLink
   }
 }
