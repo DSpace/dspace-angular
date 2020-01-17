@@ -27,7 +27,7 @@ import {
   RegistrationSuccessAction,
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
-  RetrieveAuthMethodsSuccessAction
+  RetrieveAuthMethodsSuccessAction, RetrieveTokenAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -97,7 +97,7 @@ export class AuthEffects {
       return this.authService.checkAuthenticationCookie().pipe(
         map((response: AuthStatus) => {
           if (response.authenticated) {
-            return new RefreshTokenAction(null);
+            return new RetrieveTokenAction();
           } else {
             return new RetrieveAuthMethodsAction(response);
           }
@@ -118,6 +118,18 @@ export class AuthEffects {
         );
       })
     );
+
+  @Effect()
+  public retrieveToken$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActionTypes.RETRIEVE_TOKEN),
+    switchMap((action: AuthenticateAction) => {
+      return this.authService.refreshAuthenticationToken(null).pipe(
+        take(1),
+        map((token: AuthTokenInfo) => new AuthenticationSuccessAction(token)),
+        catchError((error) => observableOf(new AuthenticationErrorAction(error)))
+      );
+    })
+  );
 
   @Effect()
   public refreshToken$: Observable<Action> = this.actions$.pipe(ofType(AuthActionTypes.REFRESH_TOKEN),

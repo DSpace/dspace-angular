@@ -1,9 +1,7 @@
 // import @ngrx
 import { Action } from '@ngrx/store';
-
 // import type function
 import { type } from '../../shared/ngrx/type';
-
 // import models
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
@@ -27,6 +25,7 @@ export const AuthActionTypes = {
   REFRESH_TOKEN: type('dspace/auth/REFRESH_TOKEN'),
   REFRESH_TOKEN_SUCCESS: type('dspace/auth/REFRESH_TOKEN_SUCCESS'),
   REFRESH_TOKEN_ERROR: type('dspace/auth/REFRESH_TOKEN_ERROR'),
+  RETRIEVE_TOKEN: type('dspace/auth/RETRIEVE_TOKEN'),
   ADD_MESSAGE: type('dspace/auth/ADD_MESSAGE'),
   RESET_MESSAGES: type('dspace/auth/RESET_MESSAGES'),
   LOG_OUT: type('dspace/auth/LOG_OUT'),
@@ -253,6 +252,15 @@ export class RefreshTokenErrorAction implements Action {
 }
 
 /**
+ * Retrieve authentication token.
+ * @class RetrieveTokenAction
+ * @implements {Action}
+ */
+export class RetrieveTokenAction implements Action {
+  public type: string = AuthActionTypes.RETRIEVE_TOKEN;
+}
+
+/**
  * Sign up.
  * @class RegistrationAction
  * @implements {Action}
@@ -386,7 +394,11 @@ export type AuthActions
   | RegistrationErrorAction
   | RegistrationSuccessAction
   | AddAuthenticationMessageAction
+  | RefreshTokenAction
+  | RefreshTokenErrorAction
+  | RefreshTokenSuccessAction
   | ResetAuthenticationMessagesAction
   | RetrieveAuthMethodsAction
   | RetrieveAuthMethodsSuccessAction
-  | RetrieveAuthMethodsErrorAction;
+  | RetrieveAuthMethodsErrorAction
+  | RetrieveTokenAction;

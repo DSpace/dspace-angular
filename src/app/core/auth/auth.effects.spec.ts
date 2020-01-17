@@ -17,12 +17,12 @@ import {
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
-  RefreshTokenAction,
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
-  RetrieveAuthMethodsSuccessAction
+  RetrieveAuthMethodsSuccessAction,
+  RetrieveTokenAction
 } from './auth.actions';
 import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service-stub';
 import { AuthService } from './auth.service';
@@ -161,7 +161,7 @@ describe('AuthEffects', () => {
   describe('checkTokenCookie$', () => {
 
     describe('when check token succeeded', () => {
-      it('should return a REFRESH_TOKEN action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is true', () => {
+      it('should return a RETRIEVE_TOKEN action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is true', () => {
         spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
           observableOf(
             { authenticated: true
@@ -169,7 +169,7 @@ describe('AuthEffects', () => {
         );
         actions = hot('--a-', {a: {type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE}});
 
-        const expected = cold('--b-', {b: new RefreshTokenAction(null)});
+        const expected = cold('--b-', {b: new RetrieveTokenAction()});
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
       });
@@ -224,6 +224,38 @@ describe('AuthEffects', () => {
         expect(authEffects.refreshToken$).toBeObservable(expected);
       });
     })
+  });
+
+  describe('retrieveToken$', () => {
+    describe('when user is authenticated', () => {
+      it('should return a AUTHENTICATE_SUCCESS action in response to a RETRIEVE_TOKEN action', () => {
+        actions = hot('--a-', {
+          a: {
+            type: AuthActionTypes.RETRIEVE_TOKEN
+          }
+        });
+
+        const expected = cold('--b-', {b: new AuthenticationSuccessAction(token)});
+
+        expect(authEffects.retrieveToken$).toBeObservable(expected);
+      });
+    });
+
+    describe('when user is not authenticated', () => {
+      it('should return a AUTHENTICATE_ERROR action in response to a RETRIEVE_TOKEN action', () => {
+        spyOn((authEffects as any).authService, 'refreshAuthenticationToken').and.returnValue(observableThrow(new Error('Message Error test')));
+
+        actions = hot('--a-', {
+          a: {
+            type: AuthActionTypes.RETRIEVE_TOKEN
+          }
+        });
+
+        const expected = cold('--b-', {b: new AuthenticationErrorAction(new Error('Message Error test'))});
+
+        expect(authEffects.retrieveToken$).toBeObservable(expected);
+      });
+    });
   });
 
   describe('logOut$', () => {
