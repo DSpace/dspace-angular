@@ -17,8 +17,12 @@ import {
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
+  RefreshTokenAction,
   RefreshTokenErrorAction,
-  RefreshTokenSuccessAction, RetrieveAuthMethodsAction, RetrieveAuthMethodsErrorAction, RetrieveAuthMethodsSuccessAction
+  RefreshTokenSuccessAction,
+  RetrieveAuthMethodsAction,
+  RetrieveAuthMethodsErrorAction,
+  RetrieveAuthMethodsSuccessAction
 } from './auth.actions';
 import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service-stub';
 import { AuthService } from './auth.service';
@@ -157,16 +161,15 @@ describe('AuthEffects', () => {
   describe('checkTokenCookie$', () => {
 
     describe('when check token succeeded', () => {
-      it('should return a AUTHENTICATED action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is true', () => {
+      it('should return a REFRESH_TOKEN action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is true', () => {
         spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
           observableOf(
-            { authenticated: true,
-                  token
+            { authenticated: true
             })
         );
         actions = hot('--a-', {a: {type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE}});
 
-        const expected = cold('--b-', {b: new AuthenticatedAction(token)});
+        const expected = cold('--b-', {b: new RefreshTokenAction(null)});
 
         expect(authEffects.checkTokenCookie$).toBeObservable(expected);
       });
@@ -253,7 +256,6 @@ describe('AuthEffects', () => {
 
     describe('when retrieve authentication methods succeeded', () => {
       it('should return a RETRIEVE_AUTH_METHODS_SUCCESS action in response to a RETRIEVE_AUTH_METHODS action', () => {
-
         actions = hot('--a-', {a: {type: AuthActionTypes.RETRIEVE_AUTH_METHODS}});
 
         const expected = cold('--b-', {b: new RetrieveAuthMethodsSuccessAction(authMethodsMock)});
@@ -264,7 +266,7 @@ describe('AuthEffects', () => {
 
     describe('when retrieve authentication methods failed', () => {
       it('should return a RETRIEVE_AUTH_METHODS_ERROR action in response to a RETRIEVE_AUTH_METHODS action', () => {
-        spyOn((authEffects as any).authService, 'retrieveAuthMethods').and.returnValue(observableThrow(''));
+        spyOn((authEffects as any).authService, 'retrieveAuthMethodsFromAuthStatus').and.returnValue(observableThrow(''));
 
         actions = hot('--a-', {a: {type: AuthActionTypes.RETRIEVE_AUTH_METHODS}});
 

@@ -113,7 +113,7 @@ export class AuthServiceStub {
     return;
   }
 
-  retrieveAuthMethods(status: AuthStatus) {
+  retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {
     return observableOf(authMethodsMock);
   }
 }

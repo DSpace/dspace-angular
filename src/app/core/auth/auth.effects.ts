@@ -2,11 +2,9 @@ import { Observable, of as observableOf } from 'rxjs';
 
 import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
-
 // import services
 import { AuthService } from './auth.service';
 // import actions
@@ -99,8 +97,7 @@ export class AuthEffects {
       return this.authService.checkAuthenticationCookie().pipe(
         map((response: AuthStatus) => {
           if (response.authenticated) {
-            this.authService.storeToken(response.token);
-            return new AuthenticatedAction(response.token);
+            return new RefreshTokenAction(null);
           } else {
             return new RetrieveAuthMethodsAction(response);
           }
