@@ -8,5 +8,5 @@
                                    [ngClass]="[getClass(model, 'element', 'host'), getClass(model, 'grid', 'host')]"
                                    [templates]="templates"
                                    (dfBlur)="onEvent($event, 'blur')"
-                                   (dfChange)="onEvent($event, 'change'); log('test')"
+                                   (dfChange)="onEvent($event, 'change')"
                                    (dfFocus)="onEvent($event, 'focus')"></ds-dynamic-form-control-container>

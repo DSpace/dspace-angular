@@ -86,7 +86,6 @@ export abstract class FieldParser {
           if (model.hasLanguages || isNotEmpty(model.relationship)) {
             setLayout(model, 'grid', 'control', 'col');
           }
-          console.log(model);
           return [model];
         }
       } as DynamicRowArrayModelConfig;

@@ -141,26 +141,4 @@ export class RelationshipEffects {
       switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()))
     ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject])));
   }
-
-  // private addAsMetadataInStore(submissionID: string, sectionID: string, metadataField: string, relationship: Relationship, repeatable: boolean, relationshipType: string) {
-  //   const sectionData$: Observable<WorkspaceitemSectionDataType> = this.sectionsService.getSectionData(submissionID, sectionID);
-  //   observableCombineLatest(
-  //     sectionData$.pipe(take(1)),
-  //     relationship.relationshipType.pipe(getSucceededRemoteData(), getRemoteDataPayload())
-  //   ).subscribe(
-  //     ([sectionData, relType]: [WorkspaceitemSectionDataType, RelationshipType]) => {
-  //       const useLeft = relType.rightwardType === relationshipType;
-  //       const value = this.relationshipService.toVirtualMetadata(relationship, useLeft);
-  //       let values;
-  //       if (repeatable) {
-  //         const existingValues: FormFieldMetadataValueObject[] = sectionData[metadataField];
-  //         values = [...existingValues, value];
-  //       } else {
-  //         values = [value];
-  //       }
-  //       sectionData[metadataField] = values;
-  //       this.sectionsService.updateSectionData(submissionID, sectionID, sectionData);
-  //     }
-  //   );
-  // }
 }

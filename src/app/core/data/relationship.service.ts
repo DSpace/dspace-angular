@@ -418,15 +418,4 @@ export class RelationshipService extends DataService<Relationship> {
     return update$;
   }
 
-  public toVirtualMetadata(relationship: Relationship, useLeft: boolean): MetadataValue {
-    const metadataValue = new MetadataValue();
-    metadataValue.authority = VIRTUAL_METADATA_PREFIX + relationship.id;
-    // What if there's no name variant?
-    if (useLeft) {
-      metadataValue.value = relationship.leftwardValue
-    } else {
-      metadataValue.value = relationship.rightwardValue
-    }
-    return metadataValue;
-  }
 }

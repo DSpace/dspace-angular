@@ -53,7 +53,7 @@
     </ngb-tabset>
 </div>
 <div class="modal-footer">
-    <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate:{size: (selection$ | async)?.length || 0}) }}</small>
+    <small>{{ ('submission.sections.describe.relationship-lookup.selected' | translate: {size: (selection$ | async)?.length || 0}) }}</small>
     <div>
         <button type="button" class="btn btn-danger" (click)="close()">{{ ('submission.sections.describe.relationship-lookup.close' | translate) }}</button>
     </div>

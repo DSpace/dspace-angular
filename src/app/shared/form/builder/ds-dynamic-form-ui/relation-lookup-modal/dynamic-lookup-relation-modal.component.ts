@@ -29,6 +29,7 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
 import { ExternalSource } from '../../../../../core/shared/external-source.model';
 import { ExternalSourceService } from '../../../../../core/data/external-source.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -113,8 +114,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     private lookupRelationService: LookupRelationService,
     private searchConfigService: SearchConfigurationService,
     private zone: NgZone,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router,
   ) {
+
   }
 
   ngOnInit(): void {
@@ -194,43 +197,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   /**
-   * Set existing name variants for items by the item's virtual metadata
-   */
-  private setExistingNameVariants() {
-    const virtualMDs: MetadataValue[] = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
-
-    const relatedItemPairs$: Observable<Array<[Item, Item]>> =
-      combineLatest(virtualMDs.map((md: MetadataValue) => this.relationshipService.findById(md.virtualValue).pipe(getSucceededRemoteData(), getRemoteDataPayload())))
-        .pipe(
-          switchMap((relationships: Relationship[]) => combineLatest(relationships.map((relationship: Relationship) =>
-              combineLatest(
-                relationship.leftItem.pipe(getSucceededRemoteData(), getRemoteDataPayload()),
-                relationship.rightItem.pipe(getSucceededRemoteData(), getRemoteDataPayload())
-              ))
-            )
-          )
-        );
-
-    const relatedItems$: Observable<Item[]> = relatedItemPairs$.pipe(
-      map((relatedItemPairs: Array<[Item, Item]>) => {
-        return relatedItemPairs
-          .map(([left, right]: [Item, Item]) => left.uuid === this.item.uuid ? left : right)
-      })
-    );
-
-    relatedItems$.pipe(take(1)).subscribe((relatedItems) => {
-        let index = 0;
-        virtualMDs.forEach(
-          (md: MetadataValue) => {
-            this.relationshipService.setNameVariant(this.listId, relatedItems[index].uuid, md.value);
-            index++;
-          }
-        );
-      }
-    )
-  }
-
-  /**
    * Calculate and set the total entries available for each tab
    */
   setTotals() {
@@ -253,6 +219,7 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
   }
 
   ngOnDestroy() {
+    this.router.navigate([], {});
     Object.values(this.subMap).forEach((subscription) => subscription.unsubscribe());
   }
 }

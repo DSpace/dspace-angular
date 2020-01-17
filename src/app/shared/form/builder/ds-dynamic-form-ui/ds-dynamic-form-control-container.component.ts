@@ -315,9 +315,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       size: 'lg'
     });
     const modalComp = this.modalRef.componentInstance;
+
+    modalComp.query = this.model.value ? this.model.value.value : '';
     if (hasValue(this.model.value)) {
-      modalComp.query = this.model.value.value;
-      modalComp.selectEvent.pipe(take(1)).subscribe(() => this.model.setValue(undefined))
+      modalComp.selectEvent.pipe(take(1)).subscribe(() => this.model.value = '');
     }
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;
@@ -325,7 +326,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     modalComp.metadataFields = this.model.metadataFields;
     modalComp.item = this.item;
     modalComp.submissionId = this.model.submissionId;
-
   }
 
   /**

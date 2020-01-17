@@ -77,9 +77,13 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
 
     if (values[0].value) {
       (this.get(0) as DsDynamicInputModel).valueUpdates.next(values[0]);
+    } else {
+      (this.get(0) as DsDynamicInputModel).valueUpdates.next(undefined);
     }
     if (values[1].value) {
       (this.get(1) as DsDynamicInputModel).valueUpdates.next(values[1]);
+    } else {
+      (this.get(1) as DsDynamicInputModel).valueUpdates.next(undefined);
     }
   }
 
