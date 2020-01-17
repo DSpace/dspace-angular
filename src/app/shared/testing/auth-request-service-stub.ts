@@ -44,7 +44,7 @@ export class AuthRequestServiceStub {
         authStatusStub.authenticated = false;
         break;
       case 'status':
-        const token = (options.headers as any).lazyUpdate[1].value;
+        const token = ((options.headers as any).lazyUpdate[1]) ? (options.headers as any).lazyUpdate[1].value : null;
         if (this.validateToken(token)) {
           authStatusStub.authenticated = true;
           authStatusStub.token = this.mockTokenInfo;
