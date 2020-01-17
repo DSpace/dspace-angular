@@ -338,8 +338,7 @@ const COMPONENTS = [
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
-  ExistingMetadataListElementComponent
-  SelectableListItemControlComponent,
+  ExistingMetadataListElementComponent,
   LogInShibbolethComponent,
   LogInPasswordComponent,
   LogInContainerComponent,
