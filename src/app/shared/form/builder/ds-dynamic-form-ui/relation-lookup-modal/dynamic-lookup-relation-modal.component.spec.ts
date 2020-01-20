@@ -37,6 +37,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   let pSearchOptions;
   let externalSourceService;
   let lookupRelationService;
+  let submissionId;
 
   const externalSources = [
     Object.assign(new ExternalSource(), {
@@ -73,6 +74,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       getTotalLocalResults: observableOf(totalLocal),
       getTotalExternalResults: observableOf(totalExternal)
     });
+    submissionId = '1234';
   }
 
   beforeEach(async(() => {
@@ -116,6 +118,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     component.relationshipOptions = relationship;
     component.item = item;
     component.metadataFields = metadataField;
+    component.submissionId = submissionId;
     fixture.detectChanges();
   });
 
@@ -141,8 +144,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
     it('should dispatch an AddRelationshipAction for each selected object', () => {
       component.select(searchResult1, searchResult2);
-      const action = new AddRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, nameVariant);
-      const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, nameVariant);
+      const action = new AddRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, submissionId, nameVariant);
+      const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId, nameVariant);
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
@@ -158,8 +161,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
     it('should dispatch an RemoveRelationshipAction for each deselected object', () => {
       component.deselect(searchResult1, searchResult2);
-      const action = new RemoveRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, '1234');
-      const action2 = new RemoveRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, '1234');
+      const action = new RemoveRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, submissionId);
+      const action2 = new RemoveRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId);
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);

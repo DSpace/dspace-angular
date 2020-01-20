@@ -28,6 +28,7 @@ describe('ExistingMetadataListElementComponent', () => {
   let leftItemRD$;
   let rightItemRD$;
   let relatedSearchResult;
+  let submissionId;
 
   function init() {
     uuid1 = '91ce578d-2e63-4093-8c73-3faafd716000';
@@ -45,6 +46,7 @@ describe('ExistingMetadataListElementComponent', () => {
 
     relationship = Object.assign(new Relationship(), { leftItem: leftItemRD$, rightItem: rightItemRD$ });
     reoRel = new ReorderableRelationship(relationship, true, {} as any);
+    submissionId = '1234';
   }
 
   beforeEach(async(() => {
@@ -68,6 +70,7 @@ describe('ExistingMetadataListElementComponent', () => {
     component.reoRel = reoRel;
     component.metadataFields = metadataFields;
     component.relationshipOptions = relationshipOptions;
+    component.submissionId = submissionId;
     fixture.detectChanges();
     component.ngOnChanges();
   });
@@ -84,9 +87,8 @@ describe('ExistingMetadataListElementComponent', () => {
 
     it('should dispatch a RemoveRelationshipAction', () => {
       component.removeSelection();
-      const action = new RemoveRelationshipAction(submissionItem, relatedItem, relationshipOptions.relationshipType, '1234');
+      const action = new RemoveRelationshipAction(submissionItem, relatedItem, relationshipOptions.relationshipType, submissionId);
       expect(store.dispatch).toHaveBeenCalledWith(action);
-
     });
   })
 });

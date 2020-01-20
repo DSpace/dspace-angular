@@ -222,7 +222,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private ref: ChangeDetectorRef,
     private formService: FormService
   ) {
-
     super(componentFactoryResolver, layoutService, validationService, dynamicFormInstanceService);
   }
 

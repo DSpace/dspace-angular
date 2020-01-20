@@ -15,6 +15,8 @@ import * as operators from 'rxjs/operators';
 import { last } from 'rxjs/operators';
 import { ItemType } from '../../../../../core/shared/item-relationships/item-type.model';
 import { RestResponse } from '../../../../../core/cache/response.models';
+import { Store } from '@ngrx/store';
+import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 
 describe('RelationshipEffects', () => {
   let relationEffects: RelationshipEffects;
@@ -97,7 +99,9 @@ describe('RelationshipEffects', () => {
         RelationshipEffects,
         provideMockActions(() => actions),
         { provide: RelationshipTypeService, useValue: mockRelationshipTypeService },
-        { provide: RelationshipService, useValue: mockRelationshipService }
+        { provide: RelationshipService, useValue: mockRelationshipService },
+        { provide: SubmissionObjectDataService, useValue: {} },
+        { provide: Store, useValue: {} }
       ],
     });
   }));
@@ -154,7 +158,7 @@ describe('RelationshipEffects', () => {
             actions = hot('--a-', { a: action });
             const expected = cold('--b-', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
-            expect((relationEffects as any).addRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType, undefined)
+            expect((relationEffects as any).addRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType, '1234', undefined)
           });
         });
 
@@ -227,7 +231,7 @@ describe('RelationshipEffects', () => {
             actions = hot('--a-', { a: action });
             const expected = cold('--b-', { b: undefined });
             expect(relationEffects.mapLastActions$).toBeObservable(expected);
-            expect((relationEffects as any).removeRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType)
+            expect((relationEffects as any).removeRelationship).toHaveBeenCalledWith(leftItem, rightItem, relationshipType.leftwardType, '1234', )
           });
         });
 

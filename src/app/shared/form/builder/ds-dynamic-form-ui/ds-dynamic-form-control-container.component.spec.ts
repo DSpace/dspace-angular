@@ -71,6 +71,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { of as observableOf } from 'rxjs';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
+import { FormService } from '../../form.service';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -175,6 +176,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: Store, useValue: {} },
         { provide: RelationshipService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
+        { provide: FormService, useValue: {} },
         {
           provide: SubmissionObjectDataService,
           useValue: {
