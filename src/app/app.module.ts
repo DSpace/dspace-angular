@@ -112,7 +112,7 @@ const DECLARATIONS = [
   FooterComponent,
   PageNotFoundComponent,
   NotificationComponent,
-  NotificationsBoardComponent
+  NotificationsBoardComponent,
 ];
 
 const EXPORTS = [

@@ -1,32 +1,24 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { StoreModule } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LogInComponent } from './log-in.component';
-import { AuthService } from '../../core/auth/auth.service';
-import { authMethodsMock, AuthServiceStub } from '../testing/auth-service-stub';
-import { createTestComponent } from '../testing/utils';
-import { SharedModule } from '../shared.module';
-import { appReducers } from '../../app.reducer';
+import { LogInContainerComponent } from './log-in-container.component';
+import { authReducer } from '../../../core/auth/auth.reducer';
+import { SharedModule } from '../../shared.module';
+import { createTestComponent } from '../../testing/utils';
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthMethod } from '../../../core/auth/models/auth.method';
+import { AuthServiceStub } from '../../testing/auth-service-stub';
 
-describe('LogInComponent', () => {
+describe('LogInContainerComponent', () => {
 
-  let component: LogInComponent;
-  let fixture: ComponentFixture<LogInComponent>;
-  const initialState = {
-    core: {
-      auth: {
-        authenticated: false,
-        loaded: false,
-        loading: false,
-        authMethods: authMethodsMock
-      }
-    }
-  };
+  let component: LogInContainerComponent;
+  let fixture: ComponentFixture<LogInContainerComponent>;
+
+  const authMethod = new AuthMethod('password');
 
   beforeEach(async(() => {
     // refine the test module by declaring the test component
@@ -34,7 +26,7 @@ describe('LogInComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot(appReducers),
+        StoreModule.forRoot(authReducer),
         SharedModule,
         TranslateModule.forRoot()
       ],
@@ -43,8 +35,7 @@ describe('LogInComponent', () => {
       ],
       providers: [
         {provide: AuthService, useClass: AuthServiceStub},
-        provideMockStore({ initialState }),
-        LogInComponent
+        LogInContainerComponent
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -60,7 +51,7 @@ describe('LogInComponent', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      const html = `<ds-log-in [isStandalonePage]="isStandalonePage"> </ds-log-in>`;
+      const html = `<ds-log-in-container [authMethod]="authMethod"> </ds-log-in-container>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -70,7 +61,7 @@ describe('LogInComponent', () => {
       testFixture.destroy();
     });
 
-    it('should create LogInComponent', inject([LogInComponent], (app: LogInComponent) => {
+    it('should create LogInContainerComponent', inject([LogInContainerComponent], (app: LogInContainerComponent) => {
 
       expect(app).toBeDefined();
 
@@ -79,9 +70,11 @@ describe('LogInComponent', () => {
 
   describe('', () => {
     beforeEach(() => {
-      fixture = TestBed.createComponent(LogInComponent);
+      fixture = TestBed.createComponent(LogInContainerComponent);
       component = fixture.componentInstance;
 
+      spyOn(component, 'getAuthMethodContent').and.callThrough();
+      component.authMethod = authMethod;
       fixture.detectChanges();
     });
 
@@ -90,11 +83,15 @@ describe('LogInComponent', () => {
       component = null;
     });
 
-    it('should render a log-in container component for each auth method available', () => {
-      const loginContainers = fixture.debugElement.queryAll(By.css('ds-log-in-container'));
-      expect(loginContainers.length).toBe(2);
+    it('should inject component properly', () => {
+
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      expect(component.getAuthMethodContent).toHaveBeenCalled();
 
     });
+
   });
 
 });

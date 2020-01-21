@@ -53,6 +53,7 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
   }
 
   private handleAuth(url: string): Observable<boolean> {
+    console.log('authenticated.guard.handleAuth() was called with url: ', url);
     // get observable
     const observable = this.store.pipe(select(isAuthenticated));
 

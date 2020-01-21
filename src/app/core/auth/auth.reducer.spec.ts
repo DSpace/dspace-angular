@@ -8,7 +8,7 @@ import {
   AuthenticationErrorAction,
   AuthenticationSuccessAction,
   CheckAuthenticationTokenAction,
-  CheckAuthenticationTokenErrorAction,
+  CheckAuthenticationTokenCookieAction,
   LogOutAction,
   LogOutErrorAction,
   LogOutSuccessAction,
@@ -18,10 +18,16 @@ import {
   RefreshTokenErrorAction,
   RefreshTokenSuccessAction,
   ResetAuthenticationMessagesAction,
+  RetrieveAuthMethodsAction,
+  RetrieveAuthMethodsErrorAction,
+  RetrieveAuthMethodsSuccessAction,
   SetRedirectUrlAction
 } from './auth.actions';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { EPersonMock } from '../../shared/testing/eperson-mock';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthMethod } from './models/auth.method';
+import { AuthMethodType } from './models/auth.method-type';
 
 describe('authReducer', () => {
 
@@ -158,18 +164,18 @@ describe('authReducer', () => {
     expect(newState).toEqual(state);
   });
 
-  it('should properly set the state, in response to a CHECK_AUTHENTICATION_TOKEN_ERROR action', () => {
+  it('should properly set the state, in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action', () => {
     initialState = {
       authenticated: false,
       loaded: false,
       loading: true,
     };
-    const action = new CheckAuthenticationTokenErrorAction();
+    const action = new CheckAuthenticationTokenCookieAction();
     const newState = authReducer(initialState, action);
     state = {
       authenticated: false,
       loaded: false,
-      loading: false,
+      loading: true,
     };
     expect(newState).toEqual(state);
   });
@@ -405,6 +411,65 @@ describe('authReducer', () => {
       loaded: false,
       loading: false,
       redirectUrl: 'redirect.url'
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should properly set the state, in response to a RETRIEVE_AUTH_METHODS action', () => {
+    initialState = {
+      authenticated: false,
+      loaded: false,
+      loading: false,
+      authMethods: []
+    };
+    const action = new RetrieveAuthMethodsAction(new AuthStatus());
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: false,
+      loaded: false,
+      loading: true,
+      authMethods: []
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should properly set the state, in response to a RETRIEVE_AUTH_METHODS_SUCCESS action', () => {
+    initialState = {
+      authenticated: false,
+      loaded: false,
+      loading: true,
+      authMethods: []
+    };
+    const authMethods = [
+      new AuthMethod(AuthMethodType.Password),
+      new AuthMethod(AuthMethodType.Shibboleth, 'location')
+    ];
+    const action = new RetrieveAuthMethodsSuccessAction(authMethods);
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: false,
+      loaded: false,
+      loading: false,
+      authMethods: authMethods
+    };
+    expect(newState).toEqual(state);
+  });
+
+  it('should properly set the state, in response to a RETRIEVE_AUTH_METHODS_ERROR action', () => {
+    initialState = {
+      authenticated: false,
+      loaded: false,
+      loading: true,
+      authMethods: []
+    };
+
+    const action = new RetrieveAuthMethodsErrorAction();
+    const newState = authReducer(initialState, action);
+    state = {
+      authenticated: false,
+      loaded: false,
+      loading: false,
+      authMethods: []
     };
     expect(newState).toEqual(state);
   });

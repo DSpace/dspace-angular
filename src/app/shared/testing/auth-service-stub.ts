@@ -3,8 +3,13 @@ import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPersonMock } from './eperson-mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { RemoteData } from '../../core/data/remote-data';
 import { createSuccessfulRemoteDataObject$ } from './utils';
+import { AuthMethod } from '../../core/auth/models/auth.method';
+
+export const authMethodsMock = [
+  new AuthMethod('password'),
+  new AuthMethod('shibboleth', 'dspace.test/shibboleth')
+];
 
 export class AuthServiceStub {
 
@@ -102,5 +107,13 @@ export class AuthServiceStub {
 
   isAuthenticated() {
     return observableOf(true);
+  }
+
+  checkAuthenticationCookie() {
+    return;
+  }
+
+  retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {
+    return observableOf(authMethodsMock);
   }
 }

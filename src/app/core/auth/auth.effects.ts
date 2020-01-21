@@ -1,12 +1,10 @@
-import { of as observableOf, Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 
-import { filter, debounceTime, switchMap, take, tap, catchError, map } from 'rxjs/operators';
+import { catchError, debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-
 // import @ngrx
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, select, Store } from '@ngrx/store';
-
 // import services
 import { AuthService } from './auth.service';
 // import actions
@@ -18,7 +16,7 @@ import {
   AuthenticatedSuccessAction,
   AuthenticationErrorAction,
   AuthenticationSuccessAction,
-  CheckAuthenticationTokenErrorAction,
+  CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
   RefreshTokenAction,
@@ -26,7 +24,10 @@ import {
   RefreshTokenSuccessAction,
   RegistrationAction,
   RegistrationErrorAction,
-  RegistrationSuccessAction
+  RegistrationSuccessAction,
+  RetrieveAuthMethodsAction,
+  RetrieveAuthMethodsErrorAction,
+  RetrieveAuthMethodsSuccessAction, RetrieveTokenAction
 } from './auth.actions';
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthStatus } from './models/auth-status.model';
@@ -34,6 +35,7 @@ import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AppState } from '../../app.reducer';
 import { isAuthenticated } from './selectors';
 import { StoreActionTypes } from '../../store.actions';
+import { AuthMethod } from './models/auth.method';
 
 @Injectable()
 export class AuthEffects {
@@ -80,13 +82,30 @@ export class AuthEffects {
 
   @Effect()
   public checkToken$: Observable<Action> = this.actions$.pipe(ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN),
-      switchMap(() => {
-        return this.authService.hasValidAuthenticationToken().pipe(
-          map((token: AuthTokenInfo) => new AuthenticatedAction(token)),
-          catchError((error) => observableOf(new CheckAuthenticationTokenErrorAction()))
-        );
-      })
-    );
+    switchMap(() => {
+      return this.authService.hasValidAuthenticationToken().pipe(
+        map((token: AuthTokenInfo) => new AuthenticatedAction(token)),
+        catchError((error) => observableOf(new CheckAuthenticationTokenCookieAction()))
+      );
+    })
+  );
+
+  @Effect()
+  public checkTokenCookie$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE),
+    switchMap(() => {
+      return this.authService.checkAuthenticationCookie().pipe(
+        map((response: AuthStatus) => {
+          if (response.authenticated) {
+            return new RetrieveTokenAction();
+          } else {
+            return new RetrieveAuthMethodsAction(response);
+          }
+        }),
+        catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
+      );
+    })
+  );
 
   @Effect()
   public createUser$: Observable<Action> = this.actions$.pipe(
@@ -99,6 +118,18 @@ export class AuthEffects {
         );
       })
     );
+
+  @Effect()
+  public retrieveToken$: Observable<Action> = this.actions$.pipe(
+    ofType(AuthActionTypes.RETRIEVE_TOKEN),
+    switchMap((action: AuthenticateAction) => {
+      return this.authService.refreshAuthenticationToken(null).pipe(
+        take(1),
+        map((token: AuthTokenInfo) => new AuthenticationSuccessAction(token)),
+        catchError((error) => observableOf(new AuthenticationErrorAction(error)))
+      );
+    })
+  );
 
   @Effect()
   public refreshToken$: Observable<Action> = this.actions$.pipe(ofType(AuthActionTypes.REFRESH_TOKEN),
@@ -167,6 +198,19 @@ export class AuthEffects {
       ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED),
       tap(() => this.authService.removeToken()),
       tap(() => this.authService.redirectToLoginWhenTokenExpired())
+    );
+
+  @Effect()
+  public retrieveMethods$: Observable<Action> = this.actions$
+    .pipe(
+      ofType(AuthActionTypes.RETRIEVE_AUTH_METHODS),
+      switchMap((action: RetrieveAuthMethodsAction) => {
+        return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload)
+          .pipe(
+            map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
+            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
+          )
+      })
     );
 
   /**

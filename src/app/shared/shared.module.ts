@@ -42,7 +42,6 @@ import { SearchResultGridElementComponent } from './object-grid/search-result-gr
 import { ViewModeSwitchComponent } from './view-mode-switch/view-mode-switch.component';
 import { GridThumbnailComponent } from './object-grid/grid-thumbnail/grid-thumbnail.component';
 import { VarDirective } from './utils/var.directive';
-import { LogInComponent } from './log-in/log-in.component';
 import { AuthNavMenuComponent } from './auth-nav-menu/auth-nav-menu.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
@@ -179,6 +178,10 @@ import { SelectableListItemControlComponent } from './object-collection/shared/s
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
+import { LogInContainerComponent } from './log-in/container/log-in-container.component';
+import { LogInShibbolethComponent } from './log-in/methods/shibboleth/log-in-shibboleth.component';
+import { LogInPasswordComponent } from './log-in/methods/password/log-in-password.component';
+import { LogInComponent } from './log-in/log-in.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -342,7 +345,11 @@ const COMPONENTS = [
   AuthorityTreeviewComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
-  ExistingMetadataListElementComponent
+  ExistingMetadataListElementComponent,
+  LogInShibbolethComponent,
+  LogInPasswordComponent,
+  LogInContainerComponent,
+  ItemTypeBadgeComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -406,7 +413,9 @@ const ENTRY_COMPONENTS = [
   SearchAuthorityFilterComponent,
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
-  DsDynamicLookupRelationExternalSourceTabComponent
+  DsDynamicLookupRelationExternalSourceTabComponent,
+  LogInPasswordComponent,
+  LogInShibbolethComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

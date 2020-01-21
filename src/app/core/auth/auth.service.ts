@@ -16,13 +16,25 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
-import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
+import {
+  getAuthenticationMethods,
+  getAuthenticationToken,
+  getRedirectUrl,
+  isAuthenticated,
+  isTokenRefreshing
+} from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
-import { ResetAuthenticationMessagesAction, SetRedirectUrlAction } from './auth.actions';
+import {
+  CheckAuthenticationTokenAction,
+  ResetAuthenticationMessagesAction,
+  SetRedirectUrlAction
+} from './auth.actions';
 import { NativeWindowRef, NativeWindowService } from '../services/window.service';
 import { Base64EncodeUrl } from '../../shared/utils/encode-decode.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import {RouteService} from '../services/route.service';
+import { RouteService } from '../services/route.service';
+import { AuthMethod } from './models/auth.method';
+import { NormalizedAuthStatus } from './models/normalized-auth-status.model';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -114,6 +126,20 @@ export class AuthService {
   }
 
   /**
+   * Checks if token is present into the request cookie
+   */
+  public checkAuthenticationCookie(): Observable<AuthStatus> {
+    // Determine if the user has an existing auth session on the server
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Accept', 'application/json');
+    options.headers = headers;
+    return this.authRequestService.getRequest('status', options).pipe(
+      map((status: NormalizedAuthStatus) => Object.assign(new AuthStatus(), status))
+    );
+  }
+
+  /**
    * Determines if the user is authenticated
    * @returns {Observable<boolean>}
    */
@@ -144,10 +170,10 @@ export class AuthService {
   }
 
   /**
-   * Checks if token is present into browser storage and is valid. (NB Check is done only on SSR)
+   * Checks if token is present into browser storage and is valid.
    */
   public checkAuthenticationToken() {
-    return
+    this.store.dispatch(new CheckAuthenticationTokenAction());
   }
 
   /**
@@ -177,7 +203,9 @@ export class AuthService {
     const options: HttpOptions = Object.create({});
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
-    headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
+    if (token && token.accessToken) {
+      headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
+    }
     options.headers = headers;
     return this.authRequestService.postToEndpoint('login', {}, options).pipe(
       map((status: AuthStatus) => {
@@ -194,6 +222,18 @@ export class AuthService {
    */
   public resetAuthenticationError(): void {
     this.store.dispatch(new ResetAuthenticationMessagesAction());
+  }
+
+  /**
+   * Retrieve authentication methods available
+   * @returns {User}
+   */
+  public retrieveAuthMethodsFromAuthStatus(status: AuthStatus): Observable<AuthMethod[]> {
+    let authMethods: AuthMethod[] = [];
+    if (isNotEmpty(status.authMethods)) {
+      authMethods = status.authMethods;
+    }
+    return observableOf(authMethods);
   }
 
   /**

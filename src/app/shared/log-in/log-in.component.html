@@ -1,28 +1,13 @@
 <ds-loading *ngIf="(loading | async) || (isAuthenticated | async)" class="m-5"></ds-loading>
-<form *ngIf="!(loading | async) && !(isAuthenticated | async)" class="form-login px-4 py-3" (ngSubmit)="submit()" [formGroup]="form" novalidate>
-  <label for="inputEmail" class="sr-only">{{"login.form.email" | translate}}</label>
-  <input id="inputEmail"
-         autocomplete="off"
-         autofocus
-         class="form-control form-control-lg position-relative"
-         formControlName="email"
-         placeholder="{{'login.form.email' | translate}}"
-         required
-         type="email">
-  <label for="inputPassword" class="sr-only">{{"login.form.password" | translate}}</label>
-  <input id="inputPassword"
-         autocomplete="off"
-         class="form-control form-control-lg position-relative mb-3"
-         placeholder="{{'login.form.password' | translate}}"
-         formControlName="password"
-         required
-         type="password">
-  <div *ngIf="(error | async) && hasError" class="alert alert-danger" role="alert" @fadeOut>{{ (error | async) | translate }}</div>
-  <div *ngIf="(message | async) && hasMessage" class="alert alert-info" role="alert" @fadeOut>{{ (message | async) | translate }}</div>
-  <button class="btn btn-lg btn-primary btn-block mt-3" type="submit" [disabled]="!form.valid">{{"login.form.submit" | translate}}</button>
+<div *ngIf="!(loading | async) && !(isAuthenticated | async)" class="px-4 py-3">
+  <ng-container *ngFor="let authMethod of (authMethods | async); let i = index">
+    <div *ngIf="i === 1" class="text-center mt-2">
+      <span class="align-middle">{{"login.form.or-divider" | translate}}</span>
+    </div>
+    <ds-log-in-container [authMethod]="authMethod"></ds-log-in-container>
+  </ng-container>
+
   <div class="dropdown-divider"></div>
   <a class="dropdown-item" href="#">{{"login.form.new-user" | translate}}</a>
   <a class="dropdown-item" href="#">{{"login.form.forgot-password" | translate}}</a>
-</form>
-
-
+</div>

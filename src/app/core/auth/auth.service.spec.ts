@@ -25,6 +25,8 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { routeServiceStub } from '../../shared/testing/route-service-stub';
 import { RouteService } from '../services/route.service';
+import { authMethodsMock } from '../../shared/testing/auth-service-stub';
+import { AuthMethod } from './models/auth.method';
 
 describe('AuthService test', () => {
 
@@ -128,6 +130,26 @@ describe('AuthService test', () => {
       expect(authService.logout.bind(null)).toThrow();
     });
 
+    it('should return the authentication status object to check an Authentication Cookie', () => {
+      authService.checkAuthenticationCookie().subscribe((status: AuthStatus) => {
+        expect(status).toBeDefined();
+      });
+    });
+
+    it('should return the authentication methods available', () => {
+      const authStatus = new AuthStatus();
+
+      authService.retrieveAuthMethodsFromAuthStatus(authStatus).subscribe((authMethods: AuthMethod[]) => {
+        expect(authMethods).toBeDefined();
+        expect(authMethods.length).toBe(0);
+      });
+
+      authStatus.authMethods = authMethodsMock;
+      authService.retrieveAuthMethodsFromAuthStatus(authStatus).subscribe((authMethods: AuthMethod[]) => {
+        expect(authMethods).toBeDefined();
+        expect(authMethods.length).toBe(2);
+      });
+    });
   });
 
   describe('', () => {

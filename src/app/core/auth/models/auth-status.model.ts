@@ -5,6 +5,7 @@ import { RemoteData } from '../../data/remote-data';
 import { Observable } from 'rxjs';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { ResourceType } from '../../shared/resource-type';
+import { AuthMethod } from './auth.method';
 
 /**
  * Object that represents the authenticated status of a user
@@ -51,4 +52,10 @@ export class AuthStatus implements CacheableObject {
    * The self link of this auth status' REST object
    */
   self: string;
+
+  /**
+   * All authentication methods enabled at the backend
+   */
+  authMethods: AuthMethod[];
+
 }
