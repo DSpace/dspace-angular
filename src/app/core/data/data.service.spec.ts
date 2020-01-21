@@ -17,6 +17,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Item } from '../shared/item.model';
 import * as uuidv4 from 'uuid/v4';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 const endpoint = 'https://rest.api/core';
 
@@ -191,8 +192,7 @@ describe('DataService', () => {
       dso2.self = selfLink;
       dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
-      spyOn(service, 'findByHref').and.returnValues(observableOf(dso));
-      spyOn(objectCache, 'getObjectBySelfLink').and.returnValues(observableOf(dso));
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(dso));
       spyOn(objectCache, 'addPatch');
     });
 

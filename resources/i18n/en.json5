@@ -1566,6 +1566,8 @@
 
   "search.results.no-results-link": "quotes around it",
 
+  "search.results.empty": "Your search returned no results.",
+
 
 
   "search.sidebar.close": "Back to results",
@@ -1639,13 +1641,21 @@
 
   "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Search for Authors",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Local Authors ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Search for Journals",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Search for Journal Issues",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Local Journal Issues ({{ count }})",
 
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Search for Journal Volumes",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Local Journal Volumes ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidV2": "ORCID ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
 
@@ -1678,6 +1688,14 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Volume": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Issue": "Selected Issue",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
 

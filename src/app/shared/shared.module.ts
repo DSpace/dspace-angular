@@ -48,10 +48,7 @@ import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import {
-  DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
-} from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
+import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
@@ -179,6 +176,9 @@ import { MaterialModule } from './material/material.module';
 import { DsDynamicRelationInlineGroupComponent } from './form/builder/ds-dynamic-form-ui/models/relation-inline-group/dynamic-relation-inline-group.components';
 import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -201,6 +201,7 @@ const MODULES = [
   MomentModule,
   TextMaskModule,
   MenuModule,
+  DragDropModule,
   MaterialModule
 ];
 
@@ -340,7 +341,8 @@ const COMPONENTS = [
   CollectionSelectComponent,
   AuthorityTreeviewComponent,
   MetadataRepresentationLoaderComponent,
-  SelectableListItemControlComponent
+  SelectableListItemControlComponent,
+  ExistingMetadataListElementComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -403,7 +405,8 @@ const ENTRY_COMPONENTS = [
   SearchFacetRangeOptionComponent,
   SearchAuthorityFilterComponent,
   DsDynamicLookupRelationSearchTabComponent,
-  DsDynamicLookupRelationSelectionTabComponent
+  DsDynamicLookupRelationSelectionTabComponent,
+  DsDynamicLookupRelationExternalSourceTabComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [
@@ -445,7 +448,8 @@ const DIRECTIVES = [
     ...DIRECTIVES,
     ...ENTRY_COMPONENTS,
     ...SHARED_ITEM_PAGE_COMPONENTS,
-    PublicationSearchResultListElementComponent
+    PublicationSearchResultListElementComponent,
+    ExistingMetadataListElementComponent
   ],
   providers: [
     ...PROVIDERS

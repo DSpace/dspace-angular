@@ -139,6 +139,10 @@ import { SearchConfigurationService } from './shared/search/search-configuration
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { RelationshipTypeService } from './data/relationship-type.service';
 import { SidebarService } from '../shared/sidebar/sidebar.service';
+import { NormalizedExternalSource } from './cache/models/normalized-external-source.model';
+import { NormalizedExternalSourceEntry } from './cache/models/normalized-external-source-entry.model';
+import { ExternalSourceService } from './data/external-source.service';
+import { LookupRelationService } from './data/lookup-relation.service';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -251,6 +255,8 @@ const PROVIDERS = [
   SearchConfigurationService,
   SelectableListService,
   RelationshipTypeService,
+  ExternalSourceService,
+  LookupRelationService,
   // register AuthInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
@@ -298,7 +304,9 @@ export const normalizedModels =
     NormalizedPoolTask,
     NormalizedRelationship,
     NormalizedRelationshipType,
-    NormalizedItemType
+    NormalizedItemType,
+    NormalizedExternalSource,
+    NormalizedExternalSourceEntry
   ];
 
 @NgModule({
