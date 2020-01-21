@@ -1,0 +1,12 @@
+<div id="search-navbar-container" [title]="'nav.search' | translate" (dsClickOutside)="collapse()">
+  <div class="d-inline-block position-relative">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm.value)" autocomplete="on">
+      <input #searchInput [@toggleAnimation]="isExpanded" id="query" name="query"
+             formControlName="query" type="text" placeholder="{{searchExpanded ? ('nav.search' | translate) : ''}}"
+             class="d-inline-block bg-transparent position-absolute form-control dropdown-menu-right p-1">
+      <a class="sticky-top submit-icon" (click)="searchExpanded ? onSubmit(searchForm.value) : expand()">
+        <em class="fas fa-search fa-lg fa-fw"></em>
+      </a>
+    </form>
+  </div>
+</div>
