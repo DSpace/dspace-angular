@@ -10,6 +10,7 @@ import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { selfLinkFromUuidSelector } from '../index/index.selectors';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { LinkService } from './builders/link.service';
 import { NormalizedObject } from './models/normalized-object.model';
 import {
   AddPatchObjectCacheAction,
@@ -45,7 +46,10 @@ const entryFromSelfLinkSelector =
  */
 @Injectable()
 export class ObjectCacheService {
-  constructor(private store: Store<CoreState>) {
+  constructor(
+    private store: Store<CoreState>,
+    private linkService: LinkService
+    ) {
   }
 
   /**
@@ -59,6 +63,7 @@ export class ObjectCacheService {
    *    The UUID of the request that resulted in this object
    */
   add(objectToCache: CacheableObject, msToLive: number, requestUUID: string): void {
+    this.linkService.removeResolvedLinks(objectToCache); // Ensure the object we're storing has no resolved links
     this.store.dispatch(new AddToObjectCacheAction(objectToCache, new Date().getTime(), msToLive, requestUUID));
   }
 

@@ -33,10 +33,6 @@ class DataServiceImpl extends DataService<DSpaceObject> {
     super();
   }
 
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return this.halService.getEndpoint(linkPath);
-  }
-
   getIDHref(endpoint, resourceID): string {
     return endpoint.replace(/\{\?uuid\}/,`?uuid=${resourceID}`);
   }

@@ -3,6 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { first, map, switchMap, tap } from 'rxjs/operators';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { LinkService } from '../../cache/builders/link.service';
 import { FacetConfigSuccessResponse, FacetValueSuccessResponse, SearchSuccessResponse } from '../../cache/response.models';
 import { PaginatedList } from '../../data/paginated-list';
 import { ResponseParsingService } from '../../data/parsing.service';
@@ -70,6 +71,7 @@ export class SearchService implements OnDestroy {
               private routeService: RouteService,
               protected requestService: RequestService,
               private rdb: RemoteDataBuildService,
+              private linkService: LinkService,
               private halService: HALEndpointService,
               private communityService: CommunityDataService,
               private dspaceObjectService: DSpaceObjectDataService
@@ -341,8 +343,8 @@ export class SearchService implements OnDestroy {
       switchMap((dsoRD: RemoteData<DSpaceObject>) => {
           if ((dsoRD.payload as any).type === Community.type.value) {
             const community: Community = dsoRD.payload as Community;
-            this.rdb.resolveLink(community, followLink('subcommunities'));
-            this.rdb.resolveLink(community, followLink('collections'));
+            this.linkService.resolveLink(community, followLink('subcommunities'));
+            this.linkService.resolveLink(community, followLink('collections'));
             return observableCombineLatest(community.subcommunities, community.collections).pipe(
               map(([subCommunities, collections]) => {
                 /*if this is a community, we also need to show the direct children*/

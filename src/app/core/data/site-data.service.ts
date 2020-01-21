@@ -11,7 +11,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindListOptions } from './request.models';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RemoteData } from './remote-data';
@@ -26,7 +25,6 @@ import { getSucceededRemoteData } from '../shared/operators';
 @dataService(Site)
 export class SiteDataService extends DataService<Site> {​
   protected linkPath = 'sites';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
@@ -40,15 +38,6 @@ export class SiteDataService extends DataService<Site> {​
     protected comparator: DSOChangeAnalyzer<Site>,
   ) {
     super();
-  }
-
-  /**
-   * Get the endpoint for browsing the site object
-   * @param {FindListOptions} options
-   * @param {Observable<string>} linkPath
-   */
-  getBrowseEndpoint(options: FindListOptions, linkPath?: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath);
   }
 
   /**

@@ -40,10 +40,6 @@ export class DsoRedirectDataService extends DataService<any> {
     super();
   }
 
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return this.halService.getEndpoint(linkPath);
-  }
-
   setLinkPath(identifierType: IdentifierType) {
     // The default 'pid' endpoint for identifiers does not support uuid lookups.
     // For uuid lookups we need to change the linkPath.

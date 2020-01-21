@@ -31,6 +31,8 @@ export class Relationship implements CacheableObject {
   /**
    * The item to the left of this relationship
    */
+
+  // TODO it's likely a circular dependency 😒 -> https://stackoverflow.com/questions/35240716/webpack-import-returns-undefined-depending-on-the-order-of-imports
   @link(Item)
   leftItem?: Observable<RemoteData<Item>>;
 

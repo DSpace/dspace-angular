@@ -1,3 +1,4 @@
+import { HALLink } from './hal-link.model';
 import { MetadataMap } from './metadata.models';
 import { ResourceType } from './resource-type';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
@@ -38,6 +39,10 @@ export class ExternalSourceEntry extends ListableObject {
    * The link to the rest endpoint where this External Source Entry can be found
    */
   self: string;
+
+  _links: {
+    self: HALLink;
+  };
 
   /**
    * Method that returns as which type of object this object should be rendered

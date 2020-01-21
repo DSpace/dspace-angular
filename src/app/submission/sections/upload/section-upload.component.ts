@@ -8,7 +8,7 @@ import { SectionModelComponent } from '../models/section.model';
 import { hasValue, isNotEmpty, isNotUndefined, isUndefined } from '../../../shared/empty.util';
 import { SectionUploadService } from './section-upload.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { GroupEpersonService } from '../../../core/eperson/group-eperson.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
 import { ResourcePolicyService } from '../../../core/data/resource-policy.service';
 import { SubmissionUploadsConfigService } from '../../../core/config/submission-uploads-config.service';
 import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
@@ -123,7 +123,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    * @param {SectionUploadService} bitstreamService
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {CollectionDataService} collectionDataService
-   * @param {GroupEpersonService} groupService
+   * @param {GroupDataService} groupService
    * @param {ResourcePolicyService} resourcePolicyService
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
@@ -134,7 +134,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   constructor(private bitstreamService: SectionUploadService,
               private changeDetectorRef: ChangeDetectorRef,
               private collectionDataService: CollectionDataService,
-              private groupService: GroupEpersonService,
+              private groupService: GroupDataService,
               private resourcePolicyService: ResourcePolicyService,
               protected sectionService: SectionsService,
               private submissionService: SubmissionService,

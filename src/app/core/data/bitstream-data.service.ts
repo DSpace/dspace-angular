@@ -49,11 +49,6 @@ export class BitstreamDataService extends DataService<Bitstream> {
     super();
   }
 
-  getBrowseEndpoint(options: FindListOptions, linkPath?: string): Observable<string> {
-    // TODO needed? if not, perhaps remove it from datasevice?
-    return undefined;
-  }
-
   /**
    * Retrieves the bitstreams in a given bundle
    *

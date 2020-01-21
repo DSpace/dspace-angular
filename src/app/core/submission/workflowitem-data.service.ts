@@ -37,8 +37,4 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
     super();
   }
 
-  public getBrowseEndpoint(options: FindListOptions) {
-    return this.halService.getEndpoint(this.linkPath);
-  }
-
 }

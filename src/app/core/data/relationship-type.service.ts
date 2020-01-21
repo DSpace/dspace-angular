@@ -1,4 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../app.reducer';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { dataService } from '../cache/builders/build-decorators';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core.reducers';
+import { DataService } from './data.service';
+import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { ItemDataService } from './item-data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -14,15 +25,25 @@ import { isNotUndefined } from '../../shared/empty.util';
 import { FindListOptions, FindListRequest } from './request.models';
 
 /**
- * The service handling all relationship requests
+ * The service handling all relationship type requests
  */
 @Injectable()
-export class RelationshipTypeService {
+@dataService(RelationshipType)
+export class RelationshipTypeService extends DataService<RelationshipType> {
   protected linkPath = 'relationshiptypes';
 
-  constructor(protected requestService: RequestService,
+  constructor(protected itemService: ItemDataService,
+              protected requestService: RequestService,
+              protected rdbService: RemoteDataBuildService,
+              protected dataBuildService: NormalizedObjectBuildService,
+              protected store: Store<CoreState>,
               protected halService: HALEndpointService,
-              protected rdbService: RemoteDataBuildService) {
+              protected objectCache: ObjectCacheService,
+              protected notificationsService: NotificationsService,
+              protected http: HttpClient,
+              protected comparator: DefaultChangeAnalyzer<RelationshipType>,
+              protected appStore: Store<AppState>) {
+    super()
   }
 
   /**

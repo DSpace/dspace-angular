@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import {
   combineLatest as observableCombineLatest,
@@ -6,7 +6,7 @@ import {
   of as observableOf,
   race as observableRace
 } from 'rxjs';
-import { distinctUntilChanged, flatMap, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 
 import {
   hasNoValue,
@@ -16,6 +16,7 @@ import {
   isNotEmpty,
   isNotUndefined
 } from '../../../shared/empty.util';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
@@ -23,31 +24,24 @@ import { RemoteDataError } from '../../data/remote-data-error';
 import { GetRequest } from '../../data/request.models';
 import { RequestEntry } from '../../data/request.reducer';
 import { RequestService } from '../../data/request.service';
-import { HALResource } from '../../shared/hal-resource.model';
-import { NormalizedObject } from '../models/normalized-object.model';
-import { ObjectCacheService } from '../object-cache.service';
-import { DSOSuccessResponse, ErrorResponse } from '../response.models';
-import {
-  getDataServiceFor, getLink,
-  getLinks,
-  getMapsTo,
-  getRelationMetadata,
-  getRelationships
-} from './build-decorators';
-import { PageInfo } from '../../shared/page-info.model';
 import {
   filterSuccessfulResponses,
   getRequestFromRequestHref,
   getRequestFromRequestUUID,
   getResourceLinksFromResponse
 } from '../../shared/operators';
-import { CacheableObject, TypedObject } from '../object-cache.reducer';
-import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { PageInfo } from '../../shared/page-info.model';
+import { NormalizedObject } from '../models/normalized-object.model';
+import { CacheableObject } from '../object-cache.reducer';
+import { ObjectCacheService } from '../object-cache.service';
+import { DSOSuccessResponse, ErrorResponse } from '../response.models';
+import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
+import { LinkService } from './link.service';
 
 @Injectable()
 export class RemoteDataBuildService {
   constructor(protected objectCache: ObjectCacheService,
-              private parentInjector: Injector,
+              protected linkService: LinkService,
               protected requestService: RequestService) {
   }
 
@@ -234,43 +228,10 @@ export class RemoteDataBuildService {
     const domainModel = Object.assign(new domainModelConstructor(), normalized, halLinks);
 
     linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-      this.resolveLink(domainModel, linkToFollow);
+      this.linkService.resolveLink(domainModel, linkToFollow);
     });
 
-    console.log('domainModel._links', domainModel._links);
-
     return domainModel;
-  }
-
-  public resolveLink<T extends HALResource>(model, linkToFollow: FollowLinkConfig<T>) {
-    console.log('resolveLink', model, linkToFollow);
-
-    const matchingLink = getLink(model.constructor, linkToFollow.name);
-
-    if (hasNoValue(matchingLink)) {
-      throw new Error(`followLink('${linkToFollow.name}') was used for a ${model.constructor.name}, but there is no property on ${model.constructor.name} models with an @link() for ${linkToFollow.name}`);
-    } else {
-      const provider = getDataServiceFor(matchingLink.targetConstructor);
-
-      if (hasNoValue(provider)) {
-        throw new Error(`The @link() for ${linkToFollow.name} on ${model.constructor.name} models refers to a ${matchingLink.targetConstructor.name}, but there is no service with an @dataService(${matchingLink.targetConstructor.name}) annotation in order to retrieve it`);
-      }
-
-      const service = Injector.create({
-        providers: [],
-        parent: this.parentInjector
-      }).get(provider);
-
-      const href = model._links[matchingLink.linkName].href;
-
-      if (matchingLink.isList) {
-        model[linkToFollow.name] =  service.findAllByHref(href, linkToFollow.findListOptions, ...linkToFollow.linksToFollow);
-      } else {
-        model[linkToFollow.name] =  service.findByHref(href, ...linkToFollow.linksToFollow);
-      }
-
-      console.log(`model['${linkToFollow.name}']`, model[linkToFollow.name]);
-    }
   }
 
   aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {

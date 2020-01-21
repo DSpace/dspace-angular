@@ -6,6 +6,7 @@ import { link } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { Bundle } from './bundle.model';
+import { Collection } from './collection.model';
 
 import { DSpaceObject } from './dspace-object.model';
 import { GenericConstructor } from './generic-constructor';
@@ -43,6 +44,12 @@ export class Item extends DSpaceObject {
    * A boolean representing if this Item is currently withdrawn or not
    */
   isWithdrawn: boolean;
+
+  /**
+   * The Collection that owns this Item
+   */
+  @link(Collection)
+  owningCollection: Observable<RemoteData<Collection>>;
 
   @link(Bundle, true)
   bundles: Observable<RemoteData<PaginatedList<Bundle>>>;

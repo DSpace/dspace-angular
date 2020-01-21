@@ -14,7 +14,6 @@ import { CoreState } from '../core.reducers';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { BitstreamDataService } from './bitstream-data.service';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { PaginatedList } from './paginated-list';
@@ -44,15 +43,6 @@ export class BundleDataService extends DataService<Bundle> {
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<Bundle>) {
     super();
-  }
-
-  /**
-   * Get the endpoint for browsing bundles
-   * @param {FindListOptions} options
-   * @returns {Observable<string>}
-   */
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
-    return this.halService.getEndpoint(this.linkPath);
   }
 
   findAllByItem(item: Item, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<PaginatedList<Bundle>>> {

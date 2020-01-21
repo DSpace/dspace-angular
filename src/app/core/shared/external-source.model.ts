@@ -1,3 +1,4 @@
+import { HALLink } from './hal-link.model';
 import { ResourceType } from './resource-type';
 import { CacheableObject } from '../cache/object-cache.reducer';
 
@@ -26,4 +27,8 @@ export class ExternalSource extends CacheableObject {
    * The link to the rest endpoint where this External Source can be found
    */
   self: string;
+
+  _links: {
+    self: HALLink;
+  }
 }

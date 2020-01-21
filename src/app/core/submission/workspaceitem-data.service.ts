@@ -37,8 +37,4 @@ export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
     super();
   }
 
-  public getBrowseEndpoint(options: FindListOptions) {
-    return this.halService.getEndpoint(this.linkPath);
-  }
-
 }

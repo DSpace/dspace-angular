@@ -37,9 +37,6 @@ class DataServiceImpl extends DataService<ResourcePolicy> {
     super();
   }
 
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return this.halService.getEndpoint(linkPath);
-  }
 }
 
 /**

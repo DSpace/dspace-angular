@@ -23,14 +23,14 @@ export class NormalizedRelationship extends NormalizedObject<Relationship> {
    * The item to the left of this relationship
    */
   @deserialize
-  @relationship(Item, false)
+  @relationship(Item, false, false)
   leftItem: string;
 
   /**
    * The item to the right of this relationship
    */
   @deserialize
-  @relationship(Item, false)
+  @relationship(Item, false, false)
   rightItem: string;
 
   /**
@@ -61,7 +61,7 @@ export class NormalizedRelationship extends NormalizedObject<Relationship> {
    * The type of Relationship
    */
   @deserialize
-  @relationship(RelationshipType, false)
+  @relationship(RelationshipType, false, false)
   relationshipType: string;
 
   /**

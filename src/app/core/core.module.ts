@@ -13,6 +13,7 @@ import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
 
 import { isNotEmpty } from '../shared/empty.util';
+import { EPersonDataService } from './eperson/eperson-data.service';
 
 import { ApiService } from './services/api.service';
 import { BrowseEntriesResponseParsingService } from './data/browse-entries-response-parsing.service';
@@ -25,14 +26,12 @@ import { DSpaceRESTv2Service } from './dspace-rest-v2/dspace-rest-v2.service';
 import { FormBuilderService } from '../shared/form/builder/form-builder.service';
 import { SectionFormOperationsService } from '../submission/sections/form/section-form-operations.service';
 import { FormService } from '../shared/form/form.service';
-import { GroupEpersonService } from './eperson/group-eperson.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ItemDataService } from './data/item-data.service';
 import { MetadataService } from './metadata/metadata.service';
 import { ObjectCacheService } from './cache/object-cache.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
-import { RequestService } from './data/request.service';
 import { EndpointMapResponseParsingService } from './data/endpoint-map-response-parsing.service';
 import { ServerResponseService } from './services/server-response.service';
 import { NativeWindowFactory, NativeWindowService } from './services/window.service';
@@ -43,6 +42,8 @@ import { RouteService } from './services/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
+import { Relationship } from './shared/item-relationships/relationship.model';
+import { Item } from './shared/item.model';
 import { SubmissionResponseParsingService } from './submission/submission-response-parsing.service';
 import { EpersonResponseParsingService } from './eperson/eperson-response-parsing.service';
 import { JsonPatchOperationsBuilder } from './json-patch/builder/json-patch-operations-builder';
@@ -183,7 +184,7 @@ const PROVIDERS = [
   SectionFormOperationsService,
   FormService,
   EpersonResponseParsingService,
-  GroupEpersonService,
+  EPersonDataService,
   HALEndpointService,
   HostWindowService,
   ItemDataService,
@@ -195,7 +196,6 @@ const PROVIDERS = [
   BitstreamFormatDataService,
   NormalizedObjectBuildService,
   RemoteDataBuildService,
-  RequestService,
   EndpointMapResponseParsingService,
   FacetValueResponseParsingService,
   FacetValueMapResponseParsingService,
@@ -273,6 +273,8 @@ const PROVIDERS = [
  */
 export const normalizedModels =
   [
+    Relationship,
+    Item,
     NormalizedDSpaceObject,
     NormalizedBundle,
     NormalizedBitstream,
@@ -304,7 +306,7 @@ export const normalizedModels =
     NormalizedRelationshipType,
     NormalizedItemType,
     NormalizedExternalSource,
-    NormalizedExternalSourceEntry
+    NormalizedExternalSourceEntry,
   ];
 
 @NgModule({

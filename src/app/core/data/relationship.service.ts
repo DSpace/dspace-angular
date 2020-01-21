@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
@@ -62,10 +63,6 @@ export class RelationshipService extends DataService<Relationship> {
               protected comparator: DefaultChangeAnalyzer<Relationship>,
               protected appStore: Store<AppState>) {
     super();
-  }
-
-  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return this.halService.getEndpoint(linkPath);
   }
 
   /**
@@ -249,7 +246,7 @@ export class RelationshipService extends DataService<Relationship> {
     } else {
       findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findListOptions);
+    return this.searchBy('byLabel', findListOptions, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'));
   }
 
   /**

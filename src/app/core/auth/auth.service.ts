@@ -8,6 +8,7 @@ import { distinctUntilChanged, filter, map, startWith, switchMap, take, withLate
 import { RouterReducerState } from '@ngrx/router-store';
 import { select, Store } from '@ngrx/store';
 import { CookieAttributes } from 'js-cookie';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthRequestService } from './auth-request.service';
@@ -133,7 +134,7 @@ export class AuthService {
     headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     options.headers = headers;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((status) => this.rdbService.build(status)),
+      map((status) => this.rdbService.build(status, followLink<AuthStatus>('eperson'))),
       switchMap((status: AuthStatus) => {
         if (status.authenticated) {
           return status.eperson.pipe(map((eperson) => eperson.payload));

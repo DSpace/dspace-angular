@@ -35,7 +35,7 @@ export class NormalizedAuthStatus extends NormalizedObject<AuthStatus> {
   /**
    * The self link to the eperson of this auth status
    */
-  @relationship(EPerson, false)
+  @relationship(EPerson, false, false)
   @autoserialize
   eperson: string;
 }

@@ -137,7 +137,8 @@ export function getResolvedLinks(target: any) {
 export class LinkDefinition<T extends HALResource> {
   targetConstructor: GenericConstructor<CacheableObject>;
   isList = false;
-  linkName?: keyof T['_links'];
+  linkName: keyof T['_links'];
+  propertyName: keyof T;
 }
 
 export const link = <T extends HALResource>(
@@ -145,7 +146,9 @@ export const link = <T extends HALResource>(
   isList = false,
   linkName?: keyof T['_links'],
   ) => {
-  return (target: T, key: string) => {
+  console.log('link call', targetConstructor, isList, linkName);
+  return (target: T, propertyName: string) => {
+    console.log('link return', targetConstructor, isList, linkName, target, propertyName);
     let targetMap = linkMap.get(target.constructor);
 
     if (hasNoValue(targetMap)) {
@@ -153,24 +156,25 @@ export const link = <T extends HALResource>(
     }
 
     if (hasNoValue(linkName)) {
-      linkName = key;
+      linkName = propertyName as any;
     }
 
-    targetMap.set(key, {
+    targetMap.set(propertyName, {
       targetConstructor,
       isList,
-      linkName
+      linkName,
+      propertyName
     });
 
     linkMap.set(target.constructor, targetMap);
   }
 };
 
-export const getLinks = <T extends HALResource>(source: GenericConstructor<T>): Map<keyof T['_links'], LinkDefinition<T>> => {
+export const getLinkDefinitions = <T extends HALResource>(source: GenericConstructor<T>): Map<keyof T['_links'], LinkDefinition<T>> => {
   return linkMap.get(source);
 };
 
-export const getLink = <T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']): LinkDefinition<T> => {
+export const getLinkDefinition = <T extends HALResource>(source: GenericConstructor<T>, linkName: keyof T['_links']): LinkDefinition<T> => {
   const sourceMap = linkMap.get(source);
   if (hasValue(sourceMap)) {
     return sourceMap.get(linkName);

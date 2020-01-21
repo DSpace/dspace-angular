@@ -65,7 +65,15 @@ export abstract class DataService<T extends CacheableObject> {
    */
   protected responseMsToLive: number;
 
-  public abstract getBrowseEndpoint(options: FindListOptions, linkPath?: string): Observable<string>
+  /**
+   * Get the endpoint for browsing
+   * @param options The [[FindListOptions]] object
+   * @param linkPath The link path for the object
+   * @returns {Observable<string>}
+   */
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath);
+  }
 
   /**
    * Create the HREF with given options object

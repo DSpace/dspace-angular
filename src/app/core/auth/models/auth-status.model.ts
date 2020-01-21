@@ -1,3 +1,4 @@
+import { link } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
 import { AuthError } from './auth-error.model';
 import { AuthTokenInfo } from './auth-token-info.model';
@@ -41,6 +42,7 @@ export class AuthStatus implements CacheableObject {
   /**
    * The eperson of this auth status
    */
+  @link(EPerson)
   eperson: Observable<RemoteData<EPerson>>;
 
   /**
@@ -55,5 +57,6 @@ export class AuthStatus implements CacheableObject {
 
   _links: {
     self: HALLink;
+    eperson: HALLink
   }
 }

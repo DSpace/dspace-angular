@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
+import { DataService } from '../data/data.service';
 
-import { EpersonService } from './eperson.service';
+import { EPersonDataService } from './eperson-data.service';
 import { RequestService } from '../data/request.service';
 import { FindListOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -23,9 +24,11 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 /**
  * Provides methods to retrieve eperson group resources.
  */
-@Injectable()
-export class GroupEpersonService extends EpersonService<Group> {
-  protected linkPath = 'groups';
+@Injectable({
+  providedIn: 'root'
+})
+export class GroupDataService extends DataService<Group> {
+  protected linkPath = 'eperson/groups';
   protected browseEndpoint = '';
 
   constructor(
