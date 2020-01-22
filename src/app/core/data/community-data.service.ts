@@ -21,7 +21,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 
 @Injectable()
-@dataService(Community)
+@dataService(Community.type)
 export class CommunityDataService extends ComColDataService<Community> {
   protected linkPath = 'communities';
   protected topLinkPath = 'communities/search/top';

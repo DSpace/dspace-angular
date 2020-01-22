@@ -51,13 +51,13 @@ export class Community extends DSpaceObject {
   /**
    * The Bitstream that represents the logo of this Community
    */
-  @link(Bitstream)
+  @link(Bitstream.type)
   logo?: Observable<RemoteData<Bitstream>>;
 
-  @link(Collection, true)
+  @link(Collection.type, true)
   collections?: Observable<RemoteData<PaginatedList<Collection>>>;
 
-  @link(Community, true)
+  @link(Community.type, true)
   subcommunities?: Observable<RemoteData<PaginatedList<Community>>>;
 
   _links: {

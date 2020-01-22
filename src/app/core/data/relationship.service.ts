@@ -47,7 +47,7 @@ const relationshipStateSelector = (listID: string, itemID: string): MemoizedSele
  * The service handling all relationship requests
  */
 @Injectable()
-@dataService(Relationship)
+@dataService(Relationship.type)
 export class RelationshipService extends DataService<Relationship> {
   protected linkPath = 'relationships';
 

@@ -21,7 +21,7 @@ import { ProcessTaskResponse } from './models/process-task-response';
  * The service handling all REST requests for PoolTask
  */
 @Injectable()
-@dataService(PoolTask)
+@dataService(PoolTask.type)
 export class PoolTaskDataService extends TasksService<PoolTask> {
 
   /**

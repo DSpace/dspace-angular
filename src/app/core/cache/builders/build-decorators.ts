@@ -88,23 +88,23 @@ export function getRelationships(target: any) {
   return relationshipMap.get(target);
 }
 
-export function dataService<T extends CacheableObject>(domainModelConstructor: GenericConstructor<T>): any {
+export function dataService(resourceType: ResourceType): any {
   return (target: any) => {
-    if (hasNoValue(domainModelConstructor)) {
-      throw new Error(`Invalid @dataService annotation on ${target}, domainModelConstructor needs to be defined`);
+    if (hasNoValue(resourceType)) {
+      throw new Error(`Invalid @dataService annotation on ${target}, resourceType needs to be defined`);
     }
-    const existingDataservice = dataServiceMap.get(domainModelConstructor);
+    const existingDataservice = dataServiceMap.get(resourceType.value);
 
     if (hasValue(existingDataservice)) {
-      throw new Error(`Multiple dataservices for ${domainModelConstructor}: ${existingDataservice} and ${target}`);
+      throw new Error(`Multiple dataservices for ${resourceType.value}: ${existingDataservice} and ${target}`);
     }
 
-    dataServiceMap.set(domainModelConstructor, target);
+    dataServiceMap.set(resourceType.value, target);
   };
 }
 
-export function getDataServiceFor<T extends CacheableObject>(domainModelConstructor: GenericConstructor<T>) {
-  return dataServiceMap.get(domainModelConstructor);
+export function getDataServiceFor<T extends CacheableObject>(resourceType: ResourceType) {
+  return dataServiceMap.get(resourceType.value);
 }
 
 export function resolvedLink<T extends DataService<any>, K extends keyof T>(provider: GenericConstructor<T>, methodName?: K, ...params: any[]): any {
@@ -135,20 +135,18 @@ export function getResolvedLinks(target: any) {
 }
 
 export class LinkDefinition<T extends HALResource> {
-  targetConstructor: GenericConstructor<CacheableObject>;
+  resourceType: ResourceType;
   isList = false;
   linkName: keyof T['_links'];
   propertyName: keyof T;
 }
 
 export const link = <T extends HALResource>(
-  targetConstructor: GenericConstructor<HALResource>,
+  resourceType: ResourceType,
   isList = false,
   linkName?: keyof T['_links'],
   ) => {
-  console.log('link call', targetConstructor, isList, linkName);
   return (target: T, propertyName: string) => {
-    console.log('link return', targetConstructor, isList, linkName, target, propertyName);
     let targetMap = linkMap.get(target.constructor);
 
     if (hasNoValue(targetMap)) {
@@ -160,7 +158,7 @@ export const link = <T extends HALResource>(
     }
 
     targetMap.set(propertyName, {
-      targetConstructor,
+      resourceType,
       isList,
       linkName,
       propertyName

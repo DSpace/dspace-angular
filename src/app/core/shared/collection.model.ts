@@ -66,13 +66,13 @@ export class Collection extends DSpaceObject {
   /**
    * The Bitstream that represents the logo of this Collection
    */
-  @link(Bitstream)
+  @link(Bitstream.type)
   logo?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The default access conditions of this Collection
    */
-  @link(ResourcePolicy, true)
+  @link(ResourcePolicy.type, true)
   defaultAccessConditions?: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;
 
   _links: {

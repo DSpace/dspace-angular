@@ -12,13 +12,14 @@ import { DSpaceObject } from './dspace-object.model';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { Relationship } from './item-relationships/relationship.model';
-import { ResourceType } from './resource-type';
+import { ITEM } from "./item-resource-type";
+import { RELATIONSHIP } from "./relationship.resource-type";
 
 /**
  * Class representing a DSpace Item
  */
 export class Item extends DSpaceObject {
-  static type = new ResourceType('item');
+  static type = ITEM;
 
   /**
    * A string representing the unique handle of this Item
@@ -48,13 +49,13 @@ export class Item extends DSpaceObject {
   /**
    * The Collection that owns this Item
    */
-  @link(Collection)
+  @link(Collection.type)
   owningCollection: Observable<RemoteData<Collection>>;
 
-  @link(Bundle, true)
+  @link(Bundle.type, true)
   bundles: Observable<RemoteData<PaginatedList<Bundle>>>;
 
-  @link(Relationship, true)
+  @link(RELATIONSHIP)
   relationships: Observable<RemoteData<PaginatedList<Relationship>>>;
 
   _links: {

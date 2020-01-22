@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { dataService } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { CoreState } from '../core.reducers';
@@ -8,7 +7,6 @@ import { CoreState } from '../core.reducers';
 import { DataService } from './data.service';
 import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindListOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { HttpClient } from '@angular/common/http';
@@ -40,7 +38,7 @@ class DataServiceImpl extends DataService<MetadataSchema> {
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
 @Injectable()
-@dataService(MetadataSchema)
+@dataService(MetadataSchema.type)
 export class MetadataSchemaDataService {
   private dataService: DataServiceImpl;
 

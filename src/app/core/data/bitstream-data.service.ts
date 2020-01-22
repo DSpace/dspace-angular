@@ -28,7 +28,7 @@ import { RequestService } from './request.service';
 @Injectable({
   providedIn: 'root'
 })
-@dataService(Bitstream)
+@dataService(Bitstream.type)
 export class BitstreamDataService extends DataService<Bitstream> {
 
   protected linkPath = 'bitstreams';

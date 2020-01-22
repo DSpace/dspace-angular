@@ -34,17 +34,17 @@ export class Bitstream extends DSpaceObject implements HALResource {
   /**
    * The Bitstream Format for this Bitstream
    */
-  @link(BitstreamFormat)
+  @link(BitstreamFormat.type)
   format?: Observable<RemoteData<BitstreamFormat>>;
 
   _links: {
-    // @link(Bitstream)
+    // @link(Bitstream.type)
     self: HALLink;
 
-    // @link(Bundle)
+    // @link(Bundle.type)
     bundle: HALLink;
 
-    // @link(BitstreamFormat)
+    // @link(BitstreamFormat.type)
     format: HALLink;
 
     content: HALLink;

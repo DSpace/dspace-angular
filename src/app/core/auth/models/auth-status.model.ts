@@ -42,7 +42,7 @@ export class AuthStatus implements CacheableObject {
   /**
    * The eperson of this auth status
    */
-  @link(EPerson)
+  @link(EPerson.type)
   eperson: Observable<RemoteData<EPerson>>;
 
   /**

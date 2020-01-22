@@ -39,7 +39,7 @@ class DataServiceImpl extends DataService<DSpaceObject> {
 }
 
 @Injectable()
-@dataService(DSpaceObject)
+@dataService(DSpaceObject.type)
 export class DSpaceObjectDataService {
   protected linkPath = 'dso';
   private dataService: DataServiceImpl;

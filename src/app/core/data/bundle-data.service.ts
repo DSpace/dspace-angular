@@ -27,7 +27,7 @@ import { RequestService } from './request.service';
 @Injectable(
   {providedIn: 'root'}
 )
-@dataService(Bundle)
+@dataService(Bundle.type)
 export class BundleDataService extends DataService<Bundle> {
   protected linkPath = 'bundles';
   protected forceBypassCache = false;

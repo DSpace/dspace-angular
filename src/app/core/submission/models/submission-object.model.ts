@@ -39,13 +39,13 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
   /**
    * The collection this submission applies to
    */
-  @link(Collection)
+  @link(Collection.type)
   collection?: Observable<RemoteData<Collection>> | Collection;
 
   /**
    * The submission item
    */
-  @link(Item)
+  @link(Item.type)
   item?: Observable<RemoteData<Item>> | Item;
 
   /**
@@ -56,13 +56,13 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
   /**
    * The configuration object that define this submission
    */
-  @link(SubmissionDefinitionsModel)
+  @link(SubmissionDefinitionsModel.type)
   submissionDefinition?: Observable<RemoteData<SubmissionDefinitionsModel>> | SubmissionDefinitionsModel;
 
   /**
    * The workspaceitem submitter
    */
-  @link(EPerson)
+  @link(EPerson.type)
   submitter?: Observable<RemoteData<EPerson>> | EPerson;
 
   /**

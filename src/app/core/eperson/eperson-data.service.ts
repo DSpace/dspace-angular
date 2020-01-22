@@ -14,7 +14,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { EPerson } from './models/eperson.model';
 
 @Injectable()
-@dataService(EPerson)
+@dataService(EPerson.type)
 export class EPersonDataService extends DataService<EPerson> {
 
   protected linkPath: 'eperson/epersons';

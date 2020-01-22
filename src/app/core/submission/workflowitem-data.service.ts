@@ -19,7 +19,7 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
  * A service that provides methods to make REST requests with workflowitems endpoint.
  */
 @Injectable()
-@dataService(WorkflowItem)
+@dataService(WorkflowItem.type)
 export class WorkflowItemDataService extends DataService<WorkflowItem> {
   protected linkPath = 'workflowitems';
   protected responseMsToLive = 10 * 1000;

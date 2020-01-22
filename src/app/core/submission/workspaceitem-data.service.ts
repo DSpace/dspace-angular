@@ -19,7 +19,7 @@ import { WorkspaceItem } from './models/workspaceitem.model';
  * A service that provides methods to make REST requests with workspaceitems endpoint.
  */
 @Injectable()
-@dataService(WorkspaceItem)
+@dataService(WorkspaceItem.type)
 export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
   protected responseMsToLive = 10 * 1000;

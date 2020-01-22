@@ -41,7 +41,7 @@ const selectedBitstreamFormatSelector = createSelector(bitstreamFormatsStateSele
  * A service responsible for fetching/sending data from/to the REST API on the bitstreamformats endpoint
  */
 @Injectable()
-@dataService(BitstreamFormat)
+@dataService(BitstreamFormat.type)
 export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   protected linkPath = 'bitstreamformats';

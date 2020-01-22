@@ -3,15 +3,16 @@ import { link } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
 import { HALLink } from '../hal-link.model';
-import { ResourceType } from '../resource-type';
 import { RelationshipType } from './relationship-type.model';
 import { Item } from '../item.model';
+import { ITEM } from "../item-resource-type";
+import { RELATIONSHIP } from "../relationship.resource-type";
 
 /**
  * Describes a Relationship between two Items
  */
 export class Relationship implements CacheableObject {
-  static type = new ResourceType('relationship');
+  static type = RELATIONSHIP;
 
   /**
    * The link to the rest endpoint where this object can be found
@@ -32,14 +33,13 @@ export class Relationship implements CacheableObject {
    * The item to the left of this relationship
    */
 
-  // TODO it's likely a circular dependency 😒 -> https://stackoverflow.com/questions/35240716/webpack-import-returns-undefined-depending-on-the-order-of-imports
-  @link(Item)
+  @link(ITEM)
   leftItem?: Observable<RemoteData<Item>>;
 
   /**
    * The item to the right of this relationship
    */
-  @link(Item)
+  @link(ITEM)
   rightItem?: Observable<RemoteData<Item>>;
 
   /**
@@ -65,7 +65,7 @@ export class Relationship implements CacheableObject {
   /**
    * The type of Relationship
    */
-  @link(RelationshipType)
+  @link(RelationshipType.type)
   relationshipType?: Observable<RemoteData<RelationshipType>>;
 
   _links: {

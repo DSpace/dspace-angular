@@ -28,7 +28,7 @@ import { FindListOptions, FindListRequest } from './request.models';
  * The service handling all relationship type requests
  */
 @Injectable()
-@dataService(RelationshipType)
+@dataService(RelationshipType.type)
 export class RelationshipTypeService extends DataService<RelationshipType> {
   protected linkPath = 'relationshiptypes';
 

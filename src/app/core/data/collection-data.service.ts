@@ -49,7 +49,7 @@ import { INotification } from '../../shared/notifications/models/notification.mo
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 @Injectable()
-@dataService(Collection)
+@dataService(Collection.type)
 export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
   protected errorTitle = 'collection.source.update.notifications.error.title';

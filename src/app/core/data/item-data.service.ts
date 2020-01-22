@@ -41,7 +41,7 @@ import { PaginatedList } from './paginated-list';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 
 @Injectable()
-@dataService(Item)
+@dataService(Item.type)
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
 

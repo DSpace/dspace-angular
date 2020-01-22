@@ -41,7 +41,7 @@ export class MetadataField extends ListableObject implements HALResource {
   /**
    * The metadata schema object of this metadata field
    */
-  @link(MetadataSchema)
+  @link(MetadataSchema.type)
   // TODO the responseparsingservice assumes schemas are always embedded. This should be remotedata instead.
   schema?: MetadataSchema;
 

@@ -21,10 +21,10 @@ export class LinkService {
     if (hasNoValue(matchingLinkDef)) {
       throw new Error(`followLink('${linkToFollow.name}') was used for a ${model.constructor.name}, but there is no property on ${model.constructor.name} models with an @link() for ${linkToFollow.name}`);
     } else {
-      const provider = getDataServiceFor(matchingLinkDef.targetConstructor);
+      const provider = getDataServiceFor(matchingLinkDef.resourceType);
 
       if (hasNoValue(provider)) {
-        throw new Error(`The @link() for ${linkToFollow.name} on ${model.constructor.name} models refers to a ${matchingLinkDef.targetConstructor.name}, but there is no service with an @dataService(${matchingLinkDef.targetConstructor.name}) annotation in order to retrieve it`);
+        throw new Error(`The @link() for ${linkToFollow.name} on ${model.constructor.name} models uses the resource type ${matchingLinkDef.resourceType.value.toUpperCase()}, but there is no service with an @dataService(${matchingLinkDef.resourceType.value.toUpperCase()}) annotation in order to retrieve it`);
       }
 
       const service = Injector.create({

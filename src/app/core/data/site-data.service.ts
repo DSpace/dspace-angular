@@ -22,7 +22,7 @@ import { getSucceededRemoteData } from '../shared/operators';
  * Service responsible for handling requests related to the Site object
  */
 @Injectable()
-@dataService(Site)
+@dataService(Site.type)
 export class SiteDataService extends DataService<Site> {​
   protected linkPath = 'sites';
 

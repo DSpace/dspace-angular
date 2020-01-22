@@ -65,13 +65,13 @@ export class RelationshipType implements CacheableObject {
   /**
    * The type of Item found to the left of this RelationshipType
    */
-  @link(ItemType)
+  @link(ItemType.type)
   leftType?: Observable<RemoteData<ItemType>>;
 
   /**
    * The type of Item found to the right of this RelationshipType
    */
-  @link(ItemType)
+  @link(ItemType.type)
   rightType?: Observable<RemoteData<ItemType>>;
 
   _links: {
