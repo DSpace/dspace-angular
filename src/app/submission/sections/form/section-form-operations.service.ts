@@ -327,7 +327,6 @@ export class SectionFormOperationsService {
           this.operationsBuilder.remove(pathCombiner.getPath(path));
         }
       } else if (hasValue(event.$event) && hasValue(event.$event.previousIndex)) {
-        console.log(event, path);
         this.operationsBuilder.move(
           pathCombiner.getPath(path),
           pathCombiner.getPath(segmentedPath + '/' + event.$event.previousIndex).path

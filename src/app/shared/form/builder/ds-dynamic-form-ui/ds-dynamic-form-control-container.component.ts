@@ -172,7 +172,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
 
   @Input() formId: string;
-  @Input() asBootstrapFormGroup = true;
+  @Input() asBootstrapFormGroup = false;
   @Input() bindId = true;
   @Input() context: any | null = null;
   @Input() group: FormGroup;

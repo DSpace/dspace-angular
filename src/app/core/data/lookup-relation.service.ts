@@ -51,7 +51,6 @@ export class LookupRelationService {
     if (setSearchConfig) {
       this.searchConfig = newConfig;
     }
-    console.log(newConfig);
     return this.searchService.search(newConfig).pipe(
       /* Make sure to only listen to the first x results, until loading is finished */
       /* TODO: in Rxjs 6.4.0 and up, we can replace this with takeWhile(predicate, true) - see https://stackoverflow.com/a/44644237 */
