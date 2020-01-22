@@ -25,8 +25,12 @@ import {
 import { hasValue } from '../../shared/empty.util';
 import { RequestEntry } from './request.reducer';
 import { CoreState } from '../core.reducers';
+import { coreSelector } from '../core.selectors';
 
-const bitstreamFormatsStateSelector = (state: CoreState) => state.bitstreamFormats;
+const bitstreamFormatsStateSelector = createSelector(
+  coreSelector,
+  (state: CoreState) => state.bitstreamFormats
+);
 const selectedBitstreamFormatSelector = createSelector(bitstreamFormatsStateSelector,
   (bitstreamFormatRegistryState: BitstreamFormatRegistryState) => bitstreamFormatRegistryState.selectedBitstreamFormats);
 
