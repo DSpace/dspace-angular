@@ -95,6 +95,10 @@ export class DSpaceRESTv2Service {
       requestOptions.params = options.params;
     }
 
+    if (options && options.withCredentials) {
+      requestOptions.withCredentials = options.withCredentials;
+    }
+
     if (!requestOptions.headers.has('Content-Type')) {
       // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
       requestOptions.headers = requestOptions.headers.set('Content-Type', DEFAULT_CONTENT_TYPE);

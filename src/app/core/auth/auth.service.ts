@@ -16,13 +16,7 @@ import { AuthStatus } from './models/auth-status.model';
 import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
 import { isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
 import { CookieService } from '../services/cookie.service';
-import {
-  getAuthenticationMethods,
-  getAuthenticationToken,
-  getRedirectUrl,
-  isAuthenticated,
-  isTokenRefreshing
-} from './selectors';
+import { getAuthenticationToken, getRedirectUrl, isAuthenticated, isTokenRefreshing } from './selectors';
 import { AppState, routerStateSelector } from '../../app.reducer';
 import {
   CheckAuthenticationTokenAction,
@@ -134,6 +128,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/json');
     options.headers = headers;
+    options.withCredentials = true;
     return this.authRequestService.getRequest('status', options).pipe(
       map((status: NormalizedAuthStatus) => Object.assign(new AuthStatus(), status))
     );
@@ -207,6 +202,7 @@ export class AuthService {
       headers = headers.append('Authorization', `Bearer ${token.accessToken}`);
     }
     options.headers = headers;
+    options.withCredentials = true;
     return this.authRequestService.postToEndpoint('login', {}, options).pipe(
       map((status: AuthStatus) => {
         if (status.authenticated) {
