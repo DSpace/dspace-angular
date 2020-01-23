@@ -685,6 +685,8 @@
 
   "item.edit.metadata.edit.buttons.unedit": "Stop editing",
 
+  "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
+
   "item.edit.metadata.headers.edit": "Edit",
 
   "item.edit.metadata.headers.field": "Field",

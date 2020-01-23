@@ -21,6 +21,7 @@ import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-it
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { UpdateDataService } from '../../../core/data/update-data.service';
 import { hasNoValue } from '../../../shared/empty.util';
+import { AlertType } from '../../../shared/alert/aletr-type';
 
 @Component({
   selector: 'ds-item-metadata',
@@ -31,6 +32,12 @@ import { hasNoValue } from '../../../shared/empty.util';
  * Component for displaying an item's metadata edit page
  */
 export class ItemMetadataComponent extends AbstractItemUpdateComponent {
+
+  /**
+   * The AlertType enumeration
+   * @type {AlertType}
+   */
+  public AlertTypeEnum = AlertType;
 
   /**
    * A custom update service to use for adding and committing patches
