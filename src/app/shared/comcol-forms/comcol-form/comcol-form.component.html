@@ -4,7 +4,7 @@
       <label>{{type.value + '.edit.logo.label' | translate}}</label>
     </div>
     <ng-container *ngVar="(dso?.logo | async)?.payload as logo">
-      <div class="col-12 d-inline-block alert" [ngClass]="{'alert-danger': markLogoForDeletion}" id="logo-section">
+      <div class="col-12 d-inline-block alert" [ngClass]="{'alert-danger': markLogoForDeletion}" id="logo-section" *ngIf="logo">
         <div class="row">
           <div class="col-8 d-inline-block">
             <ds-comcol-page-logo [logo]="logo"></ds-comcol-page-logo>
