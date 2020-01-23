@@ -141,6 +141,7 @@ import { NormalizedExternalSource } from './cache/models/normalized-external-sou
 import { NormalizedExternalSourceEntry } from './cache/models/normalized-external-source-entry.model';
 import { ExternalSourceService } from './data/external-source.service';
 import { LookupRelationService } from './data/lookup-relation.service';
+import { NormalizedTemplateItem } from './cache/models/normalized-template-item.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
@@ -302,7 +303,8 @@ export const normalizedModels =
     NormalizedRelationshipType,
     NormalizedItemType,
     NormalizedExternalSource,
-    NormalizedExternalSourceEntry
+    NormalizedExternalSourceEntry,
+    NormalizedTemplateItem
   ];
 
 @NgModule({
