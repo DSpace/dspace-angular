@@ -218,7 +218,7 @@ describe('ItemMetadataComponent', () => {
 
     it('it should call reinstateFieldUpdates on the objectUpdatesService with the correct url and metadata', () => {
       expect(objectUpdatesService.getUpdatedFields).toHaveBeenCalledWith(url, comp.item.metadataAsList);
-      expect(itemService.update).toHaveBeenCalledWith(Object.assign(comp.item, { metadata: Metadata.toMetadataMap(comp.item.metadataAsList) }));
+      expect(itemService.update).toHaveBeenCalledWith(Object.assign(comp.item, { metadata: Metadata.toMetadataMap(comp.item.metadataAsList) }), ['relation.*', 'relationship.*']);
       expect(objectUpdatesService.getFieldUpdates).toHaveBeenCalledWith(url, comp.item.metadataAsList);
     });
   });

@@ -50,6 +50,11 @@ describe('ServerSyncBufferEffects', () => {
               const object = new DSpaceObject();
               object.self = link;
               return observableOf(object);
+            },
+            getBySelfLink: (link) => {
+              const object = new DSpaceObject();
+              object.self = link;
+              return observableOf(object);
             }
           }
         },
