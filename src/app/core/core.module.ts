@@ -119,6 +119,7 @@ import { MetadatafieldParsingService } from './data/metadatafield-parsing.servic
 import { NormalizedSubmissionUploadsModel } from './config/models/normalized-config-submission-uploads.model';
 import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
 import { BrowseDefinition } from './shared/browse-definition.model';
+import { ContentSourceResponseParsingService } from './data/content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
 import { SiteDataService } from './data/site-data.service';
@@ -244,6 +245,7 @@ const PROVIDERS = [
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  ContentSourceResponseParsingService,
   SearchService,
   SidebarService,
   SearchFilterService,

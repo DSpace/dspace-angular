@@ -338,7 +338,39 @@
 
   "collection.edit.tabs.roles.title": "Collection Edit - Roles",
 
+  "collection.edit.tabs.source.external": "This collection harvests its content from an external source",
+
+  "collection.edit.tabs.source.form.errors.oaiSource.required": "You must provide a set id of the target collection.",
+
+  "collection.edit.tabs.source.form.harvestType": "Content being harvested",
+
+  "collection.edit.tabs.source.form.head": "Configure an external source",
+
+  "collection.edit.tabs.source.form.metadataConfigId": "Metadata Format",
+
+  "collection.edit.tabs.source.form.oaiSetId": "OAI specific set id",
+
+  "collection.edit.tabs.source.form.oaiSource": "OAI Provider",
+
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_BITSTREAMS": "Harvest metadata and bitstreams (requires ORE support)",
+
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_AND_REF": "Harvest metadata and references to bitstreams (requires ORE support)",
+
+  "collection.edit.tabs.source.form.options.harvestType.METADATA_ONLY": "Harvest metadata only",
+
   "collection.edit.tabs.source.head": "Content Source",
+
+  "collection.edit.tabs.source.notifications.discarded.content": "Your changes were discarded. To reinstate your changes click the 'Undo' button",
+
+  "collection.edit.tabs.source.notifications.discarded.title": "Changed discarded",
+
+  "collection.edit.tabs.source.notifications.invalid.content": "Your changes were not saved. Please make sure all fields are valid before you save.",
+
+  "collection.edit.tabs.source.notifications.invalid.title": "Metadata invalid",
+
+  "collection.edit.tabs.source.notifications.saved.content": "Your changes to this collection's content source were saved.",
+
+  "collection.edit.tabs.source.notifications.saved.title": "Content Source saved",
 
   "collection.edit.tabs.source.title": "Collection Edit - Content Source",
 
@@ -379,6 +411,12 @@
   "collection.select.empty": "No collections to show",
 
   "collection.select.table.title": "Title",
+
+
+
+  "collection.source.update.notifications.error.content": "The provided settings have been tested and didn't work.",
+
+  "collection.source.update.notifications.error.title": "Server Error",
 
 
 
@@ -996,6 +1034,8 @@
   "loading.collection": "Loading collection...",
 
   "loading.collections": "Loading collections...",
+
+  "loading.content-source": "Loading content source...",
 
   "loading.community": "Loading community...",
 
