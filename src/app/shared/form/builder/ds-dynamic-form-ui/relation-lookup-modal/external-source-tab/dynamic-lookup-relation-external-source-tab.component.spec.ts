@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { PaginatedSearchOptions } from '../../../../../search/paginated-search-options.model';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { of as observableOf } from 'rxjs/internal/observable/of';
@@ -18,12 +18,20 @@ import { ExternalSource } from '../../../../../../core/shared/external-source.mo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { Item } from '../../../../../../core/shared/item.model';
+import { Collection } from '../../../../../../core/shared/collection.model';
+import { RelationshipOptions } from '../../../models/relationship-options.model';
+import { ExternalSourceEntryImportModalComponent } from './external-source-entry-import-modal/external-source-entry-import-modal.component';
 
 describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   let component: DsDynamicLookupRelationExternalSourceTabComponent;
   let fixture: ComponentFixture<DsDynamicLookupRelationExternalSourceTabComponent>;
   let pSearchOptions;
   let externalSourceService;
+  let selectableListService;
+  let modalService;
 
   const externalSource = {
     id: 'orcidV2',
@@ -68,6 +76,10 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
       }
     })
   ] as ExternalSourceEntry[];
+  const item = Object.assign(new Item(), { id: 'submission-item' });
+  const collection = Object.assign(new Collection(), { id: 'submission-collection' });
+  const relationship = Object.assign(new RelationshipOptions(), { relationshipType: 'isAuthorOfPublication' });
+  const label = 'Author';
 
   function init() {
     pSearchOptions = new PaginatedSearchOptions({
@@ -76,20 +88,22 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     externalSourceService = jasmine.createSpyObj('externalSourceService', {
       getExternalSourceEntries: createSuccessfulRemoteDataObject$(createPaginatedList(externalEntries))
     });
+    selectableListService = jasmine.createSpyObj('selectableListService', ['selectSingle']);
   }
 
   beforeEach(async(() => {
     init();
     TestBed.configureTestingModule({
       declarations: [DsDynamicLookupRelationExternalSourceTabComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), BrowserAnimationsModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule.forRoot(), BrowserAnimationsModule],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
             paginatedSearchOptions: observableOf(pSearchOptions)
           }
         },
-        { provide: ExternalSourceService, useValue: externalSourceService }
+        { provide: ExternalSourceService, useValue: externalSourceService },
+        { provide: SelectableListService, useValue: selectableListService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -99,13 +113,18 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     fixture = TestBed.createComponent(DsDynamicLookupRelationExternalSourceTabComponent);
     component = fixture.componentInstance;
     component.externalSource = externalSource;
+    component.item = item;
+    component.collection = collection;
+    component.relationship = relationship;
+    component.label = label;
+    modalService = (component as any).modalService;
     fixture.detectChanges();
   });
 
   describe('when the external entries finished loading successfully', () => {
     it('should display a ds-viewable-collection component', () => {
-      const collection = fixture.debugElement.query(By.css('ds-viewable-collection'));
-      expect(collection).toBeDefined();
+      const viewableCollection = fixture.debugElement.query(By.css('ds-viewable-collection'));
+      expect(viewableCollection).toBeDefined();
     });
   });
 
@@ -116,8 +135,8 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     });
 
     it('should not display a ds-viewable-collection component', () => {
-      const collection = fixture.debugElement.query(By.css('ds-viewable-collection'));
-      expect(collection).toBeNull();
+      const viewableCollection = fixture.debugElement.query(By.css('ds-viewable-collection'));
+      expect(viewableCollection).toBeNull();
     });
 
     it('should display a ds-loading component', () => {
@@ -133,8 +152,8 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     });
 
     it('should not display a ds-viewable-collection component', () => {
-      const collection = fixture.debugElement.query(By.css('ds-viewable-collection'));
-      expect(collection).toBeNull();
+      const viewableCollection = fixture.debugElement.query(By.css('ds-viewable-collection'));
+      expect(viewableCollection).toBeNull();
     });
 
     it('should display a ds-error component', () => {
@@ -150,13 +169,24 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
     });
 
     it('should not display a ds-viewable-collection component', () => {
-      const collection = fixture.debugElement.query(By.css('ds-viewable-collection'));
-      expect(collection).toBeNull();
+      const viewableCollection = fixture.debugElement.query(By.css('ds-viewable-collection'));
+      expect(viewableCollection).toBeNull();
     });
 
     it('should display a message the list is empty', () => {
       const empty = fixture.debugElement.query(By.css('#empty-external-entry-list'));
       expect(empty).not.toBeNull();
+    });
+  });
+
+  describe('import', () => {
+    beforeEach(() => {
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ importedObject: new EventEmitter<any>() }) }));
+      component.import(externalEntries[0]);
+    });
+
+    it('should open a new ExternalSourceEntryImportModalComponent', () => {
+      expect(modalService.open).toHaveBeenCalledWith(ExternalSourceEntryImportModalComponent, jasmine.any(Object))
     });
   });
 });

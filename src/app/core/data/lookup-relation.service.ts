@@ -15,6 +15,7 @@ import { getAllSucceededRemoteData, getRemoteDataPayload } from '../shared/opera
 import { Injectable } from '@angular/core';
 import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { RequestService } from './request.service';
 
 /**
  * A service for retrieving local and external entries information during a relation lookup
@@ -35,7 +36,8 @@ export class LookupRelationService {
   });
 
   constructor(protected externalSourceService: ExternalSourceService,
-              protected searchService: SearchService) {
+              protected searchService: SearchService,
+              protected requestService: RequestService) {
   }
 
   /**
@@ -90,5 +92,12 @@ export class LookupRelationService {
       map((results: PaginatedList<ExternalSourceEntry>) => results.totalElements),
       startWith(0)
     );
+  }
+
+  /**
+   * Remove cached requests from local results
+   */
+  removeLocalResultsCache() {
+    this.searchService.getEndpoint().subscribe((href) => this.requestService.removeByHrefSubstring(href));
   }
 }

@@ -173,6 +173,8 @@ import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.componen
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 
@@ -335,6 +337,8 @@ const COMPONENTS = [
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
+  ExternalSourceEntryImportModalComponent,
+  ImportableListItemControlComponent,
   ExistingMetadataListElementComponent
 ];
 
@@ -397,7 +401,8 @@ const ENTRY_COMPONENTS = [
   SearchAuthorityFilterComponent,
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
-  DsDynamicLookupRelationExternalSourceTabComponent
+  DsDynamicLookupRelationExternalSourceTabComponent,
+  ExternalSourceEntryImportModalComponent
 ];
 
 const SHARED_ITEM_PAGE_COMPONENTS = [

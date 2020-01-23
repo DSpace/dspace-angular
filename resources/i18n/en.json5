@@ -1623,7 +1623,66 @@
   "submission.general.save-later": "Save for later",
 
 
+
   "submission.sections.describe.relationship-lookup.close": "Close",
+
+  "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Author": "Import remote author",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.title": "Import Remote Author",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.added.local-entity": "Successfully added local author to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.added.new-entity": "Successfully imported and added external author to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Import as a new local authority entry",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entities",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Import as a new local entity",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcidV2": "Importing from ORCID",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Successfully added local journal to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Successfully imported and added external journal to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Import Remote Journal Issue",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Successfully added local journal issue to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Successfully imported and added external journal issue to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Import Remote Journal Volume",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Successfully added local journal volume to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Successfully imported and added external journal volume to the selection",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
 
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
 
