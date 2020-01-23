@@ -5,6 +5,7 @@ import { from as observableFrom, of as observableOf } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { union } from 'lodash';
+import { NormalizedSubmissionSectionModel } from '../../core/config/models/normalized-config-submission-section.model';
 
 import {
   CompleteInitSubmissionFormAction,
@@ -56,9 +57,10 @@ export class SubmissionObjectEffects {
     map((action: InitSubmissionFormAction) => {
       const definition = action.payload.submissionDefinition;
       const mappedActions = [];
-      definition.sections.page.forEach((sectionDefinition: SubmissionSectionModel) => {
-        const sectionId = sectionDefinition._links.self.href.substr(sectionDefinition._links.self.href.lastIndexOf('/') + 1);
-        const config = sectionDefinition._links.config.href || '';
+      definition.sections.page.forEach((sectionDefinition: any) => {
+        const selfLink = sectionDefinition._links.self.href || sectionDefinition._links.self;
+        const sectionId = selfLink.substr(selfLink.lastIndexOf('/') + 1);
+        const config = sectionDefinition._links.config ? (sectionDefinition._links.config.href || sectionDefinition._links.config) : '';
         const enabled = (sectionDefinition.mandatory) || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId));
         const sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);
         const sectionErrors = null;

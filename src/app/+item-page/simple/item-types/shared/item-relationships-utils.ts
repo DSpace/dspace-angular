@@ -74,7 +74,7 @@ export const paginatedRelationsToItems = (thisId: string) =>
     source.pipe(
       getSucceededRemoteData(),
       switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
-        return observableZip(
+        return observableCombineLatest(
           ...relationshipsRD.payload.page.map((rel: Relationship) => observableCombineLatest(rel.leftItem, rel.rightItem))
         ).pipe(
           map((arr) =>

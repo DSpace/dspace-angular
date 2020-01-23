@@ -7,4 +7,3 @@ import { ResourceType } from "./resource-type";
  * dependencies in webpack.
  */
 export const RELATIONSHIP = new ResourceType('relationship');
-

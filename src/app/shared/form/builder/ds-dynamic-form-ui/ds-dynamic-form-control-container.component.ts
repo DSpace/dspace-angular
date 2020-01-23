@@ -50,6 +50,7 @@ import {
   DynamicNGBootstrapTimePickerComponent
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import { followLink } from '../../../utils/follow-link-config.model';
 import {
   Reorderable,
   ReorderableRelationship
@@ -251,7 +252,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.subs.push(item$.subscribe((item) => this.item = item));
       this.subs.push(collection$.subscribe((collection) => this.collection = collection));
       this.reorderables$ = item$.pipe(
-        switchMap((item) => this.relationService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType)
+        switchMap((item) => this.relationService.getItemRelationshipsByLabel(item, this.model.relationship.relationshipType, undefined, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'))
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload(),
@@ -285,7 +286,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
       this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
-      ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
+      ).subscribe((relatedItems: Array<SearchResult<Item>>) => {
+        console.log('relatedItems', relatedItems);
+        this.selectableListService.select(this.listId, relatedItems)
+      });
     }
   }
 

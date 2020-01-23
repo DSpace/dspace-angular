@@ -16,6 +16,7 @@ export abstract class BaseResponseParsingService {
   protected abstract EnvConfig: GlobalConfig;
   protected abstract objectCache: ObjectCacheService;
   protected abstract toCache: boolean;
+  protected shouldDirectlyAttachEmbeds = false;
 
   protected process<ObjectDomain>(data: any, request: RestRequest): any {
     if (isNotEmpty(data)) {
@@ -32,7 +33,17 @@ export abstract class BaseResponseParsingService {
             .keys(data._embedded)
             .filter((property) => data._embedded.hasOwnProperty(property))
             .forEach((property) => {
-              this.process<ObjectDomain>(data._embedded[property], request);
+              const parsedObj = this.process<ObjectDomain>(data._embedded[property], request);
+              if (this.shouldDirectlyAttachEmbeds && isNotEmpty(parsedObj)) {
+                  if (isRestPaginatedList(data._embedded[property])) {
+                    object[property] = parsedObj;
+                    object[property].page = parsedObj.page.map((obj) => this.retrieveObjectOrUrl(obj));
+                  } else if (isRestDataObject(data._embedded[property])) {
+                    object[property] = this.retrieveObjectOrUrl(parsedObj);
+                  } else if (Array.isArray(parsedObj)) {
+                    object[property] = parsedObj.map((obj) => this.retrieveObjectOrUrl(obj))
+                  }
+              }
             });
         }
 

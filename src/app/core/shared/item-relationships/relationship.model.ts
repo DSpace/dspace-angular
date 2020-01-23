@@ -5,7 +5,7 @@ import { RemoteData } from '../../data/remote-data';
 import { HALLink } from '../hal-link.model';
 import { RelationshipType } from './relationship-type.model';
 import { Item } from '../item.model';
-import { ITEM } from "../item-resource-type";
+import { ITEM } from "../item.resource-type";
 import { RELATIONSHIP } from "../relationship.resource-type";
 
 /**

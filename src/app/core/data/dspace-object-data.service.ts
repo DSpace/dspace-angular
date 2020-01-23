@@ -9,7 +9,6 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { DataService } from './data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
-import { FindListOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';

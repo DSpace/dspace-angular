@@ -76,6 +76,7 @@ export function normalizeSectionData(obj: any, objIndex?: number) {
 export class SubmissionResponseParsingService extends BaseResponseParsingService implements ResponseParsingService {
 
   protected toCache = false;
+  protected shouldDirectlyAttachEmbeds = true;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               protected objectCache: ObjectCacheService,

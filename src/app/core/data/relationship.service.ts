@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { followLink } from '../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
@@ -167,8 +167,8 @@ export class RelationshipService extends DataService<Relationship> {
    * Get an item's relationships in the form of an array
    * @param item
    */
-  getItemRelationshipsArray(item: Item): Observable<Relationship[]> {
-    return this.findAllByHref(item._links.relationships.href).pipe(
+  getItemRelationshipsArray(item: Item, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<Relationship[]> {
+    return this.findAllByHref(item._links.relationships.href, undefined, ...linksToFollow).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       map((rels: PaginatedList<Relationship>) => rels.page),
@@ -183,7 +183,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param item
    */
   getRelationshipTypeLabelsByItem(item: Item): Observable<string[]> {
-    return this.getItemRelationshipsArray(item).pipe(
+    return this.getItemRelationshipsArray(item, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(
       switchMap((relationships: Relationship[]) => observableCombineLatest(relationships.map((relationship: Relationship) => this.getRelationshipTypeLabelByRelationshipAndItem(relationship, item)))),
       map((labels: string[]) => Array.from(new Set(labels)))
     );
@@ -212,7 +212,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param item
    */
   getRelatedItems(item: Item): Observable<Item[]> {
-    return this.getItemRelationshipsArray(item).pipe(
+    return this.getItemRelationshipsArray(item, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(
       relationsToItems(item.uuid)
     );
   }
@@ -225,17 +225,18 @@ export class RelationshipService extends DataService<Relationship> {
    * @param options
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.getItemRelationshipsByLabel(item, label, options).pipe(paginatedRelationsToItems(item.uuid));
+    return this.getItemRelationshipsByLabel(item, label, options, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(paginatedRelationsToItems(item.uuid));
   }
 
   /**
-   * Resolve a given item's relationships into related items, filtered by a relationship label
-   * and return the items as an array
+   * Resolve a given item's relationships by label
+   * This should move to the REST API.
+   *
    * @param item
    * @param label
    * @param options
    */
-  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Relationship>>> {
+  getItemRelationshipsByLabel(item: Item, label: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<RemoteData<PaginatedList<Relationship>>> {
     let findListOptions = new FindListOptions();
     if (options) {
       findListOptions = Object.assign(new FindListOptions(), options);
@@ -246,7 +247,7 @@ export class RelationshipService extends DataService<Relationship> {
     } else {
       findListOptions.searchParams = searchParams;
     }
-    return this.searchBy('byLabel', findListOptions, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType'));
+    return this.searchBy('byLabel', findListOptions, ...linksToFollow);
   }
 
   /**
@@ -256,7 +257,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param uuids
    */
   getRelationshipsByRelatedItemIds(item: Item, uuids: string[]): Observable<Relationship[]> {
-    return this.getItemRelationshipsArray(item).pipe(
+    return this.getItemRelationshipsArray(item, followLink('leftItem'), followLink('rightItem')).pipe(
       switchMap((relationships: Relationship[]) => {
         return observableCombineLatest(...relationships.map((relationship: Relationship) => {
           const isLeftItem$ = this.isItemInUUIDArray(relationship.leftItem, uuids);

@@ -12,7 +12,7 @@ import { DSpaceObject } from './dspace-object.model';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { Relationship } from './item-relationships/relationship.model';
-import { ITEM } from "./item-resource-type";
+import { ITEM } from "./item.resource-type";
 import { RELATIONSHIP } from "./relationship.resource-type";
 
 /**
@@ -50,13 +50,13 @@ export class Item extends DSpaceObject {
    * The Collection that owns this Item
    */
   @link(Collection.type)
-  owningCollection: Observable<RemoteData<Collection>>;
+  owningCollection?: Observable<RemoteData<Collection>>;
 
   @link(Bundle.type, true)
-  bundles: Observable<RemoteData<PaginatedList<Bundle>>>;
+  bundles?: Observable<RemoteData<PaginatedList<Bundle>>>;
 
   @link(RELATIONSHIP)
-  relationships: Observable<RemoteData<PaginatedList<Relationship>>>;
+  relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;
 
   _links: {
     mappedCollections: HALLink;

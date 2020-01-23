@@ -227,9 +227,7 @@ export class RemoteDataBuildService {
     const domainModelConstructor = getMapsTo(normalized.constructor);
     const domainModel = Object.assign(new domainModelConstructor(), normalized, halLinks);
 
-    linksToFollow.forEach((linkToFollow: FollowLinkConfig<T>) => {
-      this.linkService.resolveLink(domainModel, linkToFollow);
-    });
+    this.linkService.resolveLinks(domainModel, ...linksToFollow);
 
     return domainModel;
   }
