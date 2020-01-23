@@ -1,4 +1,4 @@
-import { inheritSerialization, deserialize } from 'cerialize';
+import { inheritSerialization, deserialize, autoserializeAs } from 'cerialize';
 
 import { mapsTo, relationship } from '../builders/build-decorators';
 import { TemplateItem } from '../../shared/template-item.model';
@@ -11,6 +11,18 @@ import { Collection } from '../../shared/collection.model';
 @mapsTo(TemplateItem)
 @inheritSerialization(NormalizedItem)
 export class NormalizedTemplateItem extends NormalizedItem {
+
+  /**
+   * The human-readable identifier of this DSpaceObject
+   */
+  @autoserializeAs(String)
+  id: string;
+
+  /**
+   * The universally unique identifier of this DSpaceObject
+   */
+  @autoserializeAs(String, 'id')
+  uuid: string;
 
   /**
    * The Collection that this item is a template for

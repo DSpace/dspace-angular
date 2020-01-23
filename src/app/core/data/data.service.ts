@@ -261,6 +261,7 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * Add a new patch to the object cache
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} object The given object
+   * @param ignoreMetadataFields  An optional list of metadata fields to ignore updates for (* is allowed as a wildcard, for example: dc.description.*)
    */
   update(object: T, ignoreMetadataFields: string[] = []): Observable<RemoteData<T>> {
     const ignoreMetadataFieldsPrefix = ignoreMetadataFields.map((field) => field.indexOf('*') > -1 ? field.slice(0, field.indexOf('*')) : field);
