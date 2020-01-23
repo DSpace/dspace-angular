@@ -15,7 +15,7 @@ import { isNumeric } from 'rxjs/internal-compatibility';
 import { isEqual, isObject, transform } from 'lodash';
 
 import { HostWindowService } from '../host-window.service';
-import { HostWindowState } from '../host-window.reducer';
+import { HostWindowState } from '../search/host-window.reducer';
 import { PaginationComponentOptions } from './pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { hasValue, isNotEmpty } from '../empty.util';
@@ -225,10 +225,14 @@ export class PaginationComponent implements OnDestroy, OnInit {
   }
 
   /**
+   * @param cdRef
+   *    ChangeDetectorRef is a singleton service provided by Angular.
    * @param route
    *    Route is a singleton service provided by Angular.
    * @param router
    *    Router is a singleton service provided by Angular.
+   * @param hostWindowService
+   *    the HostWindowService singleton.
    */
   constructor(private cdRef: ChangeDetectorRef,
               private route: ActivatedRoute,
@@ -243,7 +247,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page being navigated to.
    */
   public doPageChange(page: number) {
-    this.updateRoute({ page: page.toString() });
+    this.updateRoute({ pageId: this.id, page: page.toString() });
   }
 
   /**
@@ -253,7 +257,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The page size being navigated to.
    */
   public doPageSizeChange(pageSize: number) {
-    this.updateRoute({ page: 1, pageSize: pageSize });
+    this.updateRoute({ pageId: this.id, page: 1, pageSize: pageSize });
   }
 
   /**
@@ -263,7 +267,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort direction being navigated to.
    */
   public doSortDirectionChange(sortDirection: SortDirection) {
-    this.updateRoute({ page: 1, sortDirection: sortDirection });
+    this.updateRoute({ pageId: this.id, page: 1, sortDirection: sortDirection });
   }
 
   /**
@@ -273,7 +277,7 @@ export class PaginationComponent implements OnDestroy, OnInit {
    *    The sort field being navigated to.
    */
   public doSortFieldChange(field: string) {
-    this.updateRoute({ page: 1, sortField: field });
+    this.updateRoute({ pageId: this.id, page: 1, sortField: field });
   }
 
   /**
@@ -328,13 +332,19 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Method to emit a general pagination change event
    */
   private emitPaginationChange() {
-    this.paginationChange.emit({
-      pageId: this.id,
-      page: this.currentPage,
-      pageSize: this.pageSize,
-      sortDirection: this.sortDirection,
-      sortField: this.sortField
-    });
+    this.paginationChange.emit(
+      {
+        pagination: Object.assign(
+          new PaginationComponentOptions(),
+          {
+            id: this.id,
+            currentPage: this.currentPage,
+            pageSize: this.pageSize,
+          }),
+        sort: Object.assign(
+          new SortOptions(this.sortField, this.sortDirection)
+        )
+      })
   }
 
   /**
@@ -407,27 +417,30 @@ export class PaginationComponent implements OnDestroy, OnInit {
    * Method to update all pagination variables to the current query parameters
    */
   private setFields() {
-    // (+) converts string to a number
-    const page = this.currentQueryParams.page;
-    if (this.currentPage !== +page) {
-      this.setPage(+page);
-    }
+    // set fields only when page id is the one configured for this pagination instance
+    if (this.currentQueryParams.pageId === this.id) {
+      // (+) converts string to a number
+      const page = this.currentQueryParams.page;
+      if (this.currentPage !== +page) {
+        this.setPage(+page);
+      }
 
-    const pageSize = this.currentQueryParams.pageSize;
-    if (this.pageSize !== +pageSize) {
-      this.setPageSize(+pageSize);
-    }
+      const pageSize = this.currentQueryParams.pageSize;
+      if (this.pageSize !== +pageSize) {
+        this.setPageSize(+pageSize);
+      }
 
-    const sortDirection = this.currentQueryParams.sortDirection;
-    if (this.sortDirection !== sortDirection) {
-      this.setSortDirection(sortDirection);
-    }
+      const sortDirection = this.currentQueryParams.sortDirection;
+      if (this.sortDirection !== sortDirection) {
+        this.setSortDirection(sortDirection);
+      }
 
-    const sortField = this.currentQueryParams.sortField;
-    if (this.sortField !== sortField) {
-      this.setSortField(sortField);
+      const sortField = this.currentQueryParams.sortField;
+      if (this.sortField !== sortField) {
+        this.setSortField(sortField);
+      }
+      this.cdRef.detectChanges();
     }
-    this.cdRef.detectChanges();
   }
 
   /**
@@ -507,5 +520,4 @@ export class PaginationComponent implements OnDestroy, OnInit {
   get shouldShowBottomPager(): boolean {
     return this.hasMultiplePages || !this.hidePagerWhenSinglePage
   }
-
 }

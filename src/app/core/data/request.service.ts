@@ -3,10 +3,8 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
 import { Observable, race as observableRace } from 'rxjs';
-import { filter, map, mergeMap, take } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { cloneDeep, remove } from 'lodash';
-
-import { AppState } from '../../app.reducer';
 import { hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -19,7 +17,7 @@ import {
 } from '../index/index.selectors';
 import { UUIDService } from '../shared/uuid.service';
 import { RequestConfigureAction, RequestExecuteAction, RequestRemoveAction } from './request.actions';
-import { GetRequest, RestRequest, SubmissionRequest } from './request.models';
+import { GetRequest, RestRequest } from './request.models';
 import { RequestEntry, RequestState } from './request.reducer';
 import { CommitSSBAction } from '../cache/server-sync-buffer.actions';
 import { RestRequestMethod } from './rest-request-method';
@@ -52,7 +50,7 @@ const entryFromUUIDSelector = (uuid: string): MemoizedSelector<CoreState, Reques
  * @param href        Substring that the request's href should contain
  */
 const uuidsFromHrefSubstringSelector =
-  (selector: MemoizedSelector<AppState, IndexState>, href: string): MemoizedSelector<AppState, string[]> => createSelector(
+  (selector: MemoizedSelector<CoreState, IndexState>, href: string): MemoizedSelector<CoreState, string[]> => createSelector(
     selector,
     (state: IndexState) => getUuidsFromHrefSubstring(state, href)
   );
@@ -304,6 +302,7 @@ export class RequestService {
    */
   hasByHref(href: string): boolean {
     let result = false;
+    /* NB: that this is only a solution because the select method is synchronous, see: https://github.com/ngrx/store/issues/296#issuecomment-269032571*/
     this.getByHref(href).pipe(
       take(1)
     ).subscribe((requestEntry: RequestEntry) => result = this.isValid(requestEntry));

@@ -18,13 +18,13 @@ import { map } from 'rxjs/operators';
  * the template outlet (inside the page-width-sidebar tags).
  */
 export class PageWithSidebarComponent implements OnInit {
-  @Input() id:string;
-  @Input() sidebarContent:TemplateRef<any>;
+  @Input() id: string;
+  @Input() sidebarContent: TemplateRef<any>;
 
   /**
    * Emits true if were on a small screen
    */
-  isXsOrSm$:Observable<boolean>;
+  isXsOrSm$: Observable<boolean>;
 
   /**
    * The width of the sidebar (bootstrap columns)
@@ -35,16 +35,16 @@ export class PageWithSidebarComponent implements OnInit {
   /**
    * Observable for whether or not the sidebar is currently collapsed
    */
-  isSidebarCollapsed$:Observable<boolean>;
+  isSidebarCollapsed$: Observable<boolean>;
 
-  sidebarClasses:Observable<string>;
+  sidebarClasses: Observable<string>;
 
-  constructor(protected sidebarService:SidebarService,
-              protected windowService:HostWindowService,
+  constructor(protected sidebarService: SidebarService,
+              protected windowService: HostWindowService,
   ) {
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
     this.isSidebarCollapsed$ = this.isSidebarCollapsed();
     this.sidebarClasses = this.isSidebarCollapsed$.pipe(
@@ -56,21 +56,21 @@ export class PageWithSidebarComponent implements OnInit {
    * Check if the sidebar is collapsed
    * @returns {Observable<boolean>} emits true if the sidebar is currently collapsed, false if it is expanded
    */
-  private isSidebarCollapsed():Observable<boolean> {
+  private isSidebarCollapsed(): Observable<boolean> {
     return this.sidebarService.isCollapsed;
   }
 
   /**
    * Set the sidebar to a collapsed state
    */
-  public closeSidebar():void {
+  public closeSidebar(): void {
     this.sidebarService.collapse()
   }
 
   /**
    * Set the sidebar to an expanded state
    */
-  public openSidebar():void {
+  public openSidebar(): void {
     this.sidebarService.expand();
   }
 

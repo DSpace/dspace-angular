@@ -71,12 +71,14 @@ describe('RelationshipService', () => {
   const rdbService = getMockRemoteDataBuildService(undefined, buildList$);
   const objectCache = Object.assign({
     /* tslint:disable:no-empty */
-    remove: () => {}
+    remove: () => {},
+    hasBySelfLinkObservable: () => observableOf(false)
     /* tslint:enable:no-empty */
   }) as ObjectCacheService;
 
   const itemService = jasmine.createSpyObj('itemService', {
-    findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.filter((relatedItem) => relatedItem.id === uuid)[0])
+    findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.find((relatedItem) => relatedItem.id === uuid)),
+    findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
   });
 
   function initTestService() {
@@ -88,6 +90,7 @@ describe('RelationshipService', () => {
       null,
       halService,
       objectCache,
+      null,
       null,
       null,
       null
@@ -120,8 +123,8 @@ describe('RelationshipService', () => {
     it('should clear the related items their cache', () => {
       expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1.self);
       expect(objectCache.remove).toHaveBeenCalledWith(item.self);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.self);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.uuid);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.uuid);
     });
   });
 
@@ -129,14 +132,6 @@ describe('RelationshipService', () => {
     it('should return the item\'s relationships in the form of an array', () => {
       service.getItemRelationshipsArray(item).subscribe((result) => {
         expect(result).toEqual(relationships);
-      });
-    });
-  });
-
-  describe('getItemRelationshipLabels', () => {
-    it('should return the correct labels', () => {
-      service.getItemRelationshipLabels(item).subscribe((result) => {
-        expect(result).toEqual([relationshipType.rightwardType]);
       });
     });
   });

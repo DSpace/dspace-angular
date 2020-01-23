@@ -4,7 +4,6 @@ import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loa
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { ItemDataService } from '../../../../core/data/item-data.service';
-import { SearchFixedFilterService } from '../../../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
@@ -15,6 +14,7 @@ import { createRelationshipsObservable } from '../shared/item.component.spec';
 import { PublicationComponent } from './publication.component';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
+import { RelationshipService } from '../../../../core/data/relationship.service';
 
 const mockItem: Item = Object.assign(new Item(), {
   bundles: createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [])),
@@ -25,12 +25,6 @@ const mockItem: Item = Object.assign(new Item(), {
 describe('PublicationComponent', () => {
   let comp: PublicationComponent;
   let fixture: ComponentFixture<PublicationComponent>;
-
-  const searchFixedFilterServiceStub = {
-    /* tslint:disable:no-empty */
-    getQueryByRelations: () => {}
-    /* tslint:enable:no-empty */
-  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -43,8 +37,8 @@ describe('PublicationComponent', () => {
       declarations: [PublicationComponent, GenericItemPageFieldComponent, TruncatePipe],
       providers: [
         {provide: ItemDataService, useValue: {}},
-        {provide: SearchFixedFilterService, useValue: searchFixedFilterServiceStub},
-        {provide: TruncatableService, useValue: {}}
+        {provide: TruncatableService, useValue: {}},
+        {provide: RelationshipService, useValue: {}}
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

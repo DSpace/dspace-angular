@@ -8,10 +8,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CollectionMetadataComponent } from './collection-metadata.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Item } from '../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { Collection } from '../../../core/shared/collection.model';
 
 describe('CollectionMetadataComponent', () => {

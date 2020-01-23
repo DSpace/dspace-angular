@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SearchResult } from '../../../+search-page/search-result.model';
+import { SearchResult } from '../../search/search-result.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { hasValue } from '../../empty.util';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';

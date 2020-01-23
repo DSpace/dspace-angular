@@ -13,11 +13,11 @@ import { combineLatest as combineLatestObservable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OnClickMenuItemModel } from '../../shared/menu/menu-item/models/onclick.model';
 import { CreateCommunityParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-community-parent-selector/create-community-parent-selector.component';
-import { CreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 import { CreateCollectionParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-collection-parent-selector/create-collection-parent-selector.component';
 import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import {CreateItemParentSelectorComponent} from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 
 /**
  * Component representing the admin sidebar
@@ -138,18 +138,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         parentID: 'new',
         active: false,
         visible: true,
-        // model: {
-        //   type: MenuItemType.ONCLICK,
-        //   text: 'menu.section.new_item',
-        //   function: () => {
-        //     this.modalService.open(CreateItemParentSelectorComponent);
-        //   }
-        // } as OnClickMenuItemModel,
         model: {
-          type: MenuItemType.LINK,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.new_item',
-          link: '/submit'
-        } as LinkMenuItemModel,
+          function: () => {
+            this.modalService.open(CreateItemParentSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        // model: {
+        //   type: MenuItemType.LINK,
+        //   text: 'menu.section.new_item',
+        //   link: '/submit'
+        // } as LinkMenuItemModel,
       },
       {
         id: 'new_item_version',

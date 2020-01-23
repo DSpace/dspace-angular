@@ -11,9 +11,9 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { NotificationOptions } from '../notifications/models/notification-options.model';
 import { NotificationsService } from '../notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
-import { SearchService } from '../../+search-page/search-service/search.service';
 import { RequestService } from '../../core/data/request.service';
 import { Subscription } from 'rxjs';
+import { SearchService } from '../../core/shared/search/search.service';
 
 /**
  * Abstract class for all different representations of mydspace actions
@@ -76,7 +76,7 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
     // See https://github.com/DSpace/dspace-angular/pull/468
     this.searchService.getEndpoint().pipe(
       take(1),
-      tap((cachedHref) => this.requestService.removeByHrefSubstring(cachedHref))
+      tap((cachedHref: string) => this.requestService.removeByHrefSubstring(cachedHref))
     ).subscribe(() => this.router.navigateByUrl(url));
   }
 

@@ -27,7 +27,10 @@ import { CommunityCurateComponent } from './community-curate/community-curate.co
           {
             path: 'metadata',
             component: CommunityMetadataComponent,
-            data: { title: 'community.edit.tabs.metadata.title' }
+            data: {
+              title: 'community.edit.tabs.metadata.title',
+              hideReturnButton: true
+            }
           },
           {
             path: 'roles',

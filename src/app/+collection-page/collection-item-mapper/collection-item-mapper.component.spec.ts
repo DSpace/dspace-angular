@@ -1,29 +1,23 @@
 import { CollectionItemMapperComponent } from './collection-item-mapper.component';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SearchFormComponent } from '../../shared/search-form/search-form.component';
-import { SearchPageModule } from '../../+search-page/search-page.module';
-import { ObjectCollectionComponent } from '../../shared/object-collection/object-collection.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router-stub';
 import { RouterStub } from '../../shared/testing/router-stub';
-import { SearchConfigurationService } from '../../+search-page/search-service/search-configuration.service';
-import { SearchService } from '../../+search-page/search-service/search.service';
 import { SearchServiceStub } from '../../shared/testing/search-service-stub';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service-stub';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
 import { Collection } from '../../core/shared/collection.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { EventEmitter, NgModule } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service-stub';
 import { By } from '@angular/platform-browser';
@@ -36,13 +30,14 @@ import { ItemSelectComponent } from '../../shared/object-select/item-select/item
 import { ObjectSelectService } from '../../shared/object-select/object-select.service';
 import { ObjectSelectServiceStub } from '../../shared/testing/object-select-service-stub';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf, of } from 'rxjs/internal/observable/of';
 import { RestResponse } from '../../core/cache/response.models';
-import { SearchFixedFilterService } from '../../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { RouteService } from '../../core/services/route.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { LoadingComponent } from '../../shared/loading/loading.component';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchService } from '../../core/shared/search/search.service';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 describe('CollectionItemMapperComponent', () => {
   let comp: CollectionItemMapperComponent;
@@ -135,7 +130,6 @@ describe('CollectionItemMapperComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
         { provide: RouteService, useValue: routeServiceStub },
-        { provide: SearchFixedFilterService, useValue: fixedFilterServiceStub }
       ]
     }).compileComponents();
   }));

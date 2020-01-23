@@ -2,16 +2,18 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { ObjectListComponent } from './object-list.component';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { SelectableListService } from './selectable-list/selectable-list.service';
 
 describe('ObjectListComponent', () => {
   let comp: ObjectListComponent;
   let fixture: ComponentFixture<ObjectListComponent>;
-  const testEvent = {test: 'test'};
+  const testEvent: any = { test: 'test' };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [ObjectListComponent],
+      providers: [{ provide: SelectableListService, useValue: {} }],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ObjectListComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default }

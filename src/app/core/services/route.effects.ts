@@ -1,8 +1,9 @@
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects'
-import * as fromRouter from '@ngrx/router-store';
-import { ResetRouteStateAction } from './route.actions';
+import { ResetRouteStateAction, RouteActionTypes } from './route.actions';
+import { RouterActionTypes } from '../../core/router/router.actions';
+import { RouteService } from './route.service';
 
 @Injectable()
 export class RouteEffects {
@@ -12,12 +13,16 @@ export class RouteEffects {
    */
   @Effect() routeChange$ = this.actions$
     .pipe(
-      ofType(fromRouter.ROUTER_NAVIGATION),
-      map(() => new ResetRouteStateAction())
+      ofType(RouterActionTypes.ROUTE_UPDATE),
+      map(() => new ResetRouteStateAction()),
     );
 
-  constructor(private actions$: Actions) {
+  @Effect({dispatch: false }) afterResetChange$ = this.actions$
+    .pipe(
+      ofType(RouteActionTypes.RESET),
+      tap(() => this.service.setCurrentRouteInfo()),
+    );
 
+  constructor(private actions$: Actions, private service: RouteService) {
   }
-
 }

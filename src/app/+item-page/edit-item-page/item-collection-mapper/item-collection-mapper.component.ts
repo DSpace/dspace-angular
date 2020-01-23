@@ -2,15 +2,12 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
-import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
 import { getRemoteDataPayload, getSucceededRemoteData, toDSpaceObjectListRD } from '../../../core/shared/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SearchService } from '../../../+search-page/search-service/search.service';
-import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
 import { map, startWith, switchMap, take } from 'rxjs/operators';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,6 +16,9 @@ import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model'
 import { isNotEmpty } from '../../../shared/empty.util';
 import { RestResponse } from '../../../core/cache/response.models';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 @Component({
   selector: 'ds-item-collection-mapper',

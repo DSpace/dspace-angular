@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionPlugin = require("compression-webpack-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const cssnano = require("cssnano");
 
@@ -29,7 +29,7 @@ module.exports = {
 
 
     new CompressionPlugin({
-      asset: "[path].gz[query]",
+      filename: "[path].gz[query]",
       algorithm: "gzip",
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
@@ -39,15 +39,14 @@ module.exports = {
   ],
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
+      new TerserPlugin({
+        terserOptions: {
           beautify: false,
           mangle: false,
           output: {
             comments: false
           },
           compress: {
-            warnings: false,
             conditionals: false,
             unused: true,
             comparisons: true,
@@ -58,7 +57,8 @@ module.exports = {
             join_vars: true,
             negate_iife: true
           },
-          sourceMap: true
+          sourceMap: true,
+          warnings: false
         }
       }),
       new OptimizeCSSAssetsPlugin({

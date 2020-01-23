@@ -12,10 +12,10 @@ import { ItemActionsComponent } from './item-actions.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
-import { SearchService } from '../../../+search-page/search-service/search.service';
 import { RequestService } from '../../../core/data/request.service';
 import { getMockSearchService } from '../../mocks/mock-search-service';
 import { getMockRequestService } from '../../mocks/mock-request.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: ItemActionsComponent;
 let fixture: ComponentFixture<ItemActionsComponent>;

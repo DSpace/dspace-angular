@@ -19,7 +19,7 @@ export class EditComColPageComponent<TDomain extends DSpaceObject> implements On
   /**
    * The type of DSpaceObject (used to create i18n messages)
    */
-  protected type: string;
+  public type: string;
 
   /**
    * The current page outlet string

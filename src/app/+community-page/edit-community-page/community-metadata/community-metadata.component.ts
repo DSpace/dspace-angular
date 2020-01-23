@@ -3,6 +3,8 @@ import { ComcolMetadataComponent } from '../../../shared/comcol-forms/edit-comco
 import { ActivatedRoute, Router } from '@angular/router';
 import { Community } from '../../../core/shared/community.model';
 import { CommunityDataService } from '../../../core/data/community-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component for editing a community's metadata
@@ -13,12 +15,15 @@ import { CommunityDataService } from '../../../core/data/community-data.service'
 })
 export class CommunityMetadataComponent extends ComcolMetadataComponent<Community> {
   protected frontendURL = '/communities/';
+  protected type = Community.type;
 
   public constructor(
     protected communityDataService: CommunityDataService,
     protected router: Router,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    protected notificationsService: NotificationsService,
+    protected translate: TranslateService
   ) {
-    super(communityDataService, router, route);
+    super(communityDataService, router, route, notificationsService, translate);
   }
 }

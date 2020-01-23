@@ -8,6 +8,7 @@ describe('TextareaFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};
 
+  const submissionId = '1234';
   const parserOptions: ParserOptions = {
     readOnly: false,
     submissionScope: null,
@@ -34,13 +35,13 @@ describe('TextareaFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions);
 
     expect(parser instanceof TextareaFieldParser).toBe(true);
   });
 
   it('should return a DsDynamicTextAreaModel object when repeatable option is false', () => {
-    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 
@@ -55,7 +56,7 @@ describe('TextareaFieldParser test suite', () => {
     };
     const expectedValue ='test description';
 
-    const parser = new TextareaFieldParser(field, initFormValues, parserOptions);
+    const parser = new TextareaFieldParser(submissionId, field, initFormValues, parserOptions);
 
     const fieldModel = parser.parse();
 

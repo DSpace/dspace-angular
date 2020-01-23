@@ -161,12 +161,6 @@ module.exports = function (env) {
                             }
                         },
                         {
-                            loader: 'resolve-url-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
@@ -194,12 +188,6 @@ module.exports = function (env) {
                         },
                         {
                             loader: 'postcss-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
-                            loader: 'resolve-url-loader',
                             options: {
                                 sourceMap: true
                             }

@@ -1,0 +1,25 @@
+input[type="text"] {
+  margin-top: -0.5 * $font-size-base;
+
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  &.collapsed {
+    opacity: 0;
+  }
+}
+
+a.submit-icon {
+  cursor: pointer;
+}
+
+
+
+@media screen and (max-width: map-get($grid-breakpoints, sm)) {
+  #query:focus {
+    max-width: 250px !important;
+    width: 40vw !important;
+  }
+}
+

@@ -5,19 +5,17 @@ import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { createSelector, select, Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { DeleteByIDRequest, FindAllOptions, PostRequest, PutRequest } from './request.models';
+import { DeleteByIDRequest, FindListOptions, PostRequest, PutRequest } from './request.models';
 import { Observable } from 'rxjs';
 import { find, map, tap } from 'rxjs/operators';
 import { configureRequest, getResponseFromEntry } from '../shared/operators';
 import { distinctUntilChanged } from 'rxjs/internal/operators/distinctUntilChanged';
 import { RestResponse } from '../cache/response.models';
-import { AppState } from '../../app.reducer';
 import { BitstreamFormatRegistryState } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.reducers';
 import {
   BitstreamFormatsRegistryDeselectAction,
@@ -26,8 +24,13 @@ import {
 } from '../../+admin/admin-registries/bitstream-formats/bitstream-format.actions';
 import { hasValue } from '../../shared/empty.util';
 import { RequestEntry } from './request.reducer';
+import { CoreState } from '../core.reducers';
+import { coreSelector } from '../core.selectors';
 
-const bitstreamFormatsStateSelector = (state: AppState) => state.bitstreamFormats;
+const bitstreamFormatsStateSelector = createSelector(
+  coreSelector,
+  (state: CoreState) => state.bitstreamFormats
+);
 const selectedBitstreamFormatSelector = createSelector(bitstreamFormatsStateSelector,
   (bitstreamFormatRegistryState: BitstreamFormatRegistryState) => bitstreamFormatRegistryState.selectedBitstreamFormats);
 
@@ -54,10 +57,11 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   /**
    * Get the endpoint for browsing bitstream formats
-   * @param {FindAllOptions} options
+   * @param {FindListOptions} options
+   * @param {string} linkPath
    * @returns {Observable<string>}
    */
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 
@@ -99,7 +103,7 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
 
   /**
    * Create a new BitstreamFormat
-   * @param BitstreamFormat
+   * @param {BitstreamFormat} bitstreamFormat
    */
   public createBitstreamFormat(bitstreamFormat: BitstreamFormat): Observable<RestResponse> {
     const requestId = this.requestService.generateRequestId();

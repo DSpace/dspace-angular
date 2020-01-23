@@ -8,6 +8,8 @@ import { of as observableOf } from 'rxjs/internal/observable/of';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommunityMetadataComponent } from './community-metadata.component';
 import { CommunityDataService } from '../../../core/data/community-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 
 describe('CommunityMetadataComponent', () => {
   let comp: CommunityMetadataComponent;
@@ -20,6 +22,7 @@ describe('CommunityMetadataComponent', () => {
       providers: [
         { provide: CommunityDataService, useValue: {} },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: { payload: {} } }) } } },
+        { provide: NotificationsService, useValue: new NotificationsServiceStub() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

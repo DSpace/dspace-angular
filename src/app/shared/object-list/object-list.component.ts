@@ -1,17 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
 import { fadeIn } from '../animations/fade';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { SelectableListService } from './selectable-list/selectable-list.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
@@ -54,6 +48,8 @@ export class ObjectListComponent {
    * Whether or not the pager is visible when there is only a single page of results
    */
   @Input() hidePagerWhenSinglePage = true;
+  @Input() selectable = false;
+  @Input() selectionConfig: { repeatable: boolean, listId: string };
 
   /**
    * The link type of the listable elements
@@ -118,13 +114,19 @@ export class ObjectListComponent {
   /**
    * An event fired when on of the pagination parameters changes
    */
-  @Output() paginationChange: EventEmitter<SortDirection> = new EventEmitter<any>();
+  @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
   /**
    * An event fired when the sort field is changed.
    * Event's payload equals to the newly selected sort field.
    */
   @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
+
+  constructor(protected selectionService: SelectableListService) {
+  }
 
   /**
    * Emits the current page when it changes
@@ -164,5 +166,4 @@ export class ObjectListComponent {
   onPaginationChange(event) {
     this.paginationChange.emit(event);
   }
-
 }

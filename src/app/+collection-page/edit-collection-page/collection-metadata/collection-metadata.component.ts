@@ -22,6 +22,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CollectionMetadataComponent extends ComcolMetadataComponent<Collection> {
   protected frontendURL = '/collections/';
+  protected type = Collection.type;
 
   /**
    * The collection's item template
@@ -36,7 +37,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     protected notificationsService: NotificationsService,
     protected translate: TranslateService
   ) {
-    super(collectionDataService, router, route);
+    super(collectionDataService, router, route, notificationsService, translate);
   }
 
   ngOnInit(): void {

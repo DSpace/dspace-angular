@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 
 import { CacheableObject } from '../../cache/object-cache.reducer';
-import { ListableObject } from '../../../shared/object-collection/shared/listable-object.model';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { RemoteData } from '../../data/remote-data';
@@ -18,7 +17,7 @@ export interface SubmissionObjectError {
 /**
  * An abstract model class for a SubmissionObject.
  */
-export abstract class SubmissionObject extends DSpaceObject implements CacheableObject, ListableObject {
+export abstract class SubmissionObject extends DSpaceObject implements CacheableObject {
 
   /**
    * The workspaceitem/workflowitem identifier

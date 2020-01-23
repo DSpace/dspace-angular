@@ -244,6 +244,8 @@
 
   "collection.create.head": "Create a Collection",
 
+  "collection.create.notifications.success": "Successfully created the Collection",
+
   "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
 
   "collection.delete.cancel": "Cancel",
@@ -263,6 +265,62 @@
   "collection.edit.delete": "Delete this collection",
 
   "collection.edit.head": "Edit Collection",
+
+
+
+  "collection.edit.item-mapper.cancel": "Cancel",
+
+  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
+
+  "collection.edit.item-mapper.confirm": "Map selected items",
+
+  "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
+
+  "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
+
+  "collection.edit.item-mapper.no-search": "Please enter a query to search",
+
+  "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
+
+  "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
+
+  "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
+
+  "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
+
+  "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
+
+  "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
+
+  "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
+
+  "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
+
+  "collection.edit.item-mapper.remove": "Remove selected item mappings",
+
+  "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
+
+  "collection.edit.item-mapper.tabs.map": "Map new items",
+
+
+
+  "collection.edit.logo.label": "Collection logo",
+
+  "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+
+  "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+
+  "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
+
+  "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
+
+  "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
+
+  "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+
+
+
+  "collection.edit.notifications.success": "Successfully edited the Collection",
 
   "collection.edit.return": "Return",
 
@@ -304,42 +362,6 @@
 
 
 
-  "collection.edit.item-mapper.cancel": "Cancel",
-
-  "collection.edit.item-mapper.collection": "Collection: \"<b>{{name}}</b>\"",
-
-  "collection.edit.item-mapper.confirm": "Map selected items",
-
-  "collection.edit.item-mapper.description": "This is the item mapper tool that allows collection administrators to map items from other collections into this collection. You can search for items from other collections and map them, or browse the list of currently mapped items.",
-
-  "collection.edit.item-mapper.head": "Item Mapper - Map Items from Other Collections",
-
-  "collection.edit.item-mapper.no-search": "Please enter a query to search",
-
-  "collection.edit.item-mapper.notifications.map.error.content": "Errors occurred for mapping of {{amount}} items.",
-
-  "collection.edit.item-mapper.notifications.map.error.head": "Mapping errors",
-
-  "collection.edit.item-mapper.notifications.map.success.content": "Successfully mapped {{amount}} items.",
-
-  "collection.edit.item-mapper.notifications.map.success.head": "Mapping completed",
-
-  "collection.edit.item-mapper.notifications.unmap.error.content": "Errors occurred for removing the mappings of {{amount}} items.",
-
-  "collection.edit.item-mapper.notifications.unmap.error.head": "Remove mapping errors",
-
-  "collection.edit.item-mapper.notifications.unmap.success.content": "Successfully removed the mappings of {{amount}} items.",
-
-  "collection.edit.item-mapper.notifications.unmap.success.head": "Remove mapping completed",
-
-  "collection.edit.item-mapper.remove": "Remove selected item mappings",
-
-  "collection.edit.item-mapper.tabs.browse": "Browse mapped items",
-
-  "collection.edit.item-mapper.tabs.map": "Map new items",
-
-
-
   "collection.form.abstract": "Short Description",
 
   "collection.form.description": "Introductory text (HTML)",
@@ -378,7 +400,17 @@
 
 
 
+  "communityList.tabTitle": "DSpace - Community List",
+
+  "communityList.title": "List of Communities",
+
+  "communityList.showMore": "Show More",
+
+
+
   "community.create.head": "Create a Community",
+
+  "community.create.notifications.success": "Successfully created the Community",
 
   "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
 
@@ -398,7 +430,29 @@
 
   "community.edit.head": "Edit Community",
 
+
+
+  "community.edit.logo.label": "Community logo",
+
+  "community.edit.logo.notifications.add.error": "Uploading Community logo failed. Please verify the content before retrying.",
+
+  "community.edit.logo.notifications.add.success": "Upload Community logo successful.",
+
+  "community.edit.logo.notifications.delete.success.title": "Logo deleted",
+
+  "community.edit.logo.notifications.delete.success.content": "Successfully deleted the community's logo",
+
+  "community.edit.logo.notifications.delete.error.title": "Error deleting logo",
+
+  "community.edit.logo.upload": "Drop a Community Logo to upload",
+
+
+
+  "community.edit.notifications.success": "Successfully edited the Community",
+
   "community.edit.return": "Return",
+
+
 
   "community.edit.tabs.curate.head": "Curate",
 
@@ -411,6 +465,8 @@
   "community.edit.tabs.roles.head": "Assign Roles",
 
   "community.edit.tabs.roles.title": "Community Edit - Roles",
+
+
 
   "community.form.abstract": "Short Description",
 
@@ -503,6 +559,9 @@
   "footer.link.duraspace": "DuraSpace",
 
 
+  "form.add": "Add",
+
+  "form.add-help": "Click here to add the current entry and to add another one",
 
   "form.cancel": "Cancel",
 
@@ -527,6 +586,10 @@
   "form.last-name": "Last name",
 
   "form.loading": "Loading...",
+
+  "form.lookup": "Lookup",
+
+  "form.lookup-help": "Click here to look up an existing relation",
 
   "form.no-results": "No results found",
 
@@ -768,7 +831,7 @@
 
   "item.edit.tabs.relationships.head": "Item Relationships",
 
-  "item.edit.tabs.relationships.title": "Item Edit - Relationships",
+  "item.edit.tabs.relationships.title": "Item Edit -  Relationships",
 
   "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
 
@@ -866,9 +929,17 @@
 
   "item.page.person.search.title": "Articles by this author",
 
-  "item.page.related-items.view-more": "View more",
+  "item.page.related-items.view-more": "Show {{ amount }} more",
 
-  "item.page.related-items.view-less": "View less",
+  "item.page.related-items.view-less": "Hide last {{ amount }}",
+
+  "item.page.relationships.isAuthorOfPublication": "Publications",
+
+  "item.page.relationships.isJournalOfPublication": "Publications",
+
+  "item.page.relationships.isOrgUnitOfPerson": "Authors",
+
+  "item.page.relationships.isOrgUnitOfProject": "Research Projects",
 
   "item.page.subject": "Keywords",
 
@@ -1320,6 +1391,8 @@
 
   "project.page.titleprefix": "Research Project: ",
 
+  "project.search.results.head": "Project Search Results",
+
 
 
   "publication.listelement.badge": "Publication",
@@ -1395,6 +1468,9 @@
   "search.filters.applied.f.subject": "Subject",
 
   "search.filters.applied.f.submitter": "Submitter",
+  "search.filters.applied.f.jobTitle": "Job Title",
+  "search.filters.applied.f.birthDate.max": "End birth date",
+  "search.filters.applied.f.birthDate.min": "Start birth date",
 
 
 
@@ -1508,6 +1584,8 @@
 
   "search.results.no-results-link": "quotes around it",
 
+  "search.results.empty": "Your search returned no results.",
+
 
 
   "search.sidebar.close": "Back to results",
@@ -1563,6 +1641,85 @@
   "submission.general.save-later": "Save for later",
 
 
+  "submission.sections.describe.relationship-lookup.close": "Close",
+
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
+
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
+
+  "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
+
+  "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
+
+  "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
+
+  "submission.sections.describe.relationship-lookup.search-tab.select-all": "Select all",
+
+  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
+
+  "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Author": "Local Authors ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Issue": "Local Journal Issues ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal Volume": "Local Journal Volumes ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidV2": "ORCID ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding Agency": "Search for Funding Agencies",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Funding": "Search for Funding",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.title.Journal Issue": "Journal Issues",
+
+  "submission.sections.describe.relationship-lookup.title.Journal Volume": "Journal Volumes",
+
+  "submission.sections.describe.relationship-lookup.title.Journal": "Journals",
+
+  "submission.sections.describe.relationship-lookup.title.Author": "Authors",
+
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+
+  "submission.sections.describe.relationship-lookup.title.Funding": "Funding",
+
+  "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Author": "Selected Authors",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Volume": "Selected Journal Volume",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal Issue": "Selected Issue",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidV2": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don\'t you can still use it for this submission.",
+
+  "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
+
+  "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Use only for this submission",
 
   "submission.sections.general.add-more": "Add more",
 
@@ -1732,7 +1889,7 @@
 
   "uploader.drag-message": "Drag & Drop your files here",
 
-  "uploader.or": ", or",
+  "uploader.or": ", or ",
 
   "uploader.processing": "Processing",
 
