@@ -262,13 +262,24 @@ export abstract class DataService<T extends CacheableObject> implements UpdateDa
    * The patch is derived from the differences between the given object and its version in the object cache
    * @param {DSpaceObject} object The given object
    */
-  update(object: T): Observable<RemoteData<T>> {
+  update(object: T, ignoreMetadataFields: string[] = []): Observable<RemoteData<T>> {
+    const ignoreMetadataFieldsPrefix = ignoreMetadataFields.map((field) => field.indexOf('*') > -1 ? field.slice(0, field.indexOf('*')) : field);
     const oldVersion$ = this.findByHref(object.self);
     return oldVersion$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       mergeMap((oldVersion: T) => {
-        const operations = this.comparator.diff(oldVersion, object);
+        // Fetch operations from difference between old version and new version
+        // Filter out any metadata operations for a field specified under ignoreMetadataFields
+        const operations = this.comparator.diff(oldVersion, object).filter((operation) => {
+          let ignoredFieldFound = false;
+          ignoreMetadataFieldsPrefix.forEach((fieldPrefix) => {
+            if (operation.path.indexOf('/metadata/' + fieldPrefix) > -1) {
+              ignoredFieldFound = true;
+            }
+          });
+          return !ignoredFieldFound;
+        });
         if (isNotEmpty(operations)) {
           this.objectCache.addPatch(object.self, operations);
         }

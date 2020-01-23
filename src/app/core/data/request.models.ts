@@ -118,6 +118,8 @@ export class HeadRequest extends RestRequest {
 }
 
 export class PatchRequest extends RestRequest {
+  public responseMsToLive = 60 * 15 * 1000;
+
   constructor(
     public uuid: string,
     public href: string,

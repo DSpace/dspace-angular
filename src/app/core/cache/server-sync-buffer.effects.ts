@@ -15,7 +15,7 @@ import { Action, createSelector, MemoizedSelector, select, Store } from '@ngrx/s
 import { ServerSyncBufferEntry, ServerSyncBufferState } from './server-sync-buffer.reducer';
 import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { RequestService } from '../data/request.service';
-import { PutRequest } from '../data/request.models';
+import { PatchRequest, PutRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
@@ -23,6 +23,8 @@ import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestRequestMethod } from '../data/rest-request-method';
+import { Operation } from 'fast-json-patch';
+import { ObjectCacheEntry } from './object-cache.reducer';
 
 @Injectable()
 export class ServerSyncBufferEffects {
@@ -96,15 +98,18 @@ export class ServerSyncBufferEffects {
    * @returns {Observable<Action>} ApplyPatchObjectCacheAction to be dispatched
    */
   private applyPatch(href: string): Observable<Action> {
-    const patchObject = this.objectCache.getObjectBySelfLink(href).pipe(take(1));
+    const patchObject = this.objectCache.getBySelfLink(href).pipe(take(1));
 
     return patchObject.pipe(
-      map((object) => {
-        const serializedObject = new DSpaceRESTv2Serializer(object.constructor as GenericConstructor<{}>).serialize(object);
-
-        this.requestService.configure(new PutRequest(this.requestService.generateRequestId(), href, serializedObject));
-
-        return new ApplyPatchObjectCacheAction(href)
+      map((entry: ObjectCacheEntry) => {
+        if (isNotEmpty(entry.patches)) {
+          const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
+          const objectPatch = flatPatch.filter((op: Operation) => op.path.startsWith('/metadata'));
+          if (isNotEmpty(objectPatch)) {
+            this.requestService.configure(new PatchRequest(this.requestService.generateRequestId(), href, objectPatch));
+          }
+        }
+        return new ApplyPatchObjectCacheAction(href);
       })
     )
   }
