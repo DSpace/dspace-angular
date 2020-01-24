@@ -11,10 +11,10 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { BundleDataService } from '../../../../core/data/bundle-data.service';
-import { PaginatedSearchOptions } from '../../../../+search-page/paginated-search-options.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { hasNoValue } from '../../../../shared/empty.util';
+import { PaginatedSearchOptions } from '../../../../shared/search/paginated-search-options.model';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',

@@ -43,6 +43,9 @@ import { SubmissionSectionError } from '../../objects/submission-objects.reducer
 import { DynamicFormControlEvent, DynamicFormControlEventType } from '@ng-dynamic-forms/core';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -115,11 +118,11 @@ const testFormConfiguration = {
 const testFormModel = [
   new DynamicRowGroupModel({
     id: 'df-row-group-config-1',
-    group: [new DsDynamicInputModel({ id: 'dc.title' })],
+    group: [new DsDynamicInputModel({ id: 'dc.title', metadataFields: [], repeatable: false, submissionId: '1234' })],
   }),
   new DynamicRowGroupModel({
     id: 'df-row-group-config-2',
-    group: [new DsDynamicInputModel({ id: 'dc.contributor' })],
+    group: [new DsDynamicInputModel({ id: 'dc.contributor', metadataFields: [], repeatable: false, submissionId: '1234' })],
   })
 ];
 
@@ -179,6 +182,7 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
+        { provide: WorkspaceitemDataService, useValue: {findById: () => observableOf(new RemoteData(false, false, true, null, new WorkspaceItem()))}},
         ChangeDetectorRef,
         SubmissionSectionformComponent
       ],

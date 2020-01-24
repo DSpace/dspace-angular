@@ -1,31 +1,31 @@
 <div class="btn-group" data-toggle="buttons">
-    <a *ngIf="isToShow(viewModeEnum.List)"
+    <a *ngIf="isToShow(viewModeEnum.ListElement)"
        routerLink="."
        [queryParams]="{view: 'list'}"
        queryParamsHandling="merge"
-       (click)="switchViewTo(viewModeEnum.List)"
+       (click)="switchViewTo(viewModeEnum.ListElement)"
        routerLinkActive="active"
-       [class.active]="currentMode === viewModeEnum.List"
+       [class.active]="currentMode === viewModeEnum.ListElement"
        class="btn btn-secondary">
           <i class="fas fa-list" title="{{'search.view-switch.show-list' | translate}}"></i>
     </a>
-    <a *ngIf="isToShow(viewModeEnum.Grid)"
+    <a *ngIf="isToShow(viewModeEnum.GridElement)"
        routerLink="."
        [queryParams]="{view: 'grid'}"
        queryParamsHandling="merge"
-       (click)="switchViewTo(viewModeEnum.Grid)"
+       (click)="switchViewTo(viewModeEnum.GridElement)"
        routerLinkActive="active"
-       [class.active]="currentMode === viewModeEnum.Grid"
+       [class.active]="currentMode === viewModeEnum.GridElement"
        class="btn btn-secondary">
           <i class="fas fa-th-large" title="{{'search.view-switch.show-grid' | translate}}"></i>
     </a>
-    <a *ngIf="isToShow(viewModeEnum.Detail)"
+    <a *ngIf="isToShow(viewModeEnum.DetailedListElement)"
        routerLink="."
        [queryParams]="{view: 'detail'}"
        queryParamsHandling="merge"
-       (click)="switchViewTo(viewModeEnum.Detail)"
+       (click)="switchViewTo(viewModeEnum.DetailedListElement)"
        routerLinkActive="active"
-       [class.active]="currentMode === viewModeEnum.Detail"
+       [class.active]="currentMode === viewModeEnum.DetailedListElement"
        class="btn btn-secondary">
       <i class="far fa-square" title="{{'search.view-switch.show-detail' | translate}}"></i>
     </a>

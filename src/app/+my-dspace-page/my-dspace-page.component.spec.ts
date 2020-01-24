@@ -15,20 +15,18 @@ import { SortDirection, SortOptions } from '../core/cache/models/sort-options.mo
 import { CommunityDataService } from '../core/data/community-data.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { RemoteData } from '../core/data/remote-data';
 import { MyDSpacePageComponent, SEARCH_CONFIG_SERVICE } from './my-dspace-page.component';
 import { RouteService } from '../core/services/route.service';
 import { routeServiceStub } from '../shared/testing/route-service-stub';
 import { SearchConfigurationServiceStub } from '../shared/testing/search-configuration-service-stub';
-import { SearchService } from '../+search-page/search-service/search.service';
-import { SearchConfigurationService } from '../+search-page/search-service/search-configuration.service';
-import { PaginatedSearchOptions } from '../+search-page/paginated-search-options.model';
-import { SearchSidebarService } from '../+search-page/search-sidebar/search-sidebar.service';
-import { SearchFilterService } from '../+search-page/search-filters/search-filter/search-filter.service';
+import { SearchService } from '../core/shared/search/search.service';
+import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+import { PaginatedSearchOptions } from '../shared/search/paginated-search-options.model';
+import { SidebarService } from '../shared/sidebar/sidebar.service';
+import { SearchFilterService } from '../core/shared/search/search-filter.service';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { RoleService } from '../core/roles/role.service';
 import { MockRoleService } from '../shared/mocks/mock-role-service';
-import { SearchFixedFilterService } from '../+search-page/search-filters/search-filter/search-fixed-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../shared/testing/utils';
 
 describe('MyDSpacePageComponent', () => {
@@ -50,6 +48,7 @@ describe('MyDSpacePageComponent', () => {
   const mockResults = createSuccessfulRemoteDataObject$(['test', 'data']);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     search: mockResults,
+    getEndpoint: observableOf('discover/search/objects'),
     getSearchLink: '/mydspace',
     getScopes: observableOf(['test-scope']),
     setServiceOptions: {}
@@ -76,13 +75,12 @@ describe('MyDSpacePageComponent', () => {
       scope: scopeParam
     })
   };
+
   const sidebarService = {
     isCollapsed: observableOf(true),
     collapse: () => this.isCollapsed = observableOf(true),
     expand: () => this.isCollapsed = observableOf(false)
   };
-  const mockFixedFilterService: SearchFixedFilterService = {
-  } as SearchFixedFilterService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -108,7 +106,7 @@ describe('MyDSpacePageComponent', () => {
             })
         },
         {
-          provide: SearchSidebarService,
+          provide: SidebarService,
           useValue: sidebarService
         },
         {
@@ -122,10 +120,6 @@ describe('MyDSpacePageComponent', () => {
           provide: RoleService,
           useValue: new MockRoleService()
         },
-        {
-          provide: SearchFixedFilterService,
-          useValue: mockFixedFilterService
-        }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(MyDSpacePageComponent, {

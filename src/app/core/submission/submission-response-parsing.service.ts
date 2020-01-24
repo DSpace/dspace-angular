@@ -1,4 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
+import { deepClone } from 'fast-json-patch';
+import { DSOResponseParsingService } from '../data/dso-response-parsing.service';
 
 import { ResponseParsingService } from '../data/parsing.service';
 import { RestRequest } from '../data/request.models';
@@ -76,7 +78,9 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
   protected toCache = false;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
-              protected objectCache: ObjectCacheService) {
+              protected objectCache: ObjectCacheService,
+              protected dsoParser: DSOResponseParsingService
+  ) {
     super();
   }
 
@@ -88,10 +92,11 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
    * @returns {RestResponse}
    */
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
+    this.dsoParser.parse(deepClone(request), deepClone(data));
     if (isNotEmpty(data.payload)
       && isNotEmpty(data.payload._links)
       && this.isSuccessStatus(data.statusCode)) {
-      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject>(data.payload, request.href);
+      const dataDefinition = this.processResponse<SubmissionObject | ConfigObject>(data.payload, request);
       return new SubmissionSuccessResponse(dataDefinition, data.statusCode, data.statusText, this.processPageInfo(data.payload));
     } else if (isEmpty(data.payload) && this.isSuccessStatus(data.statusCode)) {
       return new SubmissionSuccessResponse(null, data.statusCode, data.statusText);
@@ -109,11 +114,11 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
    * Parses response and normalize it
    *
    * @param {DSpaceRESTV2Response} data
-   * @param {string} requestHref
+   * @param {RestRequest} request
    * @returns {any[]}
    */
-  protected processResponse<ObjectDomain>(data: any, requestHref: string): any[] {
-    const dataDefinition = this.process<ObjectDomain>(data, requestHref);
+  protected processResponse<ObjectDomain>(data: any, request: RestRequest): any[] {
+    const dataDefinition = this.process<ObjectDomain>(data, request);
     const normalizedDefinition = Array.of();
     const processedList = Array.isArray(dataDefinition) ? dataDefinition : Array.of(dataDefinition);
 

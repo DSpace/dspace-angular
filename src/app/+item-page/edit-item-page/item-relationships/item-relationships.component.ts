@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, Inject, OnDestroy } from '@angular/core';
 import { Item } from '../../../core/shared/item.model';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Observable } from 'rxjs/internal/Observable';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, zip as observableZip } from 'rxjs';
+import { filter, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
+import { zip as observableZip } from 'rxjs';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
@@ -21,7 +21,6 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getSucceededRemoteData } from '../../../core/shared/operators';
 import { RequestService } from '../../../core/data/request.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { getRelationsByRelatedItemIds } from '../../simple/item-types/shared/item-relationships-utils';
 
 @Component({
   selector: 'ds-item-relationships',
@@ -65,7 +64,7 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
    */
   ngOnInit(): void {
     super.ngOnInit();
-    this.relationLabels$ = this.relationshipService.getItemRelationshipLabels(this.item);
+    this.relationLabels$ = this.relationshipService.getRelationshipTypeLabelsByItem(this.item);
     this.initializeItemUpdate();
   }
 
@@ -113,8 +112,9 @@ export class ItemRelationshipsComponent extends AbstractItemUpdateComponent impl
     );
     // Get all the relationships that should be removed
     const removedRelationships$ = removedItemIds$.pipe(
-      getRelationsByRelatedItemIds(this.item, this.relationshipService)
+      flatMap((uuids) => this.relationshipService.getRelationshipsByRelatedItemIds(this.item, uuids))
     );
+    // const removedRelationships$ = removedItemIds$.pipe(flatMap((uuids: string[]) => this.relationshipService.getRelationshipsByRelatedItemIds(this.item, uuids)));
     // Request a delete for every relationship found in the observable created above
     removedRelationships$.pipe(
       take(1),

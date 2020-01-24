@@ -1,5 +1,4 @@
 import { createSelector, MemoizedSelector } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
 import { hasValue } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
@@ -11,7 +10,7 @@ import { IndexName, IndexState, MetaIndexState } from './index.reducer';
  * @returns
  *    a MemoizedSelector to select the MetaIndexState
  */
-export const metaIndexSelector: MemoizedSelector<AppState, MetaIndexState> = createSelector(
+export const metaIndexSelector: MemoizedSelector<CoreState, MetaIndexState> = createSelector(
   coreSelector,
   (state: CoreState) => state.index
 );
@@ -23,7 +22,7 @@ export const metaIndexSelector: MemoizedSelector<AppState, MetaIndexState> = cre
  * @returns
  *    a MemoizedSelector to select the object index
  */
-export const objectIndexSelector: MemoizedSelector<AppState, IndexState> = createSelector(
+export const objectIndexSelector: MemoizedSelector<CoreState, IndexState> = createSelector(
   metaIndexSelector,
   (state: MetaIndexState) => state[IndexName.OBJECT]
 );
@@ -34,7 +33,7 @@ export const objectIndexSelector: MemoizedSelector<AppState, IndexState> = creat
  * @returns
  *    a MemoizedSelector to select the request index
  */
-export const requestIndexSelector: MemoizedSelector<AppState, IndexState> = createSelector(
+export const requestIndexSelector: MemoizedSelector<CoreState, IndexState> = createSelector(
   metaIndexSelector,
   (state: MetaIndexState) => state[IndexName.REQUEST]
 );
@@ -45,7 +44,7 @@ export const requestIndexSelector: MemoizedSelector<AppState, IndexState> = crea
  * @returns
  *    a MemoizedSelector to select the request UUID mapping
  */
-export const requestUUIDIndexSelector: MemoizedSelector<AppState, IndexState> = createSelector(
+export const requestUUIDIndexSelector: MemoizedSelector<CoreState, IndexState> = createSelector(
   metaIndexSelector,
   (state: MetaIndexState) => state[IndexName.UUID_MAPPING]
 );
@@ -59,7 +58,7 @@ export const requestUUIDIndexSelector: MemoizedSelector<AppState, IndexState> = 
  *    a MemoizedSelector to select the self link
  */
 export const selfLinkFromUuidSelector =
-  (uuid: string): MemoizedSelector<AppState, string> => createSelector(
+  (uuid: string): MemoizedSelector<CoreState, string> => createSelector(
     objectIndexSelector,
     (state: IndexState) => hasValue(state) ? state[uuid] : undefined
   );
@@ -73,7 +72,7 @@ export const selfLinkFromUuidSelector =
  *    a MemoizedSelector to select the UUID
  */
 export const uuidFromHrefSelector =
-  (href: string): MemoizedSelector<AppState, string> => createSelector(
+  (href: string): MemoizedSelector<CoreState, string> => createSelector(
     requestIndexSelector,
     (state: IndexState) => hasValue(state) ? state[href] : undefined
   );
@@ -88,7 +87,7 @@ export const uuidFromHrefSelector =
  *    a MemoizedSelector to select the UUID of the cached request
  */
 export const originalRequestUUIDFromRequestUUIDSelector =
-  (uuid: string): MemoizedSelector<AppState, string> => createSelector(
+  (uuid: string): MemoizedSelector<CoreState, string> => createSelector(
     requestUUIDIndexSelector,
     (state: IndexState) => hasValue(state) ? state[uuid] : undefined
   );

@@ -1,4 +1,5 @@
 export enum SectionsType {
+  Relationships = 'relationships',
   SubmissionForm = 'submission-form',
   Upload = 'upload',
   License = 'license',

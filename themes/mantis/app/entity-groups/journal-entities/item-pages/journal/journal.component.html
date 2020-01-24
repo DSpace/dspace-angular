@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-12 col-md-2 d-flex flex-md-column justify-content-between">
                 <ds-metadata-field-wrapper>
-                    <ds-thumbnail [thumbnail]="this.item.getThumbnail() | async"></ds-thumbnail>
+                    <ds-thumbnail [thumbnail]="object.getThumbnail() | async"></ds-thumbnail>
                 </ds-metadata-field-wrapper>
                 <div>
                     <a class="btn btn-secondary"
-                       [routerLink]="['/items/' + item.id + '/full']">
+                       [routerLink]="['/items/' + object.id + '/full']">
                         {{"item.page.link.full" | translate}}
                     </a>
                 </div>
@@ -16,27 +16,27 @@
                 <h2 class="item-page-title-field">
                   {{'journal.page.titleprefix' | translate}}
                   <ds-metadata-values
-                            [mdValues]="item?.allMetadata(['dc.title'])"></ds-metadata-values>
+                            [mdValues]="object?.allMetadata(['dc.title'])"></ds-metadata-values>
                 </h2>
                 <div class="row">
                     <div class="col-12 col-md-6">
 
-                        <ds-generic-item-page-field class="item-page-fields" [item]="item"
-                                                    [fields]="['journal.identifier.issn']"
+                        <ds-generic-item-page-field class="item-page-fields" [item]="object"
+                                                    [fields]="['creativeworkseries.issn']"
                                                     [label]="'journal.page.issn'">
                         </ds-generic-item-page-field>
-                        <ds-generic-item-page-field class="item-page-fields" [item]="item"
-                                                    [fields]="['journal.publisher']"
+                        <ds-generic-item-page-field class="item-page-fields" [item]="object"
+                                                    [fields]="['creativework.publisher']"
                                                     [label]="'journal.page.publisher'">
                         </ds-generic-item-page-field>
-                        <ds-generic-item-page-field [item]="item"
-                                                    [fields]="['journal.contributor.editor']"
+                        <ds-generic-item-page-field [item]="object"
+                                                    [fields]="['creativework.editor']"
                                                     [label]="'journal.page.editor'">
                         </ds-generic-item-page-field>
                     </div>
                     <div class="col-12 col-md-6">
-                        <ds-generic-item-page-field class="item-page-fields" [item]="item"
-                                                    [fields]="['journal.identifier.description']"
+                        <ds-generic-item-page-field class="item-page-fields" [item]="object"
+                                                    [fields]="['dc.description']"
                                                     [label]="'journal.page.description'">
                         </ds-generic-item-page-field>
                     </div>
@@ -45,15 +45,15 @@
         </div>
     </div>
 </div>
-<div class="relationships-item-page" *ngIf="volumes$ | async">
+<div class="relationships-item-page">
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-4" *ngIf="volumes$ | async">
-                <ds-related-items
-                        [items]="volumes$ | async"
-                        [label]="'relationships.isVolumeOf' | translate">
-                </ds-related-items>
-            </div>
+            <ds-related-items
+              class="col-12 col-md-4"
+              [parentItem]="object"
+              [relationType]="'isVolumeOfJournal'"
+              [label]="'relationships.isVolumeOf' | translate">
+            </ds-related-items>
         </div>
     </div>
 </div>
@@ -61,7 +61,10 @@
     <div class="container search-container">
         <h3 class="h2">{{"item.page.journal.search.title" | translate}}</h3>
     </div>
-    <ds-related-entities-search [item]="item"
-                                [relationType]="'isJournalOfPublication'">
-    </ds-related-entities-search>
+    <ds-tabbed-related-entities-search  [item]="object"
+                                        [relationTypes]="[{
+                                            label: 'isJournalOfPublication',
+                                            filter: 'isJournalOfPublication'
+                                          }]">
+    </ds-tabbed-related-entities-search>
 </div>

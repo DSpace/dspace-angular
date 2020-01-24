@@ -14,7 +14,8 @@ import { RequestService } from './request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   DeleteRequest,
-  FindAllOptions, GetRequest,
+  FindListOptions,
+  GetRequest,
   MappedCollectionsRequest,
   PatchRequest,
   PostRequest,
@@ -38,14 +39,14 @@ import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { Collection } from '../shared/collection.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
-import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
+import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 @Injectable()
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
@@ -64,10 +65,10 @@ export class ItemDataService extends DataService<Item> {
   /**
    * Get the endpoint for browsing items
    *  (When options.sort.field is empty, the default field to browse by will be 'dc.date.issued')
-   * @param {FindAllOptions} options
+   * @param {FindListOptions} options
    * @returns {Observable<string>}
    */
-  public getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     let field = 'dc.date.issued';
     if (options.sort && options.sort.field) {
       field = options.sort.field;
@@ -279,6 +280,50 @@ export class ItemDataService extends DataService<Item> {
     return this.requestService.getByUUID(requestId).pipe(
       find((request: RequestEntry) => request.completed),
       map((request: RequestEntry) => request.response)
+    );
+  }
+
+  /**
+   * Import an external source entry into a collection
+   * @param externalSourceEntry
+   * @param collectionId
+   */
+  public importExternalSourceEntry(externalSourceEntry: ExternalSourceEntry, collectionId: string): Observable<RemoteData<Item>> {
+    const options: HttpOptions = Object.create({});
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'text/uri-list');
+    options.headers = headers;
+
+    const requestId = this.requestService.generateRequestId();
+    const href$ = this.halService.getEndpoint(this.linkPath).pipe(map((href) => `${href}?owningCollection=${collectionId}`));
+
+    href$.pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, externalSourceEntry.self, options);
+        this.requestService.configure(request);
+      })
+    ).subscribe();
+
+    return this.requestService.getByUUID(requestId).pipe(
+      find((request: RequestEntry) => request.completed),
+      getResponseFromEntry(),
+      map((response: any) => {
+        if (isNotEmpty(response.resourceSelfLinks)) {
+          return response.resourceSelfLinks[0];
+        }
+      }),
+      switchMap((selfLink: string) => this.findByHref(selfLink))
+    );
+  }
+
+  /**
+   * Get the endpoint for an item's bitstreams
+   * @param itemId
+   */
+  public getBitstreamsEndpoint(itemId: string): Observable<string> {
+    return this.halService.getEndpoint(this.linkPath).pipe(
+      switchMap((url: string) => this.halService.getEndpoint('bitstreams', `${url}/${itemId}`))
     );
   }
 }

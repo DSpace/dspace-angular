@@ -16,6 +16,9 @@ module.exports = (env) => {
     from: path.join(__dirname, '..', 'node_modules', '@fortawesome', 'fontawesome-free', 'webfonts'),
     to: path.join('assets', 'fonts')
   }, {
+    from: path.join(__dirname, '..', 'resources', 'fonts'),
+    to: path.join('assets', 'fonts')
+  }, {
     from: path.join(__dirname, '..', 'resources', 'images'),
     to: path.join('assets', 'images')
   }, {
@@ -23,6 +26,15 @@ module.exports = (env) => {
     to: path.join('assets', 'i18n')
   }
   ];
+
+  const themeFonts = path.join(themePath, 'resources', 'fonts');
+  if(theme && fs.existsSync(themeFonts)) {
+    copyWebpackOptions.push({
+      from: themeFonts,
+      to: path.join('assets', 'fonts')  ,
+      force: true,
+    });
+  }
 
   const themeImages = path.join(themePath, 'resources', 'images');
   if(theme && fs.existsSync(themeImages)) {
@@ -108,12 +120,6 @@ module.exports = (env) => {
                             }
                         },
                         {
-                            loader: 'resolve-url-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
@@ -146,12 +152,6 @@ module.exports = (env) => {
                             }
                         },
                         {
-                            loader: 'resolve-url-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        },
-                        {
                             loader: 'sass-loader',
                             options: {
                                 sourceMap: true,
@@ -161,7 +161,7 @@ module.exports = (env) => {
                     ]
                 },
                 {
-                    test: /\.html$/,
+                    test: /\.(html|eot|ttf|otf|svg|woff|woff2)$/,
                     loader: 'raw-loader'
                 }
             ]

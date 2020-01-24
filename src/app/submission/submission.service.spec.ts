@@ -37,14 +37,16 @@ import {
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction
 } from './objects/submission-objects.actions';
-import { RemoteData } from '../core/data/remote-data';
 import { RemoteDataError } from '../core/data/remote-data-error';
 import { throwError as observableThrowError } from 'rxjs/internal/observable/throwError';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
 } from '../shared/testing/utils';
+import { getMockSearchService } from '../shared/mocks/mock-search-service';
+import { getMockRequestService } from '../shared/mocks/mock-request.service';
+import { RequestService } from '../core/data/request.service';
+import { SearchService } from '../core/shared/search/search.service';
 
 describe('SubmissionService test suite', () => {
   const config = MOCK_SUBMISSION_CONFIG;
@@ -349,7 +351,12 @@ describe('SubmissionService test suite', () => {
   let scheduler: TestScheduler;
   let service: SubmissionService;
 
+  const searchService = getMockSearchService();
+
+  const requestServce = getMockRequestService();
+
   beforeEach(async(() => {
+
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({ submissionReducers } as any),
@@ -365,6 +372,8 @@ describe('SubmissionService test suite', () => {
         { provide: Router, useValue: router },
         { provide: SubmissionRestService, useValue: restService },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: SearchService, useValue: searchService },
+        { provide: RequestService, useValue: requestServce },
         NotificationsService,
         RouteService,
         SubmissionService,
@@ -392,6 +401,14 @@ describe('SubmissionService test suite', () => {
       service.createSubmission();
 
       expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, undefined);
+    });
+
+    it('should create a new submission with collection', () => {
+      service.createSubmission(collectionId);
+
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalled();
+      expect((service as any).restService.postToEndpoint).toHaveBeenCalledWith('workspaceitems', {}, null, null, collectionId);
     });
   });
 

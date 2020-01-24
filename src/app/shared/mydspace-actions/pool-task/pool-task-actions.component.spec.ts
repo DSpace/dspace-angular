@@ -17,6 +17,10 @@ import { PoolTaskActionsComponent } from './pool-task-actions.component';
 import { PoolTask } from '../../../core/tasks/models/pool-task-object.model';
 import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
 import { createSuccessfulRemoteDataObject } from '../../testing/utils';
+import { getMockRequestService } from '../../mocks/mock-request.service';
+import { RequestService } from '../../../core/data/request.service';
+import { getMockSearchService } from '../../mocks/mock-search-service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: PoolTaskActionsComponent;
 let fixture: ComponentFixture<PoolTaskActionsComponent>;
@@ -29,8 +33,12 @@ const mockDataService = jasmine.createSpyObj('PoolTaskDataService', {
   claimTask: jasmine.createSpy('claimTask')
 });
 
+const searchService = getMockSearchService();
+
+const requestServce = getMockRequestService();
+
 const item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
@@ -80,6 +88,8 @@ describe('PoolTaskActionsComponent', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: Router, useValue: new RouterStub() },
         { provide: PoolTaskDataService, useValue: mockDataService },
+        { provide: SearchService, useValue: searchService },
+        { provide: RequestService, useValue: requestServce }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(PoolTaskActionsComponent, {
@@ -164,6 +174,16 @@ describe('PoolTaskActionsComponent', () => {
 
     fixture.whenStable().then(() => {
       expect(notificationsServiceStub.error).toHaveBeenCalled();
+    });
+  }));
+
+  it('should clear the object cache by href', async(() => {
+    component.reload();
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
+      expect(searchService.getEndpoint).toHaveBeenCalled();
+      expect(requestServce.removeByHrefSubstring).toHaveBeenCalledWith('discover/search/objects');
     });
   }));
 

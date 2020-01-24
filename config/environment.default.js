@@ -141,6 +141,10 @@ module.exports = {
     code: 'nl',
     label: 'Nederlands',
     active: false,
+  }, {
+    code: 'pt',
+    label: 'Português',
+    active: true,
   }],
   // Browse-By Pages
   browseBy: {
@@ -177,6 +181,11 @@ module.exports = {
     ]
   },
   item: {
+    edit: {
+      undoTimeout: 10000 // 10 seconds
+    }
+  },
+  collection: {
     edit: {
       undoTimeout: 10000 // 10 seconds
     }

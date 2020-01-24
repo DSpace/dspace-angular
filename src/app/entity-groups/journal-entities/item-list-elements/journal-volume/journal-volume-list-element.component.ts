@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
-import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
+import { AbstractListableElementComponent } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { Item } from '../../../../core/shared/item.model';
+import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
-@rendersItemType('JournalVolume', ItemViewMode.Element)
+@listableObjectComponent('JournalVolume', ViewMode.ListElement)
 @Component({
   selector: 'ds-journal-volume-list-element',
   styleUrls: ['./journal-volume-list-element.component.scss'],
@@ -11,5 +13,5 @@ import { TypedItemSearchResultListElementComponent } from '../../../../shared/ob
 /**
  * The component for displaying a list element for an item of the type Journal Volume
  */
-export class JournalVolumeListElementComponent extends TypedItemSearchResultListElementComponent {
+export class JournalVolumeListElementComponent extends AbstractListableElementComponent<Item> {
 }

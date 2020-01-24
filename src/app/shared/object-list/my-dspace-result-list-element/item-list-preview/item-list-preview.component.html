@@ -2,6 +2,7 @@
   <ng-container *ngIf="status">
     <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
   </ng-container>
+  <ds-item-type-badge [object]="item"></ds-item-type-badge>
   <ds-truncatable [id]="item.id">
     <h3 [innerHTML]="item.firstMetadataValue('dc.title') || ('mydspace.results.no-title' | translate)" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
     <div>

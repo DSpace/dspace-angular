@@ -11,30 +11,41 @@ import { hasNoValue, hasValue, isUndefined } from '../../shared/empty.util';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { RemoteData } from '../data/remote-data';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
+import { GenericConstructor } from './generic-constructor';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
-export class DSpaceObject implements CacheableObject, ListableObject {
+export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
   static type = new ResourceType('dspaceobject');
 
+  @excludeFromEquals
   private _name: string;
 
+  @excludeFromEquals
   self: string;
 
   /**
    * The human-readable identifier of this DSpaceObject
    */
+  @excludeFromEquals
   id: string;
 
   /**
    * The universally unique identifier of this DSpaceObject
    */
   uuid: string;
+
+  /**
+   * A string representing the kind of DSpaceObject, e.g. community, item, …
+   */
+  @excludeFromEquals
+  type: ResourceType;
 
   /**
    * The name for this DSpaceObject
@@ -56,6 +67,7 @@ export class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * All metadata of this DSpaceObject
    */
+  @excludeFromEquals
   metadata: MetadataMap;
 
   /**
@@ -68,11 +80,13 @@ export class DSpaceObject implements CacheableObject, ListableObject {
   /**
    * An array of DSpaceObjects that are direct parents of this DSpaceObject
    */
+  @excludeFromEquals
   parents: Observable<RemoteData<DSpaceObject[]>>;
 
   /**
    * The DSpaceObject that owns this DSpaceObject
    */
+  @excludeFromEquals
   owner: Observable<RemoteData<DSpaceObject>>;
 
   /**
@@ -112,7 +126,7 @@ export class DSpaceObject implements CacheableObject, ListableObject {
    * Like [[firstMetadata]], but only returns a string value, or `undefined`.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
-   * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
    * @returns {string} the first matching string value, or `undefined`.
    */
   firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
@@ -149,4 +163,10 @@ export class DSpaceObject implements CacheableObject, ListableObject {
     });
   }
 
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    return [this.constructor as GenericConstructor<ListableObject>];
+  }
 }

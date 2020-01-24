@@ -6,10 +6,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { SearchService } from '../../+search-page/search-service/search.service';
+import { SearchService } from '../../core/shared/search/search.service';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
-import { SetViewMode } from '../view-mode';
 import { SearchServiceStub } from '../testing/search-service-stub';
+import { ViewMode } from '../../core/shared/view-mode.model';
 
 @Component({ template: '' })
 class DummyComponent { }
@@ -55,19 +55,19 @@ describe('ViewModeSwitchComponent', () => {
   });
 
   it('should set list button as active when on list mode', fakeAsync(() => {
-    searchService.setViewMode(SetViewMode.List);
+    searchService.setViewMode(ViewMode.ListElement);
     tick();
     fixture.detectChanges();
-    expect(comp.currentMode).toBe(SetViewMode.List);
+    expect(comp.currentMode).toBe(ViewMode.ListElement);
     expect(listButton.classList).toContain('active');
     expect(gridButton.classList).not.toContain('active');
   }));
 
   it('should set grid button as active when on grid mode', fakeAsync(() => {
-    searchService.setViewMode(SetViewMode.Grid);
+    searchService.setViewMode(ViewMode.GridElement);
     tick();
     fixture.detectChanges();
-    expect(comp.currentMode).toBe(SetViewMode.Grid);
+    expect(comp.currentMode).toBe(ViewMode.GridElement);
     expect(listButton.classList).not.toContain('active');
     expect(gridButton.classList).toContain('active');
   }));

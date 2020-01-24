@@ -46,13 +46,13 @@ export class UploadBitstreamComponent implements OnInit, OnDestroy {
    * The uploader configuration options
    * @type {UploaderOptions}
    */
-  uploadFilesOptions: UploaderOptions = {
+  uploadFilesOptions: UploaderOptions = Object.assign(new UploaderOptions(), {
     // URL needs to contain something to not produce any errors. This will be replaced once a bundle has been selected.
     url: 'placeholder',
     authToken: null,
     disableMultipart: false,
     itemAlias: null
-  };
+  });
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy

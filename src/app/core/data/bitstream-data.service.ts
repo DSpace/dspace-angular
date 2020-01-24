@@ -12,20 +12,17 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindAllOptions, PutRequest } from './request.models';
+import { FindListOptions, PutRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { RestResponse } from '../cache/response.models';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest } from 'rxjs';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import {
   configureRequest,
-  getRemoteDataPayload,
   getResponseFromEntry,
-  getSucceededRemoteData
 } from '../shared/operators';
-import { RemoteData } from './remote-data';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
 
 /**
@@ -53,11 +50,11 @@ export class BitstreamDataService extends DataService<Bitstream> {
 
   /**
    * Get the endpoint for browsing bitstreams
-   * @param {FindAllOptions} options
+   * @param {FindListOptions} options
    * @param linkPath
    * @returns {Observable<string>}
    */
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath: string = this.linkPath): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
     return this.halService.getEndpoint(linkPath);
   }
 

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NgZone, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
@@ -39,10 +39,7 @@ import {
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  DsDynamicFormControlContainerComponent,
-  dsDynamicFormControlMapFn
-} from './ds-dynamic-form-control-container.component';
+import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './ds-dynamic-form-control-container.component';
 import { SharedModule } from '../../../shared.module';
 import { DynamicDsDatePickerModel } from './models/date-picker/date-picker.model';
 import { DynamicRelationGroupModel } from './models/relation-group/dynamic-relation-group.model';
@@ -65,6 +62,15 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
+import { RelationshipService } from '../../../../core/data/relationship.service';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import { Store } from '@ngrx/store';
+import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
+import { Item } from '../../../../core/shared/item.model';
+import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
+import { of as observableOf } from 'rxjs';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 
 describe('DsDynamicFormControlContainerComponent test suite', () => {
 
@@ -95,12 +101,15 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     new DynamicSwitchModel({ id: 'switch' }),
     new DynamicTextAreaModel({ id: 'textarea' }),
     new DynamicTimePickerModel({ id: 'timepicker' }),
-    new DynamicTypeaheadModel({ id: 'typeahead' }),
+    new DynamicTypeaheadModel({ id: 'typeahead', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicScrollableDropdownModel({
       id: 'scrollableDropdown',
-      authorityOptions: authorityOptions
+      authorityOptions: authorityOptions,
+      metadataFields: [],
+      repeatable: false,
+      submissionId: '1234'
     }),
-    new DynamicTagModel({ id: 'tag' }),
+    new DynamicTagModel({ id: 'tag', metadataFields: [], repeatable: false, submissionId: '1234' }),
     new DynamicListCheckboxGroupModel({
       id: 'checkboxList',
       authorityOptions: authorityOptions,
@@ -112,18 +121,21 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
       repeatable: false
     }),
     new DynamicRelationGroupModel({
+      submissionId: '1234',
       id: 'relationGroup',
       formConfiguration: [],
       mandatoryField: '',
       name: 'relationGroup',
       relationFields: [],
       scopeUUID: '',
-      submissionScope: ''
+      submissionScope: '',
+      repeatable: false,
+      metadataFields: []
     }),
     new DynamicDsDatePickerModel({ id: 'datepicker' }),
-    new DynamicLookupModel({ id: 'lookup' }),
-    new DynamicLookupNameModel({ id: 'lookupName' }),
-    new DynamicQualdropModel({ id: 'combobox', readOnly: false })
+    new DynamicLookupModel({ id: 'lookup', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicLookupNameModel({ id: 'lookupName', metadataFields: [], repeatable: false, submissionId: '1234' }),
+    new DynamicQualdropModel({ id: 'combobox', readOnly: false, required: false })
   ];
   const testModel = formModel[8];
   let formGroup: FormGroup;
@@ -131,7 +143,9 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   let component: DsDynamicFormControlContainerComponent;
   let debugElement: DebugElement;
   let testElement: DebugElement;
-
+  const testItem: Item = new Item();
+  const testWSI: WorkspaceItem = new WorkspaceItem();
+  testWSI.item = observableOf(createSuccessfulRemoteDataObject(testItem));
   beforeEach(async(() => {
 
     TestBed.overrideModule(BrowserDynamicTestingModule, {
@@ -150,14 +164,34 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         DynamicFormsCoreModule.forRoot(),
         SharedModule,
         TranslateModule.forRoot(),
-        TextMaskModule
+        TextMaskModule,
       ],
-      providers: [DsDynamicFormControlContainerComponent, DynamicFormService],
+      providers: [
+        DsDynamicFormControlContainerComponent,
+        DynamicFormService,
+        { provide: RelationshipService, useValue: {} },
+        { provide: SelectableListService, useValue: {} },
+        { provide: ItemDataService, useValue: {} },
+        { provide: Store, useValue: {} },
+        { provide: RelationshipService, useValue: {} },
+        { provide: SelectableListService, useValue: {} },
+        {
+          provide: SubmissionObjectDataService,
+          useValue: {
+            findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI))
+          }
+        },
+        { provide: NgZone, useValue: new NgZone({}) }
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents().then(() => {
 
       fixture = TestBed.createComponent(DsDynamicFormControlContainerComponent);
 
+      const ngZone = TestBed.get(NgZone);
+
+      // tslint:disable-next-line:ban-types
+      spyOn(ngZone, 'runOutsideAngular').and.callFake((fn: Function) => fn());
       component = fixture.componentInstance;
       debugElement = fixture.debugElement;
     });

@@ -1,4 +1,4 @@
-import { browser, element, by, protractor } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
 export class ProtractorPage {
@@ -27,15 +27,15 @@ export class ProtractorPage {
   }
 
   setCurrentScope(scope: string) {
-    element(by.css('option[value="' + scope + '"]')).click();
+    element(by.css('#search-form option[value="' + scope + '"]')).click();
   }
 
   setCurrentQuery(query: string) {
-    element(by.css('input[name="query"]')).sendKeys(query);
+    element(by.css('#search-form input[name="query"]')).sendKeys(query);
   }
 
   submitSearchForm() {
-    element(by.css('button.search-button')).click();
+    element(by.css('#search-form button.search-button')).click();
   }
 
   getRandomScopeOption(): promise.Promise<string> {

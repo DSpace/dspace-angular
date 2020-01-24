@@ -1,83 +1,106 @@
-import * as ngrx from '@ngrx/store';
-import { Store } from '@ngrx/store';
 import { async, TestBed } from '@angular/core/testing';
-import { MenuService } from './menu.service';
-import { cold, hot } from 'jasmine-marbles';
-import { MenuID } from './initial-menus-state';
+
 import { of as observableOf } from 'rxjs';
+import * as ngrx from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { cold, hot } from 'jasmine-marbles';
+
+import { MenuService } from './menu.service';
+import { MenuID } from './initial-menus-state';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
-  CollapseMenuAction, CollapseMenuPreviewAction, DeactivateMenuSectionAction,
-  ExpandMenuAction, ExpandMenuPreviewAction, HideMenuAction,
-  RemoveMenuSectionAction, ShowMenuAction, ToggleActiveMenuSectionAction, ToggleMenuAction
+  CollapseMenuAction,
+  CollapseMenuPreviewAction,
+  DeactivateMenuSectionAction,
+  ExpandMenuAction,
+  ExpandMenuPreviewAction,
+  HideMenuAction,
+  RemoveMenuSectionAction,
+  ShowMenuAction,
+  ToggleActiveMenuSectionAction,
+  ToggleMenuAction
 } from './menu.actions';
+import { MenuSection, menusReducer } from './menu.reducer';
 
 describe('MenuService', () => {
   let service: MenuService;
   let selectSpy;
-  const store = Object.assign(observableOf({}), {
-    dispatch: () => {/***/
-    }
-  }) as any;
-  const fakeMenu = {
-    id: MenuID.ADMIN,
-    collapsed: true,
-    visible: false,
-    previewCollapsed: true
-  } as any;
-  const visibleSection1 = {
-    id: 'section',
-    visible: true,
-    active: false
-  };
-  const visibleSection2 = {
-    id: 'section_2',
-    visible: true
-  };
-  const hiddenSection3 = {
-    id: 'section_3',
-    visible: false
-  };
-  const subSection4 = {
-    id: 'section_4',
-    visible: true,
-    parentID: 'section1'
-  };
+  let store: any;
+  let fakeMenu;
+  let visibleSection1;
+  let visibleSection2;
+  let hiddenSection3;
+  let subSection4;
+  let topSections;
+  let initialState;
 
-  const topSections = {
-    section: visibleSection1,
-    section_2: visibleSection2,
-    section_3: hiddenSection3,
-    section_4: subSection4
-  };
+  function init() {
+
+    visibleSection1 = {
+      id: 'section',
+      visible: true,
+      active: false
+    };
+    visibleSection2 = {
+      id: 'section_2',
+      visible: true
+    };
+    hiddenSection3 = {
+      id: 'section_3',
+      visible: false
+    };
+    subSection4 = {
+      id: 'section_4',
+      visible: true,
+      parentID: 'section1'
+    };
+
+    topSections = {
+      section: visibleSection1,
+      section_2: visibleSection2,
+      section_3: hiddenSection3,
+      section_4: subSection4
+    };
+
+    fakeMenu = {
+      id: MenuID.ADMIN,
+      collapsed: true,
+      visible: false,
+      sections: topSections,
+      previewCollapsed: true
+    } as any;
+
+    initialState = {
+      menus: {
+        'admin-sidebar' : fakeMenu
+      }
+    };
+
+  }
 
   beforeEach(async(() => {
+    init();
     TestBed.configureTestingModule({
+      imports: [
+        StoreModule.forRoot({ menus: menusReducer })
+      ],
       providers: [
-        { provide: Store, useValue: store },
+        provideMockStore({ initialState }),
         { provide: MenuService, useValue: service }
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
+    store = TestBed.get(Store);
     service = new MenuService(store);
-    selectSpy = spyOnProperty(ngrx, 'select');
+    selectSpy = spyOnProperty(ngrx, 'select').and.callThrough();
     spyOn(store, 'dispatch');
   });
 
   describe('getMenu', () => {
-    beforeEach(() => {
-      selectSpy.and.callFake(() => {
-        return () => {
-          return () => hot('a', {
-              a: fakeMenu
-            }
-          );
-        };
-      });
-    });
     it('should return the menu', () => {
 
       const result = service.getMenu(MenuID.ADMIN);
@@ -125,7 +148,7 @@ describe('MenuService', () => {
     describe('when the subsection list is not empty', () => {
 
       beforeEach(() => {
-        spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1));
+        spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1 as MenuSection));
         selectSpy.and.callFake(() => {
           return () => {
             return () => hot('a', {
@@ -214,21 +237,21 @@ describe('MenuService', () => {
   });
 
   describe('getMenuSection', () => {
-    beforeEach(() => {
-      selectSpy.and.callFake(() => {
-        return () => {
-          return () => hot('a', {
-              a: hiddenSection3
-            }
-          );
-        };
-      });
-    });
-    it('should return false', () => {
+    it('should return menu section', () => {
 
-      const result = service.getMenuSection(MenuID.ADMIN, 'fakeId');
+      const result = service.getMenuSection(MenuID.ADMIN, 'section_3');
       const expected = cold('b', {
         b: hiddenSection3
+      });
+
+      expect(result).toBeObservable(expected);
+    });
+
+    it('should return undefined', () => {
+
+      const result = service.getMenuSection(MenuID.ADMIN, 'fake');
+      const expected = cold('b', {
+        b: undefined
       });
 
       expect(result).toBeObservable(expected);
@@ -283,7 +306,7 @@ describe('MenuService', () => {
 
   describe('isSectionActive', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1));
+      spyOn(service, 'getMenuSection').and.returnValue(observableOf(visibleSection1 as MenuSection));
     });
 
     it('should return false when the section is not active', () => {
@@ -298,7 +321,7 @@ describe('MenuService', () => {
 
   describe('isSectionVisible', () => {
     beforeEach(() => {
-      spyOn(service, 'getMenuSection').and.returnValue(observableOf(hiddenSection3));
+      spyOn(service, 'getMenuSection').and.returnValue(observableOf(hiddenSection3 as MenuSection));
     });
 
     it('should return false when the section is hidden', () => {

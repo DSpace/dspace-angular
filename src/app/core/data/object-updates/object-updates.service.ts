@@ -15,7 +15,8 @@ import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
-  InitializeFieldsAction, MoveFieldUpdateAction,
+  InitializeFieldsAction,
+  MoveFieldUpdateAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   SetEditableFieldUpdateAction,
@@ -99,14 +100,16 @@ export class ObjectUpdatesService {
     const objectUpdates = this.getObjectEntry(url);
     return objectUpdates.pipe(map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
-      Object.keys(ignoreStates ? objectEntry.fieldUpdates : objectEntry.fieldStates).forEach((uuid) => {
-        let fieldUpdate = objectEntry.fieldUpdates[uuid];
-        if (isEmpty(fieldUpdate)) {
-          const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
-          fieldUpdate = { field: identifiable, changeType: undefined };
-        }
-        fieldUpdates[uuid] = fieldUpdate;
-      });
+      if (hasValue(objectEntry)) {
+        Object.keys(ignoreStates ? objectEntry.fieldUpdates : objectEntry.fieldStates).forEach((uuid) => {
+          let fieldUpdate = objectEntry.fieldUpdates[uuid];
+          if (isEmpty(fieldUpdate)) {
+            const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
+            fieldUpdate = {field: identifiable, changeType: undefined};
+          }
+          fieldUpdates[uuid] = fieldUpdate;
+        });
+      }
       return fieldUpdates;
     }))
   }

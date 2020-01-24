@@ -3,15 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of as observableOf, Subscription, timer as observableTimer } from 'rxjs';
-import {
-  catchError,
-  distinctUntilChanged,
-  filter,
-  find,
-  first,
-  map,
-  startWith
-} from 'rxjs/operators';
+import { catchError, concatMap, distinctUntilChanged, filter, find, map, startWith, take, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -51,11 +43,9 @@ import { WorkspaceitemSectionsObject } from '../core/submission/models/workspace
 import { RemoteData } from '../core/data/remote-data';
 import { ErrorResponse } from '../core/cache/response.models';
 import { RemoteDataError } from '../core/data/remote-data-error';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../shared/testing/utils';
+import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject } from '../shared/testing/utils';
+import { RequestService } from '../core/data/request.service';
+import { SearchService } from '../core/shared/search/search.service';
 
 /**
  * A service that provides methods used in submission process.
@@ -73,6 +63,8 @@ export class SubmissionService {
    */
   protected timer$: Observable<any>;
 
+  private workspaceLinkPath = 'workspaceitems';
+  private workflowLinkPath = 'workflowitems';
   /**
    * Initialize service variables
    * @param {GlobalConfig} EnvConfig
@@ -82,6 +74,8 @@ export class SubmissionService {
    * @param {RouteService} routeService
    * @param {Store<SubmissionState>} store
    * @param {TranslateService} translate
+   * @param {SearchService} searchService
+   * @param {RequestService} requestService
    */
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               protected notificationsService: NotificationsService,
@@ -89,7 +83,9 @@ export class SubmissionService {
               protected router: Router,
               protected routeService: RouteService,
               protected store: Store<SubmissionState>,
-              protected translate: TranslateService) {
+              protected translate: TranslateService,
+              protected searchService: SearchService,
+              protected requestService: RequestService) {
   }
 
   /**
@@ -107,13 +103,15 @@ export class SubmissionService {
   /**
    * Perform a REST call to create a new workspaceitem and return response
    *
+   * @param collectionId
+   *    The owning collection id
    * @return Observable<SubmissionObject>
    *    observable of SubmissionObject
    */
-  createSubmission(): Observable<SubmissionObject> {
-    return this.restService.postToEndpoint('workspaceitems', {}).pipe(
-      map((workspaceitem: SubmissionObject) => workspaceitem[0]),
-      catchError(() => observableOf({})))
+  createSubmission(collectionId?: string): Observable<SubmissionObject> {
+    return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
+      map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
+      catchError(() => observableOf({} as SubmissionObject)))
   }
 
   /**
@@ -129,7 +127,7 @@ export class SubmissionService {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'text/uri-list');
     options.headers = headers;
-    return this.restService.postToEndpoint('workflowitems', selfUrl, null, options) as Observable<SubmissionObject[]>;
+    return this.restService.postToEndpoint(this.workflowLinkPath, selfUrl, null, options) as Observable<SubmissionObject[]>;
   }
 
   /**
@@ -323,9 +321,9 @@ export class SubmissionService {
   getSubmissionObjectLinkName(): string {
     const url = this.router.routerState.snapshot.url;
     if (url.startsWith('/workspaceitems') || url.startsWith('/submit')) {
-      return 'workspaceitems';
+      return this.workspaceLinkPath;
     } else if (url.startsWith('/workflowitems')) {
-      return 'workflowitems';
+      return this.workflowLinkPath;
     } else {
       return 'edititems';
     }
@@ -340,10 +338,10 @@ export class SubmissionService {
   getSubmissionScope(): SubmissionScopeType {
     let scope: SubmissionScopeType;
     switch (this.getSubmissionObjectLinkName()) {
-      case 'workspaceitems':
+      case this.workspaceLinkPath:
         scope = SubmissionScopeType.WorkspaceItem;
         break;
-      case 'workflowitems':
+      case this.workflowLinkPath:
         scope = SubmissionScopeType.WorkflowItem;
         break;
     }
@@ -460,16 +458,23 @@ export class SubmissionService {
    * Redirect to MyDspace page
    */
   redirectToMyDSpace() {
-    this.routeService.getPreviousUrl().pipe(
-      first()
-    ).subscribe((previousUrl: string) => {
-      if (isEmpty(previousUrl) || !previousUrl.startsWith('/mydspace')) {
-        this.router.navigate(['/mydspace']);
-      } else {
-        this.router.navigateByUrl(previousUrl);
-      }
-    });
-
+    // This assures that the cache is empty before redirecting to mydspace.
+    // See https://github.com/DSpace/dspace-angular/pull/468
+    this.searchService.getEndpoint().pipe(
+      take(1),
+      tap((url) => this.requestService.removeByHrefSubstring(url)),
+      // Now, do redirect.
+      concatMap(
+        () => this.routeService.getPreviousUrl().pipe(
+          take(1),
+          tap((previousUrl) => {
+            if (isEmpty(previousUrl) || !previousUrl.startsWith('/mydspace')) {
+              this.router.navigate(['/mydspace']);
+            } else {
+              this.router.navigateByUrl(previousUrl);
+            }
+        })))
+    ).subscribe();
   }
 
   /**

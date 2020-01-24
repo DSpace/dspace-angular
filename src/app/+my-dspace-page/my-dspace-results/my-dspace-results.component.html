@@ -4,7 +4,8 @@
     [hasBorder]="hasBorder"
     [sortConfig]="searchConfig.sort"
     [objects]="searchResults"
-    [hideGear]="true">
+    [hideGear]="true"
+    [context]="context">
   </ds-viewable-collection>
 </div>
 <ds-loading *ngIf="isLoading()" message="{{'loading.mydspace-results' | translate}}"></ds-loading>

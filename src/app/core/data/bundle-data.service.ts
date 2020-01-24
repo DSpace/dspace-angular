@@ -11,13 +11,13 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { FindAllOptions, GetRequest } from './request.models';
+import { FindListOptions, GetRequest } from './request.models';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap, take } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../+search-page/paginated-search-options.model';
 import { RemoteData } from './remote-data';
 import { PaginatedList } from './paginated-list';
 import { Bitstream } from '../shared/bitstream.model';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the bundles endpoint
@@ -43,10 +43,10 @@ export class BundleDataService extends DataService<Bundle> {
 
   /**
    * Get the endpoint for browsing bundles
-   * @param {FindAllOptions} options
+   * @param {FindListOptions} options
    * @returns {Observable<string>}
    */
-  getBrowseEndpoint(options: FindAllOptions = {}, linkPath?: string): Observable<string> {
+  getBrowseEndpoint(options: FindListOptions = {}, linkPath?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
 

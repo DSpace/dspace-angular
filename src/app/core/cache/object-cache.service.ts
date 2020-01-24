@@ -4,7 +4,7 @@ import { applyPatch, Operation } from 'fast-json-patch';
 import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 
 import { distinctUntilChanged, filter, map, mergeMap, take, } from 'rxjs/operators';
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasNoValue, isNotEmpty } from '../../shared/empty.util';
 import { CoreState } from '../core.reducers';
 import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
@@ -80,7 +80,8 @@ export class ObjectCacheService {
    * @return Observable<NormalizedObject<T>>
    *    An observable of the requested object in normalized form
    */
-  getObjectByUUID<T extends CacheableObject>(uuid: string): Observable<NormalizedObject<T>> {
+  getObjectByUUID<T extends CacheableObject>(uuid: string):
+    Observable<NormalizedObject<T>> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
       mergeMap((selfLink: string) => this.getObjectBySelfLink(selfLink)
@@ -195,8 +196,9 @@ export class ObjectCacheService {
    *    false otherwise
    */
   hasByUUID(uuid: string): boolean {
-    let result: boolean;
+    let result = false;
 
+    /* NB: that this is only a solution because the select method is synchronous, see: https://github.com/ngrx/store/issues/296#issuecomment-269032571*/
     this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
       take(1)

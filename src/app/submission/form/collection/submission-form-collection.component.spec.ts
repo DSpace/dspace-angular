@@ -19,8 +19,8 @@ import { SubmissionJsonPatchOperationsService } from '../../../core/submission/s
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service-stub';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { Community } from '../../../core/shared/community.model';
 import { RemoteData } from '../../../core/data/remote-data';
+import { Community } from '../../../core/shared/community.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { Collection } from '../../../core/shared/collection.model';
@@ -342,7 +342,7 @@ describe('SubmissionFormCollectionComponent Component', () => {
       fixture.detectChanges();
 
       expect(comp.searchField.reset).toHaveBeenCalled();
-      expect(comp.collectionChange.emit).toHaveBeenCalledWith(submissionRestResponse[0]);
+      expect(comp.collectionChange.emit).toHaveBeenCalledWith(submissionRestResponse[0] as any);
       expect(submissionServiceStub.changeSubmissionCollection).toHaveBeenCalled();
       expect(comp.selectedCollectionId).toBe(mockCollectionList[1].collection.id);
       expect(comp.selectedCollectionName$).toBeObservable(cold('(a|)', {

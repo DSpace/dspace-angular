@@ -12,6 +12,10 @@ import { ItemActionsComponent } from './item-actions.component';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { NotificationsServiceStub } from '../../testing/notifications-service-stub';
+import { RequestService } from '../../../core/data/request.service';
+import { getMockSearchService } from '../../mocks/mock-search-service';
+import { getMockRequestService } from '../../mocks/mock-request.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 let component: ItemActionsComponent;
 let fixture: ComponentFixture<ItemActionsComponent>;
@@ -21,7 +25,7 @@ let mockObject: Item;
 const mockDataService = {};
 
 mockObject = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
@@ -50,6 +54,10 @@ mockObject = Object.assign(new Item(), {
   }
 });
 
+const searchService = getMockSearchService()
+
+const requestServce = getMockRequestService();
+
 describe('ItemActionsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -67,6 +75,8 @@ describe('ItemActionsComponent', () => {
         { provide: Router, useValue: new RouterStub() },
         { provide: ItemDataService, useValue: mockDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: SearchService, useValue: searchService },
+        { provide: RequestService, useValue: requestServce }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(ItemActionsComponent, {

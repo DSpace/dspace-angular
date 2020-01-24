@@ -5,13 +5,19 @@ import { DSpaceObject } from './dspace-object.model';
 import { Collection } from './collection.model';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
-import { hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { hasValueOperator, isNotEmpty, isEmpty } from '../../shared/empty.util';
 import { PaginatedList } from '../data/paginated-list';
 import { Relationship } from './item-relationships/relationship.model';
 import { ResourceType } from './resource-type';
 import { getAllSucceededRemoteData, getSucceededRemoteData } from './operators';
 import { Bundle } from './bundle.model';
+import { GenericConstructor } from './generic-constructor';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { DEFAULT_ENTITY_TYPE } from '../../shared/metadata-representation/metadata-representation.decorator';
 
+/**
+ * Class representing a DSpace Item
+ */
 export class Item extends DSpaceObject {
   static type = new ResourceType('item');
 
@@ -112,4 +118,14 @@ export class Item extends DSpaceObject {
     );
   }
 
+  /**
+   * Method that returns as which type of object this object should be rendered
+   */
+  getRenderTypes(): Array<string | GenericConstructor<ListableObject>> {
+    let entityType = this.firstMetadataValue('relationship.type');
+    if (isEmpty(entityType)) {
+      entityType = DEFAULT_ENTITY_TYPE;
+    }
+    return [entityType, ...super.getRenderTypes()];
+  }
 }

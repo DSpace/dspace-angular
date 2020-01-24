@@ -7,7 +7,7 @@ import { CoreState } from '../core.reducers';
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { FindAllOptions } from '../data/request.models';
+import { FindListOptions } from '../data/request.models';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -20,7 +20,7 @@ import { WorkspaceItem } from './models/workspaceitem.model';
 @Injectable()
 export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
   protected linkPath = 'workspaceitems';
-  protected forceBypassCache = true;
+  protected responseMsToLive = 10 * 1000;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkspaceItem>,
@@ -35,7 +35,7 @@ export class WorkspaceitemDataService extends DataService<WorkspaceItem> {
     super();
   }
 
-  public getBrowseEndpoint(options: FindAllOptions) {
+  public getBrowseEndpoint(options: FindListOptions) {
     return this.halService.getEndpoint(this.linkPath);
   }
 

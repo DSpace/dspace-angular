@@ -20,13 +20,13 @@ import { Item } from '../../../core/shared/item.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { Bundle } from '../../../core/shared/bundle.model';
-import { PaginatedSearchOptions } from '../../../+search-page/paginated-search-options.model';
 import { FieldUpdate, FieldUpdates } from '../../../core/data/object-updates/object-updates.reducer';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { FieldChangeType } from '../../../core/data/object-updates/object-updates.actions';
 import { Operation } from 'fast-json-patch';
 import { MoveOperation } from 'fast-json-patch/lib/core';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
 
 @Component({
   selector: 'ds-item-bitstreams',

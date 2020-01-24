@@ -13,9 +13,11 @@ import { WorkflowItem } from '../../../core/submission/models/workflowitem.model
 import { RemoteData } from '../../../core/data/remote-data';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { RequestService } from '../../../core/data/request.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 /**
- * This component represents mydspace actions related to ClaimedTask object.
+ * This component represents actions related to ClaimedTask object.
  */
 @Component({
   selector: 'ds-claimed-task-actions',
@@ -56,12 +58,16 @@ export class ClaimedTaskActionsComponent extends MyDSpaceActionsComponent<Claime
    * @param {Router} router
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
+   * @param {SearchService} searchService
+   * @param {RequestService} requestService
    */
   constructor(protected injector: Injector,
               protected router: Router,
               protected notificationsService: NotificationsService,
-              protected translate: TranslateService) {
-    super(ClaimedTask.type, injector, router, notificationsService, translate);
+              protected translate: TranslateService,
+              protected searchService: SearchService,
+              protected requestService: RequestService) {
+    super(ClaimedTask.type, injector, router, notificationsService, translate, searchService, requestService);
   }
 
   /**

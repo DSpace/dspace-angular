@@ -1,21 +1,27 @@
 import { MetadataRepresentationType } from '../metadata-representation.model';
-import { ItemMetadataRepresentation, ItemTypeToValue } from './item-metadata-representation.model';
+import { ItemMetadataRepresentation } from './item-metadata-representation.model';
 import { Item } from '../../item.model';
-import { MetadataMap, MetadataValue } from '../../metadata.models';
+import { MetadataValue } from '../../metadata.models';
 
 describe('ItemMetadataRepresentation', () => {
   const valuePrefix = 'Test value for ';
   const item = new Item();
+  const itemType = 'Item Type';
   let itemMetadataRepresentation: ItemMetadataRepresentation;
-  const metadataMap = new MetadataMap();
-  for (const key of Object.keys(ItemTypeToValue)) {
-    metadataMap[ItemTypeToValue[key]] = [Object.assign(new MetadataValue(), {
-      value: `${valuePrefix}${ItemTypeToValue[key]}`
-    })];
-  }
-  item.metadata = metadataMap;
+  item.metadata = {
+    'dc.title': [
+      {
+        value: `${valuePrefix}dc.title`
+      }
+    ] as MetadataValue[],
+    'dc.contributor.author': [
+      {
+        value: `${valuePrefix}dc.contributor.author`
+      }
+    ] as MetadataValue[]
+  };
 
-  for (const itemType of Object.keys(ItemTypeToValue)) {
+  for (const metadataField of Object.keys(item.metadata)) {
     describe(`when creating an ItemMetadataRepresentation`, () => {
       beforeEach(() => {
         item.metadata['relationship.type'] = [
@@ -23,8 +29,7 @@ describe('ItemMetadataRepresentation', () => {
             value: itemType
           })
         ];
-
-        itemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(), item);
+        itemMetadataRepresentation = Object.assign(new ItemMetadataRepresentation(item.metadata[metadataField][0]), item);
       });
 
       it('should have a representation type of item', () => {
@@ -32,7 +37,7 @@ describe('ItemMetadataRepresentation', () => {
       });
 
       it('should return the correct value when calling getValue', () => {
-        expect(itemMetadataRepresentation.getValue()).toEqual(`${valuePrefix}${ItemTypeToValue[itemType]}`);
+        expect(itemMetadataRepresentation.getValue()).toEqual(`${valuePrefix}${metadataField}`);
       });
 
       it('should return the correct item type', () => {

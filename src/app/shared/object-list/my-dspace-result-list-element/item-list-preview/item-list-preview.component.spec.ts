@@ -14,7 +14,7 @@ let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
 
 const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.contributor.author': [
       {
@@ -31,7 +31,7 @@ const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
   }
 });
 const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
-  bitstreams: observableOf({}),
+  bundles: observableOf({}),
   metadata: {
     'dc.title': [
       {
@@ -43,6 +43,23 @@ const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
       {
         language: null,
         value: 'Article'
+      }
+    ]
+  }
+});
+const mockItemWithEntityType: Item = Object.assign(new Item(), {
+  bundles: observableOf({}),
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'This is just another title'
+      }
+    ],
+    'relationship.type': [
+      {
+        language: null,
+        value: 'Publication'
       }
     ]
   }
@@ -126,6 +143,18 @@ describe('ItemListPreviewComponent', () => {
     it('should show the issuedate empty placeholder', () => {
       const dateField = fixture.debugElement.query(By.css('span.item-list-date'));
       expect(dateField).not.toBeNull();
+    });
+  });
+
+  describe('When the item has an entity type', () => {
+    beforeEach(() => {
+      component.item = mockItemWithEntityType;
+      fixture.detectChanges();
+    });
+
+    it('should show the entity type span', () => {
+      const entityField = fixture.debugElement.query(By.css('ds-item-type-badge'));
+      expect(entityField).not.toBeNull();
     });
   });
 });

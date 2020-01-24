@@ -1,7 +1,6 @@
 import { MetadataRegistryComponent } from './metadata-registry.component';
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
 import { PaginatedList } from '../../../core/data/paginated-list';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
@@ -18,6 +17,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
 import { RestResponse } from '../../../core/cache/response.models';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
@@ -101,12 +101,12 @@ describe('MetadataRegistryComponent', () => {
 
     it('should start editing the selected schema', async(() => {
       fixture.whenStable().then(() => {
-        expect(registryService.editMetadataSchema).toHaveBeenCalledWith(mockSchemasList[0]);
+        expect(registryService.editMetadataSchema).toHaveBeenCalledWith(mockSchemasList[0] as MetadataSchema);
       });
     }));
 
     it('should cancel editing the selected schema when clicked again', async(() => {
-      spyOn(registryService, 'getActiveMetadataSchema').and.returnValue(observableOf(mockSchemasList[0]));
+      spyOn(registryService, 'getActiveMetadataSchema').and.returnValue(observableOf(mockSchemasList[0] as MetadataSchema));
       spyOn(registryService, 'cancelEditMetadataSchema');
       row.click();
       fixture.detectChanges();
@@ -121,7 +121,7 @@ describe('MetadataRegistryComponent', () => {
 
     beforeEach(() => {
       spyOn(registryService, 'deleteMetadataSchema').and.callThrough();
-      spyOn(registryService, 'getSelectedMetadataSchemas').and.returnValue(observableOf(selectedSchemas));
+      spyOn(registryService, 'getSelectedMetadataSchemas').and.returnValue(observableOf(selectedSchemas as MetadataSchema[]));
       comp.deleteSchemas();
       fixture.detectChanges();
     });

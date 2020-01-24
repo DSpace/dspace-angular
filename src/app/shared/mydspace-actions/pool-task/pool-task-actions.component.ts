@@ -13,6 +13,8 @@ import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service'
 import { isNotUndefined } from '../../empty.util';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { RequestService } from '../../../core/data/request.service';
+import { SearchService } from '../../../core/shared/search/search.service';
 
 /**
  * This component represents mydspace actions related to PoolTask object.
@@ -47,12 +49,16 @@ export class PoolTaskActionsComponent extends MyDSpaceActionsComponent<PoolTask,
    * @param {Router} router
    * @param {NotificationsService} notificationsService
    * @param {TranslateService} translate
+   * @param {SearchService} searchService
+   * @param {RequestService} requestService
    */
   constructor(protected injector: Injector,
               protected router: Router,
               protected notificationsService: NotificationsService,
-              protected translate: TranslateService) {
-    super(PoolTask.type, injector, router, notificationsService, translate);
+              protected translate: TranslateService,
+              protected searchService: SearchService,
+              protected requestService: RequestService) {
+    super(PoolTask.type, injector, router, notificationsService, translate, searchService, requestService);
   }
 
   /**

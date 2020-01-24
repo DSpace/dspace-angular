@@ -5,6 +5,7 @@ export enum ParserType {
   List = 'list',
   Lookup = 'lookup',
   LookupName = 'lookup-name',
+  LookupRelation = 'lookup-relation',
   Onebox = 'onebox',
   Name = 'name',
   Series = 'series',

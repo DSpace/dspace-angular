@@ -7,7 +7,7 @@ import { filter, map, take } from 'rxjs/operators';
 
 import { EpersonService } from './eperson.service';
 import { RequestService } from '../data/request.service';
-import { FindAllOptions } from '../data/request.models';
+import { FindListOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Group } from './models/group.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -27,7 +27,6 @@ import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 export class GroupEpersonService extends EpersonService<Group> {
   protected linkPath = 'groups';
   protected browseEndpoint = '';
-  protected forceBypassCache = false;
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Group>,
@@ -53,7 +52,7 @@ export class GroupEpersonService extends EpersonService<Group> {
    */
   isMemberOf(groupName: string): Observable<boolean> {
     const searchHref = 'isMemberOf';
-    const options = new FindAllOptions();
+    const options = new FindListOptions();
     options.searchParams = [new SearchParam('groupName', groupName)];
 
     return this.searchBy(searchHref, options).pipe(

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { ItemViewMode, rendersItemType } from '../../../../shared/items/item-type-decorator';
-import { TypedItemSearchResultListElementComponent } from '../../../../shared/object-list/item-list-element/item-types/typed-item-search-result-list-element.component';
+import { AbstractListableElementComponent } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { Item } from '../../../../core/shared/item.model';
+import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
 
-@rendersItemType('Project', ItemViewMode.Element)
+@listableObjectComponent('Project', ViewMode.ListElement)
 @Component({
   selector: 'ds-project-list-element',
   styleUrls: ['./project-list-element.component.scss'],
@@ -11,5 +13,5 @@ import { TypedItemSearchResultListElementComponent } from '../../../../shared/ob
 /**
  * The component for displaying a list element for an item of the type Project
  */
-export class ProjectListElementComponent extends TypedItemSearchResultListElementComponent {
+export class ProjectListElementComponent extends AbstractListableElementComponent<Item> {
 }

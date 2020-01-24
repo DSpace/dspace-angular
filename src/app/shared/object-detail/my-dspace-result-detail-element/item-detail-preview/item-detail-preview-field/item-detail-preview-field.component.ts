@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 import { Metadata } from '../../../../../core/shared/metadata.utils';
-import { MyDSpaceResult } from '../../../../../+my-dspace-page/my-dspace-result.model';
 import { Item } from '../../../../../core/shared/item.model';
+import { SearchResult } from '../../../../search/search-result.model';
 
 /**
  * This component show values for the given item metadata
@@ -19,9 +19,9 @@ export class ItemDetailPreviewFieldComponent {
   @Input() item: Item;
 
   /**
-   * The mydspace result object
+   * The search result object
    */
-  @Input() object: MyDSpaceResult<any>;
+  @Input() object: SearchResult<any>;
 
   /**
    * The metadata label
