@@ -1,6 +1,9 @@
 <ng-template #bitstreamView>
   <div class="col-2 col-md-3 col-lg-4 row-element">
-    {{ bitstream.name }}
+    <ng-content select="[slot=drag-handle]"></ng-content>
+    <div class="float-left">
+      {{ bitstream.name }}
+    </div>
   </div>
   <div class="col-2 col-sm-3 row-element">
     {{ bitstream.description }}
@@ -29,8 +32,6 @@
               title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">
         <i class="fas fa-undo-alt fa-fw"></i>
       </button>
-      <ng-content select="[slot=drag-handle]">
-      </ng-content>
     </div>
   </div>
 </ng-template>

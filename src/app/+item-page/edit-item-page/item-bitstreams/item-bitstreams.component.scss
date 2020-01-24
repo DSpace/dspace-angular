@@ -16,8 +16,10 @@
   border-top: $table-border-width solid $table-border-color;
 }
 
-.drag-handle:hover {
-  cursor: move;
+.drag-handle {
+  &:hover {
+    cursor: grab;
+  }
 }
 
 .cdk-drag-preview {

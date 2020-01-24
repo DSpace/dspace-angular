@@ -22,9 +22,9 @@
                 }">
       <ds-item-edit-bitstream [fieldUpdate]="updateValue"
                               [bundleUrl]="bundle.self">
-        <button disabled slot="drag-handle" class="drag-handle btn btn-outline-secondary btn-sm" cdkDragHandle>
+        <div slot="drag-handle" class="drag-handle text-secondary float-left p-1" cdkDragHandle>
           <i class="fas fa-grip-vertical fa-fw" [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
-        </button>
+        </div>
       </ds-item-edit-bitstream>
     </div>
     <ng-container *ngVar="(bitstreamsRD$ | async) as bitstreamsRD">
