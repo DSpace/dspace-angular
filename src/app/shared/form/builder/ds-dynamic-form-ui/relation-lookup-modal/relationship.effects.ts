@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { debounceTime, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { debounceTime, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, UpdateRelationshipAction } from './relationship.actions';
@@ -15,6 +15,8 @@ import { SaveSubmissionSectionFormSuccessAction } from '../../../../../submissio
 import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
 import { SubmissionState } from '../../../../../submission/submission.reducers';
 import { Store } from '@ngrx/store';
+import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
+import { RequestService } from '../../../../../core/data/request.service';
 
 const DEBOUNCE_TIME = 5000;
 
@@ -106,7 +108,9 @@ export class RelationshipEffects {
               private relationshipService: RelationshipService,
               private relationshipTypeService: RelationshipTypeService,
               private submissionObjectService: SubmissionObjectDataService,
-              private store: Store<SubmissionState>
+              private store: Store<SubmissionState>,
+              private objectCache: ObjectCacheService,
+              private requestService: RequestService
   ) {
   }
 
@@ -127,8 +131,9 @@ export class RelationshipEffects {
               return this.relationshipService.addRelationship(type.id, item1, item2, undefined, nameVariant);
             }
           }
-        )
-      ).pipe(take(1), switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()))
+        ),
+        take(1),
+        this.removeWorkspaceItemFromCache(submissionId)
       ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
 
@@ -138,7 +143,25 @@ export class RelationshipEffects {
       hasValueOperator(),
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
       take(1),
-      switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()))
-    ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject])));
+      this.removeWorkspaceItemFromCache(submissionId)
+    ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
+
+  removeWorkspaceItemFromCache = (submissionId) =>
+    <T>(source: Observable<T>): Observable<SubmissionObject> =>
+      source.pipe(
+        switchMap(() => this.submissionObjectService.getHrefByID(submissionId).pipe(take(1))),
+        switchMap((href: string) => {
+            this.objectCache.remove(href);
+            this.requestService.removeByHrefSubstring(submissionId);
+            return combineLatest(
+              this.objectCache.hasBySelfLinkObservable(href),
+              this.requestService.hasByHrefObservable(href)
+            ).pipe(
+              filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
+              take(1),
+              switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+            )
+          }
+        ));
 }

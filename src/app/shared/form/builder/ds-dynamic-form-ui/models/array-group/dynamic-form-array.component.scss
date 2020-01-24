@@ -1,13 +1,16 @@
 @import './../../../../../../../styles/variables';
 
 .cdk-drag {
-    margin-left: -(1.5 * $spacer);
+    margin-left: -(2 * $spacer);
+    margin-right: -(0.5 * $spacer);
+    padding-right: (0.5 * $spacer);
     .drag-icon {
         visibility: hidden;
-        width: (1.5 * $spacer);
+        width: (2 * $spacer);
         color: $gray-600;
         margin: $btn-padding-y 0;
         line-height: $btn-line-height;
+        text-indent: 0.5 * $spacer
     }
 
     &:hover, &:focus {

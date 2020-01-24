@@ -23,6 +23,7 @@ import {
 } from '../../shared/operators';
 import { CacheableObject, TypedObject } from '../object-cache.reducer';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
+import { deepClone } from 'fast-json-patch';
 
 @Injectable()
 export class RemoteDataBuildService {
@@ -124,7 +125,6 @@ export class RemoteDataBuildService {
             });
           }));
       }),
-      startWith([]),
       distinctUntilChanged(),
     );
     const pageInfo$ = requestEntry$.pipe(

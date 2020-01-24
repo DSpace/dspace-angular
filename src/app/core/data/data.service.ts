@@ -227,7 +227,7 @@ export abstract class DataService<T extends CacheableObject> {
       ),
       switchMap((href) => this.requestService.getByHref(href)),
       skipWhile((requestEntry) => hasValue(requestEntry) && requestEntry.completed),
-      switchMap((href) =>
+      switchMap(() =>
         this.rdbService.buildList<T>(hrefObs) as Observable<RemoteData<PaginatedList<T>>>
       )
     );
@@ -348,4 +348,7 @@ export abstract class DataService<T extends CacheableObject> {
     this.requestService.commit(method);
   }
 
+  getLinkPath() {
+    return this.linkPath;
+  }
 }

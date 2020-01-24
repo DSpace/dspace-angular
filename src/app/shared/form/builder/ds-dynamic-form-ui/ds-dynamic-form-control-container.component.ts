@@ -73,7 +73,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, startWith, switchMap, find, take } from 'rxjs/operators';
+import { map, startWith, switchMap, find, take, tap } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -96,6 +96,7 @@ import { ItemSearchResult } from '../../../object-collection/shared/item-search-
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { FormService } from '../../form.service';
+import { deepClone } from 'fast-json-patch';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -253,8 +254,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       }
     }
     if (this.model.relationshipConfig) {
+      this.listId = 'list-' + this.model.relationshipConfig.relationshipType;
       this.setItem();
       this.relationService.getRelatedItemsByLabel(this.item, this.model.relationshipConfig.relationshipType).pipe(
+        tap((t: any) => console.log(deepClone(t))),
+        getSucceededRemoteData(),
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
     }
