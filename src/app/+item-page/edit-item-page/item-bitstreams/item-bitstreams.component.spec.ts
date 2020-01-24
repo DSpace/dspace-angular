@@ -21,12 +21,12 @@ import { BitstreamDataService } from '../../../core/data/bitstream-data.service'
 import { getMockRequestService } from '../../../shared/mocks/mock-request.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { RequestService } from '../../../core/data/request.service';
-import { SearchConfigurationService } from '../../../+search-page/search-service/search-configuration.service';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { Bundle } from '../../../core/shared/bundle.model';
 import { RestResponse } from '../../../core/cache/response.models';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;

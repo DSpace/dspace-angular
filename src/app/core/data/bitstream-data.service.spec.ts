@@ -2,8 +2,6 @@ import { BitstreamDataService } from './bitstream-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RequestService } from './request.service';
 import { Bitstream } from '../shared/bitstream.model';
-import { Observable } from 'rxjs/internal/Observable';
-import { RestResponse } from '../cache/response.models';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -52,7 +50,7 @@ describe('BitstreamDataService', () => {
     });
 
     it('should configure a put request', () => {
-      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest), undefined);
+      expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PutRequest));
     });
   });
 });
