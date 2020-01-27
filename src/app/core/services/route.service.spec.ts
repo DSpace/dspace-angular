@@ -142,7 +142,11 @@ describe('RouteService', () => {
 
   describe('getHistory', () => {
     it('should dispatch AddUrlToHistoryAction on NavigationEnd event', () => {
-      serviceAsAny.store = observableOf({ history: ['url', 'newurl'] });
+      serviceAsAny.store = observableOf({
+        core: {
+          history: ['url', 'newurl']
+        }
+      });
 
       service.getHistory().subscribe((history) => {
         expect(history).toEqual(['url', 'newurl']);

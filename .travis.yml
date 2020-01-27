@@ -1,5 +1,5 @@
 sudo: required
-dist: trusty
+dist: bionic
 
 env:
   # Install the latest docker-compose version for ci testing.
@@ -11,6 +11,9 @@ env:
   DSPACE_REST_PORT: 8080
   DSPACE_REST_NAMESPACE: '/server/api'
   DSPACE_REST_SSL: false
+
+services:
+  - xvfb
 
 before_install:
   # Docker Compose Install
@@ -33,14 +36,6 @@ before_script:
 after_script:
   - docker-compose -f ./docker/docker-compose-travis.yml down
 
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - dpkg
-      - google-chrome-stable
-
 language: node_js
 
 node_js:
@@ -53,8 +48,6 @@ cache:
 bundler_args: --retry 5
 
 script:
-  # Use Chromium instead of Chrome.
-  - export CHROME_BIN=chromium-browser
   - yarn run build
   - yarn run ci
   - cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

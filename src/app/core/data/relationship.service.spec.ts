@@ -54,10 +54,12 @@ describe('RelationshipService', () => {
   });
 
   const relatedItem1 = Object.assign(new Item(), {
+    self: 'fake-item-url/author1',
     id: 'author1',
     uuid: 'author1'
   });
   const relatedItem2 = Object.assign(new Item(), {
+    self: 'fake-item-url/author2',
     id: 'author2',
     uuid: 'author2'
   });
@@ -120,7 +122,7 @@ describe('RelationshipService', () => {
       expect(requestService.configure).toHaveBeenCalledWith(expected);
     });
 
-    it('should clear the related items their cache', () => {
+    it('should clear the cache of the related items', () => {
       expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1.self);
       expect(objectCache.remove).toHaveBeenCalledWith(item.self);
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.self);

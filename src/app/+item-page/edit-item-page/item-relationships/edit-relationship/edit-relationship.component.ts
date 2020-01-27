@@ -1,15 +1,15 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {combineLatest as observableCombineLatest, Observable} from 'rxjs';
-import {filter, map, switchMap, take, tap} from 'rxjs/operators';
-import {FieldChangeType} from '../../../../core/data/object-updates/object-updates.actions';
-import {DeleteRelationship, FieldUpdate} from '../../../../core/data/object-updates/object-updates.reducer';
-import {ObjectUpdatesService} from '../../../../core/data/object-updates/object-updates.service';
-import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
-import {Item} from '../../../../core/shared/item.model';
-import {getRemoteDataPayload, getSucceededRemoteData} from '../../../../core/shared/operators';
-import {ViewMode} from '../../../../core/shared/view-mode.model';
-import {hasValue, isNotEmpty} from '../../../../shared/empty.util';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
+import { DeleteRelationship, FieldUpdate } from '../../../../core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
+import { Item } from '../../../../core/shared/item.model';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { hasValue, isNotEmpty } from '../../../../shared/empty.util';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   // tslint:disable-next-line:component-selector

@@ -14,6 +14,7 @@ import { DSpaceObject } from '../shared/dspace-object.model';
 import { NormalizedAuthStatus } from '../auth/models/normalized-auth-status.model';
 import { MetadataSchema } from '../metadata/metadata-schema.model';
 import { MetadataField } from '../metadata/metadata-field.model';
+import { ContentSource } from '../shared/content-source.model';
 
 /* tslint:disable:max-classes-per-file */
 export class RestResponse {
@@ -284,6 +285,19 @@ export class FilteredDiscoveryQueryResponse extends RestResponse {
     public statusCode: number,
     public statusText: string,
     public pageInfo?: PageInfo
+  ) {
+    super(true, statusCode, statusText);
+  }
+}
+
+/**
+ * A successful response containing exactly one MetadataSchema
+ */
+export class ContentSourceSuccessResponse extends RestResponse {
+  constructor(
+    public contentsource: ContentSource,
+    public statusCode: number,
+    public statusText: string,
   ) {
     super(true, statusCode, statusText);
   }

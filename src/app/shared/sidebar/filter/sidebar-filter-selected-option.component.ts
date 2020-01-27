@@ -10,6 +10,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
  * Represents a single selected option in a sidebar filter
  */
 export class SidebarFilterSelectedOptionComponent {
-  @Input() label:string;
-  @Output() click:EventEmitter<any> = new EventEmitter<any>();
+  @Input() label: string;
+  @Output() click: EventEmitter<any> = new EventEmitter<any>();
 }

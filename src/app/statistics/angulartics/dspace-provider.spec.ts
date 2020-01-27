@@ -5,9 +5,9 @@ import { filter } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
 
 describe('Angulartics2DSpace', () => {
-  let provider:Angulartics2DSpace;
-  let angulartics2:Angulartics2;
-  let statisticsService:jasmine.SpyObj<StatisticsService>;
+  let provider: Angulartics2DSpace;
+  let angulartics2: Angulartics2;
+  let statisticsService: jasmine.SpyObj<StatisticsService>;
 
   beforeEach(() => {
     angulartics2 = {
