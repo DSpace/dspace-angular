@@ -107,13 +107,6 @@ export class RemoteDataBuildService {
             );
           }
         }
-        console.log('RD', new RemoteData(
-          requestPending,
-          responsePending,
-          isSuccessful,
-          error,
-          payload
-        ));
         return new RemoteData(
           requestPending,
           responsePending,
@@ -126,7 +119,6 @@ export class RemoteDataBuildService {
   }
 
   buildList<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
-    console.log('rdbBuildList')
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
     }
@@ -135,7 +127,6 @@ export class RemoteDataBuildService {
     const tDomainList$ = requestEntry$.pipe(
       getResourceLinksFromResponse(),
       switchMap((resourceUUIDs: string[]) => {
-        console.log('resourceUUIDs', resourceUUIDs)
         return this.objectCache.getList(resourceUUIDs).pipe(
           map((normList: Array<NormalizedObject<T>>) => {
             return normList.map((normalized: NormalizedObject<T>) => {
@@ -149,7 +140,6 @@ export class RemoteDataBuildService {
     const pageInfo$ = requestEntry$.pipe(
       filterSuccessfulResponses(),
       map((response: DSOSuccessResponse) => {
-        console.log('rdb pageInfo', response)
         if (hasValue((response as DSOSuccessResponse).pageInfo)) {
           const resPageInfo = (response as DSOSuccessResponse).pageInfo;
           if (isNotEmpty(resPageInfo) && resPageInfo.currentPage >= 0) {
@@ -163,7 +153,6 @@ export class RemoteDataBuildService {
 
     const payload$ = observableCombineLatest(tDomainList$, pageInfo$).pipe(
       map(([tDomainList, pageInfo]) => {
-        console.log('rdb domainlist', tDomainList)
         return new PaginatedList(pageInfo, tDomainList);
       })
     );

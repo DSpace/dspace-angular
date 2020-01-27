@@ -1,8 +1,8 @@
+import { ErrorResponse, GenericSuccessResponse } from '../cache/response.models';
+import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
+import { BrowseDefinition } from '../shared/browse-definition.model';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { BrowseEndpointRequest } from './request.models';
-import { GenericSuccessResponse, ErrorResponse } from '../cache/response.models';
-import { BrowseDefinition } from '../shared/browse-definition.model';
-import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 
 describe('BrowseResponseParsingService', () => {
   let service: BrowseResponseParsingService;
@@ -117,8 +117,8 @@ describe('BrowseResponseParsingService', () => {
             'dc.date.issued'
           ],
           _links: {
-            self: 'https://rest.api/discover/browses/dateissued',
-            items: 'https://rest.api/discover/browses/dateissued/items'
+            self: { href: 'https://rest.api/discover/browses/dateissued' },
+            items: { href: 'https://rest.api/discover/browses/dateissued/items' }
           }
         }),
         Object.assign(new BrowseDefinition(), {
@@ -143,9 +143,9 @@ describe('BrowseResponseParsingService', () => {
             'dc.creator'
           ],
           _links: {
-            self: 'https://rest.api/discover/browses/author',
-            entries: 'https://rest.api/discover/browses/author/entries',
-            items: 'https://rest.api/discover/browses/author/items'
+            self: { href: 'https://rest.api/discover/browses/author' },
+            entries: { href: 'https://rest.api/discover/browses/author/entries' },
+            items: { href: 'https://rest.api/discover/browses/author/items' }
           }
         })
       ];

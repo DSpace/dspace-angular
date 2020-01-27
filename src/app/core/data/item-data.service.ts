@@ -14,6 +14,7 @@ import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { Collection } from '../shared/collection.model';
+import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { ITEM } from '../shared/item.resource-type';

@@ -69,10 +69,7 @@ describe('RelationshipTypeService', () => {
       /* tslint:enable:no-empty */
     }) as ObjectCacheService;
 
-    itemService = jasmine.createSpyObj('itemService', {
-      // findById: (uuid) => new RemoteData(false, false, true, undefined, relatedItems.find((relatedItem) => relatedItem.id === uuid)),
-      // findByHref: createSuccessfulRemoteDataObject$(relatedItems[0])
-    });
+    itemService = undefined;
 
   }
   function initTestService() {

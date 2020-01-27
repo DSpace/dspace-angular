@@ -1,26 +1,27 @@
 import * as ngrx from '@ngrx/store';
 import { Store } from '@ngrx/store';
+import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
-
-import { ObjectCacheService } from './object-cache.service';
+import { first } from 'rxjs/operators';
+import { CoreState } from '../core.reducers';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { Item } from '../shared/item.model';
+import { NormalizedItem } from './models/normalized-item.model';
 import {
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
   ApplyPatchObjectCacheAction,
   RemoveFromObjectCacheAction
 } from './object-cache.actions';
-import { CoreState } from '../core.reducers';
-import { NormalizedItem } from './models/normalized-item.model';
-import { first } from 'rxjs/operators';
-import { Operation } from 'fast-json-patch';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { AddToSSBAction } from './server-sync-buffer.actions';
 import { Patch } from './object-cache.reducer';
-import { Item } from '../shared/item.model';
+
+import { ObjectCacheService } from './object-cache.service';
+import { AddToSSBAction } from './server-sync-buffer.actions';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;
   let store: Store<CoreState>;
+  let linkServiceStub;
 
   const selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
   const requestUUID = '4d3a4ce8-a375-4b98-859b-39f0a014d736';
@@ -28,7 +29,10 @@ describe('ObjectCacheService', () => {
   const msToLive = 900000;
   let objectToCache = {
     self: selfLink,
-    type: Item.type
+    type: Item.type,
+    _links: {
+      self: { href: selfLink }
+    }
   };
   let cacheEntry;
   let invalidCacheEntry;
@@ -37,7 +41,10 @@ describe('ObjectCacheService', () => {
   function init() {
     objectToCache = {
       self: selfLink,
-      type: Item.type
+      type: Item.type,
+      _links: {
+        self: { href: selfLink }
+      }
     };
     cacheEntry = {
       data: objectToCache,
@@ -50,8 +57,11 @@ describe('ObjectCacheService', () => {
   beforeEach(() => {
     init();
     store = new Store<CoreState>(undefined, undefined, undefined);
+    linkServiceStub = jasmine.createSpyObj({
+      removeResolvedLinks: {}
+    });
     spyOn(store, 'dispatch');
-    service = new ObjectCacheService(store);
+    service = new ObjectCacheService(store, linkServiceStub);
 
     spyOn(Date.prototype, 'getTime').and.callFake(() => {
       return timestamp;
@@ -62,6 +72,7 @@ describe('ObjectCacheService', () => {
     it('should dispatch an ADD action with the object to add, the time to live, and the current timestamp', () => {
       service.add(objectToCache, msToLive, requestUUID);
       expect(store.dispatch).toHaveBeenCalledWith(new AddToObjectCacheAction(objectToCache, timestamp, msToLive, requestUUID));
+      expect(linkServiceStub.removeResolvedLinks).toHaveBeenCalledWith(objectToCache);
     });
   });
 
@@ -127,7 +138,7 @@ describe('ObjectCacheService', () => {
       expect(service.hasBySelfLink(selfLink)).toBe(true);
     });
 
-    it("should return false if the object with the supplied self link isn't cached", () => {
+    it('should return false if the object with the supplied self link isn\'t cached', () => {
       spyOnProperty(ngrx, 'select').and.callFake(() => {
         return () => {
           return () => observableOf(undefined);

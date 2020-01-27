@@ -1,42 +1,43 @@
+import { CommonModule } from '@angular/common';
+import { EventEmitter } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CommonModule } from '@angular/common';
-import { ItemCollectionMapperComponent } from './item-collection-mapper.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RouterStub } from '../../../shared/testing/router-stub';
-import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
-import { EventEmitter } from '@angular/core';
-import { SearchServiceStub } from '../../../shared/testing/search-service-stub';
-import { PaginatedList } from '../../../core/data/paginated-list';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
-import { HostWindowService } from '../../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
-import { By } from '@angular/platform-browser';
-import { Item } from '../../../core/shared/item.model';
-import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
-import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service-stub';
 import { of } from 'rxjs/internal/observable/of';
+import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
 import { RestResponse } from '../../../core/cache/response.models';
-import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { PaginatedList } from '../../../core/data/paginated-list';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
-import { ErrorComponent } from '../../../shared/error/error.component';
-import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { Item } from '../../../core/shared/item.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { ErrorComponent } from '../../../shared/error/error.component';
+import { HostWindowService } from '../../../shared/host-window.service';
+import { LoadingComponent } from '../../../shared/loading/loading.component';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
+import { ObjectSelectService } from '../../../shared/object-select/object-select.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { SearchFormComponent } from '../../../shared/search-form/search-form.component';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router-stub';
+import { HostWindowServiceStub } from '../../../shared/testing/host-window-service-stub';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service-stub';
+import { ObjectSelectServiceStub } from '../../../shared/testing/object-select-service-stub';
+import { RouterStub } from '../../../shared/testing/router-stub';
+import { SearchServiceStub } from '../../../shared/testing/search-service-stub';
+import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { ItemCollectionMapperComponent } from './item-collection-mapper.component';
 
 describe('ItemCollectionMapperComponent', () => {
   let comp: ItemCollectionMapperComponent;
@@ -109,7 +110,8 @@ describe('ItemCollectionMapperComponent', () => {
         { provide: SearchService, useValue: searchServiceStub },
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub() },
         { provide: TranslateService, useValue: translateServiceStub },
-        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) }
+        { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
+        { provide: CollectionDataService, useValue: {} }
       ]
     }).compileComponents();
   }));

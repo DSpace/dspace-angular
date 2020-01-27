@@ -1,25 +1,25 @@
+import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { Observable, of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
+import { Community } from '../shared/community.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';
-import { FindListOptions, FindByIDRequest } from './request.models';
-import { RequestService } from './request.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestEntry } from './request.reducer';
-import {Observable, of as observableOf} from 'rxjs';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { Item } from '../shared/item.model';
-import { Community } from '../shared/community.model';
+import { FindByIDRequest, FindListOptions } from './request.models';
+import { RequestEntry } from './request.reducer';
+import { RequestService } from './request.service';
 
 const LINK_NAME = 'test';
 
@@ -54,7 +54,7 @@ class TestService extends ComColDataService<any> {
 
 /* tslint:enable:max-classes-per-file */
 
-describe('ComColDataService', () => {
+fdescribe('ComColDataService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
   let requestService: RequestService;

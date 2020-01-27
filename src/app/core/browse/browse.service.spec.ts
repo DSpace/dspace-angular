@@ -44,8 +44,8 @@ describe('BrowseService', () => {
         'dc.date.issued'
       ],
       _links: {
-        self: 'https://rest.api/discover/browses/dateissued',
-        items: 'https://rest.api/discover/browses/dateissued/items'
+        self: { href: 'https://rest.api/discover/browses/dateissued' },
+        items: { href: 'https://rest.api/discover/browses/dateissued/items' }
       }
     }),
     Object.assign(new BrowseDefinition(), {
@@ -72,9 +72,9 @@ describe('BrowseService', () => {
         'dc.creator'
       ],
       _links: {
-        self: 'https://rest.api/discover/browses/author',
-        entries: 'https://rest.api/discover/browses/author/entries',
-        items: 'https://rest.api/discover/browses/author/items'
+        self: { href: 'https://rest.api/discover/browses/author' },
+        entries: { href: 'https://rest.api/discover/browses/author/entries' },
+        items: { href: 'https://rest.api/discover/browses/author/items' }
       }
     })
   ];
@@ -125,9 +125,11 @@ describe('BrowseService', () => {
     });
 
     it('should return a RemoteData object containing the correct BrowseDefinition[]', () => {
-      const expected = cold('--a-', { a: {
-        payload: browseDefinitions
-      }});
+      const expected = cold('--a-', {
+        a: {
+          payload: browseDefinitions
+        }
+      });
 
       expect(service.getBrowseDefinitions()).toBeObservable(expected);
     });
@@ -142,9 +144,11 @@ describe('BrowseService', () => {
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
       spyOn(service, 'getBrowseDefinitions').and
-        .returnValue(hot('--a-', { a: {
+        .returnValue(hot('--a-', {
+          a: {
             payload: browseDefinitions
-          }}));
+          }
+        }));
       spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
     });
 
@@ -215,9 +219,11 @@ describe('BrowseService', () => {
         rdbService = getMockRemoteDataBuildService();
         service = initTestService();
         spyOn(service, 'getBrowseDefinitions').and
-          .returnValue(hot('--a-', { a: {
+          .returnValue(hot('--a-', {
+            a: {
               payload: browseDefinitions
-            }}));
+            }
+          }));
       });
 
       it('should return the URL for the given metadataKey and linkPath', () => {
@@ -288,9 +294,11 @@ describe('BrowseService', () => {
       rdbService = getMockRemoteDataBuildService();
       service = initTestService();
       spyOn(service, 'getBrowseDefinitions').and
-        .returnValue(hot('--a-', { a: {
+        .returnValue(hot('--a-', {
+          a: {
             payload: browseDefinitions
-          }}));
+          }
+        }));
       spyOn(rdbService, 'toRemoteDataObservable').and.callThrough();
     });
 

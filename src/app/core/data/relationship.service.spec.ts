@@ -16,7 +16,7 @@ import { DeleteRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 
-fdescribe('RelationshipService', () => {
+describe('RelationshipService', () => {
   let service: RelationshipService;
   let requestService: RequestService;
 
