@@ -1,4 +1,4 @@
-<div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}">
+<div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}" [hidden]="model.hidden">
     <ds-form #formRef="formComponent" *ngIf="formModel" @shrinkInOut
              [formId]="formId"
              [formModel]="formModel"

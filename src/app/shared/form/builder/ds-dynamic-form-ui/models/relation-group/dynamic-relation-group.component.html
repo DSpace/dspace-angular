@@ -15,7 +15,7 @@
         (click)="expandForm()"></span>
 </a>
 
-<div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}">
+<div class="pt-2" [ngClass]="{'border-top': !showErrorMessages, 'border border-danger': showErrorMessages}" [hidden]="model.hidden">
   <div *ngIf="!(formCollapsed | async)" class="pl-2 row"  @shrinkInOut>
     <ds-form #formRef="formComponent"
              class="col-sm-12 col-md-8 col-lg-9 col-xl-10 pl-0"
