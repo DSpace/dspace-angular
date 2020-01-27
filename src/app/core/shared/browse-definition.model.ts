@@ -1,10 +1,11 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
-import { SortOption } from './sort-option.model';
-import { ResourceType } from './resource-type';
 import { TypedObject } from '../cache/object-cache.reducer';
+import { BROWSE_DEFINITION } from './browse-definition.resource-type';
+import { HALLink } from './hal-link.model';
+import { SortOption } from './sort-option.model';
 
 export class BrowseDefinition implements TypedObject {
-  static type = new ResourceType('browse');
+  static type = BROWSE_DEFINITION;
 
   @autoserialize
   id: string;
@@ -21,8 +22,14 @@ export class BrowseDefinition implements TypedObject {
   @autoserializeAs('metadata')
   metadataKeys: string[];
 
+  get self(): string {
+    return this._links.self.href;
+  }
+
   @autoserialize
   _links: {
-    [name: string]: string
-  }
+    self: HALLink;
+    entries: HALLink;
+    items: HALLink;
+  };
 }

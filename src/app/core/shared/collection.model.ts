@@ -1,17 +1,19 @@
-import { link } from '../cache/builders/build-decorators';
-import { DSpaceObject } from './dspace-object.model';
-import { Bitstream } from './bitstream.model';
-import { HALLink } from './hal-link.model';
-import { Item } from './item.model';
-import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
-import { License } from './license.model';
-import { ResourcePolicy } from './resource-policy.model';
+import { link } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
-import { ResourceType } from './resource-type';
+import { RemoteData } from '../data/remote-data';
+import { Bitstream } from './bitstream.model';
+import { BITSTREAM } from './bitstream.resource-type';
+import { COLLECTION } from './collection.resource-type';
+import { DSpaceObject } from './dspace-object.model';
+import { HALLink } from './hal-link.model';
+import { License } from './license.model';
+import { LICENSE } from './license.resource-type';
+import { ResourcePolicy } from './resource-policy.model';
+import { RESOURCE_POLICY } from './resource-policy.resource-type';
 
 export class Collection extends DSpaceObject {
-  static type = new ResourceType('collection');
+  static type = COLLECTION;
 
   /**
    * A string representing the unique handle of this Collection
@@ -61,24 +63,26 @@ export class Collection extends DSpaceObject {
   /**
    * The deposit license of this Collection
    */
-//  license?: Observable<RemoteData<License>>;
+  @link(LICENSE)
+  license?: Observable<RemoteData<License>>;
 
   /**
    * The Bitstream that represents the logo of this Collection
    */
-  @link(Bitstream.type)
+  @link(BITSTREAM)
   logo?: Observable<RemoteData<Bitstream>>;
 
   /**
    * The default access conditions of this Collection
    */
-  @link(ResourcePolicy.type, true)
+  @link(RESOURCE_POLICY, true)
   defaultAccessConditions?: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;
 
   _links: {
     license: HALLink;
     harvester: HALLink;
     mappedItems: HALLink;
+    itemtemplate: HALLink;
     defaultAccessConditions: HALLink;
     logo: HALLink;
     self: HALLink;

@@ -1,27 +1,28 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
-import { RequestService } from '../data/request.service';
-import { PoolTask } from './models/pool-task-object.model';
-import { TasksService } from './tasks.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { CoreState } from '../core.reducers';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PoolTask } from './models/pool-task-object.model';
+import { POOL_TASK } from './models/pool-task-object.resource-type';
 import { ProcessTaskResponse } from './models/process-task-response';
+import { TasksService } from './tasks.service';
 
 /**
  * The service handling all REST requests for PoolTask
  */
 @Injectable()
-@dataService(PoolTask.type)
+@dataService(POOL_TASK)
 export class PoolTaskDataService extends TasksService<PoolTask> {
 
   /**

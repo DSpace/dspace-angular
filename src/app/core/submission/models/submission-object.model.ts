@@ -2,13 +2,16 @@ import { Observable } from 'rxjs';
 import { link } from '../../cache/builders/build-decorators';
 
 import { CacheableObject } from '../../cache/object-cache.reducer';
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { EPerson } from '../../eperson/models/eperson.model';
+import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
 import { RemoteData } from '../../data/remote-data';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { EPERSON } from '../../eperson/models/eperson.resource-type';
 import { Collection } from '../../shared/collection.model';
+import { COLLECTION } from '../../shared/collection.resource-type';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { Item } from '../../shared/item.model';
-import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
+import { ITEM } from '../../shared/item.resource-type';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 export interface SubmissionObjectError {
@@ -39,13 +42,13 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
   /**
    * The collection this submission applies to
    */
-  @link(Collection.type)
+  @link(COLLECTION)
   collection?: Observable<RemoteData<Collection>> | Collection;
 
   /**
    * The submission item
    */
-  @link(Item.type)
+  @link(ITEM)
   item?: Observable<RemoteData<Item>> | Item;
 
   /**
@@ -62,7 +65,7 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
   /**
    * The workspaceitem submitter
    */
-  @link(EPerson.type)
+  @link(EPERSON)
   submitter?: Observable<RemoteData<EPerson>> | EPerson;
 
   /**

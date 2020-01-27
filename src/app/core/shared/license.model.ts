@@ -1,8 +1,8 @@
 import { DSpaceObject } from './dspace-object.model';
-import { ResourceType } from './resource-type';
+import { LICENSE } from './license.resource-type';
 
 export class License extends DSpaceObject {
-  static type = new ResourceType('license');
+  static type = LICENSE;
 
   /**
    * Is the license custom?

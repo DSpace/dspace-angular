@@ -1,55 +1,54 @@
-import { Injectable } from '@angular/core';
-
-import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { dataService } from '../cache/builders/build-decorators';
-
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
-import { Collection } from '../shared/collection.model';
-import { Item } from '../shared/item.model';
-import { ComColDataService } from './comcol-data.service';
-import { CommunityDataService } from './community-data.service';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/internal/Observable';
-import {
-  ContentSourceRequest,
-  RestRequest,
-  UpdateContentSourceRequest,
-  GetRequest,
-  FindListOptions
-} from './request.models';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
+import { INotification } from '../../shared/notifications/models/notification.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { dataService } from '../cache/builders/build-decorators';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { SearchParam } from '../cache/models/search-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
+import { CoreState } from '../core.reducers';
+import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { Collection } from '../shared/collection.model';
+import { COLLECTION } from '../shared/collection.resource-type';
 import { ContentSource } from '../shared/content-source.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
 import {
   configureRequest,
   filterSuccessfulResponses,
   getRequestFromRequestHref,
   getResponseFromEntry
 } from '../shared/operators';
-import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
-import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
-import { TranslateService } from '@ngx-translate/core';
-import { SearchParam } from '../cache/models/search-param.model';
+import { ComColDataService } from './comcol-data.service';
+import { CommunityDataService } from './community-data.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
+import { PaginatedList } from './paginated-list';
 import { ResponseParsingService } from './parsing.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { INotification } from '../../shared/notifications/models/notification.model';
-import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { RemoteData } from './remote-data';
+import {
+  ContentSourceRequest,
+  FindListOptions,
+  GetRequest,
+  RestRequest,
+  UpdateContentSourceRequest
+} from './request.models';
+import { RequestService } from './request.service';
 
 @Injectable()
-@dataService(Collection.type)
+@dataService(COLLECTION)
 export class CollectionDataService extends ComColDataService<Collection> {
   protected linkPath = 'collections';
   protected errorTitle = 'collection.source.update.notifications.error.title';

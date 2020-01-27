@@ -1,37 +1,50 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { dataService } from '../cache/builders/build-decorators';
 import { MemoizedSelector, select, Store } from '@ngrx/store';
 import { combineLatest, combineLatest as observableCombineLatest } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { distinctUntilChanged, filter, map, mergeMap, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { compareArraysUsingIds, paginatedRelationsToItems, relationsToItems } from '../../+item-page/simple/item-types/shared/item-relationships-utils';
+import {
+  compareArraysUsingIds,
+  paginatedRelationsToItems,
+  relationsToItems
+} from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { AppState, keySelector } from '../../app.reducer';
 import { hasValue, hasValueOperator, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { ReorderableRelationship } from '../../shared/form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
-import { RemoveNameVariantAction, SetNameVariantAction } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
+import {
+  RemoveNameVariantAction,
+  SetNameVariantAction
+} from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.actions';
 import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/name-variant.reducer';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { configureRequest, getRemoteDataPayload, getResponseFromEntry, getSucceededRemoteData } from '../shared/operators';
 import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { RemoteData, RemoteDataState } from './remote-data';
-import { PaginatedList } from './paginated-list';
-import { ItemDataService } from './item-data.service';
 import { Relationship } from '../shared/item-relationships/relationship.model';
+import { RELATIONSHIP } from '../shared/item-relationships/relationship.resource-type';
 import { Item } from '../shared/item.model';
+import {
+  configureRequest,
+  getRemoteDataPayload,
+  getResponseFromEntry,
+  getSucceededRemoteData
+} from '../shared/operators';
 import { DataService } from './data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
+import { ItemDataService } from './item-data.service';
+import { PaginatedList } from './paginated-list';
+import { RemoteData, RemoteDataState } from './remote-data';
+import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
 import { RequestService } from './request.service';
-import { Observable } from 'rxjs/internal/Observable';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -47,7 +60,7 @@ const relationshipStateSelector = (listID: string, itemID: string): MemoizedSele
  * The service handling all relationship requests
  */
 @Injectable()
-@dataService(Relationship.type)
+@dataService(RELATIONSHIP)
 export class RelationshipService extends DataService<Relationship> {
   protected linkPath = 'relationships';
 
@@ -168,9 +181,13 @@ export class RelationshipService extends DataService<Relationship> {
    * @param item
    */
   getItemRelationshipsArray(item: Item, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<Relationship[]> {
+    console.log('item', item)
+    console.log('item._links.relationships.href', item._links.relationships.href)
+    console.log('...linksToFollow', ...linksToFollow)
     return this.findAllByHref(item._links.relationships.href, undefined, ...linksToFollow).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
+      tap((result) => console.log('resultpage', result.page)),
       map((rels: PaginatedList<Relationship>) => rels.page),
       hasValueOperator(),
       distinctUntilChanged(compareArraysUsingIds())
@@ -287,8 +304,8 @@ export class RelationshipService extends DataService<Relationship> {
    * @param item2 The second item in the relationship
    * @param label The rightward or leftward type of the relationship
    */
-  getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string): Observable<Relationship> {
-    return this.getItemRelationshipsByLabel(item1, label)
+  getRelationshipByItemsAndLabel(item1: Item, item2: Item, label: string, options?: FindListOptions): Observable<Relationship> {
+    return this.getItemRelationshipsByLabel(item1, label, options, followLink('relationshipType'), followLink('leftItem'), followLink('rightItem'))
       .pipe(
         getSucceededRemoteData(),
         isNotEmptyOperator(),

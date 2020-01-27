@@ -1,18 +1,19 @@
+import { Observable } from 'rxjs';
 import { link } from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/object-cache.reducer';
+import { RemoteData } from '../../data/remote-data';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { EPERSON } from '../../eperson/models/eperson.resource-type';
 import { HALLink } from '../../shared/hal-link.model';
 import { AuthError } from './auth-error.model';
+import { AUTH_STATUS } from './auth-status.resource-type';
 import { AuthTokenInfo } from './auth-token-info.model';
-import { EPerson } from '../../eperson/models/eperson.model';
-import { RemoteData } from '../../data/remote-data';
-import { Observable } from 'rxjs';
-import { CacheableObject } from '../../cache/object-cache.reducer';
-import { ResourceType } from '../../shared/resource-type';
 
 /**
  * Object that represents the authenticated status of a user
  */
 export class AuthStatus implements CacheableObject {
-  static type = new ResourceType('status');
+  static type = AUTH_STATUS;
 
   /**
    * The unique identifier of this auth status
@@ -42,8 +43,8 @@ export class AuthStatus implements CacheableObject {
   /**
    * The eperson of this auth status
    */
-  @link(EPerson.type)
-  eperson: Observable<RemoteData<EPerson>>;
+  @link(EPERSON)
+  eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * True if the token is valid, false if there was no token or the token wasn't valid

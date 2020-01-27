@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs';
+import { PaginatedList } from '../../data/paginated-list';
+import { RemoteData } from '../../data/remote-data';
 
 import { DSpaceObject } from '../../shared/dspace-object.model';
+import { HALLink } from '../../shared/hal-link.model';
+import { EPERSON } from './eperson.resource-type';
 import { Group } from './group.model';
-import { RemoteData } from '../../data/remote-data';
-import { PaginatedList } from '../../data/paginated-list';
-import { ResourceType } from '../../shared/resource-type';
 
 export class EPerson extends DSpaceObject {
-  static type = new ResourceType('eperson');
+  static type = EPERSON;
 
   /**
    * A string representing the unique handle of this Collection
@@ -54,5 +55,10 @@ export class EPerson extends DSpaceObject {
    */
   get name(): string {
     return this.firstMetadataValue('eperson.firstname') + ' ' + this.firstMetadataValue('eperson.lastname');
+  }
+
+  _links: {
+    self: HALLink,
+    groups: HALLink,
   }
 }

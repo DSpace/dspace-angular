@@ -12,6 +12,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Bundle } from '../shared/bundle.model';
+import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { DataService } from './data.service';
@@ -27,7 +28,7 @@ import { RequestService } from './request.service';
 @Injectable(
   {providedIn: 'root'}
 )
-@dataService(Bundle.type)
+@dataService(BUNDLE)
 export class BundleDataService extends DataService<Bundle> {
   protected linkPath = 'bundles';
   protected forceBypassCache = false;

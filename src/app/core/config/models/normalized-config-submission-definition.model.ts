@@ -1,10 +1,9 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { SubmissionSectionModel } from './config-submission-section.model';
-import { PaginatedList } from '../../data/paginated-list';
-import { NormalizedConfigObject } from './normalized-config.model';
-import { SubmissionDefinitionsModel } from './config-submission-definitions.model';
 import { mapsTo } from '../../cache/builders/build-decorators';
+import { PaginatedList } from '../../data/paginated-list';
 import { SubmissionDefinitionModel } from './config-submission-definition.model';
+import { SubmissionSectionModel } from './config-submission-section.model';
+import { NormalizedConfigObject } from './normalized-config.model';
 
 /**
  * Normalized class for the configuration describing the submission

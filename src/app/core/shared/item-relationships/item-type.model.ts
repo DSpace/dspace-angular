@@ -1,12 +1,12 @@
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../hal-link.model';
-import { ResourceType } from '../resource-type';
+import { ITEM_TYPE } from './item-type.resource-type';
 
 /**
  * Describes a type of Item
  */
 export class ItemType implements CacheableObject {
-  static type = new ResourceType('entitytype');
+  static type = ITEM_TYPE;
 
   /**
    * The identifier of this ItemType

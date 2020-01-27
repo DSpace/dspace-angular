@@ -3,14 +3,15 @@ import { link } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
 import { HALLink } from '../hal-link.model';
-import { ResourceType } from '../resource-type';
 import { ItemType } from './item-type.model';
+import { ITEM_TYPE } from './item-type.resource-type';
+import { RELATIONSHIP_TYPE } from './relationship-type.resource-type';
 
 /**
  * Describes a type of Relationship between multiple possible Items
  */
 export class RelationshipType implements CacheableObject {
-  static type = new ResourceType('relationshiptype');
+  static type = RELATIONSHIP_TYPE;
 
   /**
    * The link to the rest endpoint where this object can be found
@@ -65,13 +66,13 @@ export class RelationshipType implements CacheableObject {
   /**
    * The type of Item found to the left of this RelationshipType
    */
-  @link(ItemType.type)
+  @link(ITEM_TYPE)
   leftType?: Observable<RemoteData<ItemType>>;
 
   /**
    * The type of Item found to the right of this RelationshipType
    */
-  @link(ItemType.type)
+  @link(ITEM_TYPE)
   rightType?: Observable<RemoteData<ItemType>>;
 
   _links: {

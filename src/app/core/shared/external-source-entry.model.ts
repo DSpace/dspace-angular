@@ -1,14 +1,14 @@
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { RESOURCE_TYPE } from './external-source-entry.resource-type';
+import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { MetadataMap } from './metadata.models';
-import { ResourceType } from './resource-type';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { GenericConstructor } from './generic-constructor';
 
 /**
  * Model class for a single entry from an external source
  */
 export class ExternalSourceEntry extends ListableObject {
-  static type = new ResourceType('externalSourceEntry');
+  static type = RESOURCE_TYPE;
 
   /**
    * Unique identifier

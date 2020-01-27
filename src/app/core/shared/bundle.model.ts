@@ -1,9 +1,9 @@
+import { BUNDLE } from './bundle.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
-import { ResourceType } from './resource-type';
 
 export class Bundle extends DSpaceObject {
-  static type = new ResourceType('bundle');
+  static type = BUNDLE;
 
   /**
    * The bundle's name
@@ -13,8 +13,6 @@ export class Bundle extends DSpaceObject {
   _links: {
     self: HALLink;
     primaryBitstream: HALLink;
-    parents: HALLink;
-    owner: HALLink;
     bitstreams: HALLink;
   }
 }

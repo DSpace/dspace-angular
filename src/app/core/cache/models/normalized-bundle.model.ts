@@ -1,9 +1,9 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
-
-import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
+import { Bitstream } from '../../shared/bitstream.model';
 import { Bundle } from '../../shared/bundle.model';
 import { mapsTo, relationship } from '../builders/build-decorators';
-import { Bitstream } from '../../shared/bitstream.model';
+
+import { NormalizedDSpaceObject } from './normalized-dspace-object.model';
 
 /**
  * Normalized model class for a DSpace Bundle
@@ -24,16 +24,6 @@ export class NormalizedBundle extends NormalizedDSpaceObject<Bundle> {
   @autoserialize
   @relationship(Bitstream, false, false)
   primaryBitstream: string;
-
-  /**
-   * An array of Items that are direct parents of this Bundle
-   */
-  parents: string[];
-
-  /**
-   * The Item that owns this Bundle
-   */
-  owner: string;
 
   /**
    * List of Bitstreams that are part of this Bundle

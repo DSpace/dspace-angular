@@ -1,13 +1,13 @@
+import { ActionType } from '../cache/models/action-type.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { HALLink } from './hal-link.model';
-import { ResourceType } from './resource-type';
-import { ActionType } from '../cache/models/action-type.model';
+import { RESOURCE_POLICY } from './resource-policy.resource-type';
 
 /**
  * Model class for a Resource Policy
  */
 export class ResourcePolicy implements CacheableObject {
-  static type = new ResourceType('resourcePolicy');
+  static type = RESOURCE_POLICY;
 
   /**
    * The action that is allowed by this Resource Policy

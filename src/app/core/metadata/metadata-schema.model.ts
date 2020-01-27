@@ -1,14 +1,14 @@
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
-import { ResourceType } from '../shared/resource-type';
-import { GenericConstructor } from '../shared/generic-constructor';
+import { METADATA_SCHEMA } from './metadata-schema.resource-type';
 
 /**
  * Class that represents a metadata schema
  */
 export class MetadataSchema extends ListableObject implements HALResource {
-  static type = new ResourceType('metadataschema');
+  static type = METADATA_SCHEMA;
 
   /**
    * The unique identifier for this metadata schema

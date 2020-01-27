@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs';
-
-import { DSpaceObject } from '../../shared/dspace-object.model';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
-import { ResourceType } from '../../shared/resource-type';
+
+import { DSpaceObject } from '../../shared/dspace-object.model';
+import { GROUP } from './group.resource-type';
 
 export class Group extends DSpaceObject {
-  static type = new ResourceType('group');
+  static type = GROUP;
 
   /**
    * List of Groups that this Group belong to

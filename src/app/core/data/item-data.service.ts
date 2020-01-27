@@ -1,47 +1,48 @@
-import { distinctUntilChanged, filter, find, map, switchMap, take } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, find, map, switchMap } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
 import { dataService } from '../cache/builders/build-decorators';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
+import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { Collection } from '../shared/collection.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { ITEM } from '../shared/item.resource-type';
+import {
+  configureRequest,
+  filterSuccessfulResponses,
+  getRequestFromRequestHref,
+  getResponseFromEntry
+} from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 
 import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
 import {
   DeleteRequest,
   FindListOptions,
   MappedCollectionsRequest,
   PatchRequest,
-  PostRequest, PutRequest,
+  PostRequest,
+  PutRequest,
   RestRequest
 } from './request.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import {
-  configureRequest,
-  filterSuccessfulResponses,
-  getRequestFromRequestHref,
-  getResponseFromEntry, getSucceededRemoteData
-} from '../shared/operators';
 import { RequestEntry } from './request.reducer';
-import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
-import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
-import { Collection } from '../shared/collection.model';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
-import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { RequestService } from './request.service';
 
 @Injectable()
-@dataService(Item.type)
+@dataService(ITEM)
 export class ItemDataService extends DataService<Item> {
   protected linkPath = 'items';
 
@@ -56,7 +57,7 @@ export class ItemDataService extends DataService<Item> {
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOChangeAnalyzer<Item>,
-    ) {
+  ) {
     super();
   }
 

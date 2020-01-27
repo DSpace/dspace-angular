@@ -1,15 +1,17 @@
-import { link } from '../cache/builders/build-decorators';
-import { DSpaceObject } from './dspace-object.model';
-import { Bitstream } from './bitstream.model';
-import { Collection } from './collection.model';
-import { RemoteData } from '../data/remote-data';
 import { Observable } from 'rxjs';
+import { link } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
+import { RemoteData } from '../data/remote-data';
+import { Bitstream } from './bitstream.model';
+import { BITSTREAM } from './bitstream.resource-type';
+import { Collection } from './collection.model';
+import { COLLECTION } from './collection.resource-type';
+import { COMMUNITY } from './community.resource-type';
+import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
-import { ResourceType } from './resource-type';
 
 export class Community extends DSpaceObject {
-  static type = new ResourceType('community');
+  static type = COMMUNITY;
 
   /**
    * A string representing the unique handle of this Community
@@ -51,13 +53,13 @@ export class Community extends DSpaceObject {
   /**
    * The Bitstream that represents the logo of this Community
    */
-  @link(Bitstream.type)
+  @link(BITSTREAM)
   logo?: Observable<RemoteData<Bitstream>>;
 
-  @link(Collection.type, true)
+  @link(COLLECTION, true)
   collections?: Observable<RemoteData<PaginatedList<Collection>>>;
 
-  @link(Community.type, true)
+  @link(COMMUNITY, true)
   subcommunities?: Observable<RemoteData<PaginatedList<Community>>>;
 
   _links: {

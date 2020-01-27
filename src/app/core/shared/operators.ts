@@ -1,16 +1,16 @@
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, find, flatMap, map, take, tap } from 'rxjs/operators';
+import { filter, find, flatMap, map, tap } from 'rxjs/operators';
 import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
+import { SearchResult } from '../../shared/search/search-result.model';
 import { DSOSuccessResponse, RestResponse } from '../cache/response.models';
+import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { RestRequest } from '../data/request.models';
 import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { PaginatedList } from '../data/paginated-list';
-import { SearchResult } from '../../shared/search/search-result.model';
-import { Router } from '@angular/router';
 
 /**
  * This file contains custom RxJS operators that can be used in multiple places
@@ -191,6 +191,7 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
         .find((def: BrowseDefinition) => def.id === definitionID)
       ),
       map((def: BrowseDefinition) => {
+        console.log('getBrowseDefinitionLinks def', def);
         if (isNotEmpty(def)) {
           return def._links;
         } else {

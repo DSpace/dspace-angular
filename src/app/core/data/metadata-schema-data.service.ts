@@ -1,19 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { METADATA_SCHEMA } from '../metadata/metadata-schema.resource-type';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ChangeAnalyzer } from './change-analyzer';
 
 import { DataService } from './data.service';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { HttpClient } from '@angular/common/http';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { ChangeAnalyzer } from './change-analyzer';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { RequestService } from './request.service';
 
 /* tslint:disable:max-classes-per-file */
 class DataServiceImpl extends DataService<MetadataSchema> {
@@ -38,7 +39,7 @@ class DataServiceImpl extends DataService<MetadataSchema> {
  * A service responsible for fetching/sending data from/to the REST API on the metadataschemas endpoint
  */
 @Injectable()
-@dataService(MetadataSchema.type)
+@dataService(METADATA_SCHEMA)
 export class MetadataSchemaDataService {
   private dataService: DataServiceImpl;
 

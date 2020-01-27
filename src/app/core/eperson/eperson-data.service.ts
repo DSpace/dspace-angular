@@ -7,14 +7,15 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
-import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { DataService } from '../data/data.service';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { EPerson } from './models/eperson.model';
+import { EPERSON } from './models/eperson.resource-type';
 
 @Injectable()
-@dataService(EPerson.type)
+@dataService(EPERSON)
 export class EPersonDataService extends DataService<EPerson> {
 
   protected linkPath: 'eperson/epersons';

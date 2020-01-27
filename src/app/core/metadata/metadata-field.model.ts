@@ -1,17 +1,18 @@
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { isNotEmpty } from '../../shared/empty.util';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { link } from '../cache/builders/build-decorators';
+import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
+import { METADATA_FIELD } from './metadata-field.resource-type';
 import { MetadataSchema } from './metadata-schema.model';
-import { ResourceType } from '../shared/resource-type';
-import { GenericConstructor } from '../shared/generic-constructor';
+import { METADATA_SCHEMA } from './metadata-schema.resource-type';
 
 /**
  * Class the represents a metadata field
  */
 export class MetadataField extends ListableObject implements HALResource {
-  static type = new ResourceType('metadatafield');
+  static type = METADATA_FIELD;
 
   /**
    * The identifier of this metadata field
@@ -41,7 +42,7 @@ export class MetadataField extends ListableObject implements HALResource {
   /**
    * The metadata schema object of this metadata field
    */
-  @link(MetadataSchema.type)
+  @link(METADATA_SCHEMA)
   // TODO the responseparsingservice assumes schemas are always embedded. This should be remotedata instead.
   schema?: MetadataSchema;
 

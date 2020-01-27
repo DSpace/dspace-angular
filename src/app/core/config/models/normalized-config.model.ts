@@ -1,8 +1,7 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
-import { CacheableObject, TypedObject } from '../../cache/object-cache.reducer';
+import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
-import { ResourceType } from '../../shared/resource-type';
 
 /**
  * Normalized abstract class for a configuration object

@@ -1,15 +1,16 @@
-import { IntegrationModel } from './integration.model';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { OtherInformation } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { HALLink } from '../../shared/hal-link.model';
 import { MetadataValueInterface } from '../../shared/metadata.models';
-import { ResourceType } from '../../shared/resource-type';
+import { AUTHORITY_VALUE } from './authority.resource-type';
+import { IntegrationModel } from './integration.model';
 
 /**
  * Class representing an authority object
  */
 export class AuthorityValue extends IntegrationModel implements MetadataValueInterface {
-  static type = new ResourceType('authority');
+  static type = AUTHORITY_VALUE;
 
   /**
    * The identifier of this authority
@@ -35,6 +36,10 @@ export class AuthorityValue extends IntegrationModel implements MetadataValueInt
    * The language code of this authority value
    */
   language: string;
+
+  _links: {
+    self: HALLink,
+  };
 
   /**
    * This method checks if authority has an identifier value

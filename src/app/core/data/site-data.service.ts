@@ -1,28 +1,29 @@
-import { dataService } from '../cache/builders/build-decorators';
-import { DataService } from './data.service';
-import { Site } from '../shared/site.model';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../core.reducers';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list';
-import { Injectable } from '@angular/core';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { dataService } from '../cache/builders/build-decorators';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { CoreState } from '../core.reducers';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getSucceededRemoteData } from '../shared/operators';
+import { Site } from '../shared/site.model';
+import { SITE } from '../shared/site.resource-type';
+import { DataService } from './data.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { PaginatedList } from './paginated-list';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 
 /**
  * Service responsible for handling requests related to the Site object
  */
 @Injectable()
-@dataService(Site.type)
+@dataService(SITE)
 export class SiteDataService extends DataService<Site> {​
   protected linkPath = 'sites';
 

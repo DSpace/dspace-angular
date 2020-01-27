@@ -3,10 +3,11 @@ import { link } from '../../cache/builders/build-decorators';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { RemoteData } from '../../data/remote-data';
 import { HALLink } from '../hal-link.model';
-import { RelationshipType } from './relationship-type.model';
 import { Item } from '../item.model';
-import { ITEM } from "../item.resource-type";
-import { RELATIONSHIP } from "../relationship.resource-type";
+import { ITEM } from '../item.resource-type';
+import { RelationshipType } from './relationship-type.model';
+import { RELATIONSHIP_TYPE } from './relationship-type.resource-type';
+import { RELATIONSHIP } from './relationship.resource-type';
 
 /**
  * Describes a Relationship between two Items
@@ -30,19 +31,6 @@ export class Relationship implements CacheableObject {
   id: string;
 
   /**
-   * The item to the left of this relationship
-   */
-
-  @link(ITEM)
-  leftItem?: Observable<RemoteData<Item>>;
-
-  /**
-   * The item to the right of this relationship
-   */
-  @link(ITEM)
-  rightItem?: Observable<RemoteData<Item>>;
-
-  /**
    * The place of the Item to the left side of this Relationship
    */
   leftPlace: number;
@@ -63,9 +51,22 @@ export class Relationship implements CacheableObject {
   rightwardValue: string;
 
   /**
+   * The item to the left of this relationship
+   */
+
+  @link(ITEM)
+  leftItem?: Observable<RemoteData<Item>>;
+
+  /**
+   * The item to the right of this relationship
+   */
+  @link(ITEM)
+  rightItem?: Observable<RemoteData<Item>>;
+
+  /**
    * The type of Relationship
    */
-  @link(RelationshipType.type)
+  @link(RELATIONSHIP_TYPE)
   relationshipType?: Observable<RemoteData<RelationshipType>>;
 
   _links: {

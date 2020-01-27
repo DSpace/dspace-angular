@@ -1,16 +1,16 @@
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/mock-remote-data-build.service';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { BrowseEndpointRequest, BrowseEntriesRequest, BrowseItemsRequest } from '../data/request.models';
+import { RequestEntry } from '../data/request.reducer';
 import { RequestService } from '../data/request.service';
 import { BrowseDefinition } from '../shared/browse-definition.model';
-import { BrowseService } from './browse.service';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { RequestEntry } from '../data/request.reducer';
-import { of as observableOf } from 'rxjs';
+import { BrowseService } from './browse.service';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;
@@ -150,7 +150,7 @@ describe('BrowseService', () => {
 
     describe('when getBrowseEntriesFor is called with a valid browse definition id', () => {
       it('should configure a new BrowseEntriesRequest', () => {
-        const expected = new BrowseEntriesRequest(requestService.generateRequestId(), browseDefinitions[1]._links.entries);
+        const expected = new BrowseEntriesRequest(requestService.generateRequestId(), browseDefinitions[1]._links.entries.href);
 
         scheduler.schedule(() => service.getBrowseEntriesFor(new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
@@ -169,7 +169,7 @@ describe('BrowseService', () => {
 
     describe('when getBrowseItemsFor is called with a valid browse definition id', () => {
       it('should configure a new BrowseItemsRequest', () => {
-        const expected = new BrowseItemsRequest(requestService.generateRequestId(), browseDefinitions[1]._links.items + '?filterValue=' + mockAuthorName);
+        const expected = new BrowseItemsRequest(requestService.generateRequestId(), browseDefinitions[1]._links.items.href + '?filterValue=' + mockAuthorName);
 
         scheduler.schedule(() => service.getBrowseItemsFor(mockAuthorName, new BrowseEntrySearchOptions(browseDefinitions[1].id)).subscribe());
         scheduler.flush();
@@ -295,7 +295,7 @@ describe('BrowseService', () => {
     });
 
     describe('when getFirstItemFor is called with a valid browse definition id', () => {
-      const expectedURL = browseDefinitions[1]._links.items + '?page=0&size=1';
+      const expectedURL = browseDefinitions[1]._links.items.href + '?page=0&size=1';
 
       it('should configure a new BrowseItemsRequest', () => {
         const expected = new BrowseItemsRequest(requestService.generateRequestId(), expectedURL);

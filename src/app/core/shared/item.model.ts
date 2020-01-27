@@ -6,14 +6,16 @@ import { link } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { Bundle } from './bundle.model';
+import { BUNDLE } from './bundle.resource-type';
 import { Collection } from './collection.model';
+import { COLLECTION } from './collection.resource-type';
 
 import { DSpaceObject } from './dspace-object.model';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { Relationship } from './item-relationships/relationship.model';
-import { ITEM } from "./item.resource-type";
-import { RELATIONSHIP } from "./relationship.resource-type";
+import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
+import { ITEM } from './item.resource-type';
 
 /**
  * Class representing a DSpace Item
@@ -49,11 +51,11 @@ export class Item extends DSpaceObject {
   /**
    * The Collection that owns this Item
    */
-  @link(Collection.type)
-  owningCollection?: Observable<RemoteData<Collection>>;
+  @link(COLLECTION)
+  owningCollection: Observable<RemoteData<Collection>>;
 
-  @link(Bundle.type, true)
-  bundles?: Observable<RemoteData<PaginatedList<Bundle>>>;
+  @link(BUNDLE, true)
+  bundles: Observable<RemoteData<PaginatedList<Bundle>>>;
 
   @link(RELATIONSHIP)
   relationships?: Observable<RemoteData<PaginatedList<Relationship>>>;

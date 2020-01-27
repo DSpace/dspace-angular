@@ -1,16 +1,12 @@
+import { hasNoValue, isUndefined } from '../../shared/empty.util';
+import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { DSPACE_OBJECT } from './dspace-object.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
-import {
-  MetadataMap,
-  MetadataValue,
-  MetadataValueFilter,
-  MetadatumViewModel
-} from './metadata.models';
+import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
 import { Metadata } from './metadata.utils';
-import { hasNoValue, isUndefined } from '../../shared/empty.util';
-import { CacheableObject } from '../cache/object-cache.reducer';
-import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { excludeFromEquals } from '../utilities/equals.decorators';
 import { ResourceType } from './resource-type';
 
 /**
@@ -20,7 +16,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
-  static type = new ResourceType('dspaceobject');
+  static type = DSPACE_OBJECT;
 
   @excludeFromEquals
   private _name: string;

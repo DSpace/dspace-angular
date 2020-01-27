@@ -2,19 +2,21 @@ import { Observable } from 'rxjs';
 import { link } from '../../cache/builders/build-decorators';
 
 import { CacheableObject } from '../../cache/object-cache.reducer';
-import { DSpaceObject } from '../../shared/dspace-object.model';
 import { RemoteData } from '../../data/remote-data';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { EPERSON } from '../../eperson/models/eperson.resource-type';
+import { Group } from '../../eperson/models/group.model';
+import { GROUP } from '../../eperson/models/group.resource-type';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { WorkflowItem } from '../../submission/models/workflowitem.model';
-import { ResourceType } from '../../shared/resource-type';
-import { EPerson } from '../../eperson/models/eperson.model';
-import { Group } from '../../eperson/models/group.model';
+import { TASK_OBJECT } from './task-object.resource-type';
 
 /**
  * An abstract model class for a TaskObject.
  */
 export class TaskObject extends DSpaceObject implements CacheableObject {
-  static type = new ResourceType('taskobject');
+  static type = TASK_OBJECT;
 
   /**
    * The task identifier
@@ -34,13 +36,13 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
   /**
    * The group of this task
    */
-  @link(EPerson.type)
+  @link(EPERSON)
   eperson?: Observable<RemoteData<EPerson>>;
 
   /**
    * The group of this task
    */
-  @link(Group.type)
+  @link(GROUP)
   group?: Observable<RemoteData<Group>>;
 
   /**

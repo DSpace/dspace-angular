@@ -1,6 +1,5 @@
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
-import { ResourceType } from '../../shared/resource-type';
 
 export abstract class ConfigObject implements CacheableObject {
 

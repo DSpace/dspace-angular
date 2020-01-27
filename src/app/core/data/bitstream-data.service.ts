@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
+import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
@@ -12,6 +12,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Bitstream } from '../shared/bitstream.model';
+import { BITSTREAM } from '../shared/bitstream.resource-type';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
@@ -28,7 +29,7 @@ import { RequestService } from './request.service';
 @Injectable({
   providedIn: 'root'
 })
-@dataService(Bitstream.type)
+@dataService(BITSTREAM)
 export class BitstreamDataService extends DataService<Bitstream> {
 
   protected linkPath = 'bitstreams';

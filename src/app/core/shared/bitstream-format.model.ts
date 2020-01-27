@@ -1,13 +1,13 @@
-import { CacheableObject, TypedObject } from '../cache/object-cache.reducer';
-import { HALLink } from './hal-link.model';
-import { ResourceType } from './resource-type';
+import { CacheableObject } from '../cache/object-cache.reducer';
 import { BitstreamFormatSupportLevel } from './bitstream-format-support-level';
+import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
+import { HALLink } from './hal-link.model';
 
 /**
  * Model class for a Bitstream Format
  */
 export class BitstreamFormat implements CacheableObject {
-  static type = new ResourceType('bitstreamformat');
+  static type = BITSTREAM_FORMAT;
 
   bitstreamformat
   /**

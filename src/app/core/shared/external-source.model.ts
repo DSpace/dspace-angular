@@ -1,12 +1,12 @@
-import { HALLink } from './hal-link.model';
-import { ResourceType } from './resource-type';
 import { CacheableObject } from '../cache/object-cache.reducer';
+import { EXTERNAL_SOURCE } from './external-source.resource-type';
+import { HALLink } from './hal-link.model';
 
 /**
  * Model class for an external source
  */
 export class ExternalSource extends CacheableObject {
-  static type = new ResourceType('externalsource');
+  static type = EXTERNAL_SOURCE;
 
   /**
    * Unique identifier
@@ -30,5 +30,6 @@ export class ExternalSource extends CacheableObject {
 
   _links: {
     self: HALLink;
+    entries: HALLink;
   }
 }
