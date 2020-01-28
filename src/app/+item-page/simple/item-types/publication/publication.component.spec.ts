@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { NormalizedObjectBuildService } from '../../../../core/cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { BundleDataService } from '../../../../core/data/bundle-data.service';
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
 import { DefaultChangeAnalyzer } from '../../../../core/data/default-change-analyzer.service';
 import { DSOChangeAnalyzer } from '../../../../core/data/dso-change-analyzer.service';
@@ -16,9 +16,7 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { RelationshipService } from '../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { FindListOptions } from '../../../../core/data/request.models';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Bundle } from '../../../../core/shared/bundle.model';
 import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
 import { Item } from '../../../../core/shared/item.model';
 import { MetadataMap } from '../../../../core/shared/metadata.models';
@@ -28,7 +26,6 @@ import { MockTranslateLoader } from '../../../../shared/mocks/mock-translate-loa
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/testing/utils';
 import { TruncatableService } from '../../../../shared/truncatable/truncatable.service';
-import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { TruncatePipe } from '../../../../shared/utils/truncate.pipe';
 import { GenericItemPageFieldComponent } from '../../field-components/specific-field/generic/generic-item-page-field.component';
 import { createRelationshipsObservable } from '../shared/item.component.spec';
@@ -40,18 +37,14 @@ const mockItem: Item = Object.assign(new Item(), {
   relationships: createRelationshipsObservable()
 });
 
-fdescribe('PublicationComponent', () => {
+describe('PublicationComponent', () => {
   let comp: PublicationComponent;
   let fixture: ComponentFixture<PublicationComponent>;
 
   beforeEach(async(() => {
-    const mockBundleDataService = {
-      findAllByItem: undefined,
-      findByItemAndName(item: Item, bundleName: string, ...linksToFollow: Array<FollowLinkConfig<Bundle>>): Observable<RemoteData<Bitstream>> {
+    const mockBitstreamDataService = {
+      getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
-      },
-      findAllByBundle(bundle: Bundle, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [new Bitstream()]));
       }
     };
     TestBed.configureTestingModule({
@@ -77,7 +70,7 @@ fdescribe('PublicationComponent', () => {
         { provide: HttpClient, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: BundleDataService, useValue: mockBundleDataService },
+        { provide: BitstreamDataService, useValue: mockBitstreamDataService },
       ],
 
       schemas: [NO_ERRORS_SCHEMA]

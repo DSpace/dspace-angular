@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
-import { ThumbnailComponent } from './thumbnail.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+
+import { ThumbnailComponent } from './thumbnail.component';
 
 describe('ThumbnailComponent', () => {
   let comp: ThumbnailComponent;
@@ -27,10 +27,10 @@ describe('ThumbnailComponent', () => {
 
   it('should display image', () => {
     comp.thumbnail = new Bitstream();
-    comp.thumbnail.content = 'test.url';
+    comp.thumbnail._links.content.href = 'test.url';
     fixture.detectChanges();
     const image: HTMLElement = de.query(By.css('img')).nativeElement;
-    expect(image.getAttribute('src')).toBe(comp.thumbnail.content);
+    expect(image.getAttribute('src')).toBe(comp.thumbnail._links.content.href);
   });
 
   it('should display placeholder', () => {

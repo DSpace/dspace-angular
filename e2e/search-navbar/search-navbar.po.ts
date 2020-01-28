@@ -1,4 +1,4 @@
-import { browser, element, by, protractor } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
 export class ProtractorPage {
@@ -27,10 +27,6 @@ export class ProtractorPage {
 
   submitNavbarSearchForm() {
     element(by.css('#search-navbar-container form .submit-icon')).click();
-  }
-
-  submitByPressingEnter() {
-    element(by.css('#search-navbar-container form input[name="query"]')).sendKeys(protractor.Key.ENTER);
   }
 
   submitByPressingEnter() {

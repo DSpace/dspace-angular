@@ -1,22 +1,21 @@
-import { ConfigSuccessResponse, ErrorResponse } from '../cache/response.models';
-import { ConfigResponseParsingService } from './config-response-parsing.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GlobalConfig } from '../../../config/global-config.interface';
-import { ConfigRequest } from '../data/request.models';
-
 import { Store } from '@ngrx/store';
+import { GlobalConfig } from '../../../config/global-config.interface';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ConfigSuccessResponse, ErrorResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
 import { PaginatedList } from '../data/paginated-list';
+import { ConfigRequest } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
-import { NormalizedSubmissionSectionModel } from './models/normalized-config-submission-section.model';
+import { ConfigResponseParsingService } from './config-response-parsing.service';
 import { NormalizedSubmissionDefinitionModel } from './models/normalized-config-submission-definition.model';
+import { NormalizedSubmissionSectionModel } from './models/normalized-config-submission-section.model';
 
 describe('ConfigResponseParsingService', () => {
   let service: ConfigResponseParsingService;
 
   const EnvConfig = {} as GlobalConfig;
   const store = {} as Store<CoreState>;
-  const objectCacheService = new ObjectCacheService(store);
+  const objectCacheService = new ObjectCacheService(store, undefined);
   let validResponse;
   beforeEach(() => {
     service = new ConfigResponseParsingService(EnvConfig, objectCacheService);
@@ -150,7 +149,7 @@ describe('ConfigResponseParsingService', () => {
             },
             _embedded: [{}, {}],
             _links: {
-              self: 'https://rest.api/config/submissiondefinitions/traditional/sections'
+              self: { href: 'https://rest.api/config/submissiondefinitions/traditional/sections' }
             }
           }
         }
@@ -178,8 +177,8 @@ describe('ConfigResponseParsingService', () => {
         name: 'traditional',
         type: 'submissiondefinition',
         _links: {
-          sections: 'https://rest.api/config/submissiondefinitions/traditional/sections',
-          self: 'https://rest.api/config/submissiondefinitions/traditional'
+          sections: { href: 'https://rest.api/config/submissiondefinitions/traditional/sections' },
+          self: { href: 'https://rest.api/config/submissiondefinitions/traditional' }
         },
         self: 'https://rest.api/config/submissiondefinitions/traditional',
         sections: new PaginatedList(pageinfo, [
@@ -187,14 +186,14 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.describe.stepone',
             mandatory: true,
             sectionType: 'submission-form',
-            visibility:{
-              main:null,
-              other:'READONLY'
+            visibility: {
+              main: null,
+              other: 'READONLY'
             },
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/config/submissionsections/traditionalpageone',
-              config: 'https://rest.api/config/submissionforms/traditionalpageone'
+              self: { href: 'https://rest.api/config/submissionsections/traditionalpageone' },
+              config: { href: 'https://rest.api/config/submissionforms/traditionalpageone' }
             },
             self: 'https://rest.api/config/submissionsections/traditionalpageone',
           }),
@@ -202,14 +201,14 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.describe.steptwo',
             mandatory: true,
             sectionType: 'submission-form',
-            visibility:{
-              main:null,
-              other:'READONLY'
+            visibility: {
+              main: null,
+              other: 'READONLY'
             },
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/config/submissionsections/traditionalpagetwo',
-              config: 'https://rest.api/config/submissionforms/traditionalpagetwo'
+              self: { href: 'https://rest.api/config/submissionsections/traditionalpagetwo' },
+              config: { href: 'https://rest.api/config/submissionforms/traditionalpagetwo' }
             },
             self: 'https://rest.api/config/submissionsections/traditionalpagetwo',
           }),
@@ -217,14 +216,14 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.upload',
             mandatory: false,
             sectionType: 'upload',
-            visibility:{
-              main:null,
-              other:'READONLY'
+            visibility: {
+              main: null,
+              other: 'READONLY'
             },
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/config/submissionsections/upload',
-              config: 'https://rest.api/config/submissionuploads/upload'
+              self: { href: 'https://rest.api/config/submissionsections/upload' },
+              config: { href: 'https://rest.api/config/submissionuploads/upload' }
             },
             self: 'https://rest.api/config/submissionsections/upload',
           }),
@@ -232,13 +231,13 @@ describe('ConfigResponseParsingService', () => {
             header: 'submit.progressbar.license',
             mandatory: true,
             sectionType: 'license',
-            visibility:{
-              main:null,
-              other:'READONLY'
+            visibility: {
+              main: null,
+              other: 'READONLY'
             },
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/config/submissionsections/license'
+              self: { href: 'https://rest.api/config/submissionsections/license' }
             },
             self: 'https://rest.api/config/submissionsections/license',
           })

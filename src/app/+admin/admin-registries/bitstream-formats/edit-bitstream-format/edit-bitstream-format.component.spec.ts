@@ -1,21 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterStub } from '../../../../shared/testing/router-stub';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { RestResponse } from '../../../../core/cache/response.models';
+import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
 import { RemoteData } from '../../../../core/data/remote-data';
-import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
+import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service-stub';
-import { BitstreamFormatDataService } from '../../../../core/data/bitstream-format-data.service';
-import { RestResponse } from '../../../../core/cache/response.models';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
-import { ResourceType } from '../../../../core/shared/resource-type';
+import { RouterStub } from '../../../../shared/testing/router-stub';
+import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 
 describe('EditBitstreamFormatComponent', () => {
   let comp: EditBitstreamFormatComponent;

@@ -191,7 +191,6 @@ export const getBrowseDefinitionLinks = (definitionID: string) =>
         .find((def: BrowseDefinition) => def.id === definitionID)
       ),
       map((def: BrowseDefinition) => {
-        console.log('getBrowseDefinitionLinks def', def);
         if (isNotEmpty(def)) {
           return def._links;
         } else {
