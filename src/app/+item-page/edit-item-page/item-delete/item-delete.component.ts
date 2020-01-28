@@ -107,13 +107,20 @@ export class ItemDeleteComponent
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       map((relationshipTypes) => relationshipTypes.page),
-      map((types) => types.reduce<RelationshipType[]>((includedTypes, type) => {
-        if (!includedTypes.some((includedType) => includedType.id === type.id)) {
-          return [...includedTypes, type];
-        } else {
-          return includedTypes;
-        }
-      }, [])),
+      switchMap((types) =>
+        combineLatest(types.map((type) => this.getRelationships(type))).pipe(
+          map((relationships) =>
+            types.reduce<RelationshipType[]>((includedTypes, type, index) => {
+              if (!includedTypes.some((includedType) => includedType.id === type.id)
+                && !(relationships[index].length === 0)) {
+                return [...includedTypes, type];
+              } else {
+                return includedTypes;
+              }
+            }, [])
+          ),
+        )
+      ),
     );
 
     this.types$.pipe(
