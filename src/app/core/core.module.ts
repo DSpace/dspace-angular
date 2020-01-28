@@ -122,6 +122,7 @@ import { BrowseDefinition } from './shared/browse-definition.model';
 import { ContentSourceResponseParsingService } from './data/content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
+import {EntityTypeService} from './data/entity-type.service';
 import { SiteDataService } from './data/site-data.service';
 import { NormalizedSite } from './cache/models/normalized-site.model';
 
@@ -245,6 +246,7 @@ const PROVIDERS = [
   TaskResponseParsingService,
   ClaimedTaskDataService,
   PoolTaskDataService,
+  EntityTypeService,
   ContentSourceResponseParsingService,
   SearchService,
   SidebarService,

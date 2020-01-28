@@ -4,7 +4,7 @@ import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
-import { FacetValue } from '../../shared/search/facet-value.model';
+import {FacetValue} from '../../shared/search/facet-value.model';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GLOBAL_CONFIG } from '../../../config';

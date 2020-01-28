@@ -1,7 +1,7 @@
-import { type } from '../../../shared/ngrx/type';
-import { Action } from '@ngrx/store';
-import { Identifiable } from './object-updates.reducer';
-import { INotification } from '../../../shared/notifications/models/notification.model';
+import {type} from '../../../shared/ngrx/type';
+import {Action} from '@ngrx/store';
+import {Identifiable} from './object-updates.reducer';
+import {INotification} from '../../../shared/notifications/models/notification.model';
 
 /**
  * The list of ObjectUpdatesAction type definitions
@@ -11,6 +11,7 @@ export const ObjectUpdatesActionTypes = {
   SET_EDITABLE_FIELD: type('dspace/core/cache/object-updates/SET_EDITABLE_FIELD'),
   SET_VALID_FIELD: type('dspace/core/cache/object-updates/SET_VALID_FIELD'),
   ADD_FIELD: type('dspace/core/cache/object-updates/ADD_FIELD'),
+  SELECT_VIRTUAL_METADATA: type('dspace/core/cache/object-updates/SELECT_VIRTUAL_METADATA'),
   DISCARD: type('dspace/core/cache/object-updates/DISCARD'),
   REINSTATE: type('dspace/core/cache/object-updates/REINSTATE'),
   REMOVE: type('dspace/core/cache/object-updates/REMOVE'),
@@ -80,6 +81,41 @@ export class AddFieldUpdateAction implements Action {
     field: Identifiable,
     changeType: FieldChangeType) {
     this.payload = { url, field, changeType };
+  }
+}
+
+/**
+ * An ngrx action to select/deselect virtual metadata in the ObjectUpdates state for a certain page url
+ */
+export class SelectVirtualMetadataAction implements Action {
+
+  type = ObjectUpdatesActionTypes.SELECT_VIRTUAL_METADATA;
+  payload: {
+    url: string,
+    source: string,
+    uuid: string,
+    select: boolean;
+  };
+
+  /**
+   * Create a new SelectVirtualMetadataAction
+   *
+   * @param url
+   *    the unique url of the page for which a field update is added
+   * @param source
+   *    the id of the relationship which adds the virtual metadata
+   * @param uuid
+   *    the id of the item which has the virtual metadata
+   * @param select
+   *    whether to select or deselect the virtual metadata to be saved as real metadata
+   */
+  constructor(
+    url: string,
+    source: string,
+    uuid: string,
+    select: boolean,
+  ) {
+    this.payload = { url, source, uuid, select: select};
   }
 }
 
@@ -242,4 +278,5 @@ export type ObjectUpdatesAction
   | DiscardObjectUpdatesAction
   | ReinstateObjectUpdatesAction
   | RemoveObjectUpdatesAction
-  | RemoveFieldUpdateAction;
+  | RemoveFieldUpdateAction
+  | SelectVirtualMetadataAction;

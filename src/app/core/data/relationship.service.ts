@@ -81,15 +81,22 @@ export class RelationshipService extends DataService<Relationship> {
    * Send a delete request for a relationship by ID
    * @param id
    */
-  deleteRelationship(id: string): Observable<RestResponse> {
+  deleteRelationship(id: string, copyVirtualMetadata: string): Observable<RestResponse> {
     return this.getRelationshipEndpoint(id).pipe(
       isNotEmptyOperator(),
       take(1),
-      map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
+      distinctUntilChanged(),
+      map((endpointURL: string) =>
+        new DeleteRequest(this.requestService.generateRequestId(), endpointURL + '?copyVirtualMetadata=' + copyVirtualMetadata)
+      ),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry(),
-      tap(() => this.removeRelationshipItemsFromCacheByRelationship(id))
+      switchMap((response) =>
+        this.clearRelatedCache(id).pipe(
+          map(() => response),
+        )
+      ),
     );
   }
 
@@ -417,4 +424,26 @@ export class RelationshipService extends DataService<Relationship> {
     return update$;
   }
 
+  /**
+   * Clear object and request caches of the items related to a relationship (left and right items)
+   * @param uuid  The uuid of the relationship for which to clear the related items from the cache
+   */
+  clearRelatedCache(uuid: string): Observable<void> {
+    return this.findById(uuid).pipe(
+      getSucceededRemoteData(),
+      switchMap((rd: RemoteData<Relationship>) =>
+        observableCombineLatest(
+          rd.payload.leftItem.pipe(getSucceededRemoteData()),
+          rd.payload.rightItem.pipe(getSucceededRemoteData())
+        )
+      ),
+      take(1),
+      map(([leftItem, rightItem]) => {
+        this.objectCache.remove(leftItem.payload.self);
+        this.objectCache.remove(rightItem.payload.self);
+        this.requestService.removeByHrefSubstring(leftItem.payload.self);
+        this.requestService.removeByHrefSubstring(rightItem.payload.self);
+      }),
+    );
+  }
 }

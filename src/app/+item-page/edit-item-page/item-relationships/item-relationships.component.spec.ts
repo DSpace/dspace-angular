@@ -13,9 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { GLOBAL_CONFIG } from '../../../../config';
 import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { ResourceType } from '../../../core/shared/resource-type';
 import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
+import { combineLatest as observableCombineLatest, of as observableOf } from 'rxjs';
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { PaginatedList } from '../../../core/data/paginated-list';
@@ -26,6 +25,8 @@ import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { getTestScheduler } from 'jasmine-marbles';
 import { RestResponse } from '../../../core/cache/response.models';
 import { RequestService } from '../../../core/data/request.service';
+import { EntityTypeService } from '../../../core/data/entity-type.service';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 
 let comp: any;
 let fixture: ComponentFixture<ItemRelationshipsComponent>;
@@ -34,6 +35,7 @@ let el: HTMLElement;
 let objectUpdatesService;
 let relationshipService;
 let requestService;
+let entityTypeService;
 let objectCache;
 const infoNotification: INotification = new Notification('id', NotificationType.Info, 'info');
 const warningNotification: INotification = new Notification('id', NotificationType.Warning, 'warning');
@@ -58,6 +60,7 @@ let author1;
 let author2;
 let fieldUpdate1;
 let fieldUpdate2;
+let entityType;
 let relationships;
 let relationshipType;
 
@@ -95,6 +98,10 @@ describe('ItemRelationshipsComponent', () => {
       lastModified: date
     });
 
+    entityType = Object.assign(new ItemType(), {
+      id: 'entityType',
+    });
+
     author1 = Object.assign(new Item(), {
       id: 'author1',
       uuid: 'author1'
@@ -110,11 +117,14 @@ describe('ItemRelationshipsComponent', () => {
     relationships[1].rightItem = observableOf(new RemoteData(false, false, true, undefined, item));
 
     fieldUpdate1 = {
-      field: author1,
+      field: relationships[0],
       changeType: undefined
     };
     fieldUpdate2 = {
-      field: author2,
+      field: Object.assign(
+        relationships[1],
+        {keepLeftVirtualMetadata: true, keepRightVirtualMetadata: false}
+      ),
       changeType: FieldChangeType.REMOVE
     };
 
@@ -130,12 +140,12 @@ describe('ItemRelationshipsComponent', () => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
         getFieldUpdates: observableOf({
-          [author1.uuid]: fieldUpdate1,
-          [author2.uuid]: fieldUpdate2
+          [relationships[0].uuid]: fieldUpdate1,
+          [relationships[1].uuid]: fieldUpdate2
         }),
         getFieldUpdatesExclusive: observableOf({
-          [author1.uuid]: fieldUpdate1,
-          [author2.uuid]: fieldUpdate2
+          [relationships[0].uuid]: fieldUpdate1,
+          [relationships[1].uuid]: fieldUpdate2
         }),
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
@@ -173,6 +183,25 @@ describe('ItemRelationshipsComponent', () => {
       remove: undefined
     });
 
+    entityTypeService = jasmine.createSpyObj('entityTypeService',
+      {
+        getEntityTypeByLabel: observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          entityType,
+        )),
+        getEntityTypeRelationships: observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          new PaginatedList(new PageInfo(), [relationshipType]),
+        )),
+      }
+    );
+
     scheduler = getTestScheduler();
     TestBed.configureTestingModule({
       imports: [SharedModule, TranslateModule.forRoot()],
@@ -185,6 +214,7 @@ describe('ItemRelationshipsComponent', () => {
         { provide: NotificationsService, useValue: notificationsService },
         { provide: GLOBAL_CONFIG, useValue: { item: { edit: { undoTimeout: 10 } } } as any },
         { provide: RelationshipService, useValue: relationshipService },
+        { provide: EntityTypeService, useValue: entityTypeService },
         { provide: ObjectCacheService, useValue: objectCache },
         { provide: RequestService, useValue: requestService },
         ChangeDetectorRef
@@ -229,7 +259,7 @@ describe('ItemRelationshipsComponent', () => {
     });
 
     it('it should delete the correct relationship', () => {
-      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid);
+      expect(relationshipService.deleteRelationship).toHaveBeenCalledWith(relationships[1].uuid, 'left');
     });
   });
 });
