@@ -86,11 +86,11 @@ export class RelationshipService extends DataService<Relationship> {
     return this.getRelationshipEndpoint(id).pipe(
       isNotEmptyOperator(),
       take(1),
+      tap(() => this.removeRelationshipItemsFromCacheByRelationship(id)),
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry(),
-      tap(() => this.removeRelationshipItemsFromCacheByRelationship(id))
     );
   }
 

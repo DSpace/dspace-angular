@@ -5,7 +5,6 @@
            [for]="model.id"
            [innerHTML]="(model.required && model.label) ? (model.label | translate) + ' *' : (model.label | translate)"
            [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]"></label>
-
     <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: model"></ng-container>
     <!--    Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
     <div [ngClass]="{'form-row': model.hasLanguages || isRelationship, 'd-none': relationshipValue$ | async}">

@@ -60,7 +60,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/dat
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
 import { DynamicListCheckboxGroupModel } from './models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from './models/list/dynamic-list-radio-group.model';
-import { hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
+import { hasNoValue, hasValue, isNotEmpty, isNotUndefined } from '../../../empty.util';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP_NAME } from './models/lookup/dynamic-lookup-name.model';
 import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
@@ -73,7 +73,7 @@ import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-a
 import { DsDynamicRelationGroupComponent } from './models/relation-group/dynamic-relation-group.components';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './models/relation-group/dynamic-relation-group.model';
 import { DsDatePickerInlineComponent } from './models/date-picker-inline/dynamic-date-picker-inline.component';
-import { map, startWith, switchMap, find, take, tap } from 'rxjs/operators';
+import { map, startWith, switchMap, find, take, tap, filter } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, Subscription } from 'rxjs';
 import { SearchResult } from '../../../search/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
@@ -97,6 +97,7 @@ import { Relationship } from '../../../../core/shared/item-relationships/relatio
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { FormService } from '../../form.service';
 import { deepClone } from 'fast-json-patch';
+import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -243,6 +244,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.relationshipValue$ = relationship$.pipe(
           switchMap((relationship: Relationship) =>
             relationship.leftItem.pipe(
+              tap((t) => console.log(t)),
               getSucceededRemoteData(),
               getRemoteDataPayload(),
               map((leftItem: Item) => {
@@ -256,11 +258,16 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (this.model.relationshipConfig) {
       this.listId = 'list-' + this.model.relationshipConfig.relationshipType;
       this.setItem();
-      this.relationService.getRelatedItemsByLabel(this.item, this.model.relationshipConfig.relationshipType).pipe(
-        tap((t: any) => console.log(deepClone(t))),
-        getSucceededRemoteData(),
-        map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
+      const subscription = this.selectableListService.getSelectableList(this.listId).pipe(
+        find((list: SelectableListState) => hasNoValue(list)),
+        switchMap(() => {
+          return this.relationService.getRelatedItemsByLabel(this.item, this.model.relationshipConfig.relationshipType).pipe(
+            getSucceededRemoteData(),
+            map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
+          )
+        })
       ).subscribe((relatedItems: Array<SearchResult<Item>>) => this.selectableListService.select(this.listId, relatedItems));
+      this.subs.push(subscription);
     }
   }
 
