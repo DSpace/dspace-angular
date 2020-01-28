@@ -1460,6 +1460,8 @@
   "relationships.isSingleVolumeOf": "Journal Volume",
 
   "relationships.isVolumeOf": "Journal Volumes",
+  
+  "relationships.isContributorOf": "Contributors",
 
 
 
