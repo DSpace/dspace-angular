@@ -89,7 +89,7 @@ export class ObjectDetailComponent {
   /**
    * Option for hiding the pagination detail
    */
-  public hidePaginationDetail = true;
+  @Input() hidePaginationDetail = true;
 
   /**
    * An event fired when the page is changed.

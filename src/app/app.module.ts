@@ -10,10 +10,14 @@ import { META_REDUCERS, MetaReducer, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { TranslateModule } from '@ngx-translate/core';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { storeFreeze } from 'ngrx-store-freeze';
 
 import { ENV_CONFIG, GLOBAL_CONFIG, GlobalConfig } from '../config';
+import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
+import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
+import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -23,23 +27,20 @@ import { appMetaReducers, debugMetaReducers } from './app.metareducers';
 import { appReducers, AppState } from './app.reducer';
 
 import { CoreModule } from './core/core.module';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
-
-import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
-import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
-import { NotificationComponent } from './shared/notifications/notification/notification.component';
-import { SharedModule } from './shared/shared.module';
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
-import { AdminSidebarComponent } from './+admin/admin-sidebar/admin-sidebar.component';
-import { AdminSidebarSectionComponent } from './+admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
-import { ExpandableAdminSidebarSectionComponent } from './+admin/admin-sidebar/expandable-admin-sidebar-section/expandable-admin-sidebar-section.component';
-import { NavbarModule } from './navbar/navbar.module';
 import { ClientCookieService } from './core/services/client-cookie.service';
 import { JournalEntitiesModule } from './entity-groups/journal-entities/journal-entities.module';
 import { ResearchEntitiesModule } from './entity-groups/research-entities/research-entities.module';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderNavbarWrapperComponent } from './header-nav-wrapper/header-navbar-wrapper.component';
+import { HeaderComponent } from './header/header.component';
+import { NavbarModule } from './navbar/navbar.module';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
+import { SearchNavbarComponent } from './search-navbar/search-navbar.component';
+
+import { DSpaceRouterStateSerializer } from './shared/ngrx/dspace-router-state-serializer';
+import { NotificationComponent } from './shared/notifications/notification/notification.component';
+import { NotificationsBoardComponent } from './shared/notifications/notifications-board/notifications-board.component';
+import { SharedModule } from './shared/shared.module';
 
 export function getConfig() {
   return ENV_CONFIG;
@@ -112,7 +113,8 @@ const DECLARATIONS = [
   FooterComponent,
   PageNotFoundComponent,
   NotificationComponent,
-  NotificationsBoardComponent
+  NotificationsBoardComponent,
+  SearchNavbarComponent,
 ];
 
 const EXPORTS = [
@@ -128,7 +130,7 @@ const EXPORTS = [
     ...PROVIDERS
   ],
   declarations: [
-    ...DECLARATIONS
+    ...DECLARATIONS,
   ],
   exports: [
     ...EXPORTS

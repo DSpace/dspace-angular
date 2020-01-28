@@ -3,6 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { debounceTime, map, mergeMap, take, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
+import { getSucceededRemoteData } from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RelationshipAction, RelationshipActionTypes, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasNoValue, hasValue, hasValueOperator } from '../../../../empty.util';
@@ -88,7 +89,7 @@ export class RelationshipEffects {
             this.nameVariantUpdates[identifier] = nameVariant;
           } else {
             this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant)
-              .pipe()
+              .pipe(getSucceededRemoteData())
               .subscribe();
           }
         }

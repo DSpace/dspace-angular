@@ -59,9 +59,8 @@ describe('CreateItemParentSelectorComponent', () => {
   });
 
   it('should call navigate on the router with the correct create path when navigate is called', () => {
-    /* TODO when there is a specific submission path */
-    // component.navigate(item);
-    // expect(router.navigate).toHaveBeenCalledWith([createPath]);
+    component.navigate(collection);
+    expect(router.navigate).toHaveBeenCalledWith(['/submit'], { queryParams: { collection: collection.uuid } });
   });
 
 });

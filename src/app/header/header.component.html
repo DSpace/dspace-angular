@@ -1,20 +1,20 @@
 <header>
-    <div class="container">
-        <a class="navbar-brand my-2" routerLink="/home">
-            <img src="assets/images/dspace-logo.svg"/>
-        </a>
+  <div class="container">
+    <a class="navbar-brand my-2" routerLink="/home">
+      <img src="assets/images/dspace-logo.svg"/>
+    </a>
 
-        <nav class="navbar navbar-light navbar-expand-md float-right px-0">
-            <a routerLink="/search" class="px-1"><i class="fas fa-search fa-lg fa-fw" [title]="'nav.search' | translate"></i></a>
-            <ds-lang-switch></ds-lang-switch>
-            <ds-auth-nav-menu></ds-auth-nav-menu>
-            <div class="pl-2">
-                <button class="navbar-toggler" type="button" (click)="toggleNavbar()"
-                        aria-controls="collapsingNav"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
-                </button>
-            </div>
-        </nav>
-    </div>
+    <nav class="navbar navbar-light navbar-expand-md float-right px-0">
+      <ds-search-navbar></ds-search-navbar>
+      <ds-lang-switch></ds-lang-switch>
+      <ds-auth-nav-menu></ds-auth-nav-menu>
+      <div class="pl-2">
+        <button class="navbar-toggler" type="button" (click)="toggleNavbar()"
+                aria-controls="collapsingNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
+        </button>
+      </div>
+    </nav>
+  </div>
 </header>

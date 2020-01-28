@@ -25,7 +25,7 @@ import { StatisticsService } from './statistics.service';
  * This module handles the statistics
  */
 export class StatisticsModule {
-  static forRoot():ModuleWithProviders {
+  static forRoot(): ModuleWithProviders {
     return {
       ngModule: StatisticsModule,
       providers: [

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ObjectUpdatesService} from '../../../../core/data/object-updates/object-updates.service';
-import {Observable} from 'rxjs/internal/Observable';
+import { Component, Input, OnInit } from '@angular/core';
+import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
+import { Observable } from 'rxjs/internal/Observable';
 import {FieldUpdate, FieldUpdates} from '../../../../core/data/object-updates/object-updates.reducer';
 import {Item} from '../../../../core/shared/item.model';
 import {map, switchMap} from 'rxjs/operators';

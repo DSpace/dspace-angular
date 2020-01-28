@@ -22,47 +22,41 @@ import { getSucceededRemoteData } from '../shared/operators';
  * Service responsible for handling requests related to the Site object
  */
 @Injectable()
-export class SiteDataService extends DataService<Site> {
-​
+export class SiteDataService extends DataService<Site> {​
   protected linkPath = 'sites';
   protected forceBypassCache = false;
-​
 
   constructor(
-    protected requestService:RequestService,
-    protected rdbService:RemoteDataBuildService,
-    protected dataBuildService:NormalizedObjectBuildService,
-    protected store:Store<CoreState>,
-    protected objectCache:ObjectCacheService,
-    protected halService:HALEndpointService,
-    protected notificationsService:NotificationsService,
-    protected http:HttpClient,
-    protected comparator:DSOChangeAnalyzer<Site>,
+    protected requestService: RequestService,
+    protected rdbService: RemoteDataBuildService,
+    protected dataBuildService: NormalizedObjectBuildService,
+    protected store: Store<CoreState>,
+    protected objectCache: ObjectCacheService,
+    protected halService: HALEndpointService,
+    protected notificationsService: NotificationsService,
+    protected http: HttpClient,
+    protected comparator: DSOChangeAnalyzer<Site>,
   ) {
     super();
   }
-
-​
 
   /**
    * Get the endpoint for browsing the site object
    * @param {FindListOptions} options
    * @param {Observable<string>} linkPath
    */
-  getBrowseEndpoint(options:FindListOptions, linkPath?:string):Observable<string> {
+  getBrowseEndpoint(options: FindListOptions, linkPath?: string): Observable<string> {
     return this.halService.getEndpoint(this.linkPath);
   }
-
-​
 
   /**
    * Retrieve the Site Object
    */
-  find():Observable<Site> {
+  find(): Observable<Site> {
     return this.findAll().pipe(
       getSucceededRemoteData(),
-      map((remoteData:RemoteData<PaginatedList<Site>>) => remoteData.payload),
-      map((list:PaginatedList<Site>) => list.page[0])
+      map((remoteData: RemoteData<PaginatedList<Site>>) => remoteData.payload),
+      map((list: PaginatedList<Site>) => list.page[0])
     );
   }
 }

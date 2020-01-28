@@ -11,7 +11,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { PaginatedList } from '../../../../core/data/paginated-list';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 let objectUpdatesService;
 const url = 'http://test-url.com/test-url';

@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {createSelector, MemoizedSelector, select, Store} from '@ngrx/store';
-import {CoreState} from '../../core.reducers';
-import {coreSelector} from '../../core.selectors';
+import { Injectable } from '@angular/core';
+import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
+import { CoreState } from '../../core.reducers';
+import { coreSelector } from '../../core.selectors';
 import {
   FieldState,
   FieldUpdates,
@@ -11,7 +11,7 @@ import {
   ObjectUpdatesState,
   VirtualMetadataSource
 } from './object-updates.reducer';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
@@ -23,9 +23,9 @@ import {
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction
 } from './object-updates.actions';
-import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
-import {hasNoValue, hasValue, isEmpty, isNotEmpty} from '../../../shared/empty.util';
-import {INotification} from '../../../shared/notifications/models/notification.model';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import { INotification } from '../../../shared/notifications/models/notification.model';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -100,9 +100,11 @@ export class ObjectUpdatesService {
     return objectUpdates.pipe(
       switchMap((objectEntry) => {
         const fieldUpdates: FieldUpdates = {};
-        Object.keys(objectEntry.fieldStates).forEach((uuid) => {
-          fieldUpdates[uuid] = objectEntry.fieldUpdates[uuid];
-        });
+        if (hasValue(objectEntry)) {
+          Object.keys(objectEntry.fieldStates).forEach((uuid) => {
+            fieldUpdates[uuid] = objectEntry.fieldUpdates[uuid];
+          });
+        }
         return this.getFieldUpdatesExclusive(url, initialFields).pipe(
           map((fieldUpdatesExclusive) => {
             Object.keys(fieldUpdatesExclusive).forEach((uuid) => {

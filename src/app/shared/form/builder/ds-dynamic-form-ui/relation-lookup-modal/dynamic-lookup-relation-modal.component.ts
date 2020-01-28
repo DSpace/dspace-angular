@@ -1,5 +1,5 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription, zip as observableZip } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { hasValue } from '../../../../empty.util';
 import { map, skip, switchMap, take } from 'rxjs/operators';
@@ -11,7 +11,11 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  getSucceededRemoteData
+} from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
@@ -20,6 +24,11 @@ import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
 import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
+import { RemoteData } from '../../../../../core/data/remote-data';
+import { PaginatedList } from '../../../../../core/data/paginated-list';
+import { ExternalSource } from '../../../../../core/shared/external-source.model';
+import { ExternalSourceService } from '../../../../../core/data/external-source.service';
 
 @Component({
   selector: 'ds-dynamic-lookup-relation-modal',
@@ -37,23 +46,81 @@ import { MetadataValue } from '../../../../../core/shared/metadata.models';
  * Represents a modal where the submitter can select items to be added as a certain relationship type to the object being submitted
  */
 export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy {
+  /**
+   * The label to use to display i18n messages (describing the type of relationship)
+   */
   label: string;
+
+  /**
+   * Options for searching related items
+   */
   relationshipOptions: RelationshipOptions;
+
+  /**
+   * The ID of the list to add/remove selected items to/from
+   */
   listId: string;
+
+  /**
+   * The item we're adding relationships to
+   */
   item;
+
+  /**
+   * The collection we're submitting an item to
+   */
+  collection;
+
+  /**
+   * Is the selection repeatable?
+   */
   repeatable: boolean;
+
+  /**
+   * The list of selected items
+   */
   selection$: Observable<ListableObject[]>;
+
+  /**
+   * The context to display lists
+   */
   context: Context;
+
+  /**
+   * The metadata-fields describing these relationships
+   */
   metadataFields: string;
+
+  /**
+   * A map of subscriptions within this component
+   */
   subMap: {
     [uuid: string]: Subscription
   } = {};
+
+  /**
+   * A list of the available external sources configured for this relationship
+   */
+  externalSourcesRD$: Observable<RemoteData<PaginatedList<ExternalSource>>>;
+
+  /**
+   * The total amount of internal items for the current options
+   */
+  totalInternal$: Observable<number>;
+
+  /**
+   * The total amount of results for each external source using the current options
+   */
+  totalExternal$: Observable<number[]>;
 
   constructor(
     public modal: NgbActiveModal,
     private selectableListService: SelectableListService,
     private relationshipService: RelationshipService,
     private relationshipTypeService: RelationshipTypeService,
+    private externalSourceService: ExternalSourceService,
+    private lookupRelationService: LookupRelationService,
+    private searchConfigService: SearchConfigurationService,
     private zone: NgZone,
     private store: Store<AppState>
   ) {
@@ -70,13 +137,19 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       this.context = Context.SubmissionModal;
     }
 
-    // this.setExistingNameVariants();
+    this.externalSourcesRD$ = this.externalSourceService.findAll();
+
+    this.setTotals();
   }
 
   close() {
     this.modal.close();
   }
 
+  /**
+   * Select (a list of) objects and add them to the store
+   * @param selectableObjects
+   */
   select(...selectableObjects: Array<SearchResult<Item>>) {
     this.zone.runOutsideAngular(
       () => {
@@ -104,6 +177,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
       });
   }
 
+  /**
+   * Add a subscription updating relationships with name variants
+   * @param sri The search result to track name variants for
+   */
   private addNameVariantSubscription(sri: SearchResult<Item>) {
     const nameVariant$ = this.relationshipService.getNameVariant(this.listId, sri.indexableObject.uuid);
     this.subMap[sri.indexableObject.uuid] = nameVariant$.pipe(
@@ -111,6 +188,10 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     ).subscribe((nameVariant: string) => this.store.dispatch(new UpdateRelationshipAction(this.item, sri.indexableObject, this.relationshipOptions.relationshipType, nameVariant)))
   }
 
+  /**
+   * Deselect (a list of) objects and remove them from the store
+   * @param selectableObjects
+   */
   deselect(...selectableObjects: Array<SearchResult<Item>>) {
     this.zone.runOutsideAngular(
       () => selectableObjects.forEach((object) => {
@@ -120,6 +201,9 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
     );
   }
 
+  /**
+   * Set existing name variants for items by the item's virtual metadata
+   */
   private setExistingNameVariants() {
     const virtualMDs: MetadataValue[] = this.item.allMetadata(this.metadataFields).filter((mdValue) => mdValue.isVirtual);
 
@@ -152,6 +236,37 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
         );
       }
     )
+  }
+
+  /**
+   * Called when an external object has been imported, resets the total values and adds the object to the selected list
+   * @param object
+   */
+  imported(object) {
+    this.setTotals();
+    this.select(object);
+  }
+
+  /**
+   * Calculate and set the total entries available for each tab
+   */
+  setTotals() {
+    this.totalInternal$ = this.searchConfigService.paginatedSearchOptions.pipe(
+      switchMap((options) => this.lookupRelationService.getTotalLocalResults(this.relationshipOptions, options))
+    );
+
+    const externalSourcesAndOptions$ = combineLatest(
+      this.externalSourcesRD$.pipe(
+        getAllSucceededRemoteData(),
+        getRemoteDataPayload()
+      ),
+      this.searchConfigService.paginatedSearchOptions
+    );
+
+    this.totalExternal$ = externalSourcesAndOptions$.pipe(
+      switchMap(([sources, options]) =>
+        observableZip(...sources.page.map((source: ExternalSource) => this.lookupRelationService.getTotalExternalResults(source, options))))
+    );
   }
 
   ngOnDestroy() {

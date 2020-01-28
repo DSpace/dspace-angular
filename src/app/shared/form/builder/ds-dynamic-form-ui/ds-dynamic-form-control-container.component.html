@@ -53,16 +53,15 @@
 
 
     <div *ngIf="hasRelationLookup" class="mt-3">
-        <ul class="list-unstyled">
-            <li *ngFor="let value of ( selectedValues$ | async)">
-              <button type="button" class="close float-left" aria-label="Close button"
-                      (click)="removeSelection(value.selectedResult)">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-              <span class="d-inline-block align-middle ml-1">
-              <ds-metadata-representation-loader [mdRepresentation]="value.mdRep"></ds-metadata-representation-loader>
-          </span>
-            </li>
+        <ul class="list-unstyled" cdkDropList (cdkDropListDropped)="moveSelection($event)">
+            <ds-existing-metadata-list-element cdkDrag
+                                               *ngFor="let reorderable of reorderables; trackBy: trackReorderable"
+                                               [reoRel]="reorderable"
+                                               [submissionItem]="item"
+                                               [listId]="listId"
+                                               [metadataFields]="model.metadataFields"
+                                               [relationshipOptions]="model.relationship">
+            </ds-existing-metadata-list-element>
         </ul>
     </div>
 </div>

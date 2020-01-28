@@ -78,7 +78,7 @@ describe('LangSwitchComponent', () => {
       }).compileComponents()
         .then(() => {
           translate = TestBed.get(TranslateService);
-          translate.addLangs(mockConfig.languages.filter((langConfig:LangConfig) => langConfig.active === true).map((a) => a.code));
+          translate.addLangs(mockConfig.languages.filter((langConfig: LangConfig) => langConfig.active === true).map((a) => a.code));
           translate.setDefaultLang('en');
           translate.use('en');
           http = TestBed.get(HttpTestingController);
