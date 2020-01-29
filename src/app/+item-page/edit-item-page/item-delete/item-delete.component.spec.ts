@@ -1,4 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
 import {Item} from '../../../core/shared/item.model';
 import {RouterStub} from '../../../shared/testing/router-stub';
 import {of as observableOf} from 'rxjs';
@@ -29,9 +31,11 @@ let comp: ItemDeleteComponent;
 let fixture: ComponentFixture<ItemDeleteComponent>;
 
 let mockItem;
+let itemType;
 let type1;
 let type2;
 let types;
+let relationships;
 let itemPageUrl;
 let routerStub;
 let mockItemDataService: ItemDataService;
@@ -53,6 +57,11 @@ describe('ItemDeleteComponent', () => {
       isWithdrawn: true
     });
 
+    itemType = Object.assign(new ItemType(), {
+      id: 'itemType',
+      uuid: 'itemType',
+    });
+
     type1 = Object.assign(new RelationshipType(), {
       id: '1',
       uuid: 'type-1',
@@ -64,6 +73,59 @@ describe('ItemDeleteComponent', () => {
     });
 
     types = [type1, type2];
+
+    relationships = [
+      Object.assign(new Relationship(), {
+        id: '1',
+        uuid: 'relationship-1',
+        relationshipType: observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          type1
+        )),
+        leftItem:  observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          mockItem,
+        )),
+        rightItem:  observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          Object.assign(new Item(), {})
+        )),
+      }),
+      Object.assign(new Relationship(), {
+        id: '2',
+        uuid: 'relationship-2',
+        relationshipType: observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          type2
+        )),
+        leftItem:  observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          mockItem,
+        )),
+        rightItem:  observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          Object.assign(new Item(), {})
+        )),
+      }),
+    ];
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
@@ -92,14 +154,14 @@ describe('ItemDeleteComponent', () => {
           false,
           true,
           null,
-          {},
+          itemType,
         )),
         getEntityTypeRelationships: observableOf(new RemoteData(
           false,
           false,
           true,
           null,
-          new PaginatedList(new PageInfo(), [{}]),
+          new PaginatedList(new PageInfo(), types),
         )),
       }
     );
@@ -113,8 +175,7 @@ describe('ItemDeleteComponent', () => {
 
     relationshipService = jasmine.createSpyObj('relationshipService',
       {
-        getItemRelationshipTypesArray: observableOf([type1, type2, type2]),
-        getItemRelationshipsArray: observableOf([]),
+        getItemRelationshipsArray: observableOf(relationships),
       }
     );
 
