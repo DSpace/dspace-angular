@@ -1,15 +1,16 @@
-import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
 import { PaginatedList } from '../../core/data/paginated-list';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { Group } from '../../core/eperson/models/group.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
+import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 
 export const mockSectionsData = {
-  traditionalpageone:{
+  traditionalpageone: {
     'dc.title': [
-      new FormFieldMetadataValueObject('test', null, null, 'test' )
-    ]},
+      new FormFieldMetadataValueObject('test', null, null, 'test')
+    ]
+  },
   license: {
     url: null,
     acceptanceDate: null,
@@ -21,14 +22,16 @@ export const mockSectionsData = {
 };
 
 export const mockSectionsDataTwo = {
-  traditionalpageone:{
+  traditionalpageone: {
     'dc.title': [
-      new FormFieldMetadataValueObject('test', null, null, 'test' )
-    ]},
-  traditionalpagetwo:{
+      new FormFieldMetadataValueObject('test', null, null, 'test')
+    ]
+  },
+  traditionalpagetwo: {
     'dc.relation': [
-      new FormFieldMetadataValueObject('test', null, null, 'test' )
-    ]},
+      new FormFieldMetadataValueObject('test', null, null, 'test')
+    ]
+  },
   license: {
     url: null,
     acceptanceDate: null,
@@ -68,14 +71,14 @@ export const mockUploadResponse1Errors = {
   ]
 };
 
-export const mockUploadResponse1ParsedErrors: any =  {
+export const mockUploadResponse1ParsedErrors: any = {
   traditionalpageone: [
     { path: '/sections/traditionalpageone/dc.title', message: 'error.validation.required' },
     { path: '/sections/traditionalpageone/dc.date.issued', message: 'error.validation.required' }
   ]
 };
 
-export const mockLicenseParsedErrors: any =  {
+export const mockLicenseParsedErrors: any = {
   license: [
     { path: '/sections/license', message: 'error.validation.license.notgranted' }
   ]
@@ -131,9 +134,9 @@ export const mockSubmissionRestResponse = [
             name: null,
             metadata: [],
             _links: {
-              content: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content',
-              format: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format',
-              self: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425'
+              content: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content' },
+              format: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format' },
+              self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' }
             }
           }
         ],
@@ -180,10 +183,10 @@ export const mockSubmissionRestResponse = [
           }
         ],
         _links: {
-          license: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/license',
-          defaultAccessConditions: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions',
-          logo: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo',
-          self: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+          license: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/license' },
+          defaultAccessConditions: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions' },
+          logo: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo' },
+          self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb' }
         }
       }
     ],
@@ -202,10 +205,10 @@ export const mockSubmissionRestResponse = [
         name: null,
         metadata: [],
         _links: {
-          bitstreams: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/bitstreams',
-          owningCollection: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/owningCollection',
-          templateItemOf: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/templateItemOf',
-          self: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5'
+          bitstreams: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/bitstreams' },
+          owningCollection: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/owningCollection' },
+          templateItemOf: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/templateItemOf' },
+          self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5' }
         }
       }
     ],
@@ -223,7 +226,8 @@ export const mockSubmissionRestResponse = [
             },
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
+              self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
+              config: ''
             },
             self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
           },
@@ -236,7 +240,8 @@ export const mockSubmissionRestResponse = [
             },
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+              self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+              config: ''
             },
             self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
           },
@@ -246,8 +251,8 @@ export const mockSubmissionRestResponse = [
             sectionType: 'submission-form',
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone',
-              config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone'
+              self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
             },
             self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
           },
@@ -257,8 +262,8 @@ export const mockSubmissionRestResponse = [
             sectionType: 'submission-form',
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo',
-              config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo'
+              self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
             },
             self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
           },
@@ -268,8 +273,8 @@ export const mockSubmissionRestResponse = [
             sectionType: 'upload',
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload',
-              config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+              self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
             },
             self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
           },
@@ -283,7 +288,8 @@ export const mockSubmissionRestResponse = [
             },
             type: 'submissionsection',
             _links: {
-              self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+              self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+              config: ''
             },
             self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
           }
@@ -291,9 +297,9 @@ export const mockSubmissionRestResponse = [
         name: 'traditional',
         type: 'submissiondefinition',
         _links: {
-          collections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections',
-          sections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections',
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+          collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+          sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+          self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
         },
         self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
       }
@@ -303,11 +309,11 @@ export const mockSubmissionRestResponse = [
     self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826',
     type: 'workspaceitem',
     _links: {
-      collection: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection',
-      item: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item',
-      submissionDefinition: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition',
-      submitter: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter',
-      self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826'
+      collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
+      item: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item' },
+      submissionDefinition: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition' },
+      submitter: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter' },
+      self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' }
     }
   }
 ];
@@ -332,7 +338,7 @@ export const mockSubmissionObject = {
           self: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20',
           type: 'resourcePolicy',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20' }
           }
         }
       ]
@@ -349,9 +355,9 @@ export const mockSubmissionObject = {
       name: null,
       metadata: [],
       _links: {
-        content: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content',
-        format: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format',
-        self: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425'
+        content: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content' },
+        format: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format' },
+        self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' }
       }
     },
     self: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
@@ -397,10 +403,10 @@ export const mockSubmissionObject = {
       }
     ],
     _links: {
-      license: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/license',
-      defaultAccessConditions: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions',
-      logo: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo',
-      self: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+      license: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/license' },
+      defaultAccessConditions: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions' },
+      logo: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo' },
+      self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb' }
     }
   },
   item: {
@@ -426,10 +432,10 @@ export const mockSubmissionObject = {
     name: null,
     metadata: [],
     _links: {
-      bitstreams: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/bitstreams',
-      owningCollection: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/owningCollection',
-      templateItemOf: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/templateItemOf',
-      self: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270'
+      bitstreams: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/bitstreams' },
+      owningCollection: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/owningCollection' },
+      templateItemOf: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/templateItemOf' },
+      self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270' }
     }
   },
   submissionDefinition: {
@@ -451,7 +457,8 @@ export const mockSubmissionObject = {
           },
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+            config: ''
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
         },
@@ -461,8 +468,8 @@ export const mockSubmissionObject = {
           sectionType: 'submission-form',
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
         },
@@ -472,8 +479,8 @@ export const mockSubmissionObject = {
           sectionType: 'submission-form',
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
         },
@@ -483,8 +490,8 @@ export const mockSubmissionObject = {
           sectionType: 'upload',
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
         },
@@ -498,7 +505,8 @@ export const mockSubmissionObject = {
           },
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+            config: ''
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
         }
@@ -507,9 +515,9 @@ export const mockSubmissionObject = {
     name: 'traditional',
     type: 'submissiondefinition',
     _links: {
-      collections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections',
-      sections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections',
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+      collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+      sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+      self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
     },
     self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional',
     collections: {
@@ -549,7 +557,7 @@ export const mockSubmissionObject = {
       }
     ],
     _links: {
-      self: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-5tg6-a9cd-6d910e68dca5'
+      self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-5tg6-a9cd-6d910e68dca5' }
     }
   },
   id: 826,
@@ -576,11 +584,11 @@ export const mockSubmissionObject = {
   self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826',
   type: 'workspaceitem',
   _links: {
-    collection: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection',
-    item: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item',
-    submissionDefinition: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition',
-    submitter: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter',
-    self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826'
+    collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
+    item: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item' },
+    submissionDefinition: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition' },
+    submitter: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' }
   }
 };
 
@@ -604,7 +612,7 @@ export const mockSubmissionObjectNew = {
           self: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20',
           type: 'resourcePolicy',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20' }
           }
         }
       ]
@@ -621,9 +629,9 @@ export const mockSubmissionObjectNew = {
       name: null,
       metadata: [],
       _links: {
-        content: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content',
-        format: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format',
-        self: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425'
+        content: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content' },
+        format: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format' },
+        self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' }
       }
     },
     self: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb',
@@ -669,10 +677,10 @@ export const mockSubmissionObjectNew = {
       }
     ],
     _links: {
-      license: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/license',
-      defaultAccessConditions: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions',
-      logo: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo',
-      self: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb'
+      license: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/license' },
+      defaultAccessConditions: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions' },
+      logo: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo' },
+      self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb' }
     }
   },
   item: {
@@ -698,10 +706,10 @@ export const mockSubmissionObjectNew = {
     name: null,
     metadata: [],
     _links: {
-      bitstreams: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/bitstreams',
-      owningCollection: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/owningCollection',
-      templateItemOf: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/templateItemOf',
-      self: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270'
+      bitstreams: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/bitstreams' },
+      owningCollection: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/owningCollection' },
+      templateItemOf: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/templateItemOf' },
+      self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270' }
     }
   },
   submissionDefinition: {
@@ -723,7 +731,8 @@ export const mockSubmissionObjectNew = {
           },
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+            config: ''
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
         },
@@ -733,8 +742,8 @@ export const mockSubmissionObjectNew = {
           sectionType: 'submission-form',
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
         },
@@ -744,8 +753,8 @@ export const mockSubmissionObjectNew = {
           sectionType: 'submission-form',
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
         },
@@ -755,8 +764,8 @@ export const mockSubmissionObjectNew = {
           sectionType: 'upload',
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload',
-            config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
         },
@@ -770,7 +779,8 @@ export const mockSubmissionObjectNew = {
           },
           type: 'submissionsection',
           _links: {
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+            self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+            config: ''
           },
           self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
         }
@@ -779,9 +789,9 @@ export const mockSubmissionObjectNew = {
     name: 'traditionaltwo',
     type: 'submissiondefinition',
     _links: {
-      collections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections',
-      sections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections',
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+      collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+      sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+      self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
     },
     self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional',
     collections: {
@@ -821,7 +831,7 @@ export const mockSubmissionObjectNew = {
       }
     ],
     _links: {
-      self: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-4bb9-a9cd-45gh23e68dca5'
+      self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-4bb9-a9cd-45gh23e68dca5' }
     }
   },
   id: 826,
@@ -831,11 +841,11 @@ export const mockSubmissionObjectNew = {
   self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826',
   type: 'workspaceitem',
   _links: {
-    collection: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection',
-    item: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item',
-    submissionDefinition: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition',
-    submitter: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter',
-    self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826'
+    collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
+    item: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item' },
+    submissionDefinition: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition' },
+    submitter: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' }
   }
 };
 
@@ -857,7 +867,8 @@ export const mockSubmissionDefinitionResponse = {
       },
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
+        config: ''
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
     },
@@ -870,7 +881,8 @@ export const mockSubmissionDefinitionResponse = {
       },
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+        config: ''
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
     },
@@ -880,8 +892,8 @@ export const mockSubmissionDefinitionResponse = {
       sectionType: 'submission-form',
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone',
-        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
     },
@@ -891,8 +903,8 @@ export const mockSubmissionDefinitionResponse = {
       sectionType: 'submission-form',
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo',
-        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
     },
@@ -902,8 +914,8 @@ export const mockSubmissionDefinitionResponse = {
       sectionType: 'upload',
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload',
-        config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
     },
@@ -917,7 +929,8 @@ export const mockSubmissionDefinitionResponse = {
       },
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+        config: ''
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
     }
@@ -925,16 +938,16 @@ export const mockSubmissionDefinitionResponse = {
   name: 'traditional',
   type: 'submissiondefinition',
   _links: {
-    collections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections',
-    sections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections',
-    self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+    collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+    sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
   },
   self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
 } as any;
 
 export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
   isDefault: true,
-  sections: new PaginatedList(new PageInfo(),[
+  sections: new PaginatedList(new PageInfo(), [
     {
       mandatory: true,
       sectionType: 'utils',
@@ -944,7 +957,8 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       },
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
+        config: ''
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
     },
@@ -957,7 +971,8 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       },
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
+        config: ''
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
     },
@@ -967,8 +982,8 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       sectionType: 'submission-form',
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone',
-        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
     },
@@ -978,8 +993,8 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       sectionType: 'submission-form',
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo',
-        config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
     },
@@ -989,8 +1004,8 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       sectionType: 'upload',
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload',
-        config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
     },
@@ -1004,7 +1019,8 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       },
       type: 'submissionsection',
       _links: {
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
+        self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
+        config: ''
       },
       self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
     }
@@ -1012,9 +1028,9 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
   name: 'traditional',
   type: 'submissiondefinition',
   _links: {
-    collections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections',
-    sections: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections',
-    self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
+    collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
+    sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
   },
   self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
 } as any;
@@ -1321,7 +1337,7 @@ export const mockUploadConfigResponse = {
     name: 'bitstream-metadata',
     type: 'submissionform',
     _links: {
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata'
+      self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata' }
     },
     self: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata'
   },
@@ -1330,8 +1346,8 @@ export const mockUploadConfigResponse = {
   name: 'upload',
   type: 'submissionupload',
   _links: {
-    metadata: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload/metadata',
-    self: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
+    metadata: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload/metadata' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
   },
   self: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
 };
@@ -1379,8 +1395,8 @@ export const mockGroup = Object.assign(new Group(), {
   name: 'Anonymous',
   metadata: [],
   _links: {
-    groups: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1/groups',
-    self: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1'
+    groups: { href: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1/groups' },
+    self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1' }
   },
   groups: {
     pageInfo: {

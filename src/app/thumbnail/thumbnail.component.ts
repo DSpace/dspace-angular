@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { hasValue } from '../shared/empty.util';
 
@@ -23,7 +23,7 @@ export class ThumbnailComponent {
 
   @Input() set thumbnail(t: Bitstream) {
     this._thumbnail = t;
-    if (hasValue(this.thumbnail) && hasValue(this.thumbnail._links.content) && this.thumbnail._links.content.href) {
+    if (hasValue(this.thumbnail) && hasValue(this.thumbnail._links) && hasValue(this.thumbnail._links.content) && this.thumbnail._links.content.href) {
       this.src = this.thumbnail._links.content.href;
     } else {
       this.src = this.defaultImage

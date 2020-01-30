@@ -1,3 +1,4 @@
+// TODO Fix on complete test run
 import * as deepFreeze from 'deep-freeze';
 import { RestResponse } from '../cache/response.models';
 import {
@@ -38,12 +39,12 @@ describe('requestReducer', () => {
   deepFreeze(testState);
 
   // TODO Fix
-  // it('should return the current state when no valid actions have been made', () => {
-  //   const action = new NullAction();
-  //   const newState = requestReducer(testState, action);
-  //
-  //   expect(newState).toEqual(testState);
-  // });
+  it('should return the current state when no valid actions have been made', () => {
+    const action = new NullAction();
+    const newState = requestReducer(testState, action);
+
+    expect(newState).toEqual(testState);
+  });
 
   it('should start with an empty state', () => {
     const action = new NullAction();

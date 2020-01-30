@@ -26,14 +26,22 @@ describe('ThumbnailComponent', () => {
   });
 
   it('should display image', () => {
-    comp.thumbnail = new Bitstream();
-    comp.thumbnail._links.content.href = 'test.url';
+    const thumbnail = new Bitstream();
+    thumbnail._links = {
+      self: { href: 'self.url' },
+      bundle: { href: 'bundle.url' },
+      format: { href: 'format.url' },
+      content: { href: 'content.url' },
+    };
+    comp.thumbnail = thumbnail;
     fixture.detectChanges();
     const image: HTMLElement = de.query(By.css('img')).nativeElement;
     expect(image.getAttribute('src')).toBe(comp.thumbnail._links.content.href);
   });
 
   it('should display placeholder', () => {
+    const thumbnail = new Bitstream();
+    comp.thumbnail = thumbnail;
     fixture.detectChanges();
     const image: HTMLElement = de.query(By.css('img')).nativeElement;
     expect(image.getAttribute('src')).toBe(comp.defaultImage);
