@@ -213,7 +213,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const token: AuthTokenInfo = authService.getToken();
     let newReq: HttpRequest<any>;
-    let updateReq: any = {};
     let authorization: string;
 
     if (authService.isTokenExpired()) {
@@ -239,10 +238,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // Clone the request to add the new header.
       newReq = req.clone({ headers: req.headers.set('authorization', authorization) });
     } else {
-      if (this.isAuthRequest(req)) {
-        updateReq = { withCredentials: true };
-      }
-      newReq = req.clone(updateReq);
+      newReq = req.clone();
     }
 
     // Pass on the new request instead of the original request.

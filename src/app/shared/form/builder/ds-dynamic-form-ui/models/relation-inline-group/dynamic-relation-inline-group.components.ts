@@ -103,7 +103,8 @@ export class DsDynamicRelationInlineGroupComponent extends DynamicFormControlCom
       this.model.scopeUUID,
       initValues,
       this.model.submissionScope,
-      this.model.readOnly);
+      this.model.readOnly,
+      this.formBuilderService.getTypeBindModel());
 
     return formModel[0];
   }
