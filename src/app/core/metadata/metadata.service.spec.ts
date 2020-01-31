@@ -18,7 +18,13 @@ import { GlobalConfig } from '../../../config/global-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 
-import { MockItem } from '../../shared/mocks/mock-item';
+import {
+  MockBitstream1,
+  MockBitstream2,
+  MockBitstreamFormat1,
+  MockBitstreamFormat2,
+  MockItem
+} from '../../shared/mocks/mock-item';
 import { MockTranslateLoader } from '../../shared/mocks/mock-translate-loader';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
@@ -40,6 +46,7 @@ import { ItemDataService } from '../data/item-data.service';
 import { PaginatedList } from '../data/paginated-list';
 import { FindListOptions } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { MetadataValue } from '../shared/metadata.models';
@@ -104,8 +111,26 @@ describe('MetadataService', () => {
     remoteDataBuildService = new RemoteDataBuildService(objectCacheService, undefined, requestService);
     const mockBitstreamDataService = {
       findAllByItemAndBundleName(item: Item, bundleName: string, options?: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<Bitstream>>): Observable<RemoteData<PaginatedList<Bitstream>>> {
-        return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
+        if (item.equals(MockItem)) {
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), [MockBitstream1, MockBitstream2]));
+        } else {
+          return createSuccessfulRemoteDataObject$(new PaginatedList(new PageInfo(), []));
+        }
       },
+    };
+    const mockBitstreamFormatDataService = {
+      findByBitstream(bitstream: Bitstream): Observable<RemoteData<BitstreamFormat>> {
+        switch (bitstream) {
+          case MockBitstream1:
+            return createSuccessfulRemoteDataObject$(MockBitstreamFormat1);
+            break;
+          case MockBitstream2:
+            return createSuccessfulRemoteDataObject$(MockBitstreamFormat2);
+            break;
+          default:
+            return createSuccessfulRemoteDataObject$(new BitstreamFormat());
+        }
+      }
     };
 
     TestBed.configureTestingModule({
@@ -145,7 +170,7 @@ describe('MetadataService', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },
-        { provide: BitstreamFormatDataService, useValue: {} },
+        { provide: BitstreamFormatDataService, useValue: mockBitstreamFormatDataService },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         Meta,
         Title,

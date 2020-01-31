@@ -19,10 +19,7 @@ import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bitstream } from '../shared/bitstream.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { Item } from '../shared/item.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
-} from '../shared/operators';
+import { getFirstSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload } from '../shared/operators';
 
 @Injectable()
 export class MetadataService {
@@ -278,12 +275,12 @@ export class MetadataService {
         .subscribe((bitstreams: Bitstream[]) => {
           for (const bitstream of bitstreams) {
             this.bitstreamFormatDataService.findByBitstream(bitstream).pipe(
-                getFirstSucceededRemoteDataPayload()
-              ).subscribe((format: BitstreamFormat) => {
-                if (format.mimetype === 'application/pdf') {
-                  this.addMetaTag('citation_pdf_url', bitstream._links.content.href);
-                }
-              });
+              getFirstSucceededRemoteDataPayload()
+            ).subscribe((format: BitstreamFormat) => {
+              if (format.mimetype === 'application/pdf') {
+                this.addMetaTag('citation_pdf_url', bitstream._links.content.href);
+              }
+            });
           }
         });
     }
@@ -363,7 +360,7 @@ export class MetadataService {
 
   public clearMetaTags() {
     this.tagStore.forEach((tags: MetaDefinition[], property: string) => {
-      this.meta.removeTag("property='" + property + "'");
+      this.meta.removeTag('property=\'' + property + '\'');
     });
     this.tagStore.clear();
   }

@@ -1,10 +1,74 @@
-import {of as observableOf,  Observable } from 'rxjs';
+import { of as observableOf } from 'rxjs';
+import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
+import { Bitstream } from '../../core/shared/bitstream.model';
 
 import { Item } from '../../core/shared/item.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { PaginatedList } from '../../core/data/paginated-list';
 import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../testing/utils';
+
+export const MockBitstreamFormat1: BitstreamFormat = Object.assign(new BitstreamFormat(), {
+  shortDescription: 'Microsoft Word XML',
+    description: 'Microsoft Word XML',
+    mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    supportLevel: 0,
+    internal: false,
+    extensions: null,
+    self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
+});
+
+export const MockBitstreamFormat2: BitstreamFormat = Object.assign(new BitstreamFormat(), {
+    shortDescription: 'Adobe PDF',
+    description: 'Adobe Portable Document Format',
+    mimetype: 'application/pdf',
+    supportLevel: 0,
+    internal: false,
+    extensions: null,
+    self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
+});
+
+export const MockBitstream1: Bitstream = Object.assign(new Bitstream(),
+  {
+    sizeBytes: 10201,
+    content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
+    format: observableOf(MockBitstreamFormat1),
+    bundleName: 'ORIGINAL',
+    self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
+    id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
+    uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
+    type: 'bitstream',
+    metadata: {
+      'dc.title': [
+        {
+          language: null,
+          value: 'test_word.docx'
+        }
+      ]
+    }
+  });
+
+export const MockBitstream2: Bitstream = Object.assign(new Bitstream(), {
+  sizeBytes: 31302,
+  content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
+  format: observableOf(MockBitstreamFormat2),
+  bundleName: 'ORIGINAL',
+  self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28',
+  id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
+  uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
+  type: 'bitstream',
+  _links: {
+    self: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28' },
+    content: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content' },
+    format: { href: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4' },
+    bundle: { href: '' }
+  },
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'test_pdf.pdf'
+      }
+    ]
+  }
+});
 
 /* tslint:disable:no-shadowed-variable */
 export const MockItem: Item = Object.assign(new Item(), {
@@ -39,76 +103,8 @@ export const MockItem: Item = Object.assign(new Item(), {
             currentPage: 2
           },
           page: [
-            {
-              sizeBytes: 10201,
-              content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-              format: observableOf({
-                self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10',
-                requestPending: false,
-                responsePending: false,
-                isSuccessful: true,
-                errorMessage: '',
-                statusCode: '202',
-                pageInfo: {},
-                payload: {
-                  shortDescription: 'Microsoft Word XML',
-                  description: 'Microsoft Word XML',
-                  mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                  supportLevel: 0,
-                  internal: false,
-                  extensions: null,
-                  self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/10'
-                }
-              }),
-              bundleName: 'ORIGINAL',
-              self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713',
-              id: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
-              uuid: 'cf9b0c8e-a1eb-4b65-afd0-567366448713',
-              type: 'bitstream',
-              metadata: {
-                'dc.title': [
-                  {
-                    language: null,
-                    value: 'test_word.docx'
-                  }
-                ]
-              }
-            },
-            {
-              sizeBytes: 31302,
-              content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28/content',
-              format: observableOf({
-                self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4',
-                requestPending: false,
-                responsePending: false,
-                isSuccessful: true,
-                errorMessage: '',
-                statusCode: '202',
-                pageInfo: {},
-                payload: {
-                  shortDescription: 'Adobe PDF',
-                  description: 'Adobe Portable Document Format',
-                  mimetype: 'application/pdf',
-                  supportLevel: 0,
-                  internal: false,
-                  extensions: null,
-                  self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreamformats/4'
-                }
-              }),
-              bundleName: 'ORIGINAL',
-              self: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/99b00f3c-1cc6-4689-8158-91965bee6b28',
-              id: '99b00f3c-1cc6-4689-8158-91965bee6b28',
-              uuid: '99b00f3c-1cc6-4689-8158-91965bee6b28',
-              type: 'bitstream',
-              metadata: {
-                'dc.title': [
-                  {
-                    language: null,
-                    value: 'test_pdf.pdf'
-                  }
-                ]
-              }
-            }
+            MockBitstream1,
+            MockBitstream2
           ]
         }
       }))
@@ -228,5 +224,6 @@ export const MockItem: Item = Object.assign(new Item(), {
       pageInfo: {},
       payload: []
     }
-  )});
+  )
+});
 /* tslint:enable:no-shadowed-variable */
