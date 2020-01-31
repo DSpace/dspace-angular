@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest as observableCombineLatest, Observable, Subscription} from 'rxjs';
 import { distinctUntilChanged, filter, find, flatMap, map, reduce, take, tap } from 'rxjs/operators';
 
 import { SectionModelComponent } from '../models/section.model';
@@ -108,7 +108,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    * Is the upload required
    * @type {boolean}
    */
-  public required: boolean;
+  public required$ = new BehaviorSubject<boolean>(true);
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -178,7 +178,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         }),
         flatMap(() => config$),
         flatMap((config: SubmissionUploadsModel) => {
-          this.required = config.required;
+          this.required$.next(config.required);
           this.availableAccessConditionOptions = isNotEmpty(config.accessConditionOptions) ? config.accessConditionOptions : [];
 
           this.collectionPolicyType = this.availableAccessConditionOptions.length > 0
@@ -282,9 +282,11 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
   protected getSectionStatus(): Observable<boolean> {
     // if not mandatory, always true
     // if mandatory, at least one file is required
-    return this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id).pipe(
-      map((fileList: any[]) =>
-        (!this.required || (isNotUndefined(fileList) && fileList.length > 0))));
+    return observableCombineLatest(this.required$,
+      this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id),
+      (required,fileList: any[]) => {
+        return (!required || (isNotUndefined(fileList) && fileList.length > 0));
+      });
   }
 
   /**

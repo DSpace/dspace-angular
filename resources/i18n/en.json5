@@ -532,6 +532,8 @@
 
   "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
 
+  "error.validation.filerequired": "The file upload is mandatory",
+
 
 
   "footer.copyright": "copyright © 2002-{{ year }}",
