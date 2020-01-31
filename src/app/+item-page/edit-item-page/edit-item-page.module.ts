@@ -22,7 +22,6 @@ import { EditRelationshipComponent } from './item-relationships/edit-relationshi
 import { EditRelationshipListComponent } from './item-relationships/edit-relationship-list/edit-relationship-list.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
-import { MySimpleItemActionComponent } from './simple-item-action/abstract-simple-item-action.component.spec';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -54,7 +53,6 @@ import { MySimpleItemActionComponent } from './simple-item-action/abstract-simpl
     ItemCollectionMapperComponent,
     ItemMoveComponent,
     VirtualMetadataComponent,
-    MySimpleItemActionComponent
   ]
 })
 export class EditItemPageModule {

@@ -1,15 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ResourcePolicy } from '../shared/resource-policy.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ResourcePolicy } from '../shared/resource-policy.model';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { ResourcePolicyService } from './resource-policy.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 
 describe('ResourcePolicyService', () => {
   let scheduler: TestScheduler;
@@ -61,7 +61,7 @@ describe('ResourcePolicyService', () => {
       scheduler.schedule(() => service.findByHref(requestURL));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new GetRequest(requestUUID, requestURL, null));
+      expect(requestService.configure).toHaveBeenCalledWith(new GetRequest(requestUUID, requestURL, {}));
     });
 
     it('should return a RemoteData<ResourcePolicy> for the object with the given URL', () => {

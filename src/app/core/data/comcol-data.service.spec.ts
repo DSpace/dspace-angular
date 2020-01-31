@@ -167,13 +167,12 @@ describe('ComColDataService', () => {
         expect(objectCache.getObjectByUUID).toHaveBeenCalledWith(scopeID);
       });
 
-      // TODO fix
-      // it('should return the endpoint to fetch resources within the given scope', () => {
-      //   const result = service.getBrowseEndpoint(options);
-      //   const expected = '--e-';
-      //
-      //   scheduler.expectObservable(result).toBe(expected, { e: scopedEndpoint });
-      // });
+      it('should return the endpoint to fetch resources within the given scope', () => {
+        const result = service.getBrowseEndpoint(options);
+        const expected = '--e-';
+
+        scheduler.expectObservable(result).toBe(expected, { e: scopedEndpoint });
+      });
     });
 
     describe('if the scope Community can\'t be found', () => {

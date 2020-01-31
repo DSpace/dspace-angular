@@ -243,6 +243,10 @@ export class CollectionDataService extends ComColDataService<Collection> {
     );
   }
 
+  /**
+   * Returns {@link RemoteData} of {@link Collection} that is the owing collection of the given item
+   * @param item  Item we want the owning collection of
+   */
   findOwningCollectionFor(item: Item): Observable<RemoteData<Collection>> {
     return this.findByHref(item._links.owningCollection.href);
   }

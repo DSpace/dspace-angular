@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-
 import { combineLatest as observableCombineLatest, Observable, of as observableOf, race as observableRace } from 'rxjs';
 import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
-
 import {
   hasNoValue,
   hasValue,
@@ -40,6 +38,12 @@ export class RemoteDataBuildService {
               protected requestService: RequestService) {
   }
 
+  /**
+   * Creates a single {@link RemoteData} object based on the response of a request to the REST server, with a list of
+   * {@link FollowLinkConfig} that indicate which embedded info should be added to the object
+   * @param href$             Observable href of object we want to retrieve
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which embedded info should be added
+   */
   buildSingle<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);
@@ -118,6 +122,12 @@ export class RemoteDataBuildService {
     );
   }
 
+  /**
+   * Creates a list of {@link RemoteData} objects based on the response of a request to the REST server, with a list of
+   * {@link FollowLinkConfig} that indicate which embedded info should be added to the objects
+   * @param href$             Observable href of objects we want to retrieve
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which embedded info should be added
+   */
   buildList<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
       href$ = observableOf(href$);

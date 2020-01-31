@@ -1,4 +1,3 @@
-// TODO Fix on complete test run
 import * as ngrx from '@ngrx/store';
 import { ActionsSubject, Store } from '@ngrx/store';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
