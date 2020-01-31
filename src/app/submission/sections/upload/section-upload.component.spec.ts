@@ -223,7 +223,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       expect(comp.collectionName).toBe(mockCollection.name);
       expect(comp.availableAccessConditionOptions.length).toBe(4);
       expect(comp.availableAccessConditionOptions).toEqual(mockUploadConfigResponse.accessConditionOptions as any);
-      expect(comp.required).toBe(true);
+      expect(comp.required$.getValue()).toBe(true);
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.availableGroups.size).toBe(2);
       expect(compAsAny.availableGroups).toEqual(expectedGroupsMap);
@@ -263,7 +263,7 @@ describe('SubmissionSectionUploadComponent test suite', () => {
       expect(comp.collectionName).toBe(mockCollection.name);
       expect(comp.availableAccessConditionOptions.length).toBe(4);
       expect(comp.availableAccessConditionOptions).toEqual(mockUploadConfigResponse.accessConditionOptions as any);
-      expect(comp.required).toBe(true);
+      expect(comp.required$.getValue()).toBe(true);
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.availableGroups.size).toBe(2);
       expect(compAsAny.availableGroups).toEqual(expectedGroupsMap);
@@ -289,14 +289,14 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
 
-      bitstreamService.getUploadedFileList.and.returnValue(hot('-a-b', {
+      bitstreamService.getUploadedFileList.and.returnValue(cold('-a-b', {
         a: [],
         b: mockUploadFiles
       }));
 
       comp.onSectionInit();
 
-      expect(comp.required).toBe(true);
+      expect(comp.required$.getValue()).toBe(true);
 
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('-c-d', {
         c: false,
@@ -320,14 +320,14 @@ describe('SubmissionSectionUploadComponent test suite', () => {
         createSuccessfulRemoteDataObject$(Object.assign(new Group(), mockGroup))
       );
 
-      bitstreamService.getUploadedFileList.and.returnValue(hot('-a-b', {
+      bitstreamService.getUploadedFileList.and.returnValue(cold('-a-b', {
         a: [],
         b: mockUploadFiles
       }));
 
       comp.onSectionInit();
 
-      expect(comp.required).toBe(false);
+      expect(comp.required$.getValue()).toBe(false);
 
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('-c-d', {
         c: true,
