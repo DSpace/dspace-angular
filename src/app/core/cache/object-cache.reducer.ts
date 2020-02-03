@@ -95,14 +95,10 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
   switch (action.type) {
 
     case ObjectCacheActionTypes.ADD: {
-      if ((action.payload as any).objectToCache instanceof NormalizedItem) {
-        console.log('ADD', (action.payload as any).objectToCache.self);
-      }
       return addToObjectCache(state, action as AddToObjectCacheAction);
     }
 
     case ObjectCacheActionTypes.REMOVE: {
-      console.log('REMOVE', action.payload);
       return removeFromObjectCache(state, action as RemoveFromObjectCacheAction)
     }
 

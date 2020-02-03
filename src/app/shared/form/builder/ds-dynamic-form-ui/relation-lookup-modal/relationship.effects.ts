@@ -108,11 +108,21 @@ export class RelationshipEffects {
 
   @Effect() commitServerSyncBuffer = this.actions$
     .pipe(
-      ofType(ServerSyncBufferActionTypes.COMMIT),
+      ofType(ServerSyncBufferActionTypes.EMPTY),
       filter(() => hasValue(updateAfterPatchSubmissionId)),
-      tap(() => console.log('id', updateAfterPatchSubmissionId)),
-      refreshWorkspaceItemInCache('bla' + updateAfterPatchSubmissionId, this.submissionObjectService, this.objectCache, this.requestService),
-      tap(() => console.log('id nog s', updateAfterPatchSubmissionId)),
+      switchMap(() => this.submissionObjectService.getHrefByID(updateAfterPatchSubmissionId).pipe(take(1))),
+      switchMap((href: string) => {
+        this.objectCache.remove(href);
+        this.requestService.removeByHrefSubstring(updateAfterPatchSubmissionId);
+        return combineLatest(
+          this.objectCache.hasBySelfLinkObservable(href),
+          this.requestService.hasByHrefObservable(href)
+        ).pipe(
+          filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
+          take(1),
+          switchMap(() => this.submissionObjectService.findById(updateAfterPatchSubmissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+        )
+      }),
       map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(updateAfterPatchSubmissionId, [submissionObject], false))
     );
 
@@ -163,7 +173,6 @@ export class RelationshipEffects {
 const refreshWorkspaceItemInCache = (submissionId, submissionObjectService, objectCache, requestService) =>
   <T>(source: Observable<T>): Observable<SubmissionObject> =>
     source.pipe(
-      tap(() => console.log(submissionId)),
       switchMap(() => submissionObjectService.getHrefByID(submissionId).pipe(take(1))),
       switchMap((href: string) => {
           objectCache.remove(href);

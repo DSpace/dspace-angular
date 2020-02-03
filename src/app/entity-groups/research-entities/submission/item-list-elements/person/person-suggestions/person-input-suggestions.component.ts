@@ -33,8 +33,10 @@ export class PersonInputSuggestionsComponent extends InputSuggestionsComponent i
   }
 
   onSubmit(data) {
-    this.value = data;
-    this.submitSuggestion.emit(data);
+    if (data !== this.value) {
+      this.value = data;
+      this.submitSuggestion.emit(data);
+    }
   }
 
   onClickSuggestion(data) {

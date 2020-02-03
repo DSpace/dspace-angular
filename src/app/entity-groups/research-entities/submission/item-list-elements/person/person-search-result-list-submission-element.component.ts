@@ -71,26 +71,30 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
       this.openModal(value)
         .then(() => {
 
-          const newName: MetadataValue = new MetadataValue();
-          newName.value = value;
+            const newName: MetadataValue = new MetadataValue();
+            newName.value = value;
 
-          const existingNames: MetadataValue[] = this.dso.metadata[this.alternativeField] || [];
-          const alternativeNames = { [this.alternativeField]: [...existingNames, newName] };
-          const updatedItem =
-            Object.assign({}, this.dso, {
-              metadata: {
-                ...this.dso.metadata,
-                ...alternativeNames
-              },
-            });
-          this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
-        })
+            const existingNames: MetadataValue[] = this.dso.metadata[this.alternativeField] || [];
+            const alternativeNames = { [this.alternativeField]: [...existingNames, newName] };
+            const updatedItem =
+              Object.assign({}, this.dso, {
+                metadata: {
+                  ...this.dso.metadata,
+                  ...alternativeNames
+                },
+              });
+            this.itemDataService.update(updatedItem).pipe(take(1)).subscribe();
+          }
+        ).catch(() => {
+        /* empty, don't throw console error */
+      })
     }
     this.select(value);
   }
 
   openModal(value): Promise<any> {
     const modalRef = this.modalService.open(NameVariantModalComponent, { centered: true });
+
     const modalComp = modalRef.componentInstance;
     modalComp.value = value;
     return modalRef.result;

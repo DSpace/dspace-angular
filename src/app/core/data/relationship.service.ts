@@ -385,7 +385,6 @@ export class RelationshipService extends DataService<Relationship> {
           return this.update(updatedRelationship);
         }),
         tap((relationshipRD: RemoteData<Relationship>) => {
-          console.log(relationshipRD);
           if (relationshipRD.hasSucceeded && count < 1) {
             count++;
             this.refreshRelationshipItemsInCache(item1);
