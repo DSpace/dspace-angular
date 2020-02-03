@@ -4,6 +4,7 @@ import { RemoteData } from '../../data/remote-data';
 import { ResourceType } from '../resource-type';
 import { RelationshipType } from './relationship-type.model';
 import { Item } from '../item.model';
+import { deserialize } from 'cerialize';
 
 /**
  * Describes a Relationship between two Items
@@ -60,4 +61,8 @@ export class Relationship implements CacheableObject {
    * The type of Relationship
    */
   relationshipType: Observable<RemoteData<RelationshipType>>;
+
+  _links: {
+    [name: string]: string
+  };
 }

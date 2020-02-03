@@ -10,6 +10,7 @@ import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { CacheEntry } from './cache-entry';
 import { ResourceType } from '../shared/resource-type';
 import { applyPatch, Operation } from 'fast-json-patch';
+import { NormalizedItem } from './models/normalized-item.model';
 
 export enum DirtyType {
   Created = 'Created',
@@ -64,6 +65,7 @@ export class ObjectCacheEntry implements CacheEntry {
   patches: Patch[] = [];
   isDirty: boolean;
 }
+
 /* tslint:enable:max-classes-per-file */
 
 /**
@@ -93,10 +95,14 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
   switch (action.type) {
 
     case ObjectCacheActionTypes.ADD: {
+      if ((action.payload as any).objectToCache instanceof NormalizedItem) {
+        console.log('ADD', (action.payload as any).objectToCache.self);
+      }
       return addToObjectCache(state, action as AddToObjectCacheAction);
     }
 
     case ObjectCacheActionTypes.REMOVE: {
+      console.log('REMOVE', action.payload);
       return removeFromObjectCache(state, action as RemoveFromObjectCacheAction)
     }
 

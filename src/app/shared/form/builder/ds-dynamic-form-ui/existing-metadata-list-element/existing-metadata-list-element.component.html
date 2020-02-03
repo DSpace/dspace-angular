@@ -1,6 +1,11 @@
-<div *ngIf="metadataRepresentation" class="d-flex">
+<div class="d-flex">
     <span class="mr-auto text-contents">
-        <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation"></ds-metadata-representation-loader>
+        <ng-container *ngIf="!metadataRepresentation">
+            <ds-loading [showMessage]="false"></ds-loading>
+        </ng-container>
+        <ng-container *ngIf="metadataRepresentation">
+            <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation"></ds-metadata-representation-loader>
+        </ng-container>
     </span>
     <button type="button" class="btn btn-secondary"
             (click)="removeSelection()">

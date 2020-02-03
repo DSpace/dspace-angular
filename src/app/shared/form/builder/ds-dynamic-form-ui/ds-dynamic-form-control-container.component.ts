@@ -187,7 +187,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   item: Item;
   listId: string;
   searchConfig: string;
-
+  value: MetadataValue;
   /**
    * List of subscriptions to unsubscribe from
    */
@@ -235,23 +235,23 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     if (this.isRelationship) {
       this.listId = 'list-' + this.model.relationship.relationshipType;
       this.setItem();
-      const value = Object.assign(new MetadataValue(), this.model.value);
-      if (hasValue(value) && value.isVirtual) {
-        const relationship$ = this.relationshipService.findById(value.virtualValue)
+      this.value = Object.assign(new MetadataValue(), this.model.value);
+      if (hasValue(this.value) && this.value.isVirtual) {
+        const relationship$ = this.relationshipService.findById(this.value.virtualValue)
           .pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
         this.relationshipValue$ = relationship$.pipe(
           switchMap((relationship: Relationship) =>
             relationship.leftItem.pipe(
-              tap((t) => console.log(t)),
               getSucceededRemoteData(),
               getRemoteDataPayload(),
               map((leftItem: Item) => {
                 return new ReorderableRelationship(relationship, leftItem.uuid !== this.item.uuid, this.relationshipService)
               }),
             )
-          )
+          ),
+          startWith(undefined)
         );
       }
     }
@@ -359,7 +359,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
           )
         )
       );
-
     this.subs.push(item$.subscribe((item) => this.item = item));
   }
 }

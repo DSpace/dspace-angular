@@ -32,6 +32,7 @@ export class AddRelationshipAction implements Action {
    * @param item1 The first item in the relationship
    * @param item2 The second item in the relationship
    * @param relationshipType The label of the relationshipType
+   * @param submissionId The current submissionId
    * @param nameVariant The nameVariant of the relationshipType
    */
   constructor(
@@ -62,6 +63,7 @@ export class UpdateRelationshipAction implements Action {
    * @param item1 The first item in the relationship
    * @param item2 The second item in the relationship
    * @param relationshipType The label of the relationshipType
+   * @param submissionId The current submissionId
    * @param nameVariant The nameVariant of the relationshipType
    */
   constructor(
@@ -94,6 +96,7 @@ export class RemoveRelationshipAction implements Action {
    * @param item1 The first item in the relationship
    * @param item2 The second item in the relationship
    * @param relationshipType The label of the relationshipType
+   * @param submissionId The current submissionId
    */
   constructor(
     item1: Item,

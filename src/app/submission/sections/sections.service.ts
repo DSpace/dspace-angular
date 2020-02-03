@@ -321,10 +321,6 @@ export class SectionsService {
         take(1),
         filter(([available, enabled]: [boolean, boolean]) => available))
         .subscribe(([available, enabled]: [boolean, boolean]) => {
-          if (!enabled) {
-            const msg = this.translate.instant('submission.sections.general.metadata-extracted-new-section', {sectionId});
-            this.notificationsService.info(null, msg, null, true);
-          }
           this.store.dispatch(new UpdateSectionDataAction(submissionId, sectionId, data, errors));
         });
     }

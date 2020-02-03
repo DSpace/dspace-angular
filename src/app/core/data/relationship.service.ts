@@ -60,7 +60,7 @@ export class RelationshipService extends DataService<Relationship> {
               protected notificationsService: NotificationsService,
               protected http: HttpClient,
               protected comparator: DefaultChangeAnalyzer<Relationship>,
-              protected appStore: Store<AppState>) {
+              protected appStore: Store<AppState>,) {
     super();
   }
 
@@ -86,11 +86,11 @@ export class RelationshipService extends DataService<Relationship> {
     return this.getRelationshipEndpoint(id).pipe(
       isNotEmptyOperator(),
       take(1),
-      tap(() => this.removeRelationshipItemsFromCacheByRelationship(id)),
       map((endpointURL: string) => new DeleteRequest(this.requestService.generateRequestId(), endpointURL)),
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry(),
+      tap(() => this.refreshRelationshipItemsInCacheByRelationship(id)),
     );
   }
 
@@ -117,8 +117,8 @@ export class RelationshipService extends DataService<Relationship> {
       configureRequest(this.requestService),
       switchMap((restRequest: RestRequest) => this.requestService.getByUUID(restRequest.uuid)),
       getResponseFromEntry(),
-      tap(() => this.removeRelationshipItemsFromCache(item1)),
-      tap(() => this.removeRelationshipItemsFromCache(item2))
+      tap(() => this.refreshRelationshipItemsInCache(item1)),
+      tap(() => this.refreshRelationshipItemsInCache(item2))
     ) as Observable<RestResponse>;
   }
 
@@ -126,7 +126,7 @@ export class RelationshipService extends DataService<Relationship> {
    * Method to remove two items of a relationship from the cache using the identifier of the relationship
    * @param relationshipId The identifier of the relationship
    */
-  private removeRelationshipItemsFromCacheByRelationship(relationshipId: string) {
+  private refreshRelationshipItemsInCacheByRelationship(relationshipId: string) {
     this.findById(relationshipId).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
@@ -137,8 +137,8 @@ export class RelationshipService extends DataService<Relationship> {
       ),
       take(1)
     ).subscribe(([item1, item2]) => {
-      this.removeRelationshipItemsFromCache(item1);
-      this.removeRelationshipItemsFromCache(item2);
+      this.refreshRelationshipItemsInCache(item1);
+      this.refreshRelationshipItemsInCache(item2);
     })
   }
 
@@ -146,17 +146,21 @@ export class RelationshipService extends DataService<Relationship> {
    * Method to remove an item that's part of a relationship from the cache
    * @param item The item to remove from the cache
    */
-  private removeRelationshipItemsFromCache(item) {
-    this.objectCache.remove(item.self);
-    this.requestService.removeByHrefSubstring(item.uuid);
-    combineLatest(
-      this.objectCache.hasBySelfLinkObservable(item.self),
-      this.requestService.hasByHrefObservable(item.uuid)
-    ).pipe(
-      filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-      take(1),
-      switchMap(() => this.itemService.findByHref(item.self).pipe(take(1)))
-    ).subscribe();
+  private refreshRelationshipItemsInCache(item) {
+    setTimeout(() => {
+
+      this.objectCache.remove(item.self);
+      this.requestService.removeByHrefSubstring(item.uuid);
+      combineLatest(
+        this.objectCache.hasBySelfLinkObservable(item.self),
+        this.requestService.hasByHrefObservable(item.self)
+      ).pipe(
+        filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
+        take(1),
+        switchMap(() => this.itemService.findByHref(item.self).pipe(take(1)))
+      ).subscribe();
+    }, 1000)
+
   }
 
   /**
@@ -288,16 +292,17 @@ export class RelationshipService extends DataService<Relationship> {
         getSucceededRemoteData(),
         isNotEmptyOperator(),
         map((relationshipListRD: RemoteData<PaginatedList<Relationship>>) => relationshipListRD.payload.page),
-        mergeMap((relationships: Relationship[]) => {
+        switchMap((relationships: Relationship[]) => {
           return observableCombineLatest(...relationships.map((relationship: Relationship) => {
-            return observableCombineLatest(
-              this.isItemMatchWithItemRD(relationship.leftItem, item2),
-              this.isItemMatchWithItemRD(relationship.rightItem, item2)
-            ).pipe(
-              map(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
-              map((isMatch) => isMatch ? relationship : undefined)
-            );
-          }))
+              return observableCombineLatest(
+                this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.leftItem), item2),
+                this.isItemMatchWithItemRD(this.itemService.findByHref(relationship._links.rightItem), item2)
+              ).pipe(
+                map(([isLeftItem, isRightItem]) => isLeftItem || isRightItem),
+                map((isMatch) => isMatch ? relationship : undefined)
+              );
+            })
+          )
         }),
         map((relationships: Relationship[]) => relationships.find(((relationship) => hasValue(relationship))))
       )
@@ -357,6 +362,7 @@ export class RelationshipService extends DataService<Relationship> {
    * @param nameVariant The name variant to set for the matching relationship
    */
   public updateNameVariant(item1: Item, item2: Item, relationshipLabel: string, nameVariant: string): Observable<RemoteData<Relationship>> {
+    let count = 0
     const update$: Observable<RemoteData<Relationship>> = this.getRelationshipByItemsAndLabel(item1, item2, relationshipLabel)
       .pipe(
         switchMap((relation: Relationship) =>
@@ -378,16 +384,15 @@ export class RelationshipService extends DataService<Relationship> {
           }
           return this.update(updatedRelationship);
         }),
+        tap((relationshipRD: RemoteData<Relationship>) => {
+          console.log(relationshipRD);
+          if (relationshipRD.hasSucceeded && count < 1) {
+            count++;
+            this.refreshRelationshipItemsInCache(item1);
+            this.refreshRelationshipItemsInCache(item2);
+          }
+        })
       );
-
-    update$.pipe(
-      filter((relationshipRD: RemoteData<Relationship>) => relationshipRD.state === RemoteDataState.RequestPending),
-      take(1),
-    ).subscribe(() => {
-      this.removeRelationshipItemsFromCache(item1);
-      this.removeRelationshipItemsFromCache(item2);
-    });
-
     return update$
   }
 
@@ -411,7 +416,7 @@ export class RelationshipService extends DataService<Relationship> {
       take(1),
     ).subscribe((relationshipRD: RemoteData<Relationship>) => {
       if (relationshipRD.state === RemoteDataState.ResponsePending) {
-        this.removeRelationshipItemsFromCacheByRelationship(reoRel.relationship.id);
+        this.refreshRelationshipItemsInCacheByRelationship(reoRel.relationship.id);
       }
     });
 

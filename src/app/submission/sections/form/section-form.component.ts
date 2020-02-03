@@ -259,10 +259,6 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
       if (this.hasMetadataEnrichment(sectionData)) {
-        const msg = this.translate.instant(
-          'submission.sections.general.metadata-extracted',
-          { sectionId: this.sectionData.id });
-        this.notificationsService.info(null, msg, null, true);
         this.isUpdating = true;
         this.formModel = null;
         this.cdr.detectChanges();

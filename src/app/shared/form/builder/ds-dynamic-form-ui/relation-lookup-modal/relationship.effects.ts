@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { debounceTime, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { debounceTime, filter, map, mergeMap, switchMap, take, tap } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../../core/shared/operators';
@@ -17,9 +17,10 @@ import { SubmissionState } from '../../../../../submission/submission.reducers';
 import { Store } from '@ngrx/store';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { RequestService } from '../../../../../core/data/request.service';
+import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
 
 const DEBOUNCE_TIME = 5000;
-
+let updateAfterPatchSubmissionId: string;
 /**
  * NGRX effects for RelationshipEffects
  */
@@ -68,7 +69,6 @@ export class RelationshipEffects {
                   } else {
                     this.removeRelationship(item1, item2, relationshipType, submissionId);
                   }
-
                 }
                 delete this.debounceMap[identifier];
                 delete this.initialActionMap[identifier];
@@ -91,17 +91,29 @@ export class RelationshipEffects {
     .pipe(
       ofType(RelationshipActionTypes.UPDATE_RELATIONSHIP),
       map((action: UpdateRelationshipAction) => {
-          const { item1, item2, relationshipType, nameVariant } = action.payload;
+          const { item1, item2, relationshipType, submissionId, nameVariant } = action.payload;
           const identifier: string = this.createIdentifier(item1, item2, relationshipType);
           const inProgress = hasValue(this.debounceMap[identifier]);
           if (inProgress) {
             this.nameVariantUpdates[identifier] = nameVariant;
           } else {
-            this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant)
-              .subscribe();
+            this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(take(1))
+              .subscribe(() => {
+                updateAfterPatchSubmissionId = submissionId;
+              });
           }
         }
       )
+    );
+
+  @Effect() commitServerSyncBuffer = this.actions$
+    .pipe(
+      ofType(ServerSyncBufferActionTypes.COMMIT),
+      filter(() => hasValue(updateAfterPatchSubmissionId)),
+      tap(() => console.log('id', updateAfterPatchSubmissionId)),
+      refreshWorkspaceItemInCache('bla' + updateAfterPatchSubmissionId, this.submissionObjectService, this.objectCache, this.requestService),
+      tap(() => console.log('id nog s', updateAfterPatchSubmissionId)),
+      map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(updateAfterPatchSubmissionId, [submissionObject], false))
     );
 
   constructor(private actions$: Actions,
@@ -133,7 +145,7 @@ export class RelationshipEffects {
           }
         ),
         take(1),
-        this.removeWorkspaceItemFromCache(submissionId)
+        refreshWorkspaceItemInCache(submissionId, this.submissionObjectService, this.objectCache, this.requestService)
       ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
 
@@ -143,25 +155,26 @@ export class RelationshipEffects {
       hasValueOperator(),
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
       take(1),
-      this.removeWorkspaceItemFromCache(submissionId)
+      refreshWorkspaceItemInCache(submissionId, this.submissionObjectService, this.objectCache, this.requestService)
     ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
-
-  removeWorkspaceItemFromCache = (submissionId) =>
-    <T>(source: Observable<T>): Observable<SubmissionObject> =>
-      source.pipe(
-        switchMap(() => this.submissionObjectService.getHrefByID(submissionId).pipe(take(1))),
-        switchMap((href: string) => {
-            this.objectCache.remove(href);
-            this.requestService.removeByHrefSubstring(submissionId);
-            return combineLatest(
-              this.objectCache.hasBySelfLinkObservable(href),
-              this.requestService.hasByHrefObservable(href)
-            ).pipe(
-              filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-              take(1),
-              switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-            )
-          }
-        ));
 }
+
+const refreshWorkspaceItemInCache = (submissionId, submissionObjectService, objectCache, requestService) =>
+  <T>(source: Observable<T>): Observable<SubmissionObject> =>
+    source.pipe(
+      tap(() => console.log(submissionId)),
+      switchMap(() => submissionObjectService.getHrefByID(submissionId).pipe(take(1))),
+      switchMap((href: string) => {
+          objectCache.remove(href);
+          requestService.removeByHrefSubstring(submissionId);
+          return combineLatest(
+            objectCache.hasBySelfLinkObservable(href),
+            requestService.hasByHrefObservable(href)
+          ).pipe(
+            filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
+            take(1),
+            switchMap(() => submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+          )
+        }
+      ));
