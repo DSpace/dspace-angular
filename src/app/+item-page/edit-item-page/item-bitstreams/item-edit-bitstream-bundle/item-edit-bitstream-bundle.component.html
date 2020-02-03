@@ -1,6 +1,6 @@
 <ng-template #bundleView>
   <div class="row bundle-row">
-    <div class="col-6 col-sm-7 col-md-8 col-lg-9 font-weight-bold row-element">{{'item.edit.bitstreams.bundle.name' | translate:{ name: bundle.name } }}</div>
+    <div class="col-6 col-sm-7 col-md-8 col-lg-9 font-weight-bold row-element d-flex align-items-center">{{'item.edit.bitstreams.bundle.name' | translate:{ name: bundle.name } }}</div>
     <div class="col-6 col-sm-5 col-md-4 col-lg-3 text-center row-element">
       <div class="btn-group bundle-action-buttons">
         <button [routerLink]="['/items/', item.id, 'bitstreams', 'new']"
@@ -22,7 +22,7 @@
                 }">
       <ds-item-edit-bitstream [fieldUpdate]="updateValue"
                               [bundleUrl]="bundle.self">
-        <div slot="drag-handle" class="drag-handle text-secondary float-left p-1" cdkDragHandle>
+        <div slot="drag-handle" class="drag-handle text-secondary float-left p-1 d-flex align-items-center" cdkDragHandle>
           <i class="fas fa-grip-vertical fa-fw" [title]="'item.edit.bitstreams.edit.buttons.drag' | translate"></i>
         </div>
       </ds-item-edit-bitstream>

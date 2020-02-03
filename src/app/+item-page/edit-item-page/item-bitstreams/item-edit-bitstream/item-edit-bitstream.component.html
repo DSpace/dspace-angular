@@ -1,37 +1,43 @@
 <ng-template #bitstreamView>
-  <div class="col-2 col-md-3 col-lg-4 row-element">
+  <div class="col-2 col-md-3 col-lg-4 row-element d-flex">
     <ng-content select="[slot=drag-handle]"></ng-content>
-    <div class="float-left">
+    <div class="float-left d-flex align-items-center ml-2">
       {{ bitstream.name }}
     </div>
   </div>
-  <div class="col-2 col-sm-3 row-element">
-    {{ bitstream.description }}
+  <div class="col-2 col-sm-3 row-element d-flex align-items-center">
+    <div class="text-center w-100">
+      {{ bitstream.description }}
+    </div>
   </div>
-  <div class="col-2 text-center row-element">
-    {{ (format$ | async).shortDescription }}
+  <div class="col-2 row-element d-flex align-items-center">
+    <div class="text-center w-100">
+      {{ (format$ | async).shortDescription }}
+    </div>
   </div>
-  <div class="col-6 col-sm-5 col-md-4 col-lg-3 text-center row-element">
-    <div class="btn-group relationship-action-buttons">
-      <a [href]="bitstream?.content"
-              class="btn btn-outline-primary btn-sm"
-              title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}">
-        <i class="fas fa-download fa-fw"></i>
-      </a>
-      <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" class="btn btn-outline-primary btn-sm"
-              title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
-        <i class="fas fa-edit fa-fw"></i>
-      </button>
-      <button [disabled]="!canRemove()" (click)="remove()"
-              class="btn btn-outline-danger btn-sm"
-              title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
-        <i class="fas fa-trash-alt fa-fw"></i>
-      </button>
-      <button [disabled]="!canUndo()" (click)="undo()"
-              class="btn btn-outline-warning btn-sm"
-              title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">
-        <i class="fas fa-undo-alt fa-fw"></i>
-      </button>
+  <div class="col-6 col-sm-5 col-md-4 col-lg-3 row-element d-flex align-items-center">
+    <div class="text-center w-100">
+      <div class="btn-group relationship-action-buttons">
+        <a [href]="bitstream?.content"
+                class="btn btn-outline-primary btn-sm"
+                title="{{'item.edit.bitstreams.edit.buttons.download' | translate}}">
+          <i class="fas fa-download fa-fw"></i>
+        </a>
+        <button [routerLink]="['/bitstreams/', bitstream.id, 'edit']" class="btn btn-outline-primary btn-sm"
+                title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
+          <i class="fas fa-edit fa-fw"></i>
+        </button>
+        <button [disabled]="!canRemove()" (click)="remove()"
+                class="btn btn-outline-danger btn-sm"
+                title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">
+          <i class="fas fa-trash-alt fa-fw"></i>
+        </button>
+        <button [disabled]="!canUndo()" (click)="undo()"
+                class="btn btn-outline-warning btn-sm"
+                title="{{'item.edit.bitstreams.edit.buttons.undo' | translate}}">
+          <i class="fas fa-undo-alt fa-fw"></i>
+        </button>
+      </div>
     </div>
   </div>
 </ng-template>
