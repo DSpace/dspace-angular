@@ -26,6 +26,7 @@ import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemEditBitstreamBundleComponent } from './item-bitstreams/item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ItemEditBitstreamDragHandleComponent } from './item-bitstreams/item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -61,6 +62,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     EditRelationshipListComponent,
     ItemCollectionMapperComponent,
     ItemMoveComponent,
+    ItemEditBitstreamDragHandleComponent
   ],
   providers: [
     BundleDataService

@@ -17,9 +17,14 @@
 }
 
 .drag-handle {
+  visibility: hidden;
   &:hover {
     cursor: grab;
   }
+}
+
+.bitstream-row:hover .drag-handle {
+  visibility: visible !important;
 }
 
 .cdk-drag-preview {

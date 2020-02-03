@@ -25,7 +25,10 @@
 
   <div *ngIf="item && bundles?.length > 0" class="container table-bordered mt-4">
     <div class="row header-row font-weight-bold">
-      <div class="col-2 col-md-3 col-lg-4 row-element">{{'item.edit.bitstreams.headers.name' | translate}}</div>
+      <div class="col-2 col-md-3 col-lg-4 row-element">
+        <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
+        {{'item.edit.bitstreams.headers.name' | translate}}
+      </div>
       <div class="col-2 col-sm-3 row-element">{{'item.edit.bitstreams.headers.description' | translate}}</div>
       <div class="col-2 text-center row-element">{{'item.edit.bitstreams.headers.format' | translate}}</div>
       <div class="col-6 col-sm-5 col-md-4 col-lg-3 text-center row-element">{{'item.edit.bitstreams.headers.actions' | translate}}</div>
