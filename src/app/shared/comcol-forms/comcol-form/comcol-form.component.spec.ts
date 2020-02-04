@@ -239,7 +239,7 @@ describe('ComColFormComponent', () => {
         });
 
         describe('when dsoService.deleteLogo returns an error response', () => {
-          const response = new ErrorResponse(new RequestError('errorMessage'));
+          const response = new ErrorResponse(new RequestError('this error was purposely thrown, to test error notifications'));
 
           beforeEach(() => {
             spyOn(dsoService, 'deleteLogo').and.returnValue(observableOf(response));
