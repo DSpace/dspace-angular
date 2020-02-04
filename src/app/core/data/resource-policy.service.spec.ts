@@ -53,15 +53,17 @@ describe('ResourcePolicyService', () => {
       notificationsService,
       http,
       comparator
-    )
+    );
+
+    spyOn((service as any).dataService, 'findByHref').and.callThrough();
   });
 
   describe('findByHref', () => {
-    it('should configure the proper GetRequest', () => {
+    it('should proxy the call to dataservice.findByHref', () => {
       scheduler.schedule(() => service.findByHref(requestURL));
       scheduler.flush();
 
-      expect(requestService.configure).toHaveBeenCalledWith(new GetRequest(requestUUID, requestURL, {}));
+      expect((service as any).dataService.findByHref).toHaveBeenCalledWith(requestURL);
     });
 
     it('should return a RemoteData<ResourcePolicy> for the object with the given URL', () => {
