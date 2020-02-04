@@ -15,6 +15,7 @@ import { DeleteRequest } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;
@@ -104,6 +105,9 @@ describe('RelationshipService', () => {
   };
 
   beforeEach(() => {
+    jasmine.clock().uninstall();
+    jasmine.clock().install();
+
     requestService = getMockRequestService(getRequestEntry$(true));
     service = initTestService();
   });

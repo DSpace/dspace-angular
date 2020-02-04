@@ -18,6 +18,8 @@ import { RestResponse } from '../../../../../core/cache/response.models';
 import { Store } from '@ngrx/store';
 import { SubmissionObjectDataService } from '../../../../../core/submission/submission-object-data.service';
 import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
+import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
+import { RequestService } from '../../../../../core/data/request.service';
 
 describe('RelationshipEffects', () => {
   let relationEffects: RelationshipEffects;
@@ -102,7 +104,9 @@ describe('RelationshipEffects', () => {
         { provide: RelationshipTypeService, useValue: mockRelationshipTypeService },
         { provide: RelationshipService, useValue: mockRelationshipService },
         { provide: SubmissionObjectDataService, useValue: {findById: () => createSuccessfulRemoteDataObject$(new WorkspaceItem())}},
-        { provide: Store, useValue: jasmine.createSpyObj('store', ['dispatch']) }
+        { provide: Store, useValue: jasmine.createSpyObj('store', ['dispatch']) },
+        { provide: ObjectCacheService, useValue: {}},
+        { provide: RequestService, useValue: {}},
       ],
     });
   }));
