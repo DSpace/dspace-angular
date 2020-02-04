@@ -102,7 +102,9 @@ describe('ComColDataService', () => {
       getObjectByUUID: cold('d-', {
         d: {
           _links: {
-            [LINK_NAME]: scopedEndpoint
+            [LINK_NAME]: {
+              href: scopedEndpoint
+            }
           }
         }
       })

@@ -181,16 +181,12 @@ export class RelationshipService extends DataService<Relationship> {
    * @param item
    */
   getItemRelationshipsArray(item: Item, ...linksToFollow: Array<FollowLinkConfig<Relationship>>): Observable<Relationship[]> {
-    console.log('item', item)
-    console.log('item._links.relationships.href', item._links.relationships.href)
-    console.log('...linksToFollow', ...linksToFollow)
     return this.findAllByHref(item._links.relationships.href, undefined, ...linksToFollow).pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
-      tap((result) => console.log('resultpage', result.page)),
       map((rels: PaginatedList<Relationship>) => rels.page),
       hasValueOperator(),
-      distinctUntilChanged(compareArraysUsingIds())
+      distinctUntilChanged(compareArraysUsingIds()),
     );
   }
 
@@ -229,7 +225,12 @@ export class RelationshipService extends DataService<Relationship> {
    * @param item
    */
   getRelatedItems(item: Item): Observable<Item[]> {
-    return this.getItemRelationshipsArray(item, followLink('leftItem'), followLink('rightItem'), followLink('relationshipType')).pipe(
+    return this.getItemRelationshipsArray(
+      item,
+      followLink('leftItem'),
+      followLink('rightItem'),
+      followLink('relationshipType')
+    ).pipe(
       relationsToItems(item.uuid)
     );
   }

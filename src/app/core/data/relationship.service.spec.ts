@@ -1,9 +1,11 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf } from 'rxjs/internal/observable/of';
+import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/mock-remote-data-build.service';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service-stub';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { createSuccessfulRemoteDataObject$, spyOnOperator } from '../../shared/testing/utils';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
 import { Relationship } from '../shared/item-relationships/relationship.model';
@@ -12,7 +14,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { PaginatedList } from './paginated-list';
 import { RelationshipService } from './relationship.service';
 import { RemoteData } from './remote-data';
-import { DeleteRequest } from './request.models';
+import { DeleteRequest, FindListOptions } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
 
@@ -136,27 +138,96 @@ describe('RelationshipService', () => {
   });
 
   describe('getItemRelationshipsArray', () => {
-    it('should return the item\'s relationships in the form of an array', () => {
+    it('should return the item\'s relationships in the form of an array', (done) => {
       service.getItemRelationshipsArray(item).subscribe((result) => {
         result.forEach((relResult: any) => {
           expect(relResult).toEqual(relationships);
         });
+        done();
       });
     });
   });
 
   describe('getRelatedItems', () => {
-    it('should return the related items', () => {
-      service.getRelatedItems(item).subscribe((result) => {
-        expect(result).toEqual(relatedItems);
+    let mockItem;
+
+    beforeEach(() => {
+      mockItem = { uuid: 'someid' } as Item;
+
+      spyOn(service, 'getItemRelationshipsArray').and.returnValue(observableOf(relationships));
+
+      spyOnOperator(ItemRelationshipsUtils, 'relationsToItems').and.returnValue((v) => v);
+    });
+
+    it('should call getItemRelationshipsArray with the correct params', (done) => {
+      service.getRelatedItems(mockItem).subscribe(() => {
+        expect(service.getItemRelationshipsArray).toHaveBeenCalledWith(
+          mockItem,
+          followLink('leftItem'),
+          followLink('rightItem'),
+          followLink('relationshipType')
+        );
+        done();
+      });
+    });
+
+    it('should use the relationsToItems operator', (done) => {
+      service.getRelatedItems(mockItem).subscribe(() => {
+        expect(ItemRelationshipsUtils.relationsToItems).toHaveBeenCalledWith(mockItem.uuid);
+        done();
       });
     });
   });
 
   describe('getRelatedItemsByLabel', () => {
-    it('should return the related items by label', () => {
-      service.getRelatedItemsByLabel(item, relationshipType.rightwardType).subscribe((result) => {
-        expect(result.payload.page).toEqual(relatedItems);
+    let relationsList;
+    let mockItem;
+    let mockLabel;
+    let mockOptions;
+
+    beforeEach(() => {
+      relationsList = new PaginatedList(new PageInfo({
+        elementsPerPage: relationships.length,
+        totalElements: relationships.length,
+        currentPage: 1,
+        totalPages: 1
+      }), relationships);
+      mockItem = { uuid: 'someid' } as Item;
+      mockLabel = 'label';
+      mockOptions = { label: 'options' } as FindListOptions;
+
+      const rd$ = createSuccessfulRemoteDataObject$(relationsList);
+      spyOn(service, 'getItemRelationshipsByLabel').and.returnValue(rd$);
+
+      spyOnOperator(ItemRelationshipsUtils, 'paginatedRelationsToItems').and.returnValue((v) => v);
+    });
+
+    it('should call getItemRelationshipsByLabel with the correct params', (done) => {
+      service.getRelatedItemsByLabel(
+        mockItem,
+        mockLabel,
+        mockOptions
+      ).subscribe((result) => {
+        expect(service.getItemRelationshipsByLabel).toHaveBeenCalledWith(
+          mockItem,
+          mockLabel,
+          mockOptions,
+          followLink('leftItem'),
+          followLink('rightItem'),
+          followLink('relationshipType')
+        );
+        done();
+      });
+    });
+
+    it('should use the paginatedRelationsToItems operator', (done) => {
+      service.getRelatedItemsByLabel(
+        mockItem,
+        mockLabel,
+        mockOptions
+      ).subscribe((result) => {
+        expect(ItemRelationshipsUtils.paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
+        done();
       });
     });
   })
