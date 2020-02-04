@@ -10,7 +10,6 @@ import { MetadataUriValuesComponent } from './field-components/metadata-uri-valu
 import { ItemPageAuthorFieldComponent } from './simple/field-components/specific-field/author/item-page-author-field.component';
 import { ItemPageDateFieldComponent } from './simple/field-components/specific-field/date/item-page-date-field.component';
 import { ItemPageAbstractFieldComponent } from './simple/field-components/specific-field/abstract/item-page-abstract-field.component';
-import { ItemPageGenericUriFieldComponent } from './simple/field-components/specific-field/generic-uri/item-page-generic-uri-field.component';
 import { ItemPageUriFieldComponent } from './simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { ItemPageTitleFieldComponent } from './simple/field-components/specific-field/title/item-page-title-field.component';
 import { ItemPageFieldComponent } from './simple/field-components/specific-field/item-page-field.component';
@@ -48,7 +47,6 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     ItemPageDateFieldComponent,
     ItemPageAbstractFieldComponent,
     ItemPageUriFieldComponent,
-    ItemPageGenericUriFieldComponent,
     ItemPageTitleFieldComponent,
     ItemPageFieldComponent,
     FileSectionComponent,
@@ -68,7 +66,6 @@ import { AbstractIncrementalListComponent } from './simple/abstract-incremental-
     MetadataValuesComponent,
     MetadataFieldWrapperComponent,
     GenericItemPageFieldComponent,
-    ItemPageGenericUriFieldComponent,
     RelatedEntitiesSearchComponent,
     RelatedItemsComponent,
     MetadataRepresentationListComponent,

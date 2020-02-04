@@ -11,6 +11,7 @@ let fixture: ComponentFixture<ItemPageUriFieldComponent>;
 
 const mockField = 'dc.identifier.uri';
 const mockValue = 'test value';
+const mockLabel = 'test label';
 
 describe('ItemPageUriFieldComponent', () => {
   beforeEach(async(() => {
@@ -32,6 +33,8 @@ describe('ItemPageUriFieldComponent', () => {
     fixture = TestBed.createComponent(ItemPageUriFieldComponent);
     comp = fixture.componentInstance;
     comp.item = mockItemWithMetadataFieldAndValue(mockField, mockValue);
+    comp.fields = [mockField];
+    comp.label = mockLabel;
     fixture.detectChanges();
   }));
 
