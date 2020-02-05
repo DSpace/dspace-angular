@@ -1,4 +1,4 @@
-import { filter, map, take } from 'rxjs/operators';
+import { delay, filter, map, take } from 'rxjs/operators';
 import { AfterViewInit, ChangeDetectionStrategy, Component, HostListener, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationStart, Router } from '@angular/router';
 
@@ -125,8 +125,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.router.events
-      .subscribe((event) => {
+    this.router.events.pipe(
+      // This fixes an ExpressionChangedAfterItHasBeenCheckedError from being thrown while loading the component
+      // More information on this bug-fix: https://blog.angular-university.io/angular-debugging/
+      delay(0)
+    ).subscribe((event) => {
         if (event instanceof NavigationStart) {
           this.isLoading = true;
         } else if (

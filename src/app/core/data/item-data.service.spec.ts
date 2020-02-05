@@ -15,6 +15,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
 import { HttpClient } from '@angular/common/http';
 import { RequestEntry } from './request.reducer';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { ExternalSourceEntry } from '../shared/external-source-entry.model';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -187,6 +188,26 @@ describe('ItemDataService', () => {
       service = initTestService();
       spyOn(requestService, 'configure');
       result = service.mapToCollection('item-id', 'collection-href');
+    });
+
+    it('should configure a POST request', () => {
+      result.subscribe(() => expect(requestService.configure).toHaveBeenCalledWith(jasmine.any(PostRequest)));
+    });
+  });
+
+  describe('importExternalSourceEntry', () => {
+    let result;
+
+    const externalSourceEntry = Object.assign(new ExternalSourceEntry(), {
+      display: 'John, Doe',
+      value: 'John, Doe',
+      self: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004'
+    });
+
+    beforeEach(() => {
+      service = initTestService();
+      spyOn(requestService, 'configure');
+      result = service.importExternalSourceEntry(externalSourceEntry, 'collection-id');
     });
 
     it('should configure a POST request', () => {
