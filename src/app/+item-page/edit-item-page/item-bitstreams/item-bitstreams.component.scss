@@ -23,7 +23,7 @@
   }
 }
 
-.bitstream-row:hover .drag-handle {
+:host ::ng-deep .bitstream-row:hover .drag-handle {
   visibility: visible !important;
 }
 
