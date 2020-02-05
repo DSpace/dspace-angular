@@ -20,7 +20,7 @@ import { RequestService } from '../../../../../core/data/request.service';
 import { ServerSyncBufferActionTypes } from '../../../../../core/cache/server-sync-buffer.actions';
 
 const DEBOUNCE_TIME = 5000;
-let updateAfterPatchSubmissionId: string;
+
 /**
  * NGRX effects for RelationshipEffects
  */
@@ -40,6 +40,8 @@ export class RelationshipEffects {
   private initialActionMap: {
     [identifier: string]: string
   } = {};
+
+  private updateAfterPatchSubmissionId: string;
 
   /**
    * Effect that makes sure all last fired RelationshipActions' types are stored in the map of this service, with the object uuid as their key
@@ -99,7 +101,7 @@ export class RelationshipEffects {
           } else {
             this.relationshipService.updateNameVariant(item1, item2, relationshipType, nameVariant).pipe(take(1))
               .subscribe(() => {
-                updateAfterPatchSubmissionId = submissionId;
+                this.updateAfterPatchSubmissionId = submissionId;
               });
           }
         }
@@ -109,21 +111,9 @@ export class RelationshipEffects {
   @Effect() commitServerSyncBuffer = this.actions$
     .pipe(
       ofType(ServerSyncBufferActionTypes.EMPTY),
-      filter(() => hasValue(updateAfterPatchSubmissionId)),
-      switchMap(() => this.submissionObjectService.getHrefByID(updateAfterPatchSubmissionId).pipe(take(1))),
-      switchMap((href: string) => {
-        this.objectCache.remove(href);
-        this.requestService.removeByHrefSubstring(updateAfterPatchSubmissionId);
-        return combineLatest(
-          this.objectCache.hasBySelfLinkObservable(href),
-          this.requestService.hasByHrefObservable(href)
-        ).pipe(
-          filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-          take(1),
-          switchMap(() => this.submissionObjectService.findById(updateAfterPatchSubmissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-        )
-      }),
-      map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(updateAfterPatchSubmissionId, [submissionObject], false))
+      filter(() => hasValue(this.updateAfterPatchSubmissionId)),
+      switchMap(() => this.refreshWorkspaceItemInCache(this.updateAfterPatchSubmissionId)),
+      map((submissionObject) => new SaveSubmissionSectionFormSuccessAction(this.updateAfterPatchSubmissionId, [submissionObject], false))
     );
 
   constructor(private actions$: Actions,
@@ -155,7 +145,7 @@ export class RelationshipEffects {
           }
         ),
         take(1),
-        refreshWorkspaceItemInCache(submissionId, this.submissionObjectService, this.objectCache, this.requestService)
+        switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
       ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
 
@@ -165,25 +155,24 @@ export class RelationshipEffects {
       hasValueOperator(),
       mergeMap((relationship: Relationship) => this.relationshipService.deleteRelationship(relationship.id)),
       take(1),
-      refreshWorkspaceItemInCache(submissionId, this.submissionObjectService, this.objectCache, this.requestService)
+      switchMap(() => this.refreshWorkspaceItemInCache(submissionId)),
     ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(submissionId, [submissionObject], false)));
   }
-}
 
-const refreshWorkspaceItemInCache = (submissionId, submissionObjectService, objectCache, requestService) =>
-  <T>(source: Observable<T>): Observable<SubmissionObject> =>
-    source.pipe(
-      switchMap(() => submissionObjectService.getHrefByID(submissionId).pipe(take(1))),
+  refreshWorkspaceItemInCache(submissionId: string): Observable<SubmissionObject> {
+    return this.submissionObjectService.getHrefByID(submissionId).pipe(take(1)).pipe(
       switchMap((href: string) => {
-          objectCache.remove(href);
-          requestService.removeByHrefSubstring(submissionId);
-          return combineLatest(
-            objectCache.hasBySelfLinkObservable(href),
-            requestService.hasByHrefObservable(href)
-          ).pipe(
-            filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
-            take(1),
-            switchMap(() => submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
-          )
-        }
-      ));
+        this.objectCache.remove(href);
+        this.requestService.removeByHrefSubstring(submissionId);
+        return combineLatest(
+          this.objectCache.hasBySelfLinkObservable(href),
+          this.requestService.hasByHrefObservable(href)
+        ).pipe(
+          filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
+          take(1),
+          switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+        )
+      })
+    );
+  }
+}

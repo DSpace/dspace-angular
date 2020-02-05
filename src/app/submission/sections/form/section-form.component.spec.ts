@@ -318,7 +318,6 @@ describe('SubmissionSectionformComponent test suite', () => {
       expect(comp.isUpdating).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
-      expect(notificationsServiceStub.info).toHaveBeenCalled();
       expect(comp.sectionData.data).toEqual(sectionData);
 
     });

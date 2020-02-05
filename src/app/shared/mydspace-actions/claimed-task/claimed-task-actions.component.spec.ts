@@ -155,7 +155,6 @@ describe('ClaimedTaskActionsComponent', () => {
     fixture.whenStable().then(() => {
       expect(mockDataService.approveTask).toHaveBeenCalledWith(mockObject.id);
     });
-
   }));
 
   it('should display a success notification on approve success', async(() => {
