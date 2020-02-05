@@ -178,6 +178,7 @@ import { ImportableListItemControlComponent } from './object-collection/shared/i
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { CustomSwitchComponent } from './form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.component';
+import { PaginationDragAndDropComponent } from './pagination-drag-and-drop/pagination-drag-and-drop.component';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -263,6 +264,7 @@ const COMPONENTS = [
   AbstractListableElementComponent,
   ObjectCollectionComponent,
   PaginationComponent,
+  PaginationDragAndDropComponent,
   SearchFormComponent,
   PageWithSidebarComponent,
   SidebarDropdownComponent,

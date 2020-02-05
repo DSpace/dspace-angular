@@ -17,35 +17,27 @@
       </div>
     </div>
   </div>
-  <div [id]="bundle.id" class="bundle-bitstreams-list" *ngVar="((updates$ | async) | dsObjectValues) as updateValues" cdkDropList (cdkDropListDropped)="drop($event)">
-    <div class="row bitstream-row" *ngFor="let updateValue of updateValues" cdkDrag
-         [ngClass]="{
+  <ds-pagination-drag-and-drop  [paginationOptions]="bitstreamsOptions"
+                                [paginatedList]="(bitstreamsRD$ | async)?.payload"
+                                [hideGear]="true"
+                                [hidePaginationDetail]="true"
+                                [disableRouteParameterUpdate]="true"
+                                (pageChange)="switchPage($event)">
+    <div [id]="bundle.id" class="bundle-bitstreams-list"
+         [ngClass]="{'mb-3': (bitstreamsRD$ | async)?.payload?.totalElements > batchSize}"
+         *ngVar="((updates$ | async) | dsObjectValues) as updateValues" cdkDropList (cdkDropListDropped)="drop($event)">
+      <div class="row bitstream-row" *ngFor="let updateValue of updateValues" cdkDrag
+           [ngClass]="{
                   'table-warning': updateValue.changeType === 0,
                   'table-danger': updateValue.changeType === 2,
                   'table-success': updateValue.changeType === 1,
                   'bg-white': updateValue.changeType === undefined
                 }">
-      <ds-item-edit-bitstream [fieldUpdate]="updateValue"
-                              [bundleUrl]="bundle.self">
-        <ds-item-edit-bitstream-drag-handle slot="drag-handle"></ds-item-edit-bitstream-drag-handle>
-      </ds-item-edit-bitstream>
-    </div>
-    <ng-container *ngVar="(bitstreamsRD$ | async) as bitstreamsRD">
-      <div class="row" *ngIf="bitstreamsRD?.payload?.elementsPerPage < bitstreamsRD?.payload?.totalElements">
-        <ng-container *ngVar="(isLoadingMore$ | async) as loading">
-          <div class="col-6 col-sm-7 col-md-8 col-lg-9 row-element" *ngIf="!loading">
-            <span class="font-italic">{{'item.edit.bitstreams.bundle.displaying' | translate:{ amount: bitstreamsRD?.payload?.elementsPerPage, total: bitstreamsRD?.payload?.totalElements } }}</span>
-          </div>
-          <div class="col-6 col-sm-5 col-md-4 col-lg-3 row-element text-center" *ngIf="!loading">
-            <a [routerLink]="[]" (click)="loadMore()">{{'item.edit.bitstreams.bundle.load.more' | translate}}</a>
-            <span> | </span>
-            <a [routerLink]="[]" (click)="loadAll()">{{'item.edit.bitstreams.bundle.load.all' | translate:{ total: bitstreamsRD?.payload?.totalElements } }}</a>
-          </div>
-          <div class="col-12 row-element text-center" *ngIf="loading">
-            <span class="font-italic">{{'loading.bitstreams' | translate}}</span>
-          </div>
-        </ng-container>
+        <ds-item-edit-bitstream [fieldUpdate]="updateValue"
+                                [bundleUrl]="bundle.self">
+          <ds-item-edit-bitstream-drag-handle slot="drag-handle"></ds-item-edit-bitstream-drag-handle>
+        </ds-item-edit-bitstream>
       </div>
-    </ng-container>
-  </div>
+    </div>
+  </ds-pagination-drag-and-drop>
 </ng-template>

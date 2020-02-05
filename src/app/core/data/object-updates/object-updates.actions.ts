@@ -8,6 +8,7 @@ import { INotification } from '../../../shared/notifications/models/notification
  */
 export const ObjectUpdatesActionTypes = {
   INITIALIZE_FIELDS: type('dspace/core/cache/object-updates/INITIALIZE_FIELDS'),
+  ADD_PAGE_TO_CUSTOM_ORDER: type('dspace/core/cache/object-updates/ADD_PAGE_TO_CUSTOM_ORDER'),
   SET_EDITABLE_FIELD: type('dspace/core/cache/object-updates/SET_EDITABLE_FIELD'),
   SET_VALID_FIELD: type('dspace/core/cache/object-updates/SET_VALID_FIELD'),
   ADD_FIELD: type('dspace/core/cache/object-updates/ADD_FIELD'),
@@ -39,7 +40,9 @@ export class InitializeFieldsAction implements Action {
     url: string,
     fields: Identifiable[],
     lastModified: Date,
-    order: string[]
+    order: string[],
+    pageSize: number,
+    page: number
   };
 
   /**
@@ -50,14 +53,48 @@ export class InitializeFieldsAction implements Action {
    * @param fields The identifiable fields of which the updates are kept track of
    * @param lastModified The last modified date of the object that belongs to the page
    * @param order A custom order to keep track of objects moving around
+   * @param pageSize The page size used to fill empty pages for the custom order
+   * @param page The first page to populate in the custom order
    */
   constructor(
     url: string,
     fields: Identifiable[],
     lastModified: Date,
-    order: string[] = []
+    order: string[] = [],
+    pageSize: number = 9999,
+    page: number = 0
   ) {
-    this.payload = { url, fields, lastModified, order };
+    this.payload = { url, fields, lastModified, order, pageSize, page };
+  }
+}
+
+/**
+ * An ngrx action to initialize a new page's fields in the ObjectUpdates state
+ */
+export class AddPageToCustomOrderAction implements Action {
+  type = ObjectUpdatesActionTypes.ADD_PAGE_TO_CUSTOM_ORDER;
+  payload: {
+    url: string,
+    fields: Identifiable[],
+    order: string[],
+    page: number
+  };
+
+  /**
+   * Create a new AddPageToCustomOrderAction
+   *
+   * @param url The unique url of the page for which the fields are being added
+   * @param fields The identifiable fields of which the updates are kept track of
+   * @param order A custom order to keep track of objects moving around
+   * @param page The page to populate in the custom order
+   */
+  constructor(
+    url: string,
+    fields: Identifiable[],
+    order: string[] = [],
+    page: number = 0
+  ) {
+    this.payload = { url, fields, order, page };
   }
 }
 
@@ -254,7 +291,9 @@ export class MoveFieldUpdateAction implements Action {
   payload: {
     url: string,
     from: number,
-    to: number
+    to: number,
+    fromPage: number,
+    toPage: number
   };
 
   /**
@@ -262,15 +301,19 @@ export class MoveFieldUpdateAction implements Action {
    *
    * @param url
    *    the unique url of the page for which a field's change should be removed
-   * @param from  The index of the object to move
-   * @param to    The index to move the object to
+   * @param from      The index of the object to move
+   * @param to        The index to move the object to
+   * @param fromPage  The page to move the object from
+   * @param toPage    The page to move the object to
    */
   constructor(
     url: string,
     from: number,
-    to: number
+    to: number,
+    fromPage: number,
+    toPage: number
   ) {
-    this.payload = { url, from, to };
+    this.payload = { url, from, to, fromPage, toPage };
   }
 }
 
@@ -286,4 +329,5 @@ export type ObjectUpdatesAction
   | ReinstateObjectUpdatesAction
   | RemoveObjectUpdatesAction
   | RemoveFieldUpdateAction
-  | MoveFieldUpdateAction;
+  | MoveFieldUpdateAction
+  | AddPageToCustomOrderAction;

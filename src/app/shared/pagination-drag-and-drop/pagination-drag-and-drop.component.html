@@ -1,0 +1,11 @@
+<ds-pagination *ngIf="paginatedList"
+               [hideGear]="hideGear"
+               [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+               [hidePaginationDetail]="hidePaginationDetail"
+               [paginationOptions]="paginationOptions"
+               [pageInfoState]="paginatedList"
+               [collectionSize]="paginatedList?.totalElements"
+               [disableRouteParameterUpdate]="disableRouteParameterUpdate"
+               (pageChange)="switchPage($event)">
+  <ng-content></ng-content>
+</ds-pagination>

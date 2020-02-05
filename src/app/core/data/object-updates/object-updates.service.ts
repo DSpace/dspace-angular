@@ -8,11 +8,11 @@ import {
   Identifiable,
   OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
-  ObjectUpdatesState
+  ObjectUpdatesState, OrderPage
 } from './object-updates.reducer';
 import { Observable } from 'rxjs';
 import {
-  AddFieldUpdateAction,
+  AddFieldUpdateAction, AddPageToCustomOrderAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
   InitializeFieldsAction,
@@ -28,6 +28,7 @@ import { INotification } from '../../../shared/notifications/models/notification
 import { Operation } from 'fast-json-patch';
 import { ArrayMoveChangeAnalyzer } from '../array-move-change-analyzer.service';
 import { MoveOperation } from 'fast-json-patch/lib/core';
+import { flatten } from '@angular/compiler';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);
@@ -56,10 +57,25 @@ export class ObjectUpdatesService {
    * @param url The page's URL for which the changes are being mapped
    * @param fields The initial fields for the page's object
    * @param lastModified The date the object was last modified
-   * @param addCustomOrder Add a custom order list to track move changes
    */
-  initialize(url, fields: Identifiable[], lastModified: Date, addCustomOrder?: boolean): void {
-    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, addCustomOrder ? fields.map((field) => field.uuid) : []));
+  initialize(url, fields: Identifiable[], lastModified: Date): void {
+    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified));
+  }
+
+  /**
+   * Method to dispatch an InitializeFieldsAction to the store and keeping track of the order objects are stored
+   * @param url The page's URL for which the changes are being mapped
+   * @param fields The initial fields for the page's object
+   * @param lastModified The date the object was last modified
+   * @param pageSize The page size to use for adding pages to the custom order
+   * @param page The first page to populate the custom order with
+   */
+  initializeWithCustomOrder(url, fields: Identifiable[], lastModified: Date, pageSize = 9999, page = 0): void {
+    this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, fields.map((field) => field.uuid), pageSize, page));
+  }
+
+  addPageToCustomOrder(url, fields: Identifiable[], page: number): void {
+    this.store.dispatch(new AddPageToCustomOrderAction(url, fields, fields.map((field) => field.uuid), page));
   }
 
   /**
@@ -140,13 +156,14 @@ export class ObjectUpdatesService {
    * sorted by their custom order to create a FieldUpdates object
    * @param url The URL of the page for which the FieldUpdates should be requested
    * @param initialFields The initial values of the fields
+   * @param page The page to retrieve
    */
-  getFieldUpdatesByCustomOrder(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
+  getFieldUpdatesByCustomOrder(url: string, initialFields: Identifiable[], page = 0): Observable<FieldUpdates> {
     const objectUpdates = this.getObjectEntry(url);
     return objectUpdates.pipe(map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
       if (hasValue(objectEntry)) {
-        for (const uuid of objectEntry.customOrder.newOrder) {
+        for (const uuid of objectEntry.customOrder.newOrderPages[page].order) {
           let fieldUpdate = objectEntry.fieldUpdates[uuid];
           if (isEmpty(fieldUpdate)) {
             const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
@@ -230,12 +247,14 @@ export class ObjectUpdatesService {
 
   /**
    * Dispatches a MoveFieldUpdateAction
-   * @param url   The page's URL for which the changes are saved
-   * @param from  The index of the object to move
-   * @param to    The index to move the object to
+   * @param url       The page's URL for which the changes are saved
+   * @param from      The index of the object to move
+   * @param to        The index to move the object to
+   * @param fromPage  The page to move the object from
+   * @param toPage    The page to move the object to
    */
-  saveMoveFieldUpdate(url: string, from: number, to: number) {
-    this.store.dispatch(new MoveFieldUpdateAction(url, from, to));
+  saveMoveFieldUpdate(url: string, from: number, to: number, fromPage = 0, toPage = 0) {
+    this.store.dispatch(new MoveFieldUpdateAction(url, from, to, fromPage, toPage));
   }
 
   /**
@@ -350,7 +369,10 @@ export class ObjectUpdatesService {
   getMoveOperations(url: string): Observable<MoveOperation[]> {
     return this.getObjectEntry(url).pipe(
       map((objectEntry) => objectEntry.customOrder),
-      map((customOrder) => this.comparator.diff(customOrder.initialOrder, customOrder.newOrder))
+      map((customOrder) => this.comparator.diff(
+        flatten(customOrder.initialOrderPages.map((orderPage: OrderPage) => orderPage.order)),
+        flatten(customOrder.newOrderPages.map((orderPage: OrderPage) => orderPage.order)))
+      )
     );
   }
 

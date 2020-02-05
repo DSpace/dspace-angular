@@ -13,8 +13,9 @@ import { PaginatedList } from '../../../../core/data/paginated-list';
 import { BundleDataService } from '../../../../core/data/bundle-data.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { combineLatest as observableCombineLatest } from 'rxjs';
-import { hasNoValue } from '../../../../shared/empty.util';
+import { hasNoValue, isEmpty } from '../../../../shared/empty.util';
 import { PaginatedSearchOptions } from '../../../../shared/search/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -55,33 +56,26 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    * The amount of one bitstreams one "batch" resembles
    * The user is able to increase the amount of bitstreams displayed per bundle by this batch size until all are shown
    */
-  batchSize = 10;
+  batchSize = 2;
 
   /**
    * The page options to use for fetching the bitstreams
    */
-  bitstreamsOptions = {
+  bitstreamsOptions = Object.assign(new PaginationComponentOptions(),{
     id: 'bitstreams-pagination-options',
     currentPage: 1,
     pageSize: this.batchSize
-  } as any;
+  });
 
   /**
-   * The current amount of bitstreams to display for this bundle
-   * Starts off with just one batch
+   * The current page we're displaying for this bundle
    */
-  currentSize$ = new BehaviorSubject<number>(this.batchSize);
+  currentPage$ = new BehaviorSubject<number>(1);
 
   /**
-   * Are we currently loading more bitstreams?
+   * A list of pages that have been initialized in the field-update store
    */
-  isLoadingMore$: Observable<boolean>;
-
-  /**
-   * What size were the object updates last initialized with?
-   * Used to check if the object updates need to be re-initialized when loading more bitstreams
-   */
-  lastInitializedWithSize: number;
+  initializedPages: number[] = [];
 
   constructor(private objectUpdatesService: ObjectUpdatesService,
               private bundleService: BundleDataService,
@@ -89,25 +83,37 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bitstreamsRD$ = this.currentSize$.pipe(
-      switchMap((size: number) => this.bundleService.getBitstreams(this.bundle.id,
-        new PaginatedSearchOptions({pagination: Object.assign({}, this.bitstreamsOptions, { pageSize: size })})))
+    this.bitstreamsRD$ = this.currentPage$.pipe(
+      switchMap((page: number) => this.bundleService.getBitstreams(this.bundle.id,
+        new PaginatedSearchOptions({pagination: Object.assign({}, this.bitstreamsOptions, { currentPage: page })})))
     );
     this.updates$ = this.bitstreamsRD$.pipe(
       toBitstreamsArray(),
       tap((bitstreams: Bitstream[]) => {
-        if (hasNoValue(this.lastInitializedWithSize) || this.currentSize$.value !== this.lastInitializedWithSize) {
-          this.objectUpdatesService.initialize(this.bundle.self, bitstreams, new Date(), true);
-          this.lastInitializedWithSize = this.currentSize$.value;
+        // Pages in the field-update store are indexed starting at 0 (because they're stored in an array of pages)
+        const updatesPage = this.currentPage$.value - 1;
+        if (isEmpty(this.initializedPages)) {
+          // No updates have been initialized yet for this bundle, initialize the first page
+          this.objectUpdatesService.initializeWithCustomOrder(this.bundle.self, bitstreams, new Date(), this.batchSize, updatesPage);
+          this.initializedPages.push(updatesPage);
+        } else if (this.initializedPages.indexOf(this.currentPage$.value) < 0) {
+          // Updates were initialized for this bundle, but not the page we're on. Add the current page to the field-update store for this bundle
+          this.objectUpdatesService.addPageToCustomOrder(this.bundle.self, bitstreams, updatesPage);
+          this.initializedPages.push(updatesPage);
         }
       }),
-      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesByCustomOrder(this.bundle.self, bitstreams))
-    );
-    this.isLoadingMore$ = observableCombineLatest(this.currentSize$, this.bitstreamsRD$).pipe(
-      map(([size, bitstreamsRD]: [number, RemoteData<PaginatedList<Bitstream>>]) => size > bitstreamsRD.payload.page.length)
+      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesByCustomOrder(this.bundle.self, bitstreams, this.currentPage$.value - 1))
     );
 
     this.viewContainerRef.createEmbeddedView(this.bundleView);
+  }
+
+  /**
+   * Update the current page
+   * @param page
+   */
+  switchPage(page: number) {
+    this.currentPage$.next(page);
   }
 
   /**
@@ -116,19 +122,5 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    */
   drop(event: CdkDragDrop<any>) {
     this.objectUpdatesService.saveMoveFieldUpdate(this.bundle.self, event.previousIndex, event.currentIndex);
-  }
-
-  /**
-   * Load more bitstreams (current size + batchSize)
-   */
-  loadMore() {
-    this.currentSize$.next(this.currentSize$.value + this.batchSize);
-  }
-
-  /**
-   * Load all bitstreams
-   */
-  loadAll() {
-    this.currentSize$.next(9999);
   }
 }
