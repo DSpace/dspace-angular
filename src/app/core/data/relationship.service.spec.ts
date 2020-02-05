@@ -11,11 +11,11 @@ import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { Item } from '../shared/item.model';
 import { PaginatedList } from './paginated-list';
 import { PageInfo } from '../shared/page-info.model';
-import { DeleteRequest } from './request.models';
+import { DeleteRequest, FindListOptions } from './request.models';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
-import { fakeAsync, tick } from '@angular/core/testing';
+import { createSuccessfulRemoteDataObject$, spyOnOperator } from '../../shared/testing/utils';
+import * as ItemRelationshipsUtils from '../../+item-page/simple/item-types/shared/item-relationships-utils';
 
 describe('RelationshipService', () => {
   let service: RelationshipService;
@@ -45,7 +45,7 @@ describe('RelationshipService', () => {
     relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
   });
 
-  const relationships = [ relationship1, relationship2 ];
+  const relationships = [relationship1, relationship2];
 
   const item = Object.assign(new Item(), {
     self: 'fake-item-url/publication',
@@ -74,7 +74,8 @@ describe('RelationshipService', () => {
   const rdbService = getMockRemoteDataBuildService(undefined, buildList$);
   const objectCache = Object.assign({
     /* tslint:disable:no-empty */
-    remove: () => {},
+    remove: () => {
+    },
     hasBySelfLinkObservable: () => observableOf(false)
     /* tslint:enable:no-empty */
   }) as ObjectCacheService;
@@ -107,9 +108,6 @@ describe('RelationshipService', () => {
   };
 
   beforeEach(() => {
-    jasmine.clock().uninstall();
-    jasmine.clock().install();
-
     requestService = getMockRequestService(getRequestEntry$(true));
     service = initTestService();
   });
@@ -129,8 +127,8 @@ describe('RelationshipService', () => {
     it('should clear the cache of the related items', () => {
       expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1.self);
       expect(objectCache.remove).toHaveBeenCalledWith(item.self);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.self);
-      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.uuid);
+      expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.uuid);
     });
   });
 
@@ -142,22 +140,55 @@ describe('RelationshipService', () => {
     });
   });
 
-  describe('getRelatedItems', () => {
-    it('should return the related items', () => {
-      service.getRelatedItems(item).subscribe((result) => {
-        expect(result).toEqual(relatedItems);
+  describe('getRelatedItemsByLabel', () => {
+    let relationsList;
+    let mockItem;
+    let mockLabel;
+    let mockOptions;
+
+    beforeEach(() => {
+      relationsList = new PaginatedList(new PageInfo({
+        elementsPerPage: relationships.length,
+        totalElements: relationships.length,
+        currentPage: 1,
+        totalPages: 1
+      }), relationships);
+      mockItem = { uuid: 'someid' } as Item;
+      mockLabel = 'label';
+      mockOptions = { label: 'options' } as FindListOptions;
+
+      const rd$ = createSuccessfulRemoteDataObject$(relationsList);
+      spyOn(service, 'getItemRelationshipsByLabel').and.returnValue(rd$);
+
+      spyOnOperator(ItemRelationshipsUtils, 'paginatedRelationsToItems').and.returnValue((v) => v);
+    });
+
+    it('should call getItemRelationshipsByLabel with the correct params', (done) => {
+      service.getRelatedItemsByLabel(
+        mockItem,
+        mockLabel,
+        mockOptions
+      ).subscribe((result) => {
+        expect(service.getItemRelationshipsByLabel).toHaveBeenCalledWith(
+          mockItem,
+          mockLabel,
+          mockOptions,
+        );
+        done();
       });
     });
-  });
 
-  describe('getRelatedItemsByLabel', () => {
-    it('should return the related items by label', () => {
-      service.getRelatedItemsByLabel(item, relationshipType.rightwardType).subscribe((result) => {
-        expect(result.payload.page).toEqual(relatedItems);
+    it('should use the paginatedRelationsToItems operator', (done) => {
+      service.getRelatedItemsByLabel(
+        mockItem,
+        mockLabel,
+        mockOptions
+      ).subscribe((result) => {
+        expect(ItemRelationshipsUtils.paginatedRelationsToItems).toHaveBeenCalledWith(mockItem.uuid);
+        done();
       });
     });
   })
-
 });
 
 function getRemotedataObservable(obj: any): Observable<RemoteData<any>> {

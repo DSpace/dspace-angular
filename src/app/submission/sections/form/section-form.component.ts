@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Inject, ViewChild } from '@angular/core';
 import { DynamicFormControlEvent, DynamicFormControlModel } from '@ng-dynamic-forms/core';
 
-import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, find, flatMap, map, take, tap } from 'rxjs/operators';
+import { combineLatest, Observable, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, find, flatMap, map, switchMap, take, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { isEqual } from 'lodash';
 
@@ -34,8 +34,11 @@ import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { combineLatest as combineLatestObservable } from 'rxjs';
-import { getSucceededRemoteData } from '../../../core/shared/operators';
-import { RemoteData } from '../../../core/data/remote-data';
+import { getRemoteDataPayload, getSucceededRemoteData } from '../../../core/shared/operators';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RequestService } from '../../../core/data/request.service';
 
 /**
  * This component represents a section that contains a Form.
@@ -126,6 +129,9 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
    * @param {SectionsService} sectionService
    * @param {SubmissionService} submissionService
    * @param {TranslateService} translate
+   * @param {SubmissionObjectDataService} submissionObjectService
+   * @param {ObjectCacheService} objectCache
+   * @param {RequestService} requestService
    * @param {GlobalConfig} EnvConfig
    * @param {string} injectedCollectionId
    * @param {SectionDataObject} injectedSectionData
@@ -140,7 +146,9 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
               protected sectionService: SectionsService,
               protected submissionService: SubmissionService,
               protected translate: TranslateService,
-              protected workspaceItemDataService: WorkspaceitemDataService,
+              protected submissionObjectService: SubmissionObjectDataService,
+              protected objectCache: ObjectCacheService,
+              protected requestService: RequestService,
               @Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               @Inject('collectionIdProvider') public injectedCollectionId: string,
               @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
@@ -160,7 +168,20 @@ export class SubmissionSectionformComponent extends SectionModelComponent {
       flatMap(() =>
         combineLatestObservable(
           this.sectionService.getSectionData(this.submissionId, this.sectionData.id),
-          this.workspaceItemDataService.findById(this.submissionId).pipe(getSucceededRemoteData(), map((wsiRD: RemoteData<WorkspaceItem>) => wsiRD.payload))
+          this.submissionObjectService.getHrefByID(this.submissionId).pipe(take(1)).pipe(
+            switchMap((href: string) => {
+              this.objectCache.remove(href);
+              this.requestService.removeByHrefSubstring(this.submissionId);
+              return combineLatest(
+                this.objectCache.hasBySelfLinkObservable(href),
+                this.requestService.hasByHrefObservable(href)
+              ).pipe(
+                filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
+                take(1),
+                switchMap(() => this.submissionObjectService.findById(this.submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+              )
+            })
+          )
         )),
       take(1))
       .subscribe(([sectionData, workspaceItem]: [WorkspaceitemSectionFormObject, WorkspaceItem]) => {

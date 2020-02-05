@@ -46,6 +46,9 @@ import { FormRowModel } from '../../../core/config/models/config-submission-form
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RequestService } from '../../../core/data/request.service';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigService {
   return jasmine.createSpyObj('FormOperationsService', {
@@ -178,11 +181,13 @@ describe('SubmissionSectionformComponent test suite', () => {
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
+        { provide: ObjectCacheService, useValue: { remove: () => {/*do nothing*/}, hasBySelfLinkObservable: () => observableOf(false) } },
+        { provide: RequestService, useValue: { removeByHrefSubstring: () => {/*do nothing*/}, hasByHrefObservable: () => observableOf(false) } },
         { provide: GLOBAL_CONFIG, useValue: envConfig },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: sectionObject },
         { provide: 'submissionIdProvider', useValue: submissionId },
-        { provide: WorkspaceitemDataService, useValue: {findById: () => observableOf(new RemoteData(false, false, true, null, new WorkspaceItem()))}},
+        { provide: SubmissionObjectDataService, useValue: { getHrefByID: () => observableOf('testUrl'), findById: () => observableOf(new RemoteData(false, false, true, null, new WorkspaceItem())) } },
         ChangeDetectorRef,
         SubmissionSectionformComponent
       ],
@@ -255,7 +260,6 @@ describe('SubmissionSectionformComponent test suite', () => {
       expect(comp.isLoading).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalledWith(sectionData);
       expect(comp.subscriptions).toHaveBeenCalled();
-
     });
 
     it('should init form model properly', () => {
