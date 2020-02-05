@@ -8,74 +8,76 @@
 
             <ng-container *ngVar="(types$ | async) as types">
 
-                <div *ngIf="types.length > 0" class="mb-4">
+                <div *ngIf="types && types.length > 0" class="mb-4">
+
                     {{'virtual-metadata.delete-item.info' | translate}}
-                </div>
 
-                <div *ngFor="let type of types" class="mb-4">
+                    <div *ngFor="let type of types" class="mb-4">
 
-                    <div *ngVar="(isSelected(type) | async) as selected"
-                         class="d-flex flex-row">
+                        <div *ngVar="(isSelected(type) | async) as selected"
+                             class="d-flex flex-row">
 
-                        <div class="m-2" (click)="setSelected(type, !selected)">
-                            <label>
-                                <input type="checkbox" [checked]="selected">
-                            </label>
-                        </div>
+                            <div class="m-2" (click)="setSelected(type, !selected)">
+                                <label>
+                                    <input type="checkbox" [checked]="selected">
+                                </label>
+                            </div>
 
-                        <div class="flex-column flex-grow-1">
-                            <h5 (click)="setSelected(type, !selected)">
-                                {{getRelationshipMessageKey(getLabel(type) | async) | translate}}
-                            </h5>
-                            <div *ngFor="let relationship of (getRelationships(type) | async)"
-                                 class="d-flex flex-row">
-                                <ng-container *ngVar="(getRelatedItem(relationship) | async) as relatedItem">
+                            <div class="flex-column flex-grow-1">
+                                <h5 (click)="setSelected(type, !selected)">
+                                    {{getRelationshipMessageKey(getLabel(type) | async) | translate}}
+                                </h5>
+                                <div *ngFor="let relationship of (getRelationships(type) | async)"
+                                     class="d-flex flex-row">
+                                    <ng-container *ngVar="(getRelatedItem(relationship) | async) as relatedItem">
 
-                                    <ds-listable-object-component-loader
-                                            *ngIf="relatedItem"
-                                            [object]="relatedItem"
-                                            [viewMode]="viewMode">
-                                    </ds-listable-object-component-loader>
-                                    <div class="ml-auto">
-                                        <div class="btn-group">
-                                            <button class="btn btn-outline-info btn-sm"
-                                                    (click)="openVirtualMetadataModal(virtualMetadataModal)">
-                                                <i class="fas fa-info fa-fw"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <ng-template #virtualMetadataModal>
-                                        <div>
-                                            <div class="modal-header">
-                                                {{'virtual-metadata.delete-item.modal-head' | translate}}
-                                                <button type="button" class="close"
-                                                        (click)="closeVirtualMetadataModal()" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
+                                        <ds-listable-object-component-loader
+                                                *ngIf="relatedItem"
+                                                [object]="relatedItem"
+                                                [viewMode]="viewMode">
+                                        </ds-listable-object-component-loader>
+                                        <div class="ml-auto">
+                                            <div class="btn-group">
+                                                <button class="btn btn-outline-info btn-sm"
+                                                        (click)="openVirtualMetadataModal(virtualMetadataModal)">
+                                                    <i class="fas fa-info fa-fw"></i>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
-                                                <ds-listable-object-component-loader
-                                                        *ngIf="relatedItem"
-                                                        [object]="relatedItem"
-                                                        [viewMode]="viewMode">
-                                                </ds-listable-object-component-loader>
-                                                <div *ngFor="let metadata of (getVirtualMetadata(relationship) | async)">
-                                                    <div>
-                                                        <div class="font-weight-bold">
-                                                            {{metadata.metadataField}}
-                                                        </div>
+                                        </div>
+
+                                        <ng-template #virtualMetadataModal>
+                                            <div>
+                                                <div class="modal-header">
+                                                    {{'virtual-metadata.delete-item.modal-head' | translate}}
+                                                    <button type="button" class="close"
+                                                            (click)="closeVirtualMetadataModal()" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ds-listable-object-component-loader
+                                                            *ngIf="relatedItem"
+                                                            [object]="relatedItem"
+                                                            [viewMode]="viewMode">
+                                                    </ds-listable-object-component-loader>
+                                                    <div *ngFor="let metadata of (getVirtualMetadata(relationship) | async)">
                                                         <div>
-                                                            {{metadata.metadataValue.value}}
+                                                            <div class="font-weight-bold">
+                                                                {{metadata.metadataField}}
+                                                            </div>
+                                                            <div>
+                                                                {{metadata.metadataValue.value}}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </ng-template>
+                                        </ng-template>
 
-                                </ng-container>
+                                    </ng-container>
+                                </div>
                             </div>
+
                         </div>
 
                     </div>
