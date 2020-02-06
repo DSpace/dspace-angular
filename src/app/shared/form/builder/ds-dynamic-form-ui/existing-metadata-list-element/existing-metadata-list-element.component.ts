@@ -73,11 +73,6 @@ export class ReorderableFormFieldMetadataValue extends Reorderable {
   }
 
   update(): Observable<FormFieldMetadataValueObject> {
-    // this.metadataValue.place = this.newIndex;
-    // this.model.valueUpdates.next(this.metadataValue.value);
-    // console.log('this.model', this.model);
-    // this.control.markAsDirty();
-    // console.log('this.control.value', this.control.value);
     this.oldIndex = this.newIndex;
     return observableOf(this.metadataValue);
   }

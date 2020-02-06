@@ -99,6 +99,7 @@ import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { FormService } from '../../form.service';
 import { deepClone } from 'fast-json-patch';
 import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
+import { SubmissionService } from '../../../../submission/submission.service';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -224,7 +225,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     private store: Store<AppState>,
     private submissionObjectService: SubmissionObjectDataService,
     private ref: ChangeDetectorRef,
-    private formService: FormService
+    private formService: FormService,
+    private submissionService: SubmissionService
   ) {
     super(componentFactoryResolver, layoutService, validationService, dynamicFormInstanceService);
   }
@@ -318,11 +320,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Open a modal where the user can select relationships to be added to item being submitted
    */
   openLookup() {
-    // const event = this.createDynamicFormControlEvent(new CustomEvent('open'), 'change');
-    // event.control = this.control;
-    // event.model = this.model;
-    // this.onChange(event);
-    this.formService.removeForm(this.formId);
+
     this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
       size: 'lg'
     });
@@ -330,8 +328,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     modalComp.query = this.model.value ? this.model.value.value : '';
     if (hasValue(this.model.value)) {
-      modalComp.selectEvent.pipe(take(1)).subscribe(() => this.model.value = '');
+      this.model.valueUpdates.next('');
+      this.change.emit();
     }
+    this.submissionService.dispatchSave(this.model.submissionId);
+
     modalComp.repeatable = this.model.repeatable;
     modalComp.listId = this.listId;
     modalComp.relationshipOptions = this.model.relationship;

@@ -2,7 +2,7 @@ import { DynamicFormControlLayout, DynamicFormGroupModel, DynamicFormGroupModelC
 
 import { Subject } from 'rxjs';
 
-import { isNotEmpty } from '../../../../empty.util';
+import { hasNoValue, isNotEmpty } from '../../../../empty.util';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
 import { RelationshipOptions } from '../../models/relationship-options.model';
@@ -71,6 +71,9 @@ export class DynamicConcatModel extends DynamicFormGroupModel {
       tempValue = value;
     } else {
       tempValue = value.value;
+    }
+    if (hasNoValue(tempValue)) {
+      tempValue = '';
     }
     values = [...tempValue.split(this.separator), null].map((v) =>
       Object.assign(new FormFieldMetadataValueObject(), value, { display: v, value: v }));

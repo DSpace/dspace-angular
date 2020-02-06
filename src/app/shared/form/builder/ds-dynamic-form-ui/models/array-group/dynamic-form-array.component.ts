@@ -185,13 +185,12 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
 
   onChange($event) {
     let event = $event;
-    if (hasNoValue($event.context)) {
+    if (hasValue($event) && hasNoValue($event.context)) {
       const context = Object.assign({}, $event.context, { index: this.reorderables.length });
       event = Object.assign({}, $event, { context });
     } else {
       this.updateReorderables();
     }
     super.onChange(event);
-
   }
 }

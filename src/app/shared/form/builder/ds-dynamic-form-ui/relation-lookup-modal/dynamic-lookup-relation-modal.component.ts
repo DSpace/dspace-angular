@@ -11,19 +11,13 @@ import { ListableObject } from '../../../../object-collection/shared/listable-ob
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { SearchResult } from '../../../../search/search-result.model';
 import { Item } from '../../../../../core/shared/item.model';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-  getSucceededRemoteData
-} from '../../../../../core/shared/operators';
+import { getAllSucceededRemoteData, getRemoteDataPayload } from '../../../../../core/shared/operators';
 import { AddRelationshipAction, RemoveRelationshipAction, UpdateRelationshipAction } from './relationship.actions';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RelationshipTypeService } from '../../../../../core/data/relationship-type.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.reducer';
 import { Context } from '../../../../../core/shared/context.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginatedList } from '../../../../../core/data/paginated-list';
@@ -150,7 +144,6 @@ export class DsDynamicLookupRelationModalComponent implements OnInit, OnDestroy 
    * @param selectableObjects
    */
   select(...selectableObjects: Array<SearchResult<Item>>) {
-    this.selectEvent.emit(selectableObjects);
     this.zone.runOutsideAngular(
       () => {
         const obs: Observable<any[]> = combineLatest(...selectableObjects.map((sri: SearchResult<Item>) => {
