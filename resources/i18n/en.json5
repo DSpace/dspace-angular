@@ -853,7 +853,7 @@
 
   "item.edit.tabs.relationships.head": "Item Relationships",
 
-  "item.edit.tabs.relationships.title": "Item Edit -  Relationships",
+  "item.edit.tabs.relationships.title": "Item Edit - Relationships",
 
   "item.edit.tabs.status.buttons.authorizations.button": "Authorizations...",
 
@@ -1974,11 +1974,15 @@
 
   "uploader.drag-message": "Drag & Drop your files here",
 
-  "uploader.or": ", or ",
+  "uploader.or": ", or",
 
   "uploader.processing": "Processing",
 
   "uploader.queue-length": "Queue length",
+
+  "virtual-metadata.delete-item.info": "Select the types for which you want to save the virtual metadata as real metadata",
+
+  "virtual-metadata.delete-item.modal-head": "The virtual metadata of this relation",
 
   "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
 }
