@@ -169,7 +169,7 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
     { customOrder: {
       initialOrderPages: initialOrderPages,
       newOrderPages: initialOrderPages,
-      pageSize: 9999,
+      pageSize: pageSize,
       changed: false }
     }
   );
@@ -184,11 +184,12 @@ function initializeFieldsUpdate(state: any, action: InitializeFieldsAction) {
 function addPageToCustomOrder(state: any, action: AddPageToCustomOrderAction) {
   const url: string = action.payload.url;
   const fields: Identifiable[] = action.payload.fields;
+  const fieldStates = createInitialFieldStates(fields);
   const order = action.payload.order;
   const page = action.payload.page;
   const pageState: ObjectUpdatesEntry = state[url] || {};
   const newPageState = Object.assign({}, pageState, {
-    fieldStates: Object.assign({}, pageState.fieldStates, fields),
+    fieldStates: Object.assign({}, pageState.fieldStates, fieldStates),
     customOrder: Object.assign({}, pageState.customOrder, {
       newOrderPages: addOrderToPages(pageState.customOrder.newOrderPages, order, pageState.customOrder.pageSize, page),
       initialOrderPages: addOrderToPages(pageState.customOrder.initialOrderPages, order, pageState.customOrder.pageSize, page)
@@ -453,16 +454,39 @@ function moveFieldUpdate(state: any, action: MoveFieldUpdateAction) {
   const pageState: ObjectUpdatesEntry = state[url];
   const initialOrderPages = pageState.customOrder.initialOrderPages;
   const customOrderPages = [...pageState.customOrder.newOrderPages];
+
+  // Create a copy of the custom orders for the from- and to-pages
+  const fromPageOrder = [...customOrderPages[fromPage].order];
+  const toPageOrder = [...customOrderPages[toPage].order];
   if (fromPage === toPage) {
     if (isNotEmpty(customOrderPages[fromPage]) && isNotEmpty(customOrderPages[fromPage].order[fromIndex]) && isNotEmpty(customOrderPages[fromPage].order[toIndex])) {
-      moveItemInArray(customOrderPages[fromPage].order, fromIndex, toIndex);
+      // Move an item from one index to another within the same page
+      moveItemInArray(fromPageOrder, fromIndex, toIndex);
+      // Update the custom order for this page
+      customOrderPages[fromPage] = { order: fromPageOrder };
     }
   } else {
     if (isNotEmpty(customOrderPages[fromPage]) && isNotEmpty(customOrderPages[toPage]) && isNotEmpty(customOrderPages[fromPage].order[fromIndex]) && isNotEmpty(customOrderPages[toPage].order[toIndex])) {
-      transferArrayItem(customOrderPages[fromPage].order, customOrderPages[toPage].order, fromIndex, toIndex);
+      // Move an item from one index of one page to an index in another page
+      transferArrayItem(fromPageOrder, toPageOrder, fromIndex, toIndex);
+      // Update the custom order for both pages
+      customOrderPages[fromPage] = { order: fromPageOrder };
+      customOrderPages[toPage] = { order: toPageOrder };
     }
   }
 
+  // Update the store's state with new values and return
+  return Object.assign({}, state, { [url]: Object.assign({}, pageState, {
+    customOrder: Object.assign({}, pageState.customOrder, { newOrderPages: customOrderPages, changed: checkForOrderChanges(initialOrderPages, customOrderPages) })
+  })})
+}
+
+/**
+ * Compare two lists of OrderPage objects and return whether there's at least one change in the order of objects within
+ * @param initialOrderPages The initial list of OrderPages
+ * @param customOrderPages  The changed list of OrderPages
+ */
+function checkForOrderChanges(initialOrderPages: OrderPage[], customOrderPages: OrderPage[]) {
   let changed = false;
   initialOrderPages.forEach((orderPage: OrderPage, page: number) => {
     if (isNotEmpty(orderPage) && isNotEmpty(orderPage.order) && isNotEmpty(customOrderPages[page]) && isNotEmpty(customOrderPages[page].order)) {
@@ -477,8 +501,7 @@ function moveFieldUpdate(state: any, action: MoveFieldUpdateAction) {
       }
     }
   });
-
-  return Object.assign({}, state, { [url]: Object.assign({}, pageState, { customOrder: Object.assign({}, pageState.customOrder, { newOrderPages: customOrderPages, changed: changed }) }) })
+  return changed;
 }
 
 /**

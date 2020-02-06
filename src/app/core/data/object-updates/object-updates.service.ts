@@ -162,7 +162,7 @@ export class ObjectUpdatesService {
     const objectUpdates = this.getObjectEntry(url);
     return objectUpdates.pipe(map((objectEntry) => {
       const fieldUpdates: FieldUpdates = {};
-      if (hasValue(objectEntry)) {
+      if (hasValue(objectEntry) && hasValue(objectEntry.customOrder) && isNotEmpty(objectEntry.customOrder.newOrderPages) && page < objectEntry.customOrder.newOrderPages.length) {
         for (const uuid of objectEntry.customOrder.newOrderPages[page].order) {
           let fieldUpdate = objectEntry.fieldUpdates[uuid];
           if (isEmpty(fieldUpdate)) {

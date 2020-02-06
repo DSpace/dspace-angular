@@ -96,7 +96,7 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
           // No updates have been initialized yet for this bundle, initialize the first page
           this.objectUpdatesService.initializeWithCustomOrder(this.bundle.self, bitstreams, new Date(), this.batchSize, updatesPage);
           this.initializedPages.push(updatesPage);
-        } else if (this.initializedPages.indexOf(this.currentPage$.value) < 0) {
+        } else if (this.initializedPages.indexOf(updatesPage) < 0) {
           // Updates were initialized for this bundle, but not the page we're on. Add the current page to the field-update store for this bundle
           this.objectUpdatesService.addPageToCustomOrder(this.bundle.self, bitstreams, updatesPage);
           this.initializedPages.push(updatesPage);
@@ -121,6 +121,6 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    * @param event
    */
   drop(event: CdkDragDrop<any>) {
-    this.objectUpdatesService.saveMoveFieldUpdate(this.bundle.self, event.previousIndex, event.currentIndex);
+    this.objectUpdatesService.saveMoveFieldUpdate(this.bundle.self, event.previousIndex, event.currentIndex, this.currentPage$.value - 1, this.currentPage$.value - 1);
   }
 }
