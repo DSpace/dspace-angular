@@ -50,7 +50,10 @@ a<div class="top-item-page">
                                                     [fields]="['dc.identifier.citation']"
                                                     [label]="'item.page.citation'">
                         </ds-generic-item-page-field>
-                        <ds-item-page-uri-field [item]="object"></ds-item-page-uri-field>
+                        <<ds-item-page-uri-field [item]="object"
+                                                 [fields]="['dc.identifier.uri']"
+                                                 [label]="'item.page.uri'">
+                        </ds-item-page-uri-field>
                         <ds-item-page-collections [item]="object"></ds-item-page-collections>
                     </div>
                 </div>
