@@ -522,9 +522,14 @@ function addOrderToPages(initialPages: OrderPage[], order: string[], pageSize: n
     result.push(orderPage);
   } else {
     // The page we're trying to add is at least one page ahead of the list, fill the list with empty pages before adding the page.
-    const emptyOrderPage: OrderPage = { order: [] };
-    emptyOrderPage.order.fill(undefined, 0, pageSize);
-    result.fill(emptyOrderPage, result.length, page - 1);
+    const emptyOrder = [];
+    for (let i = 0; i < pageSize; i++) {
+      emptyOrder.push(undefined);
+    }
+    const emptyOrderPage: OrderPage = { order: emptyOrder };
+    for (let i = result.length; i < page; i++) {
+      result.push(emptyOrderPage);
+    }
     result.push(orderPage);
   }
   return result;
