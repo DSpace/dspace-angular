@@ -137,3 +137,13 @@ export const getFirstSucceededRemoteDataPayload = () =>
       hasValueOperator(),
       take(1)
     );
+
+/**
+ * Operator for turning the current page of bitstreams into an array
+ */
+export const paginatedListToArray = () =>
+  <T extends DSpaceObject>(source: Observable<RemoteData<PaginatedList<T>>>): Observable<T[]> =>
+    source.pipe(
+      hasValueOperator(),
+      map((objectRD: RemoteData<PaginatedList<T>>) => objectRD.payload.page.filter((object: T) => hasValue(object)))
+    );

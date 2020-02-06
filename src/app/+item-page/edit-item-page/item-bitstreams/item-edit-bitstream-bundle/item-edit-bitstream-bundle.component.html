@@ -17,29 +17,5 @@
       </div>
     </div>
   </div>
-  <ds-pagination-drag-and-drop  [paginationOptions]="bitstreamsOptions"
-                                [paginatedList]="(bitstreamsRD$ | async)?.payload"
-                                [hideGear]="true"
-                                [hidePaginationDetail]="true"
-                                [disableRouteParameterUpdate]="true"
-                                (pageChange)="switchPage($event)">
-    <div [id]="bundle.id" class="bundle-bitstreams-list"
-         [ngClass]="{'mb-3': (bitstreamsRD$ | async)?.payload?.totalElements > batchSize}"
-         *ngVar="((updates$ | async) | dsObjectValues) as updateValues" cdkDropList (cdkDropListDropped)="drop($event)">
-      <div class="row bitstream-row" *ngFor="let updateValue of updateValues" cdkDrag
-           [ngClass]="{
-                  'table-warning': updateValue.changeType === 0,
-                  'table-danger': updateValue.changeType === 2,
-                  'table-success': updateValue.changeType === 1,
-                  'bg-white': updateValue.changeType === undefined
-                }">
-        <ds-item-edit-bitstream [fieldUpdate]="updateValue"
-                                [bundleUrl]="bundle.self">
-          <div class="d-flex align-items-center" slot="drag-handle" cdkDragHandle>
-            <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
-          </div>
-        </ds-item-edit-bitstream>
-      </div>
-    </div>
-  </ds-pagination-drag-and-drop>
+  <ds-paginated-drag-and-drop-bitstream-list [bundle]="bundle"></ds-paginated-drag-and-drop-bitstream-list>
 </ng-template>
