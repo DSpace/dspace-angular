@@ -35,7 +35,9 @@
                 }">
         <ds-item-edit-bitstream [fieldUpdate]="updateValue"
                                 [bundleUrl]="bundle.self">
-          <ds-item-edit-bitstream-drag-handle slot="drag-handle"></ds-item-edit-bitstream-drag-handle>
+          <div class="d-flex align-items-center" slot="drag-handle" cdkDragHandle>
+            <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
+          </div>
         </ds-item-edit-bitstream>
       </div>
     </div>
