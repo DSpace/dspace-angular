@@ -59,7 +59,9 @@ export function parameterSelector(key: string, paramsSelector: (state: CoreState
 /**
  * Service to keep track of the current query parameters
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RouteService {
   constructor(private route: ActivatedRoute, private router: Router, private store: Store<CoreState>) {
     this.saveRouting();
