@@ -469,7 +469,7 @@ describe('authReducer', () => {
       authenticated: false,
       loaded: false,
       loading: false,
-      authMethods: []
+      authMethods: [new AuthMethod(AuthMethodType.Password)]
     };
     expect(newState).toEqual(state);
   });

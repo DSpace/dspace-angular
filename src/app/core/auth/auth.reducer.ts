@@ -16,6 +16,7 @@ import {
 import { EPerson } from '../eperson/models/eperson.model';
 import { AuthTokenInfo } from './models/auth-token-info.model';
 import { AuthMethod } from './models/auth.method';
+import { AuthMethodType } from './models/auth.method-type';
 
 /**
  * The auth state.
@@ -199,7 +200,8 @@ export function authReducer(state: any = initialState, action: AuthActions): Aut
 
     case AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR:
       return Object.assign({}, state, {
-        loading: false
+        loading: false,
+        authMethods: [new AuthMethod(AuthMethodType.Password)]
       });
 
     case AuthActionTypes.SET_REDIRECT_URL:
