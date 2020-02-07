@@ -18,7 +18,7 @@ import { RouterStub } from '../../../testing/router-stub';
 import { ActivatedRouteStub } from '../../../testing/active-router-stub';
 import { NativeWindowMockFactory } from '../../../mocks/mock-native-window-ref';
 
-fdescribe('LogInShibbolethComponent', () => {
+describe('LogInShibbolethComponent', () => {
 
   let component: LogInShibbolethComponent;
   let fixture: ComponentFixture<LogInShibbolethComponent>;
