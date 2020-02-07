@@ -5,6 +5,7 @@
         [sortOptions]="sortConfig"
         [hideGear]="hideGear"
         [hidePagerWhenSinglePage]="hidePagerWhenSinglePage"
+        [hidePaginationDetail]="hidePaginationDetail"
         (pageChange)="onPageChange($event)"
         (pageSizeChange)="onPageSizeChange($event)"
         (sortDirectionChange)="onSortDirectionChange($event)"
@@ -19,6 +20,11 @@
                                                     (deselectObject)="deselectObject.emit($event)"
                                                     (selectObject)="selectObject.emit($event)"></ds-selectable-list-item-control>
               </span>
+          <span *ngIf="importable">
+            <ds-importable-list-item-control  [object]="object"
+                                              [importConfig]="importConfig"
+                                              (importObject)="importObject.emit($event)"></ds-importable-list-item-control>
+          </span>
             <ds-listable-object-component-loader [object]="object" [viewMode]="viewMode" [index]="i" [context]="context" [linkType]="linkType"
                                                  [listID]="selectionConfig?.listId"></ds-listable-object-component-loader>
         </li>

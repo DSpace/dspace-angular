@@ -185,6 +185,11 @@ module.exports = {
       undoTimeout: 10000 // 10 seconds
     }
   },
+  collection: {
+    edit: {
+      undoTimeout: 10000 // 10 seconds
+    }
+  },
   theme: {
     name: 'default',
   }

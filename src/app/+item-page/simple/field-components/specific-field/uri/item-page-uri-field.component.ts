@@ -8,7 +8,8 @@ import { ItemPageFieldComponent } from '../item-page-field.component';
   templateUrl: './item-page-uri-field.component.html'
 })
 /**
- * This component is used for displaying the uri (dc.identifier.uri) metadata of an item
+ * This component can be used to represent any uri on a simple item page.
+ * It expects 4 parameters: The item, a separator, the metadata keys and an i18n key
  */
 export class ItemPageUriFieldComponent extends ItemPageFieldComponent {
 
@@ -21,19 +22,16 @@ export class ItemPageUriFieldComponent extends ItemPageFieldComponent {
    * Separator string between multiple values of the metadata fields defined
    * @type {string}
    */
-  separator: string;
+  @Input() separator: string;
 
   /**
    * Fields (schema.element.qualifier) used to render their values.
-   * In this component, we want to display values for metadata 'dc.identifier.uri'
    */
-  fields: string[] = [
-    'dc.identifier.uri'
-  ];
+  @Input() fields: string[];
 
   /**
    * Label i18n key for the rendered metadata
    */
-  label = 'item.page.uri';
+  @Input() label: string;
 
 }

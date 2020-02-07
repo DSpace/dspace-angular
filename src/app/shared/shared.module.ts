@@ -47,7 +47,10 @@ import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
+import {
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn
+} from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
@@ -172,6 +175,8 @@ import { SidebarFilterComponent } from './sidebar/filter/sidebar-filter.componen
 import { SidebarFilterSelectedOptionComponent } from './sidebar/filter/sidebar-filter-selected-option.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
@@ -338,11 +343,12 @@ const COMPONENTS = [
   CollectionSelectComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
+  ExternalSourceEntryImportModalComponent,
+  ImportableListItemControlComponent,
   ExistingMetadataListElementComponent,
   LogInShibbolethComponent,
   LogInPasswordComponent,
-  LogInContainerComponent,
-  ItemTypeBadgeComponent
+  LogInContainerComponent
 ];
 
 const ENTRY_COMPONENTS = [
@@ -405,6 +411,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
+  ExternalSourceEntryImportModalComponent,
   LogInPasswordComponent,
   LogInShibbolethComponent
 ];

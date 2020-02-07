@@ -8,7 +8,8 @@ import {
   Identifiable,
   OBJECT_UPDATES_TRASH_PATH,
   ObjectUpdatesEntry,
-  ObjectUpdatesState
+  ObjectUpdatesState,
+  VirtualMetadataSource
 } from './object-updates.reducer';
 import { Observable } from 'rxjs';
 import {
@@ -18,10 +19,11 @@ import {
   InitializeFieldsAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
+  SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction
 } from './object-updates.actions';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
 
@@ -35,6 +37,10 @@ function filterByUrlObjectUpdatesStateSelector(url: string): MemoizedSelector<Co
 
 function filterByUrlAndUUIDFieldStateSelector(url: string, uuid: string): MemoizedSelector<CoreState, FieldState> {
   return createSelector(filterByUrlObjectUpdatesStateSelector(url), (state: ObjectUpdatesEntry) => state.fieldStates[uuid]);
+}
+
+function virtualMetadataSourceSelector(url: string, source: string): MemoizedSelector<CoreState, VirtualMetadataSource> {
+  return createSelector(filterByUrlObjectUpdatesStateSelector(url), (state: ObjectUpdatesEntry) => state.virtualMetadataSources[source]);
 }
 
 /**
@@ -91,18 +97,24 @@ export class ObjectUpdatesService {
    */
   getFieldUpdates(url: string, initialFields: Identifiable[]): Observable<FieldUpdates> {
     const objectUpdates = this.getObjectEntry(url);
-    return objectUpdates.pipe(map((objectEntry) => {
-      const fieldUpdates: FieldUpdates = {};
-      Object.keys(objectEntry.fieldStates).forEach((uuid) => {
-        let fieldUpdate = objectEntry.fieldUpdates[uuid];
-        if (isEmpty(fieldUpdate)) {
-          const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
-          fieldUpdate = { field: identifiable, changeType: undefined };
+    return objectUpdates.pipe(
+      switchMap((objectEntry) => {
+        const fieldUpdates: FieldUpdates = {};
+        if (hasValue(objectEntry)) {
+          Object.keys(objectEntry.fieldStates).forEach((uuid) => {
+            fieldUpdates[uuid] = objectEntry.fieldUpdates[uuid];
+          });
         }
-        fieldUpdates[uuid] = fieldUpdate;
-      });
-      return fieldUpdates;
-    }))
+        return this.getFieldUpdatesExclusive(url, initialFields).pipe(
+          map((fieldUpdatesExclusive) => {
+            Object.keys(fieldUpdatesExclusive).forEach((uuid) => {
+              fieldUpdates[uuid] = fieldUpdatesExclusive[uuid];
+            });
+            return fieldUpdates;
+          })
+        );
+      }),
+    );
   }
 
   /**
@@ -193,6 +205,34 @@ export class ObjectUpdatesService {
    */
   saveChangeFieldUpdate(url: string, field: Identifiable) {
     this.saveFieldUpdate(url, field, FieldChangeType.UPDATE);
+  }
+
+  /**
+   * Check whether the virtual metadata of a given item is selected to be saved as real metadata
+   * @param url           The URL of the page on which the field resides
+   * @param relationship  The id of the relationship for which to check whether the virtual metadata is selected to be
+   *                      saved as real metadata
+   * @param item          The id of the item for which to check whether the virtual metadata is selected to be
+   *                      saved as real metadata
+   */
+  isSelectedVirtualMetadata(url: string, relationship: string, item: string): Observable<boolean> {
+
+    return this.store
+      .pipe(
+        select(virtualMetadataSourceSelector(url, relationship)),
+        map((virtualMetadataSource) => virtualMetadataSource && virtualMetadataSource[item]),
+    );
+  }
+
+  /**
+   * Method to dispatch a SelectVirtualMetadataAction to the store
+   * @param url The page's URL for which the changes are saved
+   * @param relationship the relationship for which virtual metadata is selected
+   * @param uuid the selection identifier, can either be the item uuid or the relationship type uuid
+   * @param selected whether or not to select the virtual metadata to be saved
+   */
+  setSelectedVirtualMetadata(url: string, relationship: string, uuid: string, selected: boolean) {
+    this.store.dispatch(new SelectVirtualMetadataAction(url, relationship, uuid, selected));
   }
 
   /**
