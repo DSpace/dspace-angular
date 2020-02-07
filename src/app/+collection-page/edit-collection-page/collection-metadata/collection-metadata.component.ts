@@ -12,6 +12,8 @@ import { switchMap, take } from 'rxjs/operators';
 import { combineLatest as combineLatestObservable } from 'rxjs';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RequestService } from '../../../core/data/request.service';
 
 /**
  * Component for editing a collection's metadata
@@ -35,7 +37,9 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     protected router: Router,
     protected route: ActivatedRoute,
     protected notificationsService: NotificationsService,
-    protected translate: TranslateService
+    protected translate: TranslateService,
+    protected objectCache: ObjectCacheService,
+    protected requestService: RequestService
   ) {
     super(collectionDataService, router, route, notificationsService, translate);
   }
@@ -94,13 +98,19 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
     );
 
     combineLatestObservable(collection$, template$).pipe(
-      switchMap(([collection, template]) => this.itemTemplateService.deleteByCollectionID(template, collection.uuid))
+      switchMap(([collection, template]) => {
+        const success$ = this.itemTemplateService.deleteByCollectionID(template, collection.uuid);
+        this.objectCache.remove(template.self);
+        this.requestService.removeByHrefSubstring(collection.self);
+        return success$;
+      })
     ).subscribe((success: boolean) => {
       if (success) {
         this.notificationsService.success(null, this.translate.get('collection.edit.template.notifications.delete.success'));
       } else {
         this.notificationsService.error(null, this.translate.get('collection.edit.template.notifications.delete.error'));
       }
+      this.initTemplateItem();
     });
   }
 }

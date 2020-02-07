@@ -8,7 +8,7 @@ import { ResourceType } from './resource-type';
  * Class representing a DSpace Template Item
  */
 export class TemplateItem extends Item {
-  static type = new ResourceType('templateItem');
+  static type = new ResourceType('itemtemplate');
 
   /**
    * The Collection that this item is a template for

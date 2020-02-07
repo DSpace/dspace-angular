@@ -13,6 +13,8 @@ import { Item } from '../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/testing/utils';
 import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
 import { Collection } from '../../../core/shared/collection.model';
+import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RequestService } from '../../../core/data/request.service';
 
 describe('CollectionMetadataComponent', () => {
   let comp: CollectionMetadataComponent;
@@ -20,11 +22,14 @@ describe('CollectionMetadataComponent', () => {
   let router: Router;
   let itemTemplateService: ItemTemplateDataService;
 
-  const template = new Item();
+  const template = Object.assign(new Item(), {
+    self: 'template-selflink'
+  });
   const collection = Object.assign(new Collection(), {
     uuid: 'collection-id',
     id: 'collection-id',
-    name: 'Fake Collection'
+    name: 'Fake Collection',
+    self: 'collection-selflink'
   });
 
   const itemTemplateServiceStub = Object.assign({
@@ -37,6 +42,12 @@ describe('CollectionMetadataComponent', () => {
     success: {},
     error: {}
   });
+  const objectCache = jasmine.createSpyObj('objectCache', {
+    remove: {}
+  });
+  const requestService = jasmine.createSpyObj('requestService', {
+    removeByHrefSubstring: {}
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,7 +57,9 @@ describe('CollectionMetadataComponent', () => {
         { provide: CollectionDataService, useValue: {} },
         { provide: ItemTemplateDataService, useValue: itemTemplateServiceStub },
         { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
-        { provide: NotificationsService, useValue: notificationsService }
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: ObjectCacheService, useValue: objectCache },
+        { provide: RequestService, useValue: requestService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -83,6 +96,11 @@ describe('CollectionMetadataComponent', () => {
 
       it('should display a success notification', () => {
         expect(notificationsService.success).toHaveBeenCalled();
+      });
+
+      it('should reset related object and request cache', () => {
+        expect(objectCache.remove).toHaveBeenCalledWith(template.self);
+        expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(collection.self);
       });
     });
 
