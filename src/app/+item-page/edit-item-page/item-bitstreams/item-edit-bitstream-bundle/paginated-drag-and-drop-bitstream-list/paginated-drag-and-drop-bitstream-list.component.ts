@@ -1,5 +1,5 @@
 import { AbstractPaginatedDragAndDropListComponent } from '../../../../../shared/pagination-drag-and-drop/abstract-paginated-drag-and-drop-list.component';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Bundle } from '../../../../../core/shared/bundle.model';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { ObjectUpdatesService } from '../../../../../core/data/object-updates/object-updates.service';
@@ -12,6 +12,12 @@ import { PaginatedSearchOptions } from '../../../../../shared/search/paginated-s
   styleUrls: ['../../item-bitstreams.component.scss'],
   templateUrl: './paginated-drag-and-drop-bitstream-list.component.html',
 })
+/**
+ * A component listing edit-bitstream rows for each bitstream within the given bundle.
+ * This component makes use of the AbstractPaginatedDragAndDropListComponent, allowing for users to drag and drop
+ * bitstreams within the paginated list. To drag and drop a bitstream between two pages, drag the row on top of the
+ * page number you want the bitstream to end up at. Doing so will add the bitstream to the top of that page.
+ */
 export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginatedDragAndDropListComponent<Bitstream> implements OnInit {
   /**
    * The bundle to display bitstreams for
@@ -19,14 +25,18 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
   @Input() bundle: Bundle;
 
   constructor(protected objectUpdatesService: ObjectUpdatesService,
+              protected elRef: ElementRef,
               protected bundleService: BundleDataService) {
-    super(objectUpdatesService);
+    super(objectUpdatesService, elRef);
   }
 
   ngOnInit() {
     super.ngOnInit();
   }
 
+  /**
+   * Initialize the bitstreams observable depending on currentPage$
+   */
   initializeObjectsRD(): void {
     this.objectsRD$ = this.currentPage$.pipe(
       switchMap((page: number) => this.bundleService.getBitstreams(this.bundle.id,
@@ -34,6 +44,9 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
     );
   }
 
+  /**
+   * Initialize the URL used for the field-update store, in this case the bundle's self-link
+   */
   initializeURL(): void {
     this.url = this.bundle.self;
   }

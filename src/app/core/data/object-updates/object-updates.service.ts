@@ -25,7 +25,6 @@ import {
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
 import { INotification } from '../../../shared/notifications/models/notification.model';
-import { Operation } from 'fast-json-patch';
 import { ArrayMoveChangeAnalyzer } from '../array-move-change-analyzer.service';
 import { MoveOperation } from 'fast-json-patch/lib/core';
 import { flatten } from '@angular/compiler';
@@ -252,9 +251,10 @@ export class ObjectUpdatesService {
    * @param to        The index to move the object to
    * @param fromPage  The page to move the object from
    * @param toPage    The page to move the object to
+   * @param field     Optional field to add to the fieldUpdates list (useful if we want to track updates across multiple pages)
    */
-  saveMoveFieldUpdate(url: string, from: number, to: number, fromPage = 0, toPage = 0) {
-    this.store.dispatch(new MoveFieldUpdateAction(url, from, to, fromPage, toPage));
+  saveMoveFieldUpdate(url: string, from: number, to: number, fromPage = 0, toPage = 0, field?: Identifiable) {
+    this.store.dispatch(new MoveFieldUpdateAction(url, from, to, fromPage, toPage, field));
   }
 
   /**

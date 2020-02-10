@@ -450,6 +450,7 @@ function moveFieldUpdate(state: any, action: MoveFieldUpdateAction) {
   const toIndex = action.payload.to;
   const fromPage = action.payload.fromPage;
   const toPage = action.payload.toPage;
+  const field = action.payload.field;
 
   const pageState: ObjectUpdatesEntry = state[url];
   const initialOrderPages = pageState.customOrder.initialOrderPages;
@@ -466,7 +467,7 @@ function moveFieldUpdate(state: any, action: MoveFieldUpdateAction) {
       customOrderPages[fromPage] = { order: fromPageOrder };
     }
   } else {
-    if (isNotEmpty(customOrderPages[fromPage]) && isNotEmpty(customOrderPages[toPage]) && isNotEmpty(customOrderPages[fromPage].order[fromIndex]) && isNotEmpty(customOrderPages[toPage].order[toIndex])) {
+    if (isNotEmpty(customOrderPages[fromPage]) && hasValue(customOrderPages[toPage]) && isNotEmpty(customOrderPages[fromPage].order[fromIndex])) {
       // Move an item from one index of one page to an index in another page
       transferArrayItem(fromPageOrder, toPageOrder, fromIndex, toIndex);
       // Update the custom order for both pages
@@ -475,8 +476,18 @@ function moveFieldUpdate(state: any, action: MoveFieldUpdateAction) {
     }
   }
 
+  // Create a field update if it doesn't exist for this field yet
+  let fieldUpdate = {};
+  if (hasValue(field)) {
+    fieldUpdate = pageState.fieldUpdates[field.uuid];
+    if (hasNoValue(fieldUpdate)) {
+      fieldUpdate = { field: field, changeType: undefined }
+    }
+  }
+
   // Update the store's state with new values and return
   return Object.assign({}, state, { [url]: Object.assign({}, pageState, {
+    fieldUpdates: Object.assign({}, pageState.fieldUpdates, hasValue(field) ? { [field.uuid]: fieldUpdate } : {}),
     customOrder: Object.assign({}, pageState.customOrder, { newOrderPages: customOrderPages, changed: checkForOrderChanges(initialOrderPages, customOrderPages) })
   })})
 }

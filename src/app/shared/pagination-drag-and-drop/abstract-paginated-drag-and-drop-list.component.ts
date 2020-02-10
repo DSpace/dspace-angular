@@ -5,14 +5,35 @@ import { PaginatedList } from '../../core/data/paginated-list';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { switchMap, tap } from 'rxjs/operators';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { isEmpty } from '../empty.util';
+import { switchMap, take, tap } from 'rxjs/operators';
+import { hasValue, isEmpty } from '../empty.util';
 import { paginatedListToArray } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { ElementRef, ViewChild } from '@angular/core';
+import { PaginationComponent } from '../pagination/pagination.component';
 
+/**
+ * An abstract component containing general methods and logic to be able to drag and drop objects within a paginated
+ * list. This implementation supports being able to drag and drop objects between pages.
+ * Dragging an object on top of a page number will automatically detect the page it's being dropped on, send an update
+ * to the store and add the object on top of that page.
+ *
+ * To extend this component, it is important to make sure to:
+ * - Initialize objectsRD$ within the initializeObjectsRD() method
+ * - Initialize a unique URL for this component/page within the initializeURL() method
+ * - Add (cdkDropListDropped)="drop($event)" to the cdkDropList element in your template
+ * - Add (pageChange)="switchPage($event)" to the ds-pagination element in your template
+ * - Use the updates$ observable for building your list of cdkDrag elements in your template
+ *
+ * An example component extending from this abstract component: PaginatedDragAndDropBitstreamListComponent
+ */
 export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> {
+  /**
+   * A view on the child pagination component
+   */
+  @ViewChild(PaginationComponent) paginationComponent: PaginationComponent;
+
   /**
    * The URL to use for accessing the object updates from this list
    */
@@ -49,19 +70,28 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   currentPage$ = new BehaviorSubject<number>(1);
 
   /**
-   * The last page we were on when we started dragging an item
-   * This is used to keep track of the original page the drag started from
-   */
-  lastPage$ = new BehaviorSubject<number>(1);
-
-  /**
    * A list of pages that have been initialized in the field-update store
    */
   initializedPages: number[] = [];
 
-  protected constructor(protected objectUpdatesService: ObjectUpdatesService) {
+  /**
+   * An object storing information about an update that should be fired whenever fireToUpdate is called
+   */
+  toUpdate: {
+    fromIndex: number,
+    toIndex: number,
+    fromPage: number,
+    toPage: number,
+    field?: T
+  };
+
+  protected constructor(protected objectUpdatesService: ObjectUpdatesService,
+                        protected elRef: ElementRef) {
   }
 
+  /**
+   * Initialize the observables
+   */
   ngOnInit() {
     this.initializeObjectsRD();
     this.initializeURL();
@@ -85,7 +115,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   initializeUpdates(): void {
     this.updates$ = this.objectsRD$.pipe(
       paginatedListToArray(),
-      tap((objects: DSpaceObject[]) => {
+      tap((objects: T[]) => {
         // Pages in the field-update store are indexed starting at 0 (because they're stored in an array of pages)
         const updatesPage = this.currentPage$.value - 1;
         if (isEmpty(this.initializedPages)) {
@@ -97,8 +127,11 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
           this.objectUpdatesService.addPageToCustomOrder(this.url, objects, updatesPage);
           this.initializedPages.push(updatesPage);
         }
+
+        // The new page is loaded into the store, check if there are any updates waiting and fire those as well
+        this.fireToUpdate();
       }),
-      switchMap((bitstreams: Bitstream[]) => this.objectUpdatesService.getFieldUpdatesByCustomOrder(this.url, bitstreams, this.currentPage$.value - 1))
+      switchMap((objects: T[]) => this.objectUpdatesService.getFieldUpdatesByCustomOrder(this.url, objects, this.currentPage$.value - 1))
     );
   }
 
@@ -111,14 +144,52 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   }
 
   /**
-   * A bitstream was moved, send updates to the store
+   * An object was moved, send updates to the store.
+   * When the object is dropped on a page within the pagination of this component, the object moves to the top of that
+   * page and the pagination automatically loads and switches the view to that page.
    * @param event
    */
   drop(event: CdkDragDrop<any>) {
-    this.objectUpdatesService.saveMoveFieldUpdate(this.url, event.previousIndex, event.currentIndex, this.lastPage$.value - 1, this.currentPage$.value - 1);
+    // Check if the user is hovering over any of the pagination's pages at the time of dropping the object
+    const droppedOnElement = this.elRef.nativeElement.querySelector('.page-item:hover');
+    if (hasValue(droppedOnElement)) {
+      // The user is hovering over a page, fetch the page's number from the element
+      const page = Number(droppedOnElement.textContent);
+      if (hasValue(page) && !Number.isNaN(page)) {
+        const id = event.item.element.nativeElement.id;
+        this.updates$.pipe(take(1)).subscribe((updates: FieldUpdates) => {
+          const field = hasValue(updates[id]) ? updates[id].field : undefined;
+          this.toUpdate = Object.assign({
+            fromIndex: event.previousIndex,
+            toIndex: 0,
+            fromPage: this.currentPage$.value - 1,
+            toPage: page - 1,
+            field
+          });
+          // Switch to the dropped-on page and force a page update for the pagination component
+          this.currentPage$.next(page);
+          this.paginationComponent.doPageChange(page);
+          if (this.initializedPages.indexOf(page - 1) >= 0) {
+            // The page the object is being dropped to has already been loaded before, directly fire an update to the store.
+            // For pages that haven't been loaded before, the updates$ observable will call fireToUpdate after the new page
+            // has loaded
+            this.fireToUpdate();
+          }
+        });
+      }
+    } else {
+      this.objectUpdatesService.saveMoveFieldUpdate(this.url, event.previousIndex, event.currentIndex, this.currentPage$.value - 1, this.currentPage$.value - 1);
+    }
   }
 
-  dragStarted(event: CdkDragStart) {
-    this.lastPage$.next(this.currentPage$.value);
+  /**
+   * Method checking if there's an update ready to be fired. Send out a MoveFieldUpdate to the store if there's an
+   * update present and clear the update afterwards.
+   */
+  fireToUpdate() {
+    if (hasValue(this.toUpdate)) {
+      this.objectUpdatesService.saveMoveFieldUpdate(this.url, this.toUpdate.fromIndex, this.toUpdate.toIndex, this.toUpdate.fromPage, this.toUpdate.toPage, this.toUpdate.field);
+      this.toUpdate = undefined;
+    }
   }
 }

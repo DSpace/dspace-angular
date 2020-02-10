@@ -28,7 +28,8 @@ export const ObjectUpdatesActionTypes = {
 export enum FieldChangeType {
   UPDATE = 0,
   ADD = 1,
-  REMOVE = 2
+  REMOVE = 2,
+  MOVE = 3
 }
 
 /**
@@ -293,7 +294,8 @@ export class MoveFieldUpdateAction implements Action {
     from: number,
     to: number,
     fromPage: number,
-    toPage: number
+    toPage: number,
+    field?: Identifiable
   };
 
   /**
@@ -305,15 +307,17 @@ export class MoveFieldUpdateAction implements Action {
    * @param to        The index to move the object to
    * @param fromPage  The page to move the object from
    * @param toPage    The page to move the object to
+   * @param field     Optional field to add to the fieldUpdates list (useful when we want to track updates across multiple pages)
    */
   constructor(
     url: string,
     from: number,
     to: number,
     fromPage: number,
-    toPage: number
+    toPage: number,
+    field?: Identifiable
   ) {
-    this.payload = { url, from, to, fromPage, toPage };
+    this.payload = { url, from, to, fromPage, toPage, field };
   }
 }
 

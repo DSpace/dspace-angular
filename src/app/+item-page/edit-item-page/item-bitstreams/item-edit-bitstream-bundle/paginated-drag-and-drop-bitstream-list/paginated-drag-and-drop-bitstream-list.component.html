@@ -10,7 +10,8 @@
   <div [id]="bundle.id" class="bundle-bitstreams-list"
        [ngClass]="{'mb-3': (objectsRD$ | async)?.payload?.totalElements > pageSize}"
        *ngVar="((updates$ | async) | dsObjectValues) as updateValues" cdkDropList (cdkDropListDropped)="drop($event)">
-    <div class="row bitstream-row" *ngFor="let updateValue of updateValues" cdkDrag (cdkDragStarted)="dragStarted($event)"
+    <div class="row bitstream-row" *ngFor="let updateValue of updateValues" cdkDrag
+         [id]="updateValue.field.uuid"
          [ngClass]="{
                   'table-warning': updateValue.changeType === 0,
                   'table-danger': updateValue.changeType === 2,
