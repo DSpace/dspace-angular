@@ -2,6 +2,7 @@ import { Store } from '@ngrx/store';
 import { CoreState } from '../../core.reducers';
 import { ObjectUpdatesService } from './object-updates.service';
 import {
+  AddPageToCustomOrderAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
   InitializeFieldsAction, ReinstateObjectUpdatesAction, RemoveFieldUpdateAction,
@@ -55,6 +56,25 @@ describe('ObjectUpdatesService', () => {
     it('should dispatch an INITIALIZE action with the correct URL, initial identifiables and the last modified date', () => {
       service.initialize(url, identifiables, modDate);
       expect(store.dispatch).toHaveBeenCalledWith(new InitializeFieldsAction(url, identifiables, modDate));
+    });
+  });
+
+  describe('initializeWithCustomOrder', () => {
+    const pageSize = 20;
+    const page = 0;
+
+    it('should dispatch an INITIALIZE action with the correct URL, initial identifiables, last modified , custom order, page size and page', () => {
+      service.initializeWithCustomOrder(url, identifiables, modDate, pageSize, page);
+      expect(store.dispatch).toHaveBeenCalledWith(new InitializeFieldsAction(url, identifiables, modDate, identifiables.map((identifiable) => identifiable.uuid), pageSize, page));
+    });
+  });
+
+  describe('addPageToCustomOrder', () => {
+    const page = 2;
+
+    it('should dispatch an ADD_PAGE_TO_CUSTOM_ORDER action with the correct URL, identifiables, custom order and page number to add', () => {
+      service.addPageToCustomOrder(url, identifiables, page);
+      expect(store.dispatch).toHaveBeenCalledWith(new AddPageToCustomOrderAction(url, identifiables, identifiables.map((identifiable) => identifiable.uuid), page));
     });
   });
 

@@ -73,6 +73,12 @@ export class ObjectUpdatesService {
     this.store.dispatch(new InitializeFieldsAction(url, fields, lastModified, fields.map((field) => field.uuid), pageSize, page));
   }
 
+  /**
+   * Method to dispatch an AddPageToCustomOrderAction, adding a new page to an already existing custom order tracking
+   * @param url     The URL for which the changes are being mapped
+   * @param fields  The fields to add a new page for
+   * @param page    The page number (starting from index 0)
+   */
   addPageToCustomOrder(url, fields: Identifiable[], page: number): void {
     this.store.dispatch(new AddPageToCustomOrderAction(url, fields, fields.map((field) => field.uuid), page));
   }

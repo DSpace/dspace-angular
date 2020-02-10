@@ -6,7 +6,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
 import { switchMap, take, tap } from 'rxjs/operators';
-import { hasValue, isEmpty } from '../empty.util';
+import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
 import { paginatedListToArray } from '../../core/shared/operators';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -152,7 +152,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   drop(event: CdkDragDrop<any>) {
     // Check if the user is hovering over any of the pagination's pages at the time of dropping the object
     const droppedOnElement = this.elRef.nativeElement.querySelector('.page-item:hover');
-    if (hasValue(droppedOnElement)) {
+    if (isNotEmpty(droppedOnElement)) {
       // The user is hovering over a page, fetch the page's number from the element
       const page = Number(droppedOnElement.textContent);
       if (hasValue(page) && !Number.isNaN(page)) {
