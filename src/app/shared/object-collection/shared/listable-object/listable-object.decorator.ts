@@ -11,22 +11,23 @@ const map = new Map();
 
 /**
  * Decorator used for rendering a listable object
- * @param type The object type or entity type the component represents
+ * @param objectType The object type or entity type the component represents
  * @param viewMode The view mode the component represents
  * @param context The optional context the component represents
  */
 export function listableObjectComponent(objectType: string | GenericConstructor<ListableObject>, viewMode: ViewMode, context: Context = DEFAULT_CONTEXT) {
+  const normalizedObjectType = (typeof objectType === 'string') ? objectType.toLowerCase() : objectType;
   return function decorator(component: any) {
-    if (hasNoValue(objectType)) {
+    if (hasNoValue(normalizedObjectType)) {
       return;
     }
-    if (hasNoValue(map.get(objectType))) {
-      map.set(objectType, new Map());
+    if (hasNoValue(map.get(normalizedObjectType))) {
+      map.set(normalizedObjectType, new Map());
     }
-    if (hasNoValue(map.get(objectType).get(viewMode))) {
-      map.get(objectType).set(viewMode, new Map());
+    if (hasNoValue(map.get(normalizedObjectType).get(viewMode))) {
+      map.get(normalizedObjectType).set(viewMode, new Map());
     }
-    map.get(objectType).get(viewMode).set(context, component);
+    map.get(normalizedObjectType).get(viewMode).set(context, component);
   };
 }
 
@@ -40,7 +41,8 @@ export function getListableObjectComponent(types: Array<string | GenericConstruc
   let bestMatch;
   let bestMatchValue = 0;
   for (const type of types) {
-    const typeMap = map.get(type);
+    const normalizedType = (typeof type === 'string') ? type.toLowerCase() : type;
+    const typeMap = map.get(normalizedType);
     if (hasValue(typeMap)) {
       const typeModeMap = typeMap.get(viewMode);
       if (hasValue(typeModeMap)) {
