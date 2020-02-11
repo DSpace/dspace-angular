@@ -97,9 +97,13 @@ export class ObjectUpdatesService {
         let fieldUpdate = objectEntry.fieldUpdates[uuid];
         if (isEmpty(fieldUpdate)) {
           const identifiable = initialFields.find((object: Identifiable) => object.uuid === uuid);
-          fieldUpdate = { field: identifiable, changeType: undefined };
+          if (hasValue(identifiable)) {
+            fieldUpdate = {field: identifiable, changeType: undefined};
+          }
         }
-        fieldUpdates[uuid] = fieldUpdate;
+        if (hasValue(fieldUpdate)) {
+          fieldUpdates[uuid] = fieldUpdate;
+        }
       });
       return fieldUpdates;
     }))

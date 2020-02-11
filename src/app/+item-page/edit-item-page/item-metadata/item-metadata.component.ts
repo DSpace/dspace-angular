@@ -100,7 +100,7 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
    * Sends all initial values of this item to the object updates service
    */
   public initializeOriginalFields() {
-    this.objectUpdatesService.initialize(this.url, this.getMetadataAsListExcludingRelationships(), this.item.lastModified);
+    this.objectUpdatesService.initialize(this.url, this.item.metadataAsList, this.item.lastModified);
   }
 
   /**
@@ -110,12 +110,12 @@ export class ItemMetadataComponent extends AbstractItemUpdateComponent {
   public submit() {
     this.isValid().pipe(first()).subscribe((isValid) => {
       if (isValid) {
-        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.getMetadataAsListExcludingRelationships()) as Observable<MetadatumViewModel[]>;
+        const metadata$: Observable<Identifiable[]> = this.objectUpdatesService.getUpdatedFields(this.url, this.item.metadataAsList) as Observable<MetadatumViewModel[]>;
         metadata$.pipe(
           first(),
           switchMap((metadata: MetadatumViewModel[]) => {
             const updatedItem: Item = Object.assign(cloneDeep(this.item), { metadata: Metadata.toMetadataMap(metadata) });
-            return this.updateService.update(updatedItem, ['relation.*', 'relationship.*']);
+            return this.updateService.update(updatedItem);
           }),
           tap(() => this.updateService.commitUpdates()),
           getSucceededRemoteData()

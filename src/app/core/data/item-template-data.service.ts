@@ -158,8 +158,8 @@ export class ItemTemplateDataService implements UpdateDataService<Item> {
   /**
    * Add a new patch to the object cache
    */
-  update(object: Item, ignoreMetadataFields: string[] = []): Observable<RemoteData<Item>> {
-    return this.dataService.update(object, ignoreMetadataFields);
+  update(object: Item): Observable<RemoteData<Item>> {
+    return this.dataService.update(object);
   }
 
   /**
