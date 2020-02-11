@@ -123,6 +123,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
   /**
    * Requests all metadata fields that contain the query string in their key
    * Then sets all found metadata fields as metadataFieldSuggestions
+   * Ignores fields from metadata schemas "relation" and "relationship"
    * @param query The query to look for
    */
   findMetadataFieldSuggestions(query: string): void {
@@ -133,7 +134,7 @@ export class EditInPlaceFieldComponent implements OnInit, OnChanges {
         map((data) => data.payload.page)
       ).subscribe(
         (fields: MetadataField[]) => this.metadataFieldSuggestions.next(
-          fields.map((field: MetadataField) => {
+          fields.filter((field: MetadataField) => field.schema.prefix !== 'relation' && field.schema.prefix !== 'relationship').map((field: MetadataField) => {
             return {
               displayValue: field.toString().split('.').join('.&#8203;'),
               value: field.toString()
