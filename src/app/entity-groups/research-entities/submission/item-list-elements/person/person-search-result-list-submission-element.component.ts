@@ -15,6 +15,7 @@ import { NameVariantModalComponent } from '../../name-variant-modal/name-variant
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { isNotEmpty } from '../../../../../shared/empty.util';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SubmissionModal)
 @Component({
@@ -43,7 +44,7 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
 
   ngOnInit() {
     super.ngOnInit();
-    const defaultValue = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName');
+    const defaultValue = this.getPersonName();
     const alternatives = this.allMetadataValues(this.alternativeField);
     this.allSuggestions = [defaultValue, ...alternatives];
 
@@ -94,5 +95,14 @@ export class PersonSearchResultListSubmissionElementComponent extends SearchResu
     const modalComp = modalRef.componentInstance;
     modalComp.value = value;
     return modalRef.result;
+  }
+
+  getPersonName(): string {
+    let personName = this.dso.name;
+    if (isNotEmpty(this.firstMetadataValue('person.familyName')) && isNotEmpty(this.firstMetadataValue('person.givenName'))) {
+      personName = this.firstMetadataValue('person.familyName') + ', ' + this.firstMetadataValue('person.givenName')
+    }
+
+    return personName
   }
 }
