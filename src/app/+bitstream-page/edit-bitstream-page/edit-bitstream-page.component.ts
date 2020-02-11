@@ -495,6 +495,13 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Cancel the form and return to the previous page
+   */
+  onCancel() {
+    this.location.back();
+  }
+
+  /**
    * Unsubscribe from open subscriptions
    */
   ngOnDestroy(): void {
