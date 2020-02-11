@@ -52,7 +52,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   /**
    * The amount of objects to display per page
    */
-  pageSize = 2;
+  pageSize = 10;
 
   /**
    * The page options to use for fetching the objects
@@ -152,7 +152,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
   drop(event: CdkDragDrop<any>) {
     // Check if the user is hovering over any of the pagination's pages at the time of dropping the object
     const droppedOnElement = this.elRef.nativeElement.querySelector('.page-item:hover');
-    if (isNotEmpty(droppedOnElement)) {
+    if (hasValue(droppedOnElement) && hasValue(droppedOnElement.textContent)) {
       // The user is hovering over a page, fetch the page's number from the element
       const page = Number(droppedOnElement.textContent);
       if (hasValue(page) && !Number.isNaN(page)) {
