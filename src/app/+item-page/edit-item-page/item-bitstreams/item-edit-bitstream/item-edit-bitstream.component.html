@@ -1,21 +1,21 @@
 <ng-template #bitstreamView>
-  <div class="col-2 col-md-3 col-lg-4 row-element d-flex">
+  <div class="{{columnSizes.columns[0].buildClasses()}} row-element d-flex">
     <ng-content select="[slot=drag-handle]"></ng-content>
     <div class="float-left d-flex align-items-center">
       {{ bitstream.name }}
     </div>
   </div>
-  <div class="col-2 col-sm-3 row-element d-flex align-items-center">
+  <div class="{{columnSizes.columns[1].buildClasses()}} row-element d-flex align-items-center">
     <div class="w-100">
       {{ bitstream.description }}
     </div>
   </div>
-  <div class="col-2 row-element d-flex align-items-center">
+  <div class="{{columnSizes.columns[2].buildClasses()}} row-element d-flex align-items-center">
     <div class="text-center w-100">
       {{ (format$ | async).shortDescription }}
     </div>
   </div>
-  <div class="col-6 col-sm-5 col-md-4 col-lg-3 row-element d-flex align-items-center">
+  <div class="{{columnSizes.columns[3].buildClasses()}} row-element d-flex align-items-center">
     <div class="text-center w-100">
       <div class="btn-group relationship-action-buttons">
         <a [href]="bitstream?.content"

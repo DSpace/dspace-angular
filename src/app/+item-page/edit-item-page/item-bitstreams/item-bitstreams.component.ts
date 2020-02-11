@@ -27,6 +27,8 @@ import { Operation } from 'fast-json-patch';
 import { MoveOperation } from 'fast-json-patch/lib/core';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { PaginatedSearchOptions } from '../../../shared/search/paginated-search-options.model';
+import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 @Component({
   selector: 'ds-item-bitstreams',
@@ -51,6 +53,20 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     currentPage: 1,
     pageSize: 9999
   } as any;
+
+  /**
+   * The bootstrap sizes used for the columns within this table
+   */
+  columnSizes = new ResponsiveTableSizes([
+    // Name column
+    new ResponsiveColumnSizes(2, 2, 3, 4, 4),
+    // Description column
+    new ResponsiveColumnSizes(2, 3, 3, 3, 3),
+    // Format column
+    new ResponsiveColumnSizes(2, 2, 2, 2, 2),
+    // Actions column
+    new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+  ]);
 
   /**
    * Are we currently submitting the changes?

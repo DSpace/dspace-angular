@@ -1,12 +1,12 @@
 <ng-template #bundleView>
   <div class="row bundle-row">
-    <div class="col-6 col-sm-7 col-md-8 col-lg-9 font-weight-bold row-element d-flex">
+    <div class="{{bundleNameColumn.buildClasses()}} font-weight-bold row-element d-flex">
       <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
       <div class="float-left d-flex align-items-center">
         {{'item.edit.bitstreams.bundle.name' | translate:{ name: bundle.name } }}
       </div>
     </div>
-    <div class="col-6 col-sm-5 col-md-4 col-lg-3 text-center row-element">
+    <div class="{{columnSizes.columns[3].buildClasses()}} text-center row-element">
       <div class="btn-group bundle-action-buttons">
         <button [routerLink]="['/items/', item.id, 'bitstreams', 'new']"
                 [queryParams]="{bundle: bundle.id}"
@@ -17,5 +17,5 @@
       </div>
     </div>
   </div>
-  <ds-paginated-drag-and-drop-bitstream-list [bundle]="bundle"></ds-paginated-drag-and-drop-bitstream-list>
+  <ds-paginated-drag-and-drop-bitstream-list [bundle]="bundle" [columnSizes]="columnSizes"></ds-paginated-drag-and-drop-bitstream-list>
 </ng-template>

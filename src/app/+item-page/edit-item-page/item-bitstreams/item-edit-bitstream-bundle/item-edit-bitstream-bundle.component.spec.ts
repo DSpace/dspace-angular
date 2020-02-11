@@ -4,11 +4,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
 import { Item } from '../../../../core/shared/item.model';
 import { Bundle } from '../../../../core/shared/bundle.model';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 
 describe('ItemEditBitstreamBundleComponent', () => {
   let comp: ItemEditBitstreamBundleComponent;
   let fixture: ComponentFixture<ItemEditBitstreamBundleComponent>;
   let viewContainerRef: ViewContainerRef;
+
+  const columnSizes = new ResponsiveTableSizes([
+    new ResponsiveColumnSizes(2, 2, 3, 4, 4),
+    new ResponsiveColumnSizes(2, 3, 3, 3, 3),
+    new ResponsiveColumnSizes(2, 2, 2, 2, 2),
+    new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+  ]);
 
   const item = Object.assign(new Item(), {
     id: 'item-1',
@@ -35,6 +44,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
     comp = fixture.componentInstance;
     comp.item = item;
     comp.bundle = bundle;
+    comp.columnSizes = columnSizes;
     viewContainerRef = (comp as any).viewContainerRef;
     spyOn(viewContainerRef, 'createEmbeddedView');
     fixture.detectChanges();

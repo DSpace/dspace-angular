@@ -7,6 +7,7 @@ import { FieldChangeType } from '../../../../core/data/object-updates/object-upd
 import { Observable } from 'rxjs/internal/Observable';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
 import { getRemoteDataPayload, getSucceededRemoteData } from '../../../../core/shared/operators';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 @Component({
   selector: 'ds-item-edit-bitstream',
@@ -32,6 +33,11 @@ export class ItemEditBitstreamComponent implements OnChanges, OnInit {
    * The url of the bundle
    */
   @Input() bundleUrl: string;
+
+  /**
+   * The bootstrap sizes used for the columns within this table
+   */
+  @Input() columnSizes: ResponsiveTableSizes;
 
   /**
    * The bitstream of this field

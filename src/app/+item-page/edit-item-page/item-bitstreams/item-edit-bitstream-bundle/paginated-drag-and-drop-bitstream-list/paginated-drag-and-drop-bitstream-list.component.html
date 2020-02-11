@@ -19,7 +19,8 @@
                   'bg-white': updateValue.changeType === undefined
                 }">
       <ds-item-edit-bitstream [fieldUpdate]="updateValue"
-                              [bundleUrl]="bundle.self">
+                              [bundleUrl]="bundle.self"
+                              [columnSizes]="columnSizes">
         <div class="d-flex align-items-center" slot="drag-handle" cdkDragHandle>
           <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
         </div>

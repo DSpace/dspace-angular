@@ -13,12 +13,21 @@ import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.mod
 import { createPaginatedList, createSuccessfulRemoteDataObject$ } from '../../../../../shared/testing/utils';
 import { of as observableOf } from 'rxjs/internal/observable/of';
 import { take } from 'rxjs/operators';
+import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-sizes/responsive-column-sizes';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
   let fixture: ComponentFixture<PaginatedDragAndDropBitstreamListComponent>;
   let objectUpdatesService: ObjectUpdatesService;
   let bundleService: BundleDataService;
+
+  const columnSizes = new ResponsiveTableSizes([
+    new ResponsiveColumnSizes(2, 2, 3, 4, 4),
+    new ResponsiveColumnSizes(2, 3, 3, 3, 3),
+    new ResponsiveColumnSizes(2, 2, 2, 2, 2),
+    new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+  ]);
 
   const bundle = Object.assign(new Bundle(), {
     id: 'bundle-1',
@@ -104,6 +113,7 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     fixture = TestBed.createComponent(PaginatedDragAndDropBitstreamListComponent);
     comp = fixture.componentInstance;
     comp.bundle = bundle;
+    comp.columnSizes = columnSizes;
     fixture.detectChanges();
   });
 

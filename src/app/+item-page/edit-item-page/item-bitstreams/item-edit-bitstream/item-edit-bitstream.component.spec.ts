@@ -8,9 +8,18 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { createMockRDObs } from '../item-bitstreams.component.spec';
 import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 
 let comp: ItemEditBitstreamComponent;
 let fixture: ComponentFixture<ItemEditBitstreamComponent>;
+
+const columnSizes = new ResponsiveTableSizes([
+  new ResponsiveColumnSizes(2, 2, 3, 4, 4),
+  new ResponsiveColumnSizes(2, 3, 3, 3, 3),
+  new ResponsiveColumnSizes(2, 2, 2, 2, 2),
+  new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+]);
 
 const format = Object.assign(new BitstreamFormat(), {
   shortDescription: 'PDF'
@@ -71,6 +80,7 @@ describe('ItemEditBitstreamComponent', () => {
     comp = fixture.componentInstance;
     comp.fieldUpdate = fieldUpdate;
     comp.bundleUrl = url;
+    comp.columnSizes = columnSizes;
     comp.ngOnChanges(undefined);
     fixture.detectChanges();
   });

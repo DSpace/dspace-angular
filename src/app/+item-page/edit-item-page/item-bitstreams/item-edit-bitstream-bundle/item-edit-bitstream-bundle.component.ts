@@ -16,6 +16,8 @@ import { combineLatest as observableCombineLatest } from 'rxjs';
 import { hasNoValue, isEmpty } from '../../../../shared/empty.util';
 import { PaginatedSearchOptions } from '../../../../shared/search/paginated-search-options.model';
 import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 @Component({
   selector: 'ds-item-edit-bitstream-bundle',
@@ -42,10 +44,22 @@ export class ItemEditBitstreamBundleComponent implements OnInit {
    */
   @Input() item: Item;
 
+  /**
+   * The bootstrap sizes used for the columns within this table
+   */
+  @Input() columnSizes: ResponsiveTableSizes;
+
+  /**
+   * The bootstrap sizes used for the Bundle Name column
+   * This column stretches over the first 3 columns and thus is a combination of their sizes processed in ngOnInit
+   */
+  bundleNameColumn: ResponsiveColumnSizes;
+
   constructor(private viewContainerRef: ViewContainerRef) {
   }
 
   ngOnInit(): void {
+    this.bundleNameColumn = this.columnSizes.combineColumns(0, 2);
     this.viewContainerRef.createEmbeddedView(this.bundleView);
   }
 }

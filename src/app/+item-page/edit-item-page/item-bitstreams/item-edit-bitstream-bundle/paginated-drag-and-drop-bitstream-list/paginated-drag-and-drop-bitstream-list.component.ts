@@ -6,6 +6,7 @@ import { ObjectUpdatesService } from '../../../../../core/data/object-updates/ob
 import { BundleDataService } from '../../../../../core/data/bundle-data.service';
 import { switchMap } from 'rxjs/operators';
 import { PaginatedSearchOptions } from '../../../../../shared/search/paginated-search-options.model';
+import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
 
 @Component({
   selector: 'ds-paginated-drag-and-drop-bitstream-list',
@@ -23,6 +24,11 @@ export class PaginatedDragAndDropBitstreamListComponent extends AbstractPaginate
    * The bundle to display bitstreams for
    */
   @Input() bundle: Bundle;
+
+  /**
+   * The bootstrap sizes used for the columns within this table
+   */
+  @Input() columnSizes: ResponsiveTableSizes;
 
   constructor(protected objectUpdatesService: ObjectUpdatesService,
               protected elRef: ElementRef,
