@@ -1,21 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
-import { BrowseService } from '../browse/browse.service';
-import { CoreState } from '../core.reducers';
-import { ItemDataService } from './item-data.service';
-import { RequestService } from './request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { Observable, of as observableOf } from 'rxjs';
-import { RestResponse } from '../cache/response.models';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { HttpClient } from '@angular/common/http';
-import { RequestEntry } from './request.reducer';
+import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { BrowseService } from '../browse/browse.service';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { CoreState } from '../core.reducers';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ItemDataService } from './item-data.service';
+import { DeleteRequest, FindListOptions, PostRequest, RestRequest } from './request.models';
+import { RequestEntry } from './request.reducer';
+import { RequestService } from './request.service';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;
@@ -45,7 +45,7 @@ describe('ItemDataService', () => {
   const objectCache = {} as ObjectCacheService;
   const halEndpointService = {
     getEndpoint(linkPath: string): Observable<string> {
-      return cold('a', {a: itemEndpoint});
+      return cold('a', { a: itemEndpoint });
     }
   } as HALEndpointService;
 
@@ -132,7 +132,7 @@ describe('ItemDataService', () => {
 
     it('should return the endpoint to withdraw and reinstate items', () => {
       const result = service.getItemWithdrawEndpoint(scopeID);
-      const expected = cold('a', {a: ScopedItemEndpoint});
+      const expected = cold('a', { a: ScopedItemEndpoint });
 
       expect(result).toBeObservable(expected);
     });
@@ -154,7 +154,7 @@ describe('ItemDataService', () => {
 
     it('should return the endpoint to make an item private or public', () => {
       const result = service.getItemDiscoverableEndpoint(scopeID);
-      const expected = cold('a', {a: ScopedItemEndpoint});
+      const expected = cold('a', { a: ScopedItemEndpoint });
 
       expect(result).toBeObservable(expected);
     });
@@ -201,7 +201,7 @@ describe('ItemDataService', () => {
     const externalSourceEntry = Object.assign(new ExternalSourceEntry(), {
       display: 'John, Doe',
       value: 'John, Doe',
-      self: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004'
+      _links: { self: { href: 'http://test-rest.com/server/api/integration/externalSources/orcidV2/entryValues/0000-0003-4851-8004' } }
     });
 
     beforeEach(() => {

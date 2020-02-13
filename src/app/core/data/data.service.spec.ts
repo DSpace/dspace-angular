@@ -1,23 +1,23 @@
-import { DataService } from './data.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { RequestService } from './request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CoreState } from '../core.reducers';
+import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { compare, Operation } from 'fast-json-patch';
 import { Observable, of as observableOf } from 'rxjs';
-import { FindListOptions } from './request.models';
+import * as uuidv4 from 'uuid/v4';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { compare, Operation } from 'fast-json-patch';
+import { CoreState } from '../core.reducers';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { ChangeAnalyzer } from './change-analyzer';
-import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import * as uuidv4 from 'uuid/v4';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
+import { ChangeAnalyzer } from './change-analyzer';
+import { DataService } from './data.service';
+import { FindListOptions } from './request.models';
+import { RequestService } from './request.service';
 
 const endpoint = 'https://rest.api/core';
 
@@ -184,13 +184,15 @@ describe('DataService', () => {
       operations = [{ op: 'replace', path: '/0/value', value: name2 } as Operation];
       selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
 
-      dso = new DSpaceObject();
-      dso._links.self = { href: selfLink };
-      dso.metadata = [{ key: 'dc.title', value: name1 }];
+      dso = Object.assign(new DSpaceObject(), {
+        _links: { self: { href: selfLink } },
+        metadata: [{ key: 'dc.title', value: name1 }]
+      });
 
-      dso2 = new DSpaceObject();
-      dso2._link.self = { href: selfLink };
-      dso2.metadata = [{ key: 'dc.title', value: name2 }];
+      dso2 = Object.assign(new DSpaceObject(), {
+        _links: { self: { href: selfLink } },
+        metadata: [{ key: 'dc.title', value: name2 }]
+      });
 
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(dso));
       spyOn(objectCache, 'addPatch');

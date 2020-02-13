@@ -34,13 +34,17 @@ describe('RelationshipService', () => {
   });
 
   const relationship1 = Object.assign(new Relationship(), {
-    self: relationshipsEndpointURL + '/2',
+    _links: {
+      self: { href: relationshipsEndpointURL + '/2' }
+    },
     id: '2',
     uuid: '2',
     relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
   });
   const relationship2 = Object.assign(new Relationship(), {
-    self: relationshipsEndpointURL + '/3',
+    _links: {
+      self: { href: relationshipsEndpointURL + '/3' }
+    },
     id: '3',
     uuid: '3',
     relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
@@ -49,24 +53,28 @@ describe('RelationshipService', () => {
   const relationships = [relationship1, relationship2];
 
   const item = Object.assign(new Item(), {
-    self: restEndpointURL + '/publication',
     id: 'publication',
     uuid: 'publication',
     relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships))),
     _links: {
-      relationships: { href: restEndpointURL + '/publication/relationships' }
+      relationships: { href: restEndpointURL + '/publication/relationships' },
+      self: { href: restEndpointURL + '/publication' }
     }
   });
 
   const relatedItem1 = Object.assign(new Item(), {
-    self: 'fake-item-url/author1',
     id: 'author1',
-    uuid: 'author1'
+    uuid: 'author1',
+    _links: {
+      self: { href: restEndpointURL + '/author1' }
+    }
   });
   const relatedItem2 = Object.assign(new Item(), {
-    self: 'fake-item-url/author2',
     id: 'author2',
-    uuid: 'author2'
+    uuid: 'author2',
+    _links: {
+      self: { href: restEndpointURL + '/author2' }
+    }
   });
   relationship1.leftItem = getRemotedataObservable(relatedItem1);
   relationship1.rightItem = getRemotedataObservable(item);
@@ -130,8 +138,8 @@ describe('RelationshipService', () => {
     });
 
     it('should clear the cache of the related items', () => {
-      expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1.self);
-      expect(objectCache.remove).toHaveBeenCalledWith(item.self);
+      expect(objectCache.remove).toHaveBeenCalledWith(relatedItem1._links.self.href);
+      expect(objectCache.remove).toHaveBeenCalledWith(item._links.self.href);
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(relatedItem1.self);
       expect(requestService.removeByHrefSubstring).toHaveBeenCalledWith(item.self);
     });

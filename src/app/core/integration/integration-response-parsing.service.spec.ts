@@ -32,8 +32,16 @@ describe('IntegrationResponseParsingService', () => {
   let definitions;
 
   function initVars() {
-    pageInfo = Object.assign(new PageInfo(), { elementsPerPage: 5, totalElements: 5, totalPages: 1, currentPage: 1, self: 'https://rest.api/integration/authorities/type/entries'});
-    definitions = new PaginatedList(pageInfo,[
+    pageInfo = Object.assign(new PageInfo(), {
+      elementsPerPage: 5,
+      totalElements: 5,
+      totalPages: 1,
+      currentPage: 1,
+      _links: {
+        self: { href: 'https://rest.api/integration/authorities/type/entries' }
+      }
+    });
+    definitions = new PaginatedList(pageInfo, [
       Object.assign(new AuthorityValue(), {
         type: 'authority',
         display: 'One',

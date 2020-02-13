@@ -31,7 +31,6 @@ describe('BrowseResponseParsingService', () => {
                 metadata: 'dc.date.issued'
               }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
               order: 'ASC',
-              type: 'browse',
               metadata: ['dc.date.issued'],
               _links: {
                 self: { href: 'https://rest.api/discover/browses/dateissued' },
@@ -44,7 +43,6 @@ describe('BrowseResponseParsingService', () => {
                 metadata: 'dc.date.issued'
               }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
               order: 'ASC',
-              type: 'browse',
               metadata: ['dc.contributor.*', 'dc.creator'],
               _links: {
                 self: { href: 'https://rest.api/discover/browses/author' },
@@ -68,7 +66,6 @@ describe('BrowseResponseParsingService', () => {
                 metadata: 'dc.date.issued'
               }, { name: 'dateaccessioned', metadata: 'dc.date.accessioned' }],
               order: 'ASC',
-              type: 'browse',
               metadata: ['dc.date.issued'],
               _links: {
                 self: { href: 'https://rest.api/discover/browses/dateissued' },

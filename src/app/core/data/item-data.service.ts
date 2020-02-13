@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, find, map, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, find, map, switchMap, tap } from 'rxjs/operators';
 import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
@@ -243,7 +243,7 @@ export class ItemDataService extends DataService<Item> {
     hrefObs.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PutRequest(requestId, href, collection.self, options);
+        const request = new PutRequest(requestId, href, collection._links.self.href, options);
         this.requestService.configure(request);
       })
     ).subscribe();

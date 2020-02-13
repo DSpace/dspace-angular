@@ -27,7 +27,6 @@ describe('ObjectCacheService', () => {
   const timestamp = new Date().getTime();
   const msToLive = 900000;
   let objectToCache = {
-    self: selfLink,
     type: Item.type,
     _links: {
       self: { href: selfLink }
@@ -39,7 +38,6 @@ describe('ObjectCacheService', () => {
 
   function init() {
     objectToCache = {
-      self: selfLink,
       type: Item.type,
       _links: {
         self: { href: selfLink }
@@ -115,12 +113,13 @@ describe('ObjectCacheService', () => {
 
   describe('getList', () => {
     it('should return an observable of the array of cached objects with the specified self link and type', () => {
-      const item = new Item();
-      item._links.self = { href: selfLink };
+      const item = Object.assign(new Item(), {
+        _links: { self: { href: selfLink } }
+      });
       spyOn(service, 'getObjectBySelfLink').and.returnValue(observableOf(item));
 
       service.getList([selfLink, selfLink]).pipe(first()).subscribe((arr) => {
-        expect(arr[0].self).toBe(selfLink);
+        expect(arr[0]._links.self.href).toBe(selfLink);
         expect(arr[0] instanceof Item).toBeTruthy();
       });
     });

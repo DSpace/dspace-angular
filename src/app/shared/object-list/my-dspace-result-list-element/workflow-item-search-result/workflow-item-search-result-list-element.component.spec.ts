@@ -1,16 +1,19 @@
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { cold } from 'jasmine-marbles';
 
 import { of as observableOf } from 'rxjs';
+import { LinkService } from '../../../../core/cache/builders/link.service';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 
 import { Item } from '../../../../core/shared/item.model';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
-import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
-import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
+import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { WorkflowItemSearchResultListElementComponent } from './workflow-item-search-result-list-element.component';
 
 let component: WorkflowItemSearchResultListElementComponent;
 let fixture: ComponentFixture<WorkflowItemSearchResultListElementComponent>;
@@ -52,13 +55,22 @@ const item = Object.assign(new Item(), {
 const rd = createSuccessfulRemoteDataObject(item);
 mockResultObject.indexableObject = Object.assign(new WorkflowItem(), { item: observableOf(rd) });
 
+let linkService;
+
 describe('WorkflowItemSearchResultListElementComponent', () => {
   beforeEach(async(() => {
+    linkService = {
+      resolveLink() {
+        // mock
+      },
+    };
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
       declarations: [WorkflowItemSearchResultListElementComponent],
       providers: [
         { provide: TruncatableService, useValue: {} },
+        { provide: ItemDataService, useValue: {} },
+        { provide: LinkService, useValue: linkService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(WorkflowItemSearchResultListElementComponent, {
@@ -77,7 +89,7 @@ describe('WorkflowItemSearchResultListElementComponent', () => {
   });
 
   it('should init item properly', () => {
-    expect(component.item).toEqual(item);
+    expect(component.item$).toBeObservable(cold('a',{a: item}));
   });
 
   it('should have properly status', () => {
