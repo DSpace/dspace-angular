@@ -164,9 +164,7 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         flatMap((submissionObject: SubmissionObjectEntry) => this.collectionDataService.findById(submissionObject.collection, followLink('defaultAccessConditions'))),
         filter((rd: RemoteData<Collection>) => isNotUndefined((rd.payload))),
         tap((collectionRemoteData: RemoteData<Collection>) => this.collectionName = collectionRemoteData.payload.name),
-        flatMap((collectionRemoteData: RemoteData<Collection>) => {
-          return this.resourcePolicyService.findByHref((collectionRemoteData.payload as any).defaultAccessConditions);
-        }),
+        map((collectionRemoteData: RemoteData<Collection>) => (collectionRemoteData.payload as any).defaultAccessConditions),
         filter((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) =>
           defaultAccessConditionsRemoteData.hasSucceeded),
         tap((defaultAccessConditionsRemoteData: RemoteData<ResourcePolicy>) => {

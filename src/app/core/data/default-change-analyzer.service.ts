@@ -1,10 +1,11 @@
-import { Operation } from 'fast-json-patch/lib/core';
-import { compare } from 'fast-json-patch';
-import { ChangeAnalyzer } from './change-analyzer';
 import { Injectable } from '@angular/core';
-import { CacheableObject } from '../cache/object-cache.reducer';
+import { compare } from 'fast-json-patch';
+import { Operation } from 'fast-json-patch/lib/core';
+import { getMapsToType } from '../cache/builders/build-decorators';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { CacheableObject } from '../cache/object-cache.reducer';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
+import { ChangeAnalyzer } from './change-analyzer';
 
 /**
  * A class to determine what differs between two
@@ -12,7 +13,7 @@ import { NormalizedObjectBuildService } from '../cache/builders/normalized-objec
  */
 @Injectable()
 export class DefaultChangeAnalyzer<T extends CacheableObject> implements ChangeAnalyzer<T> {
-  constructor(private normalizeService: NormalizedObjectBuildService) {
+  constructor() {
   }
 
   /**
@@ -24,7 +25,9 @@ export class DefaultChangeAnalyzer<T extends CacheableObject> implements ChangeA
    * @param {NormalizedObject} object2
    *    The second object to compare
    */
-  diff(object1: T | NormalizedObject<T>, object2: T | NormalizedObject<T>): Operation[] {
-    return compare(this.normalizeService.normalize(object1), this.normalizeService.normalize(object2));
+  diff(object1: T, object2: T): Operation[] {
+    const serializer1 = new DSpaceSerializer(getMapsToType(object1.type));
+    const serializer2 = new DSpaceSerializer(getMapsToType(object2.type));
+    return compare(serializer1.serialize(object1), serializer2.serialize(object2));
   }
 }

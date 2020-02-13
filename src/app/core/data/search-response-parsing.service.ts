@@ -4,7 +4,7 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { hasValue } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../shared/search/search-query-response.model';
 import { MetadataMap, MetadataValue } from '../shared/metadata.models';
@@ -59,13 +59,9 @@ export class SearchResponseParsingService implements ResponseParsingService {
       .map((object, index) => Object.assign({}, object, {
         indexableObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
-        // we don't need embedded collections, bitstreamformats, etc for search results.
-        // And parsing them all takes up a lot of time. Throw them away to improve performance
-        // until objs until partial results are supported by the rest api
-        _embedded: undefined
       }));
     payload.objects = objects;
-    const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
+    const deserialized = new NormalizedObjectSerializer(SearchQueryResponse).deserialize(payload);
     return new SearchSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(payload));
   }
 }

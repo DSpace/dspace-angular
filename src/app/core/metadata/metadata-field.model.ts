@@ -1,9 +1,12 @@
+import { autoserialize } from 'cerialize';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
-import { link } from '../cache/builders/build-decorators';
+import { link, resourceType } from '../cache/builders/build-decorators';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
+import { ResourceType } from '../shared/resource-type';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { METADATA_FIELD } from './metadata-field.resource-type';
 import { MetadataSchema } from './metadata-schema.model';
 import { METADATA_SCHEMA } from './metadata-schema.resource-type';
@@ -11,8 +14,16 @@ import { METADATA_SCHEMA } from './metadata-schema.resource-type';
 /**
  * Class the represents a metadata field
  */
+@resourceType(MetadataField.type)
 export class MetadataField extends ListableObject implements HALResource {
   static type = METADATA_FIELD;
+
+  /**
+   * The object type
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * The identifier of this metadata field
@@ -40,7 +51,8 @@ export class MetadataField extends ListableObject implements HALResource {
   scopeNote: string;
 
   /**
-   * The metadata schema object of this metadata field
+   * The MetadataSchema for this MetadataField
+   * Will be undefined unless the schema HALLink has been resolved.
    */
   @link(METADATA_SCHEMA)
   // TODO the responseparsingservice assumes schemas are always embedded. This should be remotedata instead.

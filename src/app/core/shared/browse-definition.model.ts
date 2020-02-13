@@ -1,11 +1,22 @@
-import { autoserialize, autoserializeAs } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
+import { resourceType } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/object-cache.reducer';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BROWSE_DEFINITION } from './browse-definition.resource-type';
 import { HALLink } from './hal-link.model';
+import { ResourceType } from './resource-type';
 import { SortOption } from './sort-option.model';
 
+@resourceType(BrowseDefinition.type)
 export class BrowseDefinition implements TypedObject {
   static type = BROWSE_DEFINITION;
+
+  /**
+   * The object type
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   @autoserialize
   id: string;
@@ -26,7 +37,7 @@ export class BrowseDefinition implements TypedObject {
     return this._links.self.href;
   }
 
-  @autoserialize
+  @deserialize
   _links: {
     self: HALLink;
     entries: HALLink;

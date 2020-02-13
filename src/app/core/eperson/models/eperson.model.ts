@@ -1,4 +1,6 @@
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
+import { link, resourceType } from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list';
 import { RemoteData } from '../../data/remote-data';
 
@@ -6,48 +8,53 @@ import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { EPERSON } from './eperson.resource-type';
 import { Group } from './group.model';
+import { GROUP } from './group.resource-type';
 
+@resourceType(EPerson.type)
+@inheritSerialization(DSpaceObject)
 export class EPerson extends DSpaceObject {
   static type = EPERSON;
 
   /**
    * A string representing the unique handle of this Collection
    */
+  @autoserialize
   public handle: string;
-
-  /**
-   * List of Groups that this EPerson belong to
-   */
-  public groups: Observable<RemoteData<PaginatedList<Group>>>;
 
   /**
    * A string representing the netid of this EPerson
    */
+  @autoserialize
   public netid: string;
 
   /**
    * A string representing the last active date for this EPerson
    */
+  @autoserialize
   public lastActive: string;
 
   /**
    * A boolean representing if this EPerson can log in
    */
+  @autoserialize
   public canLogIn: boolean;
 
   /**
    * The EPerson email address
    */
+  @autoserialize
   public email: string;
 
   /**
    * A boolean representing if this EPerson require certificate
    */
+  @autoserialize
   public requireCertificate: boolean;
 
   /**
    * A boolean representing if this EPerson registered itself
    */
+  @autoserialize
   public selfRegistered: boolean;
 
   /**
@@ -58,7 +65,15 @@ export class EPerson extends DSpaceObject {
   }
 
   _links: {
-    self: HALLink,
-    groups: HALLink,
-  }
+    self: HALLink;
+    groups: HALLink;
+  };
+
+  /**
+   * The list of Groups this EPerson is part of
+   * Will be undefined unless the groups HALLink has been resolved.
+   */
+  @link(GROUP, true)
+  public groups?: Observable<RemoteData<PaginatedList<Group>>>;
+
 }

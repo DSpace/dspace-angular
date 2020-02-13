@@ -5,12 +5,9 @@ import {
   SubmissionSectionModel,
   SubmissionSectionVisibility
 } from './config-submission-section.model';
-import { mapsTo } from '../../cache/builders/build-decorators';
-
 /**
  * Normalized class for the configuration describing the submission section
  */
-@mapsTo(SubmissionSectionModel)
 @inheritSerialization(NormalizedConfigObject)
 export class NormalizedSubmissionSectionModel extends NormalizedConfigObject<SubmissionSectionModel> {
 

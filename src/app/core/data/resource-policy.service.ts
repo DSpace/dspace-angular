@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { dataService } from '../cache/builders/build-decorators';
 
 import { DataService } from '../data/data.service';
 import { RequestService } from '../data/request.service';
@@ -16,6 +18,7 @@ import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { RESOURCE_POLICY } from '../shared/resource-policy.resource-type';
 import { ChangeAnalyzer } from './change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
 import { PaginatedList } from './paginated-list';
@@ -43,6 +46,7 @@ class DataServiceImpl extends DataService<ResourcePolicy> {
  * A service responsible for fetching/sending data from/to the REST API on the resourcepolicies endpoint
  */
 @Injectable()
+@dataService(RESOURCE_POLICY)
 export class ResourcePolicyService {
   private dataService: DataServiceImpl;
 
@@ -58,8 +62,12 @@ export class ResourcePolicyService {
     this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
-  findByHref(href: string): Observable<RemoteData<ResourcePolicy>> {
-    return this.dataService.findByHref(href);
+  findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {
+    return this.dataService.findByHref(href, ...linksToFollow);
+  }
+
+  findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {
+    return this.dataService.findAllByHref(href, findListOptions, ...linksToFollow);
   }
 
   getDefaultAccessConditionsFor(collection: Collection, findListOptions?: FindListOptions): Observable<RemoteData<PaginatedList<ResourcePolicy>>> {

@@ -6,7 +6,6 @@ import { first } from 'rxjs/operators';
 import { CoreState } from '../core.reducers';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { Item } from '../shared/item.model';
-import { NormalizedItem } from './models/normalized-item.model';
 import {
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
@@ -95,7 +94,7 @@ describe('ObjectCacheService', () => {
       service.getObjectBySelfLink(selfLink).pipe(first()).subscribe((o) => {
           expect(o.self).toBe(selfLink);
           // this only works if testObj is an instance of TestClass
-          expect(o instanceof NormalizedItem).toBeTruthy();
+          expect(o instanceof Item).toBeTruthy();
         }
       );
     });

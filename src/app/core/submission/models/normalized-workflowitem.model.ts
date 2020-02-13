@@ -1,6 +1,6 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 
-import { mapsTo, relationship } from '../../cache/builders/build-decorators';
+import { relationship } from '../../cache/builders/build-decorators';
 import { WorkflowItem } from './workflowitem.model';
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
 import { Collection } from '../../shared/collection.model';
@@ -11,7 +11,6 @@ import { EPerson } from '../../eperson/models/eperson.model';
 /**
  * An model class for a NormalizedWorkflowItem.
  */
-@mapsTo(WorkflowItem)
 @inheritSerialization(NormalizedSubmissionObject)
 export class NormalizedWorkflowItem extends NormalizedSubmissionObject<WorkflowItem> {
 

@@ -48,7 +48,7 @@ import {
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { distinctUntilChanged, flatMap, map, take, tap } from 'rxjs/operators';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
@@ -400,7 +400,7 @@ export class RegistryService {
       distinctUntilChanged()
     );
 
-    const serializedSchema = new DSpaceRESTv2Serializer(getMapsToType(MetadataSchema.type)).serialize(schema);
+    const serializedSchema = new NormalizedObjectSerializer(getMapsToType(MetadataSchema.type)).serialize(schema);
 
     const request$ = endpoint$.pipe(
       take(1),

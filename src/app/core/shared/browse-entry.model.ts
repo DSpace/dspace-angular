@@ -1,16 +1,27 @@
+import { autoserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { resourceType } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { BROWSE_ENTRY } from './browse-entry.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
+import { ResourceType } from './resource-type';
 
 /**
  * Class object representing a browse entry
  * This class is not normalized because browse entries do not have self links
  */
+@resourceType(BrowseEntry.type)
 export class BrowseEntry extends ListableObject implements TypedObject {
   static type = BROWSE_ENTRY;
+
+  /**
+   * The object type
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * The authority string of this browse entry

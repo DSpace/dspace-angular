@@ -54,7 +54,11 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
     super(WorkspaceItem.type, injector, router, notificationsService, translate, searchService, requestService);
   }
 
-  /**
+  ngOnInit() {
+    console.log('ngOnInit', this.object);
+  }
+
+    /**
    * Delete the target workspaceitem object
    */
   public confirmDiscard(content) {
@@ -78,6 +82,7 @@ export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<Work
    * @param {WorkspaceItem} object
    */
   initObjects(object: WorkspaceItem) {
+    console.log('object', object);
     this.object = object;
   }
 

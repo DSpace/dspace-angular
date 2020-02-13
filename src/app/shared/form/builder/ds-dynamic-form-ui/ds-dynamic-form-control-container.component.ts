@@ -241,7 +241,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
       this.listId = 'list-' + this.model.relationship.relationshipType;
 
       const submissionObject$ = this.submissionObjectService
-        .findById(this.model.submissionId).pipe(
+        .findById(this.model.submissionId, followLink('item'), followLink('collection')).pipe(
           getAllSucceededRemoteData(),
           getRemoteDataPayload()
         );
@@ -284,10 +284,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         this.ref.detectChanges();
       }));
 
-      this.relationService.getRelatedItemsByLabel(this.item, this.model.relationship.relationshipType).pipe(
+      item$.pipe(
+        switchMap((item) => this.relationService.getRelatedItemsByLabel(item, this.model.relationship.relationshipType)),
         map((items: RemoteData<PaginatedList<Item>>) => items.payload.page.map((item) => Object.assign(new ItemSearchResult(), { indexableObject: item }))),
       ).subscribe((relatedItems: Array<SearchResult<Item>>) => {
-        console.log('relatedItems', relatedItems);
         this.selectableListService.select(this.listId, relatedItems)
       });
     }

@@ -271,7 +271,7 @@ export class ItemDataService extends DataService<Item> {
     href$.pipe(
       find((href: string) => hasValue(href)),
       map((href: string) => {
-        const request = new PostRequest(requestId, href, externalSourceEntry.self, options);
+        const request = new PostRequest(requestId, href, externalSourceEntry._links.self.href, options);
         this.requestService.configure(request);
       })
     ).subscribe();

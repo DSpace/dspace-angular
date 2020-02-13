@@ -1,15 +1,26 @@
 import { autoserialize, deserialize } from 'cerialize';
-import { relationship } from '../cache/builders/build-decorators';
+import { relationship, resourceType } from '../cache/builders/build-decorators';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { HALLink } from '../shared/hal-link.model';
 import { PageInfo } from '../shared/page-info.model';
+import { ResourceType } from '../shared/resource-type';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 
 /**
  * Class that represents a response with a registry's metadata fields
  */
+@resourceType(RegistryMetadatafieldsResponse.type)
 export class RegistryMetadatafieldsResponse {
   static type = METADATA_FIELD;
+
+  /**
+   * The object type
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
+
   /**
    * List of metadata fields in the response
    */

@@ -116,6 +116,9 @@ export class ObjectCacheService {
       ),
       map((entry: ObjectCacheEntry) => {
         const type: GenericConstructor<NormalizedObject<T>> = getMapsToType((entry.data as any).type);
+        if (typeof type !== 'function') {
+          throw new Error(`${type} is not a valid constructor for ${JSON.stringify(entry.data)}`);
+        }
         return Object.assign(new type(), entry.data) as NormalizedObject<T>
       })
     );
@@ -259,7 +262,7 @@ export class ObjectCacheService {
       const timeOutdated = entry.timeAdded + entry.msToLive;
       const isOutDated = new Date().getTime() > timeOutdated;
       if (isOutDated) {
-        this.store.dispatch(new RemoveFromObjectCacheAction(entry.data.self));
+        this.store.dispatch(new RemoveFromObjectCacheAction(entry.data._links.self.href));
       }
       return !isOutDated;
     }

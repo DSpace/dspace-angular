@@ -1,5 +1,7 @@
+import { autoserialize, deserialize } from 'cerialize';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import {
   ObjectCacheAction,
   ObjectCacheActionTypes,
@@ -36,6 +38,7 @@ export interface Patch {
 
 export abstract class TypedObject {
   static type: ResourceType;
+  type: ResourceType;
 }
 
 /* tslint:disable:max-classes-per-file */
@@ -47,7 +50,6 @@ export abstract class TypedObject {
 export class CacheableObject extends TypedObject implements HALResource {
   uuid?: string;
   handle?: string;
-  self: string;
 
   _links: {
     self: HALLink;
@@ -135,9 +137,9 @@ export function objectCacheReducer(state = initialState, action: ObjectCacheActi
  *    the new state, with the object added, or overwritten.
  */
 function addToObjectCache(state: ObjectCacheState, action: AddToObjectCacheAction): ObjectCacheState {
-  const existing = state[action.payload.objectToCache.self];
+  const existing = state[action.payload.objectToCache._links.self.href];
   return Object.assign({}, state, {
-    [action.payload.objectToCache.self]: {
+    [action.payload.objectToCache._links.self.href]: {
       data: action.payload.objectToCache,
       timeAdded: action.payload.timeAdded,
       msToLive: action.payload.msToLive,

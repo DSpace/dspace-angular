@@ -1,17 +1,26 @@
+import { autoserialize, autoserializeAs, deserialize, deserializeAs } from 'cerialize';
 import { hasNoValue, isUndefined } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { resourceType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { DSPACE_OBJECT } from './dspace-object.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
-import { MetadataMap, MetadataValue, MetadataValueFilter, MetadatumViewModel } from './metadata.models';
+import {
+  MetadataMap,
+  MetadataMapSerializer,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel
+} from './metadata.models';
 import { Metadata } from './metadata.utils';
 import { ResourceType } from './resource-type';
 
 /**
  * An abstract model class for a DSpaceObject.
  */
+@resourceType(DSpaceObject.type)
 export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
@@ -19,27 +28,35 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   static type = DSPACE_OBJECT;
 
   @excludeFromEquals
+  @deserializeAs('name')
   private _name: string;
-
-  @excludeFromEquals
-  self: string;
 
   /**
    * The human-readable identifier of this DSpaceObject
    */
   @excludeFromEquals
+  @autoserializeAs(String, 'uuid')
   id: string;
 
   /**
    * The universally unique identifier of this DSpaceObject
    */
+  @autoserializeAs(String)
   uuid: string;
 
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
   @excludeFromEquals
+  @autoserialize
   type: ResourceType;
+
+  /**
+   * A shorthand for this DSpaceObject's self link
+   */
+  get self(): string {
+    return this._links.self.href;
+  }
 
   /**
    * The name for this DSpaceObject
@@ -59,10 +76,12 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    * All metadata of this DSpaceObject
    */
   @excludeFromEquals
+  @autoserializeAs(MetadataMapSerializer)
   metadata: MetadataMap;
 
+  @deserialize
   _links: {
-    self: HALLink,
+    self: HALLink;
   };
 
   /**

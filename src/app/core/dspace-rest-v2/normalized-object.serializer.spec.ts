@@ -1,6 +1,6 @@
 import { autoserialize, autoserializeAs } from 'cerialize';
 
-import { DSpaceRESTv2Serializer } from './dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from './normalized-object.serializer';
 
 class TestModel {
   @autoserialize
@@ -53,12 +53,12 @@ const testResponses = [
 
 const parentHrefRegex = /^\/testmodels\/(.+)$/g;
 
-describe('DSpaceRESTv2Serializer', () => {
+describe('NormalizedObjectSerializer', () => {
 
   describe('serialize', () => {
 
     it('should turn a model in to a valid document', () => {
-      const serializer = new DSpaceRESTv2Serializer(TestModel);
+      const serializer = new NormalizedObjectSerializer(TestModel);
       const doc = serializer.serialize(testModels[0]);
       expect(testModels[0].id).toBe(doc.id);
       expect(testModels[0].name).toBe(doc.name);
@@ -69,7 +69,7 @@ describe('DSpaceRESTv2Serializer', () => {
   describe('serializeArray', () => {
 
     it('should turn an array of models in to a valid document', () => {
-      const serializer = new DSpaceRESTv2Serializer(TestModel);
+      const serializer = new NormalizedObjectSerializer(TestModel);
       const doc = serializer.serializeArray(testModels);
 
       expect(testModels[0].id).toBe(doc[0].id);
@@ -83,7 +83,7 @@ describe('DSpaceRESTv2Serializer', () => {
   describe('deserialize', () => {
 
     it('should turn a valid document describing a single entity in to a valid model', () => {
-      const serializer = new DSpaceRESTv2Serializer(TestModel);
+      const serializer = new NormalizedObjectSerializer(TestModel);
       const model = serializer.deserialize(testResponses[0]);
 
       expect(model.id).toBe(testResponses[0].id);
@@ -93,7 +93,7 @@ describe('DSpaceRESTv2Serializer', () => {
     // TODO: cant implement/test this yet - depends on how relationships
     // will be handled in the rest api
     // it('should retain relationship information', () => {
-    //   const serializer = new DSpaceRESTv2Serializer(TestModel);
+    //   const serializer = new NormalizedObjectSerializer(TestModel);
     //   const doc = {
     //     '_embedded': testResponses[0],
     //   };
@@ -113,7 +113,7 @@ describe('DSpaceRESTv2Serializer', () => {
 
     // TODO enable once validation is enabled in the serializer
     // it('should throw an error when dealing with an invalid document', () => {
-    //   const serializer = new DSpaceRESTv2Serializer(TestModel);
+    //   const serializer = new NormalizedObjectSerializer(TestModel);
     //   const doc = testResponses[0];
     //
     //   expect(() => {
@@ -122,7 +122,7 @@ describe('DSpaceRESTv2Serializer', () => {
     // });
 
     it('should throw an error when dealing with a document describing an array', () => {
-      const serializer = new DSpaceRESTv2Serializer(TestModel);
+      const serializer = new NormalizedObjectSerializer(TestModel);
       expect(() => {
         serializer.deserialize(testResponses);
       }).toThrow();
@@ -134,7 +134,7 @@ describe('DSpaceRESTv2Serializer', () => {
 
     // TODO: rewrite to incorporate normalisation.
     // it('should turn a valid document describing a collection of objects in to an array of valid models', () => {
-    //   const serializer = new DSpaceRESTv2Serializer(TestModel);
+    //   const serializer = new NormalizedObjectSerializer(TestModel);
     //   const doc = {
     //     '_embedded': testResponses
     //   };
@@ -150,7 +150,7 @@ describe('DSpaceRESTv2Serializer', () => {
     // TODO: cant implement/test this yet - depends on how relationships
     // will be handled in the rest api
     // it('should retain relationship information', () => {
-    //   const serializer = new DSpaceRESTv2Serializer(TestModel);
+    //   const serializer = new NormalizedObjectSerializer(TestModel);
     //   const doc = {
     //     '_embedded': testResponses,
     //   };
@@ -170,7 +170,7 @@ describe('DSpaceRESTv2Serializer', () => {
 
     // TODO enable once validation is enabled in the serializer
     // it('should throw an error when dealing with an invalid document', () => {
-    //   const serializer = new DSpaceRESTv2Serializer(TestModel);
+    //   const serializer = new NormalizedObjectSerializer(TestModel);
     //   const doc = testResponses[0];
     //
     //   expect(() => {
@@ -179,7 +179,7 @@ describe('DSpaceRESTv2Serializer', () => {
     // });
 
     it('should throw an error when dealing with a document describing a single model', () => {
-      const serializer = new DSpaceRESTv2Serializer(TestModel);
+      const serializer = new NormalizedObjectSerializer(TestModel);
       const doc = {
         _embedded: testResponses[0]
       };

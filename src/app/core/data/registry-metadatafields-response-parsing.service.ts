@@ -5,7 +5,7 @@ import {
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { RestRequest } from './request.models';
 import { ResponseParsingService } from './parsing.service';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { Injectable } from '@angular/core';
 import { RegistryMetadatafieldsResponse } from '../registry/registry-metadatafields-response.model';
@@ -30,7 +30,7 @@ export class RegistryMetadatafieldsResponseParsingService implements ResponsePar
 
     payload.metadatafields = metadatafields;
 
-    const deserialized = new DSpaceRESTv2Serializer(RegistryMetadatafieldsResponse).deserialize(payload);
+    const deserialized = new NormalizedObjectSerializer(RegistryMetadatafieldsResponse).deserialize(payload);
     return new RegistryMetadatafieldsSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(data.payload));
   }
 

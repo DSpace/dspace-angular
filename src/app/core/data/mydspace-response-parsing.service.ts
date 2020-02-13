@@ -4,7 +4,7 @@ import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { hasValue } from '../../shared/empty.util';
 import { SearchQueryResponse } from '../../shared/search/search-query-response.model';
 import { MetadataMap, MetadataValue } from '../shared/metadata.models';
@@ -57,7 +57,7 @@ export class MyDSpaceResponseParsingService implements ResponseParsingService {
         _embedded: this.filterEmbeddedObjects(object)
       }));
     payload.objects = objects;
-    const deserialized = new DSpaceRESTv2Serializer(SearchQueryResponse).deserialize(payload);
+    const deserialized = new NormalizedObjectSerializer(SearchQueryResponse).deserialize(payload);
     return new SearchSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(payload));
   }
 

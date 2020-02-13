@@ -1,5 +1,6 @@
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link } from '../cache/builders/build-decorators';
+import { link, resourceType } from '../cache/builders/build-decorators';
 import { PaginatedList } from '../data/paginated-list';
 import { RemoteData } from '../data/remote-data';
 import { Bitstream } from './bitstream.model';
@@ -12,13 +13,51 @@ import { LICENSE } from './license.resource-type';
 import { ResourcePolicy } from './resource-policy.model';
 import { RESOURCE_POLICY } from './resource-policy.resource-type';
 
+@resourceType(Collection.type)
+@inheritSerialization(DSpaceObject)
 export class Collection extends DSpaceObject {
   static type = COLLECTION;
 
   /**
    * A string representing the unique handle of this Collection
    */
+  @autoserialize
   handle: string;
+
+  /**
+   * The HALLinks for this Collection
+   */
+  @deserialize
+  _links: {
+    license: HALLink;
+    harvester: HALLink;
+    mappedItems: HALLink;
+    itemtemplate: HALLink;
+    defaultAccessConditions: HALLink;
+    logo: HALLink;
+    self: HALLink;
+  };
+
+  /**
+   * The license for this Collection
+   * Will be undefined unless the license HALLink has been resolved.
+   */
+  @link(LICENSE)
+  license?: Observable<RemoteData<License>>;
+
+  /**
+   * The logo for this Collection
+   * Will be undefined unless the logo HALLink has been resolved.
+   */
+  @link(BITSTREAM)
+  logo?: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * The default access conditions for this Collection
+   * Will be undefined unless the defaultAccessConditions HALLink has been resolved.
+   */
+  @link(RESOURCE_POLICY, true)
+  defaultAccessConditions?: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;
 
   /**
    * The introductory text of this Collection
@@ -58,33 +97,5 @@ export class Collection extends DSpaceObject {
    */
   get sidebarText(): string {
     return this.firstMetadataValue('dc.description.tableofcontents');
-  }
-
-  /**
-   * The deposit license of this Collection
-   */
-  @link(LICENSE)
-  license?: Observable<RemoteData<License>>;
-
-  /**
-   * The Bitstream that represents the logo of this Collection
-   */
-  @link(BITSTREAM)
-  logo?: Observable<RemoteData<Bitstream>>;
-
-  /**
-   * The default access conditions of this Collection
-   */
-  @link(RESOURCE_POLICY, true)
-  defaultAccessConditions?: Observable<RemoteData<PaginatedList<ResourcePolicy>>>;
-
-  _links: {
-    license: HALLink;
-    harvester: HALLink;
-    mappedItems: HALLink;
-    itemtemplate: HALLink;
-    defaultAccessConditions: HALLink;
-    logo: HALLink;
-    self: HALLink;
   }
 }

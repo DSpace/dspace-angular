@@ -2,7 +2,7 @@ import { autoserialize, inheritSerialization } from 'cerialize';
 
 import { WorkspaceItem } from './workspaceitem.model';
 import { NormalizedSubmissionObject } from './normalized-submission-object.model';
-import { mapsTo, relationship } from '../../cache/builders/build-decorators';
+import { relationship } from '../../cache/builders/build-decorators';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { Item } from '../../shared/item.model';
 import { Collection } from '../../shared/collection.model';
@@ -12,7 +12,6 @@ import { EPerson } from '../../eperson/models/eperson.model';
 /**
  * An model class for a NormalizedWorkspaceItem.
  */
-@mapsTo(WorkspaceItem)
 @inheritSerialization(NormalizedDSpaceObject)
 @inheritSerialization(NormalizedSubmissionObject)
 export class NormalizedWorkspaceItem extends NormalizedSubmissionObject<WorkspaceItem> {

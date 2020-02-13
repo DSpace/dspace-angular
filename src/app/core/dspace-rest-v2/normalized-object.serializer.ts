@@ -1,19 +1,19 @@
-import { Serialize, Deserialize } from 'cerialize';
+import { Deserialize, Serialize } from 'cerialize';
+import { deprecate } from 'util';
 
 import { Serializer } from '../serializer';
-import { DSpaceRESTV2Response } from './dspace-rest-v2-response.model';
-import { DSpaceRESTv2Validator } from './dspace-rest-v2.validator';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
 
 /**
  * This Serializer turns responses from v2 of DSpace's REST API
- * to models and vice versa
+ * to normalized models and vice versa
+ *
+ * @deprecated use DSpaceSerializer instead
  */
-export class DSpaceRESTv2Serializer<T> implements Serializer<T> {
+export class NormalizedObjectSerializer<T> implements Serializer<T> {
 
   /**
-   * Create a new DSpaceRESTv2Serializer instance
+   * Create a new NormalizedObjectSerializer instance
    *
    * @param modelType a class or interface to indicate
    * the kind of model this serializer should work with

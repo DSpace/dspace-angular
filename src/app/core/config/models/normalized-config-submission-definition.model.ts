@@ -1,5 +1,4 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { mapsTo } from '../../cache/builders/build-decorators';
 import { PaginatedList } from '../../data/paginated-list';
 import { SubmissionDefinitionModel } from './config-submission-definition.model';
 import { SubmissionSectionModel } from './config-submission-section.model';
@@ -8,7 +7,6 @@ import { NormalizedConfigObject } from './normalized-config.model';
 /**
  * Normalized class for the configuration describing the submission
  */
-@mapsTo(SubmissionDefinitionModel)
 @inheritSerialization(NormalizedConfigObject)
 export class NormalizedSubmissionDefinitionModel extends NormalizedConfigObject<SubmissionDefinitionModel> {
 

@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { hasNoValue, isNotEmpty } from '../../../shared/empty.util';
+import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALResource } from '../../shared/hal-resource.model';
@@ -40,10 +40,14 @@ export class LinkService {
 
       const href = model._links[matchingLinkDef.linkName].href;
 
-      if (matchingLinkDef.isList) {
-        model[linkToFollow.name] =  service.findAllByHref(href, linkToFollow.findListOptions, ...linkToFollow.linksToFollow);
-      } else {
-        model[linkToFollow.name] =  service.findByHref(href, ...linkToFollow.linksToFollow);
+      try {
+        if (matchingLinkDef.isList) {
+          model[linkToFollow.name] = service.findAllByHref(href, linkToFollow.findListOptions, ...linkToFollow.linksToFollow);
+        } else {
+          model[linkToFollow.name] = service.findByHref(href, ...linkToFollow.linksToFollow);
+        }
+      } catch (e) {
+        throw new Error(`Something went wrong when using @dataService(${matchingLinkDef.resourceType.value}) ${hasValue(service) ? '' : '(undefined) '}to resolve link ${linkToFollow.name} from ${href}`);
       }
     }
   }

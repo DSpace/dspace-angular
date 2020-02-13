@@ -27,7 +27,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
@@ -155,7 +155,7 @@ export abstract class DataService<T extends CacheableObject> {
   /**
    * Returns {@link RemoteData} of all object with a list of {@link FollowLinkConfig}, to indicate which embedded
    * info should be added to the objects
-   * @param linksToFollow   List of {@link FollowLinkConfig} to indicate which embedded info should be retrieved and added
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
    */
   findAll(options: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
     return this.findList(this.getFindAllHref(options), options, ...linksToFollow);
@@ -163,9 +163,9 @@ export abstract class DataService<T extends CacheableObject> {
 
   /**
    * Returns an observable of {@link RemoteData} of an object, based on href observable,
-   * with a list of {@link FollowLinkConfig}, to add embedded info to the object
+   * with a list of {@link FollowLinkConfig}, to automatically resolve HALLinks of the object
    * @param href$           Observable of href of object we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} to indicate which embedded info should be retrieved and added
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
    */
   protected findList(href$, options: FindListOptions, ...linksToFollow: Array<FollowLinkConfig<T>>) {
     href$.pipe(
@@ -192,9 +192,9 @@ export abstract class DataService<T extends CacheableObject> {
 
   /**
    * Returns an observable of {@link RemoteData} of an object, based on its ID, with a list of {@link FollowLinkConfig},
-   * to add embedded info to the object
+   * to automatically resolve HALLinks of the object
    * @param id              ID of object we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} to indicate which embedded info should be retrieved and added
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
    */
   findById(id: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
 
@@ -216,9 +216,9 @@ export abstract class DataService<T extends CacheableObject> {
 
   /**
    * Returns an observable of {@link RemoteData} of an object, based on an href, with a list of {@link FollowLinkConfig},
-   * to add embedded info to the object
+   * to automatically resolve HALLinks of the object
    * @param href            Href of object we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} to indicate which embedded info should be retrieved and added
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
    */
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
     const requestHref = this.buildHrefFromFindOptions(href, {}, []);
@@ -232,9 +232,9 @@ export abstract class DataService<T extends CacheableObject> {
 
   /**
    * Returns a list of observables of {@link RemoteData} of objects, based on an href, with a list of {@link FollowLinkConfig},
-   * to add embedded info to the object
+   * to automatically resolve HALLinks of the object
    * @param id              ID of object we want to retrieve
-   * @param linksToFollow   List of {@link FollowLinkConfig} to indicate which embedded info should be retrieved and added
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
    */
   findAllByHref(href: string, findListOptions: FindListOptions = {}, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
     const requestHref = this.buildHrefFromFindOptions(href, findListOptions, []);
@@ -302,16 +302,16 @@ export abstract class DataService<T extends CacheableObject> {
    * @param {DSpaceObject} object The given object
    */
   update(object: T): Observable<RemoteData<T>> {
-    const oldVersion$ = this.findByHref(object.self);
+    const oldVersion$ = this.findByHref(object._links.self.href);
     return oldVersion$.pipe(
       getSucceededRemoteData(),
       getRemoteDataPayload(),
       mergeMap((oldVersion: T) => {
           const operations = this.comparator.diff(oldVersion, object);
           if (isNotEmpty(operations)) {
-            this.objectCache.addPatch(object.self, operations);
+            this.objectCache.addPatch(object._links.self.href, operations);
           }
-          return this.findByHref(object.self);
+          return this.findByHref(object._links.self.href);
         }
       ));
   }
@@ -334,7 +334,7 @@ export abstract class DataService<T extends CacheableObject> {
     );
 
     const normalizedObject: NormalizedObject<T> = this.dataBuildService.normalize<T>(dso);
-    const serializedDso = new DSpaceRESTv2Serializer(getMapsToType((dso as any).type)).serialize(normalizedObject);
+    const serializedDso = new NormalizedObjectSerializer(getMapsToType((dso as any).type)).serialize(normalizedObject);
 
     const request$ = endpoint$.pipe(
       take(1),

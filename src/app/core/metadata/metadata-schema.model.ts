@@ -1,12 +1,17 @@
+import { autoserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
+import { resourceType } from '../cache/builders/build-decorators';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
 import { HALResource } from '../shared/hal-resource.model';
+import { ResourceType } from '../shared/resource-type';
+import { excludeFromEquals } from '../utilities/equals.decorators';
 import { METADATA_SCHEMA } from './metadata-schema.resource-type';
 
 /**
  * Class that represents a metadata schema
  */
+@resourceType(MetadataSchema.type)
 export class MetadataSchema extends ListableObject implements HALResource {
   static type = METADATA_SCHEMA;
 
@@ -16,9 +21,11 @@ export class MetadataSchema extends ListableObject implements HALResource {
   id: number;
 
   /**
-   * The REST link to itself
+   * The object type
    */
-  self: string;
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * A unique prefix that defines this schema

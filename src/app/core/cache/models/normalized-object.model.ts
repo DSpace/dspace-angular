@@ -22,5 +22,5 @@ export abstract class NormalizedObject<T extends TypedObject> implements Cacheab
    * A string representing the kind of object
    */
   @deserialize
-  type: string;
+  type: ResourceType;
 }

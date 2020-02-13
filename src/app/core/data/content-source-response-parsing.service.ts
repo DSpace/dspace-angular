@@ -3,7 +3,7 @@ import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { ContentSource } from '../shared/content-source.model';
 import { MetadataConfig } from '../shared/metadata-config.model';
 
@@ -17,11 +17,11 @@ export class ContentSourceResponseParsingService implements ResponseParsingServi
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload;
 
-    const deserialized = new DSpaceRESTv2Serializer(ContentSource).deserialize(payload);
+    const deserialized = new NormalizedObjectSerializer(ContentSource).deserialize(payload);
 
     let metadataConfigs = [];
     if (payload._embedded && payload._embedded.harvestermetadata && payload._embedded.harvestermetadata.configs) {
-      metadataConfigs = new DSpaceRESTv2Serializer(MetadataConfig).serializeArray(payload._embedded.harvestermetadata.configs);
+      metadataConfigs = new NormalizedObjectSerializer(MetadataConfig).serializeArray(payload._embedded.harvestermetadata.configs);
     }
     deserialized.metadataConfigs = metadataConfigs;
 

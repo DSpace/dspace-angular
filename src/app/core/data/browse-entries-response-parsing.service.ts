@@ -5,7 +5,7 @@ import { isNotEmpty } from '../../shared/empty.util';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, GenericSuccessResponse, RestResponse } from '../cache/response.models';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './request.models';
@@ -26,7 +26,7 @@ export class BrowseEntriesResponseParsingService extends BaseResponseParsingServ
     if (isNotEmpty(data.payload)) {
       let browseEntries = [];
       if (isNotEmpty(data.payload._embedded) && Array.isArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]])) {
-        const serializer = new DSpaceRESTv2Serializer(NormalizedBrowseEntry);
+        const serializer = new NormalizedObjectSerializer(NormalizedBrowseEntry);
         browseEntries = serializer.deserializeArray(data.payload._embedded[Object.keys(data.payload._embedded)[0]]);
       }
       return new GenericSuccessResponse(browseEntries, data.statusCode, data.statusText, this.processPageInfo(data.payload));

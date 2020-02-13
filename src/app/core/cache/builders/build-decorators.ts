@@ -31,6 +31,21 @@ export function mapsTo(value: GenericConstructor<TypedObject>) {
 }
 
 /**
+ * Decorator function to map a normalized class to it's not-normalized counter part class
+ * It will also maps a type to the matching class
+ * @param value The not-normalized class to map to
+ */
+// export function resourceType(target: any, key: string) {
+//   typeMap.set(target.key.value, target.constructor);
+// }
+
+export function resourceType(value: ResourceType) {
+  return function decorator(objectConstructor: GenericConstructor<TypedObject>) {
+    typeMap.set(value.value, objectConstructor);
+  }
+}
+
+/**
  * Maps a type to the matching class
  * @param value The resourse type
  * @param objectConstructor The class to map to
@@ -178,5 +193,20 @@ export const getLinkDefinition = <T extends HALResource>(source: GenericConstruc
     return sourceMap.get(linkName);
   } else {
     return undefined;
+  }
+};
+
+export const inheritLinkAnnotations = (parent: any): any => {
+  return (child: any) => {
+    const parentMap: Map<string, LinkDefinition<any>> = linkMap.get(parent) || new Map();
+    const childMap: Map<string, LinkDefinition<any>> = linkMap.get(child) || new Map();
+
+    parentMap.forEach((value, key) => {
+      if (!childMap.has(key)) {
+        childMap.set(key, value);
+      }
+    });
+
+    linkMap.set(child, childMap);
   }
 };

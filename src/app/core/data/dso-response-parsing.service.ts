@@ -42,7 +42,7 @@ export class DSOResponseParsingService extends BaseResponseParsingService implem
     } else if (!Array.isArray(processRequestDTO)) {
       objectList = [processRequestDTO];
     }
-    const selfLinks = objectList.map((no) => no.self);
+    const selfLinks = objectList.map((no) => no._links.self.href);
     return new DSOSuccessResponse(selfLinks, data.statusCode, data.statusText, this.processPageInfo(data.payload))
   }
 

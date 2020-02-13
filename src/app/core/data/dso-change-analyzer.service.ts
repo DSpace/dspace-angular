@@ -16,12 +16,12 @@ export class DSOChangeAnalyzer<T extends DSpaceObject> implements ChangeAnalyzer
    * Compare the metadata of two DSpaceObjects and return the differences as
    * a JsonPatch Operation Array
    *
-   * @param {NormalizedDSpaceObject} object1
+   * @param {DSpaceObject} object1
    *    The first object to compare
-   * @param {NormalizedDSpaceObject} object2
+   * @param {DSpaceObject} object2
    *    The second object to compare
    */
-  diff(object1: T | NormalizedDSpaceObject<T>, object2: T | NormalizedDSpaceObject<T>): Operation[] {
+  diff(object1: DSpaceObject, object2: DSpaceObject): Operation[] {
     return compare(object1.metadata, object2.metadata).map((operation: Operation) => Object.assign({}, operation, { path: '/metadata' + operation.path }));
   }
 }

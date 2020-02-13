@@ -1,13 +1,10 @@
 import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
 import { BrowseEntry } from './browse-entry.model';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { mapsTo } from '../cache/builders/build-decorators';
-
 /**
  * Class object representing a browse entry
  * This class is not normalized because browse entries do not have self links
  */
-@mapsTo(BrowseEntry)
 @inheritSerialization(NormalizedObject)
 export class NormalizedBrowseEntry extends NormalizedObject<BrowseEntry> {
   /**

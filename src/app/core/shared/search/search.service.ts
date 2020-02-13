@@ -15,7 +15,6 @@ import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
 import { URLCombiner } from '../../url-combiner/url-combiner';
 import { hasValue, isEmpty, isNotEmpty, isNotUndefined } from '../../../shared/empty.util';
-import { NormalizedSearchResult } from '../../../shared/search/normalized-search-result.model';
 import { SearchOptions } from '../../../shared/search/search-options.model';
 import { SearchResult } from '../../../shared/search/search-result.model';
 import { FacetValue } from '../../../shared/search/facet-value.model';
@@ -170,8 +169,8 @@ export class SearchService implements OnDestroy {
     const dsoObs: Observable<RemoteData<DSpaceObject[]>> = sqrObs.pipe(
       map((sqr: SearchQueryResponse) => {
         return sqr.objects
-          .filter((nsr: NormalizedSearchResult) => isNotUndefined(nsr.indexableObject))
-          .map((nsr: NormalizedSearchResult) => new GetRequest(this.requestService.generateRequestId(), nsr.indexableObject))
+          .filter((sr: SearchResult<DSpaceObject>) => isNotUndefined(sr._links.indexableObject))
+          .map((sr: SearchResult<DSpaceObject>) => new GetRequest(this.requestService.generateRequestId(), sr._links.indexableObject.href))
       }),
       // Send a request for each item to ensure fresh cache
       tap((reqs: RestRequest[]) => reqs.forEach((req: RestRequest) => this.requestService.configure(req))),
@@ -182,7 +181,7 @@ export class SearchService implements OnDestroy {
     // Create search results again with the correct dso objects linked to each result
     const tDomainListObs = observableCombineLatest(sqrObs, dsoObs).pipe(
       map(([sqr, dsos]) => {
-        return sqr.objects.map((object: NormalizedSearchResult, index: number) => {
+        return sqr.objects.map((object: SearchResult<DSpaceObject>, index: number) => {
           let co = DSpaceObject;
           if (dsos.payload[index]) {
             const constructor: GenericConstructor<ListableObject> = dsos.payload[index].constructor as GenericConstructor<ListableObject>;

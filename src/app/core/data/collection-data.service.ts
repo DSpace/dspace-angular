@@ -9,6 +9,7 @@ import { NotificationOptions } from '../../shared/notifications/models/notificat
 import { INotification } from '../../shared/notifications/models/notification.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginatedSearchOptions } from '../../shared/search/paginated-search-options.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
 import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -16,7 +17,7 @@ import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
 import { Collection } from '../shared/collection.model';
 import { COLLECTION } from '../shared/collection.resource-type';
@@ -152,7 +153,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    */
   updateContentSource(collectionId: string, contentSource: ContentSource): Observable<ContentSource | INotification> {
     const requestId = this.requestService.generateRequestId();
-    const serializedContentSource = new DSpaceRESTv2Serializer(ContentSource).serialize(contentSource);
+    const serializedContentSource = new NormalizedObjectSerializer(ContentSource).serialize(contentSource);
     const request$ = this.getHarvesterEndpoint(collectionId).pipe(
       take(1),
       map((href: string) => {
@@ -210,8 +211,9 @@ export class CollectionDataService extends ComColDataService<Collection> {
    * Fetches a list of items that are mapped to a collection
    * @param collectionId    The id of the collection
    * @param searchOptions   Search options to sort or filter out items
+   * @param linksToFollow   List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
    */
-  getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
+  getMappedItems(collectionId: string, searchOptions?: PaginatedSearchOptions, ...linksToFollow: Array<FollowLinkConfig<Item>>): Observable<RemoteData<PaginatedList<DSpaceObject>>> {
     const requestUuid = this.requestService.generateRequestId();
 
     const href$ = this.getMappedItemsEndpoint(collectionId).pipe(
@@ -233,7 +235,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
       configureRequest(this.requestService)
     ).subscribe();
 
-    return this.rdbService.buildList(href$);
+    return this.rdbService.buildList(href$, ...linksToFollow);
   }
 
   protected getFindByParentHref(parentUUID: string): Observable<string> {

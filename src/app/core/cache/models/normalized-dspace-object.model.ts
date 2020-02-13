@@ -2,14 +2,13 @@ import { autoserializeAs, deserializeAs, autoserialize } from 'cerialize';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { MetadataMap, MetadataMapSerializer } from '../../shared/metadata.models';
-import { mapsTo } from '../builders/build-decorators';
+import { ResourceType } from '../../shared/resource-type';
 import { NormalizedObject } from './normalized-object.model';
 import { TypedObject } from '../object-cache.reducer';
 
 /**
  * An model class for a DSpaceObject.
  */
-@mapsTo(DSpaceObject)
 export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedObject<T> implements TypedObject {
 
   /**
@@ -37,10 +36,10 @@ export class NormalizedDSpaceObject<T extends DSpaceObject> extends NormalizedOb
   uuid: string;
 
   /**
-   * A string representing the kind of DSpaceObject, e.g. community, item, …
+   * The type of the object
    */
   @autoserialize
-  type: string;
+  type: ResourceType;
 
   /**
    * All metadata of this DSpaceObject

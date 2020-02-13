@@ -1,4 +1,4 @@
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.model';
 import { RestRequest } from './request.models';
 import { ResponseParsingService } from './parsing.service';
@@ -15,7 +15,7 @@ export class MetadatafieldParsingService implements ResponseParsingService {
   parse(request: RestRequest, data: DSpaceRESTV2Response): RestResponse {
     const payload = data.payload;
 
-    const deserialized = new DSpaceRESTv2Serializer(MetadataField).deserialize(payload);
+    const deserialized = new NormalizedObjectSerializer(MetadataField).deserialize(payload);
     return new MetadatafieldSuccessResponse(deserialized, data.statusCode, data.statusText);
   }
 

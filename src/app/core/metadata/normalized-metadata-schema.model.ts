@@ -1,12 +1,10 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedObject } from '../cache/models/normalized-object.model';
-import { mapsTo } from '../cache/builders/build-decorators';
 import { MetadataSchema } from './metadata-schema.model';
 
 /**
  * Normalized class for a DSpace MetadataSchema
  */
-@mapsTo(MetadataSchema)
 @inheritSerialization(NormalizedObject)
 export class NormalizedMetadataSchema extends NormalizedObject<MetadataSchema> {
   /**

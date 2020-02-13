@@ -164,15 +164,15 @@ export class RelationshipService extends DataService<Relationship> {
    * @param item The item to remove from the cache
    */
   private removeRelationshipItemsFromCache(item) {
-    this.objectCache.remove(item.self);
+    this.objectCache.remove(item._links.self.href);
     this.requestService.removeByHrefSubstring(item.uuid);
     combineLatest(
-      this.objectCache.hasBySelfLinkObservable(item.self),
+      this.objectCache.hasBySelfLinkObservable(item._links.self.href),
       this.requestService.hasByHrefObservable(item.uuid)
     ).pipe(
       filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
       take(1),
-      switchMap(() => this.itemService.findByHref(item.self).pipe(take(1)))
+      switchMap(() => this.itemService.findByHref(item._links.self.href).pipe(take(1)))
     ).subscribe();
   }
 

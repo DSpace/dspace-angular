@@ -1,5 +1,5 @@
 import { autoserialize, inheritSerialization } from 'cerialize';
-import { mapsTo, relationship } from '../../cache/builders/build-decorators';
+import { relationship } from '../../cache/builders/build-decorators';
 import { NormalizedDSpaceObject } from '../../cache/models/normalized-dspace-object.model';
 import { TaskObject } from './task-object.model';
 import { DSpaceObject } from '../../shared/dspace-object.model';
@@ -10,7 +10,6 @@ import { WorkflowItem } from '../../submission/models/workflowitem.model';
 /**
  * An abstract normalized model class for a TaskObject.
  */
-@mapsTo(TaskObject)
 @inheritSerialization(NormalizedDSpaceObject)
 export class NormalizedTaskObject<T extends DSpaceObject> extends NormalizedDSpaceObject<T> {
 

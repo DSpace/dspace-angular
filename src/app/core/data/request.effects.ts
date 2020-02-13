@@ -16,7 +16,7 @@ import {
 import { RequestError, RestRequest } from './request.models';
 import { RequestEntry } from './request.reducer';
 import { RequestService } from './request.service';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { catchError, filter, flatMap, map, take, tap } from 'rxjs/operators';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { StoreActionTypes } from '../../store.actions';
@@ -45,7 +45,7 @@ export class RequestEffects {
     flatMap((request: RestRequest) => {
       let body;
       if (isNotEmpty(request.body)) {
-        const serializer = new DSpaceRESTv2Serializer(getMapsToType(request.body.type));
+        const serializer = new NormalizedObjectSerializer(getMapsToType(request.body.type));
         body = serializer.serialize(request.body);
       }
       return this.restApi.request(request.method, request.href, body, request.options).pipe(

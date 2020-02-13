@@ -1,5 +1,6 @@
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
-import { link } from '../cache/builders/build-decorators';
+import { link, resourceType } from '../cache/builders/build-decorators';
 import { RemoteData } from '../data/remote-data';
 import { BitstreamFormat } from './bitstream-format.model';
 import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
@@ -8,39 +9,52 @@ import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { HALResource } from './hal-resource.model';
 
+@resourceType(Bitstream.type)
+@inheritSerialization(DSpaceObject)
 export class Bitstream extends DSpaceObject implements HALResource {
   static type = BITSTREAM;
 
   /**
    * The size of this bitstream in bytes
    */
+  @autoserialize
   sizeBytes: number;
 
   /**
    * The description of this Bitstream
    */
+  @autoserialize
   description: string;
 
   /**
    * The name of the Bundle this Bitstream is part of
    */
+  @autoserialize
   bundleName: string;
 
   /**
-   * The Thumbnail for this Bitstream
+   * The HALLinks for this Bitstream
    */
-  thumbnail?: Observable<RemoteData<Bitstream>>;
-
-  /**
-   * The Bitstream Format for this Bitstream
-   */
-  @link(BITSTREAM_FORMAT)
-  format?: Observable<RemoteData<BitstreamFormat>>;
-
+  @deserialize
   _links: {
     self: HALLink;
     bundle: HALLink;
     format: HALLink;
     content: HALLink;
-  }
+  };
+
+  /**
+   * The thumbnail for this Bitstream
+   * Needs to be resolved first, but isn't available as a HALLink yet
+   * Use BitstreamDataService.getThumbnailFor(…) for now.
+   */
+  thumbnail?: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * The BitstreamFormat of this Bitstream
+   * Will be undefined unless the format HALLink has been resolved.
+   */
+  @link(BITSTREAM_FORMAT)
+  format?: Observable<RemoteData<BitstreamFormat>>;
+
 }

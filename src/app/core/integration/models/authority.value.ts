@@ -1,6 +1,8 @@
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { PLACEHOLDER_PARENT_METADATA } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { OtherInformation } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { resourceType } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
 import { MetadataValueInterface } from '../../shared/metadata.models';
 import { AUTHORITY_VALUE } from './authority.resource-type';
@@ -9,34 +11,42 @@ import { IntegrationModel } from './integration.model';
 /**
  * Class representing an authority object
  */
+@resourceType(AuthorityValue.type)
+@inheritSerialization(IntegrationModel)
 export class AuthorityValue extends IntegrationModel implements MetadataValueInterface {
   static type = AUTHORITY_VALUE;
 
   /**
    * The identifier of this authority
    */
+  @autoserialize
   id: string;
 
   /**
    * The display value of this authority
    */
+  @autoserialize
   display: string;
 
   /**
    * The value of this authority
    */
+  @autoserialize
   value: string;
 
   /**
    * An object containing additional information related to this authority
    */
+  @autoserialize
   otherInformation: OtherInformation;
 
   /**
    * The language code of this authority value
    */
+  @autoserialize
   language: string;
 
+  @deserialize
   _links: {
     self: HALLink,
   };

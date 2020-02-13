@@ -64,7 +64,7 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
       .pipe(
         map((endpointURL: string) => new FindListRequest(this.requestService.generateRequestId(), endpointURL, options)),
         configureRequest(this.requestService),
-        switchMap(() => this.rdbService.buildList(link$, followLink('leftType'), followLink('rightType')))
+        switchMap(() => this.rdbService.buildList<RelationshipType>(link$, followLink('leftType'), followLink('rightType')))
       ) as Observable<RemoteData<PaginatedList<RelationshipType>>>;
   }
 

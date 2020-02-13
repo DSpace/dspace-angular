@@ -42,7 +42,7 @@ export class RemoteDataBuildService {
    * Creates a single {@link RemoteData} object based on the response of a request to the REST server, with a list of
    * {@link FollowLinkConfig} that indicate which embedded info should be added to the object
    * @param href$             Observable href of object we want to retrieve
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which embedded info should be added
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
    */
   buildSingle<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<T>> {
     if (typeof href$ === 'string') {
@@ -126,7 +126,7 @@ export class RemoteDataBuildService {
    * Creates a list of {@link RemoteData} objects based on the response of a request to the REST server, with a list of
    * {@link FollowLinkConfig} that indicate which embedded info should be added to the objects
    * @param href$             Observable href of objects we want to retrieve
-   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which embedded info should be added
+   * @param linksToFollow     List of {@link FollowLinkConfig} that indicate which HALLinks should be automatically resolved
    */
   buildList<T extends CacheableObject>(href$: string | Observable<string>, ...linksToFollow: Array<FollowLinkConfig<T>>): Observable<RemoteData<PaginatedList<T>>> {
     if (typeof href$ === 'string') {
@@ -229,8 +229,13 @@ export class RemoteDataBuildService {
         }
       }
     });
+    let domainModel;
     const domainModelConstructor = getMapsTo(normalized.constructor);
-    const domainModel = Object.assign(new domainModelConstructor(), normalized, halLinks);
+    if(hasValue(domainModelConstructor) && domainModelConstructor !== normalized.constructor) {
+      domainModel = Object.assign(new domainModelConstructor(), normalized, halLinks);
+    } else {
+      domainModel = normalized;
+    }
 
     this.linkService.resolveLinks(domainModel, ...linksToFollow);
 

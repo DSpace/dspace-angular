@@ -18,7 +18,7 @@ import { RequestService } from '../data/request.service';
 import { PutRequest } from '../data/request.models';
 import { ObjectCacheService } from './object-cache.service';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { hasValue, isNotEmpty, isNotUndefined } from '../../shared/empty.util';
 import { Observable } from 'rxjs/internal/Observable';
@@ -100,7 +100,7 @@ export class ServerSyncBufferEffects {
 
     return patchObject.pipe(
       map((object) => {
-        const serializedObject = new DSpaceRESTv2Serializer(object.constructor as GenericConstructor<{}>).serialize(object);
+        const serializedObject = new NormalizedObjectSerializer(object.constructor as GenericConstructor<{}>).serialize(object);
 
         this.requestService.configure(new PutRequest(this.requestService.generateRequestId(), href, serializedObject));
 

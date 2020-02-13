@@ -3,7 +3,7 @@ import { DSpaceRESTV2Response } from '../dspace-rest-v2/dspace-rest-v2-response.
 import { RestRequest } from './request.models';
 import { ResponseParsingService } from './parsing.service';
 import { RegistryMetadataschemasResponse } from '../registry/registry-metadataschemas-response.model';
-import { DSpaceRESTv2Serializer } from '../dspace-rest-v2/dspace-rest-v2.serializer';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { DSOResponseParsingService } from './dso-response-parsing.service';
 import { Injectable } from '@angular/core';
 import { hasValue } from '../../shared/empty.util';
@@ -22,7 +22,7 @@ export class RegistryMetadataschemasResponseParsingService implements ResponsePa
     }
     payload.metadataschemas = metadataschemas;
 
-    const deserialized = new DSpaceRESTv2Serializer(RegistryMetadataschemasResponse).deserialize(payload);
+    const deserialized = new NormalizedObjectSerializer(RegistryMetadataschemasResponse).deserialize(payload);
     return new RegistryMetadataschemasSuccessResponse(deserialized, data.statusCode, data.statusText, this.dsoParser.processPageInfo(data.payload));
   }
 

@@ -2,6 +2,8 @@ import { autoserialize, inheritSerialization } from 'cerialize';
 import { NormalizedObject } from '../../cache/models/normalized-object.model';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
 
 /**
  * Normalized abstract class for a configuration object
@@ -14,6 +16,13 @@ export abstract class NormalizedConfigObject<T extends CacheableObject> implemen
    */
   @autoserialize
   public name: string;
+
+  /**
+   * The object type
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
 
   /**
    * The links to all related resources returned by the rest api.

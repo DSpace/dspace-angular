@@ -135,7 +135,7 @@
     "ngx-pagination": "3.0.3",
     "nouislider": "^11.0.0",
     "pem": "1.13.2",
-    "reflect-metadata": "0.1.12",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "6.4.0",
     "rxjs-spy": "^7.5.1",
     "sass-resources-loader": "^2.0.0",

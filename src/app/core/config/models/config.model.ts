@@ -1,5 +1,8 @@
+import { autoserialize, deserialize } from 'cerialize';
 import { CacheableObject } from '../../cache/object-cache.reducer';
 import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
 
 export abstract class ConfigObject implements CacheableObject {
 
@@ -9,15 +12,18 @@ export abstract class ConfigObject implements CacheableObject {
   public name: string;
 
   /**
+   * The type of this ConfigObject
+   */
+  @excludeFromEquals
+  @autoserialize
+  type: ResourceType;
+
+  /**
    * The links to all related resources returned by the rest api.
    */
+  @deserialize
   _links: {
     self: HALLink,
     [name: string]: HALLink
   };
-
-  /**
-   * The link to the rest endpoint where this config object can be found
-   */
-  self: string;
 }

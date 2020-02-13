@@ -12,6 +12,9 @@ import { BaseResponseParsingService } from '../data/base-response-parsing.servic
 import { GLOBAL_CONFIG } from '../../../config';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
+import { Serializer } from '../serializer';
+import { GenericConstructor } from '../shared/generic-constructor';
 import { NormalizedWorkspaceItem } from './models/normalized-workspaceitem.model';
 import { NormalizedWorkflowItem } from './models/normalized-workflowitem.model';
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
@@ -77,6 +80,8 @@ export class SubmissionResponseParsingService extends BaseResponseParsingService
 
   protected toCache = false;
   protected shouldDirectlyAttachEmbeds = true;
+
+  protected serializerConstructor: GenericConstructor<Serializer<any>> = NormalizedObjectSerializer;
 
   constructor(@Inject(GLOBAL_CONFIG) protected EnvConfig: GlobalConfig,
               protected objectCache: ObjectCacheService,
