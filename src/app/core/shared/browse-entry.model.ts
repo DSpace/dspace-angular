@@ -1,4 +1,4 @@
-import { autoserialize } from 'cerialize';
+import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { resourceType } from '../cache/builders/build-decorators';
 import { TypedObject } from '../cache/object-cache.reducer';
@@ -26,24 +26,29 @@ export class BrowseEntry extends ListableObject implements TypedObject {
   /**
    * The authority string of this browse entry
    */
+  @autoserialize
   authority: string;
 
   /**
    * The value of this browse entry
    */
+  @autoserialize
   value: string;
 
   /**
    * The language of the value of this browse entry
    */
+  @autoserializeAs('valueLang')
   language: string;
 
   /**
    * The count of this browse entry
    */
   @excludeFromEquals
+  @autoserialize
   count: number;
 
+  @deserialize
   _links: {
     self: HALLink;
     entries: HALLink;
