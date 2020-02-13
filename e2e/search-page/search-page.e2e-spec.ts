@@ -11,33 +11,36 @@ describe('protractor SearchPage', () => {
 
   it('should contain query value when navigating to page with query parameter', () => {
     const queryString = 'Interesting query string';
-    page.navigateToSearchWithQueryParameter(queryString);
-    page.getCurrentQuery().then((query: string) => {
-      expect<string>(query).toEqual(queryString);
-    });
+    page.navigateToSearchWithQueryParameter(queryString)
+      .then(() => page.getCurrentQuery())
+      .then((query: string) => {
+        expect<string>(query).toEqual(queryString);
+      });
   });
 
   it('should have right scope selected when navigating to page with scope parameter', () => {
-    const scope: promise.Promise<string> = page.getRandomScopeOption();
-    scope.then((scopeString: string) => {
-      page.navigateToSearchWithScopeParameter(scopeString);
-      page.getCurrentScope().then((s: string) => {
-        expect<string>(s).toEqual(scopeString);
+    page.navigateToSearch()
+      .then(() => page.getRandomScopeOption())
+      .then((scopeString: string) => {
+        page.navigateToSearchWithScopeParameter(scopeString);
+        page.getCurrentScope().then((s: string) => {
+          expect<string>(s).toEqual(scopeString);
+        });
       });
-    });
   });
 
   it('should redirect to the correct url when scope was set and submit button was triggered', () => {
-    const scope: promise.Promise<string> = page.getRandomScopeOption();
-    scope.then((scopeString: string) => {
-      page.setCurrentScope(scopeString);
-      page.submitSearchForm();
-      browser.wait(() => {
-        return browser.getCurrentUrl().then((url: string) => {
-          return url.indexOf('scope=' + encodeURI(scopeString)) !== -1;
+    page.navigateToSearch()
+      .then(() => page.getRandomScopeOption())
+      .then((scopeString: string) => {
+        page.setCurrentScope(scopeString);
+        page.submitSearchForm();
+        browser.wait(() => {
+          return browser.getCurrentUrl().then((url: string) => {
+            return url.indexOf('scope=' + encodeURI(scopeString)) !== -1;
+          });
         });
       });
-    });
   });
 
   it('should redirect to the correct url when query was set and submit button was triggered', () => {

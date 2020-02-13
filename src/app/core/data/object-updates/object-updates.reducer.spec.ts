@@ -5,10 +5,11 @@ import {
   FieldChangeType,
   InitializeFieldsAction, MoveFieldUpdateAction,
   ReinstateObjectUpdatesAction, RemoveAllObjectUpdatesAction,
-  RemoveFieldUpdateAction, RemoveObjectUpdatesAction,
+  RemoveFieldUpdateAction, RemoveObjectUpdatesAction, SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction, SetValidFieldUpdateAction
 } from './object-updates.actions';
 import { OBJECT_UPDATES_TRASH_PATH, objectUpdatesReducer } from './object-updates.reducer';
+import {Relationship} from '../../shared/item-relationships/relationship.model';
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;
@@ -44,6 +45,7 @@ const identifiable3 = {
   language: null,
   value: 'Unchanged value'
 };
+const relationship: Relationship = Object.assign(new Relationship(), {uuid: 'test relationship uuid'});
 
 const modDate = new Date(2010, 2, 11);
 const uuid = identifiable1.uuid;
@@ -80,6 +82,9 @@ describe('objectUpdatesReducer', () => {
         }
       },
       lastModified: modDate,
+      virtualMetadataSources: {
+        [relationship.uuid]: {[identifiable1.uuid]: true}
+      },
       customOrder: {
         initialOrderPages: [
           { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
@@ -113,6 +118,9 @@ describe('objectUpdatesReducer', () => {
         },
       },
       lastModified: modDate,
+      virtualMetadataSources: {
+        [relationship.uuid]: {[identifiable1.uuid]: true}
+      },
       customOrder: {
         initialOrderPages: [
           { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
@@ -154,6 +162,9 @@ describe('objectUpdatesReducer', () => {
         }
       },
       lastModified: modDate,
+      virtualMetadataSources: {
+        [relationship.uuid]: {[identifiable1.uuid]: true}
+      },
       customOrder: {
         initialOrderPages: [
           { order: [identifiable1.uuid, identifiable2.uuid, identifiable3.uuid] }
@@ -225,6 +236,12 @@ describe('objectUpdatesReducer', () => {
     objectUpdatesReducer(testState, action);
   });
 
+  it('should perform the SELECT_VIRTUAL_METADATA action without affecting the previous state', () => {
+    const action = new SelectVirtualMetadataAction(url, relationship.uuid, identifiable1.uuid, true);
+    // testState has already been frozen above
+    objectUpdatesReducer(testState, action);
+  });
+
   it('should initialize all fields when the INITIALIZE action is dispatched, based on the payload', () => {
     const action = new InitializeFieldsAction(url, [identifiable1, identifiable3], modDate, [identifiable1.uuid, identifiable3.uuid], 10, 0);
 
@@ -243,6 +260,7 @@ describe('objectUpdatesReducer', () => {
           },
         },
         fieldUpdates: {},
+        virtualMetadataSources: {},
         lastModified: modDate,
         customOrder: {
           initialOrderPages: [

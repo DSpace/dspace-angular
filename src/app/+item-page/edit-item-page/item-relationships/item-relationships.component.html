@@ -17,8 +17,13 @@
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.metadata.save-button" | translate}}</span>
     </button>
   </div>
-  <div *ngFor="let label of relationLabels$ | async" class="mb-4">
-    <ds-edit-relationship-list [item]="item" [url]="url" [relationshipLabel]="label" ></ds-edit-relationship-list>
+  <div *ngFor="let relationshipType of relationshipTypes$ | async" class="mb-4">
+    <ds-edit-relationship-list
+            [url]="url"
+            [item]="item"
+            [itemType]="entityType$ | async"
+            [relationshipType]="relationshipType"
+    ></ds-edit-relationship-list>
   </div>
   <div class="button-row bottom">
     <div class="float-right">

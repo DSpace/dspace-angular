@@ -124,6 +124,7 @@ import { ContentSourceResponseParsingService } from './data/content-source-respo
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
 import { ArrayMoveChangeAnalyzer } from './data/array-move-change-analyzer.service';
+import { EntityTypeService } from './data/entity-type.service';
 import { SiteDataService } from './data/site-data.service';
 import { NormalizedSite } from './cache/models/normalized-site.model';
 
@@ -249,6 +250,7 @@ const PROVIDERS = [
   ClaimedTaskDataService,
   PoolTaskDataService,
   BitstreamDataService,
+  EntityTypeService,
   ContentSourceResponseParsingService,
   SearchService,
   SidebarService,

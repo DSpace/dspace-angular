@@ -5,13 +5,14 @@ import {
   AddPageToCustomOrderAction,
   DiscardObjectUpdatesAction,
   FieldChangeType,
-  InitializeFieldsAction, ReinstateObjectUpdatesAction, RemoveFieldUpdateAction,
+  InitializeFieldsAction, ReinstateObjectUpdatesAction, RemoveFieldUpdateAction, SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction
 } from './object-updates.actions';
 import { of as observableOf } from 'rxjs';
 import { Notification } from '../../../shared/notifications/models/notification.model';
 import { NotificationType } from '../../../shared/notifications/models/notification-type';
 import { OBJECT_UPDATES_TRASH_PATH } from './object-updates.reducer';
+import {Relationship} from '../../shared/item-relationships/relationship.model';
 
 describe('ObjectUpdatesService', () => {
   let service: ObjectUpdatesService;
@@ -23,6 +24,7 @@ describe('ObjectUpdatesService', () => {
   const identifiable2 = { uuid: '26cbb5ce-5786-4e57-a394-b9fcf8eaf241' };
   const identifiable3 = { uuid: 'c5d2c2f7-d757-48bf-84cc-8c9229c8407e' };
   const identifiables = [identifiable1, identifiable2];
+  const relationship: Relationship = Object.assign(new Relationship(), {uuid: 'test relationship uuid'});
 
   const fieldUpdates = {
     [identifiable1.uuid]: { field: identifiable1Updated, changeType: FieldChangeType.UPDATE },
@@ -39,7 +41,7 @@ describe('ObjectUpdatesService', () => {
     };
 
     const objectEntry = {
-      fieldStates, fieldUpdates, lastModified: modDate
+      fieldStates, fieldUpdates, lastModified: modDate, virtualMetadataSources: {}
     };
     store = new Store<CoreState>(undefined, undefined, undefined);
     spyOn(store, 'dispatch');
@@ -275,4 +277,10 @@ describe('ObjectUpdatesService', () => {
     });
   });
 
+  describe('setSelectedVirtualMetadata', () => {
+    it('should dispatch a SELECT_VIRTUAL_METADATA action with the correct URL, relationship, identifiable and boolean', () => {
+      service.setSelectedVirtualMetadata(url, relationship.uuid, identifiable1.uuid, true);
+      expect(store.dispatch).toHaveBeenCalledWith(new SelectVirtualMetadataAction(url, relationship.uuid, identifiable1.uuid, true));
+    });
+  });
 });
