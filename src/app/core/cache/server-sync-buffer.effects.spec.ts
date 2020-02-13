@@ -48,7 +48,7 @@ describe('ServerSyncBufferEffects', () => {
           provide: ObjectCacheService, useValue: {
             getObjectBySelfLink: (link) => {
               const object = new DSpaceObject();
-              object.self = link;
+              object._links.self = { href: link };
               return observableOf(object);
             }
           }

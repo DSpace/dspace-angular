@@ -185,11 +185,11 @@ describe('DataService', () => {
       selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
 
       dso = new DSpaceObject();
-      dso.self = selfLink;
+      dso._links.self = { href: selfLink };
       dso.metadata = [{ key: 'dc.title', value: name1 }];
 
       dso2 = new DSpaceObject();
-      dso2.self = selfLink;
+      dso2._link.self = { href: selfLink };
       dso2.metadata = [{ key: 'dc.title', value: name2 }];
 
       spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(dso));

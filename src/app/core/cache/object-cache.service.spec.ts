@@ -115,13 +115,13 @@ describe('ObjectCacheService', () => {
 
   describe('getList', () => {
     it('should return an observable of the array of cached objects with the specified self link and type', () => {
-      const item = new NormalizedItem();
-      item.self = selfLink;
+      const item = new Item();
+      item._links.self = { href: selfLink };
       spyOn(service, 'getObjectBySelfLink').and.returnValue(observableOf(item));
 
       service.getList([selfLink, selfLink]).pipe(first()).subscribe((arr) => {
         expect(arr[0].self).toBe(selfLink);
-        expect(arr[0] instanceof NormalizedItem).toBeTruthy();
+        expect(arr[0] instanceof Item).toBeTruthy();
       });
     });
   });
