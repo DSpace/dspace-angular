@@ -336,11 +336,8 @@ export class SubmissionObjectEffects {
           console.log(submissionId, sectionId, sectionData, sectionErrors);
           mappedActions.push(new UpdateSectionDataAction(submissionId, sectionId, sectionData, sectionErrors));
         }
-
       });
-
     }
-
     return mappedActions;
   }
 

@@ -162,7 +162,7 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
                 if (reorderable instanceof ReorderableFormFieldMetadataValue) {
                   const reoMD = reorderable as ReorderableFormFieldMetadataValue;
                   const mdl = Object.assign({}, reoMD.model, { value: reoMD.metadataValue });
-                  super.onChange({
+                  this.onChange({
                     $event: { previousIndex: prevIndex  },
                     context: { index },
                     control: reoMD.control,
