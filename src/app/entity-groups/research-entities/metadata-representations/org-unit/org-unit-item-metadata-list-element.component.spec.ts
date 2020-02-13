@@ -23,7 +23,7 @@ describe('OrgUnitItemMetadataListElementComponent', () => {
       declarations: [OrgUnitItemMetadataListElementComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(OrgUnitItemMetadataListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      // set: { changeDetection: ChangeDetectionStrategy.Default }
     }).compileComponents();
   }));
 

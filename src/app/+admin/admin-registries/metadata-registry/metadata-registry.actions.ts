@@ -148,4 +148,6 @@ export type MetadataRegistryAction
   | MetadataRegistryEditFieldAction
   | MetadataRegistryCancelFieldAction
   | MetadataRegistrySelectFieldAction
-  | MetadataRegistryDeselectFieldAction;
+  | MetadataRegistryDeselectFieldAction
+  | MetadataRegistryDeselectAllSchemaAction
+  | MetadataRegistryDeselectAllFieldAction;

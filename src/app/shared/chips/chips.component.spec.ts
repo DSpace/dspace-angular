@@ -6,16 +6,16 @@ import { Chips } from './models/chips.model';
 import { UploaderService } from '../uploader/uploader.service';
 import { ChipsComponent } from './chips.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SortablejsModule } from 'angular-sortablejs';
 import { By } from '@angular/platform-browser';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
-import { createTestComponent, hasClass } from '../testing/utils';
+import { createTestComponent } from '../testing/utils';
 import { AuthorityConfidenceStateDirective } from '../authority-confidence/authority-confidence-state.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GLOBAL_CONFIG } from '../../../config';
 import { MOCK_SUBMISSION_CONFIG } from '../testing/mock-submission-config';
 import { ConfidenceType } from '../../core/integration/models/confidence-type';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 describe('ChipsComponent test suite', () => {
 
@@ -32,7 +32,7 @@ describe('ChipsComponent test suite', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NgbModule.forRoot(),
+        NgbModule,
         SortablejsModule.forRoot({animation: 150}),
         TranslateModule.forRoot()
       ],
