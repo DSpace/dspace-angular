@@ -1,6 +1,5 @@
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
-import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { Serializer } from '../serializer';
 import { PageInfo } from '../shared/page-info.model';
@@ -129,7 +128,7 @@ export abstract class BaseResponseParsingService {
   processPageInfo(payload: any): PageInfo {
     if (hasValue(payload.page)) {
       const pageObj = Object.assign({}, payload.page, { _links: payload._links });
-      const pageInfoObject = new NormalizedObjectSerializer(PageInfo).deserialize(pageObj);
+      const pageInfoObject = new DSpaceSerializer(PageInfo).deserialize(pageObj);
       if (pageInfoObject.currentPage >= 0) {
         Object.assign(pageInfoObject, { currentPage: pageInfoObject.currentPage + 1 });
       }

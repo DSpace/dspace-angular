@@ -10,6 +10,7 @@ import { Relationship } from '../../../core/shared/item-relationships/relationsh
 import { Item } from '../../../core/shared/item.model';
 import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
@@ -81,7 +82,7 @@ export class MetadataRepresentationListComponent extends AbstractIncrementalList
         .map((metadatum: any) => Object.assign(new MetadataValue(), metadatum))
         .map((metadatum: MetadataValue) => {
           if (metadatum.isVirtual) {
-            return this.relationshipService.findById(metadatum.virtualValue).pipe(
+            return this.relationshipService.findById(metadatum.virtualValue, followLink('leftItem'), followLink('rightItem')).pipe(
               getSucceededRemoteData(),
               switchMap((relRD: RemoteData<Relationship>) =>
                 observableCombineLatest(relRD.payload.leftItem, relRD.payload.rightItem).pipe(

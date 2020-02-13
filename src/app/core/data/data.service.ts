@@ -27,7 +27,7 @@ import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ErrorResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
-import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
@@ -334,7 +334,7 @@ export abstract class DataService<T extends CacheableObject> {
     );
 
     const normalizedObject: NormalizedObject<T> = this.dataBuildService.normalize<T>(dso);
-    const serializedDso = new NormalizedObjectSerializer(getMapsToType((dso as any).type)).serialize(normalizedObject);
+    const serializedDso = new DSpaceSerializer(getMapsToType((dso as any).type)).serialize(normalizedObject);
 
     const request$ = endpoint$.pipe(
       take(1),

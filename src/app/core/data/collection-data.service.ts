@@ -17,8 +17,8 @@ import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ContentSourceSuccessResponse, RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
-import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import { Collection } from '../shared/collection.model';
 import { COLLECTION } from '../shared/collection.resource-type';
 import { ContentSource } from '../shared/content-source.model';
@@ -153,7 +153,7 @@ export class CollectionDataService extends ComColDataService<Collection> {
    */
   updateContentSource(collectionId: string, contentSource: ContentSource): Observable<ContentSource | INotification> {
     const requestId = this.requestService.generateRequestId();
-    const serializedContentSource = new NormalizedObjectSerializer(ContentSource).serialize(contentSource);
+    const serializedContentSource = new DSpaceSerializer(ContentSource).serialize(contentSource);
     const request$ = this.getHarvesterEndpoint(collectionId).pipe(
       take(1),
       map((href: string) => {

@@ -1,4 +1,4 @@
-import { autoserialize } from 'cerialize';
+import { autoserialize, deserialize } from 'cerialize';
 import { isNotEmpty } from '../../shared/empty.util';
 import { ListableObject } from '../../shared/object-collection/shared/listable-object.model';
 import { link, resourceType } from '../cache/builders/build-decorators';
@@ -9,7 +9,6 @@ import { ResourceType } from '../shared/resource-type';
 import { excludeFromEquals } from '../utilities/equals.decorators';
 import { METADATA_FIELD } from './metadata-field.resource-type';
 import { MetadataSchema } from './metadata-schema.model';
-import { METADATA_SCHEMA } from './metadata-schema.resource-type';
 
 /**
  * Class the represents a metadata field
@@ -28,40 +27,43 @@ export class MetadataField extends ListableObject implements HALResource {
   /**
    * The identifier of this metadata field
    */
+  @autoserialize
   id: number;
-
-  /**
-   * The self link of this metadata field
-   */
-  self: string;
 
   /**
    * The element of this metadata field
    */
+  @autoserialize
   element: string;
 
   /**
    * The qualifier of this metadata field
    */
+  @autoserialize
   qualifier: string;
 
   /**
    * The scope note of this metadata field
    */
+  @autoserialize
   scopeNote: string;
+
+  /**
+   * The HALLinks for this MetadataField
+   */
+  @deserialize
+  _links: {
+    self: HALLink,
+    schema: HALLink
+  };
 
   /**
    * The MetadataSchema for this MetadataField
    * Will be undefined unless the schema HALLink has been resolved.
    */
-  @link(METADATA_SCHEMA)
-  // TODO the responseparsingservice assumes schemas are always embedded. This should be remotedata instead.
+  // TODO the responseparsingservice assumes schemas are always embedded. This should use remotedata, and be a link instead.
+  // @link(METADATA_SCHEMA)
   schema?: MetadataSchema;
-
-  _links: {
-    self: HALLink,
-    schema: HALLink
-  };
 
   /**
    * Method to print this metadata field as a string

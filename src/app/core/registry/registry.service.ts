@@ -2,6 +2,7 @@ import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
+import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import { PageInfo } from '../shared/page-info.model';
 import {
   CreateMetadataFieldRequest,
@@ -48,8 +49,6 @@ import {
   MetadataRegistrySelectSchemaAction
 } from '../../+admin/admin-registries/metadata-registry/metadata-registry.actions';
 import { distinctUntilChanged, flatMap, map, take, tap } from 'rxjs/operators';
-import { NormalizedObjectSerializer } from '../dspace-rest-v2/normalized-object.serializer';
-import { NormalizedMetadataSchema } from '../metadata/normalized-metadata-schema.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { HttpOptions } from '../dspace-rest-v2/dspace-rest-v2.service';
@@ -400,7 +399,7 @@ export class RegistryService {
       distinctUntilChanged()
     );
 
-    const serializedSchema = new NormalizedObjectSerializer(getMapsToType(MetadataSchema.type)).serialize(schema);
+    const serializedSchema = new DSpaceSerializer(getMapsToType(MetadataSchema.type)).serialize(schema);
 
     const request$ = endpoint$.pipe(
       take(1),
