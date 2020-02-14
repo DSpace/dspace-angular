@@ -47,7 +47,10 @@ import { LogOutComponent } from './log-out/log-out.component';
 import { FormComponent } from './form/form.component';
 import { DsDynamicTypeaheadComponent } from './form/builder/ds-dynamic-form-ui/models/typeahead/dynamic-typeahead.component';
 import { DsDynamicScrollableDropdownComponent } from './form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
-import { DsDynamicFormControlContainerComponent, dsDynamicFormControlMapFn } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
+import {
+  DsDynamicFormControlContainerComponent,
+  dsDynamicFormControlMapFn
+} from './form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-container.component';
 import { DsDynamicFormComponent } from './form/builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DYNAMIC_FORM_CONTROL_MAP_FN, DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';

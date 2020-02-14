@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import {
-  DynamicFormLayoutService,
-  DynamicFormService,
-  DynamicFormValidationService
-} from '@ng-dynamic-forms/core';
+import { DynamicFormLayoutService, DynamicFormService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
 import { coreEffects } from './core.effects';
 import { coreReducers } from './core.reducers';
@@ -39,7 +35,6 @@ import { NativeWindowFactory, NativeWindowService } from './services/window.serv
 import { BrowseService } from './browse/browse.service';
 import { BrowseResponseParsingService } from './data/browse-response-parsing.service';
 import { ConfigResponseParsingService } from './config/config-response-parsing.service';
-import { RouteService } from './services/route.service';
 import { SubmissionDefinitionsConfigService } from './config/submission-definitions-config.service';
 import { SubmissionFormsConfigService } from './config/submission-forms-config.service';
 import { SubmissionSectionsConfigService } from './config/submission-sections-config.service';
@@ -216,7 +211,6 @@ const PROVIDERS = [
   BrowseItemsResponseParsingService,
   BrowseService,
   ConfigResponseParsingService,
-  RouteService,
   SubmissionDefinitionsConfigService,
   SubmissionFormsConfigService,
   SubmissionRestService,

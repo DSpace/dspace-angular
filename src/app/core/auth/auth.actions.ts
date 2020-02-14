@@ -355,6 +355,11 @@ export class RetrieveAuthMethodsSuccessAction implements Action {
   }
 }
 
+/**
+ * Set password as default authentication method on error
+ * @class RetrieveAuthMethodsErrorAction
+ * @implements {Action}
+ */
 export class RetrieveAuthMethodsErrorAction implements Action {
   public type: string = AuthActionTypes.RETRIEVE_AUTH_METHODS_ERROR;
 }
