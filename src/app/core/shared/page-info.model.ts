@@ -65,7 +65,7 @@ export class PageInfo implements HALResource {
   }
 
   get last(): string {
-    if (hasValue(this._links.last)) {
+    if (hasValue(this._links) && hasValue(this._links.last)) {
       return this._links.last.href;
     } else {
       return undefined;
@@ -73,7 +73,7 @@ export class PageInfo implements HALResource {
   }
 
   get next(): string {
-    if (hasValue(this._links.next)) {
+    if (hasValue(this._links) && hasValue(this._links.next)) {
       return this._links.next.href;
     } else {
       return undefined;
@@ -81,7 +81,7 @@ export class PageInfo implements HALResource {
   }
 
   get prev(): string {
-    if (hasValue(this._links.prev)) {
+    if (hasValue(this._links) && hasValue(this._links.prev)) {
       return this._links.prev.href;
     } else {
       return undefined;
@@ -89,7 +89,7 @@ export class PageInfo implements HALResource {
   }
 
   get first(): string {
-    if (hasValue(this._links.first)) {
+    if (hasValue(this._links) && hasValue(this._links.first)) {
       return this._links.first.href;
     } else {
       return undefined;

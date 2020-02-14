@@ -127,7 +127,6 @@ export const mockSubmissionRestResponse = [
             content: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content',
             format: [],
             bundleName: null,
-            self: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425',
             id: '3f859425-ffbd-4b0e-bf91-bfeb458a7425',
             uuid: '3f859425-ffbd-4b0e-bf91-bfeb458a7425',
             type: 'bitstream',
@@ -140,7 +139,6 @@ export const mockSubmissionRestResponse = [
             }
           }
         ],
-        self: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
         id: '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
         uuid: '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
         type: 'collection',
@@ -198,7 +196,6 @@ export const mockSubmissionRestResponse = [
         isDiscoverable: true,
         isWithdrawn: false,
         bitstreams: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/bitstreams',
-        self: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5',
         id: '6f344222-6980-4738-8192-b808d79af8a5',
         uuid: '6f344222-6980-4738-8192-b808d79af8a5',
         type: 'item',
@@ -229,7 +226,6 @@ export const mockSubmissionRestResponse = [
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
               config: ''
             },
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
           },
           {
             mandatory: true,
@@ -243,7 +239,6 @@ export const mockSubmissionRestResponse = [
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
               config: ''
             },
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
           },
           {
             header: 'submit.progressbar.describe.stepone',
@@ -254,7 +249,6 @@ export const mockSubmissionRestResponse = [
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
               config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
             },
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
           },
           {
             header: 'submit.progressbar.describe.steptwo',
@@ -265,7 +259,6 @@ export const mockSubmissionRestResponse = [
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
               config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
             },
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
           },
           {
             header: 'submit.progressbar.upload',
@@ -276,7 +269,6 @@ export const mockSubmissionRestResponse = [
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
               config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
             },
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
           },
           {
             header: 'submit.progressbar.license',
@@ -291,7 +283,6 @@ export const mockSubmissionRestResponse = [
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
               config: ''
             },
-            self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
           }
         ],
         name: 'traditional',
@@ -301,12 +292,10 @@ export const mockSubmissionRestResponse = [
           sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
           self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
         },
-        self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
       }
     ],
     submitter: [],
     errors: [],
-    self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826',
     type: 'workspaceitem',
     _links: {
       collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
@@ -335,7 +324,6 @@ export const mockSubmissionObject = {
           groupUUID: '11cc35e5-a11d-4b64-b5b9-0052a5d15509',
           id: 20,
           uuid: 'resource-policy-20',
-          self: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20',
           type: 'resourcePolicy',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20' }
@@ -348,7 +336,6 @@ export const mockSubmissionObject = {
       content: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content',
       format: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format',
       bundleName: null,
-      self: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425',
       id: '3f859425-ffbd-4b0e-bf91-bfeb458a7425',
       uuid: '3f859425-ffbd-4b0e-bf91-bfeb458a7425',
       type: 'bitstream',
@@ -360,7 +347,6 @@ export const mockSubmissionObject = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' }
       }
     },
-    self: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
     id: '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
     uuid: '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
     type: 'collection',
@@ -425,7 +411,6 @@ export const mockSubmissionObject = {
       },
       page: []
     },
-    self: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270',
     id: 'cae8af78-c874-4468-af79-e6c996aa8270',
     uuid: 'cae8af78-c874-4468-af79-e6c996aa8270',
     type: 'item',
@@ -460,7 +445,6 @@ export const mockSubmissionObject = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
             config: ''
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
         },
         {
           header: 'submit.progressbar.describe.stepone',
@@ -471,7 +455,6 @@ export const mockSubmissionObject = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
             config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
         },
         {
           header: 'submit.progressbar.describe.steptwo',
@@ -482,7 +465,6 @@ export const mockSubmissionObject = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
             config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
         },
         {
           header: 'submit.progressbar.upload',
@@ -493,7 +475,6 @@ export const mockSubmissionObject = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
             config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
         },
         {
           header: 'submit.progressbar.license',
@@ -508,7 +489,6 @@ export const mockSubmissionObject = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
             config: ''
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
         }
       ]
     },
@@ -519,7 +499,6 @@ export const mockSubmissionObject = {
       sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
       self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
     },
-    self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional',
     collections: {
       pageInfo: {
         elementsPerPage: 0,
@@ -539,7 +518,6 @@ export const mockSubmissionObject = {
     email: 'dspacedemo+submit@gmail.com',
     requireCertificate: false,
     selfRegistered: false,
-    self: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-5tg6-a9cd-6d910e68dca5',
     id: '99423c27-b642-5tg6-a9cd-6d910e68dca5',
     uuid: '99423c27-b642-5tg6-a9cd-6d910e68dca5',
     type: 'eperson',
@@ -581,7 +559,6 @@ export const mockSubmissionObject = {
       ]
     }
   ],
-  self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826',
   type: 'workspaceitem',
   _links: {
     collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
@@ -609,7 +586,6 @@ export const mockSubmissionObjectNew = {
           groupUUID: '11cc35e5-a11d-4b64-b5b9-0052a5d15509',
           id: 20,
           uuid: 'resource-policy-20',
-          self: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20',
           type: 'resourcePolicy',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20' }
@@ -622,7 +598,6 @@ export const mockSubmissionObjectNew = {
       content: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content',
       format: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format',
       bundleName: null,
-      self: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425',
       id: '3f859425-ffbd-4b0e-bf91-bfeb458a7425',
       uuid: '3f859425-ffbd-4b0e-bf91-bfeb458a7425',
       type: 'bitstream',
@@ -634,7 +609,6 @@ export const mockSubmissionObjectNew = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' }
       }
     },
-    self: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb',
     id: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb',
     uuid: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb',
     type: 'collection',
@@ -699,7 +673,6 @@ export const mockSubmissionObjectNew = {
       },
       page: []
     },
-    self: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270',
     id: 'cae8af78-c874-4468-af79-e6c996aa8270',
     uuid: 'cae8af78-c874-4468-af79-e6c996aa8270',
     type: 'item',
@@ -734,7 +707,6 @@ export const mockSubmissionObjectNew = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
             config: ''
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
         },
         {
           header: 'submit.progressbar.describe.stepone',
@@ -745,7 +717,6 @@ export const mockSubmissionObjectNew = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
             config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
         },
         {
           header: 'submit.progressbar.describe.steptwo',
@@ -756,7 +727,6 @@ export const mockSubmissionObjectNew = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
             config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
         },
         {
           header: 'submit.progressbar.upload',
@@ -767,7 +737,6 @@ export const mockSubmissionObjectNew = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
             config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
         },
         {
           header: 'submit.progressbar.license',
@@ -782,7 +751,6 @@ export const mockSubmissionObjectNew = {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
             config: ''
           },
-          self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
         }
       ]
     },
@@ -793,7 +761,6 @@ export const mockSubmissionObjectNew = {
       sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
       self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
     },
-    self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional',
     collections: {
       pageInfo: {
         elementsPerPage: 0,
@@ -813,7 +780,6 @@ export const mockSubmissionObjectNew = {
     email: 'dspacedemo+submit@gmail.com',
     requireCertificate: false,
     selfRegistered: false,
-    self: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-4bb9-a9cd-45gh23e68dca5',
     id: '99423c27-b642-4bb9-a9cd-45gh23e68dca5',
     uuid: '99423c27-b642-4bb9-a9cd-45gh23e68dca5',
     type: 'eperson',
@@ -838,7 +804,6 @@ export const mockSubmissionObjectNew = {
   lastModified: '2019-01-09T10:17:33.738+0000',
   sections: {},
   errors: [],
-  self: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826',
   type: 'workspaceitem',
   _links: {
     collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
@@ -870,7 +835,6 @@ export const mockSubmissionDefinitionResponse = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
         config: ''
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
     },
     {
       mandatory: true,
@@ -884,7 +848,6 @@ export const mockSubmissionDefinitionResponse = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
         config: ''
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
     },
     {
       header: 'submit.progressbar.describe.stepone',
@@ -895,7 +858,6 @@ export const mockSubmissionDefinitionResponse = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
         config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
     },
     {
       header: 'submit.progressbar.describe.steptwo',
@@ -906,7 +868,6 @@ export const mockSubmissionDefinitionResponse = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
         config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
     },
     {
       header: 'submit.progressbar.upload',
@@ -917,7 +878,6 @@ export const mockSubmissionDefinitionResponse = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
         config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
     },
     {
       header: 'submit.progressbar.license',
@@ -932,7 +892,6 @@ export const mockSubmissionDefinitionResponse = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
         config: ''
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
     }
   ],
   name: 'traditional',
@@ -942,7 +901,6 @@ export const mockSubmissionDefinitionResponse = {
     sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
     self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
   },
-  self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
 } as any;
 
 export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
@@ -960,7 +918,6 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
         config: ''
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction'
     },
     {
       mandatory: true,
@@ -974,7 +931,6 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
         config: ''
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection'
     },
     {
       header: 'submit.progressbar.describe.stepone',
@@ -985,7 +941,6 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
         config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone'
     },
     {
       header: 'submit.progressbar.describe.steptwo',
@@ -996,7 +951,6 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
         config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo'
     },
     {
       header: 'submit.progressbar.upload',
@@ -1007,7 +961,6 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
         config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload'
     },
     {
       header: 'submit.progressbar.license',
@@ -1022,7 +975,6 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
         config: ''
       },
-      self: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license'
     }
   ]),
   name: 'traditional',
@@ -1032,7 +984,6 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
     sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
     self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
   },
-  self: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional'
 } as any;
 
 export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
@@ -1339,7 +1290,6 @@ export const mockUploadConfigResponse = {
     _links: {
       self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata' }
     },
-    self: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata'
   },
   required: true,
   maxSize: 536870912,
@@ -1349,7 +1299,6 @@ export const mockUploadConfigResponse = {
     metadata: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload/metadata' },
     self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
   },
-  self: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload'
 };
 
 // Clone the object and change one property
@@ -1388,7 +1337,6 @@ export const mockAccessConditionOptions = [
 export const mockGroup = Object.assign(new Group(), {
   handle: null,
   permanent: true,
-  self: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1',
   id: '123456-g',
   uuid: '123456-g',
   type: 'group',

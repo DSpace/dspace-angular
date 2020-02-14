@@ -1,4 +1,4 @@
-import { autoserialize, autoserializeAs, deserialize, inheritSerialization } from 'cerialize';
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link } from '../../cache/builders/build-decorators';
 
@@ -67,6 +67,10 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
     submissionDefinition: HALLink;
     submitter: HALLink;
   };
+
+  get self(): string {
+    return this._links.self.href;
+  }
 
   /**
    * The submission item

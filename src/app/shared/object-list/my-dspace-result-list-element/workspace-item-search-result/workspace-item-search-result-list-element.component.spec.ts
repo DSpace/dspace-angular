@@ -8,7 +8,6 @@ import { ItemDataService } from '../../../../core/data/item-data.service';
 
 import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { getMockLinkService } from '../../../mocks/mock-link-service';
 import { MyDspaceItemStatusType } from '../../../object-collection/shared/mydspace-item-status/my-dspace-item-status-type';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../testing/utils';
@@ -89,7 +88,6 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
   });
 
   it('should have properly status', () => {
-    expect(linkService.resolveLink).toHaveBeenCalled();
     expect(component.status).toEqual(MyDspaceItemStatusType.WORKSPACE);
   });
 });
