@@ -119,11 +119,13 @@ import { MetadatafieldParsingService } from './data/metadatafield-parsing.servic
 import { NormalizedSubmissionUploadsModel } from './config/models/normalized-config-submission-uploads.model';
 import { NormalizedBrowseEntry } from './shared/normalized-browse-entry.model';
 import { BrowseDefinition } from './shared/browse-definition.model';
+import { ContentSourceResponseParsingService } from './data/content-source-response-parsing.service';
 import { MappedCollectionsReponseParsingService } from './data/mapped-collections-reponse-parsing.service';
 import { ObjectSelectService } from '../shared/object-select/object-select.service';
 import { NormalizedAuthority } from './integration/models/normalized-authority.model';
 import { AuthorityTreeviewService } from '../shared/authority-treeview/authority-treeview.service';
 import { DsDynamicTypeBindRelationService } from '../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
+import {EntityTypeService} from './data/entity-type.service';
 import { SiteDataService } from './data/site-data.service';
 import { NormalizedSite } from './cache/models/normalized-site.model';
 
@@ -248,6 +250,8 @@ const PROVIDERS = [
   ClaimedTaskDataService,
   PoolTaskDataService,
   DsDynamicTypeBindRelationService,
+  EntityTypeService,
+  ContentSourceResponseParsingService,
   SearchService,
   SidebarService,
   SearchFilterService,

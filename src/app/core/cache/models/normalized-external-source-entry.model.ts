@@ -29,6 +29,12 @@ export class NormalizedExternalSourceEntry extends NormalizedObject<ExternalSour
   value: string;
 
   /**
+   * The ID of the external source this entry originates from
+   */
+  @autoserialize
+  externalSource: string;
+
+  /**
    * Metadata of the entry
    */
   @autoserializeAs(MetadataMapSerializer)

@@ -13,7 +13,7 @@ describe('protractor App', () => {
   });
 
   it('should contain a news section', () => {
-    page.navigateTo();
-    expect<any>(page.getHomePageNewsText()).toBeDefined();
+    page.navigateTo()
+      .then(() => expect<any>(page.getHomePageNewsText()).toBeDefined());
   });
 });

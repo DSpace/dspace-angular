@@ -11,6 +11,6 @@ export class ProtractorPage {
   }
 
   getHomePageNewsText() {
-    return element(by.xpath('//ds-home-news')).getText();
+    return element(by.css('ds-home-news')).getText();
   }
 }

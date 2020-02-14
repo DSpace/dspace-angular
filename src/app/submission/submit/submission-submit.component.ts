@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
@@ -26,6 +26,12 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    * @type {string}
    */
   public collectionId: string;
+
+  /**
+   * The collection id input to create a new submission
+   * @type {string}
+   */
+  public collectionParam: string;
 
   /**
    * The submission self url
@@ -60,13 +66,18 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    * @param {Router} router
    * @param {TranslateService} translate
    * @param {ViewContainerRef} viewContainerRef
+   * @param {ActivatedRoute} route
    */
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private notificationsService: NotificationsService,
               private router: Router,
               private submissionService: SubmissionService,
               private translate: TranslateService,
-              private viewContainerRef: ViewContainerRef) {
+              private viewContainerRef: ViewContainerRef,
+              private route: ActivatedRoute) {
+    this.route
+      .queryParams
+      .subscribe((params) => { this.collectionParam = (params.collection); });
   }
 
   /**
@@ -75,7 +86,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   ngOnInit() {
     // NOTE execute the code on the browser side only, otherwise it is executed twice
     this.subs.push(
-      this.submissionService.createSubmission()
+      this.submissionService.createSubmission(this.collectionParam)
         .subscribe((submissionObject: SubmissionObject) => {
           // NOTE new submission is created on the browser side only
           if (isNotNull(submissionObject)) {

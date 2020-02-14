@@ -176,6 +176,8 @@ import { DsDynamicRelationInlineGroupComponent } from './form/builder/ds-dynamic
 import { MetadataRepresentationListComponent } from '../+item-page/simple/metadata-representation-list/metadata-representation-list.component';
 import { SelectableListItemControlComponent } from './object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
+import { ExternalSourceEntryImportModalComponent } from './form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
+import { ImportableListItemControlComponent } from './object-collection/shared/importable-list-item-control/importable-list-item-control.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExistingMetadataListElementComponent } from './form/builder/ds-dynamic-form-ui/existing-metadata-list-element/existing-metadata-list-element.component';
 import { LogInContainerComponent } from './log-in/container/log-in-container.component';
@@ -345,6 +347,8 @@ const COMPONENTS = [
   AuthorityTreeviewComponent,
   MetadataRepresentationLoaderComponent,
   SelectableListItemControlComponent,
+  ExternalSourceEntryImportModalComponent,
+  ImportableListItemControlComponent,
   ExistingMetadataListElementComponent,
   LogInShibbolethComponent,
   LogInPasswordComponent,
@@ -414,6 +418,7 @@ const ENTRY_COMPONENTS = [
   DsDynamicLookupRelationSearchTabComponent,
   DsDynamicLookupRelationSelectionTabComponent,
   DsDynamicLookupRelationExternalSourceTabComponent,
+  ExternalSourceEntryImportModalComponent,
   LogInPasswordComponent,
   LogInShibbolethComponent
 ];

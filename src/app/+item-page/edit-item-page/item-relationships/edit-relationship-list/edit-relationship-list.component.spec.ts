@@ -1,27 +1,26 @@
-import { EditRelationshipListComponent } from './edit-relationship-list.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { ResourceType } from '../../../../core/shared/resource-type';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { of as observableOf } from 'rxjs/internal/observable/of';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Item } from '../../../../core/shared/item.model';
-import { PaginatedList } from '../../../../core/data/paginated-list';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/object-updates.actions';
-import { SharedModule } from '../../../../shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RelationshipService } from '../../../../core/data/relationship.service';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import {EditRelationshipListComponent} from './edit-relationship-list.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {RelationshipType} from '../../../../core/shared/item-relationships/relationship-type.model';
+import {Relationship} from '../../../../core/shared/item-relationships/relationship.model';
+import {of as observableOf} from 'rxjs/internal/observable/of';
+import {RemoteData} from '../../../../core/data/remote-data';
+import {Item} from '../../../../core/shared/item.model';
+import {PaginatedList} from '../../../../core/data/paginated-list';
+import {PageInfo} from '../../../../core/shared/page-info.model';
+import {FieldChangeType} from '../../../../core/data/object-updates/object-updates.actions';
+import {SharedModule} from '../../../../shared/shared.module';
+import {TranslateModule} from '@ngx-translate/core';
+import {ObjectUpdatesService} from '../../../../core/data/object-updates/object-updates.service';
+import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
+import {By} from '@angular/platform-browser';
+import {ItemType} from '../../../../core/shared/item-relationships/item-type.model';
 
 let comp: EditRelationshipListComponent;
 let fixture: ComponentFixture<EditRelationshipListComponent>;
 let de: DebugElement;
 
 let objectUpdatesService;
-let relationshipService;
+let entityTypeService;
 
 const url = 'http://test-url.com/test-url';
 
@@ -30,42 +29,66 @@ let author1;
 let author2;
 let fieldUpdate1;
 let fieldUpdate2;
-let relationships;
+let relationship1;
+let relationship2;
 let relationshipType;
+let entityType;
+let relatedEntityType;
 
 describe('EditRelationshipListComponent', () => {
-  beforeEach(async(() => {
+
+  beforeEach(() => {
+
+    entityType = Object.assign(new ItemType(), {
+      id: 'entityType',
+    });
+
+    relatedEntityType = Object.assign(new ItemType(), {
+      id: 'relatedEntityType',
+    });
+
     relationshipType = Object.assign(new RelationshipType(), {
       id: '1',
       uuid: '1',
       leftwardType: 'isAuthorOfPublication',
-      rightwardType: 'isPublicationOfAuthor'
+      rightwardType: 'isPublicationOfAuthor',
+      leftType: observableOf(new RemoteData(false, false, true, undefined, entityType)),
+      rightType: observableOf(new RemoteData(false, false, true, undefined, relatedEntityType)),
     });
 
-    relationships = [
-      Object.assign(new Relationship(), {
-        self: url + '/2',
-        id: '2',
-        uuid: '2',
-        leftId: 'author1',
-        rightId: 'publication',
-        relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
-      }),
-      Object.assign(new Relationship(), {
-        self: url + '/3',
-        id: '3',
-        uuid: '3',
-        leftId: 'author2',
-        rightId: 'publication',
-        relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
-      })
-    ];
+    relationship1 = Object.assign(new Relationship(), {
+      self: url + '/2',
+      id: '2',
+      uuid: '2',
+      leftId: 'author1',
+      rightId: 'publication',
+      leftItem: observableOf(new RemoteData(false, false, true, undefined, item)),
+      rightItem: observableOf(new RemoteData(false, false, true, undefined, author1)),
+      relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+    });
+
+    relationship2 = Object.assign(new Relationship(), {
+      self: url + '/3',
+      id: '3',
+      uuid: '3',
+      leftId: 'author2',
+      rightId: 'publication',
+      leftItem: observableOf(new RemoteData(false, false, true, undefined, item)),
+      rightItem: observableOf(new RemoteData(false, false, true, undefined, author2)),
+      relationshipType: observableOf(new RemoteData(false, false, true, undefined, relationshipType))
+    });
 
     item = Object.assign(new Item(), {
       self: 'fake-item-url/publication',
       id: 'publication',
       uuid: 'publication',
-      relationships: observableOf(new RemoteData(false, false, true, undefined, new PaginatedList(new PageInfo(), relationships)))
+      relationships: observableOf(new RemoteData(
+        false,
+        false,
+        true,
+        undefined,
+        new PaginatedList(new PageInfo(), [relationship1, relationship2])
+      ))
     });
 
     author1 = Object.assign(new Item(), {
@@ -88,16 +111,29 @@ describe('EditRelationshipListComponent', () => {
 
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
-        getFieldUpdatesExclusive: observableOf({
+        getFieldUpdates: observableOf({
           [author1.uuid]: fieldUpdate1,
           [author2.uuid]: fieldUpdate2
         })
       }
     );
 
-    relationshipService = jasmine.createSpyObj('relationshipService',
+    entityTypeService = jasmine.createSpyObj('entityTypeService',
       {
-        getRelatedItemsByLabel: observableOf(new RemoteData(false, false, true, null, new PaginatedList(new PageInfo(), [author1, author2]))),
+        getEntityTypeByLabel: observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          entityType,
+        )),
+        getEntityTypeRelationships: observableOf(new RemoteData(
+          false,
+          false,
+          true,
+          null,
+          new PaginatedList(new PageInfo(), [relationshipType]),
+        )),
       }
     );
 
@@ -106,29 +142,27 @@ describe('EditRelationshipListComponent', () => {
       declarations: [EditRelationshipListComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
-        { provide: RelationshipService, useValue: relationshipService }
       ], schemas: [
         NO_ERRORS_SCHEMA
       ]
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(EditRelationshipListComponent);
     comp = fixture.componentInstance;
     de = fixture.debugElement;
+
     comp.item = item;
+    comp.itemType = entityType;
     comp.url = url;
-    comp.relationshipLabel = relationshipType.leftwardType;
+    comp.relationshipType = relationshipType;
+
     fixture.detectChanges();
   });
 
   describe('changeType is REMOVE', () => {
-    beforeEach(() => {
-      fieldUpdate1.changeType = FieldChangeType.REMOVE;
-      fixture.detectChanges();
-    });
     it('the div should have class alert-danger', () => {
+
+      fieldUpdate1.changeType = FieldChangeType.REMOVE;
       const element = de.queryAll(By.css('.relationship-row'))[1].nativeElement;
       expect(element.classList).toContain('alert-danger');
     });

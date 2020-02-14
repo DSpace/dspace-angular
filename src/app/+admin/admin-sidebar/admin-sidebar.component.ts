@@ -17,6 +17,7 @@ import { CreateCollectionParentSelectorComponent } from '../../shared/dso-select
 import { EditItemSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-item-selector/edit-item-selector.component';
 import { EditCommunitySelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-community-selector/edit-community-selector.component';
 import { EditCollectionSelectorComponent } from '../../shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
+import {CreateItemParentSelectorComponent} from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
 
 /**
  * Component representing the admin sidebar
@@ -137,18 +138,18 @@ export class AdminSidebarComponent extends MenuComponent implements OnInit {
         parentID: 'new',
         active: false,
         visible: true,
-        // model: {
-        //   type: MenuItemType.ONCLICK,
-        //   text: 'menu.section.new_item',
-        //   function: () => {
-        //     this.modalService.open(CreateItemParentSelectorComponent);
-        //   }
-        // } as OnClickMenuItemModel,
         model: {
-          type: MenuItemType.LINK,
+          type: MenuItemType.ONCLICK,
           text: 'menu.section.new_item',
-          link: '/submit'
-        } as LinkMenuItemModel,
+          function: () => {
+            this.modalService.open(CreateItemParentSelectorComponent);
+          }
+        } as OnClickMenuItemModel,
+        // model: {
+        //   type: MenuItemType.LINK,
+        //   text: 'menu.section.new_item',
+        //   link: '/submit'
+        // } as LinkMenuItemModel,
       },
       {
         id: 'new_item_version',

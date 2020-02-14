@@ -62,7 +62,7 @@ export class ConfigurationSearchPageComponent extends SearchComponent implements
       this.routeService.setParameter('configuration', this.configuration);
     }
     if (hasValue(this.fixedFilterQuery)) {
-      this.routeService.setParameter('fixedFilter', this.fixedFilterQuery);
+      this.routeService.setParameter('fixedFilterQuery', this.fixedFilterQuery);
     }
   }
 }
