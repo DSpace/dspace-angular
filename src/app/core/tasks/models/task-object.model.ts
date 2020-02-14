@@ -1,3 +1,4 @@
+import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
 import { Observable } from 'rxjs';
 import { link, resourceType } from '../../cache/builders/build-decorators';
 
@@ -16,23 +17,38 @@ import { TASK_OBJECT } from './task-object.resource-type';
  * An abstract model class for a TaskObject.
  */
 @resourceType(TaskObject.type)
+@inheritSerialization(DSpaceObject)
 export class TaskObject extends DSpaceObject implements CacheableObject {
   static type = TASK_OBJECT;
 
   /**
    * The task identifier
    */
+  @autoserialize
   id: string;
 
   /**
    * The workflow step
    */
+  @autoserialize
   step: string;
 
   /**
    * The task action type
    */
+  @autoserialize
   action: string;
+
+  /**
+   * The HALLinks for this TaskObject
+   */
+  @deserialize
+  _links: {
+    self: HALLink;
+    eperson: HALLink;
+    group: HALLink;
+    workflowitem: HALLink;
+  };
 
   /**
    * The EPerson for this task
@@ -54,12 +70,5 @@ export class TaskObject extends DSpaceObject implements CacheableObject {
    */
   @link(WorkflowItem.type)
   workflowitem?: Observable<RemoteData<WorkflowItem>> | WorkflowItem;
-
-  _links: {
-    self: HALLink,
-    eperson: HALLink,
-    group: HALLink,
-    workflowitem: HALLink,
-  }
 
 }

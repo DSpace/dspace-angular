@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { DataService } from '../data/data.service';
 
-import { EPersonDataService } from './eperson-data.service';
 import { RequestService } from '../data/request.service';
 import { FindListOptions } from '../data/request.models';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
@@ -18,7 +17,6 @@ import { SearchParam } from '../cache/models/search-param.model';
 import { RemoteData } from '../data/remote-data';
 import { PaginatedList } from '../data/paginated-list';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
 
 /**
@@ -33,7 +31,6 @@ export class GroupDataService extends DataService<Group> {
 
   constructor(
     protected comparator: DSOChangeAnalyzer<Group>,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected http: HttpClient,
     protected notificationsService: NotificationsService,
     protected requestService: RequestService,

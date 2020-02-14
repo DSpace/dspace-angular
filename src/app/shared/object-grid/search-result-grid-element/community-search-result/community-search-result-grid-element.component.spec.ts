@@ -4,7 +4,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
-import { NormalizedObjectBuildService } from '../../../../core/cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
@@ -63,7 +62,6 @@ describe('CommunitySearchResultGridElementComponent', () => {
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
-        { provide: NormalizedObjectBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: NotificationsService, useValue: {} },

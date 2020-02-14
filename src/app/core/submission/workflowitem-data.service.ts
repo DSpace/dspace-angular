@@ -10,7 +10,6 @@ import { RequestService } from '../data/request.service';
 import { WorkflowItem } from './models/workflowitem.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { FindListOptions } from '../data/request.models';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
@@ -26,7 +25,6 @@ export class WorkflowItemDataService extends DataService<WorkflowItem> {
 
   constructor(
     protected comparator: DSOChangeAnalyzer<WorkflowItem>,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected halService: HALEndpointService,
     protected http: HttpClient,
     protected notificationsService: NotificationsService,

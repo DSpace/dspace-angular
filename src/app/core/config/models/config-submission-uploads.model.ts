@@ -1,3 +1,4 @@
+import { autoserialize } from 'cerialize';
 import { resourceType } from '../../cache/builders/build-decorators';
 import { ConfigObject } from './config.model';
 import { AccessConditionOption } from './config-access-condition-option.model';
@@ -10,15 +11,19 @@ export class SubmissionUploadsModel extends ConfigObject {
   /**
    * A list of available bitstream access conditions
    */
+  @autoserialize
   accessConditionOptions: AccessConditionOption[];
 
   /**
    * An object representing the configuration describing the bistream metadata form
    */
+  @autoserialize
   metadata: SubmissionFormsModel;
 
+  @autoserialize
   required: boolean;
 
+  @autoserialize
   maxSize: number;
 
 }

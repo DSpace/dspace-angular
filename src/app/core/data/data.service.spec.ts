@@ -1,43 +1,36 @@
-import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
-import { compare, Operation } from 'fast-json-patch';
-import { Observable, of as observableOf } from 'rxjs';
-import * as uuidv4 from 'uuid/v4';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { DataService } from './data.service';
+import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { CoreState } from '../core.reducers';
+import { Store } from '@ngrx/store';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Observable, of as observableOf } from 'rxjs';
+import { FindListOptions } from './request.models';
 import { SortDirection, SortOptions } from '../cache/models/sort-options.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { CoreState } from '../core.reducers';
+import { compare, Operation } from 'fast-json-patch';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
 import { ChangeAnalyzer } from './change-analyzer';
-import { DataService } from './data.service';
-import { FindListOptions } from './request.models';
-import { RequestService } from './request.service';
+import { HttpClient } from '@angular/common/http';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { Item } from '../shared/item.model';
+import * as uuidv4 from 'uuid/v4';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 
 const endpoint = 'https://rest.api/core';
-
-// tslint:disable:max-classes-per-file
-class NormalizedTestObject extends NormalizedObject<Item> {
-}
 
 class TestService extends DataService<any> {
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected linkPath: string,
     protected halService: HALEndpointService,
     protected objectCache: ObjectCacheService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
-    protected comparator: ChangeAnalyzer<NormalizedTestObject>
+    protected comparator: ChangeAnalyzer<Item>
   ) {
     super();
   }
@@ -47,8 +40,8 @@ class TestService extends DataService<any> {
   }
 }
 
-class DummyChangeAnalyzer implements ChangeAnalyzer<NormalizedTestObject> {
-  diff(object1: NormalizedTestObject, object2: NormalizedTestObject): Operation[] {
+class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
+  diff(object1: Item, object2: Item): Operation[] {
     return compare((object1 as any).metadata, (object2 as any).metadata);
   }
 
@@ -63,9 +56,6 @@ describe('DataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = new DummyChangeAnalyzer() as any;
-  const dataBuildService = {
-    normalize: (object) => object
-  } as NormalizedObjectBuildService;
   const objectCache = {
     addPatch: () => {
       /* empty */
@@ -80,7 +70,6 @@ describe('DataService', () => {
     return new TestService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       endpoint,
       halService,

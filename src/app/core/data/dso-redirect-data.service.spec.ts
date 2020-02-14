@@ -7,7 +7,6 @@ import { RequestService } from './request.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { DsoRedirectDataService } from './dso-redirect-data.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
@@ -31,7 +30,6 @@ describe('DsoRedirectDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {} as NormalizedObjectBuildService;
   const objectCache = {} as ObjectCacheService;
   let setup;
   beforeEach(() => {
@@ -68,7 +66,6 @@ describe('DsoRedirectDataService', () => {
       service = new DsoRedirectDataService(
         requestService,
         rdbService,
-        dataBuildService,
         store,
         objectCache,
         halService,

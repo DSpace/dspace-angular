@@ -7,7 +7,6 @@ import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -31,12 +30,10 @@ import { RequestService } from './request.service';
 @dataService(BUNDLE)
 export class BundleDataService extends DataService<Bundle> {
   protected linkPath = 'bundles';
-  protected forceBypassCache = false;
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,

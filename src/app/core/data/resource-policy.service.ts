@@ -17,7 +17,6 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RESOURCE_POLICY } from '../shared/resource-policy.resource-type';
 import { ChangeAnalyzer } from './change-analyzer';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
@@ -30,7 +29,6 @@ class DataServiceImpl extends DataService<ResourcePolicy> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -53,13 +51,12 @@ export class ResourcePolicyService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<ResourcePolicy>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<ResourcePolicy>>): Observable<RemoteData<ResourcePolicy>> {

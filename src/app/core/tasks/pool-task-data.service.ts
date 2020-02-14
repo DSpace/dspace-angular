@@ -5,8 +5,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
-
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -37,7 +35,7 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
    *
    * @param {RequestService} requestService
    * @param {RemoteDataBuildService} rdbService
-   * @param {NormalizedObjectBuildService} dataBuildService
+   * @param {NormalizedObjectBuildService} linkService
    * @param {Store<CoreState>} store
    * @param {ObjectCacheService} objectCache
    * @param {HALEndpointService} halService
@@ -48,7 +46,6 @@ export class PoolTaskDataService extends TasksService<PoolTask> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,

@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { NormalizedObject } from '../../core/cache/models/normalized-object.model';
 import { PaginatedList } from '../../core/data/paginated-list';
 import { RemoteData } from '../../core/data/remote-data';
 import { RequestEntry } from '../../core/data/request.reducer';
@@ -22,7 +21,7 @@ export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observab
       }
     },
     buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
-    build: (normalized: NormalizedObject<any>) => Object.create({}),
+    build: (obj: any) => Object.create({}),
     buildList: (href$: string | Observable<string>) => {
       if (hasValue(buildList$)) {
         return buildList$;
@@ -47,7 +46,7 @@ export function getMockRemoteDataBuildServiceHrefMap(toRemoteDataObservable$?: O
       }
     },
     buildSingle: (href$: string | Observable<string>) => createSuccessfulRemoteDataObject$({}),
-    build: (normalized: NormalizedObject<any>) => Object.create({}),
+    build: (obj: any) => Object.create({}),
     buildList: (href$: string | Observable<string>) => {
       if (typeof href$ === 'string') {
         if (hasValue(buildListHrefMap$[href$])) {

@@ -18,10 +18,8 @@ import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.uti
 import { NotificationOptions } from '../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { getMapsToType } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
+import { getClassForType } from '../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { SearchParam } from '../cache/models/search-param.model';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -55,7 +53,6 @@ import { RestRequestMethod } from './rest-request-method';
 export abstract class DataService<T extends CacheableObject> {
   protected abstract requestService: RequestService;
   protected abstract rdbService: RemoteDataBuildService;
-  protected abstract dataBuildService: NormalizedObjectBuildService;
   protected abstract store: Store<CoreState>;
   protected abstract linkPath: string;
   protected abstract halService: HALEndpointService;
@@ -333,8 +330,7 @@ export abstract class DataService<T extends CacheableObject> {
       map((endpoint: string) => parentUUID ? `${endpoint}?parent=${parentUUID}` : endpoint)
     );
 
-    const normalizedObject: NormalizedObject<T> = this.dataBuildService.normalize<T>(dso);
-    const serializedDso = new DSpaceSerializer(getMapsToType((dso as any).type)).serialize(normalizedObject);
+    const serializedDso = new DSpaceSerializer(getClassForType((dso as any).type)).serialize(dso);
 
     const request$ = endpoint$.pipe(
       take(1),

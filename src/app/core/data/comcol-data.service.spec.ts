@@ -6,9 +6,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { GlobalConfig } from '../../../config';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
 import { Community } from '../shared/community.model';
@@ -23,16 +21,11 @@ import { RequestService } from './request.service';
 
 const LINK_NAME = 'test';
 
-/* tslint:disable:max-classes-per-file */
-class NormalizedTestObject extends NormalizedObject<Item> {
-}
-
 class TestService extends ComColDataService<any> {
 
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected EnvConfig: GlobalConfig,
     protected cds: CommunityDataService,
@@ -52,8 +45,6 @@ class TestService extends ComColDataService<any> {
   }
 }
 
-/* tslint:enable:max-classes-per-file */
-
 describe('ComColDataService', () => {
   let scheduler: TestScheduler;
   let service: TestService;
@@ -68,7 +59,6 @@ describe('ComColDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {} as NormalizedObjectBuildService;
 
   const scopeID = 'd9d30c0c-69b7-4369-8397-ca67c888974d';
   const options = Object.assign(new FindListOptions(), {
@@ -115,7 +105,6 @@ describe('ComColDataService', () => {
     return new TestService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       EnvConfig,
       cds,

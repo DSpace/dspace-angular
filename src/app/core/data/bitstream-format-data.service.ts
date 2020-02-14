@@ -13,7 +13,6 @@ import { BitstreamFormatRegistryState } from '../../+admin/admin-registries/bits
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
@@ -50,7 +49,6 @@ export class BitstreamFormatDataService extends DataService<BitstreamFormat> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,

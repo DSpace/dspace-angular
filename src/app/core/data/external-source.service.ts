@@ -3,7 +3,6 @@ import { DataService } from './data.service';
 import { ExternalSource } from '../shared/external-source.model';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../core.reducers';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -31,7 +30,6 @@ export class ExternalSourceService extends DataService<ExternalSource> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,

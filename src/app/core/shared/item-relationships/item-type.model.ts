@@ -38,6 +38,9 @@ export class ItemType implements CacheableObject {
   @deserializeAs(new IDToUUIDSerializer(ItemType.type.value), 'id')
   uuid: string;
 
+  /**
+   * The HALLinks for this ItemType
+   */
   @deserialize
   _links: {
     self: HALLink,

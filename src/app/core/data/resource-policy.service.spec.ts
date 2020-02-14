@@ -2,12 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { ResourcePolicy } from '../shared/resource-policy.model';
-import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
 import { ResourcePolicyService } from './resource-policy.service';
 
@@ -42,12 +40,10 @@ describe('ResourcePolicyService', () => {
     const notificationsService = {} as NotificationsService;
     const http = {} as HttpClient;
     const comparator = {} as any;
-    const dataBuildService = {} as NormalizedObjectBuildService;
 
     service = new ResourcePolicyService(
       requestService,
       rdbService,
-      dataBuildService,
       objectCache,
       halService,
       notificationsService,

@@ -8,37 +8,17 @@ import { HALResource } from '../../shared/hal-resource.model';
 import { CacheableObject, TypedObject } from '../object-cache.reducer';
 import { ResourceType } from '../../shared/resource-type';
 
-const mapsToMetadataKey = Symbol('mapsTo');
-const relationshipKey = Symbol('relationship');
 const resolvedLinkKey = Symbol('resolvedLink');
 
-const relationshipMap = new Map();
 const resolvedLinkMap = new Map();
 const typeMap = new Map();
 const dataServiceMap = new Map();
 const linkMap = new Map();
 
 /**
- * Decorator function to map a normalized class to it's not-normalized counter part class
- * It will also maps a type to the matching class
- * @param value The not-normalized class to map to
+ * Decorator function to map a ResourceType to its class
+ * @param value The ResourceType to map
  */
-export function mapsTo(value: GenericConstructor<TypedObject>) {
-  return function decorator(objectConstructor: GenericConstructor<TypedObject>) {
-    Reflect.defineMetadata(mapsToMetadataKey, value, objectConstructor);
-    mapsToType((value as any).type, objectConstructor);
-  }
-}
-
-/**
- * Decorator function to map a normalized class to it's not-normalized counter part class
- * It will also maps a type to the matching class
- * @param value The not-normalized class to map to
- */
-// export function resourceType(target: any, key: string) {
-//   typeMap.set(target.key.value, target.constructor);
-// }
-
 export function resourceType(value: ResourceType) {
   return function decorator(objectConstructor: GenericConstructor<TypedObject>) {
     typeMap.set(value.value, objectConstructor);
@@ -46,61 +26,14 @@ export function resourceType(value: ResourceType) {
 }
 
 /**
- * Maps a type to the matching class
- * @param value The resourse type
- * @param objectConstructor The class to map to
- */
-function mapsToType(value: ResourceType, objectConstructor: GenericConstructor<TypedObject>) {
-  if (!objectConstructor || !value) {
-    return;
-  }
-  typeMap.set(value.value, objectConstructor);
-}
-
-/**
- * Returns the mapped class for the given normalized class
- * @param target The normalized class
- */
-export function getMapsTo(target: any) {
-  return Reflect.getOwnMetadata(mapsToMetadataKey, target);
-}
-
-/**
  * Returns the mapped class for the given type
  * @param type The resource type
  */
-export function getMapsToType(type: string | ResourceType) {
+export function getClassForType(type: string | ResourceType) {
   if (typeof(type) === 'object') {
     type = (type as ResourceType).value;
   }
   return typeMap.get(type);
-}
-
-export function relationship<T extends CacheableObject>(value: GenericConstructor<T>, isList: boolean = false, shouldAutoResolve: boolean = true): any {
-  return function r(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    if (!target || !propertyKey) {
-      return;
-    }
-
-    const metaDataList: string[] = relationshipMap.get(target.constructor) || [];
-    if (metaDataList.indexOf(propertyKey) === -1) {
-      metaDataList.push(propertyKey);
-    }
-    relationshipMap.set(target.constructor, metaDataList);
-    return Reflect.metadata(relationshipKey, {
-      resourceType: (value as any).type.value,
-      isList,
-      shouldAutoResolve
-    }).apply(this, arguments);
-  };
-}
-
-export function getRelationMetadata(target: any, propertyKey: string) {
-  return Reflect.getMetadata(relationshipKey, target, propertyKey);
-}
-
-export function getRelationships(target: any) {
-  return relationshipMap.get(target);
 }
 
 export function dataService(resourceType: ResourceType): any {

@@ -1,5 +1,5 @@
 import { autoserialize, deserialize } from 'cerialize';
-import { relationship, resourceType } from '../cache/builders/build-decorators';
+import { resourceType } from '../cache/builders/build-decorators';
 import { MetadataField } from '../metadata/metadata-field.model';
 import { METADATA_FIELD } from '../metadata/metadata-field.resource-type';
 import { HALLink } from '../shared/hal-link.model';
@@ -25,7 +25,6 @@ export class RegistryMetadatafieldsResponse {
    * List of metadata fields in the response
    */
   @deserialize
-  @relationship(MetadataField, true)
   metadatafields: MetadataField[];
 
   /**
@@ -40,8 +39,8 @@ export class RegistryMetadatafieldsResponse {
   @autoserialize
   self: string;
 
+  @deserialize
   _links: {
     self: HALLink,
-    schema: HALLink
   }
 }

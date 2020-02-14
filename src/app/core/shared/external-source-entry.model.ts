@@ -52,6 +52,9 @@ export class ExternalSourceEntry extends ListableObject {
   @autoserializeAs(MetadataMapSerializer)
   metadata: MetadataMap;
 
+  /**
+   * The HALLinks for this ExternalSourceEntry
+   */
   @deserialize
   _links: {
     self: HALLink;

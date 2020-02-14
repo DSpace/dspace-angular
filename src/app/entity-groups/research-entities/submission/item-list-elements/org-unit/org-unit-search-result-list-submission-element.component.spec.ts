@@ -7,7 +7,6 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { NormalizedObjectBuildService } from '../../../../../core/cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -111,7 +110,6 @@ describe('OrgUnitSearchResultListSubmissionElementComponent', () => {
         { provide: ObjectCacheService, useValue: {} },
         { provide: UUIDService, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
-        { provide: NormalizedObjectBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: HttpClient, useValue: {} },

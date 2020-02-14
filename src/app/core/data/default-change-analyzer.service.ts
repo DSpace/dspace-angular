@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { compare } from 'fast-json-patch';
 import { Operation } from 'fast-json-patch/lib/core';
-import { getMapsToType } from '../cache/builders/build-decorators';
-import { NormalizedObject } from '../cache/models/normalized-object.model';
+import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/object-cache.reducer';
 import { DSpaceSerializer } from '../dspace-rest-v2/dspace.serializer';
 import { ChangeAnalyzer } from './change-analyzer';
@@ -20,14 +19,14 @@ export class DefaultChangeAnalyzer<T extends CacheableObject> implements ChangeA
    * Compare the metadata of two CacheableObject and return the differences as
    * a JsonPatch Operation Array
    *
-   * @param {NormalizedObject} object1
+   * @param {CacheableObject} object1
    *    The first object to compare
-   * @param {NormalizedObject} object2
+   * @param {CacheableObject} object2
    *    The second object to compare
    */
   diff(object1: T, object2: T): Operation[] {
-    const serializer1 = new DSpaceSerializer(getMapsToType(object1.type));
-    const serializer2 = new DSpaceSerializer(getMapsToType(object2.type));
+    const serializer1 = new DSpaceSerializer(getClassForType(object1.type));
+    const serializer2 = new DSpaceSerializer(getClassForType(object2.type));
     return compare(serializer1.serialize(object1), serializer2.serialize(object2));
   }
 }

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -25,7 +24,6 @@ class DataServiceImpl extends DataService<License> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -44,14 +42,13 @@ export class LicenseDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DefaultChangeAnalyzer<License>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
   findByHref(href: string, ...linksToFollow: Array<FollowLinkConfig<License>>): Observable<RemoteData<License>> {

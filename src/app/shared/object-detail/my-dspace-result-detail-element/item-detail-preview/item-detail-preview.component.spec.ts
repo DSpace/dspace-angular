@@ -7,7 +7,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { of as observableOf } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { NormalizedObjectBuildService } from '../../../../core/cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -103,7 +102,6 @@ describe('ItemDetailPreviewComponent', () => {
         { provide: UUIDService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
-        { provide: NormalizedObjectBuildService, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: NotificationsService, useValue: {} },

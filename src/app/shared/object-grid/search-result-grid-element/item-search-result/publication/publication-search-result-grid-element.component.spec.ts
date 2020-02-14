@@ -6,7 +6,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { of as observableOf } from 'rxjs/internal/observable/of';
-import { NormalizedObjectBuildService } from '../../../../../core/cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
@@ -109,7 +108,6 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
           { provide: UUIDService, useValue: {} },
           { provide: Store, useValue: {} },
           { provide: RemoteDataBuildService, useValue: {} },
-          { provide: NormalizedObjectBuildService, useValue: {} },
           { provide: CommunityDataService, useValue: {} },
           { provide: HALEndpointService, useValue: {} },
           { provide: HttpClient, useValue: {} },

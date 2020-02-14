@@ -7,10 +7,32 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { GlobalConfig } from '../../../config/global-config.interface';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList } from './paginated-list';
-import { isRestDataObject, isRestPaginatedList } from '../cache/builders/normalized-object-build.service';
-import { getMapsToType } from '../cache/builders/build-decorators';
+import { getClassForType } from '../cache/builders/build-decorators';
 import { RestRequest } from './request.models';
 /* tslint:disable:max-classes-per-file */
+
+/**
+ * Return true if halObj has a value for `_links.self`
+ *
+ * @param {any} halObj The object to test
+ */
+export function isRestDataObject(halObj: any): boolean {
+  return isNotEmpty(halObj._links) && hasValue(halObj._links.self);
+}
+
+/**
+ * Return true if halObj has a value for `page` with properties
+ * `size`, `totalElements`, `totalPages`, `number`
+ *
+ * @param {any} halObj The object to test
+ */
+export function isRestPaginatedList(halObj: any): boolean {
+  return hasValue(halObj.page) &&
+          hasValue(halObj.page.size) &&
+          hasValue(halObj.page.totalElements) &&
+          hasValue(halObj.page.totalPages) &&
+          hasValue(halObj.page.number);
+}
 
 export abstract class BaseResponseParsingService {
   protected abstract EnvConfig: GlobalConfig;
@@ -89,7 +111,7 @@ export abstract class BaseResponseParsingService {
   protected deserialize<ObjectDomain>(obj): any {
     const type: string = obj.type;
     if (hasValue(type)) {
-      const normObjConstructor = getMapsToType(type) as GenericConstructor<ObjectDomain>;
+      const normObjConstructor = getClassForType(type) as GenericConstructor<ObjectDomain>;
 
       if (hasValue(normObjConstructor)) {
         const serializer = new this.serializerConstructor(normObjConstructor);

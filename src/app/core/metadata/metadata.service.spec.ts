@@ -31,7 +31,6 @@ import { createSuccessfulRemoteDataObject$ } from '../../shared/testing/utils';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { AuthService } from '../auth/auth.service';
 import { BrowseService } from '../browse/browse.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 
@@ -166,7 +165,6 @@ describe('MetadataService', () => {
         { provide: AuthService, useValue: {} },
         { provide: NotificationsService, useValue: {} },
         { provide: HttpClient, useValue: {} },
-        { provide: NormalizedObjectBuildService, useValue: {} },
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: CommunityDataService, useValue: {} },
         { provide: DefaultChangeAnalyzer, useValue: {} },

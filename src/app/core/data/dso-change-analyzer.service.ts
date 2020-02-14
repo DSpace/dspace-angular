@@ -1,7 +1,6 @@
 import { Operation } from 'fast-json-patch/lib/core';
 import { compare } from 'fast-json-patch';
 import { ChangeAnalyzer } from './change-analyzer';
-import { NormalizedDSpaceObject } from '../cache/models/normalized-dspace-object.model';
 import { Injectable } from '@angular/core';
 import { DSpaceObject } from '../shared/dspace-object.model';
 

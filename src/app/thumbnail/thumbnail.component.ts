@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { hasValue } from '../shared/empty.util';
 
@@ -13,22 +13,17 @@ import { hasValue } from '../shared/empty.util';
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html'
 })
-export class ThumbnailComponent {
+export class ThumbnailComponent implements OnInit {
 
-  private _thumbnail: Bitstream;
-
-  get thumbnail(): Bitstream {
-    return this._thumbnail;
-  };
-
-  @Input() set thumbnail(t: Bitstream) {
-    this._thumbnail = t;
+  ngOnInit(): void {
     if (hasValue(this.thumbnail) && hasValue(this.thumbnail._links) && hasValue(this.thumbnail._links.content) && this.thumbnail._links.content.href) {
       this.src = this.thumbnail._links.content.href;
     } else {
       this.src = this.defaultImage
     }
   }
+
+  @Input() thumbnail: Bitstream;
 
   /**
    * The default 'holder.js' image

@@ -7,7 +7,6 @@ import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.uti
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
 import { dataService } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GenericSuccessResponse, RestResponse } from '../cache/response.models';
@@ -50,7 +49,6 @@ export class ItemDataService extends DataService<Item> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     private bs: BrowseService,
     protected objectCache: ObjectCacheService,

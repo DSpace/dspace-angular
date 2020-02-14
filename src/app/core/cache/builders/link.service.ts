@@ -55,13 +55,15 @@ export class LinkService {
   /**
    * Remove any resolved links that the model may have.
    */
-  public removeResolvedLinks<T extends HALResource>(model: T) {
+  public removeResolvedLinks<T extends HALResource>(model: T): T {
+    const result = Object.assign(new (model.constructor as GenericConstructor<T>)(), model);
     const linkDefs = getLinkDefinitions(model.constructor as GenericConstructor<T>);
     if (isNotEmpty(linkDefs)) {
       linkDefs.forEach((linkDef: LinkDefinition<T>) => {
-        model[linkDef.propertyName] = undefined;
+        result[linkDef.propertyName] = undefined;
       });
     }
+    return result;
   }
 
 }

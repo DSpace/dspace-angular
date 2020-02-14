@@ -48,6 +48,9 @@ export class ResourcePolicy implements CacheableObject {
   @deserializeAs(new IDToUUIDSerializer('resource-policy'), 'id')
   uuid: string;
 
+  /**
+   * The HALLinks for this ResourcePolicy
+   */
   @deserialize
   _links: {
     self: HALLink,

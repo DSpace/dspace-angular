@@ -38,6 +38,9 @@ export class ExternalSource extends CacheableObject {
   @autoserialize
   hierarchical: boolean;
 
+  /**
+   * The HALLinks for this ExternalSource
+   */
   @deserialize
   _links: {
     self: HALLink;

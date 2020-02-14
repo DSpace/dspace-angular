@@ -9,7 +9,6 @@ import { isNotUndefined } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -37,7 +36,6 @@ export class RelationshipTypeService extends DataService<RelationshipType> {
   constructor(protected itemService: ItemDataService,
               protected requestService: RequestService,
               protected rdbService: RemoteDataBuildService,
-              protected dataBuildService: NormalizedObjectBuildService,
               protected store: Store<CoreState>,
               protected halService: HALEndpointService,
               protected objectCache: ObjectCacheService,

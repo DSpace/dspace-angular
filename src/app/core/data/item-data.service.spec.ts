@@ -6,7 +6,6 @@ import { TestScheduler } from 'rxjs/testing';
 import { getMockRequestService } from '../../shared/mocks/mock-request.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowseService } from '../browse/browse.service';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { RestResponse } from '../cache/response.models';
 import { CoreState } from '../core.reducers';
@@ -66,7 +65,6 @@ describe('ItemDataService', () => {
   const notificationsService = {} as NotificationsService;
   const http = {} as HttpClient;
   const comparator = {} as any;
-  const dataBuildService = {} as NormalizedObjectBuildService;
   const itemEndpoint = 'https://rest.api/core/items';
   const ScopedItemEndpoint = `https://rest.api/core/items/${scopeID}`;
 
@@ -83,7 +81,6 @@ describe('ItemDataService', () => {
     return new ItemDataService(
       requestService,
       rdbService,
-      dataBuildService,
       store,
       bs,
       objectCache,

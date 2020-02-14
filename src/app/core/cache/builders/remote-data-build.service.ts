@@ -24,11 +24,9 @@ import {
   getResourceLinksFromResponse
 } from '../../shared/operators';
 import { PageInfo } from '../../shared/page-info.model';
-import { NormalizedObject } from '../models/normalized-object.model';
 import { CacheableObject } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
 import { DSOSuccessResponse, ErrorResponse } from '../response.models';
-import { getMapsTo, getRelationMetadata, getRelationships } from './build-decorators';
 import { LinkService } from './link.service';
 
 @Injectable()
@@ -84,8 +82,8 @@ export class RemoteDataBuildService {
           }
         }),
         hasValueOperator(),
-        map((normalized: NormalizedObject<T>) => {
-          return this.build<T>(normalized, ...linksToFollow);
+        map((obj: T) => {
+          return this.build<T>(obj, ...linksToFollow);
         }),
         startWith(undefined),
         distinctUntilChanged()
@@ -138,9 +136,9 @@ export class RemoteDataBuildService {
       getResourceLinksFromResponse(),
       switchMap((resourceUUIDs: string[]) => {
         return this.objectCache.getList(resourceUUIDs).pipe(
-          map((normList: Array<NormalizedObject<T>>) => {
-            return normList.map((normalized: NormalizedObject<T>) => {
-              return this.build<T>(normalized, ...linksToFollow);
+          map((objs: Array<T>) => {
+            return objs.map((obj: T) => {
+              return this.build<T>(obj, ...linksToFollow);
             });
           }));
       }),
@@ -170,76 +168,9 @@ export class RemoteDataBuildService {
     return this.toRemoteDataObservable(requestEntry$, payload$);
   }
 
-  build<T extends CacheableObject>(normalized: NormalizedObject<T>, ...linksToFollow: Array<FollowLinkConfig<T>>): T {
-    const halLinks: any = {};
-    const relationships = getRelationships(normalized.constructor) || [];
-
-    relationships.forEach((relationship: string) => {
-      let result;
-      if (hasValue(normalized[relationship])) {
-        const { resourceType, isList, shouldAutoResolve } = getRelationMetadata(normalized, relationship);
-        const objectList = normalized[relationship].page || normalized[relationship];
-        if (shouldAutoResolve) {
-          if (typeof objectList !== 'string') {
-            objectList.forEach((href: string) => {
-              const request = new GetRequest(this.requestService.generateRequestId(), href);
-              if (!this.requestService.isCachedOrPending(request)) {
-                this.requestService.configure(request)
-              }
-            });
-
-            const rdArr = [];
-            objectList.forEach((href: string) => {
-              rdArr.push(this.buildSingle(href));
-            });
-
-            if (isList) {
-              result = this.aggregate(rdArr);
-            } else if (rdArr.length === 1) {
-              result = rdArr[0];
-            }
-          } else {
-            const request = new GetRequest(this.requestService.generateRequestId(), objectList);
-            if (!this.requestService.isCachedOrPending(request)) {
-              this.requestService.configure(request)
-            }
-
-            // The rest API can return a single URL to represent a list of resources (e.g. /items/:id/bitstreams)
-            // in that case only 1 href will be stored in the normalized obj (so the isArray above fails),
-            // but it should still be built as a list
-            if (isList) {
-              result = this.buildList(objectList);
-            } else {
-              result = this.buildSingle(objectList);
-            }
-          }
-
-          if (hasValue(normalized[relationship].page)) {
-            halLinks[relationship] = this.toPaginatedList(result, normalized[relationship].pageInfo);
-          } else {
-            halLinks[relationship] = result;
-          }
-        } else {
-          if (hasNoValue(halLinks._links)) {
-            halLinks._links = {};
-          }
-          halLinks._links[relationship] = {
-            href: objectList
-          };
-        }
-      }
-    });
-    let domainModel;
-    const domainModelConstructor = getMapsTo(normalized.constructor);
-    if(hasValue(domainModelConstructor) && domainModelConstructor !== normalized.constructor) {
-      domainModel = Object.assign(new domainModelConstructor(), normalized, halLinks);
-    } else {
-      domainModel = normalized;
-    }
-
-    this.linkService.resolveLinks(domainModel, ...linksToFollow);
-
-    return domainModel;
+  build<T extends CacheableObject>(model: T, ...linksToFollow: Array<FollowLinkConfig<T>>): T {
+    this.linkService.resolveLinks(model, ...linksToFollow);
+    return model;
   }
 
   aggregate<T>(input: Array<Observable<RemoteData<T>>>): Observable<RemoteData<T[]>> {

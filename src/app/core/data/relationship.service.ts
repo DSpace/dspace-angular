@@ -20,7 +20,6 @@ import { NameVariantListState } from '../../shared/form/builder/ds-dynamic-form-
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { dataService } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { SearchParam } from '../cache/models/search-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
@@ -67,7 +66,6 @@ export class RelationshipService extends DataService<Relationship> {
   constructor(protected itemService: ItemDataService,
               protected requestService: RequestService,
               protected rdbService: RemoteDataBuildService,
-              protected dataBuildService: NormalizedObjectBuildService,
               protected store: Store<CoreState>,
               protected halService: HALEndpointService,
               protected objectCache: ObjectCacheService,

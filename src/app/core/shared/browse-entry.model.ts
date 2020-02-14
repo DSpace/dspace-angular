@@ -10,7 +10,6 @@ import { ResourceType } from './resource-type';
 
 /**
  * Class object representing a browse entry
- * This class is not normalized because browse entries do not have self links
  */
 @resourceType(BrowseEntry.type)
 export class BrowseEntry extends ListableObject implements TypedObject {

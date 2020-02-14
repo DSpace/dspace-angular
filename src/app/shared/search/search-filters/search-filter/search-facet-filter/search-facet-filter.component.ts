@@ -320,7 +320,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * Prevent unnecessary rerendering
    */
   trackUpdate(index, value: FacetValue) {
-    return value ? value.search : undefined;
+    return value ? value._links.search.href : undefined;
   }
 }
 

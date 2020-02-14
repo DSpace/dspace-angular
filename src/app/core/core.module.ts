@@ -38,7 +38,6 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { AuthenticatedGuard } from './auth/authenticated.guard';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { BrowseService } from './browse/browse.service';
-import { NormalizedObjectBuildService } from './cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from './cache/builders/remote-data-build.service';
 import { ObjectCacheService } from './cache/object-cache.service';
 import { ConfigResponseParsingService } from './config/config-response-parsing.service';
@@ -194,7 +193,6 @@ const PROVIDERS = [
   ResourcePolicyService,
   RegistryService,
   BitstreamFormatDataService,
-  NormalizedObjectBuildService,
   RemoteDataBuildService,
   EndpointMapResponseParsingService,
   FacetValueResponseParsingService,

@@ -7,8 +7,8 @@ import { PaginatedList } from '../data/paginated-list';
 import { ConfigRequest } from '../data/request.models';
 import { PageInfo } from '../shared/page-info.model';
 import { ConfigResponseParsingService } from './config-response-parsing.service';
-import { NormalizedSubmissionDefinitionModel } from './models/normalized-config-submission-definition.model';
-import { NormalizedSubmissionSectionModel } from './models/normalized-config-submission-section.model';
+import { SubmissionDefinitionModel } from './models/config-submission-definition.model';
+import { SubmissionSectionModel } from './models/config-submission-section.model';
 
 describe('ConfigResponseParsingService', () => {
   let service: ConfigResponseParsingService;
@@ -172,7 +172,7 @@ describe('ConfigResponseParsingService', () => {
       self: 'https://rest.api/config/submissiondefinitions/traditional/sections'
     });
     const definitions =
-      Object.assign(new NormalizedSubmissionDefinitionModel(), {
+      Object.assign(new SubmissionDefinitionModel(), {
         isDefault: true,
         name: 'traditional',
         type: 'submissiondefinition',
@@ -182,7 +182,7 @@ describe('ConfigResponseParsingService', () => {
         },
         self: 'https://rest.api/config/submissiondefinitions/traditional',
         sections: new PaginatedList(pageinfo, [
-          Object.assign(new NormalizedSubmissionSectionModel(), {
+          Object.assign(new SubmissionSectionModel(), {
             header: 'submit.progressbar.describe.stepone',
             mandatory: true,
             sectionType: 'submission-form',
@@ -197,7 +197,7 @@ describe('ConfigResponseParsingService', () => {
             },
             self: 'https://rest.api/config/submissionsections/traditionalpageone',
           }),
-          Object.assign(new NormalizedSubmissionSectionModel(), {
+          Object.assign(new SubmissionSectionModel(), {
             header: 'submit.progressbar.describe.steptwo',
             mandatory: true,
             sectionType: 'submission-form',
@@ -212,7 +212,7 @@ describe('ConfigResponseParsingService', () => {
             },
             self: 'https://rest.api/config/submissionsections/traditionalpagetwo',
           }),
-          Object.assign(new NormalizedSubmissionSectionModel(), {
+          Object.assign(new SubmissionSectionModel(), {
             header: 'submit.progressbar.upload',
             mandatory: false,
             sectionType: 'upload',
@@ -227,7 +227,7 @@ describe('ConfigResponseParsingService', () => {
             },
             self: 'https://rest.api/config/submissionsections/upload',
           }),
-          Object.assign(new NormalizedSubmissionSectionModel(), {
+          Object.assign(new SubmissionSectionModel(), {
             header: 'submit.progressbar.license',
             mandatory: true,
             sectionType: 'license',

@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { dataService } from '../cache/builders/build-decorators';
-import { NormalizedObjectBuildService } from '../cache/builders/normalized-object-build.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { CoreState } from '../core.reducers';
@@ -23,7 +22,6 @@ class DataServiceImpl extends DataService<DSpaceObject> {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected store: Store<CoreState>,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
@@ -47,13 +45,12 @@ export class DSpaceObjectDataService {
   constructor(
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
-    protected dataBuildService: NormalizedObjectBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
     protected http: HttpClient,
     protected comparator: DSOChangeAnalyzer<DSpaceObject>) {
-    this.dataService = new DataServiceImpl(requestService, rdbService, dataBuildService, null, objectCache, halService, notificationsService, http, comparator);
+    this.dataService = new DataServiceImpl(requestService, rdbService, null, objectCache, halService, notificationsService, http, comparator);
   }
 
   findById(uuid: string): Observable<RemoteData<DSpaceObject>> {
