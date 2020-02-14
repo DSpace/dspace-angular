@@ -13,7 +13,7 @@ import {
   DynamicTemplateDirective
 } from '@ng-dynamic-forms/core';
 import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { RelationshipService } from '../../../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../../../core/data/remote-data';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
@@ -34,6 +34,11 @@ import {
 } from '../../existing-metadata-list-element/existing-metadata-list-element.component';
 import { DynamicConcatModel } from '../ds-dynamic-concat.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
+import { SaveSubmissionSectionFormSuccessAction } from '../../../../../../submission/objects/submission-objects.actions';
+import { Store } from '@ngrx/store';
+import { SubmissionState } from '../../../../../../submission/submission.reducers';
+import { ObjectCacheService } from '../../../../../../core/cache/object-cache.service';
+import { RequestService } from '../../../../../../core/data/request.service';
 
 @Component({
   selector: 'ds-dynamic-form-array',
@@ -64,7 +69,10 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
               protected relationshipService: RelationshipService,
               protected submissionObjectService: SubmissionObjectDataService,
               protected zone: NgZone,
-              protected formService: DynamicFormService
+              protected formService: DynamicFormService,
+              private store: Store<SubmissionState>,
+              private objectCache: ObjectCacheService,
+              private requestService: RequestService
   ) {
     super(layoutService, validationService);
   }
@@ -154,16 +162,18 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
             })
           }
           this.reorderables = reorderables;
-
+          const updatedReorderables: Array<Observable<any>> = [];
           this.reorderables.forEach((reorderable: Reorderable, index: number) => {
             if (reorderable.hasMoved) {
               const prevIndex = reorderable.oldIndex;
-              reorderable.update().pipe(take(1)).subscribe((v) => {
+              const updatedReorderable = reorderable.update().pipe(take(1));
+              updatedReorderables.push(updatedReorderable);
+              updatedReorderable.subscribe((v) => {
                 if (reorderable instanceof ReorderableFormFieldMetadataValue) {
                   const reoMD = reorderable as ReorderableFormFieldMetadataValue;
                   const mdl = Object.assign({}, reoMD.model, { value: reoMD.metadataValue });
                   this.onChange({
-                    $event: { previousIndex: prevIndex  },
+                    $event: { previousIndex: prevIndex },
                     context: { index },
                     control: reoMD.control,
                     group: this.group,
@@ -173,9 +183,28 @@ export class DsDynamicFormArrayComponent extends DynamicFormArrayComponent imple
                 }
               });
             }
-          })
+          });
+          observableCombineLatest(...updatedReorderables).pipe(
+            switchMap(() => this.refreshWorkspaceItemInCache(this.model.submissionId)),
+          ).subscribe((submissionObject: SubmissionObject) => this.store.dispatch(new SaveSubmissionSectionFormSuccessAction(this.model.submissionId, [submissionObject], false)));
         });
     })
+  }
+    refreshWorkspaceItemInCache(submissionId: string): Observable<SubmissionObject> {
+      return this.submissionObjectService.getHrefByID(submissionId).pipe(take(1)).pipe(
+        switchMap((href: string) => {
+          this.objectCache.remove(href);
+          this.requestService.removeByHrefSubstring(submissionId);
+          return observableCombineLatest(
+            this.objectCache.hasBySelfLinkObservable(href),
+            this.requestService.hasByHrefObservable(href)
+          ).pipe(
+            filter(([existsInOC, existsInRC]) => !existsInOC && !existsInRC),
+            take(1),
+            switchMap(() => this.submissionObjectService.findById(submissionId).pipe(getSucceededRemoteData(), getRemoteDataPayload()) as Observable<SubmissionObject>)
+          )
+        })
+      );
   }
 
   moveSelection(event: CdkDragDrop<Relationship>) {

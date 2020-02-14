@@ -3,7 +3,7 @@ import { AbstractControl, FormControl } from '@angular/forms';
 import { DynamicFormArrayGroupModel, DynamicFormControlEvent } from '@ng-dynamic-forms/core';
 import { Store } from '@ngrx/store';
 import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { AppState } from '../../../../../app.reducer';
 import { RelationshipService } from '../../../../../core/data/relationship.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -24,6 +24,7 @@ import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-v
 import { RelationshipOptions } from '../../models/relationship-options.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 import { RemoveRelationshipAction } from '../relation-lookup-modal/relationship.actions';
+import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
 
 // tslint:disable:max-classes-per-file
 /**
@@ -103,12 +104,13 @@ export class ReorderableRelationship extends Reorderable {
   }
 
   update(): Observable<RemoteData<Relationship>> {
-    const updatedRelationship$ = this.relationshipService.updatePlace(this);
+    const updatedRelationship$ = this.relationshipService.updatePlace(this).pipe(
+      getSucceededRemoteData(),
+    );
 
-    updatedRelationship$.pipe(
-      getSucceededRemoteData()
-    ).subscribe(() => {
+    updatedRelationship$.subscribe(() => {
       this.oldIndex = this.newIndex;
+
     });
 
     return updatedRelationship$;
