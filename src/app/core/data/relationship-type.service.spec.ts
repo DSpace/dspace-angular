@@ -11,7 +11,7 @@ import { PaginatedList } from './paginated-list';
 import { RelationshipTypeService } from './relationship-type.service';
 import { RequestService } from './request.service';
 
-fdescribe('RelationshipTypeService', () => {
+describe('RelationshipTypeService', () => {
   let service: RelationshipTypeService;
   let requestService: RequestService;
   let restEndpointURL;
